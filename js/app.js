@@ -227,6 +227,11 @@ const App = {
             const utilization = m.size_gb / effectiveRam;
             if (utilization > 0.25 && utilization < 0.7) score += 3;
 
+            // Gemma 4 sweet spot: on 16 GB Apple Silicon, E4B is the logical default.
+            // E2B is great for tiny machines, but Mac mini 16 GB should surface the stronger 4B-class model.
+            if (isAppleSilicon && ramLimit >= 16 && m.id === 'gemma4-e4b') score += 5;
+            if (isAppleSilicon && ramLimit >= 16 && m.id === 'gemma4-e2b' && priority !== 'speed') score -= 2;
+
             // --- Apple Silicon speed bonus ---
             // On Apple Metal, tokens/sec scales strongly with model size.
             // A 4B model is ~2.5x faster than a 9B on M-series chips.
@@ -290,6 +295,15 @@ const App = {
                 seenFamilies.add(m.family);
             }
             if (finalRecs.length >= 4) break;
+        }
+
+        // Mac mini 16 GB sanity rule: Gemma 4 E4B should always be visible if it fits.
+        // This prevents newer Gemma 4 from being hidden by family dedupe or use-case scoring edge cases.
+        const gemma4E4B = candidates.find(m => m.id === 'gemma4-e4b');
+        const hasGemma4E4B = finalRecs.some(m => m.id === 'gemma4-e4b');
+        if (isAppleSilicon && ramLimit === 16 && gemma4E4B && !hasGemma4E4B) {
+            if (finalRecs.length < 4) finalRecs.push(gemma4E4B);
+            else finalRecs[finalRecs.length - 1] = gemma4E4B;
         }
 
         // Fallback
