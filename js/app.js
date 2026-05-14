@@ -1630,7 +1630,7 @@ const App = {
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-xl font-bold text-white flex items-center gap-3">
-                                <a href="llm-detail.html?model=${model.id}" class="hover:text-claw-primary transition-colors" onclick="event.stopPropagation()" title="View full details">${model.name}</a>
+                                <a href="models/${model.id}.html" class="hover:text-claw-primary transition-colors" onclick="event.stopPropagation()" title="View full details">${model.name}</a>
                                 <span class="text-xs font-mono text-claw-muted font-normal">${model.params}</span>
                             </h3>
                             <div class="flex flex-wrap gap-1.5 mt-3">
@@ -1676,7 +1676,7 @@ const App = {
                             <span class="text-[9px] text-claw-primary uppercase font-bold">Quant</span>
                             <span class="text-xs text-white font-mono font-bold">${model.recommended_quant}</span>
                         </div>
-                        <a href="llm-detail.html?model=${model.id}" class="p-2 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="View full details">
+                        <a href="models/${model.id}.html" class="p-2 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="View full details">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </a>
                         <button onclick="App.toggleCompare('${model.id}')" class="p-2 rounded-lg border ${isCompared ? 'border-claw-primary bg-claw-primary/20 text-claw-primary' : 'border-white/10 text-claw-muted hover:text-white hover:border-white/20'} transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="Compare">

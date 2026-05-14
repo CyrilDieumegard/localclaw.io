@@ -441,17 +441,17 @@
                 <h2 class="text-2xl font-display font-bold text-white mb-3">ZAYA1-8B is now tracked on LocalClaw</h2>
                 <p class="text-sm text-claw-muted leading-relaxed mb-4">The New page is being hydrated from the 177-model catalogue. If the dynamic cards do not appear yet, the newest entries are still available below.</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <a href="llm-detail.html?model=zaya1-8b" class="rounded-xl border border-claw-primary/20 bg-claw-primary/5 p-4 hover:border-claw-primary/40 transition-colors">
+                    <a href="models/zaya1-8b.html" class="rounded-xl border border-claw-primary/20 bg-claw-primary/5 p-4 hover:border-claw-primary/40 transition-colors">
                         <span class="text-[10px] uppercase tracking-widest font-bold text-claw-primary">May 2026 · Latest</span>
                         <strong class="block text-white mt-1">ZAYA1-8B</strong>
                         <span class="block text-xs text-claw-muted mt-1">24 GB RAM est. · BF16 fork · 131K context</span>
                     </a>
-                    <a href="llm-detail.html?model=qwen3.6-6.7b" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
+                    <a href="models/qwen3.6-6.7b.html" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
                         <span class="text-[10px] uppercase tracking-widest font-bold text-claw-muted">Apr 2026 · Compact</span>
                         <strong class="block text-white mt-1">Qwen 3.6 (6.7B)</strong>
                         <span class="block text-xs text-claw-muted mt-1">8 GB RAM · Q4_K_M · hybrid thinking</span>
                     </a>
-                    <a href="llm-detail.html?model=qwen3.6-27b" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
+                    <a href="models/qwen3.6-27b.html" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
                         <span class="text-[10px] uppercase tracking-widest font-bold text-claw-muted">Apr 2026 · Flagship</span>
                         <strong class="block text-white mt-1">Qwen 3.6 (27B)</strong>
                         <span class="block text-xs text-claw-muted mt-1">32 GB RAM · Q4_K_M · reasoning/coding</span>
@@ -586,7 +586,7 @@
                                 <span class="text-[10px] text-claw-muted/60">${formatDate(m.released)} · ${daysAgo(m.released)}</span>
                             </div>
                             <h3 class="text-xl sm:text-2xl font-display font-bold text-white">
-                                <a href="llm-detail.html?model=${m.id}" class="hover:text-claw-primary transition-colors">${m.name}</a>
+                                <a href="models/${m.id}.html" class="hover:text-claw-primary transition-colors">${m.name}</a>
                                 <span class="text-sm font-mono text-claw-muted font-normal ml-2">${m.params}</span>
                             </h3>
                         </div>
@@ -628,7 +628,7 @@
                                 <span class="text-[9px] text-claw-primary uppercase font-bold">Quant</span>
                                 <span class="text-xs text-white font-mono font-bold">${m.recommended_quant}</span>
                             </div>
-                            <a href="llm-detail.html?model=${m.id}" class="p-3 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all flex items-center justify-center shrink-0" title="Full details">
+                            <a href="models/${m.id}.html" class="p-3 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all flex items-center justify-center shrink-0" title="Full details">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </a>
                         </div>

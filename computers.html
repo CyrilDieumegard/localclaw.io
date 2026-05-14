@@ -1124,7 +1124,7 @@
                 const qColor = getQualityColor(q);
                 const isPick = picks.indexOf(m.id) < 3 && picks.includes(m.id);
 
-                return `<a href="llm-detail.html?model=${m.id}" class="m-item${isPick ? ' curated' : ''}">
+                return `<a href="models/${m.id}.html" class="m-item${isPick ? ' curated' : ''}">
                     <div class="m-dot ${fam}"></div>
                     <div class="m-info">
                         <div class="m-name">${isPick ? '<span class="pick-star">★</span> ' : ''}${esc(m.name)}</div>

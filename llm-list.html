@@ -1407,7 +1407,7 @@
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     var lms='lmstudio://open?search='+encodeURIComponent(m.search_term);
 
-                    var detailUrl='llm-detail.html?model='+encodeURIComponent(m.id);
+                    var detailUrl='models/'+encodeURIComponent(m.id)+'.html';
                     h+='<div class="card" data-detail-url="'+detailUrl+'" onclick="goToDetail(event,this)">';
                     h+='<div class="card-header"><div style="flex:1;min-width:0;">';
                     h+='<div class="card-family" style="color:'+c+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(m.family);
@@ -1447,7 +1447,7 @@
                     var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     h+='<tr>';
-                    var detailUrl2='llm-detail.html?model='+encodeURIComponent(m.id);
+                    var detailUrl2='models/'+encodeURIComponent(m.id)+'.html';
                     h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
                     if(isN) h+=' <span class="new-badge">NEW</span>';
                     h+='</div></td>';

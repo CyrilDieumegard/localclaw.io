@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Model Details | LocalClaw</title>
     <meta name="description" content="Complete specs for this open-source LLM: RAM & VRAM requirements, quantization options (Q4_K_M, Q5_K_M, Q8_0), benchmarks, license, and one-click setup guide for LM Studio on Mac or PC.">
-    <!-- Default: noindex for bare /llm-detail.html (no ?model=) and query variants.
-         JS below flips to index+follow when a valid model is loaded, and sets a proper canonical. -->
+    <!-- Legacy JS detail view. SEO lives on static /models/{id}.html pages. -->
     <meta name="robots" content="noindex, follow" id="robots-meta">
     <link rel="canonical" href="https://localclaw.io/llm-list.html" id="canonical-link">
 
@@ -569,15 +568,13 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     var metaDesc=document.querySelector('meta[name="description"]');
     if(metaDesc) metaDesc.content=model.name+' — '+model.description+' Benchmarks, specs, quantization guide, download links.';
 
-    // === SEO: allow indexing only when a real model is loaded, with a unique canonical per model ===
+    // === SEO: legacy query pages stay noindex; canonical points to static model page ===
     try {
-        var robotsMeta=document.getElementById('robots-meta');
-        if(robotsMeta) robotsMeta.setAttribute('content','index, follow, max-snippet:-1, max-image-preview:large');
         var canonical=document.getElementById('canonical-link');
-        if(canonical) canonical.setAttribute('href','https://localclaw.io/llm-detail.html?model='+encodeURIComponent(modelId));
+        if(canonical) canonical.setAttribute('href','https://localclaw.io/models/'+encodeURIComponent(modelId)+'.html');
         // Update OG URL too
         var ogUrl=document.querySelector('meta[property="og:url"]');
-        if(ogUrl) ogUrl.setAttribute('content','https://localclaw.io/llm-detail.html?model='+encodeURIComponent(modelId));
+        if(ogUrl) ogUrl.setAttribute('content','https://localclaw.io/models/'+encodeURIComponent(modelId)+'.html');
         var ogTitle=document.querySelector('meta[property="og:title"]');
         if(ogTitle) ogTitle.setAttribute('content',model.name+' — Full Details | LocalClaw');
         var ogDesc=document.querySelector('meta[property="og:description"]');
@@ -729,7 +726,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         h+='<div class="card fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Similar Models</div>';
         if(simModels.length>0){
             h+='<div class="similar-grid">';
-            for(var sm=0;sm<simModels.length;sm++){var simId=simModels[sm];var simM=findModel(simId);if(simM){var sc=fcol(simM.family);h+='<a href="llm-detail.html?model='+esc(simId)+'" class="similar-chip"><span style="width:8px;height:8px;border-radius:50%;background:'+sc+';flex-shrink:0;"></span>'+esc(simM.name)+' <span class="fm" style="font-size:10px;opacity:.6;">'+esc(simM.params)+'</span></a>';}}
+            for(var sm=0;sm<simModels.length;sm++){var simId=simModels[sm];var simM=findModel(simId);if(simM){var sc=fcol(simM.family);h+='<a href="/models/'+esc(simId)+'.html" class="similar-chip"><span style="width:8px;height:8px;border-radius:50%;background:'+sc+';flex-shrink:0;"></span>'+esc(simM.name)+' <span class="fm" style="font-size:10px;opacity:.6;">'+esc(simM.params)+'</span></a>';}}
             h+='</div>';
         } else { h+='<p style="font-size:13px;color:var(--muted);">Explore the <a href="llm-list.html" style="color:var(--primary);">full LLM list</a> to compare models.</p>'; }
         h+='</div>';
@@ -744,9 +741,9 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
 
         // Prev/Next
         h+='<div class="model-nav">';
-        if(modelIdx>0){var prev=APP_DATA.models[modelIdx-1];h+='<a href="llm-detail.html?model='+esc(prev.id)+'">← '+esc(prev.name)+'</a>';}
+        if(modelIdx>0){var prev=APP_DATA.models[modelIdx-1];h+='<a href="/models/'+esc(prev.id)+'.html">← '+esc(prev.name)+'</a>';}
         h+='<a href="llm-list.html" style="color:var(--primary);border-color:rgba(255,69,58,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> All Models</a>';
-        if(modelIdx<APP_DATA.models.length-1){var next=APP_DATA.models[modelIdx+1];h+='<a href="llm-detail.html?model='+esc(next.id)+'">'+esc(next.name)+' →</a>';}
+        if(modelIdx<APP_DATA.models.length-1){var next=APP_DATA.models[modelIdx+1];h+='<a href="/models/'+esc(next.id)+'.html">'+esc(next.name)+' →</a>';}
         h+='</div>';
 
         app.innerHTML=h;

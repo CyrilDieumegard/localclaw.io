@@ -15,9 +15,10 @@ Disallow: /amazon-links-updated.md
 # Block Cloudflare email protection endpoints (not real pages)
 Disallow: /cdn-cgi/
 
-# Block dynamic LLM detail query params from being indexed as thin content
-# (canonical to /llm-list.html handles deduplication)
-Disallow: /llm-detail.html?*
+# Static model pages are intentionally indexable
+Allow: /models/
+
+# Legacy JS detail URLs are not linked internally anymore; canonical/static pages handle SEO.
 
 # Sitemap
 Sitemap: https://localclaw.io/sitemap.xml
