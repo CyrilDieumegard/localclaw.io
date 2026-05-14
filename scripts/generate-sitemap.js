@@ -15,6 +15,8 @@ urls.push(url('/tts-list.html', TODAY, 'weekly', '0.9'));
 urls.push(url('/computers.html', TODAY, 'monthly', '0.8'));
 urls.push(url('/new.html', TODAY, 'weekly', '0.9'));
 urls.push(url('/models/', TODAY, 'weekly', '0.9'));
+urls.push(url('/ram/', TODAY, 'weekly', '0.9'));
+for (const tier of [8,16,32,64,128]) urls.push(url(`/ram/${tier}gb.html`, TODAY, 'monthly', '0.85'));
 urls.push(url('/blog/', TODAY, 'weekly', '0.9'));
 for (const f of fs.readdirSync(path.join(ROOT,'blog')).filter(f=>f.endsWith('.html')).sort()) urls.push(url(`/blog/${f}`, TODAY, 'monthly', f.includes('best-local-ai')?'0.9':'0.8'));
 const seen = new Set();
