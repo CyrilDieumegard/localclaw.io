@@ -38,6 +38,9 @@
 /hardware/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
+/use-case/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
 /js/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
