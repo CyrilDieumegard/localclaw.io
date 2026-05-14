@@ -1,5 +1,5 @@
-// LocalClaw Data & Configuration - LM STUDIO EDITION v2.7
-// Updated May 10, 2026 — Added ZAYA1-8B (8.4B MoE / 760M active) — 177 LLM total
+// LocalClaw Data & Configuration - LM STUDIO EDITION v2.8
+// Updated May 14, 2026 — Added DeepSeek V4 Pro/Flash, GLM-5.1, MiMo-V2.5-Pro — 181 LLM total
 // Previous: April 23 — Qwen 3.6 (6.7B + 27B), Kimi K2 (Instruct + Thinking), DeepSeek V3.2 Exp, Qwen 3 Next 80B, GLM 4.6 355B,
 // MiniMax M2, Mistral Small 3.2, Ling 1T, Nemotron Nano 9B v2, Apriel Nemotron 15B
 
@@ -2623,6 +2623,77 @@ const APP_DATA = {
             hf_repo: 'moonshotai/Kimi-K2-Thinking',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
             released: '2025-11',
+            isNew: true
+        },
+
+
+        // DeepSeek V4 series — 1M-token MoE frontier models, May 2026
+        {
+            id: 'deepseek-v4-pro',
+            name: 'DeepSeek V4 Pro (1.6T MoE)',
+            family: 'deepseek',
+            params: '1.6T (49B active)',
+            size_gb: 850,
+            min_ram: 1024,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'long-context', 'general'],
+            description: 'DeepSeek frontier MoE with 1M-token context, hybrid compressed attention and top-tier coding/reasoning. MIT licensed. Datacenter-grade only.',
+            search_term: 'deepseek-v4-pro',
+            recommended_quant: 'FP4/FP8',
+            hf_repo: 'deepseek-ai/DeepSeek-V4-Pro',
+            benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-05',
+            isNew: true
+        },
+        {
+            id: 'deepseek-v4-flash',
+            name: 'DeepSeek V4 Flash (284B MoE)',
+            family: 'deepseek-flash',
+            params: '284B (13B active)',
+            size_gb: 170,
+            min_ram: 256,
+            tags: ['chat', 'code', 'reasoning', 'power', 'agentic', 'long-context', 'general'],
+            description: 'Efficient DeepSeek V4 variant: 284B total, 13B active, 1M-token context. Flash-Max can approach Pro reasoning with larger thinking budget. MIT licensed.',
+            search_term: 'deepseek-v4-flash',
+            recommended_quant: 'FP4/FP8',
+            hf_repo: 'deepseek-ai/DeepSeek-V4-Flash',
+            benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-05',
+            isNew: true
+        },
+
+        // GLM-5.1 — Z.ai flagship agentic engineering model, May 2026
+        {
+            id: 'glm-5.1',
+            name: 'GLM-5.1',
+            family: 'glm',
+            params: '754B MoE',
+            size_gb: 430,
+            min_ram: 640,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'general'],
+            description: 'Z.ai next-generation flagship for agentic engineering. Stronger coding, long-horizon tool use, SWE-Bench Pro, Terminal-Bench and repo generation. MIT licensed.',
+            search_term: 'glm-5.1',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'zai-org/GLM-5.1',
+            benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-05',
+            isNew: true
+        },
+
+        // MiMo-V2.5-Pro — Xiaomi trillion MoE for agents and long context, May 2026
+        {
+            id: 'mimo-v2.5-pro',
+            name: 'MiMo-V2.5-Pro (1.02T MoE)',
+            family: 'mimo',
+            params: '1.02T (42B active)',
+            size_gb: 600,
+            min_ram: 1024,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'long-context', 'general'],
+            description: 'Xiaomi MiMo flagship MoE for demanding agentic, software engineering and long-horizon tasks. 1M-token context, FP8, strong instruction following. MIT licensed.',
+            search_term: 'mimo-v2.5-pro',
+            recommended_quant: 'FP8',
+            hf_repo: 'XiaomiMiMo/MiMo-V2.5-Pro',
+            benchmarks: { speed: 2, quality: 10, coding: 9, reasoning: 10 },
+            released: '2026-05',
             isNew: true
         },
 

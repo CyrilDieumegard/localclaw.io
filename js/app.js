@@ -982,7 +982,7 @@ const App = {
                 <div class="flex-1 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 mb-8 px-4 py-1.5 border border-claw-primary bg-black text-claw-primary text-xs font-mono font-bold tracking-widest uppercase">
                         <span class="w-2 h-2 bg-claw-primary"></span>
-                        ${modelCount} Models — Updated April 2026
+                        ${modelCount} Models — Updated May 2026
                     </div>
                     <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-8 tracking-tighter leading-[0.95] text-white uppercase">
                         Find the right<br/>
@@ -1137,7 +1137,7 @@ const App = {
                                 <div class="border border-violet-500/30 rounded-xl bg-black/80 backdrop-blur-sm p-5 shadow-2xl">
                                     <div class="flex items-center justify-between mb-4">
                                         <span class="text-[10px] uppercase tracking-widest text-violet-400 font-bold font-mono">LLM Library — ${modelCount} models</span>
-                                        <span class="text-[10px] text-claw-muted font-mono">Updated April 2026</span>
+                                        <span class="text-[10px] text-claw-muted font-mono">Updated May 2026</span>
                                     </div>
                                     <div class="flex gap-1.5 mb-3 flex-wrap">
                                         <span class="px-2 py-0.5 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-[9px] font-mono uppercase">All</span>
