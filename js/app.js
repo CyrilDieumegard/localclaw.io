@@ -1010,14 +1010,14 @@ const App = {
                                         <div class="absolute top-0 right-0 bg-gradient-to-l from-claw-primary to-orange-600 text-white text-[8px] font-bold px-3 py-1 rounded-bl-lg tracking-widest">🏆 TOP PICK</div>
                                         <div class="flex justify-between items-start mb-3">
                                             <div>
-                                                <h4 class="text-sm font-bold text-white">Qwen 3 (8B)</h4>
+                                                <h4 class="text-sm font-bold text-white">Gemma 4 E4B</h4>
                                                 <div class="flex gap-1 mt-1">
                                                     <span class="text-[8px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full text-claw-muted">chat</span>
-                                                    <span class="text-[8px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full text-claw-muted">code</span>
+                                                    <span class="text-[8px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full text-claw-muted">vision</span>
                                                     <span class="text-[8px] uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded-full text-emerald-400 font-bold">● SAFE</span>
                                                 </div>
                                             </div>
-                                            <div class="text-sm font-mono text-white font-bold">5.0<span class="text-[10px] text-claw-muted font-normal ml-0.5">GB</span></div>
+                                            <div class="text-sm font-mono text-white font-bold">4.6<span class="text-[10px] text-claw-muted font-normal ml-0.5">GB</span></div>
                                         </div>
                                         <div class="space-y-1">
                                             <div class="flex items-center gap-1.5 text-[10px]"><span class="w-10 text-claw-muted">Speed</span><div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:80%"></div></div><span class="w-4 text-right text-claw-muted font-mono">8</span></div>
@@ -1027,20 +1027,20 @@ const App = {
                                         </div>
                                         <div class="mt-3 flex items-center gap-2">
                                             <div class="flex-grow bg-black/60 border border-white/5 rounded-md p-2 flex justify-between items-center">
-                                                <div class="flex flex-col"><span class="text-[8px] text-claw-muted uppercase">Search in LM Studio</span><code class="text-[10px] text-claw-primary font-mono">qwen3-8b-instruct</code></div>
+                                                <div class="flex flex-col"><span class="text-[8px] text-claw-muted uppercase">Search in LM Studio</span><code class="text-[10px] text-claw-primary font-mono">gemma-4-e4b-it</code></div>
                                                 <svg class="h-3 w-3 text-claw-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                                             </div>
                                             <div class="bg-claw-primary/10 border border-claw-primary/20 rounded-md p-1.5 flex flex-col items-center w-12">
                                                 <span class="text-[7px] text-claw-primary uppercase font-bold">Quant</span>
-                                                <span class="text-[10px] text-white font-mono font-bold">Q5_K_M</span>
+                                                <span class="text-[10px] text-white font-mono font-bold">Q4_K_M</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="border border-white/5 rounded-lg p-3 mb-2 bg-white/[0.01] opacity-60">
-                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Llama 3.3 (8B)</span><span class="text-[9px] text-claw-muted ml-2">4.9 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:70%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:65%"></div></div></div></div>
+                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Gemma 4 E2B</span><span class="text-[9px] text-claw-muted ml-2">2.3 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:90%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:60%"></div></div></div></div>
                                     </div>
                                     <div class="border border-white/5 rounded-lg p-3 bg-white/[0.01] opacity-40">
-                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Gemma 3 (4B)</span><span class="text-[9px] text-claw-muted ml-2">3.0 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:90%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:55%"></div></div></div></div>
+                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Gemma 4 26B A4B</span><span class="text-[9px] text-claw-muted ml-2">16 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:70%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:90%"></div></div></div></div>
                                     </div>
                                 </div>
                             </div>
