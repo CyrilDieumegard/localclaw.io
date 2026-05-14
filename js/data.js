@@ -1,5 +1,5 @@
-// LocalClaw Data & Configuration - LM STUDIO EDITION v2.8
-// Updated May 14, 2026 — Added DeepSeek V4 Pro/Flash, GLM-5.1, MiMo-V2.5-Pro — 181 LLM total
+// LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
+// Updated May 14, 2026 — Added Phi-3.5 MoE Instruct and Kimi Linear 48B-A3B — 183 LLM total
 // Previous: April 23 — Qwen 3.6 (6.7B + 27B), Kimi K2 (Instruct + Thinking), DeepSeek V3.2 Exp, Qwen 3 Next 80B, GLM 4.6 355B,
 // MiniMax M2, Mistral Small 3.2, Ling 1T, Nemotron Nano 9B v2, Apriel Nemotron 15B
 
@@ -936,6 +936,22 @@ const APP_DATA = {
             hf_repo: 'lmstudio-community/Phi-3.5-mini-instruct-GGUF',
             benchmarks: { speed: 9, quality: 6, coding: 6, reasoning: 6 },
             released: '2024-08'
+        },
+        {
+            id: 'phi3.5-moe-instruct',
+            name: 'Phi-3.5 MoE Instruct',
+            family: 'phi',
+            params: '42B (6.6B active, MoE)',
+            size_gb: 24,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'power', 'moe'],
+            description: 'Microsoft Phi-3.5 MoE: compact mixture-of-experts model with only ~6.6B active parameters. Strong reasoning and coding for local power users. MIT licensed.',
+            search_term: 'phi-3.5-moe-instruct',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'microsoft/Phi-3.5-MoE-instruct',
+            benchmarks: { speed: 6, quality: 8, coding: 8, reasoning: 8 },
+            released: '2025-12',
+            isNew: true
         },
         {
             id: 'deepcoder-14b',
@@ -2626,6 +2642,22 @@ const APP_DATA = {
             isNew: true
         },
 
+        {
+            id: 'kimi-linear-48b-a3b-instruct',
+            name: 'Kimi Linear 48B-A3B Instruct',
+            family: 'kimi',
+            params: '48B (3B active, MoE)',
+            size_gb: 28,
+            min_ram: 48,
+            tags: ['chat', 'code', 'reasoning', 'power', 'moe', 'long-context'],
+            description: 'Moonshot AI efficient Kimi model with linear-attention style architecture and 3B active parameters. Strong long-context, reasoning and coding signal. MIT licensed.',
+            search_term: 'kimi-linear-48b-a3b-instruct',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'moonshotai/Kimi-Linear-48B-A3B-Instruct',
+            benchmarks: { speed: 6, quality: 8, coding: 8, reasoning: 8 },
+            released: '2025-12',
+            isNew: true
+        },
 
         // DeepSeek V4 series — 1M-token MoE frontier models, May 2026
         {
