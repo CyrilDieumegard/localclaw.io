@@ -1097,17 +1097,17 @@ const App = {
                                     <div class="space-y-2 mb-4">
                                         <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
                                             <div class="w-6 h-6 rounded bg-emerald-500/15 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">⬇</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Qwen 3 8B · Q5_K_M</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:100%"></div></div></div>
+                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 E4B · Q4_K_M</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:100%"></div></div></div>
                                             <span class="text-[9px] text-emerald-400 font-mono flex-shrink-0">Installed</span>
                                         </div>
                                         <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-claw-primary/20">
                                             <div class="w-6 h-6 rounded bg-claw-primary/15 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">↻</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">DeepSeek R1 7B</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-claw-primary rounded-full" style="width:63%"></div></div></div>
+                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 26B A4B</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-claw-primary rounded-full" style="width:63%"></div></div></div>
                                             <span class="text-[9px] text-claw-primary font-mono flex-shrink-0">Updating…</span>
                                         </div>
                                         <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-white/5 opacity-50">
                                             <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">⬡</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Llama 3.3 70B</div><div class="text-[9px] text-claw-muted mt-0.5">v2.1 · not installed</div></div>
+                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 31B</div><div class="text-[9px] text-claw-muted mt-0.5">256K ctx · not installed</div></div>
                                             <span class="text-[9px] text-claw-muted font-mono flex-shrink-0">Get</span>
                                         </div>
                                     </div>
@@ -1134,10 +1134,10 @@ const App = {
                                     </div>
                                     <div class="space-y-1.5">
                                         ${[
-                                            {name:'Qwen 3 32B', size:'19.8 GB', tag:'REASONING', color:'text-orange-400', dot:'bg-orange-500'},
-                                            {name:'Gemma 3 12B', size:'7.8 GB', tag:'VISION', color:'text-blue-400', dot:'bg-blue-500'},
-                                            {name:'Phi-4 Mini', size:'2.5 GB', tag:'FAST', color:'text-emerald-400', dot:'bg-emerald-500'},
-                                            {name:'DeepSeek R1 7B', size:'4.7 GB', tag:'CODE', color:'text-violet-400', dot:'bg-violet-500'},
+                                            {name:'Gemma 4 E4B', size:'4.6 GB', tag:'VISION', color:'text-blue-400', dot:'bg-blue-500'},
+                                            {name:'Gemma 4 26B A4B', size:'16 GB', tag:'MOE', color:'text-orange-400', dot:'bg-orange-500'},
+                                            {name:'Gemma 4 31B', size:'19 GB', tag:'QUALITY', color:'text-emerald-400', dot:'bg-emerald-500'},
+                                            {name:'Qwen 3 Next', size:'80B/3B', tag:'FAST', color:'text-violet-400', dot:'bg-violet-500'},
                                         ].map((m,i) => `
                                         <div class="flex items-center gap-3 p-2 rounded-lg border border-white/5 bg-white/[0.02] ${i>1?'opacity-50':''}">
                                             <div class="w-1.5 h-1.5 rounded-full ${m.dot} flex-shrink-0"></div>

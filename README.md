@@ -963,7 +963,7 @@ Fiches complètes ajoutées pour : Gemma 3n 8B, DeepSeek R1 0528, Qwen3 Coder 30
 | `blog/qwen35-deep-dive.html` | **Nouvel article** : deepresearch complet, MoE expliqué, hardware guide, benchmarks, hybrid thinking, LM Studio steps |
 | `blog/index.html` | Nouvel article Qwen 3.5 ajouté en premier dans la liste |
 | `sitemap.xml` | `blog/qwen35-deep-dive.html` ajouté. Dates lastmod mises à jour. |
-| Tous les `.html` (15 fichiers) | Badge V3.8.0 → **V3.9.0** |
+| Tous les `.html` (15 fichiers) | Badge V3.8.0 → **V3.9.1** |
 
 ### Architecture Qwen 3.5 — Pourquoi c'est important
 
