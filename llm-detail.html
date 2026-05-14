@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Details | LocalClaw</title>
+    <meta name="description" content="Complete specs for this open-source LLM: RAM & VRAM requirements, quantization options (Q4_K_M, Q5_K_M, Q8_0), benchmarks, license, and one-click setup guide for LM Studio on Mac or PC.">
+    <!-- Default: noindex for bare /llm-detail.html (no ?model=) and query variants.
+         JS below flips to index+follow when a valid model is loaded, and sets a proper canonical. -->
+    <meta name="robots" content="noindex, follow" id="robots-meta">
+    <link rel="canonical" href="https://localclaw.io/llm-list.html" id="canonical-link">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/llm-detail.html">
+    <meta property="og:title" content="AI Model Details | LocalClaw">
+    <meta property="og:description" content="Technical specs and performance data for open-source LLMs. Find the perfect model for your hardware.">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Model Details | LocalClaw">
+    <meta name="twitter:description" content="Technical specs and performance data for open-source LLMs.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="images/favicon.png?v=20260211g">
+
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <style>
+        .lc-icon{display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0;}.lc-icon-sm{width:0.875em;height:0.875em;}.lc-icon-lg{width:1.25em;height:1.25em;}.lc-icon-2x{width:2em;height:2em;}
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        :root{--bg:#050505;--surface:#0F0F11;--surface2:#18181B;--border:#27272A;--border2:#3F3F46;--primary:#FF453A;--accent:#FF6D64;--text:#FFF;--muted:#A1A1AA;--green:#34D399;--blue:#60A5FA;--purple:#A855F7;--yellow:#FACC15;--cyan:#22D3EE;}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+        .fd{font-family:'Space Grotesk','Inter',sans-serif;}
+        .fm{font-family:'JetBrains Mono','Fira Code',monospace;}
+        a{text-decoration:none;color:inherit;}
+        ::selection{background:rgba(255,69,58,.3);color:#fff;}
+        ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}::-webkit-scrollbar-thumb:hover{background:var(--primary);}
+        *{scrollbar-width:thin;scrollbar-color:var(--border) var(--bg);}
+
+        /* Nav */
+        .nav{position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(39,39,42,.5);background:rgba(5,5,5,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+        .nav-in{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;}
+        .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+        .nav-logo-i{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#FF453A,#ea580c);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(255,69,58,.4);}
+        .nav-logo-i svg{width:20px;height:20px;}
+        .nav-links{display:flex;gap:20px;align-items:center;}
+        .nav-links a{font-size:13px;font-weight:500;color:var(--muted);transition:color .2s;}
+        .nav-links a:hover{color:#fff;}
+        .nav-badge{padding:2px 8px;border-radius:999px;background:rgba(255,69,58,0.12);border:1px solid rgba(255,69,58,0.3);color:var(--primary);font-size:10px;font-weight:700;letter-spacing:.02em;display:inline-flex;align-items:center;gap:4px;}
+        .nav-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.5s ease-in-out infinite;}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+        /* Loading */
+        .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px;}
+        .loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+
+        /* Hero */
+        .hero{max-width:1200px;margin:0 auto;padding:32px 20px 0;}
+        .breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:24px;flex-wrap:wrap;}
+        .breadcrumb a{color:var(--muted);transition:color .2s;}
+        .breadcrumb a:hover{color:var(--primary);}
+
+        /* Back to List Link */
+        .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--muted);padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);transition:all .2s;margin-bottom:16px;cursor:pointer;text-decoration:none;}
+        .back-link:hover{background:rgba(255,69,58,.08);border-color:rgba(255,69,58,.2);color:var(--primary);transform:translateX(-2px);}
+        .back-link svg{width:16px;height:16px;}
+        .hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:20px;}
+        .hero-info{flex:1;min-width:0;}
+        .hero-fam{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+        .hero-fam-dot{width:10px;height:10px;border-radius:50%;}
+        .hero-fam-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+        .hero-name{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;margin-bottom:10px;}
+        .hero-desc{font-size:15px;color:var(--muted);line-height:1.65;max-width:700px;}
+        .hero-actions{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;align-items:flex-start;}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;text-decoration:none;}
+        .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 15px rgba(255,69,58,.3);}
+        .btn-primary:hover{background:#e03e33;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,69,58,.4);}
+        .btn-secondary{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1);}
+        .btn-secondary:hover{border-color:rgba(255,69,58,.3);background:rgba(255,69,58,.05);}
+
+        /* Tags */
+        .tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px;}
+        .tag-pill{padding:4px 12px;border-radius:8px;background:rgba(255,255,255,.04);font-size:11px;color:var(--muted);border:1px solid transparent;}
+        .tag-pill.special{background:rgba(255,69,58,.06);color:var(--accent);border-color:rgba(255,69,58,.15);}
+        .tag-pill.green{background:rgba(52,211,153,.06);color:var(--green);border-color:rgba(52,211,153,.15);}
+
+        /* Live Stats Banner */
+        .live-stats{max-width:1200px;margin:0 auto 24px;padding:0 20px;}
+        .live-stats-inner{display:flex;gap:12px;flex-wrap:wrap;}
+        .live-stat{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(39,39,42,.3);font-size:13px;color:var(--muted);transition:all .3s;}
+        .live-stat.loaded{border-color:rgba(52,211,153,.2);background:rgba(52,211,153,.03);}
+        .live-stat-icon{font-size:16px;}
+        .live-stat-val{font-weight:700;color:#fff;}
+        .live-stat .loading-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--border);animation:pulse 1.5s ease-in-out infinite;}
+        @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+        /* Main Grid */
+        .main-grid{max-width:1200px;margin:0 auto;padding:0 20px 40px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+        @media(max-width:860px){.main-grid{grid-template-columns:1fr;}}
+
+        /* Cards */
+        .card{background:rgba(15,15,17,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:border-color .3s;}
+        .card:hover{border-color:rgba(255,69,58,.15);}
+        .card-full{grid-column:1/-1;}
+        .card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+
+        /* Radar Chart */
+        .radar-wrap{position:relative;width:100%;max-width:340px;margin:0 auto;}
+        .radar-score{text-align:center;margin-top:12px;padding:14px;border-radius:12px;background:rgba(255,69,58,.04);border:1px solid rgba(255,69,58,.12);}
+        .radar-score-num{font-size:2.2rem;font-weight:700;color:var(--primary);}
+        .radar-score-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+
+        /* Benchmark Bars */
+        .bench-bars{display:flex;flex-direction:column;gap:14px;margin-top:20px;}
+        .bench-row{display:flex;align-items:center;gap:12px;}
+        .bench-label{width:80px;font-size:12px;color:var(--muted);text-align:right;flex-shrink:0;}
+        .bench-track{flex:1;height:10px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;}
+        .bench-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(.25,.8,.25,1);width:0;}
+        .bench-val{width:40px;font-size:14px;font-weight:700;text-align:center;}
+
+        /* Spec Grid */
+        .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        @media(max-width:480px){.spec-grid{grid-template-columns:1fr;}}
+        .spec-item{padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.2);}
+        .spec-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+        .spec-val{font-size:14px;font-weight:600;color:#fff;}
+        .spec-val a{color:var(--primary);transition:color .2s;}
+        .spec-val a:hover{color:var(--accent);}
+
+        /* List Card */
+        .list-items{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px;}
+        .list-items li{padding:10px 12px;border-radius:8px;font-size:13px;color:rgba(255,255,255,.85);line-height:1.55;display:flex;align-items:flex-start;gap:10px;transition:background .2s;}
+        .list-items li:hover{background:rgba(255,255,255,.02);}
+        .list-icon{flex-shrink:0;font-size:14px;margin-top:1px;}
+
+        /* Quant Card */
+        .quant-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(39,39,42,.15);}
+        .quant-row:last-of-type{border-bottom:none;}
+        .quant-name{width:70px;font-size:12px;font-weight:600;color:var(--muted);flex-shrink:0;}
+        .quant-track{flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+        .quant-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+        .quant-size{width:65px;font-size:11px;color:var(--muted);text-align:right;flex-shrink:0;}
+        .quant-rec{padding:2px 7px;border-radius:4px;background:rgba(255,69,58,.12);color:var(--primary);font-size:9px;font-weight:700;margin-left:4px;flex-shrink:0;}
+        .quant-qual{width:55px;font-size:10px;color:var(--muted);text-align:center;flex-shrink:0;}
+
+        /* Link Rows */
+        .link-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;transition:background .2s;font-size:13px;color:rgba(255,255,255,.8);text-decoration:none;}
+        .link-row:hover{background:rgba(255,69,58,.05);}
+        .link-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+        .link-arrow{margin-left:auto;font-size:12px;color:var(--muted);}
+
+        /* Similar Models */
+        .similar-grid{display:flex;flex-wrap:wrap;gap:8px;}
+        .similar-chip{padding:7px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(39,39,42,.3);font-size:12px;color:var(--muted);transition:all .2s;display:inline-flex;align-items:center;gap:6px;text-decoration:none;}
+        .similar-chip:hover{border-color:rgba(255,69,58,.4);color:var(--primary);background:rgba(255,69,58,.05);}
+
+        /* Nav Arrows */
+        .model-nav{max-width:1200px;margin:0 auto;padding:20px 20px 10px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+        .model-nav a{padding:8px 18px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(39,39,42,.3);font-size:12px;color:var(--muted);transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+        .model-nav a:hover{border-color:rgba(255,69,58,.3);color:#fff;background:rgba(255,69,58,.05);}
+
+        /* 404 */
+        .not-found{text-align:center;padding:80px 20px;}
+        .not-found h2{font-size:2rem;margin:16px 0 8px;}
+        .not-found p{color:var(--muted);font-size:14px;}
+
+        /* Footer */
+        .footer{border-top:1px solid rgba(39,39,42,.15);padding:24px 20px;text-align:center;margin-top:20px;}
+        .footer a{color:var(--primary);}
+
+        /* Particles */
+        #particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;}
+
+        /* Fun fact */
+        .fun-fact{background:linear-gradient(135deg,rgba(255,69,58,.03),rgba(249,115,22,.03));border-color:rgba(255,69,58,.12) !important;}
+
+        /* Animations */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+        .fade-up{animation:fadeUp .5s ease forwards;opacity:0;}
+        .fade-up-d1{animation-delay:.1s;}
+        .fade-up-d2{animation-delay:.2s;}
+        .fade-up-d3{animation-delay:.3s;}
+        .fade-up-d4{animation-delay:.4s;}
+
+        /* Amazon Affiliate */
+        .amz-section{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,153,0,.12);}
+        .amz-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,153,0,.8);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+        .amz-card{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(255,153,0,.03);border:1px solid rgba(255,153,0,.08);margin-bottom:8px;transition:all .2s;text-decoration:none;color:inherit;}
+        .amz-card:hover{border-color:rgba(255,153,0,.25);background:rgba(255,153,0,.06);transform:translateX(2px);}
+        .amz-badge{padding:2px 7px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.03em;flex-shrink:0;}
+        .amz-badge.best{background:rgba(255,153,0,.15);color:#FF9900;}
+        .amz-badge.budget{background:rgba(52,211,153,.12);color:#34D399;}
+        .amz-badge.gpu{background:rgba(239,68,68,.12);color:#F87171;}
+        .amz-badge.pc{background:rgba(96,165,250,.12);color:#60A5FA;}
+        .amz-info{flex:1;min-width:0;}
+        .amz-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);}
+        .amz-price{font-size:11px;color:var(--muted);margin-top:1px;}
+        .amz-btn{padding:5px 12px;border-radius:7px;background:#FF9900;color:#111;font-size:10px;font-weight:700;flex-shrink:0;transition:all .2s;white-space:nowrap;}
+        .amz-card:hover .amz-btn{background:#FFB84D;}
+        .amz-btn.apple-btn{background:#0071E3;color:#fff;}
+        .amz-card:hover .amz-btn.apple-btn{background:#0077ED;}
+        .amz-disclaimer{font-size:9px;color:rgba(161,161,170,.6);margin-top:8px;line-height:1.4;}
+
+        /* Light Mode Styles */
+        html.light body {
+            --bg: #faf9f6 !important;
+            --surface: #ffffff !important;
+            --surface2: #f1f5f9 !important;
+            --border: #e2e8f0 !important;
+            --border2: #cbd5e1 !important;
+            --primary: #FF453A !important;
+            --accent: #e03e33 !important;
+            --text: #0f172a !important;
+            --muted: #475569 !important;
+            --green: #16a34a !important;
+            --blue: #2563eb !important;
+            --purple: #7c3aed !important;
+            --yellow: #d97706 !important;
+            --cyan: #0891b2 !important;
+            background: #faf9f6 !important;
+            color: #0f172a !important;
+        }
+
+        /* Nav */
+        html.light .nav {
+            border-bottom-color: rgba(0,0,0,0.1);
+            background: rgba(250,249,246,0.92);
+        }
+        html.light .nav-links a { color: #64748b; }
+        html.light .nav-links a:hover { color: #0f172a; }
+
+        /* Cards */
+        html.light .card {
+            background: rgba(255,255,255,0.9) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light .card:hover { border-color: rgba(255,69,58,0.3) !important; }
+
+        /* Spec items */
+        html.light .spec-item {
+            background: rgba(0,0,0,0.02) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light .spec-val { color: #0f172a !important; }
+        html.light .spec-label { color: #475569 !important; }
+
+        /* Live stats */
+        html.light .live-stat {
+            background: rgba(255,255,255,0.7) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light .live-stat-val { color: #0f172a !important; }
+
+        /* Benchmark bars */
+        html.light .bench-track { background: rgba(0,0,0,0.07) !important; }
+        html.light .bench-val { color: #0f172a !important; }
+        html.light .bench-label { color: #475569 !important; }
+
+        /* Quant rows */
+        html.light .quant-track { background: rgba(0,0,0,0.07) !important; }
+        html.light .quant-row { border-bottom-color: rgba(0,0,0,0.07) !important; }
+        html.light .quant-name { color: #334155 !important; }
+        html.light .quant-size { color: #475569 !important; }
+        html.light .quant-qual { color: #475569 !important; }
+
+        /* List items */
+        html.light .list-items li {
+            color: #1e293b !important;
+        }
+        html.light .list-items li:hover { background: rgba(0,0,0,0.03) !important; }
+
+        /* Link rows */
+        html.light .link-row {
+            color: #1e293b !important;
+        }
+        html.light .link-row:hover { background: rgba(255,69,58,0.04) !important; }
+        html.light .link-arrow { color: #94a3b8 !important; }
+
+        /* Similar chips */
+        html.light .similar-chip {
+            background: rgba(0,0,0,0.03) !important;
+            border-color: rgba(0,0,0,0.1) !important;
+            color: #475569 !important;
+        }
+
+        /* Model nav arrows */
+        html.light .model-nav a {
+            background: rgba(0,0,0,0.03) !important;
+            border-color: rgba(0,0,0,0.1) !important;
+            color: #475569 !important;
+        }
+        html.light .model-nav a:hover { color: #0f172a !important; }
+
+        /* Back link */
+        html.light .back-link {
+            background: rgba(0,0,0,0.03) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+            color: #475569 !important;
+        }
+
+        /* Tag pills */
+        html.light .tag-pill { color: #475569 !important; background: rgba(0,0,0,0.04) !important; }
+
+        /* Btn secondary */
+        html.light .btn-secondary {
+            background: rgba(0,0,0,0.04) !important;
+            color: #1e293b !important;
+            border-color: rgba(0,0,0,0.12) !important;
+        }
+
+        /* Radar score box */
+        html.light .radar-score {
+            background: rgba(255,69,58,0.04) !important;
+            border-color: rgba(255,69,58,0.15) !important;
+        }
+
+        /* Radar canvas — force white background so grid lines are visible */
+        html.light #radar-chart {
+            background: #ffffff !important;
+            border-radius: 8px;
+        }
+
+        /* Hardware requirements inline grid tiles */
+        html.light [style*="background:rgba(255,255,255,.02)"],
+        html.light [style*="background: rgba(255,255,255,.02)"] {
+            background: rgba(0,0,0,0.03) !important;
+        }
+        html.light [style*="background:rgba(255,255,255,.06)"],
+        html.light [style*="height:10px"] {
+            background: rgba(0,0,0,0.07) !important;
+        }
+
+        /* Timeline dot */
+        html.light .timeline-dot { background: #faf9f6 !important; }
+
+        /* Amazon cards */
+        html.light .amz-card {
+            background: rgba(255,153,0,0.03) !important;
+            border-color: rgba(255,153,0,0.15) !important;
+        }
+        html.light .amz-name { color: #1e293b !important; }
+
+        /* Footer */
+        html.light .footer { color: #64748b !important; border-top-color: rgba(0,0,0,0.08) !important; }
+
+        /* Theme toggle */
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.2); color: #f59e0b; }
+        html.light .theme-toggle-btn:hover { background: rgba(0,0,0,0.05); }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        /* Reduce bg-circuit visibility in light mode */
+        html.light #bg-circuit {
+            opacity: 0.08 !important;
+        }
+    </style>
+
+    <!-- TRACKING: DataFast Analytics -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js"></script>
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- Navbar -->
+    <nav class="nav">
+        <div class="nav-in">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-i">
+                    <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+                <span class="fd" style="font-size:1.2rem;font-weight:700;">Local<span style="color:var(--primary);">Claw</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="llm-list.html" style="color:var(--primary);">LLM</a>
+                <a href="tts-list.html" style="color:#A78BFA;">TTS</a>
+                <a href="new.html">New</a>
+                <a href="computers.html">Computers</a>
+                <a href="blog/index.html">Blog</a>
+                <span class="nav-badge" title="LocalClaw v3.8.0">V3.9.0</span>
+                <span class="nav-badge" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#60a5fa;" title="Beta">Beta</span>
+                
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle light/dark mode" title="Toggle theme" style="margin-left:8px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fbbf24;cursor:pointer;transition:all 0.2s;">
+                    <!-- Sun icon (shown in dark mode) -->
+                    <svg id="theme-icon-sun" style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <!-- Moon icon (shown in light mode, hidden by default) -->
+                    <svg id="theme-icon-moon" style="width:18px;height:18px;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="app" style="position:relative;z-index:1;">
+        <div class="loading" id="loading-state">
+            <div class="loading-spinner"></div>
+            <span style="color:var(--muted);font-size:13px;">Loading model data...</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="position:relative;z-index:1;">
+        <p style="color:var(--muted);font-size:11px;"><a href="index.html">LocalClaw</a> — Find the perfect AI model for your hardware</p>
+    </footer>
+
+    <!-- Early 404 detection: if no ?model= param, show 404 IMMEDIATELY -->
+    <script>
+    (function(){
+        var p = new URLSearchParams(window.location.search);
+        if (!p.get('model')) {
+            document.getElementById('app').innerHTML = '<div style="text-align:center;padding:80px 20px;"><div style="font-size:72px;"><svg style="width:72px;height:72px;color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg></div><h2 style="font-family:Space Grotesk,Inter,sans-serif;font-size:2rem;margin:16px 0 8px;">Model Not Found</h2><p style="color:#A1A1AA;font-size:14px;">No model specified. Pick one from the full list.</p><a href="llm-list.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;background:#FF453A;color:#fff;text-decoration:none;margin-top:20px;box-shadow:0 4px 15px rgba(255,69,58,.3);">← Browse All Models</a></div>';
+            window._lcNoModel = true;
+        }
+    })();
+    </script>
+
+    <!-- Data scripts - static tags (no document.write) -->
+    <script src="js/data.js"></script>
+
+    <script>
+    // ================================================================
+    // MODEL DETAILS — Inlined to eliminate HTTP request
+    // ================================================================
+    if(!window._lcNoModel){ (function(){
+    'use strict';
+    
+var MODEL_DETAILS={
+'gemma3-1b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:32768,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer (decoder-only)',training_data:'Curated web data, books, code — 2T tokens',languages:['English'],strengths:['Ultra-fast inference on any hardware','Tiny memory footprint','Good for quick classification tasks','Runs on 4GB RAM easily'],weaknesses:['Limited reasoning ability','Struggles with complex multi-step tasks','Not suited for long-form content','Weak at coding'],use_cases:['Quick Q&A','Text classification','Summarization of short texts','Edge/IoT devices','Chatbot prototyping'],similar_models:['llama3.2-1b','tinyllama-1.1b','phi4-mini','smollm2-1.7b'],fun_fact:'Gemma 3 1B can run on a Raspberry Pi 5 with acceptable speed.',official_blog:'https://blog.google/technology/developers/gemma-3/',paper_url:'https://arxiv.org/abs/2503.19786'},
+'gemma2-9b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:8192,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer (decoder-only) with sliding window attention',training_data:'8T tokens of web, code, and curated data',languages:['English','Multilingual (limited)'],strengths:['Excellent quality-to-size ratio','8.1M+ downloads — battle-tested','Strong reasoning for 9B','Good coding abilities'],weaknesses:['Only 8K context window','Gemma license more restrictive than Apache/MIT','Not the best for non-English tasks'],use_cases:['General chat assistant','Code completion','Content writing','Summarization','Light reasoning tasks'],similar_models:['llama3.1-8b','qwen2.5-7b','mistral-7b','glm4-9b'],fun_fact:'Gemma 2 uses a novel sliding window attention architecture for improved efficiency.',official_blog:'https://blog.google/technology/developers/google-gemma-2/',paper_url:'https://arxiv.org/abs/2408.00118'},
+'gemma2-27b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:8192,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer (decoder-only) with sliding window attention',training_data:'13T tokens',languages:['English','Multilingual (limited)'],strengths:['Near-frontier quality at 27B','Strong reasoning and coding','Efficient architecture'],weaknesses:['8K context limit','Needs 24GB+ RAM','Gemma license restrictions'],use_cases:['Advanced reasoning','Professional coding assistance','Research','Content creation'],similar_models:['qwen2.5-14b','mistral-small-24b','codestral-22b'],official_blog:'https://blog.google/technology/developers/google-gemma-2/',paper_url:'https://arxiv.org/abs/2408.00118'},
+'gemma3-4b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:131072,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer with 128K context, vision support',training_data:'Web, code, multilingual data',languages:['English','140+ languages'],strengths:['128K context window at only 4B','Multimodal (image understanding)','Excellent for its size','140+ languages'],weaknesses:['Not as strong as 8B+ models on hard tasks','Vision capabilities basic compared to specialized models'],use_cases:['Long document processing','Multilingual chat','Basic image analysis','Mobile/edge deployment'],similar_models:['qwen3-4b','phi4-mini','llama3.2-3b'],official_blog:'https://blog.google/technology/developers/gemma-3/',paper_url:'https://arxiv.org/abs/2503.19786'},
+'gemma3-12b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:131072,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer with 128K context, vision support',training_data:'Web, code, multilingual data',languages:['English','140+ languages'],strengths:['128K context at 12B size','Vision support','Strong multilingual','Great price/performance'],weaknesses:['Needs 16GB RAM','Not best-in-class for coding'],use_cases:['Long document analysis','Multilingual assistant','Image + text tasks','Research'],similar_models:['qwen2.5-14b','phi4-14b','mistral-nemo-12b'],official_blog:'https://blog.google/technology/developers/gemma-3/'},
+'gemma3-27b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:131072,license:'Gemma License',license_url:'https://ai.google.dev/gemma/terms',architecture:'Transformer with 128K context, vision support',training_data:'Web, code, multilingual data',languages:['English','140+ languages'],strengths:['128K context at 27B','Vision support','Top-tier quality for its size','Rivals much larger models'],weaknesses:['Needs 24GB+ RAM','Gemma license restrictions'],use_cases:['Professional content creation','Advanced reasoning','Research','Multimodal applications'],similar_models:['qwen3-32b','gemma2-27b','mistral-small-24b'],official_blog:'https://blog.google/technology/developers/gemma-3/',paper_url:'https://arxiv.org/abs/2503.19786'},
+'zaya1-8b':{developer:'Zyphra',developer_url:'https://www.zyphra.com/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Sparse MoE with Compressed Convolutional Attention (CCA), 16 experts, top-1 MLP router and learned residual scaling',training_data:'Pretrained, midtrained, supervised fine-tuned and RL-aligned by Zyphra; optimized for math, code, reasoning and Markovian RSA test-time-compute workflows.',languages:['English','Code','Mathematics'],strengths:['8.4B total parameters with only ~760M active','Strong math, coding and reasoning benchmarks','131K context window','Apache 2.0 license','Designed for Markovian RSA style test-time compute'],weaknesses:['Experimental local runtime support today','Requires Zyphra vLLM/Transformers forks at launch','No verified LM Studio, Ollama, llama.cpp, GGUF or MLX support yet','BF16 is too heavy for a clean Mac mini M4 16 GB setup'],use_cases:['Mathematical reasoning research','Coding and algorithmic problem solving','Reasoning benchmark experiments','Server/local lab evaluation with Zyphra runtime forks'],similar_models:['qwen3.5-4b','qwen3.6-6.7b','gemma4-e4b','deepseek-r1-0528-qwen3-8b'],official_blog:'https://www.zyphra.com/post/zaya1-8b',paper_url:'https://arxiv.org/abs/2605.05365'},
+'qwen3-4b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:32768,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer with Thinking/Non-Thinking hybrid',training_data:'36T tokens — web, code, math, multilingual',languages:['English','Chinese','100+ languages'],strengths:['Built-in chain-of-thought reasoning','Thinking mode toggleable','Apache 2.0 license','Strong multilingual support'],weaknesses:['Smaller context than Qwen3 8B+','Limited for complex multi-turn conversations'],use_cases:['Quick reasoning tasks','Multilingual chat','Math problem solving','Mobile deployment'],similar_models:['gemma3-4b','phi4-mini','llama3.2-3b'],official_blog:'https://qwenlm.github.io/blog/qwen3/',paper_url:'https://arxiv.org/abs/2505.09388'},
+'qwen3-8b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer with Thinking/Non-Thinking hybrid, 128K context',training_data:'36T tokens — web, code, math, multilingual',languages:['English','Chinese','100+ languages'],strengths:['128K context window','Hybrid thinking mode','Apache 2.0 license','Strong at math and reasoning','Excellent multilingual'],weaknesses:['Needs 8GB+ RAM','Chinese-centric training may affect some English tasks'],use_cases:['General chat','Coding assistance','Math and reasoning','Long document analysis','Multilingual translation'],similar_models:['llama3.1-8b','gemma2-9b','mistral-7b','phi4-14b'],official_blog:'https://qwenlm.github.io/blog/qwen3/',paper_url:'https://arxiv.org/abs/2505.09388'},
+'qwen3-14b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer with Thinking/Non-Thinking hybrid',training_data:'36T tokens',languages:['English','Chinese','100+ languages'],strengths:['Sweet spot between speed and quality','128K context','Excellent reasoning','Apache 2.0'],weaknesses:['Needs 16GB RAM','Slightly slower than 8B models'],use_cases:['Professional coding','Complex reasoning','Document analysis','Enterprise applications'],similar_models:['phi4-14b','gemma3-12b','qwen2.5-14b'],official_blog:'https://qwenlm.github.io/blog/qwen3/'},
+'qwen3-32b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer with Thinking/Non-Thinking hybrid',training_data:'36T tokens',languages:['English','Chinese','100+ languages'],strengths:['GPT-4 class performance on many benchmarks','Strong coding and math','Think mode for complex problems','Apache 2.0'],weaknesses:['Needs 32GB+ RAM','Slower inference than smaller models'],use_cases:['Advanced reasoning','Professional coding','Research','Complex analysis','Agentic workflows'],similar_models:['qwq-32b','gemma3-27b','deepseek-r1-32b','mistral-small-24b'],official_blog:'https://qwenlm.github.io/blog/qwen3/'},
+'qwen2.5-7b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer decoder-only',training_data:'18T tokens — massive multilingual + code corpus',languages:['English','Chinese','29+ languages'],strengths:['18T tokens of training — most trained 7B','14.9M downloads','128K context','Apache 2.0','Wide community support'],weaknesses:['Superseded by Qwen 3 family','Not the best at reasoning'],use_cases:['General chat','Coding','Multilingual tasks','Content generation'],similar_models:['llama3.1-8b','gemma2-9b','mistral-7b'],official_blog:'https://qwenlm.github.io/blog/qwen2.5/'},
+'qwen2.5-14b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer decoder-only',training_data:'18T tokens',languages:['English','Chinese','29+ languages'],strengths:['Strong balance speed/quality','128K context','Great multilingual and coding'],weaknesses:['Superseded by Qwen 3 14B','Needs 12GB+ RAM'],use_cases:['Professional coding','Multilingual content','Analysis','Enterprise chatbot'],similar_models:['phi4-14b','gemma3-12b','qwen3-14b'],official_blog:'https://qwenlm.github.io/blog/qwen2.5/'},
+'qwen2.5-72b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Qwen License',license_url:'https://huggingface.co/Qwen/Qwen2.5-72B-Instruct/blob/main/LICENSE',architecture:'Transformer decoder-only',training_data:'18T tokens',languages:['English','Chinese','29+ languages'],strengths:['Among the best open 72B models globally','Exceptional multilingual','Top coding and reasoning','128K context'],weaknesses:['Requires 64GB+ RAM','Very slow on consumer hardware','Restrictive license vs Apache 2.0'],use_cases:['Maximum quality outputs','Research','Enterprise AI','Complex analysis'],similar_models:['llama3.1-70b','llama3.3-70b','deepseek-r1-70b'],official_blog:'https://qwenlm.github.io/blog/qwen2.5/'},
+'qwen2.5-coder-7b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer fine-tuned for code',training_data:'5.5T code tokens',languages:['92+ programming languages'],strengths:['Specialized code model','128K context for large codebases','Apache 2.0','Strong completion'],weaknesses:['Not great for general chat','Coding-focused limits versatility'],use_cases:['Code generation','Code review','Refactoring','Bug fixing','Documentation'],similar_models:['deepseek-coder-v2-16b','codestral-22b','qwen2.5-coder-32b'],official_blog:'https://qwenlm.github.io/blog/qwen2.5-coder-family/'},
+'qwen2.5-coder-32b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Transformer fine-tuned for code',training_data:'5.5T code tokens',languages:['92+ programming languages'],strengths:['Best open-source code model','7.5M downloads','128K context','Rivals GPT-4 for coding','Apache 2.0'],weaknesses:['Needs 24GB+ RAM','Coding specialist — not for general tasks'],use_cases:['Professional software development','Code review','Architecture design','Legacy code migration'],similar_models:['codestral-22b','deepseek-coder-33b','devstral-24b'],official_blog:'https://qwenlm.github.io/blog/qwen2.5-coder-family/'},
+'qwq-32b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',license_url:'https://www.apache.org/licenses/LICENSE-2.0',architecture:'Reasoning-focused Transformer',training_data:'Extended reasoning training on Qwen 2.5 base',languages:['English','Chinese','29+ languages'],strengths:['o1-class reasoning','Shows chain-of-thought process','Apache 2.0','Strong math/logic'],weaknesses:['Verbose outputs (thinking tokens)','Slower due to reasoning overhead','Needs 24GB+ RAM'],use_cases:['Complex math problems','Logical reasoning','Scientific analysis','Strategic planning'],similar_models:['deepseek-r1-32b','phi4-reasoning','qwen3-32b'],official_blog:'https://qwenlm.github.io/blog/qwq-32b-preview/'},
+'llama3.2-1b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.2 Community License',license_url:'https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE',architecture:'Transformer decoder-only',training_data:'9T tokens',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Ultra-compact — runs on literally anything','128K context','Good for edge devices','8 languages'],weaknesses:['Very limited capability','Struggles with complex tasks','No serious coding'],use_cases:['Edge AI','Mobile deployment','Simple classification','Text extraction','Quick summarization'],similar_models:['gemma3-1b','tinyllama-1.1b','smollm2-1.7b'],official_blog:'https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/'},
+'llama3.2-3b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.2 Community License',architecture:'Transformer decoder-only',training_data:'9T tokens',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Great instruction following for 3B','128K context','Good speed','8 languages natively'],weaknesses:['Weaker than 7B+ models on complex tasks','Limited coding'],use_cases:['Mobile AI','Quick Q&A','Text summarization','Classification'],similar_models:['qwen3-4b','gemma3-4b','phi4-mini'],official_blog:'https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/'},
+'llama3-8b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:8192,license:'Llama 3 Community License',architecture:'Transformer decoder-only with GQA',training_data:'15T tokens',languages:['English'],strengths:['11.2M downloads — industry standard','Rock-solid foundation','Massive fine-tune ecosystem'],weaknesses:['Only 8K context','English-only','Superseded by 3.1 and 3.3'],use_cases:['General chat','Fine-tuning base','Text generation'],similar_models:['llama3.1-8b','gemma2-9b','mistral-7b'],official_blog:'https://ai.meta.com/blog/meta-llama-3/',paper_url:'https://arxiv.org/abs/2407.21783'},
+'llama3.1-8b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.1 Community License',architecture:'Transformer decoder-only with GQA, 128K context',training_data:'15T tokens',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['104M+ downloads — most popular open model','128K context','Tool use support','8 languages','Huge ecosystem'],weaknesses:['Not the strongest at coding','Surpassed by newer models on benchmarks'],use_cases:['General assistant','Tool calling','RAG applications','Multilingual chat'],similar_models:['qwen2.5-7b','gemma2-9b','qwen3-8b','mistral-7b'],official_blog:'https://ai.meta.com/blog/meta-llama-3-1/',paper_url:'https://arxiv.org/abs/2407.21783'},
+'llama3.1-70b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.1 Community License',architecture:'Transformer with GQA, 128K context',training_data:'15T tokens',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Top-tier 70B open model','128K context','Excellent at all tasks','Strong tool use'],weaknesses:['Requires 48GB+ RAM','Slow on consumer GPUs'],use_cases:['Enterprise AI','Complex reasoning','Research','High-quality content'],similar_models:['qwen2.5-72b','llama3.3-70b','deepseek-r1-70b'],official_blog:'https://ai.meta.com/blog/meta-llama-3-1/'},
+'llama3.3-70b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.3 Community License',architecture:'Transformer with GQA, 128K context',training_data:'15T+ tokens with improved training recipe',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Best Llama model to date','Matches Llama 3.1 405B on some tasks','Strong coding and reasoning','128K context'],weaknesses:['Requires 48GB+ RAM','Slow inference'],use_cases:['Maximum quality local AI','Enterprise','Research','Complex analysis'],similar_models:['qwen2.5-72b','deepseek-r1-70b','llama3.1-70b'],official_blog:'https://ai.meta.com/blog/llama-3-3/'},
+'deepseek-r1-7b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Transformer distilled from DeepSeek-R1',training_data:'Distilled from R1 671B using Qwen 2.5 7B base',languages:['English','Chinese'],strengths:['Shows reasoning chain-of-thought','65.5M total R1 downloads','MIT license','Affordable reasoning'],weaknesses:['Verbose thinking tokens','Distilled — not as strong as full R1','Sometimes overthinks simple tasks'],use_cases:['Math problems','Logical reasoning','Step-by-step explanations','Education'],similar_models:['deepseek-r1-8b','qwq-32b','phi4-reasoning'],official_blog:'https://api-docs.deepseek.com/news/news250120',paper_url:'https://arxiv.org/abs/2501.12948'},
+'deepseek-r1-70b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Transformer distilled from DeepSeek-R1',training_data:'Distilled from R1 671B using Llama 3.1 70B base',languages:['English','Chinese'],strengths:['Top-tier reasoning model','Rivals o1 on math benchmarks','MIT license','Strong at complex logic'],weaknesses:['Requires 48GB+ RAM','Very slow','Verbose outputs'],use_cases:['Advanced mathematics','Scientific reasoning','Research','Complex problem solving'],similar_models:['llama3.3-70b','qwen2.5-72b'],official_blog:'https://api-docs.deepseek.com/news/news250120',paper_url:'https://arxiv.org/abs/2501.12948'},
+'deepseek-v3.1':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'DeepSeek License',architecture:'Mixture of Experts (MoE) — 671B total, ~37B active',training_data:'14.8T tokens',languages:['English','Chinese','Multilingual'],strengths:['Hybrid thinking/non-thinking mode','Only 37B active parameters despite 671B total','Top-tier quality','Among best open models ever'],weaknesses:['Requires 512GB+ RAM for full model','Server-grade hardware only','Complex setup'],use_cases:['Maximum quality outputs','Research','Enterprise deployment','Frontier AI tasks'],similar_models:['qwen3-235b-moe','llama4-maverick'],official_blog:'https://api-docs.deepseek.com/',paper_url:'https://arxiv.org/abs/2412.19437'},
+'phi4-mini':{developer:'Microsoft Research',developer_url:'https://www.microsoft.com/en-us/research/',context_window:131072,license:'MIT',architecture:'Transformer decoder-only, 128K context',training_data:'Curated synthetic + web data',languages:['English'],strengths:['MIT license','Punches way above weight class','128K context at 3.8B','Great at reasoning & code for its size'],weaknesses:['English-only','Limited factual knowledge','Can hallucinate'],use_cases:['Quick coding help','Reasoning on-the-go','Edge deployment','Education'],similar_models:['qwen3-4b','gemma3-4b','llama3.2-3b'],official_blog:'https://azure.microsoft.com/en-us/blog/introducing-phi-4-microsoft-s-newest-small-language-model-specializing-in-complex-reasoning/',paper_url:'https://arxiv.org/abs/2412.08905'},
+'phi4-14b':{developer:'Microsoft Research',developer_url:'https://www.microsoft.com/en-us/research/',context_window:16384,license:'MIT',architecture:'Transformer decoder-only',training_data:'9.8T tokens — synthetic data-heavy training',languages:['English'],strengths:['Exceptional reasoning for 14B','MIT license','Strong coding','State-of-the-art at its size'],weaknesses:['16K context only','English-only','Smaller than Phi-4 Mini context'],use_cases:['Coding assistance','Math and reasoning','Research','Technical writing'],similar_models:['qwen2.5-14b','gemma3-12b','qwen3-14b'],official_blog:'https://azure.microsoft.com/en-us/blog/introducing-phi-4-microsoft-s-newest-small-language-model-specializing-in-complex-reasoning/',paper_url:'https://arxiv.org/abs/2412.08905'},
+'mistral-7b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:32768,license:'Apache 2.0',architecture:'Transformer with Sliding Window Attention + GQA',training_data:'Web data, undisclosed size',languages:['English','French','Multilingual (limited)'],strengths:['Pioneer of open-source LLMs','Apache 2.0','Great speed','6.3M downloads','Sliding window attention'],weaknesses:['Surpassed by newer models','32K context','Weaker at coding than specialists'],use_cases:['General chat','Quick tasks','Fine-tuning base','RAG applications'],similar_models:['llama3.1-8b','qwen2.5-7b','gemma2-9b'],official_blog:'https://mistral.ai/news/announcing-mistral-7b/',paper_url:'https://arxiv.org/abs/2310.06825'},
+'mistral-nemo-12b':{developer:'Mistral AI × NVIDIA',developer_url:'https://mistral.ai/',context_window:131072,license:'Apache 2.0',architecture:'Transformer with 128K context',training_data:'Web, code, multilingual data',languages:['English','French','German','Spanish','Italian','Portuguese','Chinese','Japanese','Korean','Arabic','Hindi'],strengths:['128K context','Co-developed with NVIDIA','11 languages','Apache 2.0','Great reasoning'],weaknesses:['Superseded by Mistral Small 3','Needs 12GB RAM'],use_cases:['Multilingual applications','Long document processing','RAG','Coding'],similar_models:['gemma3-12b','qwen2.5-14b','phi4-14b'],official_blog:'https://mistral.ai/news/mistral-nemo/'},
+'mistral-small-24b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:32768,license:'Apache 2.0',architecture:'Transformer decoder-only',training_data:'Web, code, multilingual data',languages:['English','French','German','Spanish','Italian','Portuguese','Russian','Chinese','Japanese'],strengths:['Excellent quality-to-size ratio','Strong European multilingual','Apache 2.0','Fast inference for 24B'],weaknesses:['32K context limit','Needs 16GB+ RAM'],use_cases:['Enterprise chatbot','Multilingual support','Professional writing','Code generation'],similar_models:['gemma3-27b','qwen3-32b','codestral-22b'],official_blog:'https://mistral.ai/news/mistral-small-3/'},
+'moondream2':{developer:'Vikhyat Korrapati',developer_url:'https://moondream.ai/',context_window:2048,license:'Apache 2.0',architecture:'SigLIP vision encoder + Phi-1.5 language model',training_data:'Curated image-text pairs',languages:['English'],strengths:['Tiny vision model — runs on anything','Good OCR','Great for image captioning','Apache 2.0'],weaknesses:['Very limited context','Weak at complex reasoning','English-only'],use_cases:['Image description','OCR','Visual Q&A','Document scanning','Accessibility tools'],similar_models:['llava-7b','minicpm-v-8b','llava-phi3'],official_blog:'https://moondream.ai/'},
+'glm4.7-flash':{developer:'Zhipu AI / Tsinghua University',developer_url:'https://www.zhipuai.cn/',context_window:131072,license:'Apache 2.0',architecture:'Transformer with 128K context',training_data:'Bilingual web, code, academic data',languages:['English','Chinese'],strengths:['128K context','Fast inference','Strong bilingual CN/EN','Apache 2.0','Ranks #19 global usage'],weaknesses:['Less known outside China','Community support smaller than Llama/Qwen'],use_cases:['Chinese-English bilingual chat','Fast responses','Content generation','Enterprise China market'],similar_models:['qwen3-8b','gemma2-9b','llama3.1-8b'],official_blog:'https://github.com/THUDM/GLM-4'},
+'gpt-oss-20b':{developer:'OpenAI',developer_url:'https://openai.com/',context_window:131072,license:'OpenAI Open Weight License',architecture:'Transformer (OpenAI architecture)',training_data:'Undisclosed',languages:['English','Multilingual'],strengths:['First open-weight model from OpenAI','3.4M downloads','Strong general + coding','128K context'],weaknesses:['OpenAI restrictive license','Only 20B — smaller than expected','Limited fine-tuning allowed'],use_cases:['General AI assistant','Coding','Reasoning','Research comparison'],similar_models:['qwen3-14b','phi4-14b','mistral-small-24b'],official_blog:'https://openai.com/'},
+'deepseek-r1-8b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Transformer distilled from DeepSeek-R1 (Llama 3.1 8B base)',training_data:'Distilled from R1 671B using Llama 3.1 8B base',languages:['English','Chinese'],strengths:['Amazing reasoning for 8B','Shows chain-of-thought process','MIT license','Runs on 8GB RAM'],weaknesses:['Verbose thinking tokens','Distilled — not as strong as full R1','Can overthink simple tasks'],use_cases:['Math reasoning','Logic puzzles','Step-by-step explanations','Education','Analysis'],similar_models:['deepseek-r1-7b','qwen3-8b','phi4-mini'],official_blog:'https://api-docs.deepseek.com/news/news250120',paper_url:'https://arxiv.org/abs/2501.12948'},
+'deepseek-r1-14b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Transformer distilled from DeepSeek-R1 (Qwen 2.5 14B base)',training_data:'Distilled from R1 671B using Qwen 2.5 14B base',languages:['English','Chinese'],strengths:['PhD-level reasoning at 14B','Shows chain-of-thought','MIT license','Excellent math/logic'],weaknesses:['Needs 16GB+ RAM','Verbose outputs','Can be slow due to reasoning tokens'],use_cases:['Complex math problems','Logical analysis','Scientific reasoning','Research'],similar_models:['qwen3-14b','phi4-reasoning-14b','deepseek-r1-32b'],official_blog:'https://api-docs.deepseek.com/news/news250120',paper_url:'https://arxiv.org/abs/2501.12948'},
+'deepseek-r1-32b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Transformer distilled from DeepSeek-R1 (Qwen 2.5 32B base)',training_data:'Distilled from R1 671B using Qwen 2.5 32B base',languages:['English','Chinese'],strengths:['The thinking machine — PhD-level reasoning','Rivals o1 on many benchmarks','MIT license','Excellent at complex multi-step problems'],weaknesses:['Needs 32GB+ RAM','Very verbose outputs','Slower than non-reasoning models'],use_cases:['Advanced math','Scientific research','Complex problem solving','Strategy analysis'],similar_models:['qwen3-32b','qwq-32b','cogito-32b'],official_blog:'https://api-docs.deepseek.com/news/news250120',paper_url:'https://arxiv.org/abs/2501.12948'},
+'deepseek-v3-671b':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'DeepSeek License',architecture:'Mixture of Experts (MoE) — 671B total, ~37B active',training_data:'14.8T tokens',languages:['English','Chinese','Multilingual'],strengths:['Original massive DeepSeek MoE','Only 37B active parameters despite 671B total','Top-tier quality','2.4M downloads'],weaknesses:['Requires 512GB+ RAM','Server-grade hardware only','Complex setup'],use_cases:['Maximum quality outputs','Research','Enterprise deployment','Frontier AI tasks'],similar_models:['deepseek-v3.1','deepseek-v3.2','qwen3-235b-a22b'],official_blog:'https://api-docs.deepseek.com/',paper_url:'https://arxiv.org/abs/2412.19437'},
+'deepseek-v3.2':{developer:'DeepSeek AI',developer_url:'https://www.deepseek.com/',context_window:131072,license:'MIT',architecture:'Mixture of Experts (MoE) — 671B total, ~37B active',training_data:'Massive web, code, and multilingual datasets',languages:['English','Chinese','Multilingual'],strengths:['Latest DeepSeek MoE flagship','Ranks #6 globally with 29B monthly tokens','MIT license','Exceptional coding and reasoning'],weaknesses:['Requires 48GB+ RAM','Server-grade recommended','Complex setup'],use_cases:['Enterprise AI','Research','Complex coding','Reasoning at scale'],similar_models:['deepseek-v3.1','trinity-large','llama3.3-70b'],official_blog:'https://api-docs.deepseek.com/'},
+'phi3-3.8b':{developer:'Microsoft Research',developer_url:'https://www.microsoft.com/en-us/research/',context_window:4096,license:'MIT',architecture:'Transformer decoder-only',training_data:'3.3T tokens of curated synthetic + web data',languages:['English'],strengths:['11.3M downloads','MIT license','Great for edge devices','Pioneered small-model-big-performance'],weaknesses:['Only 4K context','English-only','Superseded by Phi-4'],use_cases:['Quick Q&A','Edge deployment','Education','Lightweight tasks'],similar_models:['phi4-mini','gemma3-4b','llama3.2-3b'],official_blog:'https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/',paper_url:'https://arxiv.org/abs/2404.14219'},
+'phi4-reasoning-14b':{developer:'Microsoft Research',developer_url:'https://www.microsoft.com/en-us/research/',context_window:32768,license:'MIT',architecture:'Transformer with reasoning-enhanced training',training_data:'Synthetic reasoning data built on Phi-4 base',languages:['English'],strengths:['Rivals much larger models on math & logic','MIT license','Strong chain-of-thought','544K downloads'],weaknesses:['Needs 12GB+ RAM','English-only','Reasoning overhead makes it slower'],use_cases:['Mathematics','Logical reasoning','Scientific analysis','Complex problem solving'],similar_models:['deepseek-r1-14b','qwen3-14b','phi4-14b'],official_blog:'https://azure.microsoft.com/en-us/blog/'},
+'llama3.2-vision-11b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.2 Community License',architecture:'Multimodal Transformer (vision + language)',training_data:'Image-text pairs + 9T text tokens',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Native vision understanding','128K context','2.6M downloads','Image reasoning + text generation'],weaknesses:['Needs 12GB RAM','Vision is basic vs specialized models','Llama license restrictions'],use_cases:['Image description','Visual Q&A','Document understanding','Multimodal chat'],similar_models:['llava-13b','minicpm-v-8b','gemma3-12b'],official_blog:'https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/'},
+'llama4-scout':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 4 Community License',architecture:'Mixture of Experts (MoE) with native vision',training_data:'Massive multimodal pre-training',languages:['English','Multilingual'],strengths:['Latest Meta multimodal model','Built-in vision','MoE for efficient inference','728K downloads'],weaknesses:['Needs 16GB RAM','New model — less community support','MoE complexity'],use_cases:['Multimodal chat','Image understanding','General AI tasks','Content creation'],similar_models:['gemma3-12b','llama3.2-vision-11b','qwen2.5vl-7b'],official_blog:'https://ai.meta.com/blog/llama-4/'},
+'llama4-maverick':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 4 Community License',architecture:'Mixture of Experts (MoE) — 400B total with native vision',training_data:'Massive multimodal pre-training',languages:['English','Multilingual'],strengths:['Largest open MoE model from Meta','Incredible multimodal capabilities','Top-tier on all benchmarks'],weaknesses:['Requires 320GB+ RAM','Server-grade hardware only','Very slow on consumer hardware'],use_cases:['Maximum quality outputs','Research','Enterprise multimodal AI','Frontier tasks'],similar_models:['qwen3-235b-a22b','deepseek-v3.1','trinity-large'],official_blog:'https://ai.meta.com/blog/llama-4/'},
+'llama3.3-8b':{developer:'Meta AI',developer_url:'https://ai.meta.com/',context_window:131072,license:'Llama 3.3 Community License',architecture:'Transformer decoder-only with GQA',training_data:'15T+ tokens with improved recipe',languages:['English','German','French','Italian','Portuguese','Hindi','Spanish','Thai'],strengths:['Refined 8B — best all-around','Rock-solid instruction following','128K context','8 languages'],weaknesses:['Surpassed by Qwen 3 8B on some tasks','Llama license restrictions'],use_cases:['General chat','Quick tasks','Tool calling','RAG applications'],similar_models:['qwen3-8b','gemma2-9b','mistral-7b'],official_blog:'https://ai.meta.com/blog/llama-3-3/'},
+'mistral-7b-v0.3':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:32768,license:'Apache 2.0',architecture:'Transformer with Sliding Window Attention + GQA',training_data:'Web data',languages:['English','French','Multilingual (limited)'],strengths:['The legendary Mistral','Apache 2.0','Great speed','Huge community'],weaknesses:['Surpassed by newer models','32K context','Weaker at coding'],use_cases:['General chat','Quick tasks','Fine-tuning base','RAG'],similar_models:['llama3.1-8b','qwen2.5-7b','gemma2-9b'],official_blog:'https://mistral.ai/news/announcing-mistral-7b/'},
+'codestral-22b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:32768,license:'MNPL (Non-Production License)',architecture:'Transformer optimized for code',training_data:'80+ programming languages',languages:['80+ programming languages'],strengths:["Mistral's first code model",'80+ languages','Strong completion and generation','476K downloads'],weaknesses:['Non-production license','32K context','Not for commercial use without license'],use_cases:['Code generation','Code completion','Refactoring','Code review'],similar_models:['qwen2.5-coder-32b','deepseek-coder-33b','devstral-24b'],official_blog:'https://mistral.ai/news/codestral/'},
+'devstral-24b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:131072,license:'Apache 2.0',architecture:'Transformer optimized for agentic coding',training_data:'Code + agent workflow data',languages:['80+ programming languages'],strengths:['Best open model for coding agents','Apache 2.0','128K context','Designed for agentic workflows'],weaknesses:['Needs 20GB+ RAM','Coding specialist — limited general chat'],use_cases:['Agentic coding','Automated software development','Code review','Complex refactoring'],similar_models:['codestral-22b','qwen2.5-coder-32b','qwen3-coder-8b'],official_blog:'https://mistral.ai/news/devstral/'},
+'magistral-24b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:131072,license:'Apache 2.0',architecture:'Transformer with reasoning-enhanced training',training_data:'Reasoning-focused data',languages:['English','French','Multilingual'],strengths:['Efficient reasoning model','Apache 2.0','Strong chain-of-thought','477K downloads'],weaknesses:['Needs 20GB+ RAM','Reasoning overhead','New — less community support'],use_cases:['Complex reasoning','Math','Strategic planning','Analysis'],similar_models:['deepseek-r1-32b','phi4-reasoning-14b','qwq-32b'],official_blog:'https://mistral.ai/news/magistral/'},
+'mistral-large-123b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:131072,license:'Mistral Research License',architecture:'Transformer decoder-only, 128K context',training_data:'Massive multilingual corpus',languages:['English','French','German','Spanish','Italian','Portuguese','Russian','Chinese','Japanese'],strengths:['Mistral flagship','128K context','Top-tier coding and multilingual','262K downloads'],weaknesses:['Requires 96GB+ RAM','Research license — commercial restrictions','Very slow inference'],use_cases:['Enterprise AI','Complex coding','Research','Multilingual tasks'],similar_models:['llama3.3-70b','qwen2.5-72b','command-a-111b'],official_blog:'https://mistral.ai/news/mistral-large-2411/'},
+'minicpm-v-8b':{developer:'OpenBMB (Tsinghua)',developer_url:'https://github.com/OpenBMB/MiniCPM-V',context_window:8192,license:'Apache 2.0',architecture:'SigLIP vision encoder + MiniCPM language model',training_data:'Image-text pairs, multimodal data',languages:['English','Chinese'],strengths:['Compact VLM','Strong image understanding','3.6M downloads','Apache 2.0'],weaknesses:['Limited context','Weak at coding','English/Chinese only'],use_cases:['Image description','Document scanning','Visual Q&A','OCR'],similar_models:['llava-13b','llava-llama3-8b','moondream2'],official_blog:'https://github.com/OpenBMB/MiniCPM-V'},
+'llava-13b':{developer:'LLaVA Team (UW-Madison / Microsoft)',developer_url:'https://llava-vl.github.io/',context_window:4096,license:'Apache 2.0',architecture:'CLIP vision encoder + Vicuna 13B language model',training_data:'Image-text instruction-following data',languages:['English'],strengths:['Better image understanding than 7B','Apache 2.0','Solid multimodal performance'],weaknesses:['Needs 12GB RAM','Limited context','Weak at coding'],use_cases:['Image analysis','Visual Q&A','Image captioning','Document understanding'],similar_models:['minicpm-v-8b','llava-llama3-8b','moondream2'],official_blog:'https://llava-vl.github.io/'},
+'trinity-large':{developer:'Arcee AI',developer_url:'https://www.arcee.ai/',context_window:131072,license:'Apache 2.0',architecture:'Mixture of Experts (MoE), 70B',training_data:'Diverse web + code data',languages:['English','Multilingual'],strengths:['Ranks #2 globally with 114B monthly tokens','Exceptional versatility','Apache 2.0','Free and open-source'],weaknesses:['Requires 48GB+ RAM','New model','MoE complexity'],use_cases:['Enterprise AI','Complex reasoning','Coding','Research'],similar_models:['deepseek-v3.2','llama3.3-70b','trinity-large'],official_blog:'https://www.arcee.ai/blog'},
+'kimi-k2.5-32b':{developer:'Moonshot AI',developer_url:'https://www.moonshot.cn/',context_window:262144,license:'Model License',architecture:'Mixture of Experts — 1T total, 32B active',training_data:'Massive multilingual + code corpus',languages:['English','Chinese','Multilingual'],strengths:['Massive 1T MoE with 32B active','256K context','Unmatched reasoning','Top-tier quality'],weaknesses:['Needs 32GB+ RAM','Model license restrictions','Complex setup'],use_cases:['Long document processing','Complex reasoning','Enterprise AI','Research'],similar_models:['qwen3-32b','deepseek-r1-32b','cogito-32b'],official_blog:'https://www.moonshot.cn/'},
+'ling-2.6-flash':{developer:'InclusionAI / Ant Group',developer_url:'https://huggingface.co/inclusionAI',context_window:262144,license:'MIT',license_url:'https://huggingface.co/inclusionAI/Ling-2.6-flash/blob/main/LICENSE',architecture:'Sparse MoE instruct model — 104B total, 7.4B active, hybrid linear attention with 1:7 MLA + Lightning Linear',training_data:'Training data not fully disclosed; optimized for token-efficient agent execution, tool use, multi-step planning and long-context tasks',languages:['English','Chinese'],strengths:['104B total with only 7.4B active parameters','262K context window','Optimized for tool use and agent workflows','High token efficiency for production agents','MIT license'],weaknesses:['Server-grade hardware recommended','Best supported through SGLang/vLLM with trust_remote_code','May still hallucinate tools in very complex scenarios','Chinese/English switching still has room to improve'],use_cases:['Agentic coding','Tool-calling assistants','Long-context analysis','Production workflow agents','OpenClaw-style local agents'],similar_models:['ling-1t','minimax-m2-230b','kimi-k2.5-32b','deepseek-v3.2','qwen3.6-27b'],official_blog:'https://huggingface.co/inclusionAI/Ling-2.6-flash',paper_url:'https://huggingface.co/inclusionAI/Ling-2.6-flash'},
+'cogito-8b':{developer:'Deep Cogito',developer_url:'https://www.deepcogito.com/',context_window:131072,license:'Apache 2.0',architecture:'Hybrid reasoning Transformer (Llama 8B base)',training_data:'Reasoning-enhanced training data',languages:['English'],strengths:['Hybrid reasoning — outperforms peers','Apache 2.0','Toggleable thinking mode','558K downloads'],weaknesses:['English-only','New — less tested','Reasoning overhead'],use_cases:['Reasoning tasks','General chat','Analysis','Problem solving'],similar_models:['qwen3-8b','deepseek-r1-8b','openthinker-7b'],official_blog:'https://www.deepcogito.com/'},
+'cogito-32b':{developer:'Deep Cogito',developer_url:'https://www.deepcogito.com/',context_window:131072,license:'Apache 2.0',architecture:'Hybrid reasoning Transformer (Qwen 32B base)',training_data:'Reasoning-enhanced training data',languages:['English'],strengths:['Outperforms larger models on reasoning','Apache 2.0','Excellent general purpose','Strong coding'],weaknesses:['Needs 24GB+ RAM','English-only','New model'],use_cases:['Advanced reasoning','Professional coding','Complex analysis','Research'],similar_models:['qwen3-32b','deepseek-r1-32b','qwq-32b'],official_blog:'https://www.deepcogito.com/'},
+'mixtral-8x7b':{developer:'Mistral AI',developer_url:'https://mistral.ai/',context_window:32768,license:'Apache 2.0',architecture:'Sparse Mixture of Experts — 8 experts, 2 active per token',training_data:'Web data, multilingual',languages:['English','French','German','Spanish','Italian'],strengths:['MoE pioneer','Fast despite 46.7B total params','Apache 2.0','1.4M downloads','Multilingual'],weaknesses:['Needs 32GB RAM','32K context limit','Superseded by newer MoE models'],use_cases:['General chat','Multilingual tasks','Enterprise','RAG applications'],similar_models:['mistral-small-24b','dolphin-mixtral-8x7b','command-r-35b'],official_blog:'https://mistral.ai/news/mixtral-of-experts/',paper_url:'https://arxiv.org/abs/2401.04088',fun_fact:'Mixtral was the first major open-source Mixture of Experts model, proving MoE can be practical for local deployment.'},
+'dolphin3-8b':{developer:'Cognitive Computations',developer_url:'https://erichartford.com/',context_window:131072,license:'Apache 2.0',architecture:'Transformer (fine-tuned Llama 3.1 8B)',training_data:'Uncensored instruction data',languages:['English'],strengths:['Uncensored — no content filters','Function calling support','Apache 2.0','3.1M downloads'],weaknesses:['No safety guardrails','English-only','Fine-tune — inherits base model limitations'],use_cases:['Unrestricted chat','Creative writing','Role-playing','Function calling','Research'],similar_models:['llama3.1-8b','hermes3-8b','dolphin-mixtral-8x7b'],official_blog:'https://erichartford.com/dolphin'},
+'tinyllama-1.1b':{developer:'Zhang Peiyuan',developer_url:'https://github.com/jzhang38/TinyLlama',context_window:2048,license:'Apache 2.0',architecture:'Transformer (same as Llama 2 at smaller scale)',training_data:'3T tokens — SlimPajama + StarCoder',languages:['English'],strengths:['Ultra-compact at 0.6GB','3T tokens training — extremely well-trained for size','Apache 2.0','Runs on anything'],weaknesses:['Very limited capability','Only 2K context','English-only','Struggles with anything complex'],use_cases:['IoT and edge devices','Experimentation','Chatbot prototyping','Learning'],similar_models:['llama3.2-1b','gemma3-1b','smollm2-1.7b'],official_blog:'https://github.com/jzhang38/TinyLlama',fun_fact:'TinyLlama was trained on 3T tokens — 3x more data than the original Llama 2, making it one of the most "over-trained" small models ever.'},
+'olmo2-7b':{developer:'Allen Institute for AI (AI2)',developer_url:'https://allenai.org/',context_window:131072,license:'Apache 2.0',architecture:'Transformer decoder-only — fully open (weights, data, code)',training_data:'Dolma dataset — fully public',languages:['English'],strengths:['100% open — weights, data, code all public','Apache 2.0','Great for research','3M downloads'],weaknesses:['English-only','Slightly behind closed-data competitors','Smaller community'],use_cases:['AI research','Reproducible experiments','Education','General chat'],similar_models:['llama3.1-8b','gemma2-9b','tulu3-8b'],official_blog:'https://allenai.org/olmo'},
+'command-r-35b':{developer:'Cohere',developer_url:'https://cohere.com/',context_window:131072,license:'CC-BY-NC 4.0',architecture:'Transformer optimized for RAG',training_data:'Multilingual web, code, and retrieval data',languages:['English','French','German','Spanish','Italian','Portuguese','Chinese','Japanese','Korean','Arabic'],strengths:['128K context','Optimized for RAG','10 languages','Excellent retrieval-augmented generation'],weaknesses:['Non-commercial license','Needs 24GB+ RAM','Superseded by Command A'],use_cases:['RAG applications','Long document QA','Multilingual search','Enterprise chatbot'],similar_models:['command-a-111b','command-r-plus','mistral-small-24b'],official_blog:'https://cohere.com/blog/command-r'},
+'gemma3n-4b':{developer:'Google DeepMind',developer_url:'https://deepmind.google/',context_window:131072,license:'Gemma License',architecture:'Transformer optimized for mobile/edge',training_data:'Web, code, multilingual data',languages:['English','140+ languages'],strengths:['Designed for phones/tablets/laptops','128K context','Very efficient','552K downloads'],weaknesses:['Smaller than standard Gemma 3','Edge-optimized = some tradeoffs','Gemma license'],use_cases:['Mobile AI','Edge deployment','On-device assistant','Quick tasks'],similar_models:['gemma3-4b','phi4-mini','llama3.2-3b'],official_blog:'https://blog.google/technology/developers/gemma-3/'},
+'qwen3-coder-8b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:262144,license:'Apache 2.0',architecture:'Transformer fine-tuned for agentic coding',training_data:'Code + agent workflow data',languages:['92+ programming languages'],strengths:['256K context for huge codebases','Agentic coding specialist','Apache 2.0','477K downloads'],weaknesses:['Coding specialist — limited general chat','New model','Needs 8GB+ RAM'],use_cases:['Agentic coding','Code generation','Large codebase analysis','Automated development'],similar_models:['qwen2.5-coder-7b','devstral-24b','deepcoder-14b'],official_blog:'https://qwenlm.github.io/blog/'},
+'qwen3-235b-a22b':{developer:'Alibaba Cloud (Qwen Team)',developer_url:'https://qwenlm.github.io/',context_window:131072,license:'Apache 2.0',architecture:'Mixture of Experts — 235B total, 22B active per token',training_data:'36T tokens',languages:['English','Chinese','100+ languages'],strengths:['Only 22B active despite 235B total','Fast for its power level','Apache 2.0','Top-tier quality'],weaknesses:['Requires 96GB+ RAM','Complex MoE deployment','Very large files'],use_cases:['Maximum quality AI','Enterprise deployment','Research','Complex reasoning'],similar_models:['llama4-maverick','deepseek-v3.1','wizardlm2-8x22b'],official_blog:'https://qwenlm.github.io/blog/qwen3/'},
+'wizardlm2-8x22b':{developer:'Microsoft AI',developer_url:'https://www.microsoft.com/en-us/research/',context_window:65536,license:'Apache 2.0',architecture:'Mixtral 8x22B fine-tuned with WizardLM pipeline',training_data:'Evol-Instruct enhanced training data',languages:['English','Multilingual'],strengths:['Exceptional instruction following','Apache 2.0','One of the best fine-tunes ever','Strong conversational quality'],weaknesses:['Requires 96GB+ RAM','Very large model','Slow inference'],use_cases:['Maximum quality chat','Complex instructions','Professional content creation','Research'],similar_models:['qwen3-235b-a22b','mixtral-8x7b','command-r-plus'],fun_fact:'WizardLM 2 8x22B uses a novel Evol-Instruct pipeline that progressively makes training data harder, pushing the model to be better at complex instructions.'}
+};
+
+function generateDefaultDetails(model){var familyMap={'llama':{dev:'Meta AI',url:'https://ai.meta.com/',lic:'Llama Community License'},'codellama':{dev:'Meta AI',url:'https://ai.meta.com/',lic:'Llama Community License'},'qwen':{dev:'Alibaba Cloud (Qwen Team)',url:'https://qwenlm.github.io/',lic:'Apache 2.0'},'qwen-coder':{dev:'Alibaba Cloud (Qwen Team)',url:'https://qwenlm.github.io/',lic:'Apache 2.0'},'qwen-moe':{dev:'Alibaba Cloud (Qwen Team)',url:'https://qwenlm.github.io/',lic:'Apache 2.0'},'deepseek':{dev:'DeepSeek AI',url:'https://www.deepseek.com/',lic:'MIT'},'deepseek-v3':{dev:'DeepSeek AI',url:'https://www.deepseek.com/',lic:'DeepSeek License'},'deepseek-r1':{dev:'DeepSeek AI',url:'https://www.deepseek.com/',lic:'MIT'},'deepseek-coder':{dev:'DeepSeek AI',url:'https://www.deepseek.com/',lic:'MIT'},'deepcoder':{dev:'DeepSeek AI',url:'https://www.deepseek.com/',lic:'MIT'},'deepscaler':{dev:'Agentica',url:'https://github.com/agentica-org/',lic:'MIT'},'gemma':{dev:'Google DeepMind',url:'https://deepmind.google/',lic:'Gemma License'},'zaya':{dev:'Zyphra',url:'https://www.zyphra.com/',lic:'Apache 2.0'},'phi':{dev:'Microsoft Research',url:'https://www.microsoft.com/en-us/research/',lic:'MIT'},'mistral':{dev:'Mistral AI',url:'https://mistral.ai/',lic:'Apache 2.0'},'mixtral':{dev:'Mistral AI',url:'https://mistral.ai/',lic:'Apache 2.0'},'glm':{dev:'Zhipu AI',url:'https://www.zhipuai.cn/',lic:'Apache 2.0'},'cohere':{dev:'Cohere',url:'https://cohere.com/',lic:'CC-BY-NC'},'aya':{dev:'Cohere for AI',url:'https://cohere.com/',lic:'Apache 2.0'},'llava':{dev:'LLaVA Team',url:'https://llava-vl.github.io/',lic:'Apache 2.0'},'moondream':{dev:'Vikhyat Korrapati',url:'https://moondream.ai/',lic:'Apache 2.0'},'falcon':{dev:'Technology Innovation Institute',url:'https://falconllm.tii.ae/',lic:'Apache 2.0'},'yi':{dev:'01.AI',url:'https://01.ai/',lic:'Apache 2.0'},'dolphin':{dev:'Cognitive Computations',url:'https://erichartford.com/',lic:'Apache 2.0'},'olmo':{dev:'Allen Institute for AI',url:'https://allenai.org/',lic:'Apache 2.0'},'tulu':{dev:'Allen Institute for AI',url:'https://allenai.org/',lic:'Apache 2.0'},'granite':{dev:'IBM Research',url:'https://www.ibm.com/granite',lic:'Apache 2.0'},'exaone':{dev:'LG AI Research',url:'https://www.lgresearch.ai/',lic:'EXAONE License'},'cogito':{dev:'Deep Cogito',url:'https://www.deepcogito.com/',lic:'Apache 2.0'},'trinity':{dev:'Arcee AI',url:'https://www.arcee.ai/',lic:'Apache 2.0'},'kimi':{dev:'Moonshot AI',url:'https://www.moonshot.cn/',lic:'Model License'},'minimax':{dev:'MiniMax',url:'https://www.minimaxi.com/',lic:'Apache 2.0'},'nemotron':{dev:'NVIDIA',url:'https://www.nvidia.com/',lic:'NVIDIA License'},'starcoder':{dev:'BigCode (ServiceNow + HuggingFace)',url:'https://huggingface.co/bigcode',lic:'BigCode OpenRAIL-M'},'codegeex':{dev:'THUDM / Zhipu AI',url:'https://codegeex.cn/',lic:'Apache 2.0'},'internlm':{dev:'Shanghai AI Lab',url:'https://internlm.intern-ai.org.cn/',lic:'Apache 2.0'},'hermes':{dev:'Nous Research',url:'https://nousresearch.com/',lic:'Apache 2.0'},'solar':{dev:'Upstage AI',url:'https://www.upstage.ai/',lic:'Apache 2.0'},'dbrx':{dev:'Databricks',url:'https://www.databricks.com/',lic:'Databricks Open Model License'},'athene':{dev:'Nexusflow',url:'https://nexusflow.ai/',lic:'Apache 2.0'},'openchat':{dev:'OpenChat Team',url:'https://openchat.team/',lic:'Apache 2.0'},'zephyr':{dev:'HuggingFace',url:'https://huggingface.co/',lic:'MIT'},'step':{dev:'StepFun',url:'https://www.stepfun.com/',lic:'Apache 2.0'},'wizardlm':{dev:'Microsoft AI',url:'https://www.microsoft.com/en-us/research/',lic:'Apache 2.0'},'minicpm':{dev:'OpenBMB (Tsinghua)',url:'https://github.com/OpenBMB/',lic:'Apache 2.0'},'reader-lm':{dev:'Jina AI',url:'https://jina.ai/',lic:'Apache 2.0'},'sailor':{dev:'Sea AI Lab',url:'https://sail.sea.com/',lic:'Apache 2.0'},'bespoke':{dev:'Bespoke Labs',url:'https://www.bespokelabs.ai/',lic:'Apache 2.0'},'sqlcoder':{dev:'Defog AI',url:'https://defog.ai/',lic:'Apache 2.0'},'nuextract':{dev:'NuMind',url:'https://numind.ai/',lic:'MIT'},'smallthinker':{dev:'PowerInfer',url:'https://github.com/SJTU-IPADS/PowerInfer',lic:'Apache 2.0'},'r1-1776':{dev:'Perplexity AI',url:'https://www.perplexity.ai/',lic:'MIT'},'marco':{dev:'Alibaba DAMO',url:'https://damo.alibaba.com/',lic:'Apache 2.0'},'openthinker':{dev:'Open Thoughts',url:'https://github.com/open-thoughts/',lic:'Apache 2.0'},'opencoder':{dev:'Infly AI',url:'https://infly.cn/',lic:'Apache 2.0'},'tinyllama':{dev:'Zhang Peiyuan',url:'https://github.com/jzhang38/TinyLlama',lic:'Apache 2.0'},'smollm':{dev:'HuggingFace',url:'https://huggingface.co/',lic:'Apache 2.0'}};var info=null;for(var k in familyMap){if(model.family.toLowerCase().indexOf(k)!==-1){info=familyMap[k];break;}}if(!info)info={dev:'Open Source Community',url:'',lic:'Various'};var paramNum=parseFloat(model.params)||7;var ctx=paramNum>=30?131072:(paramNum>=7?32768:8192);if(model.released>='2025-01')ctx=Math.max(ctx,131072);return{developer:info.dev,developer_url:info.url,context_window:ctx,license:info.lic,architecture:'Transformer (decoder-only)',training_data:'Web, code, and curated datasets',languages:['English'],strengths:generateStrengths(model),weaknesses:generateWeaknesses(model),use_cases:generateUseCases(model),similar_models:[]};}
+function generateStrengths(m){var s=[];if(m.benchmarks.speed>=8)s.push('Very fast inference');if(m.benchmarks.quality>=8)s.push('High output quality');if(m.benchmarks.coding>=8)s.push('Excellent coding abilities');if(m.benchmarks.reasoning>=8)s.push('Strong reasoning capabilities');if(m.min_ram<=8)s.push('Low RAM requirement — runs on most hardware');if(m.tags.indexOf('vision')!==-1)s.push('Multimodal vision support');if(m.released>='2025-06')s.push('Recently released — latest architecture');if(s.length===0)s.push('Solid general-purpose model','Good community support');return s;}
+function generateWeaknesses(m){var w=[];if(m.benchmarks.speed<=3)w.push('Slow inference — requires powerful hardware');if(m.benchmarks.quality<=4)w.push('Limited output quality');if(m.min_ram>=48)w.push('Very high RAM requirement');if(m.benchmarks.coding<=4)w.push('Not suited for coding tasks');if(w.length===0)w.push('May be surpassed by newer models');return w;}
+function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('General chat assistant');if(m.tags.indexOf('code')!==-1)u.push('Code generation and review');if(m.tags.indexOf('reasoning')!==-1)u.push('Complex reasoning and analysis');if(m.tags.indexOf('vision')!==-1)u.push('Image understanding and description');if(m.tags.indexOf('general')!==-1)u.push('Multi-purpose AI assistant');if(m.tags.indexOf('math')!==-1)u.push('Mathematical problem solving');if(u.length===0)u.push('General AI tasks');return u;}
+
+    // === Helpers ===
+    function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+    function fmtN(n){if(!n&&n!==0)return '—';if(n>=1000000)return (n/1000000).toFixed(1)+'M';if(n>=1000)return Math.round(n/1000)+'K';return String(n);}
+    function fmtSize(gb){if(!gb)return '—';return gb<1?Math.round(gb*1000)+' MB':gb+' GB';}
+    function fmtCtx(n){if(!n)return 'Unknown';if(n>=1000000)return (n/1000000).toFixed(1)+'M';if(n>=1000)return (n/1000)+'K';return String(n);}
+
+    var FCOL={'llama':'#3B82F6','qwen':'#A855F7','deepseek':'#10B981','gemma':'#F59E0B','zaya':'#FF6D64','phi':'#06B6D4','mistral':'#EF4444','glm':'#EC4899','cohere':'#F97316','llava':'#14B8A6','moondream':'#8B5CF6','gpt-oss':'#22C55E','falcon':'#6366F1','yi':'#D946EF','dolphin':'#2DD4BF','granite':'#94A3B8','cogito':'#F472B6','exaone':'#A3E635','tinyllama':'#FB923C','smollm':'#38BDF8','olmo':'#4ADE80','wizardlm':'#E879F9','minicpm':'#FB7185','starcoder':'#FDE047','coder':'#818CF8'};
+    function fcol(f){f=(f||'').toLowerCase();for(var k in FCOL){if(f.indexOf(k)!==-1)return FCOL[k];}return '#6B7280';}
+    var BCOL={speed:'#10B981',quality:'#A855F7',coding:'#3B82F6',reasoning:'#F59E0B'};
+    var TEMOJI={'chat':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>','code':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','reasoning':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>','vision':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>','speed':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','quality':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg>','general':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>','light':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg>','power':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','standard':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 7l4.5 2.5L12 7l4.5 2.5L21 7"/></svg>','math':'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h6"/></svg>'};
+
+    // === Init ===
+    var params=new URLSearchParams(window.location.search);
+    var modelId=params.get('model');
+    var app=document.getElementById('app');
+
+    if(!modelId||typeof APP_DATA==='undefined'||!APP_DATA.models){
+        show404(); initParticles(); return;
+    }
+
+    var model=null,modelIdx=-1;
+    for(var i=0;i<APP_DATA.models.length;i++){
+        if(APP_DATA.models[i].id===modelId){model=APP_DATA.models[i];modelIdx=i;break;}
+    }
+    if(!model){show404();initParticles();return;}
+
+    var details=(typeof MODEL_DETAILS!=='undefined'&&MODEL_DETAILS[modelId])?MODEL_DETAILS[modelId]:generateDefaultDetails(model);
+
+    document.title=model.name+' — Full Details | LocalClaw';
+    var metaDesc=document.querySelector('meta[name="description"]');
+    if(metaDesc) metaDesc.content=model.name+' — '+model.description+' Benchmarks, specs, quantization guide, download links.';
+
+    // === SEO: allow indexing only when a real model is loaded, with a unique canonical per model ===
+    try {
+        var robotsMeta=document.getElementById('robots-meta');
+        if(robotsMeta) robotsMeta.setAttribute('content','index, follow, max-snippet:-1, max-image-preview:large');
+        var canonical=document.getElementById('canonical-link');
+        if(canonical) canonical.setAttribute('href','https://localclaw.io/llm-detail.html?model='+encodeURIComponent(modelId));
+        // Update OG URL too
+        var ogUrl=document.querySelector('meta[property="og:url"]');
+        if(ogUrl) ogUrl.setAttribute('content','https://localclaw.io/llm-detail.html?model='+encodeURIComponent(modelId));
+        var ogTitle=document.querySelector('meta[property="og:title"]');
+        if(ogTitle) ogTitle.setAttribute('content',model.name+' — Full Details | LocalClaw');
+        var ogDesc=document.querySelector('meta[property="og:description"]');
+        if(ogDesc && model.description) ogDesc.setAttribute('content',model.name+' — '+model.description);
+    } catch(e) {}
+
+    buildPage();
+    initParticles();
+
+    // === Build ===
+    // Smart back navigation: uses history.back() if coming from llm-list.html
+    function smartBack(e){
+        var ref = document.referrer;
+        if (ref && ref.includes('llm-list.html')) {
+            e.preventDefault();
+            history.back();
+            return false;
+        }
+        return true;
+    }
+
+    function buildPage(){
+        var col=fcol(model.family);
+        var hfUrl='https://huggingface.co/'+(model.hf_repo||'');
+        var lmsUrl='lmstudio://open?search='+encodeURIComponent(model.search_term||model.name);
+        var overall=((model.benchmarks.speed+model.benchmarks.quality+model.benchmarks.coding+model.benchmarks.reasoning)/4).toFixed(1);
+        var h='';
+
+        // ---- HERO ----
+        h+='<div class="hero fade-up">';
+        h+='<a href="llm-list.html" id="back-link" class="back-link" onclick="return smartBack(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>← Back to LLM</span></a>';
+        h+='<div class="breadcrumb"><a href="index.html"><svg class="lc-icon lc-icon-sm" style="color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg> LocalClaw</a><span style="color:var(--border2);">›</span><a href="llm-list.html">LLM</a><span style="color:var(--border2);">›</span><span style="color:#fff;">'+esc(model.name)+'</span></div>';
+        h+='<div class="hero-top">';
+        h+='<div class="hero-info">';
+        h+='<div class="hero-fam"><span class="hero-fam-dot" style="background:'+col+'"></span><span class="hero-fam-name" style="color:'+col+'">'+esc(model.family)+'</span>';
+        if(model.released&&model.released>='2025-06') h+='<span style="padding:2px 8px;border-radius:6px;background:rgba(52,211,153,.1);color:var(--green);font-size:10px;font-weight:700;margin-left:4px;">NEW</span>';
+        h+='</div>';
+        h+='<h1 class="hero-name fd">'+esc(model.name)+'</h1>';
+        h+='<p class="hero-desc">'+esc(model.description)+'</p>';
+        h+='</div>';
+        h+='<div class="hero-actions">';
+        h+='<a href="'+esc(hfUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9l-1 1 1 1"/><path d="M15 9l1 1-1 1"/></svg> HuggingFace</a>';
+        h+='<a href="'+esc(lmsUrl)+'" class="btn btn-primary">⬇ Open in LM Studio</a>';
+        h+='</div></div>';
+
+        // Tags
+        h+='<div class="tags-row">';
+        for(var t=0;t<model.tags.length;t++) h+='<span class="tag-pill">'+(TEMOJI[model.tags[t]]||'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>')+' '+esc(model.tags[t])+'</span>';
+        h+='<span class="tag-pill special fm">'+esc(model.params)+'</span>';
+        h+='<span class="tag-pill green fm">'+fmtCtx(details.context_window)+' ctx</span>';
+        if(details.license) h+='<span class="tag-pill" style="background:rgba(96,165,250,.06);color:var(--blue);border-color:rgba(96,165,250,.15);"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> '+esc(details.license)+'</span>';
+        h+='</div></div>';
+
+        // ---- LIVE STATS ----
+        h+='<div class="live-stats fade-up fade-up-d1"><div class="live-stats-inner">';
+        h+='<div class="live-stat" id="stat-downloads"><span class="live-stat-icon">⬇️</span> Downloads: <span id="hf-downloads" class="live-stat-val"><span class="loading-dot"></span></span></div>';
+        h+='<div class="live-stat" id="stat-likes"><span class="live-stat-icon">❤️</span> Likes: <span id="hf-likes" class="live-stat-val"><span class="loading-dot"></span></span></div>';
+        h+='<div class="live-stat" id="stat-updated"><span class="live-stat-icon"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> Last Updated: <span id="hf-updated" class="live-stat-val"><span class="loading-dot"></span></span></div>';
+        h+='<div class="live-stat" id="stat-tags-hf"><span class="live-stat-icon"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span> Pipeline: <span id="hf-pipeline" class="live-stat-val"><span class="loading-dot"></span></span></div>';
+        h+='</div></div>';
+
+        // ---- MAIN GRID ----
+        h+='<div class="main-grid">';
+
+        // Radar + Bars
+        h+='<div class="card fade-up fade-up-d1">';
+        h+='<div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Performance Benchmarks</div>';
+        h+='<div class="radar-wrap"><canvas id="radar-chart" width="340" height="340"></canvas></div>';
+        h+='<div class="radar-score"><div class="radar-score-num fd">'+overall+'<span style="font-size:1rem;color:var(--muted);"> / 10</span></div><div class="radar-score-label">Overall Score</div></div>';
+        h+='<div class="bench-bars">';
+        var bkeys=[['speed','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed',BCOL.speed],['quality','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality',BCOL.quality],['coding','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding',BCOL.coding],['reasoning','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning',BCOL.reasoning]];
+        for(var b=0;b<bkeys.length;b++){
+            var bv=model.benchmarks[bkeys[b][0]];
+            h+='<div class="bench-row"><span class="bench-label">'+bkeys[b][1]+'</span><div class="bench-track"><div class="bench-fill" data-w="'+(bv*10)+'%" style="background:'+bkeys[b][2]+';"></div></div><span class="bench-val" style="color:'+bkeys[b][2]+';">'+bv+'/10</span></div>';
+        }
+        h+='</div></div>';
+
+        // Specs
+        h+='<div class="card fade-up fade-up-d2">';
+        h+='<div class="card-title">⚙️ Technical Specifications</div>';
+        h+='<div class="spec-grid">';
+        h+=specItem('Developer',details.developer_url?'<a href="'+esc(details.developer_url)+'" target="_blank" rel="noopener">'+esc(details.developer||'Unknown')+'</a>':esc(details.developer||'Unknown'));
+        h+=specItem('Parameters',esc(model.params));
+        h+=specItem('Context Window',fmtCtx(details.context_window)+' tokens');
+        h+=specItem('Model Size (GGUF)',fmtSize(model.size_gb));
+        h+=specItem('Min RAM',model.min_ram+' GB');
+        h+=specItem('Rec. Quant','<span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'Q4_K_M')+'</span>');
+        h+=specItem('Architecture',esc(details.architecture||'Transformer'));
+        h+=specItem('Released',esc(model.released||'Unknown'));
+        h+='</div>';
+        if(details.training_data){
+            h+='<div style="margin-top:14px;padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.2);">';
+            h+='<div class="spec-label">Training Data</div>';
+            h+='<div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;">'+esc(details.training_data)+'</div></div>';
+        }
+        if(details.languages&&details.languages.length>0){
+            h+='<div style="margin-top:12px;"><div class="spec-label" style="margin-bottom:6px;">Languages</div><div style="display:flex;flex-wrap:wrap;gap:4px;">';
+            for(var l=0;l<details.languages.length;l++) h+='<span style="padding:3px 10px;border-radius:6px;background:rgba(59,130,246,.06);color:var(--blue);font-size:10px;font-weight:500;border:1px solid rgba(59,130,246,.1);">'+esc(details.languages[l])+'</span>';
+            h+='</div></div>';
+        }
+        h+='</div>';
+
+        // Strengths
+        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Strengths</div><ul class="list-items">';
+        var strs=details.strengths||['Solid general-purpose model'];
+        for(var s=0;s<strs.length;s++) h+='<li><span class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg></span>'+esc(strs[s])+'</li>';
+        h+='</ul></div>';
+
+        // Weaknesses
+        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Weaknesses</div><ul class="list-items">';
+        var wks=details.weaknesses||['May be surpassed by newer models'];
+        for(var w=0;w<wks.length;w++) h+='<li><span class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg></span>'+esc(wks[w])+'</li>';
+        h+='</ul></div>';
+
+        // Use Cases
+        h+='<div class="card fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Best Use Cases</div><ul class="list-items">';
+        var ucs=details.use_cases||['General AI tasks'];
+        for(var u=0;u<ucs.length;u++) h+='<li><span class="list-icon">→</span>'+esc(ucs[u])+'</li>';
+        h+='</ul></div>';
+
+        // RAM Guide + Amazon Hardware
+        h+='<div class="card fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> Hardware Requirements</div>';
+        h+=ramGuide(model);
+        h+='</div>';
+
+        // Quantization (full-width)
+        h+='<div class="card card-full fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Quantization & Download Sizes</div>';
+        var quants=[{name:'Q3_K_M',mult:.375,col:'#F87171',quality:'~75%'},{name:'Q4_K_M',mult:.5,col:'#FACC15',quality:'~90%'},{name:'Q5_K_M',mult:.625,col:'#34D399',quality:'~95%'},{name:'Q6_K',mult:.75,col:'#60A5FA',quality:'~98%'},{name:'Q8_0',mult:1,col:'#A855F7',quality:'~100%'}];
+        for(var q=0;q<quants.length;q++){
+            var qt=quants[q],sz=(model.size_gb*qt.mult).toFixed(1);
+            var isRec=(model.recommended_quant||'')==qt.name;
+            h+='<div class="quant-row"><span class="quant-name fm">'+qt.name+'</span><div class="quant-track"><div class="quant-fill" style="width:'+(qt.mult*100)+'%;background:'+qt.col+';"></div></div><span class="quant-qual" style="color:'+qt.col+';">'+qt.quality+'</span><span class="quant-size fm">~'+sz+' GB</span>';
+            if(isRec) h+='<span class="quant-rec">★ REC</span>'; else h+='<span style="width:42px;"></span>';
+            h+='</div>';
+        }
+        h+='<div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> <strong>Tip:</strong> Search for <span class="fm" style="color:#fff;">'+esc(model.search_term||model.name)+'</span> in LM Studio, then pick <span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'Q4_K_M')+'</span> for the best balance.</div></div>';
+
+        // Links
+        h+='<div class="card fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Links & Resources</div>';
+        h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>','HuggingFace Model Page',hfUrl,'rgba(255,200,50,.1)');
+        h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>','Open in LM Studio',lmsUrl,'rgba(255,69,58,.1)');
+        if(details.official_blog) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>','Official Blog / Announcement',details.official_blog,'rgba(59,130,246,.1)');
+        if(details.paper_url) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>','Research Paper (arXiv)',details.paper_url,'rgba(168,85,247,.1)');
+        if(details.developer_url) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="22" x2="9" y2="2"/><line x1="15" y1="22" x2="15" y2="2"/></svg>','Developer Website',details.developer_url,'rgba(16,185,129,.1)');
+        h+='</div>';
+
+        // Similar Models
+        var simModels=details.similar_models||[];
+        h+='<div class="card fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Similar Models</div>';
+        if(simModels.length>0){
+            h+='<div class="similar-grid">';
+            for(var sm=0;sm<simModels.length;sm++){var simId=simModels[sm];var simM=findModel(simId);if(simM){var sc=fcol(simM.family);h+='<a href="llm-detail.html?model='+esc(simId)+'" class="similar-chip"><span style="width:8px;height:8px;border-radius:50%;background:'+sc+';flex-shrink:0;"></span>'+esc(simM.name)+' <span class="fm" style="font-size:10px;opacity:.6;">'+esc(simM.params)+'</span></a>';}}
+            h+='</div>';
+        } else { h+='<p style="font-size:13px;color:var(--muted);">Explore the <a href="llm-list.html" style="color:var(--primary);">full LLM list</a> to compare models.</p>'; }
+        h+='</div>';
+
+        // Fun fact
+        if(details.fun_fact){
+            h+='<div class="card card-full fun-fact fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Fun Fact</div>';
+            h+='<p style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;">'+esc(details.fun_fact)+'</p></div>';
+        }
+
+        h+='</div>'; // end main-grid
+
+        // Prev/Next
+        h+='<div class="model-nav">';
+        if(modelIdx>0){var prev=APP_DATA.models[modelIdx-1];h+='<a href="llm-detail.html?model='+esc(prev.id)+'">← '+esc(prev.name)+'</a>';}
+        h+='<a href="llm-list.html" style="color:var(--primary);border-color:rgba(255,69,58,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> All Models</a>';
+        if(modelIdx<APP_DATA.models.length-1){var next=APP_DATA.models[modelIdx+1];h+='<a href="llm-detail.html?model='+esc(next.id)+'">'+esc(next.name)+' →</a>';}
+        h+='</div>';
+
+        app.innerHTML=h;
+
+        // Animate bars
+        setTimeout(function(){var fills=document.querySelectorAll('.bench-fill[data-w]');for(var i=0;i<fills.length;i++) fills[i].style.width=fills[i].getAttribute('data-w');},100);
+
+        // Radar chart — load Chart.js dynamically then render
+        function tryRadar(){if(typeof Chart!=='undefined'){initRadarChart();}else{setTimeout(tryRadar,150);}}
+        var cs=document.createElement('script');cs.src='https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js';cs.async=true;document.head.appendChild(cs);
+        setTimeout(tryRadar,50);
+
+        // HuggingFace live data
+        fetchHuggingFaceData();
+    }
+
+    // === Radar Chart ===
+    function initRadarChart(){
+        var canvas=document.getElementById('radar-chart');if(!canvas)return;
+        var isLight=document.documentElement.classList.contains('light');
+        var gridCol    = isLight ? 'rgba(0,0,0,0.08)'  : 'rgba(255,255,255,.06)';
+        var tickCol    = isLight ? 'rgba(0,0,0,0.35)'  : 'rgba(255,255,255,.3)';
+        var labelCol   = isLight ? 'rgba(15,23,42,.75)' : 'rgba(255,255,255,.7)';
+        var ptBorder   = isLight ? '#ffffff'            : '#fff';
+        new Chart(canvas,{type:'radar',data:{labels:['Speed','Quality','Coding','Reasoning'],datasets:[{data:[model.benchmarks.speed,model.benchmarks.quality,model.benchmarks.coding,model.benchmarks.reasoning],backgroundColor:'rgba(255,69,58,.12)',borderColor:'rgba(255,69,58,.8)',borderWidth:2,pointBackgroundColor:['#10B981','#A855F7','#3B82F6','#F59E0B'],pointBorderColor:ptBorder,pointBorderWidth:1,pointRadius:5,pointHoverRadius:7}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{r:{min:0,max:10,ticks:{stepSize:2,color:tickCol,backdropColor:'transparent',font:{size:10}},grid:{color:gridCol},angleLines:{color:gridCol},pointLabels:{color:labelCol,font:{size:12,weight:'600'}}}}}});
+    }
+
+    // === HuggingFace API ===
+    function fetchHuggingFaceData(){
+        if(!model.hf_repo) return setHfError();
+        fetch('https://huggingface.co/api/models/'+model.hf_repo).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(data){
+            var dlEl=document.getElementById('hf-downloads');if(dlEl) dlEl.textContent=fmtN(data.downloads||data.downloadsAllTime||0);var dlStat=document.getElementById('stat-downloads');if(dlStat) dlStat.classList.add('loaded');
+            var likeEl=document.getElementById('hf-likes');if(likeEl) likeEl.textContent=fmtN(data.likes||0);var likeStat=document.getElementById('stat-likes');if(likeStat) likeStat.classList.add('loaded');
+            var updEl=document.getElementById('hf-updated');if(updEl&&data.lastModified){var d=new Date(data.lastModified);updEl.textContent=d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}else if(updEl){updEl.textContent='—';}var updStat=document.getElementById('stat-updated');if(updStat) updStat.classList.add('loaded');
+            var pipeEl=document.getElementById('hf-pipeline');if(pipeEl) pipeEl.textContent=data.pipeline_tag||data.library_name||'—';var pipeStat=document.getElementById('stat-tags-hf');if(pipeStat) pipeStat.classList.add('loaded');
+        }).catch(function(){setHfError();});
+    }
+    function setHfError(){var ids=['hf-downloads','hf-likes','hf-updated','hf-pipeline'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el) el.innerHTML='<span style="color:var(--muted);font-weight:400;font-size:11px;">unavailable</span>';}}
+
+    // === UI Helpers ===
+    function specItem(label,value){return '<div class="spec-item"><div class="spec-label">'+label+'</div><div class="spec-val">'+value+'</div></div>';}
+    function linkRow(icon,label,url,bg){return '<a href="'+esc(url)+'" target="_blank" rel="noopener" class="link-row"><div class="link-icon" style="background:'+bg+';">'+icon+'</div><span>'+esc(label)+'</span><span class="link-arrow">↗</span></a>';}
+    function findModel(id){for(var i=0;i<APP_DATA.models.length;i++){if(APP_DATA.models[i].id===id)return APP_DATA.models[i];}return null;}
+
+    // === Amazon Affiliate ===
+    var AMZ_TAG='localclaw-20';
+    function amzLink(asin){return 'https://www.amazon.com/dp/'+asin+'?tag='+AMZ_TAG;}
+    var AMZ_PRODUCTS={
+        mac_mini_16:{name:'Apple Mac Mini M4 16GB',asin:'B0DLBTPDCS',price:'from $499'},
+        mac_mini_24:{name:'Apple Mac Mini M4 Pro 24GB',asin:'B0DNRFSYLF',price:'from $1,399'},
+        mac_mini_48:{name:'Mac Mini M4 Pro 48GB',asin:'B0DS2XP86K',price:'from $1,799'},
+        mac_studio_64:{name:'Mac Studio M4 Max 64GB',asin:null,price:'from $3,199',appleUrl:'https://www.apple.com/mac-studio/'},
+        mac_studio_128:{name:'Mac Studio M4 Ultra 128GB',asin:null,price:'from $5,999',appleUrl:'https://www.apple.com/mac-studio/'},
+        rtx_4060ti:{name:'NVIDIA RTX 4060 Ti 16GB',asin:'B0CBK7H19M',price:'from $399'},
+        rtx_4090:{name:'NVIDIA RTX 4090 24GB',asin:'B0BSVMLVTD',price:'from $1,599'},
+        beelink_16:{name:'Beelink Mini PC 16GB',asin:'B08XBVXNFP',price:'from $199'},
+    };
+
+    function ramGuide(m){
+        var h='<div style="display:flex;flex-direction:column;gap:10px;">';
+        // Dynamic max RAM scale for extreme models (llama4-maverick: 320GB, deepseek-v3.1: 512GB)
+        var maxRam=m.min_ram>128?Math.ceil(m.min_ram/128)*128:128;
+        var pct=Math.min((m.min_ram/maxRam)*100,100);
+        var ramCol=m.min_ram<=8?'#10B981':m.min_ram<=16?'#FACC15':m.min_ram<=32?'#F97316':'#EF4444';
+        h+='<div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--muted);">Minimum RAM</span><span class="fm" style="font-size:13px;font-weight:700;color:'+ramCol+';">'+m.min_ram+' GB</span></div>';
+        h+='<div style="height:10px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+ramCol+';border-radius:5px;"></div></div></div>';
+        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">';
+        var tiers=[{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M18.71 19.5c-.83 1.24-2.81 2.5-6.71 2.5S5.12 20.74 4.29 19.5C3.4 18.17 3 16.2 3 14.5c0-2 .68-3.9 1.89-5.82A20.94 20.94 0 018.5 4.06c.45-.27.75-.75.85-1.28L10 .5h4l.65 2.28c.1.53.4 1.01.85 1.28a20.94 20.94 0 013.61 4.62C20.32 10.6 21 12.5 21 14.5c0 1.7-.4 3.67-1.29 5z"/></svg>',label:'Apple Silicon',desc:m.min_ram<=8?'M1/M2 — Runs great':m.min_ram<=16?'M1 Pro/Max':'M2 Ultra / M4 Max'},{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>',label:'NVIDIA GPU',desc:m.min_ram<=8?'RTX 3060+ (8GB)':m.min_ram<=16?'RTX 3090/4070+ (12-16GB)':m.min_ram<=48?'RTX 4090 (24GB)':'A100/H100'},{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>',label:'Model Size',desc:fmtSize(m.size_gb)+' (Q4_K_M)'},{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',label:'Disk Space',desc:'~'+(m.size_gb*1.2).toFixed(1)+' GB recommended'}];
+        for(var t=0;t<tiers.length;t++){h+='<div style="padding:10px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.15);"><div style="font-size:12px;margin-bottom:4px;">'+tiers[t].icon+' <strong>'+tiers[t].label+'</strong></div><div style="font-size:11px;color:var(--muted);">'+tiers[t].desc+'</div></div>';}
+        h+='</div>';
+        // Amazon Affiliate Hardware
+        if(m.min_ram>=8){
+            h+='<div class="amz-section"><div class="amz-title">🛒 Shop Compatible Hardware</div>';
+            var products=getHardwareProducts(m.min_ram);
+            for(var p=0;p<products.length;p++){var pr=products[p];var linkUrl=pr.asin?amzLink(pr.asin):(pr.appleUrl||'#'),linkText=pr.asin?'View on Amazon →':'View on Apple.com →',linkClass=pr.asin?'amz-btn':'amz-btn apple-btn';h+='<a href="'+linkUrl+'" target="_blank" rel="noopener'+(pr.asin?' sponsored':'')+'" class="amz-card"><span class="amz-badge '+pr.badge+'">'+pr.badgeText+'</span><div class="amz-info"><div class="amz-name">'+esc(pr.name)+'</div><div class="amz-price">'+esc(pr.price)+'</div></div><span class="'+linkClass+'">'+linkText+'</span></a>';}
+            h+='<div class="amz-disclaimer">As an Amazon Associate, LocalClaw earns from qualifying purchases. Mac Studio links redirect to Apple Store (no affiliate).</div></div>';
+        }
+        h+='</div>';
+        return h;
+    }
+
+    function getHardwareProducts(minRam){
+        var P=AMZ_PRODUCTS,items=[];
+        // Safety check: ensure AMZ_PRODUCTS is defined
+        if(!P){console.error('[LocalClaw] AMZ_PRODUCTS not defined');return items;}
+        
+        // Handle extreme RAM requirements (320GB+ for models like llama4-maverick, deepseek-v3.1)
+        if(minRam>=200){
+            // Server-grade requirements - no consumer hardware available
+            items.push({name:'Mac Studio M4 Ultra 128GB',asin:null,price:'from $5,999',badge:'best',badgeText:'MAX AVAILABLE',appleUrl:'https://www.apple.com/mac-studio/'});
+            items.push({name:'Mac Studio M4 Max 64GB',asin:null,price:'from $3,199',badge:'alt',badgeText:'PARTIAL',appleUrl:'https://www.apple.com/mac-studio/'});
+
+        }
+        else if(minRam>=96){
+            if(P.mac_studio_128) items.push({name:P.mac_studio_128.name,asin:P.mac_studio_128.asin,price:P.mac_studio_128.price,badge:'best',badgeText:'BEST OPTION',appleUrl:P.mac_studio_128.appleUrl});
+            if(P.mac_studio_64) items.push({name:P.mac_studio_64.name,asin:P.mac_studio_64.asin,price:P.mac_studio_64.price,badge:'budget',badgeText:'ALTERNATIVE',appleUrl:P.mac_studio_64.appleUrl});
+        }
+        else if(minRam>=48){
+            if(P.mac_mini_48) items.push({name:P.mac_mini_48.name,asin:P.mac_mini_48.asin,price:P.mac_mini_48.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.mac_studio_64) items.push({name:P.mac_studio_64.name,asin:P.mac_studio_64.asin,price:P.mac_studio_64.price,badge:'best',badgeText:'PREMIUM'});
+            if(P.rtx_4090) items.push({name:P.rtx_4090.name,asin:P.rtx_4090.asin,price:P.rtx_4090.price,badge:'gpu',badgeText:'BEST GPU'});
+        }
+        else if(minRam>=24){
+            if(P.mac_mini_24) items.push({name:P.mac_mini_24.name,asin:P.mac_mini_24.asin,price:P.mac_mini_24.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+
+            if(P.rtx_4060ti) items.push({name:P.rtx_4060ti.name,asin:P.rtx_4060ti.asin,price:P.rtx_4060ti.price,badge:'gpu',badgeText:'BEST GPU'});
+        }
+        else if(minRam>=16){
+            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+
+            if(P.rtx_4060ti) items.push({name:P.rtx_4060ti.name,asin:P.rtx_4060ti.asin,price:P.rtx_4060ti.price,badge:'gpu',badgeText:'BEST GPU'});
+        }
+        else{
+            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.beelink_16) items.push({name:P.beelink_16.name,asin:P.beelink_16.asin,price:P.beelink_16.price,badge:'pc',badgeText:'BUDGET PC'});
+
+        }
+        return items;
+    }
+
+    function show404(){app.innerHTML='<div class="not-found"><div style="width:72px;height:72px;margin:0 auto;"><img src="images/crab-logo.png" alt="LocalClaw" width="72" height="72" style="opacity:0.6;"></div><h2 class="fd">Model Not Found</h2><p>The model you\'re looking for doesn\'t exist in our database.</p><a href="llm-list.html" class="btn btn-primary" style="display:inline-flex;margin-top:20px;">← Browse All Models</a></div>';}
+
+    // === Particles ===
+    function initParticles(){
+        var c=document.getElementById('particles-canvas');if(!c)return;
+        var ctx=c.getContext('2d'),ps=[],N=window.innerWidth<640?12:30,MD=120;
+        function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+        resize();window.addEventListener('resize',resize);
+        for(var i=0;i<N;i++) ps.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,red:Math.random()>.7});
+        (function anim(){
+            ctx.clearRect(0,0,c.width,c.height);
+            for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.red?'rgba(255,69,58,.5)':'rgba(255,255,255,.3)';ctx.fill();}
+            for(var i=0;i<ps.length;i++)for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<MD){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle='rgba(255,69,58,'+(0.08*(1-d/MD))+')';ctx.lineWidth=.5;ctx.stroke();}}
+            requestAnimationFrame(anim);
+        })();
+    }
+    })(); } // end if(!window._lcNoModel)
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            const scrollThreshold = 300;
+            
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            toggleScrollButton();
+        })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

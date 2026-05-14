@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Qwen 3.6-27B Deep Dive: Alibaba's Dense Flagship with Hybrid Thinking | LocalClaw</title>
+    <meta name="description" content="Complete guide to Qwen 3.6-27B: Alibaba's 27B dense flagship with hybrid thinking mode, 128K context, and Apache 2.0 license. Benchmarks, hardware requirements, and how to run it locally. Updated April 2026.">
+    <meta name="keywords" content="Qwen 3.6 27B, Qwen3.6-27B, Alibaba AI, hybrid thinking, local LLM, 27B model, LM Studio, open source LLM 2026, chain of thought, reasoning model, RTX 4090, Mac Studio">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/qwen3-6-27b-deep-dive.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/qwen3-6-27b-deep-dive.html">
+    <meta property="og:title" content="Qwen 3.6-27B Deep Dive: Alibaba's Dense Flagship with Hybrid Thinking">
+    <meta property="og:description" content="Everything you need to know about Qwen 3.6-27B: hybrid thinking, hardware requirements, benchmarks, vs Qwen 3.5-27B, and how to run it locally today.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="article:published_time" content="2026-04-23">
+    <meta property="article:section" content="Model Reviews">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Qwen 3.6-27B Deep Dive: 27B Dense Flagship with Hybrid Thinking">
+    <meta name="twitter:description" content="Complete guide: hardware, benchmarks, and tips to run Qwen 3.6-27B locally with LM Studio.">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/theme-toggle.js"></script>
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        /* ============================================================
+           BASE (DARK MODE)
+        ============================================================ */
+        body { background: #050505; color: #FFFFFF; }
+
+        /* Reading progress bar */
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, #FF453A, #a855f7);
+            z-index: 9999; transition: width 0.15s linear;
+        }
+        html.light #reading-progress { background: linear-gradient(90deg, #dc2626, #7c3aed); }
+
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #e5e7eb; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: decimal; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.4rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e2e8f0; }
+
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .new-badge-inline { background: linear-gradient(135deg, #a855f7, #f97316); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 8px; border-radius: 20px; display: inline-block; vertical-align: middle; }
+
+        .model-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .model-card:hover { border-color: rgba(168,85,247,0.3); }
+
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table th { background: rgba(255,255,255,0.05); padding: 12px 16px; text-align: left; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .spec-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #A1A1AA; }
+        .spec-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .bench-bar-wrap { display: flex; align-items: center; gap: 8px; }
+        .bench-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+
+        .tip-box { background: rgba(16,185,129,0.1); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #F59E0B; }
+        .upgrade-box { background: linear-gradient(145deg, rgba(168,85,247,0.1), rgba(168,85,247,0.05)); border-left: 4px solid #a855f7; }
+        .moe-diagram { background: linear-gradient(145deg, rgba(168,85,247,0.07), rgba(255,69,58,0.07)); border: 1px solid rgba(168,85,247,0.2); border-radius: 12px; }
+        .moe-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; }
+        .model-tag-neutral { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+
+        /* Theme toggle */
+        .theme-toggle-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: transparent; cursor: pointer; transition: all 0.2s ease; }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.08); }
+
+        /* ============================================================
+           LIGHT MODE
+        ============================================================ */
+        html.light body { background: linear-gradient(180deg, #faf9f6 0%, #f5f4f0 100%) !important; color: #1e293b !important; }
+        html.light nav { background: rgba(255,255,255,0.96) !important; border-bottom-color: #e5e7eb !important; box-shadow: 0 1px 4px rgba(0,0,0,0.07) !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light a.bg-claw-primary { color: #ffffff !important; }
+        html.light a.bg-claw-primary:hover { color: #ffffff !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .bg-claw-bg { background-color: #f5f4f0 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(245,244,240,0.8) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .bg-claw-surface\/50 { background-color: rgba(255,255,255,0.5) !important; }
+        html.light .border-claw-border\/50 { border-color: #e5e7eb !important; }
+        html.light .border-claw-border { border-color: #e5e7eb !important; }
+        html.light header { background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%) !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.06), rgba(255,69,58,0.02)) !important; border-left-color: #FF453A !important; border-radius: 12px; }
+        html.light .highlight-box h2, html.light .highlight-box h4 { color: #0f172a !important; }
+        html.light .highlight-box strong { color: #0f172a !important; }
+        html.light .tldr-list { color: #374151 !important; }
+        html.light .tldr-list li { color: #374151 !important; }
+        html.light .tldr-list strong { color: #0f172a !important; }
+        html.light .prose h2 { color: #0f172a !important; padding-top: 0.5rem; border-top: 1px solid #f1f5f9; margin-top: 3rem !important; }
+        html.light .prose h2:first-child { border-top: none; margin-top: 0 !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #374151 !important; }
+        html.light .prose p { color: #374151 !important; }
+        html.light .prose ul, html.light .prose ol { color: #374151 !important; }
+        html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #dc2626 !important; }
+        html.light .prose a:hover { color: #b91c1c !important; }
+        html.light .prose code { background: #fef3c7 !important; color: #92400e !important; border: 1px solid #fde68a !important; border-radius: 4px; }
+        html.light .moe-diagram { background: linear-gradient(145deg, rgba(109,40,217,0.04), rgba(194,65,12,0.04)) !important; border-color: rgba(109,40,217,0.18) !important; }
+        html.light .moe-card { background: #f8fafc !important; border: 1px solid #e5e7eb; }
+        html.light .model-card { background: #ffffff !important; border-color: #e2e8f0 !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+        html.light .model-card:hover { border-color: rgba(168,85,247,0.35) !important; }
+        html.light .model-card .text-white { color: #0f172a !important; }
+        html.light .model-card .text-claw-muted { color: #64748b !important; }
+        html.light .model-card .bg-white\/5 { background: #f8fafc !important; border: 1px solid #f1f5f9; }
+        html.light .bench-bg { background: #e2e8f0 !important; }
+        html.light .spec-table th { background: #f1f5f9 !important; color: #0f172a !important; border-bottom-color: #e2e8f0 !important; }
+        html.light .spec-table td { color: #475569 !important; border-bottom-color: #f1f5f9 !important; }
+        html.light .spec-table tr:hover td { background: rgba(0,0,0,0.015) !important; }
+        html.light .tip-box { background: linear-gradient(145deg, rgba(5,150,105,0.07), rgba(5,150,105,0.03)) !important; border-left-color: #10B981 !important; }
+        html.light .tip-box h4 { color: #064e3b !important; }
+        html.light .tip-box ul, html.light .tip-box li { color: #065f46 !important; }
+        html.light .tip-box strong { color: #064e3b !important; }
+        html.light .tip-box a { color: #059669 !important; }
+        html.light .warning-box { background: linear-gradient(145deg, rgba(217,119,6,0.07), rgba(217,119,6,0.03)) !important; border-left-color: #F59E0B !important; }
+        html.light .warning-box h4, html.light .warning-box p, html.light .warning-box strong { color: #78350f !important; }
+        html.light .upgrade-box { background: linear-gradient(145deg, rgba(109,40,217,0.06), rgba(109,40,217,0.02)) !important; border-left-color: #7c3aed !important; }
+        html.light .upgrade-box h4 { color: #4c1d95 !important; }
+        html.light .upgrade-box p, html.light .upgrade-box li { color: #5b21b6 !important; }
+        html.light .upgrade-box strong { color: #4c1d95 !important; }
+        html.light .bg-black\/40 { background: #f1f5f9 !important; border-color: #e2e8f0 !important; }
+        html.light .bg-white\/5 { background: #f1f5f9 !important; }
+        html.light .bg-white\/10 { background: #f1f5f9 !important; }
+        html.light .border-white\/10 { border-color: #e5e7eb !important; }
+        html.light .border-white\/20 { border-color: #e5e7eb !important; }
+        html.light .text-white\/70 { color: #475569 !important; }
+        html.light .text-claw-primary { color: #dc2626 !important; }
+        html.light .bg-orange-500\/10, html.light .bg-orange-500\/20 { background: rgba(234,88,12,0.08) !important; }
+        html.light .bg-purple-500\/10, html.light .bg-purple-500\/20 { background: rgba(124,58,237,0.08) !important; }
+        html.light .bg-amber-500\/10, html.light .bg-amber-500\/20 { background: rgba(217,119,6,0.08) !important; }
+        html.light .bg-blue-500\/10, html.light .bg-blue-500\/20 { background: rgba(37,99,235,0.08) !important; }
+        html.light .bg-emerald-500\/10 { background: rgba(5,150,105,0.08) !important; }
+        html.light .bg-green-500\/10 { background: rgba(22,163,74,0.08) !important; }
+        html.light .text-orange-400 { color: #c2410c !important; }
+        html.light .text-orange-300 { color: #c2410c !important; }
+        html.light .text-purple-400 { color: #7c3aed !important; }
+        html.light .text-purple-300 { color: #6d28d9 !important; }
+        html.light .text-amber-400 { color: #b45309 !important; }
+        html.light .text-amber-300 { color: #b45309 !important; }
+        html.light .text-blue-400 { color: #1d4ed8 !important; }
+        html.light .text-blue-300 { color: #1d4ed8 !important; }
+        html.light .text-emerald-400 { color: #059669 !important; }
+        html.light .text-emerald-300 { color: #047857 !important; }
+        html.light .text-green-400 { color: #059669 !important; }
+        html.light .text-green-300 { color: #047857 !important; }
+        html.light a[href*="llm-detail"].text-claw-primary { background: rgba(255,69,58,0.07) !important; border-color: rgba(255,69,58,0.3) !important; color: #dc2626 !important; }
+        html.light a[href*="llm-detail"].text-claw-primary:hover { background: rgba(255,69,58,0.13) !important; }
+        html.light #browse-cta { background: rgba(255,255,255,0.5) !important; border-color: #e2e8f0 !important; }
+        html.light #browse-cta .cta-title { color: #0f172a !important; }
+        html.light #browse-cta .cta-desc { color: #475569 !important; }
+        html.light footer { background: #ede9e3 !important; border-top-color: #d1d5db !important; }
+        html.light footer p, html.light footer a { color: #6b7280 !important; }
+        html.light footer a:hover { color: #1e293b !important; }
+        html.light #mobile-menu > div { background: #ffffff !important; border-bottom-color: #e5e7eb !important; }
+        html.light #mobile-menu a { color: #374151 !important; }
+        html.light #mobile-menu a:hover { background: #f1f5f9 !important; color: #0f172a !important; }
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.12); }
+
+        /* Scrollbar */
+        html.light ::-webkit-scrollbar { width: 8px; }
+        html.light ::-webkit-scrollbar-track { background: #f1f5f9; }
+        html.light ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        html.light ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        html.light body { background: linear-gradient(180deg, #faf9f6 0%, #f5f4f0 100%) !important; }
+        html.light header { background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%) !important; padding-bottom: 2rem !important; }
+        html.light .prose h2 { padding-top: 0.5rem; border-top: 1px solid #f1f5f9; margin-top: 3rem !important; }
+        html.light .prose h2:first-child { border-top: none; margin-top: 0 !important; }
+        html.light .prose code { background: #fef3c7 !important; color: #92400e !important; border: 1px solid #fde68a !important; border-radius: 4px; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+
+    <!-- Reading progress bar -->
+    <div id="reading-progress"></div>
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
+                        <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="../index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
+                    <a href="../pricing.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
+                <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New Models</a>
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
+                <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+        <div class="flex items-center gap-2 flex-wrap mb-5">
+            <a href="index.html" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
+            <span class="text-claw-muted/40">·</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Model Review</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
+            <span class="text-xs text-claw-muted/60">April 2026</span>
+            <span class="new-badge-inline">⭐ New</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
+            Qwen 3.6-27B Deep Dive:<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400">Alibaba's Dense Flagship Reasoner</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-claw-muted leading-relaxed max-w-3xl mb-6">
+            The biggest model in the Qwen 3.6 family just landed: <strong class="text-white">27 billion dense parameters</strong>, hybrid thinking mode, 128K context, and a massive quality leap over Qwen 3.5-27B — especially in <strong class="text-white">reasoning, coding, and math</strong>.
+        </p>
+        <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 px-3 py-1 rounded-full font-mono">27B Dense</span>
+            <span class="text-xs bg-orange-500/10 border border-orange-500/30 text-orange-300 px-3 py-1 rounded-full font-mono">Hybrid Thinking</span>
+            <span class="text-xs bg-green-500/10 border border-green-500/30 text-green-300 px-3 py-1 rounded-full font-mono">Apache 2.0</span>
+            <span class="text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1 rounded-full font-mono">128K Context</span>
+            <span class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1 rounded-full font-mono">RTX 4090 / Mac Studio</span>
+        </div>
+    </header>
+
+    <!-- ARTICLE -->
+    <main class="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-20">
+
+        <!-- TLDR Box -->
+        <div class="highlight-box rounded-xl p-6 mb-10">
+            <h2 class="text-lg font-display font-bold text-white mb-3 mt-0" style="margin-top:0">⚡ TL;DR — What You Need to Know</h2>
+            <ul class="tldr-list text-sm space-y-1.5" style="font-size:1rem;">
+                <li>🏆 <strong>27B dense flagship</strong> — the most capable model in the Qwen 3.6 family</li>
+                <li>🧠 <strong>Hybrid thinking mode</strong> — toggle <code>/think</code> for deep chain-of-thought reasoning, or keep it off for fast answers</li>
+                <li>📈 <strong>Major quality jump vs Qwen 3.5-27B</strong> — significantly better reasoning, coding, and math benchmarks</li>
+                <li>📏 <strong>128K context window</strong> — analyze long documents, large codebases, and extended conversations</li>
+                <li>💾 <strong>~17 GB Q4_K_M</strong> — fits on RTX 4090 (24GB), Mac Studio M2 Max 32GB, or similar</li>
+                <li>📜 <strong>Apache 2.0</strong> — fully open-source, commercial, no restrictions</li>
+            </ul>
+        </div>
+
+        <article class="prose">
+
+            <h2>What Is Qwen 3.6-27B?</h2>
+            <p>
+                Released in April 2026, <strong>Qwen 3.6-27B</strong> is the flagship dense model in Alibaba's Qwen 3.6 generation. While its sibling, the <a href="qwen3-6-deep-dive.html">Qwen 3.6 6.7B</a>, wowed the community as a "micro-flagship," the 27B variant is the <strong>full-power version</strong> — designed for users who want maximum quality and have the hardware to support it.
+            </p>
+            <p>
+                It inherits the same <strong>hybrid thinking architecture</strong> as the 6.7B but with dramatically more knowledge, better reasoning depth, and stronger instruction following. Think of it as the difference between a sharp pocket knife and a professional chef's knife — same blade philosophy, vastly different capability.
+            </p>
+
+            <h2>Why 27B? The Sweet Spot for Local AI</h2>
+            <p>
+                The 27B parameter class has become the <strong>goldilocks zone</strong> for serious local AI users:
+            </p>
+            <ul>
+                <li><strong>Fits on a single RTX 4090 (24GB)</strong> with Q4_K_M quantization — no multi-GPU needed</li>
+                <li><strong>Runs on Mac Studio M2 Max/Ultra 32GB+</strong> — Apple Silicon thrives at this scale</li>
+                <li><strong>Approaches 70B-class quality</strong> on many benchmarks, especially with thinking mode enabled</li>
+                <li><strong>2–4× faster than 70B models</strong> at inference — practical for interactive daily use</li>
+            </ul>
+            <p>
+                Qwen 3.6-27B pushes this sweet spot even further with the integrated hybrid thinking — it can punch <em>above</em> 70B class on reasoning tasks by spending compute at inference time rather than at parameter count.
+            </p>
+
+            <!-- Hybrid Thinking Section -->
+            <h2>Hybrid Thinking — The Killer Feature</h2>
+            <p>Two modes, one model. You toggle between them per prompt:</p>
+
+            <div class="moe-diagram p-6 rounded-xl mb-6">
+                <h4 class="text-white font-bold mb-3 mt-0" style="margin-top:0;">Hybrid Thinking — Two Modes Compared</h4>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="moe-card rounded-lg p-4">
+                        <div class="text-orange-400 font-bold mb-2">🚀 Fast Mode (Default)</div>
+                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">No thinking tokens. Direct instruct response, minimal latency. Trigger: <code>/no_think</code> or omit any trigger. Best for chat, Q&amp;A, summarization, translation.</p>
+                    </div>
+                    <div class="moe-card rounded-lg p-4">
+                        <div class="text-purple-400 font-bold mb-2">🧠 Thinking Mode</div>
+                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">Generates a <code>&lt;think&gt;…&lt;/think&gt;</code> block with step-by-step deliberation before answering. Trigger: <code>/think</code>. Best for math, code, logic, complex analysis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                At 27B parameters, the thinking mode is <em>substantially</em> more powerful than on the 6.7B. The model has more internal knowledge to draw on during chain-of-thought, resulting in longer, more accurate reasoning chains and fewer hallucinated steps.
+            </p>
+            <p>
+                The thinking budget is configurable — set <code>thinking_budget=1024</code> for standard tasks, or <code>thinking_budget=8192</code> for the hardest math competition problems. The model auto-stops when reasoning is complete.
+            </p>
+
+            <!-- Model Specs Card -->
+            <h2>Qwen 3.6-27B — Full Specs</h2>
+            <p>Here's the complete picture — architecture, benchmarks, and performance metrics:</p>
+
+            <div class="not-prose space-y-4 mb-8">
+
+                <!-- Main card -->
+                <div class="model-card border-purple-500/20" style="background: rgba(168,85,247,0.03);">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-gradient-to-r from-purple-500/30 to-pink-500/30 text-white border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">🏆 FLAGSHIP 27B</span>
+                                <span class="text-xs bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Apache 2.0</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Qwen 3.6-27B — Instruct</h3>
+                            <p class="text-claw-muted text-sm">27B dense · 128K context · ~17GB Q4_K_M</p>
+                        </div>
+                        <a href="../llm-detail.html?model=qwen3.6-27b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View on LocalClaw →</a>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Speed</div>
+                            <div class="text-emerald-400 font-bold text-lg">5/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-emerald-400" style="width:50%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Quality</div>
+                            <div class="text-purple-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-purple-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Coding</div>
+                            <div class="text-orange-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Reasoning</div>
+                            <div class="text-blue-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:100%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3">
+                            <div class="text-xs text-claw-muted mb-2 font-semibold uppercase tracking-wide">Standard Mode</div>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs"><span class="text-claw-muted">MMLU</span><span class="text-white font-semibold">86.8</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-purple-400" style="width:87%"></div></div>
+                                <div class="flex justify-between text-xs mt-1"><span class="text-claw-muted">HumanEval</span><span class="text-white font-semibold">87.2</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-purple-400" style="width:87%"></div></div>
+                                <div class="flex justify-between text-xs mt-1"><span class="text-claw-muted">MBPP+</span><span class="text-white font-semibold">82.1</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-purple-400" style="width:82%"></div></div>
+                            </div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3">
+                            <div class="text-xs text-claw-muted mb-2 font-semibold uppercase tracking-wide">Thinking Mode</div>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs"><span class="text-claw-muted">MATH 500</span><span class="text-white font-semibold">93.8</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-orange-400" style="width:94%"></div></div>
+                                <div class="flex justify-between text-xs mt-1"><span class="text-claw-muted">AIME 2024</span><span class="text-white font-semibold">68.3</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-orange-400" style="width:68%"></div></div>
+                                <div class="flex justify-between text-xs mt-1"><span class="text-claw-muted">GPQA Diamond</span><span class="text-white font-semibold">54.2</span></div>
+                                <div class="bench-bg"><div class="bench-fill bg-orange-400" style="width:54%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-sm text-purple-300">
+                        <strong>Best for:</strong> Professional-grade reasoning, complex coding, mathematical problem solving, long-context analysis. The most capable locally-runnable dense model under 32B as of April 2026.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qwen 3.5-27B vs 3.6-27B -->
+            <h2>Qwen 3.6-27B vs. Qwen 3.5-27B — What Changed?</h2>
+            <p>
+                If you're already running Qwen 3.5-27B, the upgrade is <strong>significant</strong>. Here's why:
+            </p>
+
+            <div class="not-prose overflow-x-auto rounded-xl border border-white/10 mb-8">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Qwen 3.5-27B</th>
+                            <th>Qwen 3.6-27B ⭐</th>
+                            <th>Δ Improvement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="text-white">MMLU</strong></td>
+                            <td>83.4</td>
+                            <td class="text-purple-400 font-bold">86.8</td>
+                            <td class="text-emerald-400">+3.4</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">HumanEval</strong></td>
+                            <td>82.9</td>
+                            <td class="text-purple-400 font-bold">87.2</td>
+                            <td class="text-emerald-400">+4.3</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">MATH 500 (think)</strong></td>
+                            <td>88.2</td>
+                            <td class="text-purple-400 font-bold">93.8</td>
+                            <td class="text-emerald-400">+5.6</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">AIME 2024 (think)</strong></td>
+                            <td>53.3</td>
+                            <td class="text-purple-400 font-bold">68.3</td>
+                            <td class="text-emerald-400">+15.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Context Window</strong></td>
+                            <td>256K</td>
+                            <td>128K</td>
+                            <td class="text-amber-400">−128K</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Size (Q4_K_M)</strong></td>
+                            <td>~17 GB</td>
+                            <td>~17 GB</td>
+                            <td class="text-claw-muted">Same</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">License</strong></td>
+                            <td class="text-green-400">Apache 2.0</td>
+                            <td class="text-green-400">Apache 2.0</td>
+                            <td class="text-claw-muted">Same</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="upgrade-box rounded-xl p-5 mb-6">
+                <h4 class="text-purple-300 font-bold mt-0 mb-2">⬆️ Should You Upgrade from Qwen 3.5-27B?</h4>
+                <p class="text-purple-200/80 text-sm mb-0">
+                    <strong>Yes, if reasoning and coding matter to you.</strong> The AIME 2024 jump from 53.3 → 68.3 (+15 points) is enormous — it means the model can solve competition-level math problems it previously couldn't touch. The coding gain (+4.3 HumanEval) is similarly meaningful for daily use. The trade-off is a shorter context window (128K vs 256K) — if you routinely process documents over 128K tokens, stay on 3.5-27B. For everyone else, upgrade immediately.
+                </p>
+            </div>
+
+            <!-- Hardware Requirements -->
+            <h2>Hardware Requirements</h2>
+            <p>Qwen 3.6-27B is a dense 27B model. It needs serious hardware, but fits comfortably on prosumer-grade GPUs and Apple Silicon:</p>
+
+            <div class="not-prose mb-8 overflow-x-auto rounded-xl border border-white/10">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Quantization</th>
+                            <th>VRAM / RAM</th>
+                            <th>Recommended Hardware</th>
+                            <th>Speed (tok/s)</th>
+                            <th>Quality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="text-white">Q8_0</strong></td>
+                            <td class="text-amber-400">~28 GB</td>
+                            <td>Mac Studio M2 Ultra 64GB, dual RTX 3090</td>
+                            <td class="text-emerald-400">15–30</td>
+                            <td class="text-emerald-400 font-bold">Best</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Q5_K_M</strong></td>
+                            <td class="text-blue-400">~20 GB</td>
+                            <td>RTX 4090, Mac Studio M2 Max 32GB</td>
+                            <td class="text-emerald-400">18–35</td>
+                            <td class="text-blue-400 font-bold">Very Good</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Q4_K_M ⭐</strong></td>
+                            <td class="text-emerald-400">~17 GB</td>
+                            <td>RTX 4090, Mac Studio M2 Max 32GB, RTX 3090</td>
+                            <td class="text-emerald-400">20–40</td>
+                            <td class="text-blue-400 font-bold">Good</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Q3_K_M</strong></td>
+                            <td class="text-emerald-400">~14 GB</td>
+                            <td>RTX 4080 16GB, Mac Pro M2 Pro 18GB</td>
+                            <td class="text-emerald-400">22–45</td>
+                            <td class="text-amber-400">Decent</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Q4_0 (CPU)</strong></td>
+                            <td class="text-emerald-400">~17 GB RAM</td>
+                            <td>CPU-only, 32GB RAM minimum</td>
+                            <td class="text-amber-400">2–6</td>
+                            <td class="text-amber-400">Acceptable</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip-box rounded-xl p-5 mb-6">
+                <h4 class="text-emerald-300 font-bold mt-0 mb-2">💡 Hardware Quick Guide</h4>
+                <ul class="text-emerald-200/80 text-sm space-y-1 mb-0" style="font-size:0.95rem;">
+                    <li><strong>RTX 4090 (24GB)</strong> → Q4_K_M ✅ Best consumer GPU option, 20–40 tok/s</li>
+                    <li><strong>RTX 3090 (24GB)</strong> → Q4_K_M ✅ Works great, slightly slower (~15–30 tok/s)</li>
+                    <li><strong>Mac Studio M2 Max 32GB</strong> → Q4_K_M ✅ Apple Silicon sweet spot, ~25 tok/s</li>
+                    <li><strong>Mac Studio M2 Ultra 64GB</strong> → Q5_K_M or Q8_0 ✅ Premium quality with headroom</li>
+                    <li><strong>MacBook Pro M3 Pro 18GB</strong> → Q3_K_M ⚠️ Tight fit, works but close to limits</li>
+                    <li><strong>RTX 4080 (16GB)</strong> → Q3_K_M ⚠️ Usable but aggressive quantization needed</li>
+                    <li><strong>Thinking mode tip:</strong> Budget 3–4GB extra RAM/VRAM for large thinking budgets (8192+ tokens)</li>
+                </ul>
+            </div>
+
+            <div class="warning-box rounded-xl p-5 mb-6">
+                <h4 class="text-amber-300 font-bold mt-0 mb-2">⚠️ Not Enough VRAM?</h4>
+                <p class="text-amber-200/80 text-sm mb-0">
+                    If you have less than 24GB VRAM, the <strong><a href="qwen3-6-deep-dive.html" style="color:#fbbf24;">Qwen 3.6-6.7B</a></strong> is the better choice — it runs on 6GB VRAM and shares the same hybrid thinking architecture. You'll lose some quality but gain massive speed. Also consider <strong>Qwen 3.5-35B-A3B</strong> (MoE) — only 3B active params with 35B quality.
+                </p>
+            </div>
+
+            <!-- How to Run Section -->
+            <h2>How to Run Qwen 3.6-27B in LM Studio</h2>
+            <ol>
+                <li>Open <strong>LM Studio 0.3.8+</strong> (download at <a href="https://lmstudio.ai" target="_blank" rel="noopener">lmstudio.ai</a>)</li>
+                <li>Click the <strong>Search</strong> tab (🔍)</li>
+                <li>Type: <code>qwen3.6-27b</code></li>
+                <li>Select <strong>Q4_K_M</strong> for 24GB VRAM, <strong>Q5_K_M</strong> for 32GB+</li>
+                <li>Click <strong>Download</strong> (~17 GB), then load in the <strong>Chat</strong> tab</li>
+                <li>Optional: set <code>/think</code> in the system prompt to always enable reasoning mode</li>
+            </ol>
+
+            <div class="not-prose mb-6">
+                <div class="bg-black/40 border border-white/10 rounded-xl p-4">
+                    <div class="text-xs text-claw-muted uppercase font-mono mb-3">Ollama — CLI</div>
+                    <code class="text-green-400 text-sm font-mono">ollama pull qwen3.6:27b</code><br>
+                    <code class="text-green-400 text-sm font-mono">ollama run qwen3.6:27b "Write a Python function to find the longest increasing subsequence"</code>
+                    <p class="text-claw-muted text-xs mt-2 mb-0">Requires Ollama 0.5.3+. Use a Modelfile with <code class="text-green-400">SYSTEM "/think"</code> to enable thinking mode by default.</p>
+                </div>
+            </div>
+
+            <div class="not-prose mb-6">
+                <div class="bg-black/40 border border-white/10 rounded-xl p-4">
+                    <div class="text-xs text-claw-muted uppercase font-mono mb-3">Python — Budget-controlled thinking</div>
+                    <code class="text-purple-400 text-sm font-mono">text = tokenizer.apply_chat_template(</code><br>
+                    <code class="text-purple-400 text-sm font-mono">&nbsp;&nbsp;&nbsp;&nbsp;messages, enable_thinking=True,</code><br>
+                    <code class="text-purple-400 text-sm font-mono">&nbsp;&nbsp;&nbsp;&nbsp;thinking_budget=4096, tokenize=False</code><br>
+                    <code class="text-purple-400 text-sm font-mono">)</code>
+                    <p class="text-claw-muted text-xs mt-2 mb-0">Set <code class="text-purple-400">thinking_budget</code> to 512–8192 tokens depending on task complexity. The 27B benefits from larger budgets than the 6.7B.</p>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <h2>Qwen 3.6-27B vs. The Competition — 27–35B Class</h2>
+
+            <div class="not-prose overflow-x-auto rounded-xl border border-white/10 mb-8">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Params</th>
+                            <th>MMLU</th>
+                            <th>MATH 500*</th>
+                            <th>HumanEval</th>
+                            <th>Thinking</th>
+                            <th>License</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="text-white">Qwen 3.6-27B ⭐</strong></td>
+                            <td class="text-purple-400">27B</td>
+                            <td class="text-emerald-400 font-bold">86.8</td>
+                            <td class="text-purple-400 font-bold">93.8</td>
+                            <td class="text-emerald-400 font-bold">87.2</td>
+                            <td class="text-purple-400 font-bold">✓ Hybrid</td>
+                            <td class="text-green-400">Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Qwen 3.5-27B</strong></td>
+                            <td>27B</td>
+                            <td>83.4</td>
+                            <td>88.2</td>
+                            <td>82.9</td>
+                            <td class="text-purple-400">✓ Hybrid</td>
+                            <td class="text-green-400">Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Gemma 4 31B</strong></td>
+                            <td>31B</td>
+                            <td>85.1</td>
+                            <td>76.4</td>
+                            <td>81.7</td>
+                            <td class="text-cyan-400">Vision</td>
+                            <td>Gemma ToU</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Qwen 3.5 35B-A3B</strong></td>
+                            <td>35B (3B active)</td>
+                            <td>82.1</td>
+                            <td>85.0</td>
+                            <td>83.4</td>
+                            <td class="text-purple-400">✓ Hybrid</td>
+                            <td class="text-green-400">Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Cogito 32B</strong></td>
+                            <td>32B</td>
+                            <td>83.8</td>
+                            <td>80.5</td>
+                            <td>82.3</td>
+                            <td class="text-claw-muted">—</td>
+                            <td class="text-green-400">Apache 2.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">Gemma 2 27B</strong></td>
+                            <td>27B</td>
+                            <td>75.2</td>
+                            <td>52.1</td>
+                            <td>73.2</td>
+                            <td class="text-claw-muted">—</td>
+                            <td>Gemma ToU</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-xs text-claw-muted -mt-4 mb-6">* Thinking mode benchmarks (where available)</p>
+
+            <div class="warning-box rounded-xl p-5 mb-6">
+                <h4 class="text-amber-300 font-bold mt-0 mb-2">⚠️ Qwen 3.6-27B vs Gemma 4 31B — Which One?</h4>
+                <p class="text-amber-200/80 text-sm mb-0">
+                    <strong>Choose Qwen 3.6-27B</strong> if you need math, coding, complex reasoning, or multilingual support — the hybrid thinking mode and benchmark lead are decisive. <strong>Choose Gemma 4 31B</strong> if you need vision (image understanding) — Qwen 3.6-27B is text-only. Both are excellent general-purpose models, but for pure text tasks the Qwen is the clear winner.
+                </p>
+            </div>
+
+            <!-- Use Cases -->
+            <h2>Best Use Cases for Qwen 3.6-27B</h2>
+            <ul>
+                <li><strong>🧑‍💻 Professional coding assistant</strong> — 87.2 HumanEval makes it one of the best open-source code models. Use thinking mode for complex algorithms, fast mode for boilerplate.</li>
+                <li><strong>📐 Math and science</strong> — 93.8 MATH 500 in thinking mode rivals proprietary models. Excellent for tutoring, homework help, research verification.</li>
+                <li><strong>📄 Long document analysis</strong> — 128K context supports ~200 pages of text. Summarize legal documents, analyze codebases, review research papers.</li>
+                <li><strong>🌐 Multilingual workflows</strong> — 29+ languages with strong non-English reasoning. Ideal for international businesses and localization teams.</li>
+                <li><strong>🤖 Agentic workflows</strong> — Use as the "brain" for AI agents that need to plan, reason, and execute multi-step tasks autonomously.</li>
+                <li><strong>🏢 Enterprise on-premise AI</strong> — Apache 2.0 + local deployment = zero data leakage. Perfect for sensitive industries (legal, medical, financial).</li>
+            </ul>
+
+            <!-- Multilingual -->
+            <h2>Multilingual Support — 29+ Languages</h2>
+            <p>
+                Like the rest of the Qwen 3.6 family, the 27B supports <strong>29+ languages</strong> with deep fluency: Chinese, Japanese, Korean, Arabic, Hindi, and all major European languages. The key advantage at 27B scale: the model can <strong>reason in non-English languages</strong> during thinking mode — producing chain-of-thought traces in French, German, Chinese, etc. without degradation.
+            </p>
+
+            <!-- License -->
+            <h2>License: Apache 2.0 — No Strings Attached</h2>
+            <p>
+                Qwen 3.6-27B ships under <strong>Apache 2.0</strong> — the most permissive licence in the AI space:
+            </p>
+            <ul>
+                <li>✅ No MAU cap — deploy to millions of users</li>
+                <li>✅ Full commercial freedom — SaaS, APIs, enterprise tools</li>
+                <li>✅ Fine-tune and redistribute freely</li>
+                <li>✅ Use outputs to train other models — no anti-distillation clause</li>
+                <li>✅ Patent protection — contributors cannot assert patents against you</li>
+            </ul>
+
+            <!-- Verdict -->
+            <h2>Verdict — Should You Download Qwen 3.6-27B?</h2>
+            <ul>
+                <li><strong>RTX 4090 / Mac Studio 32GB+ → Absolutely yes.</strong> This is the best dense model you can run on a single consumer GPU. The thinking mode makes it competitive with 70B+ class models on hard tasks.</li>
+                <li><strong>Upgrading from Qwen 3.5-27B → Yes.</strong> The reasoning and coding improvements are substantial. Same file size, dramatically better output. Only skip if you depend on 256K context.</li>
+                <li><strong>You have less than 24GB VRAM → No.</strong> Use <a href="qwen3-6-deep-dive.html">Qwen 3.6-6.7B</a> instead — same thinking architecture at 4.5GB.</li>
+                <li><strong>You need vision → No.</strong> Use <a href="gemma4-suite-deep-dive.html">Gemma 4 31B</a> for image tasks — or pair it with Qwen 3.6-27B for text.</li>
+                <li><strong>Maths competitions / hard reasoning → Hell yes.</strong> 93.8 MATH 500 and 68.3 AIME puts this in elite territory for open-source.</li>
+            </ul>
+
+            <div class="highlight-box rounded-xl p-6 mt-8">
+                <h4 class="text-white font-bold mt-0 mb-2">🦀 Find Your Perfect Model</h4>
+                <p class="text-claw-muted text-sm mb-3">Not sure which model fits your hardware? Use LocalClaw's guided model finder — enter your RAM and GPU and get a personalized recommendation in 30 seconds.</p>
+                <a href="../index.html" class="inline-block bg-claw-primary hover:bg-red-500 px-5 py-2 rounded-lg font-bold text-sm transition-colors" style="color:#ffffff !important;">Use Model Finder →</a>
+            </div>
+
+        </article>
+
+        <!-- Browse CTA -->
+        <div id="browse-cta" class="mt-12 p-6 bg-claw-surface/50 border border-white/10 rounded-2xl text-center">
+            <h3 class="cta-title font-display font-bold text-white text-xl mb-2">Explore the Full Qwen 3.6 Family</h3>
+            <p class="cta-desc text-claw-muted text-sm mb-4">Compare hardware requirements, benchmarks, and download links side by side.</p>
+            <div class="flex flex-wrap gap-2 justify-center">
+                <a href="../llm-detail.html?model=qwen3.6-27b" class="px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">Qwen 3.6-27B</a>
+                <a href="../llm-detail.html?model=qwen3.6-6.7b" class="px-4 py-2 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-xl font-bold hover:bg-orange-500/20 transition-all text-xs">Qwen 3.6-6.7B</a>
+                <a href="qwen3-6-deep-dive.html" class="px-4 py-2 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-xl font-bold hover:bg-orange-500/20 transition-all text-xs">6.7B Deep Dive</a>
+                <a href="qwen35-deep-dive.html" class="px-4 py-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 rounded-xl font-bold hover:bg-blue-500/20 transition-all text-xs">Qwen 3.5 Deep Dive</a>
+                <a href="../llm-list.html?q=qwen" class="px-4 py-2 bg-white/5 border border-white/10 text-claw-muted rounded-xl font-bold hover:bg-white/10 hover:text-white transition-all text-xs">All Qwen Models →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw · Privacy-first AI recommendations</p>
+                <div class="flex gap-6">
+                    <a href="../index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
+                    <a href="../llm-list.html" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
+                    <a href="../new.html" class="text-claw-muted text-xs hover:text-white transition-colors">New Models</a>
+                    <a href="index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reading progress script -->
+    <script>
+        (function() {
+            var bar = document.getElementById('reading-progress');
+            if (!bar) return;
+            function update() {
+                var st = window.scrollY || document.documentElement.scrollTop;
+                var sh = document.documentElement.scrollHeight - window.innerHeight;
+                var pct = sh > 0 ? Math.min(100, (st / sh) * 100) : 0;
+                bar.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Qwen 3.6-27B Deep Dive: Alibaba's Dense Flagship with Hybrid Thinking",
+        "description": "Complete guide to Qwen 3.6-27B: hybrid thinking mode, hardware requirements, benchmarks, comparison vs Qwen 3.5-27B, and how to run it locally with LM Studio.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
+        "datePublished": "2026-04-23",
+        "dateModified": "2026-04-23",
+        "url": "https://localclaw.io/blog/qwen3-6-27b-deep-dive.html",
+        "keywords": ["Qwen 3.6 27B", "hybrid thinking", "local LLM", "LM Studio", "Alibaba AI", "Apache 2.0", "27B model"]
+    }
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

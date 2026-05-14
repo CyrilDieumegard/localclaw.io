@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TTS List — Best Local Text-to-Speech AI Models | LocalClaw</title>
+    <meta name="description" content="Discover the best open-source TTS models for local use. Qwen3 TTS, MeloTTS, Piper, MMS, Coqui, Bark & more. Filter by language, quality, speed, and system requirements.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/tts-list.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/tts-list.html">
+    <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
+    <meta property="og:description" content="Discover the best open-source TTS models for local use. Qwen3 TTS, MeloTTS, Piper, MMS & more.">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            safelist: [
+                'bg-gray-50', 'bg-white', 'text-gray-900', 'text-gray-600',
+                'border-gray-200', 'hover:bg-gray-100',
+            ],
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#09090b',
+                            border: '#27272a',
+                            primary: '#ff453a',
+                            accent: '#ff6d64',
+                            text: '#f4f4f5',
+                            muted: '#a1a1aa',
+                            'bg-light': '#faf9f6',
+                            'surface-light': '#ffffff',
+                            'border-light': '#e2e8f0',
+                            'text-light': '#1e293b',
+                            'muted-light': '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #050505; --surface: #0F0F11; --border: #27272A;
+            --primary: #FF453A; --accent: #FF6D64;
+            --text: #FFFFFF; --muted: #A1A1AA;
+            --tts-primary: #8B5CF6; --tts-accent: #A78BFA;
+            --gold: #F59E0B; --gold-glow: rgba(245,158,11,0.15);
+        }
+        body {
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh; overflow-x: hidden;
+        }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        a { text-decoration: none; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
+        ::selection { background: rgba(139,92,246,0.3); color: white; }
+        
+        /* Light mode styles */
+        html.light {
+            --bg: #faf9f6;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --muted: #64748b;
+            --tts-primary: #7c3aed;
+            --tts-accent: #8b5cf6;
+            --gold: #d97706;
+            --gold-glow: rgba(217,119,6,0.1);
+        }
+        
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-black {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-text {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-white\/20,
+        html.light .border-white\/10,
+        html.light .border-white\/5 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .bg-white\/\[0\.02\],
+        html.light .bg-white\/5,
+        html.light .bg-white\/10,
+        html.light .hover\:bg-white\/5:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        
+        html.light .border-claw-border {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        /* Reduce bg-circuit visibility in light mode */
+        html.light #bg-circuit {
+            opacity: 0.08 !important;
+        }
+        
+        html.light .bg-claw-surface,
+        html.light .navbar {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .navbar {
+            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+            background: rgba(255,255,255,0.9) !important;
+        }
+        
+        html.light ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        html.light ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        html.light ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        html.light * {
+            scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+        }
+        
+        /* Theme toggle button */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky; top: 0; z-index: 50;
+            border-bottom: 1px solid rgba(39,39,42,0.5);
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(20px);
+        }
+        .navbar-inner { 
+            max-width: 1400px; margin: 0 auto; padding: 0 16px; 
+            display: flex; align-items: center; justify-content: space-between; height: 56px; 
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; }
+        .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--tts-primary), var(--tts-accent)); display: flex; align-items: center; justify-content: center; }
+        .nav-logo-icon svg { width: 18px; height: 18px; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: var(--tts-primary); }
+        .nav-badge {
+            padding: 2px 8px; border-radius: 999px;
+            background: rgba(139,92,246,0.15);
+            border: 1px solid rgba(139,92,246,0.4);
+            color: var(--tts-accent);
+            font-size: 10px; font-weight: 700;
+        }
+        .nav-badge::before {
+            content: ''; margin-right: 4px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative; padding: 48px 20px 32px;
+            text-align: center; border-bottom: 1px solid rgba(39,39,42,0.2);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 999px;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.3);
+            color: var(--tts-accent); font-size: 12px; font-weight: 600;
+            margin-bottom: 16px;
+            animation: fadeInDown 0.6s ease;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700; line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, var(--tts-accent) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero p {
+            max-width: 600px; margin: 0 auto;
+            color: var(--muted); font-size: 16px; line-height: 1.6;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 32px;
+            margin-top: 24px; flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--tts-primary); }
+        .hero-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Wispr Promo Button */
+        .hero-promo-wrap {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            animation: fadeInDown 0.6s ease 0.3s both;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .wispr-promo-hint {
+            font-size: 12px;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        .wispr-promo-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.08));
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .wispr-promo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.6), transparent);
+        }
+        .wispr-promo-btn:hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.12));
+            border-color: rgba(139, 92, 246, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .wispr-promo-btn .promo-header {
+            font-size: 11px;
+            color: rgba(200, 200, 210, 0.85);
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .wispr-promo-btn .promo-brand {
+            font-size: 17px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.02em;
+            text-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+        }
+        .wispr-promo-btn .promo-brand span {
+            color: #C4B5FD;
+        }
+        @media (max-width: 640px) {
+            .hero-promo-wrap {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 16px;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cardReveal {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 20px -5px rgba(245,158,11,0.3); }
+            50% { opacity: 1; box-shadow: 0 0 30px -3px rgba(245,158,11,0.5); }
+        }
+        @keyframes starShimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.4); }
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex; max-width: 1400px; margin: 0 auto;
+            min-height: calc(100vh - 56px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px; flex-shrink: 0;
+            position: sticky; top: 56px; height: calc(100vh - 56px);
+            overflow-y: auto; padding: 20px 16px;
+            border-right: 1px solid rgba(39,39,42,0.3);
+            background: rgba(5,5,5,0.6);
+            transition: transform 0.3s ease;
+        }
+        .sidebar-section { margin-bottom: 24px; }
+        .sidebar-title {
+            font-size: 10px; font-weight: 700; color: var(--muted);
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip {
+            padding: 5px 10px; border-radius: 8px;
+            background: rgba(15,15,17,0.6);
+            border: 1px solid rgba(39,39,42,0.4);
+            font-size: 11px; font-weight: 500; color: var(--muted);
+            cursor: pointer; transition: all 0.2s;
+            user-select: none;
+        }
+        .chip:hover { border-color: rgba(139,92,246,0.3); color: #fff; }
+        .chip.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.5); color: var(--tts-accent); }
+
+        /* Sidebar close btn (mobile) */
+        .sidebar-close {
+            display: none; position: absolute; top: 12px; right: 12px;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--muted); font-size: 16px;
+            cursor: pointer; align-items: center; justify-content: center;
+        }
+
+        /* Content */
+        .content { flex: 1; padding: 20px; min-width: 0; }
+
+        /* Search & Topbar */
+        .topbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+        .search-wrap { position: relative; flex: 1; min-width: 200px; }
+        .search-wrap input {
+            width: 100%; padding: 10px 36px;
+            border-radius: 12px; background: rgba(15,15,17,0.6);
+            border: 1px solid rgba(39,39,42,0.4);
+            color: #fff; font-size: 13px; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-wrap input:focus { 
+            border-color: rgba(139,92,246,0.5); 
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+        }
+        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+        /* Sort Controls */
+        .sort-controls { display: flex; gap: 4px; align-items: center; }
+        .sort-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; white-space: nowrap; }
+        .sort-btn {
+            padding: 6px 10px; border-radius: 8px;
+            background: rgba(15,15,17,0.6);
+            border: 1px solid rgba(39,39,42,0.4);
+            font-size: 11px; font-weight: 500; color: var(--muted);
+            cursor: pointer; transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .sort-btn:hover { border-color: rgba(139,92,246,0.3); color: #fff; }
+        .sort-btn.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.5); color: var(--tts-accent); }
+        .sort-btn .arrow { font-size: 9px; margin-left: 3px; }
+
+        /* Result count */
+        .result-count {
+            font-size: 12px; color: var(--muted); margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .result-count strong { color: var(--tts-accent); }
+
+        /* Grid */
+        .tts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        /* Card */
+        .card {
+            background: rgba(15,15,17,0.5); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 1;
+        }
+        .card:hover {
+            border-color: rgba(139,92,246,0.4);
+            box-shadow: 0 0 30px -10px rgba(139,92,246,0.2), 0 8px 24px -8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        /* LocalClaw Pick Card */
+        .card.localclaw-pick {
+            border-color: rgba(245,158,11,0.3);
+            background: linear-gradient(135deg, rgba(15,15,17,0.5) 0%, rgba(245,158,11,0.03) 100%);
+        }
+        .card.localclaw-pick:hover {
+            border-color: rgba(245,158,11,0.6);
+            box-shadow: 0 0 40px -10px rgba(245,158,11,0.25), 0 8px 24px -8px rgba(0,0,0,0.4);
+        }
+
+        /* LocalClaw Pick Badge */
+        .pick-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: 8px;
+            background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.08));
+            border: 1px solid rgba(245,158,11,0.35);
+            color: var(--gold); font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+        .pick-badge .pick-star {
+            font-size: 12px;
+            animation: starShimmer 2s ease infinite;
+        }
+        .pick-badge-text { 
+            background: linear-gradient(90deg, #F59E0B, #FBBF24);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .card-family { 
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+            padding: 3px 8px; border-radius: 6px;
+            background: rgba(139,92,246,0.1); color: var(--tts-accent);
+        }
+        .card-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; font-size: 16px; color: #fff;
+            margin: 8px 0 4px; display: block;
+        }
+        .card.localclaw-pick .card-name {
+            background: linear-gradient(135deg, #fff 0%, #FBBF24 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .card-developer { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+        .card-desc { 
+            font-size: 12px; color: rgba(161,161,170,0.8); 
+            line-height: 1.5; margin-bottom: 12px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+
+        /* Features Bar */
+        .features-bar {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+        }
+        .feature-tag {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 8px; border-radius: 6px;
+            background: rgba(255,255,255,0.04);
+            font-size: 10px; color: var(--muted);
+        }
+        .feature-tag.streaming { color: #34D399; background: rgba(52,211,153,0.1); }
+        .feature-tag.realtime { color: #60A5FA; background: rgba(96,165,250,0.1); }
+        .feature-tag.cloning { color: #F472B6; background: rgba(244,114,182,0.1); }
+        .feature-tag.emotion { color: #FBBF24; background: rgba(251,191,36,0.1); }
+        .feature-tag.dialogue { color: #A78BFA; background: rgba(167,139,250,0.1); }
+        .feature-tag.music { color: #EC4899; background: rgba(236,72,153,0.1); }
+        .feature-tag.sfx { color: #9CA3AF; background: rgba(156,163,175,0.1); }
+        .feature-tag.controllable { color: #2DD4BF; background: rgba(45,212,191,0.1); }
+        .feature-tag.multilingual { color: #818CF8; background: rgba(129,140,248,0.1); }
+
+        /* Specs */
+        .specs-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 8px; margin-bottom: 12px;
+        }
+        .spec-box {
+            padding: 8px; border-radius: 8px;
+            background: rgba(15,15,17,0.8);
+            border: 1px solid rgba(39,39,42,0.2);
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .card:hover .spec-box { border-color: rgba(139,92,246,0.15); }
+        .card.localclaw-pick:hover .spec-box { border-color: rgba(245,158,11,0.15); }
+        .spec-val { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #fff; }
+        .spec-label { font-size: 9px; color: var(--muted); margin-top: 2px; }
+
+        /* Quality color coding */
+        .quality-high { color: #34D399 !important; }
+        .quality-mid { color: #FBBF24 !important; }
+        .quality-low { color: #F87171 !important; }
+
+        /* Languages */
+        .languages {
+            display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;
+        }
+        .lang-tag {
+            padding: 2px 6px; border-radius: 4px;
+            background: rgba(139,92,246,0.08);
+            border: 1px solid rgba(139,92,246,0.2);
+            font-size: 9px; color: var(--tts-accent);
+        }
+        .lang-more { font-size: 9px; color: var(--muted); padding: 2px 4px; }
+
+        /* Benchmarks */
+        .bench-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .bench-label { font-size: 9px; color: rgba(161,161,170,0.6); width: 60px; text-align: right; }
+        .bench-bar { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+        .bench-fill-quality { background: linear-gradient(90deg, var(--tts-primary), var(--tts-accent)); }
+        .bench-fill-speed { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+        .bench-val { font-size: 9px; font-family: monospace; width: 20px; text-align: right; color: var(--muted); }
+
+        /* Install command */
+        .install-cmd {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 10px; border-radius: 8px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(39,39,42,0.2);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .install-cmd:hover { border-color: rgba(139,92,246,0.3); }
+        .install-cmd code {
+            font-size: 10px; color: var(--tts-accent);
+            flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .install-cmd .copy-icon {
+            font-size: 11px; color: var(--muted);
+            transition: color 0.2s;
+        }
+        .install-cmd:hover .copy-icon { color: var(--tts-accent); }
+        .install-cmd .copied { color: #34D399 !important; }
+
+        /* Footer */
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 12px; border-top: 1px solid rgba(39,39,42,0.15);
+            margin-top: 12px;
+        }
+        .card-links { display: flex; gap: 8px; }
+        .card-link {
+            padding: 6px 12px; border-radius: 8px;
+            font-size: 11px; font-weight: 600;
+            transition: all 0.2s;
+        }
+        .card-link-primary {
+            background: rgba(139,92,246,0.15);
+            color: var(--tts-accent);
+            border: 1px solid rgba(139,92,246,0.3);
+        }
+        .card-link-primary:hover { background: rgba(139,92,246,0.25); }
+        .card-link-secondary {
+            background: rgba(15,15,17,0.8);
+            color: var(--muted);
+            border: 1px solid rgba(39,39,42,0.4);
+        }
+        .card-link-secondary:hover { color: #fff; border-color: rgba(139,92,246,0.3); }
+
+        /* Pick card link colors */
+        .card.localclaw-pick .card-link-primary {
+            background: rgba(245,158,11,0.15);
+            color: var(--gold);
+            border: 1px solid rgba(245,158,11,0.3);
+        }
+        .card.localclaw-pick .card-link-primary:hover { background: rgba(245,158,11,0.25); }
+
+        /* New Badge */
+        .new-badge {
+            position: absolute; top: 12px; right: 12px;
+            padding: 3px 8px; border-radius: 6px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #fff; font-size: 9px; font-weight: 700;
+        }
+
+        /* Orchestrator badge */
+        .orch-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            margin-bottom: 10px;
+            padding: 4px 10px; border-radius: 20px;
+            background: rgba(99,102,241,0.12);
+            border: 1px solid rgba(99,102,241,0.3);
+            color: #818CF8;
+            font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+            cursor: help;
+        }
+        html.light .orch-badge {
+            background: rgba(99,102,241,0.08);
+            border-color: rgba(99,102,241,0.25);
+            color: #4F46E5;
+        }
+
+        /* Backends row */
+        .backends-row {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+            margin: 6px 0 10px;
+        }
+        .backends-label {
+            font-size: 10px; color: var(--muted); margin-right: 2px;
+        }
+        .backend-chip {
+            padding: 2px 8px; border-radius: 4px;
+            background: rgba(99,102,241,0.08);
+            border: 1px solid rgba(99,102,241,0.2);
+            color: #818CF8;
+            font-size: 10px; font-weight: 600;
+        }
+        html.light .backend-chip {
+            background: rgba(99,102,241,0.06);
+            border-color: rgba(99,102,241,0.2);
+            color: #4F46E5;
+        }
+
+        /* Tooltip */
+        .tooltip-wrap { position: relative; }
+        .tooltip-wrap .tooltip-text {
+            visibility: hidden; opacity: 0;
+            position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+            padding: 6px 10px; border-radius: 8px;
+            background: rgba(15,15,17,0.95); border: 1px solid rgba(139,92,246,0.3);
+            font-size: 11px; color: #fff; white-space: nowrap;
+            pointer-events: none; transition: all 0.2s;
+            z-index: 10;
+        }
+        .tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* Mobile filter button */
+        .mobile-filter-btn {
+            display: none; padding: 8px 14px; border-radius: 10px;
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.3);
+            color: var(--tts-accent); font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .mobile-filter-btn:hover { background: rgba(139,92,246,0.2); }
+
+        /* Mobile overlay */
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+            z-index: 60;
+        }
+        .sidebar-overlay.visible { display: block; }
+
+        /* Page footer */
+        .footer { border-top: 1px solid rgba(39,39,42,0.2); padding: 24px; text-align: center; }
+        .footer a { color: var(--tts-accent); }
+        .footer span { color: var(--border); margin: 0 8px; }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-state h3 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: #fff; margin-bottom: 8px; }
+        .empty-state p { color: var(--muted); font-size: 14px; }
+
+        /* Comparison Banner */
+        .comparison-banner {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0;
+            padding: 12px 20px; z-index: 55;
+            background: rgba(15,15,17,0.95); backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(139,92,246,0.3);
+            align-items: center; justify-content: center; gap: 16px;
+        }
+        .comparison-banner.visible { display: flex; }
+        .comparison-items { display: flex; gap: 8px; align-items: center; }
+        .comparison-item {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 8px;
+            background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3);
+            color: var(--tts-accent); font-size: 12px; font-weight: 600;
+        }
+        .comparison-item .remove-compare {
+            cursor: pointer; color: var(--muted); font-size: 14px;
+            transition: color 0.2s;
+        }
+        .comparison-item .remove-compare:hover { color: #F87171; }
+        .compare-btn {
+            padding: 8px 20px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--tts-primary), var(--tts-accent));
+            border: none; color: #fff; font-size: 12px; font-weight: 700;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .compare-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+        .compare-clear {
+            padding: 8px 14px; border-radius: 10px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--muted); font-size: 12px; cursor: pointer;
+        }
+
+        /* Compare button in card footer */
+        .compare-btn-card {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 12px; border-radius: 8px;
+            background: rgba(139,92,246,0.1);
+            border: 1px solid rgba(139,92,246,0.25);
+            color: rgba(161,161,170,0.9);
+            font-size: 11px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+            font-family: inherit;
+        }
+        .compare-btn-card:hover {
+            background: rgba(139,92,246,0.15);
+            border-color: rgba(139,92,246,0.4);
+            transform: translateY(-1px);
+            color: var(--tts-accent);
+        }
+        .compare-btn-card.active {
+            background: rgba(139,92,246,0.35);
+            border-color: rgba(139,92,246,0.6);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+        }
+        .compare-btn-card.active svg {
+            stroke: #fff;
+        }
+        .compare-btn-card svg {
+            stroke: currentColor;
+        }
+
+        /* Comparison Modal */
+        .compare-modal {
+            display: none; position: fixed; inset: 0;
+            z-index: 100; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .compare-modal.visible { display: flex; }
+        .compare-modal-content {
+            background: var(--surface); border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 20px; max-width: 900px; width: 100%;
+            max-height: 80vh; overflow-y: auto; padding: 24px;
+        }
+        .compare-modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+        .compare-modal-header h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 20px;
+            background: linear-gradient(135deg, #fff, var(--tts-accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .compare-modal-close {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--muted); font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .compare-table { width: 100%; border-collapse: collapse; }
+        .compare-table th {
+            padding: 10px; text-align: left;
+            font-size: 10px; font-weight: 700; color: var(--muted);
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(39,39,42,0.3);
+        }
+        .compare-table td {
+            padding: 10px; font-size: 13px; color: #fff;
+            border-bottom: 1px solid rgba(39,39,42,0.15);
+        }
+        .compare-table td:first-child { color: var(--muted); font-size: 11px; font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .tts-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed; top: 0; left: 0; bottom: 0;
+                z-index: 70; width: 300px;
+                transform: translateX(-100%);
+                height: 100vh;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-close { display: flex; }
+            .mobile-filter-btn { display: flex; align-items: center; gap: 6px; }
+            .tts-grid { grid-template-columns: 1fr; }
+            .sort-controls { width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+            .nav-links { gap: 12px; }
+            .nav-links a { font-size: 11px; }
+            .comparison-banner { flex-wrap: wrap; }
+        }
+        /* Mobile hamburger */
+        .mobile-hamburger {
+            display: none; padding: 6px 10px; border-radius: 8px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--muted); font-size: 18px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mobile-hamburger:hover { color: #fff; border-color: rgba(139,92,246,0.3); }
+
+        @media (max-width: 480px) {
+            .mobile-hamburger { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 56px; left: 0; right: 0;
+                background: rgba(5,5,5,0.97); backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(39,39,42,0.5);
+                flex-direction: column; padding: 12px 16px; gap: 4px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { padding: 8px 12px; border-radius: 8px; font-size: 13px; }
+            .nav-links a:hover { background: rgba(255,255,255,0.05); }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-stats { gap: 20px; }
+        }
+        
+        /* ===== COMPREHENSIVE LIGHT MODE STYLES ===== */
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        /* Navbar */
+        html.light .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .nav-links a {
+            color: #64748b !important;
+        }
+        
+        html.light .nav-links a:hover {
+            color: #1e293b !important;
+        }
+        
+        html.light .nav-badge {
+            background: rgba(139, 92, 246, 0.1) !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        /* Hero */
+        html.light .hero {
+            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .hero-badge {
+            background: rgba(139, 92, 246, 0.1) !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        html.light .hero h1 {
+            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        
+        html.light .hero p {
+            color: #64748b !important;
+        }
+        
+        html.light .hero-stat-label {
+            color: #64748b !important;
+        }
+        
+        /* Wispr Promo */
+        html.light .wispr-promo-hint {
+            color: #1e293b !important;
+            text-shadow: none !important;
+        }
+        
+        html.light .wispr-promo-btn .promo-brand {
+            color: #1e293b !important;
+        }
+        
+        html.light .wispr-promo-btn .promo-header {
+            color: #64748b !important;
+        }
+        
+        /* Sidebar */
+        html.light .sidebar {
+            background: #ffffff !important;
+            border-right-color: #e2e8f0 !important;
+        }
+        
+        html.light .sidebar-title {
+            color: #64748b !important;
+        }
+        
+        /* Chips */
+        html.light .chip {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+        
+        html.light .chip:hover {
+            border-color: rgba(139, 92, 246, 0.4) !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .chip.active {
+            background: rgba(139, 92, 246, 0.15) !important;
+            border-color: rgba(139, 92, 246, 0.5) !important;
+        }
+        
+        /* Search */
+        html.light .search-wrap input {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .search-icon {
+            color: #94a3b8 !important;
+        }
+        
+        /* Sort buttons */
+        html.light .sort-btn {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .sort-btn:hover {
+            border-color: rgba(139, 92, 246, 0.4) !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .sort-btn.active {
+            background: rgba(139, 92, 246, 0.15) !important;
+        }
+        
+        html.light .sort-label {
+            color: #64748b !important;
+        }
+        
+        html.light .result-count {
+            color: #64748b !important;
+        }
+        
+        /* Cards */
+        html.light .card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .card:hover {
+            border-color: rgba(139, 92, 246, 0.4) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .card-name {
+            color: #1e293b !important;
+        }
+        
+        html.light .card-developer {
+            color: #64748b !important;
+        }
+        
+        html.light .card-desc {
+            color: #64748b !important;
+        }
+        
+        html.light .card.localclaw-pick {
+            background: linear-gradient(135deg, #ffffff 0%, rgba(245, 158, 11, 0.05) 100%) !important;
+        }
+        
+        html.light .card.localclaw-pick .card-name {
+            background: linear-gradient(135deg, #1e293b 0%, #d97706 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        
+        html.light .pick-badge {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08)) !important;
+        }
+        
+        html.light .card-family {
+            background: rgba(139, 92, 246, 0.1) !important;
+        }
+        
+        /* Spec boxes - fix dark backgrounds */
+        html.light .spec-box {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .spec-val {
+            color: #1e293b !important;
+        }
+        
+        /* Feature tags - fix dark backgrounds */
+        html.light .feature-tag {
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+        
+        html.light .feature-tag.streaming { color: #059669; background: rgba(52, 211, 153, 0.15) !important; }
+        html.light .feature-tag.realtime { color: #2563eb; background: rgba(96, 165, 250, 0.15) !important; }
+        html.light .feature-tag.cloning { color: #db2777; background: rgba(244, 114, 182, 0.15) !important; }
+        html.light .feature-tag.emotion { color: #d97706; background: rgba(251, 191, 36, 0.15) !important; }
+        html.light .feature-tag.dialogue { color: #7c3aed; background: rgba(167, 139, 250, 0.15) !important; }
+        html.light .feature-tag.music { color: #be185d; background: rgba(236, 72, 153, 0.15) !important; }
+        html.light .feature-tag.sfx { color: #4b5563; background: rgba(156, 163, 175, 0.15) !important; }
+        html.light .feature-tag.controllable { color: #0d9488; background: rgba(45, 212, 191, 0.15) !important; }
+        html.light .feature-tag.multilingual { color: #4f46e5; background: rgba(129, 140, 248, 0.15) !important; }
+        
+        /* Install command */
+        html.light .install-cmd {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        /* Card links */
+        html.light .card-link-secondary {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .card-link-secondary:hover {
+            color: #1e293b !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        /* Benchmark bar */
+        html.light .bench-bar {
+            background: #e2e8f0 !important;
+        }
+        
+        html.light .bench-label {
+            color: #94a3b8 !important;
+        }
+        
+        /* Card footer border */
+        html.light .card-footer {
+            border-top-color: #e2e8f0 !important;
+        }
+        
+        /* Sort dropdown */
+        html.light #sort-dropdown {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+        }
+        
+        html.light .sort-opt {
+            color: #475569 !important;
+        }
+        
+        html.light .sort-opt:hover {
+            background: #f1f5f9 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .spec-chip {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        /* Mobile menu */
+        html.light .mobile-hamburger {
+            color: #64748b !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .mobile-hamburger:hover {
+            color: #1e293b !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        /* Footer */
+        html.light footer {
+            border-top-color: #e2e8f0 !important;
+            background: #faf9f6 !important;
+        }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js"></script>
+    <!-- Navbar -->
+    <nav class="border-b border-white/20 bg-black sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+
+                <!-- Nav Links -->
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <!-- Mobile hamburger -->
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <span class="hidden sm:inline text-sm font-mono text-purple-400 uppercase tracking-wider">TTS</span>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-purple-400 text-purple-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-purple-400"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+                <span class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-purple-500/10 border border-purple-500/30">TTS</span>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-promo-wrap">
+            <div class="wispr-promo-hint">Speech-to-Text</div>
+            <a href="https://ref.wisprflow.ai/cyril-dieumegard" target="_blank" rel="noopener sponsored" class="wispr-promo-btn" title="Wispr Flow - AI Voice Dictation">
+                <span class="promo-header">We recommend</span>
+                <span class="promo-brand">-Wispr Flow-</span>
+            </a>
+        </div>
+        <div class="hero-badge"><svg class="lc-icon lc-icon-sm" style="vertical-align:-2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> Text-to-Speech Models</div>
+        <h1>Local TTS Models</h1>
+        <p>The most complete directory of open-source Text-to-Speech AI models. Run locally with LM Studio, Ollama, or standalone.</p>
+        <p style="margin-top:8px;font-size:13px;color:var(--muted);">Includes related open ASR reference models (speech-to-text) for end-to-end voice pipeline comparison.</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-val" id="total-tts">0</div>
+                <div class="hero-stat-label">Models</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-val" id="total-langs">0</div>
+                <div class="hero-stat-label">Languages</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-val">0% API</div>
+                <div class="hero-stat-label">Local First*</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-close" id="sidebar-close">✕</button>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</div>
+                <div class="filter-chips" id="pick-filter">
+                    <span class="chip" data-filter="pick"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Languages</div>
+                <div class="filter-chips" id="lang-filters">
+                    <span class="chip active" data-filter="all">All</span>
+                    <span class="chip" data-filter="en">English</span>
+                    <span class="chip" data-filter="zh">Chinese</span>
+                    <span class="chip" data-filter="fr">French</span>
+                    <span class="chip" data-filter="de">German</span>
+                    <span class="chip" data-filter="es">Spanish</span>
+                    <span class="chip" data-filter="ja">Japanese</span>
+                    <span class="chip" data-filter="multilingual">Multilingual</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Features</div>
+                <div class="filter-chips" id="feature-filters">
+                    <span class="chip" data-filter="streaming">Streaming</span>
+                    <span class="chip" data-filter="realtime">Real-time</span>
+                    <span class="chip" data-filter="cloning">Voice Cloning</span>
+                    <span class="chip" data-filter="low-latency">Low Latency</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> Hardware</div>
+                <div class="filter-chips" id="hardware-filters">
+                    <span class="chip active" data-filter="all">Any</span>
+                    <span class="chip" data-filter="cpu">CPU Only</span>
+                    <span class="chip" data-filter="gpu">GPU Accelerated</span>
+                    <span class="chip" data-filter="apple">Apple Silicon</span>
+                    <span class="chip" data-filter="edge">Edge Device</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Size</div>
+                <div class="filter-chips" id="size-filters">
+                    <span class="chip" data-filter="tiny">< 100MB</span>
+                    <span class="chip" data-filter="small">< 1GB</span>
+                    <span class="chip" data-filter="medium">1-3GB</span>
+                    <span class="chip" data-filter="large">> 3GB</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+            <div class="topbar">
+                <button class="mobile-filter-btn" id="mobile-filter-btn"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
+                <div class="search-wrap">
+                    <span class="search-icon"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+                    <input type="text" id="search-input" placeholder="Search TTS models (e.g., Qwen3, Piper, Melo)...">
+                </div>
+                <div class="sort-controls">
+                    <span class="sort-label">Sort:</span>
+                    <button class="sort-btn active" data-sort="default"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> Picks First</button>
+                    <button class="sort-btn" data-sort="quality">Quality</button>
+                    <button class="sort-btn" data-sort="speed">Speed</button>
+                    <button class="sort-btn" data-sort="size">Size</button>
+                    <button class="sort-btn" data-sort="date">Newest</button>
+                </div>
+            </div>
+            <div class="result-count" id="result-count"></div>
+            <div class="tts-grid" id="tts-grid">
+                <!-- Cards will be rendered by JS -->
+            </div>
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <h3>No TTS models found</h3>
+                <p>Try adjusting your filters or search query.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Comparison Banner -->
+    <div class="comparison-banner" id="comparison-banner">
+        <div class="comparison-items" id="comparison-items"></div>
+        <button class="compare-btn" id="compare-btn" onclick="openCompareModal()">Compare</button>
+        <button class="compare-clear" onclick="clearCompare()">Clear</button>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div class="compare-modal" id="compare-modal">
+        <div class="compare-modal-content">
+            <div class="compare-modal-header">
+                <h2><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" style="display:inline;vertical-align:middle;width:1.2em;height:1.2em"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Model Comparison</h2>
+                <button class="compare-modal-close" onclick="closeCompareModal()">✕</button>
+            </div>
+            <table class="compare-table" id="compare-table"></table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="color:var(--muted);font-size:13px;">
+            <a href="index.html">LocalClaw</a> <span>•</span> 
+            <a href="llm-list.html">LLM</a> <span>•</span>
+            <a href="tts-list.html">TTS</a> <span>•</span>
+            <a href="blog/index.html">Blog</a>
+        </p>
+    </footer>
+
+    <script>
+        // TTS Models Data
+        const TTS_MODELS = [
+            {
+                id: "qwen3-tts",
+                name: "Qwen3 TTS",
+                developer: "Alibaba Cloud (Qwen Team)",
+                family: "qwen",
+                description: "State-of-the-art multilingual TTS with natural prosody and emotion control. Supports 30+ languages with streaming inference.",
+                languages: ["en", "zh", "fr", "de", "es", "it", "pt", "ru", "ja", "ko", "ar"],
+                languageCount: 30,
+                features: ["streaming", "realtime", "multilingual", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.8,
+                sizeCategory: "medium",
+                quality: 9.5,
+                speed: 8.5,
+                latency: "ultra-low",
+                releaseDate: "2025-12",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Qwen/Qwen3-TTS",
+                installCommand: "lmstudio install qwen3-tts",
+                supportedFormats: ["gguf", "onnx"],
+                voices: "Multiple speakers + voice cloning",
+                context: "Emotion tags, speed control",
+                license: "Apache 2.0"
+            },
+            {
+                id: "melotts",
+                name: "MeloTTS",
+                developer: "MYShell",
+                family: "melo",
+                description: "High-quality multilingual TTS with extremely natural voice cloning. Best for Chinese and English with fast inference.",
+                languages: ["en", "zh", "fr", "de", "es", "it", "pt", "ja", "ko"],
+                languageCount: 9,
+                features: ["cloning", "realtime", "multilingual"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 1.5,
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 9.0,
+                latency: "low",
+                releaseDate: "2024-03",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/myshell-ai/MeloTTS-English",
+                installCommand: "pip install melotts",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Built-in + custom cloning",
+                context: "Speed, pitch control",
+                license: "MIT"
+            },
+            {
+                id: "piper",
+                name: "Piper",
+                developer: "Rhasspy",
+                family: "piper",
+                description: "Fast, local neural TTS optimized for Raspberry Pi and edge devices. Lightweight with good quality for embedded systems.",
+                languages: ["en", "de", "es", "fr", "it", "nl", "pl", "pt", "ru", "uk", "zh"],
+                languageCount: 25,
+                features: ["realtime", "low-latency"],
+                hardware: ["cpu", "edge", "apple"],
+                sizeGB: 0.1,
+                sizeCategory: "tiny",
+                quality: 7.5,
+                speed: 10,
+                latency: "ultra-low",
+                releaseDate: "2023-06",
+                isNew: false,
+                isPick: true,
+                hfLink: "https://huggingface.co/rhasspy/piper-voices",
+                installCommand: "pip install piper-tts",
+                supportedFormats: ["onnx"],
+                voices: "Per-language models",
+                context: "SSML basic support",
+                license: "MIT"
+            },
+            {
+                id: "coqui-tts",
+                name: "Coqui TTS (XTTS v2)",
+                developer: "Coqui",
+                family: "coqui",
+                description: "The most popular open TTS with incredible voice cloning from just 6 seconds of audio. Discontinued but widely used.",
+                languages: ["en", "es", "fr", "de", "it", "pt", "pl", "tr", "ru", "nl", "cs", "ar", "zh", "ja", "hu", "ko"],
+                languageCount: 17,
+                features: ["cloning", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.8,
+                sizeCategory: "medium",
+                quality: 9.2,
+                speed: 6.0,
+                latency: "medium",
+                releaseDate: "2023-09",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/coqui/XTTS-v2",
+                installCommand: "pip install TTS",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Unlimited via cloning",
+                context: "6s cloning, emotion",
+                license: "CPML (custom)"
+            },
+            {
+                id: "bark",
+                name: "Bark (Suno)",
+                developer: "Suno",
+                family: "bark",
+                description: "Generative TTS that can produce highly expressive speech, music, and sound effects. Very creative but slower.",
+                languages: ["en", "zh", "fr", "de", "hi", "it", "ja", "ko", "pl", "pt", "ru", "es", "tr"],
+                languageCount: 13,
+                features: ["multilingual", "music", "sfx"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.2,
+                sizeCategory: "large",
+                quality: 8.5,
+                speed: 4.0,
+                latency: "high",
+                releaseDate: "2023-04",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/suno/bark",
+                installCommand: "pip install bark",
+                supportedFormats: ["pytorch"],
+                voices: "Preset voices + prompts",
+                context: "Prompt engineering",
+                license: "MIT"
+            },
+            {
+                id: "mms",
+                name: "MMS (Meta)",
+                developer: "Meta AI",
+                family: "mms",
+                description: "Massively Multilingual Speech by Meta. Supports 1100+ languages, the most comprehensive language coverage available.",
+                languages: ["multilingual"],
+                languageCount: 1107,
+                features: ["multilingual"],
+                hardware: ["cpu", "gpu", "edge"],
+                sizeGB: 1.2,
+                sizeCategory: "small",
+                quality: 7.0,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2023-05",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/facebook/mms-tts",
+                installCommand: "pip install transformers",
+                supportedFormats: ["pytorch"],
+                voices: "Per-language",
+                context: "Basic TTS",
+                license: "CC-BY-NC 4.0"
+            },
+            {
+                id: "parler-tts",
+                name: "Parler TTS",
+                developer: "Hugging Face",
+                family: "parler",
+                description: "High-quality controllable TTS trained on 10k+ hours of audiobooks. Natural prosody and speaker control via prompts.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["realtime", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.5,
+                sizeCategory: "medium",
+                quality: 8.8,
+                speed: 7.0,
+                latency: "low",
+                releaseDate: "2024-02",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/parler-tts/parler-tts-mini-v1",
+                installCommand: "pip install parler-tts",
+                supportedFormats: ["pytorch"],
+                voices: "Prompt-controlled",
+                context: "Description-based",
+                license: "Apache 2.0"
+            },
+            {
+                id: "fish-speech",
+                name: "Fish Speech",
+                developer: "Fish Audio",
+                family: "fish",
+                description: "Fast, high-quality TTS with voice cloning and multilingual support. Optimized for real-time applications.",
+                languages: ["en", "zh", "ja", "ko", "fr", "de", "es", "it", "pt", "ru"],
+                languageCount: 10,
+                features: ["streaming", "realtime", "cloning", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.0,
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 8.5,
+                latency: "ultra-low",
+                releaseDate: "2024-06",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/fishaudio/fish-speech-1.5",
+                installCommand: "pip install fish-speech",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Unlimited cloning",
+                context: "Instant cloning",
+                license: "Apache 2.0"
+            },
+            {
+                id: "edge-tts",
+                name: "Edge TTS",
+                developer: "Microsoft (unofficial)",
+                family: "edge",
+                description: "Python interface to Microsoft Edge's online TTS. Not fully local but works offline with cached voices.",
+                languages: ["multilingual"],
+                languageCount: 100,
+                features: ["realtime", "multilingual"],
+                hardware: ["cpu"],
+                sizeGB: 0.05,
+                sizeCategory: "tiny",
+                quality: 8.0,
+                speed: 9.5,
+                latency: "low",
+                releaseDate: "2022-08",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://github.com/rany2/edge-tts",
+                installCommand: "pip install edge-tts",
+                supportedFormats: ["mp3", "webm"],
+                voices: "Edge voices",
+                context: "Requires internet",
+                license: "GPL-3.0"
+            },
+            {
+                id: "styletts2",
+                name: "StyleTTS 2",
+                developer: "Y.L. Ma et al.",
+                family: "styletts",
+                description: "Style-based TTS with high naturalness and style diffusion. Academic research model with excellent quality.",
+                languages: ["en", "zh", "ja"],
+                languageCount: 3,
+                features: ["controllable", "cloning"],
+                hardware: ["gpu"],
+                sizeGB: 1.8,
+                sizeCategory: "medium",
+                quality: 9.3,
+                speed: 6.5,
+                latency: "medium",
+                releaseDate: "2024-01",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/yl4579/StyleTTS2-LibriTTS",
+                installCommand: "pip install styletts2",
+                supportedFormats: ["pytorch"],
+                voices: "Style transfer",
+                context: "Style diffusion",
+                license: "MIT"
+            },
+            {
+                id: "f5-tts",
+                name: "F5-TTS",
+                developer: "Speech Research",
+                family: "f5",
+                description: "Flow-matching based TTS with SOTA quality and extremely fast inference. Simple and efficient architecture.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["realtime", "cloning", "streaming"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.5,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 9.0,
+                latency: "ultra-low",
+                releaseDate: "2024-10",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/SWivid/F5-TTS",
+                installCommand: "pip install f5-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Reference cloning",
+                context: "Flow matching",
+                license: "MIT"
+            },
+            {
+                id: "chattts",
+                name: "ChatTTS",
+                developer: "2Noise",
+                family: "chattts",
+                description: "Conversational TTS optimized for dialogue with natural turn-taking and emotion. Great for chatbots.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["streaming", "emotion", "dialogue"],
+                hardware: ["gpu"],
+                sizeGB: 3.2,
+                sizeCategory: "large",
+                quality: 8.8,
+                speed: 7.0,
+                latency: "medium",
+                releaseDate: "2024-05",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/2Noise/ChatTTS",
+                installCommand: "pip install ChatTTS",
+                supportedFormats: ["pytorch"],
+                voices: "Built-in speakers",
+                context: "Dialogue optimized",
+                license: "AGPL-3.0"
+            },
+            {
+                id: "tortoise-tts",
+                name: "Tortoise TTS",
+                developer: "James Betker",
+                family: "tortoise",
+                description: "Quality-focused TTS with impressive voice cloning. Slower but produces very natural speech.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning"],
+                hardware: ["gpu"],
+                sizeGB: 4.5,
+                sizeCategory: "large",
+                quality: 9.1,
+                speed: 3.0,
+                latency: "high",
+                releaseDate: "2022-05",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/jbetker/tortoise-tts-v2",
+                installCommand: "pip install tortoise-tts",
+                supportedFormats: ["pytorch"],
+                voices: "Unlimited cloning",
+                context: "High quality mode",
+                license: "Apache 2.0"
+            },
+            {
+                id: "metavoice",
+                name: "MetaVoice-1B",
+                developer: "Metavoice Inc.",
+                family: "metavoice",
+                description: "1B parameter TTS with zero-shot voice cloning. Large model for high-quality synthesis.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "streaming"],
+                hardware: ["gpu"],
+                sizeGB: 3.8,
+                sizeCategory: "large",
+                quality: 8.9,
+                speed: 6.0,
+                latency: "medium",
+                releaseDate: "2024-03",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/metavoiceio/metavoice-1B-v0.1",
+                installCommand: "pip install metavoice-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot cloning",
+                context: "1B params",
+                license: "Apache 2.0"
+            },
+            {
+                id: "espeak-ng",
+                name: "eSpeak NG",
+                developer: "eSpeak Team",
+                family: "espeak",
+                description: "Compact, fast rule-based TTS. Not neural but extremely lightweight and supports 100+ languages.",
+                languages: ["multilingual"],
+                languageCount: 100,
+                features: ["realtime", "low-latency"],
+                hardware: ["cpu", "edge"],
+                sizeGB: 0.01,
+                sizeCategory: "tiny",
+                quality: 5.5,
+                speed: 10,
+                latency: "ultra-low",
+                releaseDate: "2010-01",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://github.com/espeak-ng/espeak-ng",
+                installCommand: "apt install espeak-ng",
+                supportedFormats: ["native"],
+                voices: "Robotic but functional",
+                context: "Rule-based",
+                license: "GPL-3.0"
+            },
+            {
+                id: "kokoro",
+                name: "Kokoro TTS",
+                developer: "hexgrad",
+                family: "kokoro",
+                description: "Ultra-lightweight yet stunning quality. 82M params only — runs on CPU in real-time. Best quality-to-size ratio of any TTS model.",
+                languages: ["en", "fr", "es", "pt", "it", "ja", "zh", "ko", "hi"],
+                languageCount: 9,
+                features: ["realtime", "streaming", "low-latency", "multilingual"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.33,
+                sizeCategory: "tiny",
+                quality: 9.2,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2025-01",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/hexgrad/Kokoro-82M",
+                installCommand: "pip install kokoro",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "54 built-in + voice mixing",
+                context: "StyleTTS2 architecture",
+                license: "Apache 2.0"
+            },
+            {
+                id: "orpheus-tts",
+                name: "Orpheus TTS",
+                developer: "Canopy Labs",
+                family: "orpheus",
+                description: "LLM-based TTS with human-level naturalness. Supports rich emotion tags (laugh, sigh, hesitation). Built on Llama 3 architecture for unprecedented expressiveness.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["emotion", "streaming", "cloning"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.5,
+                sizeCategory: "large",
+                quality: 9.6,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2025-03",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/canopylabs/orpheus-3b-0.1-ft",
+                installCommand: "pip install orpheus-tts",
+                supportedFormats: ["pytorch", "gguf"],
+                voices: "6 built-in + zero-shot cloning",
+                context: "Emotion tags: <laugh> <sigh> <gasp>",
+                license: "Apache 2.0"
+            },
+            {
+                id: "chatterbox",
+                name: "Chatterbox TTS",
+                developer: "Resemble AI",
+                family: "chatterbox",
+                description: "Open-source SOTA voice cloning from Resemble AI. Outperforms ElevenLabs on naturalness benchmarks. Supports emotion exaggeration control and ultra-stable generation.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "emotion", "streaming"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.2,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2025-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/ResembleAI/chatterbox",
+                installCommand: "pip install chatterbox-tts",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot cloning (3s sample)",
+                context: "Emotion exaggeration slider",
+                license: "MIT"
+            },
+            {
+                id: "dia-tts",
+                name: "Dia",
+                developer: "Nari Labs",
+                family: "dia",
+                description: "1.6B dialogue TTS — generates realistic two-speaker conversations from a single transcript. Supports non-verbal cues like [laughs], [coughs], [sighs] natively.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["dialogue", "emotion", "cloning", "streaming"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.0,
+                sizeCategory: "large",
+                quality: 9.3,
+                speed: 7.0,
+                latency: "medium",
+                releaseDate: "2025-04",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/nari-labs/Dia-1.6B",
+                installCommand: "pip install dia-tts",
+                supportedFormats: ["pytorch"],
+                voices: "2-speaker dialogue + voice cloning",
+                context: "Non-verbal: [laughs] [coughs] [sighs]",
+                license: "Apache 2.0"
+            },
+            {
+                id: "outetts",
+                name: "OuteTTS",
+                developer: "OuteAI",
+                family: "outetts",
+                description: "Pure language model approach to TTS — no separate audio encoder. Runs via llama.cpp for fully local GGUF inference. Excellent for CPU-only setups.",
+                languages: ["en", "ja", "ko", "zh"],
+                languageCount: 4,
+                features: ["realtime", "low-latency", "cloning"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.9,
+                sizeCategory: "small",
+                quality: 8.7,
+                speed: 8.5,
+                latency: "low",
+                releaseDate: "2025-01",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/OuteAI/OuteTTS-0.3-1B",
+                installCommand: "pip install outetts",
+                supportedFormats: ["gguf", "pytorch"],
+                voices: "Built-in + reference cloning",
+                context: "llama.cpp compatible",
+                license: "MIT"
+            },
+            {
+                id: "cosyvoice2",
+                name: "CosyVoice 2",
+                developer: "Alibaba FunAudioLLM",
+                family: "cosyvoice",
+                description: "Industrial-grade multilingual TTS with streaming, voice cloning and emotion control. Exceptional Chinese + English quality. Used in production at Alibaba scale.",
+                languages: ["en", "zh", "ja", "ko", "yue", "fr", "de", "es"],
+                languageCount: 8,
+                features: ["streaming", "realtime", "cloning", "emotion", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.4,
+                sizeCategory: "medium",
+                quality: 9.3,
+                speed: 8.8,
+                latency: "ultra-low",
+                releaseDate: "2024-12",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/FunAudioLLM/CosyVoice2-0.5B",
+                installCommand: "pip install cosyvoice",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Zero-shot + cross-lingual cloning",
+                context: "Instruct mode with natural language",
+                license: "Apache 2.0"
+            },
+            {
+                id: "spark-tts",
+                name: "Spark TTS",
+                developer: "SparkAudio",
+                family: "spark",
+                description: "Bilingual TTS with virtual speaker creation — control pitch, speed, gender from text. Built on Qwen2.5 LLM backbone for powerful generation.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "streaming", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.0,
+                sizeCategory: "large",
+                quality: 9.0,
+                speed: 8.2,
+                latency: "low",
+                releaseDate: "2025-03",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/SparkAudio/Spark-TTS-0.5B",
+                installCommand: "pip install sparktts",
+                supportedFormats: ["pytorch"],
+                voices: "Virtual speaker creation",
+                context: "Qwen2.5 LLM backbone",
+                license: "Apache 2.0"
+            },
+            {
+                id: "voicebox",
+                name: "Voicebox",
+                developer: "jamiepine / Community",
+                family: "app",
+                isOrchestrator: true,
+                description: "Desktop app & orchestrator for local TTS — not a model. Provides a UI studio, voice profile management, and a local API. Generates audio via swappable backends (Qwen3 TTS, Kokoro, Piper, XTTS…). Think of it as a front-end shell that runs on top of your installed TTS models.",
+                languages: ["en", "multilingual"],
+                languageCount: 30,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 0.05,
+                sizeCategory: "tiny",
+                quality: 9.0,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2025-02",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://github.com/jamiepine/voicebox",
+                installCommand: "Download from github.com/jamiepine/voicebox",
+                supportedFormats: ["native-app"],
+                voices: "Depends on active backend",
+                context: "App layer — orchestrates TTS backends via local API",
+                backendModels: ["Qwen3 TTS", "Kokoro", "Piper", "XTTS"],
+                license: "MIT"
+            },
+            {
+                id: "sesame-csm",
+                name: "Sesame CSM",
+                developer: "Sesame AI",
+                family: "sesame",
+                description: "Conversational Speech Model — generates speech with natural turn-taking, backchannels and interruptions. Built specifically for multi-turn dialogue with real-time response generation.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["dialogue", "streaming", "realtime", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.5,
+                sizeCategory: "large",
+                quality: 9.5,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2025-03",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/sesame/csm-1b",
+                installCommand: "pip install sesame-csm",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Built-in conversational voices",
+                context: "Turn-taking, backchannels, interruptions",
+                license: "Apache 2.0"
+            },
+            {
+                id: "gpt-sovits",
+                name: "GPT-SoVITS",
+                developer: "RVC-Boss",
+                family: "gptsovits",
+                description: "Zero-shot voice cloning TTS combining GPT and SoVITS. Clone any voice from 5 seconds of audio. Extremely popular in the open-source community with 40K+ GitHub stars.",
+                languages: ["en", "zh", "ja", "ko", "yue"],
+                languageCount: 5,
+                features: ["cloning", "multilingual", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.0,
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 7.0,
+                latency: "medium",
+                releaseDate: "2024-01",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://github.com/RVC-Boss/GPT-SoVITS",
+                installCommand: "git clone https://github.com/RVC-Boss/GPT-SoVITS",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot cloning from 5s",
+                context: "GPT + SoVITS hybrid",
+                license: "MIT"
+            },
+            {
+                id: "emotivoice",
+                name: "EmotiVoice",
+                developer: "NetEase Youdao",
+                family: "emotivoice",
+                description: "Multi-voice TTS with granular emotion control. Choose from 2000+ built-in voices and specify emotions like happy, sad, angry, or surprised per sentence.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["emotion", "multilingual", "controllable"],
+                hardware: ["gpu", "cpu"],
+                sizeGB: 1.5,
+                sizeCategory: "medium",
+                quality: 8.5,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2023-11",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://github.com/netease-youdao/EmotiVoice",
+                installCommand: "pip install emotivoice",
+                supportedFormats: ["pytorch"],
+                voices: "2000+ built-in voices",
+                context: "Emotion: happy, sad, angry, surprised",
+                license: "Apache 2.0"
+            },
+            {
+                id: "mars5",
+                name: "MARS5",
+                developer: "Camb.ai",
+                family: "mars",
+                description: "AR-diffusion hybrid TTS with near-human quality. Ultra-fast zero-shot voice cloning from a few seconds of audio. Unique hybrid architecture combining autoregressive and diffusion.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "streaming", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.5,
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2024-06",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://huggingface.co/CAMB-AI/MARS5-TTS",
+                installCommand: "pip install mars5-tts",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot cloning",
+                context: "AR + Diffusion hybrid architecture",
+                license: "AGPL-3.0"
+            },
+            {
+                id: "maskgct",
+                name: "MaskGCT",
+                developer: "Amphion Team",
+                family: "maskgct",
+                description: "Fully non-autoregressive TTS — no text-phone alignment needed. Achieves human parity on naturalness and similarity metrics. Incredibly fast inference.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "realtime", "streaming"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.8,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 9.0,
+                latency: "ultra-low",
+                releaseDate: "2024-10",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/amphion/MaskGCT",
+                installCommand: "pip install maskgct",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Reference-based cloning",
+                context: "Non-autoregressive, human parity",
+                license: "MIT"
+            },
+            {
+                id: "indic-tts",
+                name: "IndicTTS",
+                developer: "Ai4Bharat (IIT Madras)",
+                family: "indic",
+                description: "Multi-Indian language TTS supporting Hindi, Tamil, Telugu, Bengali, Marathi and more. High quality for Indian languages often underserved by other models. Built at IIT Madras.",
+                languages: ["hi", "ta", "te", "bn", "mr", "gu", "kn", "ml", "en"],
+                languageCount: 13,
+                features: ["multilingual", "realtime"],
+                hardware: ["cpu", "gpu"],
+                sizeGB: 0.8,
+                sizeCategory: "small",
+                quality: 8.0,
+                speed: 8.5,
+                latency: "low",
+                releaseDate: "2024-02",
+                isNew: false,
+                isPick: false,
+                hfLink: "https://github.com/AI4Bharat/Indic-TTS",
+                installCommand: "pip install indic-tts",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Per-language models",
+                context: "13 Indian languages",
+                license: "MIT"
+            },
+            {
+                id: "tada",
+                name: "TADA",
+                developer: "Hume AI",
+                family: "tada",
+                description: "LLM-based TTS built on Llama with a fully integrated audio tokenizer and decoder. Available in 1B (English) and 3B multilingual variants. Open-source weights on HuggingFace. Developed by Hume AI, specialists in expressive, emotion-aware voice.",
+                languages: ["en", "fr", "de", "es", "it", "pt", "zh", "ja"],
+                languageCount: 8,
+                features: ["multilingual", "emotion", "streaming"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.0,
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2025-02",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/HumeAI/tada-3b-ml",
+                installCommand: "pip install hume",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Multiple + expressive control",
+                context: "Llama architecture, audio tokenizer + decoder",
+                license: "Apache 2.0"
+            },
+            {
+                id: "kitten-tts",
+                name: "Kitten TTS",
+                developer: "Rohan Joshi (@ron_joshi)",
+                family: "kitten",
+                description: "Tiny open-source TTS built for edge devices. Three variants: 80M, 40M, and 14M params — the smallest fits in under 25 MB. Highly expressive despite its size. Runs entirely on CPU, no GPU required. Perfect for embedded systems, mobile, and offline apps.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["realtime", "low-latency"],
+                hardware: ["cpu", "edge", "apple"],
+                sizeGB: 0.025,
+                sizeCategory: "tiny",
+                quality: 7.5,
+                speed: 10,
+                latency: "ultra-low",
+                releaseDate: "2025-03",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/rohan_joshi/kitten-tts",
+                installCommand: "pip install kitten-tts",
+                supportedFormats: ["onnx", "pytorch"],
+                voices: "Built-in expressive voice",
+                context: "3 variants: 80M / 40M / 14M params",
+                license: "Apache 2.0"
+            },
+            {
+                id: "vibevoice-realtime-0.5b",
+                name: "VibeVoice Realtime 0.5B",
+                developer: "Microsoft Research",
+                family: "vibevoice",
+                description: "Open-source real-time streaming TTS model focused on low first-token latency (~300ms) and robust long-form generation.",
+                languages: ["en", "de", "fr", "it", "ja", "ko", "nl", "pl", "pt", "es"],
+                languageCount: 10,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.1,
+                sizeCategory: "small",
+                quality: 9.1,
+                speed: 9.2,
+                latency: "ultra-low",
+                releaseDate: "2025-12",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/microsoft/VibeVoice-Realtime-0.5B",
+                installCommand: "pip install vibevoice && python demo/realtime_inference.py",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Single-speaker realtime voice",
+                context: "Research-first release, responsible-use constraints",
+                license: "MIT"
+            },
+            {
+                id: "vibevoice-1.5b",
+                name: "VibeVoice 1.5B",
+                developer: "Microsoft Research",
+                family: "vibevoice",
+                description: "Open-source long-form multi-speaker TTS model (up to 90 min, up to 4 speakers). Listed as research-first with responsible-use constraints.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["streaming", "dialogue", "multilingual", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 5.8,
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 6.5,
+                latency: "medium",
+                releaseDate: "2025-08",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/microsoft/VibeVoice-1.5B",
+                installCommand: "pip install vibevoice && python demo/tts_inference.py",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Up to 4 speakers in long-form dialogue",
+                context: "Research-first release, watermark + disclosure recommended",
+                license: "MIT"
+            },
+            {
+                id: "vibevoice-asr",
+                name: "VibeVoice ASR",
+                developer: "Microsoft Research",
+                family: "vibevoice",
+                isAsr: true,
+                description: "Open-source multilingual ASR model (speech-to-text), supporting long-form transcription, timestamps, diarization and hotwords.",
+                languages: ["en", "zh", "es", "pt", "de", "ja", "ko", "fr", "ru", "id", "sv", "it", "he", "nl", "pl", "tr", "th", "ar", "hi", "fi", "el", "ro", "vi", "uk"],
+                languageCount: 50,
+                features: ["streaming", "realtime", "multilingual", "dialogue"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 14.0,
+                sizeCategory: "large",
+                quality: 9.3,
+                speed: 7.5,
+                latency: "medium",
+                releaseDate: "2026-01",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/microsoft/VibeVoice-ASR",
+                installCommand: "pip install transformers accelerate",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "N/A (ASR: outputs text)",
+                context: "60-minute single-pass ASR with diarization + timestamps",
+                license: "MIT"
+            },
+            {
+                id: "cohere-transcribe-03-2026",
+                name: "Cohere Transcribe 03-2026",
+                developer: "Cohere",
+                family: "cohere",
+                isAsr: true,
+                description: "Open-weights Conformer ASR model (speech-to-text), not a TTS model. Converts speech audio into transcribed text with multilingual support.",
+                languages: ["en", "fr", "de", "it", "es", "pt", "el", "nl", "pl", "zh", "ja", "ko", "vi", "ar"],
+                languageCount: 14,
+                features: ["streaming", "realtime", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.0,
+                sizeCategory: "large",
+                quality: 9.0,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2026-03",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/CohereLabs/cohere-transcribe-03-2026",
+                installCommand: "huggingface-cli download CohereLabs/cohere-transcribe-03-2026",
+                supportedFormats: ["safetensors"],
+                voices: "N/A (ASR: outputs text)",
+                context: "Input: audio waveform -> log-Mel spectrogram; 2B params",
+                license: "Apache 2.0"
+            },
+            // ==================== v2.6 — APRIL 2026 ADDITIONS ====================
+            {
+                id: "higgs-audio-v2",
+                name: "Higgs Audio v2",
+                developer: "Boson AI",
+                family: "higgs",
+                description: "SOTA expressive TTS built on an LLM-audio backbone. Generates natural multi-speaker dialogue, spontaneous laughter, whispers and even background music. Beats ElevenLabs on MOS naturalness in several languages.",
+                languages: ["en", "zh", "fr", "de", "es", "it", "ja", "ko"],
+                languageCount: 8,
+                features: ["emotion", "dialogue", "cloning", "streaming", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 5.5,
+                sizeCategory: "large",
+                quality: 9.7,
+                speed: 7.0,
+                latency: "low",
+                releaseDate: "2025-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/bosonai/higgs-audio-v2-generation-3B-base",
+                installCommand: "pip install higgs-audio",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot cloning + multi-speaker",
+                context: "LLM backbone with audio tokenizer, 3B params",
+                license: "Apache 2.0"
+            },
+            {
+                id: "zonos",
+                name: "Zonos v0.1",
+                developer: "Zyphra",
+                family: "zonos",
+                description: "1.6B open-weight TTS with ultra-realistic zero-shot cloning from 5-30 s audio. Fine-grained controls: speaking rate, pitch, emotion (happy/sad/angry/fear). Streaming with ~200 ms first-token latency.",
+                languages: ["en", "zh", "ja", "fr", "de"],
+                languageCount: 5,
+                features: ["cloning", "emotion", "streaming", "realtime", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.2,
+                sizeCategory: "large",
+                quality: 9.5,
+                speed: 8.5,
+                latency: "ultra-low",
+                releaseDate: "2025-02",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Zyphra/Zonos-v0.1-transformer",
+                installCommand: "pip install zonos-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot cloning (5-30 s reference)",
+                context: "Hybrid transformer + SSM architecture",
+                license: "Apache 2.0"
+            },
+            {
+                id: "index-tts-2",
+                name: "IndexTTS 2",
+                developer: "Bilibili",
+                family: "indextts",
+                description: "Bilibili's viral open TTS — exceptional zero-shot cloning and emotion transfer. Separately controls voice timbre and emotional style from two different reference clips. Top quality on Chinese + English.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "emotion", "streaming", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.4,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2025-09",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/IndexTeam/IndexTTS-2",
+                installCommand: "pip install indextts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot + separate emotion reference",
+                context: "Dual reference: voice timbre + emotion",
+                license: "Apache 2.0"
+            },
+            {
+                id: "openvoice-v2",
+                name: "OpenVoice V2",
+                developer: "MyShell",
+                family: "openvoice",
+                description: "Cross-lingual voice cloning — clone a voice in one language and speak any other. Granular style control (emotion, accent, rhythm, pauses). Very fast inference, GPU-optional.",
+                languages: ["en", "es", "fr", "zh", "ja", "ko"],
+                languageCount: 6,
+                features: ["cloning", "multilingual", "controllable", "realtime"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 0.6,
+                sizeCategory: "small",
+                quality: 8.9,
+                speed: 9.0,
+                latency: "ultra-low",
+                releaseDate: "2024-05",
+                isNew: false,
+                isPick: true,
+                hfLink: "https://huggingface.co/myshell-ai/OpenVoiceV2",
+                installCommand: "pip install openvoice",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Cross-lingual zero-shot cloning",
+                context: "Style: emotion, accent, rhythm, pauses",
+                license: "MIT"
+            },
+            {
+                id: "whisper-v3-turbo",
+                name: "Whisper v3 Turbo",
+                developer: "OpenAI",
+                family: "whisper",
+                isAsr: true,
+                description: "OpenAI's optimized Whisper v3 with 4 decoder layers instead of 32. 8× faster than Whisper Large v3 with only minor accuracy trade-off. 99 languages supported. New gold standard for fast local transcription.",
+                languages: ["multilingual"],
+                languageCount: 99,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 1.6,
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2024-10",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/openai/whisper-large-v3-turbo",
+                installCommand: "pip install openai-whisper",
+                supportedFormats: ["pytorch", "safetensors", "gguf"],
+                voices: "N/A (ASR: outputs text)",
+                context: "809M params, 4 decoder layers, 99 languages",
+                license: "MIT"
+            },
+            {
+                id: "parakeet-tdt-0.6b-v2",
+                name: "Parakeet TDT 0.6B v2",
+                developer: "NVIDIA",
+                family: "parakeet",
+                isAsr: true,
+                description: "NVIDIA's SOTA lightweight ASR — 0.6B params, #1 on Open ASR Leaderboard for English. TDT (Token-and-Duration Transducer) decoding makes it 50× faster than Whisper Large v3 on GPU. Real-time streaming with word-level timestamps.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["gpu", "cpu", "apple"],
+                sizeGB: 1.1,
+                sizeCategory: "small",
+                quality: 9.4,
+                speed: 10,
+                latency: "ultra-low",
+                releaseDate: "2025-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2",
+                installCommand: "pip install nemo_toolkit[asr]",
+                supportedFormats: ["nemo", "onnx"],
+                voices: "N/A (ASR: outputs text + word timestamps)",
+                context: "TDT decoder, RNN-T architecture, 0.6B params",
+                license: "CC-BY-4.0"
+            },
+            {
+                id: "canary-1b-v2",
+                name: "Canary 1B v2",
+                developer: "NVIDIA",
+                family: "canary",
+                isAsr: true,
+                description: "NVIDIA multilingual ASR + speech translation in a single model. 25 European languages, bidirectional EN↔XX translation. Tops Open ASR Leaderboard multilingual category. Word-level timestamps, punctuation & capitalization.",
+                languages: ["en", "de", "es", "fr", "it", "pt", "pl", "nl", "sv", "fi", "da", "cs", "hu", "ro", "bg", "hr", "sk", "sl", "et", "lv", "lt", "el", "mt", "ga"],
+                languageCount: 25,
+                features: ["streaming", "multilingual", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.0,
+                sizeCategory: "medium",
+                quality: 9.3,
+                speed: 9.0,
+                latency: "low",
+                releaseDate: "2025-07",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/nvidia/canary-1b-v2",
+                installCommand: "pip install nemo_toolkit[asr]",
+                supportedFormats: ["nemo"],
+                voices: "N/A (ASR + translation: outputs text)",
+                context: "ASR + speech translation, 25 languages, 1B params",
+                license: "CC-BY-4.0"
+            },
+            {
+                id: "moshi",
+                name: "Moshi",
+                developer: "Kyutai",
+                family: "moshi",
+                description: "Full-duplex spoken dialogue model — listens and speaks simultaneously with ~160 ms latency. Not just a TTS but a real-time conversational speech model. Runs on a single L4 GPU or Mac M3 Pro.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["dialogue", "streaming", "realtime", "low-latency", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 7.5,
+                sizeCategory: "large",
+                quality: 9.0,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2024-09",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/kyutai/moshiko-pytorch-bf16",
+                installCommand: "pip install moshi",
+                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                voices: "Full-duplex conversational",
+                context: "Listens + speaks simultaneously, 160 ms latency",
+                license: "CC-BY-4.0"
+            },
+            // ==================== v2.7 — APRIL 22, 2026 ADDITIONS ====================
+            {
+                id: "neutts-air",
+                name: "NeuTTS Air",
+                developer: "Neuphonic",
+                family: "neutts",
+                description: "First super-realistic TTS LLM that runs in real-time on CPU. 748M params, LLaMA 3.2 backbone + NeuCodec audio tokenizer. GGUF-native — perfect for on-device agents and offline apps. Instant 3s voice cloning.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "realtime", "streaming", "low-latency"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.75,
+                sizeCategory: "small",
+                quality: 9.0,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2025-10",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/neuphonic/neutts-air",
+                installCommand: "pip install neutts",
+                supportedFormats: ["gguf", "onnx", "pytorch"],
+                voices: "Zero-shot cloning (3s reference)",
+                context: "LLaMA 3.2 backbone + NeuCodec, CPU real-time",
+                license: "Apache 2.0"
+            },
+            {
+                id: "step-audio-2-mini",
+                name: "Step-Audio 2 Mini",
+                developer: "StepFun",
+                family: "step",
+                description: "Open-source multi-modal speech LLM. Unified understanding + generation in one model — ASR, TTS, voice conversion, speech dialogue. Strong expressive control and paralinguistic features. Available in Mini (8B) and Full variants.",
+                languages: ["en", "zh", "ja"],
+                languageCount: 3,
+                features: ["cloning", "dialogue", "emotion", "streaming", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.8,
+                sizeCategory: "large",
+                quality: 9.3,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2025-08",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/stepfun-ai/Step-Audio-2-mini",
+                installCommand: "pip install step-audio",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Multi-speaker + voice conversion",
+                context: "Unified speech LLM (ASR + TTS + dialogue)",
+                license: "Apache 2.0"
+            },
+            {
+                id: "llasa-3b",
+                name: "LLaSA 3B",
+                developer: "HKUST Audio",
+                family: "llasa",
+                description: "LLaMA-based TTS with pure next-token speech generation — no separate decoder. Scales with compute: the 3B variant matches specialised TTS SOTA on zero-shot cloning. Trained on 250K hours of Chinese + English speech.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "streaming", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 6.2,
+                sizeCategory: "large",
+                quality: 9.2,
+                speed: 7.0,
+                latency: "low",
+                releaseDate: "2025-01",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/HKUSTAudio/Llasa-3B",
+                installCommand: "pip install llasa",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot cloning from any reference",
+                context: "LLaMA backbone + XCodec2 audio tokens",
+                license: "CC-BY-NC 4.0"
+            },
+            {
+                id: "octave-2",
+                name: "OCTAVE 2",
+                developer: "Hume AI",
+                family: "octave",
+                description: "Second-gen emotion-aware speech-language model. Generates voice, style and personality from a text description alone — no reference audio required. Rich control over arousal, valence and speaking style. Research-first release.",
+                languages: ["en", "de", "fr", "es", "it", "pt", "ja"],
+                languageCount: 7,
+                features: ["emotion", "controllable", "streaming", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.2,
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 7.5,
+                latency: "low",
+                releaseDate: "2025-11",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://www.hume.ai/octave",
+                installCommand: "pip install hume",
+                supportedFormats: ["pytorch", "api"],
+                voices: "Prompt-generated voices + style",
+                context: "Describe a speaker in natural language",
+                license: "Hume Terms (research)"
+            },
+            {
+                id: "xtts-v3",
+                name: "XTTS v3 (Community)",
+                developer: "Coqui Community",
+                family: "coqui",
+                description: "Community-maintained successor to XTTS v2 after Coqui shut down. Improved cloning stability, lower artefacts, and 20+ languages. Drop-in replacement for existing XTTS pipelines with better prosody.",
+                languages: ["en", "es", "fr", "de", "it", "pt", "pl", "tr", "ru", "nl", "cs", "ar", "zh", "ja", "hu", "ko", "hi", "ro", "sv", "uk"],
+                languageCount: 20,
+                features: ["cloning", "multilingual", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.0,
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 7.0,
+                latency: "low",
+                releaseDate: "2025-06",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/coqui-community/XTTS-v3",
+                installCommand: "pip install TTS-community",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "Unlimited via cloning (6s sample)",
+                context: "Community fork — active maintenance",
+                license: "MPL 2.0"
+            },
+            {
+                id: "f5-tts-v1.1",
+                name: "F5-TTS v1.1",
+                developer: "Speech Research (SWivid)",
+                family: "f5",
+                description: "Iterative upgrade over the original F5-TTS. Faster convergence via improved flow-matching schedule, better Chinese prosody, cross-lingual cloning. Now with streaming inference and improved CFM sampler.",
+                languages: ["en", "zh", "ja", "fr", "de"],
+                languageCount: 5,
+                features: ["realtime", "cloning", "streaming", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.6,
+                sizeCategory: "medium",
+                quality: 9.5,
+                speed: 9.2,
+                latency: "ultra-low",
+                releaseDate: "2025-08",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/SWivid/F5-TTS-v1.1",
+                installCommand: "pip install f5-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Reference-based cloning",
+                context: "Improved flow-matching + streaming",
+                license: "MIT"
+            },
+            {
+                id: "kyutai-stt-2.6b",
+                name: "Kyutai STT 2.6B",
+                developer: "Kyutai",
+                family: "kyutai",
+                isAsr: true,
+                description: "Production-grade streaming ASR from Kyutai (makers of Moshi). Delay-streaming transformer with 500ms latency, word-level timestamps, speaker diarization. Top of Open ASR Leaderboard for real-time French + English.",
+                languages: ["en", "fr"],
+                languageCount: 2,
+                features: ["streaming", "realtime", "low-latency", "multilingual"],
+                hardware: ["gpu", "cpu", "apple"],
+                sizeGB: 2.7,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2025-06",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/kyutai/stt-2.6b-en_fr",
+                installCommand: "pip install moshi",
+                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                voices: "N/A (ASR: outputs text + timestamps)",
+                context: "Delay-streaming transformer, 500ms latency",
+                license: "CC-BY-4.0"
+            }
+        ];
+
+        // State
+        let activeFilters = { lang: 'all', feature: null, hardware: 'all', size: null, search: '', pick: false };
+        let currentSort = 'default';
+        let compareList = [];
+
+        // Quality color helper
+        function qualityColor(val) {
+            if (val >= 8.5) return 'quality-high';
+            if (val >= 7) return 'quality-mid';
+            return 'quality-low';
+        }
+
+        // Animated counter
+        function animateCounter(el, target, suffix = '') {
+            const isFloat = String(target).includes('.');
+            const duration = 1200;
+            const start = performance.now();
+            const startVal = 0;
+            function step(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = startVal + (target - startVal) * eased;
+                el.textContent = (isFloat ? current.toFixed(0) : Math.round(current)) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Copy to clipboard
+        function copyInstall(btn, cmd) {
+            navigator.clipboard.writeText(cmd).then(() => {
+                const icon = btn.querySelector('.copy-icon');
+                icon.textContent = '✓';
+                icon.classList.add('copied');
+                setTimeout(() => { icon.textContent = '⎘'; icon.classList.remove('copied'); }, 1500);
+            });
+        }
+
+        // Compare functionality
+        function toggleCompare(id) {
+            const idx = compareList.indexOf(id);
+            if (idx > -1) {
+                compareList.splice(idx, 1);
+            } else {
+                if (compareList.length >= 4) return; // max 4
+                compareList.push(id);
+            }
+            updateCompareUI();
+        }
+
+        function updateCompareUI() {
+            // Update compare buttons in cards
+            document.querySelectorAll('.compare-btn-card').forEach(el => {
+                const isCompared = compareList.includes(el.dataset.id);
+                el.classList.toggle('active', isCompared);
+                const span = el.querySelector('span');
+                if (span) span.textContent = isCompared ? 'Added' : 'Compare';
+            });
+            
+            // Update banner
+            const banner = document.getElementById('comparison-banner');
+            const items = document.getElementById('comparison-items');
+            if (compareList.length >= 2) {
+                banner.classList.add('visible');
+                items.innerHTML = compareList.map(id => {
+                    const m = TTS_MODELS.find(x => x.id === id);
+                    return `<span class="comparison-item">${m.name} <span class="remove-compare" onclick="toggleCompare('${id}')">✕</span></span>`;
+                }).join('');
+            } else {
+                banner.classList.remove('visible');
+            }
+        }
+
+        function clearCompare() {
+            compareList = [];
+            updateCompareUI();
+        }
+
+        function openCompareModal() {
+            if (compareList.length < 2) return;
+            const models = compareList.map(id => TTS_MODELS.find(x => x.id === id));
+            const rows = [
+                ['Developer', m => m.developer],
+                ['Quality', m => `<span class="${qualityColor(m.quality)}">${m.quality}/10</span>`],
+                ['Speed', m => `${m.speed}/10`],
+                ['Size', m => `${m.sizeGB} GB`],
+                ['Latency', m => m.latency],
+                ['Languages', m => `${m.languageCount}`],
+                ['Features', m => m.features.join(', ')],
+                ['Hardware', m => m.hardware.join(', ')],
+                ['License', m => m.license],
+                ['Formats', m => m.supportedFormats.join(', ')],
+                ['Release', m => m.releaseDate],
+            ];
+
+            const table = document.getElementById('compare-table');
+            table.innerHTML = `
+                <thead><tr>
+                    <th>Metric</th>
+                    ${models.map(m => `<th>${m.isPick ? '<svg viewBox="0 0 24 24" fill="none" stroke="var(--gold,#FACC15)" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> ' : ''}${m.name}</th>`).join('')}
+                </tr></thead>
+                <tbody>
+                    ${rows.map(([label, fn]) => `
+                        <tr><td>${label}</td>${models.map(m => `<td>${fn(m)}</td>`).join('')}</tr>
+                    `).join('')}
+                </tbody>
+            `;
+            document.getElementById('compare-modal').classList.add('visible');
+        }
+
+        function closeCompareModal() {
+            document.getElementById('compare-modal').classList.remove('visible');
+        }
+
+        // Render functions
+        function renderCards(models) {
+            const grid = document.getElementById('tts-grid');
+            const empty = document.getElementById('empty-state');
+            const resultCount = document.getElementById('result-count');
+            
+            if (models.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                resultCount.innerHTML = '';
+                return;
+            }
+            
+            empty.style.display = 'none';
+            const pickCount = models.filter(m => m.isPick).length;
+            resultCount.innerHTML = `<strong>${models.length}</strong> model${models.length > 1 ? 's' : ''} found${pickCount > 0 ? ` · <span style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> ${pickCount} LocalClaw Pick${pickCount > 1 ? 's' : ''}</span>` : ''}`;
+            
+            grid.innerHTML = models.map((model, i) => {
+                const langDisplay = model.languages.slice(0, 5).map(l => 
+                    `<span class="lang-tag">${l.toUpperCase()}</span>`
+                ).join('');
+                const langMore = model.languageCount > 5 ? 
+                    `<span class="lang-more">+${model.languageCount - 5} more</span>` : '';
+                
+                const features = model.features.map(f => {
+                    const classes = {
+                        'streaming': 'streaming',
+                        'realtime': 'realtime',
+                        'cloning': 'cloning',
+                        'low-latency': 'streaming'
+                    };
+                    const icons = {
+                        'streaming': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Streaming',
+                        'realtime': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Real-time',
+                        'cloning': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Cloning',
+                        'multilingual': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Multilingual',
+                        'emotion': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> Emotion',
+                        'dialogue': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Dialogue',
+                        'music': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Music',
+                        'sfx': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> SFX',
+                        'controllable': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> Control',
+                        'low-latency': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Low Latency'
+                    };
+                    return `<span class="feature-tag ${classes[f] || ''}">${icons[f] || f}</span>`;
+                }).join('');
+
+                const newBadge = model.isNew ? '<div class="new-badge">NEW</div>' : '';
+                const orchBadge = model.isOrchestrator ? `
+                    <div class="orch-badge" title="This is an app/orchestrator, not a standalone TTS model. It wraps backend models via a local API.">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        APP · ORCHESTRATOR
+                    </div>` : '';
+                const asrBadge = model.isAsr ? `
+                    <div class="orch-badge" title="ASR model (speech-to-text), included as a related speech model. Not a text-to-speech generator.">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2v20"/><path d="M5 8v8"/><path d="M19 8v8"/></svg>
+                        ASR · SPEECH-TO-TEXT
+                    </div>` : '';
+                const backendsRow = model.isOrchestrator && model.backendModels ? `
+                    <div class="backends-row">
+                        <span class="backends-label">Backends :</span>
+                        ${model.backendModels.map(b => `<span class="backend-chip">${b}</span>`).join('')}
+                    </div>` : '';
+                const pickBadge = model.isPick ? `
+                    <div class="pick-badge">
+                        <span class="pick-star"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+                        <span class="pick-badge-text">LocalClaw Pick</span>
+                    </div>` : '';
+                
+                const cardClass = model.isPick ? 'card localclaw-pick' : 'card';
+                const isCompared = compareList.includes(model.id);
+                
+                return `
+                <article class="${cardClass}" data-id="${model.id}">
+                    ${newBadge}
+                    ${orchBadge}
+                    ${asrBadge}
+                    <div class="card-header">
+                        <div>
+                            ${pickBadge}
+                            <span class="card-family">${model.family}</span>
+                            <div class="card-name">${model.name}</div>
+                            <div class="card-developer">${model.developer}</div>
+                        </div>
+                    </div>
+                    <p class="card-desc">${model.description}</p>
+                    ${backendsRow}
+                    <div class="features-bar">${features}</div>
+                    <div class="specs-row">
+                        <div class="spec-box tooltip-wrap">
+                            <div class="spec-val ${qualityColor(model.quality)}">${model.quality}/10</div>
+                            <div class="spec-label">Quality</div>
+                            <span class="tooltip-text">MOS / naturalness score</span>
+                        </div>
+                        <div class="spec-box tooltip-wrap">
+                            <div class="spec-val">${model.speed}/10</div>
+                            <div class="spec-label">Speed</div>
+                            <span class="tooltip-text">Inference speed (RTF)</span>
+                        </div>
+                        <div class="spec-box tooltip-wrap">
+                            <div class="spec-val">${model.sizeGB}GB</div>
+                            <div class="spec-label">Size</div>
+                            <span class="tooltip-text">Model download size</span>
+                        </div>
+                    </div>
+                    <div class="languages">${langDisplay}${langMore}</div>
+                    <div class="bench-row">
+                        <span class="bench-label">Quality</span>
+                        <div class="bench-bar"><div class="bench-fill bench-fill-quality" style="width:${model.quality * 10}%"></div></div>
+                        <span class="bench-val">${model.quality}</span>
+                    </div>
+                    <div class="bench-row">
+                        <span class="bench-label">Speed</span>
+                        <div class="bench-bar"><div class="bench-fill bench-fill-speed" style="width:${model.speed * 10}%"></div></div>
+                        <span class="bench-val">${model.speed}</span>
+                    </div>
+                    <div class="install-cmd" onclick="copyInstall(this, '${model.installCommand}')">
+                        <code>$ ${model.installCommand}</code>
+                        <span class="copy-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-links">
+                            <a href="${model.hfLink}" target="_blank" class="card-link card-link-secondary">🤗 HuggingFace</a>
+                        </div>
+                        <div class="card-links">
+                            <button class="compare-btn-card ${isCompared ? 'active' : ''}" data-id="${model.id}" onclick="toggleCompare('${model.id}')" title="Add to comparison">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
+                                </svg>
+                                <span>${isCompared ? 'Added' : 'Compare'}</span>
+                            </button>
+                            <span class="card-link card-link-primary" style="cursor:default;">${model.license}</span>
+                        </div>
+                    </div>
+                </article>
+                `;
+            }).join('');
+        }
+
+        // Sort logic
+        function sortModels(models, sortKey) {
+            const sorted = [...models];
+            switch (sortKey) {
+                case 'default':
+                    // Picks first, then by quality
+                    sorted.sort((a, b) => {
+                        if (a.isPick && !b.isPick) return -1;
+                        if (!a.isPick && b.isPick) return 1;
+                        return b.quality - a.quality;
+                    });
+                    break;
+                case 'quality':
+                    sorted.sort((a, b) => b.quality - a.quality);
+                    break;
+                case 'speed':
+                    sorted.sort((a, b) => b.speed - a.speed);
+                    break;
+                case 'size':
+                    sorted.sort((a, b) => a.sizeGB - b.sizeGB);
+                    break;
+                case 'date':
+                    sorted.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+                    break;
+            }
+            return sorted;
+        }
+
+        // Filter logic
+        function filterModels() {
+            let filtered = TTS_MODELS;
+            
+            if (activeFilters.pick) {
+                filtered = filtered.filter(m => m.isPick);
+            }
+            
+            if (activeFilters.lang !== 'all') {
+                if (activeFilters.lang === 'multilingual') {
+                    filtered = filtered.filter(m => m.languageCount > 10);
+                } else {
+                    filtered = filtered.filter(m => m.languages.includes(activeFilters.lang));
+                }
+            }
+            
+            if (activeFilters.feature) {
+                filtered = filtered.filter(m => m.features.includes(activeFilters.feature));
+            }
+            
+            if (activeFilters.hardware !== 'all') {
+                filtered = filtered.filter(m => m.hardware.includes(activeFilters.hardware));
+            }
+            
+            if (activeFilters.size) {
+                filtered = filtered.filter(m => m.sizeCategory === activeFilters.size);
+            }
+            
+            if (activeFilters.search) {
+                const query = activeFilters.search.toLowerCase();
+                filtered = filtered.filter(m => 
+                    m.name.toLowerCase().includes(query) ||
+                    m.description.toLowerCase().includes(query) ||
+                    m.family.toLowerCase().includes(query) ||
+                    m.developer.toLowerCase().includes(query)
+                );
+            }
+            
+            filtered = sortModels(filtered, currentSort);
+            renderCards(filtered);
+        }
+
+        // Event listeners — Filters
+        document.getElementById('lang-filters').addEventListener('click', e => {
+            if (e.target.classList.contains('chip')) {
+                document.querySelectorAll('#lang-filters .chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.lang = e.target.dataset.filter;
+                filterModels();
+            }
+        });
+
+        document.getElementById('feature-filters').addEventListener('click', e => {
+            if (e.target.classList.contains('chip')) {
+                const isActive = e.target.classList.contains('active');
+                document.querySelectorAll('#feature-filters .chip').forEach(c => c.classList.remove('active'));
+                if (!isActive) {
+                    e.target.classList.add('active');
+                    activeFilters.feature = e.target.dataset.filter;
+                } else {
+                    activeFilters.feature = null;
+                }
+                filterModels();
+            }
+        });
+
+        document.getElementById('hardware-filters').addEventListener('click', e => {
+            if (e.target.classList.contains('chip')) {
+                document.querySelectorAll('#hardware-filters .chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                activeFilters.hardware = e.target.dataset.filter;
+                filterModels();
+            }
+        });
+
+        document.getElementById('size-filters').addEventListener('click', e => {
+            if (e.target.classList.contains('chip')) {
+                const isActive = e.target.classList.contains('active');
+                document.querySelectorAll('#size-filters .chip').forEach(c => c.classList.remove('active'));
+                if (!isActive) {
+                    e.target.classList.add('active');
+                    activeFilters.size = e.target.dataset.filter;
+                } else {
+                    activeFilters.size = null;
+                }
+                filterModels();
+            }
+        });
+
+        // Pick filter
+        document.getElementById('pick-filter').addEventListener('click', e => {
+            if (e.target.classList.contains('chip')) {
+                e.target.classList.toggle('active');
+                activeFilters.pick = e.target.classList.contains('active');
+                filterModels();
+            }
+        });
+
+        // Search
+        document.getElementById('search-input').addEventListener('input', e => {
+            activeFilters.search = e.target.value;
+            filterModels();
+        });
+
+        // Sort buttons
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSort = btn.dataset.sort;
+                filterModels();
+            });
+        });
+
+        // Mobile sidebar
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        document.getElementById('mobile-filter-btn').addEventListener('click', () => {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        });
+        document.getElementById('sidebar-close').addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        // Compare modal close on escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeCompareModal();
+        });
+        document.getElementById('compare-modal').addEventListener('click', e => {
+            if (e.target === e.currentTarget) closeCompareModal();
+        });
+
+        // Keyboard shortcut for search
+        document.addEventListener('keydown', e => {
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                document.getElementById('search-input').focus();
+            }
+        });
+
+        // Initial render
+        filterModels();
+        
+        // Animate hero counters — compute real unique language count
+        const allLangs = new Set();
+        TTS_MODELS.forEach(m => { if (m.languages.includes('multilingual')) { /* count by languageCount */ } else { m.languages.forEach(l => allLangs.add(l)); } });
+        const totalUniqueLangs = Math.max(allLangs.size, ...TTS_MODELS.map(m => m.languageCount));
+        setTimeout(() => {
+            animateCounter(document.getElementById('total-tts'), TTS_MODELS.filter(m => !m.isAsr).length, '+');
+            animateCounter(document.getElementById('total-langs'), totalUniqueLangs, '+');
+        }, 300);
+
+        // Mobile menu is handled by inline onclick in the navbar HTML
+    </script>
+    <!-- Theme Toggle Script -->
+    <script src="js/theme-toggle.js"></script>
+    <!-- TRACKING: DataFast Analytics -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

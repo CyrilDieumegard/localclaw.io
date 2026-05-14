@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Qwen 3.5 Deep Dive: 35B-A3B, 27B, 122B-A10B, 397B-A17B — Local AI Guide | LocalClaw</title>
+    <meta name="description" content="Complete guide to Qwen 3.5 models: hardware requirements, benchmarks, MoE architecture explained, and how to run 35B-A3B on a Mac Studio 32GB. Updated April 2026.">
+    <meta name="keywords" content="Qwen 3.5, Qwen3.5-35B-A3B, Qwen3.5-27B, Qwen3.5-122B-A10B, Qwen3.5-397B-A17B, local LLM, MoE model, LM Studio, Alibaba AI, open source LLM 2025">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/qwen35-deep-dive.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/qwen35-deep-dive.html">
+    <meta property="og:title" content="Qwen 3.5 Deep Dive: Run 35B at 3B Cost on Your Mac">
+    <meta property="og:description" content="Everything you need to know about Qwen 3.5 MoE models: hardware requirements, benchmarks, and how to run them locally.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-03-02">
+    <meta property="article:section" content="Model Reviews">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Qwen 3.5 Deep Dive: 35B-A3B, 27B, 122B — Run Locally">
+    <meta name="twitter:description" content="Complete guide: hardware, benchmarks, and tips to run Qwen 3.5 locally with LM Studio.">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/theme-toggle.js"></script>
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        /* ============================================================
+           BASE (DARK MODE)
+        ============================================================ */
+        body { background: #050505; color: #FFFFFF; }
+
+        /* Reading progress bar */
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, #FF453A, #f97316);
+            z-index: 9999; transition: width 0.15s linear;
+        }
+        html.light #reading-progress { background: linear-gradient(90deg, #dc2626, #f97316); }
+
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #e5e7eb; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: decimal; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.4rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e2e8f0; }
+
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .new-badge-inline { background: linear-gradient(135deg, #a855f7, #f97316); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 8px; border-radius: 20px; display: inline-block; vertical-align: middle; }
+
+        .model-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .model-card:hover { border-color: rgba(255,69,58,0.3); }
+
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table th { background: rgba(255,255,255,0.05); padding: 12px 16px; text-align: left; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .spec-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #A1A1AA; }
+        .spec-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+        .bench-bar-wrap { display: flex; align-items: center; gap: 8px; }
+        .bench-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+
+        .tip-box { background: rgba(16,185,129,0.1); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #F59E0B; }
+        .moe-diagram { background: linear-gradient(145deg, rgba(168,85,247,0.08), rgba(249,115,22,0.08)); border: 1px solid rgba(168,85,247,0.2); border-radius: 12px; }
+
+        .moe-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 16px; }
+        .model-tag-neutral { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+
+        /* Theme toggle */
+        .theme-toggle-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fbbf24; cursor: pointer; transition: all 0.2s ease; }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+
+
+        /* ============================================================
+           LIGHT MODE — COMPLETE REDESIGN
+        ============================================================ */
+
+        /* --- Global --- */
+        html.light body {
+            background: #f5f4f0 !important;
+            color: #1e293b !important;
+        }
+        html.light .bg-claw-bg { background-color: #f5f4f0 !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+
+        /* --- Navigation --- */
+        html.light nav {
+            background: rgba(255,255,255,0.96) !important;
+            border-bottom-color: #e5e7eb !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07) !important;
+        }
+        html.light .border-claw-border\/50 { border-color: #e5e7eb !important; }
+
+        /* --- Base text colours --- */
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-text { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .text-claw-muted\/40 { color: rgba(100,116,139,0.5) !important; }
+        html.light .text-claw-muted\/60 { color: rgba(100,116,139,0.7) !important; }
+
+        /* --- Hero / Header --- */
+        html.light header { background: transparent !important; }
+        html.light header h1 { color: #0f172a !important; }
+        html.light header p { color: #475569 !important; }
+        html.light header strong { color: #0f172a !important; }
+
+        /* --- Breadcrumb / meta strip --- */
+        html.light header .text-claw-muted { color: #64748b !important; }
+
+        /* --- Colour tag pills (header & cards) --- */
+        html.light .bg-purple-500\/10,
+        html.light .bg-purple-500\/20  { background: rgba(124,58,237,0.09) !important; }
+        html.light .bg-orange-500\/10  { background: rgba(234,88,12,0.08)  !important; }
+        html.light .bg-green-500\/10   { background: rgba(5,150,105,0.08)  !important; }
+        html.light .bg-blue-500\/10,
+        html.light .bg-blue-500\/20    { background: rgba(37,99,235,0.08)  !important; }
+        html.light .bg-yellow-500\/10  { background: rgba(161,98,7,0.08)   !important; }
+        html.light .bg-amber-500\/10,
+        html.light .bg-amber-500\/20   { background: rgba(217,119,6,0.08)  !important; }
+        html.light .bg-red-500\/20     { background: rgba(220,38,38,0.08)  !important; }
+        html.light .bg-emerald-500\/10 { background: rgba(5,150,105,0.08)  !important; }
+
+        html.light .text-purple-300  { color: #6d28d9  !important; }
+        html.light .text-orange-300  { color: #c2410c  !important; }
+        html.light .text-green-300   { color: #047857  !important; }
+        html.light .text-blue-300    { color: #1d4ed8  !important; }
+        html.light .text-yellow-300  { color: #92400e  !important; }
+        html.light .text-amber-300   { color: #b45309  !important; }
+        html.light .text-red-300     { color: #b91c1c  !important; }
+        html.light .text-emerald-300 { color: #065f46  !important; }
+
+        html.light .text-purple-400  { color: #7c3aed  !important; }
+        html.light .text-orange-400  { color: #c2410c  !important; }
+        html.light .text-green-400   { color: #059669  !important; }
+        html.light .text-blue-400    { color: #1d4ed8  !important; }
+        html.light .text-yellow-400  { color: #92400e  !important; }
+        html.light .text-amber-400   { color: #b45309  !important; }
+        html.light .text-red-400     { color: #dc2626  !important; }
+        html.light .text-emerald-400 { color: #047857  !important; }
+
+        html.light .border-purple-500\/20,
+        html.light .border-purple-500\/30 { border-color: rgba(109,40,217,0.25)  !important; }
+        html.light .border-orange-500\/30 { border-color: rgba(194,65,12,0.25)   !important; }
+        html.light .border-green-500\/30  { border-color: rgba(5,150,105,0.25)   !important; }
+        html.light .border-blue-500\/20,
+        html.light .border-blue-500\/30   { border-color: rgba(29,78,216,0.25)   !important; }
+        html.light .border-yellow-500\/30 { border-color: rgba(146,64,14,0.25)   !important; }
+        html.light .border-amber-500\/20,
+        html.light .border-amber-500\/30  { border-color: rgba(180,83,9,0.25)    !important; }
+        html.light .border-red-500\/30    { border-color: rgba(220,38,38,0.25)   !important; }
+        html.light .border-emerald-500\/20 { border-color: rgba(5,150,105,0.25)  !important; }
+        html.light .border-white\/10,
+        html.light .border-white\/20      { border-color: #e5e7eb !important; }
+
+        /* White/10 backgrounds (pill that uses bg-white/10) */
+        html.light .bg-white\/5  { background: #f1f5f9 !important; }
+        html.light .bg-white\/10 { background: #f1f5f9 !important; }
+        html.light .text-white\/70 { color: #475569 !important; }
+        html.light .border-white\/20 { border-color: #cbd5e1 !important; }
+
+        /* --- TL;DR Highlight box --- */
+        html.light .highlight-box {
+            background: linear-gradient(145deg, rgba(255,69,58,0.06), rgba(255,69,58,0.02)) !important;
+            border-left-color: #FF453A !important;
+            border-radius: 12px;
+        }
+        html.light .highlight-box h2,
+        html.light .highlight-box h4     { color: #0f172a !important; }
+        html.light .highlight-box strong  { color: #0f172a !important; }
+        /* Fix inline style="color:#e5e7eb" on TL;DR list */
+        html.light .tldr-list             { color: #374151 !important; }
+        html.light .tldr-list li          { color: #374151 !important; }
+        html.light .tldr-list strong      { color: #0f172a !important; }
+
+        /* --- Prose text --- */
+        html.light .prose h2     { color: #0f172a !important; }
+        html.light .prose h3     { color: #1e293b !important; }
+        html.light .prose h4     { color: #374151 !important; }
+        html.light .prose p      { color: #374151 !important; }
+        html.light .prose ul,
+        html.light .prose ol     { color: #374151 !important; }
+        html.light .prose li     { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a      { color: #dc2626 !important; }
+        html.light .prose a:hover { color: #b91c1c !important; }
+        html.light .prose code   { background: rgba(0,0,0,0.05) !important; color: #c2410c !important; border: 1px solid rgba(0,0,0,0.08); }
+
+        /* --- MoE diagram --- */
+        html.light .moe-diagram {
+            background: linear-gradient(145deg, rgba(124,58,237,0.04), rgba(234,88,12,0.04)) !important;
+            border-color: rgba(124,58,237,0.18) !important;
+        }
+        html.light .moe-diagram h4 { color: #0f172a !important; }
+        html.light .moe-card {
+            background: #f8fafc !important;
+            border: 1px solid #e5e7eb !important;
+        }
+        html.light .moe-diagram .text-red-400   { color: #dc2626 !important; }
+        html.light .moe-diagram .text-green-400 { color: #059669 !important; }
+        html.light .moe-diagram .text-claw-muted { color: #475569 !important; }
+
+        /* --- Model cards --- */
+        html.light .model-card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04) !important;
+        }
+        html.light .model-card:hover {
+            border-color: rgba(255,69,58,0.35) !important;
+            box-shadow: 0 4px 20px rgba(255,69,58,0.08), 0 2px 6px rgba(0,0,0,0.06) !important;
+        }
+        html.light .model-card .text-white   { color: #0f172a !important; }
+        html.light .model-card .text-claw-muted { color: #64748b !important; }
+        /* Benchmark mini boxes inside cards */
+        html.light .model-card .bg-white\/5 {
+            background: #f8fafc !important;
+            border: 1px solid #f1f5f9 !important;
+        }
+        /* Flagship purple card */
+        html.light .model-card[style*="rgba(168,85,247"] {
+            background: rgba(124,58,237,0.03) !important;
+            border-color: rgba(124,58,237,0.18) !important;
+        }
+        /* Coloured "Best for" boxes inside cards */
+        html.light .model-card .bg-emerald-500\/10 { background: rgba(5,150,105,0.07) !important; }
+        html.light .model-card .bg-blue-500\/10    { background: rgba(29,78,216,0.07)  !important; }
+        html.light .model-card .bg-amber-500\/10   { background: rgba(180,83,9,0.07)   !important; }
+        html.light .model-card .bg-purple-500\/10  { background: rgba(109,40,217,0.07) !important; }
+
+        /* --- Benchmark bars --- */
+        html.light .bench-bg { background: #e2e8f0 !important; }
+
+        /* --- Spec/comparison tables --- */
+        html.light .not-prose .border-white\/10 { border-color: #e5e7eb !important; }
+        html.light .spec-table th {
+            background: #f1f5f9 !important;
+            color: #0f172a !important;
+            border-bottom-color: #e2e8f0 !important;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        html.light .spec-table td {
+            color: #475569 !important;
+            border-bottom-color: #f1f5f9 !important;
+        }
+        html.light .spec-table tr:hover td { background: rgba(0,0,0,0.015) !important; }
+        html.light .spec-table .text-white { color: #0f172a !important; }
+        html.light .spec-table a { color: #dc2626 !important; text-decoration: underline; }
+
+        /* --- Tip box (green) --- */
+        html.light .tip-box {
+            background: linear-gradient(145deg, rgba(5,150,105,0.07), rgba(5,150,105,0.03)) !important;
+            border-left-color: #10B981 !important;
+        }
+        html.light .tip-box h4      { color: #064e3b !important; }
+        html.light .tip-box ul,
+        html.light .tip-box li      { color: #065f46 !important; }
+        html.light .tip-box strong  { color: #064e3b !important; }
+        html.light .tip-box a       { color: #059669 !important; }
+        html.light .text-emerald-200\/80 { color: #065f46 !important; }
+
+        /* --- Warning box (amber) --- */
+        html.light .warning-box {
+            background: linear-gradient(145deg, rgba(217,119,6,0.07), rgba(217,119,6,0.03)) !important;
+            border-left-color: #F59E0B !important;
+        }
+        html.light .warning-box h4     { color: #78350f !important; }
+        html.light .warning-box p      { color: #78350f !important; }
+        html.light .warning-box strong { color: #78350f !important; }
+        html.light .text-amber-200\/80 { color: #78350f !important; }
+
+        /* --- Code blocks (dark bg-black/40 boxes) --- */
+        html.light .bg-black\/40 {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+        }
+        html.light code.text-green-400 { color: #059669 !important; background: rgba(5,150,105,0.08) !important; }
+        html.light code.text-blue-400  { color: #1d4ed8 !important; background: rgba(29,78,216,0.08) !important; }
+        html.light .bg-black\/40 .text-claw-muted { color: #64748b !important; }
+
+        /* --- Browse All CTA section --- */
+        html.light #browse-cta {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+        }
+        html.light #browse-cta .cta-title { color: #0f172a !important; }
+        html.light #browse-cta .cta-desc  { color: #475569 !important; }
+
+        /* CTA link buttons */
+        html.light .cta-btn-purple {
+            background: rgba(109,40,217,0.08) !important;
+            border-color: rgba(109,40,217,0.28) !important;
+            color: #6d28d9 !important;
+        }
+        html.light .cta-btn-purple:hover { background: rgba(109,40,217,0.15) !important; }
+        html.light .cta-btn-blue {
+            background: rgba(29,78,216,0.08) !important;
+            border-color: rgba(29,78,216,0.28) !important;
+            color: #1e40af !important;
+        }
+        html.light .cta-btn-blue:hover { background: rgba(29,78,216,0.15) !important; }
+        html.light .cta-btn-amber {
+            background: rgba(180,83,9,0.08) !important;
+            border-color: rgba(180,83,9,0.28) !important;
+            color: #92400e !important;
+        }
+        html.light .cta-btn-amber:hover { background: rgba(180,83,9,0.15) !important; }
+        html.light .cta-btn-red {
+            background: rgba(220,38,38,0.08) !important;
+            border-color: rgba(220,38,38,0.28) !important;
+            color: #dc2626 !important;
+        }
+        html.light .cta-btn-red:hover { background: rgba(220,38,38,0.15) !important; }
+
+        /* --- Highlight "Find Perfect Model" box --- */
+        html.light .highlight-box .text-claw-muted { color: #475569 !important; }
+
+        /* --- Mobile menu --- */
+        html.light #mobile-menu { background: rgba(0,0,0,0.4) !important; }
+        html.light #mobile-menu > div {
+            background: #ffffff !important;
+            border-bottom-color: #e5e7eb !important;
+        }
+        html.light #mobile-menu a { color: #374151 !important; }
+        html.light #mobile-menu a:hover { background: #f1f5f9 !important; color: #0f172a !important; }
+
+        /* --- Footer --- */
+        html.light footer {
+            background: #ede9e3 !important;
+            border-top-color: #d1d5db !important;
+        }
+        html.light footer p,
+        html.light footer a          { color: #6b7280 !important; }
+        html.light footer a:hover    { color: #1e293b !important; }
+
+        /* --- Theme toggle --- */
+        html.light .theme-toggle-btn {
+            border-color: rgba(0,0,0,0.15);
+            color: #d97706;
+            background: transparent;
+        }
+        html.light .theme-toggle-btn:hover { background: rgba(0,0,0,0.04); }
+
+        html.light .model-tag-neutral {
+            background: #f1f5f9 !important;
+            color: #475569 !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        /* --- Scrollbar (light) --- */
+        html.light ::-webkit-scrollbar { width: 8px; }
+        html.light ::-webkit-scrollbar-track { background: #f1f5f9; }
+        html.light ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        html.light ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* ============================================================
+           LIGHT-MODE ARTICLE READING IMPROVEMENTS
+        ============================================================ */
+
+        /* Light reading background with subtle warm gradient */
+        html.light body {
+            background: linear-gradient(180deg, #faf9f6 0%, #f5f4f0 100%) !important;
+        }
+
+        /* Hero header with soft gradient wash */
+        html.light header {
+            background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%) !important;
+            padding-bottom: 2rem !important;
+        }
+
+        /* Section divider above each h2 */
+        html.light .prose h2 {
+            padding-top: 0.5rem;
+            border-top: 1px solid #f1f5f9;
+            margin-top: 3rem !important;
+        }
+        html.light .prose h2:first-child { border-top: none; margin-top: 0 !important; }
+
+        /* Inline code inside prose */
+        html.light .prose code {
+            background: #fef3c7 !important;
+            color: #92400e !important;
+            border: 1px solid #fde68a !important;
+            border-radius: 4px;
+        }
+
+        /* Better "View Details →" button in light */
+        html.light a[href*="llm-detail"].text-claw-primary {
+            background: rgba(255,69,58,0.07) !important;
+            border-color: rgba(255,69,58,0.3) !important;
+            color: #dc2626 !important;
+        }
+        html.light a[href*="llm-detail"].text-claw-primary:hover {
+            background: rgba(255,69,58,0.13) !important;
+        }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+
+    <!-- Reading progress bar -->
+    <div id="reading-progress"></div>
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
+                        <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="../index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
+                    <a href="../pricing.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
+                <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New Models</a>
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
+                <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+        <div class="flex items-center gap-2 flex-wrap mb-5">
+            <a href="index.html" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
+            <span class="text-claw-muted/40">·</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Model Review</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
+            <span class="text-xs text-claw-muted/60">April 2026</span>
+            <span class="new-badge-inline">⭐ New</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
+            Qwen 3.5 Deep Dive:<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-orange-400 to-yellow-400">The MoE Revolution for Local AI</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-claw-muted leading-relaxed max-w-3xl mb-6">
+            Qwen 3.5 brings four new models from Alibaba — all with MoE architecture, 256K context, and hybrid thinking mode. The <strong class="text-white">35B-A3B activates only 3B parameters at inference</strong>, making it a gamechanger for agentic coding on consumer hardware.
+        </p>
+        <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 px-3 py-1 rounded-full font-mono">MoE Architecture</span>
+            <span class="text-xs bg-orange-500/10 border border-orange-500/30 text-orange-300 px-3 py-1 rounded-full font-mono">256K Context</span>
+            <span class="text-xs bg-green-500/10 border border-green-500/30 text-green-300 px-3 py-1 rounded-full font-mono">Apache 2.0</span>
+            <span class="text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1 rounded-full font-mono">Hybrid Thinking</span>
+            <span class="text-xs bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 px-3 py-1 rounded-full font-mono">29+ Languages</span>
+        </div>
+    </header>
+
+    <!-- ARTICLE -->
+    <main class="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-20">
+
+        <!-- TLDR Box -->
+        <div class="highlight-box rounded-xl p-6 mb-10">
+            <h2 class="text-lg font-display font-bold text-white mb-3 mt-0" style="margin-top:0">⚡ TL;DR — What You Need to Know</h2>
+            <ul class="tldr-list text-sm space-y-1.5" style="font-size:1rem;">
+                <li>🔥 <strong>35B-A3B</strong> = only 3B active at inference · 19× faster than Qwen3-Max · runs on <strong>Mac Studio 32GB</strong></li>
+                <li>💪 <strong>27B Dense</strong> = stable quality, no MoE complexity · needs 32GB RAM · best for balanced workloads</li>
+                <li>🚀 <strong>122B-A10B</strong> = 60% cheaper to run than Qwen3-Max · 10B active · top-tier quality · 80GB RAM</li>
+                <li>🏆 <strong>397B-A17B</strong> = flagship open-source · matches GPT-4o · 256GB RAM · server-grade only</li>
+                <li>🆕 <strong>Small models (0.8B / 2B / 4B / 9B)</strong> = now available! Runs on any device · 4B fits Mac Air 16GB</li>
+                <li>🛠️ All models: <strong>Apache 2.0</strong>, 256K context, hybrid thinking mode, 29+ languages</li>
+                <li>💡 <strong>Flash</strong> (not listed here) = API-only, not available for local download</li>
+            </ul>
+        </div>
+
+        <article class="prose">
+
+            <!-- Section 1: What is MoE -->
+            <h2>What Is MoE and Why Does It Matter?</h2>
+            <p>
+                <strong>Mixture of Experts (MoE)</strong> is the architecture that makes Qwen 3.5 special. Instead of running every parameter on every token (like a dense model), MoE splits the model into "experts" — groups of neurons — and only activates a small fraction for each token.
+            </p>
+
+            <div class="moe-diagram p-6 rounded-xl mb-6">
+                <h4 class="text-white font-bold mb-3 mt-0" style="margin-top:0;">MoE vs Dense — Visual Comparison</h4>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="moe-card rounded-lg p-4">
+                        <div class="text-red-400 font-bold mb-2">❌ Dense Model (27B)</div>
+                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">Activates ALL 27 billion parameters for every single token generated. High RAM usage, slower on modest hardware.</p>
+                    </div>
+                    <div class="moe-card rounded-lg p-4">
+                        <div class="text-green-400 font-bold mb-2">✅ MoE Model (35B-A3B)</div>
+                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">Has 35B params total, but activates only 3B per token via smart routing. Same quality, fraction of the compute cost.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                The result: <strong>Qwen3.5-35B-A3B gives you near-27B quality at 3B inference cost</strong>. The model "knows" more because it has 35B total parameters, but it's as fast as a tiny model. This is the magic of MoE.
+            </p>
+
+            <!-- Section 2: Model Lineup -->
+            <h2>The Qwen 3.5 Lineup — All 4 Models</h2>
+            <p>Qwen 3.5 was released in August 2025 with four models targeting different hardware tiers:</p>
+
+            <!-- Model cards -->
+            <div class="not-prose space-y-4 mb-8">
+
+                <!-- 35B-A3B -->
+                <div class="model-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">MoE</span>
+                                <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/30 px-2 py-0.5 rounded-full font-mono font-bold">⭐ Community Favourite</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Qwen3.5-35B-A3B</h3>
+                            <p class="text-claw-muted text-sm">35B total · 3B active · ~20-24GB RAM</p>
+                        </div>
+                        <a href="../llm-detail.html?model=qwen3.5-35b-a3b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Speed</div>
+                            <div class="text-emerald-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-emerald-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Quality</div>
+                            <div class="text-blue-400 font-bold text-lg">8/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:80%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Coding</div>
+                            <div class="text-orange-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Reasoning</div>
+                            <div class="text-purple-400 font-bold text-lg">8/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-purple-400" style="width:80%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 text-sm text-emerald-300">
+                        <strong>Best for:</strong> Agentic coding, fast inference on Mac Studio 32GB, autonomous AI agents. Reddit called it a "gamechanger for agentic coding."
+                    </div>
+                </div>
+
+                <!-- 27B Dense -->
+                <div class="model-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Dense</span>
+                                <span class="text-xs model-tag-neutral px-2 py-0.5 rounded-full font-mono font-bold">Predictable Quality</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Qwen3.5-27B</h3>
+                            <p class="text-claw-muted text-sm">27B dense · ~32-35GB RAM</p>
+                        </div>
+                        <a href="../llm-detail.html?model=qwen3.5-27b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Speed</div>
+                            <div class="text-yellow-400 font-bold text-lg">5/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-yellow-400" style="width:50%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Quality</div>
+                            <div class="text-blue-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Coding</div>
+                            <div class="text-orange-400 font-bold text-lg">8/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:80%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Reasoning</div>
+                            <div class="text-purple-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-purple-400" style="width:90%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-sm text-blue-300">
+                        <strong>Best for:</strong> Dense model lovers who want predictable, stable quality. No MoE routing overhead. Great for reasoning and multilingual tasks on 32GB machines.
+                    </div>
+                </div>
+
+                <!-- 122B-A10B -->
+                <div class="model-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">MoE</span>
+                                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-mono font-bold">60% Cheaper</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Qwen3.5-122B-A10B</h3>
+                            <p class="text-claw-muted text-sm">122B total · 10B active · ~80GB RAM</p>
+                        </div>
+                        <a href="../llm-detail.html?model=qwen3.5-122b-a10b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Speed</div>
+                            <div class="text-yellow-400 font-bold text-lg">4/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-yellow-400" style="width:40%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Quality</div>
+                            <div class="text-blue-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:100%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Coding</div>
+                            <div class="text-orange-400 font-bold text-lg">9/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:90%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Reasoning</div>
+                            <div class="text-purple-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-purple-400" style="width:100%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-300">
+                        <strong>Best for:</strong> Mac Studio Ultra, multi-GPU rigs with 80GB+ VRAM/RAM. Maximum quality locally-runnable model. 60% cost reduction vs Qwen3-Max.
+                    </div>
+                </div>
+
+                <!-- 397B-A17B -->
+                <div class="model-card border-purple-500/20" style="background: rgba(168,85,247,0.05);">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-gradient-to-r from-purple-500/30 to-orange-500/30 text-white border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">🏆 FLAGSHIP</span>
+                                <span class="text-xs bg-red-500/20 text-red-300 border border-red-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Server Only</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Qwen3.5-397B-A17B</h3>
+                            <p class="text-claw-muted text-sm">397B total · 17B active · ~256GB RAM</p>
+                        </div>
+                        <a href="../llm-detail.html?model=qwen3.5-397b-a17b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Speed</div>
+                            <div class="text-red-400 font-bold text-lg">2/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-red-400" style="width:20%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Quality</div>
+                            <div class="text-blue-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:100%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Coding</div>
+                            <div class="text-orange-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:100%"></div></div>
+                        </div>
+                        <div class="bg-white/5 rounded-lg p-3 text-center">
+                            <div class="text-xs text-claw-muted mb-1">Reasoning</div>
+                            <div class="text-purple-400 font-bold text-lg">10/10</div>
+                            <div class="bench-bg mt-1"><div class="bench-fill bg-purple-400" style="width:100%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-sm text-purple-300">
+                        <strong>Best for:</strong> Enterprise AI servers, multi-GPU clusters, Mac Pro Ultra. Matches GPT-4o on major benchmarks. The most capable open-source model available.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Hardware Table -->
+            <h2>Hardware Requirements — What Can You Run?</h2>
+            <p>Here's a clear table of hardware needed for each Qwen 3.5 model with Q4_K_M quantization:</p>
+
+            <div class="not-prose mb-8 overflow-x-auto rounded-xl border border-white/10">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Active Params</th>
+                            <th>RAM Needed</th>
+                            <th>Recommended Hardware</th>
+                            <th>HF Repo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="text-white">35B-A3B</strong></td>
+                            <td class="text-emerald-400 font-mono">3B</td>
+                            <td>~20-24 GB</td>
+                            <td>Mac Studio 32GB, RTX 4090 24GB</td>
+                            <td><a href="https://huggingface.co/bartowski/Qwen_Qwen3.5-35B-A3B-GGUF" target="_blank" rel="noopener" class="text-claw-primary text-xs">bartowski/Qwen_Qwen3.5-35B-A3B-GGUF</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">27B</strong></td>
+                            <td class="text-blue-400 font-mono">27B</td>
+                            <td>~30-35 GB</td>
+                            <td>Mac Studio 32GB (tight), 2× RTX 3090</td>
+                            <td><a href="https://huggingface.co/unsloth/Qwen3.5-27B-GGUF" target="_blank" rel="noopener" class="text-claw-primary text-xs">unsloth/Qwen3.5-27B-GGUF</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">122B-A10B</strong></td>
+                            <td class="text-amber-400 font-mono">10B</td>
+                            <td>~65-80 GB</td>
+                            <td>Mac Studio Ultra 192GB, 4× RTX 4090</td>
+                            <td><a href="https://huggingface.co/lmstudio-community/Qwen3.5-122B-A10B-GGUF" target="_blank" rel="noopener" class="text-claw-primary text-xs">lmstudio-community/Qwen3.5-122B-A10B-GGUF</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="text-white">397B-A17B</strong></td>
+                            <td class="text-red-400 font-mono">17B</td>
+                            <td>~200-256 GB</td>
+                            <td>Multi-GPU server, Mac Pro Ultra 192GB+</td>
+                            <td><a href="https://huggingface.co/Qwen/Qwen3.5-397B-A17B" target="_blank" rel="noopener" class="text-claw-primary text-xs">Qwen/Qwen3.5-397B-A17B</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip-box rounded-xl p-5 mb-6">
+                <h4 class="text-emerald-300 font-bold mt-0 mb-2">💡 Mac User Quick Guide</h4>
+                <ul class="text-emerald-200/80 text-sm space-y-1 mb-0" style="font-size:0.95rem;">
+                    <li><strong>MacBook Air / Pro M4 16GB</strong> → <a href="../llm-detail.html?model=qwen3.5-4b" class="text-emerald-400">Qwen 3.5 4B</a> or <a href="../llm-detail.html?model=qwen3.5-9b" class="text-emerald-400">9B</a> ✅ Now available!</li>
+                    <li><strong>Mac Mini M4 Pro 24GB</strong> → Qwen3.5-35B-A3B Q3_K_M works (tight).</li>
+                    <li><strong>Mac Studio M4 Max 32GB</strong> → Qwen3.5-35B-A3B Q4_K_M ✅ the sweet spot.</li>
+                    <li><strong>Mac Studio Ultra 64-192GB</strong> → All models up to 122B-A10B. Beast mode.</li>
+                    <li><strong>iPhone / Edge / Raspberry Pi</strong> → <a href="../llm-detail.html?model=qwen3.5-0.8b" class="text-emerald-400">Qwen 3.5 0.8B</a> or <a href="../llm-detail.html?model=qwen3.5-2b" class="text-emerald-400">2B</a> 🚀</li>
+                </ul>
+            </div>
+
+            <!-- Section 4: Hybrid Thinking -->
+            <h2>Hybrid Thinking Mode — Toggle Reasoning On/Off</h2>
+            <p>
+                One of Qwen 3.5's most useful features is <strong>hybrid thinking mode</strong>. You can ask the model to <em>think deeply</em> using chain-of-thought reasoning, or just get a quick answer without the overhead.
+            </p>
+            <p>In LM Studio, you control this via the system prompt:</p>
+
+            <div class="not-prose mb-6">
+                <div class="bg-black/40 border border-white/10 rounded-xl p-4">
+                    <div class="text-xs text-claw-muted uppercase font-mono mb-3">Thinking Mode ON (best for complex tasks)</div>
+                    <code class="text-green-400 text-sm font-mono">/think</code>
+                    <p class="text-claw-muted text-xs mt-2 mb-0">Add <code class="text-green-400">/think</code> at the start of your message, or set it in the system prompt.</p>
+                </div>
+                <div class="bg-black/40 border border-white/10 rounded-xl p-4 mt-3">
+                    <div class="text-xs text-claw-muted uppercase font-mono mb-3">Thinking Mode OFF (fast answers)</div>
+                    <code class="text-blue-400 text-sm font-mono">/no_think</code>
+                    <p class="text-claw-muted text-xs mt-2 mb-0">Use <code class="text-blue-400">/no_think</code> for quick conversational responses without chain-of-thought.</p>
+                </div>
+            </div>
+
+            <p>
+                This is especially powerful for agentic workflows: use <code>/think</code> for complex reasoning steps and <code>/no_think</code> for tool calls and simple outputs. No other model family offers this granular control.
+            </p>
+
+            <!-- Section 5: LM Studio Installation -->
+            <h2>How to Run Qwen 3.5 in LM Studio</h2>
+            <ol>
+                <li>Open <strong>LM Studio</strong> (download at <a href="https://lmstudio.ai" target="_blank" rel="noopener">lmstudio.ai</a>)</li>
+                <li>Click the <strong>Search</strong> tab (🔍)</li>
+                <li>Type: <code>qwen3.5-35b-a3b</code> (or your chosen model)</li>
+                <li>Select the <strong>Q4_K_M quantization</strong> for the best balance of quality and size</li>
+                <li>Click <strong>Download</strong> (the file will be ~20GB for the 35B-A3B)</li>
+                <li>Once downloaded, load it in the <strong>Chat</strong> tab</li>
+                <li>Optional: add <code>/think</code> to the system prompt to enable reasoning mode</li>
+            </ol>
+
+            <div class="warning-box rounded-xl p-5 mb-6">
+                <h4 class="text-amber-300 font-bold mt-0 mb-2">⚠️ About Qwen 3.5 Flash</h4>
+                <p class="text-amber-200/80 text-sm mb-0">
+                    <strong>Qwen3.5-Flash is API-only</strong> — it is not available for local download. It's designed for Alibaba's cloud infrastructure and cannot be downloaded as a GGUF file. Use the 35B-A3B instead for local deployments.
+                </p>
+            </div>
+
+            <!-- Section 6: Comparison vs Qwen 3 -->
+            <h2>Qwen 3.5 vs Qwen 3 — What's New?</h2>
+
+            <div class="not-prose overflow-x-auto rounded-xl border border-white/10 mb-8">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Qwen 3</th>
+                            <th>Qwen 3.5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Context Window</td>
+                            <td class="text-claw-muted">131K</td>
+                            <td class="text-emerald-400 font-bold">256K ✅</td>
+                        </tr>
+                        <tr>
+                            <td>Hybrid Thinking</td>
+                            <td class="text-claw-muted">Yes (basic)</td>
+                            <td class="text-emerald-400 font-bold">Improved ✅</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td class="text-claw-muted">29+</td>
+                            <td class="text-emerald-400 font-bold">29+ (deeper) ✅</td>
+                        </tr>
+                        <tr>
+                            <td>MoE Efficiency</td>
+                            <td class="text-claw-muted">Good</td>
+                            <td class="text-emerald-400 font-bold">19× faster ✅</td>
+                        </tr>
+                        <tr>
+                            <td>License</td>
+                            <td>Apache 2.0</td>
+                            <td class="text-emerald-400">Apache 2.0 ✅</td>
+                        </tr>
+                        <tr>
+                            <td>Flagship Model Size</td>
+                            <td class="text-claw-muted">235B-A22B</td>
+                            <td class="text-emerald-400 font-bold">397B-A17B (GPT-4o level) ✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Verdict — Which Qwen 3.5 Should You Download?</h2>
+
+            <div class="not-prose mb-5 p-4 rounded-xl border border-white/10 bg-white/5">
+                <p class="text-claw-muted text-sm mb-3 mt-0"><strong class="text-white">🆕 Qwen 3.5 Small models now available!</strong> The 0.8B, 2B, 4B and 9B dense variants landed in early March 2026 — they bring hybrid thinking mode and 256K context to entry-level hardware.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                    <a href="../llm-detail.html?model=qwen3.5-0.8b" class="rounded-lg bg-white/5 border border-white/10 px-2 py-2 text-claw-muted hover:text-white transition-colors">0.8B<br><span class="text-green-400 font-bold">~2 GB RAM</span></a>
+                    <a href="../llm-detail.html?model=qwen3.5-2b" class="rounded-lg bg-white/5 border border-white/10 px-2 py-2 text-claw-muted hover:text-white transition-colors">2B<br><span class="text-green-400 font-bold">~4 GB RAM</span></a>
+                    <a href="../llm-detail.html?model=qwen3.5-4b" class="rounded-lg bg-white/5 border border-white/10 px-2 py-2 text-claw-muted hover:text-white transition-colors">4B<br><span class="text-green-400 font-bold">~6 GB RAM</span></a>
+                    <a href="../llm-detail.html?model=qwen3.5-9b" class="rounded-lg bg-white/5 border border-white/10 px-2 py-2 text-claw-muted hover:text-white transition-colors">9B<br><span class="text-green-400 font-bold">~8 GB RAM</span></a>
+                </div>
+            </div>
+
+            <ul>
+                <li><strong>MacBook Air M4 16GB → Qwen 3.5 4B or 9B</strong>. Both run comfortably with hybrid thinking on 16 GB. Perfect for daily use. <a href="../llm-detail.html?model=qwen3.5-4b">4B details →</a></li>
+                <li><strong>You have 32GB RAM → 35B-A3B</strong>. Fastest MoE model, incredible for agentic coding, fits a Mac Studio M4 Max.</li>
+                <li><strong>You have 32GB RAM and prefer dense → 27B</strong>. More predictable, stable quality, good for reasoning tasks.</li>
+                <li><strong>You have 80GB+ RAM → 122B-A10B</strong>. The best quality you can run locally. Worth every GB.</li>
+                <li><strong>You have a server or multi-GPU rig → 397B-A17B</strong>. Frontier-level open-source AI. Replace GPT-4o on your infrastructure.</li>
+                <li><strong>Edge / embedded / phone → 0.8B or 2B</strong>. Runs anywhere, even offline on a Raspberry Pi.</li>
+            </ul>
+
+            <div class="highlight-box rounded-xl p-6 mt-8">
+                <h4 class="text-white font-bold mt-0 mb-2">🦀 Find Your Perfect Model</h4>
+                <p class="text-claw-muted text-sm mb-3">Not sure which Qwen 3.5 to pick? Use LocalClaw's model finder — enter your RAM and get a personalized recommendation in 30 seconds.</p>
+                <a href="../index.html" class="inline-block bg-claw-primary hover:bg-red-500 px-5 py-2 rounded-lg font-bold text-sm transition-colors" style="color:#ffffff !important;">Use Model Finder →</a>
+            </div>
+
+        </article>
+
+        <!-- Browse CTA -->
+        <div id="browse-cta" class="mt-12 p-6 bg-claw-surface/50 border border-white/10 rounded-2xl text-center">
+            <h3 class="cta-title font-display font-bold text-white text-xl mb-2">Browse All Qwen 3.5 Models</h3>
+            <p class="cta-desc text-claw-muted text-sm mb-4">8 models now indexed — from the tiny 0.8B to the flagship 397B-A17B. See benchmarks, hardware requirements, and GGUF download links.</p>
+            <div class="flex flex-wrap gap-2 justify-center">
+                <a href="../llm-detail.html?model=qwen3.5-0.8b" class="cta-btn cta-btn-emerald px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 rounded-xl font-bold hover:bg-emerald-500/20 transition-all text-xs">0.8B</a>
+                <a href="../llm-detail.html?model=qwen3.5-2b" class="cta-btn cta-btn-emerald px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 rounded-xl font-bold hover:bg-emerald-500/20 transition-all text-xs">2B</a>
+                <a href="../llm-detail.html?model=qwen3.5-4b" class="cta-btn cta-btn-emerald px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 rounded-xl font-bold hover:bg-emerald-500/20 transition-all text-xs">4B</a>
+                <a href="../llm-detail.html?model=qwen3.5-9b" class="cta-btn cta-btn-emerald px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 rounded-xl font-bold hover:bg-emerald-500/20 transition-all text-xs">9B</a>
+                <a href="../llm-detail.html?model=qwen3.5-35b-a3b" class="cta-btn cta-btn-purple px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">35B-A3B</a>
+                <a href="../llm-detail.html?model=qwen3.5-27b" class="cta-btn cta-btn-blue px-4 py-2 bg-blue-500/10 border border-blue-500/30 text-blue-300 rounded-xl font-bold hover:bg-blue-500/20 transition-all text-xs">27B</a>
+                <a href="../llm-detail.html?model=qwen3.5-122b-a10b" class="cta-btn cta-btn-amber px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-300 rounded-xl font-bold hover:bg-amber-500/20 transition-all text-xs">122B-A10B</a>
+                <a href="../llm-detail.html?model=qwen3.5-397b-a17b" class="cta-btn cta-btn-red px-4 py-2 bg-claw-primary/10 border border-claw-primary/30 text-claw-primary rounded-xl font-bold hover:bg-claw-primary/20 transition-all text-xs">397B-A17B</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw · Privacy-first AI recommendations</p>
+                <div class="flex gap-6">
+                    <a href="../index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
+                    <a href="../llm-list.html" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
+                    <a href="../new.html" class="text-claw-muted text-xs hover:text-white transition-colors">New Models</a>
+                    <a href="index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reading progress script -->
+    <script>
+        (function() {
+            var bar = document.getElementById('reading-progress');
+            if (!bar) return;
+            function update() {
+                var st = window.scrollY || document.documentElement.scrollTop;
+                var sh = document.documentElement.scrollHeight - window.innerHeight;
+                var pct = sh > 0 ? Math.min(100, (st / sh) * 100) : 0;
+                bar.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+    </script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Qwen 3.5 Deep Dive: 35B-A3B, 27B, 122B-A10B, 397B-A17B",
+        "description": "Complete guide to Qwen 3.5 models: hardware requirements, benchmarks, MoE architecture explained, and how to run locally with LM Studio.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
+        "datePublished": "2026-03-02",
+        "dateModified": "2026-03-02",
+        "url": "https://localclaw.io/blog/qwen35-deep-dive.html",
+        "keywords": ["Qwen 3.5", "Qwen3.5-35B-A3B", "local LLM", "MoE", "LM Studio", "open source AI"]
+    }
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

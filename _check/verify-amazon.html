@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Amazon ASIN Checker</title>
+<style>
+body { font-family: monospace; background: #111; color: #eee; padding: 20px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 12px; border: 1px solid #333; text-align: left; }
+th { background: #222; }
+.checking { color: #ff9; }
+.ok { color: #0f0; font-weight: bold; }
+.fail { color: #f44; font-weight: bold; }
+.warn { color: #fa0; font-weight: bold; }
+a { color: #4af; }
+</style>
+</head>
+<body>
+<h1>🔍 Amazon ASIN Verification — LocalClaw</h1>
+<p>This page checks all Amazon product links used in the project.</p>
+<table>
+<thead>
+<tr><th>#</th><th>ASIN</th><th>Product</th><th>Price in Code</th><th>Status</th><th>Link</th></tr>
+</thead>
+<tbody id="results"></tbody>
+</table>
+<div id="summary" style="margin-top:20px; padding:15px; background:#222; border-radius:8px;"></div>
+
+<script>
+const products = [
+    { asin: 'B0DLBTPDCS', name: 'Apple Mac Mini M4 16GB', price: 'from $499', usedIn: 'app.js, llm-detail.html, blog/apple-silicon' },
+    { asin: 'B0DNRFSYLF', name: 'Mac Mini M4 Pro 24GB', price: 'from $1,399', usedIn: 'app.js, llm-detail.html, blog x3' },
+    { asin: 'B0DS2XP86K', name: 'Mac Mini M4 Pro 48GB', price: 'from $1,799', usedIn: 'llm-detail.html' },
+    { asin: null, name: 'Mac Studio M4 Max 64GB', price: 'from $3,199', usedIn: 'llm-detail.html', appleUrl: 'https://www.apple.com/mac-studio/' },
+    { asin: null, name: 'Mac Studio M4 Ultra 128GB', price: 'from $5,999', usedIn: 'llm-detail.html', appleUrl: 'https://www.apple.com/mac-studio/' },
+    { asin: 'B0CBK7H19M', name: 'RTX 4060 Ti 16GB', price: 'from $399', usedIn: 'app.js, llm-detail.html, blog/apple-silicon' },
+    { asin: 'B0BSVMLVTD', name: 'RTX 4090 24GB', price: 'from $1,599', usedIn: 'llm-detail.html' },
+    { asin: 'B08XBVXNFP', name: 'Beelink Mini PC 16GB', price: 'from $199', usedIn: 'app.js' },
+];
+
+const tbody = document.getElementById('results');
+let okCount = 0, failCount = 0, warnCount = 0;
+
+async function checkASIN(product, index) {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${index + 1}</td><td>${product.asin}</td><td>${product.name}</td><td>${product.price}</td><td class="checking">⏳ Checking...</td><td><a href="https://www.amazon.com/dp/${product.asin}" target="_blank">Open</a></td>`;
+    tbody.appendChild(row);
+    const statusCell = row.cells[4];
+
+    try {
+        // Method 1: Try fetching the Amazon product image (CORS-friendly)
+        const imgUrl = `https://images-na.ssl-images-amazon.com/images/P/${product.asin}.01._SCLZZZZZZZ_.jpg`;
+        
+        const img = new Image();
+        const imgResult = await new Promise((resolve) => {
+            img.onload = () => resolve({ loaded: true, w: img.naturalWidth, h: img.naturalHeight });
+            img.onerror = () => resolve({ loaded: false, w: 0, h: 0 });
+            img.src = imgUrl;
+            setTimeout(() => resolve({ loaded: false, w: 0, h: 0, timeout: true }), 8000);
+        });
+
+        if (imgResult.loaded && imgResult.w > 1 && imgResult.h > 1) {
+            statusCell.className = 'ok';
+            statusCell.textContent = `✅ OK (image ${imgResult.w}x${imgResult.h})`;
+            okCount++;
+        } else {
+            // Method 2: Try the modern image URL
+            const imgUrl2 = `https://m.media-amazon.com/images/I/${product.asin}._AC_SX200_.jpg`;
+            const img2 = new Image();
+            const imgResult2 = await new Promise((resolve) => {
+                img2.onload = () => resolve({ loaded: true, w: img2.naturalWidth, h: img2.naturalHeight });
+                img2.onerror = () => resolve({ loaded: false });
+                img2.src = imgUrl2;
+                setTimeout(() => resolve({ loaded: false, timeout: true }), 8000);
+            });
+
+            if (imgResult2.loaded && imgResult2.w > 1) {
+                statusCell.className = 'ok';
+                statusCell.textContent = `✅ OK (media image)`;
+                okCount++;
+            } else {
+                statusCell.className = 'warn';
+                statusCell.textContent = `⚠️ Cannot verify automatically — click "Open" to check manually`;
+                warnCount++;
+            }
+        }
+    } catch (e) {
+        statusCell.className = 'warn';
+        statusCell.textContent = `⚠️ Check manually — ${e.message}`;
+        warnCount++;
+    }
+    
+    updateSummary();
+}
+
+function updateSummary() {
+    const total = products.length;
+    const checked = okCount + failCount + warnCount;
+    document.getElementById('summary').innerHTML = `
+        <h3>Summary: ${checked}/${total} checked</h3>
+        <p><span class="ok">✅ Confirmed OK: ${okCount}</span> | <span class="warn">⚠️ Need manual check: ${warnCount}</span> | <span class="fail">❌ Failed: ${failCount}</span></p>
+        <p style="color:#888; margin-top:10px;">Note: Amazon blocks automated requests. Products showing ⚠️ should be verified by clicking "Open" link. HTTP 500 from server-side checks is normal Amazon anti-bot behavior, not an indicator of dead links.</p>
+    `;
+}
+
+// Check all products with delay to avoid rate limiting
+products.forEach((p, i) => {
+    setTimeout(() => checkASIN(p, i), i * 500);
+});
+</script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

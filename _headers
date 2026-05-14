@@ -1,0 +1,42 @@
+# LocalClaw Security Headers
+# This file configures HTTP headers for static hosting platforms
+# Compatible with: Netlify, Cloudflare Pages, Vercel
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://datafa.st; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: https://huggingface.co https://api.github.com https://datafa.st; frame-ancestors 'self'
+
+/index.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/success.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/cdn-cgi/*
+  X-Robots-Tag: noindex, nofollow
+
+/llm-list.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/llm-detail.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/blog/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/css/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/images/*
+  Cache-Control: public, max-age=2592000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=2592000, immutable

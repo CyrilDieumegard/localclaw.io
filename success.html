@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment confirmed — LocalClaw Installer</title>
+    <meta name="description" content="Your LocalClaw license is active. Download the installer, enter your license key and activate.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505', surface: '#0F0F11', border: '#27272A',
+                            primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=20260211g">
+    <script src="js/theme-toggle.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+
+        .theme-toggle-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2); background: transparent;
+            color: #fbbf24; cursor: pointer; transition: all 0.2s ease;
+        }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+
+        /* ── Download button ── */
+        .dl-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px 28px; border-radius: 14px;
+            font-weight: 800; font-size: 15px; text-decoration: none;
+            background: linear-gradient(135deg, #FF453A, #FF6D64);
+            color: #fff; box-shadow: 0 4px 20px rgba(255,69,58,0.35);
+            transition: all 0.2s ease; border: none; cursor: pointer; width: 100%;
+        }
+        .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,69,58,0.5); color: #fff; }
+
+        /* ── License key box ── */
+        .license-box {
+            background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.03) 100%);
+            border: 2px solid rgba(16,185,129,0.4);
+            border-radius: 20px;
+            padding: 28px 24px;
+        }
+        .license-key-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #34d399;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(16,185,129,0.25);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+            word-break: break-all;
+            user-select: all;
+        }
+        @media (max-width: 480px) {
+            .license-key-display { font-size: 16px; padding: 14px 12px; letter-spacing: 0.04em; }
+        }
+        .copy-btn {
+            display: flex; align-items: center; justify-content: center; gap-8px;
+            gap: 8px;
+            padding: 12px 20px; border-radius: 10px; border: none; cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4);
+            color: #34d399; transition: all 0.2s ease; width: 100%;
+        }
+        .copy-btn:hover { background: rgba(16,185,129,0.25); }
+        .copy-btn.copied { background: rgba(16,185,129,0.3); color: #10b981; border-color: rgba(16,185,129,0.6); }
+
+        /* Light mode */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250,249,246,0.8) !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-text { color: #0f172a !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.2); color: #f59e0b; }
+        html.light .theme-toggle-btn:hover { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] { opacity: 0 !important; }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div { opacity: 0 !important; }
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"]:not(nav):not(header), html.light [class*="blur-3xl"]:not(nav):not(header), html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        html.light [style*="background:rgba(255,255,255,0.02)"],
+        html.light [style*="background: rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+        html.light [style*="border:1px solid rgba(255,255,255,0.07)"],
+        html.light [style*="border: 1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
+        html.light strong { color: #0f172a !important; }
+        html.light [style*="color:#e2e8f0"] { color: #374151 !important; }
+        html.light code[style] { background: rgba(0,0,0,0.06) !important; color: #dc2626 !important; }
+        html.light [style*="color:#3f3f46"] { color: #64748b !important; }
+        html.light .license-box { background: linear-gradient(135deg,rgba(16,185,129,0.06) 0%,rgba(16,185,129,0.02) 100%) !important; }
+        html.light .license-key-display { background: rgba(0,0,0,0.04) !important; color: #059669 !important; }
+        html.light .copy-btn { background: rgba(16,185,129,0.08) !important; color: #059669 !important; }
+        html.light .copy-btn:hover { background: rgba(16,185,129,0.15) !important; }
+    </style>
+
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0" style="background:radial-gradient(ellipse 90% 80% at 50% 45%,transparent 0%,rgba(0,0,0,0.3) 60%,rgba(0,0,0,0.85) 100%);"></div>
+    </div>
+    <script src="js/bg-circuit.js"></script>
+
+    <!-- Navbar -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" decoding="async">
+                    </div>
+                    <span class="text-xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                    <a href="index.html" class="text-sm text-claw-muted hover:text-white transition-colors">← Back to LocalClaw</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="flex-grow flex flex-col items-center px-4 py-10 sm:py-14 relative z-10">
+        <div class="w-full max-w-xl mx-auto">
+
+            <!-- ── Success header ── -->
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                     style="background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.4);">
+                    <svg class="w-7 h-7" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
+                     style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#10b981;">
+                    ✓ Payment confirmed
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-display font-bold text-white mb-2">Your license is active.</h1>
+                <p class="text-claw-muted text-sm">Everything you need is right here below.</p>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 LICENSE KEY — zone principale, au-dessus
+                 ══════════════════════════════════════════ -->
+            <div class="license-box mb-5">
+                <!-- En-tête -->
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-5 h-5 flex-shrink-0" style="color:#34d399" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                    </svg>
+                    <span class="text-sm font-bold uppercase tracking-wider" style="color:#34d399;">Your license key</span>
+                </div>
+
+                <!-- Clé affichée -->
+                <div class="license-key-display mb-3" id="license-key-text">—</div>
+
+                <!-- Validité -->
+                <p class="text-xs text-center mb-4" style="color:#6ee7b7;">
+                    <svg class="w-3.5 h-3.5 inline mb-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Valid forever — lifetime license. <strong>Keep this key safe.</strong>
+                </p>
+
+                <!-- Bouton copier -->
+                <button class="copy-btn" id="copy-btn" onclick="copyLicenseKey()">
+                    <svg class="w-4 h-4" id="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span id="copy-text">Copy license key</span>
+                </button>
+            </div>
+
+            <!-- ── Download button ── -->
+            <div class="mb-5">
+                <a href="https://pub-51e0e33cd67b4f1fa6b10590c86fc440.r2.dev/localclaw.dmg"
+                   class="dl-btn"
+                   id="dl-btn"
+                   onclick="handleDownload(this)">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download LocalClaw Installer (.dmg)
+                </a>
+                <p class="text-xs text-center text-claw-muted mt-2">macOS · v1.0.0 · Requires activation</p>
+            </div>
+
+            <!-- ── Next steps ── -->
+            <div class="mb-5 rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.07);">
+                <div class="px-5 py-3" style="background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);">
+                    <p class="text-xs font-bold uppercase tracking-widest" style="color:#FF453A;">Next steps</p>
+                </div>
+                <div class="divide-y" style="--tw-divide-opacity:1;border-color:rgba(255,255,255,0.05);">
+
+                    <div class="flex gap-3 items-start px-5 py-4">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(255,69,58,0.15);color:#FF6D64;border:1px solid rgba(255,69,58,0.3);">1</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Download the installer above</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Open the .dmg, drag LocalClaw to Applications, launch it.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 items-start px-5 py-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(255,69,58,0.15);color:#FF6D64;border:1px solid rgba(255,69,58,0.3);">2</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Enter your email + license key</p>
+                            <p class="text-xs text-claw-muted mt-0.5">On first launch, paste the key above into the Activation screen.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 items-start px-5 py-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);">3</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Click Activate — you're done</p>
+                            <p class="text-xs text-claw-muted mt-0.5">LocalClaw is ready. Local AI, fully private on your Mac.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── macOS warning tip ── -->
+            <div class="flex gap-3 items-start p-4 rounded-xl mb-5" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+                <p class="text-xs" style="color:#fbbf24;">
+                    <strong>macOS security warning?</strong> Go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>"Open Anyway"</strong>.
+                </p>
+            </div>
+
+            <!-- ── Support ── -->
+            <div class="flex gap-3 items-start p-4 rounded-xl mb-6" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-claw-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <p class="text-xs text-claw-muted">
+                    If the key doesn't work, contact
+                    <a href="/cdn-cgi/l/email-protection#3b535e574b5754585a5758575a4c7b5c565a52571558545604484e59515e584f067752585e55485e1b705e421b7248484e5e1d59545f42067352171b721b535a4d5e1b5a551b5248484e5e1b4c524f531b56421b5752585e55485e1b505e42151b76421b684f49524b5e1b4b5a42565e554f1b5e565a52571b5248011b" class="font-semibold hover:underline" style="color:#FF6D64;"><span class="__cf_email__" data-cfemail="1b737e776b7774787a7778777a6c5b7c767a727735787476">[email&#160;protected]</span></a>
+                    — we'll fix it fast.
+                </p>
+            </div>
+
+            <!-- Footer note -->
+            <div class="text-center pt-4 border-t" style="border-color:rgba(255,255,255,0.06);">
+                <p class="text-xs text-claw-muted mb-1">
+                    Need help? <a href="download.html" class="hover:underline" style="color:#FF6D64;">Installation FAQ →</a>
+                </p>
+                <p class="text-xs" style="color:#3f3f46;">&copy; 2026 LocalClaw — License activation required in app.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-claw-border/50 py-5 mt-auto bg-claw-bg/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw. Privacy-first AI. No data collected.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        /* ══════════════════════════════════════════════════════════
+           SECURITY GATE — v2.1 (Phase 1 SAFE)
+           A valid Stripe session_id (cs_live_… or cs_test_…) MUST
+           be present in the URL. Without it the page is blocked and
+           no license key is ever generated or shown.
+
+           Phase 1 additions (non-breaking):
+           - Local suspicious-access logging (localStorage)
+
+           Key derivation: HMAC-SHA256(session_id, secret_salt)
+           → deterministic per session, impossible to guess without
+             a real Stripe checkout session ID.
+           ══════════════════════════════════════════════════════════ */
+        (async function() {
+            const keyEl   = document.getElementById('license-key-text');
+            const mainEl  = document.querySelector('main');
+
+            /* ── 1. Read session_id from URL ── */
+            const params    = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id') || '';
+
+            /* ── Phase 1: lightweight monitoring (non-blocking) ── */
+            function trackSecurityEvent(type, extra = {}) {
+                try {
+                    const event = {
+                        type,
+                        ts: Date.now(),
+                        path: location.pathname,
+                        query: location.search.slice(0, 300),
+                        referrer: document.referrer || '',
+                        ua: navigator.userAgent,
+                        ...extra
+                    };
+
+                    // Local ring buffer (max 50) for quick diagnostics
+                    const key = 'lc_security_events';
+                    const arr = JSON.parse(localStorage.getItem(key) || '[]');
+                    arr.push(event);
+                    if (arr.length > 50) arr.shift();
+                    localStorage.setItem(key, JSON.stringify(arr));
+
+                } catch (_) {
+                    // Silent by design — never block purchase UX
+                }
+            }
+
+            /* ── 2. Validate format: must start with cs_live_ or cs_test_ ── */
+            const isValid = /^cs_(live|test)_[A-Za-z0-9]{20,}$/.test(sessionId);
+
+            if (!isValid) {
+                trackSecurityEvent('invalid_success_access', {
+                    hasSessionId: !!sessionId,
+                    sessionPreview: sessionId ? sessionId.slice(0, 12) + '…' : ''
+                });
+
+                /* Block the entire page — replace content with error */
+                document.title = 'Access Denied — LocalClaw';
+                mainEl.innerHTML = `
+                  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                               min-height:60vh;text-align:center;padding:40px 20px;gap:20px;">
+                    <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,69,58,0.15);
+                                border:2px solid rgba(255,69,58,0.4);display:flex;align-items:center;justify-content:center;">
+                      <svg width="28" height="28" fill="none" stroke="#FF453A" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                      </svg>
+                    </div>
+                    <h1 style="font-size:1.8rem;font-weight:800;color:#fff;font-family:'Space Grotesk',sans-serif;">
+                      Access Denied
+                    </h1>
+                    <p style="color:#a1a1aa;max-width:380px;line-height:1.6;">
+                      This page is only accessible after completing a purchase.<br>
+                      If you've already paid, please check your confirmation email for the direct link.
+                    </p>
+                    <a href="pricing.html"
+                       style="margin-top:8px;padding:12px 28px;border-radius:12px;background:linear-gradient(135deg,#FF453A,#FF6D64);
+                              color:#fff;font-weight:700;text-decoration:none;font-size:14px;
+                              box-shadow:0 4px 20px rgba(255,69,58,0.35);">
+                      → Go to Pricing
+                    </a>
+                    <p style="color:#3f3f46;font-size:11px;margin-top:4px;">
+                      Need help? <a href="mailto:helplocalclaw@gmail.com" style="color:#FF6D64;">helplocalclaw@gmail.com</a>
+                    </p>
+                  </div>`;
+                return; /* stop — nothing else runs */
+            }
+
+            trackSecurityEvent('success_access_granted', {
+                sessionMode: sessionId.startsWith('cs_live_') ? 'live' : 'test'
+            });
+
+            if (location.hostname === 'localclaw.io' && sessionId.startsWith('cs_test_')) {
+                trackSecurityEvent('test_session_used_on_production', {
+                    sessionPreview: sessionId.slice(0, 16) + '…'
+                });
+            }
+
+            /* ── 3. Derive license key from session_id via HMAC-SHA256 ── */
+            const SALT    = 'LC-2026-prod-key-salt-v1'; /* change this in production */
+            const encoder = new TextEncoder();
+            const keyMat  = await crypto.subtle.importKey(
+                'raw', encoder.encode(SALT), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+            );
+            const sig     = await crypto.subtle.sign('HMAC', keyMat, encoder.encode(sessionId));
+            const hex4    = (buf, offset) =>
+                Array.from(new Uint8Array(buf).slice(offset, offset + 2))
+                     .map(b => b.toString(16).padStart(2, '0'))
+                     .join('').toUpperCase();
+
+            /* Format: LCW-YYYYMMDD-XXXX-YYYY (date = today, 2×4-char hex blocks) */
+            const now  = new Date();
+            const yyyy = now.getFullYear();
+            const mm   = String(now.getMonth() + 1).padStart(2, '0');
+            const dd   = String(now.getDate()).padStart(2, '0');
+            const key  = 'LCW-' + yyyy + mm + dd + '-' + hex4(sig, 0) + '-' + hex4(sig, 4);
+
+            keyEl.textContent = key;
+        })();
+
+        /* ── Copy license key ── */
+        function copyLicenseKey() {
+            const key = document.getElementById('license-key-text').innerText.trim();
+            const btn = document.getElementById('copy-btn');
+            const txt = document.getElementById('copy-text');
+            const ico = document.getElementById('copy-icon');
+
+            navigator.clipboard.writeText(key).then(() => {
+                btn.classList.add('copied');
+                txt.textContent = 'Copied!';
+                ico.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    txt.textContent = 'Copy license key';
+                    ico.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+                }, 2500);
+            }).catch(() => {
+                /* Fallback pour vieux navigateurs */
+                const sel = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(document.getElementById('license-key-text'));
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand('copy');
+                sel.removeAllRanges();
+                txt.textContent = 'Copied!';
+                setTimeout(() => { txt.textContent = 'Copy license key'; }, 2500);
+            });
+        }
+
+        /* ── Download feedback ── */
+        function handleDownload(btn) {
+            const original = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Starting download…';
+            setTimeout(() => { btn.innerHTML = original; }, 3000);
+        }
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

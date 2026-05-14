@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>How to Choose the Right Local LLM in 2026 — Complete Guide | LocalClaw</title>
+    <meta name="description" content="Complete 2026 guide to choosing your local LLM. RAM, VRAM, quantization, use cases: discover how to select the perfect open-source model for your setup.">
+    <meta name="keywords" content="choose local LLM, LLM guide 2026, AI model selection, LLM RAM requirements, VRAM needed, best local LLM, Qwen 3, Llama 3.3, LM Studio configuration">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://localclaw.io/blog/how-to-choose-local-llm.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/how-to-choose-local-llm.html">
+    <meta property="og:title" content="How to Choose the Right Local LLM in 2026 — Complete Guide">
+    <meta property="og:description" content="RAM, VRAM, quantization, use cases: discover how to select the perfect open-source model for your setup.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-02-08">
+    <meta property="article:modified_time" content="2026-02-08">
+    <meta property="article:section" content="Guides">
+    <meta property="article:tag" content="Local LLM, Guide, Configuration, 2026">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Choose the Right Local LLM in 2026 — Complete Guide">
+    <meta name="twitter:description" content="RAM, VRAM, quantization, use cases: discover how to select the perfect model.">
+
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+
+    <!-- ============================================================
+         FAVICON
+         ============================================================ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         FONTS
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+         TAILWIND CSS
+         ============================================================ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         TRACKING
+         ============================================================ -->
+    <script
+        defer
+        data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"
+        data-domain="localclaw.io"
+        src="https://datafa.st/js/script.js">
+    </script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .highlight-box {
+            background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%);
+            border-left: 4px solid #FF453A;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .article-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .article-table th {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #FFFFFF;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .article-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #A1A1AA;
+        }
+        .article-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        /* Amazon Affiliate Encarts */
+        .amz-encart { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid #FF9900; background: rgba(255,153,0,0.04); border-radius: 0 12px 12px 0; transition: background 0.2s; }
+        .amz-encart:hover { background: rgba(255,153,0,0.07); }
+        .amz-encart-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #FFFFFF; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
+        .amz-encart-desc { font-size: 0.9rem; color: #A1A1AA; margin-bottom: 0.75rem; line-height: 1.6; }
+        .amz-encart-price { font-size: 0.85rem; color: #FF9900; font-weight: 600; margin-bottom: 0.75rem; }
+        .amz-encart-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; background: #FF9900; color: #111; font-size: 0.8rem; font-weight: 700; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+        .amz-encart-btn:hover { background: #FFB84D; transform: translateY(-1px); }
+        .amz-encart-note { font-size: 0.7rem; color: rgba(161,161,170,0.5); margin-top: 0.5rem; }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,69,58,0.3); background: rgba(255,69,58,0.1); color: #FF453A; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .theme-toggle-btn:hover { background: rgba(255,69,58,0.2); border-color: rgba(255,69,58,0.5); transform: scale(1.05); }
+        .theme-toggle-btn svg { width: 20px; height: 20px; }
+
+        /* Light Mode Styles */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .prose h2, html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose p, html.light .prose ul { color: #475569 !important; }
+        html.light .prose strong { color: #1e293b !important; }
+        html.light .text-white { color: #1e293b !important; }
+        html.light .text-claw-text { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .bg-claw-bg { background: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background: rgba(250, 249, 246, 0.95) !important; }
+        html.light .bg-claw-surface { background: #ffffff !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .bg-white\/5 { background: rgba(0,0,0,0.03) !important; }
+        html.light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .hover\:bg-white\/5:hover { background: rgba(0,0,0,0.05) !important; }
+        html.light .hover\:bg-white\/10:hover { background: rgba(0,0,0,0.05) !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.08) 0%, rgba(255,69,58,0.03) 100%); }
+        html.light .article-table th { background: rgba(0,0,0,0.05); color: #1e293b; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        html.light .article-table td { color: #475569; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        html.light .article-table tr:hover td { background: rgba(0,0,0,0.03); }
+        html.light .amz-encart { background: rgba(255,153,0,0.08); border-left: 3px solid #FF9900; }
+        html.light .amz-encart:hover { background: rgba(255,153,0,0.12); }
+        html.light .amz-encart-title { color: #1e293b; }
+        html.light .amz-encart-desc { color: #64748b; }
+        /* Additional light mode fixes */
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose ol { color: #475569 !important; }
+        html.light .prose li { color: #475569 !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #c2410c !important; }
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+    </style>
+    <script src="../js/theme-toggle.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- ============================================================
+         NAVBAR
+         ============================================================ -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         ARTICLE HEADER
+         ============================================================ -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-primary">Guide</span>
+            </nav>
+
+            <!-- Meta -->
+            <div class="flex items-center gap-4 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-xs font-semibold">Guide</span>
+                <span class="text-claw-muted text-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span id="read-time">8 min read</span>
+                </span>
+                <span class="text-claw-muted text-sm">February 8, 2026</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
+                How to Choose the Right Local LLM in 2026
+            </h1>
+
+            <!-- Excerpt -->
+            <p class="text-xl text-claw-muted leading-relaxed mb-8">
+                RAM, VRAM, quantization, use cases: discover how to select the perfect open-source model for your setup with our complete guide.
+            </p>
+
+            <!-- CTA Box -->
+            <div class="highlight-box rounded-xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-claw-primary/20 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Find your LLM in 30 seconds</h3>
+                        <p class="text-claw-muted mb-4">LocalClaw analyzes your setup and recommends the best model automatically.</p>
+                        <a href="../index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-claw-primary text-white text-sm font-medium hover:bg-claw-accent transition-colors">
+                            Launch LocalClaw
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         ARTICLE CONTENT
+         ============================================================ -->
+    <article class="flex-grow px-4 pb-20">
+        <div class="max-w-3xl mx-auto prose">
+
+            <h2>Why choosing the right local LLM is crucial</h2>
+            <p>
+                In 2026, running language models locally is no longer reserved for experts. With tools like <strong>LM Studio</strong>, everyone can enjoy generative AI without sending their data to the cloud. But the success of your experience entirely depends on the chosen model.
+            </p>
+            <p>
+                An LLM poorly adapted to your hardware will result in: unbearable slowdowns, frequent crashes, or disappointing generation quality. This guide helps you avoid these pitfalls and maximize your machine's potential.
+            </p>
+
+            <h2>The 4 essential selection criteria</h2>
+
+            <h3>1. Your RAM (or VRAM) amount</h3>
+            <p>
+                The most determining factor. Here's the golden rule: <strong>a model needs approximately 1.2x its size in available RAM</strong>. This includes the GGUF file weight plus the memory needed for processing.
+            </p>
+
+            <div class="table-container rounded-xl bg-white/[0.02] border border-white/10 p-4 my-6">
+                <table class="article-table">
+                    <thead>
+                        <tr>
+                            <th>Available RAM/VRAM</th>
+                            <th>Max Model Size</th>
+                            <th>Recommended Models</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>4-6 GB</strong></td>
+                            <td>3-4B parameters</td>
+                            <td>Phi-4 Mini, Gemma 3 1B, Qwen 3 4B (Q4)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8 GB</strong></td>
+                            <td>7-8B parameters</td>
+                            <td>Llama 3.3 8B, Qwen 3 8B, GLM 4.7 Flash, Mistral 7B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>16 GB</strong></td>
+                            <td>13-14B parameters</td>
+                            <td>Qwen 3 14B, GLM 4.5 Air, Step 3.5 Flash, DeepSeek 14B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>32 GB+</strong></td>
+                            <td>30-70B parameters</td>
+                            <td>Qwen 3 32B, DeepSeek R1 32B, GLM 4.7, Kimi K2.5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>64 GB+</strong></td>
+                            <td>70B+ parameters</td>
+                            <td>DeepSeek V3.2, Trinity Large, Llama 3.3 70B (Q8), Qwen 3 32B</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box rounded-xl p-4 my-6">
+                <p class="!text-white !mb-0"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Apple Silicon Tip:</strong> On M1-M4 Macs, all RAM is "unified" and accessible for LLMs. A 36GB MacBook Pro M3 can comfortably run 32B models, which would be impossible on a Windows PC with an RTX 4090 (24GB VRAM max).</p>
+            </div>
+
+            <h3>2. Quantization (Q4, Q5, Q8)</h3>
+            <p>
+                Quantization compresses the model by reducing number precision (from FP16 to INT4/5/8). <strong>The lower the number, the smaller the model but the less precise.</strong>
+            </p>
+
+            <ul>
+                <li><strong>Q4_K_M</strong>: Good size/quality balance. Recommended for 8-16GB RAM. Quality loss ~5-10%.</li>
+                <li><strong>Q5_K_M</strong>: Superior quality, medium size. Ideal for 16-32GB RAM. Quality loss ~3-5%.</li>
+                <li><strong>Q8_0</strong>: Nearly identical to the original model. Requires 32GB+ RAM. Quality loss ~1-2%.</li>
+                <li><strong>FP16</strong>: Maximum precision (unquantized). Professional use only with 64GB+.</li>
+            </ul>
+
+            <h3>3. Your use case</h3>
+            <p>
+                Each model excels in specific domains:
+            </p>
+
+            <div class="table-container rounded-xl bg-white/[0.02] border border-white/10 p-4 my-6">
+                <table class="article-table">
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Best Models</th>
+                            <th>Why?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>General chat</strong></td>
+                            <td>Qwen 3, Llama 3.3</td>
+                            <td>Versatile, good in all domains</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Programming</strong></td>
+                            <td>Qwen 2.5 Coder, CodeLlama</td>
+                            <td>Trained on code, better completion</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reasoning</strong></td>
+                            <td>DeepSeek R1, Qwen 3</td>
+                            <td>Native chain-of-thought, excellent in math/logic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vision (images)</strong></td>
+                            <td>Gemma 3 Vision, LLaVA 1.6</td>
+                            <td>Native multimodal, performant image analysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>French language</strong></td>
+                            <td>Qwen 3, Mistral</td>
+                            <td>Better French language mastery</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4. Your operating system</h3>
+            <p>
+                Some models are optimized for specific platforms:
+            </p>
+            <ul>
+                <li><strong>macOS (Apple Silicon)</strong>: All GGUF models work, but prioritize those with Metal support for GPU acceleration.</li>
+                <li><strong>Windows + NVIDIA</strong>: Ensure you have the latest CUDA drivers. CUDA-optimized models run 5-10x faster.</li>
+                <li><strong>Linux</strong>: The most flexible platform, all backends available (CUDA, ROCm, Vulkan).</li>
+            </ul>
+
+            <h2>Our picks by configuration</h2>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg> Modest laptop (8GB RAM)</h3>
+            <p>
+                The most common configuration. You need to compromise on size, but quality remains excellent with the right choices.
+            </p>
+            <ul>
+                <li><strong>Recommended #1:</strong> <strong>Qwen 3 8B Q4_K_M</strong> — Best quality/weight ratio for general chat</li>
+                <li><strong>Recommended #2:</strong> <strong>Llama 3.3 8B Q5_K_M</strong> — Excellent in English, very good reasoning</li>
+                <li><strong>Alternative:</strong> <strong>Phi-4 Mini 3.8B Q8</strong> — If you prioritize speed and need an ultra-lightweight model</li>
+            </ul>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> Powerful desktop PC (16GB RAM + RTX 3060/4060)</h3>
+            <p>
+                With 16GB and a recent graphics card, you can aim higher while maintaining good performance.
+            </p>
+            <ul>
+                <li><strong>Recommended #1:</strong> <strong>Qwen 3 14B Q5_K_M</strong> — Quality close to GPT-4 on many tasks</li>
+                <li><strong>Recommended #2:</strong> <strong>DeepSeek R1 14B Q4_K_M</strong> — Exceptional for complex reasoning</li>
+                <li><strong>Code specialist:</strong> <strong>Qwen 2.5 Coder 7B Q8</strong> — High-quality quantized version for developers</li>
+            </ul>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09zM12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg> High-end workstation (32GB+ RAM / Mac Pro)</h3>
+            <p>
+                "Pro" configuration allowing you to run the largest local models with optimal quality.
+            </p>
+            <ul>
+                <li><strong>Recommended #1:</strong> <strong>Qwen 3 32B Q5_K_M</strong> — One of the best open-source LLMs, GPT-4 competitor</li>
+                <li><strong>Recommended #2:</strong> <strong>DeepSeek R1 32B Q4_K_M</strong> — Excellence in reasoning, mathematics, code</li>
+                <li><strong>Best of the best:</strong> <strong>Llama 3.3 70B Q4_K_M</strong> — If you have 48GB+ RAM, this is the summit</li>
+            </ul>
+
+            <!-- Amazon Encart: Mac Mini M4 Pro -->
+            <div class="amz-encart">
+                <div class="amz-encart-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg> Mac Mini M4 Pro 24GB</div>
+                <div class="amz-encart-desc">The sweet spot for local AI. Runs 32B models at ~15 tokens/sec with 24GB unified memory. Powers Qwen 3 32B, DeepSeek R1 32B, and QwQ 32B.</div>
+                <div class="amz-encart-price">From $1,399 on Amazon</div>
+                <a href="https://www.amazon.com/dp/B0DNRFSYLF?tag=localclaw-20" target="_blank" rel="noopener sponsored" class="amz-encart-btn">View on Amazon →</a>
+                <div class="amz-encart-note">ℹ️ Affiliate link</div>
+            </div>
+
+            <h2>How to test a model?</h2>
+            <p>
+                Theory is good, practice is better. Here's how to quickly evaluate an LLM:
+            </p>
+            <ol class="list-decimal pl-6 space-y-2 text-claw-muted text-lg">
+                <li><strong>Download via LM Studio</strong>: Use the "Search" button and filter by size matching your RAM.</li>
+                <li><strong>Test these typical prompts:</strong>
+                    <ul class="mt-2 space-y-1">
+                        <li>"Explain string theory like I'm 10 years old" (pedagogy test)</li>
+                        <li>"Solve this equation: 3x² + 5x - 2 = 0" (reasoning test)</li>
+                        <li>"Write a Python function that sorts a list of dictionaries by value" (code test)</li>
+                        <li>"Summarize this text in 3 sentences: [paste a 500-word article]" (compression test)</li>
+                    </ul>
+                </li>
+                <li><strong>Evaluate speed</strong>: A good indicator is the "tokens/second" displayed by LM Studio. Above 20 tok/s is fluid, above 50 tok/s is very responsive.</li>
+            </ol>
+
+            <h2>Common mistakes to avoid</h2>
+
+            <div class="highlight-box rounded-xl p-6 my-6">
+                <h4 class="text-white font-bold mb-3"><svg class="lc-icon" style="color:#F87171" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg> Don't do this:</h4>
+                <ul class="!mb-0">
+                    <li>Download a 70B model with 8GB RAM (it won't work or will be horribly slow)</li>
+                    <li>Ignore quantization and take FP16 by default (unless you have 64GB+)</li>
+                    <li>Choose a model based only on hype without checking recent benchmarks</li>
+                    <li>Forget to configure GPU offload in LM Studio (leaving everything on CPU = very slow)</li>
+                </ul>
+            </div>
+
+            <h2>Conclusion</h2>
+            <p>
+                Choosing the right local LLM is a balance between <strong>your hardware</strong>, <strong>your needs</strong>, and <strong>size constraints</strong>. In 2026, models like <strong>Qwen 3</strong> and <strong>Llama 3.3</strong> offer performance rivaling paid APIs, provided you select the right version.
+            </p>
+            <p>
+                Use <a href="../index.html">LocalClaw</a> to get a personalized recommendation based on your exact configuration. In 30 seconds, you'll know which model to download and how to configure it for optimal performance.
+            </p>
+
+            <!-- Related Articles -->
+            <div class="border-t border-white/10 pt-8 mt-12">
+                <h3 class="text-xl font-display font-bold mb-6">Related articles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="qwen3-vs-llama33.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Comparison</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">Qwen 3 vs Llama 3.3: The Ultimate Comparison</h4>
+                    </a>
+                    <a href="quantization-guide.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Technical</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">Complete Guide: Q4, Q5, Q8 Quantization Explained</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden sm:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         STRUCTURED DATA
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to Choose the Right Local LLM in 2026 — Complete Guide",
+        "description": "RAM, VRAM, quantization, use cases: discover how to select the perfect open-source model for your setup.",
+        "author": {
+            "@type": "Organization",
+            "name": "LocalClaw"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://localclaw.io/images/logo.png"
+            }
+        },
+        "datePublished": "2026-02-08",
+        "dateModified": "2026-02-08",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://localclaw.io/blog/how-to-choose-local-llm.html"
+        }
+    }
+    </script>
+
+    <!-- BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://localclaw.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://localclaw.io/blog/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How to Choose the Right Local LLM in 2026",
+                "item": "https://localclaw.io/blog/how-to-choose-local-llm.html"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Auto calculate reading time -->
+    <script>
+    (function(){
+        var article = document.querySelector('article') || document.querySelector('.prose');
+        if (article) {
+            var text = article.textContent || '';
+            var wordCount = text.trim().split(/\s+/).length;
+            var readTime = Math.max(1, Math.ceil(wordCount / 200)); // 200 words per minute
+            var el = document.getElementById('read-time');
+            if (el) el.textContent = readTime + ' min read';
+        }
+    })();
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            const scrollThreshold = 300;
+            
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            toggleScrollButton();
+        })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

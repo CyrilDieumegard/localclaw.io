@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gemma 4 MTP Drafters: Multi-Token Prediction Explained | LocalClaw</title>
+    <meta name="description" content="Google's Gemma 4 MTP drafters explained: how multi-token prediction and speculative decoding can make local inference up to 3x faster without changing output quality.">
+    <meta name="keywords" content="Gemma 4 MTP, Multi-Token Prediction, speculative decoding, Gemma 4, local LLM inference, MLX, vLLM, Hugging Face Transformers, LiteRT-LM, LocalClaw">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/gemma4-mtp-drafters.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/gemma4-mtp-drafters.html">
+    <meta property="og:title" content="Gemma 4 MTP Drafters: Why Multi-Token Prediction Matters for Local AI">
+    <meta property="og:description" content="Google's new MTP drafters for Gemma 4 use speculative decoding to reduce latency and unlock faster local inference on Apple Silicon, NVIDIA GPUs and edge runtimes.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="article:published_time" content="2026-05-10">
+    <meta property="article:modified_time" content="2026-05-10">
+    <meta property="article:section" content="Technical Guides">
+    <meta property="article:tag" content="Gemma 4">
+    <meta property="article:tag" content="Multi-Token Prediction">
+    <meta property="article:tag" content="Speculative Decoding">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gemma 4 MTP Drafters: Multi-Token Prediction Explained">
+    <meta name="twitter:description" content="How Gemma 4 MTP drafters accelerate local LLM inference with speculative decoding, KV cache sharing and smarter verification.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="../images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/theme-toggle.js"></script>
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        #reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(90deg, #FF453A, #a855f7, #22d3ee); z-index: 9999; transition: width 0.15s linear; }
+        html.light #reading-progress { background: linear-gradient(90deg, #dc2626, #7c3aed, #0891b2); }
+
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #e5e7eb; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul, .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; padding-left: 1.5rem; }
+        .prose ul { list-style-type: disc; }
+        .prose ol { list-style-type: decimal; }
+        .prose li { margin-bottom: 0.4rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e2e8f0; }
+
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(168,85,247,0.07) 100%); border-left: 4px solid #FF453A; }
+        .new-badge-inline { background: linear-gradient(135deg, #FF453A, #a855f7); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 8px; border-radius: 20px; display: inline-block; vertical-align: middle; }
+        .model-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .model-card:hover { border-color: rgba(255,69,58,0.3); box-shadow: 0 20px 40px -20px rgba(255,69,58,0.25); }
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table th { background: rgba(255,255,255,0.05); padding: 12px 16px; text-align: left; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .spec-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #A1A1AA; vertical-align: top; }
+        .spec-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .tip-box { background: rgba(16,185,129,0.1); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #F59E0B; }
+        .mtp-diagram { background: linear-gradient(145deg, rgba(255,69,58,0.07), rgba(34,211,238,0.07)); border: 1px solid rgba(255,69,58,0.2); border-radius: 12px; }
+        .flow-step { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; position: relative; }
+        .theme-toggle-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: transparent; cursor: pointer; transition: all 0.2s ease; }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.08); }
+
+        html.light body { background: linear-gradient(180deg, #faf9f6 0%, #f5f4f0 100%) !important; color: #1e293b !important; }
+        html.light nav { background: rgba(255,255,255,0.96) !important; border-bottom-color: #e5e7eb !important; box-shadow: 0 1px 4px rgba(0,0,0,0.07) !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .bg-claw-bg { background-color: #f5f4f0 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(245,244,240,0.8) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .border-claw-border\/50, html.light .border-claw-border { border-color: #e5e7eb !important; }
+        html.light header { background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%) !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.06), rgba(124,58,237,0.04)) !important; border-left-color: #FF453A !important; border-radius: 12px; }
+        html.light .highlight-box h2, html.light .highlight-box strong { color: #0f172a !important; }
+        html.light .tldr-list, html.light .tldr-list li { color: #374151 !important; }
+        html.light .prose h2 { color: #0f172a !important; padding-top: 0.5rem; border-top: 1px solid #f1f5f9; margin-top: 3rem !important; }
+        html.light .prose h2:first-child { border-top: none; margin-top: 0 !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #374151 !important; }
+        html.light .prose p, html.light .prose ul, html.light .prose ol, html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #dc2626 !important; }
+        html.light .prose code { background: #fef3c7 !important; color: #92400e !important; border: 1px solid #fde68a !important; }
+        html.light .model-card, html.light .flow-step { background: #ffffff !important; border-color: #e2e8f0 !important; box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important; }
+        html.light .mtp-diagram { background: linear-gradient(145deg, rgba(220,38,38,0.04), rgba(8,145,178,0.04)) !important; border-color: rgba(220,38,38,0.18) !important; }
+        html.light .spec-table th { background: #f1f5f9 !important; color: #0f172a !important; border-bottom-color: #e2e8f0 !important; }
+        html.light .spec-table td { color: #475569 !important; border-bottom-color: #f1f5f9 !important; }
+        html.light .tip-box { background: linear-gradient(145deg, rgba(5,150,105,0.07), rgba(5,150,105,0.03)) !important; border-left-color: #10B981 !important; }
+        html.light .warning-box { background: linear-gradient(145deg, rgba(217,119,6,0.07), rgba(217,119,6,0.03)) !important; border-left-color: #F59E0B !important; }
+        html.light .bg-black\/40, html.light .bg-white\/5, html.light .bg-white\/10 { background: #f1f5f9 !important; }
+        html.light .border-white\/10, html.light .border-white\/20 { border-color: #e5e7eb !important; }
+        html.light .text-claw-primary { color: #dc2626 !important; }
+        html.light footer { background: #ede9e3 !important; border-top-color: #d1d5db !important; }
+        html.light footer p, html.light footer a { color: #6b7280 !important; }
+        html.light #mobile-menu > div { background: #ffffff !important; border-bottom-color: #e5e7eb !important; }
+        html.light #mobile-menu a { color: #374151 !important; }
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.12); }
+    </style>
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+    <div id="reading-progress"></div>
+
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
+                        <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="../index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
+                    <a href="../pricing.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.32.2
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
+                <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New Models</a>
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
+                <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+        <div class="flex items-center gap-2 flex-wrap mb-5">
+            <a href="index.html" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
+            <span class="text-claw-muted/40">·</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Technical Guide</span>
+            <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
+            <span class="text-xs text-claw-muted/60">May 10, 2026</span>
+            <span class="new-badge-inline">⭐ New</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
+            Gemma 4 MTP Drafters:<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-claw-primary via-purple-400 to-cyan-400">Multi-Token Prediction Explained</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-claw-muted leading-relaxed max-w-3xl mb-6">
+            Google is releasing <strong class="text-white">Multi-Token Prediction drafters</strong> for the Gemma 4 family. The promise is simple but huge for local AI: speculative decoding that can reach <strong class="text-white">up to 3× faster inference</strong> without changing the final model output.
+        </p>
+        <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-red-500/10 border border-red-500/30 text-red-300 px-3 py-1 rounded-full font-mono">Up to 3× speedup</span>
+            <span class="text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 px-3 py-1 rounded-full font-mono">Speculative decoding</span>
+            <span class="text-xs bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 px-3 py-1 rounded-full font-mono">KV cache sharing</span>
+            <span class="text-xs bg-green-500/10 border border-green-500/30 text-green-300 px-3 py-1 rounded-full font-mono">Apache 2.0</span>
+            <span class="text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1 rounded-full font-mono">Gemma 4</span>
+        </div>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-20">
+        <div class="highlight-box rounded-xl p-6 mb-10">
+            <h2 class="text-lg font-display font-bold text-white mb-3 mt-0" style="margin-top:0">⚡ TL;DR — What You Need to Know</h2>
+            <ul class="tldr-list text-sm space-y-1.5" style="font-size:1rem;">
+                <li>🚀 <strong>Gemma 4 MTP drafters are lightweight helper models</strong> that predict several future tokens ahead of the main model.</li>
+                <li>✅ <strong>The main Gemma 4 model still verifies the draft</strong>, so accepted tokens match the target model’s logic instead of blindly trusting the drafter.</li>
+                <li>⚡ <strong>Google reports up to 3× faster inference</strong> with no degradation in output quality or reasoning logic in their announcement.</li>
+                <li>🧠 <strong>The speedup comes from speculative decoding</strong>: use idle compute to draft multiple tokens, then verify them in parallel.</li>
+                <li>💻 <strong>Local performance depends on runtime and batch size</strong>: MLX, vLLM, Transformers and LiteRT-LM support matter as much as raw hardware.</li>
+                <li>📜 <strong>The drafters follow Gemma 4’s Apache 2.0 availability</strong>, with weights referenced by Google via Hugging Face and Kaggle.</li>
+            </ul>
+        </div>
+
+        <article class="prose">
+            <h2>What Is Multi-Token Prediction?</h2>
+            <p>
+                In a normal autoregressive LLM, the model generates text <strong>one token at a time</strong>. It reads the full context, predicts the next token, appends that token, then repeats the same expensive process again. This is reliable, but it leaves a lot of modern hardware under-used because each step is dominated by moving model weights and KV cache data through memory.
+            </p>
+            <p>
+                <strong>Multi-Token Prediction</strong>, or MTP, changes the rhythm. A smaller drafter model predicts several possible next tokens in one go. The larger target model — for example a Gemma 4 31B-class model — then checks those drafted tokens in parallel. If the draft is correct, the target model can accept multiple tokens from a single verification pass.
+            </p>
+            <p>
+                The important part: this is not a cheaper model replacing the real model. The target model remains the source of truth. MTP is a latency trick that tries to spend idle compute on useful guesses, then lets the real model approve or reject them.
+            </p>
+
+            <div class="mtp-diagram p-6 rounded-xl mb-8 not-prose">
+                <h3 class="text-white font-display font-bold text-xl mb-4 mt-0" style="margin-top:0">How speculative decoding works</h3>
+                <div class="grid sm:grid-cols-3 gap-4 text-sm">
+                    <div class="flow-step">
+                        <div class="text-claw-primary font-bold mb-2">1. Draft</div>
+                        <p class="text-claw-muted mb-0">A lightweight MTP drafter predicts token candidates ahead of the main model.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="text-purple-300 font-bold mb-2">2. Verify</div>
+                        <p class="text-claw-muted mb-0">The heavier Gemma 4 target model checks the proposed sequence in parallel.</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="text-cyan-300 font-bold mb-2">3. Accept or retry</div>
+                        <p class="text-claw-muted mb-0">Correct tokens are accepted at once; mismatches fall back to the target model.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Why This Matters for Local AI</h2>
+            <p>
+                Local inference is often <strong>memory-bandwidth bound</strong>. On consumer GPUs, Apple Silicon unified memory, and compact edge devices, the bottleneck is not always “can the chip do enough math?” but “can the system move enough parameters and cache data fast enough for every next-token step?”
+            </p>
+            <p>
+                MTP attacks that bottleneck by making each expensive pass do more useful work. If a drafter can accurately guess the next few tokens, the target model can verify several positions at once. That can reduce the perceived waiting time in chat, coding, document analysis and agent workflows — exactly the places where LocalClaw users notice latency.
+            </p>
+
+            <h2>The Gemma 4 Angle</h2>
+            <p>
+                Google’s announcement positions these MTP drafters as an efficiency upgrade for the <a href="gemma4-suite-deep-dive.html">Gemma 4 family</a>. Gemma 4 already targets a wide range of devices: small edge models, Apple Silicon laptops, high-end NVIDIA workstations and cloud GPUs. MTP adds a second lever: not just smaller quantization or more VRAM, but <strong>smarter decoding</strong>.
+            </p>
+            <p>
+                The Google post highlights several implementation details that matter for developers:
+            </p>
+            <ul>
+                <li><strong>Target activations can be reused</strong> so the drafter does not waste work recalculating context the larger model already processed.</li>
+                <li><strong>KV cache sharing</strong> helps keep the drafter and target model aligned without duplicating the whole inference path.</li>
+                <li><strong>Efficient embedder clustering</strong> is used for E2B and E4B-style edge models where final logits can become a bottleneck.</li>
+                <li><strong>Runtime support matters</strong>: Google mentions LiteRT-LM, MLX, Hugging Face Transformers and vLLM in their benchmark context.</li>
+            </ul>
+
+            <h2>Performance: What “Up to 3× Faster” Really Means</h2>
+            <p>
+                “Up to 3×” is the headline, not a universal guarantee. Speculative decoding speedups depend on how often the drafter guesses correctly, how expensive the target model is, how efficiently the runtime batches verification, and whether your hardware has enough compute headroom to run the drafter without starving the target model.
+            </p>
+            <p>
+                Google also notes an important local caveat: the <strong>Gemma 4 26B MoE</strong> shape can face routing challenges at batch size 1 on Apple Silicon. With multiple requests at once — for example batch sizes around 4 to 8 — their post says local speedups can reach roughly <strong>2.2×</strong> in that scenario. Translation: single-user chat may improve, but throughput-oriented apps and local servers may benefit even more.
+            </p>
+
+            <div class="overflow-x-auto not-prose mb-8">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>What MTP helps</th>
+                            <th>LocalClaw take</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Single chat session</strong></td>
+                            <td>Lower perceived latency if drafts are accepted often.</td>
+                            <td>Great for large Gemma 4 models where memory bandwidth dominates.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Local API server</strong></td>
+                            <td>Better throughput when batching verification across requests.</td>
+                            <td>Likely strongest gains for vLLM / MLX server-style setups.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Edge devices</strong></td>
+                            <td>Smaller drafters and embedder optimizations reduce overhead.</td>
+                            <td>Watch memory pressure: the drafter still adds model state.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agent workflows</strong></td>
+                            <td>Faster tool-call planning, JSON-like continuations and repetitive reasoning patterns.</td>
+                            <td>Very promising if your runtime supports MTP cleanly.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Will This Work in LM Studio?</h2>
+            <p>
+                Not automatically. The MTP idea is model-and-runtime dependent. Google mentions availability through the broader open model ecosystem and runtimes such as <strong>Transformers, MLX, vLLM and LiteRT-LM</strong>. LM Studio support would depend on the underlying inference engine exposing speculative decoding for Gemma 4 MTP drafters and the exact model format users download.
+            </p>
+            <p>
+                For LocalClaw readers, the practical advice is: treat MTP as a <strong>near-future performance feature</strong>. If you are running Gemma 4 today, choose the model size and quantization that already fits your hardware. When your runtime adds MTP support, the same hardware may become noticeably more responsive without changing the model’s quality tier.
+            </p>
+
+            <div class="warning-box rounded-xl p-5 my-8 not-prose">
+                <h4 class="text-amber-300 font-display font-bold mb-2 mt-0" style="margin-top:0">⚠️ Local setup caveat</h4>
+                <p class="text-claw-muted mb-0 text-sm leading-relaxed">
+                    MTP is not just “download one GGUF and go faster.” You need a compatible Gemma 4 target model, its matching drafter, and a runtime that knows how to verify draft tokens. Expect support to land unevenly across tools.
+                </p>
+            </div>
+
+            <h2>Hardware Notes: Apple Silicon, NVIDIA and Edge</h2>
+            <p>
+                On <strong>Apple Silicon</strong>, MLX is the interesting path because unified memory makes large local models practical, while batching and memory movement remain key constraints. MTP can help if the drafter uses otherwise idle compute and if the verification path is optimized for Metal.
+            </p>
+            <p>
+                On <strong>NVIDIA GPUs</strong>, vLLM and Transformers-style stacks are the likely developer playground. Larger cards such as A100-class systems and workstation GPUs have enough compute headroom that speculative decoding can turn idle cycles into accepted tokens. Consumer GPUs may still benefit, but the exact gain depends on VRAM, quantization and kernel support.
+            </p>
+            <p>
+                On <strong>edge hardware</strong>, the story is more nuanced. Small Gemma 4 E-series models are already fast, so MTP overhead must stay tiny. That is why Google’s mention of embedder clustering for E2B/E4B is important: the small-model path needs special optimization, not just the same technique copied from a large server model.
+            </p>
+
+            <h2>Which Gemma 4 Users Should Care First?</h2>
+            <p>
+                MTP matters most if you are already pushing the upper edge of your machine. If Gemma4-E2B is instant on your laptop, a drafter is nice but not life-changing. If Gemma4-31B or a 26B-class MoE model is just barely interactive, MTP can be the difference between “cool demo” and “usable daily assistant.”
+            </p>
+
+            <div class="not-prose space-y-4 mb-8">
+                <div class="model-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-3">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Best fit</span>
+                                <span class="text-xs bg-red-500/20 text-red-300 border border-red-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Latency-sensitive</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Large local Gemma 4 users</h3>
+                            <p class="text-claw-muted text-sm mb-0">If you run 26B/31B-class Gemma 4 on Apple Silicon Max/Ultra or large NVIDIA GPUs, watch MTP support closely.</p>
+                        </div>
+                        <a href="gemma4-suite-deep-dive.html" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Read Gemma 4 guide →</a>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <div class="flex items-start justify-between gap-4 flex-wrap mb-3">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Developer path</span>
+                                <span class="text-xs bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Open weights</span>
+                            </div>
+                            <h3 class="text-xl font-display font-bold text-white mb-1">Local API and agent builders</h3>
+                            <p class="text-claw-muted text-sm mb-0">MTP should shine in local servers, coding agents and tool-use workflows where many short continuations benefit from lower latency.</p>
+                        </div>
+                        <a href="../llm-list.html" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Browse models →</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2>LocalClaw Recommendation</h2>
+            <p>
+                For now, choose Gemma 4 the same way you would choose any local model: fit first, quality second, speed third. MTP improves speed only after the model and runtime are compatible. If you have limited RAM or VRAM, a smaller Gemma 4 variant can still beat a larger model that constantly swaps memory.
+            </p>
+            <p>
+                Once MTP support becomes common in local runtimes, LocalClaw’s guidance will likely shift: some larger Gemma 4 models may become more attractive because their latency penalty is reduced. That is the real story here — MTP does not just make one benchmark look faster; it can change which model size feels practical on your desk.
+            </p>
+
+            <div class="tip-box rounded-xl p-5 my-8 not-prose">
+                <h4 class="text-emerald-300 font-display font-bold mb-2 mt-0" style="margin-top:0">✅ Bottom line</h4>
+                <p class="text-claw-muted mb-0 text-sm leading-relaxed">
+                    Multi-Token Prediction is one of the most important local-inference upgrades of 2026. It keeps the main model in control, uses a lightweight drafter to propose future tokens, and can turn memory-bound decoding into a much snappier experience when the runtime is ready.
+                </p>
+            </div>
+
+            <h2>Sources and Further Reading</h2>
+            <ul>
+                <li><a href="https://blog.google/innovation-and-ai/technology/developers-tools/multi-token-prediction-gemma-4/" rel="noopener noreferrer" target="_blank">Google Blog: Accelerating Gemma 4 with multi-token prediction drafters</a></li>
+                <li><a href="gemma4-suite-deep-dive.html">LocalClaw: Gemma 4 Suite Deep Dive</a></li>
+                <li><a href="../llm-list.html">LocalClaw LLM catalogue</a> — browse 177 local LLMs and compare hardware fit.</li>
+            </ul>
+        </article>
+
+        <section id="browse-cta" class="mt-14 p-6 rounded-2xl bg-white/5 border border-white/10 text-center">
+            <h2 class="cta-title text-2xl font-display font-bold text-white mb-3">Find the right Gemma 4 setup for your machine</h2>
+            <p class="cta-desc text-claw-muted mb-5 max-w-2xl mx-auto">Use LocalClaw to match model size, RAM, GPU and use case before you download a giant checkpoint.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="../llm-list.html" class="bg-claw-primary hover:bg-claw-accent text-white px-6 py-3 rounded-lg font-bold transition-colors">Browse LLM Catalogue</a>
+                <a href="gemma4-suite-deep-dive.html" class="border border-white/20 hover:bg-white/10 text-white px-6 py-3 rounded-lg font-bold transition-colors">Read Gemma 4 Deep Dive</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-claw-border bg-claw-surface/50 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-claw-muted text-sm">© 2026 LocalClaw. Private AI model recommendations.</p>
+                <div class="flex gap-4">
+                    <a href="../index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
+                    <a href="../llm-list.html" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
+                    <a href="index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            var bar = document.getElementById('reading-progress');
+            if (!bar) return;
+            function update() {
+                var st = window.scrollY || document.documentElement.scrollTop;
+                var sh = document.documentElement.scrollHeight - window.innerHeight;
+                var pct = sh > 0 ? Math.min(100, (st / sh) * 100) : 0;
+                bar.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', update, { passive: true });
+            update();
+        })();
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Gemma 4 MTP Drafters: Multi-Token Prediction Explained",
+        "description": "How Google's Gemma 4 Multi-Token Prediction drafters use speculative decoding to accelerate local LLM inference.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
+        "datePublished": "2026-05-10",
+        "dateModified": "2026-05-10",
+        "url": "https://localclaw.io/blog/gemma4-mtp-drafters.html",
+        "mainEntityOfPage": "https://localclaw.io/blog/gemma4-mtp-drafters.html",
+        "keywords": ["Gemma 4", "Multi-Token Prediction", "MTP", "speculative decoding", "local LLM", "MLX", "vLLM", "Transformers"]
+    }
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

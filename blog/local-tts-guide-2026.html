@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>Local TTS Guide 2026 — Best Open-Source Text-to-Speech Models | LocalClaw</title>
+    <meta name="description" content="Complete guide to local Text-to-Speech AI in 2026. Best open-source TTS models, hardware requirements, installation with LM Studio, and privacy benefits. Comparison of Piper, Coqui, XTTS, and more.">
+    <meta name="keywords" content="local TTS 2026, text-to-speech AI, open source TTS, Piper TTS, Coqui TTS, XTTS, LM Studio TTS, local voice AI, offline TTS">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/local-tts-guide-2026.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/local-tts-guide-2026.html">
+    <meta property="og:title" content="Local TTS Guide 2026 — Best Open-Source Text-to-Speech Models">
+    <meta property="og:description" content="Complete guide to local TTS AI. Best models, installation, and privacy benefits.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-02-13">
+    <meta property="article:section" content="Guide">
+    <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Local TTS Guide 2026 — Best Open-Source Text-to-Speech Models">
+    <meta name="twitter:description" content="Complete guide to local TTS AI. Best models, installation, and privacy benefits.">
+    <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
+
+    <!-- ============================================================
+         SECURITY HEADERS
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         FONTS & TAILWIND
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- THEME TOGGLE -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- TRACKING -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: decimal; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: none; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #FF6D64; }
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
+        .step-number { background: linear-gradient(135deg, #FF453A, #FF6D64); }
+        .tts-accent { color: #A78BFA; }
+        .tts-box { background: linear-gradient(145deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.05) 100%); border-left: 4px solid #8B5CF6; }
+        .tip-box { background: rgba(16,185,129,0.1); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #F59E0B; }
+        .wispr-affiliate { background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(59,130,246,0.1) 100%); border: 2px solid rgba(139,92,246,0.4); border-radius: 16px; }
+        .wispr-affiliate:hover { border-color: rgba(139,92,246,0.6); box-shadow: 0 12px 40px rgba(139,92,246,0.2); }
+        
+        /* Light Mode Styles */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background-color: rgba(250, 249, 246, 0.95) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-claw-text, html.light .text-white { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+
+        /* Light Mode — Prose typography */
+        html.light .prose h2 { color: #0f172a !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose p { color: #374151 !important; }
+        html.light .prose ul { color: #374151 !important; }
+        html.light .prose ol { color: #374151 !important; }
+        html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #7c3aed !important; }
+        html.light .prose a:hover { color: #6d28d9 !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #7c3aed !important; }
+
+        /* Light Mode — Cards & Boxes */
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.08) 0%, rgba(255,69,58,0.04) 100%) !important; }
+        html.light .tts-box { background: linear-gradient(145deg, rgba(124,58,237,0.08) 0%, rgba(124,58,237,0.04) 100%) !important; }
+        html.light .tts-box p, html.light .tts-box strong { color: #1e293b !important; }
+        html.light .tts-box .text-purple-300 { color: #6d28d9 !important; }
+        html.light .tip-box { background: rgba(16,185,129,0.08) !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box { background: rgba(245,158,11,0.08) !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+
+        /* Light Mode — Surface cards (grid cards inside prose) */
+        html.light .prose .p-5.rounded-xl h4,
+        html.light .prose .p-5.rounded-xl p,
+        html.light .prose .p-6.rounded-2xl h3,
+        html.light .prose .p-6.rounded-2xl p { color: #1e293b !important; }
+        html.light .prose .p-5.rounded-xl .text-sm { color: #4b5563 !important; }
+
+        /* Light Mode — Table of Contents */
+        html.light .prose .my-8 h3 { color: #0f172a !important; }
+        html.light .prose .my-8 ul { color: #374151 !important; list-style-type: none !important; padding-left: 0 !important; }
+
+        /* Light Mode — Comparison table */
+        html.light table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+        html.light table td { color: #374151 !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light table td.text-white { color: #0f172a !important; }
+        html.light table td.font-medium { color: #0f172a !important; }
+        html.light table tr:hover td { background: rgba(0,0,0,0.02) !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-b { border-color: rgba(0,0,0,0.1) !important; }
+
+        /* Light Mode — step-number circles */
+        html.light .step-number { color: #ffffff !important; }
+
+        /* Light Mode — inline text-white in cards & steps */
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        html.light .text-purple-300 { color: #6d28d9 !important; }
+        html.light .text-purple-400 { color: #7c3aed !important; }
+        html.light span.text-purple-300 { color: #6d28d9 !important; }
+
+        /* Light Mode — Wispr affiliate box */
+        html.light .wispr-affiliate { background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(59,130,246,0.06) 100%) !important; border-color: rgba(124,58,237,0.3) !important; }
+        html.light .wispr-affiliate strong.text-white { color: #0f172a !important; }
+        html.light .wispr-affiliate p.text-claw-muted { color: #4b5563 !important; }
+        html.light .wispr-affiliate span.text-xs { color: #6d28d9 !important; }
+
+        /* Light Mode — CTA gradient boxes */
+        html.light .bg-gradient-to-r.from-purple-900\/30 { background: linear-gradient(to right, rgba(124,58,237,0.08), rgba(219,39,119,0.06)) !important; border-color: rgba(124,58,237,0.2) !important; }
+        html.light .bg-gradient-to-r.from-purple-900\/30 h3 { color: #0f172a !important; }
+        html.light .bg-gradient-to-r.from-purple-900\/30 p { color: #4b5563 !important; }
+        /* Final CTA block & model spec blocks */
+        html.light [class*="from-purple-900"] { background: linear-gradient(135deg, rgba(139,92,246,0.07) 0%, rgba(255,255,255,0.9) 60%, rgba(236,72,153,0.05) 100%) !important; border-color: rgba(139,92,246,0.2) !important; }
+        html.light [class*="from-purple-900"] h3 { color: #0f172a !important; }
+        html.light [class*="from-purple-900"] p { color: #4b5563 !important; }
+        html.light [class*="from-purple-900"] .text-white { color: #0f172a !important; }
+        html.light [class*="from-purple-900"] .text-claw-muted { color: #4b5563 !important; }
+        /* Black bg code blocks */
+        html.light .bg-black\/30 { background: rgba(0,0,0,0.05) !important; }
+        html.light code.bg-black\/30 { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
+
+        /* Light Mode — highlight-box */
+        html.light .highlight-box h4 { color: #0f172a !important; }
+        html.light .highlight-box p { color: #374151 !important; }
+        html.light .highlight-box code { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
+
+        /* Light Mode — Breadcrumb & meta */
+        html.light nav .text-claw-muted { color: #64748b !important; }
+        html.light nav a.hover\:text-white:hover { color: #0f172a !important; }
+
+        /* Light Mode — Mobile menu */
+        html.light #blog-mobile-menu { background: rgba(250,249,246,0.97) !important; }
+        html.light #blog-mobile-menu a { color: #374151 !important; }
+        html.light #blog-mobile-menu a:hover { background: rgba(0,0,0,0.04) !important; color: #0f172a !important; }
+
+        /* Light Mode — Footer */
+        html.light footer { background: #f1f0ec !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer .text-white { color: #1e293b !important; }
+        html.light footer .text-claw-muted { color: #64748b !important; }
+        html.light footer a.hover\:text-white { color: #64748b !important; }
+        html.light footer a.hover\:text-white:hover { color: #0f172a !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-muted">Guide</span>
+            </nav>
+            <div class="flex items-center gap-3 mb-4">
+                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold uppercase tracking-wider border border-purple-500/30">TTS Guide</span>
+                <span class="text-sm text-claw-muted">February 13, 2026</span>
+                <span class="text-sm text-claw-muted">•</span>
+                <span class="text-sm text-claw-muted">12 min read</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight mb-6 leading-tight">
+                The Complete Guide to <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Local TTS</span> in 2026
+            </h1>
+            <p class="text-xl text-claw-muted max-w-3xl leading-relaxed">
+                Everything you need to know about running open-source Text-to-Speech models locally. Privacy, quality, and zero API costs.
+            </p>
+        </div>
+    </header>
+
+    <!-- WISPR AFFILIATE BOX - Compact -->
+    <div class="px-4 mb-6">
+        <div class="max-w-4xl mx-auto">
+            <a href="https://ref.wisprflow.ai/cyril-dieumegard" target="_blank" rel="noopener sponsored" class="wispr-affiliate block p-4 transition-all duration-300 group">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-xl flex-shrink-0">
+                        <svg style="width:20px;height:20px;color:white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2m7 9v4m-4 0h8"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <span class="text-xs text-purple-300 uppercase tracking-wider font-medium">Speech-to-Text</span>
+                            <span class="text-sm text-claw-muted hidden sm:inline">•</span>
+                            <span class="text-sm text-claw-muted truncate">We recommend <strong class="text-white">Wispr Flow</strong> — Turn voice to text</span>
+                        </div>
+                    </div>
+                    <div class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 !text-white font-medium text-sm group-hover:scale-105 transition-transform flex-shrink-0">
+                        Try it →
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 px-4 pb-20">
+        <div class="max-w-4xl mx-auto">
+            <article class="prose prose-lg max-w-none">
+
+                <!-- INTRO -->
+                <p class="lead text-xl">
+                    <strong>Text-to-Speech (TTS) technology has evolved dramatically.</strong> In 2026, local open-source models now rival commercial solutions like ElevenLabs and Azure TTS — while keeping your data completely private. No API keys, no subscription fees, no sending your text to external servers.
+                </p>
+
+                <p>Whether you're building voice assistants, creating audiobooks, adding accessibility features to applications, or simply experimenting with AI voices, running TTS locally offers unprecedented control and privacy.</p>
+
+                <!-- TABLE OF CONTENTS -->
+                <div class="my-8 p-6 rounded-2xl bg-claw-surface border border-claw-border/50">
+                    <h3 class="text-lg font-display font-semibold mb-4 text-white">Table of Contents</h3>
+                    <ul class="grid sm:grid-cols-2 gap-2 text-sm">
+                        <li><a href="#why-local" class="text-purple-400 hover:text-purple-300">Why Choose Local TTS?</a></li>
+                        <li><a href="#top-models" class="text-purple-400 hover:text-purple-300">Top 9 Local TTS Models (Feb 2026)</a></li>
+                        <li><a href="#hardware" class="text-purple-400 hover:text-purple-300">Hardware Requirements</a></li>
+                        <li><a href="#installation" class="text-purple-400 hover:text-purple-300">Installation with LM Studio</a></li>
+                        <li><a href="#use-cases" class="text-purple-400 hover:text-purple-300">Real-World Use Cases</a></li>
+                        <li><a href="#compare" class="text-purple-400 hover:text-purple-300">Local vs Cloud TTS</a></li>
+                    </ul>
+                </div>
+
+                <!-- SECTION: WHY LOCAL -->
+                <h2 id="why-local">Why Choose Local TTS Over Cloud Services?</h2>
+
+                <p>Cloud TTS services like ElevenLabs, Amazon Polly, and Google Cloud Text-to-Speech are undeniably powerful. But they come with significant trade-offs that local solutions elegantly solve:</p>
+
+                <div class="grid sm:grid-cols-2 gap-4 my-8">
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Complete Privacy</h4>
+                        <p class="text-sm text-claw-muted mb-0">Your text never leaves your machine. Critical for sensitive content, medical applications, or confidential business documents.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Zero Ongoing Costs</h4>
+                        <p class="text-sm text-claw-muted mb-0">No per-character pricing. Generate unlimited audio once the model is downloaded. Perfect for high-volume applications.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Offline Capability</h4>
+                        <p class="text-sm text-claw-muted mb-0">Works without internet. Essential for air-gapped environments, travel, or areas with unreliable connectivity.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                        </div>
+                        <h4 class="font-semibold text-white mb-2">Full Customization</h4>
+                        <p class="text-sm text-claw-muted mb-0">Fine-tune voices, adjust speed/pitch, create custom lexicons. No black-box limitations.</p>
+                    </div>
+                </div>
+
+                <div class="tts-box p-5 rounded-xl my-8">
+                    <p class="mb-0"><strong class="text-purple-300"><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Key Insight:</strong> Modern local TTS models like Piper and XTTS v2 achieve near-human naturalness while running efficiently on consumer hardware. The quality gap between local and cloud has virtually disappeared for most use cases.</p>
+                </div>
+
+                <!-- CTA TO TTS LIST -->
+                <div class="my-8 p-6 rounded-2xl bg-gradient-to-r from-purple-900/30 to-pink-900/20 border border-purple-500/30 text-center">
+                    <h3 class="text-xl font-display font-bold text-white mb-2">Explore All Local TTS Models</h3>
+                    <p class="text-claw-muted mb-4">Browse our complete directory with 15 open-source Text-to-Speech models.</p>
+                    <a href="../tts-list.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-500 !text-white font-semibold transition-all">
+                        <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> <span class="!text-white">View TTS Model Directory</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <!-- SECTION: TOP MODELS -->
+                <h2 id="top-models">Top 9 Local TTS Models (February 2026)</h2>
+
+                <p>After testing dozens of models, these nine stand out for quality, speed, and ease of use — including the latest breakthroughs from late 2025:</p>
+
+                <!-- MODEL 1: ORPHEUS -->
+                <h3>1. <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Orpheus TTS 3B — The New Champion (Nov 2025)</h3>
+
+                <p><strong>Orpheus TTS</strong> is the breakthrough model of late 2025. With 3 billion parameters, it delivers <strong>human-like emotional speech</strong> that rivals premium cloud services like ElevenLabs — completely free and local.</p>
+
+                <ul>
+                    <li><strong>Quality:</strong> State-of-the-art naturalness with emotional control (laughing, crying, whispering)</li>
+                    <li><strong>Speed:</strong> Real-time on modern GPUs, 2-3x faster than Bark</li>
+                    <li><strong>Languages:</strong> Excellent English, with expanding multilingual support</li>
+                    <li><strong>Best for:</strong> Audiobooks, storytelling, emotional content, voice assistants</li>
+                    <li><strong>Requirements:</strong> 6-8GB VRAM recommended (RTX 3060+ or M3 Mac)</li>
+                </ul>
+
+                <div class="tts-box p-4 rounded-lg my-4">
+                    <p class="mb-0"><strong class="text-purple-300"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Emotional Tags:</strong> Orpheus supports special tags like `<laugh>`, `<sigh>`, `<whisper>`, `<gasp>` directly in your text for expressive speech.</p>
+                </div>
+
+                <!-- MODEL 2: PIPER -->
+                <h3>2. <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Piper — The Speed King</h3>
+
+                <p><strong>Piper</strong> remains the go-to choice for developers needing fast, lightweight TTS. Developed by the Rhasspy team, it's optimized for edge devices while delivering surprisingly natural speech.</p>
+
+                <ul>
+                    <li><strong>Speed:</strong> Real-time on CPU (10x faster than neural alternatives)</li>
+                    <li><strong>Size:</strong> Models range from 5MB to 100MB</li>
+                    <li><strong>Quality:</strong> Good enough for notifications, IVR systems, and basic narration</li>
+                    <li><strong>Best for:</strong> Raspberry Pi, Home Assistant, real-time applications</li>
+                </ul>
+
+                <div class="step-card p-4 rounded-lg my-6">
+                    <code class="text-sm"># Install via pip
+pip install piper-tts
+
+# Download a voice
+piper-download --voice en_US-lessac-medium
+
+# Generate speech
+echo "Hello from local AI" | piper --model en_US-lessac-medium --output_file welcome.wav</code>
+                </div>
+
+                <!-- MODEL 3: CHATTTS -->
+                <h3>3. 🇨🇳 ChatTTS — Multilingual Conversational AI</h3>
+
+                <p><strong>ChatTTS</strong> exploded in popularity in mid-2025 as the best open-source model for <strong>conversational Chinese</strong> and multilingual speech. It excels at generating natural dialogue with proper prosody.</p>
+
+                <ul>
+                    <li><strong>Languages:</strong> Chinese (native quality), English, Japanese, and more</li>
+                    <li><strong>Style:</strong> Conversational, natural-sounding dialogue perfect for chatbots</li>
+                    <li><strong>Control:</strong> Fine-grained control over speaking style and emotion</li>
+                    <li><strong>Best for:</strong> Chinese voice assistants, multilingual apps, dialogue systems</li>
+                </ul>
+
+                <!-- MODEL 4: XTTS -->
+                <h3>4. <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> XTTS v2 — Voice Cloning Champion</h3>
+
+                <p><strong>XTTS (Coqui)</strong> is the current leader for voice cloning and multilingual synthesis. With just 6 seconds of audio, you can clone any voice with remarkable accuracy.</p>
+
+                <ul>
+                    <li><strong>Cloning:</strong> High-fidelity voice cloning from 6-second samples</li>
+                    <li><strong>Languages:</strong> 14+ languages with cross-language synthesis</li>
+                    <li><strong>Emotion:</strong> Control over emotion and speaking style</li>
+                    <li><strong>Best for:</strong> Audiobooks, personalized assistants, content creation</li>
+                </ul>
+
+                <div class="tip-box p-4 rounded-lg my-4">
+                    <p class="mb-0"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Ethical Note:</strong> Only clone voices you have permission to use. XTTS is powerful enough to create convincing deepfakes.</p>
+                </div>
+
+                <!-- MODEL 5: PARLER -->
+                <h3>5. <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg> Parler TTS — High-Quality Multilingual</h3>
+
+                <p><strong>Parler TTS</strong> by Hugging Face delivers exceptional quality across multiple languages with a simple, clean API. It's designed for production use with excellent stability.</p>
+
+                <ul>
+                    <li><strong>Quality:</strong> Near-human naturalness across all supported languages</li>
+                    <li><strong>Languages:</strong> Strong English, French, German, Spanish, Italian, Portuguese</li>
+                    <li><strong>Stability:</strong> Consistent output quality, minimal bad generations</li>
+                    <li><strong>Best for:</strong> Production applications, enterprise use, multilingual products</li>
+                </ul>
+
+                <!-- MODEL 6: MELO TTS -->
+                <h3>6. <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> MeloTTS — Lightweight & Fast</h3>
+
+                <p><strong>MeloTTS</strong> is the new lightweight champion from MyShell. It delivers impressive quality at blazing speeds with minimal resource requirements — perfect for mobile and edge devices.</p>
+
+                <ul>
+                    <li><strong>Speed:</strong> Extremely fast inference, even on CPU</li>
+                    <li><strong>Size:</strong> Compact models under 200MB</li>
+                    <li><strong>Languages:</strong> English, Chinese, Spanish, French, Japanese, Korean</li>
+                    <li><strong>Best for:</strong> Mobile apps, web applications, resource-constrained environments</li>
+                </ul>
+
+                <!-- MODEL 7: MELLOTRON -->
+                <h3>7. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" style="display:inline;vertical-align:middle"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> MelloTron — The Artist</h3>
+
+                <p>For expressive, emotional speech with musical quality, <strong>MelloTron</strong> excels. It models prosody (rhythm and intonation) better than competitors, making it ideal for storytelling.</p>
+
+                <!-- MODEL 8: VITS -->
+                <h3>8. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg> VITS / VITS2 — Research Standard</h3>
+
+                <p><strong>VITS</strong> (Variational Inference with adversarial learning for end-to-end Text-to-Speech) remains the research community's foundation. VITS2 improves stability and multilingual support.</p>
+
+                <!-- MODEL 9: BARK -->
+                <h3>9. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" style="display:inline;vertical-align:middle"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> Bark — The All-in-One</h3>
+
+                <p><strong>Suno's Bark</strong> isn't just TTS — it generates music, sound effects, and non-verbal vocalizations (laughs, sighs, throat clears). The most "fun" model in the list.</p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 text-center text-sm">
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-900/30 to-pink-900/20 border border-purple-500/30">
+                        <div class="text-purple-300 font-bold text-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg> Orpheus</div>
+                        <div class="text-claw-muted">Quality <svg viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">Piper</div>
+                        <div class="text-claw-muted">Speed <svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">XTTS</div>
+                        <div class="text-claw-muted">Cloning <svg viewBox="0 0 24 24" fill="none" stroke="#A855F7" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">ChatTTS</div>
+                        <div class="text-claw-muted">Chinese <span style="font-size:14px;letter-spacing:1px">CN</span></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">Parler</div>
+                        <div class="text-claw-muted">Multilingual <svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">MeloTTS</div>
+                        <div class="text-claw-muted">Lightweight <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">MelloTron</div>
+                        <div class="text-claw-muted">Emotion <svg viewBox="0 0 24 24" fill="none" stroke="#FB923C" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-claw-surface border border-claw-border/50">
+                        <div class="text-purple-400 font-bold text-lg">Bark</div>
+                        <div class="text-claw-muted">Versatility <svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-900/30 to-pink-900/20 border border-purple-500/30">
+                        <div class="text-purple-300 font-bold text-lg">Your Pick?</div>
+                        <div class="text-claw-muted">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: HARDWARE -->
+                <h2 id="hardware">Hardware Requirements</h2>
+
+                <p>One of the biggest surprises with modern local TTS is how little hardware you need. Here's the breakdown:</p>
+
+                <div class="overflow-x-auto my-8">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-claw-border">
+                                <th class="text-left py-3 px-4 font-semibold text-white">Model</th>
+                                <th class="text-left py-3 px-4 font-semibold text-white">Min RAM</th>
+                                <th class="text-left py-3 px-4 font-semibold text-white">Recommended</th>
+                                <th class="text-left py-3 px-4 font-semibold text-white">Real-time?</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-claw-muted">
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg> Orpheus 3B</td>
+                                <td class="py-3 px-4">8 GB</td>
+                                <td class="py-3 px-4">RTX 3060+ / M3</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">Piper</td>
+                                <td class="py-3 px-4">2 GB</td>
+                                <td class="py-3 px-4">Any CPU</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">ChatTTS</td>
+                                <td class="py-3 px-4">4 GB</td>
+                                <td class="py-3 px-4">GPU optional</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">MeloTTS</td>
+                                <td class="py-3 px-4">2 GB</td>
+                                <td class="py-3 px-4">Any CPU</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">Parler TTS</td>
+                                <td class="py-3 px-4">6 GB</td>
+                                <td class="py-3 px-4">RTX 3060+</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">VITS</td>
+                                <td class="py-3 px-4">4 GB</td>
+                                <td class="py-3 px-4">GPU optional</td>
+                                <td class="py-3 px-4"><span class="text-green-400">✓ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">XTTS v2</td>
+                                <td class="py-3 px-4">6 GB</td>
+                                <td class="py-3 px-4">RTX 3060+</td>
+                                <td class="py-3 px-4"><span class="text-yellow-400">~ Yes</span></td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-purple-300">Bark</td>
+                                <td class="py-3 px-4">8 GB</td>
+                                <td class="py-3 px-4">RTX 3060+</td>
+                                <td class="py-3 px-4"><span class="text-orange-400">Slow</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-purple-300">MelloTron</td>
+                                <td class="py-3 px-4">8 GB</td>
+                                <td class="py-3 px-4">RTX 3070+</td>
+                                <td class="py-3 px-4"><span class="text-orange-400">Slow</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip-box p-5 rounded-xl my-6">
+                    <h4 class="font-semibold text-green-400 mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Pro Tip: Apple Silicon</h4>
+                    <p class="mb-0">On MacBooks with M1/M2/M3/M4 chips, TTS models often run faster than on comparably-priced Windows laptops. The unified memory architecture allows models to use RAM as VRAM efficiently. XTTS v2 runs beautifully on a MacBook Air with 16GB RAM.</p>
+                </div>
+
+                <!-- SECTION: INSTALLATION -->
+                <h2 id="installation">Installation with LM Studio</h2>
+
+                <p><strong>LM Studio</strong> has emerged as the easiest way to run local TTS models. Here's how to get started in under 5 minutes:</p>
+
+                <div class="space-y-6 my-8">
+                    <div class="flex gap-4">
+                        <div class="step-number w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white mb-2">Download LM Studio</h4>
+                            <p class="text-claw-muted mb-2">Get the latest version from <a href="https://lmstudio.ai" target="_blank">lmstudio.ai</a> (free, available for Windows, macOS, and Linux).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white mb-2">Download a TTS Model</h4>
+                            <p class="text-claw-muted mb-2">In the Discover tab, filter by "Text-to-Speech" or search for "Orpheus", "Piper", "XTTS", or "Bark". Click Download.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white mb-2">Load and Configure</h4>
+                            <p class="text-claw-muted mb-2">Go to the Playground tab, load your TTS model, and configure voice settings (speaker ID, speed, pitch).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="step-number w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">4</div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-white mb-2">Generate Speech</h4>
+                            <p class="text-claw-muted mb-2">Type your text, hit generate, and save your audio file. You can also use the local API server for programmatic access.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box p-5 rounded-xl my-6">
+                    <h4 class="font-semibold text-white mb-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg> Local API Server</h4>
+                    <p class="text-sm mb-3">LM Studio can run a local OpenAI-compatible API server, making it easy to integrate with existing applications:</p>
+                    <code class="text-sm block bg-black/30 p-3 rounded-lg"># LM Studio API endpoint
+curl http://localhost:1234/v1/audio/speech \
+  -H "Content-Type: application/json" \
+  -d '{"model": "piper", "input": "Hello world", "voice": "en_US-lessac"}'</code>
+                </div>
+
+                <!-- WISPR SECOND PROMOTION - Compact -->
+                <div class="wispr-affiliate p-4 my-8 transition-all duration-300 group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" width="24" height="24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <span class="text-xs text-purple-300 uppercase tracking-wider font-medium">Recommended Tool</span>
+                                <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-xs">3x faster than typing</span>
+                                <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300 text-xs">100% private</span>
+                            </div>
+                            <p class="text-sm text-claw-muted truncate">
+                                <strong class="text-white">Wispr Flow</strong> — Speech-to-Text that turns your voice into perfectly formatted text
+                            </p>
+                        </div>
+                        <a href="https://ref.wisprflow.ai/cyril-dieumegard" target="_blank" rel="noopener sponsored" class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 !text-white font-semibold text-sm hover:scale-105 transition-transform flex-shrink-0">
+                            Try it →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SECTION: USE CASES -->
+                <h2 id="use-cases">Real-World Use Cases</h2>
+
+                <p>Local TTS isn't just a tech demo — it's solving real problems across industries:</p>
+
+                <div class="grid sm:grid-cols-2 gap-6 my-8">
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📚</span>
+                            <h4 class="font-semibold text-white">Audiobook Creation</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">Authors are using XTTS to create audiobooks of their works without spending thousands on voice actors. Clone your own voice or use high-quality preset voices.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">♿</span>
+                            <h4 class="font-semibold text-white">Accessibility Tools</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">Screen readers and assistive technologies benefit from Piper's speed and low resource usage, making devices more responsive for users with visual impairments.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                            <h4 class="font-semibold text-white">Smart Home</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">Home Assistant integrates seamlessly with Piper for local voice announcements. "The front door is open" — without sending data to the cloud.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span>
+                            <h4 class="font-semibold text-white">Game Development</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">Indie developers use Bark for dynamic NPC dialogue and environmental audio, generating unique voice lines procedurally without voice actor costs.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📞</span>
+                            <h4 class="font-semibold text-white">IVR Systems</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">Customer service phone systems use lightweight TTS for dynamic menu prompts and responses, updating scripts instantly without re-recording.</p>
+                    </div>
+                    <div class="p-5 rounded-xl bg-claw-surface border border-claw-border/50">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🎓</text>
+                            <h4 class="font-semibold text-white">Education</h4>
+                        </div>
+                        <p class="text-sm text-claw-muted mb-0">E-learning platforms generate narration for course content, supporting 14+ languages with XTTS for global reach without translation costs.</p>
+                    </div>
+                </div>
+
+                <!-- SECTION: COMPARISON -->
+                <h2 id="compare">Local TTS vs Cloud TTS: The Real Comparison</h2>
+
+                <div class="overflow-x-auto my-8">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-claw-border">
+                                <th class="text-left py-3 px-4 font-semibold text-white">Factor</th>
+                                <th class="text-left py-3 px-4 font-semibold text-purple-300">Local TTS (2026)</th>
+                                <th class="text-left py-3 px-4 font-semibold text-claw-muted">Cloud TTS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-claw-muted">
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Privacy</td>
+                                <td class="py-3 px-4 text-green-400">✓ 100% offline</td>
+                                <td class="py-3 px-4">✗ Text sent to servers</td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Cost</td>
+                                <td class="py-3 px-4 text-green-400">✓ One-time (free)</td>
+                                <td class="py-3 px-4">✗ Per-character pricing</td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Latency</td>
+                                <td class="py-3 px-4 text-green-400">✓ 10-500ms</td>
+                                <td class="py-3 px-4">~ 200-1000ms + network</td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Quality</td>
+                                <td class="py-3 px-4 text-green-400">✓ Near-human (XTTS)</td>
+                                <td class="py-3 px-4 text-green-400">✓ Near-human</td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Customization</td>
+                                <td class="py-3 px-4 text-green-400">✓ Unlimited</td>
+                                <td class="py-3 px-4">✗ Limited options</td>
+                            </tr>
+                            <tr class="border-b border-claw-border/30">
+                                <td class="py-3 px-4 font-medium text-white">Setup</td>
+                                <td class="py-3 px-4 text-yellow-400">~ Download + configure</td>
+                                <td class="py-3 px-4 text-green-400">✓ Instant</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-white">Offline Use</td>
+                                <td class="py-3 px-4 text-green-400">✓ Works anywhere</td>
+                                <td class="py-3 px-4">✗ Requires internet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>The verdict:</strong> For most applications in 2026, local TTS wins on privacy, cost, and customization. Cloud services still have an edge for instant setup and the absolute bleeding-edge quality (ElevenLabs' latest), but the gap is closing rapidly.</p>
+
+                <!-- CONCLUSION -->
+                <h2>Getting Started Today</h2>
+
+                <p>Ready to explore local TTS? Here's your action plan:</p>
+
+                <ol>
+                    <li><strong>For the best quality:</strong> Start with <strong>Orpheus TTS 3B</strong> — it delivers human-like speech with emotional control that rivals premium cloud services.</li>
+                    <li><strong>For beginners:</strong> Try <strong>Piper</strong> — it's fast, lightweight, and gives you instant results on any hardware.</li>
+                    <li><strong>For creators:</strong> Use <strong>XTTS v2</strong> for voice cloning and high-quality audiobook generation.</li>
+                    <li><strong>For Chinese/multilingual:</strong> <strong>ChatTTS</strong> delivers exceptional conversational quality.</li>
+                    <li><strong>For experimenters:</strong> Play with <strong>Bark</strong> for creative projects with sound effects and music.</li>
+                </ol>
+
+                <!-- FINAL CTA -->
+                <div class="my-10 p-8 rounded-2xl bg-gradient-to-br from-purple-900/40 via-claw-surface to-pink-900/20 border border-purple-500/30 text-center">
+                    <div class="mb-4"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary,#FF453A)" stroke-width="1.5" width="48" height="48"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-3">Explore All 15 Local TTS Models</h3>
+                    <p class="text-claw-muted mb-6 max-w-xl mx-auto">Browse our complete directory with benchmarks, hardware requirements, and installation guides for every major open-source TTS model.</p>
+                    <a href="../tts-list.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-purple-600 hover:bg-purple-500 !text-white font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-purple-600/30 no-underline">
+                        <span class="!text-white">Browse TTS Directory</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </a>
+                </div>
+
+                <!-- RELATED ARTICLES -->
+                <div class="mt-16 pt-8 border-t border-claw-border/50">
+                    <h3 class="text-lg font-display font-semibold text-white mb-6">Related Guides</h3>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <a href="lm-studio-beginner-guide.html" class="p-4 rounded-xl bg-claw-surface border border-claw-border/50 hover:border-claw-primary/50 transition-colors group">
+                            <div class="text-sm text-claw-primary mb-1">Tutorial</div>
+                            <div class="font-medium text-white group-hover:text-claw-primary transition-colors">LM Studio Beginner Guide 2026</div>
+                        </a>
+                        <a href="best-local-ai-models-2026.html" class="p-4 rounded-xl bg-claw-surface border border-claw-border/50 hover:border-claw-primary/50 transition-colors group">
+                            <div class="text-sm text-claw-primary mb-1">Comparison</div>
+                            <div class="font-medium text-white group-hover:text-claw-primary transition-colors">Best Local LLMs of 2026</div>
+                        </a>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 bg-claw-surface/50 py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="../index.html" class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
+                            <img src="../images/crab-logo.png" alt="LocalClaw" style="width:24px;height:24px;border-radius:4px;">
+                        </div>
+                        <span class="text-xl font-display font-bold text-white">Local<span class="text-claw-primary">Claw</span></span>
+                    </a>
+                    <p class="text-claw-muted text-sm max-w-md">The complete directory for discovering and comparing open-source AI models that run locally. Privacy-first, offline-capable, zero data collection.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../llm-list.html" class="text-claw-muted hover:text-white transition-colors">LLM Directory</a></li>
+                        <li><a href="../tts-list.html" class="text-claw-muted hover:text-white transition-colors">TTS Models</a></li>
+                        <li><a href="../computers.html" class="text-claw-muted hover:text-white transition-colors">AI Computers</a></li>
+                        <li><a href="../pricing.html" class="text-claw-muted hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-claw-muted hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-claw-muted hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><span class="text-claw-muted">© 2026 LocalClaw</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-claw-border/30 text-center text-sm text-claw-muted">
+                <p>LocalClaw is an independent project. Model trademarks belong to their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

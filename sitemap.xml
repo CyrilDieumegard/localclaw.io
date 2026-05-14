@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Main Application -->
+    <url>
+        <loc>https://localclaw.io/</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Pricing -->
+    <url>
+        <loc>https://localclaw.io/pricing.html</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Download LocalClaw Installer -->
+    <url>
+        <loc>https://localclaw.io/download.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- LLM List (main hub for model pages) -->
+    <url>
+        <loc>https://localclaw.io/llm-list.html</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- TTS List -->
+    <url>
+        <loc>https://localclaw.io/tts-list.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Computers -->
+    <url>
+        <loc>https://localclaw.io/computers.html</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- New Models -->
+    <url>
+        <loc>https://localclaw.io/new.html</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- NOTE: /llm-detail.html is intentionally NOT listed.
+         It is a JS-rendered detail view (?model=xxx) with thin server-side content.
+         Canonical tags on each variant point to the specific model URL after JS renders;
+         bare /llm-detail.html is noindex to avoid thin-content penalty. -->
+
+    <!-- Blog Section -->
+    <url>
+        <loc>https://localclaw.io/blog/</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/gemma4-mtp-drafters.html</loc>
+        <lastmod>2026-05-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/qwen3-6-27b-deep-dive.html</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/qwen3-6-deep-dive.html</loc>
+        <lastmod>2026-04-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/gemma4-suite-deep-dive.html</loc>
+        <lastmod>2026-04-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/qwen35-deep-dive.html</loc>
+        <lastmod>2026-04-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/best-local-ai-models-2026.html</loc>
+        <lastmod>2026-04-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/local-tts-guide-2026.html</loc>
+        <lastmod>2026-03-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/openclaw-guide.html</loc>
+        <lastmod>2026-03-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/how-to-choose-local-llm.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/qwen3-vs-llama33.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/quantization-guide.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/apple-silicon-vs-nvidia.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/lm-studio-beginner-guide.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/quantization-explained.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://localclaw.io/blog/local-llm-vs-chatgpt.html</loc>
+        <lastmod>2026-02-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

@@ -1,0 +1,1471 @@
+/* ================================================================
+   LocalClaw v2.0 - Custom Styles
+   ================================================================ */
+
+/* ---- SVG Icon System ---- */
+.lc-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+.lc-icon-sm { width: 0.875em; height: 0.875em; }
+.lc-icon-lg { width: 1.25em; height: 1.25em; }
+.lc-icon-xl { width: 1.5em; height: 1.5em; }
+.lc-icon-2x { width: 2em; height: 2em; }
+.lc-icon-3x { width: 3em; height: 3em; }
+
+/* ---- Base ---- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---- Typewriter Cursor Blink ---- */
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ---- Animated Gradient Text ---- */
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---- Background Canvas ---- */
+#bg-circuit {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ---- Card Styles ---- */
+.claw-card {
+    background: #09090b;
+    border: 1px solid #333;
+    border-radius: 0;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 4px 4px 0px 0px rgba(39, 39, 42, 1);
+}
+
+.claw-card:hover {
+    background: #000;
+    border-color: #ff453a;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px rgba(255, 69, 58, 0.5);
+}
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+@keyframes toastOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px) scale(0.95);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 69, 58, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 69, 58, 0.7);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---- Custom Scrollbar ---- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #000;
+    border-left: 1px solid #222;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border: 1px solid #000;
+    border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff453a;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #27272A #050505;
+}
+
+/* ---- Details/Summary Polish ---- */
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary::marker {
+    content: '';
+}
+
+details[open] > summary {
+    margin-bottom: 0;
+}
+
+/* ---- Progress Bar Glow ---- */
+.progress-glow {
+    box-shadow: 0 0 10px rgba(255, 69, 58, 0.4), 0 0 20px rgba(255, 69, 58, 0.1);
+}
+
+/* ---- Table Styles ---- */
+table {
+    border-collapse: collapse;
+}
+
+table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* ---- Focus Styles ---- */
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid rgba(255, 69, 58, 0.5);
+    outline-offset: 2px;
+}
+
+/* ---- Selection ---- */
+::selection {
+    background: rgba(255, 69, 58, 0.3);
+    color: white;
+}
+
+/* ---- Buy Me a Coffee Widget ---- */
+#bmc-wbtn {
+    transform: scale(0.85);
+    transform-origin: right bottom;
+}
+
+/* ---- Toast Styles ---- */
+.claw-toast {
+    max-width: 90vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ---- Responsive Fixes ---- */
+@media (max-width: 640px) {
+    .claw-card {
+        padding: 1.25rem;
+    }
+
+    .claw-card:hover {
+        transform: none; /* Disable transform on mobile for better perf */
+    }
+
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    h2 {
+        font-size: 1.75rem !important;
+    }
+
+    /* Improve touch targets on mobile */
+    button, a {
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 380px) {
+    h1 {
+        font-size: 2rem !important;
+    }
+}
+
+/* ---- Code Block Styles ---- */
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+/* ---- Loading Skeleton ---- */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ---- Noise texture overlay (subtle) ---- */
+body::before {
+    display: none;
+}
+
+/* ---- Glow effect behind hero ---- */
+.hero-glow {
+    display: none;
+}
+
+/* ---- Benchmark bar animation ---- */
+.benchmark-bar {
+    transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ---- Print Styles ---- */
+@media print {
+    body::before,
+    #bg-circuit,
+    nav,
+    footer {
+        display: none !important;
+    }
+
+    .claw-card {
+        border: 1px solid #ddd !important;
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
+}
+
+/* ================================================================
+   ONE-CLICK SETUP — Card, Overlay, Modal, Tiers (Revenue Stream #8)
+   ================================================================ */
+
+/* ---- Results Card ---- */
+.ocs-card {
+    position: relative;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(135deg, #FF6B35 0%, #FF453A 50%, #FF6B35 100%);
+    background-size: 200% 200%;
+    animation: ocsGradient 4s ease infinite;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ocs-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.25);
+}
+
+.ocs-card:active {
+    transform: translateY(0);
+}
+
+.ocs-card-disabled {
+    background: linear-gradient(135deg, #333 0%, #444 100%);
+    animation: none;
+    cursor: default;
+}
+
+.ocs-card-disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---- Windows Email Capture ---- */
+.ocs-email-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.ocs-email-input {
+    flex: 1;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.ocs-email-input:focus {
+    border-color: rgba(255, 107, 53, 0.4);
+}
+
+.ocs-email-input::placeholder {
+    color: rgba(161, 161, 170, 0.5);
+}
+
+.ocs-email-btn {
+    padding: 10px 18px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.25);
+    border-radius: 10px;
+    color: #FF6B35;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.ocs-email-btn:hover {
+    background: rgba(255, 107, 53, 0.25);
+    border-color: rgba(255, 107, 53, 0.4);
+}
+
+.ocs-email-success {
+    font-size: 12px;
+    color: #10b981;
+    margin-top: 12px;
+}
+
+.ocs-tag-os {
+    border-color: rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.12);
+}
+
+@keyframes ocsGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.ocs-card-inner {
+    background: linear-gradient(145deg, #0F0F11 0%, #1a1a1e 100%);
+    border-radius: 14px;
+    padding: 20px 24px;
+}
+
+.ocs-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.ocs-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.ocs-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+}
+
+.ocs-badge-soon {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-left: auto;
+}
+
+.ocs-body {
+    margin-bottom: 16px;
+}
+
+.ocs-desc {
+    font-size: 13px;
+    color: #a1a1aa;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* ================================================================
+   LIGHT MODE STYLES - Theme Toggle Support
+   ================================================================ */
+
+/* ---- Theme Toggle Button ---- */
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: #fbbf24;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+html.light .theme-toggle-btn {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #f59e0b;
+}
+
+html.light .theme-toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Light Mode Base Styles ---- */
+html.light body {
+    background: #faf9f6 !important;
+    color: #1e293b !important;
+}
+
+html.light .bg-black {
+    background-color: #ffffff !important;
+}
+
+html.light .bg-claw-surface,
+html.light .bg-\[\#09090b\] {
+    background-color: #ffffff !important;
+}
+
+html.light .text-white,
+html.light .text-claw-text {
+    color: #1e293b !important;
+}
+
+html.light .text-claw-muted {
+    color: #64748b !important;
+}
+
+/* ---- Borders ---- */
+html.light .border-white\/20,
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-claw-border,
+html.light .border-white\/30 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light .border-claw-border\/50 {
+    border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ---- Backgrounds with opacity ---- */
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/5,
+html.light .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .bg-white\/15 {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light .hover\:bg-white\/5:hover,
+html.light .hover\:bg-white\/10:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ---- Cards and surfaces ---- */
+html.light .bg-zinc-900\/20,
+html.light .bg-zinc-900\/30 {
+    background-color: rgba(241, 245, 249, 0.8) !important;
+}
+
+html.light .bg-zinc-900\/50 {
+    background-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+/* ---- Claw Cards ---- */
+html.light .claw-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 4px 4px 0px 0px rgba(203, 213, 225, 1);
+}
+
+html.light .claw-card:hover {
+    background: #ffffff;
+    border-color: #ff453a;
+    box-shadow: 6px 6px 0px 0px rgba(255, 69, 58, 0.3);
+}
+
+/* ---- Navigation ---- */
+html.light nav {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light nav .text-claw-muted {
+    color: #64748b !important;
+}
+
+html.light nav .text-claw-muted:hover {
+    color: #1e293b !important;
+}
+
+/* ---- Mobile menu ---- */
+html.light #mobile-menu .bg-claw-surface {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* ---- Tables ---- */
+html.light table tr:hover td {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* ---- Scrollbar Light ---- */
+html.light ::-webkit-scrollbar-track {
+    background: #f5f3f0;
+    border-left: 1px solid #e2e8f0;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border: 1px solid #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+html.light * {
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+/* ---- Background Circuit Canvas ---- */
+html.light #bg-circuit {
+    opacity: 0.08;
+}
+
+/* ---- Hide dark vignette overlay in light mode globally ---- */
+html.light [style*="radial-gradient(ellipse 90% 80%"],
+html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+    background: none !important;
+    opacity: 0 !important;
+}
+
+/* ---- Kill ALL glows, blurs and gradient overlays in light mode ---- */
+
+/* Red/orange box-shadow glows (logo, buttons, etc.) */
+html.light [class*="shadow-[0_0_"] {
+    box-shadow: none !important;
+}
+
+/* Gradient overlays inside sections (from-claw-primary/5, /10, from-orange, etc.) */
+html.light .absolute.inset-0[class*="bg-gradient-to-"] {
+    display: none !important;
+}
+
+/* Hero glow blob */
+html.light .hero-glow {
+    display: none !important;
+}
+
+/* Tailwind blur utilities used as decorative glows */
+html.light [class*="blur-2xl"]:not(nav):not(header),
+html.light [class*="blur-3xl"]:not(nav):not(header),
+html.light [class*="blur-xl"]:not(nav):not(header) {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Inline dark gradient backgrounds (download card, etc.) */
+html.light [style*="background:linear-gradient(145deg"],
+html.light [style*="background: linear-gradient(145deg"] {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,0.1) !important;
+}
+
+/* Inline rgba dark backgrounds */
+html.light [style*="rgba(15,15,17"] { background: #ffffff !important; }
+html.light [style*="rgba(5,5,5"]    { background: #faf9f6 !important; }
+
+/* Inline white text */
+html.light [style*="color:#fff"],
+html.light [style*="color: #fff"],
+html.light [style*="color:white"],
+html.light [style*="color: white"]       { color: #0f172a !important; }
+html.light [style*="color:rgba(255,255,255"] { color: #334155 !important; }
+
+/* ---- Footer ---- */
+html.light footer {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-top-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ---- OCS Card (One-Click Setup) ---- */
+html.light .ocs-card-inner {
+    background: linear-gradient(145deg, #ffffff 0%, #faf9f6 100%);
+}
+
+html.light .ocs-title {
+    color: #1e293b;
+}
+
+html.light .ocs-desc {
+    color: #64748b;
+}
+
+html.light .ocs-badge-soon {
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/* ---- One-Click Setup Modal ---- */
+html.light .ocs-overlay {
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+
+html.light .ocs-modal {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+html.light .ocs-modal-header {
+    border-bottom-color: #e2e8f0;
+}
+
+html.light .ocs-modal-title {
+    color: #1e293b;
+}
+
+html.light .ocs-modal-desc {
+    color: #64748b;
+}
+
+html.light .ocs-modal-close {
+    color: #64748b;
+}
+
+html.light .ocs-modal-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1e293b;
+}
+
+/* ---- Modal Tiers ---- */
+html.light .ocs-modal-tier-free {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+html.light .ocs-modal-tier-free:hover {
+    border-color: #ff453a;
+    background: #ffffff;
+}
+
+html.light .ocs-modal-tier-free .ocs-tier-title {
+    color: #1e293b;
+}
+
+html.light .ocs-modal-tier-free .ocs-tier-desc {
+    color: #64748b;
+}
+
+html.light .ocs-modal-tier-highlighted {
+    background: linear-gradient(145deg, #fff7ed 0%, #ffedd5 100%);
+    border-color: #ff453a;
+}
+
+html.light .ocs-modal-tier-highlighted:hover {
+    background: linear-gradient(145deg, #fff7ed 0%, #ffedd5 100%);
+}
+
+html.light .ocs-tier-feature-item {
+    color: #475569;
+}
+
+html.light .ocs-tier-feature-item::before {
+    color: #ff453a;
+}
+
+/* ---- Animations & Effects ---- */
+html.light .skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.03) 25%,
+        rgba(0, 0, 0, 0.06) 50%,
+        rgba(0, 0, 0, 0.03) 75%
+    );
+}
+
+html.light ::selection {
+    background: rgba(255, 69, 58, 0.2);
+    color: #1e293b;
+}
+
+/* ---- Hero Mockup Carousel — Light Mode ---- */
+html.light .hero-slide > div {
+    background: #ffffff !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Inner dark sub-cards (bg-black/60, bg-black/40, bg-black/30, bg-black/80) */
+html.light .hero-slide [class*="bg-black"] {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Inner rounded panels (bg-white/[0.02], bg-white/[0.03], bg-white/[0.01]) */
+html.light .hero-slide [class*="bg-white/[0.0"] {
+    background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Borders inside slides */
+html.light .hero-slide [class*="border-white/"] {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Text inside slides */
+html.light .hero-slide .text-white,
+html.light .hero-slide [class*="text-white"] {
+    color: #0f172a !important;
+}
+
+html.light .hero-slide .text-claw-muted,
+html.light .hero-slide [class*="text-claw-muted"] {
+    color: #334155 !important;
+}
+
+/* Font-mono small labels */
+html.light .hero-slide [class*="text-[10px]"],
+html.light .hero-slide [class*="text-[9px]"],
+html.light .hero-slide [class*="text-[8px]"],
+html.light .hero-slide [class*="text-xs"] {
+    color: #334155 !important;
+}
+
+/* Override back accent colors that should stay colored */
+html.light .hero-slide [class*="text-claw-primary"],
+html.light .hero-slide [class*="text-emerald"],
+html.light .hero-slide [class*="text-orange"],
+html.light .hero-slide [class*="text-blue"],
+html.light .hero-slide [class*="text-violet"],
+html.light .hero-slide [class*="text-teal"] {
+    color: revert !important;
+}
+
+/* Glow & gradient bg behind carousel */
+html.light .hero-glow {
+    display: none !important;
+}
+
+/* Dot indicators */
+html.light .hero-dot {
+    opacity: 0.6;
+}
+
+.ocs-desc strong {
+    color: #fff;
+}
+
+.ocs-config-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.ocs-tag {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(255, 107, 53, 0.08);
+    color: #FF6B35;
+    border: 1px solid rgba(255, 107, 53, 0.15);
+}
+
+.ocs-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.ocs-pricing {
+    display: flex;
+    flex-direction: column;
+}
+
+.ocs-price {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.1;
+}
+
+.ocs-price-note {
+    font-size: 10px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.ocs-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #FF6B35, #FF453A);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.ocs-btn:hover {
+    background: linear-gradient(135deg, #FF7A47, #FF5549);
+    box-shadow: 0 4px 16px rgba(255, 107, 53, 0.35);
+    transform: translateY(-1px);
+}
+
+.ocs-features {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: rgba(161, 161, 170, 0.7);
+}
+
+/* ---- Overlay ---- */
+.ocs-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+}
+
+/* ================================================================
+   GLOBAL LIGHT MODE — Carrés noirs (classes CSS & inline styles)
+   Couvre toutes les pages : index, blog, llm-list, tts, pricing…
+   ================================================================ */
+
+/* Classes CSS de blog (comparison-table, step-card, etc.) */
+html.light .comparison-table th {
+    background: rgba(0,0,0,0.04) !important;
+    color: #1e293b !important;
+    border-bottom-color: rgba(0,0,0,0.12) !important;
+}
+html.light .comparison-table td {
+    border-bottom-color: rgba(0,0,0,0.07) !important;
+    color: #475569 !important;
+}
+html.light .comparison-table tr:hover td {
+    background: rgba(0,0,0,0.02) !important;
+}
+html.light .step-card,
+html.light .feature-card,
+html.light .benchmark-card {
+    background: rgba(0,0,0,0.02) !important;
+    border-color: rgba(0,0,0,0.1) !important;
+}
+html.light .formula-box {
+    background: rgba(0,0,0,0.04) !important;
+    border-color: rgba(0,0,0,0.1) !important;
+    color: #1e293b !important;
+}
+html.light .screenshot-placeholder {
+    background: linear-gradient(145deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.02) 100%) !important;
+    border-color: rgba(0,0,0,0.15) !important;
+}
+/* prose code blocks */
+html.light .prose code,
+html.light code {
+    background: rgba(0,0,0,0.05) !important;
+    color: #dc2626 !important;
+}
+html.light .prose pre,
+html.light pre {
+    background: #f1f5f9 !important;
+    border-color: rgba(0,0,0,0.1) !important;
+    color: #1e293b !important;
+}
+
+/* Inline style selectors — backgrounds semi-transparents blancs → noirs */
+html.light [style*="background:rgba(255,255,255,0.02)"],
+html.light [style*="background: rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+html.light [style*="background:rgba(255,255,255,0.03)"],
+html.light [style*="background: rgba(255,255,255,0.03)"] { background: rgba(0,0,0,0.02) !important; }
+html.light [style*="background:rgba(255,255,255,0.04)"],
+html.light [style*="background: rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+html.light [style*="background:rgba(255,255,255,0.05)"],
+html.light [style*="background: rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.03) !important; }
+html.light [style*="background:rgba(255,255,255,0.06)"],
+html.light [style*="background: rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+html.light [style*="background:rgba(255,255,255,0.07)"],
+html.light [style*="background: rgba(255,255,255,0.07)"] { background: rgba(0,0,0,0.04) !important; }
+html.light [style*="background:rgba(255,255,255,0.08)"],
+html.light [style*="background: rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+html.light [style*="background:rgba(255,255,255,0.10)"],
+html.light [style*="background: rgba(255,255,255,0.1)"]  { background: rgba(0,0,0,0.05) !important; }
+
+/* Inline gradients sombres 145deg (download card, blog cards) */
+html.light [style*="background:linear-gradient(145deg,rgba(255,69,58"] {
+    background: linear-gradient(145deg, rgba(255,69,58,0.05) 0%, #ffffff 100%) !important;
+}
+html.light [style*="background:linear-gradient(145deg, rgba(255,255,255"] {
+    background: rgba(0,0,0,0.02) !important;
+}
+
+/* Inline border blanches semi-transparentes */
+html.light [style*="border:1px solid rgba(255,255,255,0.05)"] { border-color: rgba(0,0,0,0.07) !important; }
+html.light [style*="border:1px solid rgba(255,255,255,0.06)"] { border-color: rgba(0,0,0,0.08) !important; }
+html.light [style*="border:1px solid rgba(255,255,255,0.07)"] { border-color: rgba(0,0,0,0.08) !important; }
+html.light [style*="border:1px solid rgba(255,255,255,0.08)"] { border-color: rgba(0,0,0,0.08) !important; }
+html.light [style*="border:1px solid rgba(255,255,255,0.10)"],
+html.light [style*="border:1px solid rgba(255,255,255,0.1)"]  { border-color: rgba(0,0,0,0.1) !important; }
+
+/* Texte inline très sombre sur fond clair */
+html.light [style*="color:#52525b"] { color: #374151 !important; }
+html.light [style*="color:#3f3f46"] { color: #64748b !important; }
+html.light [style*="color:#e2e8f0"] { color: #374151 !important; }
+
+/* badge "2" et "3" des étapes (bg rgba blanc → fond clair) */
+html.light [style*="background:rgba(255,255,255,0.08);color:#e2e8f0"] {
+    background: rgba(0,0,0,0.06) !important;
+    color: #374151 !important;
+}
+
+/* Overlays foncés sur fond (radial gradient) — déjà couvert plus haut mais sécurité */
+html.light [style*="background:rgba(0,0,0,0.3)"],
+html.light [style*="background: rgba(0,0,0,0.3)"] { background: none !important; opacity: 0 !important; }
+
+
+.ocs-overlay-visible {
+    opacity: 1;
+}
+
+/* ---- Modal ---- */
+.ocs-modal {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    background: linear-gradient(180deg, #151518 0%, #0F0F11 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.3s ease;
+}
+
+.ocs-overlay-visible .ocs-modal {
+    transform: translateY(0) scale(1);
+}
+
+.ocs-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 24px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.ocs-modal-close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ocs-modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.ocs-modal-icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.ocs-modal-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+}
+
+.ocs-modal-subtitle {
+    font-size: 13px;
+    color: #a1a1aa;
+    margin-top: 4px;
+}
+
+/* ---- Config Summary ---- */
+.ocs-modal-config {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.ocs-modal-config-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ocs-modal-config-label {
+    font-size: 9px;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+.ocs-modal-config-value {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.ocs-model-name {
+    color: #FF6B35;
+}
+
+/* ---- Tier Cards ---- */
+.ocs-modal-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ocs-modal-tiers-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+    .ocs-modal-tiers-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ocs-tier {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.ocs-tier:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ocs-tier-active {
+    border-color: rgba(255, 107, 53, 0.5) !important;
+    background: rgba(255, 107, 53, 0.05) !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.08);
+}
+
+.ocs-tier-badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #FF6B35, #FF453A);
+    color: #fff;
+}
+
+.ocs-tier-badge-full {
+    background: linear-gradient(135deg, #FF3B3B, #D42A2A);
+}
+
+#ocs-tier-full {
+    border-color: rgba(255, 59, 59, 0.2);
+}
+#ocs-tier-full:hover {
+    border-color: rgba(255, 59, 59, 0.4);
+    background: rgba(255, 59, 59, 0.04);
+}
+#ocs-tier-full.ocs-tier-active {
+    border-color: rgba(255, 59, 59, 0.6) !important;
+    background: rgba(255, 59, 59, 0.06) !important;
+    box-shadow: 0 0 24px rgba(255, 59, 59, 0.1);
+}
+
+.ocs-tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.ocs-tier-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ocs-tier-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.ocs-tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ocs-tier-features li {
+    font-size: 11px;
+    color: #a1a1aa;
+    line-height: 1.9;
+}
+
+/* ---- Purchase Button ---- */
+.ocs-purchase-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #FF6B35, #FF453A);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.25s ease;
+    margin-bottom: 14px;
+    gap: 2px;
+}
+
+.ocs-purchase-btn:hover {
+    background: linear-gradient(135deg, #FF7A47, #FF5549);
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+    transform: translateY(-1px);
+}
+
+.ocs-purchase-btn-full {
+    background: linear-gradient(135deg, #FF3B3B, #D42A2A) !important;
+}
+.ocs-purchase-btn-full:hover {
+    background: linear-gradient(135deg, #FF5050, #E83535) !important;
+    box-shadow: 0 8px 32px rgba(255, 59, 59, 0.35) !important;
+}
+
+.ocs-purchase-icon {
+    font-size: 14px;
+}
+
+.ocs-purchase-sub {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.ocs-modal-disclaimer {
+    font-size: 10px;
+    color: rgba(161, 161, 170, 0.5);
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* ---- Delivery Page Styles ---- */
+.ocs-delivery-hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(180deg, rgba(255, 107, 53, 0.08) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ocs-delivery-success {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+
+.ocs-script-container {
+    position: relative;
+    margin: 24px auto;
+    max-width: 700px;
+}
+
+.ocs-script-box {
+    background: #0a0a0c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.ocs-script-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ocs-script-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ocs-script-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.ocs-script-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.ocs-script-dot:nth-child(1) { background: #FF5F57; }
+.ocs-script-dot:nth-child(2) { background: #FEBC2E; }
+.ocs-script-dot:nth-child(3) { background: #28C840; }
+
+.ocs-script-filename {
+    font-size: 11px;
+    color: #a1a1aa;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.ocs-copy-btn {
+    padding: 5px 12px;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    color: #FF6B35;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ocs-copy-btn:hover {
+    background: rgba(255, 107, 53, 0.2);
+    border-color: rgba(255, 107, 53, 0.4);
+}
+
+.ocs-copy-btn.copied {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.ocs-script-body {
+    padding: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.ocs-script-body pre {
+    margin: 0;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: #d4d4d8;
+    white-space: pre;
+    tab-size: 4;
+}
+
+.ocs-oneliner {
+    margin: 20px auto;
+    max-width: 700px;
+}
+
+.ocs-oneliner-box {
+    background: rgba(255, 107, 53, 0.04);
+    border: 1px solid rgba(255, 107, 53, 0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ocs-oneliner-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: #FF6B35;
+    white-space: nowrap;
+}
+
+.ocs-oneliner-code {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+    .ocs-card-inner {
+        padding: 16px;
+    }
+
+    .ocs-cta-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ocs-pricing {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .ocs-btn {
+        text-align: center;
+    }
+
+    .ocs-features {
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .ocs-modal {
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+
+    .ocs-modal-tiers {
+        grid-template-columns: 1fr;
+    }
+
+    .ocs-modal-config {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ocs-oneliner-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

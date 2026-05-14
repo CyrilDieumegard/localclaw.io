@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LLM List — All 177 Local AI Models | LocalClaw</title>
+    <meta name="description" content="Browse & filter 177 open-source LLMs for local use: ZAYA1-8B, Ling-2.6-flash, Llama 4, Qwen 3.6, Qwen 3.5, Gemma 4, DeepSeek V3.2, Kimi K2, GLM 4.6 & more. Filter by RAM, GPU, speed, coding, reasoning. Free, private, one-click LM Studio setup.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/llm-list.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/llm-list.html">
+    <meta property="og:title" content="LLM List — All 177 Local AI Models | LocalClaw">
+    <meta property="og:description" content="Browse and filter 177 open-source LLM models for local use. Filter by RAM, GPU, size, language and use case. Run AI locally with LM Studio — no cloud, no fees.">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="images/favicon.png?v=20260211g">
+
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            safelist: [
+                'bg-gray-50', 'bg-white', 'text-gray-900', 'text-gray-600',
+                'border-gray-200', 'hover:bg-gray-100',
+            ],
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#09090b',
+                            border: '#27272a',
+                            primary: '#ff453a',
+                            accent: '#ff6d64',
+                            text: '#f4f4f5',
+                            muted: '#a1a1aa',
+                            'bg-light': '#faf9f6',
+                            'surface-light': '#ffffff',
+                            'border-light': '#e2e8f0',
+                            'text-light': '#1e293b',
+                            'muted-light': '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-xs { width:0.75em;height:0.75em; }
+.lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #000000; --surface: #09090b; --border: #333333;
+            --primary: #FF453A; --accent: #FF6D64;
+            --text: #f4f4f5; --muted: #a1a1aa;
+        }
+        body {
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh; overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+        a { text-decoration: none; }
+
+        /* Scrollbar - Global */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+        * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+        
+        /* Sidebar scrollbar - extra thin and subtle */
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+        .sidebar { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.08) transparent; }
+        
+        ::selection { background: var(--primary); color: white; }
+        
+        /* Light mode styles */
+        html.light {
+            --bg: #faf9f6;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --muted: #64748b;
+        }
+        
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-black {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-text {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-white\/20,
+        html.light .border-white\/10,
+        html.light .border-white\/5 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .bg-white\/\[0\.02\],
+        html.light .bg-white\/5,
+        html.light .bg-white\/10,
+        html.light .hover\:bg-white\/5:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        
+        html.light .border-claw-border {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        /* Reduce bg-circuit visibility in light mode */
+        html.light #bg-circuit {
+            opacity: 0.08 !important;
+        }
+        
+        /* Hide terminal canvas in light mode */
+        html.light #terminal-canvas {
+            display: none !important;
+        }
+        
+        html.light .bg-claw-surface,
+        html.light .sidebar,
+        html.light .navbar {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .sidebar {
+            border-right-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .navbar {
+            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .bg-zinc-900\/20 {
+            background-color: rgba(241, 245, 249, 0.5) !important;
+        }
+        
+        /* Theme toggle button */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        html.light ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        html.light ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        html.light ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        html.light * {
+            scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+        }
+        
+        html.light .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.06);
+        }
+        
+        html.light .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+        
+        html.light .sidebar {
+            scrollbar-color: rgba(0, 0, 0, 0.06) transparent;
+        }
+
+        /* Particles - Disabled */
+        #particles-canvas { display: none; }
+
+        /* Navbar */
+        .navbar {
+            position: sticky; top: 0; z-index: 50;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            background: #000;
+        }
+        .navbar-inner { max-width: 1400px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; }
+        .nav-logo-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); transition: color 0.2s; font-family: monospace; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: var(--primary); }
+        .nav-badge {
+            padding: 2px 6px;
+            background: rgba(255,69,58,0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-badge::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            animation: none;
+        }
+
+        /* Main Layout: Sidebar + Content */
+        .main-layout {
+            display: flex; max-width: 1400px; margin: 0 auto;
+            min-height: calc(100vh - 56px);
+            position: relative; z-index: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px; flex-shrink: 0;
+            position: sticky; top: 56px; height: calc(100vh - 56px);
+            overflow-y: auto; padding: 20px 16px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            background: #050505;
+        }
+        .sidebar-section { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #222; }
+        .sidebar-title {
+            font-size: 10px; font-weight: 700; color: var(--muted);
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+        }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip {
+            padding: 6px 10px; border-radius: 0;
+            background: #111;
+            border: 1px solid #333;
+            font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--muted);
+            cursor: pointer; transition: all 0.2s; user-select: none;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .chip:hover { border-color: #fff; color: #fff; background: #222; }
+        .chip.active { background: var(--primary) !important; border-color: var(--primary) !important; color: #000 !important; }
+        .family-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+        /* Slider */
+        .slider-row { margin-bottom: 12px; }
+        .slider-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .slider-label span:first-child { font-size: 11px; color: var(--muted); }
+        .slider-label span:last-child { font-size: 11px; font-family: monospace; color: #fff; font-weight: 700; }
+        input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; outline: none; cursor: pointer; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px rgba(255,69,58,0.4); }
+        input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: var(--primary); border-radius: 50%; border: none; }
+
+        /* Presets */
+        .preset-btn {
+            padding: 5px 10px; border-radius: 8px;
+            font-size: 11px; font-weight: 500; cursor: pointer;
+            transition: all 0.2s; border-width: 1px; border-style: solid;
+        }
+        .preset-btn:hover { filter: brightness(1.3); }
+
+        .reset-btn {
+            width: 100%; padding: 8px; border-radius: 8px;
+            background: none; border: 1px solid rgba(39,39,42,0.3);
+            color: var(--muted); font-size: 11px; cursor: pointer;
+            transition: all 0.2s; margin-top: 8px;
+        }
+        .reset-btn:hover { color: var(--primary); border-color: rgba(255,69,58,0.3); }
+
+        /* Content Area */
+        .content { flex: 1; padding: 20px; min-width: 0; }
+
+        /* Top bar */
+        .topbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+        .search-wrap { position: relative; flex: 1; min-width: 200px; }
+        .search-wrap input {
+            width: 100%; padding: 10px 36px;
+            border-radius: 12px; background: rgba(15,15,17,0.6);
+            border: 1px solid rgba(39,39,42,0.4);
+            color: #fff; font-size: 13px; outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-wrap input:focus { border-color: rgba(255,69,58,0.5); }
+        .search-wrap input::placeholder { color: rgba(161,161,170,0.5); }
+        .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 14px; }
+        .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; display: none; }
+        .search-clear:hover { color: #fff; }
+
+        .ctrl-btn {
+            padding: 10px 14px; border-radius: 12px;
+            background: rgba(15,15,17,0.6);
+            border: 1px solid rgba(39,39,42,0.4);
+            color: var(--muted); font-size: 12px; cursor: pointer;
+            transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+            white-space: nowrap;
+        }
+        .ctrl-btn:hover { border-color: rgba(255,69,58,0.3); color: #fff; }
+        .ctrl-btn.active-view { background: rgba(255,69,58,0.12); color: var(--primary); border-color: rgba(255,69,58,0.3); }
+
+        /* Stats */
+        .stats-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+        .stat-box {
+            flex: 1; min-width: 80px;
+            border-radius: 10px; background: rgba(15,15,17,0.4);
+            border: 1px solid rgba(39,39,42,0.2);
+            padding: 10px 14px; text-align: center;
+        }
+        .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; }
+        .stat-total-val { color: #fff; }
+        .stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+        /* Grid */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+        }
+
+        /* Card */
+        .card {
+            background: rgba(15,15,17,0.5); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px; padding: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .card:hover {
+            border-color: rgba(255,69,58,0.4);
+            box-shadow: 0 0 30px -10px rgba(255,69,58,0.15), 0 8px 24px -8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card:active {
+            transform: translateY(0);
+        }
+        .card-link {
+            position: relative;
+            z-index: 2;
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .card-family { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px; }
+        .card-name { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; transition: color 0.2s; }
+        .card-name:hover { color: var(--primary) !important; }
+        .card-params { padding: 2px 8px; border-radius: 6px; background: rgba(15,15,17,0.8); border: 1px solid rgba(39,39,42,0.3); font-size: 10px; font-family: monospace; color: var(--muted); white-space: nowrap; }
+        .card-desc { font-size: 11px; color: rgba(161,161,170,0.75); line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+        .card-tag { padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.04); font-size: 9px; color: rgba(161,161,170,0.65); }
+        .bench-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .bench-label { font-size: 9px; color: rgba(161,161,170,0.5); width: 50px; text-align: right; }
+        .bench-bar { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+        .bench-val { font-size: 9px; font-family: monospace; font-weight: 700; width: 14px; text-align: right; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(39,39,42,0.15); margin-top: 10px; }
+        .card-meta { display: flex; gap: 10px; }
+        .card-meta span { font-size: 9px; color: var(--muted); }
+        .card-links { display: flex; gap: 5px; }
+        .card-link {
+            width: 26px; height: 26px; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; transition: all 0.2s;
+        }
+        .card-link-hf { background: rgba(255,255,255,0.04); color: var(--muted); }
+        .card-link-hf:hover { background: rgba(255,69,58,0.12); color: var(--primary); }
+        .card-link-lms { background: rgba(255,69,58,0.08); color: var(--primary); }
+        .card-link-lms:hover { background: rgba(255,69,58,0.2); }
+        .new-badge { padding: 1px 5px; border-radius: 4px; background: rgba(16,185,129,0.12); color: #34D399; font-size: 8px; font-weight: 700; }
+        .view-badge {
+            padding: 1px 5px;
+            border-radius: 4px;
+            background: rgba(255,69,58,0.12);
+            color: var(--primary);
+            font-size: 8px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .card:hover .view-badge {
+            opacity: 1;
+        }
+        .card-name {
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 3px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .card-name:hover {
+            color: var(--primary);
+        }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(39,39,42,0.2); }
+        .table-wrap table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .table-wrap th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; background: rgba(15,15,17,0.5); border-bottom: 1px solid rgba(39,39,42,0.2); }
+        .table-wrap th.tc { text-align: center; }
+        .table-wrap td { padding: 10px 14px; border-bottom: 1px solid rgba(39,39,42,0.1); }
+        .table-wrap tr:hover td { background: rgba(255,69,58,0.03); }
+
+        /* Loading State */
+        .loading-state { text-align: center; padding: 80px 20px; display: flex; flex-direction: column; align-items: center; }
+        .loading-spinner {
+            width: 40px; height: 40px;
+            border: 3px solid rgba(255,69,58,0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Empty */
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-state h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin: 12px 0 8px; }
+        .empty-state p { color: var(--muted); font-size: 13px; }
+
+        /* Error State */
+        .error-state { text-align: center; padding: 60px 20px; }
+        .error-state h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin: 12px 0 8px; color: #F87171; }
+        .error-state p { color: var(--muted); font-size: 13px; }
+
+        /* Footer */
+        .footer { border-top: 1px solid rgba(39,39,42,0.2); padding: 24px 16px; text-align: center; position: relative; z-index: 1; }
+        .footer a { color: var(--primary); font-weight: 500; }
+        .footer span { color: var(--border); }
+
+        /* Mobile sidebar toggle */
+        .mobile-filter-btn {
+            display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 45; padding: 12px 24px; border-radius: 999px;
+            background: var(--primary); color: #fff; border: none; cursor: pointer;
+            font-size: 13px; font-weight: 600;
+            box-shadow: 0 4px 20px rgba(255,69,58,0.4);
+        }
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0; z-index: 48;
+            background: rgba(0,0,0,0.6);
+        }
+        .sidebar-close {
+            display: none; position: absolute; top: 12px; right: 12px;
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.05); border: none;
+            color: var(--muted); cursor: pointer; font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed; left: -320px; top: 0; z-index: 49;
+                width: 300px; height: 100vh;
+                transition: left 0.3s ease;
+                border-right: 1px solid rgba(39,39,42,0.3);
+            }
+            .sidebar.open { left: 0; }
+            .sidebar-overlay.show { display: block; }
+            .sidebar-close { display: block; }
+            .mobile-filter-btn { display: block; }
+            .models-grid { grid-template-columns: 1fr; }
+            .stat-box { min-width: 70px; }
+            .stats-row { gap: 6px; }
+            .card:hover { transform: none; }
+        }
+        @media (max-width: 480px) {
+            .stats-row { display: grid; grid-template-columns: 1fr 1fr; }
+            .nav-links a:not(.active) { display: none; }
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        /* ===== COMPREHENSIVE LIGHT MODE STYLES ===== */
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        /* Sidebar - fix black background */
+        html.light .sidebar {
+            background: #ffffff !important;
+            border-right-color: #e2e8f0 !important;
+        }
+        
+        html.light .sidebar-section {
+            border-bottom-color: #e2e8f0 !important;
+        }
+        
+        html.light .sidebar-title {
+            color: #64748b !important;
+        }
+        
+        /* Filter chips - fix dark background */
+        html.light .chip {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+        
+        html.light .chip:hover {
+            background: #e2e8f0 !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .chip.active {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #fff !important;
+        }
+        
+        /* Search and controls */
+        html.light .search-wrap input {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .search-wrap input::placeholder {
+            color: #94a3b8 !important;
+        }
+        
+        html.light .ctrl-btn {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .ctrl-btn:hover {
+            border-color: var(--primary) !important;
+            color: var(--primary) !important;
+        }
+        
+        /* Stat boxes */
+        html.light .stat-box {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .stat-label {
+            color: #64748b !important;
+        }
+        
+        html.light .stat-total-val {
+            color: #1e293b !important;
+        }
+        
+        /* Cards - fix dark backgrounds */
+        html.light .card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .card:hover {
+            border-color: var(--primary) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .card-name {
+            color: #1e293b !important;
+        }
+        
+        html.light .card-name:hover {
+            color: var(--primary) !important;
+        }
+        
+        html.light .card-family {
+            color: #64748b !important;
+        }
+        
+        html.light .card-params {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .card-desc {
+            color: #64748b !important;
+        }
+        
+        html.light .card-tag {
+            background: #f1f5f9 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .bench-bar {
+            background: #e2e8f0 !important;
+        }
+        
+        html.light .bench-label {
+            color: #64748b !important;
+        }
+        
+        html.light .card-footer {
+            border-top-color: #e2e8f0 !important;
+        }
+        
+        html.light .card-link-hf {
+            background: #f1f5f9 !important;
+            color: #64748b !important;
+        }
+        
+        /* Table */
+        html.light .table-wrap {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .table-wrap th {
+            background: #faf9f6 !important;
+            border-bottom-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .table-wrap td {
+            border-bottom-color: #f1f5f9 !important;
+        }
+        
+        html.light .table-wrap tr:hover td {
+            background: #faf9f6 !important;
+        }
+        
+        /* Slider */
+        html.light input[type="range"] {
+            background: #e2e8f0 !important;
+        }
+        
+        /* Reset button */
+        html.light .reset-btn {
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .reset-btn:hover {
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+        
+        /* Footer */
+        html.light .footer {
+            border-top-color: #e2e8f0 !important;
+            background: #faf9f6 !important;
+        }
+        
+        /* Mobile sidebar */
+        html.light .sidebar-overlay {
+            background: rgba(0, 0, 0, 0.3) !important;
+        }
+    </style>
+
+    <!-- TRACKING: DataFast Analytics -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js"></script>
+
+    <canvas id="terminal-canvas" style="position:fixed;inset:0;z-index:0;opacity:0.4;pointer-events:none;"></canvas>
+    
+    <script>
+        (function() {
+            const canvas = document.getElementById('terminal-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const commands = [
+                "SYSTEM_READY", "ALLOC_VRAM", "LOADING_WEIGHTS", "0x5F3A", "KERNEL_INIT", 
+                "ROOT_ACCESS", "SSH_CONN", "PING_MS", "GPU_01_OK", "CUDA_CORES",
+                "TENSOR_FLOW", "PYTORCH_LIB", "MOUNT_VOL", "DEV_NULL", "GREP_LOG",
+                "SUDO_EXEC", "BUFFER_OVER", "MEM_CHECK", "OPTIMIZING", "QUANT_4BIT"
+            ];
+            const fontSize = 12;
+            let columns = 0;
+            let drops = [];
+
+            function initDrops() {
+                columns = Math.floor(width / fontSize);
+                drops = [];
+                for(let i=0; i<columns; i++) drops[i] = Math.random() * -100;
+            }
+            initDrops();
+            window.addEventListener('resize', initDrops);
+
+            function loop() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, width, height);
+                ctx.font = fontSize + "px 'JetBrains Mono', monospace";
+                
+                for(let i=0; i<drops.length; i++) {
+                    const text = commands[Math.floor(Math.random() * commands.length)];
+                    if(Math.random() > 0.99) ctx.fillStyle = '#FF453A';
+                    else ctx.fillStyle = '#1a1a1a';
+                    
+                    ctx.fillText(text, i * fontSize * 8, drops[i] * fontSize);
+                    if(drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+    </script>
+    <nav class="border-b border-white/20 bg-black sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+
+                <!-- Nav Links -->
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <!-- Mobile hamburger -->
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <span class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">LLM</span>
+                    <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <span class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30">LLM</span>
+                <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+
+        <!-- SIDEBAR OVERLAY (mobile) -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- SIDEBAR FILTERS -->
+        <aside class="sidebar" id="sidebar">
+            <button class="sidebar-close" id="sidebar-close" aria-label="Close filters">✕</button>
+
+            <!-- Search (mobile duplicate) -->
+            <div class="sidebar-section" style="display:none;" id="mobile-search-section">
+                <div class="search-wrap">
+                    <span class="search-icon"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+                    <input type="text" id="mobile-search" placeholder="Search...">
+                </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Quick Presets</div>
+                <div class="filter-chips">
+                    <button class="preset-btn" data-preset="fast" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#34D399;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Fast</button>
+                    <button class="preset-btn" data-preset="powerful" style="background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.2);color:#A855F7;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Powerful</button>
+                    <button class="preset-btn" data-preset="coder" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.2);color:#60A5FA;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coder</button>
+                    <button class="preset-btn" data-preset="thinker" style="background:rgba(249,115,22,0.08);border-color:rgba(249,115,22,0.2);color:#FB923C;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6m-5-4h4"/></svg> Thinker</button>
+                    <button class="preset-btn" data-preset="vision" style="background:rgba(6,182,212,0.08);border-color:rgba(6,182,212,0.2);color:#22D3EE;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Vision</button>
+                    <button class="preset-btn" data-preset="light" style="background:rgba(236,72,153,0.08);border-color:rgba(236,72,153,0.2);color:#F472B6;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg> Light</button>
+                    <button class="preset-btn" data-preset="new" style="background:rgba(234,179,8,0.08);border-color:rgba(234,179,8,0.2);color:#FACC15;"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/></svg> New</button>
+                </div>
+            </div>
+
+            <!-- Use Case -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Use Case</div>
+                <div class="filter-chips" id="tag-filters">
+                    <button class="chip" data-tag="chat"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Chat</button>
+                    <button class="chip" data-tag="code"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code</button>
+                    <button class="chip" data-tag="reasoning"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning</button>
+                    <button class="chip" data-tag="vision"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Vision</button>
+                    <button class="chip" data-tag="speed"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Fast</button>
+                    <button class="chip" data-tag="quality"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality</button>
+                    <button class="chip" data-tag="general"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> General</button>
+                </div>
+            </div>
+
+            <!-- RAM -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2"/><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M7 11h2v4H7zm4 0h2v4h-2zm4 0h2v4h-2z"/></svg> RAM Required</div>
+                <div class="filter-chips" id="ram-filters">
+                    <button class="chip" data-ram="4"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg> 4 GB</button>
+                    <button class="chip" data-ram="8"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2"/><rect x="3" y="7" width="18" height="12" rx="2"/></svg> 8 GB</button>
+                    <button class="chip" data-ram="16"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 7l4.5 2.5L12 7l4.5 2.5L21 7"/></svg> 16 GB</button>
+                    <button class="chip" data-ram="32"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 32 GB</button>
+                    <button class="chip" data-ram="64"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 64 GB+</button>
+                </div>
+            </div>
+
+            <!-- Family -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Family</div>
+                <div class="filter-chips" id="family-filters"></div>
+            </div>
+
+            <!-- Benchmarks -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Min Benchmarks</div>
+                <div class="slider-row">
+                    <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed</span><span id="min-speed-val">0</span></div>
+                    <input type="range" id="min-speed" min="0" max="10" value="0">
+                </div>
+                <div class="slider-row">
+                    <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality</span><span id="min-quality-val">0</span></div>
+                    <input type="range" id="min-quality" min="0" max="10" value="0">
+                </div>
+                <div class="slider-row">
+                    <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding</span><span id="min-coding-val">0</span></div>
+                    <input type="range" id="min-coding" min="0" max="10" value="0">
+                </div>
+                <div class="slider-row">
+                    <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning</span><span id="min-reasoning-val">0</span></div>
+                    <input type="range" id="min-reasoning" min="0" max="10" value="0">
+                </div>
+            </div>
+
+            <button class="reset-btn" id="reset-filters"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Reset All Filters</button>
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- Header -->
+            <div style="margin-bottom:20px;">
+                <h1 class="font-display" style="font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:6px;">
+                    LLM <span style="color:var(--primary);">List</span>
+                </h1>
+                <p style="color:var(--muted);font-size:13px;">Browse <strong id="total-count" style="color:#fff;">0</strong> open-source models for LM Studio.</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-box"><div class="stat-val stat-total-val" id="stat-total">—</div><div class="stat-label">Total</div></div>
+                <div class="stat-box"><div class="stat-val" style="color:#34D399;" id="stat-families">—</div><div class="stat-label">Families</div></div>
+                <div class="stat-box"><div class="stat-val" style="color:#60A5FA;" id="stat-shown">—</div><div class="stat-label">Shown</div></div>
+                <div class="stat-box"><div class="stat-val" style="color:#FB923C;" id="stat-avg">—</div><div class="stat-label">Avg Speed</div></div>
+            </div>
+
+            <!-- Top bar: Search + Sort + View -->
+            <div class="topbar">
+                <div class="search-wrap">
+                    <span class="search-icon"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+                    <input type="text" id="search-input" placeholder="Search models, families, tags...  ( / )">
+                    <button class="search-clear" id="search-clear">✕</button>
+                </div>
+                <div style="position:relative;">
+                    <button class="ctrl-btn" id="sort-btn">↕ <span id="sort-label">Quality ↓</span></button>
+                    <div id="sort-dropdown" style="display:none;position:absolute;right:0;top:calc(100% + 6px);width:230px;border-radius:12px;padding:6px 0;z-index:50;background:rgba(15,15,17,0.95);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(16px);box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+                        <button class="sort-opt" data-sort="quality-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality (High → Low)</button>
+                        <button class="sort-opt" data-sort="speed-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed (Fast → Slow)</button>
+                        <button class="sort-opt" data-sort="coding-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding (Best → Worst)</button>
+                        <button class="sort-opt" data-sort="reasoning-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning (Best → Worst)</button>
+                        <button class="sort-opt" data-sort="size-asc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg> Size (Small → Large)</button>
+                        <button class="sort-opt" data-sort="size-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></svg> Size (Large → Small)</button>
+                        <button class="sort-opt" data-sort="ram-asc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> RAM (Least → Most)</button>
+                        <button class="sort-opt" data-sort="name-asc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h12M3 18h6"/></svg> Name (A → Z)</button>
+                        <button class="sort-opt" data-sort="date-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Newest First</button>
+                    </div>
+                </div>
+                <button class="ctrl-btn active-view" id="view-grid" title="Grid view"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Grid</button>
+                <button class="ctrl-btn" id="view-table" title="Table view"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Table</button>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state">
+                <div class="loading-spinner"></div>
+                <p style="color:var(--muted);font-size:13px;margin-top:12px;">Loading model data...</p>
+            </div>
+
+            <!-- Models Grid -->
+            <div class="models-grid" id="models-grid" style="display:none;"></div>
+
+            <!-- Table -->
+            <div class="table-wrap" id="models-table" style="display:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th><th>Family</th><th class="tc">Params</th><th class="tc">RAM</th>
+                            <th class="tc" title="Speed"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></th><th class="tc" title="Quality"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg></th><th class="tc" title="Coding"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></th><th class="tc" title="Reasoning"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg></th>
+                            <th class="tc">Quant</th><th class="tc" title="Links"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></th>
+                        </tr>
+                    </thead>
+                    <tbody id="models-tbody"></tbody>
+                </table>
+            </div>
+
+            <!-- Empty -->
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <div style="width:48px;height:48px;margin:0 auto;"><img src="images/crab-logo.png" alt="LocalClaw" width="48" height="48" style="opacity:0.6;"></div>
+                <h3>No models match your filters</h3>
+                <p>Try adjusting your filters or search query</p>
+                <button onclick="window._reset()" style="margin-top:12px;padding:8px 16px;border-radius:8px;background:rgba(255,69,58,0.1);border:1px solid rgba(255,69,58,0.3);color:var(--primary);cursor:pointer;font-size:13px;">Reset Filters</button>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display:none;">
+                <div style="width:48px;height:48px;margin:0 auto;"><svg viewBox="0 0 24 24" fill="none" stroke="#FF453A" stroke-width="1.5" width="48" height="48"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+                <h3>Failed to load models</h3>
+                <p id="error-message">There was an error loading the model data.</p>
+                <button onclick="location.reload()" style="margin-top:12px;padding:8px 16px;border-radius:8px;background:rgba(255,69,58,0.1);border:1px solid rgba(255,69,58,0.3);color:var(--primary);cursor:pointer;font-size:13px;"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 105.64-11.36L1 10"/></svg> Reload Page</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Filter Button -->
+    <button class="mobile-filter-btn" id="mobile-filter-btn">🔽 Filters</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="color:var(--muted);font-size:11px;margin-bottom:8px;"><a href="index.html">LocalClaw</a> — Find the perfect AI model for your hardware</p>
+        <div style="display:flex;justify-content:center;gap:14px;">
+            <a href="index.html" style="font-size:11px;color:var(--muted);">Configurator</a>
+            <span>·</span>
+            <a href="blog/index.html" style="font-size:11px;color:var(--muted);">Blog</a>
+            <span>·</span>
+            <a href="https://buymeacoffee.com/cdieumegard" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--muted);"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg> Support</a>
+        </div>
+    </footer>
+
+    <!-- Sort dropdown style -->
+    <style>
+        .sort-opt {
+            display: block; width: 100%; text-align: left;
+            padding: 8px 14px; font-size: 12px; color: var(--muted);
+            background: none; border: none; cursor: pointer; transition: all 0.15s;
+        }
+        .sort-opt:hover { background: rgba(255,69,58,0.08); color: #fff; }
+    </style>
+
+    <!-- DATA -->
+    <script src="js/data.js" onerror="console.error('Failed to load js/data.js');document.getElementById('loading-state').style.display='none';document.getElementById('error-state').style.display='block';document.getElementById('error-message').textContent='Failed to load data.js. Please check your connection and reload.';"></script>
+
+    <!-- APP -->
+    <script>
+    (function() {
+        'use strict';
+
+        function esc(s) {
+            if (!s) return '';
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        }
+
+        var models = (typeof APP_DATA !== 'undefined' && APP_DATA.models) ? APP_DATA.models : [];
+        var filtered = [];
+        var search = '';
+        var sortKey = 'quality-desc';
+        var viewMode = 'grid';
+        var activeTags = {};
+        var activeRam = {};
+        var activeFam = {};
+        var minB = { speed:0, quality:0, coding:0, reasoning:0 };
+
+        var FCOL = {
+            'llama':'#3B82F6','qwen':'#A855F7','deepseek':'#10B981','gemma':'#F59E0B',
+            'phi':'#06B6D4','mistral':'#EF4444','glm':'#EC4899','cohere':'#F97316',
+            'llava':'#14B8A6','moondream':'#8B5CF6','gpt-oss':'#22C55E','falcon':'#6366F1',
+            'yi':'#D946EF','wizardlm':'#818CF8','dolphin':'#2DD4BF','hermes':'#FB7185',
+            'openchat':'#A78BFA','zephyr':'#38BDF8','starcoder':'#4ADE80','command':'#F97316',
+            'granite':'#94A3B8','cogito':'#F472B6','exaone':'#A3E635','aya':'#FBBF24'
+        };
+        function fcol(f) { f=(f||'').toLowerCase(); for(var k in FCOL){if(f.indexOf(k)!==-1)return FCOL[k];} return '#6B7280'; }
+        var TEMOJI = {'chat':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>','code':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','reasoning':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>','vision':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>','speed':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','quality':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg>','general':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>','light':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg>','power':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','standard':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 17l10 6 10-6M2 13l10 6 10-6"/></svg>'};
+        function temoji(t) { return TEMOJI[t]||'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01"/></svg>'; }
+        function bcol(v) { return v>=8?'#34D399':v>=6?'#60A5FA':v>=4?'#FACC15':'#F87171'; }
+
+        // === Data Loading with Fallback ===
+        function loadData() {
+            // Try multiple data sources in order of preference
+            var dataSources = [
+                function() { return (typeof APP_DATA !== 'undefined' && APP_DATA.models) ? APP_DATA.models : null; },
+                function() { return (typeof window.models !== 'undefined') ? window.models : null; },
+                function() { return (typeof window.MODELS !== 'undefined') ? window.MODELS : null; }
+            ];
+            
+            for (var i = 0; i < dataSources.length; i++) {
+                var data = dataSources[i]();
+                if (data && Array.isArray(data) && data.length > 0) {
+                    console.log('LocalClaw: Loaded ' + data.length + ' models from source ' + (i + 1));
+                    return data;
+                }
+            }
+            
+            console.error('LocalClaw: No model data found in any source');
+            return null;
+        }
+
+        // === Init ===
+        function init() {
+            // Load model data with fallback
+            var loadedModels = loadData();
+            
+            if (!loadedModels || loadedModels.length === 0) {
+                // Show error state
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('error-state').style.display = 'block';
+                document.getElementById('models-grid').style.display = 'none';
+                document.getElementById('models-table').style.display = 'none';
+                document.getElementById('empty-state').style.display = 'none';
+                
+                // Set error message
+                var errorMsg = 'Could not load model data. ';
+                if (typeof APP_DATA === 'undefined') {
+                    errorMsg += 'APP_DATA is not defined. The data.js file may not have loaded correctly.';
+                } else if (!APP_DATA.models) {
+                    errorMsg += 'APP_DATA.models is missing.';
+                } else if (!Array.isArray(APP_DATA.models)) {
+                    errorMsg += 'APP_DATA.models is not an array.';
+                } else {
+                    errorMsg += 'Unknown data error.';
+                }
+                document.getElementById('error-message').textContent = errorMsg;
+                
+                console.error('LocalClaw LLM List Error:', errorMsg);
+                return;
+            }
+            
+            // Assign loaded data
+            models = loadedModels;
+            
+            // Hide loading, show content
+            document.getElementById('loading-state').style.display = 'none';
+            
+            buildFamilies();
+            bind();
+            run();
+            // particles();
+            
+            // Back to top
+            var btt = document.getElementById('btt');
+            if (btt) {
+            window.addEventListener('scroll', function() {
+                btt.style.opacity = window.scrollY > 300 ? '1' : '0';
+                btt.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
+            });
+            btt.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
+            }
+        }
+
+        // === Build Families ===
+        function buildFamilies() {
+            var fm = {};
+            for (var i=0;i<models.length;i++) { var f=models[i].family; fm[f]=(fm[f]||0)+1; }
+            var arr=[];for(var k in fm) arr.push([k,fm[k]]);
+            arr.sort(function(a,b){return b[1]-a[1];});
+            var h='';
+            for(var j=0;j<arr.length;j++){
+                var fam=arr[j][0],cnt=arr[j][1],c=fcol(fam);
+                var d=fam.charAt(0).toUpperCase()+fam.slice(1);
+                h+='<button class="chip" data-family="'+esc(fam)+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(d)+' <span style="opacity:0.5;">('+cnt+')</span></button>';
+            }
+            document.getElementById('family-filters').innerHTML=h;
+        }
+
+        // === Bind ===
+        function bind() {
+            var si=document.getElementById('search-input');
+            var sc=document.getElementById('search-clear');
+            var tm;
+            si.addEventListener('input',function(){
+                clearTimeout(tm);
+                tm=setTimeout(function(){
+                    search=si.value.trim().toLowerCase();
+                    sc.style.display=search?'block':'none';
+                    run();
+                },120);
+            });
+            sc.addEventListener('click',function(){ si.value='';search='';sc.style.display='none';si.focus();run(); });
+
+            // Chips delegation
+            document.getElementById('tag-filters').addEventListener('click',function(e){
+                var b=e.target.closest('[data-tag]');if(!b)return;
+                var t=b.getAttribute('data-tag');
+                if(activeTags[t]){delete activeTags[t];b.classList.remove('active');}
+                else{activeTags[t]=true;b.classList.add('active');}
+                run();
+            });
+            document.getElementById('ram-filters').addEventListener('click',function(e){
+                var b=e.target.closest('[data-ram]');if(!b)return;
+                var r=b.getAttribute('data-ram');
+                if(activeRam[r]){delete activeRam[r];b.classList.remove('active');}
+                else{activeRam[r]=true;b.classList.add('active');}
+                run();
+            });
+            document.getElementById('family-filters').addEventListener('click',function(e){
+                var b=e.target.closest('[data-family]');if(!b)return;
+                var f=b.getAttribute('data-family');
+                if(activeFam[f]){delete activeFam[f];b.classList.remove('active');}
+                else{activeFam[f]=true;b.classList.add('active');}
+                run();
+            });
+
+            // Sliders
+            ['speed','quality','coding','reasoning'].forEach(function(k){
+                var sl=document.getElementById('min-'+k);
+                var vl=document.getElementById('min-'+k+'-val');
+                sl.addEventListener('input',function(){ minB[k]=parseInt(sl.value); vl.textContent=sl.value; run(); });
+            });
+
+            // Sort
+            document.getElementById('sort-btn').addEventListener('click',function(e){
+                e.stopPropagation();
+                var dd=document.getElementById('sort-dropdown');
+                dd.style.display=dd.style.display==='none'?'block':'none';
+            });
+            var sopts=document.querySelectorAll('.sort-opt');
+            for(var i=0;i<sopts.length;i++){
+                sopts[i].addEventListener('click',function(){
+                    sortKey=this.getAttribute('data-sort');
+                    document.getElementById('sort-label').textContent=this.textContent.trim();
+                    document.getElementById('sort-dropdown').style.display='none';
+                    run();
+                });
+            }
+            document.addEventListener('click',function(){ document.getElementById('sort-dropdown').style.display='none'; });
+
+            // View
+            document.getElementById('view-grid').addEventListener('click',function(){ viewMode='grid'; this.classList.add('active-view'); document.getElementById('view-table').classList.remove('active-view'); render(); });
+            document.getElementById('view-table').addEventListener('click',function(){ viewMode='table'; this.classList.add('active-view'); document.getElementById('view-grid').classList.remove('active-view'); render(); });
+
+            // Reset
+            document.getElementById('reset-filters').addEventListener('click', resetAll);
+
+            // Presets
+            var pbtns=document.querySelectorAll('.preset-btn');
+            for(var p=0;p<pbtns.length;p++) pbtns[p].addEventListener('click',function(){ applyPreset(this.getAttribute('data-preset')); });
+
+            // Mobile sidebar
+            document.getElementById('mobile-filter-btn').addEventListener('click',function(){
+                document.getElementById('sidebar').classList.add('open');
+                document.getElementById('sidebar-overlay').classList.add('show');
+            });
+            document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+            document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
+
+            // Keyboard
+            document.addEventListener('keydown',function(e){
+                if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&document.activeElement.tagName!=='INPUT'){e.preventDefault();si.focus();}
+                if(e.key==='Escape'){si.blur();document.getElementById('sort-dropdown').style.display='none';closeSidebar();}
+            });
+        }
+
+        function closeSidebar(){
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebar-overlay').classList.remove('show');
+        }
+
+        // === Reset ===
+        function resetAll() {
+            search='';activeTags={};activeRam={};activeFam={};
+            minB={speed:0,quality:0,coding:0,reasoning:0};
+            document.getElementById('search-input').value='';
+            document.getElementById('search-clear').style.display='none';
+            var chips=document.querySelectorAll('.chip');for(var i=0;i<chips.length;i++) chips[i].classList.remove('active');
+            ['speed','quality','coding','reasoning'].forEach(function(k){
+                document.getElementById('min-'+k).value=0;
+                document.getElementById('min-'+k+'-val').textContent='0';
+            });
+            run();
+        }
+        window._reset=resetAll;
+
+        // === Presets ===
+        function applyPreset(p) {
+            resetAll();
+            switch(p) {
+                case 'fast': minB.speed=8; document.getElementById('min-speed').value=8; document.getElementById('min-speed-val').textContent='8'; sortKey='speed-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed (Fast → Slow)'; break;
+                case 'powerful': minB.quality=8; document.getElementById('min-quality').value=8; document.getElementById('min-quality-val').textContent='8'; sortKey='quality-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg> Quality (High → Low)'; break;
+                case 'coder': activeTags['code']=true; var cb=document.querySelector('[data-tag="code"]');if(cb)cb.classList.add('active'); minB.coding=7; document.getElementById('min-coding').value=7; document.getElementById('min-coding-val').textContent='7'; sortKey='coding-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding (Best → Worst)'; break;
+                case 'thinker': activeTags['reasoning']=true; var rb=document.querySelector('[data-tag="reasoning"]');if(rb)rb.classList.add('active'); minB.reasoning=7; document.getElementById('min-reasoning').value=7; document.getElementById('min-reasoning-val').textContent='7'; sortKey='reasoning-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning (Best → Worst)'; break;
+                case 'vision': activeTags['vision']=true; var vb=document.querySelector('[data-tag="vision"]');if(vb)vb.classList.add('active'); break;
+                case 'light': activeRam['4']=true;activeRam['8']=true; var r4=document.querySelector('[data-ram="4"]');if(r4)r4.classList.add('active'); var r8=document.querySelector('[data-ram="8"]');if(r8)r8.classList.add('active'); sortKey='ram-asc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> RAM (Least → Most)'; break;
+                case 'new': sortKey='date-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Newest First'; break;
+            }
+            run();
+        }
+
+        // === Run filter+sort+render ===
+        function run() {
+            var res=models.slice();
+            if(search){
+                res=res.filter(function(m){
+                    return m.name.toLowerCase().indexOf(search)!==-1||m.family.toLowerCase().indexOf(search)!==-1||
+                        m.description.toLowerCase().indexOf(search)!==-1||m.id.toLowerCase().indexOf(search)!==-1||
+                        (m.search_term&&m.search_term.toLowerCase().indexOf(search)!==-1)||
+                        m.tags.join(' ').indexOf(search)!==-1||m.params.toLowerCase().indexOf(search)!==-1;
+                });
+            }
+            var tk=Object.keys(activeTags);
+            if(tk.length>0) res=res.filter(function(m){for(var i=0;i<tk.length;i++){if(m.tags.indexOf(tk[i])===-1)return false;}return true;});
+            var rk=Object.keys(activeRam);
+            if(rk.length>0) res=res.filter(function(m){for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
+            var fk=Object.keys(activeFam);
+            if(fk.length>0) res=res.filter(function(m){return !!activeFam[m.family];});
+            res=res.filter(function(m){return m.benchmarks.speed>=minB.speed&&m.benchmarks.quality>=minB.quality&&m.benchmarks.coding>=minB.coding&&m.benchmarks.reasoning>=minB.reasoning;});
+
+            var parts=sortKey.split('-'),sf=parts[0],sd=parts[1];
+            res.sort(function(a,b){
+                var va,vb;
+                switch(sf){
+                    case 'quality':va=a.benchmarks.quality;vb=b.benchmarks.quality;break;
+                    case 'speed':va=a.benchmarks.speed;vb=b.benchmarks.speed;break;
+                    case 'coding':va=a.benchmarks.coding;vb=b.benchmarks.coding;break;
+                    case 'reasoning':va=a.benchmarks.reasoning;vb=b.benchmarks.reasoning;break;
+                    case 'size':va=a.size_gb;vb=b.size_gb;break;
+                    case 'ram':va=a.min_ram;vb=b.min_ram;break;
+                    case 'name':va=a.name.toLowerCase();vb=b.name.toLowerCase();break;
+                    case 'date':va=a.released||'';vb=b.released||'';break;
+                    default:va=a.benchmarks.quality;vb=b.benchmarks.quality;
+                }
+                return sd==='asc'?(va<vb?-1:va>vb?1:0):(va>vb?-1:va<vb?1:0);
+            });
+
+            filtered=res;
+            render();
+            stats();
+        }
+
+        // === Render ===
+        function render() {
+            var g=document.getElementById('models-grid');
+            var t=document.getElementById('models-table');
+            var e=document.getElementById('empty-state');
+            var l=document.getElementById('loading-state');
+            var err=document.getElementById('error-state');
+
+            // Hide loading and error states
+            if(l) l.style.display='none';
+            if(err) err.style.display='none';
+
+            if(filtered.length===0){ 
+                g.style.display='none';
+                t.style.display='none';
+                e.style.display='block'; 
+                return; 
+            }
+            e.style.display='none';
+
+            if(viewMode==='grid'){
+                g.style.display='grid'; t.style.display='none';
+                var h='';
+                for(var i=0;i<filtered.length;i++){
+                    var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
+                    var lms='lmstudio://open?search='+encodeURIComponent(m.search_term);
+
+                    var detailUrl='llm-detail.html?model='+encodeURIComponent(m.id);
+                    h+='<div class="card" data-detail-url="'+detailUrl+'" onclick="goToDetail(event,this)">';
+                    h+='<div class="card-header"><div style="flex:1;min-width:0;">';
+                    h+='<div class="card-family" style="color:'+c+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(m.family);
+                    if(isN) h+=' <span class="new-badge">NEW</span>';
+                    h+=' <span class="view-badge">View →</span>';
+                    h+='</div>';
+                    h+='<a href="'+detailUrl+'" class="card-name" title="'+esc(m.name)+'">'+esc(m.name)+'</a>';
+                    h+='</div><span class="card-params">'+esc(m.params)+'</span></div>';
+
+                    h+='<div class="card-desc">'+esc(m.description)+'</div>';
+
+                    h+='<div class="card-tags">';
+                    var ts=m.tags.slice(0,4);
+                    for(var t2=0;t2<ts.length;t2++) h+='<span class="card-tag">'+temoji(ts[t2])+' '+esc(ts[t2])+'</span>';
+                    h+='</div>';
+
+                    h+='<div style="margin-bottom:10px;">';
+                    h+=bbar('Speed',m.benchmarks.speed,'#10B981');
+                    h+=bbar('Quality',m.benchmarks.quality,'#A855F7');
+                    h+=bbar('Coding',m.benchmarks.coding,'#3B82F6');
+                    h+=bbar('Reason',m.benchmarks.reasoning,'#F59E0B');
+                    h+='</div>';
+
+                    h+='<div class="card-footer"><div class="card-meta">';
+                    h+='<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> '+m.min_ram+'GB</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> '+m.size_gb+'GB</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> '+esc(m.recommended_quant)+'</span>';
+                    h+='</div><div class="card-links">';
+                    h+='<a href="'+esc(hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="HuggingFace">🤗</a>';
+                    h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="LM Studio">⬇</a>';
+                    h+='</div></div>';
+                    h+='</div>';
+                }
+                g.innerHTML=h;
+            } else {
+                g.style.display='none'; t.style.display='block';
+                var h='';
+                for(var i=0;i<filtered.length;i++){
+                    var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
+                    h+='<tr>';
+                    var detailUrl2='llm-detail.html?model='+encodeURIComponent(m.id);
+                    h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
+                    if(isN) h+=' <span class="new-badge">NEW</span>';
+                    h+='</div></td>';
+                    h+='<td style="color:var(--muted);text-transform:capitalize;">'+esc(m.family)+'</td>';
+                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+esc(m.params)+'</td>';
+                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+m.min_ram+'GB</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.speed)+';">'+m.benchmarks.speed+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.quality)+';">'+m.benchmarks.quality+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+m.benchmarks.coding+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+m.benchmarks.reasoning+'</td>';
+                    h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+esc(m.recommended_quant)+'</td>';
+                    h+='<td style="text-align:center;"><a href="'+esc(hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;">🤗</a></td>';
+                    h+='</tr>';
+                }
+                document.getElementById('models-tbody').innerHTML=h;
+            }
+        }
+
+        function bbar(label,val,color) {
+            return '<div class="bench-row">'
+                +'<span class="bench-label">'+label+'</span>'
+                +'<div class="bench-bar"><div class="bench-fill" style="width:'+(val*10)+'%;background:'+color+';"></div></div>'
+                +'<span class="bench-val" style="color:'+color+';">'+val+'</span>'
+                +'</div>';
+        }
+
+        // === Navigation to detail page ===
+        function goToDetail(event, card) {
+            // Don't navigate if clicking on interactive elements
+            if (event.target.closest('.card-link') || 
+                event.target.closest('a[href]') ||
+                event.target.closest('button')) {
+                return;
+            }
+            // Get the detail URL from the card's data attribute
+            var url = card.getAttribute('data-detail-url');
+            if (url) {
+                window.location.href = url;
+            }
+        }
+
+        // === Stats ===
+        function stats() {
+            var fs={};for(var i=0;i<models.length;i++) fs[models[i].family]=true;
+            var avg=filtered.length>0?(filtered.reduce(function(s,m){return s+m.benchmarks.speed;},0)/filtered.length).toFixed(1):'—';
+            document.getElementById('stat-total').textContent=models.length;
+            document.getElementById('stat-families').textContent=Object.keys(fs).length;
+            document.getElementById('stat-shown').textContent=filtered.length;
+            document.getElementById('stat-avg').textContent=avg;
+            document.getElementById('total-count').textContent=models.length;
+        }
+
+        // === Particles ===
+        function particles() {
+            var c=document.getElementById('particles-canvas');if(!c)return;
+            var ctx=c.getContext('2d'),ps=[],N=window.innerWidth<640?20:40,MD=120;
+            function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+            resize();window.addEventListener('resize',resize);
+            for(var i=0;i<N;i++) ps.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*1.5+0.5,red:Math.random()>0.7});
+            function anim(){
+                ctx.clearRect(0,0,c.width,c.height);
+                for(var i=0;i<ps.length;i++){var p=ps[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.red?'rgba(255,69,58,0.5)':'rgba(255,255,255,0.4)';ctx.fill();}
+                for(var i=0;i<ps.length;i++)for(var j=i+1;j<ps.length;j++){var dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<MD){ctx.beginPath();ctx.moveTo(ps[i].x,ps[i].y);ctx.lineTo(ps[j].x,ps[j].y);ctx.strokeStyle='rgba(255,69,58,'+(0.12*(1-d/MD))+')';ctx.lineWidth=0.5;ctx.stroke();}}
+                requestAnimationFrame(anim);
+            }
+            anim();
+        }
+
+        // === Boot ===
+        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+        else init();
+    })();
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            if (!scrollBtn) return;
+            const scrollThreshold = 300;
+            
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            toggleScrollButton();
+        })();
+    </script>
+
+    <!-- Theme Toggle Script -->
+    <script src="js/theme-toggle.js"></script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

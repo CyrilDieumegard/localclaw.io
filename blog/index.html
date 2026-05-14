@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>LocalClaw Blog — Local AI Guides & LLM Comparisons | LM Studio 2026</title>
+    <meta name="description" content="Expert guides for running AI models locally. Gemma 4 MTP drafters, OpenClaw setup, Qwen 3 vs Llama 3.3, GGUF quantization, Apple Silicon vs NVIDIA, LM Studio tutorials, and best local LLMs 2026.">
+    <meta name="keywords" content="local AI blog, Gemma 4 MTP, Multi-Token Prediction, LLM guide, Qwen 3 vs Llama 3.3, GGUF quantization, LM Studio tutorial, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://localclaw.io/blog/">
+
+    <!-- ============================================================
+         OPEN GRAPH (Facebook, LinkedIn, Discord, etc.)
+         ============================================================ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/blog/">
+    <meta property="og:title" content="LocalClaw Blog — Local AI Guides & LLM Comparisons">
+    <meta property="og:description" content="Expert guides for running LLMs locally: Gemma 4 MTP, model comparisons, hardware optimization, and LM Studio tutorials.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LocalClaw Blog — Local AI Guides & LLM Comparisons">
+    <meta name="twitter:description" content="Expert guides for running LLMs locally: Gemma 4 MTP, model comparisons, hardware optimization, and LM Studio tutorials.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- ============================================================
+         FAVICON
+         ============================================================ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="../images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="../images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         PRECONNECT & FONTS
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+         TAILWIND CSS
+         ============================================================ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         THEME TOGGLE
+         ============================================================ -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- ============================================================
+         TRACKING: DataFast Analytics
+         ============================================================ -->
+    <script
+        defer
+        data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"
+        data-domain="localclaw.io"
+        src="https://datafa.st/js/script.js">
+    </script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .article-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .article-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,69,58,0.3);
+            box-shadow: 0 20px 40px -12px rgba(255,69,58,0.15);
+        }
+        .category-badge {
+            background: rgba(255,69,58,0.15);
+            color: #FF6D64;
+            border: 1px solid rgba(255,69,58,0.3);
+        }
+        .reading-time {
+            color: #71717a;
+        }
+        
+        /* Light Mode Styles */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        
+        html.light .text-claw-text,
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-claw-border\/50 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .article-card {
+            background: linear-gradient(145deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.01) 100%);
+            border-color: rgba(0,0,0,0.08);
+        }
+        
+        html.light .article-card:hover {
+            border-color: rgba(255,69,58,0.3);
+            box-shadow: 0 20px 40px -12px rgba(255,69,58,0.1);
+        }
+        
+        html.light .category-badge {
+            background: rgba(255,69,58,0.1);
+            color: #FF453A;
+            border-color: rgba(255,69,58,0.2);
+        }
+        
+        html.light .reading-time {
+            color: #64748b;
+        }
+        
+        html.light .bg-white\/5 {
+            background-color: rgba(0,0,0,0.03);
+        }
+        
+        html.light .border-white\/10 {
+            border-color: rgba(0,0,0,0.08);
+        }
+        
+        html.light .hover\:bg-white\/10:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        /* Article card text */
+        html.light .article-card h2,
+        html.light .article-card h3 { color: #0f172a !important; }
+        html.light .article-card p { color: #4b5563 !important; }
+        html.light .article-card .text-white { color: #0f172a !important; }
+        html.light .article-card .text-claw-muted { color: #64748b !important; }
+        /* Footer */
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+        /* Section headings */
+        html.light h2.text-white { color: #0f172a !important; }
+        html.light h3.text-white { color: #1e293b !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"><div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="../js/bg-circuit.js"></script>
+
+    <!-- ============================================================
+         NAVBAR
+         ============================================================ -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden" onclick="this.classList.add('hidden')">
+        <div class="flex flex-col items-center justify-center h-full gap-1" onclick="event.stopPropagation()">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-white/10 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HERO SECTION
+         ============================================================ -->
+    <header class="relative pt-16 pb-12 sm:pt-24 sm:pb-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-claw-primary/10 border border-claw-primary/30 text-claw-primary text-sm font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-claw-primary "></span>
+                Guides & Comparisons
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight">
+                Local<span class="text-claw-primary">Claw</span> Blog
+            </h1>
+            <p class="text-lg sm:text-xl text-claw-muted max-w-2xl mx-auto leading-relaxed">
+                Expert guides, model comparisons, and tutorials to master local AI with LM Studio and the best open-source LLMs.
+            </p>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         ARTICLES GRID
+         ============================================================ -->
+    <main class="flex-grow px-4 pb-20 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Filters -->
+            <div id="blog-filters" class="flex flex-wrap gap-3 mb-10 justify-center">
+                <button data-filter="all" class="filter-btn px-4 py-2 rounded-full bg-claw-primary text-white text-sm font-medium transition-all">All</button>
+                <button data-filter="comparison" class="filter-btn px-4 py-2 rounded-full bg-white/5 border border-white/10 text-claw-muted text-sm font-medium hover:bg-white/10 transition-all">Comparisons</button>
+                <button data-filter="guide" class="filter-btn px-4 py-2 rounded-full bg-white/5 border border-white/10 text-claw-muted text-sm font-medium hover:bg-white/10 transition-all">Guides</button>
+                <button data-filter="hardware" class="filter-btn px-4 py-2 rounded-full bg-white/5 border border-white/10 text-claw-muted text-sm font-medium hover:bg-white/10 transition-all">Hardware</button>
+            </div>
+
+            <!-- Articles Grid -->
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Article NEW: Gemma 4 MTP Drafters -->
+                <a href="gemma4-mtp-drafters.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#a855f7,#22d3ee);">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Technical Guide</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            11 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Gemma 4 MTP Drafters: Multi-Token Prediction Explained
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Google's MTP drafters for Gemma 4 use speculative decoding to predict multiple future tokens, verify them in parallel, and unlock up to 3× faster local inference.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">Up to 3× faster</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">Speculative decoding</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Gemma 4</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">May 10, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article NEW: Qwen 3.6-27B Deep Dive -->
+                <a href="qwen3-6-27b-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899);">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(168,85,247,0.12);color:#a855f7;border:1px solid rgba(168,85,247,0.3);">Model Review</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            14 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                        Qwen 3.6-27B Deep Dive: Alibaba's Dense Flagship Reasoner
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        The biggest Qwen 3.6 — 27B dense parameters with hybrid thinking mode. Major quality leap over Qwen 3.5-27B in reasoning, coding &amp; math. Fits on RTX 4090 &amp; Mac Studio. Apache 2.0.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">27B Dense</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">Hybrid Thinking</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">Apache 2.0</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">April 23, 2026</span>
+                        <span class="text-purple-400 text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article NEW: Gemma 4 Suite Deep Dive -->
+                <a href="gemma4-suite-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#4ade80,#22d3ee);">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.3);">Model Review</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            14 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-green-400 transition-colors">
+                        Gemma 4 Suite Deep Dive: E2B, E4B, 26B-A4B &amp; 31B
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Google DeepMind's Gemma 4 family redefines open-weights models. Native multimodal vision, MoE efficiency, 128K context — everything you need to know to run it locally.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">Multimodal</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">MoE</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">128K context</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">April 4, 2026</span>
+                        <span class="text-green-400 text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article NEW: Qwen 3.6 Deep Dive -->
+                <a href="qwen3-6-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#f97316,#a855f7);">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3);">Model Review</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            12 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-orange-400 transition-colors">
+                        Qwen 3.6 Deep Dive: Alibaba's Hybrid-Thinking 6.7B
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Alibaba's surprise launch — a 6.7B dense model with a unique hybrid thinking mode that switches between fast instruct and deep chain-of-thought on demand. Apache 2.0.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">Hybrid Thinking</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">6.7B Dense</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">Apache 2.0</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">April 4, 2026</span>
+                        <span class="text-orange-400 text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 0 — NEW: Local TTS Guide -->
+                <a href="local-tts-guide-2026.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-purple-500 text-white">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(139,92,246,0.15);color:#A78BFA;border-color:rgba(139,92,246,0.3);">TTS Guide</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            12 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                        The Complete Guide to Local TTS in 2026
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Complete guide to local Text-to-Speech AI in 2026. Orpheus 3B, Piper, ChatTTS, XTTS, Bark, Parler, MeloTTS — with benchmarks, hardware requirements, and LM Studio setup.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">February 13, 2026</span>
+                        <span class="text-purple-400 text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 0b — OpenClaw Guide -->
+                <a href="openclaw-guide.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-emerald-500 text-white">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Guide</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            15 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        OpenClaw: The Self-Hosted AI Assistant Gateway
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Complete guide to OpenClaw — the open-source AI gateway with 68K+ GitHub stars. Installation, LM Studio &amp; Ollama connection, skills system, and best practices.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">February 12, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 1 -->
+                <a href="how-to-choose-local-llm.html" class="article-card rounded-2xl p-6 block group" data-category="guide">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Guide</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            8 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        How to Choose the Right Local LLM in 2026
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        RAM, VRAM, use cases... Discover how to select the perfect open-source model for your hardware setup.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">February 8, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article Qwen 3.5 — NEW -->
+                <a href="qwen35-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
+                    <!-- NEW glow effect -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-orange-500/5 pointer-events-none rounded-2xl"></div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Model Review</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            10 min
+                        </span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-purple-500/20 to-orange-500/20 text-yellow-300 border border-yellow-500/30 px-2 py-0.5 rounded-full">⭐ New</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Qwen 3.5 Deep Dive: 35B-A3B, 27B, 122B-A10B, 397B-A17B
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Complete guide to Qwen 3.5: MoE architecture explained, hardware requirements, benchmarks, and how to run the 35B-A3B on a Mac Studio 32GB.
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 mb-4">
+                        <span class="text-[10px] bg-purple-500/10 border border-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">MoE</span>
+                        <span class="text-[10px] bg-orange-500/10 border border-orange-500/20 text-orange-300 px-2 py-0.5 rounded-full">256K Context</span>
+                        <span class="text-[10px] bg-green-500/10 border border-green-500/20 text-green-300 px-2 py-0.5 rounded-full">Apache 2.0</span>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">March 2, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 2 -->
+                <a href="qwen3-vs-llama33.html" class="article-card rounded-2xl p-6 block group" data-category="comparison">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Comparison</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            12 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Qwen 3 vs Llama 3.3: The Ultimate Comparison
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Head-to-head of the giants: benchmarks, RAM consumption, generation quality, and which model to choose for your needs.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">February 5, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 3 -->
+                <a href="quantization-guide.html" class="article-card rounded-2xl p-6 block group" data-category="technical">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Technical</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            10 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Complete Guide: Q4, Q5, Q8 Quantization Explained
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Which quantization to choose? Impact on quality, size, and performance. Everything you need to know about GGUF and K-quants.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">February 1, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 4 -->
+                <a href="apple-silicon-vs-nvidia.html" class="article-card rounded-2xl p-6 block group" data-category="hardware">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Hardware</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            15 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Apple Silicon vs NVIDIA: Best Hardware for LLMs?
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Unified memory vs dedicated VRAM, M3 Max vs RTX 4090 benchmarks, and the best choice for your budget and use case.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">January 28, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 5 -->
+                <a href="lm-studio-beginner-guide.html" class="article-card rounded-2xl p-6 block group" data-category="tutorial">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Tutorial</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            20 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        LM Studio Beginner Guide: From Zero to Your First LLM
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Installation, GPU configuration, model downloads, and first steps with the local chat interface.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">January 20, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Article 6 — UPDATED -->
+                <a href="best-local-ai-models-2026.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-claw-primary text-white">UPDATED</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Top 15 — Feb 2026</span>
+                        <span class="reading-time text-xs flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            18 min
+                        </span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">
+                        Top 15 Best Open-Source Local AI Models in 2026
+                    </h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">
+                        Based on the Genspark leaderboard: DeepSeek V3.2, Trinity Large, MiniMax M2.1, GLM 4.7, Qwen 3, and more. All installable locally.
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                        <span class="text-xs text-claw-muted">January 15, 2026</span>
+                        <span class="text-claw-primary text-sm font-medium flex items-center gap-1">
+                            Read 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="mt-16 p-8 rounded-2xl bg-gradient-to-br from-claw-primary/10 to-orange-600/5 border border-claw-primary/20">
+                <div class="max-w-2xl mx-auto text-center">
+                    <h3 class="text-2xl font-display font-bold mb-3">Stay Informed</h3>
+                    <p class="text-claw-muted mb-6">
+                        The best guides on local AI, directly in your browser via LocalClaw.
+                    </p>
+                    <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-claw-primary text-white font-medium hover:bg-claw-accent transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Find My Ideal LLM
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-5">
+            <div class="flex flex-col items-center gap-3 md:flex-row md:gap-4 text-center md:text-left">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden md:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs whitespace-nowrap flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-5 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm font-medium">Home</a>
+                <span class="text-claw-border">·</span>
+                <span class="text-claw-primary text-xs sm:text-sm font-medium">Blog</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         STRUCTURED DATA: Blog
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "LocalClaw Blog",
+        "url": "https://localclaw.io/blog/",
+        "description": "Expert guides for running AI models locally with LM Studio.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://localclaw.io/images/logo.png"
+            }
+        }
+    }
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA: BreadcrumbList
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://localclaw.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://localclaw.io/blog/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Blog Filter Script -->
+    <script>
+    (function() {
+        const filterBtns = document.querySelectorAll('#blog-filters .filter-btn');
+        const articles = document.querySelectorAll('#articles-grid .article-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+
+                // Update active button styles
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-claw-primary', 'text-white');
+                    b.classList.add('bg-white/5', 'text-claw-muted', 'border', 'border-white/10');
+                });
+                this.classList.remove('bg-white/5', 'text-claw-muted', 'border', 'border-white/10');
+                this.classList.add('bg-claw-primary', 'text-white');
+
+                // Filter articles with animation
+                articles.forEach(article => {
+                    const category = article.dataset.category;
+                    if (filter === 'all' || category === filter) {
+                        article.style.display = 'block';
+                        setTimeout(() => {
+                            article.style.opacity = '1';
+                            article.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        article.style.opacity = '0';
+                        article.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            article.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Add initial animation styles
+        articles.forEach(article => {
+            article.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+    })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

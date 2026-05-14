@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New Models — ZAYA1-8B, Ling-2.6-flash & Latest Local AI Drops | LocalClaw</title>
+    <meta name="description" content="The 12 newest open-source AI models in LocalClaw. Updated May 10, 2026 with ZAYA1-8B, Ling-2.6-flash, Qwen 3.6 and the 177-model catalogue.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/new.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/new.html">
+    <meta property="og:title" content="New Models — Latest Local AI Drops | LocalClaw">
+    <meta property="og:description" content="Updated May 10, 2026: ZAYA1-8B, Ling-2.6-flash, Qwen 3.6 and the latest local LLM releases from LocalClaw's 177-model catalogue.">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=20260212">
+    <script src="js/theme-toggle.js"></script>
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-appear { animation: fadeInUp 0.5s ease-out both; }
+
+        /* Benchmark mini-bar */
+        .bench-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.05); overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease-out; }
+
+        /* New badge pulse */
+        .new-pulse { animation: pulse-glow 2s infinite; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(255,69,58,0.3); }
+            50% { box-shadow: 0 0 20px rgba(255,69,58,0.6); }
+        }
+
+        /* Timeline dot */
+        .timeline-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            border: 2px solid #FF453A; background: #050505;
+            position: relative; z-index: 2; flex-shrink: 0;
+        }
+        .timeline-dot.first { background: #FF453A; box-shadow: 0 0 12px rgba(255,69,58,0.5); }
+        .timeline-line {
+            position: absolute; left: 5px; top: 12px; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, rgba(255,69,58,0.4), rgba(255,69,58,0.05));
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Light Mode Styles */
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        html.light .text-claw-text,
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        html.light .border-claw-border\/50,
+        html.light .border-claw-border {
+            border-color: #e2e8f0 !important;
+        }
+        html.light .bg-claw-surface,
+        html.light .bg-claw-surface\/60 {
+            background-color: #ffffff !important;
+        }
+        html.light .timeline-dot {
+            background: #faf9f6 !important;
+            border-color: #FF453A !important;
+        }
+        html.light .timeline-dot.first {
+            background: #FF453A !important;
+        }
+        html.light strong.text-white {
+            color: #1e293b !important;
+        }
+        
+        /* Cards in light mode */
+        html.light .bg-claw-surface\/60 {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .bg-white\/\[0\.02\] {
+            background-color: rgba(0, 0, 0, 0.02) !important;
+        }
+        html.light .bg-white\/5 {
+            background-color: rgba(0, 0, 0, 0.03) !important;
+        }
+        html.light .bg-white\/10 {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+        }
+        html.light .border-white\/5 {
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        html.light .border-white\/10,
+        html.light .border-white\/20 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        /* Inline dark backgrounds */
+        html.light [style*="background:rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+        html.light [style*="border:1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
+        
+        /* Bench bar */
+        html.light .bench-bar {
+            background: #e2e8f0 !important;
+        }
+        
+        /* Navigation in light mode */
+        html.light nav {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Mobile menu */
+        html.light #mobile-menu .bg-claw-surface {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light #mobile-menu a {
+            color: #64748b !important;
+        }
+        
+        html.light #mobile-menu a:hover {
+            background: rgba(0, 0, 0, 0.03) !important;
+            color: #1e293b !important;
+        }
+        
+        /* Hero section */
+        html.light h1 .text-transparent {
+            color: transparent !important;
+        }
+        
+        /* CTA section */
+        html.light .bg-claw-surface\/30 {
+            background: rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        /* Footer */
+        html.light footer {
+            background: #faf9f6 !important;
+        }
+        
+        /* Reduce bg-circuit visibility in light mode */
+        html.light #bg-circuit {
+            opacity: 0.08 !important;
+        }
+        
+        /* ===== FIX: Black rectangles in light mode ===== */
+        
+        /* "Search in LM Studio" copy box — bg-black/60 → light surface */
+        html.light [onclick*="copyText"] {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light [onclick*="copyText"]:hover {
+            border-color: rgba(255, 69, 58, 0.3) !important;
+        }
+        
+        html.light [onclick*="copyText"] span.text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        /* Quant badge box */
+        html.light .bg-claw-primary\/10 {
+            background: rgba(255, 69, 58, 0.06) !important;
+        }
+        
+        /* Detail link button */
+        html.light a[title="Full details"] {
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light a[title="Full details"]:hover {
+            border-color: rgba(255, 69, 58, 0.3) !important;
+            color: var(--claw-primary, #FF453A) !important;
+        }
+        
+        /* Card background for model cards */
+        html.light .bg-claw-surface\/60 {
+            background: #ffffff !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+        }
+        
+        /* Tags inside cards */
+        html.light .bg-white\/5 {
+            background: #f1f5f9 !important;
+        }
+        
+        /* Card border */
+        html.light .border-white\/\[0\.06\] {
+            border-color: #e2e8f0 !important;
+        }
+        
+        /* CTA section buttons in light mode */
+        html.light .bg-white\/5.border.border-white\/10 {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-white\/5.border.border-white\/10:hover {
+            background: rgba(0, 0, 0, 0.06) !important;
+        }
+        
+        /* Timeline dot background */
+        html.light .timeline-line {
+            background: linear-gradient(to bottom, rgba(255,69,58,0.3), rgba(255,69,58,0.03)) !important;
+        }
+        
+        /* New pulse badge */
+        html.light .new-pulse {
+            box-shadow: 0 0 8px rgba(255,69,58,0.15) !important;
+        }
+    </style>
+
+    <!-- TRACKING -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"><div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js" defer></script>
+
+    <!-- ====== NAVBAR ====== -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <!-- Mobile hamburger -->
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <span class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">New</span>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.32.2
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode, hidden by default) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+                <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+                <div class="border-t border-claw-border mt-2 pt-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="w-full max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-8 text-center">
+        <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-claw-primary/30 bg-claw-primary/5 text-claw-primary text-xs font-bold tracking-widest uppercase new-pulse">
+            <span class="w-2 h-2 rounded-full bg-claw-primary "></span>
+            Fresh Drops · Updated May 10, 2026
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4 tracking-tight leading-tight">
+            Newest <span class="text-transparent bg-clip-text bg-gradient-to-r from-claw-primary via-orange-500 to-yellow-500">Open-Source</span> Models
+        </h1>
+        <p class="text-lg text-claw-muted max-w-2xl mx-auto font-light leading-relaxed mb-2">
+            The <strong class="text-white">12 latest models</strong> from the 177-model LocalClaw catalogue, including
+            <strong class="text-white">ZAYA1-8B</strong>, <strong class="text-white">Ling-2.6-flash</strong> and <strong class="text-white">Qwen 3.6</strong>. ZAYA is marked experimental until mainstream LM Studio/GGUF/MLX support is verified.
+        </p>
+        <p class="text-xs text-claw-muted/50">Sorted by release date · Most recent first · ⭐ Now includes ZAYA1-8B + Ling-2.6-flash + Qwen 3.6</p>
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left" aria-label="Latest New page refresh summary">
+            <article class="rounded-2xl border border-claw-primary/20 bg-claw-primary/5 p-4">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-claw-primary mb-1">Latest add</p>
+                <h2 class="text-sm font-display font-bold text-white">ZAYA1-8B</h2>
+                <p class="text-xs text-claw-muted mt-1">8.4B MoE with ~760M active parameters, Apache 2.0, 131K context and experimental Zyphra runtime support.</p>
+            </article>
+            <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-claw-muted mb-1">Catalogue</p>
+                <h2 class="text-sm font-display font-bold text-white">177 local LLMs</h2>
+                <p class="text-xs text-claw-muted mt-1">Cards are hydrated from <code class="text-claw-primary">js/data.js</code>, matching the main recommender catalogue.</p>
+            </article>
+            <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-claw-muted mb-1">Speech catalogue</p>
+                <h2 class="text-sm font-display font-bold text-white">47 TTS/ASR models</h2>
+                <p class="text-xs text-claw-muted mt-1">Speech models remain available from the dedicated TTS/ASR page.</p>
+            </article>
+        </div>
+        <noscript>
+            <p class="mt-4 text-sm text-claw-muted bg-claw-surface/60 border border-claw-border/50 rounded-xl p-4">
+                JavaScript is required to render the live model cards. Latest highlighted drops: ZAYA1-8B, Ling-2.6-flash, Qwen 3.6 (6.7B), Qwen 3.6 (27B), Qwen 3.5 (0.8B/2B/4B/9B) and other recent local LLMs.
+            </p>
+        </noscript>
+    </section>
+
+    <!-- ====== MODEL CARDS ====== -->
+    <main class="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 pb-16 relative z-10">
+        <div id="model-list" class="space-y-5">
+            <!-- Populated by JS. Static fallback below keeps the page useful before hydration and for crawlers. -->
+            <section class="bg-claw-surface/60 border border-white/[0.06] rounded-2xl p-6 sm:p-7">
+                <p class="text-xs uppercase tracking-widest font-bold text-claw-primary mb-2">Current latest drops</p>
+                <h2 class="text-2xl font-display font-bold text-white mb-3">ZAYA1-8B is now tracked on LocalClaw</h2>
+                <p class="text-sm text-claw-muted leading-relaxed mb-4">The New page is being hydrated from the 177-model catalogue. If the dynamic cards do not appear yet, the newest entries are still available below.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <a href="llm-detail.html?model=zaya1-8b" class="rounded-xl border border-claw-primary/20 bg-claw-primary/5 p-4 hover:border-claw-primary/40 transition-colors">
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-claw-primary">May 2026 · Latest</span>
+                        <strong class="block text-white mt-1">ZAYA1-8B</strong>
+                        <span class="block text-xs text-claw-muted mt-1">24 GB RAM est. · BF16 fork · 131K context</span>
+                    </a>
+                    <a href="llm-detail.html?model=qwen3.6-6.7b" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-claw-muted">Apr 2026 · Compact</span>
+                        <strong class="block text-white mt-1">Qwen 3.6 (6.7B)</strong>
+                        <span class="block text-xs text-claw-muted mt-1">8 GB RAM · Q4_K_M · hybrid thinking</span>
+                    </a>
+                    <a href="llm-detail.html?model=qwen3.6-27b" class="rounded-xl border border-white/10 bg-white/[0.03] p-4 hover:border-claw-primary/40 transition-colors">
+                        <span class="text-[10px] uppercase tracking-widest font-bold text-claw-muted">Apr 2026 · Flagship</span>
+                        <strong class="block text-white mt-1">Qwen 3.6 (27B)</strong>
+                        <span class="block text-xs text-claw-muted mt-1">32 GB RAM · Q4_K_M · reasoning/coding</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ====== CTA ====== -->
+    <section class="w-full border-t border-claw-border/50 bg-claw-surface/30 py-12">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-display font-bold text-white mb-3">Want a personalized pick?</h2>
+            <p class="text-claw-muted text-sm mb-6">Tell us your hardware and we'll find the best model for you in 30 seconds.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="index.html" class="px-8 py-3 bg-claw-primary hover:bg-red-500 text-white rounded-xl font-bold transition-all shadow-[0_0_30px_-8px_rgba(255,69,58,0.4)] hover:shadow-[0_0_40px_-8px_rgba(255,69,58,0.6)]">
+                    Find My Model →
+                </a>
+                <a href="llm-list.html" class="px-8 py-3 bg-white/5 border border-white/10 text-white rounded-xl font-bold hover:bg-white/10 transition-all">
+                    Browse All Models
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="border-t border-claw-border/50 py-6 bg-claw-bg/50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+        </div>
+    </footer>
+
+    <!-- ====== DATA + RENDER ====== -->
+    <script src="js/data.js"></script>
+    <script>
+    (function() {
+        // Sort models by release date (descending), take top 12 latest LLM drops from js/data.js
+        const sourceModels = (typeof APP_DATA !== 'undefined' && Array.isArray(APP_DATA.models)) ? APP_DATA.models : [];
+        const models = sourceModels
+            .filter(m => m.released)
+            .sort((a, b) => {
+                // Parse 'YYYY-MM' dates
+                const da = new Date(a.released + '-15');
+                const db = new Date(b.released + '-15');
+                return db - da;
+            })
+            .slice(0, 12);
+
+        const container = document.getElementById('model-list');
+        if (!models.length) {
+            container.innerHTML = '<p class="text-center text-claw-muted py-12">No models found.</p>';
+            return;
+        }
+
+        // Helpers
+        function benchBar(value, max, label, color) {
+            const pct = Math.round((value / max) * 100);
+            const colors = {
+                emerald: '#10b981', blue: '#3b82f6',
+                orange: '#f97316', purple: '#a855f7'
+            };
+            const c = colors[color] || '#fff';
+            return `
+                <div class="flex items-center gap-2" title="${label}: ${value}/10">
+                    <span class="w-12 text-[10px] text-claw-muted font-medium">${label}</span>
+                    <div class="bench-bar flex-1">
+                        <div class="bench-fill" style="width:${pct}%;background:${c};"></div>
+                    </div>
+                    <span class="w-4 text-[10px] text-claw-muted font-mono text-right">${value}</span>
+                </div>`;
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr + '-01');
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+        }
+
+        function daysAgo(dateStr) {
+            const d = new Date(dateStr + '-15');
+            const now = new Date();
+            const diff = Math.round((now - d) / (1000 * 60 * 60 * 24));
+            if (diff < 30) return `${diff}d ago`;
+            if (diff < 60) return '~1 month ago';
+            const months = Math.round(diff / 30);
+            return `~${months} months ago`;
+        }
+
+        function isVeryNew(dateStr) {
+            const d = new Date(dateStr + '-15');
+            const now = new Date();
+            return (now - d) < (150 * 24 * 60 * 60 * 1000); // < 5 months keeps the badge focused on current 2026 drops
+        }
+
+        function ramTier(gb) {
+            if (gb <= 4) return { label: '4 GB', color: 'emerald' };
+            if (gb <= 8) return { label: '8 GB', color: 'emerald' };
+            if (gb <= 16) return { label: '16 GB', color: 'blue' };
+            if (gb <= 32) return { label: '32 GB', color: 'orange' };
+            if (gb <= 64) return { label: '64 GB', color: 'red' };
+            return { label: gb + ' GB+', color: 'red' };
+        }
+
+        // Build HTML
+        let html = '';
+        models.forEach((m, i) => {
+            const isNew = isVeryNew(m.released);
+            const ram = ramTier(m.min_ram);
+            const ramColors = {
+                emerald: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                orange: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+                red: 'bg-red-500/10 text-red-400 border-red-500/20',
+            };
+
+            html += `
+            <div class="relative pl-8 sm:pl-10 card-appear" style="animation-delay:${i * 0.07}s;">
+                <!-- Timeline -->
+                <div class="absolute left-0 top-0 bottom-0" style="width:12px;">
+                    <div class="timeline-dot ${i === 0 ? 'first' : ''}" style="margin-top:24px;"></div>
+                    ${i < models.length - 1 ? '<div class="timeline-line" style="top:36px;"></div>' : ''}
+                </div>
+
+                <!-- Card -->
+                <div class="bg-claw-surface/60 border border-white/[0.06] rounded-2xl p-6 sm:p-7 hover:border-claw-primary/30 transition-all group ${i === 0 ? 'ring-1 ring-claw-primary/20 border-claw-primary/20' : ''}">
+
+                    <!-- Top row -->
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap mb-1">
+                                ${i === 0 ? '<span class="text-[10px] uppercase tracking-widest font-bold bg-gradient-to-r from-claw-primary to-orange-500 text-white px-2.5 py-0.5 rounded-full"><svg class=\'lc-icon lc-icon-sm\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><path d=\'M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z\'/></svg> Latest</span>' : ''}
+                                ${isNew && i !== 0 ? '<span class="text-[10px] uppercase tracking-widest font-bold bg-claw-primary/10 text-claw-primary border border-claw-primary/30 px-2 py-0.5 rounded-full">New</span>' : ''}
+                                <span class="text-[10px] text-claw-muted/60">${formatDate(m.released)} · ${daysAgo(m.released)}</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-display font-bold text-white">
+                                <a href="llm-detail.html?model=${m.id}" class="hover:text-claw-primary transition-colors">${m.name}</a>
+                                <span class="text-sm font-mono text-claw-muted font-normal ml-2">${m.params}</span>
+                            </h3>
+                        </div>
+                        <div class="flex items-center gap-3 shrink-0">
+                            <div class="text-right">
+                                <div class="text-lg font-mono text-white font-bold">${m.size_gb}<span class="text-xs text-claw-muted font-normal ml-1">GB</span></div>
+                                <div class="text-[10px] ${ramColors[ram.color]} px-1.5 py-0.5 rounded border text-center font-bold">min ${ram.label} RAM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-sm text-claw-muted leading-relaxed mb-4">${m.description}</p>
+
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-1.5 mb-5">
+                        ${m.tags.slice(0, 6).map(t => `<span class="text-[10px] uppercase tracking-wider bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-claw-muted">${t}</span>`).join('')}
+                    </div>
+
+                    <!-- Benchmarks (compact) -->
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-1 mb-5">
+                        ${benchBar(m.benchmarks?.speed || 5, 10, 'Speed', 'emerald')}
+                        ${benchBar(m.benchmarks?.quality || 5, 10, 'Quality', 'blue')}
+                        ${benchBar(m.benchmarks?.coding || 5, 10, 'Coding', 'orange')}
+                        ${benchBar(m.benchmarks?.reasoning || 5, 10, 'Reason', 'purple')}
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                        <div class="flex-grow bg-black/60 border border-white/5 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:border-claw-primary/30 transition-colors" onclick="copyText('${m.search_term}', '${m.name}')">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-claw-muted uppercase">Search in LM Studio</span>
+                                <code class="text-xs text-claw-primary font-mono">${m.search_term}</code>
+                            </div>
+                            <svg class="h-4 w-4 text-claw-muted shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="bg-claw-primary/10 border border-claw-primary/20 rounded-lg p-2 flex flex-col items-center justify-center w-16 shrink-0" title="Recommended Quantization">
+                                <span class="text-[9px] text-claw-primary uppercase font-bold">Quant</span>
+                                <span class="text-xs text-white font-mono font-bold">${m.recommended_quant}</span>
+                            </div>
+                            <a href="llm-detail.html?model=${m.id}" class="p-3 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all flex items-center justify-center shrink-0" title="Full details">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+
+        // Trigger bench-fill animations after paint
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.bench-fill').forEach(el => {
+                const w = el.style.width;
+                el.style.width = '0%';
+                requestAnimationFrame(() => { el.style.width = w; });
+            });
+        });
+    })();
+
+    // Copy helper
+    function copyText(text, label) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied: ' + (label || text));
+        }).catch(() => {
+            // Fallback
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast('Copied: ' + (label || text));
+        });
+    }
+
+    function showToast(msg) {
+        const old = document.querySelector('.claw-toast');
+        if (old) old.remove();
+        const t = document.createElement('div');
+        t.className = 'claw-toast fixed bottom-6 left-1/2 -translate-x-1/2 z-[999] px-6 py-3 rounded-xl bg-gradient-to-r from-claw-primary to-orange-600 border border-claw-primary text-white text-sm font-medium shadow-2xl';
+        t.style.animation = 'fadeInUp 0.3s ease-out forwards';
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 2200);
+    }
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

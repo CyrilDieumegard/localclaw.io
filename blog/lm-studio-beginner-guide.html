@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>LM Studio Beginner Guide 2026 — From Zero to Your First LLM | LocalClaw</title>
+    <meta name="description" content="Complete LM Studio tutorial: installation, GPU configuration, GGUF model download, and first steps with the local chat interface. Step-by-step guide for beginners.">
+    <meta name="keywords" content="LM Studio tutorial, LM Studio beginner guide, install local LLM, how to use LM Studio, download GGUF model, GPU configuration LLM, local AI chat">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/lm-studio-beginner-guide.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/lm-studio-beginner-guide.html">
+    <meta property="og:title" content="LM Studio Beginner Guide 2026 — From Zero to Your First LLM">
+    <meta property="og:description" content="Complete tutorial: installation, GPU configuration, model download, and first steps. Step-by-step guide.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-01-20">
+    <meta property="article:section" content="Tutorial">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LM Studio Beginner Guide 2026 — From Zero to Your First LLM">
+    <meta name="twitter:description" content="Complete LM Studio tutorial. Step-by-step guide for beginners.">
+
+    <!-- ============================================================
+         SECURITY HEADERS (via meta http-equiv)
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         FONTS & TAILWIND
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         THEME TOGGLE
+         ============================================================ -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- ============================================================
+         TRACKING
+         ============================================================ -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: decimal; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #FF6D64; }
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
+        .step-number { background: linear-gradient(135deg, #FF453A, #FF6D64); }
+        .screenshot-placeholder { background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); border: 2px dashed rgba(255,255,255,0.2); }
+        .tip-box { background: rgba(16,185,129,0.1); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.1); border-left: 4px solid #F59E0B; }
+        
+        /* Light Mode Styles */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background-color: rgba(250, 249, 246, 0.95) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-claw-text, html.light .text-white { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+        /* Prose typography */
+        html.light .prose h2 { color: #0f172a !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose p { color: #374151 !important; }
+        html.light .prose ul { color: #374151 !important; }
+        html.light .prose ol { color: #374151 !important; }
+        html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #FF453A !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #c2410c !important; }
+        /* Cards & boxes */
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.07) 0%, rgba(255,69,58,0.03) 100%) !important; }
+        html.light .highlight-box h4, html.light .highlight-box p { color: #1e293b !important; }
+        html.light .tip-box { background: rgba(16,185,129,0.07) !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box { background: rgba(245,158,11,0.07) !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        /* Table */
+        html.light table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+        html.light table td { color: #374151 !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light table td.text-white, html.light table td.font-medium { color: #0f172a !important; }
+        /* Footer */
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+        /* Dark gradient CTA boxes */
+        html.light [class*="from-purple-900"] { background: linear-gradient(135deg, rgba(139,92,246,0.07) 0%, rgba(255,255,255,0.9) 60%, rgba(236,72,153,0.05) 100%) !important; border-color: rgba(139,92,246,0.2) !important; }
+        html.light [class*="from-purple-900"] h3, html.light [class*="from-purple-900"] h4 { color: #0f172a !important; }
+        html.light [class*="from-purple-900"] p { color: #4b5563 !important; }
+        html.light [class*="from-purple-900"] .text-white { color: #0f172a !important; }
+        /* Black bg code blocks */
+        html.light .bg-black\/30 { background: rgba(0,0,0,0.05) !important; }
+        html.light code.bg-black\/30 { background: rgba(0,0,0,0.05) !important; color: #1e293b !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-primary">Tutorial</span>
+            </nav>
+
+            <div class="flex items-center gap-4 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-xs font-semibold">Tutorial</span>
+                <span class="text-claw-muted text-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    20 min
+                </span>
+                <span class="text-claw-muted text-sm">January 20, 2026</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
+                LM Studio Beginner Guide: From Zero to Your First LLM
+            </h1>
+
+            <p class="text-xl text-claw-muted leading-relaxed mb-8">
+                Installation, GPU configuration, GGUF model download, and first steps with the local chat interface. Step-by-step tutorial to master LM Studio in 2026.
+            </p>
+
+            <div class="highlight-box rounded-xl p-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-claw-primary/20 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Prerequisites</h3>
+                        <ul class="!mb-0 !text-sm">
+                            <li>Windows 10/11, macOS 12+, or Linux Ubuntu 20.04+</li>
+                            <li>8GB RAM minimum (16GB recommended)</li>
+                            <li>NVIDIA GPU (optional but recommended) or Apple Silicon</li>
+                            <li>10GB disk space for models</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <article class="flex-grow px-4 pb-20">
+        <div class="max-w-4xl mx-auto prose">
+
+            <!-- STEP 1 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">Installing LM Studio</h2>
+                        <p>
+                            LM Studio is available for free for Windows, macOS and Linux. Here's how to install it:
+                        </p>
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Go to <a href="https://lmstudio.ai" target="_blank" rel="noopener">lmstudio.ai</a></li>
+                            <li>Click "Download" and choose your system</li>
+                            <li>Launch the downloaded installer</li>
+                            <li>Follow the installation wizard (accept default settings)</li>
+                            <li>On first launch, LM Studio will automatically download its components</li>
+                        </ol>
+
+                        <div class="tip-box rounded-lg p-4 mt-4">
+                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Tip:</strong> On macOS, you may need to authorize the application in System Preferences > Security & Privacy after first launch.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">GPU Configuration</h2>
+                        <p>
+                            For optimal performance, configure GPU acceleration. This step is crucial for generation speed.
+                        </p>
+
+                        <h3>Windows with NVIDIA</h3>
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Open LM Studio and go to the <strong>Settings</strong> tab (⚙️)</li>
+                            <li>Click <strong>Hardware</strong> in the left menu</li>
+                            <li>Under "GPU Acceleration", select <strong>cuBLAS</strong> (NVIDIA)</li>
+                            <li>Enable "GPU offload" and set the slider to 100%</li>
+                            <li>Verify that your GPU appears in the list</li>
+                        </ol>
+
+                        <h3>macOS (Apple Silicon)</h3>
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Go to <strong>Settings > Hardware</strong></li>
+                            <li>Select <strong>Metal</strong> as GPU backend</li>
+                            <li>Enable "GPU offload" — all unified RAM will be used</li>
+                        </ol>
+
+                        <div class="warning-box rounded-lg p-4 mt-4">
+                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Warning:</strong> If you don't have a compatible GPU, LM Studio will use the CPU. It will work but be 5-10x slower.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">Download your first model</h2>
+                        <p>
+                            LM Studio integrates a model browser. Here's how to find and download an LLM:
+                        </p>
+
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Click on the <strong>Search</strong> tab on the left</li>
+                            <li>In the search bar, type a model name (ex: "Qwen 3", "Llama 3.3")</li>
+                            <li>Filter by recommended size according to your RAM:
+                                <ul class="list-disc pl-6 mt-2">
+                                    <li>8GB RAM → 3-7B models</li>
+                                    <li>16GB RAM → 7-13B models</li>
+                                    <li>32GB+ RAM → 30B+ models</li>
+                                </ul>
+                            </li>
+                            <li>Click on a model (ex: "Qwen3-8B-Q5_K_M.gguf")</li>
+                            <li>Click <strong>Download</strong> — the model will be saved automatically</li>
+                        </ol>
+
+                        <div class="tip-box rounded-lg p-4 mt-4">
+                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Quick alternative:</strong> Use <a href="../index.html">LocalClaw</a> to get a personalized recommendation with direct download link!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">Launch chat and configure the model</h2>
+                        <p>
+                            Once the model is downloaded, it's time to chat with your local AI:
+                        </p>
+
+                        <ol class="list-decimal pl-6 space-y-2">
+                            <li>Click on the <strong>Chat</strong> tab on the left</li>
+                            <li>At the top right, click <strong>Select a model to load</strong></li>
+                            <li>Choose the downloaded model from the list</li>
+                            <li>Wait for loading (progress bar)</li>
+                            <li>Once loaded, the chat window becomes active</li>
+                        </ol>
+
+                        <h3>Important parameters to know</h3>
+                        <ul>
+                            <li><strong>Temperature</strong> (0-2): Model creativity. 0.7 = balanced, 1.2+ = more creative/risky</li>
+                            <li><strong>Context Length</strong>: Conversation memory length (default: 4096 tokens)</li>
+                            <li><strong>Max Tokens</strong>: Maximum length of responses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">5</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">Your first prompts</h2>
+                        <p>
+                            Test these prompts to evaluate your installation:
+                        </p>
+
+                        <div class="bg-black/30 rounded-lg p-4 my-4">
+                            <p class="text-sm text-claw-muted mb-2">Conversation test:</p>
+                            <code class="text-white">Explain the theory of relativity to me like I'm 10 years old</code>
+                        </div>
+
+                        <div class="bg-black/30 rounded-lg p-4 my-4">
+                            <p class="text-sm text-claw-muted mb-2">Code test:</p>
+                            <code class="text-white">Write a Python function that calculates the Fibonacci sequence up to n</code>
+                        </div>
+
+                        <div class="bg-black/30 rounded-lg p-4 my-4">
+                            <p class="text-sm text-claw-muted mb-2">Reasoning test:</p>
+                            <code class="text-white">A train leaves Paris at 100km/h, another leaves Lyon at 120km/h...</code>
+                        </div>
+
+                        <div class="tip-box rounded-lg p-4 mt-4">
+                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Performance indicator:</strong> Look at the "tokens/s" counter at the bottom of the screen. Above 20 tok/s is fluid, 50+ tok/s is very responsive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="step-card rounded-2xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
+                    <div class="flex-1">
+                        <h2 class="!mt-0 !mb-4">Advanced features</h2>
+                        <p>
+                            Once comfortable, explore these powerful features:
+                        </p>
+
+                        <h3>Server Mode (local API)</h3>
+                        <p>
+                            LM Studio can serve your model as an OpenAI-compatible API:
+                        </p>
+                        <ol class="list-decimal pl-6 space-y-1">
+                            <li>Go to the <strong>Developer</strong> tab</li>
+                            <li>Click <strong>Start Server</strong></li>
+                            <li>Your model is now accessible on <code>http://localhost:1234</code></li>
+                            <li>Use this URL in any OpenAI-compatible application</li>
+                        </ol>
+
+                        <h3>RAG — Chat with your documents</h3>
+                        <p>
+                            LM Studio 0.3+ allows you to "converse" with your files:
+                        </p>
+                        <ol class="list-decimal pl-6 space-y-1">
+                            <li>In the Chat tab, click the attachment icon</li>
+                            <li>Select a PDF or text file</li>
+                            <li>The model will respond based on the document content</li>
+                        </ol>
+
+                        <h3>System Prompt</h3>
+                        <p>
+                            Customize model behavior with a "system prompt":
+                        </p>
+                        <ol class="list-decimal pl-6 space-y-1">
+                            <li>In chat settings, find "System Prompt"</li>
+                            <li>Example: <code>You are a Python programming expert. Respond concisely and technically.</code></li>
+                            <li>This will influence the entire conversation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Troubleshooting common issues</h2>
+
+            <div class="space-y-4 my-6">
+                <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10">
+                    <h4 class="text-white font-bold mb-2"><svg class="lc-icon" style="color:#F87171" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg> "Out of memory" / Crashes</h4>
+                    <p class="!mb-0 !text-sm">The model is too large for your RAM. Switch to a smaller version (7B instead of 13B) or a stronger quantization (Q4 instead of Q8).</p>
+                </div>
+                <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10">
+                    <h4 class="text-white font-bold mb-2"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 13a6 6 0 0011.14 3H20a2 2 0 100-4h-2.5a5.5 5.5 0 10-9 4.24"/><circle cx="8" cy="13" r="3"/><path d="M6 7l-1-3m6 3l1-3"/></svg> Very slow generation</h4>
+                    <p class="!mb-0 !text-sm">Verify that the GPU is properly configured in Settings > Hardware. If you don't have a compatible GPU, it's normal to be slow on CPU.</p>
+                </div>
+                <div class="p-4 rounded-lg bg-white/[0.02] border border-white/10">
+                    <h4 class="text-white font-bold mb-2">📥 Model won't download</h4>
+                    <p class="!mb-0 !text-sm">Check your internet connection and available disk space. Try another model to isolate the problem.</p>
+                </div>
+            </div>
+
+            <h2>Conclusion</h2>
+            <p>
+                Congratulations! You now have a completely local, private, and functional generative AI. No subscription, no data sent to the cloud, just you and your machine.
+            </p>
+            <p>
+                To go further:
+            </p>
+            <ul>
+                <li>Test different models to find the one that matches your usage</li>
+                <li>Experiment with parameters (temperature, context length)</li>
+                <li>Explore the local API to integrate your LLMs into other tools</li>
+                <li>Join the community on Reddit r/LocalLLaMA for the latest news</li>
+            </ul>
+            <p>
+                And don't forget: <a href="../index.html">LocalClaw</a> is here to help you choose the perfect model every time you want to explore a new LLM!
+            </p>
+
+            <!-- Related -->
+            <div class="border-t border-white/10 pt-8 mt-12">
+                <h3 class="text-xl font-display font-bold mb-6">Related articles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="how-to-choose-local-llm.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Guide</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">How to Choose the Right Local LLM in 2026</h4>
+                    </a>
+                    <a href="best-local-ai-models-2026.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Top 2026</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">Top 10 Best Local AI Models in 2026</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden sm:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "LM Studio Beginner Guide 2026 — From Zero to Your First LLM",
+        "description": "Complete LM Studio tutorial: installation, GPU configuration, GGUF model download, and first steps with the local chat interface.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://localclaw.io/images/logo.png"
+            }
+        },
+        "datePublished": "2026-01-20",
+        "dateModified": "2026-01-20",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://localclaw.io/blog/lm-studio-beginner-guide.html"}
+    }
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs | LocalClaw</title>
+    <meta name="description" content="Complete OpenClaw guide: installation, configuration, connection to LM Studio or Ollama, skills system, and why this self-hosted AI gateway is the best open-source alternative to ChatGPT for running AI 100% locally.">
+    <meta name="keywords" content="OpenClaw, OpenClaw guide, OpenClaw tutorial, local AI gateway, AI assistant platform, ChatGPT alternative, open source AI, privacy AI, self-hosted AI, OpenClaw install, OpenClaw skills, AI orchestration, LM Studio, Ollama">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://localclaw.io/blog/openclaw-guide.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/openclaw-guide.html">
+    <meta property="og:title" content="OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs">
+    <meta property="og:description" content="Complete guide to OpenClaw: the self-hosted AI gateway that connects your tools and chat channels to local or remote model backends. 100% private.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:published_time" content="2026-02-12T10:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-12T10:00:00+00:00">
+    <meta property="article:author" content="LocalClaw">
+    <meta property="article:section" content="Guide">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs">
+    <meta name="twitter:description" content="Complete guide to OpenClaw: the self-hosted AI gateway that routes your prompts to local or remote model backends. Open-source, privacy-first.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <!-- ============================================================
+         SECURITY HEADERS
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260212">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260212">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260212">
+    <link rel="shortcut icon" href="/images/favicon.png?v=20260212">
+
+    <!-- ============================================================
+         FONTS & TAILWIND
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         THEME TOGGLE
+         ============================================================ -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- ============================================================
+         TRACKING
+         ============================================================ -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1rem; color: #FFFFFF; scroll-margin-top: 6rem; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: decimal; padding-left: 1.5rem; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .prose code { background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.88em; color: #FF6D64; }
+        .prose pre { background: #0F0F11; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; overflow-x: auto; }
+        .prose pre code { background: none; padding: 0; color: #e2e8f0; font-size: 0.875rem; line-height: 1.7; }
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .tip-box { background: rgba(16,185,129,0.08); border-left: 4px solid #10B981; }
+        .warning-box { background: rgba(245,158,11,0.08); border-left: 4px solid #F59E0B; }
+        .info-box { background: rgba(59,130,246,0.08); border-left: 4px solid #3B82F6; }
+        .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; }
+        .feature-card:hover { border-color: rgba(255,69,58,0.3); transform: translateY(-2px); }
+        .step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
+        .step-number { background: linear-gradient(135deg, #FF453A, #FF6D64); }
+        .comparison-table th { background: rgba(255,69,58,0.1); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+        .comparison-table td { border: 1px solid rgba(255,255,255,0.06); padding: 0.75rem 1rem; color: #A1A1AA; }
+        .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .toc-link { color: #A1A1AA; transition: color 0.2s; }
+        .toc-link:hover { color: #FF453A; }
+        .command-block { position: relative; }
+        .command-block .copy-btn { position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #A1A1AA; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
+        .command-block .copy-btn:hover { background: rgba(255,69,58,0.2); color: #FF453A; border-color: rgba(255,69,58,0.4); }
+        
+        /* Light Mode Styles */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background-color: rgba(250, 249, 246, 0.95) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-claw-text, html.light .text-white { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+        /* Prose typography */
+        html.light .prose h2 { color: #0f172a !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose p { color: #374151 !important; }
+        html.light .prose ul { color: #374151 !important; }
+        html.light .prose ol { color: #374151 !important; }
+        html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #FF453A !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #c2410c !important; }
+        /* Cards & boxes */
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.07) 0%, rgba(255,69,58,0.03) 100%) !important; }
+        html.light .highlight-box h4, html.light .highlight-box p { color: #1e293b !important; }
+        html.light .tip-box { background: rgba(16,185,129,0.07) !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box { background: rgba(245,158,11,0.07) !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        /* Table */
+        html.light table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+        html.light table td { color: #374151 !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light table td.text-white, html.light table td.font-medium { color: #0f172a !important; }
+        /* Footer */
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+        /* Dark gradient CTA boxes */
+        html.light [class*="from-claw-primary\/10"] { background: linear-gradient(135deg, rgba(255,69,58,0.06) 0%, transparent 100%) !important; }
+        html.light [class*="from-claw-primary\/10"] h3, html.light [class*="from-claw-primary\/10"] h4 { color: #0f172a !important; }
+        html.light [class*="from-claw-primary\/10"] p { color: #4b5563 !important; }
+        html.light [class*="from-purple-900"] { background: linear-gradient(135deg, rgba(139,92,246,0.07) 0%, rgba(255,255,255,0.9) 60%, rgba(236,72,153,0.05) 100%) !important; border-color: rgba(139,92,246,0.2) !important; }
+        html.light [class*="from-purple-900"] h3, html.light [class*="from-purple-900"] p { color: #1e293b !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- ====== NAVBAR ====== -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== HEADER ====== -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6" aria-label="Breadcrumb">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-primary">Guide</span>
+            </nav>
+
+            <!-- Meta -->
+            <div class="flex flex-wrap items-center gap-4 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-xs font-semibold">Guide</span>
+                <span class="text-claw-muted text-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span id="read-time">15 min read</span>
+                </span>
+                <span class="text-claw-muted text-sm">February 12, 2026</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
+                OpenClaw: The Complete Guide to the Self-Hosted <span class="text-claw-primary">AI Assistant Gateway</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-xl text-claw-muted leading-relaxed mb-8">
+                                68,000+ GitHub stars. 100% self-hosted. Zero telemetry. OpenClaw is the open-source AI gateway that connects your chat surfaces, CLI, and tools to local or remote model backends — keeping every conversation under your control. Here's everything you need to know, and how to set it up in under 5 minutes.
+            </p>
+
+            <!-- Key Info Box -->
+            <div class="highlight-box rounded-xl p-6 mb-8">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-claw-primary/20 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Quick Facts</h3>
+                        <ul class="!mb-0 !text-sm grid sm:grid-cols-2 gap-x-8 gap-y-1">
+                            <li><strong>What it is:</strong> Self-hosted AI assistant gateway</li>
+                            <li><strong>GitHub Stars:</strong> 68,000+</li>
+                            <li><strong>Surfaces:</strong> Desktop app, CLI, web UI</li>
+                            <li><strong>Stack:</strong> Electron + React + TypeScript</li>
+                            <li><strong>Backends:</strong> LM Studio, Ollama, any OpenAI-compatible API</li>
+                            <li><strong>License:</strong> MIT (fully open-source)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== ARTICLE BODY ====== -->
+    <article class="px-4 pb-16">
+        <div class="max-w-4xl mx-auto prose">
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="rounded-xl bg-white/[0.02] border border-white/8 p-6 mb-12">
+                <h3 class="!mt-0 !mb-4 text-lg font-bold flex items-center gap-2">
+                    <svg class="w-5 h-5 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                    Table of Contents
+                </h3>
+                <ol class="!mb-0 !text-sm !pl-4 space-y-1">
+                    <li><a href="#what-is-openclaw" class="toc-link no-underline">What Is OpenClaw?</a></li>
+                    <li><a href="#why-openclaw" class="toc-link no-underline">Why OpenClaw Over ChatGPT?</a></li>
+                    <li><a href="#features" class="toc-link no-underline">Key Features</a></li>
+                    <li><a href="#how-it-works" class="toc-link no-underline">How It Works (Architecture)</a></li>
+                    <li><a href="#installation" class="toc-link no-underline">Installation Guide (macOS, Linux, Windows)</a></li>
+                    <li><a href="#connect-lm-studio" class="toc-link no-underline">Connecting to LM Studio</a></li>
+                    <li><a href="#connect-ollama" class="toc-link no-underline">Connecting to Ollama</a></li>
+                    <li><a href="#skills" class="toc-link no-underline">The Skills System</a></li>
+                    <li><a href="#comparison" class="toc-link no-underline">OpenClaw vs Alternatives</a></li>
+                    <li><a href="#best-models" class="toc-link no-underline">Best Models to Use with OpenClaw</a></li>
+                    <li><a href="#tips" class="toc-link no-underline">Pro Tips & Best Practices</a></li>
+                    <li><a href="#faq" class="toc-link no-underline">FAQ</a></li>
+                </ol>
+            </div>
+
+            <!-- ======================= SECTION 1 ======================= -->
+            <h2 id="what-is-openclaw">1. What Is OpenClaw?</h2>
+
+            <p><strong>OpenClaw</strong> is a self-hosted AI assistant gateway that connects your chat channels and tools to local or remote model backends (LM Studio, Ollama, any OpenAI-compatible API). Think of it less as "a ChatGPT clone" and more as an <strong>orchestration layer</strong> — it routes your prompts to whichever inference engine you choose, manages conversations and context, and extends functionality through a skills/plugin system.</p>
+
+            <p>Created as a weekend experiment that exploded into a full-blown phenomenon, OpenClaw has amassed <strong>over 68,000 stars on GitHub</strong>, making it one of the most popular open-source AI projects in the world. It ships with multiple surfaces: a <strong>desktop app</strong> (Electron), a <strong>CLI</strong> for terminal workflows, and a <strong>web UI</strong> you can self-host. Under the hood, it connects to any server that exposes an OpenAI-compatible <code>/v1/chat/completions</code> endpoint — including <strong>LM Studio</strong>, <strong>Ollama</strong>, <strong>llama.cpp</strong>, <strong>vLLM</strong>, and even remote GPU servers you control.</p>
+
+            <p>The core project is built with <strong>Electron, React, and TypeScript</strong> for the desktop surface, but the gateway architecture means it’s not locked to a single interface. You can interact with the same backend through the CLI, pipe output into scripts, or expose the web UI on your local network for other devices.</p>
+
+            <div class="info-box rounded-xl p-5 mb-6">
+                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> The name:</strong> OpenClaw started as "Clawdbot" (a play on Claude + bot), then evolved into OpenClaw as it grew beyond a single AI personality into a universal AI gateway and orchestration platform. The claw mascot — a friendly red creature — has become the unofficial emoji of the local AI community.</p>
+            </div>
+
+            <!-- ======================= SECTION 2 ======================= -->
+            <h2 id="why-openclaw">2. Why OpenClaw Over ChatGPT?</h2>
+
+            <p>ChatGPT is excellent — but it comes with trade-offs that matter increasingly in 2026. Here's why thousands of developers, researchers, and privacy-conscious users are switching to OpenClaw:</p>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-8 not-prose">
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">Complete Privacy</h4>
+                    <p class="text-claw-muted text-sm">Your conversations never leave your machine. No cloud processing, no data collection, no training on your inputs. Supports air-gapped environments.</p>
+                </div>
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12m-3-9h4.5a1.5 1.5 0 010 3H9m0 0h4.5a1.5 1.5 0 010 3H9"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">Zero Cost</h4>
+                    <p class="text-claw-muted text-sm">No subscription fees. No per-token pricing. No usage limits. Once your model is downloaded, it's unlimited forever.</p>
+                </div>
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">No Rate Limits</h4>
+                    <p class="text-claw-muted text-sm">No "you've reached your limit" messages. No waiting for servers. No downtime. Your AI is always available, as fast as your hardware allows.</p>
+                </div>
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#A855F7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 01-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 10-3.214 3.214c.446.166.855.497.925.968a.979.979 0 01-.276.837l-1.61 1.61a2.404 2.404 0 01-1.705.707 2.402 2.402 0 01-1.704-.706l-1.568-1.568a1.026 1.026 0 00-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 11-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 00-.289-.877l-1.568-1.568A2.402 2.402 0 011.998 12c0-.617.236-1.234.706-1.704L4.315 8.685a.98.98 0 01.837-.276c.47.07.802.48.968.925a2.501 2.501 0 103.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 01.276-.837l1.61-1.61a2.404 2.404 0 011.705-.707c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 113.237 3.237c-.464.18-.894.527-.967 1.02z"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">Fully Customizable</h4>
+                    <p class="text-claw-muted text-sm">Switch models instantly. Create custom system prompts. Install skills and plugins. Tune temperature, context length, and every parameter.</p>
+                </div>
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#60A5FA" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">Works Offline</h4>
+                    <p class="text-claw-muted text-sm">No internet required after setup. Perfect for flights, restricted networks, or anywhere you need AI without connectivity.</p>
+                </div>
+                <div class="feature-card rounded-xl p-5">
+                    <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 019.9-1"/></svg></div>
+                    <h4 class="text-white font-bold mb-2">No Censorship</h4>
+                    <p class="text-claw-muted text-sm">Local models don't have the content restrictions of commercial APIs. Use uncensored models for creative writing, research, or red-teaming.</p>
+                </div>
+            </div>
+
+            <!-- ======================= SECTION 3 ======================= -->
+            <h2 id="features">3. Key Features</h2>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Chat Interface</h3>
+            <ul>
+                <li><strong>Full Markdown rendering</strong> — code blocks with syntax highlighting, tables, math equations, headers</li>
+                <li><strong>Image attachments</strong> — send images to vision-capable models (Gemma 3, LLaVA, Qwen-VL)</li>
+                <li><strong>Session management</strong> — organize conversations with titles, folders, and search</li>
+                <li><strong>Slash commands</strong> — type <code>/</code> for quick actions like changing model, clearing context, or activating skills</li>
+                <li><strong>Streaming responses</strong> — see tokens appear in real-time, just like ChatGPT</li>
+                <li><strong>Multi-model switching</strong> — switch between loaded models mid-conversation</li>
+            </ul>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Privacy & Security</h3>
+            <ul>
+                <li><strong>Self-hosted</strong> — runs entirely on your machine, no external servers</li>
+                <li><strong>Private credentials</strong> — API keys stored locally, never transmitted</li>
+                <li><strong>Air-gapped support</strong> — works in completely isolated networks</li>
+                <li><strong>SSH tunnel support</strong> — securely connect to remote inference servers</li>
+                <li><strong>No telemetry</strong> — zero analytics, zero tracking, zero phone-home</li>
+            </ul>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg> Developer Features</h3>
+            <ul>
+                <li><strong>OpenAI-compatible API</strong> — connects to any server implementing the <code>/v1/chat/completions</code> endpoint</li>
+                <li><strong>Custom system prompts</strong> — create and save prompt templates for different tasks</li>
+                <li><strong>Context window control</strong> — set maximum context length per model</li>
+                <li><strong>Temperature & sampling</strong> — fine-tune creativity vs. determinism</li>
+                <li><strong>Export conversations</strong> — save chats as Markdown, JSON, or plain text</li>
+                <li><strong>Skills/plugins system</strong> — extend functionality with community-built add-ons</li>
+            </ul>
+
+            <!-- ======================= SECTION 4 ======================= -->
+            <h2 id="how-it-works">4. How It Works</h2>
+
+            <p>OpenClaw follows a <strong>gateway architecture</strong> — it sits between you (via desktop app, CLI, or web UI) and your inference backend. It doesn’t bundle its own model runtime; instead, it acts as an intelligent routing and orchestration layer:</p>
+
+            <div class="rounded-xl bg-claw-surface border border-white/8 p-6 mb-6 font-mono text-sm">
+                <div class="text-center space-y-3">
+                    <div class="text-claw-primary font-bold text-base"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> How OpenClaw Routes Your Prompts</div>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-center">
+                            <div class="text-white font-bold">You</div>
+                            <div class="text-claw-muted text-xs">Desktop • CLI • Web UI</div>
+                        </div>
+                        <div class="text-claw-primary">→</div>
+                        <div class="bg-claw-primary/10 border border-claw-primary/30 rounded-lg px-4 py-3 text-center">
+                            <div class="text-white font-bold">OpenClaw</div>
+                            <div class="text-claw-muted text-xs">Gateway + Orchestration</div>
+                        </div>
+                        <div class="text-claw-primary">→</div>
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-4 py-3 text-center">
+                            <div class="text-white font-bold">LM Studio / Ollama</div>
+                            <div class="text-claw-muted text-xs">Local inference server</div>
+                        </div>
+                        <div class="text-claw-primary">→</div>
+                        <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg px-4 py-3 text-center">
+                            <div class="text-white font-bold">Your LLM</div>
+                            <div class="text-claw-muted text-xs">Qwen 3, DeepSeek, etc.</div>
+                        </div>
+                    </div>
+                    <div class="h-px bg-white/10 my-4"></div>
+                    <div class="text-claw-muted text-xs">Everything happens on <strong class="text-white">localhost</strong> — no internet traffic whatsoever</div>
+                </div>
+            </div>
+
+            <p>The key design principle: <strong>OpenClaw doesn’t ship its own inference engine</strong>. It delegates model execution to a dedicated backend (LM Studio, Ollama, vLLM, etc.) via the OpenAI-compatible API (<code>http://localhost:1234/v1</code> for LM Studio, <code>http://localhost:11434</code> for Ollama). This separation means OpenClaw focuses on what it does best — <em>orchestration, conversation management, skills, and multi-surface access</em> — while the backend focuses on <em>fast inference</em>. You pick the best tool for each role.</p>
+
+            <!-- ======================= SECTION 5 ======================= -->
+            <h2 id="installation">5. Installation Guide</h2>
+
+            <p>OpenClaw offers multiple installation methods depending on your platform. Here's how to get it running in under 5 minutes.</p>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> macOS</h3>
+
+            <p><strong>Option A: One-line installer</strong> (recommended)</p>
+            <div class="command-block">
+                <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://openclaw.ai/install.sh | bash');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
+            <p><strong>Option B: Homebrew</strong></p>
+            <div class="command-block">
+                <pre><code>brew install --cask openclaw</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('brew install --cask openclaw');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
+            <p><strong>Option C: Direct download</strong> — grab the <code>.dmg</code> from <a href="https://openclaw.ai/" target="_blank" rel="noopener">openclaw.ai</a></p>
+
+            <h3>🐧 Linux</h3>
+
+            <p><strong>Option A: One-line installer</strong></p>
+            <div class="command-block">
+                <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://openclaw.ai/install.sh | bash');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
+            <p><strong>Option B: AppImage</strong> — download the <code>.AppImage</code> from the releases page. Make it executable and run:</p>
+            <div class="command-block">
+                <pre><code>chmod +x OpenClaw-*.AppImage
+./OpenClaw-*.AppImage</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('chmod +x OpenClaw-*.AppImage\n./OpenClaw-*.AppImage');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
+            <p><strong>Option C: Snap / Flatpak</strong> — available on both package managers for Ubuntu, Fedora, and other distros.</p>
+
+            <h3>🪟 Windows</h3>
+
+            <p>Download the <code>.exe</code> installer from <a href="https://openclaw.ai/" target="_blank" rel="noopener">openclaw.ai</a> and run it. That's it — Windows Defender may ask for confirmation the first time.</p>
+
+            <div class="tip-box rounded-xl p-5 mb-6">
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> System Requirements:</strong> OpenClaw itself is lightweight — the desktop app is under 200 MB, and the CLI is even smaller. The real requirement is your inference backend — see our <a href="how-to-choose-local-llm.html">How to Choose a Local LLM</a> guide for RAM/VRAM recommendations.</p>
+            </div>
+
+            <!-- ======================= SECTION 6 ======================= -->
+            <h2 id="connect-lm-studio">6. Connecting to LM Studio</h2>
+
+            <p><a href="lm-studio-beginner-guide.html">LM Studio</a> is the most popular backend for OpenClaw. Here's how to connect them:</p>
+
+            <div class="space-y-4 mb-8">
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Start LM Studio's Local Server</h4>
+                        <p class="!text-sm !mb-0">Open LM Studio → Go to the <strong>Local Server</strong> tab (left sidebar) → Click <strong>"Start Server"</strong>. The server will launch on <code>http://localhost:1234</code></p>
+                    </div>
+                </div>
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Open OpenClaw Settings</h4>
+                        <p class="!text-sm !mb-0">Launch OpenClaw → Click the ⚙️ gear icon → Navigate to <strong>"AI Provider"</strong> settings</p>
+                    </div>
+                </div>
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Configure the Endpoint</h4>
+                        <p class="!text-sm !mb-0">Set <strong>Provider</strong> to "OpenAI-Compatible" → Set <strong>Base URL</strong> to <code>http://localhost:1234/v1</code> → API Key can be left empty or set to <code>lm-studio</code></p>
+                    </div>
+                </div>
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">4</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Start Chatting</h4>
+                        <p class="!text-sm !mb-0">Select a model from the dropdown (OpenClaw auto-detects loaded models) → Type your first message. The response streams from LM Studio through OpenClaw's interface.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-block">
+                <pre><code># Verify the connection works (run in terminal):
+curl http://localhost:1234/v1/models
+
+# Expected output: JSON list of your loaded models</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl http://localhost:1234/v1/models');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
+            <!-- ======================= SECTION 7 ======================= -->
+            <h2 id="connect-ollama">7. Connecting to Ollama</h2>
+
+            <p><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> is a popular alternative backend. The setup is slightly different:</p>
+
+            <div class="space-y-4 mb-6">
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Install & Start Ollama</h4>
+                        <div class="command-block mt-2">
+                            <pre><code># Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Pull a model (e.g., Qwen 3 8B)
+ollama pull qwen3:8b
+
+# Ollama server starts automatically on port 11434</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-card rounded-xl p-5 flex gap-4">
+                    <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Configure OpenClaw</h4>
+                        <p class="!text-sm !mb-0">Settings → AI Provider → Set Base URL to <code>http://localhost:11434/v1</code> → Leave API Key empty → Select your model from the dropdown</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box rounded-xl p-5 mb-6">
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Note:</strong> Some advanced OpenClaw features (like real-time model loading/unloading) work better with LM Studio. Ollama requires models to be pre-pulled via the CLI. Both backends work well for daily chatting.</p>
+            </div>
+
+            <!-- ======================= SECTION 8 ======================= -->
+            <h2 id="skills">8. The Skills System</h2>
+
+            <p>One of OpenClaw's most powerful features is its <strong>skills system</strong> — a plugin architecture that extends the gateway beyond simple chat. Skills let OpenClaw orchestrate multi-step tasks, interact with external tools, and automate workflows that a basic prompt-response loop cannot handle.</p>
+
+            <h3>What are Skills?</h3>
+            <p>Skills are modular add-ons that give OpenClaw new abilities. They can interact with files, browse the web, execute code, and more — all running locally. Think of them as "apps" for your AI assistant.</p>
+
+            <h3>Popular Skills</h3>
+            <div class="grid sm:grid-cols-2 gap-4 mb-6 not-prose">
+                <div class="feature-card rounded-xl p-4">
+                    <h4 class="text-white font-bold mb-1 text-sm">📁 File Manager</h4>
+                    <p class="text-claw-muted text-xs">Read, write, and analyze local files. Great for document summarization and data processing.</p>
+                </div>
+                <div class="feature-card rounded-xl p-4">
+                    <h4 class="text-white font-bold mb-1 text-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Web Browser</h4>
+                    <p class="text-claw-muted text-xs">Search the web and read pages without leaving the chat. Real-time information retrieval.</p>
+                </div>
+                <div class="feature-card rounded-xl p-4">
+                    <h4 class="text-white font-bold mb-1 text-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code Executor</h4>
+                    <p class="text-claw-muted text-xs">Run Python, JavaScript, and shell scripts in a sandboxed environment. See output inline.</p>
+                </div>
+                <div class="feature-card rounded-xl p-4">
+                    <h4 class="text-white font-bold mb-1 text-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Data Analyst</h4>
+                    <p class="text-claw-muted text-xs">Process CSV/JSON data, generate charts, run statistical analysis — powered by your local model.</p>
+                </div>
+            </div>
+
+            <div class="tip-box rounded-xl p-5 mb-6">
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Building Your Own Skills:</strong> Skills are written in TypeScript and follow a simple interface. Check the <a href="https://docs.openclaw.ai/skills/creating-skills" target="_blank" rel="noopener">official docs</a> if you want to build custom integrations for your workflow.</p>
+            </div>
+
+            <!-- ======================= SECTION 9 ======================= -->
+            <h2 id="comparison">9. OpenClaw vs Alternatives</h2>
+
+            <p>How does OpenClaw compare to other local AI interfaces? Here's an honest breakdown:</p>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="comparison-table w-full rounded-xl overflow-hidden text-sm">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="text-claw-primary">OpenClaw</th>
+                            <th>LM Studio Chat</th>
+                            <th>Ollama CLI</th>
+                            <th>ChatGPT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium text-white">100% Local</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Cloud</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Open Source</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> MIT</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Proprietary</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> MIT</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Proprietary</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Desktop App (GUI)</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Polished</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Built-in</span></td>
+                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> CLI only</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Web + App</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Skills / Plugins</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Extensive</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> None</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> None</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> GPTs</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Multi-Backend</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Any OpenAI API</span></td>
+                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Own engine only</span></td>
+                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Own engine only</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> OpenAI only</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Free</td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Forever</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Free</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Free</span></td>
+                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> $20/mo for Plus</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Model Management</td>
+                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Via backend</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Built-in</span></td>
+                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> CLI pull</span></td>
+                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> N/A</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>The verdict:</strong> OpenClaw shines as a <strong>universal AI gateway</strong>. It doesn't try to be a model manager or inference engine — it excels at being the <em>orchestration layer</em> that routes prompts, manages context, and extends functionality through skills. Pair it with LM Studio (for model discovery + download) and you get the best of both worlds.</p>
+
+            <!-- ======================= SECTION 10 ======================= -->
+            <h2 id="best-models">10. Best Models to Use with OpenClaw</h2>
+
+            <p>OpenClaw works with any model your backend can run. Here are our top picks for different use cases and RAM tiers:</p>
+
+            <div class="overflow-x-auto mb-6">
+                <table class="comparison-table w-full rounded-xl overflow-hidden text-sm">
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>8 GB RAM</th>
+                            <th>16 GB RAM</th>
+                            <th>32 GB+ RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium text-white">General Chat</td>
+                            <td>Qwen 3 8B</td>
+                            <td>Qwen 3 14B</td>
+                            <td>Qwen 3 32B</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Coding</td>
+                            <td>Qwen 2.5 Coder 7B</td>
+                            <td>DeepSeek Coder V2 16B</td>
+                            <td>DeepSeek V3.2</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Reasoning</td>
+                            <td>DeepSeek R1 8B</td>
+                            <td>Phi-4 Reasoning 14B</td>
+                            <td>DeepSeek R1 32B</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Vision</td>
+                            <td>Gemma 3 4B</td>
+                            <td>Gemma 3 12B</td>
+                            <td>Gemma 3 27B</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-white">Bilingual (CN/EN)</td>
+                            <td>GLM 4.7 Flash</td>
+                            <td>GLM 4.7</td>
+                            <td>Kimi K2.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>👉 Use our <a href="../index.html">model recommender</a> to find the perfect model for your exact hardware, or browse the <a href="../llm-list.html">complete model list</a> with filters and benchmarks.</p>
+
+            <!-- ======================= SECTION 11 ======================= -->
+            <h2 id="tips">11. Pro Tips & Best Practices</h2>
+
+            <div class="space-y-4 mb-6">
+                <div class="tip-box rounded-xl p-5">
+                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Use System Prompts Wisely</h4>
+                    <p class="!mb-0 !text-sm">Create different "personas" with system prompts — a coding assistant, a writing coach, a data analyst. Save them in OpenClaw's preset system for instant switching. Example: <code>You are a senior Python developer. Write clean, well-documented code with type hints. Explain your reasoning.</code></p>
+                </div>
+                <div class="tip-box rounded-xl p-5">
+                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Context Window Management</h4>
+                    <p class="!mb-0 !text-sm">Local models have limited context (typically 4K–128K tokens). When conversations get long, start a new session or use the <code>/clear</code> command. Long context eats RAM exponentially — a 32K context uses 4× more memory than 8K.</p>
+                </div>
+                <div class="tip-box rounded-xl p-5">
+                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Keyboard Shortcuts</h4>
+                    <p class="!mb-0 !text-sm"><code>Ctrl/Cmd + N</code> = new chat, <code>Ctrl/Cmd + Shift + S</code> = settings, <code>Ctrl/Cmd + K</code> = search conversations, <code>Esc</code> = stop generation. Master these and you'll never touch the mouse.</p>
+                </div>
+                <div class="tip-box rounded-xl p-5">
+                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Start Small, Scale Up</h4>
+                    <p class="!mb-0 !text-sm">If you're new to local AI, start with a small model (Qwen 3 8B, Q5_K_M quantization). Once comfortable, upgrade to 14B or 32B. The quality jump from 8B to 14B is significant, and from 14B to 32B is GPT-4 territory.</p>
+                </div>
+            </div>
+
+            <!-- ======================= SECTION 12 ======================= -->
+            <h2 id="faq">12. Frequently Asked Questions</h2>
+
+            <div class="space-y-3 mb-8">
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Is OpenClaw safe to install?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">Yes. OpenClaw is fully open-source (MIT license) with the entire codebase publicly auditable on GitHub. It has 68,000+ stars and an active community of contributors. The install script only downloads official releases. No code is obfuscated, no data is collected.</p>
+                    </div>
+                </details>
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Do I need a GPU to use OpenClaw?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">OpenClaw itself doesn't need a GPU — it's a gateway/orchestration layer, not an inference engine. Whether you need a GPU depends on your backend. On macOS with Apple Silicon, the unified memory handles everything. On Linux/Windows, a GPU significantly speeds up inference but is not strictly required (CPU-only mode works, just slower).</p>
+                    </div>
+                </details>
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Can I use OpenClaw with a remote server?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">Absolutely. OpenClaw can connect to any OpenAI-compatible endpoint — local or remote. Point it at your cloud GPU server, a Runpod instance, or even a friend's machine via SSH tunnel. Just change the Base URL in settings.</p>
+                    </div>
+                </details>
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">OpenClaw vs the built-in LM Studio chat — which is better?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">LM Studio's built-in chat is good for quick testing. OpenClaw is better as a daily driver — it's a full assistant gateway with session management, slash commands, the skills/plugin system, multi-surface access (desktop + CLI + web), and it works with any backend (not just LM Studio). Think of LM Studio as the engine room and OpenClaw as the bridge.</p>
+                    </div>
+                </details>
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">How much disk space does OpenClaw need?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">The OpenClaw application itself is under 200 MB. Conversation history is stored locally and typically takes negligible space. The real disk space requirement is for your AI models (managed by LM Studio or Ollama), which range from 2 GB to 40+ GB depending on the model.</p>
+                    </div>
+                </details>
+                <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
+                    <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Can I use OpenClaw with ChatGPT's API?</summary>
+                    <div class="px-5 pb-5">
+                        <p class="!text-sm !mb-0">Yes — since OpenClaw supports any OpenAI-compatible endpoint, you can point it at OpenAI's API (<code>https://api.openai.com/v1</code>) with your API key. This gives you the OpenClaw interface with GPT-4 as the backend. But the whole point is to go local — try a local model first!</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- ======================= CONCLUSION ======================= -->
+            <div class="rounded-2xl bg-gradient-to-br from-claw-primary/10 to-orange-600/5 border border-claw-primary/20 p-8 mt-12">
+                <h2 class="!mt-0 !mb-4 text-2xl">The Bottom Line</h2>
+                <p class="!text-lg">OpenClaw is the orchestration layer that ties the local AI stack together. You already have <strong>great models</strong> (Qwen 3, DeepSeek, Gemma 3) and <strong>great inference engines</strong> (LM Studio, Ollama). What was missing was a <strong>gateway</strong> — something that manages conversations, routes prompts to the right backend, extends functionality with skills, and gives you multiple ways to interact (desktop, CLI, web). OpenClaw fills that role.</p>
+                <p class="!mb-6">If you're serious about running AI locally in 2026, the stack is clear: <strong>LM Studio + OpenClaw + the right model for your RAM</strong>. That's it. No subscription, no cloud dependency, no compromises.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://openclaw.ai/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-claw-primary text-white font-bold no-underline hover:bg-claw-accent transition-colors">
+                        Download OpenClaw →
+                    </a>
+                    <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
+                        <img src="../images/crab-logo.png" alt="LocalClaw" width="20" height="20" style="display:inline;vertical-align:middle;opacity:0.8;"> Find My Ideal Model
+                    </a>
+                    <a href="../pricing.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Auto-Install Everything
+                    </a>
+                </div>
+            </div>
+
+            <!-- RELATED ARTICLES -->
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <h3 class="!mt-0 mb-6">Related Articles</h3>
+                <div class="grid sm:grid-cols-2 gap-4 not-prose">
+                    <a href="lm-studio-beginner-guide.html" class="feature-card rounded-xl p-4 block no-underline group">
+                        <span class="text-xs text-claw-primary font-semibold">Tutorial</span>
+                        <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">LM Studio Beginner Guide</h4>
+                        <p class="text-claw-muted text-xs mt-1">Installation, GPU config, and first steps with LM Studio.</p>
+                    </a>
+                    <a href="how-to-choose-local-llm.html" class="feature-card rounded-xl p-4 block no-underline group">
+                        <span class="text-xs text-claw-primary font-semibold">Guide</span>
+                        <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">How to Choose the Right Local LLM</h4>
+                        <p class="text-claw-muted text-xs mt-1">RAM, VRAM, use cases — find the perfect model.</p>
+                    </a>
+                    <a href="best-local-ai-models-2026.html" class="feature-card rounded-xl p-4 block no-underline group">
+                        <span class="text-xs text-claw-primary font-semibold">Top 15</span>
+                        <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">Best Open-Source AI Models 2026</h4>
+                        <p class="text-claw-muted text-xs mt-1">Genspark leaderboard: the 15 best models to run locally.</p>
+                    </a>
+                    <a href="local-llm-vs-chatgpt.html" class="feature-card rounded-xl p-4 block no-underline group">
+                        <span class="text-xs text-claw-primary font-semibold">Comparison</span>
+                        <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">Local LLM vs ChatGPT</h4>
+                        <p class="text-claw-muted text-xs mt-1">Privacy, cost, quality — the honest comparison.</p>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden sm:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ====== STRUCTURED DATA ====== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs",
+        "description": "Complete guide to OpenClaw: the self-hosted AI assistant gateway. Installation, configuration, LM Studio connection, skills system, and best practices.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {"@type": "ImageObject", "url": "https://localclaw.io/images/crab-logo.png"}
+        },
+        "datePublished": "2026-02-12",
+        "dateModified": "2026-02-12",
+        "mainEntityOfPage": "https://localclaw.io/blog/openclaw-guide.html",
+        "image": "https://localclaw.io/images/twitter-card.png",
+        "keywords": "OpenClaw, local AI, AI assistant gateway, self-hosted AI, privacy-first AI, open source AI orchestration"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is OpenClaw safe to install?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Yes. OpenClaw is fully open-source (MIT license) with 68,000+ GitHub stars. The entire codebase is publicly auditable. No data is collected."}
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need a GPU to use OpenClaw?",
+                "acceptedAnswer": {"@type": "Answer", "text": "OpenClaw itself doesn't need a GPU. Whether you need a GPU depends on your inference backend. On macOS with Apple Silicon, unified memory handles everything. On Linux/Windows, a GPU speeds up inference but is not strictly required."}
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use OpenClaw with a remote server?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Yes. OpenClaw can connect to any OpenAI-compatible endpoint — local or remote. Just change the Base URL in settings to point at your cloud GPU server or SSH tunnel."}
+            },
+            {
+                "@type": "Question",
+                "name": "What is the difference between OpenClaw and LM Studio?",
+                "acceptedAnswer": {"@type": "Answer", "text": "LM Studio is a model manager and inference engine with a basic chat UI. OpenClaw is an AI assistant gateway with orchestration, session management, skills/plugins, and multi-surface access (desktop, CLI, web). They complement each other: LM Studio runs the model, OpenClaw orchestrates the experience."}
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://localclaw.io/"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://localclaw.io/blog/"},
+            {"@type": "ListItem", "position": 3, "name": "OpenClaw Guide", "item": "https://localclaw.io/blog/openclaw-guide.html"}
+        ]
+    }
+    </script>
+
+    <!-- Auto calculate reading time -->
+    <script>
+    (function(){
+        var article = document.querySelector('article') || document.querySelector('.prose') || document.querySelector('main');
+        if (article) {
+            var text = article.textContent || '';
+            var wordCount = text.trim().split(/\s+/).length;
+            var readTime = Math.max(1, Math.ceil(wordCount / 200));
+            var el = document.getElementById('read-time');
+            if (el) el.textContent = readTime + ' min read';
+        }
+    })();
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            const scrollThreshold = 300;
+            
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            toggleScrollButton();
+        })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>LocalClaw — Best Local AI Model for Your Hardware (2026)</title>
+    <meta name="description" content="Free private AI model recommender for LM Studio: match 177 LLMs + 47 TTS/ASR models to your RAM, GPU & OS. Optional LocalClaw Installer for macOS is $49 one-time for one-click setup.">
+    <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://localclaw.io/">
+
+    <!-- ============================================================
+         OPEN GRAPH (Facebook, LinkedIn, Discord, etc.)
+         ============================================================ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/">
+    <meta property="og:title" content="LocalClaw — Run AI On Your Terms (2026 Edition)">
+    <meta property="og:description" content="Find the perfect open-source AI model for your hardware. 177 LLMs + 47 TTS/ASR including ZAYA1-8B, Ling-2.6-flash, Kimi K2, DeepSeek V3.2, Qwen 3 Next, Llama 4, Gemma 4, GLM 4.6, NeuTTS Air, Step-Audio 2, Higgs Audio v2, OCTAVE 2. Smart recommendations, zero data collection.">
+    <meta property="og:site_name" content="LocalClaw">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="LocalClaw — Run AI On Your Terms. Find the perfect open-source AI model for your hardware.">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LocalClaw — Run AI On Your Terms (2026 Edition)">
+    <meta name="twitter:description" content="Free private model recommender for 177 LLMs + 47 TTS/ASR models. Optional macOS Installer is $49 one-time for one-click setup.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
+
+    <!-- ============================================================
+         SECURITY HEADERS (via meta http-equiv)
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LocalClaw">
+    <meta name="application-name" content="LocalClaw">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- ============================================================
+         FAVICON
+         ============================================================ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         PRECONNECT & PRELOAD (Performance)
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://lmstudio.ai">
+
+    <!-- LCP OPTIMIZATION — preload above-the-fold logo (quick win, bounce rate ↓) -->
+    <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
+
+    <!-- ============================================================
+         FONTS (with display=swap for performance)
+         ============================================================ -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+         TAILWIND CSS
+         ============================================================ -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            safelist: [
+                'bg-red-500', 'text-red-500',
+                'bg-orange-500', 'text-orange-500',
+                'bg-emerald-500', 'text-emerald-500',
+                'bg-blue-500', 'bg-purple-500', 'bg-yellow-500',
+                'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-5',
+                'border-claw-primary', 'border-claw-border',
+                'ring-1', 'ring-claw-primary',
+                'from-claw-primary', 'to-orange-600',
+                'text-claw-primary',
+                'group-hover:text-claw-primary', 'group-hover:text-orange-500', 'group-hover:text-emerald-500',
+                // Light mode classes
+                'bg-gray-50', 'bg-white', 'text-gray-900', 'text-gray-600',
+                'border-gray-200', 'hover:bg-gray-100',
+            ],
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            // Dark mode (default)
+                            bg: '#050505',
+                            surface: '#09090b',
+                            border: '#27272a',
+                            primary: '#ff453a',
+                            accent: '#ff6d64',
+                            text: '#f4f4f5',
+                            muted: '#a1a1aa',
+                            // Light mode variants
+                            'bg-light': '#faf9f6',
+                            'surface-light': '#ffffff',
+                            'border-light': '#e2e8f0',
+                            'text-light': '#1e293b',
+                            'muted-light': '#64748b'
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #18181b 1px, transparent 1px), linear-gradient(to bottom, #18181b 1px, transparent 1px)",
+                        'grid-pattern-light': "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css?v=20260211g">
+    
+    <!-- Theme Toggle Script -->
+    <script src="js/theme-toggle.js"></script>
+
+    <!-- Inline Critical CSS: prevent FOUC -->
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .seo-content { display: none; }
+        /* Show SEO content only when JS hasn't loaded yet or for crawlers */
+        .no-js .seo-content { display: block; }
+        
+        /* Light mode styles */
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-black {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-text {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-white\/20,
+        html.light .border-white\/10,
+        html.light .border-white\/5 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .bg-white\/\[0\.02\],
+        html.light .bg-white\/5,
+        html.light .bg-white\/10 {
+            background-color: rgba(0, 0, 0, 0.02) !important;
+        }
+        
+        html.light .hover\:bg-white\/5:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        
+        html.light .border-claw-border {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .bg-claw-surface {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        html.light .bg-zinc-900\/20 {
+            background-color: rgba(241, 245, 249, 0.5) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light .hero-glow { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        
+        /* Theme toggle button styles */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ── Carrés noirs light mode : bg-white/* → fond clair ── */
+        html.light .bg-white\/\[0\.02\],
+        html.light [class*="bg-white/[0.02]"] {
+            background-color: rgba(0,0,0,0.02) !important;
+        }
+        html.light .bg-white\/5 {
+            background-color: rgba(0,0,0,0.03) !important;
+        }
+        html.light .bg-white\/10 {
+            background-color: rgba(0,0,0,0.04) !important;
+        }
+        html.light .hover\:bg-white\/5:hover {
+            background-color: rgba(0,0,0,0.04) !important;
+        }
+        /* Bordures blanches → grises */
+        html.light .border-white\/5 {
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        /* Navbar bg-black → fond light */
+        html.light nav.bg-black {
+            background-color: rgba(250,249,246,0.97) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        /* Mobile menu overlay */
+        html.light #mobile-menu {
+            background-color: rgba(0,0,0,0.25) !important;
+        }
+        html.light #mobile-menu .bg-claw-surface {
+            background-color: #ffffff !important;
+        }
+        /* Grid features bg-zinc-900/20 */
+        html.light .bg-zinc-900\/20 {
+            background-color: rgba(0,0,0,0.02) !important;
+        }
+        /* TTS purple cards */
+        html.light [class*="bg-purple-500"] {
+            background-color: rgba(147,51,234,0.04) !important;
+        }
+        /* FAQ details */
+        html.light details {
+            background-color: rgba(0,0,0,0.02) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light details summary { color: #0f172a !important; }
+        /* Texte fort en light */
+        html.light strong { color: #0f172a !important; }
+        /* bg-black inline (SEO header badge) */
+        html.light .bg-black { background-color: #ffffff !important; }
+    </style>
+
+    <!-- ============================================================
+         TRACKING: DataFast Analytics
+         ============================================================ -->
+    <script
+        defer
+        data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"
+        data-domain="localclaw.io"
+        src="https://datafa.st/js/script.js">
+    </script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body class="bg-black text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary selection:text-white overflow-x-hidden relative">
+    
+    <!-- ============================================================
+         BACKGROUND: Circuit board network
+         ============================================================ -->
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <!-- Vignette overlay — lighter, only darkens the very edges -->
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div>
+    </div>
+
+    <script src="js/bg-circuit.js" defer></script>
+
+    <!-- ============================================================
+         SKIP NAVIGATION (Accessibility)
+         ============================================================ -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-claw-primary focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">
+        Skip to main content
+    </a>
+
+    <!-- ============================================================
+         NAVBAR
+         ============================================================ -->
+    <nav class="border-b border-white/20 bg-black sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+
+                <!-- Nav Links -->
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <!-- Mobile hamburger -->
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="#" onclick="event.preventDefault(); resetApp()" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <button onclick="App.showFAQ()" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">FAQ</button>
+                    <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode, hidden by default) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white hover:bg-white/5 transition-colors">Home</a>
+                <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+                <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
+                <div class="border-t border-claw-border mt-2 pt-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main id="main-content" class="flex-grow flex flex-col items-center justify-start p-4 sm:p-6 lg:p-8 relative z-10 w-full" role="main">
+        
+        <!-- ========================================================
+             SEO: STATIC CRAWLABLE CONTENT
+             ======================================================== -->
+        <div id="seo-fallback" class="w-full max-w-6xl mx-auto">
+
+            <!-- Primary H1 -->
+            <header class="text-center py-16 sm:py-24 border-b border-white/20 mb-12">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 border border-claw-primary bg-black text-claw-primary text-xs font-mono uppercase tracking-widest">
+                    <span class="w-2 h-2 bg-claw-primary"></span>
+                    177 LLMs + 47 TTS — Updated May 10, 2026
+                </div>
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-8 tracking-tighter leading-[0.95] text-white uppercase">
+                    Find the right<br/>
+                    <span class="text-claw-primary">local LLM</span><span class="text-claw-primary">_</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-claw-muted max-w-2xl mx-auto leading-relaxed font-mono">
+                    Stop sending your data to the cloud. Find the <span class="text-white border-b border-white/40">perfect open-source model</span> for your hardware.
+                </p>
+                <div class="mt-8 max-w-3xl mx-auto rounded-2xl border border-claw-primary/25 bg-claw-primary/10 p-4 text-left sm:text-center" role="note" aria-label="Free recommender and optional paid installer clarification">
+                    <p class="text-sm text-claw-muted leading-relaxed font-mono">
+                        <strong class="text-white">Clear pricing:</strong> the web model recommender is free to use. The optional <a href="pricing.html" class="text-claw-primary hover:underline">LocalClaw Installer for macOS</a> is <strong class="text-white">$49 one-time</strong> if you want one-click setup, activation, updates and support.
+                    </p>
+                </div>
+            </header>
+
+            <!-- SEO: Key features section -->
+            <section aria-label="Features" class="mb-20">
+                <h2 class="sr-only">How LocalClaw Works</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/20 bg-zinc-900/20">
+                    <article class="p-8 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors group relative">
+                        <svg class="absolute top-6 right-6 w-8 h-8 text-claw-primary opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
+                        <div class="text-claw-primary mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">01 // INIT</div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Guided Mode</h3>
+                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Simple questionnaire. OS, RAM level, use case. We handle the complexity.</p>
+                        <p class="mt-3 text-xs font-mono text-claw-primary opacity-70"><span class="text-claw-muted">Ex:</span> MacBook Air 8 GB → Qwen 3 8B</p>
+                    </article>
+                    <article class="p-8 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors group relative">
+                        <svg class="absolute top-6 right-6 w-8 h-8 text-orange-500 opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"/></svg>
+                        <div class="text-orange-500 mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">02 // SPEC</div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Quick Spec</h3>
+                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Direct input. Select RAM, GPU and priorities for instant logic execution.</p>
+                        <p class="mt-3 text-xs font-mono text-orange-500 opacity-70"><span class="text-claw-muted">Ex:</span> 32 GB RAM + RTX 4090 → DeepSeek R1 32B</p>
+                    </article>
+                    <article class="p-8 hover:bg-white/5 transition-colors group relative">
+                        <svg class="absolute top-6 right-6 w-8 h-8 text-emerald-500 opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <div class="text-emerald-500 mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">03 // TERM</div>
+                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Terminal</h3>
+                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Paste diagnostics. Auto-detection of OS/RAM/GPU for precision targeting.</p>
+                        <p class="mt-3 text-xs font-mono text-emerald-500 opacity-70"><span class="text-claw-muted">Ex:</span> Paste neofetch → auto-detect &amp; match</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- SEO: Supported models list -->
+            <section aria-label="Supported Models" class="mb-20">
+                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
+                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">Database // Models</h2>
+                    <span class="font-mono text-xs text-claw-muted">UPDATED: 2026-04-22 · v3.28</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-sm text-claw-muted font-mono">
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-claw-primary/10 to-orange-500/10 border border-claw-primary/30">
+                        <strong class="text-white">Kimi K2</strong> — 1T MoE (Instruct + Thinking) <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-purple-500/10 to-orange-500/10 border border-purple-500/30">
+                        <strong class="text-white">DeepSeek V3.2 Exp</strong> — 671B w/ sparse attn <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30">
+                        <strong class="text-white">Qwen 3 Next</strong> — 80B/3B MoE flagship <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/30">
+                        <strong class="text-white">GLM 4.6</strong> — 355B MoE (full) <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-pink-500/10 to-rose-500/10 border border-pink-500/30">
+                        <strong class="text-white">MiniMax M2</strong> — 230B MoE agentic <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/30">
+                        <strong class="text-white">Mistral Small 3.2</strong> — 24B instruct <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30">
+                        <strong class="text-white">Nemotron Nano</strong> — 9B v2 hybrid <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/30">
+                        <strong class="text-white">Ling 1T</strong> — InclusionAI trillion MoE <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Llama 4</strong> — Scout 109B, Maverick 400B
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Qwen 3 VL</strong> — 8B, 32B Vision
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Gemma 4</strong> — E2B, E4B, 26B-A4B, 31B
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Hermes 4</strong> — 70B, 405B
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Qwen 3.5</strong> — 0.8B, 2B, 4B, 9B, 397B-A17B
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">Command A</strong> — 111B (Cohere)
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">DeepSeek R1 0528</strong> — 671B MoE
+                    </div>
+                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                        <strong class="text-white">+ 158 more…</strong> <a href="llm-list.html" class="text-claw-primary hover:underline">See all →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 LATEST DROPS — Timeline of recent model releases
+                 ======================================================== -->
+            <section aria-label="Latest model drops" class="mb-20">
+                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
+                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
+                        <span class="text-claw-primary">//</span> Latest Drops
+                    </h2>
+                    <span class="font-mono text-xs text-claw-muted flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        LIVE · Apr 22, 2026
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <!-- Kimi K2 (NEW April 2026) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/40 hover:border-amber-500 transition-colors ring-1 ring-amber-500/20">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-amber-400">Moonshot · Jul 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-amber-500 text-black text-[10px] font-bold uppercase">🔥 Trending</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Kimi K2 (1T MoE)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Trillion-param MoE with 32B active. Matches GPT-4 Turbo on MMLU/HumanEval. Thinking variant tops AIME & SWE-bench.</p>
+                        <a href="llm-detail.html?model=kimi-k2-instruct" class="text-xs text-amber-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- DeepSeek V3.2 Exp (NEW April 2026) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-sky-500/10 to-blue-500/5 border border-sky-500/40 hover:border-sky-500 transition-colors ring-1 ring-sky-500/20">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-sky-400">DeepSeek · Sep 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-sky-500 text-black text-[10px] font-bold uppercase">🔥 New</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">DeepSeek V3.2 Exp</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Sparse attention (DSA) halves long-context inference cost vs V3.1 while keeping quality. 671B MoE, MIT licensed.</p>
+                        <a href="llm-detail.html?model=deepseek-v3.2-exp" class="text-xs text-sky-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Qwen 3 Next (NEW April 2026) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 border border-violet-500/40 hover:border-violet-500 transition-colors ring-1 ring-violet-500/20">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-violet-400">Alibaba · Sep 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-violet-500 text-black text-[10px] font-bold uppercase">🔥 Sweet spot</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Qwen 3 Next (80B/3B MoE)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Hybrid-gated DeltaNet. Runs at dense 7B speed with 70B quality. 256K native context. Apache 2.0.</p>
+                        <a href="llm-detail.html?model=qwen3-next-80b-a3b" class="text-xs text-violet-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- GLM 4.6 full (NEW April 2026) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/30 hover:border-green-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-green-400">Zhipu · Sep 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-green-500 text-black text-[10px] font-bold uppercase">Agentic</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">GLM 4.6 (355B MoE)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Full GLM 4.6 flagship. 200K context, strong tool-calling. Competes with Claude 3.5 Sonnet. MIT.</p>
+                        <a href="llm-detail.html?model=glm-4.6-355b" class="text-xs text-green-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- MiniMax M2 (NEW) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-rose-500/10 to-pink-500/5 border border-rose-500/30 hover:border-rose-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-rose-400">MiniMax · Oct 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-rose-500 text-black text-[10px] font-bold uppercase">Coding</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">MiniMax M2 (230B MoE)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">10B active params, 4M-token context. Built for agentic coding & tool-use. MIT licensed.</p>
+                        <a href="llm-detail.html?model=minimax-m2-230b" class="text-xs text-rose-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Mistral Small 3.2 (NEW) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/30 hover:border-cyan-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-cyan-400">Mistral · Jun 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-cyan-500 text-black text-[10px] font-bold uppercase">Balanced</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Mistral Small 3.2 (24B)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Refined instruction following, better function calling, less repetition. 128K context. Apache 2.0.</p>
+                        <a href="llm-detail.html?model=mistral-small-3.2-24b" class="text-xs text-cyan-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- NeuTTS Air (NEW TTS) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-purple-500/5 border border-pink-500/40 hover:border-pink-500 transition-colors ring-1 ring-pink-500/20">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-pink-400">Neuphonic · Oct 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-pink-500 text-black text-[10px] font-bold uppercase">🔥 CPU TTS</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">NeuTTS Air</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">First super-realistic TTS LLM running real-time on CPU. 748M params, GGUF-native, 3s voice cloning.</p>
+                        <a href="tts-list.html#neutts-air" class="text-xs text-pink-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Step-Audio 2 (NEW TTS) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-pink-500/5 border border-fuchsia-500/30 hover:border-fuchsia-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-fuchsia-400">StepFun · Aug 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-fuchsia-500 text-black text-[10px] font-bold uppercase">Speech LLM</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Step-Audio 2 Mini</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Unified speech LLM: ASR + TTS + voice conv + dialogue in one model. Strong paralinguistic control.</p>
+                        <a href="tts-list.html#step-audio-2-mini" class="text-xs text-fuchsia-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Hume OCTAVE 2 (NEW TTS) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-indigo-500/5 border border-purple-500/30 hover:border-purple-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-purple-400">Hume AI · Nov 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-purple-500 text-black text-[10px] font-bold uppercase">Emotion</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">OCTAVE 2</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Emotion-aware speech LLM. Generate voice, style & personality from a text description — no reference audio.</p>
+                        <a href="tts-list.html#octave-2" class="text-xs text-purple-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Kyutai STT (NEW ASR) -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-lime-500/10 to-green-500/5 border border-lime-500/30 hover:border-lime-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-lime-400">Kyutai · Jun 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-lime-500 text-black text-[10px] font-bold uppercase">ASR</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Kyutai STT 2.6B</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Streaming ASR, 500ms latency, word timestamps & diarization. Top real-time EN/FR accuracy.</p>
+                        <a href="tts-list.html#kyutai-stt-2.6b" class="text-xs text-lime-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Llama 4 -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-claw-primary/10 to-orange-500/5 border border-claw-primary/30 hover:border-claw-primary transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-claw-primary">Meta · Apr 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-claw-primary text-black text-[10px] font-bold uppercase">Flagship</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Llama 4 Scout & Maverick</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">109B/400B MoE, natively multimodal, 10M-token context. Beats Gemma 3 and rivals GPT-4o.</p>
+                        <a href="llm-detail.html?model=llama4-scout-17b-16e" class="text-xs text-claw-primary hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Qwen 3 VL -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/5 border border-purple-500/30 hover:border-purple-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-purple-400">Alibaba · Dec 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-purple-500 text-black text-[10px] font-bold uppercase">Vision</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Qwen 3 VL (8B & 32B)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Open vision-language SOTA. Chart-QA, OCR, 1 h video understanding. Apache 2.0.</p>
+                        <a href="llm-detail.html?model=qwen3-vl-32b" class="text-xs text-purple-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Hermes 4 -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-emerald-500/10 to-blue-500/5 border border-emerald-500/30 hover:border-emerald-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-emerald-400">Nous · Sep 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-500 text-black text-[10px] font-bold uppercase">Reasoning</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Hermes 4 (70B / 405B)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Hybrid thinking mode. Neutral & steerable. Matches Claude 3.5 Sonnet on reasoning.</p>
+                        <a href="llm-detail.html?model=hermes4-70b" class="text-xs text-emerald-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- GLM 4.6 Air -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/30 hover:border-blue-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-blue-400">Zhipu · Feb 2026</span>
+                            <span class="px-1.5 py-0.5 rounded bg-blue-500 text-black text-[10px] font-bold uppercase">Lightweight</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">GLM 4.6 Air (12B)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Hybrid thinking, 200K context, strong CN/EN. Great alternative to Qwen 3.5 9B.</p>
+                        <a href="llm-detail.html?model=glm4.6-air" class="text-xs text-blue-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Command A -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-rose-500/10 to-orange-500/5 border border-rose-500/30 hover:border-rose-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-rose-400">Cohere · Mar 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-rose-500 text-black text-[10px] font-bold uppercase">Agentic</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Command A (111B)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Open-weight flagship for agents & long-context RAG. 256K context, 23 languages.</p>
+                        <a href="llm-detail.html?model=command-a-111b" class="text-xs text-rose-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Higgs Audio v2 -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-purple-500/5 border border-pink-500/30 hover:border-pink-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-pink-400">Boson AI · Jul 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-pink-500 text-black text-[10px] font-bold uppercase">TTS</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Higgs Audio v2</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">SOTA expressive TTS. Natural laughter, whispers, BGM. Beats ElevenLabs on MOS.</p>
+                        <a href="tts-list.html#higgs-audio-v2" class="text-xs text-pink-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Whisper Turbo -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-500/30 hover:border-yellow-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-yellow-400">OpenAI · Oct 2024</span>
+                            <span class="px-1.5 py-0.5 rounded bg-yellow-500 text-black text-[10px] font-bold uppercase">ASR</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Whisper v3 Turbo</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">8× faster than Whisper Large v3. 99 languages. New gold standard for local STT.</p>
+                        <a href="tts-list.html#whisper-v3-turbo" class="text-xs text-yellow-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Parakeet TDT -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/5 border border-teal-500/30 hover:border-teal-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-teal-400">NVIDIA · May 2025</span>
+                            <span class="px-1.5 py-0.5 rounded bg-teal-500 text-black text-[10px] font-bold uppercase">ASR</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Parakeet TDT 0.6B v2</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">#1 Open ASR Leaderboard. 50× faster than Whisper Large, real-time on GPU.</p>
+                        <a href="tts-list.html#parakeet-tdt-0.6b-v2" class="text-xs text-teal-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                    <!-- Moshi -->
+                    <article class="p-4 rounded-lg bg-gradient-to-br from-indigo-500/10 to-purple-500/5 border border-indigo-500/30 hover:border-indigo-500 transition-colors">
+                        <div class="flex items-start justify-between mb-2">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-indigo-400">Kyutai · Sep 2024</span>
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-500 text-black text-[10px] font-bold uppercase">Voice AI</span>
+                        </div>
+                        <h3 class="text-white font-bold mb-1">Moshi (Full-duplex)</h3>
+                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Listens and speaks simultaneously with 160 ms latency. Real-time voice-to-voice.</p>
+                        <a href="tts-list.html#moshi" class="text-xs text-indigo-400 hover:underline mt-2 inline-block">Details →</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- SEO: TTS Models Section -->
+            <section aria-label="Text-to-Speech Models" class="mb-16">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-display font-bold text-white"><svg class="lc-icon lc-icon-lg" style="color:#8B5CF6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> Local TTS Models — NEW!</h2>
+                    <a href="tts-list.html" class="text-sm text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1">
+                        View all TTS models →
+                    </a>
+                </div>
+                <p class="text-claw-muted text-sm mb-4">Text-to-Speech and Speech-to-Text models that run 100% offline on your hardware. Voice cloning, real-time dialogue, 99-language transcription, audiobooks, accessibility &amp; creative projects.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-sm">
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-pink-500/20 to-purple-500/10 border border-pink-500/50 ring-1 ring-pink-500/20">
+                        <strong class="text-white">NeuTTS Air</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
+                        <div class="text-xs text-claw-muted mt-1">First real-time TTS LLM on CPU</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-pink-500/10 border border-fuchsia-500/50 ring-1 ring-fuchsia-500/20">
+                        <strong class="text-white">Step-Audio 2</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
+                        <div class="text-xs text-claw-muted mt-1">Unified speech LLM (ASR+TTS)</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/50 ring-1 ring-purple-500/20">
+                        <strong class="text-white">OCTAVE 2</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
+                        <div class="text-xs text-claw-muted mt-1">Voice from prompt, no reference</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-lime-500/20 to-green-500/10 border border-lime-500/50 ring-1 ring-lime-500/20">
+                        <strong class="text-white">Kyutai STT 2.6B</strong> <span class="text-yellow-400 text-xs">🔥 ASR</span>
+                        <div class="text-xs text-claw-muted mt-1">500ms streaming, diarization</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-teal-500/20 to-cyan-500/10 border border-teal-500/50 ring-1 ring-teal-500/20">
+                        <strong class="text-white">F5-TTS v1.1</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
+                        <div class="text-xs text-claw-muted mt-1">Streaming flow-matching upgrade</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
+                        <strong class="text-white">Higgs Audio v2</strong> <span class="text-yellow-400 text-xs">⭐</span>
+                        <div class="text-xs text-claw-muted mt-1">SOTA expressive, beats ElevenLabs</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
+                        <strong class="text-white">Zonos</strong> <span class="text-yellow-400 text-xs">⭐</span>
+                        <div class="text-xs text-claw-muted mt-1">1.6B cloning, emotion control</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
+                        <strong class="text-white">IndexTTS 2</strong> <span class="text-yellow-400 text-xs">⭐</span>
+                        <div class="text-xs text-claw-muted mt-1">Separate voice + emotion ref</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
+                        <strong class="text-white">Whisper v3 Turbo</strong> <span class="text-yellow-400 text-xs">⭐ ASR</span>
+                        <div class="text-xs text-claw-muted mt-1">8× faster, 99 languages</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
+                        <strong class="text-white">Parakeet TDT 0.6B</strong> <span class="text-yellow-400 text-xs">⭐ ASR</span>
+                        <div class="text-xs text-claw-muted mt-1">#1 Open ASR leaderboard</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
+                        <strong class="text-white">Qwen3 TTS</strong>
+                        <div class="text-xs text-claw-muted mt-1">30+ languages, streaming</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
+                        <strong class="text-white">Kokoro 82M</strong>
+                        <div class="text-xs text-claw-muted mt-1">CPU real-time, 54 voices</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
+                        <strong class="text-white">Moshi</strong>
+                        <div class="text-xs text-claw-muted mt-1">Full-duplex, 160ms latency</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
+                        <strong class="text-white">LLaSA 3B</strong>
+                        <div class="text-xs text-claw-muted mt-1">LLaMA TTS, 250k hrs training</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
+                        <strong class="text-white">+ 33 more…</strong> <a href="tts-list.html" class="text-purple-400 hover:underline">View all →</a>
+                        <div class="text-xs text-claw-muted mt-1">Orpheus, XTTS v3, Dia, Chatterbox…</div>
+                    </div>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Real-time</span>
+                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Voice Cloning</span>
+                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> 50+ Languages</span>
+                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> CPU/GPU/Edge</span>
+                </div>
+            </section>
+
+            <!-- Pricing Teaser Block -->
+            <section aria-label="Pricing" class="mb-16 max-w-3xl mx-auto">
+                <div class="border border-white/10 rounded-xl p-8 text-center bg-white/[0.02] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-claw-primary/5 via-transparent to-orange-500/5"></div>
+                    <div class="relative">
+                        <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 border border-claw-primary/30 bg-claw-primary/10 text-claw-primary text-xs font-mono font-bold tracking-widest uppercase rounded-full">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                            All-in-one
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-display font-bold text-white mb-2">Optional macOS installer. <span class="text-claw-primary">$49.</span> One-time.</h3>
+                        <p class="text-sm text-claw-muted font-mono mb-3">The browser recommender stays free. Upgrade only if you want the native installer to install, update and manage your local AI stack from one dashboard.</p>
+                        <p class="text-xs font-mono mb-5" style="color:#f59e0b;">
+                            <svg class="w-3 h-3 inline mb-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            macOS 13 Ventura or later required &nbsp;·&nbsp; Apple Silicon or Intel &nbsp;·&nbsp; 8 GB RAM min.
+                        </p>
+                        <a href="pricing.html" class="inline-flex items-center gap-2 px-6 py-3 border border-claw-primary/40 text-claw-primary hover:bg-claw-primary hover:text-white font-mono font-bold text-sm transition-all uppercase tracking-tight rounded-lg">
+                            View Pricing
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEO: FAQ Section (crawlable, matches structured data) -->
+            <section aria-label="Frequently Asked Questions" class="mb-16 max-w-3xl mx-auto">
+                <h2 class="text-2xl font-display font-bold text-white mb-6 text-center">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4">
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5" open>
+                        <summary class="text-white font-bold cursor-pointer">What is LM Studio?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">LM Studio is a free desktop application that lets you run Large Language Models (LLMs) locally on your computer. No internet needed, no data sent anywhere. It provides a chat interface similar to ChatGPT but everything runs on YOUR hardware.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">What is quantization (Q4, Q5, Q8)?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Quantization is a compression technique that reduces model size while preserving most of the quality. Think of it like JPEG compression for images. Q4 = more compressed (smaller, slightly lower quality), Q8 = less compressed (larger, nearly original quality). Q5_K_M is the sweet spot for most users.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">How much RAM do I need to run a local AI model?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Rule of thumb: the model file size plus 2-3 GB for the system. A 5 GB model needs at least 8 GB RAM. On macOS with Apple Silicon, the unified memory makes things more efficient. On Windows/Linux with a GPU, VRAM helps offload the model.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">Apple Silicon vs NVIDIA GPU for local AI?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Apple Silicon (M1-M4) uses unified memory, meaning your entire RAM is available for the model. This is incredibly efficient. NVIDIA GPUs are faster for inference but limited by VRAM (typically 8-24 GB). Both are great choices.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">Is my data private when using LocalClaw?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Yes! LocalClaw runs entirely in your browser — zero data is collected or sent anywhere. When using LM Studio with recommended models, everything runs locally on your machine. No cloud, no tracking, no API calls.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">What are the best local AI models in 2026?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">For 8 GB RAM: Qwen 3.5 4B or Gemma 4 E4B. For 16 GB: Qwen 3.5 9B, GLM 4.6 Air 12B or Mistral Small 3.2 24B (tight). For 32 GB+: Gemma 4 31B, Qwen 3 Next 80B/3B MoE or Qwen 3 Coder 30B. For reasoning: Kimi K2 Thinking, DeepSeek V3.2 Exp, or Hermes 4 70B. For coding: MiniMax M2 and Qwen 3 Coder. For vision: Qwen 3 VL 32B or Gemma 4 multimodal.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">What is OpenClaw?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">OpenClaw is the open-source, self-hosted AI assistant at the heart of the LocalClaw ecosystem. It connects to your local models running in LM Studio or Ollama and provides a unified chat interface on desktop, web, and CLI. It's 100% private — no telemetry, no cloud, no API keys required.</p>
+                    </details>
+                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
+                        <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The LocalClaw web recommender is free: use it to choose the right LLM/TTS model for your hardware. LocalClaw Installer is the optional native macOS app that manages setup — install models, handle updates, switch versions, and launch everything with one click. No terminal needed. The installer is a <strong class="text-white">one-time purchase at $49</strong>, no subscription, no recurring fees. Your license is valid forever. <a href="pricing.html" class="text-claw-primary hover:underline">See pricing →</a></p>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Final CTA Block -->
+            <section aria-label="Call to Action" class="mb-16 max-w-4xl mx-auto">
+                <div class="border border-claw-primary/30 rounded-xl p-10 sm:p-14 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-claw-primary/10 via-transparent to-orange-600/5"></div>
+                    <div class="relative">
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Find your model in <span class="text-claw-primary">30 seconds</span></h2>
+                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-lg mx-auto">Answer a few questions about your hardware and get personalized AI model recommendations — instantly, privately, for free.</p>
+                        <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center gap-2 px-10 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            Find My Model
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- noscript: tell users they need JS -->
+            <noscript>
+                <div class="text-center p-8 rounded-xl bg-red-500/10 border border-red-500/30 max-w-xl mx-auto">
+                    <p class="text-red-400 font-bold mb-2">JavaScript Required</p>
+                    <p class="text-claw-muted text-sm">LocalClaw requires JavaScript to provide personalized AI model recommendations. Please enable JavaScript in your browser settings and reload the page.</p>
+                </div>
+            </noscript>
+        </div>
+
+        <!-- ========================================================
+             DYNAMIC APP CONTAINER
+             JS replaces the static content on load
+             ======================================================== -->
+        <div id="view-container" class="w-full max-w-6xl mx-auto min-h-[400px] hidden">
+            <!-- Content injected via JS -->
+        </div>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="border-t border-white/20 py-10 mt-auto relative z-10 bg-black" role="contentinfo">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center gap-5 text-center md:flex-row md:justify-between md:text-left">
+            <div class="flex flex-col items-center gap-3 md:flex-row md:gap-4">
+                <p class="text-claw-muted text-xs font-mono uppercase tracking-widest">&copy; 2026 LOCALCLAW // SYS.ALL_RIGHTS_RESERVED</p>
+                <span class="hidden md:inline text-claw-border">·</span>
+                <a href="https://buymeacoffee.com/cdieumegard" target="_blank" rel="noopener noreferrer" class="text-claw-muted hover:text-claw-primary transition-colors text-xs font-mono whitespace-nowrap uppercase">[ SUPPORT_DEV ]</a>
+            </div>
+            <div class="flex gap-5 items-center">
+                <button onclick="App.showFAQ()" class="text-claw-muted hover:text-claw-primary transition-colors text-xs font-mono font-medium uppercase tracking-widest">[ FAQ ]</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         SCRIPTS (order matters: data first, then app)
+         ============================================================ -->
+    <script src="js/data.js?v=20260211g"></script>
+    <script src="js/app.js?v=20260211i"></script>
+
+    <!-- Hide SEO fallback once JS loads and show dynamic container -->
+    <script>
+        document.getElementById('seo-fallback').style.display = 'none';
+        document.getElementById('view-container').classList.remove('hidden');
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA: WebApplication
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LocalClaw",
+        "url": "https://localclaw.io/",
+        "description": "Find the perfect open-source AI model for your hardware. Privacy-first local LLM configurator for LM Studio. Supports 177 LLMs + 47 TTS/ASR models including ZAYA1-8B, Ling-2.6-flash, Kimi K2, DeepSeek V3.2, Qwen 3 Next, Llama 4 Scout/Maverick, Qwen 3 VL, Gemma 4, GLM 4.6, NeuTTS Air, Step-Audio 2, Higgs Audio v2, Whisper Turbo.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser",
+        "browserRequirements": "Requires JavaScript",
+        "softwareVersion": "3.22.0",
+        "datePublished": "2026-01-01",
+        "dateModified": "2026-03-22",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "url": "https://localclaw.io/"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://localclaw.io/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA: FAQPage (Rich Snippets in Google)
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is LM Studio?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "LM Studio is a free desktop application that lets you run Large Language Models (LLMs) locally on your computer. No internet needed, no data sent anywhere. It provides a chat interface similar to ChatGPT but everything runs on your hardware."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is quantization (Q4, Q5, Q8)?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Quantization is a compression technique that reduces model size while preserving most quality. Q4 means more compression (smaller, slightly lower quality), Q8 means less compression (larger, nearly original quality). Q5_K_M is the sweet spot for most users."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much RAM do I need to run a local AI model?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Rule of thumb: the model file size plus 2-3 GB for the OS. A 5 GB model needs at least 8 GB RAM. Apple Silicon with unified memory is more efficient. NVIDIA GPUs with VRAM help offload the model on Windows and Linux."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Apple Silicon vs NVIDIA GPU for local AI?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Apple Silicon (M1-M4) uses unified memory, meaning your entire RAM is available for the model. NVIDIA GPUs are faster for inference but limited by VRAM (typically 8-24 GB). Both are great choices for running local LLMs."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my data private when using LocalClaw?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! LocalClaw runs entirely in your browser with zero data collection. When using LM Studio with recommended models, everything runs locally on your machine. No cloud, no tracking, no API calls."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are the best local AI models in 2026?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For 8 GB RAM: Qwen 3 8B and Llama 3.3 8B. For 16 GB: Qwen 3 14B. For 32 GB+: Qwen 3 32B and DeepSeek R1 32B. For coding: Qwen 2.5 Coder 7B. For vision: Gemma 3 12B. For reasoning: DeepSeek R1 series."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is OpenClaw?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "OpenClaw is an open-source, self-hosted personal AI assistant that unifies your AI experience in one powerful interface. Connect it to local models via LM Studio or Ollama, or use remote APIs — all through a single, elegant chat interface available on desktop, web, and CLI. With its extensible skills system, OpenClaw enhances your productivity while keeping everything 100% private, offline, and telemetry-free."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA: BreadcrumbList
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://localclaw.io/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- ============================================================
+         STRUCTURED DATA: SoftwareApplication (for app-like results)
+         ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "LocalClaw - AI Model Finder",
+        "operatingSystem": "Web",
+        "applicationCategory": "DeveloperApplication",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "124"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 5rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 4.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            const scrollThreshold = 300; // Apparaît après 300px de scroll
+            
+            // Afficher/masquer le bouton selon le scroll
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            // Défilement fluide vers le haut
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Event listeners
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            
+            // Initial check
+            toggleScrollButton();
+        })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

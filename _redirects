@@ -1,0 +1,23 @@
+# Canonicalize: /index.html → / (301)
+/index.html              /              301!
+
+# Canonicalize blog root: /blog/index.html → /blog/ (301)
+/blog/index.html         /blog/         301!
+
+# Prevent deep duplicate paths (e.g. /blog/blog/...) reported by SEO crawlers
+/blog/blog/*             /blog/:splat   301!
+
+# Legacy typo redirect (old internal link referenced a non-existent file)
+/blog/best-local-llms-2026.html   /blog/best-local-ai-models-2026.html   301!
+
+# Any stray attempt to reach root pages from /blog/ -> send to the real page
+/blog/llm-list.html      /llm-list.html    301!
+/blog/llm-detail.html    /llm-list.html    301!
+/blog/pricing.html       /pricing.html     301!
+/blog/download.html      /download.html    301!
+/blog/new.html           /new.html         301!
+/blog/computers.html     /computers.html   301!
+/blog/tts-list.html      /tts-list.html    301!
+
+# Browser fallback favicon request — prevents noisy /favicon.ico 404s in console/crawlers
+/favicon.ico             /images/favicon.png?v=20260211g   301!

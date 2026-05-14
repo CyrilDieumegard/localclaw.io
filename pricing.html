@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — LocalClaw Installer · $49 one-time</title>
+    <meta name="description" content="LocalClaw Installer is the optional $49 one-time macOS app for one-click local AI setup. The web model recommender stays free; the paid installer adds setup, activation, updates and support.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/pricing.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/pricing.html">
+    <meta property="og:title" content="Pricing — LocalClaw Installer · $49 one-time">
+    <meta property="og:description" content="Optional macOS installer for one-click local AI setup. $49 one-time; the web model recommender remains free.">
+    <meta property="og:site_name" content="LocalClaw">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+         LCP OPTIMIZATION — Preload hero screenshot (above-the-fold)
+         Quick win: targets Largest Contentful Paint < 2.5s
+         ============================================================ -->
+    <link rel="preload" as="image" href="images/app-screenshot-real.png?v=20260329b" fetchpriority="high">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505', surface: '#0F0F11', border: '#27272A',
+                            primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=20260211g">
+    <script src="js/theme-toggle.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+
+        /* ── Theme toggle ── */
+        .theme-toggle-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2); background: transparent;
+            color: #fbbf24; cursor: pointer; transition: all 0.2s ease;
+        }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+
+        /* ── Main card ── */
+        .installer-card {
+            background: linear-gradient(145deg, rgba(255,69,58,0.08) 0%, rgba(15,15,17,1) 100%);
+            border: 2px solid rgba(255,69,58,0.3);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .installer-card:hover {
+            border-color: rgba(255,69,58,0.55);
+            box-shadow: 0 0 60px rgba(255,69,58,0.12);
+        }
+        .installer-card .glow {
+            position: absolute; top: -60px; right: -60px;
+            width: 260px; height: 260px;
+            background: radial-gradient(circle, rgba(255,69,58,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ── CTAs ── */
+        .cta-primary {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 16px 32px; border-radius: 14px;
+            font-weight: 800; font-size: 16px; text-decoration: none; color: #fff;
+            background: linear-gradient(135deg, #FF453A, #FF6D64);
+            box-shadow: 0 4px 24px rgba(255,69,58,0.4);
+            transition: all 0.2s ease; border: none; cursor: pointer;
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 36px rgba(255,69,58,0.55);
+            color: #fff;
+        }
+        .cta-secondary {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 24px; border-radius: 12px;
+            font-weight: 600; font-size: 14px; text-decoration: none;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+            color: #a1a1aa; transition: all 0.2s ease;
+        }
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.25);
+            color: #fff;
+        }
+
+        /* ── Feature list ── */
+        .feat-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 14px; color: #d4d4d8;
+        }
+        .feat-item svg { flex-shrink: 0; color: #34d399; }
+
+        /* ── Trust bar ── */
+        .trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #71717a; }
+        .trust-item svg { color: #34d399; }
+
+        /* ── App screenshot ── */
+        .app-screenshot-wrap {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 16px 48px rgba(0,0,0,0.65), 0 0 40px rgba(255,69,58,0.08);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .app-screenshot-wrap:hover {
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.14), 0 20px 60px rgba(0,0,0,0.75), 0 0 50px rgba(255,69,58,0.14);
+            transform: translateY(-3px);
+        }
+        .app-screenshot-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,12,0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #a1a1aa;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .app-screenshot-label span.dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 5px rgba(52,211,153,0.6);
+            flex-shrink: 0;
+        }
+        .app-screenshot-label {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,12,0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #a1a1aa;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .app-screenshot-label span.dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 6px rgba(52,211,153,0.6);
+            flex-shrink: 0;
+        }
+        /* Pricing layout — géré en inline style */
+
+        /* ── Light mode ── */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250,249,246,0.8) !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250,249,246,0.5) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-text { color: #0f172a !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border\/50, html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .installer-card {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.1) !important;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
+        }
+        html.light .installer-card:hover {
+            border-color: rgba(255,69,58,0.3) !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+        }
+        html.light .installer-card .glow { display: none !important; }
+        html.light .feat-item { color: #374151 !important; }
+        html.light .trust-item { color: #4b5563 !important; }
+        html.light .cta-secondary { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.12) !important; color: #374151 !important; }
+        html.light .cta-secondary:hover { background: rgba(0,0,0,0.08) !important; color: #0f172a !important; }
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.2); color: #f59e0b; }
+        html.light .theme-toggle-btn:hover { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] { opacity: 0 !important; }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div { opacity: 0 !important; }
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"]:not(nav):not(header):not(#mobile-menu),
+        html.light [class*="blur-3xl"]:not(nav):not(header):not(#mobile-menu),
+        html.light [class*="blur-xl"]:not(nav):not(header):not(#mobile-menu) { opacity: 0 !important; pointer-events: none !important; }
+        /* Inline dark backgrounds → clair en light mode */
+        html.light [style*="background:rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+        /* Séparateurs et bordures blanches → gris clair */
+        html.light [style*="border-color:rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
+        html.light .border-t[style] { border-color: rgba(0,0,0,0.1) !important; }
+        /* Bloc how-it-works */
+        html.light .how-it-works-block { background: rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.08) !important; }
+        /* Screenshot en light mode — bordure et overlay cohérents */
+        html.light #screenshot-thumb {
+            border-color: rgba(0,0,0,0.1) !important;
+            background: #f3f4f6 !important;
+        }
+        html.light #screenshot-thumb > div { 
+            background: rgba(255,255,255,0.88) !important; 
+            border-color: rgba(0,0,0,0.1) !important; 
+            color: #374151 !important; 
+        }
+        /* Supprime le glow rouge sur la bordure en light */
+        html.light #screenshot-thumb {
+            box-shadow: 0 2px 0 rgba(0,0,0,0.06) !important;
+        }
+        /* Card collée en dessous — light mode */
+        html.light .installer-card[style*="border-radius:0 0"] {
+            border-top-color: rgba(0,0,0,0.08) !important;
+            border-color: rgba(0,0,0,0.1) !important;
+            background: #ffffff !important;
+        }
+        /* Couleurs de texte fixes trop sombres sur fond blanc */
+        html.light [style*="color:#52525b"] { color: #374151 !important; }
+        html.light [style*="color:#3f3f46"] { color: #374151 !important; }
+        /* Nav mobile menu fond noir */
+        html.light #mobile-menu { background: rgba(0,0,0,0.3) !important; }
+        html.light #mobile-menu .bg-claw-surface { background: #ffffff !important; }
+    </style>
+
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0" style="background:radial-gradient(ellipse 90% 80% at 50% 45%,transparent 0%,rgba(0,0,0,0.3) 60%,rgba(0,0,0,0.85) 100%);"></div>
+    </div>
+    <script src="js/bg-circuit.js" defer></script>
+
+    <!-- ── Navbar ── -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <span class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Pricing</span>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] font-mono font-bold tracking-wide uppercase items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] font-mono font-bold tracking-wide uppercase items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>Beta
+                    </div>
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+                <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30">Pricing</a>
+                <div class="border-t border-claw-border mt-2 pt-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Main ── -->
+    <main class="flex-grow px-4 py-14 sm:py-24 relative z-10">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- Page header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-5"
+                     style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.2);color:#FF6D64;">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                    macOS Native App
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-tight mb-4">
+                    LocalClaw<br><span class="text-claw-primary">Installer</span>
+                </h1>
+                <p class="text-claw-muted text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
+                    LocalClaw installs and configures your local AI stack on Mac (LM Studio + OpenClaw).<br>Download, activate, done.
+                </p>
+                <div class="mt-6 mx-auto max-w-2xl rounded-2xl px-5 py-4 text-sm leading-relaxed" style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.24);color:#d4d4d8;">
+                    <strong class="text-white">Clear choice:</strong> the browser-based model recommender is free. This page is for the optional <strong class="text-white">$49 one-time macOS Installer</strong> when you want one-click setup, activation, updates and email support.
+                </div>
+            </div>
+
+            <!-- ── Pricing card + screenshot stacked ── -->
+            <div style="display:flex;justify-content:center;margin-bottom:32px;">
+            <div style="width:100%;max-width:540px;">
+
+            <!-- Screenshot above card — click to zoom -->
+            <div id="screenshot-thumb" onclick="openLightbox()" style="width:100%;border-radius:16px 16px 0 0;overflow:hidden;cursor:zoom-in;position:relative;border:2px solid rgba(255,69,58,0.3);border-bottom:none;aspect-ratio:1440/900;">
+                <img
+                    src="images/app-screenshot-real.png?v=20260329b"
+                    alt="LocalClaw app — Home screen showing LM Studio + OpenClaw integration"
+                    width="1440"
+                    height="900"
+                    style="width:100%;height:auto;display:block;"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                >
+                <div style="position:absolute;top:10px;right:10px;background:rgba(10,10,12,0.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:4px 8px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#a1a1aa;">
+                    <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                    Click to zoom
+                </div>
+                <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(10,10,12,0.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:30px;padding:4px 12px;font-size:10px;font-weight:600;color:#a1a1aa;white-space:nowrap;display:flex;align-items:center;gap:5px;">
+                    <span style="width:5px;height:5px;border-radius:50%;background:#34d399;box-shadow:0 0 5px rgba(52,211,153,0.6);flex-shrink:0;"></span>
+                    LocalClaw v1.0 Beta — macOS
+                </div>
+            </div>
+
+            <!-- Pricing card — bords haut plats pour se coller à la screenshot -->
+            <div class="installer-card p-8 sm:p-10" style="border-radius:0 0 24px 24px;border-top:1px solid rgba(255,69,58,0.15);">
+                <div class="glow"></div>
+
+                <div class="relative z-10">
+                    <!-- Price -->
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center" style="background:linear-gradient(135deg,#FF453A,#FF6D64);">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 flex-wrap">
+                                <span class="text-5xl font-display font-extrabold text-white">$49</span>
+                                <span class="text-xl font-semibold text-claw-muted">one-time</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider"
+                                      style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.25);">
+                                    No subscription
+                                </span>
+                            </div>
+                            <p class="text-sm text-claw-muted mt-1">Optional paid installer. The web recommender remains free.</p>
+                        </div>
+                    </div>
+
+                    <!-- Separator -->
+                    <div class="border-t mb-6" style="border-color:rgba(128,128,128,0.2);"></div>
+
+                    <!-- Features -->
+                    <!-- System requirements banner -->
+                    <div class="flex items-start gap-3 px-4 py-3 rounded-xl mb-5" style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);">
+                        <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <div>
+                            <p class="text-xs font-bold" style="color:#fbbf24;">System Requirements</p>
+                            <p class="text-xs mt-0.5" style="color:#d97706;">macOS 13 Ventura or later &nbsp;·&nbsp; Apple Silicon or Intel Mac &nbsp;·&nbsp; 8 GB RAM minimum</p>
+                            <p class="text-xs mt-0.5" style="color:#92400e;">⚠️ Not compatible with macOS 12 Monterey or earlier. Windows &amp; Linux are not supported.</p>
+                        </div>
+                    </div>
+
+                    <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-8">
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            macOS 13+ native installer (.dmg)
+                        </li>
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            Lifetime license — no recurring fees
+                        </li>
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            Activation: email + key + one-time internet check
+                        </li>
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            One-time payment — no recurring charge
+                        </li>
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            License key shown instantly after payment
+                        </li>
+                        <li class="feat-item">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                            Support by email
+                        </li>
+                    </ul>
+
+                    <!-- Instant access notice -->
+                    <div class="flex items-center gap-2 px-4 py-3 rounded-xl mb-5" style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);">
+                        <svg class="w-4 h-4 flex-shrink-0" style="color:#34d399" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <p class="text-xs" style="color:#6ee7b7;"><strong style="color:#34d399;">Instant access after payment:</strong> your license key is shown instantly on the confirmation page after payment.</p>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04"
+                           target="_blank" rel="noopener"
+                           class="cta-primary flex-1 sm:flex-none">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                            Buy now — $49
+                        </a>
+                        <a href="https://pub-51e0e33cd67b4f1fa6b10590c86fc440.r2.dev/localclaw.dmg"
+                           class="cta-secondary">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Download installer
+                        </a>
+                    </div>
+                    <p class="text-[11px] text-claw-muted mt-3">Download is available before purchase for convenience, but the app requires a valid license key to activate.</p>
+
+                    <!-- Fine print -->
+                    <p class="text-xs mt-5" style="color:#52525b;">
+                        <svg class="w-3.5 h-3.5 inline mb-0.5 mr-1" style="color:#f59e0b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Single purchase. Your license key is shown instantly on the confirmation page after payment. The installer is free to download — a valid license key is required to activate the app. <strong style="color:#78716c;">Requires macOS 13 Ventura or later.</strong>
+                    </p>
+                </div>
+            </div>
+            </div><!-- /installer-card -->
+
+            </div><!-- /max-width col -->
+            </div><!-- /centering flex -->
+
+            <!-- Free vs Paid comparison -->
+            <section aria-label="Free recommender vs paid installer" class="mb-10">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <article class="rounded-2xl p-6" style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);">
+                        <div class="text-xs font-bold uppercase tracking-widest text-claw-muted mb-2">Free web tool</div>
+                        <h2 class="text-xl font-display font-bold text-white mb-3">Model recommender</h2>
+                        <ul class="space-y-2 text-sm text-claw-muted">
+                            <li>✓ Match LLM/TTS models to RAM, GPU and OS</li>
+                            <li>✓ Browse 177 LLMs + 47 TTS/ASR models</li>
+                            <li>✓ Private browser experience — no account required</li>
+                            <li>✓ Manual setup guidance for LM Studio / local AI</li>
+                        </ul>
+                        <a href="index.html" class="cta-secondary mt-5 inline-flex">Use free recommender</a>
+                    </article>
+                    <article class="rounded-2xl p-6" style="background:rgba(255,69,58,0.07);border:1px solid rgba(255,69,58,0.25);">
+                        <div class="text-xs font-bold uppercase tracking-widest mb-2" style="color:#FF6D64;">Paid native app</div>
+                        <h2 class="text-xl font-display font-bold text-white mb-3">LocalClaw Installer — $49</h2>
+                        <ul class="space-y-2 text-sm text-claw-muted">
+                            <li>✓ One-click macOS setup for the local AI stack</li>
+                            <li>✓ License activation, guided install and update workflow</li>
+                            <li>✓ Native .dmg app for macOS 13+ Apple Silicon or Intel</li>
+                            <li>✓ Lifetime license + email support, no subscription</li>
+                        </ul>
+                        <a href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" class="cta-primary mt-5 inline-flex">Buy installer — $49</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- What's included -->
+            <section aria-label="What is included" class="mb-10 rounded-2xl p-6 sm:p-8" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-5">What's included in the $49 installer</h2>
+                <div class="grid sm:grid-cols-2 gap-4 text-sm text-claw-muted">
+                    <div><strong class="text-white">Native macOS app</strong><br>Downloadable .dmg with activation flow.</div>
+                    <div><strong class="text-white">One-click setup</strong><br>Designed to reduce terminal/manual setup steps.</div>
+                    <div><strong class="text-white">LM Studio + OpenClaw workflow</strong><br>Helps configure the core local AI stack on Mac.</div>
+                    <div><strong class="text-white">Lifetime license</strong><br>Pay once, keep using it. No subscription.</div>
+                    <div><strong class="text-white">Instant license key</strong><br>Displayed after Stripe checkout and sent by email.</div>
+                    <div><strong class="text-white">Email support</strong><br>Help with activation, install issues and missing keys.</div>
+                </div>
+            </section>
+
+            <!-- ── Lightbox ── -->
+            <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px;cursor:zoom-out;">
+                <div style="position:relative;max-width:900px;width:100%;" onclick="event.stopPropagation()">
+                    <img src="images/app-screenshot-real.png?v=20260329b" alt="LocalClaw app full view"
+                        loading="lazy" decoding="async"
+                        style="width:100%;height:auto;border-radius:18px;box-shadow:0 0 0 1px rgba(255,255,255,0.1),0 32px 100px rgba(0,0,0,0.9),0 0 80px rgba(255,69,58,0.12);">
+                    <button onclick="closeLightbox()" style="position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;background:#FF453A;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 16px rgba(255,69,58,0.5);">
+                        <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                    <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(10,10,12,0.85);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:30px;padding:5px 14px;font-size:11px;font-weight:600;color:#a1a1aa;white-space:nowrap;display:flex;align-items:center;gap:6px;">
+                        <span style="width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 6px rgba(52,211,153,0.6);"></span>
+                        LocalClaw v1.0 Beta — macOS
+                    </div>
+                </div>
+            </div>
+            <script>
+            function openLightbox() {
+                var lb = document.getElementById('lightbox');
+                lb.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            function closeLightbox() {
+                var lb = document.getElementById('lightbox');
+                lb.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeLightbox();
+            });
+            </script>
+
+            <!-- Trust row + How it works — même largeur que la card -->
+            <div style="display:flex;justify-content:center;">
+            <div style="width:100%;max-width:540px;">
+
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-10">
+                <span class="trust-item">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Secure payment via Stripe
+                </span>
+                <span class="trust-item">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    No subscription — no recurring fees
+                </span>
+                <span class="trust-item">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Lifetime license
+                </span>
+                <a href="download.html" class="trust-item hover:text-white transition-colors" style="color:#FF6D64;">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Installation FAQ →
+                </a>
+            </div>
+
+            <!-- How it works -->
+            <div class="how-it-works-block rounded-2xl p-6 sm:p-8" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-5">How it works</h2>
+                <ol class="space-y-4">
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">1</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Buy LocalClaw — $49</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Click "Buy now" — secure Stripe checkout, takes 30 seconds. One-time payment, no subscription.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">2</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Get your license key instantly</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Your license key is shown instantly on the confirmation page after payment.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">3</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Download LocalClaw Installer (.dmg)</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Open the .dmg, drag the app to Applications, launch it.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);">4</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Enter email + license key → Activate</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Activation requires email + license key and a one-time internet check.</p>
+                        </div>
+                    </li>
+            </ol>
+            </div><!-- /how it works -->
+
+            </div><!-- /max-width 540 -->
+            </div><!-- /centering flex -->
+
+            <!-- Commercial FAQ -->
+            <section aria-label="Purchase FAQ" class="mt-10 rounded-2xl p-6 sm:p-8" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-5">Purchase FAQ</h2>
+                <div class="space-y-4 text-sm text-claw-muted">
+                    <div>
+                        <h3 class="font-semibold text-white mb-1">Do I need to pay to use LocalClaw?</h3>
+                        <p>No. The web recommender is free. You only pay if you want the optional macOS Installer for one-click setup and management.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-1">Why is the Download button visible before purchase?</h3>
+                        <p>So buyers can install quickly. The app still requires your email and valid license key before it can be used.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-1">Is it a subscription?</h3>
+                        <p>No. It is a one-time $49 lifetime license with no recurring fees.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-1">What if activation or installation fails?</h3>
+                        <p>Email <a href="/cdn-cgi/l/email-protection#6e060b021e02010d0f020d020f192e09030f0702400d0103" class="hover:underline" style="color:#FF6D64;"><span class="__cf_email__" data-cfemail="f29a979e829e9d91939e919e9385b2959f939b9edc919d9f">[email&#160;protected]</span></a> with your order email. Support covers activation, missing license keys and install guidance.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-claw-border/50 py-6 mt-auto relative z-10" style="background:rgba(5,5,5,0.5);">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw — Privacy-first AI. No data collected.</p>
+            <div class="flex gap-5 text-xs text-claw-muted">
+                <a href="download.html" class="hover:text-white transition-colors">Download</a>
+
+                <a href="/cdn-cgi/l/email-protection#91f9f4fde1fdfef2f0fdf2fdf0e6d1f6fcf0f8fdbff2fefc" class="hover:text-white transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

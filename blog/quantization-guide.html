@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>GGUF Quantization Guide: Q4, Q5, Q8 Explained | LocalClaw</title>
+    <meta name="description" content="Everything you need to understand about LLM quantization: Q4_K_M, Q5_K_M, Q8_0, FP16. Impact on quality, size, and speed. Complete guide to choosing the right quantization.">
+    <meta name="keywords" content="GGUF quantization, Q4 Q5 Q8 explained, llama.cpp quantization, K-quants, INT4 INT8 LLM, AI model size, quantization quality, quantization guide">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/quantization-guide.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/quantization-guide.html">
+    <meta property="og:title" content="GGUF Quantization Guide: Q4, Q5, Q8 Explained">
+    <meta property="og:description" content="Everything you need to understand about LLM quantization: impact on quality, size, and speed. Complete guide.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-02-01">
+    <meta property="article:section" content="Technical">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GGUF Quantization Guide: Q4, Q5, Q8 Explained">
+    <meta name="twitter:description" content="Everything you need to understand about LLM quantization. Complete guide.">
+
+    <!-- ============================================================
+         SECURITY HEADERS (via meta http-equiv)
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         FONTS & TAILWIND
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         THEME TOGGLE
+         ============================================================ -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- ============================================================
+         TRACKING
+         ============================================================ -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .quant-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-weight: 600; font-size: 0.875rem; }
+        .badge-q4 { background: rgba(245, 158, 11, 0.2); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-q5 { background: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-q8 { background: rgba(59, 130, 246, 0.2); color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-fp { background: rgba(139, 92, 246, 0.2); color: #8B5CF6; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table th { background: rgba(255,255,255,0.05); padding: 14px; text-align: left; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .comparison-table td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #A1A1AA; }
+        .formula-box { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); font-family: monospace; }
+        .size-bar { height: 24px; border-radius: 4px; position: relative; overflow: hidden; }
+        .size-bar-fill { height: 100%; border-radius: 4px; }
+        .bar-fp16 { width: 100%; background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+        .bar-q8 { width: 50%; background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+        .bar-q5 { width: 31%; background: linear-gradient(90deg, #10B981, #34D399); }
+        .bar-q4 { width: 25%; background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+        
+        /* Light Mode Styles */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background-color: rgba(250, 249, 246, 0.95) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-claw-text, html.light .text-white { color: #1e293b !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+        /* Prose typography */
+        html.light .prose h2 { color: #0f172a !important; }
+        html.light .prose h3 { color: #1e293b !important; }
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose p { color: #374151 !important; }
+        html.light .prose ul { color: #374151 !important; }
+        html.light .prose ol { color: #374151 !important; }
+        html.light .prose li { color: #374151 !important; }
+        html.light .prose strong { color: #0f172a !important; }
+        html.light .prose a { color: #FF453A !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #c2410c !important; }
+        /* Cards & boxes */
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.07) 0%, rgba(255,69,58,0.03) 100%) !important; }
+        html.light .highlight-box h4, html.light .highlight-box p { color: #1e293b !important; }
+        html.light .tip-box { background: rgba(16,185,129,0.07) !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box { background: rgba(245,158,11,0.07) !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        /* Table */
+        html.light table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+        html.light table td { color: #374151 !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light table td.text-white, html.light table td.font-medium { color: #0f172a !important; }
+        /* Footer */
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+        /* Dark gradient CTA boxes */
+        html.light [class*="from-claw-primary\/10"] { background: linear-gradient(135deg, rgba(255,69,58,0.06) 0%, transparent 100%) !important; }
+        html.light [class*="from-claw-primary\/10"] h3, html.light [class*="from-claw-primary\/10"] h4 { color: #0f172a !important; }
+        html.light [class*="from-claw-primary\/10"] p { color: #4b5563 !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-primary">Technical</span>
+            </nav>
+
+            <div class="flex items-center gap-4 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-xs font-semibold">Technical</span>
+                <span class="text-claw-muted text-sm">February 1, 2026</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
+                Complete Guide: <span class="quant-badge badge-q4">Q4</span> <span class="quant-badge badge-q5">Q5</span> <span class="quant-badge badge-q8">Q8</span> Quantization Explained
+            </h1>
+
+            <p class="text-xl text-claw-muted leading-relaxed mb-8">
+                Which quantization to choose for your LLMs? Impact on quality, size, and performance. Everything you need to understand about GGUF and K-quants.
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <article class="flex-grow px-4 pb-20">
+        <div class="max-w-4xl mx-auto prose">
+
+            <h2>What is quantization?</h2>
+            <p>
+                <strong>Quantization</strong> is a compression technique that reduces the precision of numbers representing the parameters of a language model. It's a bit like going from a RAW image to a JPEG: you lose a bit of quality, but the file becomes much smaller.
+            </p>
+
+            <div class="highlight-box rounded-xl p-6 my-6">
+                <h3 class="!mt-0 !mb-3 text-white"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Why quantize?</h3>
+                <ul class="!mb-0">
+                    <li><strong>Reduce size</strong>: A 70B model goes from 140GB (FP16) to 35GB (Q4) — 4x smaller!</li>
+                    <li><strong>Accelerate inference</strong>: Less data to process = faster generation</li>
+                    <li><strong>Reduce RAM/VRAM consumption</strong>: Allows running large models on modest hardware</li>
+                    <li><strong>Make local AI accessible</strong>: Without quantization, only datacenters could run modern LLMs</li>
+                </ul>
+            </div>
+
+            <h2>Types of quantization</h2>
+            
+            <h3>GGUF format and K-quants</h3>
+            <p>
+                The <strong>GGUF</strong> (GPT-Generated Unified Format) format is the standard created by the llama.cpp project. It integrates several quantization methods, called <strong>K-quants</strong>, which use sophisticated techniques to minimize quality loss.
+            </p>
+
+            <div class="rounded-xl bg-white/[0.02] border border-white/10 p-6 my-6">
+                <h4 class="text-white font-bold mb-4">Relative size of an 8B model by quantization:</h4>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span><span class="quant-badge badge-fp">FP16</span> Uncompressed</span>
+                            <span class="text-claw-muted">16 GB</span>
+                        </div>
+                        <div class="size-bar bg-white/5"><div class="size-bar-fill bar-fp16"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span><span class="quant-badge badge-q8">Q8_0</span> High quality</span>
+                            <span class="text-claw-muted">8 GB</span>
+                        </div>
+                        <div class="size-bar bg-white/5"><div class="size-bar-fill bar-q8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span><span class="quant-badge badge-q5">Q5_K_M</span> Optimal quality</span>
+                            <span class="text-claw-muted">5 GB</span>
+                        </div>
+                        <div class="size-bar bg-white/5"><div class="size-bar-fill bar-q5"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span><span class="quant-badge badge-q4">Q4_K_M</span> Good balance</span>
+                            <span class="text-claw-muted">4 GB</span>
+                        </div>
+                        <div class="size-bar bg-white/5"><div class="size-bar-fill bar-q4"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Detailed quantization guide</h2>
+
+            <h3><span class="quant-badge badge-q4">Q4_K_M</span> — The size/quality balance</h3>
+            <p>
+                <strong>Bits:</strong> ~4.5 bits per parameter (mixed 4 and 6 bits)<br>
+                <strong>Reduction:</strong> ~75% compared to FP16<br>
+                <strong>Estimated quality loss:</strong> 5-10%
+            </p>
+            <p>
+                The <strong>Q4_K_M</strong> (K-quants Mixed) quantization is the recommended default choice for most users. It offers the best compromise between reduced size and preserved quality.
+            </p>
+            <ul>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Ideal for:</strong> 8-16GB RAM, general use, chat</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Advantages:</strong> Reasonable size, very acceptable quality</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> <strong>Limits:</strong> Slight loss on complex tasks (advanced math, precise code)</li>
+            </ul>
+
+            <div class="formula-box rounded-lg p-4 my-4 text-sm">
+                <strong>Memory formula:</strong> Q4_Size ≈ (N_params × 4.5) / 8 / 1024³ GB<br>
+                <strong>Example 8B:</strong> (8×10⁹ × 4.5) / 8 / 1024³ ≈ <strong>4.2 GB</strong>
+            </div>
+
+            <h3><span class="quant-badge badge-q5">Q5_K_M</span> — Superior quality</h3>
+            <p>
+                <strong>Bits:</strong> ~5.5 bits per parameter<br>
+                <strong>Reduction:</strong> ~65% compared to FP16<br>
+                <strong>Estimated quality loss:</strong> 3-5%
+            </p>
+            <p>
+                <strong>Q5_K_M</strong> is the choice of demanding users who have enough RAM. The quality difference compared to the original model is barely noticeable in most use cases.
+            </p>
+            <ul>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Ideal for:</strong> 16-32GB RAM, development, professional writing</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Advantages:</strong> Near-native quality, excellent for code</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> <strong>Limits:</strong> File 25% larger than Q4</li>
+            </ul>
+
+            <h3><span class="quant-badge badge-q8">Q8_0</span> — Maximum precision</h3>
+            <p>
+                <strong>Bits:</strong> 8 bits per parameter<br>
+                <strong>Reduction:</strong> 50% compared to FP16<br>
+                <strong>Estimated quality loss:</strong> 1-2%
+            </p>
+            <p>
+                <strong>Q8_0</strong> is almost indistinguishable from the original FP16 model. Only very precise benchmarks manage to measure a difference.
+            </p>
+            <ul>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Ideal for:</strong> 32GB+ RAM, professional use, research</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Advantages:</strong> Maximum quality, no compromises</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> <strong>Limits:</strong> Significant size, requires powerful hardware</li>
+            </ul>
+
+            <h3><span class="quant-badge badge-fp">FP16 / BF16</span> — Native precision</h3>
+            <p>
+                <strong>Bits:</strong> 16 bits per parameter<br>
+                <strong>Reduction:</strong> None (original format)<br>
+                <strong>Quality loss:</strong> 0%
+            </p>
+            <p>
+                The <strong>FP16</strong> (Half Precision) or <strong>BF16</strong> (BFloat16) format is the one used during training. It's the absolute reference in terms of quality.
+            </p>
+            <ul>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg> <strong>Ideal for:</strong> Datacenters, fine-tuning, academic research</li>
+                <li><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> <strong>Inaccessible:</strong> A 70B model is 140GB — impossible to run locally for most</li>
+            </ul>
+
+            <h2>Complete comparison table</h2>
+
+            <div class="overflow-x-auto rounded-xl bg-white/[0.02] border border-white/10 p-4 my-6">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Quantization</th>
+                            <th>Bits/param</th>
+                            <th>8B Size</th>
+                            <th>70B Size</th>
+                            <th>Quality</th>
+                            <th>Min RAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="quant-badge badge-fp">FP16</span></td>
+                            <td>16</td>
+                            <td>16 GB</td>
+                            <td>140 GB</td>
+                            <td>100% (ref)</td>
+                            <td>24 GB / 144 GB</td>
+                        </tr>
+                        <tr>
+                            <td><span class="quant-badge badge-q8">Q8_0</span></td>
+                            <td>8</td>
+                            <td>8.5 GB</td>
+                            <td>74 GB</td>
+                            <td>~98%</td>
+                            <td>12 GB / 80 GB</td>
+                        </tr>
+                        <tr>
+                            <td><span class="quant-badge badge-q5">Q5_K_M</span></td>
+                            <td>~5.5</td>
+                            <td>5.5 GB</td>
+                            <td>48 GB</td>
+                            <td>~96%</td>
+                            <td>8 GB / 52 GB</td>
+                        </tr>
+                        <tr>
+                            <td><span class="quant-badge badge-q4">Q4_K_M</span></td>
+                            <td>~4.5</td>
+                            <td>4.5 GB</td>
+                            <td>39 GB</td>
+                            <td>~92%</td>
+                            <td>6 GB / 42 GB</td>
+                        </tr>
+                        <tr>
+                            <td><span class="quant-badge badge-q4">Q4_0</span></td>
+                            <td>4</td>
+                            <td>4.1 GB</td>
+                            <td>36 GB</td>
+                            <td>~88%</td>
+                            <td>6 GB / 38 GB</td>
+                        </tr>
+                        <tr>
+                            <td><span class="quant-badge badge-q4">Q3_K_M</span></td>
+                            <td>~3.5</td>
+                            <td>3.4 GB</td>
+                            <td>30 GB</td>
+                            <td>~82%</td>
+                            <td>4 GB / 32 GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>How to choose? Our decision matrix</h2>
+
+            <div class="highlight-box rounded-xl p-6 my-6">
+                <h3 class="!mt-0 !mb-4 text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Choose according to your configuration:</h3>
+                <div class="space-y-4">
+                    <div class="p-4 rounded-lg bg-white/5">
+                        <strong class="text-white block mb-1">8 GB RAM</strong>
+                        <span class="text-claw-muted">→ </span><span class="quant-badge badge-q4">Q4_K_M</span><span class="text-claw-muted"> mandatory, 7-8B models max</span>
+                    </div>
+                    <div class="p-4 rounded-lg bg-white/5">
+                        <strong class="text-white block mb-1">16 GB RAM</strong>
+                        <span class="text-claw-muted">→ </span><span class="quant-badge badge-q5">Q5_K_M</span><span class="text-claw-muted"> recommended for 8B, </span><span class="quant-badge badge-q4">Q4_K_M</span><span class="text-claw-muted"> for 13-14B</span>
+                    </div>
+                    <div class="p-4 rounded-lg bg-white/5">
+                        <strong class="text-white block mb-1">32 GB RAM</strong>
+                        <span class="text-claw-muted">→ </span><span class="quant-badge badge-q5">Q5_K_M</span><span class="text-claw-muted"> for 32B, </span><span class="quant-badge badge-q8">Q8_0</span><span class="text-claw-muted"> possible for 8B</span>
+                    </div>
+                    <div class="p-4 rounded-lg bg-white/5">
+                        <strong class="text-white block mb-1">64 GB+ RAM</strong>
+                        <span class="text-claw-muted">→ </span><span class="quant-badge badge-q8">Q8_0</span><span class="text-claw-muted"> for 32-70B, maximum quality</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Impact on real performance</h2>
+            <p>
+                Quantization affects not only quality but also <strong>generation speed</strong>:
+            </p>
+            <ul>
+                <li><strong>Q4_K_M</strong>: ~20-30% faster than FP16 (less voluminous data to process)</li>
+                <li><strong>Q5_K_M</strong>: ~15-20% faster than FP16</li>
+                <li><strong>Q8_0</strong>: Speed equivalent to FP16 (same calculation precision)</li>
+            </ul>
+            <p>
+                On modern GPU with INT4/INT8 support (RTX 30xx/40xx, Apple Silicon), acceleration can reach 2-3x compared to FP16 on CPU.
+            </p>
+
+            <h2>Conclusion</h2>
+            <p>
+                <strong>Q4_K_M</strong> remains the recommended default choice for most local AI users. It offers 90%+ of the original quality for 25% of the weight — an impressive technological compromise.
+            </p>
+            <p>
+                If you have the necessary RAM, upgrade to <strong>Q5_K_M</strong> for professional or development use. Reserve <strong>Q8_0</strong> for cases where every percentage of quality counts.
+            </p>
+            <p>
+                <a href="../index.html">LocalClaw</a> automatically recommends the right quantization based on your detected hardware — no more guessing!
+            </p>
+
+            <!-- Related -->
+            <div class="border-t border-white/10 pt-8 mt-12">
+                <h3 class="text-xl font-display font-bold mb-6">Related articles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="how-to-choose-local-llm.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Guide</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">How to Choose the Right Local LLM in 2026</h4>
+                    </a>
+                    <a href="apple-silicon-vs-nvidia.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Hardware</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">Apple Silicon vs NVIDIA for LLMs</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden sm:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Complete Guide: Q4, Q5, Q8 Quantization Explained",
+        "description": "Everything you need to understand about LLM quantization: Q4_K_M, Q5_K_M, Q8_0, FP16. Impact on quality, size, and speed.",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {"@type": "Organization", "name": "LocalClaw"},
+        "datePublished": "2026-02-01",
+        "dateModified": "2026-02-01",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://localclaw.io/blog/quantization-guide.html"}
+    }
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

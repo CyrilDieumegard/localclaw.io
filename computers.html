@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw</title>
+    <meta name="description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon. Matched by unified RAM & real-world testing.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/computers.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/computers.html">
+    <meta property="og:title" content="Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw">
+    <meta property="og:description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon.">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw">
+    <meta name="twitter:description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon.">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+
+    <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+    <link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260215">
+    <script src="js/theme-toggle.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            safelist: [
+                'bg-gray-50', 'bg-white', 'text-gray-900', 'text-gray-600',
+                'border-gray-200', 'hover:bg-gray-100',
+            ],
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA',
+                            'bg-light': '#faf9f6',
+                            'surface-light': '#ffffff',
+                            'border-light': '#e2e8f0',
+                            'text-light': '#1e293b',
+                            'muted-light': '#64748b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .lc-icon-3x { width:3em;height:3em; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #050505;
+            --surface: #0F0F11;
+            --surface2: #18181B;
+            --surface3: #1E1E22;
+            --border: #27272A;
+            --border2: #3F3F46;
+            --primary: #FF453A;
+            --accent: #FF6D64;
+            --text: #FAFAFA;
+            --muted: #A1A1AA;
+            --muted2: #71717A;
+            --green: #34D399;
+            --blue: #60A5FA;
+            --purple: #A855F7;
+            --yellow: #FACC15;
+            --orange: #FB923C;
+            --cyan: #22D3EE;
+            --amazon: #FF9900;
+            --apple-blue: #0A84FF;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Light mode styles */
+        html.light {
+            --bg: #faf9f6;
+            --surface: #ffffff;
+            --surface2: #f1f5f9;
+            --surface3: #e2e8f0;
+            --border: #e2e8f0;
+            --border2: #cbd5e1;
+            --text: #1e293b;
+            --muted: #64748b;
+            --muted2: #94a3b8;
+        }
+        
+        html.light body {
+            background: var(--bg) !important;
+            color: var(--text) !important;
+        }
+        
+        html.light .bg-black {
+            background-color: #ffffff !important;
+        }
+        
+        html.light .text-white {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-text {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-white\/20,
+        html.light .border-white\/10,
+        html.light .border-white\/5 {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .bg-white\/\[0\.02\],
+        html.light .bg-white\/5,
+        html.light .bg-white\/10,
+        html.light .hover\:bg-white\/5:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        
+        html.light .border-claw-border {
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .bg-claw-bg {
+            background-color: #faf9f6 !important;
+        }
+        
+        html.light .bg-claw-bg\/50 {
+            background-color: rgba(250, 249, 246, 0.5) !important;
+        }
+        
+        html.light .bg-claw-bg\/80 {
+            background-color: rgba(250, 249, 246, 0.8) !important;
+        }
+        
+        html.light .bg-claw-bg\/95 {
+            background-color: rgba(250, 249, 246, 0.95) !important;
+        }
+        
+        /* Hide dark vignette overlay in light mode */
+        html.light [style*="radial-gradient(ellipse 90% 80%"],
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
+            background: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"],
+        html.light [class*="blur-3xl"],
+        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        html.light .bg-claw-surface,
+        html.light nav,
+        html.light .nav {
+            background: rgba(255, 255, 255, 0.95) !important;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+        
+        html.light nav,
+        html.light .nav {
+            border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        
+        html.light body {
+            background: #faf9f6 !important;
+        }
+        
+        html.light .bg-black {
+            background-color: #ffffff !important;
+        }
+        
+        /* Reduce bg-circuit visibility in light mode */
+        html.light #bg-circuit {
+            opacity: 0.08 !important;
+        }
+        
+        /* Cards */
+        html.light .card {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+            backdrop-filter: none !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+        }
+        
+        html.light .card:hover {
+            border-color: var(--primary) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .card-head {
+            border-bottom-color: #e2e8f0 !important;
+        }
+        
+        html.light .card-title {
+            color: #1e293b !important;
+        }
+        
+        html.light .spec-chip {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .models-label {
+            color: #64748b !important;
+        }
+        
+        html.light .model-row {
+            border-bottom-color: #f1f5f9 !important;
+        }
+        
+        html.light .model-name {
+            color: #1e293b !important;
+        }
+        
+        html.light .model-desc {
+            color: #64748b !important;
+        }
+        
+        html.light .card-footer {
+            border-top-color: #e2e8f0 !important;
+        }
+        
+        html.light .show-more-btn {
+            background: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: #64748b !important;
+        }
+        
+        html.light .hero-badge {
+            background: rgba(255, 69, 58, 0.1) !important;
+            border-color: rgba(255, 69, 58, 0.2) !important;
+        }
+        
+        html.light .hero h1 {
+            color: #1e293b !important;
+        }
+        
+        html.light .hero h1 span {
+            color: var(--primary) !important;
+        }
+        
+        html.light .hero p {
+            color: #64748b !important;
+        }
+        
+        /* Mobile nav */
+        html.light .nav-links.open {
+            background: #ffffff !important;
+            border-bottom-color: #e2e8f0 !important;
+        }
+        
+        /* Footer */
+        html.light .footer {
+            border-top-color: #e2e8f0 !important;
+            background: #faf9f6 !important;
+        }
+        
+        html.light .footer p {
+            color: #64748b !important;
+        }
+        
+        /* Loading */
+        html.light .loading-spinner {
+            border-color: rgba(255, 69, 58, 0.2) !important;
+            border-top-color: var(--primary) !important;
+        }
+        
+        /* Error state */
+        html.light .error-state h3 {
+            color: #1e293b !important;
+        }
+        
+        html.light .error-state p {
+            color: #64748b !important;
+        }
+        
+        /* ===== LIGHT MODE — Nav ===== */
+        html.light .nav {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+        }
+        
+        html.light .nav-links a {
+            color: #64748b !important;
+        }
+        
+        html.light .nav-links a:hover,
+        html.light .nav-links a.active {
+            color: #1e293b !important;
+        }
+        
+        html.light .nav-logo-i {
+            box-shadow: 0 0 10px rgba(255, 69, 58, 0.2) !important;
+        }
+        
+        /* ===== LIGHT MODE — Legend ===== */
+        html.light .legend-bar {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .legend-title {
+            color: #94a3b8 !important;
+        }
+        
+        html.light .legend-item {
+            color: #475569 !important;
+        }
+        
+        /* ===== LIGHT MODE — Model items ===== */
+        html.light .m-item {
+            background: rgba(0, 0, 0, 0.02) !important;
+        }
+        
+        html.light .m-item:hover {
+            background: rgba(0, 0, 0, 0.04) !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light .m-item.curated {
+            background: rgba(255, 69, 58, 0.04) !important;
+            border-color: rgba(255, 69, 58, 0.12) !important;
+        }
+        
+        html.light .m-item.curated:hover {
+            border-color: rgba(255, 69, 58, 0.25) !important;
+        }
+        
+        html.light .m-name {
+            color: #1e293b !important;
+        }
+        
+        html.light .m-meta {
+            color: #94a3b8 !important;
+        }
+        
+        html.light .m-arrow {
+            color: #94a3b8 !important;
+        }
+        
+        /* ===== LIGHT MODE — Price & RAM ===== */
+        html.light .price {
+            color: #059669 !important;
+        }
+        
+        html.light .ram-badge {
+            background: rgba(255, 69, 58, 0.06) !important;
+        }
+        
+        /* ===== LIGHT MODE — View all ===== */
+        html.light .view-all {
+            border-top-color: #e2e8f0 !important;
+        }
+        
+        /* ===== LIGHT MODE — Q bar ===== */
+        html.light .q-bar {
+            background: #e2e8f0 !important;
+        }
+        
+        /* ===== LIGHT MODE — Mobile menu override ===== */
+        html.light #mobile-menu .bg-claw-surface {
+            background: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        html.light #mobile-menu a {
+            color: #64748b !important;
+        }
+        
+        html.light #mobile-menu a:hover {
+            background: rgba(0, 0, 0, 0.03) !important;
+            color: #1e293b !important;
+        }
+        
+        /* Theme toggle button */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .fd { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+        a { text-decoration: none; color: inherit; }
+
+        ::selection { background: rgba(255, 69, 58, .3); color: #fff; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        * { scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: sticky; top: 0; z-index: 50;
+            border-bottom: 1px solid rgba(39,39,42,.5);
+            background: rgba(5,5,5,.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        .nav-in {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between; height: 56px;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; }
+        .nav-logo-i {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, #FF453A, #ea580c);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(255,69,58,.4);
+        }
+        .nav-logo-i svg { width: 20px; height: 20px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .nav-badge {
+            padding: 2px 8px; border-radius: 999px;
+            background: rgba(255,69,58,0.12); border: 1px solid rgba(255,69,58,0.3);
+            color: var(--primary); font-size: 10px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+        .nav-badge::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%;
+            background: var(--primary); animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
+
+        /* Mobile nav */
+        .mobile-toggle { display: none; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 8px; }
+        @media (max-width: 768px) {
+            .mobile-toggle { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 56px; left: 0; right: 0;
+                background: var(--surface); border-bottom: 1px solid var(--border);
+                flex-direction: column; padding: 16px 20px; gap: 12px;
+            }
+            .nav-links.open { display: flex; }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            max-width: 1200px; margin: 0 auto; padding: 48px 20px 0;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 16px; border-radius: 999px;
+            background: rgba(255,69,58,.08); border: 1px solid rgba(255,69,58,.2);
+            font-size: 12px; font-weight: 600; color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700; color: var(--text);
+            line-height: 1.15; margin-bottom: 16px;
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p {
+            color: var(--muted); font-size: 16px; line-height: 1.6;
+            max-width: 600px; margin: 0 auto 32px;
+        }
+
+
+        /* ===== GRID ===== */
+        .grid {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 20px 64px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 14px;
+        }
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== CARD (matching llm-list.html style) ===== */
+        .card {
+            background: rgba(15,15,17,0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex; flex-direction: column;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .card:hover {
+            border-color: rgba(255,69,58,0.4);
+            box-shadow: 0 0 30px -10px rgba(255,69,58,0.15), 0 8px 24px -8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card:active {
+            transform: translateY(0);
+        }
+
+        /* Card header */
+        .card-head {
+            padding: 18px 18px 14px;
+            border-bottom: 1px solid rgba(39,39,42,0.15);
+        }
+        .card-brand {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 12px;
+        }
+        .brand-icon {
+            width: 28px; height: 28px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700;
+        }
+        .brand-icon.apple { background: rgba(10,132,255,.15); color: var(--apple-blue); }
+        .brand-icon.windows { background: rgba(0,120,212,.15); color: #0078D4; }
+
+
+        .brand-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .brand-label.apple { color: var(--apple-blue); }
+        .brand-label.windows { color: #0078D4; }
+
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px; font-weight: 700; color: #fff;
+            margin-bottom: 10px; line-height: 1.3;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .specs-row {
+            display: flex; flex-wrap: wrap; gap: 4px;
+            margin-bottom: 10px;
+        }
+        .spec-chip {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; border-radius: 5px;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(39,39,42,0.3);
+            font-size: 10px; font-weight: 500; color: var(--muted);
+        }
+        .spec-chip svg { width: 10px; height: 10px; color: var(--muted2); flex-shrink: 0; }
+
+        .price-row {
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px; font-weight: 700; color: #34D399;
+        }
+        .ram-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; border-radius: 5px;
+            background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.2);
+            font-size: 10px; font-weight: 700; color: var(--primary);
+        }
+
+        /* Models section */
+        .card-models {
+            padding: 14px 18px;
+            flex: 1; display: flex; flex-direction: column;
+        }
+        .models-head {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .models-label {
+            font-size: 10px; font-weight: 600; color: var(--muted);
+            text-transform: uppercase; letter-spacing: .04em;
+        }
+        .models-count {
+            font-size: 9px; font-weight: 700; color: var(--primary);
+            padding: 1px 8px; border-radius: 999px;
+            background: rgba(255,69,58,.08); border: 1px solid rgba(255,69,58,0.15);
+        }
+
+        /* Model items */
+        .m-list { display: flex; flex-direction: column; gap: 4px; }
+        .m-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 10px; border-radius: 8px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+            transition: all .2s; cursor: pointer; color: inherit;
+        }
+        .m-item:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(39,39,42,0.3);
+        }
+        .m-dot {
+            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+        }
+        .m-dot.llama { background: #FF453A; }
+        .m-dot.mistral { background: #60A5FA; }
+        .m-dot.qwen { background: #34D399; }
+        .m-dot.deepseek { background: #FB923C; }
+        .m-dot.gemma { background: #A855F7; }
+        .m-dot.phi { background: #22D3EE; }
+        .m-dot.glm { background: #FF6347; }
+        .m-dot.kimi { background: #FF69B4; }
+        .m-dot.cogito { background: #00CED1; }
+        .m-dot.default { background: #71717A; }
+
+        .m-info { flex: 1; min-width: 0; }
+        .m-name {
+            font-size: 11px; font-weight: 600; color: var(--text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .m-meta {
+            display: flex; gap: 8px; margin-top: 1px;
+            font-size: 9px; color: var(--muted2);
+        }
+        .m-meta span { display: flex; align-items: center; gap: 3px; white-space: nowrap; }
+
+        .m-quality {
+            display: flex; align-items: center; gap: 3px;
+            font-size: 10px; font-weight: 700; flex-shrink: 0;
+        }
+        .q-bar {
+            width: 28px; height: 3px; border-radius: 2px;
+            background: var(--border); overflow: hidden;
+        }
+        .q-fill { height: 100%; border-radius: 2px; }
+
+        .m-arrow {
+            color: var(--muted2); font-size: 11px;
+            transition: all .2s; flex-shrink: 0;
+        }
+        .m-item:hover .m-arrow { color: var(--primary); transform: translateX(2px); }
+
+        .m-item.curated { border-color: rgba(255,69,58,.15); background: rgba(255,69,58,.03); }
+        .m-item.curated:hover { border-color: rgba(255,69,58,.3); }
+        .pick-star { color: var(--primary); font-size: 11px; }
+
+        /* View all link */
+        .view-all {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1px solid rgba(39,39,42,0.15);
+            text-align: center;
+        }
+        .view-all a {
+            font-size: 11px; font-weight: 600; color: var(--primary);
+            display: inline-flex; align-items: center; gap: 4px;
+            transition: gap .2s;
+        }
+        .view-all a:hover { gap: 8px; }
+
+        /* Action button */
+        .card-action { padding: 0 18px 18px; margin-top: auto; }
+        .act-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 6px; width: 100%; padding: 10px 14px;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            transition: all .25s; border: none; cursor: pointer;
+        }
+        .act-btn.amazon {
+            background: linear-gradient(135deg, #FF9900 0%, #FFB84D 100%);
+            color: #000;
+        }
+        .act-btn.amazon:hover { box-shadow: 0 6px 18px rgba(255,153,0,.3); transform: translateY(-1px); }
+        .act-btn.apple-store {
+            background: linear-gradient(135deg, #0A84FF 0%, #409CFF 100%);
+            color: #fff;
+        }
+        .act-btn.apple-store:hover { box-shadow: 0 6px 18px rgba(10,132,255,.3); transform: translateY(-1px); }
+
+        /* ===== LEGEND ===== */
+        .legend-section {
+            max-width: 1200px; margin: 0 auto 28px;
+            padding: 0 20px;
+        }
+        .legend-bar {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 16px;
+            padding: 12px 20px; border-radius: 12px;
+            background: var(--surface); border: 1px solid var(--border);
+        }
+        .legend-title {
+            font-size: 11px; font-weight: 700; color: var(--muted2);
+            text-transform: uppercase; letter-spacing: .06em;
+            margin-right: 4px;
+        }
+        .legend-item {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 12px; color: var(--muted); font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            max-width: 1200px; margin: 0 auto;
+            padding: 24px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px; color: var(--muted2);
+        }
+        .footer a { color: var(--primary); transition: color .2s; }
+        .footer a:hover { color: var(--accent); }
+
+        /* ===== LOADING ===== */
+        .loading-state {
+            grid-column: 1 / -1;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 80px 20px; gap: 16px;
+        }
+        .spinner {
+            width: 36px; height: 36px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== ERROR ===== */
+        .error-state {
+            grid-column: 1 / -1;
+            text-align: center; padding: 80px 20px;
+        }
+        .error-state .err-icon { font-size: 40px; margin-bottom: 16px; }
+        .error-state h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; }
+        .error-state p { font-size: 14px; color: var(--muted); }
+        .error-state a { color: var(--primary); }
+
+        /* Fade in animation */
+        .card { opacity: 0; animation: fadeUp .4s ease forwards; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <!-- TRACKING: DataFast Analytics -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body>
+    <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
+    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js"></script>
+    <!-- NAV -->
+    <nav class="border-b border-white/20 bg-black sticky top-0 z-50 backdrop-blur-xl" role="navigation" aria-label="Main navigation" style="backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
+                    </span>
+                </a>
+
+                <!-- Nav Links -->
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <!-- Mobile hamburger -->
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="computers.html" class="hidden sm:inline text-sm font-mono text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
+        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+                <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+                <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-white/10 transition-colors">Computers</a>
+                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
+                <div class="border-t border-claw-border mt-2 pt-2">
+                    <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge"> Apple Silicon AI Guide</div>
+        <h1 class="fd">Find AI Models For<br><span>Your Mac</span></h1>
+        <p>Select your Mac to see exactly which AI models you can run locally. Each machine is matched with compatible LLMs based on unified RAM and real-world testing.</p>
+    </section>
+
+    <!-- LEGEND -->
+    <div class="legend-section">
+        <div class="legend-bar">
+            <span class="legend-title">Model Families</span>
+            <div class="legend-item"><div class="m-dot llama"></div> LLaMA</div>
+            <div class="legend-item"><div class="m-dot mistral"></div> Mistral</div>
+            <div class="legend-item"><div class="m-dot qwen"></div> Qwen</div>
+            <div class="legend-item"><div class="m-dot deepseek"></div> DeepSeek</div>
+            <div class="legend-item"><div class="m-dot gemma"></div> Gemma</div>
+            <div class="legend-item"><div class="m-dot phi"></div> Phi</div>
+            <div class="legend-item"><div class="m-dot default"></div> Other</div>
+            <span style="margin-left:auto;font-size:11px;color:var(--muted2);">★ = Editor's Pick</span>
+        </div>
+    </div>
+
+    <!-- GRID -->
+    <div id="grid" class="grid">
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <span style="font-size:13px;color:var(--muted);">Loading computers…</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Amazon affiliate links help support LocalClaw · 
+        <a href="https://www.buymeacoffee.com/ymichaelson" target="_blank">Buy me a coffee</a></p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        // ===== COMPUTERS DATABASE =====
+        const COMPUTERS = [
+            {
+                id: 'mac_mini_16', type: 'apple',
+                name: 'Apple Mac Mini M4',
+                chip: 'M4', ram: 16, storage: '256GB SSD',
+                price: '$499',
+                asin: 'B0DLBTPDCS', appleUrl: null,
+                badge: 'Best Starter Mac'
+            },
+            {
+                id: 'mac_mini_24', type: 'apple',
+                name: 'Mac Mini M4 Pro',
+                chip: 'M4 Pro', ram: 24, storage: '512GB SSD',
+                price: '$1,399',
+                asin: 'B0DNRFSYLF', appleUrl: null,
+                badge: 'Sweet Spot'
+            },
+            {
+                id: 'mac_mini_48', type: 'apple',
+                name: 'Mac Mini M4 Pro',
+                chip: 'M4 Pro', ram: 48, storage: '512GB SSD',
+                price: '$1,799',
+                asin: 'B0DS2XP86K', appleUrl: null,
+                badge: 'Power User'
+            },
+            {
+                id: 'mac_studio_64', type: 'apple',
+                name: 'Mac Studio M4 Max',
+                chip: 'M4 Max', ram: 64, storage: '1TB SSD',
+                price: '$3,199',
+                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Workstation'
+            },
+            {
+                id: 'mac_studio_128', type: 'apple',
+                name: 'Mac Studio M4 Ultra',
+                chip: 'M4 Ultra', ram: 128, storage: '1TB SSD',
+                price: '$5,999',
+                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Beast Mode'
+            },
+            {
+                id: 'mac_studio_max_128', type: 'apple',
+                name: 'Mac Studio M4 Max',
+                chip: 'M4 Max', ram: 128, storage: '2TB SSD',
+                price: '$4,599',
+                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Max Power'
+            },
+            {
+                id: 'mac_studio_256', type: 'apple',
+                name: 'Mac Studio M4 Ultra',
+                chip: 'M4 Ultra', ram: 256, storage: '2TB SSD',
+                price: '$8,999',
+                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Monster'
+            },
+            {
+                id: 'mac_studio_512', type: 'apple',
+                name: 'Mac Studio M4 Ultra',
+                chip: 'M4 Ultra', ram: 512, storage: '4TB SSD',
+                price: '$14,999',
+                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Ultimate Beast'
+            },
+            {
+                id: 'beelink_mini_s12', type: 'windows',
+                name: 'Beelink Mini PC S12',
+                chip: 'Intel 12th Gen N95 (up to 3.4GHz)', ram: 8, storage: '256GB SSD',
+                price: '$199',
+                asin: 'B08XBVXNFP', appleUrl: null,
+                badge: 'Budget Mini PC'
+            },
+
+        ];
+
+        // ===== FAMILY MAPPING =====
+        function getFamily(name, family) {
+            const f = (family || '').toLowerCase();
+            const n = name.toLowerCase();
+            if (f.includes('llama') || n.includes('llama')) return 'llama';
+            if (f.includes('mistral') || f.includes('mixtral') || n.includes('mistral') || n.includes('mixtral')) return 'mistral';
+            if (f.includes('qwen') || n.includes('qwen')) return 'qwen';
+            if (f.includes('deepseek') || n.includes('deepseek')) return 'deepseek';
+            if (f.includes('gemma') || n.includes('gemma')) return 'gemma';
+            if (f.includes('phi') || n.includes('phi')) return 'phi';
+            if (f.includes('glm') || n.includes('glm')) return 'glm';
+            if (f.includes('kimi') || n.includes('kimi')) return 'kimi';
+            if (f.includes('cogito') || n.includes('cogito')) return 'cogito';
+            return 'default';
+        }
+
+        function getQualityColor(q) {
+            if (q >= 8) return 'var(--green)';
+            if (q >= 6) return 'var(--blue)';
+            if (q >= 4) return 'var(--yellow)';
+            return 'var(--muted2)';
+        }
+
+        // ===== LOAD DATA =====
+        let MODELS = [];
+        function loadModels() {
+            if (typeof APP_DATA !== 'undefined' && APP_DATA.models && APP_DATA.models.length > 0) {
+                MODELS = APP_DATA.models;
+                return true;
+            }
+            return false;
+        }
+
+        // ===== CURATED TOP PICKS PER MACHINE =====
+        // Hand-picked best models per RAM tier based on community consensus (Reddit, leaderboards, Feb 2026)
+        const CURATED_PICKS = {
+            8:   ['qwen3-8b', 'gemma3-4b', 'phi4-mini', 'qwen3-4b', 'deepseek-r1-8b', 'glm4.7-flash'],
+            16:  ['qwen3-14b', 'phi4-reasoning-14b', 'glm4.5-air', 'phi4-14b', 'gemma3-12b', 'llama4-scout'],
+            24:  ['qwen3-32b', 'glm4-32b', 'cogito-32b', 'glm4.7', 'devstral-24b', 'qwen2.5-coder-32b'],
+            32:  ['qwen3-32b', 'glm4-32b', 'kimi-k2.5-32b', 'cogito-32b', 'gemma3-27b', 'qwen3-14b'],
+            48:  ['deepseek-v3.2', 'trinity-large', 'glm4.5-air', 'llama3.3-70b', 'qwen3-32b', 'glm4-32b'],
+            64:  ['deepseek-v3.2', 'trinity-large', 'glm4.5-air', 'qwen2.5-72b', 'qwen3-32b', 'kimi-k2.5-32b'],
+            128: ['deepseek-v3.2', 'trinity-large', 'qwen3-235b-a22b', 'mistral-large-123b', 'glm4.5-air', 'command-a-111b'],
+            256: ['deepseek-v3.2', 'qwen3-235b-a22b', 'trinity-large', 'mistral-large-123b', 'command-a-111b', 'wizardlm2-8x22b'],
+            512: ['deepseek-v3.1', 'deepseek-v3-671b', 'llama4-maverick', 'deepseek-v3.2', 'qwen3-235b-a22b', 'trinity-large']
+        };
+
+        // ===== COMPATIBLE MODELS =====
+        function getCompatible(computer) {
+            const compatible = MODELS.filter(m => {
+                if ((m.min_ram || 4) > computer.ram) return false;
+                if ((m.size_gb || 4) > computer.ram * 0.75) return false;
+                return true;
+            });
+
+            // Find closest curated tier
+            const tiers = Object.keys(CURATED_PICKS).map(Number).sort((a, b) => a - b);
+            let tier = tiers[0];
+            for (const t of tiers) {
+                if (t <= computer.ram) tier = t;
+            }
+            const picks = CURATED_PICKS[tier] || [];
+
+            // Sort: curated picks first (in order), then by composite score (quality×0.4 + freshness×0.3 + coding×0.15 + reasoning×0.15)
+            return compatible.sort((a, b) => {
+                const aIdx = picks.indexOf(a.id);
+                const bIdx = picks.indexOf(b.id);
+                if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+                if (aIdx !== -1) return -1;
+                if (bIdx !== -1) return 1;
+
+                // Freshness bonus: released date → months since 2024-01
+                const freshness = (m) => {
+                    if (!m.released) return 0;
+                    const [y, mo] = m.released.split('-').map(Number);
+                    return Math.min(10, ((y - 2024) * 12 + mo) / 3);
+                };
+                const scoreA = (a.benchmarks ? (a.benchmarks.quality * 0.4 + a.benchmarks.coding * 0.15 + a.benchmarks.reasoning * 0.15) : 0) + freshness(a) * 0.3;
+                const scoreB = (b.benchmarks ? (b.benchmarks.quality * 0.4 + b.benchmarks.coding * 0.15 + b.benchmarks.reasoning * 0.15) : 0) + freshness(b) * 0.3;
+                return scoreB - scoreA;
+            });
+        }
+
+        // ===== ICONS =====
+        const SVG = {
+            chip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg>',
+            ram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v-8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"/><path d="M4 19h16"/><path d="M10 5v4M14 5v4"/></svg>',
+            disk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M2 12h4M18 12h4"/></svg>',
+            arrow: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>',
+            arrowR: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+            amazon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.07-.116.36-.198.876-.016 3.2 1.127 6.68 1.687 10.095 1.687 2.73 0 5.52-.47 8.22-1.46.46-.156.84.2.46.66-2.47 2.25-5.94 3.44-9.43 3.44-4.32 0-8.34-1.76-11.22-4.67-.15-.15-.08-.26 0-.36z"/><path d="M14.85 16.01c-.26-.3-1.7-.36-2.35-.18-.2.05-.23-.15-.05-.28 1.15-.81 3.04-.58 3.26-.3.22.27-.06 2.16-1.14 3.06-.16.14-.32.06-.25-.12.24-.6.78-1.88.53-2.18z"/><path d="M12.25 3.88c1.6-.07 3.27.3 4.28 1.42 1.3 1.47 1.06 3.63 1.06 5.55v4.62c0 .62.22 1.22.66 1.66.18.17.4.35.18.5-.5.36-1.46 1.08-1.98.73L15 17.09c-1.04.88-2.36 1.14-3.72 1.14-2.53 0-4.5-1.56-4.5-4.68 0-3.32 2-5.02 4.92-5.02 1.16 0 2.12.2 2.88.6v-.72c0-1.32.1-2.55-.68-3.47-.62-.72-1.6-1-2.53-1-1.72 0-3.24.88-3.62 2.7-.08.37-.38.46-.62.48l-2-.22c-.28-.06-.58-.3-.5-.74C5.73 3.3 9.34 2.6 12.25 3.88zm-.92 8.1c-.92 0-1.68.34-2.16 1.08-.48.72-.58 1.7-.58 2.66 0 .96.1 1.9.58 2.6.5.72 1.3 1.04 2.16 1.04.84 0 1.6-.38 2.1-1.08.56-.8.68-1.72.68-2.7 0-.96-.14-2-.68-2.72-.5-.68-1.26-1.06-2.1-.88z"/></svg>',
+            apple: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>',
+            star: '★'
+        };
+
+        // ===== BRAND ICON =====
+        const windowsIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>';
+
+        function brandIcon(type) {
+            if (type === 'apple') return `<div class="brand-icon apple">${SVG.apple}</div>`;
+            return `<div class="brand-icon windows">${windowsIcon}</div>`;
+        }
+        function brandLabel(type) {
+            if (type === 'apple') return '<span class="brand-label apple">Apple Silicon</span>';
+            return '<span class="brand-label windows">Windows PC</span>';
+        }
+
+        // ===== RENDER CARD =====
+        function renderCard(comp, idx) {
+            const models = getCompatible(comp);
+            const top = models.slice(0, 5);
+            const more = models.length > 5;
+
+            // Find curated picks for badge
+            const tiers = Object.keys(CURATED_PICKS).map(Number).sort((a, b) => a - b);
+            let tier = tiers[0];
+            for (const t of tiers) { if (t <= comp.ram) tier = t; }
+            const picks = CURATED_PICKS[tier] || [];
+
+            let modelsHtml = top.map(m => {
+                const fam = getFamily(m.name, m.family);
+                const q = m.benchmarks ? ((m.benchmarks.quality + m.benchmarks.coding + m.benchmarks.reasoning) / 3) : 0;
+                const qPct = Math.round(q * 10);
+                const qColor = getQualityColor(q);
+                const isPick = picks.indexOf(m.id) < 3 && picks.includes(m.id);
+
+                return `<a href="llm-detail.html?model=${m.id}" class="m-item${isPick ? ' curated' : ''}">
+                    <div class="m-dot ${fam}"></div>
+                    <div class="m-info">
+                        <div class="m-name">${isPick ? '<span class="pick-star">★</span> ' : ''}${esc(m.name)}</div>
+                        <div class="m-meta">
+                            <span>${m.params || m.size_gb + 'B'}</span>
+                            <span>RAM ${m.min_ram}GB+</span>
+                        </div>
+                    </div>
+                    <div class="m-quality">
+                        <div class="q-bar"><div class="q-fill" style="width:${qPct}%;background:${qColor}"></div></div>
+                        <span style="color:${qColor};font-size:11px;min-width:28px;text-align:right;">${q.toFixed(1)}</span>
+                    </div>
+                    <div class="m-arrow">${SVG.arrow}</div>
+                </a>`;
+            }).join('');
+
+            const actionBtn = comp.asin
+                ? `<a href="https://www.amazon.com/dp/${comp.asin}?tag=localclaw-20" target="_blank" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
+                : `<a href="${comp.appleUrl}" target="_blank" class="act-btn apple-store">${SVG.apple} View on Apple.com</a>`;
+
+            return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">
+                <div class="card-head">
+                    <div class="card-brand">
+                        ${brandIcon(comp.type)}
+                        ${brandLabel(comp.type)}
+                    </div>
+                    <h2 class="card-title fd">${esc(comp.name)}</h2>
+                    <div class="specs-row">
+                        <span class="spec-chip">${SVG.chip} ${esc(comp.chip)}</span>
+                        <span class="spec-chip">${SVG.disk} ${esc(comp.storage)}</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">from ${esc(comp.price)}</span>
+                        <span class="ram-badge">${SVG.ram} ${comp.ram}GB</span>
+                    </div>
+                </div>
+                <div class="card-models">
+                    <div class="models-head">
+                        <span class="models-label">Top Picks</span>
+                        <span class="models-count">${models.length} compatible</span>
+                    </div>
+                    <div class="m-list">
+                        ${modelsHtml || '<div style="padding:20px;text-align:center;color:var(--muted2);font-size:13px;">No compatible models found</div>'}
+                    </div>
+                    ${more ? `<div class="view-all"><a href="llm-list.html">View all ${models.length} compatible models ${SVG.arrowR}</a></div>` : ''}
+                </div>
+                <div class="card-action">${actionBtn}</div>
+            </div>`;
+        }
+
+        function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('grid');
+
+            if (!loadModels()) {
+                grid.innerHTML = `<div class="error-state">
+                    <div class="err-icon"><svg class="lc-icon lc-icon-2x" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+                    <h3>Unable to load AI models</h3>
+                    <p>Please refresh the page or visit the <a href="llm-list.html">LLM</a>.</p>
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = COMPUTERS.map((c, i) => renderCard(c, i)).join('');
+        });
+    })();
+    </script>
+
+    <!-- ============================================================
+         SCROLL TO TOP BUTTON
+         ============================================================ -->
+    <style>
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 69, 58, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            z-index: 9999;
+            backdrop-filter: blur(8px);
+        }
+        #scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #scroll-to-top:hover {
+            background: #FF453A;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.5);
+        }
+        #scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+        #scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+        #scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            #scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        (function() {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            const scrollThreshold = 300;
+            
+            function toggleScrollButton() {
+                if (window.pageYOffset > scrollThreshold) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            }
+            
+            function scrollToTop(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            window.addEventListener('scroll', toggleScrollButton, { passive: true });
+            scrollBtn.addEventListener('click', scrollToTop);
+            toggleScrollButton();
+        })();
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

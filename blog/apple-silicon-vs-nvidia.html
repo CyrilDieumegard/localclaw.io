@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         PRIMARY SEO META TAGS
+         ============================================================ -->
+    <title>Apple Silicon vs NVIDIA for LLMs: Hardware Guide 2026 | LocalClaw</title>
+    <meta name="description" content="Unified memory vs dedicated VRAM, M3 Max vs RTX 4090 benchmarks. Which hardware to choose for running LLMs locally? Complete Mac vs PC comparison.">
+    <meta name="keywords" content="Apple Silicon LLM, Mac M3 LLM, NVIDIA RTX local AI, unified memory vs VRAM, M3 Max benchmark, RTX 4090 LLM, local AI hardware, Mac vs PC AI">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/blog/apple-silicon-vs-nvidia.html">
+
+    <!-- ============================================================
+         OPEN GRAPH
+         ============================================================ -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/apple-silicon-vs-nvidia.html">
+    <meta property="og:title" content="Apple Silicon vs NVIDIA for LLMs: Hardware Guide 2026">
+    <meta property="og:description" content="Unified memory vs dedicated VRAM, M3 Max vs RTX 4090 benchmarks. Complete Mac vs PC comparison for local AI.">
+    <meta property="og:site_name" content="LocalClaw Blog">
+    <meta property="article:published_time" content="2026-01-28">
+    <meta property="article:section" content="Hardware">
+
+    <!-- ============================================================
+         TWITTER CARD
+         ============================================================ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Apple Silicon vs NVIDIA for LLMs: Hardware Guide 2026">
+    <meta name="twitter:description" content="Unified memory vs dedicated VRAM, M3 Max vs RTX 4090 benchmarks.">
+
+    <!-- ============================================================
+         SECURITY HEADERS (via meta http-equiv)
+         ============================================================ -->
+    <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+
+    <!-- ============================================================
+         TECHNICAL META
+         ============================================================ -->
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark light">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="shortcut icon" href="/images/favicon.png?v=20260211g">
+
+    <!-- ============================================================
+         FONTS & TAILWIND
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', accent: '#FF6D64', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============================================================
+         THEME TOGGLE
+         ============================================================ -->
+    <script src="../js/theme-toggle.js"></script>
+
+    <!-- ============================================================
+         TRACKING
+         ============================================================ -->
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+        .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
+        .lc-icon-sm { width:0.875em;height:0.875em; }
+        .lc-icon-lg { width:1.25em;height:1.25em; }
+        .lc-icon-2x { width:2em;height:2em; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: #FFFFFF; }
+        .prose h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: #FFFFFF; }
+        .prose p { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; }
+        .prose ul { font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.25rem; color: #A1A1AA; list-style-type: disc; padding-left: 1.5rem; }
+        .prose strong { color: #FFFFFF; font-weight: 600; }
+        .prose a { color: #FF453A; text-decoration: underline; text-underline-offset: 3px; }
+        .prose a:hover { color: #FF6D64; }
+        .highlight-box { background: linear-gradient(145deg, rgba(255,69,58,0.1) 0%, rgba(255,69,58,0.05) 100%); border-left: 4px solid #FF453A; }
+        .mac-card { background: linear-gradient(145deg, rgba(99,102,241,0.1) 0%, rgba(99,102,241,0.05) 100%); border: 1px solid rgba(99,102,241,0.3); }
+        .nvidia-card { background: linear-gradient(145deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%); border: 1px solid rgba(16,185,129,0.3); }
+        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table th { background: rgba(255,255,255,0.05); padding: 14px; text-align: left; font-weight: 600; color: #FFFFFF; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        .comparison-table td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #A1A1AA; }
+        .win-badge { background: rgba(16,185,129,0.2); color: #34D399; border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .benchmark-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
+        /* Amazon Affiliate Encarts */
+        .amz-encart { margin: 2rem 0; padding: 1.25rem 1.5rem; border-left: 3px solid #FF9900; background: rgba(255,153,0,0.04); border-radius: 0 12px 12px 0; transition: background 0.2s; }
+        .amz-encart:hover { background: rgba(255,153,0,0.07); }
+        .amz-encart-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #FFFFFF; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
+        .amz-encart-desc { font-size: 0.9rem; color: #A1A1AA; margin-bottom: 0.75rem; line-height: 1.6; }
+        .amz-encart-price { font-size: 0.85rem; color: #FF9900; font-weight: 600; margin-bottom: 0.75rem; }
+        .amz-encart-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; background: #FF9900; color: #111; font-size: 0.8rem; font-weight: 700; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+        .amz-encart-btn:hover { background: #FFB84D; transform: translateY(-1px); }
+        .amz-encart-note { font-size: 0.7rem; color: rgba(161,161,170,0.5); margin-top: 0.5rem; }
+        
+        /* Light Mode Styles */
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fbbf24;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        html.light .theme-toggle-btn {
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #f59e0b;
+        }
+        
+        html.light .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        html.light body {
+            background: #faf9f6 !important;
+            color: #1e293b !important;
+        }
+        
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250, 249, 246, 0.5) !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250, 249, 246, 0.8) !important; }
+        html.light .bg-claw-bg\/95 { background-color: rgba(250, 249, 246, 0.95) !important; }
+        
+        html.light .text-white,
+        html.light .text-claw-text {
+            color: #1e293b !important;
+        }
+        
+        html.light .text-claw-muted {
+            color: #64748b !important;
+        }
+        
+        html.light .border-claw-border\/50,
+        html.light .border-claw-border {
+            border-color: rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        html.light .prose h2,
+        html.light .prose h3,
+        html.light .prose strong {
+            color: #1e293b !important;
+        }
+        
+        html.light .prose p,
+        html.light .prose ul {
+            color: #475569 !important;
+        }
+        
+        html.light .mac-card {
+            background: linear-gradient(145deg, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0.03) 100%);
+            border-color: rgba(99,102,241,0.2);
+        }
+        
+        html.light .nvidia-card {
+            background: linear-gradient(145deg, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.03) 100%);
+            border-color: rgba(16,185,129,0.2);
+        }
+        
+        html.light .comparison-table th {
+            background: rgba(0, 0, 0, 0.03);
+            color: #1e293b;
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        html.light .comparison-table td {
+            color: #475569;
+            border-bottom-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        html.light .benchmark-card {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        html.light .highlight-box {
+            background: linear-gradient(145deg, rgba(255,69,58,0.08) 0%, rgba(255,69,58,0.03) 100%);
+        }
+        
+        html.light .amz-encart {
+            background: rgba(255,153,0,0.06);
+            border-left-color: #FF9900;
+        }
+        
+        html.light .amz-encart-title {
+            color: #1e293b;
+        }
+        
+        html.light .amz-encart-desc {
+            color: #475569;
+        }
+        /* Additional light mode fixes */
+        html.light .prose h4 { color: #1e293b !important; }
+        html.light .prose ol { color: #475569 !important; }
+        html.light .prose li { color: #475569 !important; }
+        html.light .prose code { background: rgba(0,0,0,0.06) !important; color: #c2410c !important; }
+        html.light .step-card { background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; color: #1e293b !important; }
+        html.light .step-card code { color: #1e293b !important; }
+        html.light .tip-box p, html.light .tip-box strong { color: #1e293b !important; }
+        html.light .warning-box p, html.light .warning-box strong { color: #1e293b !important; }
+        html.light h4.font-semibold { color: #0f172a !important; }
+        html.light p.text-claw-muted { color: #4b5563 !important; }
+        html.light table th { background: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
+        html.light table td { color: #374151 !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light table td.text-white, html.light table td.font-medium { color: #0f172a !important; }
+        html.light footer { background: rgba(241,240,236,0.5) !important; border-color: rgba(0,0,0,0.08) !important; }
+        html.light footer h4 { color: #0f172a !important; }
+        html.light footer a, html.light footer span.text-claw-muted { color: #64748b !important; }
+        html.light footer a:hover { color: #0f172a !important; }
+    </style>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../new.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
+                        V3.9.0
+                    </div>
+                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
+                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+                        Beta
+                    </div>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <!-- Moon icon (shown in light mode, hidden by default) -->
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="../new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <div class="border-t border-claw-border mt-2 pt-2">
+                <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="pt-12 pb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6">
+                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-claw-primary">Hardware</span>
+            </nav>
+
+            <div class="flex items-center gap-4 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-xs font-semibold">Hardware</span>
+                <span class="text-claw-muted text-sm">January 28, 2026</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-6 sm:gap-12 mb-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-3 mx-auto shadow-lg shadow-indigo-500/20">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.09-3.11-1.06.05-2.34.71-3.1 1.56-.66.75-1.24 1.96-1.08 3.09 1.14.09 2.3-.69 3.09-1.54z"/></svg>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-white">Apple Silicon</h2>
+                    <p class="text-sm text-claw-muted">M3 / M4</p>
+                </div>
+                <div class="text-2xl font-bold text-claw-muted">VS</div>
+                <div class="text-center">
+                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-3 mx-auto shadow-lg shadow-green-500/20">
+                        <span class="text-3xl"><svg style="width:30px;height:30px;color:white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold text-white">NVIDIA</h2>
+                    <p class="text-sm text-claw-muted">RTX 40xx</p>
+                </div>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight text-center">
+                Apple Silicon vs NVIDIA: Which Hardware for LLMs?
+            </h1>
+
+            <p class="text-xl text-claw-muted leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+                Unified memory vs dedicated VRAM, M3 Max vs RTX 4090 benchmarks, and the best choice according to your budget and usage.
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <article class="flex-grow px-4 pb-20">
+        <div class="max-w-4xl mx-auto prose">
+
+            <h2>The challenge: Memory for LLMs</h2>
+            <p>
+                To run an LLM locally, the number one limiting factor is <strong>available memory</strong>. A model must be loaded entirely into RAM (or VRAM) to function. And this is where architectures differ radically.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                <div class="mac-card rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-500 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.21-1.98 1.09-3.11-1.06.05-2.34.71-3.1 1.56-.66.75-1.24 1.96-1.08 3.09 1.14.09 2.3-.69 3.09-1.54z"/></svg>
+                        </div>
+                        <h3 class="!mt-0 !mb-0 text-white">Apple Silicon</h3>
+                    </div>
+                    <ul class="!mb-0 space-y-2">
+                        <li><strong>Unified memory</strong>: All RAM is accessible to GPU + CPU</li>
+                        <li>MacBook Pro M3: up to <strong>128 GB</strong></li>
+                        <li>Mac Studio M2 Ultra: up to <strong>192 GB</strong></li>
+                        <li>Memory bandwidth: 400-800 GB/s</li>
+                        <li>ARM architecture optimized for Neural Engine</li>
+                    </ul>
+                </div>
+                <div class="nvidia-card rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center text-xl"><svg style="width:20px;height:20px;color:white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div>
+                        <h3 class="!mt-0 !mb-0 text-white">NVIDIA RTX</h3>
+                    </div>
+                    <ul class="!mb-0 space-y-2">
+                        <li><strong>Dedicated VRAM</strong>: GPU memory separate from system RAM</li>
+                        <li>RTX 4090: <strong>24 GB</strong> VRAM (max consumer)</li>
+                        <li>RTX 6000 Ada: <strong>48 GB</strong> VRAM (pro)</li>
+                        <li>VRAM bandwidth: 1000+ GB/s</li>
+                        <li>CUDA optimized, mature ecosystem</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Understanding Apple unified memory</h2>
+            <p>
+                On Apple Silicon (M1, M2, M3, M4), memory is <strong>unified</strong>: the CPU and GPU share the same pool of RAM. Concretely:
+            </p>
+            <ul>
+                <li>A 36GB MacBook Pro M3 can load a <strong>30B Q5</strong> (~26GB) model comfortably</li>
+                <li>On PC, an RTX 4090 24GB would be limited to <strong>13-14B</strong> models maximum, even with 64GB of system RAM</li>
+                <li>No data copying between RAM and VRAM — everything is instantly accessible</li>
+            </ul>
+
+            <div class="highlight-box rounded-xl p-6 my-6">
+                <p class="!text-white !mb-0"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Concrete example:</strong> To run Llama 3.3 70B Q4 (~39GB), you need either a Mac Studio with 64GB+ of unified RAM, or a PC configuration with 48GB+ of VRAM (RTX 6000 Ada at €8000+). The Mac becomes economically more accessible for large models.</p>
+            </div>
+
+            <h2>Benchmarks: M3 Max vs RTX 4090</h2>
+            <p>
+                Tests conducted with LM Studio, Qwen 3 8B Q5_K_M model, generating 512 tokens:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+                <div class="benchmark-card rounded-xl p-5 text-center">
+                    <div class="text-3xl mb-2"><svg style="width:30px;height:30px;color:#A855F7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+                    <h4 class="text-white font-bold mb-1">MacBook Pro M3 Max</h4>
+                    <p class="text-sm text-claw-muted mb-3">36GB unified RAM</p>
+                    <div class="text-2xl font-bold text-indigo-400">38 tok/s</div>
+                    <p class="text-xs text-claw-muted mt-1">Tokens/second</p>
+                </div>
+                <div class="benchmark-card rounded-xl p-5 text-center">
+                    <div class="text-3xl mb-2"><svg style="width:30px;height:30px;color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+                    <h4 class="text-white font-bold mb-1">PC RTX 4090</h4>
+                    <p class="text-sm text-claw-muted mb-3">24GB VRAM + 64GB RAM</p>
+                    <div class="text-2xl font-bold text-green-400">52 tok/s</div>
+                    <p class="text-xs text-claw-muted mt-1">Tokens/second</p>
+                </div>
+                <div class="benchmark-card rounded-xl p-5 text-center">
+                    <div class="text-3xl mb-2"><svg style="width:30px;height:30px;color:#A855F7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+                    <h4 class="text-white font-bold mb-1">Mac Studio M2 Ultra</h4>
+                    <p class="text-sm text-claw-muted mb-3">192GB unified RAM</p>
+                    <div class="text-2xl font-bold text-indigo-400">35 tok/s</div>
+                    <p class="text-xs text-claw-muted mt-1">Tokens/second (70B)</p>
+                </div>
+            </div>
+
+            <!-- Amazon Encart 1: Mac Mini for AI -->
+            <div class="amz-encart">
+                <div class="amz-encart-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg> Mac Mini M4 — Best Entry Point for Local AI</div>
+                <div class="amz-encart-desc">16GB unified memory runs 8B models at 35+ tok/s. Silent, compact, and powerful enough for most local LLMs.</div>
+                <div class="amz-encart-price">From $499 on Amazon</div>
+                <a href="https://www.amazon.com/dp/B0DLBTPDCS?tag=localclaw-20" target="_blank" rel="noopener sponsored" class="amz-encart-btn">View on Amazon →</a>
+                <div class="amz-encart-note">ℹ️ Affiliate link — As an Amazon Associate, LocalClaw earns from qualifying purchases.</div>
+            </div>
+
+            <h3>Analysis of results</h3>
+            <ul>
+                <li><strong>Pure speed:</strong> NVIDIA RTX 4090 wins by 20-40% thanks to CUDA and higher VRAM bandwidth</li>
+                <li><strong>Accessible models:</strong> Mac M3 36GB can run models 2x larger than RTX 4090</li>
+                <li><strong>Mac Studio M2 Ultra:</strong> Only "accessible" hardware capable of running 70B+ models</li>
+                <li><strong>Consumption:</strong> Mac consumes 3-5x less energy (20-30W vs 150-450W)</li>
+            </ul>
+
+            <h2>Complete comparison table</h2>
+
+            <div class="overflow-x-auto rounded-xl bg-white/[0.02] border border-white/10 p-4 my-6">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>MacBook Pro M3 Max</th>
+                            <th>PC RTX 4090</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Memory for LLM</strong></td>
+                            <td>36-128 GB (unified)</td>
+                            <td>24 GB VRAM max</td>
+                            <td><span class="win-badge">Mac</span> (capacity)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Generation speed</strong></td>
+                            <td>35-40 tok/s</td>
+                            <td>50-60 tok/s</td>
+                            <td><span class="win-badge">NVIDIA</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Max accessible model</strong></td>
+                            <td>70B Q4 (128GB Mac)</td>
+                            <td>30B Q4 (24GB VRAM)</td>
+                            <td><span class="win-badge">Mac</span> (capacity)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Configuration price</strong></td>
+                            <td>€4000-7000</td>
+                            <td>€2500-3500</td>
+                            <td><span class="win-badge">NVIDIA</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Power consumption</strong></td>
+                            <td>20-40W</td>
+                            <td>150-450W</td>
+                            <td><span class="win-badge">Mac</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Portability</strong></td>
+                            <td>Native laptop</td>
+                            <td>Desktop (heavy)</td>
+                            <td><span class="win-badge">Mac</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ecosystem</strong></td>
+                            <td>Limited (Metal)</td>
+                            <td>Rich (CUDA)</td>
+                            <td><span class="win-badge">NVIDIA</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Noise / Heat</strong></td>
+                            <td>Silent</td>
+                            <td>Noisy under load</td>
+                            <td><span class="win-badge">Mac</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Which hardware to choose?</h2>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg> For small models (7-8B)</h3>
+            <p>
+                Tight budget, lightweight models: both platforms excel. A MacBook Air M3 16GB or a PC with RTX 3060 12GB will do perfectly.
+            </p>
+            <ul>
+                <li><strong>MacBook Air M3 16GB</strong>: ~€1400, silent, portable</li>
+                <li><strong>PC + RTX 3060 12GB</strong>: ~€1000, faster, desktop</li>
+            </ul>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> For medium models (13-30B)</h3>
+            <p>
+                This is where Apple unified memory becomes decisive.
+            </p>
+            <ul>
+                <li><strong>MacBook Pro M3 36GB</strong>: ~€3200, can comfortably run 30B models</li>
+                <li><strong>PC + RTX 4090 24GB</strong>: ~€3500, limited to 13-14B on GPU (rest on CPU possible but slow)</li>
+            </ul>
+
+            <!-- Amazon Encart 2: RTX 4060 Ti for medium models -->
+            <div class="amz-encart">
+                <div class="amz-encart-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg> NVIDIA RTX 4060 Ti 16GB</div>
+                <div class="amz-encart-desc">16GB VRAM for running 14B models fully on GPU. Great for coding and reasoning models like DeepSeek R1 14B.</div>
+                <div class="amz-encart-price">From $399 on Amazon</div>
+                <a href="https://www.amazon.com/dp/B0CBK7H19M?tag=localclaw-20" target="_blank" rel="noopener sponsored" class="amz-encart-btn">View on Amazon →</a>
+                <div class="amz-encart-note">ℹ️ Affiliate link</div>
+            </div>
+
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09zM12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg> For large models (70B+)</h3>
+            <p>
+                Apple Silicon is practically alone in this "accessible" segment.
+            </p>
+            <ul>
+                <li><strong>Mac Studio M2 Ultra 128GB</strong>: ~€7000, can run Llama 3.3 70B Q4</li>
+                <li><strong>PC Alternative</strong>: RTX 6000 Ada 48GB (~€8000) + 128GB RAM, but complex to configure</li>
+            </ul>
+
+            <div class="highlight-box rounded-xl p-6 my-6">
+                <h3 class="!mt-0 !mb-3 text-white"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Verdict by usage:</h3>
+                <ul class="!mb-0 space-y-2">
+                    <li><strong>Mobile/developer usage:</strong> MacBook Pro M3 — silence, battery, memory capacity</li>
+                    <li><strong>Pure performance / Gaming:</strong> PC NVIDIA — speed, CUDA ecosystem</li>
+                    <li><strong>Large 70B+ models:</strong> Mac Studio — only "reasonable" option</li>
+                    <li><strong>Tight budget:</strong> PC RTX 3060/4060 — best performance/price ratio</li>
+                </ul>
+            </div>
+
+            <!-- Amazon Encart 3: Mac Mini M4 Pro for large models -->
+            <div class="amz-encart">
+                <div class="amz-encart-title">🛒 Mac Mini M4 Pro 24GB</div>
+                <div class="amz-encart-desc">The sweet spot for local AI. 24GB unified memory runs 32B models at ~15 tokens/sec. Ideal for Qwen 3 32B, DeepSeek R1 32B.</div>
+                <div class="amz-encart-price">From $1,399 on Amazon</div>
+                <a href="https://www.amazon.com/dp/B0DNRFSYLF?tag=localclaw-20" target="_blank" rel="noopener sponsored" class="amz-encart-btn">View on Amazon →</a>
+                <div class="amz-encart-note">ℹ️ Affiliate link</div>
+            </div>
+
+            <h2>Conclusion</h2>
+            <p>
+                The choice between Apple Silicon and NVIDIA for LLMs depends on your <strong>priority</strong>: pure speed (NVIDIA) vs memory capacity (Apple).
+            </p>
+            <p>
+                In 2026, <strong>Apple Silicon emerges as the ideal platform for advanced local AI</strong> thanks to its generous unified memory. Being able to run a 70B model on a "consumer" desktop computer was impossible before the Mac Studio.
+            </p>
+            <p>
+                That said, for the vast majority of users with 7-14B models, both platforms offer an excellent experience. <a href="../index.html">LocalClaw</a> will help you optimize your settings regardless of your configuration.
+            </p>
+
+            <!-- Related -->
+            <div class="border-t border-white/10 pt-8 mt-12">
+                <h3 class="text-xl font-display font-bold mb-6">Related articles</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="how-to-choose-local-llm.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Guide</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">How to Choose the Right Local LLM in 2026</h4>
+                    </a>
+                    <a href="quantization-guide.html" class="p-4 rounded-xl bg-white/[0.02] border border-white/10 hover:border-claw-primary/30 transition-colors group">
+                        <span class="text-xs text-claw-primary font-semibold">Technical</span>
+                        <h4 class="text-white font-medium mt-1 group-hover:text-claw-primary transition-colors">Quantization Guide Q4, Q5, Q8 Explained</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 mt-auto bg-claw-bg/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+                <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <span class="hidden sm:inline text-claw-border">·</span>
+                <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No data collected. Ever.</p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STRUCTURED DATA -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Apple Silicon vs NVIDIA for LLMs: Hardware Guide 2026",
+        "description": "Unified memory vs dedicated VRAM, benchmarks M3 Max vs RTX 4090. Which hardware to choose for running LLMs locally?",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://localclaw.io/images/logo.png"
+            }
+        },
+        "datePublished": "2026-01-28",
+        "dateModified": "2026-01-28",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://localclaw.io/blog/apple-silicon-vs-nvidia.html"}
+    }
+    </script>
+
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

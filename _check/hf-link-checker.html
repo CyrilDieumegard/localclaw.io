@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HF Link Checker v2</title>
+<style>
+body{font-family:monospace;background:#0a0a0a;color:#e5e5e5;padding:20px;max-width:900px;}
+h1{color:#FF453A;}
+.link{padding:6px 10px;margin:3px 0;border-radius:6px;display:flex;gap:10px;align-items:flex-start;font-size:12px;}
+.ok{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);}
+.dead{background:rgba(255,69,58,0.12);border:1px solid rgba(255,69,58,0.35);}
+.warn{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);}
+.pending{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);}
+.badge{font-weight:700;min-width:65px;flex-shrink:0;padding-top:1px;}
+.ok .badge{color:#34d399;}
+.dead .badge{color:#FF453A;}
+.warn .badge{color:#fbbf24;}
+.pending .badge{color:#6b7280;}
+.lbl{font-weight:600;color:#e5e5e5;}
+.url{color:#60a5fa;font-size:11px;word-break:break-all;}
+#summary{margin-top:20px;padding:14px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);line-height:1.8;}
+</style>
+</head>
+<body>
+<h1>🔗 HF Link Checker v2</h1>
+<div id="results"></div>
+<div id="summary">Starting…</div>
+<script>
+const LINKS = [
+  // ── TTS ──
+  {id:"qwen3-tts",  url:"https://huggingface.co/Qwen/Qwen3-TTS",                    lbl:"Qwen3 TTS"},
+  {id:"melotts",    url:"https://huggingface.co/myshell-ai/MeloTTS-English",         lbl:"MeloTTS-English"},
+  {id:"piper",      url:"https://huggingface.co/rhasspy/piper-voices",               lbl:"Piper voices"},
+  {id:"coqui",      url:"https://huggingface.co/coqui/XTTS-v2",                     lbl:"Coqui XTTS-v2"},
+  {id:"bark",       url:"https://huggingface.co/suno/bark",                          lbl:"Bark (suno)"},
+  {id:"mms",        url:"https://huggingface.co/facebook/mms-tts",                  lbl:"MMS-TTS (fb)"},
+  {id:"parler",     url:"https://huggingface.co/parler-tts/parler-tts-mini-v1",      lbl:"Parler mini v1"},
+  {id:"fish",       url:"https://huggingface.co/fishaudio/fish-speech-1.5",          lbl:"Fish Speech 1.5"},
+  {id:"styletts2",  url:"https://huggingface.co/yl4579/StyleTTS2-LibriTTS",          lbl:"StyleTTS2"},
+  {id:"f5tts",      url:"https://huggingface.co/SWivid/F5-TTS",                     lbl:"F5-TTS"},
+  {id:"chattts",    url:"https://huggingface.co/2Noise/ChatTTS",                    lbl:"ChatTTS"},
+  {id:"tortoise",   url:"https://huggingface.co/jbetker/tortoise-tts-v2",            lbl:"Tortoise TTS v2"},
+  {id:"metavoice",  url:"https://huggingface.co/metavoiceio/metavoice-1B-v0.1",     lbl:"MetaVoice-1B"},
+  {id:"kokoro",     url:"https://huggingface.co/hexgrad/Kokoro-82M",                lbl:"Kokoro-82M"},
+  {id:"orpheus",    url:"https://huggingface.co/canopylabs/orpheus-3b-0.1-ft",      lbl:"Orpheus 3b"},
+  {id:"chatterbox", url:"https://huggingface.co/ResembleAI/chatterbox",             lbl:"Chatterbox"},
+  {id:"dia",        url:"https://huggingface.co/nari-labs/Dia-1.6B",                lbl:"Dia 1.6B"},
+  {id:"outetts",    url:"https://huggingface.co/OuteAI/OuteTTS-0.3-1B",             lbl:"OuteTTS 0.3-1B"},
+  {id:"cosyvoice2", url:"https://huggingface.co/FunAudioLLM/CosyVoice2-0.5B",       lbl:"CosyVoice2 0.5B"},
+  {id:"sparktts",   url:"https://huggingface.co/SparkAudio/Spark-TTS-0.5B",         lbl:"Spark-TTS 0.5B"},
+  // ── LLM hf_repo ──
+  {id:"gemma3-1b",  url:"https://huggingface.co/lmstudio-community/gemma-3-1B-it-GGUF",          lbl:"Gemma 3 1B GGUF"},
+  {id:"phi4mini",   url:"https://huggingface.co/lmstudio-community/Phi-4-mini-instruct-GGUF",    lbl:"Phi-4-mini GGUF"},
+  {id:"phi4",       url:"https://huggingface.co/lmstudio-community/Phi-4-Instruct-GGUF",         lbl:"Phi-4 GGUF"},
+  {id:"qwen3-4b",   url:"https://huggingface.co/lmstudio-community/Qwen3-4B-GGUF",              lbl:"Qwen3-4B GGUF"},
+  {id:"llama32-3b", url:"https://huggingface.co/lmstudio-community/Llama-3.2-3B-Instruct-GGUF", lbl:"Llama 3.2 3B GGUF"},
+  {id:"moondream2", url:"https://huggingface.co/vikhyatk/moondream2",                            lbl:"Moondream2"},
+  {id:"glm47",      url:"https://huggingface.co/THUDM/GLM-4.7-Flash-GGUF",                      lbl:"GLM-4.7-Flash GGUF"},
+  {id:"gpt-oss",    url:"https://huggingface.co/OpenAI/GPT-OSS-20B-GGUF",                       lbl:"GPT-OSS-20B GGUF"},
+  {id:"deepseekv31",url:"https://huggingface.co/deepseek-ai/DeepSeek-V3.1-GGUF",                lbl:"DeepSeek-V3.1 GGUF"},
+  {id:"llama31-8b", url:"https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF", lbl:"Llama 3.1 8B GGUF"},
+];
+
+const res = document.getElementById('results');
+const sumEl = document.getElementById('summary');
+let done=0, okN=0, deadN=0, warnN=0;
+const deadList=[], warnList=[];
+
+function addRow(link){
+  const d=document.createElement('div');
+  d.className='link pending'; d.id='r-'+link.id;
+  d.innerHTML=`<span class="badge">⏳ …</span><div><div class="lbl">${link.lbl}</div><div class="url">${link.url}</div></div>`;
+  res.appendChild(d);
+}
+function setRow(link, cls, badge){
+  const d=document.getElementById('r-'+link.id);
+  if(d){d.className='link '+cls; d.querySelector('.badge').textContent=badge;}
+}
+function updateSummary(){
+  let s=`<strong>Progress: ${done}/${LINKS.length}</strong> &nbsp; ✅ ${okN} OK &nbsp; ❌ ${deadN} DEAD &nbsp; ⚠️ ${warnN} WARN`;
+  if(deadList.length) s+=`<br><br><span style="color:#FF453A;font-weight:700">❌ DEAD LINKS (need fix):</span><br>${deadList.map(l=>`&nbsp; • <strong>${l.lbl}</strong> → ${l.url}`).join('<br>')}`;
+  if(warnList.length) s+=`<br><br><span style="color:#fbbf24;font-weight:700">⚠️ POSSIBLY WRONG (301/403):</span><br>${warnList.map(l=>`&nbsp; • <strong>${l.lbl}</strong> → ${l.url} (${l.code})`).join('<br>')}`;
+  sumEl.innerHTML=s;
+}
+
+async function check(link){
+  // Use no-cors to at least detect if response comes through
+  // For HF we use the datasets/models API public endpoint (no auth needed for public repos)
+  const m = link.url.match(/huggingface\.co\/([^\/\s]+\/[^\/\s#?]+)/);
+  if(!m){
+    // Not a HF link — skip API and just note
+    done++; warnN++;
+    warnList.push({...link, code:'NON-HF'});
+    setRow(link,'warn','⚠️ NON-HF');
+    updateSummary(); return;
+  }
+  const repo = m[1];
+  // Try models API first
+  try {
+    const r = await fetch(`https://huggingface.co/api/models/${repo}`, {
+      signal: AbortSignal.timeout(9000),
+      headers: {'Accept':'application/json'}
+    });
+    done++;
+    if(r.status === 200){
+      okN++; setRow(link,'ok',`✅ 200`);
+    } else if(r.status === 401 || r.status === 403){
+      // Private repo — exists but gated
+      warnN++; warnList.push({...link, code:r.status});
+      setRow(link,'warn',`⚠️ ${r.status}`);
+    } else if(r.status === 404){
+      // Try datasets API
+      try {
+        const r2 = await fetch(`https://huggingface.co/api/datasets/${repo}`, {
+          signal: AbortSignal.timeout(6000)
+        });
+        if(r2.status === 200){
+          okN++; setRow(link,'ok','✅ DS');
+        } else {
+          deadN++; deadList.push(link);
+          setRow(link,'dead',`❌ 404`);
+        }
+      } catch {
+        deadN++; deadList.push(link);
+        setRow(link,'dead','❌ 404');
+      }
+    } else {
+      warnN++; warnList.push({...link, code:r.status});
+      setRow(link,'warn',`⚠️ ${r.status}`);
+    }
+  } catch(e){
+    done++; deadN++; deadList.push(link);
+    setRow(link,'dead','❌ ERR');
+  }
+  updateSummary();
+}
+
+LINKS.forEach(addRow);
+(async()=>{
+  const B=4;
+  for(let i=0;i<LINKS.length;i+=B){
+    await Promise.all(LINKS.slice(i,i+B).map(check));
+    if(i+B<LINKS.length) await new Promise(r=>setTimeout(r,700));
+  }
+  sumEl.innerHTML = sumEl.innerHTML.replace('Starting…','').replace('Progress:','<span style="color:#34d399">✅ DONE —</span> Progress:');
+})();
+</script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>

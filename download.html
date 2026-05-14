@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download LocalClaw Installer — macOS Native App | LocalClaw</title>
+    <meta name="description" content="Download the optional LocalClaw Installer for macOS. The web model recommender is free; the installer requires a $49 one-time license for activation and one-click local AI setup.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/download.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/download.html">
+    <meta property="og:title" content="Download LocalClaw Installer — macOS Native App">
+    <meta property="og:description" content="Download the optional LocalClaw Installer for macOS. Free to download, $49 one-time license required to activate. The web recommender remains free.">
+    <meta property="og:site_name" content="LocalClaw">
+
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        claw: {
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=20260211g">
+    <script src="js/theme-toggle.js"></script>
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }
+
+        .theme-toggle-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent; color: #fbbf24;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .theme-toggle-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+
+        .dl-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 32px; border-radius: 14px;
+            font-weight: 800; font-size: 16px; text-decoration: none;
+            background: linear-gradient(135deg, #FF453A, #FF6D64);
+            color: #fff; box-shadow: 0 4px 24px rgba(255,69,58,0.35);
+            transition: all 0.2s ease;
+        }
+        .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(255,69,58,0.5); color: #fff; }
+
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .faq-btn { width:100%; text-align:left; padding: 16px 0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; background:none; border:none; color:inherit; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-answer.open { max-height: 300px; }
+        .faq-icon { transition: transform 0.3s ease; flex-shrink:0; }
+        .faq-icon.open { transform: rotate(180deg); }
+
+        /* Light mode */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250,249,246,0.8) !important; }
+        html.light .bg-claw-bg\/50 { background-color: rgba(250,249,246,0.5) !important; }
+        html.light .bg-claw-surface { background-color: #ffffff !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-text { color: #0f172a !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .border-claw-border { border-color: rgba(0,0,0,0.1) !important; }
+        html.light .faq-item { border-color: rgba(0,0,0,0.08) !important; }
+        html.light .theme-toggle-btn { border-color: rgba(0,0,0,0.2); color: #f59e0b; }
+        html.light .theme-toggle-btn:hover { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); }
+        html.light [style*="background:rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+        html.light [style*="background:rgba(255,255,255,0.03)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.07)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+        html.light [style*="border:1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
+        html.light [style*="border:1px solid rgba(255,255,255,0.07)"] { border-color: rgba(0,0,0,0.08) !important; }
+        /* Masquer l'overlay sombre radial en mode light */
+        html.light [style*="radial-gradient(ellipse 90% 80%"] { opacity: 0 !important; }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div { opacity: 0 !important; }
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"]:not(nav):not(header), html.light [class*="blur-3xl"]:not(nav):not(header), html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        /* Fond de la download card — toutes variantes du gradient sombre */
+        html.light [style*="background:linear-gradient(145deg"] { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; }
+        html.light [style*="background: linear-gradient(145deg"] { background: #ffffff !important; border-color: rgba(0,0,0,0.1) !important; }
+        /* Supprimer tout fond sombre restant (rgba dark) */
+        html.light [style*="rgba(15,15,17"] { background: #ffffff !important; }
+        html.light [style*="rgba(5,5,5"] { background: #faf9f6 !important; }
+        /* Tags macOS/version/.dmg */
+        html.light [style*="background:rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background: rgba(255,255,255,0.05)"] { background: rgba(0,0,0,0.04) !important; }
+        /* Bloc FAQ border */
+        html.light [style*="border:1px solid rgba(255,255,255,0.07)"] { border-color: rgba(0,0,0,0.1) !important; }
+        html.light [style*="border: 1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.1) !important; }
+        /* Textes blancs inline */
+        html.light [style*="color:#fff"], html.light [style*="color: #fff"],
+        html.light [style*="color:white"], html.light [style*="color: white"] { color: #0f172a !important; }
+        html.light [style*="color:rgba(255,255,255"] { color: #334155 !important; }
+        /* CTA bottom */
+        html.light [style*="background:rgba(255,69,58,0.04)"] { background: rgba(255,69,58,0.04) !important; }
+        /* Texte fixé blanc sur noir → sombre en light */
+        html.light [style*="color:#e2e8f0"] { color: #374151 !important; }
+        html.light [style*="color:#fca5a5"] { color: #e53e3e !important; }
+        html.light code[style*="background:rgba(255,255,255"] { background: rgba(0,0,0,0.06) !important; color: #dc2626 !important; }
+    </style>
+
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
+    <script src="js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"><div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
+    <script src="js/bg-circuit.js" defer></script>
+
+    <!-- Navbar -->
+    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                    <a href="pricing.html" class="text-sm font-semibold px-4 py-2 rounded-lg transition-all" style="background:rgba(255,69,58,0.1);border:1px solid rgba(255,69,58,0.3);color:#FF6D64;">Buy LocalClaw →</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="flex-grow px-4 py-12 sm:py-16 relative z-10">
+        <div class="max-w-2xl mx-auto">
+
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-xs text-claw-muted mb-8">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span>Download</span>
+            </nav>
+
+            <!-- Hero -->
+            <div class="mb-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4" style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.2);color:#FF6D64;">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                    macOS · v1.0.0
+                </div>
+                <h1 class="text-4xl sm:text-5xl font-display font-bold text-white mb-4 leading-tight">Download LocalClaw<br>Installer</h1>
+                <p class="text-claw-muted text-base leading-relaxed max-w-lg">LocalClaw installs and configures your local AI stack on Mac (LM Studio + OpenClaw). Download the installer, activate your license, and you're up and running in minutes.</p>
+                <div class="mt-5 rounded-xl px-4 py-3 text-sm leading-relaxed" style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.22);color:#d4d4d8;">
+                    <strong class="text-white">Important:</strong> the web model recommender is free. This macOS installer is optional and requires a <strong class="text-white">$49 one-time license</strong> to activate.
+                </div>
+            </div>
+
+            <!-- Download card -->
+            <div class="p-8 rounded-2xl mb-8" style="background:linear-gradient(145deg,rgba(255,69,58,0.07) 0%,rgba(15,15,17,1) 100%);border:1px solid rgba(255,69,58,0.2);">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-6 mb-6">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg,#FF453A,#FF6D64);">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white mb-1">LocalClaw Installer</h2>
+                        <div class="flex flex-wrap gap-2 text-xs text-claw-muted">
+                            <span class="px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);">macOS</span>
+                            <span class="px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);">v1.0.0</span>
+                            <span class="px-2 py-0.5 rounded" style="background:rgba(255,255,255,0.05);">.dmg</span>
+                            <span class="px-2 py-0.5 rounded font-semibold" style="background:rgba(245,158,11,0.12);color:#fbbf24;">macOS 13+ required</span>
+                            <span class="px-2 py-0.5 rounded" style="background:rgba(16,185,129,0.1);color:#34d399;">Activation required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://pub-51e0e33cd67b4f1fa6b10590c86fc440.r2.dev/localclaw.dmg"
+                   class="dl-btn w-full sm:w-auto justify-center mb-4"
+                   id="dl-btn-main">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download Installer (.dmg) — license required
+                </a>
+
+                <p class="text-xs text-claw-muted mt-2">
+                    <svg class="w-3.5 h-3.5 inline mb-0.5 mr-1" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <strong>Activation required.</strong> The .dmg is free to download, but a valid $49 one-time license key is needed to use the app. The web recommender remains free. <a href="pricing.html" style="color:#FF6D64;" class="hover:underline">Get a license →</a>
+                </p>
+                <!-- System requirements -->
+                <div class="flex items-start gap-2 mt-4 px-3 py-2.5 rounded-lg" style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);">
+                    <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <p class="text-xs" style="color:#d97706;">
+                        <strong style="color:#fbbf24;">System requirements:</strong> macOS 13 Ventura or later &nbsp;·&nbsp; Apple Silicon or Intel &nbsp;·&nbsp; 8 GB RAM min.<br>
+                        <span style="color:#92400e;">⚠️ macOS 12 Monterey and earlier are not supported. Windows &amp; Linux are not supported.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Free vs paid clarification -->
+            <section class="mb-8 grid sm:grid-cols-2 gap-3" aria-label="Free recommender versus paid installer">
+                <article class="p-4 rounded-xl" style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);">
+                    <h2 class="text-sm font-bold text-white mb-2">Free: web recommender</h2>
+                    <p class="text-xs text-claw-muted leading-relaxed">Use LocalClaw in your browser to find the right LLM/TTS model for your hardware. No license key needed.</p>
+                </article>
+                <article class="p-4 rounded-xl" style="background:rgba(255,69,58,0.07);border:1px solid rgba(255,69,58,0.22);">
+                    <h2 class="text-sm font-bold text-white mb-2">Paid: macOS installer</h2>
+                    <p class="text-xs text-claw-muted leading-relaxed">Downloadable .dmg for one-click setup and management. Requires a $49 one-time lifetime license to activate.</p>
+                </article>
+            </section>
+
+            <!-- Install steps -->
+            <div class="mb-10">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-4">Installation steps</h2>
+                <ol class="space-y-3">
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">1</span>
+                        <div class="pt-0.5">
+                            <p class="text-sm font-semibold text-white">Download the .dmg file</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Click the download button above.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">2</span>
+                        <div class="pt-0.5">
+                            <p class="text-sm font-semibold text-white">Open the .dmg and drag to Applications</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Double-click the downloaded file, then drag LocalClaw to your Applications folder.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(255,69,58,0.12);color:#FF6D64;border:1px solid rgba(255,69,58,0.25);">3</span>
+                        <div class="pt-0.5">
+                            <p class="text-sm font-semibold text-white">Launch LocalClaw</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Open it from your Applications folder or Launchpad.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.25);">4</span>
+                        <div class="pt-0.5">
+                            <p class="text-sm font-semibold text-white">Enter your email + license key → Activate</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Activation requires email + license key and a one-time internet check. Your key is shown instantly on the confirmation page after payment; a backup copy is also sent by email.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- FAQ -->
+            <div class="mb-10">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-4">FAQ</h2>
+                <div class="space-y-0 rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.07);">
+
+                    <!-- Q1 -->
+                    <div class="faq-item px-5">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            <span class="text-sm font-semibold text-white pr-4">"App is damaged" or security warning on macOS</span>
+                            <svg class="faq-icon w-4 h-4 text-claw-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="pb-4 text-sm text-claw-muted space-y-2">
+                                <p>macOS may block apps from unidentified developers. To fix this:</p>
+                                <ol class="list-decimal pl-5 space-y-1 text-xs">
+                                    <li>Go to <strong class="text-white">System Settings → Privacy &amp; Security</strong></li>
+                                    <li>Scroll down and click <strong class="text-white">"Open Anyway"</strong> next to LocalClaw</li>
+                                    <li>Confirm in the dialog that appears</li>
+                                </ol>
+                                <p class="text-xs">Alternatively, right-click (or Control-click) the app icon and select <strong class="text-white">Open</strong> from the context menu.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="faq-item px-5">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            <span class="text-sm font-semibold text-white pr-4">Where do I enter my license key?</span>
+                            <svg class="faq-icon w-4 h-4 text-claw-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="pb-4 text-sm text-claw-muted space-y-2">
+                                <p>When you launch LocalClaw for the first time, an <strong class="text-white">Activation screen</strong> will appear automatically.</p>
+                                <p>Enter the <strong class="text-white">email address</strong> you used during purchase and the <strong class="text-white">license key</strong> from your confirmation page (or backup email), then click <strong class="text-white">Activate</strong>. Activation requires a one-time internet check.</p>
+                                <p class="text-xs">You can also access the activation screen later via <strong class="text-white">LocalClaw → Settings → License</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="faq-item px-5">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            <span class="text-sm font-semibold text-white pr-4">Activation fails — what should I do?</span>
+                            <svg class="faq-icon w-4 h-4 text-claw-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="pb-4 text-sm text-claw-muted space-y-2">
+                                <p>Check these common causes:</p>
+                                <ul class="list-disc pl-5 space-y-1 text-xs">
+                                    <li>Make sure you're using the <strong class="text-white">exact email</strong> from your purchase confirmation</li>
+                                    <li>Copy-paste the license key to avoid typos (no extra spaces)</li>
+                                    <li>Check your internet connection — activation requires a one-time online check</li>
+                                    <li>Make sure the license hasn't been used on more than the allowed machines</li>
+                                </ul>
+                                <p class="text-xs">Still failing? Email <a href="/cdn-cgi/l/email-protection#b8d0ddd4c8d4d7dbd9d4dbd4d9cff8dfd5d9d1d496dbd7d5" style="color:#FF6D64;" class="hover:underline"><span class="__cf_email__" data-cfemail="cea6aba2bea2a1adafa2ada2afb98ea9a3afa7a2e0ada1a3">[email&#160;protected]</span></a> with your order email and we'll resolve it fast.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="faq-item px-5" style="border-bottom:none;">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            <span class="text-sm font-semibold text-white pr-4">I can't find my license key</span>
+                            <svg class="faq-icon w-4 h-4 text-claw-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="pb-4 text-sm text-claw-muted space-y-2">
+                                <p>Your license key is shown instantly on the confirmation page after payment. A backup copy is also sent by email — check your <strong class="text-white">spam / junk folder</strong>.</p>
+                                <p>If you still can't find it, contact us at <a href="/cdn-cgi/l/email-protection#e189848d918d8e82808d828d8096a1868c80888dcf828e8cde9294838b848295dcad8882848f9284c1aa8498c1af8e95c1b384828488978485c7838e8598dca988cdc1a8c1919493828980928485c1ad8e82808da28d8096c1a88f9295808d8d8493c1839495c182808f8f8e95c187888f85c18c98c18d8882848f9284c18a8498cfc1ae93858493c1848c80888ddbc1" style="color:#FF6D64;" class="hover:underline font-semibold"><span class="__cf_email__" data-cfemail="ea828f869a8685898b8689868b9daa8d878b8386c4898587">[email&#160;protected]</span></a> — include your payment email and we'll send the key within minutes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CTA bottom -->
+            <div class="text-center p-8 rounded-2xl" style="background:rgba(255,69,58,0.04);border:1px solid rgba(255,69,58,0.15);">
+                <p class="text-sm text-claw-muted mb-1">Don't have a license yet?</p>
+                <h3 class="text-xl font-display font-bold text-white mb-4">Get LocalClaw Installer &mdash; $49 one-time</h3>
+                <a href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" class="dl-btn">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                    Buy now &mdash; $49
+                </a>
+                <p class="text-xs text-claw-muted mt-4">Secure payment via Stripe &middot; One-time payment &middot; Lifetime license</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-claw-border/50 py-8 mt-auto bg-claw-bg/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+                <div class="flex gap-6 text-xs text-claw-muted">
+                    <a href="pricing.html" class="hover:text-white transition-colors">Pricing</a>
+                    <a href="download.html" class="text-white">Download</a>
+                    <a href="blog/index.html" class="hover:text-white transition-colors">Blog</a>
+                    <a href="/cdn-cgi/l/email-protection#18707d746874777b79747b74796f587f75797174367b7775" class="hover:text-white transition-colors">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            const isOpen = answer.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+            // Open clicked if it was closed
+            if (!isOpen) {
+                answer.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+
+        // Download button feedback
+        document.getElementById('dl-btn-main').addEventListener('click', function() {
+            const original = this.innerHTML;
+            this.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Starting download…';
+            setTimeout(() => { this.innerHTML = original; }, 3000);
+        });
+    </script>
+<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</html>
