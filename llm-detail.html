@@ -388,6 +388,12 @@
     <script src="js/clarity.js" defer></script>
 </head>
 <body>
+    <script>
+    (function() {
+        var slug = new URLSearchParams(window.location.search).get('model');
+        if (slug) window.location.replace('/models/' + slug + '.html');
+    })();
+    </script>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
     <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
     <script src="js/bg-circuit.js"></script>
