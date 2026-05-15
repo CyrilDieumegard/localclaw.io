@@ -513,6 +513,7 @@
             transition: all 0.3s ease;
             position: relative;
             opacity: 1;
+            cursor: pointer;
         }
         .card:hover {
             border-color: rgba(139,92,246,0.4);
@@ -2859,7 +2860,7 @@
                 const isCompared = compareList.includes(model.id);
                 
                 return `
-                <article class="${cardClass}" data-id="${model.id}">
+                <article class="${cardClass}" data-id="${model.id}" data-url="tts/${model.id}.html" onclick="openTtsCard(event, 'tts/${model.id}.html')" tabindex="0" role="link" aria-label="Open ${model.name} model page">
                     ${newBadge}
                     ${orchBadge}
                     ${asrBadge}
@@ -2924,6 +2925,30 @@
                 `;
             }).join('');
         }
+
+        function isInteractiveCardTarget(target) {
+            return Boolean(target.closest('a, button, .install-cmd, input, select, textarea, [role="button"]'));
+        }
+
+        function openTtsCard(event, url) {
+            if (isInteractiveCardTarget(event.target)) return;
+            window.location.href = url;
+        }
+
+        document.getElementById('tts-grid').addEventListener('click', (event) => {
+            if (isInteractiveCardTarget(event.target)) return;
+            const card = event.target.closest('.card[data-url]');
+            if (card) window.location.href = card.dataset.url;
+        });
+
+        document.getElementById('tts-grid').addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            if (isInteractiveCardTarget(event.target)) return;
+            const card = event.target.closest('.card[data-url]');
+            if (!card) return;
+            event.preventDefault();
+            window.location.href = card.dataset.url;
+        });
 
         // Sort logic
         function sortModels(models, sortKey) {
