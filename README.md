@@ -153,7 +153,7 @@ Implemented low-risk improvements without changing the site architecture:
 - Sitemap: `https://localclaw.io/sitemap.xml`
 - Latest blog article: `https://localclaw.io/blog/gemma4-mtp-drafters.html`
 - Stripe checkout: `https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04`
-- Installer download: `https://pub-51e0e33cd67b4f1fa6b10590c86fc440.r2.dev/localclaw.dmg`
+- Installer download: `https://localclaw.io/downloads/localclaw.dmg`
 - Analytics: DataFast (`https://datafa.st/js/script.js`)
 - Session analytics: Microsoft Clarity via `js/clarity.js`
 - Fonts/CDN: Google Fonts, Tailwind CDN
