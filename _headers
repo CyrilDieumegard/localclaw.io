@@ -53,5 +53,11 @@
 /images/*
   Cache-Control: public, max-age=2592000, immutable
 
+/downloads/localclaw-installer-latest.json
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/downloads/*.dmg
+  Cache-Control: public, max-age=3600, must-revalidate
+
 /favicon.ico
   Cache-Control: public, max-age=2592000, immutable
