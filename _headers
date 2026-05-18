@@ -56,6 +56,9 @@
 /downloads/localclaw-installer-latest.json
   Cache-Control: no-cache, no-store, must-revalidate
 
+/downloads/localclaw.dmg
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /downloads/*.dmg
   Cache-Control: public, max-age=3600, must-revalidate
 
