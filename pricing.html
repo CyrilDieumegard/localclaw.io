@@ -53,6 +53,7 @@
     <script src="js/theme-toggle.js"></script>
 
     <style>
+        html, body { overflow-x: hidden; }
         body { background: #050505; color: #FFFFFF; }
 
         /* ── Theme toggle ── */
@@ -184,7 +185,66 @@
             box-shadow: 0 0 6px rgba(52,211,153,0.6);
             flex-shrink: 0;
         }
-        /* Pricing layout — géré en inline style */
+        /* ── Pricing page layout ── */
+        .pricing-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+            gap: 24px;
+            align-items: start;
+            margin-bottom: 32px;
+        }
+        .info-panel {
+            border-radius: 18px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 22px;
+        }
+        .offer-eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #a1a1aa;
+        }
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .mini-stat {
+            min-height: 92px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px;
+        }
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+        @media (max-width: 900px) {
+            .pricing-shell,
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-shell,
+            .installer-card,
+            .info-panel,
+            .mini-stat {
+                min-width: 0;
+            }
+            .mini-grid {
+                grid-template-columns: 1fr;
+            }
+            .app-screenshot-wrap img {
+                object-fit: contain !important;
+            }
+            .cta-primary,
+            .cta-secondary {
+                width: 100%;
+            }
+        }
 
         /* ── Light mode ── */
         html.light body { background: #faf9f6 !important; color: #1e293b !important; }
@@ -206,6 +266,11 @@
             box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
         }
         html.light .installer-card .glow { display: none !important; }
+        html.light .info-panel,
+        html.light .mini-stat {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
         html.light .feat-item { color: #374151 !important; }
         html.light .trust-item { color: #4b5563 !important; }
         html.light .cta-secondary { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.12) !important; color: #374151 !important; }
@@ -347,37 +412,53 @@
                 </div>
             </div>
 
-            <!-- ── Pricing card + screenshot stacked ── -->
-            <div style="display:flex;justify-content:center;margin-bottom:32px;">
-            <div style="width:100%;max-width:540px;">
+            <div class="pricing-shell">
+                <div class="space-y-4">
+                    <div id="screenshot-thumb" class="app-screenshot-wrap" onclick="openLightbox()" style="cursor:zoom-in;aspect-ratio:1024/688;background:#111;">
+                        <img
+                            src="images/app-screenshot-real.png?v=20260329b"
+                            alt="LocalClaw app — Home screen showing LM Studio + OpenClaw integration"
+                            width="1024"
+                            height="688"
+                            style="width:100%;height:100%;object-fit:cover;display:block;"
+                            loading="eager"
+                            fetchpriority="high"
+                            decoding="async"
+                        >
+                        <div style="position:absolute;top:12px;right:12px;background:rgba(10,10,12,0.78);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:5px 9px;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#d4d4d8;">
+                            <svg style="width:13px;height:13px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                            Zoom
+                        </div>
+                    </div>
 
-            <!-- Screenshot above card — click to zoom -->
-            <div id="screenshot-thumb" onclick="openLightbox()" style="width:100%;border-radius:16px 16px 0 0;overflow:hidden;cursor:zoom-in;position:relative;border:2px solid rgba(255,69,58,0.3);border-bottom:none;aspect-ratio:1440/900;">
-                <img
-                    src="images/app-screenshot-real.png?v=20260329b"
-                    alt="LocalClaw app — Home screen showing LM Studio + OpenClaw integration"
-                    width="1440"
-                    height="900"
-                    style="width:100%;height:auto;display:block;"
-                    loading="eager"
-                    fetchpriority="high"
-                    decoding="async"
-                >
-                <div style="position:absolute;top:10px;right:10px;background:rgba(10,10,12,0.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:4px 8px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:#a1a1aa;">
-                    <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
-                    Click to zoom
+                    <div class="info-panel">
+                        <div class="offer-eyebrow mb-3">Product status</div>
+                        <h2 class="text-2xl font-display font-bold text-white mb-3">Useful now, still improving fast.</h2>
+                        <p class="text-sm text-claw-muted leading-relaxed">
+                            LocalClaw Installer is available for early customers. Core install, activation and update flows are working now, while setup guidance and edge cases are still being refined.
+                        </p>
+                    </div>
+
+                    <div class="mini-grid">
+                        <div class="mini-stat">
+                            <div class="text-2xl font-display font-bold text-white">$49</div>
+                            <div class="text-xs text-claw-muted mt-1">one-time license</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="text-2xl font-display font-bold text-white">macOS 13+</div>
+                            <div class="text-xs text-claw-muted mt-1">Apple Silicon or Intel</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="text-2xl font-display font-bold text-white">Support</div>
+                            <div class="text-xs text-claw-muted mt-1">activation + setup help</div>
+                        </div>
+                    </div>
                 </div>
-                <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(10,10,12,0.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:30px;padding:4px 12px;font-size:10px;font-weight:600;color:#a1a1aa;white-space:nowrap;display:flex;align-items:center;gap:5px;">
-                    <span style="width:5px;height:5px;border-radius:50%;background:#34d399;box-shadow:0 0 5px rgba(52,211,153,0.6);flex-shrink:0;"></span>
-                    LocalClaw v1.0 Beta — macOS
-                </div>
-            </div>
 
-            <!-- Pricing card — bords haut plats pour se coller à la screenshot -->
-            <div class="installer-card p-8 sm:p-10" style="border-radius:0 0 24px 24px;border-top:1px solid rgba(255,69,58,0.15);">
-                <div class="glow"></div>
+                <div class="installer-card p-8 sm:p-10">
+                    <div class="glow"></div>
 
-                <div class="relative z-10">
+                    <div class="relative z-10">
                     <!-- Price -->
                     <div class="flex items-start gap-4 mb-6">
                         <div class="w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center" style="background:linear-gradient(135deg,#FF453A,#FF6D64);">
@@ -465,11 +546,8 @@
                         Single purchase. Your license key is shown instantly on the confirmation page after payment. The installer is free to download, but a valid license key is required to activate the app. LocalClaw is still in active development, so updates may change setup flows and features over time. <strong style="color:#78716c;">Requires macOS 13 Ventura or later.</strong>
                     </p>
                 </div>
+                </div>
             </div>
-            </div><!-- /installer-card -->
-
-            </div><!-- /max-width col -->
-            </div><!-- /centering flex -->
 
             <!-- Free vs Paid comparison -->
             <section aria-label="Free recommender vs paid installer" class="mb-10">
@@ -544,31 +622,30 @@
             });
             </script>
 
-            <!-- Trust row + How it works — même largeur que la card -->
-            <div style="display:flex;justify-content:center;">
-            <div style="width:100%;max-width:540px;">
-
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-10">
-                <span class="trust-item">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    Secure payment via Stripe
-                </span>
-                <span class="trust-item">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                    Active development — updates included
-                </span>
-                <span class="trust-item">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    Lifetime access
-                </span>
-                <a href="download.html" class="trust-item hover:text-white transition-colors" style="color:#FF6D64;">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Installation FAQ →
-                </a>
+            <section class="section-grid mb-10" aria-label="Purchase reassurance and activation steps">
+            <div class="info-panel">
+                <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-5">Before you buy</h2>
+                <div class="space-y-4">
+                    <div class="trust-item text-sm">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        Secure payment via Stripe
+                    </div>
+                    <div class="trust-item text-sm">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        Active-development product, updates included
+                    </div>
+                    <div class="trust-item text-sm">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Lifetime access, no recurring fees
+                    </div>
+                    <a href="download.html" class="trust-item text-sm hover:text-white transition-colors" style="color:#FF6D64;">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Read the installation FAQ
+                    </a>
+                </div>
             </div>
 
-            <!-- How it works -->
-            <div class="how-it-works-block rounded-2xl p-6 sm:p-8" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
+            <div class="how-it-works-block info-panel">
                 <h2 class="text-sm font-bold uppercase tracking-widest text-claw-muted mb-5">How it works</h2>
                 <ol class="space-y-4">
                     <li class="flex gap-4 items-start">
@@ -600,10 +677,8 @@
                         </div>
                     </li>
             </ol>
-            </div><!-- /how it works -->
-
-            </div><!-- /max-width 540 -->
-            </div><!-- /centering flex -->
+            </div>
+            </section>
 
             <!-- Commercial FAQ -->
             <section aria-label="Purchase FAQ" class="mt-10 rounded-2xl p-6 sm:p-8" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);">
