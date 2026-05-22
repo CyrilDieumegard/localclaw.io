@@ -35,11 +35,20 @@ export async function onRequestPost(context) {
       customerId: customer ? customer.id : null
     };
 
-    const token = btoa(JSON.stringify(tokenPayload));
+    const token = base64EncodeUnicode(JSON.stringify(tokenPayload));
     return json({ ok: true, token, message: "Activated", expiresAt: null });
   } catch {
     return json({ ok: false, message: "Bad request" }, 400);
   }
+}
+
+function base64EncodeUnicode(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary);
 }
 
 function isAcceptedLicenseKey(key) {
