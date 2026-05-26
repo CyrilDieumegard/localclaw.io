@@ -797,10 +797,12 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     // === Amazon Affiliate ===
     var AMZ_TAG='localclaw-20';
     function amzLink(asin){return 'https://www.amazon.com/dp/'+asin+'?tag='+AMZ_TAG;}
+    function productLink(pr){return pr.amazonUrl||(pr.asin?amzLink(pr.asin):(pr.appleUrl||'#'));}
+    function isAmazonProduct(pr){return Boolean(pr.amazonUrl||pr.asin);}
     var AMZ_PRODUCTS={
-        mac_mini_16:{name:'Apple Mac Mini M4 16GB',asin:'B0DLBTPDCS',price:'from $499'},
-        mac_mini_24:{name:'Apple Mac Mini M4 Pro 24GB',asin:'B0DNRFSYLF',price:'from $1,399'},
-        mac_mini_48:{name:'Mac Mini M4 Pro 48GB',asin:'B0DS2XP86K',price:'from $1,799'},
+        mac_mini_16:{name:'Apple Mac Mini M4 16GB',asin:null,amazonUrl:'https://www.amazon.com/s?k=Apple+Mac+mini+M4+16GB+256GB&tag=localclaw-20',price:'from $499'},
+        mac_mini_24:{name:'Apple Mac Mini M4 Pro 24GB',asin:null,amazonUrl:'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20',price:'from $1,399'},
+        mac_mini_48:{name:'Mac Mini M4 Pro 48GB',asin:null,amazonUrl:'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+48GB+512GB&tag=localclaw-20',price:'from $1,799'},
         mac_studio_64:{name:'Mac Studio M4 Max 64GB',asin:null,price:'from $3,199',appleUrl:'https://www.apple.com/mac-studio/'},
         mac_studio_128:{name:'Mac Studio M4 Ultra 128GB',asin:null,price:'from $5,999',appleUrl:'https://www.apple.com/mac-studio/'},
         rtx_4060ti:{name:'NVIDIA RTX 4060 Ti 16GB',asin:'B0CBK7H19M',price:'from $399'},
@@ -824,7 +826,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         if(m.min_ram>=8){
             h+='<div class="amz-section"><div class="amz-title">🛒 Shop Compatible Hardware</div>';
             var products=getHardwareProducts(m.min_ram);
-            for(var p=0;p<products.length;p++){var pr=products[p];var linkUrl=pr.asin?amzLink(pr.asin):(pr.appleUrl||'#'),linkText=pr.asin?'View on Amazon →':'View on Apple.com →',linkClass=pr.asin?'amz-btn':'amz-btn apple-btn';h+='<a href="'+linkUrl+'" target="_blank" rel="noopener'+(pr.asin?' sponsored':'')+'" class="amz-card"><span class="amz-badge '+pr.badge+'">'+pr.badgeText+'</span><div class="amz-info"><div class="amz-name">'+esc(pr.name)+'</div><div class="amz-price">'+esc(pr.price)+'</div></div><span class="'+linkClass+'">'+linkText+'</span></a>';}
+            for(var p=0;p<products.length;p++){var pr=products[p],isAmazon=isAmazonProduct(pr),linkUrl=productLink(pr),linkText=isAmazon?'View on Amazon →':'View on Apple.com →',linkClass=isAmazon?'amz-btn':'amz-btn apple-btn';h+='<a href="'+linkUrl+'" target="_blank" rel="noopener'+(isAmazon?' sponsored':'')+'" class="amz-card"><span class="amz-badge '+pr.badge+'">'+pr.badgeText+'</span><div class="amz-info"><div class="amz-name">'+esc(pr.name)+'</div><div class="amz-price">'+esc(pr.price)+'</div></div><span class="'+linkClass+'">'+linkText+'</span></a>';}
             h+='<div class="amz-disclaimer">As an Amazon Associate, LocalClaw earns from qualifying purchases. Mac Studio links redirect to Apple Store (no affiliate).</div></div>';
         }
         h+='</div>';
@@ -848,22 +850,22 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
             if(P.mac_studio_64) items.push({name:P.mac_studio_64.name,asin:P.mac_studio_64.asin,price:P.mac_studio_64.price,badge:'budget',badgeText:'ALTERNATIVE',appleUrl:P.mac_studio_64.appleUrl});
         }
         else if(minRam>=48){
-            if(P.mac_mini_48) items.push({name:P.mac_mini_48.name,asin:P.mac_mini_48.asin,price:P.mac_mini_48.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.mac_mini_48) items.push({name:P.mac_mini_48.name,asin:P.mac_mini_48.asin,amazonUrl:P.mac_mini_48.amazonUrl,price:P.mac_mini_48.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
             if(P.mac_studio_64) items.push({name:P.mac_studio_64.name,asin:P.mac_studio_64.asin,price:P.mac_studio_64.price,badge:'best',badgeText:'PREMIUM'});
             if(P.rtx_4090) items.push({name:P.rtx_4090.name,asin:P.rtx_4090.asin,price:P.rtx_4090.price,badge:'gpu',badgeText:'BEST GPU'});
         }
         else if(minRam>=24){
-            if(P.mac_mini_24) items.push({name:P.mac_mini_24.name,asin:P.mac_mini_24.asin,price:P.mac_mini_24.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.mac_mini_24) items.push({name:P.mac_mini_24.name,asin:P.mac_mini_24.asin,amazonUrl:P.mac_mini_24.amazonUrl,price:P.mac_mini_24.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
 
             if(P.rtx_4060ti) items.push({name:P.rtx_4060ti.name,asin:P.rtx_4060ti.asin,price:P.rtx_4060ti.price,badge:'gpu',badgeText:'BEST GPU'});
         }
         else if(minRam>=16){
-            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,amazonUrl:P.mac_mini_16.amazonUrl,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
 
             if(P.rtx_4060ti) items.push({name:P.rtx_4060ti.name,asin:P.rtx_4060ti.asin,price:P.rtx_4060ti.price,badge:'gpu',badgeText:'BEST GPU'});
         }
         else{
-            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
+            if(P.mac_mini_16) items.push({name:P.mac_mini_16.name,asin:P.mac_mini_16.asin,amazonUrl:P.mac_mini_16.amazonUrl,price:P.mac_mini_16.price,badge:'best',badgeText:'BEST FOR THIS MODEL'});
             if(P.beelink_16) items.push({name:P.beelink_16.name,asin:P.beelink_16.asin,price:P.beelink_16.price,badge:'pc',badgeText:'BUDGET PC'});
 
         }

@@ -926,7 +926,7 @@
                 name: 'Apple Mac Mini M4',
                 chip: 'M4', ram: 16, storage: '256GB SSD',
                 price: '$499',
-                asin: 'B0DLBTPDCS', appleUrl: null,
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+16GB+256GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Best Starter Mac'
             },
             {
@@ -934,7 +934,7 @@
                 name: 'Mac Mini M4 Pro',
                 chip: 'M4 Pro', ram: 24, storage: '512GB SSD',
                 price: '$1,399',
-                asin: 'B0DNRFSYLF', appleUrl: null,
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Sweet Spot'
             },
             {
@@ -942,7 +942,7 @@
                 name: 'Mac Mini M4 Pro',
                 chip: 'M4 Pro', ram: 48, storage: '512GB SSD',
                 price: '$1,799',
-                asin: 'B0DS2XP86K', appleUrl: null,
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+48GB+512GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Power User'
             },
             {
@@ -1139,8 +1139,9 @@
                 </a>`;
             }).join('');
 
-            const actionBtn = comp.asin
-                ? `<a href="https://www.amazon.com/dp/${comp.asin}?tag=localclaw-20" target="_blank" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
+            const amazonUrl = comp.amazonUrl || (comp.asin ? `https://www.amazon.com/dp/${comp.asin}?tag=localclaw-20` : null);
+            const actionBtn = amazonUrl
+                ? `<a href="${amazonUrl}" target="_blank" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
                 : `<a href="${comp.appleUrl}" target="_blank" class="act-btn apple-store">${SVG.apple} View on Apple.com</a>`;
 
             return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">

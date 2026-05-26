@@ -151,6 +151,7 @@ const App = {
         };
 
         // --- Filter by RAM (leave ~2-3 GB for OS) ---
+        candidates = candidates.filter(m => !m.hosted_only);
         candidates = candidates.filter(m => {
             const overhead = kvCacheOverhead(m.size_gb);
             return (m.size_gb + overhead) < (effectiveRam - 2.5);
@@ -837,6 +838,7 @@ const App = {
 
         const AMZ_TAG = 'localclaw-20';
         const amzLink = (asin) => 'https://www.amazon.com/dp/' + asin + '?tag=' + AMZ_TAG;
+        const productLink = (product) => product.amazonUrl || amzLink(product.asin);
 
         // Determine OS for showing Mac vs PC options
         const isMac = answers.os === 'mac' || (this.state.activeFlow === 'guided' && answers.os === 'mac');
@@ -849,7 +851,7 @@ const App = {
             upgradeText = 'Your 8GB limits you to 8B parameter models. With more RAM, you could run much more powerful AI:';
             unlockText = 'Qwen 3 14B, DeepSeek R1 14B, Gemma 3 12B';
             products = [
-                { name: 'Apple Mac Mini M4 16GB', asin: 'B0DLBTPDCS', price: 'from $499', badge: 'Best Mac Option', show: true },
+                { name: 'Apple Mac Mini M4 16GB', amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+16GB+256GB&tag=localclaw-20', price: 'from $499', badge: 'Best Mac Option', show: true },
                 { name: 'Beelink Mini PC 16GB', asin: 'B08XBVXNFP', price: 'from $199', badge: 'Budget PC', show: !isMac }
             ];
         } else {
@@ -858,13 +860,13 @@ const App = {
             upgradeText = 'With 16GB, you run great 14B models. But 24-32GB unlocks the real powerhouses:';
             unlockText = 'Qwen 3 32B, DeepSeek R1 32B, QwQ 32B';
             products = [
-                { name: 'Mac Mini M4 Pro 24GB', asin: 'B0DNRFSYLF', price: 'from $1,399', badge: 'Best Mac Option', show: true },
+                { name: 'Mac Mini M4 Pro 24GB', amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20', price: 'from $1,399', badge: 'Best Mac Option', show: true },
                 { name: 'NVIDIA RTX 4060 Ti 16GB', asin: 'B0CBK7H19M', price: 'from $399', badge: 'Best GPU', show: !isMac }
             ];
         }
 
         const productCards = products.filter(p => p.show).map(p => `
-            <a href="${amzLink(p.asin)}" target="_blank" rel="noopener sponsored" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,153,0,0.03);border:1px solid rgba(255,153,0,0.08);text-decoration:none;color:inherit;transition:all .2s;margin-bottom:6px;" onmouseover="this.style.borderColor='rgba(255,153,0,0.25)';this.style.background='rgba(255,153,0,0.06)'" onmouseout="this.style.borderColor='rgba(255,153,0,0.08)';this.style.background='rgba(255,153,0,0.03)'">
+            <a href="${productLink(p)}" target="_blank" rel="noopener sponsored" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,153,0,0.03);border:1px solid rgba(255,153,0,0.08);text-decoration:none;color:inherit;transition:all .2s;margin-bottom:6px;" onmouseover="this.style.borderColor='rgba(255,153,0,0.25)';this.style.background='rgba(255,153,0,0.06)'" onmouseout="this.style.borderColor='rgba(255,153,0,0.08)';this.style.background='rgba(255,153,0,0.03)'">
                 <span style="font-size:10px;padding:2px 6px;background:rgba(255,153,0,0.12);color:#FF9900;border-radius:5px;font-weight:700;flex-shrink:0;white-space:nowrap;">${p.badge}</span>
                 <span style="flex:1;min-width:0;"><span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.9);display:block;">${p.name}</span><span style="font-size:11px;color:#a1a1aa;">${p.price}</span></span>
                 <span style="padding:5px 10px;border-radius:7px;background:#FF9900;color:#111;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;">View on Amazon →</span>
