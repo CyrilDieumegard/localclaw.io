@@ -984,25 +984,23 @@ const App = {
                 <div class="flex-1 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 mb-8 px-4 py-1.5 border border-claw-primary bg-black text-claw-primary text-xs font-mono font-bold tracking-widest uppercase">
                         <span class="w-2 h-2 bg-claw-primary"></span>
-                        ${modelCount} Models — Updated May 2026
+                        macOS beta · lifetime $49
                     </div>
                     <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-8 tracking-tighter leading-[0.95] text-white uppercase">
-                        Find the right<br/>
-                        <span id="typewriter-text" class="text-claw-primary">local LLM</span><span id="typewriter-cursor" class="text-claw-primary">_</span>
+                        Install<br/>
+                        <span id="typewriter-text" class="text-claw-primary">OpenClaw</span><span id="typewriter-cursor" class="text-claw-primary">_</span>
                     </h1>
                     <p class="text-lg sm:text-xl text-claw-muted max-w-2xl lg:max-w-xl font-mono leading-relaxed">
-                        Stop sending your data to the cloud. Find the <span class="text-white border-b border-white/40">perfect open-source model</span> for 
-                        <a href="https://lmstudio.ai" target="_blank" class="text-claw-primary hover:underline">LM Studio</a> based on your exact hardware.
+                        LocalClaw helps you set up OpenClaw on Mac, connect LM Studio and keep local AI setup simple.
                     </p>
 
                     <div class="mt-12 flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
-                        <button onclick="App.startFlow('guided')" class="group px-8 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 flex items-center justify-center gap-2 uppercase tracking-tight">
+                        <a href="pricing.html" class="group px-8 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 flex items-center justify-center gap-2 uppercase tracking-tight">
+                            Beta lifetime — $49
+                        </a>
+                        <button onclick="App.startFlow('guided')" class="px-8 py-5 bg-black border border-white/20 hover:border-white text-white font-mono font-bold text-lg transition-all hover:bg-white/5 flex items-center justify-center gap-2 uppercase tracking-tight">
                             Find My Model
                         </button>
-                        <a href="https://lmstudio.ai" target="_blank" class="px-8 py-5 bg-black border border-white/20 hover:border-white text-white font-mono font-bold text-lg transition-all hover:bg-white/5 flex items-center justify-center gap-2 uppercase tracking-tight">
-                            Get LM Studio
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                        </a>
                     </div>
                 </div>
 
@@ -1012,8 +1010,17 @@ const App = {
                         <!-- Glow -->
                         <div class="hero-glow absolute -inset-4 bg-gradient-to-r from-claw-primary/20 via-orange-500/10 to-purple-500/10 blur-2xl opacity-50 rounded-2xl pointer-events-none"></div>
 
+                        <div class="relative rounded-xl border border-white/10 bg-black/80 p-2 shadow-2xl">
+                            <img src="images/localclaw-app-home.png?v=20260526a" alt="LocalClaw beta macOS app dashboard" width="1400" height="876" class="w-full h-auto rounded-lg border border-white/10" loading="eager" decoding="async">
+                            <div class="mt-3 flex flex-wrap gap-2 justify-center text-[10px] font-mono text-claw-muted">
+                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">OpenClaw setup</span>
+                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">LM Studio</span>
+                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">Local-first</span>
+                            </div>
+                        </div>
+
                         <!-- Carousel wrapper -->
-                        <div class="relative overflow-hidden rounded-xl" id="hero-mockup-wrap">
+                        <div class="hidden relative overflow-hidden rounded-xl" id="hero-mockup-wrap">
 
                             <!-- SLIDE 1 — Model Results -->
                             <div class="hero-slide" data-slide="0">
@@ -1169,7 +1176,7 @@ const App = {
                         </div><!-- /carousel wrapper -->
 
                         <!-- Slide indicators -->
-                        <div class="flex justify-center gap-2 mt-4" id="hero-slide-dots">
+                        <div class="hidden justify-center gap-2 mt-4" id="hero-slide-dots">
                             <button class="hero-dot w-5 h-1 rounded-full bg-claw-primary transition-all" data-dot="0"></button>
                             <button class="hero-dot w-1.5 h-1 rounded-full bg-white/20 transition-all" data-dot="1"></button>
                             <button class="hero-dot w-1.5 h-1 rounded-full bg-white/20 transition-all" data-dot="2"></button>
@@ -1356,7 +1363,7 @@ const App = {
         const cursor = document.getElementById('typewriter-cursor');
         if (!el || !cursor) return;
 
-        const words = ['local LLM', 'TTS model', 'computer', 'AI setup', 'open-source model'];
+        const words = ['OpenClaw', 'local AI', 'LM Studio', 'private agents', 'beta app'];
         let wordIndex = 0;
         let charIndex = words[0].length; // Start fully typed
         let isDeleting = false;

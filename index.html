@@ -7,8 +7,8 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>LocalClaw — Best Local AI Model for Your Hardware (2026)</title>
-    <meta name="description" content="Free private AI model recommender for LM Studio: match 183 LLMs + 47 TTS/ASR models to your RAM, GPU and OS. Find the best local AI model for your hardware.">
+    <title>LocalClaw - Install OpenClaw on Mac + Find the Right Local AI Model</title>
+    <meta name="description" content="LocalClaw helps you install OpenClaw on macOS and choose the right local AI model for your hardware. Beta macOS app with lifetime access at $49, plus a free private LLM and TTS model finder.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -19,8 +19,8 @@
          ============================================================ -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
-    <meta property="og:title" content="LocalClaw — Run AI On Your Terms (2026 Edition)">
-    <meta property="og:description" content="Find the perfect open-source AI model for your hardware. 183 LLMs + 47 TTS/ASR including ZAYA1-8B, Ling-2.6-flash, Kimi K2, DeepSeek V3.2, Qwen 3 Next, Llama 4, Gemma 4, GLM 4.6, NeuTTS Air, Step-Audio 2, Higgs Audio v2, OCTAVE 2. Smart recommendations, zero data collection.">
+    <meta property="og:title" content="LocalClaw - Install OpenClaw on Mac, Without Terminal Pain">
+    <meta property="og:description" content="A lightweight macOS app for guided OpenClaw setup, plus a free private model finder for 183 LLMs + 47 TTS/ASR models. Beta lifetime access is currently $49.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
@@ -32,8 +32,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw — Run AI On Your Terms (2026 Edition)">
-    <meta name="twitter:description" content="Free private model recommender for 183 LLMs + 47 TTS/ASR models. Find the best local AI model for your hardware, with zero data collection.">
+    <meta name="twitter:title" content="LocalClaw - Install OpenClaw on Mac">
+    <meta name="twitter:description" content="Guided macOS OpenClaw setup, beta lifetime access at $49, and a free private model finder for 183 LLMs + 47 TTS/ASR models.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
 
@@ -75,6 +75,7 @@
 
     <!-- LCP OPTIMIZATION — preload above-the-fold logo (quick win, bounce rate ↓) -->
     <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/localclaw-app-home.png?v=20260526a" fetchpriority="high">
 
     <!-- ============================================================
          FONTS (with display=swap for performance)
@@ -425,22 +426,58 @@
         <div id="seo-fallback" class="w-full max-w-6xl mx-auto">
 
             <!-- Primary H1 -->
-            <header class="text-center py-16 sm:py-24 border-b border-white/20 mb-12">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 border border-claw-primary bg-black text-claw-primary text-xs font-mono uppercase tracking-widest">
-                    <span class="w-2 h-2 bg-claw-primary"></span>
-                    183 LLMs + 47 TTS — Updated May 14, 2026
-                </div>
-                <h1 class="text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-8 tracking-tighter leading-[0.95] text-white uppercase">
-                    Find the right<br/>
-                    <span class="text-claw-primary">local LLM</span><span class="text-claw-primary">_</span>
-                </h1>
-                <p class="text-lg sm:text-xl text-claw-muted max-w-2xl mx-auto leading-relaxed font-mono">
-                    Stop sending your data to the cloud. Find the <span class="text-white border-b border-white/40">perfect open-source model</span> for your hardware.
-                </p>
-                <div class="mt-8 max-w-3xl mx-auto rounded-2xl border border-claw-primary/25 bg-claw-primary/10 p-4 text-left sm:text-center" role="note" aria-label="Free recommender and optional paid installer clarification">
-                    <p class="text-sm text-claw-muted leading-relaxed font-mono">
-                        <strong class="text-white">Clear pricing:</strong> the web model recommender is free to use. The optional <a href="pricing.html" class="text-claw-primary hover:underline">LocalClaw Installer for macOS</a> is <strong class="text-white">$49 one-time</strong> if you want one-click setup, activation, updates and support.
-                    </p>
+            <header class="py-12 sm:py-18 lg:py-20 border-b border-white/20 mb-12">
+                <div class="grid lg:grid-cols-[0.92fr_1.08fr] gap-10 lg:gap-14 items-center">
+                    <div class="text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-claw-primary/40 bg-claw-primary/10 text-claw-primary text-xs font-mono uppercase tracking-widest">
+                            <span class="w-2 h-2 rounded-full bg-claw-primary animate-pulse"></span>
+                            macOS beta · lifetime $49
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl md:text-7xl font-display font-bold mb-6 tracking-tighter leading-[0.95] text-white uppercase">
+                            Install<br>
+                            <span class="text-claw-primary">OpenClaw</span><br>
+                            on your Mac
+                        </h1>
+                        <p class="text-base sm:text-xl text-claw-muted max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            LocalClaw is a lightweight macOS app that helps you set up OpenClaw, connect your local AI stack and keep the hard parts out of Terminal.
+                        </p>
+                        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                            <a href="pricing.html" class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-sm transition-all uppercase tracking-tight">
+                                Beta lifetime access — $49
+                            </a>
+                            <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg border border-white/15 bg-white/[0.03] hover:border-claw-primary/50 hover:text-white text-claw-muted font-mono font-bold text-sm transition-all uppercase tracking-tight">
+                                Find My Model
+                            </a>
+                        </div>
+                        <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+                            <div class="rounded-xl border border-white/10 bg-white/[0.025] p-4">
+                                <div class="text-white font-display font-bold">No terminal first</div>
+                                <p class="mt-1 text-xs text-claw-muted leading-relaxed">Guided setup for LM Studio, OpenClaw and activation.</p>
+                            </div>
+                            <div class="rounded-xl border border-white/10 bg-white/[0.025] p-4">
+                                <div class="text-white font-display font-bold">Local-first</div>
+                                <p class="mt-1 text-xs text-claw-muted leading-relaxed">Built for private AI workflows on your own Mac.</p>
+                            </div>
+                            <div class="rounded-xl border border-white/10 bg-white/[0.025] p-4">
+                                <div class="text-white font-display font-bold">Free finder</div>
+                                <p class="mt-1 text-xs text-claw-muted leading-relaxed">183 LLMs + 47 TTS/ASR models matched to your hardware.</p>
+                            </div>
+                        </div>
+                        <p class="mt-5 text-xs text-claw-muted font-mono leading-relaxed">
+                            The app is in active development. Early customers get lifetime access, updates and support while the product matures. The web model finder remains free.
+                        </p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -inset-4 rounded-3xl bg-claw-primary/10 blur-2xl"></div>
+                        <div class="relative rounded-2xl border border-white/10 bg-white/[0.035] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+                            <img src="images/localclaw-app-home.png?v=20260526a" alt="LocalClaw macOS app dashboard showing OpenClaw setup status and actions" width="1400" height="876" class="w-full h-auto rounded-xl border border-white/10" loading="eager" fetchpriority="high" decoding="async">
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-2 justify-center lg:justify-end text-[11px] font-mono text-claw-muted">
+                            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">macOS 13+</span>
+                            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">OpenClaw setup</span>
+                            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/[0.03]">LM Studio ready</span>
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -890,8 +927,8 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
                             All-in-one
                         </div>
-                        <h3 class="text-xl sm:text-2xl font-display font-bold text-white mb-2">Optional macOS installer. <span class="text-claw-primary">$49.</span> One-time.</h3>
-                        <p class="text-sm text-claw-muted font-mono mb-3">The browser recommender stays free. Upgrade only if you want the native installer to install, update and manage your local AI stack from one dashboard.</p>
+                        <h3 class="text-xl sm:text-2xl font-display font-bold text-white mb-2">Optional macOS beta app. <span class="text-claw-primary">$49.</span> Lifetime access.</h3>
+                        <p class="text-sm text-claw-muted font-mono mb-3">The browser model finder stays free. Upgrade only if you want the native app to simplify OpenClaw setup, activation, updates and local AI management from one dashboard.</p>
                         <p class="text-xs font-mono mb-5" style="color:#f59e0b;">
                             <svg class="w-3 h-3 inline mb-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             macOS 13 Ventura or later required &nbsp;·&nbsp; Apple Silicon or Intel &nbsp;·&nbsp; 8 GB RAM min.
@@ -939,7 +976,7 @@
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The LocalClaw web recommender is free: use it to choose the right LLM/TTS model for your hardware. LocalClaw Installer is the optional native macOS app that manages setup — install models, handle updates, switch versions, and launch everything with one click. No terminal needed. The installer is a <strong class="text-white">one-time purchase at $49</strong>, no subscription, no recurring fees. Your license is valid forever. <a href="pricing.html" class="text-claw-primary hover:underline">See pricing →</a></p>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The LocalClaw web model finder is free: use it to choose the right LLM/TTS model for your hardware. The LocalClaw beta app is the optional native macOS app that simplifies setup, handles activation, supports updates and helps manage your local AI stack. No terminal-first workflow. The current beta lifetime offer is <strong class="text-white">$49 one-time</strong>, no subscription, no recurring fees. Your license is valid forever. <a href="pricing.html" class="text-claw-primary hover:underline">See pricing →</a></p>
                     </details>
                 </div>
             </section>
