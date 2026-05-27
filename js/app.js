@@ -991,6 +991,130 @@ const App = {
             ['Nemotron Nano 9B v2', 'Hybrid reasoning · laptop friendly', 'models/nemotron-nano-9b-v2.html', 'Local', 'border-blue-500/30 bg-blue-500/5 text-blue-400'],
             ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400']
         ];
+        const mockNavItems = [
+            ['home', '● Home', ''],
+            ['install', 'Install', ''],
+            ['updates', 'Updates', ''],
+            ['control', 'Control Center', ''],
+            ['chat', 'OpenClaw Chat', 'BETA'],
+            ['developer', 'Developer', 'BETA'],
+            ['models', 'Models', ''],
+            ['skills', 'Skills', ''],
+            ['channels', 'Channels', 'BETA'],
+            ['agents', 'Agents', ''],
+            ['cron', 'Cron Jobs', ''],
+            ['kanban', 'Kanban', '']
+        ];
+        const mockPanelHeader = (title, subtitle) => `
+            <div class="mb-4 flex flex-col gap-3 rounded-xl border border-[#2a2a2a] bg-[#151515] p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-claw-primary shadow-[0_0_24px_rgba(255,69,58,0.25)]">
+                        <img src="images/logo-localclaw.svg" width="40" height="40" alt="LocalClaw logo" class="h-full w-full object-cover" loading="eager" decoding="async">
+                    </div>
+                    <div>
+                        <div class="text-base font-bold text-white">${title}</div>
+                        <div class="text-[11px] text-claw-muted">${subtitle}</div>
+                    </div>
+                </div>
+                <span class="w-fit rounded-md border border-claw-primary/35 bg-claw-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-claw-primary">Local LLM</span>
+            </div>
+        `;
+        const mockPanels = {
+            home: `
+                ${mockPanelHeader('LocalClaw', 'Version 1.0.140 (build 285)')}
+                <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div></div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div></div>
+                    <div class="rounded-xl border border-claw-primary/35 bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">299.2K</div><div class="mt-1 text-[11px] text-claw-muted">Tokens used</div></div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">1 active</div><div class="mt-1 text-[11px] text-claw-muted">Channels</div></div>
+                </div>
+                <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                    <div class="flex flex-wrap gap-2 text-[11px] font-bold text-claw-muted">
+                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Gateway</span>
+                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Chat</span>
+                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Model</span>
+                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Channel</span>
+                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Skill</span>
+                    </div>
+                </div>
+                <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                    <div class="mb-3 text-sm font-bold text-white">System Load</div>
+                    <div class="space-y-3 text-[11px]">
+                        <div><div class="mb-1 flex justify-between text-claw-muted"><span>CPU</span><span>38%</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[38%] rounded-full bg-claw-primary"></div></div></div>
+                        <div><div class="mb-1 flex justify-between text-claw-muted"><span>RAM</span><span>31.3 / 32.0 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[98%] rounded-full bg-claw-primary"></div></div></div>
+                    </div>
+                </div>
+            `,
+            install: `
+                ${mockPanelHeader('Install', 'Guided setup for cloud, OAuth, or fully local AI')}
+                <div class="grid gap-3 md:grid-cols-3">
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-claw-primary">⚡</div><div class="mt-2 font-bold text-white">Cloud LLM</div><p class="mt-1 text-[11px] text-claw-muted">API key mode with hosted providers.</p></div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-claw-primary">◎</div><div class="mt-2 font-bold text-white">OAuth LLM</div><p class="mt-1 text-[11px] text-claw-muted">OpenAI ChatGPT/Codex login, no paste.</p></div>
+                    <div class="rounded-xl border border-claw-primary/40 bg-claw-primary/10 p-4"><div class="text-claw-primary">▣</div><div class="mt-2 font-bold text-white">Local LLM</div><p class="mt-1 text-[11px] text-claw-muted">LM Studio local models, private.</p></div>
+                </div>
+                <div class="mt-4 grid gap-2 md:grid-cols-2 text-[11px]">
+                    ${['Homebrew ready','Xcode tools checked','Node v26 installed','LM Studio found','Disk space OK','Model selected'].map(x => `<div class="rounded-lg bg-[#1a1a1a] border border-[#333] p-3 text-claw-muted"><span class="text-[#22c55e]">●</span> ${x}</div>`).join('')}
+                </div>
+                <button class="mt-4 rounded-lg bg-claw-primary px-5 py-3 text-sm font-bold text-white">Install Everything</button>
+            `,
+            updates: `
+                ${mockPanelHeader('Update Center', 'Keep LocalClaw, OpenClaw and dependencies current')}
+                <div class="rounded-xl border border-[#22c55e]/30 bg-[#22c55e]/5 p-4 text-[11px] text-claw-muted"><span class="font-bold text-[#22c55e]">Update safety</span><div class="mt-3 grid gap-2 md:grid-cols-2"><span>● Config backup found</span><span>● Gateway running</span><span>● App path verified</span><span>● DMG checksum available</span></div></div>
+                <div class="mt-4 grid gap-3 md:grid-cols-3">
+                    ${['App update','OpenClaw runtime','Dependencies'].map(x => `<div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="font-bold text-white">${x}</div><p class="mt-2 text-[11px] text-claw-muted">Up to date</p><button class="mt-3 rounded bg-[#222] px-4 py-2 text-xs font-bold text-white">Run</button></div>`).join('')}
+                </div>
+            `,
+            control: `
+                ${mockPanelHeader('Control Center', 'Gateway health, repair actions, resources and logs')}
+                <div class="grid gap-2 md:grid-cols-3 text-[11px]">
+                    ${['Gateway: Unknown','LLM mode: Cloud','Monitor: Off','Active model: gpt-5.4-mini','OpenClaw: Checking','Port: 18789'].map(x => `<div class="rounded-lg border border-[#333] bg-[#1a1a1a] p-3 text-claw-muted">${x}</div>`).join('')}
+                </div>
+                <div class="mt-4 rounded-xl bg-[#f59e0b] p-4 text-black"><div class="font-bold">Repair OpenClaw Connection</div><p class="text-[11px]">Fix Gateway, restart service, and reopen dashboard.</p></div>
+                <div class="mt-3 grid gap-2 md:grid-cols-4 text-xs font-bold"><button class="rounded bg-[#17351e] p-2 text-[#22c55e]">Start</button><button class="rounded bg-claw-primary/10 p-2 text-claw-primary">Models</button><button class="rounded bg-blue-500/10 p-2 text-blue-400">Test dashboard</button><button class="rounded bg-amber-500/10 p-2 text-amber-400">Fix issues</button></div>
+            `,
+            chat: `
+                ${mockPanelHeader('OpenClaw Chat', 'Project discussions with local context memory')}
+                <div class="grid gap-3 md:grid-cols-[170px_1fr_150px]">
+                    <div class="rounded-xl border border-[#333] bg-[#141414] p-3 text-[11px] text-claw-muted"><div class="mb-2 font-bold text-white">Discussions</div>${['Project 1','Project 2','Project 5','Discussion 10'].map((x,i) => `<div class="mb-2 rounded ${i===2?'bg-claw-primary text-white':'bg-[#1f1f1f]'} p-2">${x}</div>`).join('')}</div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="rounded-lg bg-[#121212] p-4 text-sm text-white">Hi, I’m OpenClaw inside LocalClaw. Ask me anything about your setup.</div><div class="mt-28 rounded-lg border border-[#333] p-3 text-claw-muted">Message OpenClaw...</div></div>
+                    <div class="rounded-xl border border-[#333] bg-[#141414] p-3 text-[11px] text-claw-muted"><div class="font-bold text-white">Memory</div><p class="mt-3 rounded bg-[#1f1f1f] p-2">Visible context used for this chat.</p></div>
+                </div>
+            `,
+            developer: `
+                ${mockPanelHeader('Developer', 'Chat-driven coding with live preview')}
+                <div class="grid gap-3 md:grid-cols-[260px_1fr]">
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="font-bold text-white">AI Developer</div><div class="mt-2 rounded bg-[#2a2a2a] p-2 text-xs text-claw-muted">Gemma 4 E4B · Fast context ready</div><div class="mt-4 h-32 rounded border border-[#333] p-3 text-[11px] text-claw-muted">Start by describing what you want to build or change.</div><button class="mt-3 w-full rounded bg-claw-primary p-3 text-sm font-bold text-white">Send</button></div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-3 flex gap-4 text-xs text-claw-muted"><span class="text-claw-primary">Preview</span><span>Files</span><span>Database</span><span>Deploy</span><span>Logs</span></div><div class="h-52 rounded bg-black"></div></div>
+                </div>
+            `,
+            models: `
+                ${mockPanelHeader('Models', 'Switch between cloud, OAuth and local backends')}
+                <div class="grid gap-3 md:grid-cols-4">${['Active model: google/gemma-4-e4b','Mode: Local LLM','Cloud auth: Missing','Local models: 3'].map(x => `<div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4 text-[11px] text-claw-muted">${x}</div>`).join('')}</div>
+                <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-3 font-bold text-white">Select backend</div><div class="mb-3 flex gap-2 text-xs"><span class="rounded bg-[#2a2a2a] px-3 py-1">Cloud LLM</span><span class="rounded bg-[#2a2a2a] px-3 py-1">OAuth LLM</span><span class="rounded bg-claw-primary px-3 py-1 text-white">Local LLM</span></div><div class="rounded bg-[#111] p-3 text-claw-muted">google/gemma-4-e4b · Ready</div></div>
+            `,
+            skills: `
+                ${mockPanelHeader('Skills', 'Browse installed and ClawHub skills')}
+                <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-3 text-claw-muted">Search installed skills or ClawHub</div>
+                <div class="mt-3 grid gap-3 md:grid-cols-4">${['58 Installed','18 Active','40 Needs setup','0 Not installed'].map(x => `<div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4 font-bold text-white">${x}</div>`).join('')}</div>
+                <div class="mt-3 rounded-xl border border-[#333] bg-[#141414] p-3 text-[11px] text-claw-muted">${['1password','apple-notes','apple-reminders','bear-notes'].map(x => `<div class="mb-2 rounded bg-[#1f1f1f] p-2"><span class="text-[#22c55e]">● Installed</span> ${x}</div>`).join('')}</div>
+            `,
+            channels: `
+                ${mockPanelHeader('Channels', 'Connect Telegram, Discord, WhatsApp and more')}
+                <div class="grid gap-3">${['Telegram · Connected · 1 Bot token OK','Discord · Not connected','WhatsApp · Ready to connect'].map((x,i) => `<div class="rounded-xl border ${i===0?'border-[#22c55e]/35':'border-[#333]'} bg-[#1a1a1a] p-4"><div class="font-bold text-white">${x.split(' · ')[0]}</div><p class="mt-1 text-[11px] text-claw-muted">${x.split(' · ').slice(1).join(' · ')}</p><button class="mt-3 rounded ${i===0?'bg-[#222]':'bg-claw-primary'} px-4 py-2 text-xs font-bold text-white">${i===0?'Edit':'Connect'}</button></div>`).join('')}</div>
+            `,
+            agents: `
+                ${mockPanelHeader('Agents', 'Manage OpenClaw agents and routing')}
+                <div class="grid gap-3">${['Claw · Main assistant · Active default','LocalAgent · Isolated agent · Available'].map((x,i) => `<div class="rounded-xl border ${i===0?'border-[#22c55e]/35':'border-claw-primary/35'} bg-[#1a1a1a] p-4"><div class="font-bold text-white">${x.split(' · ')[0]}</div><p class="mt-1 text-[11px] text-claw-muted">${x.split(' · ').slice(1).join(' · ')}</p><div class="mt-3 flex gap-2"><button class="rounded bg-[#222] px-4 py-2 text-xs font-bold text-white">Edit</button><button class="rounded bg-[#222] px-4 py-2 text-xs font-bold text-white">Delete</button></div></div>`).join('')}</div>
+            `,
+            cron: `
+                ${mockPanelHeader('Cron Jobs', 'Schedule recurring OpenClaw work')}
+                <div class="grid gap-3">${['Daily roadmap check · Every 1d · OAuth LLM','Draft launch checklist · Cron: 0 9 * * *','La météo du jour · Every 6h','Prepare weekly report · Every 1d'].map(x => `<div class="rounded-xl border border-[#22c55e]/35 bg-[#1a1a1a] p-4"><div class="font-bold text-white">${x.split(' · ')[0]} <span class="ml-2 rounded bg-[#22c55e]/10 px-2 py-0.5 text-[10px] text-[#22c55e]">Active</span></div><p class="mt-1 text-[11px] text-claw-muted">${x.split(' · ').slice(1).join(' · ')}</p></div>`).join('')}</div>
+            `,
+            kanban: `
+                ${mockPanelHeader('Kanban', 'Plan work in classic automation stages')}
+                <div class="grid gap-2 md:grid-cols-5 text-[11px]">${['Backlog','Ready','Doing','Review','Done'].map((col,i) => `<div class="min-h-40 rounded-xl border border-[#333] bg-[#1a1a1a] p-3"><div class="mb-3 font-bold text-white">${col}</div>${i===0?'<div class="rounded border border-claw-primary/25 bg-[#111] p-3 text-claw-muted">Test<br><span class="text-claw-primary">Normal · Claw</span></div>':''}${i===1?'<div class="rounded border border-blue-500/25 bg-[#111] p-3 text-claw-muted">Apple<br><span class="text-blue-400">Ready · LocalAgent</span></div>':''}${i===4?'<div class="rounded border border-[#22c55e]/25 bg-[#111] p-3 text-claw-muted">Dog<br><span class="text-[#22c55e]">Done</span></div>':''}</div>`).join('')}</div>
+            `
+        };
 
         container.innerHTML = `
             <section class="relative pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 text-center">
@@ -1025,18 +1149,11 @@ const App = {
                         <aside class="border-b lg:border-b-0 lg:border-r border-[#2a2a2a] bg-[#090909] p-4 font-mono text-[11px]">
                             <div class="mb-3 text-[10px] uppercase tracking-[0.18em] text-claw-muted">Navigation</div>
                             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-1.5">
-                                <div class="rounded-md bg-claw-primary px-3 py-2 font-bold text-white">● Home</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Install</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Updates</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Control Center</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">OpenClaw Chat <span class="ml-1 rounded border border-claw-primary/40 px-1 text-[9px] text-claw-primary">BETA</span></div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Developer <span class="ml-1 rounded border border-claw-primary/40 px-1 text-[9px] text-claw-primary">BETA</span></div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Models</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Skills</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Channels <span class="ml-1 rounded border border-claw-primary/40 px-1 text-[9px] text-claw-primary">BETA</span></div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Agents</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Cron Jobs</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Kanban</div>
+                                ${mockNavItems.map(([panel, label, beta]) => `
+                                    <button type="button" data-mock-panel="${panel}" class="lc-mock-nav rounded-md px-3 py-2 text-left transition-colors ${panel === 'home' ? 'bg-claw-primary font-bold text-white' : 'bg-[#1a1a1a] text-claw-muted hover:bg-[#242424] hover:text-white'}">
+                                        ${label}${beta ? ` <span class="ml-1 rounded border border-claw-primary/40 px-1 text-[9px] text-claw-primary">${beta}</span>` : ''}
+                                    </button>
+                                `).join('')}
                             </div>
                             <div class="mt-4 border-t border-[#333] pt-4">
                                 <div class="text-[10px] uppercase tracking-[0.18em] text-claw-muted">OpenClaw Version</div>
@@ -1045,41 +1162,8 @@ const App = {
                                 <div class="text-claw-muted">32 GB · macOS</div>
                             </div>
                         </aside>
-                        <div class="p-4 sm:p-5 font-mono">
-                            <div class="mb-4 flex flex-col gap-3 rounded-xl border border-[#2a2a2a] bg-[#151515] p-4 sm:flex-row sm:items-center sm:justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-claw-primary shadow-[0_0_24px_rgba(255,69,58,0.25)]">
-                                        <img src="images/logo-localclaw.svg" width="40" height="40" alt="LocalClaw logo" class="h-full w-full object-cover" loading="eager" decoding="async">
-                                    </div>
-                                    <div>
-                                        <div class="text-base font-bold text-white">LocalClaw</div>
-                                        <div class="text-[11px] text-claw-muted">Version 1.0.140 (build 285)</div>
-                                    </div>
-                                </div>
-                                <span class="w-fit rounded-md border border-claw-primary/35 bg-claw-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-claw-primary">Local LLM</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
-                                <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div></div>
-                                <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div></div>
-                                <div class="rounded-xl border border-claw-primary/35 bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">299.2K</div><div class="mt-1 text-[11px] text-claw-muted">Tokens used</div></div>
-                                <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">1 active</div><div class="mt-1 text-[11px] text-claw-muted">Channels</div></div>
-                            </div>
-                            <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                <div class="flex flex-wrap gap-2 text-[11px] font-bold text-claw-muted">
-                                    <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Gateway</span>
-                                    <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Chat</span>
-                                    <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Model</span>
-                                    <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Channel</span>
-                                    <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Skill</span>
-                                </div>
-                            </div>
-                            <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                <div class="mb-3 text-sm font-bold text-white">System Load</div>
-                                <div class="space-y-3 text-[11px]">
-                                    <div><div class="mb-1 flex justify-between text-claw-muted"><span>CPU</span><span>38%</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[38%] rounded-full bg-claw-primary"></div></div></div>
-                                    <div><div class="mb-1 flex justify-between text-claw-muted"><span>RAM</span><span>31.3 / 32.0 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[98%] rounded-full bg-claw-primary"></div></div></div>
-                                </div>
-                            </div>
+                        <div class="lc-mock-panel p-4 sm:p-5 font-mono transition-opacity duration-200">
+                            ${mockPanels.home}
                         </div>
                     </div>
                 </div>
@@ -1147,6 +1231,27 @@ const App = {
                 <button onclick="App.showFAQ()" class="text-claw-muted hover:text-white text-xs font-mono uppercase tracking-widest transition-colors inline-flex items-center gap-2">[ ACCESS_FAQ_DATABASE ]</button>
             </div>
         `;
+        const mockPanel = container.querySelector('.lc-mock-panel');
+        const mockButtons = [...container.querySelectorAll('.lc-mock-nav')];
+        mockButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const panel = button.dataset.mockPanel;
+                if (!mockPanels[panel] || !mockPanel) return;
+                mockButtons.forEach(btn => {
+                    const active = btn === button;
+                    btn.classList.toggle('bg-claw-primary', active);
+                    btn.classList.toggle('font-bold', active);
+                    btn.classList.toggle('text-white', active);
+                    btn.classList.toggle('bg-[#1a1a1a]', !active);
+                    btn.classList.toggle('text-claw-muted', !active);
+                });
+                mockPanel.style.opacity = '0';
+                window.setTimeout(() => {
+                    mockPanel.innerHTML = mockPanels[panel];
+                    mockPanel.style.opacity = '1';
+                }, 120);
+            });
+        });
         return;
     },
 
