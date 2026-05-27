@@ -978,210 +978,45 @@ const App = {
         // Calculate hardware configs: OS(3) × RAM levels(4) × Usage(5) × VRAM(8) × Context(5)
         const configCount = 2400;
         container.innerHTML = `
-            <!-- HERO: 2-column layout with mockup -->
-            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 mb-16 relative pt-12">
-                <!-- Left: Title & CTA -->
-                <div class="flex-1 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 mb-8 px-4 py-1.5 border border-claw-primary bg-black text-claw-primary text-xs font-mono font-bold tracking-widest uppercase">
+            <!-- HERO: product-first homepage -->
+            <div class="grid lg:grid-cols-[0.95fr_1.25fr] gap-8 lg:gap-14 items-center mb-16 relative pt-8 sm:pt-10">
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 mb-5 sm:mb-6 px-4 py-1.5 border border-claw-primary bg-black text-claw-primary text-xs font-mono font-bold tracking-widest uppercase">
                         <span class="w-2 h-2 bg-claw-primary"></span>
-                        macOS beta · lifetime $49
+                        Private local AI control center
                     </div>
-                    <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-8 tracking-tighter leading-[0.95] text-white uppercase">
-                        Install<br/>
-                        <span id="typewriter-text" class="text-claw-primary">OpenClaw</span><span id="typewriter-cursor" class="text-claw-primary">_</span>
+                    <h1 class="text-3xl sm:text-6xl md:text-7xl font-display font-bold mb-4 sm:mb-6 tracking-tighter leading-[0.95] text-white uppercase">
+                        Run local AI<br/>
+                        from one <span class="text-claw-primary">dashboard</span>
                     </h1>
-                    <p class="text-lg sm:text-xl text-claw-muted max-w-2xl lg:max-w-xl font-mono leading-relaxed">
-                        LocalClaw helps you set up OpenClaw on Mac, connect LM Studio and keep local AI setup simple.
+                    <p class="text-base sm:text-xl text-claw-muted max-w-2xl lg:max-w-xl mx-auto lg:mx-0 font-mono leading-relaxed">
+                        LocalClaw helps you choose the right model, install your stack, manage OpenClaw, LM Studio, agents, channels, cron jobs and skills without terminal chaos.
                     </p>
-
-                    <div class="mt-12 flex flex-col sm:flex-row lg:justify-start justify-center gap-4">
-                        <a href="pricing.html" class="group px-8 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 flex items-center justify-center gap-2 uppercase tracking-tight">
-                            Beta lifetime — $49
+                    <div class="mt-5 sm:mt-6 hidden sm:flex flex-wrap justify-center lg:justify-start gap-2 text-xs font-mono uppercase tracking-widest">
+                        <span class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">Private</span>
+                        <span class="px-3 py-1.5 border border-claw-primary/30 bg-claw-primary/10 text-claw-primary">Local models</span>
+                        <span class="px-3 py-1.5 border border-white/15 bg-white/[0.03] text-claw-muted">Open-source stack</span>
+                    </div>
+                    <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row lg:justify-start justify-center gap-3 sm:gap-4">
+                        <a href="pricing.html" class="px-8 py-4 sm:py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base sm:text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight text-center">
+                            Download Installer
                         </a>
-                        <button onclick="App.startFlow('guided')" class="px-8 py-5 bg-black border border-white/20 hover:border-white text-white font-mono font-bold text-lg transition-all hover:bg-white/5 flex items-center justify-center gap-2 uppercase tracking-tight">
+                        <button onclick="App.startFlow('guided')" class="px-8 py-4 sm:py-5 bg-black border border-white/20 hover:border-white text-white font-mono font-bold text-base sm:text-lg transition-all hover:bg-white/5 uppercase tracking-tight">
                             Find My Model
                         </button>
                     </div>
                 </div>
 
-                <!-- Right: Hero Mockup Carousel -->
-                <div class="flex-1 max-w-md lg:max-w-lg w-full" style="animation: fadeInUp 0.8s 0.3s ease-out both;">
-                    <div class="relative">
-                        <!-- Glow -->
-                        <div class="hero-glow absolute -inset-4 bg-gradient-to-r from-claw-primary/20 via-orange-500/10 to-purple-500/10 blur-2xl opacity-50 rounded-2xl pointer-events-none"></div>
-
-                        <div class="relative rounded-xl border border-white/10 bg-black/80 p-2 shadow-2xl">
-                            <img src="images/localclaw-app-home.png?v=20260526a" alt="LocalClaw beta macOS app dashboard" width="1400" height="876" class="w-full h-auto rounded-lg border border-white/10" loading="eager" decoding="async">
-                            <div class="mt-3 flex flex-wrap gap-2 justify-center text-[10px] font-mono text-claw-muted">
-                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">OpenClaw setup</span>
-                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">LM Studio</span>
-                                <span class="px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.03]">Local-first</span>
-                            </div>
-                        </div>
-
-                        <!-- Carousel wrapper -->
-                        <div class="hidden relative overflow-hidden rounded-xl" id="hero-mockup-wrap">
-
-                            <!-- SLIDE 1 — Model Results -->
-                            <div class="hero-slide" data-slide="0">
-                                <div class="border border-white/10 rounded-xl bg-black/80 backdrop-blur-sm p-5 shadow-2xl">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-[10px] uppercase tracking-widest text-claw-muted font-bold font-mono">Top Recommendations</span>
-                                        <span class="text-[10px] text-claw-muted font-mono">3 results</span>
-                                    </div>
-                                    <div class="border border-white/10 rounded-lg p-4 mb-3 relative overflow-hidden bg-white/[0.02] ring-1 ring-claw-primary/30">
-                                        <div class="absolute top-0 right-0 bg-gradient-to-l from-claw-primary to-orange-600 text-white text-[8px] font-bold px-3 py-1 rounded-bl-lg tracking-widest">🏆 TOP PICK</div>
-                                        <div class="flex justify-between items-start mb-3">
-                                            <div>
-                                                <h4 class="text-sm font-bold text-white">Gemma 4 E4B</h4>
-                                                <div class="flex gap-1 mt-1">
-                                                    <span class="text-[8px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full text-claw-muted">chat</span>
-                                                    <span class="text-[8px] uppercase tracking-wider bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-full text-claw-muted">vision</span>
-                                                    <span class="text-[8px] uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded-full text-emerald-400 font-bold">● SAFE</span>
-                                                </div>
-                                            </div>
-                                            <div class="text-sm font-mono text-white font-bold">4.6<span class="text-[10px] text-claw-muted font-normal ml-0.5">GB</span></div>
-                                        </div>
-                                        <div class="space-y-1">
-                                            <div class="flex items-center gap-1.5 text-[10px]"><span class="w-10 text-claw-muted">Speed</span><div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:80%"></div></div><span class="w-4 text-right text-claw-muted font-mono">8</span></div>
-                                            <div class="flex items-center gap-1.5 text-[10px]"><span class="w-10 text-claw-muted">Quality</span><div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:75%"></div></div><span class="w-4 text-right text-claw-muted font-mono">7.5</span></div>
-                                            <div class="flex items-center gap-1.5 text-[10px]"><span class="w-10 text-claw-muted">Coding</span><div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="bg-orange-500 h-full rounded-full" style="width:70%"></div></div><span class="w-4 text-right text-claw-muted font-mono">7</span></div>
-                                            <div class="flex items-center gap-1.5 text-[10px]"><span class="w-10 text-claw-muted">Reason</span><div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="bg-purple-500 h-full rounded-full" style="width:65%"></div></div><span class="w-4 text-right text-claw-muted font-mono">6.5</span></div>
-                                        </div>
-                                        <div class="mt-3 flex items-center gap-2">
-                                            <div class="flex-grow bg-black/60 border border-white/5 rounded-md p-2 flex justify-between items-center">
-                                                <div class="flex flex-col"><span class="text-[8px] text-claw-muted uppercase">Search in LM Studio</span><code class="text-[10px] text-claw-primary font-mono">gemma-4-e4b-it</code></div>
-                                                <svg class="h-3 w-3 text-claw-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                                            </div>
-                                            <div class="bg-claw-primary/10 border border-claw-primary/20 rounded-md p-1.5 flex flex-col items-center w-12">
-                                                <span class="text-[7px] text-claw-primary uppercase font-bold">Quant</span>
-                                                <span class="text-[10px] text-white font-mono font-bold">Q4_K_M</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-white/5 rounded-lg p-3 mb-2 bg-white/[0.01] opacity-60">
-                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Gemma 4 E2B</span><span class="text-[9px] text-claw-muted ml-2">2.3 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:90%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:60%"></div></div></div></div>
-                                    </div>
-                                    <div class="border border-white/5 rounded-lg p-3 bg-white/[0.01] opacity-40">
-                                        <div class="flex justify-between items-center"><div><span class="text-xs font-bold text-white">Gemma 4 26B A4B</span><span class="text-[9px] text-claw-muted ml-2">16 GB</span></div><div class="flex gap-2"><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width:70%"></div></div><div class="h-1 w-8 bg-white/5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width:90%"></div></div></div></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- SLIDE 2 — Hardware Matcher -->
-                            <div class="hero-slide" data-slide="1">
-                                <div class="border border-orange-500/30 rounded-xl bg-black/80 backdrop-blur-sm p-5 shadow-2xl">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-[10px] uppercase tracking-widest text-orange-400 font-bold font-mono">Hardware Matcher</span>
-                                        <span class="text-[10px] text-emerald-400 font-mono font-bold">● Live</span>
-                                    </div>
-                                    <div class="space-y-3 mb-4">
-                                        <div>
-                                            <div class="flex justify-between mb-1"><span class="text-[10px] text-claw-muted font-mono uppercase">RAM</span><span class="text-[10px] text-white font-mono font-bold">16 GB</span></div>
-                                            <div class="h-2 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full" style="width:50%"></div></div>
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between mb-1"><span class="text-[10px] text-claw-muted font-mono uppercase">GPU VRAM</span><span class="text-[10px] text-white font-mono font-bold">12 GB</span></div>
-                                            <div class="h-2 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full" style="width:75%"></div></div>
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between mb-1"><span class="text-[10px] text-claw-muted font-mono uppercase">CPU Cores</span><span class="text-[10px] text-white font-mono font-bold">12 cores</span></div>
-                                            <div class="h-2 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width:60%"></div></div>
-                                        </div>
-                                    </div>
-                                    <div class="border border-orange-500/20 rounded-lg p-4 bg-orange-500/[0.04]">
-                                        <div class="text-[9px] text-orange-400 font-mono uppercase tracking-widest mb-2">Best match for your setup</div>
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <div class="text-base font-bold text-white">Qwen 3 14B</div>
-                                                <div class="text-[10px] text-claw-muted font-mono mt-0.5">Q5_K_M · 9.4 GB · Fits perfectly</div>
-                                            </div>
-                                            <div class="text-2xl">✦</div>
-                                        </div>
-                                        <div class="mt-3 grid grid-cols-3 gap-1.5">
-                                            <div class="text-center p-1.5 rounded bg-white/[0.03] border border-white/5"><div class="text-[10px] font-bold text-emerald-400">9.1</div><div class="text-[8px] text-claw-muted">Speed</div></div>
-                                            <div class="text-center p-1.5 rounded bg-white/[0.03] border border-white/5"><div class="text-[10px] font-bold text-blue-400">8.7</div><div class="text-[8px] text-claw-muted">Quality</div></div>
-                                            <div class="text-center p-1.5 rounded bg-white/[0.03] border border-white/5"><div class="text-[10px] font-bold text-orange-400">8.2</div><div class="text-[8px] text-claw-muted">Coding</div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- SLIDE 3 — OpenClaw App -->
-                            <div class="hero-slide" data-slide="2">
-                                <div class="border border-claw-primary/40 rounded-xl bg-black/80 backdrop-blur-sm p-5 shadow-2xl">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-5 h-5 bg-claw-primary rounded flex items-center justify-center"><svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg></div>
-                                            <span class="text-[10px] uppercase tracking-widest text-claw-primary font-bold font-mono">OpenClaw</span>
-                                        </div>
-                                        <span class="text-[10px] text-claw-primary font-mono font-bold border border-claw-primary/30 px-2 py-0.5 rounded-full">$49 once</span>
-                                    </div>
-                                    <div class="space-y-2 mb-4">
-                                        <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
-                                            <div class="w-6 h-6 rounded bg-emerald-500/15 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">⬇</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 E4B · Q4_K_M</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:100%"></div></div></div>
-                                            <span class="text-[9px] text-emerald-400 font-mono flex-shrink-0">Installed</span>
-                                        </div>
-                                        <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-claw-primary/20">
-                                            <div class="w-6 h-6 rounded bg-claw-primary/15 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">↻</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 26B A4B</div><div class="mt-1 h-1 bg-white/5 rounded-full overflow-hidden"><div class="h-full bg-claw-primary rounded-full" style="width:63%"></div></div></div>
-                                            <span class="text-[9px] text-claw-primary font-mono flex-shrink-0">Updating…</span>
-                                        </div>
-                                        <div class="flex items-center gap-3 p-2.5 rounded-lg bg-white/[0.03] border border-white/5 opacity-50">
-                                            <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center flex-shrink-0"><span class="text-[10px]">⬡</span></div>
-                                            <div class="flex-1 min-w-0"><div class="text-xs text-white font-mono truncate">Gemma 4 31B</div><div class="text-[9px] text-claw-muted mt-0.5">256K ctx · not installed</div></div>
-                                            <span class="text-[9px] text-claw-muted font-mono flex-shrink-0">Get</span>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center"><div class="text-sm font-bold text-white">4</div><div class="text-[8px] text-claw-muted uppercase tracking-widest font-mono">Installed</div></div>
-                                        <div class="p-2 rounded-lg bg-white/[0.02] border border-white/5 text-center"><div class="text-sm font-bold text-claw-primary">1</div><div class="text-[8px] text-claw-muted uppercase tracking-widest font-mono">Update ready</div></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- SLIDE 4 — LLM Library browse -->
-                            <div class="hero-slide" data-slide="3">
-                                <div class="border border-violet-500/30 rounded-xl bg-black/80 backdrop-blur-sm p-5 shadow-2xl">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <span class="text-[10px] uppercase tracking-widest text-violet-400 font-bold font-mono">LLM Library — ${modelCount} models</span>
-                                        <span class="text-[10px] text-claw-muted font-mono">Updated May 2026</span>
-                                    </div>
-                                    <div class="flex gap-1.5 mb-3 flex-wrap">
-                                        <span class="px-2 py-0.5 rounded-full bg-claw-primary/15 border border-claw-primary/30 text-claw-primary text-[9px] font-mono uppercase">All</span>
-                                        <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-claw-muted text-[9px] font-mono uppercase">Chat</span>
-                                        <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-claw-muted text-[9px] font-mono uppercase">Code</span>
-                                        <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-claw-muted text-[9px] font-mono uppercase">Vision</span>
-                                        <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-claw-muted text-[9px] font-mono uppercase">Reason</span>
-                                    </div>
-                                    <div class="space-y-1.5">
-                                        ${[
-                                            {name:'Gemma 4 E4B', size:'4.6 GB', tag:'VISION', color:'text-blue-400', dot:'bg-blue-500'},
-                                            {name:'Gemma 4 26B A4B', size:'16 GB', tag:'MOE', color:'text-orange-400', dot:'bg-orange-500'},
-                                            {name:'Gemma 4 31B', size:'19 GB', tag:'QUALITY', color:'text-emerald-400', dot:'bg-emerald-500'},
-                                            {name:'Qwen 3 Next', size:'80B/3B', tag:'FAST', color:'text-violet-400', dot:'bg-violet-500'},
-                                        ].map((m,i) => `
-                                        <div class="flex items-center gap-3 p-2 rounded-lg border border-white/5 bg-white/[0.02] ${i>1?'opacity-50':''}">
-                                            <div class="w-1.5 h-1.5 rounded-full ${m.dot} flex-shrink-0"></div>
-                                            <span class="text-xs text-white font-mono flex-1 truncate">${m.name}</span>
-                                            <span class="text-[9px] text-claw-muted font-mono">${m.size}</span>
-                                            <span class="text-[8px] ${m.color} font-mono font-bold">${m.tag}</span>
-                                        </div>`).join('')}
-                                    </div>
-                                    <div class="mt-3 text-center text-[9px] text-claw-muted font-mono">+ 120 more models →</div>
-                                </div>
-                            </div>
-
-                        </div><!-- /carousel wrapper -->
-
-                        <!-- Slide indicators -->
-                        <div class="hidden justify-center gap-2 mt-4" id="hero-slide-dots">
-                            <button class="hero-dot w-5 h-1 rounded-full bg-claw-primary transition-all" data-dot="0"></button>
-                            <button class="hero-dot w-1.5 h-1 rounded-full bg-white/20 transition-all" data-dot="1"></button>
-                            <button class="hero-dot w-1.5 h-1 rounded-full bg-white/20 transition-all" data-dot="2"></button>
-                            <button class="hero-dot w-1.5 h-1 rounded-full bg-white/20 transition-all" data-dot="3"></button>
-                        </div>
+                <div class="relative" style="animation: fadeInUp 0.8s 0.2s ease-out both;">
+                    <div class="hero-glow absolute -inset-3 bg-gradient-to-r from-claw-primary/20 via-orange-500/10 to-emerald-500/10 blur-2xl opacity-50 rounded-2xl pointer-events-none"></div>
+                    <figure class="relative overflow-hidden rounded-xl border border-white/15 bg-white/[0.02] shadow-2xl">
+                        <img src="images/localclaw-app-home.jpg" width="1600" height="880" alt="LocalClaw macOS dashboard showing OpenClaw readiness, token usage, channels, skills, models and local AI operations" class="w-full h-auto block" loading="eager" fetchpriority="high" decoding="async">
+                    </figure>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
+                        <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">1-click</div><div class="text-[11px] text-claw-muted font-mono">Install</div></div>
+                        <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">3 modes</div><div class="text-[11px] text-claw-muted font-mono">Cloud / OAuth / Local</div></div>
+                        <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">Agents</div><div class="text-[11px] text-claw-muted font-mono">Cron + Kanban</div></div>
+                        <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">0 upload</div><div class="text-[11px] text-claw-muted font-mono">Private by design</div></div>
                     </div>
                 </div>
             </div>
@@ -1266,14 +1101,8 @@ const App = {
             </div>
         `;
 
-        // Start typewriter effect
-        this.initTypewriter();
-
         // Animate config counter
         this.animateCounter('config-counter', configCount, 1800);
-
-        // Init hero mockup carousel
-        this.initHeroCarousel();
     },
 
     // ========================================================================
