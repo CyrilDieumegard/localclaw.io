@@ -7,8 +7,8 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>LocalClaw — Private Local AI Dashboard and Model Recommender (2026)</title>
-    <meta name="description" content="LocalClaw helps you run private local AI: find the best LLM for your hardware, install LM Studio/OpenClaw, manage local models, agents, channels, cron jobs and skills from one macOS dashboard.">
+    <title>LocalClaw — Match Your Hardware to the Right Local AI Model</title>
+    <meta name="description" content="Find the best local AI model for your Mac, PC, RAM, GPU and OS in 30 seconds. LocalClaw recommends 183 LLMs and 47 TTS/ASR models privately in your browser.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -19,8 +19,8 @@
          ============================================================ -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
-    <meta property="og:title" content="LocalClaw - Install OpenClaw on Mac, Without Terminal Pain">
-    <meta property="og:description" content="A lightweight macOS app for guided OpenClaw setup, plus a free private model finder for 183 LLMs + 47 TTS/ASR models. Beta lifetime access is currently $49.">
+    <meta property="og:title" content="LocalClaw - Find the Right Local AI Model for Your Hardware">
+    <meta property="og:description" content="Tell LocalClaw your RAM, GPU and OS. Get private, instant recommendations across 183 LLMs and 47 TTS/ASR models, plus an optional macOS installer.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
@@ -32,8 +32,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw - Install OpenClaw on Mac">
-    <meta name="twitter:description" content="Guided macOS OpenClaw setup, beta lifetime access at $49, and a free private model finder for 183 LLMs + 47 TTS/ASR models.">
+    <meta name="twitter:title" content="LocalClaw - Match Hardware to Local AI Models">
+    <meta name="twitter:description" content="Private local AI recommendations for your RAM, GPU and OS. 183 LLMs + 47 TTS/ASR models, with an optional macOS installer.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
 
@@ -75,7 +75,6 @@
 
     <!-- LCP OPTIMIZATION — preload above-the-fold logo (quick win, bounce rate ↓) -->
     <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
-    <link rel="preload" as="image" href="images/localclaw-app-home.jpg" fetchpriority="high">
 
     <!-- ============================================================
          FONTS (with display=swap for performance)
@@ -310,6 +309,40 @@
         html.light strong { color: #0f172a !important; }
         /* bg-black inline (SEO header badge) */
         html.light .bg-black { background-color: #ffffff !important; }
+
+        .lc-hero-mockup {
+            transform: perspective(1200px) rotateX(2.5deg);
+            transform-origin: center top;
+        }
+
+        .lc-fresh-dot {
+            animation: lcPulse 2.4s ease-in-out infinite;
+        }
+
+        .lc-latest-compact article:nth-of-type(n+7) {
+            display: none;
+        }
+
+        @keyframes lcPulse {
+            0%, 100% {
+                opacity: 0.65;
+                box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
+            }
+        }
+
+        @media (max-width: 640px), (prefers-reduced-motion: reduce) {
+            .lc-hero-mockup {
+                transform: none;
+            }
+
+            .lc-fresh-dot {
+                animation: none;
+            }
+        }
     </style>
 
     <!-- ============================================================
@@ -426,70 +459,77 @@
         <div id="seo-fallback" class="w-full max-w-6xl mx-auto">
 
             <!-- Primary H1 -->
-            <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12">
-                <div class="grid lg:grid-cols-[0.95fr_1.25fr] gap-8 lg:gap-14 items-center">
-                    <div class="text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-5 sm:mb-6 border border-claw-primary bg-black text-claw-primary text-xs font-mono uppercase tracking-widest">
-                            <span class="w-2 h-2 bg-claw-primary"></span>
-                            Private local AI control center
-                        </div>
-                        <h1 class="text-3xl sm:text-6xl md:text-7xl font-display font-bold mb-4 sm:mb-6 tracking-tighter leading-[0.95] text-white uppercase">
-                            Run local AI<br/>
-                            from one <span class="text-claw-primary">dashboard</span>
-                        </h1>
-                        <p class="text-base sm:text-xl text-claw-muted max-w-2xl mx-auto lg:mx-0 leading-relaxed font-mono">
-                            LocalClaw helps you choose the right local model, install your stack, manage OpenClaw, LM Studio, agents, channels, cron jobs and skills without terminal chaos.
-                        </p>
-                        <div class="mt-5 sm:mt-6 hidden sm:flex flex-wrap justify-center lg:justify-start gap-2 text-xs font-mono uppercase tracking-widest">
-                            <span class="px-3 py-1.5 border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">Private</span>
-                            <span class="px-3 py-1.5 border border-claw-primary/30 bg-claw-primary/10 text-claw-primary">Local models</span>
-                            <span class="px-3 py-1.5 border border-white/15 bg-white/[0.03] text-claw-muted">Open-source stack</span>
-                        </div>
-                        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4">
-                            <a href="pricing.html" class="px-8 py-4 sm:py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base sm:text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Download Installer</a>
-                            <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="px-8 py-4 sm:py-5 bg-black border border-white/20 hover:border-white text-white font-mono font-bold text-base sm:text-lg transition-all hover:bg-white/5 uppercase tracking-tight text-center">Find My Model</a>
-                        </div>
+            <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] uppercase shadow-[0_0_30px_rgba(16,185,129,0.12)]">
+                    <span class="lc-fresh-dot w-2 h-2 rounded-full bg-emerald-400"></span>
+                    183 LLMs + 47 TTS/ASR — Updated May 2026
+                </div>
+                <h1 class="mx-auto max-w-5xl text-[clamp(2.5rem,7vw,4.5rem)] font-display font-bold leading-[0.95] tracking-tight text-white uppercase">
+                    Match Your Hardware to the <span class="text-emerald-400">Right</span> Local AI
+                </h1>
+                <p class="mx-auto mt-5 max-w-3xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed">
+                    Tell us your RAM, GPU and OS. Get personalized model recommendations — instantly, privately, for free.
+                </p>
+                <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-white hover:text-black text-black font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(16,185,129,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Find My Model — Free</a>
+                    <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-black/40 border border-white/25 hover:border-emerald-400 text-white hover:text-emerald-300 font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight text-center">macOS Installer — $49</a>
+                </div>
+                <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">No signup. No data collected. Runs in your browser.</p>
+
+                <div class="lc-hero-mockup mx-auto mt-10 max-w-5xl overflow-hidden rounded-2xl border border-emerald-500/25 bg-[#0b0b0b] text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_70px_rgba(16,185,129,0.12)]">
+                    <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-3">
+                        <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
+                        <div class="font-mono text-xs text-claw-muted">LocalClaw v3.9</div>
+                        <div class="hidden sm:block font-mono text-[10px] text-emerald-400 uppercase tracking-widest">Private match</div>
                     </div>
-                    <div class="relative">
-                        <div class="hero-glow absolute -inset-3 bg-gradient-to-r from-claw-primary/20 via-orange-500/10 to-emerald-500/10 blur-2xl opacity-50 rounded-2xl pointer-events-none"></div>
-                        <figure class="relative overflow-hidden rounded-xl border border-white/15 bg-white/[0.02] shadow-2xl">
-                            <img src="images/localclaw-app-home.jpg" width="1600" height="880" alt="LocalClaw macOS dashboard showing OpenClaw status, token usage, channels, skills, models and local AI operations" class="w-full h-auto block" loading="eager" fetchpriority="high" decoding="async">
-                        </figure>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
-                            <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">1-click</div><div class="text-[11px] text-claw-muted font-mono">Install</div></div>
-                            <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">3 modes</div><div class="text-[11px] text-claw-muted font-mono">Cloud / OAuth / Local</div></div>
-                            <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">Agents</div><div class="text-[11px] text-claw-muted font-mono">Cron + Kanban</div></div>
-                            <div class="p-3 border border-white/10 bg-black/70 rounded-lg"><div class="text-white font-bold">0 upload</div><div class="text-[11px] text-claw-muted font-mono">Private by design</div></div>
+                    <div class="grid sm:grid-cols-[190px_1fr]">
+                        <aside class="border-b sm:border-b-0 sm:border-r border-white/10 bg-black/35 p-4 font-mono text-xs">
+                            <div class="mb-3 text-[10px] uppercase tracking-[0.18em] text-claw-muted">Modes</div>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between rounded-lg border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-emerald-300"><span>Guided</span><span>✓</span></div>
+                                <div class="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-claw-muted">Quick Spec</div>
+                                <div class="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-claw-muted">Terminal</div>
+                            </div>
+                        </aside>
+                        <div class="p-4 sm:p-6 font-mono">
+                            <div class="rounded-xl border border-white/10 bg-[#080808] p-4 sm:p-5">
+                                <div class="text-xs text-claw-muted">&gt; MacBook Air M4 · 16 GB RAM · macOS</div>
+                                <div class="my-4 h-px bg-gradient-to-r from-emerald-500/60 via-white/15 to-transparent"></div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-emerald-400 text-lg leading-none">★</span>
+                                    <div>
+                                        <div class="text-sm sm:text-base font-bold text-white">RECOMMENDED: <span class="text-emerald-400">Qwen 3.5 9B (Q5_K_M)</span></div>
+                                        <div class="mt-2 grid gap-1 text-xs sm:text-sm text-claw-muted"><span>Context: <span class="text-white">32K</span> · Speed: <span class="text-white">18 tok/s</span></span><span>RAM usage: <span class="text-white">~7.2 GB</span></span></div>
+                                    </div>
+                                </div>
+                                <div class="my-4 h-px bg-gradient-to-r from-emerald-500/40 via-white/10 to-transparent"></div>
+                                <div class="text-xs sm:text-sm text-claw-muted">Also fits: <span class="text-white">GLM 4.6 Air 12B</span> · <span class="text-white">Gemma 4 E4B</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <!-- SEO: Key features section -->
-            <section aria-label="Features" class="mb-20">
-                <h2 class="sr-only">How LocalClaw Works</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/20 bg-zinc-900/20">
-                    <article class="p-8 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors group relative">
-                        <svg class="absolute top-6 right-6 w-8 h-8 text-claw-primary opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
-                        <div class="text-claw-primary mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">01 // INIT</div>
-                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Guided Mode</h3>
-                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Simple questionnaire. OS, RAM level, use case. We handle the complexity.</p>
-                        <p class="mt-3 text-xs font-mono text-claw-primary opacity-70"><span class="text-claw-muted">Ex:</span> MacBook Air 8 GB → Qwen 3 8B</p>
-                    </article>
-                    <article class="p-8 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors group relative">
-                        <svg class="absolute top-6 right-6 w-8 h-8 text-orange-500 opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"/></svg>
-                        <div class="text-orange-500 mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">02 // SPEC</div>
-                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Quick Spec</h3>
-                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Direct input. Select RAM, GPU and priorities for instant logic execution.</p>
-                        <p class="mt-3 text-xs font-mono text-orange-500 opacity-70"><span class="text-claw-muted">Ex:</span> 32 GB RAM + RTX 4090 → DeepSeek R1 32B</p>
-                    </article>
-                    <article class="p-8 hover:bg-white/5 transition-colors group relative">
-                        <svg class="absolute top-6 right-6 w-8 h-8 text-emerald-500 opacity-30 group-hover:opacity-70 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/></svg>
-                        <div class="text-emerald-500 mb-4 font-mono text-xs opacity-50 group-hover:opacity-100">03 // TERM</div>
-                        <h3 class="text-xl font-bold text-white mb-3 font-display uppercase tracking-tight">Terminal</h3>
-                        <p class="text-sm text-claw-muted font-mono leading-relaxed">Paste diagnostics. Auto-detection of OS/RAM/GPU for precision targeting.</p>
-                        <p class="mt-3 text-xs font-mono text-emerald-500 opacity-70"><span class="text-claw-muted">Ex:</span> Paste neofetch → auto-detect &amp; match</p>
-                    </article>
+            <!-- SEO: How it works -->
+            <section aria-label="How LocalClaw works" class="mb-20">
+                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">Three ways to find your model</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-emerald-500/35 transition-colors"><div class="text-4xl font-display font-bold text-emerald-400/80 mb-4">01</div><h3 class="text-lg font-display font-bold text-white mb-2">Guided Mode</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Answer 3 questions. We handle the complexity.</p><p class="text-xs font-mono text-claw-muted">MacBook Air 8 GB → Qwen 3 8B</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-emerald-500/35 transition-colors"><div class="text-4xl font-display font-bold text-emerald-400/80 mb-4">02</div><h3 class="text-lg font-display font-bold text-white mb-2">Quick Spec</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Select RAM, GPU, priorities. Instant match.</p><p class="text-xs font-mono text-claw-muted">32 GB + RTX 4090 → DeepSeek R1 32B</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-emerald-500/35 transition-colors"><div class="text-4xl font-display font-bold text-emerald-400/80 mb-4">03</div><h3 class="text-lg font-display font-bold text-white mb-2">Terminal</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Paste your system info. Auto-detect &amp; match.</p><p class="text-xs font-mono text-claw-muted">Paste neofetch → auto-config</p></article>
+                </div>
+            </section>
+
+            <!-- SEO: Feature cards -->
+            <section aria-label="LocalClaw features" class="mb-20">
+                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Smart Hardware Matching</h3><p class="text-sm text-claw-muted leading-relaxed">RAM, GPU, OS → perfect model. No guesswork.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">183+ LLM Database</h3><p class="text-sm text-claw-muted leading-relaxed">Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">47 TTS/ASR Models</h3><p class="text-sm text-claw-muted leading-relaxed">Voice cloning, speech-to-text, 99 languages — all offline.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Zero Data Collection</h3><p class="text-sm text-claw-muted leading-relaxed">Runs in your browser. No tracking, no cloud, no API calls.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">macOS One-Click Install</h3><p class="text-sm text-claw-muted leading-relaxed">Native installer: LM Studio + models, no terminal needed. $49.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors"><svg class="w-6 h-6 text-emerald-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">RAM-Optimized Picks</h3><p class="text-sm text-claw-muted leading-relaxed">From 8 GB laptops to 128 GB workstations — matched to your tier.</p></article>
                 </div>
             </section>
 
@@ -612,14 +652,11 @@
             <section aria-label="Latest model drops" class="mb-20">
                 <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
                     <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
-                        <span class="text-claw-primary">//</span> Latest Drops
+                        <span class="text-emerald-400">//</span> Latest models worth testing
                     </h2>
-                    <span class="font-mono text-xs text-claw-muted flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        LIVE · May 14, 2026
-                    </span>
+                    <a href="llm-list.html" class="font-mono text-xs text-emerald-400 hover:text-white uppercase tracking-wider">See all 183 models →</a>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div class="lc-latest-compact grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     <!-- DeepSeek V4 Pro (NEW May 2026) -->
                     <article class="p-4 rounded-lg bg-gradient-to-br from-sky-500/10 to-blue-500/5 border border-sky-500/40 hover:border-sky-500 transition-colors ring-1 ring-sky-500/20">
                         <div class="flex items-start justify-between mb-2">
@@ -970,9 +1007,9 @@
                 <div class="border border-claw-primary/30 rounded-xl p-10 sm:p-14 text-center relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-br from-claw-primary/10 via-transparent to-orange-600/5"></div>
                     <div class="relative">
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Find your model in <span class="text-claw-primary">30 seconds</span></h2>
-                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-lg mx-auto">Answer a few questions about your hardware and get personalized AI model recommendations — instantly, privately, for free.</p>
-                        <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center gap-2 px-10 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Find your perfect model in <span class="text-emerald-400">30 seconds</span></h2>
+                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-lg mx-auto">Free. Private. No signup required.</p>
+                        <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center gap-2 px-10 py-5 bg-emerald-500 hover:bg-white hover:text-black text-black font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(16,185,129,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             Find My Model
                         </a>
