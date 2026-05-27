@@ -974,7 +974,7 @@ const App = {
     // ========================================================================
 
     renderHero(container) {
-        const icon = (paths) => `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+        const icon = (paths) => `<svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
         const features = [
             ['Smart Hardware Matching', 'RAM, GPU, OS → perfect model. No guesswork.', icon('<path d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>')],
             ['183+ LLM Database', 'Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.', icon('<path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/>')],
@@ -985,7 +985,7 @@ const App = {
         ];
         const latestModels = [
             ['DeepSeek V4 Pro', '1.6T MoE · 49B active · MIT', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
-            ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-emerald-500/30 bg-emerald-500/5 text-emerald-400'],
+            ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
             ['MiMo-V2.5-Pro', '1M context · 42B active · MIT', 'models/mimo-v2.5-pro.html', 'Long context', 'border-violet-500/30 bg-violet-500/5 text-violet-400'],
             ['Kimi Linear 48B-A3B', '3B active · efficient reasoning', 'models/kimi-linear-48b-a3b-instruct.html', 'Efficient', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
             ['Nemotron Nano 9B v2', 'Hybrid reasoning · laptop friendly', 'models/nemotron-nano-9b-v2.html', 'Local', 'border-blue-500/30 bg-blue-500/5 text-blue-400'],
@@ -994,55 +994,55 @@ const App = {
 
         container.innerHTML = `
             <section class="relative pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-emerald-500/40 bg-emerald-500/10 text-emerald-300 rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] uppercase shadow-[0_0_30px_rgba(16,185,129,0.12)]">
-                    <span class="lc-fresh-dot w-2 h-2 rounded-full bg-emerald-400"></span>
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-claw-primary/40 bg-claw-primary/10 text-claw-primary rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] uppercase shadow-[0_0_30px_rgba(255,69,58,0.12)]">
+                    <span class="lc-fresh-dot w-2 h-2 rounded-full bg-claw-primary"></span>
                     183 LLMs + 47 TTS/ASR — Updated May 2026
                 </div>
                 <h1 class="mx-auto max-w-5xl text-[clamp(2.5rem,7vw,4.5rem)] font-display font-bold leading-[0.95] tracking-tight text-white uppercase">
-                    Match Your Hardware to the <span class="text-emerald-400">Right</span> Local AI
+                    Match Your Hardware to the <span class="text-claw-primary">Right</span> Local AI
                 </h1>
                 <p class="mx-auto mt-5 max-w-3xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed">
                     Tell us your RAM, GPU and OS. Get personalized model recommendations — instantly, privately, for free.
                 </p>
                 <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button onclick="App.startFlow('guided')" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-white hover:text-black text-black font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(16,185,129,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model — Free</button>
-                    <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-black/40 border border-white/25 hover:border-emerald-400 text-white hover:text-emerald-300 font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">macOS Installer — $49</a>
+                    <button onclick="App.startFlow('guided')" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model — Free</button>
+                    <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-black/40 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">macOS Installer — $49</a>
                 </div>
                 <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">No signup. No data collected. Runs in your browser.</p>
 
-                <div class="lc-hero-mockup mx-auto mt-10 max-w-5xl overflow-hidden rounded-2xl border border-emerald-500/25 bg-[#0b0b0b] text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_70px_rgba(16,185,129,0.12)]">
+                <div class="lc-hero-mockup mx-auto mt-10 max-w-5xl overflow-hidden rounded-2xl border border-claw-primary/25 bg-[#0b0b0b] text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_70px_rgba(255,69,58,0.12)]">
                     <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-4 py-3">
                         <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
                         <div class="font-mono text-xs text-claw-muted">LocalClaw v3.9</div>
-                        <div class="hidden sm:block font-mono text-[10px] text-emerald-400 uppercase tracking-widest">Private match</div>
+                        <div class="hidden sm:block font-mono text-[10px] text-claw-primary uppercase tracking-widest">Private match</div>
                     </div>
                     <div class="grid sm:grid-cols-[190px_1fr]">
                         <aside class="border-b sm:border-b-0 sm:border-r border-white/10 bg-black/35 p-4 font-mono text-xs">
                             <div class="mb-3 text-[10px] uppercase tracking-[0.18em] text-claw-muted">Modes</div>
                             <div class="space-y-2">
-                                <div class="flex items-center justify-between rounded-lg border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-emerald-300"><span>Guided</span><span>✓</span></div>
+                                <div class="flex items-center justify-between rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-3 py-2 text-claw-primary"><span>Guided</span><span>✓</span></div>
                                 <div class="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-claw-muted">Quick Spec</div>
                                 <div class="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-claw-muted">Terminal</div>
                             </div>
-                            <div class="mt-5 rounded-lg border border-white/10 bg-black/45 p-3"><div class="text-emerald-400">status: ready</div><div class="mt-1 text-claw-muted">privacy: local</div></div>
+                            <div class="mt-5 rounded-lg border border-white/10 bg-black/45 p-3"><div class="text-claw-primary">status: ready</div><div class="mt-1 text-claw-muted">privacy: local</div></div>
                         </aside>
                         <div class="p-4 sm:p-6 font-mono">
                             <div class="rounded-xl border border-white/10 bg-[#080808] p-4 sm:p-5">
                                 <div class="text-xs text-claw-muted">&gt; MacBook Air M4 · 16 GB RAM · macOS</div>
-                                <div class="my-4 h-px bg-gradient-to-r from-emerald-500/60 via-white/15 to-transparent"></div>
+                                <div class="my-4 h-px bg-gradient-to-r from-claw-primary/60 via-white/15 to-transparent"></div>
                                 <div class="flex items-start gap-3">
-                                    <span class="text-emerald-400 text-lg leading-none">★</span>
+                                    <span class="text-claw-primary text-lg leading-none">★</span>
                                     <div>
-                                        <div class="text-sm sm:text-base font-bold text-white">RECOMMENDED: <span class="text-emerald-400">Qwen 3.5 9B (Q5_K_M)</span></div>
+                                        <div class="text-sm sm:text-base font-bold text-white">RECOMMENDED: <span class="text-claw-primary">Qwen 3.5 9B (Q5_K_M)</span></div>
                                         <div class="mt-2 grid gap-1 text-xs sm:text-sm text-claw-muted"><span>Context: <span class="text-white">32K</span> · Speed: <span class="text-white">18 tok/s</span></span><span>RAM usage: <span class="text-white">~7.2 GB</span></span></div>
                                     </div>
                                 </div>
-                                <div class="my-4 h-px bg-gradient-to-r from-emerald-500/40 via-white/10 to-transparent"></div>
+                                <div class="my-4 h-px bg-gradient-to-r from-claw-primary/40 via-white/10 to-transparent"></div>
                                 <div class="text-xs sm:text-sm text-claw-muted">Also fits: <span class="text-white">GLM 4.6 Air 12B</span> · <span class="text-white">Gemma 4 E4B</span></div>
                             </div>
                             <div class="mt-4 grid grid-cols-3 gap-2 text-center text-[10px] sm:text-xs">
                                 <div class="rounded-lg border border-white/10 bg-white/[0.03] p-3"><div class="text-white font-bold">16 GB</div><div class="text-claw-muted">RAM tier</div></div>
-                                <div class="rounded-lg border border-emerald-500/25 bg-emerald-500/10 p-3"><div class="text-emerald-300 font-bold">Q5_K_M</div><div class="text-claw-muted">quant</div></div>
+                                <div class="rounded-lg border border-claw-primary/25 bg-claw-primary/10 p-3"><div class="text-claw-primary font-bold">Q5_K_M</div><div class="text-claw-muted">quant</div></div>
                                 <div class="rounded-lg border border-white/10 bg-white/[0.03] p-3"><div class="text-white font-bold">0 kb</div><div class="text-claw-muted">uploaded</div></div>
                             </div>
                         </div>
@@ -1058,8 +1058,8 @@ const App = {
                         ['02', 'Quick Spec', 'Select RAM, GPU, priorities. Instant match.', '32 GB + RTX 4090 → DeepSeek R1 32B'],
                         ['03', 'Terminal', 'Paste your system info. Auto-detect & match.', 'Paste neofetch → auto-config']
                     ].map(([num, title, desc, example]) => `
-                        <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-emerald-500/35 transition-colors">
-                            <div class="text-4xl font-display font-bold text-emerald-400/80 mb-4">${num}</div>
+                        <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors">
+                            <div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">${num}</div>
                             <h3 class="text-lg font-display font-bold text-white mb-2">${title}</h3>
                             <p class="text-sm text-claw-muted leading-relaxed mb-4">${desc}</p>
                             <p class="text-xs font-mono text-claw-muted">${example}</p>
@@ -1072,8 +1072,8 @@ const App = {
                 <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${features.map(([title, desc, svg]) => `
-                        <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-emerald-500/35 transition-colors">
-                            <div class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-emerald-500/25 bg-emerald-500/10">${svg}</div>
+                        <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors">
+                            <div class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10">${svg}</div>
                             <h3 class="text-lg font-display font-bold text-white mb-2">${title}</h3>
                             <p class="text-sm text-claw-muted leading-relaxed">${desc}</p>
                         </article>
@@ -1087,7 +1087,7 @@ const App = {
                         <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Latest models worth testing</h2>
                         <p class="mt-2 text-sm text-claw-muted font-mono">A compact snapshot of the newest useful local AI picks.</p>
                     </div>
-                    <a href="llm-list.html" class="text-sm font-mono text-emerald-400 hover:text-white uppercase tracking-wider">See all 183 models →</a>
+                    <a href="llm-list.html" class="text-sm font-mono text-claw-primary hover:text-white uppercase tracking-wider">See all 183 models →</a>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `
@@ -1101,10 +1101,10 @@ const App = {
             </section>
 
             <section class="mb-16">
-                <div class="rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/10 via-white/[0.025] to-black p-8 sm:p-12 text-center">
+                <div class="rounded-2xl border border-claw-primary/25 bg-gradient-to-br from-claw-primary/10 via-white/[0.025] to-black p-8 sm:p-12 text-center">
                     <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-tight mb-3">Find your perfect model in 30 seconds</h2>
                     <p class="text-claw-muted font-mono mb-7">Free. Private. No signup required.</p>
-                    <button onclick="App.startFlow('guided')" class="inline-flex items-center justify-center px-9 py-4 bg-emerald-500 hover:bg-white hover:text-black text-black font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(16,185,129,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model</button>
+                    <button onclick="App.startFlow('guided')" class="inline-flex items-center justify-center px-9 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model</button>
                 </div>
             </section>
 
