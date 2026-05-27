@@ -1010,11 +1010,16 @@ const App = {
                 </div>
                 <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">No signup. No data collected. Runs in your browser.</p>
 
-                <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 bg-[#0d0d0d] text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_70px_rgba(255,69,58,0.12)]">
+                <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
                         <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
                         <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0</div>
-                        <div class="hidden sm:block font-mono text-[10px] text-claw-primary uppercase tracking-widest">Local LLM</div>
+                        <div class="hidden sm:flex items-center rounded-lg border border-white/10 bg-[#242424] p-1 font-mono text-[11px] font-bold uppercase tracking-wider text-claw-muted shadow-[0_0_18px_rgba(255,69,58,0.08)]">
+                            <span class="px-2.5 py-1">Cloud LLM</span>
+                            <span class="h-4 w-px bg-white/10"></span>
+                            <span class="px-2.5 py-1">OAuth LLM</span>
+                            <span class="rounded-md bg-claw-primary px-2.5 py-1 text-white">Local LLM</span>
+                        </div>
                     </div>
                     <div class="grid lg:grid-cols-[210px_1fr]">
                         <aside class="border-b lg:border-b-0 lg:border-r border-[#2a2a2a] bg-[#090909] p-4 font-mono text-[11px]">
@@ -1043,7 +1048,9 @@ const App = {
                         <div class="p-4 sm:p-5 font-mono">
                             <div class="mb-4 flex flex-col gap-3 rounded-xl border border-[#2a2a2a] bg-[#151515] p-4 sm:flex-row sm:items-center sm:justify-between">
                                 <div class="flex items-center gap-3">
-                                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-claw-primary text-xs font-black text-white">LC</div>
+                                    <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-claw-primary shadow-[0_0_24px_rgba(255,69,58,0.25)]">
+                                        <img src="images/logo-localclaw.svg" width="40" height="40" alt="LocalClaw logo" class="h-full w-full object-cover" loading="eager" decoding="async">
+                                    </div>
                                     <div>
                                         <div class="text-base font-bold text-white">LocalClaw</div>
                                         <div class="text-[11px] text-claw-muted">Version 1.0.140 (build 285)</div>
