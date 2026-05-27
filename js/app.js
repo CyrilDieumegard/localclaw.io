@@ -983,6 +983,7 @@ const App = {
             ['macOS One-Click Install', 'Native installer: LM Studio + models, no terminal needed. $49.', icon('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/>')],
             ['RAM-Optimized Picks', 'From 8 GB laptops to 128 GB workstations — matched to your tier.', icon('<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/>')]
         ];
+        const formatModeExample = (example) => example.replace('→', '<span class="arrow">→</span>');
         const latestModels = [
             ['DeepSeek V4 Pro', '1.6T MoE · 49B active · MIT', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
             ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
@@ -1181,7 +1182,7 @@ const App = {
                             <div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">${num}</div>
                             <h3 class="text-lg font-display font-bold text-white mb-2">${title}</h3>
                             <p class="text-sm text-claw-muted leading-relaxed mb-4">${desc}</p>
-                            <p class="text-xs font-mono text-claw-muted">${example}</p>
+                            <p class="lc-mode-example">${formatModeExample(example)}</p>
                         </article>
                     `).join('')}
                 </div>
@@ -1191,8 +1192,8 @@ const App = {
                 <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${features.map(([title, desc, svg]) => `
-                        <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors">
-                            <div class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10">${svg}</div>
+                        <article class="lc-feature-card rounded-xl p-7">
+                            <div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10">${svg}</div>
                             <h3 class="text-lg font-display font-bold text-white mb-2">${title}</h3>
                             <p class="text-sm text-claw-muted leading-relaxed">${desc}</p>
                         </article>
@@ -1220,10 +1221,13 @@ const App = {
             </section>
 
             <section class="mb-16">
-                <div class="rounded-2xl border border-claw-primary/25 bg-gradient-to-br from-claw-primary/10 via-white/[0.025] to-black p-8 sm:p-12 text-center">
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-tight mb-3">Find your perfect model in 30 seconds</h2>
-                    <p class="text-claw-muted font-mono mb-7">Free. Private. No signup required.</p>
-                    <button onclick="App.startFlow('guided')" class="inline-flex items-center justify-center px-9 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model</button>
+                <div class="rounded-2xl border border-claw-primary/25 bg-gradient-to-br from-[#0a0a0a] to-[#111] p-8 sm:p-12 text-center">
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-tight mb-3">Install and Run 🦞 OpenClaw in One Click</h2>
+                    <p class="text-claw-muted font-mono mb-7">One app. Your models, your agents, your data. $49 one-time, no subscription.</p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <a href="pricing.html" class="inline-flex items-center justify-center px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Get LocalClaw for macOS — $49</a>
+                        <button onclick="App.startFlow('guided')" class="inline-flex items-center justify-center px-8 py-4 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">Or find your model for free →</button>
+                    </div>
                 </div>
             </section>
 

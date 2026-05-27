@@ -310,22 +310,130 @@
         /* bg-black inline (SEO header badge) */
         html.light .bg-black { background-color: #ffffff !important; }
 
+        @property --lc-card-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
         .lc-hero-mockup {
-            transform: perspective(1200px) rotateX(2.5deg);
+            transform: perspective(1200px) rotateX(2deg);
             transform-origin: center top;
             animation: lcMockupReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+            transition: transform 0.4s ease;
             background:
                 radial-gradient(ellipse at 78% 6%, rgba(255, 69, 58, 0.16), transparent 42%),
                 radial-gradient(ellipse at 18% 92%, rgba(255, 69, 58, 0.10), transparent 36%),
                 #0d0d0d;
+            box-shadow:
+                0 0 40px rgba(255, 106, 30, 0.08),
+                0 0 80px rgba(255, 106, 30, 0.04),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lc-hero-mockup:hover {
+            transform: perspective(1200px) rotateX(0deg);
         }
 
         .lc-fresh-dot {
             animation: lcPulse 2.4s ease-in-out infinite;
         }
 
+        .lc-mode-example {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            background: #0d0d0d;
+            color: #888;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .lc-mode-example .arrow {
+            color: #ff6a1e;
+        }
+
+        .lc-feature-card {
+            position: relative;
+            isolation: isolate;
+            overflow: visible;
+            border: 1px solid #222;
+            background: #111;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .lc-feature-card::before,
+        .lc-feature-card::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: conic-gradient(
+                from var(--lc-card-angle),
+                transparent 0%,
+                transparent 30%,
+                #ff6a1e 50%,
+                #ff3d00 60%,
+                #ff6a1e 70%,
+                transparent 80%,
+                transparent 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .lc-feature-card::after {
+            filter: blur(15px);
+        }
+
+        .lc-feature-icon {
+            color: #ff453a;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .lc-feature-card:hover {
+                transform: translateY(-4px);
+                border-color: #ff6a1e;
+                box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+            }
+
+            .lc-feature-card:hover::before,
+            .lc-feature-card:hover::after {
+                opacity: 1;
+                animation: lcRotateBorder 3s linear infinite;
+            }
+
+            .lc-feature-card:hover .lc-feature-icon {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 8px rgba(255, 106, 30, 0.5));
+            }
+
+            @supports not (background: conic-gradient(from 0deg, #ff6a1e, transparent)) {
+                .lc-feature-card:hover {
+                    border-color: #ff6a1e;
+                    box-shadow: 0 0 28px rgba(255, 106, 30, 0.18);
+                }
+
+                .lc-feature-card:hover::before,
+                .lc-feature-card:hover::after {
+                    display: none;
+                }
+            }
+        }
+
         .lc-latest-compact article:nth-of-type(n+7) {
             display: none;
+        }
+
+        @keyframes lcRotateBorder {
+            to {
+                --lc-card-angle: 360deg;
+            }
         }
 
         @keyframes lcPulse {
@@ -347,11 +455,11 @@
             }
             to {
                 opacity: 1;
-                transform: perspective(1200px) rotateX(2.5deg) translateY(0) scale(1);
+                transform: perspective(1200px) rotateX(2deg) translateY(0) scale(1);
             }
         }
 
-        @media (max-width: 640px), (prefers-reduced-motion: reduce) {
+        @media (max-width: 768px), (prefers-reduced-motion: reduce) {
             .lc-hero-mockup {
                 transform: none;
                 animation: none;
@@ -573,9 +681,9 @@
             <section aria-label="How LocalClaw works" class="mb-20">
                 <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">Three ways to find your model</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">01</div><h3 class="text-lg font-display font-bold text-white mb-2">Guided Mode</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Answer 3 questions. We handle the complexity.</p><p class="text-xs font-mono text-claw-muted">MacBook Air 8 GB → Qwen 3 8B</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">02</div><h3 class="text-lg font-display font-bold text-white mb-2">Quick Spec</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Select RAM, GPU, priorities. Instant match.</p><p class="text-xs font-mono text-claw-muted">32 GB + RTX 4090 → DeepSeek R1 32B</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">03</div><h3 class="text-lg font-display font-bold text-white mb-2">Terminal</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Paste your system info. Auto-detect &amp; match.</p><p class="text-xs font-mono text-claw-muted">Paste neofetch → auto-config</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">01</div><h3 class="text-lg font-display font-bold text-white mb-2">Guided Mode</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Answer 3 questions. We handle the complexity.</p><p class="lc-mode-example">MacBook Air 8 GB <span class="arrow">→</span> Qwen 3 8B</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">02</div><h3 class="text-lg font-display font-bold text-white mb-2">Quick Spec</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Select RAM, GPU, priorities. Instant match.</p><p class="lc-mode-example">32 GB + RTX 4090 <span class="arrow">→</span> DeepSeek R1 32B</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">03</div><h3 class="text-lg font-display font-bold text-white mb-2">Terminal</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Paste your system info. Auto-detect &amp; match.</p><p class="lc-mode-example">Paste neofetch <span class="arrow">→</span> auto-config</p></article>
                 </div>
             </section>
 
@@ -583,12 +691,12 @@
             <section aria-label="LocalClaw features" class="mb-20">
                 <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Smart Hardware Matching</h3><p class="text-sm text-claw-muted leading-relaxed">RAM, GPU, OS → perfect model. No guesswork.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">183+ LLM Database</h3><p class="text-sm text-claw-muted leading-relaxed">Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">47 TTS/ASR Models</h3><p class="text-sm text-claw-muted leading-relaxed">Voice cloning, speech-to-text, 99 languages — all offline.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Zero Data Collection</h3><p class="text-sm text-claw-muted leading-relaxed">Runs in your browser. No tracking, no cloud, no API calls.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">macOS One-Click Install</h3><p class="text-sm text-claw-muted leading-relaxed">Native installer: LM Studio + models, no terminal needed. $49.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-[#0d0d0d] p-6 hover:border-claw-primary/35 transition-colors"><svg class="w-6 h-6 text-claw-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">RAM-Optimized Picks</h3><p class="text-sm text-claw-muted leading-relaxed">From 8 GB laptops to 128 GB workstations — matched to your tier.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Smart Hardware Matching</h3><p class="text-sm text-claw-muted leading-relaxed">RAM, GPU, OS → perfect model. No guesswork.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">183+ LLM Database</h3><p class="text-sm text-claw-muted leading-relaxed">Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">47 TTS/ASR Models</h3><p class="text-sm text-claw-muted leading-relaxed">Voice cloning, speech-to-text, 99 languages — all offline.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Zero Data Collection</h3><p class="text-sm text-claw-muted leading-relaxed">Runs in your browser. No tracking, no cloud, no API calls.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">macOS One-Click Install</h3><p class="text-sm text-claw-muted leading-relaxed">Native installer: LM Studio + models, no terminal needed. $49.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">RAM-Optimized Picks</h3><p class="text-sm text-claw-muted leading-relaxed">From 8 GB laptops to 128 GB workstations — matched to your tier.</p></article>
                 </div>
             </section>
 
@@ -1063,15 +1171,19 @@
 
             <!-- Final CTA Block -->
             <section aria-label="Call to Action" class="mb-16 max-w-4xl mx-auto">
-                <div class="border border-claw-primary/30 rounded-xl p-10 sm:p-14 text-center relative overflow-hidden">
+                <div class="border border-claw-primary/30 rounded-xl p-10 sm:p-14 text-center relative overflow-hidden bg-gradient-to-br from-[#0a0a0a] to-[#111]">
                     <div class="absolute inset-0 bg-gradient-to-br from-claw-primary/10 via-transparent to-orange-600/5"></div>
                     <div class="relative">
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Find your perfect model in <span class="text-claw-primary">30 seconds</span></h2>
-                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-lg mx-auto">Free. Private. No signup required.</p>
-                        <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center gap-2 px-10 py-5 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-lg transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                            Find My Model
-                        </a>
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Install and Run 🦞 OpenClaw in One Click</h2>
+                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-2xl mx-auto">One app. Your models, your agents, your data. $49 one-time, no subscription.</p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <a href="pricing.html" class="inline-flex items-center justify-center px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
+                                Get LocalClaw for macOS — $49
+                            </a>
+                            <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center justify-center px-8 py-4 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">
+                                Or find your model for free →
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1114,7 +1226,7 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260514c"></script>
-    <script src="js/app.js?v=20260527b"></script>
+    <script src="js/app.js?v=20260527c"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>
