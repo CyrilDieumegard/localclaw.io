@@ -1177,7 +1177,7 @@ const App = {
                         <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
                         <div class="absolute inset-x-10 bottom-8 h-16 rounded-full bg-claw-primary/25 blur-2xl"></div>
                         <div class="relative p-2">
-                            <img src="images/localclaw-mascot-hero.webp" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_38px_rgba(234,88,12,0.55)]" loading="eager" decoding="async" fetchpriority="high">
+                            <img src="images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_38px_rgba(234,88,12,0.55)]" loading="eager" decoding="async" fetchpriority="high">
                         </div>
                     </div>
                 </div>
