@@ -7,8 +7,8 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>LocalClaw — Match Your Hardware to the Right Local AI Model</title>
-    <meta name="description" content="Find the best local AI model for your Mac, PC, RAM, GPU and OS in 30 seconds. LocalClaw recommends 183 LLMs and 47 TTS/ASR models privately in your browser.">
+    <title>LocalClaw.io — Native Control Center for OpenClaw</title>
+    <meta name="description" content="LocalClaw is a native macOS control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban tasks on your machine. Lifetime $49.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -19,8 +19,8 @@
          ============================================================ -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
-    <meta property="og:title" content="LocalClaw - Find the Right Local AI Model for Your Hardware">
-    <meta property="og:description" content="Tell LocalClaw your RAM, GPU and OS. Get private, instant recommendations across 183 LLMs and 47 TTS/ASR models, plus an optional macOS installer.">
+    <meta property="og:title" content="LocalClaw.io - Native Control Center for OpenClaw">
+    <meta property="og:description" content="Run OpenClaw locally from a native macOS dashboard. Manage models, agents, channels, cron jobs and tasks without a terminal-first workflow.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
@@ -32,8 +32,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw - Match Hardware to Local AI Models">
-    <meta name="twitter:description" content="Private local AI recommendations for your RAM, GPU and OS. 183 LLMs + 47 TTS/ASR models, with an optional macOS installer.">
+    <meta name="twitter:title" content="LocalClaw.io - Native Control Center for OpenClaw">
+    <meta name="twitter:description" content="A native macOS control center for OpenClaw: local models, agents, channels, cron jobs and Kanban on your machine.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
 
@@ -510,12 +510,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
-                        <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                <a href="index.html" class="flex items-center gap-3 group" aria-label="localclaw.io home">
+                    <div class="w-8 h-8 rounded-lg bg-claw-primary flex items-center justify-center shadow-[0_0_15px_rgba(234,88,12,0.4)]">
+                        <img src="images/logo-localclaw.svg" alt="LocalClaw crab logo" width="32" height="32" class="h-8 w-8 rounded-lg" loading="eager" fetchpriority="high" decoding="async">
                     </div>
-                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
-                        Local<span class="text-claw-primary">Claw</span>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white lowercase">
+                        local<span class="text-claw-primary">claw</span><span class="text-claw-muted">.io</span>
                     </span>
                 </a>
 
@@ -525,33 +525,11 @@
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    <a href="#" onclick="event.preventDefault(); resetApp()" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
                     <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
                     <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
                     <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
                     <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
                     <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
-                    <div class="px-2 py-0.5 border border-claw-primary text-claw-primary text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 bg-claw-primary"></span>
-                        V3.9.3
-                    </div>
-                    <div class="hidden sm:flex px-2 py-0.5 border border-blue-400 text-blue-400 text-[10px] sm:text-xs font-mono font-bold tracking-wide uppercase items-center gap-1.5" title="Beta">
-                        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
-                        Beta
-                    </div>
-                    
-                    <!-- Theme Toggle Button -->
-                    <button onclick="toggleLocalClawTheme()" class="theme-toggle-btn hidden sm:flex" aria-label="Toggle light/dark mode" title="Toggle theme">
-                        <!-- Sun icon (shown in dark mode) -->
-                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-                        </svg>
-                        <!-- Moon icon (shown in light mode, hidden by default) -->
-                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -585,22 +563,35 @@
         <div id="seo-fallback" class="w-full max-w-6xl mx-auto">
 
             <!-- Primary H1 -->
-            <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12 text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-claw-primary/40 bg-claw-primary/10 text-claw-primary rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] uppercase shadow-[0_0_30px_rgba(255,69,58,0.12)]">
-                    <span class="lc-fresh-dot w-2 h-2 rounded-full bg-claw-primary"></span>
-                    183 LLMs + 47 TTS/ASR — Updated May 2026
+            <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12">
+                <div class="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+                    <div class="text-center lg:text-left">
+                        <div class="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">100% local</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">your machine</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">no cloud</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">no signup</span>
+                        </div>
+                        <h1 class="text-[clamp(2.7rem,7vw,5.15rem)] font-display font-bold leading-[0.93] tracking-tight text-white uppercase">
+                            Native Control Center for <span class="text-claw-primary">OpenClaw</span>
+                        </h1>
+                        <p class="mt-6 max-w-2xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed lg:mx-0 mx-auto">
+                            Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
+                        </p>
+                        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
+                            <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
+                            <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">or find my model →</a>
+                        </div>
+                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No data collected. Runs on your machine.</p>
+                    </div>
+                    <div class="relative mx-auto w-full max-w-xl">
+                        <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
+                        <div class="absolute inset-x-10 bottom-8 h-16 rounded-full bg-claw-primary/25 blur-2xl"></div>
+                        <div class="relative p-2">
+                            <img src="images/localclaw-mascot-hero.webp" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_38px_rgba(234,88,12,0.55)]" loading="eager" decoding="async" fetchpriority="high">
+                        </div>
+                    </div>
                 </div>
-                <h1 class="mx-auto max-w-5xl text-[clamp(2.5rem,7vw,4.5rem)] font-display font-bold leading-[0.95] tracking-tight text-white uppercase">
-                    Match Your Hardware to the <span class="text-claw-primary">Right</span> Local AI
-                </h1>
-                <p class="mx-auto mt-5 max-w-3xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed">
-                    Tell us your RAM, GPU and OS. Get personalized model recommendations — instantly, privately, for free.
-                </p>
-                <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Find My Model — Free</a>
-                    <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-black/40 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight text-center">macOS Installer — $49</a>
-                </div>
-                <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">No signup. No data collected. Runs in your browser.</p>
 
                 <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
@@ -725,455 +716,60 @@
                 </div>
             </header>
 
-            <!-- SEO: How it works -->
-            <section aria-label="How LocalClaw works" class="mb-20">
-                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">Three ways to find your model</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">01</div><h3 class="text-lg font-display font-bold text-white mb-2">Guided Mode</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Answer 3 questions. We handle the complexity.</p><p class="lc-mode-example">MacBook Air 8 GB <span class="arrow">→</span> Qwen 3 8B</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">02</div><h3 class="text-lg font-display font-bold text-white mb-2">Quick Spec</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Select RAM, GPU, priorities. Instant match.</p><p class="lc-mode-example">32 GB + RTX 4090 <span class="arrow">→</span> DeepSeek R1 32B</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors"><div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">03</div><h3 class="text-lg font-display font-bold text-white mb-2">Terminal</h3><p class="text-sm text-claw-muted leading-relaxed mb-4">Paste your system info. Auto-detect &amp; match.</p><p class="lc-mode-example">Paste neofetch <span class="arrow">→</span> auto-config</p></article>
+            <!-- THE APP -->
+            <section aria-label="LocalClaw app capabilities" class="mb-20">
+                <div class="mb-8 text-center">
+                    <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// THE APP</p>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Everything to run OpenClaw locally, in one place</h2>
+                    <p class="mx-auto mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">A native macOS control center for the local AI stack you already own: models, agents, channels, schedules and system health.</p>
                 </div>
-            </section>
-
-            <!-- SEO: Feature cards -->
-            <section aria-label="LocalClaw features" class="mb-20">
-                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Smart Hardware Matching</h3><p class="text-sm text-claw-muted leading-relaxed">RAM, GPU, OS → perfect model. No guesswork.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">183+ LLM Database</h3><p class="text-sm text-claw-muted leading-relaxed">Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">47 TTS/ASR Models</h3><p class="text-sm text-claw-muted leading-relaxed">Voice cloning, speech-to-text, 99 languages — all offline.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">Zero Data Collection</h3><p class="text-sm text-claw-muted leading-relaxed">Runs in your browser. No tracking, no cloud, no API calls.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">macOS One-Click Install</h3><p class="text-sm text-claw-muted leading-relaxed">Native installer: LM Studio + models, no terminal needed. $49.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><svg class="lc-feature-icon w-6 h-6 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/></svg><h3 class="text-lg font-display font-bold text-white mb-2">RAM-Optimized Picks</h3><p class="text-sm text-claw-muted leading-relaxed">From 8 GB laptops to 128 GB workstations — matched to your tier.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Control Center</h3><p class="text-sm text-claw-muted leading-relaxed">See gateway health, CPU/RAM pressure, tokens used and OpenClaw version before anything breaks.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Models</h3><p class="text-sm text-claw-muted leading-relaxed">Switch between Local LLM, Cloud LLM and OAuth LLM without hand-editing config files.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M16 11a4 4 0 10-8 0"/><path d="M5 21a7 7 0 0114 0"/><path d="M18 8l2 2 2-2"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Agents</h3><p class="text-sm text-claw-muted leading-relaxed">Create autonomous OpenClaw agents, assign models and keep their local workspace visible.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M9 15h.01M12 15h.01M15 15h.01"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Cron Jobs</h3><p class="text-sm text-claw-muted leading-relaxed">Schedule recurring local tasks and see what will run, when it runs and which agent owns it.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Kanban</h3><p class="text-sm text-claw-muted leading-relaxed">Turn local automation into visible work: backlog, ready, doing, review and done.</p></article>
+                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 5h16v10H7l-3 3V5z"/><path d="M8 9h8M8 12h5"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Chat · Skills · Channels</h3><p class="text-sm text-claw-muted leading-relaxed">Use beta dev tools, channel connections and local skills from the same dashboard.</p></article>
                 </div>
             </section>
 
-            <!-- SEO: Supported models list -->
-            <section aria-label="Supported Models" class="mb-20">
-                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">Database // Models</h2>
-                    <span class="font-mono text-xs text-claw-muted">UPDATED: 2026-04-22 · v3.28</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-sm text-claw-muted font-mono">
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-claw-primary/10 to-orange-500/10 border border-claw-primary/30">
-                        <strong class="text-white">Kimi K2</strong> — 1T MoE (Instruct + Thinking) <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-purple-500/10 to-orange-500/10 border border-purple-500/30">
-                        <strong class="text-white">DeepSeek V3.2 Exp</strong> — 671B w/ sparse attn <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30">
-                        <strong class="text-white">Qwen 3 Next</strong> — 80B/3B MoE flagship <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-claw-primary/10 to-blue-500/10 border border-claw-primary/30">
-                        <strong class="text-white">GLM 4.6</strong> — 355B MoE (full) <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-pink-500/10 to-rose-500/10 border border-pink-500/30">
-                        <strong class="text-white">MiniMax M2</strong> — 230B MoE agentic <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/30">
-                        <strong class="text-white">Mistral Small 3.2</strong> — 24B instruct <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30">
-                        <strong class="text-white">Nemotron Nano</strong> — 9B v2 hybrid <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/30">
-                        <strong class="text-white">Ling 1T</strong> — InclusionAI trillion MoE <span class="text-yellow-400 text-xs font-bold uppercase ml-1">⭐ New!</span>
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Llama 4</strong> — Scout 109B, Maverick 400B
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Qwen 3 VL</strong> — 8B, 32B Vision
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Gemma 4</strong> — E2B, E4B, 26B-A4B, 31B
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Hermes 4</strong> — 70B, 405B
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Qwen 3.5</strong> — 0.8B, 2B, 4B, 9B, 397B-A17B
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">Command A</strong> — 111B (Cohere)
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">DeepSeek R1 0528</strong> — 671B MoE
-                    </div>
-                    <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                        <strong class="text-white">+ 158 more…</strong> <a href="llm-list.html" class="text-claw-primary hover:underline">See all →</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ========================================================
-                 RAM GUIDES — Static SEO landing pages
-                 ======================================================== -->
-            <section aria-label="Local LLM RAM guides" class="mb-20">
-                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
-                        <span class="text-claw-primary">//</span> RAM Guides
-                    </h2>
-                    <a href="ram/" class="font-mono text-xs text-claw-primary hover:text-white uppercase tracking-wider">See all →</a>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-                    <a href="ram/8gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">8GB RAM</strong><p class="text-xs text-claw-muted mt-2">Best small local LLMs for entry-level Macs and PCs.</p></a>
-                    <a href="ram/16gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">16GB RAM</strong><p class="text-xs text-claw-muted mt-2">Mac mini / MacBook sweet spot for local AI.</p></a>
-                    <a href="ram/32gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">32GB RAM</strong><p class="text-xs text-claw-muted mt-2">Power-user models for coding and reasoning.</p></a>
-                    <a href="ram/64gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">64GB RAM</strong><p class="text-xs text-claw-muted mt-2">High-end local LLMs and workstation picks.</p></a>
-                    <a href="ram/128gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">128GB RAM</strong><p class="text-xs text-claw-muted mt-2">Large local models before server-grade hardware.</p></a>
-                </div>
-            </section>
-
-            <!-- ========================================================
-                 HARDWARE GUIDES — Static SEO landing pages
-                 ======================================================== -->
-            <section aria-label="Mac hardware guides for local AI" class="mb-20">
-                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
-                        <span class="text-claw-primary">//</span> Mac Hardware Guides
-                    </h2>
-                    <a href="hardware/" class="font-mono text-xs text-claw-primary hover:text-white uppercase tracking-wider">See all →</a>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <a href="hardware/mac-mini-m4-16gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Mac mini M4 16GB</strong><p class="text-xs text-claw-muted mt-2">Best-value desktop for everyday local LLMs.</p></a>
-                    <a href="hardware/macbook-air-m4-16gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">MacBook Air M4 16GB</strong><p class="text-xs text-claw-muted mt-2">Portable silent local AI sweet spot.</p></a>
-                    <a href="hardware/mac-mini-m4-pro-48gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Mac mini M4 Pro 48GB</strong><p class="text-xs text-claw-muted mt-2">Compact power-user machine for larger models.</p></a>
-                    <a href="hardware/mac-studio-m4-max-64gb.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Mac Studio M4 Max 64GB</strong><p class="text-xs text-claw-muted mt-2">Workstation-class local inference.</p></a>
-                </div>
-            </section>
-
-            <!-- ========================================================
-                 USE CASE GUIDES — Static SEO landing pages
-                 ======================================================== -->
-            <section aria-label="Local LLM use case guides" class="mb-20">
-                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
-                        <span class="text-claw-primary">//</span> Use Case Guides
-                    </h2>
-                    <a href="use-case/" class="font-mono text-xs text-claw-primary hover:text-white uppercase tracking-wider">See all →</a>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <a href="use-case/coding.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Coding</strong><p class="text-xs text-claw-muted mt-2">Best local LLMs for coding and repo work.</p></a>
-                    <a href="use-case/reasoning.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Reasoning</strong><p class="text-xs text-claw-muted mt-2">Math, logic, analysis and hard tasks.</p></a>
-                    <a href="use-case/vision.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">Vision</strong><p class="text-xs text-claw-muted mt-2">OCR, image understanding and VLMs.</p></a>
-                    <a href="use-case/rag.html" class="p-4 rounded-lg bg-white/[0.02] border border-white/10 hover:border-claw-primary/40 transition-colors"><strong class="text-white">RAG</strong><p class="text-xs text-claw-muted mt-2">Document Q&A and private knowledge bases.</p></a>
-                </div>
-            </section>
-
-            <!-- ========================================================
-                 LATEST DROPS — Timeline of recent model releases
-                 ======================================================== -->
-            <section aria-label="Latest model drops" class="mb-20">
-                <div class="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight">
-                        <span class="text-claw-primary">//</span> Latest models worth testing
-                    </h2>
-                    <a href="llm-list.html" class="font-mono text-xs text-claw-primary hover:text-white uppercase tracking-wider">See all 183 models →</a>
-                </div>
-                <div class="lc-latest-compact grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    <!-- DeepSeek V4 Pro (NEW May 2026) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-sky-500/10 to-blue-500/5 border border-sky-500/40 hover:border-sky-500 transition-colors ring-1 ring-sky-500/20">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-sky-400">DeepSeek · May 2026</span>
-                            <span class="px-1.5 py-0.5 rounded bg-sky-500 text-black text-[10px] font-bold uppercase">🔥 Frontier</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">DeepSeek V4 Pro</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">1.6T MoE, 49B active, 1M context. Top-tier reasoning, coding and agentic workflows. MIT licensed.</p>
-                        <a href="models/deepseek-v4-pro.html" class="text-xs text-sky-400 hover:underline mt-2 inline-block">Details →</a>
+            <!-- LocalClaw vs Manual -->
+            <section aria-label="LocalClaw versus manual setup" class="mb-20">
+                <div class="grid gap-4 lg:grid-cols-2">
+                    <article class="rounded-2xl border border-claw-primary/35 bg-claw-primary/10 p-6 sm:p-8 shadow-[0_0_60px_rgba(234,88,12,0.08)]">
+                        <div class="mb-5 flex items-center gap-3"><img src="images/logo-localclaw.svg" width="38" height="38" alt="LocalClaw crab logo" class="rounded-lg bg-claw-primary"><div><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LocalClaw</p><h2 class="text-2xl font-display font-bold text-white uppercase">Download it like an app</h2></div></div>
+                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
+                            <li><span class="text-claw-primary">▸</span> Guided macOS setup for OpenClaw</li>
+                            <li><span class="text-claw-primary">▸</span> Managed local models and runtime checks</li>
+                            <li><span class="text-claw-primary">▸</span> Agents, channels, skills and schedules in one UI</li>
+                            <li><span class="text-claw-primary">▸</span> 100% local: your machine, your data</li>
+                        </ul>
                     </article>
-                    <!-- DeepSeek V4 Flash (NEW May 2026) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/40 hover:border-cyan-500 transition-colors ring-1 ring-cyan-500/20">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-cyan-400">DeepSeek · May 2026</span>
-                            <span class="px-1.5 py-0.5 rounded bg-cyan-500 text-black text-[10px] font-bold uppercase">Efficient MoE</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">DeepSeek V4 Flash</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">284B MoE, 13B active, 1M context. Smaller V4 variant built for cheaper long-context inference. MIT.</p>
-                        <a href="models/deepseek-v4-flash.html" class="text-xs text-cyan-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- GLM-5.1 (NEW May 2026) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-green-500/10 to-claw-primary/5 border border-green-500/40 hover:border-green-500 transition-colors ring-1 ring-green-500/20">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-green-400">Z.ai · May 2026</span>
-                            <span class="px-1.5 py-0.5 rounded bg-green-500 text-black text-[10px] font-bold uppercase">Agentic</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">GLM-5.1</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Z.ai flagship for agentic engineering, repo generation, SWE-Bench Pro and Terminal-Bench. MIT licensed.</p>
-                        <a href="models/glm-5.1.html" class="text-xs text-green-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- MiMo-V2.5-Pro (NEW May 2026) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 border border-violet-500/40 hover:border-violet-500 transition-colors ring-1 ring-violet-500/20">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-violet-400">Xiaomi · May 2026</span>
-                            <span class="px-1.5 py-0.5 rounded bg-violet-500 text-black text-[10px] font-bold uppercase">1M context</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">MiMo-V2.5-Pro</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">1.02T MoE, 42B active. Long-horizon agentic tasks, software engineering and 1M-token context. MIT.</p>
-                        <a href="models/mimo-v2.5-pro.html" class="text-xs text-violet-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Phi-3.5 MoE Instruct (NEW) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/30 hover:border-blue-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-blue-400">Microsoft · Dec 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-blue-500 text-black text-[10px] font-bold uppercase">Local MoE</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Phi-3.5 MoE Instruct</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">42B MoE with ~6.6B active params. Strong reasoning/code signal, MIT licensed, power-user friendly.</p>
-                        <a href="models/phi3.5-moe-instruct.html" class="text-xs text-blue-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Kimi Linear 48B-A3B (NEW) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 hover:border-amber-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-amber-400">Moonshot · Dec 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-amber-500 text-black text-[10px] font-bold uppercase">Efficient Kimi</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Kimi Linear 48B-A3B</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">48B MoE, 3B active. Efficient Kimi architecture for long-context reasoning and coding. MIT licensed.</p>
-                        <a href="models/kimi-linear-48b-a3b-instruct.html" class="text-xs text-amber-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Mistral Small 3.2 (NEW) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/30 hover:border-cyan-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-cyan-400">Mistral · Jun 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-cyan-500 text-black text-[10px] font-bold uppercase">Balanced</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Mistral Small 3.2 (24B)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Refined instruction following, better function calling, less repetition. 128K context. Apache 2.0.</p>
-                        <a href="models/mistral-small-3.2-24b.html" class="text-xs text-cyan-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- NeuTTS Air (NEW TTS) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-purple-500/5 border border-pink-500/40 hover:border-pink-500 transition-colors ring-1 ring-pink-500/20">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-pink-400">Neuphonic · Oct 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-pink-500 text-black text-[10px] font-bold uppercase">🔥 CPU TTS</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">NeuTTS Air</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">First super-realistic TTS LLM running real-time on CPU. 748M params, GGUF-native, 3s voice cloning.</p>
-                        <a href="tts/neutts-air.html" class="text-xs text-pink-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Step-Audio 2 (NEW TTS) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-pink-500/5 border border-fuchsia-500/30 hover:border-fuchsia-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-fuchsia-400">StepFun · Aug 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-fuchsia-500 text-black text-[10px] font-bold uppercase">Speech LLM</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Step-Audio 2 Mini</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Unified speech LLM: ASR + TTS + voice conv + dialogue in one model. Strong paralinguistic control.</p>
-                        <a href="tts/step-audio-2-mini.html" class="text-xs text-fuchsia-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Hume OCTAVE 2 (NEW TTS) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-indigo-500/5 border border-purple-500/30 hover:border-purple-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-purple-400">Hume AI · Nov 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-purple-500 text-black text-[10px] font-bold uppercase">Emotion</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">OCTAVE 2</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Emotion-aware speech LLM. Generate voice, style & personality from a text description — no reference audio.</p>
-                        <a href="tts/octave-2.html" class="text-xs text-purple-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Kyutai STT (NEW ASR) -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-lime-500/10 to-green-500/5 border border-lime-500/30 hover:border-lime-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-lime-400">Kyutai · Jun 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-lime-500 text-black text-[10px] font-bold uppercase">ASR</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Kyutai STT 2.6B</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Streaming ASR, 500ms latency, word timestamps & diarization. Top real-time EN/FR accuracy.</p>
-                        <a href="tts/kyutai-stt-2.6b.html" class="text-xs text-lime-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Llama 4 -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-claw-primary/10 to-orange-500/5 border border-claw-primary/30 hover:border-claw-primary transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-claw-primary">Meta · Apr 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-claw-primary text-black text-[10px] font-bold uppercase">Flagship</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Llama 4 Scout & Maverick</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">109B/400B MoE, natively multimodal, 10M-token context. Beats Gemma 3 and rivals GPT-4o.</p>
-                        <a href="models/llama4-scout-17b-16e.html" class="text-xs text-claw-primary hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Qwen 3 VL -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/5 border border-purple-500/30 hover:border-purple-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-purple-400">Alibaba · Dec 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-purple-500 text-black text-[10px] font-bold uppercase">Vision</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Qwen 3 VL (8B & 32B)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Open vision-language SOTA. Chart-QA, OCR, 1 h video understanding. Apache 2.0.</p>
-                        <a href="models/qwen3-vl-32b.html" class="text-xs text-purple-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Hermes 4 -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-claw-primary/10 to-blue-500/5 border border-claw-primary/30 hover:border-claw-primary transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-claw-primary">Nous · Sep 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-claw-primary text-black text-[10px] font-bold uppercase">Reasoning</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Hermes 4 (70B / 405B)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Hybrid thinking mode. Neutral & steerable. Matches Claude 3.5 Sonnet on reasoning.</p>
-                        <a href="models/hermes4-70b.html" class="text-xs text-claw-primary hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- GLM 4.6 Air -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/30 hover:border-blue-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-blue-400">Zhipu · Feb 2026</span>
-                            <span class="px-1.5 py-0.5 rounded bg-blue-500 text-black text-[10px] font-bold uppercase">Lightweight</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">GLM 4.6 Air (12B)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Hybrid thinking, 200K context, strong CN/EN. Great alternative to Qwen 3.5 9B.</p>
-                        <a href="models/glm4.6-air.html" class="text-xs text-blue-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Command A -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-rose-500/10 to-orange-500/5 border border-rose-500/30 hover:border-rose-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-rose-400">Cohere · Mar 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-rose-500 text-black text-[10px] font-bold uppercase">Agentic</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Command A (111B)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Open-weight flagship for agents & long-context RAG. 256K context, 23 languages.</p>
-                        <a href="models/command-a-111b.html" class="text-xs text-rose-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Higgs Audio v2 -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-purple-500/5 border border-pink-500/30 hover:border-pink-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-pink-400">Boson AI · Jul 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-pink-500 text-black text-[10px] font-bold uppercase">TTS</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Higgs Audio v2</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">SOTA expressive TTS. Natural laughter, whispers, BGM. Beats ElevenLabs on MOS.</p>
-                        <a href="tts/higgs-audio-v2.html" class="text-xs text-pink-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Whisper Turbo -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-500/30 hover:border-yellow-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-yellow-400">OpenAI · Oct 2024</span>
-                            <span class="px-1.5 py-0.5 rounded bg-yellow-500 text-black text-[10px] font-bold uppercase">ASR</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Whisper v3 Turbo</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">8× faster than Whisper Large v3. 99 languages. New gold standard for local STT.</p>
-                        <a href="tts/whisper-v3-turbo.html" class="text-xs text-yellow-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Parakeet TDT -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-teal-500/10 to-cyan-500/5 border border-teal-500/30 hover:border-teal-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-teal-400">NVIDIA · May 2025</span>
-                            <span class="px-1.5 py-0.5 rounded bg-teal-500 text-black text-[10px] font-bold uppercase">ASR</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Parakeet TDT 0.6B v2</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">#1 Open ASR Leaderboard. 50× faster than Whisper Large, real-time on GPU.</p>
-                        <a href="tts/parakeet-tdt-0.6b-v2.html" class="text-xs text-teal-400 hover:underline mt-2 inline-block">Details →</a>
-                    </article>
-                    <!-- Moshi -->
-                    <article class="p-4 rounded-lg bg-gradient-to-br from-indigo-500/10 to-purple-500/5 border border-indigo-500/30 hover:border-indigo-500 transition-colors">
-                        <div class="flex items-start justify-between mb-2">
-                            <span class="font-mono text-[10px] uppercase tracking-widest text-indigo-400">Kyutai · Sep 2024</span>
-                            <span class="px-1.5 py-0.5 rounded bg-indigo-500 text-black text-[10px] font-bold uppercase">Voice AI</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Moshi (Full-duplex)</h3>
-                        <p class="text-xs text-claw-muted font-mono leading-relaxed">Listens and speaks simultaneously with 160 ms latency. Real-time voice-to-voice.</p>
-                        <a href="tts/moshi.html" class="text-xs text-indigo-400 hover:underline mt-2 inline-block">Details →</a>
+                    <article class="rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-8">
+                        <div class="mb-5"><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-muted">Manual setup</p><h2 class="text-2xl font-display font-bold text-white uppercase">Hours in the terminal</h2></div>
+                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
+                            <li><span class="text-white/35">▸</span> Install dependencies by hand</li>
+                            <li><span class="text-white/35">▸</span> Edit config files and CLI flags</li>
+                            <li><span class="text-white/35">▸</span> Track models, agents and channels separately</li>
+                            <li><span class="text-white/35">▸</span> Debug local runtime issues after the fact</li>
+                        </ul>
                     </article>
                 </div>
             </section>
 
-            <!-- SEO: TTS Models Section -->
-            <section aria-label="Text-to-Speech Models" class="mb-16">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-display font-bold text-white"><svg class="lc-icon lc-icon-lg" style="color:#8B5CF6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> Local TTS Models — NEW!</h2>
-                    <a href="tts/" class="text-sm text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1">
-                        View static TTS pages →
-                    </a>
+            <!-- Catalogue teaser -->
+            <section aria-label="Local AI catalogue teaser" class="mb-20">
+                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 183 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
-                <p class="text-claw-muted text-sm mb-4">Text-to-Speech and Speech-to-Text models that run 100% offline on your hardware. Voice cloning, real-time dialogue, 99-language transcription, audiobooks, accessibility &amp; creative projects.</p>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 text-sm">
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-pink-500/20 to-purple-500/10 border border-pink-500/50 ring-1 ring-pink-500/20">
-                        <strong class="text-white">NeuTTS Air</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
-                        <div class="text-xs text-claw-muted mt-1">First real-time TTS LLM on CPU</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-pink-500/10 border border-fuchsia-500/50 ring-1 ring-fuchsia-500/20">
-                        <strong class="text-white">Step-Audio 2</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
-                        <div class="text-xs text-claw-muted mt-1">Unified speech LLM (ASR+TTS)</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/50 ring-1 ring-purple-500/20">
-                        <strong class="text-white">OCTAVE 2</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
-                        <div class="text-xs text-claw-muted mt-1">Voice from prompt, no reference</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-lime-500/20 to-green-500/10 border border-lime-500/50 ring-1 ring-lime-500/20">
-                        <strong class="text-white">Kyutai STT 2.6B</strong> <span class="text-yellow-400 text-xs">🔥 ASR</span>
-                        <div class="text-xs text-claw-muted mt-1">500ms streaming, diarization</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-teal-500/20 to-cyan-500/10 border border-teal-500/50 ring-1 ring-teal-500/20">
-                        <strong class="text-white">F5-TTS v1.1</strong> <span class="text-yellow-400 text-xs">🔥 New</span>
-                        <div class="text-xs text-claw-muted mt-1">Streaming flow-matching upgrade</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
-                        <strong class="text-white">Higgs Audio v2</strong> <span class="text-yellow-400 text-xs">⭐</span>
-                        <div class="text-xs text-claw-muted mt-1">SOTA expressive, beats ElevenLabs</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
-                        <strong class="text-white">Zonos</strong> <span class="text-yellow-400 text-xs">⭐</span>
-                        <div class="text-xs text-claw-muted mt-1">1.6B cloning, emotion control</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
-                        <strong class="text-white">IndexTTS 2</strong> <span class="text-yellow-400 text-xs">⭐</span>
-                        <div class="text-xs text-claw-muted mt-1">Separate voice + emotion ref</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
-                        <strong class="text-white">Whisper v3 Turbo</strong> <span class="text-yellow-400 text-xs">⭐ ASR</span>
-                        <div class="text-xs text-claw-muted mt-1">8× faster, 99 languages</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-gradient-to-br from-purple-500/15 to-pink-500/10 border border-purple-500/40">
-                        <strong class="text-white">Parakeet TDT 0.6B</strong> <span class="text-yellow-400 text-xs">⭐ ASR</span>
-                        <div class="text-xs text-claw-muted mt-1">#1 Open ASR leaderboard</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
-                        <strong class="text-white">Qwen3 TTS</strong>
-                        <div class="text-xs text-claw-muted mt-1">30+ languages, streaming</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
-                        <strong class="text-white">Kokoro 82M</strong>
-                        <div class="text-xs text-claw-muted mt-1">CPU real-time, 54 voices</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
-                        <strong class="text-white">Moshi</strong>
-                        <div class="text-xs text-claw-muted mt-1">Full-duplex, 160ms latency</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
-                        <strong class="text-white">LLaSA 3B</strong>
-                        <div class="text-xs text-claw-muted mt-1">LLaMA TTS, 250k hrs training</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-purple-500/[0.05] border border-purple-500/20">
-                        <strong class="text-white">+ 33 more…</strong> <a href="tts/" class="text-purple-400 hover:underline">View all →</a>
-                        <div class="text-xs text-claw-muted mt-1">Orpheus, XTTS v3, Dia, Chatterbox…</div>
-                    </div>
-                </div>
-                <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Real-time</span>
-                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Voice Cloning</span>
-                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> 50+ Languages</span>
-                    <span class="px-2 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> CPU/GPU/Edge</span>
-                </div>
-            </section>
-
-            <!-- Pricing Teaser Block -->
-            <section aria-label="Pricing" class="mb-16 max-w-3xl mx-auto">
-                <div class="border border-white/10 rounded-xl p-8 text-center bg-white/[0.02] relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-claw-primary/5 via-transparent to-orange-500/5"></div>
-                    <div class="relative">
-                        <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 border border-claw-primary/30 bg-claw-primary/10 text-claw-primary text-xs font-mono font-bold tracking-widest uppercase rounded-full">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
-                            All-in-one
-                        </div>
-                        <h3 class="text-xl sm:text-2xl font-display font-bold text-white mb-2">Optional macOS beta app. <span class="text-claw-primary">$49.</span> Lifetime access.</h3>
-                        <p class="text-sm text-claw-muted font-mono mb-3">The browser model finder stays free. Upgrade only if you want the native app to simplify OpenClaw setup, activation, updates and local AI management from one dashboard.</p>
-                        <p class="text-xs font-mono mb-5" style="color:#f59e0b;">
-                            <svg class="w-3 h-3 inline mb-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            macOS 13 Ventura or later required &nbsp;·&nbsp; Apple Silicon or Intel &nbsp;·&nbsp; 8 GB RAM min.
-                        </p>
-                        <a href="pricing.html" class="inline-flex items-center gap-2 px-6 py-3 border border-claw-primary/40 text-claw-primary hover:bg-claw-primary hover:text-white font-mono font-bold text-sm transition-all uppercase tracking-tight rounded-lg">
-                            View Pricing
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                        </a>
-                    </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="models/deepseek-v4-pro.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Frontier</p><h3 class="mt-3 text-lg font-display font-bold text-white">DeepSeek V4 Pro</h3><p class="mt-2 text-xs font-mono text-claw-muted">1.6T MoE · 49B active · local catalogue</p></a>
+                    <a href="models/glm-5.1.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Agentic</p><h3 class="mt-3 text-lg font-display font-bold text-white">GLM-5.1</h3><p class="mt-2 text-xs font-mono text-claw-muted">Engineering and repository work</p></a>
+                    <a href="models/qwen3.5-9b.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Laptop</p><h3 class="mt-3 text-lg font-display font-bold text-white">Qwen 3.5 9B</h3><p class="mt-2 text-xs font-mono text-claw-muted">Balanced local model for 16 GB+</p></a>
+                    <a href="models/gemma4-e4b.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Small</p><h3 class="mt-3 text-lg font-display font-bold text-white">Gemma 4 E4B</h3><p class="mt-2 text-xs font-mono text-claw-muted">Fast local baseline for smaller Macs</p></a>
+                    <a href="tts/neutts-air.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Voice</p><h3 class="mt-3 text-lg font-display font-bold text-white">NeuTTS Air</h3><p class="mt-2 text-xs font-mono text-claw-muted">Real-time CPU TTS and voice cloning</p></a>
+                    <a href="tts/whisper-v3-turbo.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">ASR</p><h3 class="mt-3 text-lg font-display font-bold text-white">Whisper v3 Turbo</h3><p class="mt-2 text-xs font-mono text-claw-muted">Offline speech-to-text in the TTS/ASR catalogue</p></a>
                 </div>
             </section>
 
@@ -1217,25 +813,6 @@
                 </div>
             </section>
 
-            <!-- Final CTA Block -->
-            <section aria-label="Call to Action" class="mb-16 max-w-4xl mx-auto">
-                <div class="border border-claw-primary/30 rounded-xl p-10 sm:p-14 text-center relative overflow-hidden bg-gradient-to-br from-[#0a0a0a] to-[#111]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-claw-primary/10 via-transparent to-orange-600/5"></div>
-                    <div class="relative">
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Install and Run 🦞 OpenClaw in One Click</h2>
-                        <p class="text-claw-muted font-mono text-sm mb-8 max-w-2xl mx-auto">One app. Your models, your agents, your data. $49 one-time, no subscription.</p>
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                            <a href="pricing.html" class="inline-flex items-center justify-center px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-0.5 uppercase tracking-tight">
-                                Get LocalClaw for macOS — $49
-                            </a>
-                            <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="inline-flex items-center justify-center px-8 py-4 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">
-                                Or find your model for free →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- noscript: tell users they need JS -->
             <noscript>
                 <div class="text-center p-8 rounded-xl bg-red-500/10 border border-red-500/30 max-w-xl mx-auto">
@@ -1274,7 +851,7 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260514c"></script>
-    <script src="js/app.js?v=20260601a"></script>
+    <script src="js/app.js?v=20260601b"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>

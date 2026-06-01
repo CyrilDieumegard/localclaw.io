@@ -976,21 +976,21 @@ const App = {
     renderHero(container) {
         const icon = (paths) => `<svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
         const features = [
-            ['Smart Hardware Matching', 'RAM, GPU, OS → perfect model. No guesswork.', icon('<path d="M12 3v3m0 12v3M3 12h3m12 0h3"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>')],
-            ['183+ LLM Database', 'Llama 4, Qwen 3.5, DeepSeek R1, Gemma 4 — always updated.', icon('<path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/>')],
-            ['47 TTS/ASR Models', 'Voice cloning, speech-to-text, 99 languages — all offline.', icon('<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/>')],
-            ['Zero Data Collection', 'Runs in your browser. No tracking, no cloud, no API calls.', icon('<path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/>')],
-            ['macOS One-Click Install', 'Native installer: LM Studio + models, no terminal needed. $49.', icon('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/>')],
-            ['RAM-Optimized Picks', 'From 8 GB laptops to 128 GB workstations — matched to your tier.', icon('<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3"/>')]
+            ['Control Center', 'See gateway health, CPU/RAM pressure, tokens used and OpenClaw version before anything breaks.', icon('<path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2"/>')],
+            ['Models', 'Switch between Local LLM, Cloud LLM and OAuth LLM without hand-editing config files.', icon('<path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/>')],
+            ['Agents', 'Create autonomous OpenClaw agents, assign models and keep their local workspace visible.', icon('<path d="M16 11a4 4 0 10-8 0"/><path d="M5 21a7 7 0 0114 0"/><path d="M18 8l2 2 2-2"/>')],
+            ['Cron Jobs', 'Schedule recurring local tasks and see what will run, when it runs and which agent owns it.', icon('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M9 15h.01M12 15h.01M15 15h.01"/>')],
+            ['Kanban', 'Turn local automation into visible work: backlog, ready, doing, review and done.', icon('<rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/>')],
+            ['Chat · Skills · Channels', 'Use beta dev tools, channel connections and local skills from the same dashboard.', icon('<path d="M4 5h16v10H7l-3 3V5z"/><path d="M8 9h8M8 12h5"/>')]
         ];
         const formatModeExample = (example) => example.replace('→', '<span class="arrow">→</span>');
         const latestModels = [
             ['DeepSeek V4 Pro', '1.6T MoE · 49B active · MIT', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
             ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
-            ['MiMo-V2.5-Pro', '1M context · 42B active · MIT', 'models/mimo-v2.5-pro.html', 'Long context', 'border-violet-500/30 bg-violet-500/5 text-violet-400'],
-            ['Kimi Linear 48B-A3B', '3B active · efficient reasoning', 'models/kimi-linear-48b-a3b-instruct.html', 'Efficient', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
-            ['Nemotron Nano 9B v2', 'Hybrid reasoning · laptop friendly', 'models/nemotron-nano-9b-v2.html', 'Local', 'border-blue-500/30 bg-blue-500/5 text-blue-400'],
-            ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400']
+            ['Qwen 3.5 9B', 'Balanced local model for 16 GB+', 'models/qwen3.5-9b.html', 'Laptop', 'border-violet-500/30 bg-violet-500/5 text-violet-400'],
+            ['Gemma 4 E4B', 'Fast local baseline for smaller Macs', 'models/gemma4-e4b.html', 'Small', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
+            ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400'],
+            ['Whisper v3 Turbo', 'Offline speech-to-text in the TTS/ASR catalogue', 'tts/whisper-v3-turbo.html', 'ASR', 'border-blue-500/30 bg-blue-500/5 text-blue-400']
         ];
         const mockNavItems = [
             ['home', '● Home', ''],
@@ -1152,22 +1152,35 @@ const App = {
         };
 
         container.innerHTML = `
-            <section class="relative pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 text-center">
-                <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-claw-primary/40 bg-claw-primary/10 text-claw-primary rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] uppercase shadow-[0_0_30px_rgba(255,69,58,0.12)]">
-                    <span class="lc-fresh-dot w-2 h-2 rounded-full bg-claw-primary"></span>
-                    183 LLMs + 47 TTS/ASR — Updated May 2026
+            <section class="relative pt-10 sm:pt-16 lg:pt-20 pb-16 sm:pb-20">
+                <div class="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+                    <div class="text-center lg:text-left">
+                        <div class="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">100% local</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">your machine</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">no cloud</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">no signup</span>
+                        </div>
+                        <h1 class="text-[clamp(2.7rem,7vw,5.15rem)] font-display font-bold leading-[0.93] tracking-tight text-white uppercase">
+                            Native Control Center for <span class="text-claw-primary">OpenClaw</span>
+                        </h1>
+                        <p class="mt-6 max-w-2xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed lg:mx-0 mx-auto">
+                            Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
+                        </p>
+                        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
+                            <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
+                            <button onclick="App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">or find my model →</button>
+                        </div>
+                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No data collected. Runs on your machine.</p>
+                    </div>
+                    <div class="relative mx-auto w-full max-w-xl">
+                        <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
+                        <div class="absolute inset-x-10 bottom-8 h-16 rounded-full bg-claw-primary/25 blur-2xl"></div>
+                        <div class="relative p-2">
+                            <img src="images/localclaw-mascot-hero.webp" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_38px_rgba(234,88,12,0.55)]" loading="eager" decoding="async" fetchpriority="high">
+                        </div>
+                    </div>
                 </div>
-                <h1 class="mx-auto max-w-5xl text-[clamp(2.5rem,7vw,4.5rem)] font-display font-bold leading-[0.95] tracking-tight text-white uppercase">
-                    Match Your Hardware to the <span class="text-claw-primary">Right</span> Local AI
-                </h1>
-                <p class="mx-auto mt-5 max-w-3xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed">
-                    Tell us your RAM, GPU and OS. Get personalized model recommendations — instantly, privately, for free.
-                </p>
-                <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button onclick="App.startFlow('guided')" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Find My Model — Free</button>
-                    <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-black/40 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">macOS Installer — $49</a>
-                </div>
-                <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">No signup. No data collected. Runs in your browser.</p>
 
                 <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
@@ -1214,25 +1227,11 @@ const App = {
             </section>
 
             <section class="mb-20">
-                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">Three ways to find your model</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    ${[
-                        ['01', 'Guided Mode', 'Answer 3 questions. We handle the complexity.', 'MacBook Air 8 GB → Qwen 3 8B'],
-                        ['02', 'Quick Spec', 'Select RAM, GPU, priorities. Instant match.', '32 GB + RTX 4090 → DeepSeek R1 32B'],
-                        ['03', 'Terminal', 'Paste your system info. Auto-detect & match.', 'Paste neofetch → auto-config']
-                    ].map(([num, title, desc, example]) => `
-                        <article class="rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:border-claw-primary/35 transition-colors">
-                            <div class="text-4xl font-display font-bold text-claw-primary/80 mb-4">${num}</div>
-                            <h3 class="text-lg font-display font-bold text-white mb-2">${title}</h3>
-                            <p class="text-sm text-claw-muted leading-relaxed mb-4">${desc}</p>
-                            <p class="lc-mode-example">${formatModeExample(example)}</p>
-                        </article>
-                    `).join('')}
+                <div class="mb-8 text-center">
+                    <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// THE APP</p>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Everything to run OpenClaw locally, in one place</h2>
+                    <p class="mx-auto mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">A native macOS control center for the local AI stack you already own: models, agents, channels, schedules and system health.</p>
                 </div>
-            </section>
-
-            <section class="mb-20">
-                <h2 class="text-center text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight mb-8">What LocalClaw does for you</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${features.map(([title, desc, svg]) => `
                         <article class="lc-feature-card rounded-xl p-7">
@@ -1245,12 +1244,32 @@ const App = {
             </section>
 
             <section class="mb-20">
-                <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-                    <div>
-                        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Latest models worth testing</h2>
-                        <p class="mt-2 text-sm text-claw-muted font-mono">A compact snapshot of the newest useful local AI picks.</p>
-                    </div>
-                    <a href="llm-list.html" class="text-sm font-mono text-claw-primary hover:text-white uppercase tracking-wider">See all 183 models →</a>
+                <div class="grid gap-4 lg:grid-cols-2">
+                    <article class="rounded-2xl border border-claw-primary/35 bg-claw-primary/10 p-6 sm:p-8 shadow-[0_0_60px_rgba(234,88,12,0.08)]">
+                        <div class="mb-5 flex items-center gap-3"><img src="images/logo-localclaw.svg" width="38" height="38" alt="LocalClaw crab logo" class="rounded-lg bg-claw-primary"><div><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LocalClaw</p><h2 class="text-2xl font-display font-bold text-white uppercase">Download it like an app</h2></div></div>
+                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
+                            <li><span class="text-claw-primary">▸</span> Guided macOS setup for OpenClaw</li>
+                            <li><span class="text-claw-primary">▸</span> Managed local models and runtime checks</li>
+                            <li><span class="text-claw-primary">▸</span> Agents, channels, skills and schedules in one UI</li>
+                            <li><span class="text-claw-primary">▸</span> 100% local: your machine, your data</li>
+                        </ul>
+                    </article>
+                    <article class="rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-8">
+                        <div class="mb-5"><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-muted">Manual setup</p><h2 class="text-2xl font-display font-bold text-white uppercase">Hours in the terminal</h2></div>
+                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
+                            <li><span class="text-white/35">▸</span> Install dependencies by hand</li>
+                            <li><span class="text-white/35">▸</span> Edit config files and CLI flags</li>
+                            <li><span class="text-white/35">▸</span> Track models, agents and channels separately</li>
+                            <li><span class="text-white/35">▸</span> Debug local runtime issues after the fact</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="mb-20">
+                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 183 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `
@@ -1260,17 +1279,6 @@ const App = {
                             <p class="text-xs font-mono text-claw-muted leading-relaxed">${meta}</p>
                         </a>
                     `).join('')}
-                </div>
-            </section>
-
-            <section class="mb-16">
-                <div class="rounded-2xl border border-claw-primary/25 bg-gradient-to-br from-[#0a0a0a] to-[#111] p-8 sm:p-12 text-center">
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white uppercase tracking-tight mb-3">Install and Run 🦞 OpenClaw in One Click</h2>
-                    <p class="text-claw-muted font-mono mb-7">One app. Your models, your agents, your data. $49 one-time, no subscription.</p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                        <a href="pricing.html" class="inline-flex items-center justify-center px-8 py-4 bg-claw-primary hover:bg-white hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(255,69,58,0.22)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight">Get LocalClaw for macOS — $49</a>
-                        <button onclick="App.startFlow('guided')" class="inline-flex items-center justify-center px-8 py-4 border border-white/25 hover:border-claw-primary text-white hover:text-claw-primary font-mono font-bold text-base transition-all hover:bg-white/5 uppercase tracking-tight">Or find your model for free →</button>
-                    </div>
                 </div>
             </section>
 
