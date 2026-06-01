@@ -1024,25 +1024,59 @@ const App = {
             home: `
                 ${mockPanelHeader('LocalClaw', 'Version 1.0.140 (build 285)')}
                 <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
-                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div></div>
-                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div></div>
-                    <div class="rounded-xl border border-claw-primary/35 bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">299.2K</div><div class="mt-1 text-[11px] text-claw-muted">Tokens used</div></div>
-                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="text-lg font-bold text-white">1 active</div><div class="mt-1 text-[11px] text-claw-muted">Channels</div></div>
+                    <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4"><div class="mb-2 text-[#22c55e]">⌁</div><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div><div class="mt-2 text-[10px] text-claw-muted">openai/gpt-5.4-mini</div></div>
+                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-muted">▤</div><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div><div class="mt-2 text-[10px] text-claw-muted">CPU 28% · RAM 31.2/32 GB</div></div>
+                    <div class="rounded-xl border border-claw-primary/35 bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-primary">▥</div><div class="text-lg font-bold text-white">299.2K</div><div class="mt-1 text-[11px] text-claw-muted">Tokens used</div><div class="mt-2 text-[10px] text-claw-muted">6 requests · 30 days</div></div>
+                    <div class="rounded-xl border border-blue-500/30 bg-[#1a1a1a] p-4"><div class="mb-2 text-blue-400">▣</div><div class="text-lg font-bold text-white">1 active</div><div class="mt-1 text-[11px] text-claw-muted">Channels</div><div class="mt-2 text-[10px] text-claw-muted">22 available · 1 account</div></div>
                 </div>
-                <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                    <div class="flex flex-wrap gap-2 text-[11px] font-bold text-claw-muted">
-                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Gateway</span>
-                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Chat</span>
-                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Model</span>
-                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Channel</span>
-                        <span><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>Skill</span>
+                <div class="mt-4 grid gap-3 xl:grid-cols-[1fr_260px]">
+                    <div class="space-y-3">
+                        <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4">
+                            <div class="mb-3 flex items-center justify-between gap-3">
+                                <div><div class="text-[11px] font-bold text-claw-muted"><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>OpenClaw readiness</div><div class="mt-1 text-xl font-bold text-white">Ready</div><div class="text-[11px] text-claw-muted">5/5 checks passing</div></div>
+                                <button class="rounded-lg bg-claw-primary px-4 py-2 text-xs font-bold text-white">Fix issues</button>
+                            </div>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-bold text-[#22c55e]">
+                                ${['Gateway','Chat','Model','Channel','Skill'].map(x => `<span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>${x}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                            <div class="mb-3 text-sm font-bold text-white">Next best actions</div>
+                            <div class="rounded-lg bg-[#111] p-3 text-[11px] text-claw-muted"><span class="text-[#22c55e]">▱</span> <span class="font-bold text-white">Open OpenClaw Chat</span><br><span class="ml-4">Everything essential is ready.</span></div>
+                        </div>
+                        <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                            <div class="mb-3 text-sm font-bold text-white">System Load</div>
+                            <div class="space-y-3 text-[11px]">
+                                <div><div class="mb-1 flex justify-between text-claw-muted"><span>CPU</span><span>38%</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[38%] rounded-full bg-claw-primary"></div></div></div>
+                                <div><div class="mb-1 flex justify-between text-claw-muted"><span>RAM</span><span>31.3 / 32.0 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[98%] rounded-full bg-blue-500"></div></div></div>
+                                <div><div class="mb-1 flex justify-between text-claw-muted"><span>Swap</span><span>1.85 / 3.00 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[62%] rounded-full bg-orange-400"></div></div></div>
+                            </div>
+                            <div class="mt-3 grid grid-cols-3 gap-2 text-[10px] text-claw-muted">
+                                <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>OpenClaw</div>
+                                <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>LM Studio</div>
+                                <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>Node</div>
+                            </div>
+                        </div>
+                        <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4 text-[11px] text-claw-muted">
+                            <div class="mb-2 text-sm font-bold text-white">Recent activity</div>
+                            <div class="space-y-1"><div><span class="text-claw-primary">●</span> Managed skills: /Users/redsun/.openclaw/skills</div><div><span class="text-claw-primary">●</span> Workspace: /Users/redsun/.openclaw/workspace</div><div><span class="text-claw-primary">●</span> Channel inventory refreshed.</div></div>
+                        </div>
                     </div>
-                </div>
-                <div class="mt-4 rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                    <div class="mb-3 text-sm font-bold text-white">System Load</div>
-                    <div class="space-y-3 text-[11px]">
-                        <div><div class="mb-1 flex justify-between text-claw-muted"><span>CPU</span><span>38%</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[38%] rounded-full bg-claw-primary"></div></div></div>
-                        <div><div class="mb-1 flex justify-between text-claw-muted"><span>RAM</span><span>31.3 / 32.0 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[98%] rounded-full bg-claw-primary"></div></div></div>
+                    <div class="space-y-3">
+                        <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                            <div class="mb-3 text-sm font-bold text-white">Working now</div>
+                            ${[
+                                ['Chat','Ready','▱'],
+                                ['Channels','1 connected · 22 available','▣'],
+                                ['Skills','18 active · 58 installed','⌁'],
+                                ['Models','openai/gpt-5.4-mini','▤'],
+                                ['Automation','6 active · 7 jobs','▥']
+                            ].map(([name, meta, mark]) => `<div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">${mark}</span>${name}</span><span class="text-claw-muted">${meta}</span><span class="ml-1 text-[#22c55e]">●</span></div>`).join('')}
+                        </div>
+                        <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
+                            <div class="mb-3 text-sm font-bold text-white">Operations</div>
+                            ${['OpenClaw Chat','Connect channels','Manage models','Add skills'].map(x => `<div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px] text-claw-muted"><span><span class="mr-1 text-claw-primary">▸</span><span class="font-bold text-white">${x}</span></span><span>›</span></div>`).join('')}
+                        </div>
                     </div>
                 </div>
             `,
@@ -1161,6 +1195,15 @@ const App = {
                                 <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.5.22</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
                                 <div class="mt-3 text-claw-muted">Machine: <span class="text-white">Apple M2 Max</span></div>
                                 <div class="text-claw-muted">32 GB · macOS</div>
+                                <div class="mt-3 border-t border-[#333] pt-3 text-[10px] leading-relaxed text-claw-muted">
+                                    <div>Model: Mac Studio</div>
+                                    <div>Year: 2023</div>
+                                    <div>ID: Mac14,13</div>
+                                </div>
+                                <div class="mt-3 grid grid-cols-2 gap-2">
+                                    <button class="rounded-md border border-[#333] bg-[#151515] px-2 py-1.5 text-[10px] font-bold text-white">Refresh</button>
+                                    <button class="rounded-md border border-[#333] bg-[#151515] px-2 py-1.5 text-[10px] font-bold text-white">Copy</button>
+                                </div>
                             </div>
                         </aside>
                         <div class="lc-mock-panel p-4 sm:p-5 font-mono transition-opacity duration-200">
