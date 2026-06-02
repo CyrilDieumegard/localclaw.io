@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw</title>
-    <meta name="description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon. Matched by unified RAM & real-world testing.">
+    <title>AI Computers for Local LLMs — Apple Silicon & NVIDIA Spark | LocalClaw</title>
+    <meta name="description" content="Compare Apple Silicon Macs and NVIDIA DGX Spark / GB10 AI workstations for local LLMs. See compatible models, RAM tiers, and Amazon options.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/computers.html">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/computers.html">
-    <meta property="og:title" content="Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw">
-    <meta property="og:description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon.">
+    <meta property="og:title" content="AI Computers for Local LLMs — Apple Silicon & NVIDIA Spark | LocalClaw">
+    <meta property="og:description" content="Compare Apple Silicon Macs and NVIDIA DGX Spark / GB10 AI workstations for local AI.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mac AI Models — Which LLMs Can Your Mac Run? | LocalClaw">
-    <meta name="twitter:description" content="Select your Mac to see exactly which AI models you can run locally with Apple Silicon.">
+    <meta name="twitter:title" content="AI Computers for Local LLMs — Apple Silicon & NVIDIA Spark | LocalClaw">
+    <meta name="twitter:description" content="Compare Apple Silicon Macs and NVIDIA DGX Spark / GB10 AI workstations for local AI.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
 
     <meta name="theme-color" content="#050505">
@@ -536,6 +536,65 @@
             .grid { grid-template-columns: 1fr; }
         }
 
+        .machine-sections {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 20px 64px;
+            display: flex; flex-direction: column; gap: 34px;
+        }
+        .machine-section {
+            display: flex; flex-direction: column; gap: 14px;
+        }
+        .machine-section-head {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            gap: 20px;
+            padding: 0 2px;
+        }
+        .machine-section-kicker {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; font-weight: 800; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .machine-section-kicker::before {
+            content: ''; width: 7px; height: 7px; border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 14px rgba(255,69,58,.55);
+        }
+        .machine-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            line-height: 1; font-weight: 800; color: var(--text);
+            margin-bottom: 8px;
+        }
+        .machine-section-copy {
+            max-width: 720px;
+            color: var(--muted); font-size: 14px; line-height: 1.55;
+        }
+        .machine-section-count {
+            flex-shrink: 0;
+            padding: 6px 12px; border-radius: 999px;
+            border: 1px solid rgba(255,69,58,.22);
+            color: var(--accent);
+            background: rgba(255,69,58,.07);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: .08em;
+        }
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 14px;
+        }
+        @media (max-width: 720px) {
+            .machine-section-head { align-items: flex-start; flex-direction: column; gap: 10px; }
+            .machine-section-count { align-self: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .machine-sections { padding-left: 16px; padding-right: 16px; }
+            .section-grid { grid-template-columns: 1fr; }
+        }
+
         /* ===== CARD (matching llm-list.html style) ===== */
         .card {
             background: rgba(15,15,17,0.5);
@@ -584,6 +643,7 @@
         }
         .brand-icon.apple { background: rgba(10,132,255,.15); color: var(--apple-blue); }
         .brand-icon.windows { background: rgba(0,120,212,.15); color: #0078D4; }
+        .brand-icon.nvidia { background: rgba(255,69,58,.14); color: var(--primary); }
 
 
         .brand-label {
@@ -592,13 +652,61 @@
         }
         .brand-label.apple { color: var(--apple-blue); }
         .brand-label.windows { color: #0078D4; }
+        .brand-label.nvidia { color: var(--primary); }
 
 
         .card-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 14px; font-weight: 700; color: #fff;
             margin-bottom: 10px; line-height: 1.3;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            min-height: 36px;
+        }
+
+        .machine-visual {
+            aspect-ratio: 16 / 9;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,.06);
+            background:
+                radial-gradient(circle at 50% 20%, rgba(255,69,58,.18), transparent 42%),
+                linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+            position: relative;
+            overflow: hidden;
+        }
+        .machine-visual::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(180deg, rgba(5,5,5,0) 45%, rgba(5,5,5,.45) 100%),
+                radial-gradient(circle at 50% 100%, rgba(255,69,58,.22), transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .machine-visual img {
+            width: 100%; height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform .35s ease, filter .35s ease;
+        }
+        .machine-visual.contain img {
+            object-fit: contain;
+            padding: 8px;
+            background: #f5f5f5;
+        }
+        .card:hover .machine-visual img {
+            transform: scale(1.035);
+            filter: saturate(1.08) contrast(1.03);
+        }
+        .machine-photo-badge {
+            position: absolute; top: 10px; right: 10px;
+            padding: 3px 7px; border-radius: 999px;
+            background: rgba(5,5,5,.78);
+            border: 1px solid rgba(255,69,58,.28);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: .08em;
+            z-index: 2;
         }
 
         .specs-row {
@@ -880,9 +988,9 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge"> Apple Silicon AI Guide</div>
-        <h1 class="fd">Find AI Models For<br><span>Your Mac</span></h1>
-        <p>Select your Mac to see exactly which AI models you can run locally. Each machine is matched with compatible LLMs based on unified RAM and real-world testing.</p>
+        <div class="hero-badge"> Apple + NVIDIA AI Hardware Guide</div>
+        <h1 class="fd">Find AI Models For<br><span>Your Machine</span></h1>
+        <p>Compare Apple Silicon Macs and NVIDIA DGX Spark / GB10 workstations for local AI. Each machine is matched with compatible LLMs by RAM tier and real-world fit.</p>
     </section>
 
     <!-- LEGEND -->
@@ -901,7 +1009,7 @@
     </div>
 
     <!-- GRID -->
-    <div id="grid" class="grid">
+    <div id="grid" class="machine-sections">
         <div class="loading-state">
             <div class="spinner"></div>
             <span style="font-size:13px;color:var(--muted);">Loading computers…</span>
@@ -922,78 +1030,119 @@
         // ===== COMPUTERS DATABASE =====
         const COMPUTERS = [
             {
-                id: 'mac_mini_16', type: 'apple',
+                id: 'mac_mini_16', section: 'apple', type: 'apple',
                 name: 'Apple Mac Mini M4',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini M4 product photo', imageFit: 'cover',
                 chip: 'M4', ram: 16, storage: '256GB SSD',
                 price: '$499',
                 asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+16GB+256GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Best Starter Mac'
             },
             {
-                id: 'mac_mini_24', type: 'apple',
+                id: 'mac_mini_24', section: 'apple', type: 'apple',
                 name: 'Mac Mini M4 Pro',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini M4 Pro product photo', imageFit: 'cover',
                 chip: 'M4 Pro', ram: 24, storage: '512GB SSD',
                 price: '$1,399',
                 asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Sweet Spot'
             },
             {
-                id: 'mac_mini_48', type: 'apple',
+                id: 'mac_mini_48', section: 'apple', type: 'apple',
                 name: 'Mac Mini M4 Pro',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini M4 Pro product photo', imageFit: 'cover',
                 chip: 'M4 Pro', ram: 48, storage: '512GB SSD',
                 price: '$1,799',
                 asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+48GB+512GB&tag=localclaw-20', appleUrl: null,
                 badge: 'Power User'
             },
             {
-                id: 'mac_studio_64', type: 'apple',
+                id: 'mac_studio_64', section: 'apple', type: 'apple',
                 name: 'Mac Studio M4 Max',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio M4 Max product photo', imageFit: 'cover',
                 chip: 'M4 Max', ram: 64, storage: '1TB SSD',
                 price: '$3,199',
-                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M4+Max+64GB+1TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Workstation'
             },
             {
-                id: 'mac_studio_128', type: 'apple',
+                id: 'mac_studio_128', section: 'apple', type: 'apple',
                 name: 'Mac Studio M4 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio M4 Ultra product photo', imageFit: 'cover',
                 chip: 'M4 Ultra', ram: 128, storage: '1TB SSD',
                 price: '$5,999',
-                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M4+Ultra+128GB+1TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Beast Mode'
             },
             {
-                id: 'mac_studio_max_128', type: 'apple',
+                id: 'mac_studio_max_128', section: 'apple', type: 'apple',
                 name: 'Mac Studio M4 Max',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio M4 Max product photo', imageFit: 'cover',
                 chip: 'M4 Max', ram: 128, storage: '2TB SSD',
                 price: '$4,599',
-                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M4+Max+128GB+2TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Max Power'
             },
             {
-                id: 'mac_studio_256', type: 'apple',
+                id: 'mac_studio_256', section: 'apple', type: 'apple',
                 name: 'Mac Studio M4 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio M4 Ultra product photo', imageFit: 'cover',
                 chip: 'M4 Ultra', ram: 256, storage: '2TB SSD',
                 price: '$8,999',
-                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M4+Ultra+256GB+2TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Monster'
             },
             {
-                id: 'mac_studio_512', type: 'apple',
+                id: 'mac_studio_512', section: 'apple', type: 'apple',
                 name: 'Mac Studio M4 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio M4 Ultra product photo', imageFit: 'cover',
                 chip: 'M4 Ultra', ram: 512, storage: '4TB SSD',
                 price: '$14,999',
-                asin: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M4+Ultra+512GB+4TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Ultimate Beast'
             },
             {
-                id: 'beelink_mini_s12', type: 'windows',
-                name: 'Beelink Mini PC S12',
-                chip: 'Intel 12th Gen N95 (up to 3.4GHz)', ram: 8, storage: '256GB SSD',
-                price: '$199',
-                asin: 'B08XBVXNFP', appleUrl: null,
-                badge: 'Budget Mini PC'
+                id: 'nvidia_dgx_spark', section: 'nvidia', type: 'nvidia',
+                name: 'NVIDIA DGX Spark',
+                image: 'images/computers/nvidia-dgx-spark.jpg', imageAlt: 'NVIDIA DGX Spark product photo', imageFit: 'cover',
+                chip: 'GB10 Grace Blackwell', ram: 128, storage: '4TB NVMe',
+                price: '$4,699',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=NVIDIA+DGX+Spark&tag=localclaw-20', appleUrl: null,
+                badge: 'Desktop AI Supercomputer'
             },
+            {
+                id: 'asus_ascent_gx10', section: 'nvidia', type: 'nvidia',
+                name: 'ASUS Ascent GX10',
+                image: 'images/computers/asus-ascent-gx10.jpg', imageAlt: 'ASUS Ascent GX10 AI supercomputer product photo', imageFit: 'cover',
+                chip: 'NVIDIA GB10', ram: 128, storage: '1TB / 4TB NVMe',
+                price: 'Check price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=ASUS+Ascent+GX10+NVIDIA+GB10&tag=localclaw-20', appleUrl: null,
+                badge: 'DGX Spark Partner'
+            },
+            {
+                id: 'acer_veriton_gn100', section: 'nvidia', type: 'nvidia',
+                name: 'Acer Veriton GN100',
+                image: 'images/computers/acer-veriton-gn100.jpg', imageAlt: 'Acer Veriton GN100 AI Mini Workstation product photo', imageFit: 'contain',
+                chip: 'NVIDIA GB10', ram: 128, storage: '4TB NVMe',
+                price: 'Check price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Acer+Veriton+GN100+NVIDIA+GB10&tag=localclaw-20', appleUrl: null,
+                badge: 'AI Mini Workstation'
+            },
+        ];
 
+        const MACHINE_SECTIONS = [
+            {
+                id: 'apple',
+                kicker: 'Apple',
+                title: 'Apple Silicon Macs',
+                copy: 'Quiet unified-memory machines for local LLMs, coding assistants, RAG, writing, and offline daily work.'
+            },
+            {
+                id: 'nvidia',
+                kicker: 'NVIDIA Spark',
+                title: 'NVIDIA DGX Spark / GB10 Systems',
+                copy: 'Compact AI workstations with CUDA, DGX OS, 128 GB unified memory, and a local-first path for agents and larger models.'
+            }
         ];
 
         // ===== FAMILY MAPPING =====
@@ -1088,6 +1237,7 @@
             arrowR: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
             amazon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.07-.116.36-.198.876-.016 3.2 1.127 6.68 1.687 10.095 1.687 2.73 0 5.52-.47 8.22-1.46.46-.156.84.2.46.66-2.47 2.25-5.94 3.44-9.43 3.44-4.32 0-8.34-1.76-11.22-4.67-.15-.15-.08-.26 0-.36z"/><path d="M14.85 16.01c-.26-.3-1.7-.36-2.35-.18-.2.05-.23-.15-.05-.28 1.15-.81 3.04-.58 3.26-.3.22.27-.06 2.16-1.14 3.06-.16.14-.32.06-.25-.12.24-.6.78-1.88.53-2.18z"/><path d="M12.25 3.88c1.6-.07 3.27.3 4.28 1.42 1.3 1.47 1.06 3.63 1.06 5.55v4.62c0 .62.22 1.22.66 1.66.18.17.4.35.18.5-.5.36-1.46 1.08-1.98.73L15 17.09c-1.04.88-2.36 1.14-3.72 1.14-2.53 0-4.5-1.56-4.5-4.68 0-3.32 2-5.02 4.92-5.02 1.16 0 2.12.2 2.88.6v-.72c0-1.32.1-2.55-.68-3.47-.62-.72-1.6-1-2.53-1-1.72 0-3.24.88-3.62 2.7-.08.37-.38.46-.62.48l-2-.22c-.28-.06-.58-.3-.5-.74C5.73 3.3 9.34 2.6 12.25 3.88zm-.92 8.1c-.92 0-1.68.34-2.16 1.08-.48.72-.58 1.7-.58 2.66 0 .96.1 1.9.58 2.6.5.72 1.3 1.04 2.16 1.04.84 0 1.6-.38 2.1-1.08.56-.8.68-1.72.68-2.7 0-.96-.14-2-.68-2.72-.5-.68-1.26-1.06-2.1-.88z"/></svg>',
             apple: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>',
+            gpu: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="10" rx="2"/><path d="M17 10h3v2h-3M7 16v3M13 16v3M7 3v3M13 3v3"/><circle cx="10" cy="11" r="2"/></svg>',
             star: '★'
         };
 
@@ -1096,11 +1246,21 @@
 
         function brandIcon(type) {
             if (type === 'apple') return `<div class="brand-icon apple">${SVG.apple}</div>`;
+            if (type === 'nvidia') return `<div class="brand-icon nvidia">${SVG.gpu}</div>`;
             return `<div class="brand-icon windows">${windowsIcon}</div>`;
         }
         function brandLabel(type) {
             if (type === 'apple') return '<span class="brand-label apple">Apple Silicon</span>';
+            if (type === 'nvidia') return '<span class="brand-label nvidia">NVIDIA GB10</span>';
             return '<span class="brand-label windows">Windows PC</span>';
+        }
+
+        function renderMachineVisual(comp) {
+            const fit = comp.imageFit === 'contain' ? ' contain' : '';
+            return `<div class="machine-visual${fit}">
+                <img src="${esc(comp.image)}" alt="${esc(comp.imageAlt || comp.name)}" width="720" height="${comp.imageFit === 'contain' ? '720' : '378'}" loading="lazy" decoding="async">
+                <span class="machine-photo-badge">${esc(comp.badge)}</span>
+            </div>`;
         }
 
         // ===== RENDER CARD =====
@@ -1141,11 +1301,13 @@
 
             const amazonUrl = comp.amazonUrl || (comp.asin ? `https://www.amazon.com/dp/${comp.asin}?tag=localclaw-20` : null);
             const actionBtn = amazonUrl
-                ? `<a href="${amazonUrl}" target="_blank" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
-                : `<a href="${comp.appleUrl}" target="_blank" class="act-btn apple-store">${SVG.apple} View on Apple.com</a>`;
+                ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
+                : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store">${SVG.apple} View on Apple.com</a>`;
+            const priceLabel = /^check/i.test(comp.price) ? esc(comp.price) : `from ${esc(comp.price)}`;
 
             return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">
                 <div class="card-head">
+                    ${renderMachineVisual(comp)}
                     <div class="card-brand">
                         ${brandIcon(comp.type)}
                         ${brandLabel(comp.type)}
@@ -1156,7 +1318,7 @@
                         <span class="spec-chip">${SVG.disk} ${esc(comp.storage)}</span>
                     </div>
                     <div class="price-row">
-                        <span class="price">from ${esc(comp.price)}</span>
+                        <span class="price">${priceLabel}</span>
                         <span class="ram-badge">${SVG.ram} ${comp.ram}GB</span>
                     </div>
                 </div>
@@ -1176,6 +1338,22 @@
 
         function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
+        function renderSection(section, idxOffset) {
+            const machines = COMPUTERS.filter(c => c.section === section.id);
+            return `<section class="machine-section" aria-labelledby="${section.id}-machines-title">
+                <div class="machine-section-head">
+                    <div>
+                        <div class="machine-section-kicker">${esc(section.kicker)}</div>
+                        <h2 id="${section.id}-machines-title" class="machine-section-title fd">${esc(section.title)}</h2>
+                        <p class="machine-section-copy">${esc(section.copy)}</p>
+                    </div>
+                    <div class="machine-section-count">${machines.length} machines</div>
+                </div>
+                <div class="section-grid">
+                    ${machines.map((machine, i) => renderCard(machine, idxOffset + i)).join('')}
+                </div>
+            </section>`;
+        }
 
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', () => {
@@ -1190,7 +1368,12 @@
                 return;
             }
 
-            grid.innerHTML = COMPUTERS.map((c, i) => renderCard(c, i)).join('');
+            let offset = 0;
+            grid.innerHTML = MACHINE_SECTIONS.map(section => {
+                const html = renderSection(section, offset);
+                offset += COMPUTERS.filter(c => c.section === section.id).length;
+                return html;
+            }).join('');
         });
     })();
     </script>
