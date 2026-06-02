@@ -688,6 +688,9 @@
             object-fit: cover;
             transition: transform .35s ease, filter .35s ease;
         }
+        .machine-visual.mac-mini-photo img {
+            transform: translateY(28px);
+        }
         .machine-visual.contain img {
             object-fit: contain;
             padding: 8px;
@@ -696,6 +699,9 @@
         .card:hover .machine-visual img {
             transform: scale(1.035);
             filter: saturate(1.08) contrast(1.03);
+        }
+        .card:hover .machine-visual.mac-mini-photo img {
+            transform: translateY(28px) scale(1.035);
         }
         .machine-photo-badge {
             position: absolute; top: 10px; right: 10px;
@@ -1258,7 +1264,8 @@
 
         function renderMachineVisual(comp) {
             const fit = comp.imageFit === 'contain' ? ' contain' : '';
-            return `<div class="machine-visual${fit}">
+            const mini = comp.id && comp.id.startsWith('mac_mini') ? ' mac-mini-photo' : '';
+            return `<div class="machine-visual${fit}${mini}">
                 <img src="${esc(comp.image)}" alt="${esc(comp.imageAlt || comp.name)}" width="720" height="${comp.imageFit === 'contain' ? '720' : '378'}" loading="lazy" decoding="async">
                 <span class="machine-photo-badge">${esc(comp.badge)}</span>
             </div>`;
