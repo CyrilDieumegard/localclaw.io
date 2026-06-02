@@ -444,9 +444,19 @@
             font-size: 11px; font-weight: 500; color: var(--muted);
             cursor: pointer; transition: all 0.2s;
             user-select: none;
+            display: inline-flex; align-items: center; gap: 5px;
         }
         .chip:hover { border-color: rgba(139,92,246,0.3); color: #fff; }
         .chip.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.5); color: var(--tts-accent); }
+        .sidebar-actions { margin-top: 10px; }
+        .reset-filters-btn {
+            width: 100%; padding: 9px 12px; border-radius: 10px;
+            background: rgba(15,15,17,0.72);
+            border: 1px solid rgba(139,92,246,0.18);
+            color: var(--muted); font-size: 11px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .reset-filters-btn:hover { color: #fff; border-color: rgba(139,92,246,0.42); background: rgba(139,92,246,0.12); }
 
         /* Sidebar close btn (mobile) */
         .sidebar-close {
@@ -461,7 +471,7 @@
         .content { flex: 1; padding: 20px; min-width: 0; }
 
         /* Search & Topbar */
-        .topbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+        .topbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; position: relative; z-index: 40; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
         .search-wrap input {
             width: 100%; padding: 10px 36px;
@@ -503,6 +513,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 16px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Card */
@@ -760,6 +772,7 @@
             white-space: nowrap;
         }
         .mobile-filter-btn:hover { background: rgba(139,92,246,0.2); }
+        body.sidebar-open .mobile-filter-btn { display: none !important; }
 
         /* Mobile overlay */
         .sidebar-overlay {
@@ -902,6 +915,9 @@
             .nav-links { gap: 12px; }
             .nav-links a { font-size: 11px; }
             .comparison-banner { flex-wrap: wrap; }
+        }
+        @media (min-width: 769px) {
+            .mobile-filter-btn { display: none !important; }
         }
         /* Mobile hamburger */
         .mobile-hamburger {
@@ -1306,6 +1322,17 @@
                 <div class="filter-chips" id="pick-filter">
                     <span class="chip" data-filter="pick"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</span>
                 </div>
+                <div class="sidebar-actions">
+                    <button class="reset-filters-btn" id="reset-filters" type="button">Reset All Filters</button>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M4 7h16M4 17h16"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg> Model Type</div>
+                <div class="filter-chips" id="type-filters">
+                    <span class="chip" data-filter="tts">TTS</span>
+                    <span class="chip" data-filter="asr">ASR</span>
+                    <span class="chip" data-filter="app">App layer</span>
+                </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Languages</div>
@@ -1326,7 +1353,13 @@
                     <span class="chip" data-filter="streaming">Streaming</span>
                     <span class="chip" data-filter="realtime">Real-time</span>
                     <span class="chip" data-filter="cloning">Voice Cloning</span>
+                    <span class="chip" data-filter="emotion">Emotion</span>
+                    <span class="chip" data-filter="dialogue">Dialogue</span>
+                    <span class="chip" data-filter="controllable">Controllable</span>
+                    <span class="chip" data-filter="multilingual">Multilingual</span>
                     <span class="chip" data-filter="low-latency">Low Latency</span>
+                    <span class="chip" data-filter="music">Music</span>
+                    <span class="chip" data-filter="sfx">SFX</span>
                 </div>
             </div>
             <div class="sidebar-section">
@@ -1342,10 +1375,52 @@
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Size</div>
                 <div class="filter-chips" id="size-filters">
-                    <span class="chip" data-filter="tiny">< 100MB</span>
-                    <span class="chip" data-filter="small">< 1GB</span>
+                    <span class="chip" data-filter="tiny">&lt; 100MB</span>
+                    <span class="chip" data-filter="small">&lt; 1GB</span>
                     <span class="chip" data-filter="medium">1-3GB</span>
                     <span class="chip" data-filter="large">> 3GB</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M8 8h8v8H8z"/><path d="M3 9h5M16 9h5M3 15h5M16 15h5"/></svg> Runtime Format</div>
+                <div class="filter-chips" id="format-filters">
+                    <span class="chip" data-filter="gguf">GGUF</span>
+                    <span class="chip" data-filter="onnx">ONNX</span>
+                    <span class="chip" data-filter="pytorch">PyTorch</span>
+                    <span class="chip" data-filter="safetensors">Safetensors</span>
+                    <span class="chip" data-filter="mlx">MLX</span>
+                    <span class="chip" data-filter="nemo">NEMO</span>
+                    <span class="chip" data-filter="native-app">Native app</span>
+                    <span class="chip" data-filter="api">API</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Latency</div>
+                <div class="filter-chips" id="latency-filters">
+                    <span class="chip" data-filter="ultra-low">Ultra-low</span>
+                    <span class="chip" data-filter="low">Low</span>
+                    <span class="chip" data-filter="medium">Medium</span>
+                    <span class="chip" data-filter="high">High</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7z"/></svg> License</div>
+                <div class="filter-chips" id="license-filters">
+                    <span class="chip" data-filter="apache">Apache</span>
+                    <span class="chip" data-filter="mit">MIT</span>
+                    <span class="chip" data-filter="cc">Creative Commons</span>
+                    <span class="chip" data-filter="gpl">GPL / AGPL</span>
+                    <span class="chip" data-filter="research">Research / custom</span>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Freshness</div>
+                <div class="filter-chips" id="fresh-filters">
+                    <span class="chip" data-filter="2026">2026</span>
+                    <span class="chip" data-filter="recent">Recent</span>
+                    <span class="chip" data-filter="2025">2025</span>
+                    <span class="chip" data-filter="2024">2024</span>
+                    <span class="chip" data-filter="classic">Classic</span>
                 </div>
             </div>
         </aside>
@@ -2672,7 +2747,19 @@
         ];
 
         // State
-        let activeFilters = { lang: 'all', feature: null, hardware: 'all', size: null, search: '', pick: false };
+        let activeFilters = {
+            lang: 'all',
+            hardware: 'all',
+            search: '',
+            pick: false,
+            type: {},
+            feature: {},
+            size: {},
+            format: {},
+            latency: {},
+            license: {},
+            fresh: {}
+        };
         let currentSort = 'default';
         let compareList = [];
 
@@ -2976,12 +3063,52 @@
             return sorted;
         }
 
+        function selectedKeys(obj) {
+            return Object.keys(obj).filter(k => obj[k]);
+        }
+
+        function clearObj(obj) {
+            Object.keys(obj).forEach(k => delete obj[k]);
+        }
+
+        function matchesType(model, type) {
+            if (type === 'tts') return !model.isAsr && !model.isOrchestrator;
+            if (type === 'asr') return !!model.isAsr;
+            if (type === 'app') return !!model.isOrchestrator;
+            return false;
+        }
+
+        function matchesLicense(model, license) {
+            const value = String(model.license || '').toLowerCase();
+            if (license === 'apache') return value.includes('apache');
+            if (license === 'mit') return value.includes('mit');
+            if (license === 'cc') return value.includes('cc-') || value.includes('creative');
+            if (license === 'gpl') return value.includes('gpl') || value.includes('agpl');
+            if (license === 'research') return value.includes('research') || value.includes('custom') || value.includes('terms') || value.includes('cpml') || value.includes('mpl');
+            return false;
+        }
+
+        function matchesFreshness(model, freshness) {
+            const date = String(model.releaseDate || '');
+            if (freshness === '2026') return date.startsWith('2026');
+            if (freshness === 'recent') return date >= '2025-06';
+            if (freshness === '2025') return date.startsWith('2025');
+            if (freshness === '2024') return date.startsWith('2024');
+            if (freshness === 'classic') return date && date < '2024-01';
+            return false;
+        }
+
         // Filter logic
         function filterModels() {
             let filtered = TTS_MODELS;
             
             if (activeFilters.pick) {
                 filtered = filtered.filter(m => m.isPick);
+            }
+
+            const typeKeys = selectedKeys(activeFilters.type);
+            if (typeKeys.length > 0) {
+                filtered = filtered.filter(m => typeKeys.some(t => matchesType(m, t)));
             }
             
             if (activeFilters.lang !== 'all') {
@@ -2992,16 +3119,38 @@
                 }
             }
             
-            if (activeFilters.feature) {
-                filtered = filtered.filter(m => m.features.includes(activeFilters.feature));
+            const featureKeys = selectedKeys(activeFilters.feature);
+            if (featureKeys.length > 0) {
+                filtered = filtered.filter(m => featureKeys.every(f => m.features.includes(f)));
             }
             
             if (activeFilters.hardware !== 'all') {
                 filtered = filtered.filter(m => m.hardware.includes(activeFilters.hardware));
             }
             
-            if (activeFilters.size) {
-                filtered = filtered.filter(m => m.sizeCategory === activeFilters.size);
+            const sizeKeys = selectedKeys(activeFilters.size);
+            if (sizeKeys.length > 0) {
+                filtered = filtered.filter(m => sizeKeys.some(s => m.sizeCategory === s));
+            }
+
+            const formatKeys = selectedKeys(activeFilters.format);
+            if (formatKeys.length > 0) {
+                filtered = filtered.filter(m => formatKeys.some(f => (m.supportedFormats || []).includes(f)));
+            }
+
+            const latencyKeys = selectedKeys(activeFilters.latency);
+            if (latencyKeys.length > 0) {
+                filtered = filtered.filter(m => latencyKeys.some(l => m.latency === l));
+            }
+
+            const licenseKeys = selectedKeys(activeFilters.license);
+            if (licenseKeys.length > 0) {
+                filtered = filtered.filter(m => licenseKeys.some(l => matchesLicense(m, l)));
+            }
+
+            const freshKeys = selectedKeys(activeFilters.fresh);
+            if (freshKeys.length > 0) {
+                filtered = filtered.filter(m => freshKeys.some(f => matchesFreshness(m, f)));
             }
             
             if (activeFilters.search) {
@@ -3010,7 +3159,15 @@
                     m.name.toLowerCase().includes(query) ||
                     m.description.toLowerCase().includes(query) ||
                     m.family.toLowerCase().includes(query) ||
-                    m.developer.toLowerCase().includes(query)
+                    m.developer.toLowerCase().includes(query) ||
+                    m.license.toLowerCase().includes(query) ||
+                    m.latency.toLowerCase().includes(query) ||
+                    (m.context && m.context.toLowerCase().includes(query)) ||
+                    (m.voices && m.voices.toLowerCase().includes(query)) ||
+                    (m.installCommand && m.installCommand.toLowerCase().includes(query)) ||
+                    m.features.join(' ').toLowerCase().includes(query) ||
+                    m.hardware.join(' ').toLowerCase().includes(query) ||
+                    (m.supportedFormats || []).join(' ').toLowerCase().includes(query)
                 );
             }
             
@@ -3018,60 +3175,86 @@
             renderCards(filtered);
         }
 
+        function chipFromEvent(e, root) {
+            const chip = e.target.closest('.chip');
+            return chip && root.contains(chip) ? chip : null;
+        }
+
+        function bindSingleChoice(id, prop) {
+            const root = document.getElementById(id);
+            root.addEventListener('click', e => {
+                const chip = chipFromEvent(e, root);
+                if (!chip) return;
+                root.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeFilters[prop] = chip.dataset.filter;
+                filterModels();
+            });
+        }
+
+        function bindToggleGroup(id, prop) {
+            const root = document.getElementById(id);
+            root.addEventListener('click', e => {
+                const chip = chipFromEvent(e, root);
+                if (!chip) return;
+                const value = chip.dataset.filter;
+                if (activeFilters[prop][value]) {
+                    delete activeFilters[prop][value];
+                    chip.classList.remove('active');
+                } else {
+                    activeFilters[prop][value] = true;
+                    chip.classList.add('active');
+                }
+                filterModels();
+            });
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+            document.body.classList.remove('sidebar-open');
+        }
+
+        function resetAllFilters() {
+            activeFilters.lang = 'all';
+            activeFilters.hardware = 'all';
+            activeFilters.search = '';
+            activeFilters.pick = false;
+            clearObj(activeFilters.type);
+            clearObj(activeFilters.feature);
+            clearObj(activeFilters.size);
+            clearObj(activeFilters.format);
+            clearObj(activeFilters.latency);
+            clearObj(activeFilters.license);
+            clearObj(activeFilters.fresh);
+            document.getElementById('search-input').value = '';
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.querySelector('#lang-filters [data-filter="all"]').classList.add('active');
+            document.querySelector('#hardware-filters [data-filter="all"]').classList.add('active');
+            filterModels();
+        }
+
         // Event listeners — Filters
-        document.getElementById('lang-filters').addEventListener('click', e => {
-            if (e.target.classList.contains('chip')) {
-                document.querySelectorAll('#lang-filters .chip').forEach(c => c.classList.remove('active'));
-                e.target.classList.add('active');
-                activeFilters.lang = e.target.dataset.filter;
-                filterModels();
-            }
-        });
+        bindSingleChoice('lang-filters', 'lang');
+        bindSingleChoice('hardware-filters', 'hardware');
+        bindToggleGroup('type-filters', 'type');
+        bindToggleGroup('feature-filters', 'feature');
+        bindToggleGroup('size-filters', 'size');
+        bindToggleGroup('format-filters', 'format');
+        bindToggleGroup('latency-filters', 'latency');
+        bindToggleGroup('license-filters', 'license');
+        bindToggleGroup('fresh-filters', 'fresh');
 
-        document.getElementById('feature-filters').addEventListener('click', e => {
-            if (e.target.classList.contains('chip')) {
-                const isActive = e.target.classList.contains('active');
-                document.querySelectorAll('#feature-filters .chip').forEach(c => c.classList.remove('active'));
-                if (!isActive) {
-                    e.target.classList.add('active');
-                    activeFilters.feature = e.target.dataset.filter;
-                } else {
-                    activeFilters.feature = null;
-                }
-                filterModels();
-            }
-        });
-
-        document.getElementById('hardware-filters').addEventListener('click', e => {
-            if (e.target.classList.contains('chip')) {
-                document.querySelectorAll('#hardware-filters .chip').forEach(c => c.classList.remove('active'));
-                e.target.classList.add('active');
-                activeFilters.hardware = e.target.dataset.filter;
-                filterModels();
-            }
-        });
-
-        document.getElementById('size-filters').addEventListener('click', e => {
-            if (e.target.classList.contains('chip')) {
-                const isActive = e.target.classList.contains('active');
-                document.querySelectorAll('#size-filters .chip').forEach(c => c.classList.remove('active'));
-                if (!isActive) {
-                    e.target.classList.add('active');
-                    activeFilters.size = e.target.dataset.filter;
-                } else {
-                    activeFilters.size = null;
-                }
-                filterModels();
-            }
-        });
+        document.getElementById('reset-filters').addEventListener('click', resetAllFilters);
 
         // Pick filter
         document.getElementById('pick-filter').addEventListener('click', e => {
-            if (e.target.classList.contains('chip')) {
-                e.target.classList.toggle('active');
-                activeFilters.pick = e.target.classList.contains('active');
-                filterModels();
-            }
+            const root = document.getElementById('pick-filter');
+            const chip = chipFromEvent(e, root);
+            if (!chip) return;
+            chip.classList.toggle('active');
+            activeFilters.pick = chip.classList.contains('active');
+            filterModels();
         });
 
         // Search
@@ -3096,19 +3279,18 @@
         document.getElementById('mobile-filter-btn').addEventListener('click', () => {
             sidebar.classList.add('open');
             overlay.classList.add('visible');
+            document.body.classList.add('sidebar-open');
         });
-        document.getElementById('sidebar-close').addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('visible');
-        });
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('visible');
-        });
+        document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+        window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSidebar(); });
 
         // Compare modal close on escape
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeCompareModal();
+            if (e.key === 'Escape') {
+                closeCompareModal();
+                closeSidebar();
+            }
         });
         document.getElementById('compare-modal').addEventListener('click', e => {
             if (e.target === e.currentTarget) closeCompareModal();
