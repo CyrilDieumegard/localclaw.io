@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qwen 3.7 Max Preview API model specs, benchmarks &amp; availability | LocalClaw</title>
+  <meta name="description" content="Qwen 3.7 Max Preview: hosted/API LLM. Specs, benchmarks, use cases and current availability notes.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://localclaw.io/models/qwen3.7-max-preview.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://localclaw.io/models/qwen3.7-max-preview.html">
+  <meta property="og:title" content="Qwen 3.7 Max Preview API model specs | LocalClaw">
+  <meta property="og:description" content="Qwen 3.7 Max Preview: hosted/API LLM. Specs, benchmarks, use cases and current availability notes.">
+  <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Qwen 3.7 Max Preview API model specs | LocalClaw">
+  <meta name="twitter:description" content="Qwen 3.7 Max Preview: hosted/API LLM. Specs, benchmarks, use cases and current availability notes.">
+  <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Qwen 3.7 Max Preview","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/qwen3.7-max-preview.html","description":"Qwen 3.7 Max Preview: hosted/API LLM. Specs, benchmarks, use cases and current availability notes.","softwareVersion":"2026-05","memoryRequirements":"Hosted API only","license":"https://www.alibabacloud.com/product/modelstudio","creator":{"@type":"Organization","name":"Alibaba Cloud (Qwen Team)","url":"https://www.alibabacloud.com/"}}</script>
+  <!-- TRACKING: DataFast Analytics -->
+  <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+  <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
+  <script src="/js/clarity.js" defer></script>
+  <style>
+    :root{--bg:#050505;--surface:#0f0f11;--surface2:#18181b;--border:#27272a;--primary:#ff453a;--text:#fff;--muted:#a1a1aa;--green:#34d399;--blue:#60a5fa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}a{text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:24px}.site-nav{border-bottom:1px solid rgba(255,255,255,.2);background:#000;position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),#ea580c);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(255,69,58,.4)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.03em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a,.nav-links button{background:none;border:0;color:var(--muted);font:500 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}.nav-links a:hover,.nav-links button:hover{color:#fff}.nav-links .pricing{color:var(--primary)}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--primary);color:var(--primary);padding:2px 8px;font:800 11px ui-monospace,monospace;text-transform:uppercase}.badge:before{content:'';width:6px;height:6px;background:var(--primary)}.beta{border-color:#60a5fa;color:#60a5fa}.beta:before{background:#60a5fa;border-radius:50%;animation:pulse 1.5s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.hero{padding:48px 0 28px;border-bottom:1px solid var(--border)}.eyebrow{color:var(--primary);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.title{font-size:clamp(38px,7vw,76px);line-height:.95;margin:16px 0;font-weight:900;letter-spacing:-.05em}.desc{max-width:800px;color:#d4d4d8;font-size:19px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}.k{font:700 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.v{font-size:22px;font-weight:800;margin-top:4px}.section{padding:34px 0;border-bottom:1px solid var(--border)}h2{font-size:28px;margin:0 0 16px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.tag{display:inline-block;border:1px solid #3f3f46;background:#18181b;border-radius:999px;padding:5px 10px;margin:4px;color:#d4d4d8;font-size:13px}.bench{height:9px;background:#27272a;border-radius:99px;overflow:hidden;margin-top:8px}.bar{height:100%;background:linear-gradient(90deg,var(--primary),#ff8a64)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{display:inline-block;background:var(--primary);color:#000;font-weight:800;padding:12px 16px;border-radius:12px;text-decoration:none}.btn.secondary{background:#18181b;color:#fff;border:1px solid var(--border)}li{margin:8px 0;color:#d4d4d8}.muted{color:var(--muted)}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px}.similar a{display:inline-block;color:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;margin:4px;text-decoration:none}@media(max-width:900px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.grid,.cols{grid-template-columns:1fr}.hero{padding-top:28px}}
+  </style>
+</head>
+<body>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation"><div class="nav-inner"><a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a><button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">☰</button><div class="nav-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a><span class="badge">V3.9.3</span><span class="badge beta">Beta</span></div></div><div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div></nav>
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Local LLM model page</div>
+      <h1 class="title">Qwen 3.7 Max Preview</h1>
+      <p class="desc">Alibaba Cloud flagship preview announced in May 2026. Built for agentic coding, complex reasoning and long-horizon task execution. Proprietary/API-only for now — not an open-weight GGUF model for local LM Studio use.</p>
+      <div class="cta"><a class="btn" href="/">Find the best model for my hardware</a><a class="btn secondary" href="/llm-list.html">Browse all 187 LLMs</a></div>
+    </header>
+    <section class="grid" aria-label="Key specs">
+      <div class="card"><div class="k">Parameters</div><div class="v">Undisclosed frontier model</div></div>
+      <div class="card"><div class="k">Minimum RAM</div><div class="v">API only</div></div>
+      <div class="card"><div class="k">Model size</div><div class="v">Hosted</div></div>
+      <div class="card"><div class="k">Quantization</div><div class="v">API</div></div>
+    </section>
+    <section class="section">
+      <h2>Can Qwen 3.7 Max Preview run locally?</h2>
+      <p>Qwen 3.7 Max Preview is a hosted/API model, not a local open-weight release. LocalClaw lists it for comparison, but it cannot be downloaded as GGUF or run in LM Studio today.</p>
+      <p class="muted">API/model identifier to watch for: <code>qwen3.7-max-preview</code></p>
+      <p class="muted">Source: <a href="https://www.webdisclosure.com/press-release/alibaba-cloud-etr-alibaba-announces-comprehensive-full-stack-ai-upgrade-for-the-agentic-era-jMKHf33efjI" style="color:#fff" target="_blank" rel="noopener">https://www.webdisclosure.com/press-release/alibaba-cloud-etr-alibaba-announces-comprehensive-full-stack-ai-upgrade-for-the-agentic-era-jMKHf33efjI</a></p>
+      <div><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">quality</span><span class="tag">api</span></div>
+    </section>
+    <section class="section cols">
+      <div><h2>Strengths</h2><ul><li>Alibaba Cloud flagship preview announced at the May 2026 Alibaba Cloud Summit</li><li>Built for advanced agentic coding workflows</li><li>Designed for complex reasoning and long-horizon task execution</li><li>Preview reporting places Qwen3.7-Max-Preview among the strongest Chinese text models on LMArena</li><li>Expected availability through Alibaba Cloud Model Studio / Qwen cloud services</li></ul></div>
+      <div><h2>Limitations</h2><ul><li>Proprietary hosted model — no open weights or GGUF release available at listing time</li><li>Cannot be run locally in LM Studio today</li><li>Architecture, parameter count, context window and pricing are not fully disclosed</li><li>Preview benchmarks should be treated as early until broader independent evaluations land</li></ul></div>
+    </section>
+    <section class="section cols">
+      <div><h2>Best use cases</h2><ul><li>Cloud/API agentic coding</li><li>Long-running autonomous tasks</li><li>Complex reasoning and planning</li><li>Enterprise assistant workflows on Alibaba Cloud</li><li>Comparing hosted frontier models against local open-weight alternatives</li></ul></div>
+      <div><h2>Benchmarks</h2><p><strong>Speed</strong>: 4/10</p><div class="bench"><div class="bar" style="width:40%"></div></div><p><strong>Quality</strong>: 10/10</p><div class="bench"><div class="bar" style="width:100%"></div></div><p><strong>Coding</strong>: 10/10</p><div class="bench"><div class="bar" style="width:100%"></div></div><p><strong>Reasoning</strong>: 10/10</p><div class="bench"><div class="bar" style="width:100%"></div></div></div>
+    </section>
+    <section class="section">
+      <h2>Technical details</h2>
+      <p><strong>Developer:</strong> Alibaba Cloud (Qwen Team)</p>
+      <p><strong>License:</strong> Proprietary / hosted API</p>
+      <p><strong>Context window:</strong> Unknown tokens</p>
+      <p><strong>Architecture:</strong> Undisclosed frontier-scale model. Alibaba describes Qwen3.7-Max as its latest large language model for agentic coding, complex reasoning and long-horizon task execution.</p>
+      <p><strong>Released:</strong> 2026-05</p>
+      <div class="similar"><h2>Similar models</h2><a href="/models/qwen3.6-27b.html">qwen3.6-27b</a><a href="/models/qwen3.5-397b-a17b.html">qwen3.5-397b-a17b</a><a href="/models/kimi-k2.5-32b.html">kimi-k2.5-32b</a><a href="/models/deepseek-v3.2.html">deepseek-v3.2</a></div>
+    </section>
+  </main>
+</body>
+</html>

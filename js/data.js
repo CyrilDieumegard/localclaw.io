@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated May 14, 2026 — Added Phi-3.5 MoE Instruct and Kimi Linear 48B-A3B — 183 LLM total
+// Updated June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
+// Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
 // Previous: April 23 — Qwen 3.6 (6.7B + 27B), Kimi K2 (Instruct + Thinking), DeepSeek V3.2 Exp, Qwen 3 Next 80B, GLM 4.6 355B,
 // MiniMax M2, Mistral Small 3.2, Ling 1T, Nemotron Nano 9B v2, Apriel Nemotron 15B
 
@@ -156,6 +157,38 @@ const APP_DATA = {
             hf_repo: 'openai/gpt-oss-20b',
             benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
             released: '2026-01'
+        },
+        {
+            id: 'lfm2.5-8b-a1b',
+            name: 'LFM2.5-8B-A1B',
+            family: 'lfm',
+            params: '8.3B (1.5B active)',
+            size_gb: 5.2,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'speed', 'standard', 'general'],
+            description: 'Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0.',
+            search_term: 'lfm2.5-8b-a1b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'LiquidAI/LFM2.5-8B-A1B-GGUF',
+            benchmarks: { speed: 9, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'granite4.1-8b',
+            name: 'Granite 4.1 (8B)',
+            family: 'granite',
+            params: '8B',
+            size_gb: 5.0,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'standard', 'general'],
+            description: 'IBM Granite 4.1 long-context instruct model. Apache 2.0, 131K context, tool calling, RAG, code tasks, multilingual dialog and business assistant workflows on normal 8-16 GB machines.',
+            search_term: 'granite-4.1-8b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ibm-granite/granite-4.1-8b',
+            benchmarks: { speed: 8, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-04',
+            isNew: true
         },
         {
             id: 'deepseek-v3.1',
@@ -2123,6 +2156,23 @@ const APP_DATA = {
             released: '2026-04',
             isNew: true
         },
+        {
+            id: 'qwen3.7-max-preview',
+            name: 'Qwen 3.7 Max Preview',
+            family: 'qwen',
+            params: 'Undisclosed frontier model',
+            size_gb: 0,
+            min_ram: 1024,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'api'],
+            description: 'Alibaba Cloud flagship preview announced in May 2026. Built for agentic coding, complex reasoning and long-horizon task execution. Proprietary/API-only for now — not an open-weight GGUF model for local LM Studio use.',
+            search_term: 'qwen3.7-max-preview',
+            recommended_quant: 'API',
+            source_url: 'https://www.webdisclosure.com/press-release/alibaba-cloud-etr-alibaba-announces-comprehensive-full-stack-ai-upgrade-for-the-agentic-era-jMKHf33efjI',
+            hosted_only: true,
+            benchmarks: { speed: 4, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-05',
+            isNew: true
+        },
 
         // ==================== NEW MODELS (March-April 2026 update) ====================
         {
@@ -2852,6 +2902,24 @@ const APP_DATA = {
             hf_repo: 'inclusionAI/Ling-2.6-flash',
             benchmarks: { speed: 8, quality: 9, coding: 9, reasoning: 8 },
             released: '2026-04',
+            isNew: true
+        },
+
+        // DANTE-Mosaic-3.5B — OdaxAI compact distilled model (May 2026)
+        {
+            id: 'dante-mosaic-3.5b',
+            name: 'DANTE-Mosaic-3.5B',
+            family: 'dante',
+            params: '3.08B',
+            size_gb: 6.2,
+            min_ram: 8,
+            tags: ['chat', 'reasoning', 'code', 'light', 'multilingual'],
+            description: 'OdaxAI compact dense model based on SmolLM3-3B and distilled from Kimi K2. Strong small-model benchmark profile: GSM8K 74.45, HellaSwag 76.73 and MBPP 42.6. Apache 2.0, BF16 weights, practical for local Transformers/vLLM use.',
+            search_term: 'OdaxAI/DANTE-Mosaic-3.5B',
+            recommended_quant: 'BF16',
+            hf_repo: 'OdaxAI/DANTE-Mosaic-3.5B',
+            benchmarks: { speed: 8, quality: 7, coding: 6, reasoning: 7 },
+            released: '2026-05',
             isNew: true
         },
 

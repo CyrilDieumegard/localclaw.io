@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS List — Best Local Text-to-Speech AI Models | LocalClaw</title>
-    <meta name="description" content="Discover the best open-source TTS models for local use. Qwen3 TTS, MeloTTS, Piper, MMS, Coqui, Bark & more. Filter by language, quality, speed, and system requirements.">
+    <meta name="description" content="Discover 55 local TTS, ASR and speech AI models: VoxCPM2, Supertonic 3, MOSS-TTS-Nano, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list.html">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list.html">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Discover the best open-source TTS models for local use. Qwen3 TTS, MeloTTS, Piper, MMS & more.">
+    <meta property="og:description" content="Discover 55 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
@@ -2591,6 +2591,133 @@
                 supportedFormats: ["safetensors"],
                 voices: "N/A (ASR: outputs text)",
                 context: "Input: audio waveform -> log-Mel spectrogram; 2B params",
+                license: "Apache 2.0"
+            },
+            {
+                id: "voxcpm2",
+                name: "VoxCPM2",
+                developer: "OpenBMB",
+                family: "voxcpm",
+                description: "Tokenizer-free diffusion autoregressive TTS with 2B parameters, 30 languages, 48kHz output, voice design, controllable cloning and real-time streaming. Apache 2.0 and commercial-ready.",
+                languages: ["zh", "en", "ar", "my", "da", "nl", "fi", "fr", "de", "el", "he", "hi", "id", "it", "ja", "km", "ko", "lo", "ms", "no", "pl", "pt", "ru", "es", "sw", "sv", "tl", "th", "tr", "vi"],
+                languageCount: 30,
+                features: ["cloning", "streaming", "realtime", "multilingual", "controllable", "emotion"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.2,
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 8.3,
+                latency: "low",
+                releaseDate: "2026-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/openbmb/VoxCPM2",
+                installCommand: "pip install voxcpm",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Voice design + short-clip controllable cloning",
+                context: "2B params, 30 languages, 48kHz output, streaming RTF as low as ~0.3 on RTX 4090",
+                license: "Apache 2.0"
+            },
+            {
+                id: "supertonic-3",
+                name: "Supertonic 3",
+                developer: "Supertone",
+                family: "supertonic",
+                description: "Lightning-fast on-device TTS that runs with ONNX Runtime and no cloud call. Around 99M parameters, 31 languages, better reading stability and expression tags like laugh, breath and sigh.",
+                languages: ["en", "ko", "ja", "ar", "bg", "cs", "da", "de", "el", "es", "et", "fi", "fr", "hi", "hr", "hu", "id", "it", "lt", "lv", "nl", "pl", "pt", "ro", "ru", "sk", "sl", "sv", "tr", "uk", "vi"],
+                languageCount: 31,
+                features: ["realtime", "low-latency", "multilingual", "emotion"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.2,
+                sizeCategory: "small",
+                quality: 8.8,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2026-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Supertone/supertonic-3",
+                installCommand: "pip install supertonic",
+                supportedFormats: ["onnx"],
+                voices: "Preset voice styles + downloadable custom style embeddings",
+                context: "Open-weight ONNX model, 31 languages, practical local inference",
+                license: "OpenRAIL-M"
+            },
+            {
+                id: "moss-tts-nano",
+                name: "MOSS-TTS-Nano",
+                developer: "OpenMOSS / MOSI.AI",
+                family: "moss",
+                description: "Tiny 0.1B multilingual speech generation model for CPU-friendly real-time TTS. Supports voice cloning, streaming, ONNX CPU inference and MLX Audio on Apple Silicon.",
+                languages: ["zh", "en", "de", "es", "fr", "ja", "it", "hu", "ko", "ru", "fa", "ar", "pl", "pt", "cs", "da", "sv", "el", "tr"],
+                languageCount: 20,
+                features: ["cloning", "streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.1,
+                sizeCategory: "small",
+                quality: 8.5,
+                speed: 9.7,
+                latency: "ultra-low",
+                releaseDate: "2026-04",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Nano",
+                installCommand: "pip install moss-tts-nano",
+                supportedFormats: ["pytorch", "onnx", "mlx"],
+                voices: "Voice cloning + long-text chunked generation",
+                context: "0.1B params, 20 languages, ONNX CPU version runs smoothly on MacBook Air M4",
+                license: "Apache 2.0"
+            },
+            {
+                id: "granite-speech-4.1-2b",
+                name: "Granite Speech 4.1 2B",
+                developer: "IBM Granite Team",
+                family: "granite-speech",
+                isAsr: true,
+                description: "Compact Apache 2.0 speech-language model for multilingual ASR and bidirectional speech translation. Adds punctuation, truecasing, keyword biasing and Japanese ASR improvements.",
+                languages: ["en", "fr", "de", "es", "pt", "ja"],
+                languageCount: 6,
+                features: ["streaming", "realtime", "multilingual"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.0,
+                sizeCategory: "large",
+                quality: 9.2,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2026-04",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/ibm-granite/granite-speech-4.1-2b",
+                installCommand: "pip install transformers torchaudio soundfile",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "N/A (ASR/AST: outputs text or translation)",
+                context: "2B speech-language model for ASR, AST, punctuation, truecasing and keyword-biased recognition",
+                license: "Apache 2.0"
+            },
+            {
+                id: "qwen3-asr",
+                name: "Qwen3-ASR",
+                developer: "Alibaba Cloud (Qwen Team)",
+                family: "qwen",
+                isAsr: true,
+                description: "Open-source ASR family with 0.6B and 1.7B models. Supports language identification and speech recognition for 52 languages and dialects, streaming/offline inference and long audio transcription.",
+                languages: ["zh", "en", "yue", "ar", "de", "fr", "es", "pt", "id", "it", "ko", "ru", "th", "vi", "ja", "tr", "hi", "ms", "nl", "sv", "da", "fi", "pl", "cs", "fil", "fa", "el", "hu", "mk", "ro"],
+                languageCount: 52,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.4,
+                sizeCategory: "large",
+                quality: 9.5,
+                speed: 9.0,
+                latency: "low",
+                releaseDate: "2026-01",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/collections/Qwen/qwen3-asr",
+                installCommand: "pip install -U qwen-asr",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "N/A (ASR: outputs text)",
+                context: "0.6B / 1.7B ASR models, 52 languages and dialects, streaming + offline inference",
                 license: "Apache 2.0"
             },
             // ==================== v2.6 — APRIL 2026 ADDITIONS ====================
