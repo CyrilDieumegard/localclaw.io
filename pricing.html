@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
-    <link rel="preload" as="image" href="images/localclaw-app-home.png?v=20260526a" fetchpriority="high">
+    <link rel="preload" as="image" href="images/localclaw-app-home.jpg?v=20260526a" fetchpriority="high">
 
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -91,24 +91,6 @@
                 radial-gradient(circle at 72% 18%, rgba(255, 69, 58, 0.12), transparent 34%),
                 radial-gradient(circle at 18% 42%, rgba(255, 69, 58, 0.08), transparent 30%),
                 linear-gradient(180deg, rgba(5, 5, 5, 0.2), #050505 78%);
-        }
-
-        .brand-mark {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #ff6d1a, #ea580c);
-            box-shadow: 0 0 24px rgba(234, 88, 12, 0.42);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .brand-mark img {
-            width: 34px;
-            height: 34px;
-            display: block;
         }
 
         .pricing-container {
@@ -266,9 +248,10 @@
             padding: 18px;
         }
 
-        .product-shot button {
+        .carousel-frame {
             display: block;
             width: 100%;
+            aspect-ratio: 16 / 9;
             border: 0;
             padding: 0;
             margin: 0;
@@ -276,15 +259,72 @@
             cursor: zoom-in;
             border-radius: 16px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background:
+                radial-gradient(circle at 50% 16%, rgba(255, 69, 58, 0.11), transparent 48%),
+                #050505;
         }
 
-        .product-shot img {
+        .carousel-frame img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: contain;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: #111;
+            background: transparent;
+            transition: opacity 0.18s ease;
+        }
+
+        .carousel-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .carousel-copy {
+            min-width: 0;
+        }
+
+        .carousel-copy strong {
+            display: block;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .carousel-copy span {
+            display: block;
+            color: var(--claw-muted);
+            font-size: 12px;
+            line-height: 1.45;
+            margin-top: 2px;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .carousel-control {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+        }
+
+        .carousel-control:hover,
+        .carousel-control.is-active {
+            border-color: rgba(255, 69, 58, 0.58);
+            background: rgba(255, 69, 58, 0.18);
+            color: var(--claw-orange-soft);
         }
 
         .quick-specs {
@@ -564,6 +604,11 @@
                 grid-template-columns: 1fr;
             }
 
+            .carousel-meta {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
             .price-panel,
             .card,
             .final-cta {
@@ -593,14 +638,16 @@
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
     <div class="page-glow" aria-hidden="true"></div>
 
-    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
+    <nav class="border-b border-white/20 bg-black sticky top-0 z-50" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="index.html" class="flex items-center gap-3" aria-label="LocalClaw home">
-                    <span class="brand-mark">
-                        <img src="images/crab-logo.png" alt="LocalClaw logo" width="34" height="34" loading="eager" fetchpriority="high" decoding="async">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="index.html" class="flex items-center gap-3 group" aria-label="LocalClaw home">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="LocalClaw crab logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
                     </span>
-                    <span class="text-2xl sm:text-3xl font-display font-bold tracking-tight text-white">local<span class="text-claw-primary">claw</span><span class="text-claw-muted">.io</span></span>
                 </a>
                 <div class="flex items-center gap-3 sm:gap-6">
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white" aria-label="Open menu">
@@ -654,16 +701,28 @@
                     <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Local LLM</div>
                 </div>
                 <div class="product-shot">
-                    <button type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot">
+                    <button class="carousel-frame" type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot">
                         <img
-                            src="images/localclaw-app-home.png?v=20260526a"
-                            alt="LocalClaw macOS app dashboard showing OpenClaw readiness, gateway health, token usage, channels and system load"
-                            width="1400"
-                            height="876"
+                            id="pricing-carousel-image"
+                            src="images/localclaw-app-home.jpg?v=20260526a"
+                            alt="LocalClaw dark macOS dashboard showing Home, readiness, tokens, channels and system load"
+                            width="1600"
+                            height="880"
                             loading="eager"
                             fetchpriority="high"
                             decoding="async">
                     </button>
+                    <div class="carousel-meta">
+                        <div class="carousel-copy">
+                            <strong id="pricing-carousel-title">Dashboard overview</strong>
+                            <span id="pricing-carousel-caption">Home, readiness checks, tokens, channels and system load in the native app.</span>
+                        </div>
+                        <div class="carousel-controls" aria-label="LocalClaw app screenshots">
+                            <button class="carousel-control is-active" type="button" data-pricing-slide="0" aria-label="Show dashboard screenshot">1</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="1" aria-label="Show app menu screenshot">2</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="2" aria-label="Show laptop preview screenshot">3</button>
+                        </div>
+                    </div>
                     <div class="quick-specs">
                         <div class="quick-spec">
                             <div class="text-lg font-display font-bold text-white">Control</div>
@@ -854,7 +913,7 @@
 
     <div id="lightbox" aria-hidden="true" onclick="closeLightbox()">
         <button class="lightbox-close" type="button" aria-label="Close screenshot" onclick="closeLightbox()">&times;</button>
-        <img src="images/localclaw-app-home.png?v=20260526a" alt="LocalClaw macOS app dashboard full size" loading="lazy" decoding="async" onclick="event.stopPropagation()">
+        <img id="lightbox-image" src="images/localclaw-app-home.jpg?v=20260526a" alt="LocalClaw macOS app dashboard full size" loading="lazy" decoding="async" onclick="event.stopPropagation()">
     </div>
 
     <footer class="border-t border-claw-border/50 py-6 mt-auto relative z-10" style="background:rgba(5,5,5,0.5);">
@@ -869,8 +928,82 @@
     </footer>
 
     <script>
+        var pricingSlides = [
+            {
+                src: 'images/localclaw-app-home.jpg?v=20260526a',
+                width: 1600,
+                height: 880,
+                alt: 'LocalClaw dark macOS dashboard showing Home, readiness, tokens, channels and system load',
+                title: 'Dashboard overview',
+                caption: 'Home, readiness checks, tokens, channels and system load in the native app.'
+            },
+            {
+                src: 'images/app-screenshot-real.png?v=20260211g',
+                width: 1024,
+                height: 688,
+                alt: 'LocalClaw native macOS app menu with install, update, control center, channels, templates, help and uninstall',
+                title: 'Guided app menu',
+                caption: 'Install, updates, control center, channels and setup tools in one native interface.'
+            },
+            {
+                src: 'images/app-screenshot.png?v=20260211g',
+                width: 1376,
+                height: 768,
+                alt: 'LocalClaw app preview on a MacBook showing the native setup interface',
+                title: 'MacBook preview',
+                caption: 'A clean local AI setup experience designed for ordinary macOS workflows.'
+            }
+        ];
+        var pricingSlideIndex = 0;
+
+        function setPricingSlide(index) {
+            var slide = pricingSlides[index];
+            var image = document.getElementById('pricing-carousel-image');
+            var lightboxImage = document.getElementById('lightbox-image');
+            var title = document.getElementById('pricing-carousel-title');
+            var caption = document.getElementById('pricing-carousel-caption');
+            if (!slide || !image || !title || !caption) return;
+
+            pricingSlideIndex = index;
+            image.style.opacity = '0';
+            window.setTimeout(function() {
+                image.onload = function() {
+                    image.style.opacity = '1';
+                };
+                image.src = slide.src;
+                image.width = slide.width;
+                image.height = slide.height;
+                image.alt = slide.alt;
+                title.textContent = slide.title;
+                caption.textContent = slide.caption;
+                if (image.complete) {
+                    image.style.opacity = '1';
+                }
+                if (lightboxImage) {
+                    lightboxImage.src = slide.src;
+                    lightboxImage.alt = slide.alt + ' full size';
+                }
+            }, 120);
+
+            document.querySelectorAll('[data-pricing-slide]').forEach(function(button) {
+                button.classList.toggle('is-active', Number(button.getAttribute('data-pricing-slide')) === index);
+            });
+        }
+
+        document.querySelectorAll('[data-pricing-slide]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                setPricingSlide(Number(button.getAttribute('data-pricing-slide')));
+            });
+        });
+
         function openLightbox() {
             var lightbox = document.getElementById('lightbox');
+            var lightboxImage = document.getElementById('lightbox-image');
+            var slide = pricingSlides[pricingSlideIndex] || pricingSlides[0];
+            if (lightboxImage && slide) {
+                lightboxImage.src = slide.src;
+                lightboxImage.alt = slide.alt + ' full size';
+            }
             lightbox.classList.add('is-open');
             lightbox.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
@@ -898,7 +1031,7 @@
             "@type": "Brand",
             "name": "LocalClaw"
         },
-        "image": "https://localclaw.io/images/localclaw-app-home.png",
+        "image": "https://localclaw.io/images/localclaw-app-home.jpg",
         "offers": {
             "@type": "Offer",
             "url": "https://localclaw.io/pricing.html",
