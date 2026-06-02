@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
-    <link rel="preload" as="image" href="images/localclaw-app-home.jpg?v=20260526a" fetchpriority="high">
+    <link rel="preload" as="image" href="images/pricing-carousel/home.jpg?v=20260602" fetchpriority="high">
 
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -251,7 +251,7 @@
         .carousel-frame {
             display: block;
             width: 100%;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 1400 / 770;
             border: 0;
             padding: 0;
             margin: 0;
@@ -277,9 +277,9 @@
 
         .carousel-meta {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 14px;
         }
 
@@ -306,10 +306,17 @@
             align-items: center;
             gap: 8px;
             flex: 0 0 auto;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 2px 0 6px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 69, 58, 0.4) rgba(255, 255, 255, 0.06);
         }
 
         .carousel-control {
             width: 34px;
+            min-width: 34px;
             height: 34px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.13);
@@ -604,11 +611,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .carousel-meta {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
             .price-panel,
             .card,
             .final-cta {
@@ -704,10 +706,10 @@
                     <button class="carousel-frame" type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot">
                         <img
                             id="pricing-carousel-image"
-                            src="images/localclaw-app-home.jpg?v=20260526a"
-                            alt="LocalClaw dark macOS dashboard showing Home, readiness, tokens, channels and system load"
-                            width="1600"
-                            height="880"
+                            src="images/pricing-carousel/home.jpg?v=20260602"
+                            alt="LocalClaw Home dashboard showing OpenClaw readiness, tokens, channels and system load"
+                            width="1400"
+                            height="770"
                             loading="eager"
                             fetchpriority="high"
                             decoding="async">
@@ -719,8 +721,19 @@
                         </div>
                         <div class="carousel-controls" aria-label="LocalClaw app screenshots">
                             <button class="carousel-control is-active" type="button" data-pricing-slide="0" aria-label="Show dashboard screenshot">1</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="1" aria-label="Show app menu screenshot">2</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="2" aria-label="Show laptop preview screenshot">3</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="1" aria-label="Show install screenshot">2</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="2" aria-label="Show updates screenshot">3</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="3" aria-label="Show control center screenshot">4</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="4" aria-label="Show OpenClaw Chat screenshot">5</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="5" aria-label="Show Developer screenshot">6</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="6" aria-label="Show Models screenshot">7</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="7" aria-label="Show Skills screenshot">8</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="8" aria-label="Show Channels screenshot">9</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="9" aria-label="Show Agents screenshot">10</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="10" aria-label="Show Cron Jobs screenshot">11</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="11" aria-label="Show Kanban screenshot">12</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="12" aria-label="Show Help screenshot">13</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="13" aria-label="Show Uninstall screenshot">14</button>
                         </div>
                     </div>
                     <div class="quick-specs">
@@ -913,7 +926,7 @@
 
     <div id="lightbox" aria-hidden="true" onclick="closeLightbox()">
         <button class="lightbox-close" type="button" aria-label="Close screenshot" onclick="closeLightbox()">&times;</button>
-        <img id="lightbox-image" src="images/localclaw-app-home.jpg?v=20260526a" alt="LocalClaw macOS app dashboard full size" loading="lazy" decoding="async" onclick="event.stopPropagation()">
+        <img id="lightbox-image" src="images/pricing-carousel/home.jpg?v=20260602" alt="LocalClaw Home dashboard full size" loading="lazy" decoding="async" onclick="event.stopPropagation()">
     </div>
 
     <footer class="border-t border-claw-border/50 py-6 mt-auto relative z-10" style="background:rgba(5,5,5,0.5);">
@@ -930,28 +943,116 @@
     <script>
         var pricingSlides = [
             {
-                src: 'images/localclaw-app-home.jpg?v=20260526a',
-                width: 1600,
-                height: 880,
-                alt: 'LocalClaw dark macOS dashboard showing Home, readiness, tokens, channels and system load',
+                src: 'images/pricing-carousel/home.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Home dashboard showing OpenClaw readiness, tokens, channels and system load',
                 title: 'Dashboard overview',
                 caption: 'Home, readiness checks, tokens, channels and system load in the native app.'
             },
             {
-                src: 'images/app-screenshot-real.png?v=20260211g',
-                width: 1024,
-                height: 688,
-                alt: 'LocalClaw native macOS app menu with install, update, control center, channels, templates, help and uninstall',
-                title: 'Guided app menu',
-                caption: 'Install, updates, control center, channels and setup tools in one native interface.'
+                src: 'images/pricing-carousel/install.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Install screen with inference mode, preflight checks and model setup',
+                title: 'Guided install',
+                caption: 'Choose cloud, OAuth or local mode, then run preflight checks before installing.'
             },
             {
-                src: 'images/app-screenshot.png?v=20260211g',
-                width: 1376,
-                height: 768,
-                alt: 'LocalClaw app preview on a MacBook showing the native setup interface',
-                title: 'MacBook preview',
-                caption: 'A clean local AI setup experience designed for ordinary macOS workflows.'
+                src: 'images/pricing-carousel/updates.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Updates screen showing app, runtime and dependency update status',
+                title: 'Update center',
+                caption: 'Check LocalClaw, OpenClaw runtime, Homebrew, Node and LM Studio from one view.'
+            },
+            {
+                src: 'images/pricing-carousel/control-center.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Control Center with gateway health, port status and repair actions',
+                title: 'Control Center',
+                caption: 'Repair the gateway, test the dashboard and inspect runtime health without hunting logs.'
+            },
+            {
+                src: 'images/pricing-carousel/chat.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw OpenClaw Chat screen with projects, local model selector and memory panel',
+                title: 'OpenClaw Chat',
+                caption: 'Chat with OpenClaw, organize discussions by project and keep memory visible.'
+            },
+            {
+                src: 'images/pricing-carousel/developer.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Developer screen with AI developer panel and live app preview',
+                title: 'Developer workspace',
+                caption: 'Build with a local assistant, project files and live preview in the same dashboard.'
+            },
+            {
+                src: 'images/pricing-carousel/models.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Models screen for selecting local, cloud and OAuth LLM backends',
+                title: 'Model control',
+                caption: 'Switch active model mode and inspect the current local, cloud and OAuth configuration.'
+            },
+            {
+                src: 'images/pricing-carousel/skills.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Skills screen listing installed OpenClaw skills and setup status',
+                title: 'Skills library',
+                caption: 'Browse installed skills, see which ones are ready and search ClawHub.'
+            },
+            {
+                src: 'images/pricing-carousel/channels.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Channels screen showing Telegram, Discord and WhatsApp connectors',
+                title: 'Channels',
+                caption: 'Connect messaging channels and see account status, pairing and configuration.'
+            },
+            {
+                src: 'images/pricing-carousel/agents.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Agents screen listing OpenClaw assistants and routed agents',
+                title: 'Agents',
+                caption: 'Create, edit and monitor OpenClaw agents, their models and their workspace state.'
+            },
+            {
+                src: 'images/pricing-carousel/cron-jobs.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Cron Jobs screen with scheduled OpenClaw tasks and run controls',
+                title: 'Cron Jobs',
+                caption: 'Run scheduled tasks, inspect delivery channels and manage recurring automation.'
+            },
+            {
+                src: 'images/pricing-carousel/kanban.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Kanban screen with backlog, ready, doing, review and done columns',
+                title: 'Kanban',
+                caption: 'Plan OpenClaw work as cards, route tasks to agents and schedule execution.'
+            },
+            {
+                src: 'images/pricing-carousel/help.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Help screen with setup guide, FAQ and health commands',
+                title: 'Help center',
+                caption: 'Follow setup steps, rerun the guide and access health commands when something fails.'
+            },
+            {
+                src: 'images/pricing-carousel/uninstall.jpg?v=20260602',
+                width: 1400,
+                height: 770,
+                alt: 'LocalClaw Uninstall Center screen for removing app components safely',
+                title: 'Uninstall Center',
+                caption: 'Remove selected components deliberately with safety checks and clear warnings.'
             }
         ];
         var pricingSlideIndex = 0;
@@ -1031,7 +1132,7 @@
             "@type": "Brand",
             "name": "LocalClaw"
         },
-        "image": "https://localclaw.io/images/localclaw-app-home.jpg",
+        "image": "https://localclaw.io/images/pricing-carousel/home.jpg",
         "offers": {
             "@type": "Offer",
             "url": "https://localclaw.io/pricing.html",
