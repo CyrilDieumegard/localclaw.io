@@ -449,7 +449,10 @@
             border-radius: 16px;
             background: rgba(5,5,5,0.54);
             backdrop-filter: blur(14px);
+            position: relative;
+            z-index: 40;
         }
+        #sort-dropdown { z-index: 1000 !important; }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
         .search-wrap input {
             width: 100%; padding: 13px 40px;
@@ -493,6 +496,8 @@
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 18px;
             align-items: stretch;
+            position: relative;
+            z-index: 1;
         }
 
         /* Card */
@@ -724,7 +729,7 @@
         .bench-val { font-size: 9px; font-family: monospace; font-weight: 700; width: 14px; text-align: right; }
 
         /* Table */
-        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(39,39,42,0.2); }
+        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(39,39,42,0.2); position: relative; z-index: 1; }
         .table-wrap table { width: 100%; border-collapse: collapse; font-size: 12px; }
         .table-wrap th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; background: rgba(15,15,17,0.5); border-bottom: 1px solid rgba(39,39,42,0.2); }
         .table-wrap th.tc { text-align: center; }
@@ -765,6 +770,7 @@
             font-size: 13px; font-weight: 600;
             box-shadow: 0 4px 20px rgba(255,69,58,0.4);
         }
+        body.sidebar-open .mobile-filter-btn { display: none !important; }
         .sidebar-overlay {
             display: none; position: fixed; inset: 0; z-index: 48;
             background: rgba(0,0,0,0.6);
@@ -802,6 +808,9 @@
             .model-decision { grid-template-columns: 1fr; }
             .model-score { min-height: 84px; }
             .card:hover { transform: none; }
+        }
+        @media (min-width: 769px) {
+            .mobile-filter-btn { display: none !important; }
         }
         @media (max-width: 480px) {
             .stats-row { display: grid; grid-template-columns: 1fr 1fr; }
@@ -1169,6 +1178,30 @@
                 </div>
             </div>
 
+            <!-- Capabilities -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75z"/></svg> Capabilities</div>
+                <div class="filter-chips" id="capability-filters">
+                    <button class="chip" data-tag="moe">MoE</button>
+                    <button class="chip" data-tag="long-context">Long context</button>
+                    <button class="chip" data-tag="agentic">Agentic</button>
+                    <button class="chip" data-tag="multimodal">Multimodal</button>
+                    <button class="chip" data-tag="multilingual">Multilingual</button>
+                    <button class="chip" data-tag="math">Math</button>
+                    <button class="chip" data-tag="edge">Edge</button>
+                    <button class="chip" data-tag="experimental">Experimental</button>
+                </div>
+            </div>
+
+            <!-- Runtime -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M4 7h16M4 17h16"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg> Runtime</div>
+                <div class="filter-chips" id="mode-filters">
+                    <button class="chip" data-mode="local"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg> Local</button>
+                    <button class="chip" data-mode="api"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6"/></svg> API</button>
+                </div>
+            </div>
+
             <!-- RAM -->
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2"/><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M7 11h2v4H7zm4 0h2v4h-2zm4 0h2v4h-2z"/></svg> RAM Required</div>
@@ -1178,6 +1211,41 @@
                     <button class="chip" data-ram="16"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 7l4.5 2.5L12 7l4.5 2.5L21 7"/></svg> 16 GB</button>
                     <button class="chip" data-ram="32"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 32 GB</button>
                     <button class="chip" data-ram="64"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 64 GB+</button>
+                </div>
+            </div>
+
+            <!-- Disk Footprint -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg> Disk Footprint</div>
+                <div class="filter-chips" id="size-filters">
+                    <button class="chip" data-size="tiny">≤ 4GB</button>
+                    <button class="chip" data-size="laptop">4–12GB</button>
+                    <button class="chip" data-size="desktop">12–40GB</button>
+                    <button class="chip" data-size="workstation">40–120GB</button>
+                    <button class="chip" data-size="giant">120GB+</button>
+                </div>
+            </div>
+
+            <!-- Quantization -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M8 8h8v8H8z"/><path d="M3 9h5M16 9h5M3 15h5M16 15h5"/></svg> Quantization</div>
+                <div class="filter-chips" id="quant-filters">
+                    <button class="chip" data-quant="q4">Q4</button>
+                    <button class="chip" data-quant="q5">Q5</button>
+                    <button class="chip" data-quant="q8">Q8</button>
+                    <button class="chip" data-quant="fp">FP/BF</button>
+                    <button class="chip" data-quant="api">API</button>
+                </div>
+            </div>
+
+            <!-- Freshness -->
+            <div class="sidebar-section">
+                <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Freshness</div>
+                <div class="filter-chips" id="fresh-filters">
+                    <button class="chip" data-fresh="2026">2026</button>
+                    <button class="chip" data-fresh="recent">Recent</button>
+                    <button class="chip" data-fresh="2025">2025</button>
+                    <button class="chip" data-fresh="classic">Classic</button>
                 </div>
             </div>
 
@@ -1353,6 +1421,10 @@
         var activeTags = {};
         var activeRam = {};
         var activeFam = {};
+        var activeMode = {};
+        var activeSize = {};
+        var activeQuant = {};
+        var activeFresh = {};
         var minB = { speed:0, quality:0, coding:0, reasoning:0 };
 
         var FCOL = {
@@ -1367,6 +1439,33 @@
         var TEMOJI = {'chat':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>','code':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','reasoning':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>','vision':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>','speed':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','quality':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg>','general':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>','light':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg>','power':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','standard':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 17l10 6 10-6M2 13l10 6 10-6"/></svg>'};
         function temoji(t) { return TEMOJI[t]||'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01"/></svg>'; }
         function bcol(v) { return v>=8?'#34D399':v>=6?'#60A5FA':v>=4?'#FACC15':'#F87171'; }
+        function sizeTier(m,k) {
+            if(m.hosted_only) return false;
+            var s=Number(m.size_gb||0);
+            if(k==='tiny') return s<=4;
+            if(k==='laptop') return s>4&&s<=12;
+            if(k==='desktop') return s>12&&s<=40;
+            if(k==='workstation') return s>40&&s<=120;
+            if(k==='giant') return s>120;
+            return false;
+        }
+        function quantTier(m,k) {
+            var q=String(m.recommended_quant||'').toUpperCase();
+            if(k==='api') return !!m.hosted_only||q==='API';
+            if(k==='q4') return q.indexOf('Q4')!==-1;
+            if(k==='q5') return q.indexOf('Q5')!==-1;
+            if(k==='q8') return q.indexOf('Q8')!==-1;
+            if(k==='fp') return q.indexOf('FP')!==-1||q.indexOf('BF')!==-1;
+            return false;
+        }
+        function freshTier(m,k) {
+            var r=String(m.released||'');
+            if(k==='2026') return r.indexOf('2026')===0;
+            if(k==='recent') return r>='2025-06';
+            if(k==='2025') return r.indexOf('2025')===0;
+            if(k==='classic') return r&&r<'2025-01';
+            return false;
+        }
 
         // === Data Loading with Fallback ===
         function loadData() {
@@ -1493,6 +1592,11 @@
                 else{activeFam[f]=true;b.classList.add('active');}
                 run();
             });
+            bindChipFilter('capability-filters','data-tag',activeTags);
+            bindChipFilter('mode-filters','data-mode',activeMode);
+            bindChipFilter('size-filters','data-size',activeSize);
+            bindChipFilter('quant-filters','data-quant',activeQuant);
+            bindChipFilter('fresh-filters','data-fresh',activeFresh);
 
             // Sliders
             ['speed','quality','coding','reasoning'].forEach(function(k){
@@ -1533,9 +1637,11 @@
             document.getElementById('mobile-filter-btn').addEventListener('click',function(){
                 document.getElementById('sidebar').classList.add('open');
                 document.getElementById('sidebar-overlay').classList.add('show');
+                document.body.classList.add('sidebar-open');
             });
             document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
             document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
+            window.addEventListener('resize',function(){ if(window.innerWidth>768) closeSidebar(); });
 
             // Keyboard
             document.addEventListener('keydown',function(e){
@@ -1544,14 +1650,34 @@
             });
         }
 
+        function bindChipFilter(id, attr, store) {
+            var el=document.getElementById(id);
+            if(!el) return;
+            el.addEventListener('click',function(e){
+                var b=e.target.closest('['+attr+']');if(!b)return;
+                var v=b.getAttribute(attr);
+                if(store[v]){delete store[v];b.classList.remove('active');}
+                else{store[v]=true;b.classList.add('active');}
+                run();
+            });
+        }
+
+        function clearObj(obj) {
+            for(var k in obj) {
+                if(Object.prototype.hasOwnProperty.call(obj,k)) delete obj[k];
+            }
+        }
+
         function closeSidebar(){
             document.getElementById('sidebar').classList.remove('open');
             document.getElementById('sidebar-overlay').classList.remove('show');
+            document.body.classList.remove('sidebar-open');
         }
 
         // === Reset ===
         function resetAll() {
-            search='';activeTags={};activeRam={};activeFam={};
+            search='';
+            clearObj(activeTags);clearObj(activeRam);clearObj(activeFam);clearObj(activeMode);clearObj(activeSize);clearObj(activeQuant);clearObj(activeFresh);
             minB={speed:0,quality:0,coding:0,reasoning:0};
             document.getElementById('search-input').value='';
             document.getElementById('search-clear').style.display='none';
@@ -1573,8 +1699,8 @@
                 case 'coder': activeTags['code']=true; var cb=document.querySelector('[data-tag="code"]');if(cb)cb.classList.add('active'); minB.coding=7; document.getElementById('min-coding').value=7; document.getElementById('min-coding-val').textContent='7'; sortKey='coding-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding (Best → Worst)'; break;
                 case 'thinker': activeTags['reasoning']=true; var rb=document.querySelector('[data-tag="reasoning"]');if(rb)rb.classList.add('active'); minB.reasoning=7; document.getElementById('min-reasoning').value=7; document.getElementById('min-reasoning-val').textContent='7'; sortKey='reasoning-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning (Best → Worst)'; break;
                 case 'vision': activeTags['vision']=true; var vb=document.querySelector('[data-tag="vision"]');if(vb)vb.classList.add('active'); break;
-                case 'light': activeRam['4']=true;activeRam['8']=true; var r4=document.querySelector('[data-ram="4"]');if(r4)r4.classList.add('active'); var r8=document.querySelector('[data-ram="8"]');if(r8)r8.classList.add('active'); sortKey='ram-asc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> RAM (Least → Most)'; break;
-                case 'new': sortKey='date-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Newest First'; break;
+                case 'light': activeRam['4']=true;activeRam['8']=true;activeSize['tiny']=true; var r4=document.querySelector('[data-ram="4"]');if(r4)r4.classList.add('active'); var r8=document.querySelector('[data-ram="8"]');if(r8)r8.classList.add('active'); var tiny=document.querySelector('[data-size="tiny"]');if(tiny)tiny.classList.add('active'); sortKey='ram-asc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> RAM (Least → Most)'; break;
+                case 'new': activeFresh['recent']=true; var fresh=document.querySelector('[data-fresh="recent"]');if(fresh)fresh.classList.add('active'); sortKey='date-desc'; document.getElementById('sort-label').innerHTML='<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Newest First'; break;
             }
             run();
         }
@@ -1596,6 +1722,14 @@
             if(rk.length>0) res=res.filter(function(m){if(m.hosted_only)return false;for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
             var fk=Object.keys(activeFam);
             if(fk.length>0) res=res.filter(function(m){return !!activeFam[m.family];});
+            var mk=Object.keys(activeMode);
+            if(mk.length>0) res=res.filter(function(m){for(var i=0;i<mk.length;i++){if(mk[i]==='local'&&!m.hosted_only)return true;if(mk[i]==='api'&&m.hosted_only)return true;}return false;});
+            var sk=Object.keys(activeSize);
+            if(sk.length>0) res=res.filter(function(m){for(var i=0;i<sk.length;i++){if(sizeTier(m,sk[i]))return true;}return false;});
+            var qk=Object.keys(activeQuant);
+            if(qk.length>0) res=res.filter(function(m){for(var i=0;i<qk.length;i++){if(quantTier(m,qk[i]))return true;}return false;});
+            var frk=Object.keys(activeFresh);
+            if(frk.length>0) res=res.filter(function(m){for(var i=0;i<frk.length;i++){if(freshTier(m,frk[i]))return true;}return false;});
             res=res.filter(function(m){return m.benchmarks.speed>=minB.speed&&m.benchmarks.quality>=minB.quality&&m.benchmarks.coding>=minB.coding&&m.benchmarks.reasoning>=minB.reasoning;});
 
             var parts=sortKey.split('-'),sf=parts[0],sd=parts[1];
