@@ -510,12 +510,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-3 group" aria-label="localclaw.io home">
-                    <div class="w-8 h-8 rounded-lg bg-claw-primary flex items-center justify-center shadow-[0_0_15px_rgba(234,88,12,0.4)]">
-                        <img src="images/logo-localclaw.svg" alt="LocalClaw crab logo" width="32" height="32" class="h-8 w-8 rounded-lg" loading="eager" fetchpriority="high" decoding="async">
+                <a href="index.html" class="flex items-center gap-3 group" aria-label="LocalClaw home">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="images/crab-logo.png" alt="LocalClaw crab logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
-                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white lowercase">
-                        local<span class="text-claw-primary">claw</span><span class="text-claw-muted">.io</span>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">
+                        Local<span class="text-claw-primary">Claw</span>
                     </span>
                 </a>
 
@@ -733,6 +733,46 @@
                 </div>
             </section>
 
+            <!-- Local Fit Engine -->
+            <section aria-label="LocalClaw local fit ranking engine" class="mb-20">
+                <div class="rounded-2xl border border-white/10 bg-[radial-gradient(ellipse_at_top,rgba(255,69,58,0.10),transparent_45%),rgba(255,255,255,0.025)] p-6 sm:p-8">
+                    <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// LOCAL FIT ENGINE</p>
+                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
+                            <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
+                        </div>
+                        <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
+                    </div>
+                    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
+                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">01</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
+                            <h3 class="mb-2 text-base font-display font-bold text-white">Hardware fit first</h3>
+                            <p class="text-xs leading-relaxed text-claw-muted">RAM, VRAM, OS and model size decide whether a model feels instant or painful.</p>
+                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Apple M4 · 16 GB → laptop-safe picks</p>
+                        </article>
+                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
+                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">02</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
+                            <h3 class="mb-2 text-base font-display font-bold text-white">Context has a cost</h3>
+                            <p class="text-xs leading-relaxed text-claw-muted">Long context increases KV cache memory, so LocalClaw warns before a model becomes slow.</p>
+                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">32K context → extra headroom check</p>
+                        </article>
+                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
+                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">03</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
+                            <h3 class="mb-2 text-base font-display font-bold text-white">Use-case weighting</h3>
+                            <p class="text-xs leading-relaxed text-claw-muted">Coding, chat, reasoning, vision and speed priorities change the shortlist transparently.</p>
+                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Coding → code benchmark + model tags</p>
+                        </article>
+                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
+                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">04</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
+                            <h3 class="mb-2 text-base font-display font-bold text-white">Installability matters</h3>
+                            <p class="text-xs leading-relaxed text-claw-muted">The best model is the one you can actually load locally with the right quantization.</p>
+                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Q5_K_M / Q4_K_M shown upfront</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
             <!-- LocalClaw vs Manual -->
             <section aria-label="LocalClaw versus manual setup" class="mb-20">
                 <div class="grid gap-4 lg:grid-cols-2">
@@ -761,7 +801,7 @@
             <section aria-label="Local AI catalogue teaser" class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 183 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 185 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="models/deepseek-v4-pro.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Frontier</p><h3 class="mt-3 text-lg font-display font-bold text-white">DeepSeek V4 Pro</h3><p class="mt-2 text-xs font-mono text-claw-muted">1.6T MoE · 49B active · local catalogue</p></a>
@@ -851,7 +891,7 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260514c"></script>
-    <script src="js/app.js?v=20260601c"></script>
+    <script src="js/app.js?v=20260602a"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>

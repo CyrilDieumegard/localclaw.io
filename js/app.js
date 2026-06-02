@@ -214,7 +214,7 @@ const App = {
             // Recency bonus (newer models get a slight edge)
             if (m.released) {
                 const relDate = new Date(m.released);
-                const now = new Date('2026-02-08');
+                const now = new Date('2026-06-02');
                 const monthsAgo = (now - relDate) / (1000 * 60 * 60 * 24 * 30);
                 if (monthsAgo < 6) score += 3;
                 if (monthsAgo < 3) score += 2;
@@ -316,6 +316,7 @@ const App = {
         finalRecs.forEach(m => {
             m._why = this._buildWhyThisPick(m, ramLimit, vramGB, contextTarget, effectiveRam, kvCacheOverhead);
             m._risk = this._computeRiskBadge(m, effectiveRam, vramGB, contextTarget, kvCacheOverhead);
+            m._fit = this._computeLocalFit(m, ramLimit, effectiveRam, vramGB, contextTarget, usage, priority, kvCacheOverhead);
         });
 
         this.state.recommendations = finalRecs;
@@ -388,6 +389,79 @@ const App = {
             return { label: 'May be slow', color: 'yellow', icon: 'dot_yellow' };
         }
         return { label: 'Likely smooth', color: 'green', icon: 'dot_green' };
+    },
+
+    _computeLocalFit(model, ramLimit, effectiveRam, vramGB, contextTarget, usage, priority, kvCacheOverhead) {
+        const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+        const tags = model.tags || [];
+        const overhead = kvCacheOverhead(model.size_gb);
+        const totalNeeded = model.size_gb + overhead + 2.5;
+        const headroom = Math.round((effectiveRam - totalNeeded) * 10) / 10;
+
+        let memoryScore = 0;
+        if (headroom >= 8) memoryScore = 35;
+        else if (headroom >= 4) memoryScore = 30;
+        else if (headroom >= 2) memoryScore = 24;
+        else if (headroom >= 1) memoryScore = 17;
+        else if (headroom >= 0) memoryScore = 10;
+        else memoryScore = 3;
+
+        let usageScore = 10;
+        const directUseMatch =
+            tags.includes(usage) ||
+            (usage === 'mix' && (tags.includes('general') || tags.includes('chat'))) ||
+            (usage === 'chat' && tags.includes('general'));
+        if (directUseMatch) usageScore = 22;
+        else if (tags.includes('general')) usageScore = 17;
+        else if (usage === 'reasoning' && tags.includes('code')) usageScore = 14;
+
+        const speed = model.benchmarks?.speed || 5;
+        const quality = model.benchmarks?.quality || 5;
+        const relevantBenchmark =
+            usage === 'code' ? (model.benchmarks?.coding || quality) :
+            usage === 'reasoning' ? (model.benchmarks?.reasoning || quality) :
+            usage === 'chat' ? quality :
+            usage === 'vision' ? (tags.includes('vision') ? quality : 3) :
+            (quality * 0.7 + speed * 0.3);
+
+        const priorityBase =
+            priority === 'speed' ? speed :
+            priority === 'quality' ? quality :
+            (speed * 0.45 + quality * 0.55);
+        const performanceScore = clamp(Math.round((priorityBase * 1.1 + relevantBenchmark * 1.1)), 4, 22);
+
+        let contextScore = 11;
+        if (contextTarget === '16k' || contextTarget === '32k') {
+            contextScore = headroom >= 6 ? 11 : headroom >= 3 ? 8 : headroom >= 1 ? 5 : 2;
+        } else if (contextTarget) {
+            contextScore = headroom >= 2 ? 11 : 7;
+        }
+
+        let installScore = 10;
+        const quant = model.recommended_quant || '';
+        if (/BF16|FP8|FP4|fp16/i.test(quant)) installScore -= 3;
+        if (model.size_gb > ramLimit) installScore -= 2;
+        if (vramGB > 0 && model.size_gb > vramGB) installScore -= 2;
+        installScore = clamp(installScore, 2, 10);
+
+        const score = clamp(Math.round(memoryScore + usageScore + performanceScore + contextScore + installScore), 0, 100);
+        const label = score >= 88 ? 'Excellent local fit' : score >= 75 ? 'Strong local fit' : score >= 60 ? 'Usable with care' : 'Experimental fit';
+        const color = score >= 75 ? 'orange' : score >= 60 ? 'yellow' : 'red';
+        const headroomLabel = headroom >= 0 ? `${headroom} GB headroom` : `${Math.abs(headroom)} GB over budget`;
+        const useLabel = directUseMatch ? 'use-case match' : 'general fallback';
+        const contextLabel = contextTarget ? `${contextTarget.toUpperCase()} context checked` : 'default context';
+
+        return {
+            score,
+            label,
+            color,
+            signals: [
+                headroomLabel,
+                useLabel,
+                contextLabel,
+                quant ? `${quant} install path` : 'install path checked'
+            ]
+        };
     },
 
     parseProInput(text) {
@@ -992,6 +1066,12 @@ const App = {
             ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400'],
             ['Whisper v3 Turbo', 'Offline speech-to-text in the TTS/ASR catalogue', 'tts/whisper-v3-turbo.html', 'ASR', 'border-blue-500/30 bg-blue-500/5 text-blue-400']
         ];
+        const rankingSignals = [
+            ['01', 'Hardware fit first', 'RAM, VRAM, OS and model size decide whether a model feels instant or painful.', 'Apple M4 · 16 GB → laptop-safe picks'],
+            ['02', 'Context has a cost', 'Long context increases KV cache memory, so LocalClaw warns before a model becomes slow.', '32K context → extra headroom check'],
+            ['03', 'Use-case weighting', 'Coding, chat, reasoning, vision and speed priorities change the shortlist transparently.', 'Coding → code benchmark + model tags'],
+            ['04', 'Installability matters', 'The best model is the one you can actually load locally with the right quantization.', 'Q5_K_M / Q4_K_M shown upfront']
+        ];
         const mockNavItems = [
             ['home', '● Home', ''],
             ['install', 'Install', ''],
@@ -1244,6 +1324,32 @@ const App = {
             </section>
 
             <section class="mb-20">
+                <div class="rounded-2xl border border-white/10 bg-[radial-gradient(ellipse_at_top,rgba(255,69,58,0.10),transparent_45%),rgba(255,255,255,0.025)] p-6 sm:p-8">
+                    <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// LOCAL FIT ENGINE</p>
+                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
+                            <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
+                        </div>
+                        <button onclick="App.startFlow('guided')" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</button>
+                    </div>
+                    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                        ${rankingSignals.map(([num, title, desc, example]) => `
+                            <article class="rounded-xl border border-white/10 bg-black/35 p-4">
+                                <div class="mb-4 flex items-center justify-between">
+                                    <span class="font-mono text-xs font-bold text-claw-primary">${num}</span>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span>
+                                </div>
+                                <h3 class="mb-2 text-base font-display font-bold text-white">${title}</h3>
+                                <p class="text-xs leading-relaxed text-claw-muted">${desc}</p>
+                                <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">${example}</p>
+                            </article>
+                        `).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-20">
                 <div class="grid gap-4 lg:grid-cols-2">
                     <article class="rounded-2xl border border-claw-primary/35 bg-claw-primary/10 p-6 sm:p-8 shadow-[0_0_60px_rgba(234,88,12,0.08)]">
                         <div class="mb-5 flex items-center gap-3"><img src="images/logo-localclaw.svg" width="38" height="38" alt="LocalClaw crab logo" class="rounded-lg bg-claw-primary"><div><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LocalClaw</p><h2 class="text-2xl font-display font-bold text-white uppercase">Download it like an app</h2></div></div>
@@ -1269,7 +1375,7 @@ const App = {
             <section class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 183 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 185 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `
@@ -1689,6 +1795,20 @@ const App = {
 
                     <p class="text-sm text-claw-muted mb-5 leading-relaxed">${model.description}</p>
 
+                    ${model._fit ? `
+                    <div class="mb-5 rounded-xl border border-claw-primary/20 bg-claw-primary/[0.035] p-3">
+                        <div class="mb-2 flex items-center justify-between gap-3">
+                            <span class="text-[10px] uppercase tracking-widest text-claw-muted font-bold">LocalClaw fit score</span>
+                            <span class="text-xs font-mono font-bold text-white">${model._fit.score}/100 <span class="text-claw-primary">· ${model._fit.label}</span></span>
+                        </div>
+                        <div class="h-2 overflow-hidden rounded-full bg-white/10">
+                            <div class="h-full rounded-full bg-claw-primary shadow-[0_0_16px_rgba(255,69,58,0.45)]" style="width: ${model._fit.score}%"></div>
+                        </div>
+                        <div class="mt-2 flex flex-wrap gap-1.5">
+                            ${model._fit.signals.map(signal => `<span class="rounded-full border border-white/10 bg-black/30 px-2 py-0.5 text-[10px] font-mono text-claw-muted">${signal}</span>`).join('')}
+                        </div>
+                    </div>` : ''}
+
                     <!-- Benchmarks -->
                     <div class="space-y-1.5 mb-5">
                         ${this.renderBenchmarkBar(model.benchmarks?.speed || 5, 10, 'Speed', 'emerald')}
@@ -1768,7 +1888,9 @@ const App = {
     // ========================================================================
 
     renderCompare(container) {
-        const models = this.state.compareList.map(id => APP_DATA.models.find(m => m.id === id)).filter(Boolean);
+        const recById = new Map((this.state.recommendations || []).map(m => [m.id, m]));
+        const models = this.state.compareList.map(id => recById.get(id) || APP_DATA.models.find(m => m.id === id)).filter(Boolean);
+        const hasFitScore = models.some(m => m._fit);
         
         if (models.length < 2) {
             this.showToast('Select at least 2 models to compare', 'error');
@@ -1814,6 +1936,11 @@ const App = {
                                 <td class="py-3 px-3 text-claw-muted">Quantization</td>
                                 ${models.map(m => `<td class="text-center py-3 px-3"><code class="text-claw-primary bg-claw-primary/10 px-2 py-0.5 rounded">${m.recommended_quant}</code></td>`).join('')}
                             </tr>
+                            ${hasFitScore ? `
+                            <tr class="border-b border-white/5">
+                                <td class="py-3 px-3 text-claw-muted">LocalClaw Fit</td>
+                                ${models.map(m => `<td class="text-center py-3 px-3">${m._fit ? `<span class="font-mono font-bold text-white">${m._fit.score}/100</span><div class="mt-1 text-[10px] text-claw-primary">${m._fit.label}</div>` : '<span class="text-claw-muted">-</span>'}</td>`).join('')}
+                            </tr>` : ''}
                             ${benchmarkKeys.map(key => `
                                 <tr class="border-b border-white/5">
                                     <td class="py-3 px-3 text-claw-muted capitalize">${key}</td>
