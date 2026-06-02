@@ -1,0 +1,32 @@
+# LocalClaw.io
+
+> LocalClaw helps people choose and run local AI models on their own hardware. The site covers local LLMs, TTS/ASR speech models, RAM guides, Apple Silicon and NVIDIA hardware, and the LocalClaw macOS Control Center for OpenClaw.
+
+## Core Pages
+
+- [Home](https://localclaw.io/) - LocalClaw overview, OpenClaw control center, model finder entry point, and app positioning.
+- [LLM List](https://localclaw.io/llm-list.html) - Interactive catalogue of 187 LLM records with RAM fit, quantization, quality, coding, reasoning, speed, LM Studio links, and local install guidance.
+- [TTS List](https://localclaw.io/tts-list.html) - Interactive catalogue of 55 local TTS, ASR, and speech AI models with quality, speed, languages, hardware, licenses, and install commands.
+- [Computers](https://localclaw.io/computers.html) - Apple Silicon and NVIDIA machines for local AI, with RAM tiers, compatible model picks, and buying links.
+- [Pricing](https://localclaw.io/pricing.html) - LocalClaw macOS beta lifetime access, one-time $49 license, no subscription.
+- [Blog](https://localclaw.io/blog/) - Editorial guides on local AI, models, hardware, privacy, and OpenClaw workflows.
+
+## SEO Silo Pages
+
+- [All model pages](https://localclaw.io/models/) - Static pages for individual LLMs.
+- [All speech model pages](https://localclaw.io/tts/) - Static pages for individual TTS, ASR, and speech models.
+- [RAM guides](https://localclaw.io/ram/) - Local AI model recommendations by memory tier.
+- [Hardware guides](https://localclaw.io/hardware/) - Local AI model recommendations by machine.
+- [Use-case guides](https://localclaw.io/use-case/) - Model recommendations by workload such as chat, coding, RAG, reasoning, multilingual work, and speed.
+
+## Product Context
+
+LocalClaw is a native macOS Control Center for OpenClaw. It focuses on local and sovereign AI workflows: local models, agents, channels, scheduled jobs, Kanban-style task orchestration, and dashboard health checks. The site does not require signup for the model finder, and the macOS app is sold as lifetime beta access for $49.
+
+## Recommended Reading
+
+- [Ollama vs LM Studio in 2026](https://localclaw.io/blog/ollama-vs-lm-studio-2026.html)
+- [Best Local AI Models 2026](https://localclaw.io/blog/best-local-ai-models-2026.html)
+- [NVIDIA RTX Spark and Local AI PCs](https://localclaw.io/blog/nvidia-rtx-spark-local-ai-pc.html)
+- [Apple Silicon vs NVIDIA for Local AI](https://localclaw.io/blog/apple-silicon-vs-nvidia.html)
+- [OpenClaw Guide](https://localclaw.io/blog/openclaw-guide.html)
