@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LLM List — All 177 Local AI Models | LocalClaw</title>
-    <meta name="description" content="Browse & filter 177 open-source LLMs for local use: ZAYA1-8B, Ling-2.6-flash, Llama 4, Qwen 3.6, Qwen 3.5, Gemma 4, DeepSeek V3.2, Kimi K2, GLM 4.6 & more. Filter by RAM, GPU, speed, coding, reasoning. Free, private, one-click LM Studio setup.">
+    <title>LLM List — Local & API AI Models | LocalClaw</title>
+    <meta name="description" content="Browse & filter LocalClaw's LLM catalogue: ZAYA1-8B, Ling-2.6-flash, Llama 4, Qwen 3.7 Max, Qwen 3.6, Qwen 3.5, Gemma 4, DeepSeek V3.2, Kimi K2, GLM 4.6 & more. Filter by RAM, GPU, speed, coding, reasoning.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/llm-list.html">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/llm-list.html">
-    <meta property="og:title" content="LLM List — All 177 Local AI Models | LocalClaw">
-    <meta property="og:description" content="Browse and filter 177 open-source LLM models for local use. Filter by RAM, GPU, size, language and use case. Run AI locally with LM Studio — no cloud, no fees.">
+    <meta property="og:title" content="LLM List — Local & API AI Models | LocalClaw">
+    <meta property="og:description" content="Browse and filter LocalClaw's LLM model catalogue. Filter by RAM, GPU, size, language and use case.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -371,28 +371,103 @@
         .reset-btn:hover { color: var(--primary); border-color: rgba(255,69,58,0.3); }
 
         /* Content Area */
-        .content { flex: 1; padding: 20px; min-width: 0; }
+        .content { flex: 1; padding: 28px clamp(16px, 2.4vw, 34px); min-width: 0; }
+
+        .catalog-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(360px, 42%);
+            gap: 22px;
+            align-items: stretch;
+            margin-bottom: 18px;
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background:
+                radial-gradient(circle at 16% 18%, rgba(255,69,58,0.16), transparent 34%),
+                linear-gradient(135deg, rgba(15,15,17,0.78), rgba(7,7,8,0.92));
+            box-shadow: 0 18px 60px rgba(0,0,0,0.28);
+        }
+        .catalog-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .catalog-title {
+            font-size: clamp(2.1rem, 4.6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 0.95;
+            margin: 0 0 12px;
+            letter-spacing: -0.03em;
+        }
+        .catalog-title span { color: var(--primary); }
+        .catalog-copy {
+            max-width: 720px;
+            color: rgba(212,212,216,0.78);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .catalog-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .catalog-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.035);
+            color: rgba(244,244,245,0.76);
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .catalog-pill strong { color: #fff; font-weight: 800; }
 
         /* Top bar */
-        .topbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+        .topbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            background: rgba(5,5,5,0.54);
+            backdrop-filter: blur(14px);
+        }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
         .search-wrap input {
-            width: 100%; padding: 10px 36px;
-            border-radius: 12px; background: rgba(15,15,17,0.6);
-            border: 1px solid rgba(39,39,42,0.4);
-            color: #fff; font-size: 13px; outline: none;
+            width: 100%; padding: 13px 40px;
+            border-radius: 12px; background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff; font-size: 14px; outline: none;
             transition: border-color 0.2s;
         }
-        .search-wrap input:focus { border-color: rgba(255,69,58,0.5); }
+        .search-wrap input:focus { border-color: rgba(255,69,58,0.55); background: rgba(255,255,255,0.055); }
         .search-wrap input::placeholder { color: rgba(161,161,170,0.5); }
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 14px; }
         .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; display: none; }
         .search-clear:hover { color: #fff; }
 
         .ctrl-btn {
-            padding: 10px 14px; border-radius: 12px;
-            background: rgba(15,15,17,0.6);
-            border: 1px solid rgba(39,39,42,0.4);
+            padding: 13px 14px; border-radius: 12px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
             color: var(--muted); font-size: 12px; cursor: pointer;
             transition: all 0.2s; display: flex; align-items: center; gap: 6px;
             white-space: nowrap;
@@ -401,114 +476,252 @@
         .ctrl-btn.active-view { background: rgba(255,69,58,0.12); color: var(--primary); border-color: rgba(255,69,58,0.3); }
 
         /* Stats */
-        .stats-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+        .stats-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
         .stat-box {
-            flex: 1; min-width: 80px;
-            border-radius: 10px; background: rgba(15,15,17,0.4);
-            border: 1px solid rgba(39,39,42,0.2);
-            padding: 10px 14px; text-align: center;
+            min-width: 0;
+            border-radius: 14px; background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.075);
+            padding: 16px; text-align: left;
         }
-        .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; }
+        .stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; line-height: 1; font-weight: 800; }
         .stat-total-val { color: #fff; }
-        .stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+        .stat-label { font-size: 10px; color: var(--muted); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
 
         /* Grid */
         .models-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 18px;
+            align-items: stretch;
         }
 
         /* Card */
         .card {
-            background: rgba(15,15,17,0.5); backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 14px; padding: 18px;
+            --family-color: var(--primary);
+            background:
+                linear-gradient(180deg, rgba(18,18,20,0.82), rgba(6,6,7,0.94));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 0;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
+            overflow: hidden;
+            min-height: 360px;
+            display: flex;
         }
         .card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 14px;
+            inset: 0 0 auto 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--family-color), transparent 72%);
             pointer-events: none;
-            transition: opacity 0.3s;
-            opacity: 0;
+            opacity: 0.78;
         }
         .card:hover {
-            border-color: rgba(255,69,58,0.4);
-            box-shadow: 0 0 30px -10px rgba(255,69,58,0.15), 0 8px 24px -8px rgba(0,0,0,0.4);
-            transform: translateY(-2px);
-        }
-        .card:hover::before {
-            opacity: 1;
+            border-color: color-mix(in srgb, var(--family-color) 50%, rgba(255,255,255,0.08));
+            box-shadow: 0 22px 44px -28px var(--family-color), 0 10px 34px rgba(0,0,0,0.42);
+            transform: translateY(-3px);
         }
         .card:active {
             transform: translateY(0);
         }
+        .model-card-inner {
+            width: 100%;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+        .model-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+        .family-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--family-color);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .family-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .new-badge {
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: rgba(16,185,129,0.12);
+            color: #34D399;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+        }
+        .param-pill {
+            flex-shrink: 0;
+            max-width: 48%;
+            padding: 5px 9px;
+            border-radius: 9px;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.07);
+            color: rgba(244,244,245,0.72);
+            font-family: monospace;
+            font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .model-title {
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            line-height: 1.12;
+            letter-spacing: -0.01em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-decoration: none;
+            min-height: 44px;
+            transition: color 0.2s;
+        }
+        .model-title:hover { color: var(--primary); }
+        .model-desc {
+            font-size: 13px;
+            color: rgba(212,212,216,0.72);
+            line-height: 1.55;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 40px;
+        }
+        .model-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .model-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.045);
+            color: rgba(212,212,216,0.68);
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .model-decision {
+            display: grid;
+            grid-template-columns: 92px minmax(0, 1fr);
+            gap: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.028);
+        }
+        .model-score {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 94px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, color-mix(in srgb, var(--family-color) 17%, transparent), rgba(255,255,255,0.025));
+            border: 1px solid color-mix(in srgb, var(--family-color) 22%, rgba(255,255,255,0.06));
+        }
+        .model-score span {
+            color: rgba(212,212,216,0.62);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .model-score strong {
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 30px;
+            line-height: 1;
+            margin-top: 8px;
+        }
+        .model-score small {
+            color: rgba(212,212,216,0.48);
+            font-family: monospace;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .metric-stack { display: flex; flex-direction: column; justify-content: center; gap: 7px; }
+        .metric-line { display: grid; grid-template-columns: 58px 1fr 18px; align-items: center; gap: 8px; }
+        .metric-label { color: rgba(161,161,170,0.72); font-size: 10px; font-weight: 700; }
+        .metric-track { height: 5px; border-radius: 999px; background: rgba(255,255,255,0.065); overflow: hidden; }
+        .metric-fill { height: 100%; border-radius: inherit; }
+        .metric-value { font-family: monospace; font-size: 10px; font-weight: 800; text-align: right; }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .spec-item {
+            min-width: 0;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.055);
+        }
+        .spec-label {
+            display: block;
+            color: rgba(161,161,170,0.58);
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 5px;
+        }
+        .spec-value {
+            display: block;
+            color: rgba(244,244,245,0.88);
+            font-family: monospace;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .model-actions {
+            margin-top: auto;
+            padding-top: 13px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .model-details-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .model-details-link span { color: var(--primary); }
+        .card-links { display: flex; gap: 6px; flex-shrink: 0; }
         .card-link {
+            min-width: 34px; height: 28px; padding: 0 9px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-family: monospace; font-weight: 800;
+            letter-spacing: 0.04em; transition: all 0.2s;
             position: relative;
             z-index: 2;
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-        .card-family { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px; }
-        .card-name { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; transition: color 0.2s; }
-        .card-name:hover { color: var(--primary) !important; }
-        .card-params { padding: 2px 8px; border-radius: 6px; background: rgba(15,15,17,0.8); border: 1px solid rgba(39,39,42,0.3); font-size: 10px; font-family: monospace; color: var(--muted); white-space: nowrap; }
-        .card-desc { font-size: 11px; color: rgba(161,161,170,0.75); line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
-        .card-tag { padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.04); font-size: 9px; color: rgba(161,161,170,0.65); }
-        .bench-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-        .bench-label { font-size: 9px; color: rgba(161,161,170,0.5); width: 50px; text-align: right; }
-        .bench-bar { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
-        .bench-fill { height: 100%; border-radius: 3px; }
-        .bench-val { font-size: 9px; font-family: monospace; font-weight: 700; width: 14px; text-align: right; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(39,39,42,0.15); margin-top: 10px; }
-        .card-meta { display: flex; gap: 10px; }
-        .card-meta span { font-size: 9px; color: var(--muted); }
-        .card-links { display: flex; gap: 5px; }
-        .card-link {
-            width: 26px; height: 26px; border-radius: 7px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; transition: all 0.2s;
         }
         .card-link-hf { background: rgba(255,255,255,0.04); color: var(--muted); }
         .card-link-hf:hover { background: rgba(255,69,58,0.12); color: var(--primary); }
         .card-link-lms { background: rgba(255,69,58,0.08); color: var(--primary); }
         .card-link-lms:hover { background: rgba(255,69,58,0.2); }
-        .new-badge { padding: 1px 5px; border-radius: 4px; background: rgba(16,185,129,0.12); color: #34D399; font-size: 8px; font-weight: 700; }
-        .view-badge {
-            padding: 1px 5px;
-            border-radius: 4px;
-            background: rgba(255,69,58,0.12);
-            color: var(--primary);
-            font-size: 8px;
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-        .card:hover .view-badge {
-            opacity: 1;
-        }
-        .card-name {
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 1.3;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 3px;
-            display: block;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .card-name:hover {
-            color: var(--primary);
-        }
+
+        .bench-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .bench-label { font-size: 9px; color: rgba(161,161,170,0.5); width: 50px; text-align: right; }
+        .bench-bar { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
+        .bench-fill { height: 100%; border-radius: 3px; }
+        .bench-val { font-size: 9px; font-family: monospace; font-weight: 700; width: 14px; text-align: right; }
 
         /* Table */
         .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(39,39,42,0.2); }
@@ -563,6 +776,11 @@
             color: var(--muted); cursor: pointer; font-size: 16px;
         }
 
+        @media (max-width: 1180px) {
+            .catalog-hero { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed; left: -320px; top: 0; z-index: 49;
@@ -575,12 +793,25 @@
             .sidebar-close { display: block; }
             .mobile-filter-btn { display: block; }
             .models-grid { grid-template-columns: 1fr; }
+            .catalog-hero { padding: 18px; border-radius: 18px; }
+            .catalog-title { letter-spacing: -0.02em; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
             .stat-box { min-width: 70px; }
-            .stats-row { gap: 6px; }
+            .model-card-top { flex-direction: column; align-items: flex-start; }
+            .param-pill { max-width: 100%; }
+            .model-decision { grid-template-columns: 1fr; }
+            .model-score { min-height: 84px; }
             .card:hover { transform: none; }
         }
         @media (max-width: 480px) {
             .stats-row { display: grid; grid-template-columns: 1fr 1fr; }
+            .content { padding: 18px 14px 80px; }
+            .topbar { padding: 8px; }
+            .ctrl-btn { flex: 1; justify-content: center; }
+            .spec-grid { grid-template-columns: 1fr; }
+            .model-actions { align-items: stretch; flex-direction: column; }
+            .card-links { width: 100%; }
+            .card-link { flex: 1; }
             .nav-links a:not(.active) { display: none; }
         }
 
@@ -983,19 +1214,31 @@
         <!-- CONTENT -->
         <div class="content">
             <!-- Header -->
-            <div style="margin-bottom:20px;">
-                <h1 class="font-display" style="font-size:clamp(1.5rem,4vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:6px;">
-                    LLM <span style="color:var(--primary);">List</span>
-                </h1>
-                <p style="color:var(--muted);font-size:13px;">Browse <strong id="total-count" style="color:#fff;">0</strong> open-source models for LM Studio.</p>
-            </div>
+            <div class="catalog-hero">
+                <div>
+                    <div class="catalog-kicker">
+                        <span style="width:7px;height:7px;border-radius:999px;background:var(--primary);box-shadow:0 0 14px rgba(255,69,58,0.7);"></span>
+                        LocalClaw Model Explorer
+                    </div>
+                    <h1 class="font-display catalog-title">
+                        Find the right <span>LLM</span>
+                    </h1>
+                    <p class="catalog-copy">
+                        Browse <strong id="total-count" style="color:#fff;">0</strong> model records with RAM fit, quantization, quality, coding, reasoning and LM Studio install links in one clean view.
+                    </p>
+                    <div class="catalog-pills" aria-label="Catalogue highlights">
+                        <span class="catalog-pill"><strong>RAM-aware</strong> picks</span>
+                        <span class="catalog-pill">Local + API records</span>
+                        <span class="catalog-pill">LM Studio ready</span>
+                    </div>
+                </div>
 
-            <!-- Stats -->
-            <div class="stats-row">
-                <div class="stat-box"><div class="stat-val stat-total-val" id="stat-total">—</div><div class="stat-label">Total</div></div>
-                <div class="stat-box"><div class="stat-val" style="color:#34D399;" id="stat-families">—</div><div class="stat-label">Families</div></div>
-                <div class="stat-box"><div class="stat-val" style="color:#60A5FA;" id="stat-shown">—</div><div class="stat-label">Shown</div></div>
-                <div class="stat-box"><div class="stat-val" style="color:#FB923C;" id="stat-avg">—</div><div class="stat-label">Avg Speed</div></div>
+                <div class="stats-row" aria-label="Catalogue statistics">
+                    <div class="stat-box"><div class="stat-val stat-total-val" id="stat-total">—</div><div class="stat-label">Total models</div></div>
+                    <div class="stat-box"><div class="stat-val" style="color:#34D399;" id="stat-families">—</div><div class="stat-label">Families</div></div>
+                    <div class="stat-box"><div class="stat-val" style="color:#60A5FA;" id="stat-shown">—</div><div class="stat-label">Current view</div></div>
+                    <div class="stat-box"><div class="stat-val" style="color:#FB923C;" id="stat-avg">—</div><div class="stat-label">Avg speed</div></div>
+                </div>
             </div>
 
             <!-- Top bar: Search + Sort + View -->
@@ -1350,7 +1593,7 @@
             var tk=Object.keys(activeTags);
             if(tk.length>0) res=res.filter(function(m){for(var i=0;i<tk.length;i++){if(m.tags.indexOf(tk[i])===-1)return false;}return true;});
             var rk=Object.keys(activeRam);
-            if(rk.length>0) res=res.filter(function(m){for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
+            if(rk.length>0) res=res.filter(function(m){if(m.hosted_only)return false;for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
             var fk=Object.keys(activeFam);
             if(fk.length>0) res=res.filter(function(m){return !!activeFam[m.family];});
             res=res.filter(function(m){return m.benchmarks.speed>=minB.speed&&m.benchmarks.quality>=minB.quality&&m.benchmarks.coding>=minB.coding&&m.benchmarks.reasoning>=minB.reasoning;});
@@ -1403,39 +1646,52 @@
                 for(var i=0;i<filtered.length;i++){
                     var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
-                    var lms='lmstudio://open?search='+encodeURIComponent(m.search_term);
-
+                    var lms='lmstudio://open?search='+encodeURIComponent(m.search_term||m.name);
                     var detailUrl='models/'+encodeURIComponent(m.id)+'.html';
-                    h+='<div class="card" data-detail-url="'+detailUrl+'" onclick="goToDetail(event,this)">';
-                    h+='<div class="card-header"><div style="flex:1;min-width:0;">';
-                    h+='<div class="card-family" style="color:'+c+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(m.family);
+                    var ts=(m.tags||[]).slice(0,4);
+                    var ramLabel=m.hosted_only?'API':m.min_ram+' GB';
+                    var sizeLabel=m.hosted_only?'Hosted':m.size_gb+' GB';
+                    var quantLabel=m.hosted_only?'API':(m.recommended_quant||'Q4_K_M');
+
+                    h+='<div class="card" style="--family-color:'+c+'" data-detail-url="'+detailUrl+'" onclick="goToDetail(event,this)">';
+                    h+='<div class="model-card-inner">';
+
+                    h+='<div class="model-card-top">';
+                    h+='<div class="family-pill"><span class="family-dot" style="background:'+c+'"></span>'+esc(m.family);
                     if(isN) h+=' <span class="new-badge">NEW</span>';
-                    h+=' <span class="view-badge">View →</span>';
                     h+='</div>';
-                    h+='<a href="'+detailUrl+'" class="card-name" title="'+esc(m.name)+'">'+esc(m.name)+'</a>';
-                    h+='</div><span class="card-params">'+esc(m.params)+'</span></div>';
-
-                    h+='<div class="card-desc">'+esc(m.description)+'</div>';
-
-                    h+='<div class="card-tags">';
-                    var ts=m.tags.slice(0,4);
-                    for(var t2=0;t2<ts.length;t2++) h+='<span class="card-tag">'+temoji(ts[t2])+' '+esc(ts[t2])+'</span>';
+                    h+='<span class="param-pill">'+esc(m.params)+'</span>';
                     h+='</div>';
 
-                    h+='<div style="margin-bottom:10px;">';
-                    h+=bbar('Speed',m.benchmarks.speed,'#10B981');
-                    h+=bbar('Quality',m.benchmarks.quality,'#A855F7');
-                    h+=bbar('Coding',m.benchmarks.coding,'#3B82F6');
-                    h+=bbar('Reason',m.benchmarks.reasoning,'#F59E0B');
+                    h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'">'+esc(m.name)+'</a>';
+                    h+='<div class="model-desc">'+esc(m.description)+'</div>';
+
+                    h+='<div class="model-tags">';
+                    for(var t2=0;t2<ts.length;t2++) h+='<span class="model-tag">'+temoji(ts[t2])+' '+esc(ts[t2])+'</span>';
                     h+='</div>';
 
-                    h+='<div class="card-footer"><div class="card-meta">';
-                    h+='<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> '+m.min_ram+'GB</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> '+m.size_gb+'GB</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> '+esc(m.recommended_quant)+'</span>';
-                    h+='</div><div class="card-links">';
-                    h+='<a href="'+esc(hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="HuggingFace">🤗</a>';
-                    h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="LM Studio">⬇</a>';
+                    h+='<div class="model-decision">';
+                    h+='<div class="model-score"><span>Fit score</span><strong>'+scoreAvg(m)+'</strong><small>/10</small></div>';
+                    h+='<div class="metric-stack">';
+                    h+=metricLine('Quality',m.benchmarks.quality,'#A855F7');
+                    h+=metricLine('Coding',m.benchmarks.coding,'#3B82F6');
+                    h+=metricLine('Reason',m.benchmarks.reasoning,'#F59E0B');
+                    h+=metricLine('Speed',m.benchmarks.speed,'#10B981');
                     h+='</div></div>';
+
+                    h+='<div class="spec-grid">';
+                    h+=specItem('RAM',ramLabel);
+                    h+=specItem(m.hosted_only?'Mode':'Disk',sizeLabel);
+                    h+=specItem('Quant',quantLabel);
                     h+='</div>';
+
+                    h+='<div class="model-actions">';
+                    h+='<a href="'+detailUrl+'" class="model-details-link">View model <span>→</span></a>';
+                    h+='<div class="card-links">';
+                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(m.hosted_only?'Source':'HuggingFace')+'">'+(m.hosted_only?'API':'HF')+'</a>';
+                    if(!m.hosted_only) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio">LM</a>';
+                    h+='</div></div>';
+                    h+='</div></div>';
                 }
                 g.innerHTML=h;
             } else {
@@ -1451,17 +1707,36 @@
                     h+='</div></td>';
                     h+='<td style="color:var(--muted);text-transform:capitalize;">'+esc(m.family)+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+esc(m.params)+'</td>';
-                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+m.min_ram+'GB</td>';
+                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+(m.hosted_only?'API':m.min_ram+'GB')+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.speed)+';">'+m.benchmarks.speed+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.quality)+';">'+m.benchmarks.quality+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+m.benchmarks.coding+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+m.benchmarks.reasoning+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+esc(m.recommended_quant)+'</td>';
-                    h+='<td style="text-align:center;"><a href="'+esc(hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;">🤗</a></td>';
+                    h+='<td style="text-align:center;"><a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;">'+(m.hosted_only?'↗':'🤗')+'</a></td>';
                     h+='</tr>';
                 }
                 document.getElementById('models-tbody').innerHTML=h;
             }
+        }
+
+        function scoreAvg(m) {
+            var b=m.benchmarks||{};
+            var score=((b.quality||0)*0.38)+((b.coding||0)*0.24)+((b.reasoning||0)*0.24)+((b.speed||0)*0.14);
+            return score.toFixed(1).replace('.0','');
+        }
+
+        function metricLine(label,val,color) {
+            var v=Math.max(0,Math.min(10,val||0));
+            return '<div class="metric-line">'
+                +'<span class="metric-label">'+label+'</span>'
+                +'<div class="metric-track"><div class="metric-fill" style="width:'+(v*10)+'%;background:'+color+';"></div></div>'
+                +'<span class="metric-value" style="color:'+color+';">'+v+'</span>'
+                +'</div>';
+        }
+
+        function specItem(label,value) {
+            return '<div class="spec-item"><span class="spec-label">'+esc(label)+'</span><span class="spec-value" title="'+esc(value)+'">'+esc(value)+'</span></div>';
         }
 
         function bbar(label,val,color) {
