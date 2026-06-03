@@ -3,66 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniMax M2 (230B MoE) local AI model specs, RAM &amp; LM Studio setup | LocalClaw</title>
-  <meta name="description" content="MiniMax M2 (230B MoE): 230B (10B active) open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inf">
+  <title>MiniMax M2 (230B MoE) local AI model: RAM, quantization and LM Studio setup | LocalClaw</title>
+  <meta name="description" content="MiniMax M2 (230B MoE): 230B (10B active) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/minimax-m2-230b.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/minimax-m2-230b.html">
-  <meta property="og:title" content="MiniMax M2 (230B MoE) local model specs | LocalClaw">
-  <meta property="og:description" content="MiniMax M2 (230B MoE): 230B (10B active) open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inf">
-  <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+  <meta property="og:title" content="MiniMax M2 (230B MoE) local AI model | LocalClaw">
+  <meta property="og:description" content="MiniMax M2 (230B MoE): 230B (10B active) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MiniMax M2 (230B MoE) local model specs | LocalClaw">
-  <meta name="twitter:description" content="MiniMax M2 (230B MoE): 230B (10B active) open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inf">
+  <meta name="twitter:title" content="MiniMax M2 (230B MoE) local AI model | LocalClaw">
+  <meta name="twitter:description" content="MiniMax M2 (230B MoE): 230B (10B active) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MiniMax M2 (230B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/minimax-m2-230b.html","description":"MiniMax M2 (230B MoE): 230B (10B active) open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inf","softwareVersion":"2025-10","memoryRequirements":"192 GB RAM minimum"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"MiniMax M2 (230B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/minimax-m2-230b.html","description":"MiniMax M2 (230B MoE): 230B (10B active) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-10","memoryRequirements":"192 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can MiniMax M2 (230B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"MiniMax M2 (230B MoE) can run locally with at least 192 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is MiniMax M2 (230B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"MiniMax M2 (230B MoE) is best used for Coding assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"MiniMax M2 (230B MoE)","item":"https://localclaw.io/models/minimax-m2-230b.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
   <script src="/js/clarity.js" defer></script>
   <style>
-    :root{--bg:#050505;--surface:#0f0f11;--surface2:#18181b;--border:#27272a;--primary:#ff453a;--text:#fff;--muted:#a1a1aa;--green:#34d399;--blue:#60a5fa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}a{text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:24px}.site-nav{border-bottom:1px solid rgba(255,255,255,.2);background:#000;position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),#ea580c);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(255,69,58,.4)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.03em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a,.nav-links button{background:none;border:0;color:var(--muted);font:500 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}.nav-links a:hover,.nav-links button:hover{color:#fff}.nav-links .pricing{color:var(--primary)}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--primary);color:var(--primary);padding:2px 8px;font:800 11px ui-monospace,monospace;text-transform:uppercase}.badge:before{content:'';width:6px;height:6px;background:var(--primary)}.beta{border-color:#60a5fa;color:#60a5fa}.beta:before{background:#60a5fa;border-radius:50%;animation:pulse 1.5s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.hero{padding:48px 0 28px;border-bottom:1px solid var(--border)}.eyebrow{color:var(--primary);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.title{font-size:clamp(38px,7vw,76px);line-height:.95;margin:16px 0;font-weight:900;letter-spacing:-.05em}.desc{max-width:800px;color:#d4d4d8;font-size:19px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}.k{font:700 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.v{font-size:22px;font-weight:800;margin-top:4px}.section{padding:34px 0;border-bottom:1px solid var(--border)}h2{font-size:28px;margin:0 0 16px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.tag{display:inline-block;border:1px solid #3f3f46;background:#18181b;border-radius:999px;padding:5px 10px;margin:4px;color:#d4d4d8;font-size:13px}.bench{height:9px;background:#27272a;border-radius:99px;overflow:hidden;margin-top:8px}.bar{height:100%;background:linear-gradient(90deg,var(--primary),#ff8a64)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{display:inline-block;background:var(--primary);color:#000;font-weight:800;padding:12px 16px;border-radius:12px;text-decoration:none}.btn.secondary{background:#18181b;color:#fff;border:1px solid var(--border)}li{margin:8px 0;color:#d4d4d8}.muted{color:var(--muted)}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px}.similar a{display:inline-block;color:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;margin:4px;text-decoration:none}@media(max-width:900px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.grid,.cols{grid-template-columns:1fr}.hero{padding-top:28px}}
+    :root{--bg:#050505;--panel:#0d0d0d;--card:#111;--card2:#171717;--border:#262626;--border2:#3a3a3a;--primary:#ff453a;--orange:#ea580c;--text:#fff;--muted:#a1a1aa;--soft:#d4d4d8;--green:#22c55e;--blue:#3b82f6}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 18% 10%,rgba(255,69,58,.12),transparent 26rem),linear-gradient(180deg,#050505,#070707 42%,#050505);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 85%)}a{text-decoration:none}.site-nav{border-bottom:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.82);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--orange));display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,69,58,.45)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:25px;font-weight:900;letter-spacing:-.04em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a{color:var(--muted);font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}.nav-links a:hover,.nav-links .active{color:#fff}.nav-links .pricing{color:var(--primary)}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.wrap{max-width:1180px;margin:0 auto;padding:34px 24px 64px}.breadcrumb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px}.breadcrumb a{color:#d4d4d8}.breadcrumb a:hover{color:#fff}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:24px;align-items:stretch;margin-bottom:24px}.hero-copy,.hero-panel,.section,.spec-card,.model-card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--border);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.38)}.hero-copy{padding:34px;position:relative;overflow:hidden}.hero-copy:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 0 0,rgba(255,69,58,.22),transparent 42%);pointer-events:none}.eyebrow{position:relative;color:var(--primary);font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.18em;display:flex;gap:10px;align-items:center}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}.title{position:relative;font-size:clamp(44px,7vw,86px);line-height:.92;margin:18px 0 16px;font-weight:950;letter-spacing:-.055em}.title span{color:var(--primary)}.desc{position:relative;max-width:760px;color:#d6d6dd;font-size:19px;margin:0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:999px;color:#d7d7dd;padding:7px 11px;font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em}.chip.hot{border-color:rgba(255,69,58,.45);color:var(--primary);background:rgba(255,69,58,.09)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,69,58,.5);background:var(--primary);color:#050505;font:950 13px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.05em;padding:14px 18px;border-radius:12px;box-shadow:6px 6px 0 rgba(154,25,18,.5)}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}.btn.secondary{background:#111;color:#fff;border-color:rgba(255,255,255,.18);box-shadow:none}.hero-panel{padding:22px;display:flex;flex-direction:column;gap:16px}.score-card{flex:1;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #ff453a66;border-radius:20px;padding:22px;background:radial-gradient(circle at 0 0,#ff453a26,transparent 45%),#0b0b0b}.score-label{font:900 12px ui-monospace,monospace;color:#b8b8c1;text-transform:uppercase;letter-spacing:.12em}.score{font-size:58px;line-height:1;font-weight:950;letter-spacing:-.05em}.score small{font-size:16px;color:var(--muted);letter-spacing:0}.score-caption{color:#d4d4d8;margin-top:10px}.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{border:1px solid var(--border);background:#101010;border-radius:16px;padding:14px}.mini .k{font:800 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.mini .v{font-weight:900;font-size:18px;margin-top:4px}.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.spec-card{border-radius:18px;padding:18px}.spec-card .k{font:900 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.spec-card .v{font-size:24px;font-weight:950;margin-top:4px;letter-spacing:-.03em}.section{padding:26px;margin-top:18px}h2{font-size:28px;line-height:1.1;margin:0 0 16px;letter-spacing:-.03em}.section p{color:#d4d4d8;margin:10px 0}.muted{color:var(--muted)!important}.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.list{margin:0;padding-left:18px}.list li{color:#d4d4d8;margin:8px 0}.install-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.step{border:1px solid var(--border);background:#0d0d0d;border-radius:16px;padding:16px}.step-num{color:var(--primary);font:950 12px ui-monospace,monospace;letter-spacing:.14em}.step strong{display:block;margin-top:6px}.step span{display:block;color:var(--muted);font-size:14px;margin-top:5px}.bars{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:92px 1fr 32px;gap:12px;align-items:center}.bar-row span{font:800 12px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.track{height:8px;background:#242424;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),#ff8a64)}.tag{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.1);background:#161616;border-radius:999px;padding:6px 10px;margin:4px;color:#d4d4d8;font:800 12px ui-monospace,monospace}.tag:before{content:"#";color:var(--primary);margin-right:4px}.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.meta{border:1px solid var(--border);border-radius:14px;background:#0e0e0e;padding:14px}.meta .k{font:900 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.meta .v{color:#fff;font-weight:800;margin-top:4px;word-break:break-word}.similar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.similar a{display:flex;justify-content:space-between;gap:8px;border:1px solid var(--border);background:#0d0d0d;color:#fff;border-radius:14px;padding:12px;font-weight:800}.similar a:hover{border-color:rgba(255,69,58,.5);box-shadow:0 0 24px rgba(255,69,58,.1)}.similar span{color:var(--muted);font:800 11px ui-monospace,monospace}.next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.next a{border:1px solid var(--border);border-radius:16px;background:#0d0d0d;color:#fff;padding:16px;font-weight:900}.next small{display:block;color:var(--muted);font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px;color:#fff}.source-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.source-links a,.source-links code{color:#fff;border:1px solid var(--border);background:#111;padding:8px 10px;border-radius:10px;font:800 12px ui-monospace,monospace}@media(max-width:940px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.hero,.cols,.specs,.install-steps,.next{grid-template-columns:1fr}.panel-grid,.meta-grid,.similar{grid-template-columns:1fr 1fr}.wrap{padding:24px 16px 48px}.hero-copy{padding:24px}.title{font-size:clamp(42px,12vw,72px)}}@media(max-width:560px){.panel-grid,.meta-grid,.similar{grid-template-columns:1fr}.btn{width:100%}.score{font-size:48px}.bar-row{grid-template-columns:76px 1fr 28px}}
   </style>
 </head>
 <body>
-  <nav class="site-nav" role="navigation" aria-label="Main navigation"><div class="nav-inner"><a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a><button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">☰</button><div class="nav-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div></div><div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div></nav>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
+      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+    </div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+  </nav>
   <main class="wrap">
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>MiniMax M2 (230B MoE)</span></div>
     <header class="hero">
-      <div class="eyebrow">Local LLM model page</div>
-      <h1 class="title">MiniMax M2 (230B MoE)</h1>
-      <p class="desc">MiniMax MoE flagship with 10B active params and 4M-token long-context. Specialised for agentic coding and tool-use. Competitive with GPT-4 class models at a fraction of the inference cost. MIT licensed.</p>
-      <div class="cta"><a class="btn" href="/">Find the best model for my hardware</a><a class="btn secondary" href="/llm-list.html">Browse all 183 LLMs</a></div>
+      <section class="hero-copy">
+        <div class="eyebrow">Open-weight local LLM</div>
+        <h1 class="title">MiniMax M2 <span>(230B MoE)</span></h1>
+        <p class="desc">MiniMax MoE flagship with 10B active params and 4M-token long-context. Specialised for agentic coding and tool-use. Competitive with GPT-4 class models at a fraction of the inference cost. MIT licensed.</p>
+        <div class="chips">
+          <span class="chip hot">Server-grade</span>
+          <span class="chip">192 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">Coding assistant</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <div class="score-card">
+          <div>
+            <div class="score-label">Local fit score</div>
+            <div class="score">6.5<small>/10</small></div>
+            <p class="score-caption">MiniMax M2 (230B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">minimax</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2025-10</div></div>
+        </div>
+      </aside>
     </header>
-    <section class="grid" aria-label="Key specs">
-      <div class="card"><div class="k">Parameters</div><div class="v">230B (10B active)</div></div>
-      <div class="card"><div class="k">Minimum RAM</div><div class="v">192 GB</div></div>
-      <div class="card"><div class="k">Model size</div><div class="v">140 GB</div></div>
-      <div class="card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+    <section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">230B (10B active)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">192 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">140 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
     <section class="section">
       <h2>Can MiniMax M2 (230B MoE) run locally?</h2>
-      <p>MiniMax M2 (230B MoE) is best suited for server-grade or multi-GPU systems. LocalClaw recommends <strong>Q4_K_M</strong> as the default quantization, with at least <strong>192 GB RAM</strong>.</p>
-      <p class="muted">Search term for LM Studio or compatible runtimes: <code>minimax-m2</code></p>
-      <p class="muted">Hugging Face repository: <code>MiniMaxAI/MiniMax-M2</code></p>
-      <div><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">quality</span></div>
-    </section>
-    <section class="section cols">
-      <div><h2>Strengths</h2><ul><li>MiniMax MoE flagship with 10B active params and 4M-token long-context. Specialised for agentic coding and tool-use. Competitive with GPT-4 class models at a fraction of the inference cost. MIT licensed.</li></ul></div>
-      <div><h2>Limitations</h2><ul><li>Performance depends heavily on quantization, RAM bandwidth and runtime support.</li></ul></div>
-    </section>
-    <section class="section cols">
-      <div><h2>Best use cases</h2><ul><li>chat</li><li>code</li><li>reasoning</li><li>quality</li></ul></div>
-      <div><h2>Benchmarks</h2><p><strong>Speed</strong>: 5/10</p><div class="bench"><div class="bar" style="width:50%"></div></div><p><strong>Quality</strong>: 9/10</p><div class="bench"><div class="bar" style="width:90%"></div></div><p><strong>Coding</strong>: 10/10</p><div class="bench"><div class="bar" style="width:100%"></div></div><p><strong>Reasoning</strong>: 9/10</p><div class="bench"><div class="bar" style="width:90%"></div></div></div>
+      <p>MiniMax M2 (230B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
+      <p>Search for <code>minimax-m2</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><code>MiniMaxAI/MiniMax-M2</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">quality</span></div>
     </section>
     <section class="section">
-      <h2>Technical details</h2>
-      <p><strong>Developer:</strong> minimax</p>
-      <p><strong>License:</strong> See model repository</p>
-      <p><strong>Context window:</strong> Unknown tokens</p>
-      <p><strong>Architecture:</strong> See model card</p>
-      <p><strong>Released:</strong> 2025-10</p>
-      
+      <h2>Install path</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 192 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search minimax-m2 in LM Studio.</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
+      </div>
+    </section>
+    <section class="section cols">
+      <div><h2>Strengths</h2><ul class="list"><li>MiniMax MoE flagship with 10B active params and 4M-token long-context. Specialised for agentic coding and tool-use. Competitive with GPT-4 class models at a fraction of the inference cost. MIT licensed.</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Performance depends on quantization, RAM bandwidth and runtime support.</li></ul></div>
+    </section>
+    <section class="section cols">
+      <div><h2>Best use cases</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>quality</li></ul></div>
+      <div>
+        <h2>Capability profile</h2>
+        <div class="bars">
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Technical notes</h2>
+      <div class="meta-grid">
+        <div class="meta"><div class="k">Developer</div><div class="v">minimax</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">See model repository</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">Unknown tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">See model card</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Where to go next</h2>
+      <div class="next">
+        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+      </div>
     </section>
   </main>
 </body>

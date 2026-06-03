@@ -13,11 +13,11 @@
     <meta property="og:url" content="https://localclaw.io/new.html">
     <meta property="og:title" content="New Models — Latest Local AI Drops | LocalClaw">
     <meta property="og:description" content="Updated May 10, 2026: ZAYA1-8B, Ling-2.6-flash, Qwen 3.6 and the latest local LLM releases from LocalClaw's 177-model catalogue.">
-    <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <meta name="theme-color" content="#050505" id="theme-color-meta">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
@@ -84,235 +84,6 @@
             width: 2px; background: linear-gradient(to bottom, rgba(255,69,58,0.4), rgba(255,69,58,0.05));
         }
 
-        /* Theme Toggle Button */
-        .theme-toggle-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            color: #fbbf24;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .theme-toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        html.light .theme-toggle-btn {
-            border-color: rgba(0, 0, 0, 0.2);
-            color: #f59e0b;
-        }
-        html.light .theme-toggle-btn:hover {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.3);
-        }
-
-        /* Light Mode Styles */
-        html.light body {
-            background: #faf9f6 !important;
-            color: #1e293b !important;
-        }
-        html.light .bg-claw-bg {
-            background-color: #faf9f6 !important;
-        }
-        
-        html.light .bg-claw-bg\/50 {
-            background-color: rgba(250, 249, 246, 0.5) !important;
-        }
-        
-        html.light .bg-claw-bg\/80 {
-            background-color: rgba(250, 249, 246, 0.8) !important;
-        }
-        
-        html.light .bg-claw-bg\/95 {
-            background-color: rgba(250, 249, 246, 0.95) !important;
-        }
-        
-        /* Hide dark vignette overlay in light mode */
-        html.light [style*="radial-gradient(ellipse 90% 80%"],
-        html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
-            background: none !important;
-            opacity: 0 !important;
-        }
-
-        /* Kill ALL glows in light mode */
-        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
-        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
-        html.light [class*="blur-2xl"],
-        html.light [class*="blur-3xl"],
-        html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
-        html.light .text-claw-text,
-        html.light .text-white {
-            color: #1e293b !important;
-        }
-        html.light .text-claw-muted {
-            color: #64748b !important;
-        }
-        html.light .border-claw-border\/50,
-        html.light .border-claw-border {
-            border-color: #e2e8f0 !important;
-        }
-        html.light .bg-claw-surface,
-        html.light .bg-claw-surface\/60 {
-            background-color: #ffffff !important;
-        }
-        html.light .timeline-dot {
-            background: #faf9f6 !important;
-            border-color: #FF453A !important;
-        }
-        html.light .timeline-dot.first {
-            background: #FF453A !important;
-        }
-        html.light strong.text-white {
-            color: #1e293b !important;
-        }
-        
-        /* Cards in light mode */
-        html.light .bg-claw-surface\/60 {
-            border-color: #e2e8f0 !important;
-        }
-        
-        html.light .bg-white\/\[0\.02\] {
-            background-color: rgba(0, 0, 0, 0.02) !important;
-        }
-        html.light .bg-white\/5 {
-            background-color: rgba(0, 0, 0, 0.03) !important;
-        }
-        html.light .bg-white\/10 {
-            background-color: rgba(0, 0, 0, 0.04) !important;
-        }
-        html.light .border-white\/5 {
-            border-color: rgba(0, 0, 0, 0.08) !important;
-        }
-        html.light .border-white\/10,
-        html.light .border-white\/20 {
-            border-color: rgba(0, 0, 0, 0.1) !important;
-        }
-        /* Inline dark backgrounds */
-        html.light [style*="background:rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
-        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
-        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
-        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
-        html.light [style*="border:1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
-        
-        /* Bench bar */
-        html.light .bench-bar {
-            background: #e2e8f0 !important;
-        }
-        
-        /* Navigation in light mode */
-        html.light nav {
-            background: rgba(255, 255, 255, 0.95) !important;
-            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        /* Mobile menu */
-        html.light #mobile-menu .bg-claw-surface {
-            background: #ffffff !important;
-            border-color: #e2e8f0 !important;
-        }
-        
-        html.light #mobile-menu a {
-            color: #64748b !important;
-        }
-        
-        html.light #mobile-menu a:hover {
-            background: rgba(0, 0, 0, 0.03) !important;
-            color: #1e293b !important;
-        }
-        
-        /* Hero section */
-        html.light h1 .text-transparent {
-            color: transparent !important;
-        }
-        
-        /* CTA section */
-        html.light .bg-claw-surface\/30 {
-            background: rgba(255, 255, 255, 0.8) !important;
-        }
-        
-        /* Footer */
-        html.light footer {
-            background: #faf9f6 !important;
-        }
-        
-        /* Reduce bg-circuit visibility in light mode */
-        html.light #bg-circuit {
-            opacity: 0.08 !important;
-        }
-        
-        /* ===== FIX: Black rectangles in light mode ===== */
-        
-        /* "Search in LM Studio" copy box — bg-black/60 → light surface */
-        html.light [onclick*="copyText"] {
-            background: #f1f5f9 !important;
-            border-color: #e2e8f0 !important;
-        }
-        
-        html.light [onclick*="copyText"]:hover {
-            border-color: rgba(255, 69, 58, 0.3) !important;
-        }
-        
-        html.light [onclick*="copyText"] span.text-claw-muted {
-            color: #64748b !important;
-        }
-        
-        /* Quant badge box */
-        html.light .bg-claw-primary\/10 {
-            background: rgba(255, 69, 58, 0.06) !important;
-        }
-        
-        /* Detail link button */
-        html.light a[title="Full details"] {
-            border-color: #e2e8f0 !important;
-            color: #64748b !important;
-        }
-        
-        html.light a[title="Full details"]:hover {
-            border-color: rgba(255, 69, 58, 0.3) !important;
-            color: var(--claw-primary, #FF453A) !important;
-        }
-        
-        /* Card background for model cards */
-        html.light .bg-claw-surface\/60 {
-            background: #ffffff !important;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
-        }
-        
-        /* Tags inside cards */
-        html.light .bg-white\/5 {
-            background: #f1f5f9 !important;
-        }
-        
-        /* Card border */
-        html.light .border-white\/\[0\.06\] {
-            border-color: #e2e8f0 !important;
-        }
-        
-        /* CTA section buttons in light mode */
-        html.light .bg-white\/5.border.border-white\/10 {
-            background: rgba(0, 0, 0, 0.03) !important;
-            border-color: #e2e8f0 !important;
-            color: #1e293b !important;
-        }
-        
-        html.light .bg-white\/5.border.border-white\/10:hover {
-            background: rgba(0, 0, 0, 0.06) !important;
-        }
-        
-        /* Timeline dot background */
-        html.light .timeline-line {
-            background: linear-gradient(to bottom, rgba(255,69,58,0.3), rgba(255,69,58,0.03)) !important;
-        }
-        
-        /* New pulse badge */
-        html.light .new-pulse {
-            box-shadow: 0 0 8px rgba(255,69,58,0.15) !important;
-        }
     </style>
 
     <!-- TRACKING -->
@@ -349,7 +120,6 @@
                     <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
                     <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
                     <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
-                    
                     <!-- Theme Toggle Button -->
                 </div>
             </div>

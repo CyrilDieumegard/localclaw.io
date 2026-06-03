@@ -3,66 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mistral Small (24B) local AI model specs, RAM &amp; LM Studio setup | LocalClaw</title>
-  <meta name="description" content="Mistral Small (24B): 24B open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inference.">
+  <title>Mistral Small (24B) local AI model: RAM, quantization and LM Studio setup | LocalClaw</title>
+  <meta name="description" content="Mistral Small (24B): 24B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/mistral-small-24b.html">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/mistral-small-24b.html">
-  <meta property="og:title" content="Mistral Small (24B) local model specs | LocalClaw">
-  <meta property="og:description" content="Mistral Small (24B): 24B open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inference.">
-  <meta property="og:image" content="https://localclaw.io/images/twitter-card.png?v=2">
+  <meta property="og:title" content="Mistral Small (24B) local AI model | LocalClaw">
+  <meta property="og:description" content="Mistral Small (24B): 24B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mistral Small (24B) local model specs | LocalClaw">
-  <meta name="twitter:description" content="Mistral Small (24B): 24B open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inference.">
+  <meta name="twitter:title" content="Mistral Small (24B) local AI model | LocalClaw">
+  <meta name="twitter:description" content="Mistral Small (24B): 24B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Mistral Small (24B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/mistral-small-24b.html","description":"Mistral Small (24B): 24B open-weight AI model. RAM requirement, quantization, benchmarks, use cases and LM Studio setup guidance for local inference.","softwareVersion":"2025-01","memoryRequirements":"24 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Mistral AI","url":"https://mistral.ai/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mistral Small (24B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/mistral-small-24b.html","description":"Mistral Small (24B): 24B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-01","memoryRequirements":"24 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Mistral AI","url":"https://mistral.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Mistral Small (24B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Mistral Small (24B) can run locally with at least 24 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Mistral Small (24B) best for?","acceptedAnswer":{"@type":"Answer","text":"Mistral Small (24B) is best used for Enterprise chatbot."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Mistral Small (24B)","item":"https://localclaw.io/models/mistral-small-24b.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
   <script src="/js/clarity.js" defer></script>
   <style>
-    :root{--bg:#050505;--surface:#0f0f11;--surface2:#18181b;--border:#27272a;--primary:#ff453a;--text:#fff;--muted:#a1a1aa;--green:#34d399;--blue:#60a5fa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}a{text-decoration:none}.wrap{max-width:1120px;margin:0 auto;padding:24px}.site-nav{border-bottom:1px solid rgba(255,255,255,.2);background:#000;position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),#ea580c);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(255,69,58,.4)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.03em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a,.nav-links button{background:none;border:0;color:var(--muted);font:500 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}.nav-links a:hover,.nav-links button:hover{color:#fff}.nav-links .pricing{color:var(--primary)}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--primary);color:var(--primary);padding:2px 8px;font:800 11px ui-monospace,monospace;text-transform:uppercase}.badge:before{content:'';width:6px;height:6px;background:var(--primary)}.beta{border-color:#60a5fa;color:#60a5fa}.beta:before{background:#60a5fa;border-radius:50%;animation:pulse 1.5s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.hero{padding:48px 0 28px;border-bottom:1px solid var(--border)}.eyebrow{color:var(--primary);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.title{font-size:clamp(38px,7vw,76px);line-height:.95;margin:16px 0;font-weight:900;letter-spacing:-.05em}.desc{max-width:800px;color:#d4d4d8;font-size:19px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}.k{font:700 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.v{font-size:22px;font-weight:800;margin-top:4px}.section{padding:34px 0;border-bottom:1px solid var(--border)}h2{font-size:28px;margin:0 0 16px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.tag{display:inline-block;border:1px solid #3f3f46;background:#18181b;border-radius:999px;padding:5px 10px;margin:4px;color:#d4d4d8;font-size:13px}.bench{height:9px;background:#27272a;border-radius:99px;overflow:hidden;margin-top:8px}.bar{height:100%;background:linear-gradient(90deg,var(--primary),#ff8a64)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{display:inline-block;background:var(--primary);color:#000;font-weight:800;padding:12px 16px;border-radius:12px;text-decoration:none}.btn.secondary{background:#18181b;color:#fff;border:1px solid var(--border)}li{margin:8px 0;color:#d4d4d8}.muted{color:var(--muted)}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px}.similar a{display:inline-block;color:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;margin:4px;text-decoration:none}@media(max-width:900px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.grid,.cols{grid-template-columns:1fr}.hero{padding-top:28px}}
+    :root{--bg:#050505;--panel:#0d0d0d;--card:#111;--card2:#171717;--border:#262626;--border2:#3a3a3a;--primary:#ff453a;--orange:#ea580c;--text:#fff;--muted:#a1a1aa;--soft:#d4d4d8;--green:#22c55e;--blue:#3b82f6}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 18% 10%,rgba(255,69,58,.12),transparent 26rem),linear-gradient(180deg,#050505,#070707 42%,#050505);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 85%)}a{text-decoration:none}.site-nav{border-bottom:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.82);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--orange));display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,69,58,.45)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:25px;font-weight:900;letter-spacing:-.04em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a{color:var(--muted);font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}.nav-links a:hover,.nav-links .active{color:#fff}.nav-links .pricing{color:var(--primary)}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.wrap{max-width:1180px;margin:0 auto;padding:34px 24px 64px}.breadcrumb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px}.breadcrumb a{color:#d4d4d8}.breadcrumb a:hover{color:#fff}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:24px;align-items:stretch;margin-bottom:24px}.hero-copy,.hero-panel,.section,.spec-card,.model-card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--border);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.38)}.hero-copy{padding:34px;position:relative;overflow:hidden}.hero-copy:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 0 0,rgba(255,69,58,.22),transparent 42%);pointer-events:none}.eyebrow{position:relative;color:var(--primary);font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.18em;display:flex;gap:10px;align-items:center}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}.title{position:relative;font-size:clamp(44px,7vw,86px);line-height:.92;margin:18px 0 16px;font-weight:950;letter-spacing:-.055em}.title span{color:var(--primary)}.desc{position:relative;max-width:760px;color:#d6d6dd;font-size:19px;margin:0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:999px;color:#d7d7dd;padding:7px 11px;font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em}.chip.hot{border-color:rgba(255,69,58,.45);color:var(--primary);background:rgba(255,69,58,.09)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,69,58,.5);background:var(--primary);color:#050505;font:950 13px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.05em;padding:14px 18px;border-radius:12px;box-shadow:6px 6px 0 rgba(154,25,18,.5)}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}.btn.secondary{background:#111;color:#fff;border-color:rgba(255,255,255,.18);box-shadow:none}.hero-panel{padding:22px;display:flex;flex-direction:column;gap:16px}.score-card{flex:1;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #ff453a66;border-radius:20px;padding:22px;background:radial-gradient(circle at 0 0,#ff453a26,transparent 45%),#0b0b0b}.score-label{font:900 12px ui-monospace,monospace;color:#b8b8c1;text-transform:uppercase;letter-spacing:.12em}.score{font-size:58px;line-height:1;font-weight:950;letter-spacing:-.05em}.score small{font-size:16px;color:var(--muted);letter-spacing:0}.score-caption{color:#d4d4d8;margin-top:10px}.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{border:1px solid var(--border);background:#101010;border-radius:16px;padding:14px}.mini .k{font:800 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.mini .v{font-weight:900;font-size:18px;margin-top:4px}.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.spec-card{border-radius:18px;padding:18px}.spec-card .k{font:900 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.spec-card .v{font-size:24px;font-weight:950;margin-top:4px;letter-spacing:-.03em}.section{padding:26px;margin-top:18px}h2{font-size:28px;line-height:1.1;margin:0 0 16px;letter-spacing:-.03em}.section p{color:#d4d4d8;margin:10px 0}.muted{color:var(--muted)!important}.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.list{margin:0;padding-left:18px}.list li{color:#d4d4d8;margin:8px 0}.install-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.step{border:1px solid var(--border);background:#0d0d0d;border-radius:16px;padding:16px}.step-num{color:var(--primary);font:950 12px ui-monospace,monospace;letter-spacing:.14em}.step strong{display:block;margin-top:6px}.step span{display:block;color:var(--muted);font-size:14px;margin-top:5px}.bars{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:92px 1fr 32px;gap:12px;align-items:center}.bar-row span{font:800 12px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.track{height:8px;background:#242424;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),#ff8a64)}.tag{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.1);background:#161616;border-radius:999px;padding:6px 10px;margin:4px;color:#d4d4d8;font:800 12px ui-monospace,monospace}.tag:before{content:"#";color:var(--primary);margin-right:4px}.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.meta{border:1px solid var(--border);border-radius:14px;background:#0e0e0e;padding:14px}.meta .k{font:900 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.meta .v{color:#fff;font-weight:800;margin-top:4px;word-break:break-word}.similar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.similar a{display:flex;justify-content:space-between;gap:8px;border:1px solid var(--border);background:#0d0d0d;color:#fff;border-radius:14px;padding:12px;font-weight:800}.similar a:hover{border-color:rgba(255,69,58,.5);box-shadow:0 0 24px rgba(255,69,58,.1)}.similar span{color:var(--muted);font:800 11px ui-monospace,monospace}.next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.next a{border:1px solid var(--border);border-radius:16px;background:#0d0d0d;color:#fff;padding:16px;font-weight:900}.next small{display:block;color:var(--muted);font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px;color:#fff}.source-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.source-links a,.source-links code{color:#fff;border:1px solid var(--border);background:#111;padding:8px 10px;border-radius:10px;font:800 12px ui-monospace,monospace}@media(max-width:940px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.hero,.cols,.specs,.install-steps,.next{grid-template-columns:1fr}.panel-grid,.meta-grid,.similar{grid-template-columns:1fr 1fr}.wrap{padding:24px 16px 48px}.hero-copy{padding:24px}.title{font-size:clamp(42px,12vw,72px)}}@media(max-width:560px){.panel-grid,.meta-grid,.similar{grid-template-columns:1fr}.btn{width:100%}.score{font-size:48px}.bar-row{grid-template-columns:76px 1fr 28px}}
   </style>
 </head>
 <body>
-  <nav class="site-nav" role="navigation" aria-label="Main navigation"><div class="nav-inner"><a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a><button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">☰</button><div class="nav-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div></div><div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div></nav>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
+      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+    </div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+  </nav>
   <main class="wrap">
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Mistral Small (24B)</span></div>
     <header class="hero">
-      <div class="eyebrow">Local LLM model page</div>
-      <h1 class="title">Mistral Small (24B)</h1>
-      <p class="desc">Mistral&#39;s refined 24B model. Excellent for nuanced conversations and professional writing.</p>
-      <div class="cta"><a class="btn" href="/">Find the best model for my hardware</a><a class="btn secondary" href="/llm-list.html">Browse all 183 LLMs</a></div>
+      <section class="hero-copy">
+        <div class="eyebrow">Open-weight local LLM</div>
+        <h1 class="title">Mistral Small <span>(24B)</span></h1>
+        <p class="desc">Mistral&#39;s refined 24B model. Excellent for nuanced conversations and professional writing.</p>
+        <div class="chips">
+          <span class="chip hot">32 GB power user</span>
+          <span class="chip">24 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">Enterprise chatbot</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <div class="score-card">
+          <div>
+            <div class="score-label">Local fit score</div>
+            <div class="score">6.8<small>/10</small></div>
+            <p class="score-caption">Mistral Small (24B) belongs on 32 GB machines when you want stronger quality without jumping to server hardware.</p>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">mistral</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2025-01</div></div>
+        </div>
+      </aside>
     </header>
-    <section class="grid" aria-label="Key specs">
-      <div class="card"><div class="k">Parameters</div><div class="v">24B</div></div>
-      <div class="card"><div class="k">Minimum RAM</div><div class="v">24 GB</div></div>
-      <div class="card"><div class="k">Model size</div><div class="v">15 GB</div></div>
-      <div class="card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+    <section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">24B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">24 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">15 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
     <section class="section">
       <h2>Can Mistral Small (24B) run locally?</h2>
-      <p>Mistral Small (24B) is best suited for power-user machines with 32 GB RAM. LocalClaw recommends <strong>Q4_K_M</strong> as the default quantization, with at least <strong>24 GB RAM</strong>.</p>
-      <p class="muted">Search term for LM Studio or compatible runtimes: <code>mistral-small-24b-instruct</code></p>
-      <p class="muted">Hugging Face repository: <code>lmstudio-community/Mistral-Small-24B-Instruct-2501-GGUF</code></p>
-      <div><span class="tag">chat</span><span class="tag">general</span><span class="tag">power</span><span class="tag">quality</span></div>
-    </section>
-    <section class="section cols">
-      <div><h2>Strengths</h2><ul><li>Excellent quality-to-size ratio</li><li>Strong European multilingual</li><li>Apache 2.0</li><li>Fast inference for 24B</li></ul></div>
-      <div><h2>Limitations</h2><ul><li>32K context limit</li><li>Needs 16GB+ RAM</li></ul></div>
-    </section>
-    <section class="section cols">
-      <div><h2>Best use cases</h2><ul><li>Enterprise chatbot</li><li>Multilingual support</li><li>Professional writing</li><li>Code generation</li></ul></div>
-      <div><h2>Benchmarks</h2><p><strong>Speed</strong>: 5/10</p><div class="bench"><div class="bar" style="width:50%"></div></div><p><strong>Quality</strong>: 8/10</p><div class="bench"><div class="bar" style="width:80%"></div></div><p><strong>Coding</strong>: 7/10</p><div class="bench"><div class="bar" style="width:70%"></div></div><p><strong>Reasoning</strong>: 8/10</p><div class="bench"><div class="bar" style="width:80%"></div></div></div>
+      <p>Mistral Small (24B) belongs on 32 GB machines when you want stronger quality without jumping to server hardware.</p>
+      <p>Search for <code>mistral-small-24b-instruct</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><code>lmstudio-community/Mistral-Small-24B-Instruct-2501-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">general</span><span class="tag">power</span><span class="tag">quality</span></div>
     </section>
     <section class="section">
-      <h2>Technical details</h2>
-      <p><strong>Developer:</strong> Mistral AI</p>
-      <p><strong>License:</strong> Apache 2.0</p>
-      <p><strong>Context window:</strong> 32,768 tokens</p>
-      <p><strong>Architecture:</strong> Transformer decoder-only</p>
-      <p><strong>Released:</strong> 2025-01</p>
-      <div class="similar"><h2>Similar models</h2><a href="/models/gemma3-27b.html">gemma3-27b</a><a href="/models/qwen3-32b.html">qwen3-32b</a><a href="/models/codestral-22b.html">codestral-22b</a></div>
+      <h2>Install path</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 24 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search mistral-small-24b-instruct in LM Studio.</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
+      </div>
+    </section>
+    <section class="section cols">
+      <div><h2>Strengths</h2><ul class="list"><li>Excellent quality-to-size ratio</li><li>Strong European multilingual</li><li>Apache 2.0</li><li>Fast inference for 24B</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>32K context limit</li><li>Needs 16GB+ RAM</li></ul></div>
+    </section>
+    <section class="section cols">
+      <div><h2>Best use cases</h2><ul class="list"><li>Enterprise chatbot</li><li>Multilingual support</li><li>Professional writing</li><li>Code generation</li></ul></div>
+      <div>
+        <h2>Capability profile</h2>
+        <div class="bars">
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Technical notes</h2>
+      <div class="meta-grid">
+        <div class="meta"><div class="k">Developer</div><div class="v">Mistral AI</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">32,768 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Transformer decoder-only</div></div>
+      </div>
+    </section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gemma3-27b.html">Gemma 3 (27B) <span>27B</span></a><a href="/models/qwen3-32b.html">Qwen 3 (32B) <span>32B</span></a><a href="/models/codestral-22b.html">Codestral (22B) <span>22B</span></a></div></section>
+    <section class="section">
+      <h2>Where to go next</h2>
+      <div class="next">
+        <a href="/ram/32gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+      </div>
     </section>
   </main>
 </body>
