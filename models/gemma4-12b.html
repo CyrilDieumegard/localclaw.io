@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gemma 4 E4B local AI model: RAM, quantization and LM Studio setup | LocalClaw</title>
-  <meta name="description" content="Gemma 4 E4B: E4B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <title>Gemma 4 12B local AI model: RAM, quantization and LM Studio setup | LocalClaw</title>
+  <meta name="description" content="Gemma 4 12B: 12B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/gemma4-e4b.html">
+  <link rel="canonical" href="https://localclaw.io/models/gemma4-12b.html">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/gemma4-e4b.html">
-  <meta property="og:title" content="Gemma 4 E4B local AI model | LocalClaw">
-  <meta property="og:description" content="Gemma 4 E4B: E4B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/gemma4-12b.html">
+  <meta property="og:title" content="Gemma 4 12B local AI model | LocalClaw">
+  <meta property="og:description" content="Gemma 4 12B: 12B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Gemma 4 E4B local AI model | LocalClaw">
-  <meta name="twitter:description" content="Gemma 4 E4B: E4B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="Gemma 4 12B local AI model | LocalClaw">
+  <meta name="twitter:description" content="Gemma 4 12B: 12B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Gemma 4 E4B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gemma4-e4b.html","description":"Gemma 4 E4B: E4B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-03","memoryRequirements":"8 GB RAM minimum","license":"https://ai.google.dev/gemma/docs/gemma_4_license","creator":{"@type":"Organization","name":"Google DeepMind","url":"https://deepmind.google/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Gemma 4 E4B run locally?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 E4B can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Gemma 4 E4B best for?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 E4B is best used for General assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Gemma 4 E4B","item":"https://localclaw.io/models/gemma4-e4b.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Gemma 4 12B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gemma4-12b.html","description":"Gemma 4 12B: 12B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"16 GB RAM minimum","license":"https://huggingface.co/google/gemma-4-12B","creator":{"@type":"Organization","name":"Google DeepMind","url":"https://deepmind.google/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Gemma 4 12B run locally?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 12B can run locally with at least 16 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Gemma 4 12B best for?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 12B is best used for Private multimodal assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Gemma 4 12B","item":"https://localclaw.io/models/gemma4-12b.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -36,17 +36,17 @@
     <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Gemma 4 E4B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Gemma 4 12B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">Gemma 4 E4B</h1>
-        <p class="desc">Gemma 4 balanced edge model with strong multimodal quality and 256K context. Great for laptops and high-end mobile devices. Apache 2.0.</p>
+        <h1 class="title">Gemma 4 12B</h1>
+        <p class="desc">Google DeepMind 12B unified multimodal model. Text, image, audio and video inputs, 256K context, Apache 2.0, and a strong local sweet spot for 16-32 GB machines.</p>
         <div class="chips">
-          <span class="chip hot">Laptop ready</span>
-          <span class="chip">8 GB RAM</span>
+          <span class="chip hot">16 GB sweet spot</span>
+          <span class="chip">16 GB RAM</span>
           <span class="chip">Q4_K_M</span>
-          <span class="chip">General assistant</span>
+          <span class="chip">Private multimodal assistant</span>
         </div>
         <div class="cta">
           <a class="btn" href="/pricing.html">Run with LocalClaw</a>
@@ -57,47 +57,47 @@
         <div class="score-card">
           <div>
             <div class="score-label">Local fit score</div>
-            <div class="score">7.0<small>/10</small></div>
-            <p class="score-caption">Gemma 4 E4B is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
+            <div class="score">7.5<small>/10</small></div>
+            <p class="score-caption">Gemma 4 12B is a practical pick for 16 GB machines, especially with Q4_K_M quantization.</p>
           </div>
         </div>
         <div class="panel-grid">
           <div class="mini"><div class="k">Family</div><div class="v" style="color:#f59e0b">gemma</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-03</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-06</div></div>
         </div>
       </aside>
     </header>
     <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">E4B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">4.6 GB</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">12B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">16 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">8.2 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
     <section class="section">
-      <h2>Can Gemma 4 E4B run locally?</h2>
-      <p>Gemma 4 E4B is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
-      <p>Search for <code>gemma-4-e4b-it</code> in LM Studio or another GGUF-compatible runtime.</p>
-      <div class="source-links"><code>google/gemma-4-E4B-it</code></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">vision</span><span class="tag">standard</span><span class="tag">multimodal</span><span class="tag">reasoning</span><span class="tag">general</span></div>
+      <h2>Can Gemma 4 12B run locally?</h2>
+      <p>Gemma 4 12B is a practical pick for 16 GB machines, especially with Q4_K_M quantization.</p>
+      <p>Search for <code>gemma-4-12b-it</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><a href="https://lmstudio.ai/models/google/gemma-4-12b" target="_blank" rel="noopener">Model source</a><code>lmstudio-community/gemma-4-12B-it-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">vision</span><span class="tag">audio</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">multimodal</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search gemma-4-e4b-it in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 16 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search gemma-4-12b-it in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list"><li>Strong quality/speed balance</li><li>256K context</li><li>Multimodal I/O support</li><li>Good fit for laptops and compact workstations</li></ul></div>
-      <div><h2>Limitations</h2><ul class="list"><li>Still below 26B/31B for advanced coding and deep reasoning</li></ul></div>
+      <div><h2>Strengths</h2><ul class="list"><li>12B local sweet spot</li><li>Unified text, image, audio and video input</li><li>256K context window</li><li>Apache 2.0 license</li><li>Stronger ceiling than edge-size Gemma 4 variants</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Use the instruction-tuned variant for chat workflows</li><li>Very long context increases memory use</li><li>Runtime support may arrive at different speeds across LM Studio, Ollama, MLX and llama.cpp</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list"><li>General assistant</li><li>Visual and audio understanding</li><li>Long-context summaries</li><li>Productivity copilots</li></ul></div>
+      <div><h2>Best use cases</h2><ul class="list"><li>Private multimodal assistant</li><li>Screenshot and document analysis</li><li>Local coding and reasoning</li><li>Long-context research on 32 GB machines</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
         </div>
       </div>
     </section>
@@ -107,14 +107,14 @@
         <div class="meta"><div class="k">Developer</div><div class="v">Google DeepMind</div></div>
         <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">262,144 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Gemma 4 multimodal Transformer (balanced edge tier)</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Gemma 4 dense unified multimodal Transformer (12B)</div></div>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gemma4-12b.html">Gemma 4 12B <span>12B</span></a><a href="/models/gemma4-e2b.html">Gemma 4 E2B <span>E2B</span></a><a href="/models/gemma3n-8b.html">Gemma 3n (8B) <span>8B</span></a><a href="/models/qwen3.5-4b.html">Qwen 3.5 (4B) <span>4B</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gemma3-12b.html">Gemma 3 (12B) <span>12B</span></a><a href="/models/gemma4-e4b.html">Gemma 4 E4B <span>E4B</span></a><a href="/models/glm4.6-air.html">GLM 4.6 Air (12B) <span>12B</span></a><a href="/models/qwen3.5-9b.html">Qwen 3.5 (9B) <span>9B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/8gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/16gb.html"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gemma 4 12B: Google's New Local Multimodal Sweet Spot | LocalClaw</title>
+    <meta name="description" content="Gemma 4 12B is Google's new Apache 2.0 unified multimodal model with 256K context. Why it matters for local AI, LM Studio, Ollama, MLX and 16-32GB machines.">
+    <meta name="keywords" content="Gemma 4 12B, Gemma 4 12B local AI, Google Gemma 4, local multimodal AI, 256K context, Apache 2.0 LLM, LM Studio Gemma 4, Ollama Gemma 4, MLX Gemma 4, local LLM 2026">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://localclaw.io/blog/gemma-4-12b-local-ai.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/gemma-4-12b-local-ai.html">
+    <meta property="og:title" content="Gemma 4 12B: Google's New Local Multimodal Sweet Spot">
+    <meta property="og:description" content="A practical local AI guide to Gemma 4 12B: 12B parameters, 256K context, unified multimodal input, Apache 2.0 licensing and where it fits on consumer hardware.">
+    <meta property="og:site_name" content="LocalClaw">
+    <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
+    <meta property="article:published_time" content="2026-06-04">
+    <meta property="article:modified_time" content="2026-06-04">
+    <meta property="article:section" content="Model Reviews">
+    <meta property="article:tag" content="Gemma 4 12B">
+    <meta property="article:tag" content="Local AI">
+    <meta property="article:tag" content="Multimodal AI">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gemma 4 12B: Google's New Local Multimodal Sweet Spot">
+    <meta name="twitter:description" content="Gemma 4 12B brings unified multimodal input, 256K context and Apache 2.0 licensing to a practical local model size.">
+    <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 14% 8%, rgba(255,69,58,0.12), transparent 28%),
+                radial-gradient(circle at 82% 18%, rgba(245,158,11,0.08), transparent 30%),
+                #050505;
+        }
+        .article-shell {
+            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.018));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+        }
+        .prose-custom h2 {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-family: 'Space Grotesk', Inter, sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.65rem, 3vw, 2.25rem);
+            letter-spacing: -0.035em;
+            line-height: 1.08;
+        }
+        .prose-custom h3 {
+            margin-top: 2rem;
+            margin-bottom: .75rem;
+            color: #fff;
+            font-family: 'Space Grotesk', Inter, sans-serif;
+            font-weight: 750;
+            font-size: 1.25rem;
+        }
+        .prose-custom p,
+        .prose-custom li {
+            color: #b8b8c0;
+            line-height: 1.78;
+            font-size: 1.03rem;
+        }
+        .prose-custom a { color: #ff6d64; text-decoration: none; }
+        .prose-custom a:hover { color: #fff; text-decoration: underline; }
+        .signal-card {
+            background: rgba(15,15,17,0.78);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+        }
+        .metric-card {
+            background: radial-gradient(circle at top left, rgba(255,69,58,0.13), transparent 44%), rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        th, td { border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .source-list li { font-size: .95rem; }
+        @media (max-width: 640px) {
+            .prose-custom p,
+            .prose-custom li { font-size: 1rem; }
+        }
+    </style>
+
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+
+    <nav class="border-b border-claw-border/50 bg-claw-bg/90 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="LocalClaw logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                </div>
+
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Close</button>
+        </div>
+    </div>
+
+    <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary transition-colors mb-8">
+                <span aria-hidden="true">&larr;</span>
+                Blog
+            </a>
+            <div class="flex flex-wrap items-center gap-3 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/10 text-claw-primary text-xs font-bold uppercase tracking-wide border border-claw-primary/25">Model Review</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-claw-muted text-xs font-bold uppercase tracking-wide border border-white/10">Gemma 4 12B</span>
+                <span class="text-claw-muted text-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span id="read-time">8 min read</span>
+                </span>
+                <span class="text-claw-muted text-sm">June 4, 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[0.98]">
+                Gemma 4 12B: Google's New Local Multimodal Sweet Spot
+            </h1>
+            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">
+                Gemma 4 12B lands in the exact zone local AI users care about: big enough to be useful, small enough to run on consumer machines, and open enough to build with.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-10 sm:py-14">
+        <div class="max-w-5xl mx-auto px-4">
+            <article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10">
+                <div class="prose-custom max-w-none">
+
+                    <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-claw-primary/30">
+                        <p class="m-0">
+                            <strong class="text-white">Short answer:</strong> Gemma 4 12B is one of the most interesting local model releases of June 2026. It brings a 12B Apache 2.0 checkpoint, unified multimodal input, and a 256K context window into a size class that many 16 GB and 32 GB machines can realistically test.
+                        </p>
+                    </section>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">12B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Parameters</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">256K</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Context window</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">Apache</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">License</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">16-32GB</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Practical local tier</div></div>
+                    </div>
+
+                    <h2>What Google released</h2>
+                    <p>
+                        Google published Gemma 4 12B on June 3, 2026 as the smallest 12B member of the Gemma 4 family. The official model card lists it as an Apache 2.0 model with unified multimodal input support, a 256K token context window and roughly 11.95B parameters.
+                    </p>
+                    <p>
+                        The important part is not just the number. It is the shape of the model. Gemma 4 12B sits between tiny edge models and heavy workstation models. That is exactly where local AI becomes useful for normal work: document analysis, screenshots, coding help, private research, writing, local agents and long-context workflows.
+                    </p>
+
+                    <h2>Why 12B matters for local AI</h2>
+                    <p>
+                        The local model market has been crowded at both extremes. Small 4B to 9B models are fast, but they can feel limited on harder reasoning or multimodal tasks. Large 27B, 32B and 70B models are stronger, but they push many laptops and desktops into memory pressure.
+                    </p>
+                    <p>
+                        A strong 12B model is the middle lane. It can be meaningfully better than small edge models while still being practical on MacBook Pro, Mac mini, Mac Studio and many NVIDIA desktops. For LocalClaw, that makes Gemma 4 12B a high-priority model because it is a realistic recommendation, not just a leaderboard trophy.
+                    </p>
+
+                    <div class="signal-card rounded-xl p-5 sm:p-6 my-8">
+                        <h3 class="!mt-0">LocalClaw take</h3>
+                        <p class="mb-0">
+                            Start testing Gemma 4 12B if you have 16 GB RAM and want one model for chat, vision-style analysis and coding. Move to 32 GB if you care about longer context, larger image workloads or keeping other apps open.
+                        </p>
+                    </div>
+
+                    <h2>Gemma 4 12B vs the rest of the Gemma family</h2>
+                    <div class="overflow-x-auto my-8">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-left py-3 pr-4 text-claw-muted font-mono uppercase tracking-wider">Model</th>
+                                    <th class="text-left py-3 pr-4 text-claw-muted font-mono uppercase tracking-wider">Best fit</th>
+                                    <th class="text-left py-3 pr-4 text-claw-muted font-mono uppercase tracking-wider">LocalClaw note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="py-4 pr-4 text-white font-semibold">Gemma 4 E4B</td><td class="py-4 pr-4 text-claw-muted">8 GB laptops</td><td class="py-4 pr-4 text-claw-muted">Fast and light, but lower ceiling.</td></tr>
+                                <tr><td class="py-4 pr-4 text-white font-semibold">Gemma 4 12B</td><td class="py-4 pr-4 text-claw-primary font-semibold">16-32 GB machines</td><td class="py-4 pr-4 text-claw-muted">Best new balance of quality, size and local practicality.</td></tr>
+                                <tr><td class="py-4 pr-4 text-white font-semibold">Gemma 4 31B</td><td class="py-4 pr-4 text-claw-muted">32-64 GB workstations</td><td class="py-4 pr-4 text-claw-muted">Higher quality ceiling, heavier memory cost.</td></tr>
+                                <tr><td class="py-4 pr-4 text-white font-semibold">Gemma 3 12B</td><td class="py-4 pr-4 text-claw-muted">Stable older 12B workflows</td><td class="py-4 pr-4 text-claw-muted">Still useful, but Gemma 4 12B is the more interesting new test.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Can Gemma 4 12B run locally?</h2>
+                    <p>
+                        Yes, but the practical setup depends on runtime and quantization. The official Google blog points developers toward common local and developer runtimes, while the Hugging Face model card provides the open weights and usage instructions for Transformers.
+                    </p>
+                    <p>
+                        For normal desktop users, the most realistic path is to wait for high-quality quantized builds in your preferred runner, then test Q4 or Q5 style quantization. A Q4-class 12B model is the kind of target that fits the 16 GB tier, but long context and multimodal inputs can still increase memory pressure.
+                    </p>
+
+                    <h3>Hardware guidance</h3>
+                    <ul class="space-y-3">
+                        <li><strong class="text-white">8 GB RAM:</strong> use Gemma 4 E4B instead. Gemma 4 12B will be too tight for a comfortable daily setup.</li>
+                        <li><strong class="text-white">16 GB RAM:</strong> good first test tier with Q4 quantization, especially if you keep context moderate.</li>
+                        <li><strong class="text-white">32 GB RAM:</strong> the sweet spot for long-context testing, screenshots, coding and keeping other apps open.</li>
+                        <li><strong class="text-white">64 GB+ RAM:</strong> compare Gemma 4 12B against Gemma 4 31B, Qwen 3.5 27B and other larger local models.</li>
+                    </ul>
+
+                    <h2>Who should try it first?</h2>
+                    <p>
+                        Gemma 4 12B is most exciting for users who want one local model that can handle more than text chat. If your day includes screenshots, UI analysis, technical documents, code, research notes or multilingual work, this is a model worth testing early.
+                    </p>
+                    <p>
+                        If you only need the fastest local chat model, a smaller Gemma, Qwen or Phi model may still feel better. If you need maximum reasoning quality and have large hardware, a 27B+ model may outperform it. Gemma 4 12B wins when the goal is practical multimodal local AI.
+                    </p>
+
+                    <div class="signal-card rounded-xl p-5 sm:p-6 my-8 border-claw-primary/25">
+                        <h3 class="!mt-0">LocalClaw verdict</h3>
+                        <p class="mb-0">
+                            Gemma 4 12B is not just another new checkpoint. It is a useful new default candidate for modern 16 GB and 32 GB local AI machines. Add it to your shortlist beside Qwen 3.5 9B, GLM 4.6 Air and Phi-4 when you want a serious local model that still feels desktop-friendly.
+                        </p>
+                    </div>
+
+                    <h2>FAQ: Gemma 4 12B and local AI</h2>
+                    <h3>Is Gemma 4 12B open source?</h3>
+                    <p>
+                        The official Hugging Face model card lists the model under Apache 2.0. In practical terms, that makes it much more builder-friendly than many restricted model releases.
+                    </p>
+                    <h3>Is Gemma 4 12B instruction tuned?</h3>
+                    <p>
+                        The base `google/gemma-4-12B` checkpoint is pre-trained. For chat-style usage, look for the instruction-tuned variant or a compatible local quantized build in your runtime.
+                    </p>
+                    <h3>Is it better than Gemma 3 12B?</h3>
+                    <p>
+                        It is the model to test first if you want the newest Gemma architecture, unified multimodal input and 256K context. Gemma 3 12B remains useful where older runtime support is more mature.
+                    </p>
+                    <h3>Should I use it in LM Studio?</h3>
+                    <p>
+                        Yes. LM Studio already lists a Gemma 4 12B GGUF build. LocalClaw keeps the recommendation conservative: use a 16 GB machine for comfortable desktop use, then move to 32 GB if you care about long context or heavier multimodal work.
+                    </p>
+
+                    <h2>Sources</h2>
+                    <ul class="source-list space-y-3">
+                        <li><a href="https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12B/" target="_blank" rel="noopener noreferrer">Google Blog: Introducing Gemma 4 12B</a></li>
+                        <li><a href="https://huggingface.co/google/gemma-4-12B" target="_blank" rel="noopener noreferrer">Hugging Face: google/gemma-4-12B model card</a></li>
+                        <li><a href="https://lmstudio.ai/models/google/gemma-4-12b" target="_blank" rel="noopener noreferrer">LM Studio: Gemma 4 12B local GGUF entry</a></li>
+                        <li><a href="../models/gemma4-12b.html">LocalClaw: Gemma 4 12B local model page</a></li>
+                        <li><a href="../llm-list.html">LocalClaw LLM Explorer</a></li>
+                    </ul>
+
+                    <div class="mt-12 pt-8 border-t border-claw-border/40">
+                        <div class="rounded-2xl border border-claw-primary/30 bg-claw-primary/10 p-6 sm:p-8">
+                            <h2 class="!mt-0">Check if Gemma 4 12B fits your machine</h2>
+                            <p>
+                                Local model choice is never just about parameter count. Compare Gemma 4 12B against 188 LLM records by RAM, quantization, coding, reasoning, speed and local fit.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                                <a href="../models/gemma4-12b.html" class="inline-flex items-center justify-center px-5 py-3 bg-claw-primary text-white font-bold rounded-lg hover:bg-orange-600 transition-colors">Open Gemma 4 12B page</a>
+                                <a href="../llm-list.html" class="inline-flex items-center justify-center px-5 py-3 border border-white/15 text-white font-bold rounded-lg hover:border-claw-primary/50 hover:text-claw-primary transition-colors">Browse all 188 LLMs</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-claw-border/30">
+                    <h3 class="text-xl font-display font-bold text-white mb-6">Related Guides</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <a href="gemma4-suite-deep-dive.html" class="group block p-4 bg-claw-surface border border-claw-border/50 rounded-lg hover:border-claw-primary/30 transition-all">
+                            <span class="text-amber-400 text-xs font-bold uppercase tracking-wide">Gemma</span>
+                            <h4 class="text-white font-bold mt-2 group-hover:text-claw-primary transition-colors">Gemma 4 Suite Deep Dive</h4>
+                        </a>
+                        <a href="ollama-vs-lm-studio-2026.html" class="group block p-4 bg-claw-surface border border-claw-border/50 rounded-lg hover:border-claw-primary/30 transition-all">
+                            <span class="text-claw-primary text-xs font-bold uppercase tracking-wide">Local Runtimes</span>
+                            <h4 class="text-white font-bold mt-2 group-hover:text-claw-primary transition-colors">Ollama vs LM Studio in 2026</h4>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-claw-border/50 py-8 sm:py-10 bg-claw-bg/50">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p>
+            <div class="flex gap-4 items-center">
+                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Gemma 4 12B: Google's New Local Multimodal Sweet Spot",
+        "description": "Gemma 4 12B is Google's Apache 2.0 unified multimodal model with 256K context. This guide explains why it matters for local AI, consumer hardware and practical desktop workflows.",
+        "url": "https://localclaw.io/blog/gemma-4-12b-local-ai.html",
+        "datePublished": "2026-06-04",
+        "dateModified": "2026-06-04",
+        "author": {"@type": "Organization", "name": "LocalClaw"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": {"@type": "ImageObject", "url": "https://localclaw.io/images/logo.png"}
+        },
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://localclaw.io/blog/gemma-4-12b-local-ai.html"},
+        "about": [
+            {"@type": "Thing", "name": "Gemma 4 12B"},
+            {"@type": "Thing", "name": "Local AI"},
+            {"@type": "Thing", "name": "Multimodal AI"},
+            {"@type": "Thing", "name": "Local LLMs"}
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is Gemma 4 12B open source?",
+                "acceptedAnswer": {"@type": "Answer", "text": "The official Hugging Face model card lists Gemma 4 12B under Apache 2.0, making it builder-friendly for local AI experiments and applications."}
+            },
+            {
+                "@type": "Question",
+                "name": "Can Gemma 4 12B run locally?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Gemma 4 12B can be tested locally through compatible runtimes and future quantized builds. LocalClaw treats it as a practical 16 GB to 32 GB candidate depending on quantization and context length."}
+            },
+            {
+                "@type": "Question",
+                "name": "What is Gemma 4 12B best for?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Gemma 4 12B is best for practical local multimodal work: private assistants, document and screenshot analysis, coding help, long-context research and desktop AI workflows."}
+            }
+        ]
+    }
+    </script>
+
+    <script>
+    (function(){
+        var article = document.querySelector('article');
+        if (article) {
+            var text = article.textContent || '';
+            var wordCount = text.trim().split(/\s+/).length;
+            var readTime = Math.max(1, Math.ceil(wordCount / 200));
+            var el = document.getElementById('read-time');
+            if (el) el.textContent = readTime + ' min read';
+        }
+    })();
+    </script>
+</body>
+</html>

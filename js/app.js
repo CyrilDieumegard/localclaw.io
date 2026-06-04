@@ -214,7 +214,7 @@ const App = {
             // Recency bonus (newer models get a slight edge)
             if (m.released) {
                 const relDate = new Date(m.released);
-                const now = new Date('2026-06-02');
+                const now = new Date('2026-06-04');
                 const monthsAgo = (now - relDate) / (1000 * 60 * 60 * 24 * 30);
                 if (monthsAgo < 6) score += 3;
                 if (monthsAgo < 3) score += 2;
@@ -1062,7 +1062,7 @@ const App = {
             ['DeepSeek V4 Pro', '1.6T MoE · 49B active · MIT', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
             ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
             ['Qwen 3.5 9B', 'Balanced local model for 16 GB+', 'models/qwen3.5-9b.html', 'Laptop', 'border-violet-500/30 bg-violet-500/5 text-violet-400'],
-            ['Gemma 4 E4B', 'Fast local baseline for smaller Macs', 'models/gemma4-e4b.html', 'Small', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
+            ['Gemma 4 12B', 'New unified multimodal sweet spot for 16 GB+', 'models/gemma4-12b.html', 'New', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
             ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400'],
             ['Whisper v3 Turbo', 'Offline speech-to-text in the TTS/ASR catalogue', 'tts/whisper-v3-turbo.html', 'ASR', 'border-blue-500/30 bg-blue-500/5 text-blue-400']
         ];
@@ -1375,7 +1375,7 @@ const App = {
             <section class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 185 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `

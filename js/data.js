@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
+// Updated June 4, 2026 — Added Gemma 4 12B — 188 LLM total
+// Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
 // Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
 // Previous: April 23 — Qwen 3.6 (6.7B + 27B), Kimi K2 (Instruct + Thinking), DeepSeek V3.2 Exp, Qwen 3 Next 80B, GLM 4.6 355B,
 // MiniMax M2, Mistral Small 3.2, Ling 1T, Nemotron Nano 9B v2, Apriel Nemotron 15B
@@ -1730,6 +1731,24 @@ const APP_DATA = {
             hf_repo: 'lmstudio-community/gemma-3-12B-it-GGUF',
             benchmarks: { speed: 6, quality: 8, coding: 7, reasoning: 8 },
             released: '2025-03'
+        },
+        {
+            id: 'gemma4-12b',
+            name: 'Gemma 4 12B',
+            family: 'gemma',
+            params: '12B',
+            size_gb: 8.2,
+            min_ram: 16,
+            tags: ['chat', 'vision', 'audio', 'code', 'reasoning', 'power', 'multimodal', 'general'],
+            description: 'Google DeepMind 12B unified multimodal model. Text, image, audio and video inputs, 256K context, Apache 2.0, and a strong local sweet spot for 16-32 GB machines.',
+            search_term: 'gemma-4-12b-it',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'lmstudio-community/gemma-4-12B-it-GGUF',
+            source_url: 'https://lmstudio.ai/models/google/gemma-4-12b',
+            benchmarks: { speed: 6, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-06',
+            isNew: true,
+            isPick: true
         },
         {
             id: 'codellama-34b',
