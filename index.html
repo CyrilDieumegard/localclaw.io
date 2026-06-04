@@ -497,7 +497,7 @@
                     <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
                     <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
                     <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
-                    <a href="blog/index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
+                    <a href="blog/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
                     <a href="pricing.html" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                 </div>
             </div>
@@ -512,7 +512,7 @@
                 <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
                 <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
                 <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
-                <a href="blog/index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
+                <a href="blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
                 <a href="pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
                 <div class="border-t border-claw-border mt-2 pt-2">
                     <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
@@ -551,7 +551,7 @@
                             <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
                             <a href="#" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">or find my model →</a>
                         </div>
-                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No data collected. Runs on your machine.</p>
+                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
                     </div>
                     <div class="relative mx-auto w-full max-w-xl">
                         <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
@@ -770,7 +770,7 @@
             <section aria-label="Local AI catalogue teaser" class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">47 TTS →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">55 speech models →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <a href="models/deepseek-v4-pro.html" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Frontier</p><h3 class="mt-3 text-lg font-display font-bold text-white">DeepSeek V4 Pro</h3><p class="mt-2 text-xs font-mono text-claw-muted">1.6T MoE · 49B active · local catalogue</p></a>
@@ -805,7 +805,7 @@
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">Is my data private when using LocalClaw?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Yes! LocalClaw runs entirely in your browser — zero data is collected or sent anywhere. When using LM Studio with recommended models, everything runs locally on your machine. No cloud, no tracking, no API calls.</p>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Yes. The model finder runs in your browser and does not collect prompts, hardware specs, or selected models. When using LM Studio with recommended models, inference runs locally on your machine with no cloud API calls.</p>
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What are the best local AI models in 2026?</summary>
@@ -859,8 +859,8 @@
     <!-- ============================================================
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
-    <script src="js/data.js?v=20260604a"></script>
-    <script src="js/app.js?v=20260604a"></script>
+    <script src="js/data.js?v=20260604b"></script>
+    <script src="js/app.js?v=20260604b"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>
@@ -875,9 +875,9 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "LocalClaw",
+        "name": "LocalClaw Model Finder",
         "url": "https://localclaw.io/",
-        "description": "Find the perfect open-source AI model for your hardware. Privacy-first local LLM configurator for LM Studio. Supports 188 LLMs + 47 TTS/ASR models including Gemma 4 12B, ZAYA1-8B, Ling-2.6-flash, Kimi K2, DeepSeek V3.2, Qwen 3 Next, Llama 4 Scout/Maverick, Qwen 3 VL, Gemma 4, GLM 4.6, NeuTTS Air, Step-Audio 2, Higgs Audio v2, Whisper Turbo.",
+        "description": "Free browser-based local AI model finder for LM Studio and OpenClaw. Tracks 188 LLMs and 55 TTS/ASR speech entries including Gemma 4 12B, ZAYA1-8B, Ling-2.6-flash, Kimi K2, DeepSeek V3.2, Qwen 3 Next, Llama 4 Scout/Maverick, Qwen 3 VL, GLM 4.6, NeuTTS Air, Step-Audio 2, Higgs Audio v2, Whisper Turbo.",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
         "browserRequirements": "Requires JavaScript",
@@ -949,7 +949,7 @@
                 "name": "Is my data private when using LocalClaw?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes! LocalClaw runs entirely in your browser with zero data collection. When using LM Studio with recommended models, everything runs locally on your machine. No cloud, no tracking, no API calls."
+                    "text": "Yes. The LocalClaw model finder runs in your browser and does not collect prompts, hardware specs, or selected models. When using LM Studio with recommended models, inference runs locally on your machine with no cloud API calls."
                 }
             },
             {
@@ -957,7 +957,7 @@
                 "name": "What are the best local AI models in 2026?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "For 8 GB RAM: Qwen 3 8B and Llama 3.3 8B. For 16 GB: Qwen 3 14B. For 32 GB+: Qwen 3 32B and DeepSeek R1 32B. For coding: Qwen 2.5 Coder 7B. For vision: Gemma 3 12B. For reasoning: DeepSeek R1 series."
+                    "text": "For 8 GB RAM: Qwen 3.5 4B or Gemma 4 E4B. For 16 GB: Gemma 4 12B, Qwen 3.5 9B, GLM 4.6 Air 12B, or Mistral Small 3.2 24B with a tighter setup. For 32 GB+: Gemma 4 31B, Qwen 3 Next 80B/3B MoE, or Qwen 3 Coder 30B. For reasoning: Kimi K2 Thinking, DeepSeek V3.2 Exp, or Hermes 4 70B."
                 }
             },
             {
@@ -997,17 +997,13 @@
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "LocalClaw - AI Model Finder",
-        "operatingSystem": "Web",
+        "name": "LocalClaw macOS Control Center",
+        "description": "Native macOS Control Center for OpenClaw with local models, agents, channels, cron jobs, Kanban task orchestration, health checks and guided setup.",
+        "operatingSystem": "macOS",
         "applicationCategory": "DeveloperApplication",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "124"
-        },
         "offers": {
             "@type": "Offer",
-            "price": "0",
+            "price": "49",
             "priceCurrency": "USD"
         }
     }
@@ -1108,5 +1104,5 @@
         })();
     </script>
 
-<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</body>
 </html>

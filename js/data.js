@@ -3250,7 +3250,7 @@ const APP_DATA = {
         },
         {
             q: 'Is my data private?',
-            a: 'Yes! When using LM Studio, everything runs locally on your machine. No data is sent to any server. This is one of the biggest advantages of local LLMs. LocalClaw itself also runs entirely in your browser — zero data collection.'
+            a: 'Yes. When using LM Studio, inference runs locally on your machine and your prompts do not go to a model API. The LocalClaw model finder runs in your browser and does not collect your prompts, hardware specs, or selected models.'
         },
         {
             q: 'What is OpenClaw?',

@@ -409,7 +409,7 @@
                 <a href="tts-list.html" style="color:#A78BFA;">TTS</a>
                 
                 <a href="computers.html">Computers</a>
-                <a href="blog/index.html">Blog</a>
+                <a href="blog/">Blog</a>
                 <!-- Theme Toggle Button -->
             </div>
         </div>
@@ -785,7 +785,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         mac_mini_24:{name:'Apple Mac Mini M4 Pro 24GB',asin:null,amazonUrl:'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20',price:'from $1,399'},
         mac_mini_48:{name:'Mac Mini M4 Pro 48GB',asin:null,amazonUrl:'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+48GB+512GB&tag=localclaw-20',price:'from $1,799'},
         mac_studio_64:{name:'Mac Studio M4 Max 64GB',asin:null,price:'from $3,199',appleUrl:'https://www.apple.com/mac-studio/'},
-        mac_studio_128:{name:'Mac Studio M4 Ultra 128GB',asin:null,price:'from $5,999',appleUrl:'https://www.apple.com/mac-studio/'},
+        mac_studio_128:{name:'Mac Studio M3 Ultra 128GB',asin:null,price:'Check price',appleUrl:'https://www.apple.com/mac-studio/'},
         rtx_4060ti:{name:'NVIDIA RTX 4060 Ti 16GB',asin:'B0CBK7H19M',price:'from $399'},
         rtx_4090:{name:'NVIDIA RTX 4090 24GB',asin:'B0BSVMLVTD',price:'from $1,599'},
         beelink_16:{name:'Beelink Mini PC 16GB',asin:'B08XBVXNFP',price:'from $199'},
@@ -822,7 +822,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         // Handle extreme RAM requirements (320GB+ for models like llama4-maverick, deepseek-v3.1)
         if(minRam>=200){
             // Server-grade requirements - no consumer hardware available
-            items.push({name:'Mac Studio M4 Ultra 128GB',asin:null,price:'from $5,999',badge:'best',badgeText:'MAX AVAILABLE',appleUrl:'https://www.apple.com/mac-studio/'});
+            items.push({name:'Mac Studio M3 Ultra 128GB',asin:null,price:'Check price',badge:'best',badgeText:'MAX AVAILABLE',appleUrl:'https://www.apple.com/mac-studio/'});
             items.push({name:'Mac Studio M4 Max 64GB',asin:null,price:'from $3,199',badge:'alt',badgeText:'PARTIAL',appleUrl:'https://www.apple.com/mac-studio/'});
 
         }
@@ -962,5 +962,5 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         })();
     </script>
 
-<script src="https://www.genspark.ai/sandbox_inspect.js"></script></body>
+</body>
 </html>
