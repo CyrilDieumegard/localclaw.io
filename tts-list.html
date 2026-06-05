@@ -238,61 +238,100 @@
             content: ''; margin-right: 4px;
         }
 
-        /* Hero */
-        .hero {
-            position: relative; padding: 48px 20px 32px;
-            text-align: center; border-bottom: 1px solid rgba(39,39,42,0.2);
-            overflow: hidden;
+        /* Catalogue hero */
+        .catalog-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(360px, 38%);
+            gap: 22px;
+            align-items: stretch;
+            margin-bottom: 18px;
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid rgba(167,139,250,0.14);
+            background:
+                radial-gradient(circle at 16% 18%, rgba(139,92,246,0.22), transparent 34%),
+                linear-gradient(135deg, rgba(18,15,28,0.82), rgba(7,7,9,0.94));
+            box-shadow: 0 18px 60px rgba(0,0,0,0.28), 0 0 60px rgba(139,92,246,0.045);
         }
-        .hero::before {
-            content: '';
-            position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
-            pointer-events: none;
+        .catalog-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--tts-accent);
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 14px; border-radius: 999px;
-            background: rgba(139,92,246,0.1);
-            border: 1px solid rgba(139,92,246,0.3);
-            color: var(--tts-accent); font-size: 12px; font-weight: 600;
-            margin-bottom: 16px;
-            animation: fadeInDown 0.6s ease;
-        }
-        .hero h1 {
+        .catalog-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700; line-height: 1.1;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #fff 0%, var(--tts-accent) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: fadeInUp 0.6s ease;
+            font-size: clamp(2.1rem, 4.6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 0.95;
+            margin: 0 0 12px;
+            letter-spacing: -0.03em;
         }
-        .hero p {
-            max-width: 600px; margin: 0 auto;
-            color: var(--muted); font-size: 16px; line-height: 1.6;
-            animation: fadeInUp 0.6s ease 0.1s both;
+        .catalog-title span { color: var(--tts-accent); }
+        .catalog-copy {
+            max-width: 720px;
+            color: rgba(212,212,216,0.78);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
         }
+        .catalog-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .catalog-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(167,139,250,0.16);
+            background: rgba(255,255,255,0.035);
+            color: rgba(244,244,245,0.76);
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .catalog-pill strong { color: #fff; font-weight: 800; }
         .hero-stats {
-            display: flex; justify-content: center; gap: 32px;
-            margin-top: 24px; flex-wrap: wrap;
-            animation: fadeInUp 0.6s ease 0.2s both;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
         }
-        .hero-stat { text-align: center; }
-        .hero-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--tts-primary); }
-        .hero-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .hero-stat {
+            min-width: 0;
+            min-height: 116px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.075);
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+        }
+        .hero-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; line-height: 0.95; font-weight: 800; color: var(--tts-accent); }
+        .hero-stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.15; font-weight: 700; white-space: nowrap; }
 
         /* Wispr Promo Button */
         .hero-promo-wrap {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            animation: fadeInDown 0.6s ease 0.3s both;
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            align-items: center;
             gap: 8px;
+            margin-top: 16px;
+            animation: fadeInDown 0.6s ease 0.3s both;
         }
         .wispr-promo-hint {
             font-size: 12px;
@@ -301,17 +340,17 @@
             letter-spacing: 0.02em;
             text-shadow: 0 1px 4px rgba(0,0,0,0.3);
             opacity: 0.9;
-            text-align: center;
-            width: 100%;
+            text-align: left;
         }
         .wispr-promo-btn {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            gap: 8px;
             align-items: center;
-            padding: 14px 20px;
-            border-radius: 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.08));
-            border: 2px solid rgba(139, 92, 246, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.34);
             text-decoration: none;
             cursor: pointer;
             transition: all 0.25s ease;
@@ -340,10 +379,10 @@
             color: rgba(200, 200, 210, 0.85);
             letter-spacing: 0.05em;
             font-weight: 500;
-            margin-bottom: 4px;
+            margin-bottom: 0;
         }
         .wispr-promo-btn .promo-brand {
-            font-size: 17px;
+            font-size: 12px;
             font-weight: 800;
             color: #fff;
             letter-spacing: 0.02em;
@@ -438,16 +477,29 @@
         }
 
         /* Content */
-        .content { flex: 1; padding: 20px; min-width: 0; }
+        .content { flex: 1; padding: 28px clamp(16px, 2.4vw, 34px); min-width: 0; }
 
         /* Search & Topbar */
-        .topbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; position: relative; z-index: 40; }
+        .topbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 40;
+            padding: 10px;
+            border: 1px solid rgba(167,139,250,0.11);
+            border-radius: 16px;
+            background: rgba(5,5,5,0.54);
+            backdrop-filter: blur(14px);
+        }
         .search-wrap { position: relative; flex: 1; min-width: 200px; }
         .search-wrap input {
-            width: 100%; padding: 10px 36px;
-            border-radius: 12px; background: rgba(15,15,17,0.6);
-            border: 1px solid rgba(39,39,42,0.4);
-            color: #fff; font-size: 13px; outline: none;
+            width: 100%; padding: 13px 40px;
+            border-radius: 12px; background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff; font-size: 14px; outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .search-wrap input:focus { 
@@ -460,10 +512,10 @@
         .sort-controls { display: flex; gap: 4px; align-items: center; }
         .sort-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; white-space: nowrap; }
         .sort-btn {
-            padding: 6px 10px; border-radius: 8px;
-            background: rgba(15,15,17,0.6);
-            border: 1px solid rgba(39,39,42,0.4);
-            font-size: 11px; font-weight: 500; color: var(--muted);
+            padding: 13px 14px; border-radius: 12px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 12px; font-weight: 600; color: var(--muted);
             cursor: pointer; transition: all 0.2s;
             white-space: nowrap;
         }
@@ -473,7 +525,7 @@
 
         /* Result count */
         .result-count {
-            font-size: 12px; color: var(--muted); margin-bottom: 12px;
+            font-size: 12px; color: var(--muted); margin-bottom: 14px;
             display: flex; align-items: center; gap: 8px;
         }
         .result-count strong { color: var(--tts-accent); }
@@ -481,7 +533,7 @@
         /* Grid */
         .tts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 18px;
             position: relative;
             z-index: 1;
@@ -491,7 +543,8 @@
         .card {
             --tts-card-accent: var(--tts-accent);
             background:
-                linear-gradient(180deg, rgba(18,18,20,0.82), rgba(6,6,7,0.94));
+                radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--tts-card-accent) 13%, transparent), transparent 30%),
+                linear-gradient(180deg, rgba(14,14,16,0.86), rgba(6,6,7,0.96));
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 18px; padding: 22px;
@@ -516,15 +569,17 @@
         .card > * { position: relative; z-index: 1; }
         .card:hover {
             border-color: color-mix(in srgb, var(--tts-card-accent) 46%, rgba(255,255,255,0.08));
-            box-shadow: 0 22px 44px -30px var(--tts-card-accent), 0 10px 34px rgba(0,0,0,0.42);
+            box-shadow: 0 24px 46px -34px var(--tts-card-accent), 0 10px 34px rgba(0,0,0,0.42);
             transform: translateY(-3px);
         }
 
         /* LocalClaw Pick Card */
         .card.localclaw-pick {
             --tts-card-accent: var(--gold);
-            border-color: rgba(245,158,11,0.3);
-            background: linear-gradient(180deg, rgba(18,18,20,0.84), rgba(6,6,7,0.94));
+            border-color: rgba(245,158,11,0.24);
+            background:
+                radial-gradient(circle at 12% 0%, rgba(245,158,11,0.10), transparent 30%),
+                linear-gradient(180deg, rgba(14,14,16,0.86), rgba(6,6,7,0.96));
         }
         .card.localclaw-pick:hover {
             border-color: rgba(245,158,11,0.45);
@@ -1090,6 +1145,8 @@
         /* Responsive */
         @media (max-width: 1024px) {
             .tts-grid { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
+            .catalog-hero { grid-template-columns: 1fr; }
+            .hero-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -1103,6 +1160,10 @@
             .mobile-filter-btn { display: flex; align-items: center; gap: 6px; }
             .tts-grid { grid-template-columns: 1fr; }
             .card { min-height: 0; }
+            .catalog-hero { padding: 18px; border-radius: 18px; }
+            .catalog-title { letter-spacing: -0.02em; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+            .hero-stat { min-height: 94px; }
             .sort-controls { width: 100%; overflow-x: auto; flex-wrap: nowrap; }
             .nav-links { gap: 12px; }
             .nav-links a { font-size: 11px; }
@@ -1131,8 +1192,10 @@
             .nav-links.open { display: flex; }
             .nav-links a { padding: 8px 12px; border-radius: 8px; font-size: 13px; }
             .nav-links a:hover { background: rgba(255,255,255,0.05); }
-            .hero h1 { font-size: 1.6rem; }
-            .hero-stats { gap: 20px; }
+            .content { padding: 18px 14px 80px; }
+            .topbar { padding: 8px; }
+            .sort-btn { flex: 1; justify-content: center; }
+            .hero-promo-wrap { flex-direction: column; align-items: flex-start; }
             .card { padding: 18px; }
             .card-name { font-size: 19px; }
             .card-meta-row { grid-template-columns: 1fr; }
@@ -1166,26 +1229,6 @@
         html.light .nav-badge {
             background: rgba(139, 92, 246, 0.1) !important;
             border-color: rgba(139, 92, 246, 0.3) !important;
-        }
-        
-        /* Hero */
-        html.light .hero {
-            border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        html.light .hero-badge {
-            background: rgba(139, 92, 246, 0.1) !important;
-            border-color: rgba(139, 92, 246, 0.3) !important;
-        }
-        
-        html.light .hero h1 {
-            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 100%) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-        }
-        
-        html.light .hero p {
-            color: #64748b !important;
         }
         
         html.light .hero-stat-label {
@@ -1460,36 +1503,6 @@
         </div>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-promo-wrap">
-            <div class="wispr-promo-hint">Speech-to-Text</div>
-            <a href="https://ref.wisprflow.ai/cyril-dieumegard" target="_blank" rel="noopener sponsored" class="wispr-promo-btn" title="Wispr Flow - AI Voice Dictation">
-                <span class="promo-header">We recommend</span>
-                <span class="promo-brand">-Wispr Flow-</span>
-            </a>
-        </div>
-        <div class="hero-badge"><svg class="lc-icon lc-icon-sm" style="vertical-align:-2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg> Text-to-Speech Models</div>
-        <h1>Local TTS Models</h1>
-        <p>The most complete directory of open-source Text-to-Speech AI models. Run locally with LM Studio, Ollama, or standalone.</p>
-        <p style="margin-top:8px;font-size:13px;color:var(--muted);">Includes related open ASR reference models (speech-to-text) for end-to-end voice pipeline comparison.</p>
-        <p style="margin-top:12px;font-size:13px;color:var(--muted);"><a href="tts/" style="color:var(--tts-accent);font-weight:700;">Static TTS model pages →</a> SEO-friendly pages for each speech model.</p>
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-val" id="total-tts">0</div>
-                <div class="hero-stat-label">Models</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-val" id="total-langs">0</div>
-                <div class="hero-stat-label">Languages</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-val">0% API</div>
-                <div class="hero-stat-label">Local First*</div>
-            </div>
-        </div>
-    </section>
-
     <!-- Sidebar Overlay (mobile) -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -1608,6 +1621,52 @@
 
         <!-- Content -->
         <main class="content">
+            <section class="catalog-hero">
+                <div>
+                    <div class="catalog-kicker">
+                        <span style="width:7px;height:7px;border-radius:999px;background:var(--tts-accent);box-shadow:0 0 14px rgba(167,139,250,0.75);"></span>
+                        LocalClaw Voice Explorer
+                    </div>
+                    <h1 class="catalog-title">
+                        Find the right <span>TTS</span>
+                    </h1>
+                    <p class="catalog-copy">
+                        Browse <strong id="total-count" style="color:#fff;">55</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
+                    </p>
+                    <div class="catalog-pills" aria-label="Speech catalogue highlights">
+                        <span class="catalog-pill"><strong>Local</strong> voice models</span>
+                        <span class="catalog-pill">TTS + ASR records</span>
+                        <span class="catalog-pill"><a href="tts/" style="color:inherit;">Static model pages →</a></span>
+                    </div>
+                    <div class="hero-promo-wrap">
+                        <div class="wispr-promo-hint">Speech-to-text partner</div>
+                        <a href="https://ref.wisprflow.ai/cyril-dieumegard" target="_blank" rel="noopener sponsored" class="wispr-promo-btn" title="Wispr Flow - AI Voice Dictation">
+                            <span class="promo-header">We recommend</span>
+                            <span class="promo-brand">Wispr Flow</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-stats" aria-label="Speech catalogue statistics">
+                    <div class="hero-stat">
+                        <div class="hero-stat-val" id="total-records">0</div>
+                        <div class="hero-stat-label">Records</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-val" id="total-langs">0</div>
+                        <div class="hero-stat-label">Languages</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-val" id="total-shown">0</div>
+                        <div class="hero-stat-label">Current view</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-val" id="total-picks">0</div>
+                        <div class="hero-stat-label">LocalClaw picks</div>
+                    </div>
+                </div>
+            </section>
+
             <div class="topbar">
                 <button class="mobile-filter-btn" id="mobile-filter-btn"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
                 <div class="search-wrap">
@@ -3186,6 +3245,11 @@
             const grid = document.getElementById('tts-grid');
             const empty = document.getElementById('empty-state');
             const resultCount = document.getElementById('result-count');
+            const shownStat = document.getElementById('total-shown');
+            const picksStat = document.getElementById('total-picks');
+            const pickCount = models.filter(m => m.isPick).length;
+            if (shownStat) shownStat.textContent = models.length;
+            if (picksStat) picksStat.textContent = pickCount;
             
             if (models.length === 0) {
                 grid.innerHTML = '';
@@ -3195,7 +3259,6 @@
             }
             
             empty.style.display = 'none';
-            const pickCount = models.filter(m => m.isPick).length;
             resultCount.innerHTML = `<strong>${models.length}</strong> model${models.length > 1 ? 's' : ''} found${pickCount > 0 ? ` · <span style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> ${pickCount} LocalClaw Pick${pickCount > 1 ? 's' : ''}</span>` : ''}`;
             
             grid.innerHTML = models.map((model, i) => {
@@ -3640,8 +3703,13 @@
         TTS_MODELS.forEach(m => { if (m.languages.includes('multilingual')) { /* count by languageCount */ } else { m.languages.forEach(l => allLangs.add(l)); } });
         const totalUniqueLangs = Math.max(allLangs.size, ...TTS_MODELS.map(m => m.languageCount));
         setTimeout(() => {
-            animateCounter(document.getElementById('total-tts'), TTS_MODELS.filter(m => !m.isAsr).length, '+');
+            const totalRecordCount = TTS_MODELS.length;
+            const localPickCount = TTS_MODELS.filter(m => m.isPick).length;
+            document.getElementById('total-count').textContent = totalRecordCount;
+            animateCounter(document.getElementById('total-records'), totalRecordCount, '');
             animateCounter(document.getElementById('total-langs'), totalUniqueLangs, '+');
+            document.getElementById('total-shown').textContent = totalRecordCount;
+            document.getElementById('total-picks').textContent = localPickCount;
         }, 300);
 
         // Mobile menu is handled by inline onclick in the navbar HTML
