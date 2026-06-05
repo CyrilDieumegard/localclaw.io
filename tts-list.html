@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list.html">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Discover 55 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
+    <meta property="og:description" content="Discover 56 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1631,7 +1631,7 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">55</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
+                        Browse <strong id="total-count" style="color:#fff;">56</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
                         <span class="catalog-pill"><strong>Local</strong> voice models</span>
@@ -2755,6 +2755,31 @@
                 voices: "Zero-shot cloning + multi-speaker",
                 context: "LLM backbone with audio tokenizer, 3B params",
                 license: "Apache 2.0"
+            },
+            {
+                id: "miso-tts",
+                name: "MisoTTS",
+                developer: "Miso Labs",
+                family: "miso",
+                description: "8B English-first emotive conversational TTS model designed for natural dialogue, voice continuation from prompt audio and private local speech experiments. Excellent quality signal, but heavier than small TTS models and best on CUDA GPUs or larger Apple Silicon setups.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["emotion", "dialogue", "cloning", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 16.0,
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 5.8,
+                latency: "medium",
+                releaseDate: "2026-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/MisoLabs/MisoTTS",
+                installCommand: "git clone https://github.com/MisoLabsAI/MisoTTS",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Emotive English dialogue + prompt audio continuation",
+                context: "8B text-to-dialogue RVQ Transformer, Mimi audio tokenizer, 2048 max sequence length",
+                license: "Other / custom"
             },
             {
                 id: "zonos",

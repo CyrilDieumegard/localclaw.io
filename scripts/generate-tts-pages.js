@@ -40,6 +40,7 @@ const familyColors = {
   f5: '#f97316',
   fish: '#f97316',
   higgs: '#fb7185',
+  miso: '#a78bfa',
   index: '#fb7185',
   whisper: '#3b82f6',
   parakeet: '#38bdf8',
