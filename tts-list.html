@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list.html">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Discover 56 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
+    <meta property="og:description" content="Discover 57 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1631,7 +1631,7 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">56</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
+                        Browse <strong id="total-count" style="color:#fff;">57</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
                         <span class="catalog-pill"><strong>Local</strong> voice models</span>
@@ -2780,6 +2780,31 @@
                 voices: "Emotive English dialogue + prompt audio continuation",
                 context: "8B text-to-dialogue RVQ Transformer, Mimi audio tokenizer, 2048 max sequence length",
                 license: "Other / custom"
+            },
+            {
+                id: "wavtts",
+                name: "WavTTS",
+                developer: "WavTTS Team",
+                family: "wavtts",
+                description: "Research-grade zero-shot TTS that generates speech directly in raw waveform space instead of mel spectrograms, codec tokens or VAE latents. High-fidelity EN/ZH voice cloning direction, but the official 16 kHz checkpoint is large and best for CUDA GPU setups.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "multilingual", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 10.8,
+                sizeCategory: "large",
+                quality: 9.1,
+                speed: 5.2,
+                latency: "high",
+                releaseDate: "2026-06",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/worstchan/WavTTS",
+                installCommand: "git clone https://github.com/cwx-worst-one/WavTTS && pip install -e .",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot EN/ZH voice cloning from reference audio",
+                context: "Official 16 kHz checkpoint, direct raw waveform generation with flow matching + DiT",
+                license: "CC-BY-NC 4.0 weights / MIT code"
             },
             {
                 id: "zonos",

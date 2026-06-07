@@ -41,6 +41,7 @@ const familyColors = {
   fish: '#f97316',
   higgs: '#fb7185',
   miso: '#a78bfa',
+  wavtts: '#38bdf8',
   index: '#fb7185',
   whisper: '#3b82f6',
   parakeet: '#38bdf8',
@@ -116,6 +117,7 @@ function bestForSentence(model) {
 
 function commercialNote(model) {
   if (!model.license) return 'Check the upstream license before commercial use.';
+  if (/non.?commercial|\bNC\b|by-nc|research|custom|terms|cpml/i.test(model.license)) return `${esc(model.license)} license. Review upstream restrictions before commercial use.`;
   if (/apache|mit|bsd/i.test(model.license)) return `${esc(model.license)} license. Still verify upstream usage notes before shipping.`;
   return `${esc(model.license)} license. Review upstream restrictions before commercial use.`;
 }
