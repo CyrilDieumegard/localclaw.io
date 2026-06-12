@@ -3,7 +3,7 @@ const path = require('path');
 const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const TODAY = '2026-06-05';
+const TODAY = '2026-06-12';
 function loadModels(){const ctx={};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(ROOT,'js/data.js'),'utf8')+';this.APP_DATA=APP_DATA;',ctx);return ctx.APP_DATA.models;}
 function url(loc,lastmod=TODAY,changefreq='monthly',priority='0.8'){return `    <url>\n        <loc>${BASE}${loc}</loc>\n        <lastmod>${lastmod}</lastmod>\n        <changefreq>${changefreq}</changefreq>\n        <priority>${priority}</priority>\n    </url>`}
 const urls=[];
@@ -19,10 +19,12 @@ urls.push(url('/ram/', TODAY, 'weekly', '0.9'));
 urls.push(url('/hardware/', TODAY, 'weekly', '0.9'));
 urls.push(url('/use-case/', TODAY, 'weekly', '0.9'));
 urls.push(url('/tts/', TODAY, 'weekly', '0.9'));
+urls.push(url('/guides/', TODAY, 'weekly', '0.9'));
 for (const tier of [8,16,32,64,128]) urls.push(url(`/ram/${tier}gb.html`, TODAY, 'monthly', '0.85'));
 if (fs.existsSync(path.join(ROOT,'hardware'))) for (const f of fs.readdirSync(path.join(ROOT,'hardware')).filter(f=>f.endsWith('.html')&&f!=='index.html'&&!f.includes('mac-studio-m4-ultra')).sort()) urls.push(url(`/hardware/${f}`, TODAY, 'monthly', '0.85'));
 if (fs.existsSync(path.join(ROOT,'use-case'))) for (const f of fs.readdirSync(path.join(ROOT,'use-case')).filter(f=>f.endsWith('.html')&&f!=='index.html').sort()) urls.push(url(`/use-case/${f}`, TODAY, 'monthly', '0.85'));
 if (fs.existsSync(path.join(ROOT,'tts'))) for (const f of fs.readdirSync(path.join(ROOT,'tts')).filter(f=>f.endsWith('.html')&&f!=='index.html').sort()) urls.push(url(`/tts/${f}`, TODAY, 'monthly', '0.8'));
+if (fs.existsSync(path.join(ROOT,'guides'))) for (const f of fs.readdirSync(path.join(ROOT,'guides')).filter(f=>f.endsWith('.html')&&f!=='index.html').sort()) urls.push(url(`/guides/${f}`, TODAY, 'monthly', '0.88'));
 urls.push(url('/blog/', TODAY, 'weekly', '0.9'));
 for (const f of fs.readdirSync(path.join(ROOT,'blog')).filter(f=>f.endsWith('.html')&&f!=='index.html').sort()) urls.push(url(`/blog/${f}`, TODAY, 'monthly', f.includes('best-local-ai')?'0.9':'0.8'));
 const seen = new Set();
