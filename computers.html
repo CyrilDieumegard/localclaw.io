@@ -1272,7 +1272,7 @@
                 const qColor = getQualityColor(q);
                 const isPick = picks.indexOf(m.id) < 3 && picks.includes(m.id);
 
-                return `<a href="models/${m.id}.html" class="m-item${isPick ? ' curated' : ''}">
+                return `<a href="models/${m.id}.html" class="m-item${isPick ? ' curated' : ''}" data-fast-goal="model_open" data-fast-goal-source="computers_card" data-fast-goal-model="${esc(m.id)}" data-fast-goal-machine="${esc(comp.id)}">
                     <div class="m-dot ${fam}"></div>
                     <div class="m-info">
                         <div class="m-name">${isPick ? '<span class="pick-star">★</span> ' : ''}${esc(m.name)}</div>
@@ -1291,8 +1291,8 @@
 
             const amazonUrl = comp.amazonUrl || (comp.asin ? `https://www.amazon.com/dp/${comp.asin}?tag=localclaw-20` : null);
             const actionBtn = amazonUrl
-                ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon">${SVG.amazon} View on Amazon</a>`
-                : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store">${SVG.apple} View on Apple.com</a>`;
+                ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} View on Amazon</a>`
+                : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store" data-fast-goal="apple_store_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.apple} View on Apple.com</a>`;
             const priceLabel = /^check/i.test(comp.price) ? esc(comp.price) : `from ${esc(comp.price)}`;
 
             return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">
@@ -1320,7 +1320,7 @@
                     <div class="m-list">
                         ${modelsHtml || '<div style="padding:20px;text-align:center;color:var(--muted2);font-size:13px;">No compatible models found</div>'}
                     </div>
-                    ${more ? `<div class="view-all"><a href="llm-list.html">View all ${models.length} compatible models ${SVG.arrowR}</a></div>` : ''}
+                    ${more ? `<div class="view-all"><a href="llm-list.html" data-fast-goal="catalogue_click" data-fast-goal-source="computers_card" data-fast-goal-target="llm" data-fast-goal-machine="${esc(comp.id)}">View all ${models.length} compatible models ${SVG.arrowR}</a></div>` : ''}
                 </div>
                 <div class="card-action">${actionBtn}</div>
             </div>`;

@@ -1384,6 +1384,10 @@
         var activeQuant = {};
         var activeFresh = {};
         var minB = { speed:0, quality:0, coding:0, reasoning:0 };
+        function trackDataFastGoal(name, data) {
+            if (typeof window.datafast !== 'function') return;
+            try { window.datafast(name, data || {}); } catch (e) {}
+        }
 
         var FCOL = {
             'llama':'#3B82F6','qwen':'#A855F7','deepseek':'#10B981','gemma':'#F59E0B',
@@ -1508,7 +1512,7 @@
             for(var j=0;j<arr.length;j++){
                 var fam=arr[j][0],cnt=arr[j][1],c=fcol(fam);
                 var d=fam.charAt(0).toUpperCase()+fam.slice(1);
-                h+='<button class="chip" data-family="'+esc(fam)+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(d)+' <span style="opacity:0.5;">('+cnt+')</span></button>';
+                h+='<button class="chip" data-family="'+esc(fam)+'" data-fast-goal="filter_apply_llm" data-fast-goal-group="family" data-fast-goal-value="'+esc(fam)+'"><span class="family-dot" style="background:'+c+'"></span>'+esc(d)+' <span style="opacity:0.5;">('+cnt+')</span></button>';
             }
             document.getElementById('family-filters').innerHTML=h;
         }
@@ -1524,9 +1528,10 @@
                     search=si.value.trim().toLowerCase();
                     sc.style.display=search?'block':'none';
                     run();
+                    if(search.length>=2) trackDataFastGoal('search_llm', {query: search.substring(0,64), shown: String(filtered.length)});
                 },120);
             });
-            sc.addEventListener('click',function(){ si.value='';search='';sc.style.display='none';si.focus();run(); });
+            sc.addEventListener('click',function(){ si.value='';search='';sc.style.display='none';si.focus();run();trackDataFastGoal('filter_reset_llm', {source:'search_clear'}); });
 
             // Chips delegation
             document.getElementById('tag-filters').addEventListener('click',function(e){
@@ -1535,6 +1540,7 @@
                 if(activeTags[t]){delete activeTags[t];b.classList.remove('active');}
                 else{activeTags[t]=true;b.classList.add('active');}
                 run();
+                trackDataFastGoal('filter_apply_llm', {group:'tag', value:t, active:String(!!activeTags[t]), shown:String(filtered.length)});
             });
             document.getElementById('ram-filters').addEventListener('click',function(e){
                 var b=e.target.closest('[data-ram]');if(!b)return;
@@ -1542,6 +1548,7 @@
                 if(activeRam[r]){delete activeRam[r];b.classList.remove('active');}
                 else{activeRam[r]=true;b.classList.add('active');}
                 run();
+                trackDataFastGoal('filter_apply_llm', {group:'ram', value:r, active:String(!!activeRam[r]), shown:String(filtered.length)});
             });
             document.getElementById('family-filters').addEventListener('click',function(e){
                 var b=e.target.closest('[data-family]');if(!b)return;
@@ -1549,6 +1556,7 @@
                 if(activeFam[f]){delete activeFam[f];b.classList.remove('active');}
                 else{activeFam[f]=true;b.classList.add('active');}
                 run();
+                trackDataFastGoal('filter_apply_llm', {group:'family', value:f, active:String(!!activeFam[f]), shown:String(filtered.length)});
             });
             bindChipFilter('capability-filters','data-tag',activeTags);
             bindChipFilter('mode-filters','data-mode',activeMode);
@@ -1560,7 +1568,7 @@
             ['speed','quality','coding','reasoning'].forEach(function(k){
                 var sl=document.getElementById('min-'+k);
                 var vl=document.getElementById('min-'+k+'-val');
-                sl.addEventListener('input',function(){ minB[k]=parseInt(sl.value); vl.textContent=sl.value; run(); });
+                sl.addEventListener('input',function(){ minB[k]=parseInt(sl.value); vl.textContent=sl.value; run(); trackDataFastGoal('filter_apply_llm', {group:'benchmark', value:k, min:String(minB[k]), shown:String(filtered.length)}); });
             });
 
             // Sort
@@ -1576,20 +1584,21 @@
                     document.getElementById('sort-label').textContent=this.textContent.trim();
                     document.getElementById('sort-dropdown').style.display='none';
                     run();
+                    trackDataFastGoal('sort_llm', {sort:sortKey, shown:String(filtered.length)});
                 });
             }
             document.addEventListener('click',function(){ document.getElementById('sort-dropdown').style.display='none'; });
 
             // View
-            document.getElementById('view-grid').addEventListener('click',function(){ viewMode='grid'; this.classList.add('active-view'); document.getElementById('view-table').classList.remove('active-view'); render(); });
-            document.getElementById('view-table').addEventListener('click',function(){ viewMode='table'; this.classList.add('active-view'); document.getElementById('view-grid').classList.remove('active-view'); render(); });
+            document.getElementById('view-grid').addEventListener('click',function(){ viewMode='grid'; this.classList.add('active-view'); document.getElementById('view-table').classList.remove('active-view'); render(); trackDataFastGoal('view_switch_llm', {view:'grid'}); });
+            document.getElementById('view-table').addEventListener('click',function(){ viewMode='table'; this.classList.add('active-view'); document.getElementById('view-grid').classList.remove('active-view'); render(); trackDataFastGoal('view_switch_llm', {view:'table'}); });
 
             // Reset
-            document.getElementById('reset-filters').addEventListener('click', resetAll);
+            document.getElementById('reset-filters').addEventListener('click', function(){ resetAll(); trackDataFastGoal('filter_reset_llm', {source:'reset_button'}); });
 
             // Presets
             var pbtns=document.querySelectorAll('.preset-btn');
-            for(var p=0;p<pbtns.length;p++) pbtns[p].addEventListener('click',function(){ applyPreset(this.getAttribute('data-preset')); });
+            for(var p=0;p<pbtns.length;p++) pbtns[p].addEventListener('click',function(){ var preset=this.getAttribute('data-preset'); applyPreset(preset); trackDataFastGoal('preset_llm', {preset:preset, shown:String(filtered.length)}); });
 
             // Mobile sidebar
             document.getElementById('mobile-filter-btn').addEventListener('click',function(){
@@ -1617,6 +1626,7 @@
                 if(store[v]){delete store[v];b.classList.remove('active');}
                 else{store[v]=true;b.classList.add('active');}
                 run();
+                trackDataFastGoal('filter_apply_llm', {group:id.replace('-filters',''), value:v, active:String(!!store[v]), shown:String(filtered.length)});
             });
         }
 
@@ -1745,7 +1755,7 @@
                     var sizeLabel=m.hosted_only?'Hosted':m.size_gb+' GB';
                     var quantLabel=m.hosted_only?'API':(m.recommended_quant||'Q4_K_M');
 
-                    h+='<div class="card" style="--family-color:'+c+'" data-detail-url="'+detailUrl+'" onclick="goToDetail(event,this)">';
+                    h+='<div class="card" style="--family-color:'+c+'" data-detail-url="'+detailUrl+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'" onclick="goToDetail(event,this)">';
                     h+='<div class="model-card-inner">';
 
                     h+='<div class="model-card-top">';
@@ -1755,7 +1765,7 @@
                     h+='<span class="param-pill">'+esc(m.params)+'</span>';
                     h+='</div>';
 
-                    h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'">'+esc(m.name)+'</a>';
+                    h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid_title" data-fast-goal-model="'+esc(m.id)+'">'+esc(m.name)+'</a>';
                     h+='<div class="model-desc">'+esc(m.description)+'</div>';
 
                     h+='<div class="model-tags">';
@@ -1778,10 +1788,10 @@
                     h+='</div>';
 
                     h+='<div class="model-actions">';
-                    h+='<a href="'+detailUrl+'" class="model-details-link">View model <span>→</span></a>';
+                    h+='<a href="'+detailUrl+'" class="model-details-link" data-fast-goal="model_open" data-fast-goal-source="llm_grid_cta" data-fast-goal-model="'+esc(m.id)+'">View model <span>→</span></a>';
                     h+='<div class="card-links">';
-                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(m.hosted_only?'Source':'HuggingFace')+'">'+(m.hosted_only?'API':'HF')+'</a>';
-                    if(!m.hosted_only) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio">LM</a>';
+                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(m.hosted_only?'Source':'HuggingFace')+'" data-fast-goal="hf_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'API':'HF')+'</a>';
+                    if(!m.hosted_only) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio" data-fast-goal="lmstudio_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">LM</a>';
                     h+='</div></div>';
                     h+='</div></div>';
                 }
@@ -1794,7 +1804,7 @@
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     h+='<tr>';
                     var detailUrl2='models/'+encodeURIComponent(m.id)+'.html';
-                    h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
+                    h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" data-fast-goal="model_open" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
                     if(isN) h+=' <span class="new-badge">NEW</span>';
                     h+='</div></td>';
                     h+='<td style="color:var(--muted);text-transform:capitalize;">'+esc(m.family)+'</td>';
@@ -1805,7 +1815,7 @@
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+m.benchmarks.coding+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+m.benchmarks.reasoning+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+esc(m.recommended_quant)+'</td>';
-                    h+='<td style="text-align:center;"><a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;">'+(m.hosted_only?'↗':'🤗')+'</a></td>';
+                    h+='<td style="text-align:center;"><a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;" data-fast-goal="hf_click" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'↗':'🤗')+'</a></td>';
                     h+='</tr>';
                 }
                 document.getElementById('models-tbody').innerHTML=h;

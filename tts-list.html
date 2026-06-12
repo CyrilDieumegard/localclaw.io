@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS List — Best Local Text-to-Speech AI Models | LocalClaw</title>
-    <meta name="description" content="Discover 55 local TTS, ASR and speech AI models: VoxCPM2, Supertonic 3, MOSS-TTS-Nano, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
+    <meta name="description" content="Discover 57 local TTS, ASR and speech AI models: MisoTTS, WavTTS, VoxCPM2, Supertonic 3, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list.html">
 
@@ -3179,6 +3179,10 @@
         };
         let currentSort = 'default';
         let compareList = [];
+        function trackDataFastGoal(name, data) {
+            if (typeof window.datafast !== 'function') return;
+            try { window.datafast(name, data || {}); } catch (e) {}
+        }
 
         // Quality color helper
         function qualityColor(val) {
@@ -3384,7 +3388,7 @@
                 const isCompared = compareList.includes(model.id);
                 
                 return `
-                <article class="${cardClass}" data-id="${model.id}" data-url="tts/${model.id}.html" onclick="openTtsCard(event, 'tts/${model.id}.html')" tabindex="0" role="link" aria-label="Open ${model.name} model page">
+                <article class="${cardClass}" data-id="${model.id}" data-url="tts/${model.id}.html" data-fast-goal="tts_open" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}" onclick="openTtsCard(event, 'tts/${model.id}.html')" tabindex="0" role="link" aria-label="Open ${model.name} model page">
                     ${newBadge}
                     <div class="card-header">
                         <div class="card-kicker">
@@ -3435,10 +3439,10 @@
                     </div>
                     <div class="card-footer">
                         <div class="card-links">
-                            <a href="${model.hfLink}" target="_blank" class="card-link card-link-secondary">🤗 HuggingFace</a>
+                            <a href="${model.hfLink}" target="_blank" class="card-link card-link-secondary" data-fast-goal="hf_click" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">🤗 HuggingFace</a>
                         </div>
                         <div class="card-links">
-                            <button class="compare-btn-card ${isCompared ? 'active' : ''}" data-id="${model.id}" onclick="toggleCompare('${model.id}')" title="Add to comparison">
+                            <button class="compare-btn-card ${isCompared ? 'active' : ''}" data-id="${model.id}" onclick="toggleCompare('${model.id}')" title="Add to comparison" data-fast-goal="compare_tts" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
                                 </svg>
@@ -3630,6 +3634,7 @@
                 chip.classList.add('active');
                 activeFilters[prop] = chip.dataset.filter;
                 filterModels();
+                trackDataFastGoal('filter_apply_tts', {group: prop, value: activeFilters[prop], shown: String(document.querySelectorAll('#tts-grid .card').length)});
             });
         }
 
@@ -3647,6 +3652,7 @@
                     chip.classList.add('active');
                 }
                 filterModels();
+                trackDataFastGoal('filter_apply_tts', {group: prop, value: value, active: String(!!activeFilters[prop][value]), shown: String(document.querySelectorAll('#tts-grid .card').length)});
             });
         }
 
@@ -3673,6 +3679,7 @@
             document.querySelector('#lang-filters [data-filter="all"]').classList.add('active');
             document.querySelector('#hardware-filters [data-filter="all"]').classList.add('active');
             filterModels();
+            trackDataFastGoal('filter_reset_tts', {source: 'reset_button'});
         }
 
         // Event listeners — Filters
@@ -3696,12 +3703,19 @@
             chip.classList.toggle('active');
             activeFilters.pick = chip.classList.contains('active');
             filterModels();
+            trackDataFastGoal('filter_apply_tts', {group: 'pick', value: 'localclaw_pick', active: String(activeFilters.pick), shown: String(document.querySelectorAll('#tts-grid .card').length)});
         });
 
         // Search
+        let ttsSearchTimer;
         document.getElementById('search-input').addEventListener('input', e => {
             activeFilters.search = e.target.value;
             filterModels();
+            clearTimeout(ttsSearchTimer);
+            ttsSearchTimer = setTimeout(() => {
+                const query = activeFilters.search.trim();
+                if (query.length >= 2) trackDataFastGoal('search_tts', {query: query.substring(0,64), shown: String(document.querySelectorAll('#tts-grid .card').length)});
+            }, 180);
         });
 
         // Sort buttons
@@ -3711,6 +3725,7 @@
                 btn.classList.add('active');
                 currentSort = btn.dataset.sort;
                 filterModels();
+                trackDataFastGoal('sort_tts', {sort: currentSort, shown: String(document.querySelectorAll('#tts-grid .card').length)});
             });
         });
 

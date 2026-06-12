@@ -23,6 +23,11 @@ const App = {
         });
     },
 
+    trackGoal(name, data = {}) {
+        if (typeof window.datafast !== 'function') return;
+        try { window.datafast(name, data); } catch (e) {}
+    },
+
     // ========================================================================
     // NAVIGATION & STATE
     // ========================================================================
@@ -51,6 +56,7 @@ const App = {
         this.state.activeFlow = flowId;
         this.state.currentStepIndex = 0;
         this.state.answers = {};
+        this.trackGoal('recommender_start', {flow: flowId});
 
         if (flowId === 'pro') {
             this.state.view = 'pro-input';
@@ -323,6 +329,12 @@ const App = {
         this.state._contextNote = highContext; // flag for KV-cache note in results
         this.state.view = 'results';
         this.render();
+        this.trackGoal('recommender_complete', {
+            flow: String(this.state.activeFlow || ''),
+            top_model: String(finalRecs[0]?.id || ''),
+            count: String(finalRecs.length),
+            ram: String(ramLimit || '')
+        });
     },
 
     // --- "Why this pick" explanation builder ---
@@ -848,7 +860,7 @@ const App = {
 
             // macOS / Linux → CTA vers pricing.html
             return `
-            <div class="ocs-card" onclick="window.location.href='pricing.html'" role="button" tabindex="0" aria-label="Get LocalClaw Installer">
+            <div class="ocs-card" onclick="window.location.href='pricing.html'" role="button" tabindex="0" aria-label="Get LocalClaw Installer" data-fast-goal="pricing_cta_click" data-fast-goal-source="one_click_overlay">
                 <div class="ocs-card-inner">
                     <div class="ocs-header">
                         <span class="ocs-icon">
@@ -864,7 +876,7 @@ const App = {
                             <span class="ocs-price">$49</span>
                             <span class="ocs-price-note">one-time · optional</span>
                         </div>
-                        <a class="ocs-btn" href="pricing.html" onclick="event.stopPropagation()">
+                        <a class="ocs-btn" href="pricing.html" onclick="event.stopPropagation()" data-fast-goal="pricing_cta_click" data-fast-goal-source="one_click_overlay">
                             View optional installer →
                         </a>
                     </div>
@@ -940,7 +952,7 @@ const App = {
         }
 
         const productCards = products.filter(p => p.show).map(p => `
-            <a href="${productLink(p)}" target="_blank" rel="noopener sponsored" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,153,0,0.03);border:1px solid rgba(255,153,0,0.08);text-decoration:none;color:inherit;transition:all .2s;margin-bottom:6px;" onmouseover="this.style.borderColor='rgba(255,153,0,0.25)';this.style.background='rgba(255,153,0,0.06)'" onmouseout="this.style.borderColor='rgba(255,153,0,0.08)';this.style.background='rgba(255,153,0,0.03)'">
+            <a href="${productLink(p)}" target="_blank" rel="noopener sponsored" data-fast-goal="amazon_click" data-fast-goal-source="recommender_products" data-fast-goal-product="${p.name}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:rgba(255,153,0,0.03);border:1px solid rgba(255,153,0,0.08);text-decoration:none;color:inherit;transition:all .2s;margin-bottom:6px;" onmouseover="this.style.borderColor='rgba(255,153,0,0.25)';this.style.background='rgba(255,153,0,0.06)'" onmouseout="this.style.borderColor='rgba(255,153,0,0.08)';this.style.background='rgba(255,153,0,0.03)'">
                 <span style="font-size:10px;padding:2px 6px;background:rgba(255,153,0,0.12);color:#FF9900;border-radius:5px;font-weight:700;flex-shrink:0;white-space:nowrap;">${p.badge}</span>
                 <span style="flex:1;min-width:0;"><span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.9);display:block;">${p.name}</span><span style="font-size:11px;color:#a1a1aa;">${p.price}</span></span>
                 <span style="padding:5px 10px;border-radius:7px;background:#FF9900;color:#111;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;">View on Amazon →</span>
@@ -1248,8 +1260,8 @@ const App = {
                             Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
-                            <a href="pricing.html" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <button onclick="App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">or find my model →</button>
+                            <a href="pricing.html" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
+                            <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                         </div>
                         <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
                     </div>
@@ -1323,7 +1335,7 @@ const App = {
                 </div>
             </section>
 
-            <section class="mb-20">
+            <section id="model-finder" class="mb-20">
                 <div class="rounded-2xl border border-white/10 bg-[radial-gradient(ellipse_at_top,rgba(255,69,58,0.10),transparent_45%),rgba(255,255,255,0.025)] p-6 sm:p-8">
                     <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div>
@@ -1331,7 +1343,7 @@ const App = {
                             <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
                             <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
                         </div>
-                        <button onclick="App.startFlow('guided')" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</button>
+                        <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); App.startFlow('guided')" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
                     </div>
                     <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                         ${rankingSignals.map(([num, title, desc, example]) => `
@@ -1375,11 +1387,11 @@ const App = {
             <section class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" class="text-claw-primary hover:text-white">55 speech models →</a><a href="ram/" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="tts" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">57 speech models →</a><a href="ram/" data-fast-goal="catalogue_click" data-fast-goal-target="ram" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM guides →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `
-                        <a href="${href}" class="group rounded-xl border ${classes} p-5 transition-all hover:-translate-y-0.5 hover:border-white/30">
+                        <a href="${href}" data-fast-goal="${href.startsWith('tts/') ? 'tts_open' : 'model_open'}" data-fast-goal-source="home_teaser" data-fast-goal-model="${href.split('/').pop().replace('.html','')}" class="group rounded-xl border ${classes} p-5 transition-all hover:-translate-y-0.5 hover:border-white/30">
                             <div class="flex items-center justify-between gap-3 mb-4"><span class="font-mono text-[10px] uppercase tracking-[0.18em]">${tag}</span><span class="text-claw-muted group-hover:text-white transition-colors">→</span></div>
                             <h3 class="text-lg font-display font-bold text-white mb-2">${name}</h3>
                             <p class="text-xs font-mono text-claw-muted leading-relaxed">${meta}</p>

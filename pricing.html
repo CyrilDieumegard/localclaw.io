@@ -208,6 +208,26 @@
             line-height: 1.6;
         }
 
+        .trust-strip {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trust-strip span {
+            border: 1px solid rgba(255, 69, 58, 0.22);
+            background: rgba(255, 69, 58, 0.07);
+            color: #e5e7eb;
+            border-radius: 999px;
+            padding: 7px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
         .product-window {
             position: relative;
             border: 1px solid rgba(255, 69, 58, 0.34);
@@ -690,10 +710,16 @@
                     A native control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban work from your Mac.
                 </p>
                 <div class="cta-row">
-                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener">Get beta access - $49</a>
-                    <a class="cta-secondary" href="/downloads/localclaw.dmg">Download installer</a>
+                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get beta access - $49</a>
+                    <a class="cta-secondary" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Download installer</a>
                 </div>
                 <p class="microcopy">Apple-notarized DMG. $49 one-time. No subscription. Installer downloads freely; activation requires a license key.</p>
+                <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
+                    <span>Apple-notarized DMG</span>
+                    <span>$49 lifetime beta</span>
+                    <span>No subscription</span>
+                    <span>Web recommender stays free</span>
+                </div>
             </div>
 
             <aside class="product-window" aria-label="LocalClaw macOS app preview">
@@ -703,7 +729,7 @@
                     <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Local LLM</div>
                 </div>
                 <div class="product-shot">
-                    <button class="carousel-frame" type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot">
+                    <button class="carousel-frame" type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot" data-fast-goal="pricing_screenshot_open" data-fast-goal-source="pricing_carousel">
                         <img
                             id="pricing-carousel-image"
                             src="images/pricing-carousel/home.jpg?v=20260602"
@@ -720,20 +746,20 @@
                             <span id="pricing-carousel-caption">Home, readiness checks, tokens, channels and system load in the native app.</span>
                         </div>
                         <div class="carousel-controls" aria-label="LocalClaw app screenshots">
-                            <button class="carousel-control is-active" type="button" data-pricing-slide="0" aria-label="Show dashboard screenshot">1</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="1" aria-label="Show install screenshot">2</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="2" aria-label="Show updates screenshot">3</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="3" aria-label="Show control center screenshot">4</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="4" aria-label="Show OpenClaw Chat screenshot">5</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="5" aria-label="Show Developer screenshot">6</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="6" aria-label="Show Models screenshot">7</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="7" aria-label="Show Skills screenshot">8</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="8" aria-label="Show Channels screenshot">9</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="9" aria-label="Show Agents screenshot">10</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="10" aria-label="Show Cron Jobs screenshot">11</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="11" aria-label="Show Kanban screenshot">12</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="12" aria-label="Show Help screenshot">13</button>
-                            <button class="carousel-control" type="button" data-pricing-slide="13" aria-label="Show Uninstall screenshot">14</button>
+                            <button class="carousel-control is-active" type="button" data-pricing-slide="0" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="home" aria-label="Show dashboard screenshot">1</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="1" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="install" aria-label="Show install screenshot">2</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="2" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="updates" aria-label="Show updates screenshot">3</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="3" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="control_center" aria-label="Show control center screenshot">4</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="4" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="chat" aria-label="Show OpenClaw Chat screenshot">5</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="5" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="developer" aria-label="Show Developer screenshot">6</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="6" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="models" aria-label="Show Models screenshot">7</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="7" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="skills" aria-label="Show Skills screenshot">8</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="8" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="channels" aria-label="Show Channels screenshot">9</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="9" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="agents" aria-label="Show Agents screenshot">10</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="10" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="cron_jobs" aria-label="Show Cron Jobs screenshot">11</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="11" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="kanban" aria-label="Show Kanban screenshot">12</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="12" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="help" aria-label="Show Help screenshot">13</button>
+                            <button class="carousel-control" type="button" data-pricing-slide="13" data-fast-goal="pricing_carousel_slide" data-fast-goal-slide="uninstall" aria-label="Show Uninstall screenshot">14</button>
                         </div>
                     </div>
                     <div class="quick-specs">
@@ -796,7 +822,7 @@
                         </div>
                     </div>
                     <div class="cta-row">
-                        <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener">Buy lifetime access</a>
+                        <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_price_panel">Buy lifetime access</a>
                     </div>
                 </div>
 
@@ -865,13 +891,13 @@
                     <div class="mono-label text-xs text-claw-muted mb-4">Free website</div>
                     <h3 class="text-2xl font-display font-bold text-white">Model recommender</h3>
                     <p class="text-claw-muted mt-3 leading-relaxed">Browse the LLM and TTS/ASR catalogues, filter by RAM, use case and hardware, then install manually.</p>
-                    <a href="index.html" class="cta-secondary mt-6">Find my model</a>
+                    <a href="index.html" class="cta-secondary mt-6" data-fast-goal="recommender_start" data-fast-goal-source="pricing_compare">Find my model</a>
                 </article>
                 <article class="card card-hot">
                     <div class="mono-label text-xs text-claw-primary mb-4">Paid beta app</div>
                     <h3 class="text-2xl font-display font-bold text-white">LocalClaw for macOS</h3>
                     <p class="text-claw-muted mt-3 leading-relaxed">Get the native control center with guided setup, activation, update flows, model operations and email support.</p>
-                    <a href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" class="cta-primary mt-6">Get LocalClaw - $49</a>
+                    <a href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" class="cta-primary mt-6" data-fast-goal="checkout_click" data-fast-goal-source="pricing_compare">Get LocalClaw - $49</a>
                 </article>
             </div>
         </section>
@@ -933,7 +959,7 @@
                     <h2 class="font-display font-bold text-white text-3xl sm:text-5xl leading-tight">Install OpenClaw from one native Mac dashboard.</h2>
                     <p class="text-claw-muted mt-4 max-w-2xl leading-relaxed">$49 one-time. Beta lifetime access. Apple-notarized DMG. No subscription.</p>
                 </div>
-                <a class="cta-primary shrink-0" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener">Get LocalClaw</a>
+                <a class="cta-primary shrink-0" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_final_cta">Get LocalClaw</a>
             </div>
         </section>
     </main>

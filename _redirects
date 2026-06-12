@@ -7,6 +7,44 @@
 # Prevent deep duplicate paths (e.g. /blog/blog/...) reported by SEO crawlers
 /blog/blog/*             /blog/:splat   301!
 
+# Prevent crawler-generated nested silo duplicates from serving the homepage as 200.
+# These paths are invalid; send them to the nearest canonical silo root.
+/blog/models/*           /models/       301!
+/blog/tts/*              /tts/          301!
+/blog/ram/*              /ram/          301!
+/blog/hardware/*         /hardware/     301!
+/blog/use-case/*         /use-case/     301!
+/models/blog/*           /blog/         301!
+/models/models/*         /models/       301!
+/models/tts/*            /tts/          301!
+/models/ram/*            /ram/          301!
+/models/hardware/*       /hardware/     301!
+/models/use-case/*       /use-case/     301!
+/tts/blog/*              /blog/         301!
+/tts/models/*            /models/       301!
+/tts/tts/*               /tts/          301!
+/tts/ram/*               /ram/          301!
+/tts/hardware/*          /hardware/     301!
+/tts/use-case/*          /use-case/     301!
+/ram/blog/*              /blog/         301!
+/ram/models/*            /models/       301!
+/ram/tts/*               /tts/          301!
+/ram/ram/*               /ram/          301!
+/ram/hardware/*          /hardware/     301!
+/ram/use-case/*          /use-case/     301!
+/hardware/blog/*         /blog/         301!
+/hardware/models/*       /models/       301!
+/hardware/tts/*          /tts/          301!
+/hardware/ram/*          /ram/          301!
+/hardware/hardware/*     /hardware/     301!
+/hardware/use-case/*     /use-case/     301!
+/use-case/blog/*         /blog/         301!
+/use-case/models/*       /models/       301!
+/use-case/tts/*          /tts/          301!
+/use-case/ram/*          /ram/          301!
+/use-case/hardware/*     /hardware/     301!
+/use-case/use-case/*     /use-case/     301!
+
 # Legacy typo redirect (old internal link referenced a non-existent file)
 /blog/best-local-llms-2026.html   /blog/best-local-ai-models-2026.html   301!
 
