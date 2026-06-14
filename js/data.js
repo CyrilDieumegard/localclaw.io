@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 4, 2026 — Added Gemma 4 12B — 188 LLM total
+// Updated June 14, 2026 — Added Kimi K2.7 Code and MiniMax M3 — 190 LLM total
+// Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
 // Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
 // Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
 // Previous: April 23 — Qwen 3.6 (6.7B + 27B), Kimi K2 (Instruct + Thinking), DeepSeek V3.2 Exp, Qwen 3 Next 80B, GLM 4.6 355B,
@@ -1935,6 +1936,22 @@ const APP_DATA = {
             released: '2026-01'
         },
         {
+            id: 'kimi-k2.7-code',
+            name: 'Kimi K2.7 Code (1T MoE)',
+            family: 'kimi',
+            params: '1T (32B active)',
+            size_gb: 595,
+            min_ram: 1024,
+            tags: ['code', 'reasoning', 'agentic', 'multimodal', 'quality'],
+            description: 'Moonshot AI coding-focused agentic Kimi built on K2.6. 1T MoE with 32B active parameters, 256K context, MoonViT vision encoder and stronger long-horizon coding while reducing thinking-token usage by roughly 30% vs K2.6. Modified MIT. Server-grade only.',
+            search_term: 'kimi-k2.7-code',
+            recommended_quant: 'BF16 / compressed-tensors',
+            hf_repo: 'moonshotai/Kimi-K2.7-Code',
+            benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
             id: 'glm4-9b',
             name: 'GLM-4 (9B)',
             family: 'glm',
@@ -2885,6 +2902,22 @@ const APP_DATA = {
             hf_repo: 'MiniMaxAI/MiniMax-M2',
             benchmarks: { speed: 5, quality: 9, coding: 10, reasoning: 9 },
             released: '2025-10',
+            isNew: true
+        },
+        {
+            id: 'minimax-m3',
+            name: 'MiniMax M3 (428B/23B active)',
+            family: 'minimax',
+            params: '428B (23B active)',
+            size_gb: 1700,
+            min_ram: 2048,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'long-context', 'multimodal', 'quality'],
+            description: 'MiniMax native multimodal MoE with 1M context and MiniMax Sparse Attention. Around 428B parameters with 23B active. Built for long-context coding, cowork and agentic workflows, with local deployment via SGLang, vLLM or Transformers. Server-grade only.',
+            search_term: 'minimax-m3',
+            recommended_quant: 'BF16 / custom runtime',
+            hf_repo: 'MiniMaxAI/MiniMax-M3',
+            benchmarks: { speed: 3, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-06',
             isNew: true
         },
 

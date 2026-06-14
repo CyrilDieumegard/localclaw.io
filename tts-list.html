@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS List — Best Local Text-to-Speech AI Models | LocalClaw</title>
-    <meta name="description" content="Discover 57 local TTS, ASR and speech AI models: MisoTTS, WavTTS, VoxCPM2, Supertonic 3, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
+    <meta name="description" content="Discover 58 local TTS, ASR and speech AI models: Dots TTS, MisoTTS, WavTTS, VoxCPM2, Supertonic 3, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list.html">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list.html">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Discover 57 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
+    <meta property="og:description" content="Discover 58 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1631,7 +1631,7 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">57</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
+                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
                         <span class="catalog-pill"><strong>Local</strong> voice models</span>
@@ -2805,6 +2805,31 @@
                 voices: "Zero-shot EN/ZH voice cloning from reference audio",
                 context: "Official 16 kHz checkpoint, direct raw waveform generation with flow matching + DiT",
                 license: "CC-BY-NC 4.0 weights / MIT code"
+            },
+            {
+                id: "dots-tts-mf",
+                name: "Dots TTS MF",
+                developer: "RedNote HiLab",
+                family: "dots",
+                description: "2B fully continuous end-to-end autoregressive TTS system with zero-shot voice cloning. The MF checkpoint distills dots.tts-soar with MeanFlow for few-step, low-latency inference at 48 kHz, while keeping strong speaker similarity and natural prosody. Apache 2.0.",
+                languages: ["en", "zh", "yue", "ja", "ko", "fr", "de", "es", "it", "pt", "nl", "ru", "uk", "pl", "cs", "ro", "el", "fi", "tr", "ar", "hi", "vi", "id", "th"],
+                languageCount: 24,
+                features: ["cloning", "multilingual", "controllable", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.2,
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2026-06",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/rednote-hilab/dots.tts-mf",
+                installCommand: "python -m pip install \"git+https://github.com/rednote-hilab/dots.tts.git\"",
+                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                voices: "Zero-shot voice cloning from reference audio + transcript",
+                context: "2B AR flow-matching TTS, 48 kHz AudioVAE, MeanFlow distilled, recommended NFE=4",
+                license: "Apache 2.0"
             },
             {
                 id: "zonos",
