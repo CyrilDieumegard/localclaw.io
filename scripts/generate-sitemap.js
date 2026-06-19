@@ -3,7 +3,7 @@ const path = require('path');
 const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const TODAY = '2026-06-12';
+const TODAY = '2026-06-19';
 function loadModels(){const ctx={};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(ROOT,'js/data.js'),'utf8')+';this.APP_DATA=APP_DATA;',ctx);return ctx.APP_DATA.models;}
 function url(loc,lastmod=TODAY,changefreq='monthly',priority='0.8'){return `    <url>\n        <loc>${BASE}${loc}</loc>\n        <lastmod>${lastmod}</lastmod>\n        <changefreq>${changefreq}</changefreq>\n        <priority>${priority}</priority>\n    </url>`}
 const urls=[];

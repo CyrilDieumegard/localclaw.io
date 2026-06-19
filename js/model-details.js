@@ -1441,6 +1441,43 @@ var MODEL_DETAILS = {
         paper_url: 'https://arxiv.org/abs/2606.13392',
     },
 
+    // ==================== GLM-5.2 (June 2026 — NEW) ====================
+    'glm-5.2': {
+        developer: 'Z.ai',
+        developer_url: 'https://z.ai/',
+        context_window: 1048576,
+        license: 'MIT',
+        license_url: 'https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE',
+        architecture: 'GLM MoE DSA with 744B total parameters, about 40B active parameters, 8 experts per token, IndexShare sparse attention and a 1M-token context window. The practical local path is the Unsloth Dynamic GGUF release.',
+        training_data: 'Not fully disclosed. Z.ai positions GLM-5.2 as a long-horizon coding, reasoning and agentic engineering model.',
+        languages: ['English', 'Chinese'],
+        strengths: [
+            'MIT open-source license with official Z.ai weights',
+            '1,048,576 token context window for very large repositories and documents',
+            'Strong benchmark positioning across coding, reasoning and agentic tasks',
+            'Unsloth Dynamic GGUF provides 1-bit, 2-bit, 3-bit, 4-bit and higher quantization paths',
+            'Thinking modes can be controlled through reasoning effort / chat template flags',
+        ],
+        weaknesses: [
+            'Not suitable for normal laptops or small desktops',
+            '2-bit Unsloth GGUF still needs roughly 245GB total memory for inference',
+            '4-bit requires roughly 372-475GB total memory depending on quantization',
+            'Full precision / high precision variants are multi-hundred-GB to TB scale',
+            'Requires modern llama.cpp, Unsloth Studio, SGLang, vLLM or advanced runtime support',
+        ],
+        use_cases: [
+            'Private long-horizon coding agents on large workstations',
+            'Repository-scale reasoning and refactoring',
+            'Large document analysis with local data control',
+            'Research on ultra-large open MoE models',
+            'Benchmarking local open models against frontier hosted systems',
+        ],
+        similar_models: ['glm-5.1', 'minimax-m3', 'deepseek-v4-pro', 'kimi-k2.7-code', 'qwen3.5-397b-a17b'],
+        fun_fact: 'Unsloth reports that its Dynamic 2-bit GGUF reduces GLM-5.2 from about 1.51TB of disk space to about 239GB, making a 744B model technically runnable on very high-memory local hardware.',
+        official_blog: 'https://z.ai/blog/glm-5.2',
+        paper_url: 'https://huggingface.co/unsloth/GLM-5.2-GGUF',
+    },
+
     // ==================== LING 2.6 SERIES (April 2026 — NEW) ====================
     'ling-2.6-flash': {
         developer: 'InclusionAI / Ant Group',

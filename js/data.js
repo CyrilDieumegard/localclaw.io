@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 14, 2026 — Added Kimi K2.7 Code and MiniMax M3 — 190 LLM total
+// Updated June 19, 2026 — Added GLM-5.2 Unsloth GGUF — 191 LLM total
+// Previous: June 14, 2026 — Added Kimi K2.7 Code and MiniMax M3 — 190 LLM total
 // Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
 // Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
 // Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
@@ -2794,6 +2795,22 @@ const APP_DATA = {
             hf_repo: 'zai-org/GLM-5.1',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
             released: '2026-05',
+            isNew: true
+        },
+        {
+            id: 'glm-5.2',
+            name: 'GLM-5.2 (744B MoE)',
+            family: 'glm',
+            params: '744B (40B active)',
+            size_gb: 239,
+            min_ram: 256,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'long-context', 'general'],
+            description: 'Z.ai flagship open model for long-horizon coding, reasoning and agentic work. 744B total, 40B active, 1M-token context, MIT license. Unsloth Dynamic GGUF makes it technically local, but it needs workstation/server-class memory: ~245GB total memory for 2-bit and 372GB+ for 4-bit.',
+            search_term: 'glm-5.2',
+            recommended_quant: 'UD-IQ2_M',
+            hf_repo: 'unsloth/GLM-5.2-GGUF',
+            benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-06',
             isNew: true
         },
 
