@@ -26,6 +26,12 @@
 /llm-detail.html
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+/blog/
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
+
+/blog/index.html
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
+
 /blog/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
