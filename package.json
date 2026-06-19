@@ -1,0 +1,9 @@
+{
+  "name": "localclaw-io",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Static LocalClaw website with Cloudflare Pages Functions.",
+  "dependencies": {
+    "@datafast/ai-crawl": "^1.0.5"
+  }
+}
