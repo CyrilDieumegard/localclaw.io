@@ -164,7 +164,7 @@
     .section-copy{max-width:760px;color:var(--muted);margin:8px 0 0;font-size:16px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .grid.two{grid-template-columns:repeat(2,1fr)}
-    .card{position:relative;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));border-radius:20px;padding:20px;overflow:hidden;transition:.2s ease}
+    .card{position:relative;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));border-radius:20px;padding:20px;overflow:hidden;transition:.2s ease}
     .card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0 0,rgba(255,69,58,.12),transparent 40%);opacity:.7;pointer-events:none}
     .card:hover{transform:translateY(-2px);border-color:rgba(255,69,58,.42);box-shadow:0 18px 60px rgba(0,0,0,.36),0 0 30px rgba(255,69,58,.09)}
     .card>*{position:relative}
@@ -180,7 +180,7 @@
     .spec{border:1px solid rgba(255,255,255,.09);background:#111;border-radius:999px;padding:5px 8px;color:#bdbdc7;font:800 11px ui-monospace,monospace}
     .fit{border-top:1px solid rgba(255,255,255,.08);margin-top:16px;padding-top:14px;color:#d7d7dd;font-size:14px}
     .fit b{color:#fff}
-    .buy{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .buy{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:16px}
     .amazon-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#ffb84d,#ff9900);color:#050505;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-radius:12px;padding:12px 14px;min-height:42px;transition:.18s ease}
     .amazon-btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
     .ghost{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14);background:#111;color:#fff;font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-radius:12px;padding:12px 14px;min-height:42px}
