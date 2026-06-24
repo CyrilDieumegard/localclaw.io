@@ -173,6 +173,9 @@
     .tag.amazon{border-color:rgba(255,153,0,.35);color:var(--amazon);background:rgba(255,153,0,.08)}
     .card h3{font-size:22px;line-height:1.1;margin:16px 0 8px}
     .card p{color:#c9c9d1;margin:0;font-size:14px}
+    .product-media{position:relative;margin:14px -4px 16px;border:1px solid rgba(255,255,255,.1);background:#070707;border-radius:16px;overflow:hidden;aspect-ratio:16/9}
+    .product-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.28));pointer-events:none}
+    .product-media img{display:block;width:100%;height:100%;object-fit:cover}
     .specs{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
     .spec{border:1px solid rgba(255,255,255,.09);background:#111;border-radius:999px;padding:5px 8px;color:#bdbdc7;font:800 11px ui-monospace,monospace}
     .fit{border-top:1px solid rgba(255,255,255,.08);margin-top:16px;padding-top:14px;color:#d7d7dd;font-size:14px}
@@ -299,6 +302,9 @@
       <div class="grid">
         <article class="card">
           <span class="tag hot">Best desktop sweet spot</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/desktop-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="Desktop DDR5 RAM kit for local AI upgrades">
+          </figure>
           <h3>DDR5 64GB kit - 2 x 32GB</h3>
           <p>The clean upgrade target for modern desktops. Enough headroom for local LLMs, LM Studio, a browser, RAG tooling and background agents.</p>
           <div class="specs"><span class="spec">DDR5</span><span class="spec">64GB</span><span class="spec">2 DIMMs</span><span class="spec">6000 MT/s target</span></div>
@@ -310,6 +316,9 @@
 
         <article class="card">
           <span class="tag hot">Workstation step-up</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/desktop-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="High capacity DDR5 desktop RAM kit for local AI workstations">
+          </figure>
           <h3>DDR5 96GB kit - 2 x 48GB</h3>
           <p>A strong local AI tier when 64GB feels tight. Usually easier to stabilize than filling four DIMM slots on consumer boards.</p>
           <div class="specs"><span class="spec">DDR5</span><span class="spec">96GB</span><span class="spec">2 DIMMs</span><span class="spec">large context</span></div>
@@ -321,6 +330,9 @@
 
         <article class="card">
           <span class="tag">Maximum desktop capacity</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/desktop-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="128GB desktop RAM kit category for local AI workloads">
+          </figure>
           <h3>DDR5 128GB kit</h3>
           <p>Useful for serious CPU-side local AI, large datasets and many concurrent tools. Validate board support first; high-capacity DDR5 can be picky.</p>
           <div class="specs"><span class="spec">DDR5</span><span class="spec">128GB</span><span class="spec">check QVL</span><span class="spec">workstation</span></div>
@@ -332,6 +344,9 @@
 
         <article class="card">
           <span class="tag">Budget desktop upgrade</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/desktop-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="Desktop DDR4 RAM kit for budget local AI upgrades">
+          </figure>
           <h3>DDR4 64GB kit - 2 x 32GB</h3>
           <p>The best value upgrade for older desktop PCs. It will not make inference GPU-fast, but it can prevent painful swapping.</p>
           <div class="specs"><span class="spec">DDR4</span><span class="spec">64GB</span><span class="spec">3200 MT/s</span><span class="spec">budget</span></div>
@@ -343,6 +358,9 @@
 
         <article class="card">
           <span class="tag">Laptop / mini-PC</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/sodimm-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="DDR5 SO-DIMM laptop RAM kit for compatible mini PCs and laptops">
+          </figure>
           <h3>DDR5 SO-DIMM 64GB kit</h3>
           <p>For compatible laptops and mini-PCs with removable memory. Many modern machines have soldered RAM, so verify before buying.</p>
           <div class="specs"><span class="spec">SO-DIMM</span><span class="spec">DDR5</span><span class="spec">64GB</span><span class="spec">laptop</span></div>
@@ -354,6 +372,9 @@
 
         <article class="card">
           <span class="tag">Older laptop / mini-PC</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/sodimm-ram-kit.svg" width="960" height="540" loading="lazy" decoding="async" alt="DDR4 SO-DIMM laptop RAM kit for older local AI machines">
+          </figure>
           <h3>DDR4 SO-DIMM 64GB kit</h3>
           <p>A practical upgrade for older compact machines that support it. It is often the cheapest way to make small local models usable.</p>
           <div class="specs"><span class="spec">SO-DIMM</span><span class="spec">DDR4</span><span class="spec">64GB</span><span class="spec">3200 MT/s</span></div>
@@ -376,6 +397,9 @@
       <div class="grid">
         <article class="card">
           <span class="tag hot">Starter CUDA card</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="NVIDIA-style 16GB GPU card for local AI inference">
+          </figure>
           <h3>RTX 5060 Ti 16GB</h3>
           <p>The budget-friendly NVIDIA entry point to consider for local AI. Be careful to pick the 16GB version, not the 8GB version.</p>
           <div class="specs"><span class="spec">16GB VRAM</span><span class="spec">CUDA</span><span class="spec">entry AI</span></div>
@@ -387,6 +411,9 @@
 
         <article class="card">
           <span class="tag hot">Balanced new-gen</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="NVIDIA-style RTX GPU card for local AI and creative workloads">
+          </figure>
           <h3>RTX 5070 Ti 16GB</h3>
           <p>A stronger 16GB tier for users who also care about gaming, creative work and fast local model experiments.</p>
           <div class="specs"><span class="spec">16GB VRAM</span><span class="spec">CUDA</span><span class="spec">balanced</span></div>
@@ -398,6 +425,9 @@
 
         <article class="card">
           <span class="tag">Fast but VRAM-limited</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="High performance NVIDIA-style GPU card for mixed gaming and local AI workloads">
+          </figure>
           <h3>RTX 5080 16GB</h3>
           <p>Fast GPU, but still a 16GB VRAM card. Good if you need performance across games and AI; less ideal if you only chase larger LLMs.</p>
           <div class="specs"><span class="spec">16GB VRAM</span><span class="spec">fast</span><span class="spec">premium</span></div>
@@ -409,6 +439,9 @@
 
         <article class="card">
           <span class="tag hot">Proven high-end</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="24GB NVIDIA-style GPU card for serious local LLM inference">
+          </figure>
           <h3>RTX 4090 24GB</h3>
           <p>The proven consumer local AI workhorse. 24GB VRAM is materially more useful than 16GB for bigger models and longer context.</p>
           <div class="specs"><span class="spec">24GB VRAM</span><span class="spec">CUDA</span><span class="spec">high-end</span></div>
@@ -420,6 +453,9 @@
 
         <article class="card">
           <span class="tag">Used-market value</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="Older 24GB NVIDIA-style GPU card for local AI buyers">
+          </figure>
           <h3>RTX 3090 24GB</h3>
           <p>Older but still interesting because of the 24GB VRAM. Check seller reputation, warranty, thermals and power draw carefully.</p>
           <div class="specs"><span class="spec">24GB VRAM</span><span class="spec">used/refurb</span><span class="spec">value risk</span></div>
@@ -431,6 +467,9 @@
 
         <article class="card">
           <span class="tag hot">Top consumer VRAM</span>
+          <figure class="product-media">
+            <img src="/images/ram-gpu/nvidia-gpu.svg" width="960" height="540" loading="lazy" decoding="async" alt="32GB flagship NVIDIA-style GPU card for high-end local AI">
+          </figure>
           <h3>RTX 5090 32GB</h3>
           <p>The top consumer NVIDIA target for local AI buyers who want maximum VRAM in a single gaming-class GPU. Expect price and stock volatility.</p>
           <div class="specs"><span class="spec">32GB VRAM</span><span class="spec">CUDA</span><span class="spec">flagship</span></div>

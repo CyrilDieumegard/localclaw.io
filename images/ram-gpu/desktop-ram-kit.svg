@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Desktop RAM kit for local AI upgrades</title>
+  <desc id="desc">Two desktop memory modules shown on a dark product background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#151515"/>
+      <stop offset=".55" stop-color="#090909"/>
+      <stop offset="1" stop-color="#190805"/>
+    </linearGradient>
+    <linearGradient id="stick" x1="0" x2="1">
+      <stop offset="0" stop-color="#171717"/>
+      <stop offset=".45" stop-color="#2b2b2d"/>
+      <stop offset="1" stop-color="#121212"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" x2="1">
+      <stop offset="0" stop-color="#ea580c"/>
+      <stop offset="1" stop-color="#ff453a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-40%" width="140%" height="180%">
+      <feDropShadow dx="0" dy="28" stdDeviation="22" flood-color="#000" flood-opacity=".65"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="#ff453a" flood-opacity=".15"/>
+    </filter>
+  </defs>
+  <rect width="960" height="540" rx="42" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#fff" stroke-width="1">
+    <path d="M0 108h960M0 216h960M0 324h960M0 432h960M160 0v540M320 0v540M480 0v540M640 0v540M800 0v540"/>
+  </g>
+  <g filter="url(#shadow)" transform="translate(92 160) rotate(-6 388 110)">
+    <rect x="0" y="0" width="776" height="98" rx="18" fill="url(#stick)" stroke="#38383c" stroke-width="3"/>
+    <rect x="20" y="14" width="736" height="18" rx="8" fill="#0f0f10"/>
+    <rect x="20" y="68" width="736" height="10" rx="5" fill="url(#edge)"/>
+    <g fill="#0a0a0b" stroke="#46464b" stroke-width="2">
+      <rect x="76" y="38" width="54" height="30" rx="6"/>
+      <rect x="154" y="38" width="54" height="30" rx="6"/>
+      <rect x="232" y="38" width="54" height="30" rx="6"/>
+      <rect x="310" y="38" width="54" height="30" rx="6"/>
+      <rect x="412" y="38" width="54" height="30" rx="6"/>
+      <rect x="490" y="38" width="54" height="30" rx="6"/>
+      <rect x="568" y="38" width="54" height="30" rx="6"/>
+      <rect x="646" y="38" width="54" height="30" rx="6"/>
+    </g>
+    <g fill="#d1d5db">
+      <rect x="122" y="88" width="18" height="14" rx="2"/>
+      <rect x="158" y="88" width="18" height="14" rx="2"/>
+      <rect x="194" y="88" width="18" height="14" rx="2"/>
+      <rect x="230" y="88" width="18" height="14" rx="2"/>
+      <rect x="266" y="88" width="18" height="14" rx="2"/>
+      <rect x="302" y="88" width="18" height="14" rx="2"/>
+      <rect x="338" y="88" width="18" height="14" rx="2"/>
+      <rect x="374" y="88" width="18" height="14" rx="2"/>
+      <rect x="410" y="88" width="18" height="14" rx="2"/>
+      <rect x="446" y="88" width="18" height="14" rx="2"/>
+      <rect x="482" y="88" width="18" height="14" rx="2"/>
+      <rect x="518" y="88" width="18" height="14" rx="2"/>
+      <rect x="554" y="88" width="18" height="14" rx="2"/>
+      <rect x="590" y="88" width="18" height="14" rx="2"/>
+      <rect x="626" y="88" width="18" height="14" rx="2"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)" transform="translate(92 292) rotate(-6 388 110)">
+    <rect x="0" y="0" width="776" height="98" rx="18" fill="url(#stick)" stroke="#38383c" stroke-width="3"/>
+    <rect x="20" y="14" width="736" height="18" rx="8" fill="#0f0f10"/>
+    <rect x="20" y="68" width="736" height="10" rx="5" fill="url(#edge)"/>
+    <g fill="#0a0a0b" stroke="#46464b" stroke-width="2">
+      <rect x="76" y="38" width="54" height="30" rx="6"/>
+      <rect x="154" y="38" width="54" height="30" rx="6"/>
+      <rect x="232" y="38" width="54" height="30" rx="6"/>
+      <rect x="310" y="38" width="54" height="30" rx="6"/>
+      <rect x="412" y="38" width="54" height="30" rx="6"/>
+      <rect x="490" y="38" width="54" height="30" rx="6"/>
+      <rect x="568" y="38" width="54" height="30" rx="6"/>
+      <rect x="646" y="38" width="54" height="30" rx="6"/>
+    </g>
+    <g fill="#d1d5db">
+      <rect x="122" y="88" width="18" height="14" rx="2"/>
+      <rect x="158" y="88" width="18" height="14" rx="2"/>
+      <rect x="194" y="88" width="18" height="14" rx="2"/>
+      <rect x="230" y="88" width="18" height="14" rx="2"/>
+      <rect x="266" y="88" width="18" height="14" rx="2"/>
+      <rect x="302" y="88" width="18" height="14" rx="2"/>
+      <rect x="338" y="88" width="18" height="14" rx="2"/>
+      <rect x="374" y="88" width="18" height="14" rx="2"/>
+      <rect x="410" y="88" width="18" height="14" rx="2"/>
+      <rect x="446" y="88" width="18" height="14" rx="2"/>
+      <rect x="482" y="88" width="18" height="14" rx="2"/>
+      <rect x="518" y="88" width="18" height="14" rx="2"/>
+      <rect x="554" y="88" width="18" height="14" rx="2"/>
+      <rect x="590" y="88" width="18" height="14" rx="2"/>
+      <rect x="626" y="88" width="18" height="14" rx="2"/>
+    </g>
+  </g>
+</svg>

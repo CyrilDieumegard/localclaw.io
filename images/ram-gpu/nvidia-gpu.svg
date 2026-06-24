@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">NVIDIA-style graphics card for local AI inference</title>
+  <desc id="desc">A dual-fan desktop graphics card shown on a dark product background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#151515"/>
+      <stop offset=".55" stop-color="#090909"/>
+      <stop offset="1" stop-color="#06140f"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1">
+      <stop offset="0" stop-color="#111"/>
+      <stop offset=".5" stop-color="#2b2d2f"/>
+      <stop offset="1" stop-color="#0b0b0c"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" x2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#ff453a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-40%" width="140%" height="180%">
+      <feDropShadow dx="0" dy="32" stdDeviation="24" flood-color="#000" flood-opacity=".7"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#34d399" flood-opacity=".12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="540" rx="42" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#fff" stroke-width="1">
+    <path d="M0 108h960M0 216h960M0 324h960M0 432h960M160 0v540M320 0v540M480 0v540M640 0v540M800 0v540"/>
+  </g>
+  <g filter="url(#shadow)" transform="translate(128 128)">
+    <rect x="42" y="54" width="704" height="250" rx="34" fill="url(#card)" stroke="#38383c" stroke-width="4"/>
+    <rect x="80" y="91" width="628" height="176" rx="28" fill="#0c0c0d" stroke="#202024" stroke-width="3"/>
+    <path d="M84 82h620" stroke="url(#edge)" stroke-width="8" stroke-linecap="round"/>
+    <g transform="translate(188 130)">
+      <circle cx="84" cy="84" r="84" fill="#18181b" stroke="#44444a" stroke-width="5"/>
+      <circle cx="84" cy="84" r="52" fill="#0b0b0c" stroke="#2f2f34" stroke-width="4"/>
+      <g fill="#2b2d31">
+        <path d="M84 23c20 25 20 41 0 61-21-18-21-37 0-61Z"/>
+        <path d="M145 84c-25 20-41 20-61 0 18-21 37-21 61 0Z"/>
+        <path d="M84 145c-20-25-20-41 0-61 21 18 21 37 0 61Z"/>
+        <path d="M23 84c25-20 41-20 61 0-18 21-37 21-61 0Z"/>
+      </g>
+    </g>
+    <g transform="translate(448 130)">
+      <circle cx="84" cy="84" r="84" fill="#18181b" stroke="#44444a" stroke-width="5"/>
+      <circle cx="84" cy="84" r="52" fill="#0b0b0c" stroke="#2f2f34" stroke-width="4"/>
+      <g fill="#2b2d31">
+        <path d="M84 23c20 25 20 41 0 61-21-18-21-37 0-61Z"/>
+        <path d="M145 84c-25 20-41 20-61 0 18-21 37-21 61 0Z"/>
+        <path d="M84 145c-20-25-20-41 0-61 21 18 21 37 0 61Z"/>
+        <path d="M23 84c25-20 41-20 61 0-18 21-37 21-61 0Z"/>
+      </g>
+    </g>
+    <rect x="746" y="96" width="40" height="166" rx="8" fill="#202024" stroke="#4b4b52" stroke-width="3"/>
+    <rect x="0" y="116" width="48" height="118" rx="8" fill="#2d2d32" stroke="#5a5a61" stroke-width="3"/>
+    <g fill="#f3d37a">
+      <rect x="144" y="304" width="24" height="28" rx="3"/>
+      <rect x="184" y="304" width="24" height="28" rx="3"/>
+      <rect x="224" y="304" width="24" height="28" rx="3"/>
+      <rect x="264" y="304" width="24" height="28" rx="3"/>
+      <rect x="304" y="304" width="24" height="28" rx="3"/>
+    </g>
+    <path d="M114 340h184" stroke="#35353a" stroke-width="12" stroke-linecap="round"/>
+  </g>
+</svg>
