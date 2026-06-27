@@ -1,6 +1,7 @@
 {
   "version": 1,
   "include": [
+    "/api/license/*",
     "/__datafast-ai-crawl-disabled/*"
   ],
   "exclude": [
