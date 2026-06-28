@@ -1,6 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 19, 2026 — Added GLM-5.2 Unsloth GGUF — 191 LLM total
-// Previous: June 14, 2026 — Added Kimi K2.7 Code and MiniMax M3 — 190 LLM total
+// Updated June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
+// Previous: June 19, 2026 — Added GLM-5.2 Unsloth GGUF — 191 LLM total
 // Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
 // Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
 // Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
@@ -2810,6 +2810,22 @@ const APP_DATA = {
             recommended_quant: 'UD-IQ2_M',
             hf_repo: 'unsloth/GLM-5.2-GGUF',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'ornith-1.0-397b',
+            name: 'Ornith 1.0 (397B MoE)',
+            family: 'deepreinforce',
+            params: '397B MoE',
+            size_gb: 800,
+            min_ram: 640,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'tool-calling', 'general'],
+            description: 'DeepReinforce MIT-licensed open-weight MoE derived from DeepSeek-V3.1-Terminus, tuned for agentic tool use, coding and reasoning. Official local serving examples target vLLM/SGLang on 8x80GB GPU nodes, so this is server-grade only.',
+            search_term: 'Ornith-1.0-397B',
+            recommended_quant: 'BF16 / FP8 serving',
+            hf_repo: 'deepreinforce-ai/Ornith-1.0-397B',
+            benchmarks: { speed: 1, quality: 9, coding: 9, reasoning: 9 },
             released: '2026-06',
             isNew: true
         },

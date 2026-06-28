@@ -54,7 +54,8 @@ const familyColors = {
   kimi: '#9ca3af',
   hermes: '#fb7185',
   exaone: '#a3e635',
-  lfm: '#38bdf8'
+  lfm: '#38bdf8',
+  deepreinforce: '#ff453a'
 };
 
 function familyColor(m) {
@@ -170,8 +171,13 @@ function modelType(m) {
   return 'Open-weight local LLM';
 }
 
+function isServerServingModel(m) {
+  return !m.hosted_only && /serving/i.test(m.recommended_quant || '');
+}
+
 function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
+  if (isServerServingModel(m)) return `Use <code>${esc(m.search_term)}</code> with a server runtime such as vLLM, SGLang or Transformers. This is not a one-click GGUF/LM Studio listing.`;
   return `Search for <code>${esc(m.search_term)}</code> in LM Studio or another GGUF-compatible runtime.`;
 }
 
@@ -199,9 +205,13 @@ function modelPage(m, d, allModels) {
   const url = `${BASE}/models/${encodeURIComponent(m.id)}.html`;
   const title = m.hosted_only
     ? `${m.name} API model specs, benchmarks and availability | LocalClaw`
+    : isServerServingModel(m)
+      ? `${m.name} server-grade local AI model: RAM and serving setup | LocalClaw`
     : `${m.name} local AI model: RAM, quantization and LM Studio setup | LocalClaw`;
   const desc = m.hosted_only
     ? `${m.name}: hosted/API LLM. Specs, benchmarks, use cases and current availability notes for local AI comparison.`.slice(0, 158)
+    : isServerServingModel(m)
+      ? `${m.name}: ${m.params} server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.`.slice(0, 158)
     : `${m.name}: ${m.params} local AI model guide with RAM requirements, ${m.recommended_quant} quantization, benchmarks, use cases and LM Studio setup.`.slice(0, 158);
   const color = familyColor(m);
   const score = localFitScore(m);
@@ -237,7 +247,7 @@ function modelPage(m, d, allModels) {
           {
             '@type': 'Question',
             name: `Can ${m.name} run locally?`,
-            acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
+            acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a vLLM/SGLang style serving target, not a desktop GGUF install.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
           },
           {
             '@type': 'Question',
@@ -338,8 +348,8 @@ function modelPage(m, d, allModels) {
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Serve ${esc(m.search_term)} with vLLM, SGLang or Transformers.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>

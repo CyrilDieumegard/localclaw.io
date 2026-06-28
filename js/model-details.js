@@ -1478,6 +1478,42 @@ var MODEL_DETAILS = {
         paper_url: 'https://huggingface.co/unsloth/GLM-5.2-GGUF',
     },
 
+    // ==================== ORNITH 1.0 (June 2026 — NEW) ====================
+    'ornith-1.0-397b': {
+        developer: 'DeepReinforce',
+        developer_url: 'https://huggingface.co/deepreinforce-ai',
+        context_window: null,
+        license: 'MIT',
+        license_url: 'https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B',
+        architecture: 'Open-weight Mixture-of-Experts model derived from DeepSeek-V3.1-Terminus. The official release is distributed as safetensors and is intended for Transformers, vLLM and SGLang style serving rather than one-click GGUF desktop use.',
+        training_data: 'Not fully disclosed. DeepReinforce positions Ornith-1.0-397B around agentic tool use, coding, reasoning and conversational tasks.',
+        languages: ['English', 'Multilingual'],
+        strengths: [
+            'MIT licensed open-weight release',
+            'Agentic and tool-calling focus',
+            'Coding and reasoning oriented evaluation positioning',
+            'Official examples cover Transformers, vLLM and SGLang serving',
+            'Built from the DeepSeek-V3.1-Terminus base model lineage',
+        ],
+        weaknesses: [
+            'Server-grade only; not suitable for normal laptops, Mac mini, Mac Studio or single consumer GPUs',
+            'Official serving example targets an 8x80GB GPU node',
+            'No official GGUF or LM Studio friendly quantization was listed on the model card at review time',
+            'Full-weight local inference requires serious multi-GPU operations work',
+        ],
+        use_cases: [
+            'Private server-grade agentic AI research',
+            'Tool-calling and multi-step coding experiments',
+            'Benchmarking large open MoE systems',
+            'Advanced vLLM or SGLang deployments',
+            'Comparing frontier open weights against smaller practical local models',
+        ],
+        similar_models: ['qwen3.5-397b-a17b', 'deepseek-v3.1', 'glm-5.2', 'minimax-m3', 'kimi-k2.7-code'],
+        fun_fact: 'The official Hugging Face card shows local serving examples for both vLLM and SGLang, but the hardware example is an 8x80GB GPU node. In LocalClaw terms, that makes Ornith a frontier reference model, not a consumer desktop recommendation.',
+        official_blog: 'https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B',
+        paper_url: 'https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B',
+    },
+
     // ==================== LING 2.6 SERIES (April 2026 — NEW) ====================
     'ling-2.6-flash': {
         developer: 'InclusionAI / Ant Group',
