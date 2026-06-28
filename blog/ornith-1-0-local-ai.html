@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ornith 1.0 Is Out: Which Version Can You Run Locally? | LocalClaw</title>
+    <meta name="description" content="Ornith 1.0 is a new MIT open-source family for agentic coding. Compare Ornith 9B, 35B GGUF and 397B against Qwen, GLM-5.2, DeepSeek and Gemma for local AI.">
+    <meta name="keywords" content="Ornith 1.0, Ornith 35B GGUF, Ornith 9B GGUF, Ornith 397B, run Ornith locally, agentic coding model, local LLM, Qwen Coder, GLM-5.2, DeepSeek V3.2, Gemma 4, LM Studio Ornith, GGUF coding model">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://localclaw.io/blog/ornith-1-0-local-ai.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/ornith-1-0-local-ai.html">
+    <meta property="og:title" content="Ornith 1.0 Is Out: Which Version Can You Run Locally?">
+    <meta property="og:description" content="Ornith 1.0 brings 9B, 35B and 397B open models for agentic coding. Here is the practical local hardware guide and model comparison.">
+    <meta property="og:site_name" content="LocalClaw">
+    <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
+    <meta property="article:published_time" content="2026-06-28">
+    <meta property="article:modified_time" content="2026-06-28">
+    <meta property="article:section" content="Model Reviews">
+    <meta property="article:tag" content="Ornith 1.0">
+    <meta property="article:tag" content="Agentic Coding">
+    <meta property="article:tag" content="Local LLM">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ornith 1.0: Which Version Can You Run Locally?">
+    <meta name="twitter:description" content="A practical local AI guide to Ornith 9B, Ornith 35B GGUF and Ornith 397B, compared with Qwen, GLM-5.2, DeepSeek and Gemma.">
+    <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 15% 7%, rgba(255,69,58,0.15), transparent 26%),
+                radial-gradient(circle at 82% 18%, rgba(168,85,247,0.08), transparent 34%),
+                #050505;
+        }
+        .article-shell {
+            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.018));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+        }
+        .prose-custom h2 {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-family: 'Space Grotesk', Inter, sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.65rem, 3vw, 2.25rem);
+            letter-spacing: -0.035em;
+            line-height: 1.08;
+        }
+        .prose-custom h3 {
+            margin-top: 2rem;
+            margin-bottom: .75rem;
+            color: #fff;
+            font-family: 'Space Grotesk', Inter, sans-serif;
+            font-weight: 750;
+            font-size: 1.25rem;
+        }
+        .prose-custom p,
+        .prose-custom li {
+            color: #b8b8c0;
+            line-height: 1.78;
+            font-size: 1.03rem;
+        }
+        .prose-custom a { color: #ff6d64; text-decoration: none; }
+        .prose-custom a:hover { color: #fff; text-decoration: underline; }
+        .signal-card {
+            background: rgba(15,15,17,0.78);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+        }
+        .metric-card {
+            background: radial-gradient(circle at top left, rgba(255,69,58,0.13), transparent 44%), rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            background: rgba(0,0,0,0.24);
+        }
+        .compare-table th,
+        .compare-table td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .compare-table th {
+            color: #fff;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            background: rgba(255,255,255,0.04);
+        }
+        .compare-table td {
+            color: #b8b8c0;
+            font-size: .95rem;
+            line-height: 1.55;
+        }
+        .compare-table tr:last-child td { border-bottom: 0; }
+        .source-list li { font-size: .95rem; }
+        @media (max-width: 640px) {
+            .prose-custom p,
+            .prose-custom li { font-size: 1rem; }
+            .compare-table { display: block; overflow-x: auto; white-space: normal; }
+            .compare-table th,
+            .compare-table td { min-width: 170px; }
+        }
+    </style>
+
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+
+    <nav class="border-b border-claw-border/50 bg-claw-bg/90 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="../index.html" class="flex items-center gap-3 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
+                        <img src="../images/crab-logo.png" alt="LocalClaw logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
+                    </div>
+                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
+                </a>
+
+                <div class="hidden sm:flex items-center gap-3 sm:gap-6">
+                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="../ram-gpu-for-local-ai.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
+                    <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
+                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                </div>
+
+                <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
+        <div class="flex flex-col items-center justify-center h-full gap-1">
+            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="../ram-gpu-for-local-ai.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
+            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Close</button>
+        </div>
+    </div>
+
+    <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary transition-colors mb-8">
+                <span aria-hidden="true">&larr;</span>
+                Blog
+            </a>
+            <div class="flex flex-wrap items-center gap-3 mb-6">
+                <span class="px-3 py-1 rounded-full bg-claw-primary/10 text-claw-primary text-xs font-bold uppercase tracking-wide border border-claw-primary/25">Model Review</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-claw-muted text-xs font-bold uppercase tracking-wide border border-white/10">Ornith 1.0</span>
+                <span class="text-claw-muted text-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    11 min read
+                </span>
+                <span class="text-claw-muted text-sm">June 28, 2026</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[0.98]">
+                Ornith 1.0 Is Out: Which Version Can You Run Locally?
+            </h1>
+            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">
+                DeepReinforce released a new MIT open-source family for agentic coding. The useful question is not whether Ornith is powerful. It is which Ornith you can actually run.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-10 sm:py-14">
+        <div class="max-w-5xl mx-auto px-4">
+            <article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10">
+                <div class="prose-custom max-w-none">
+
+                    <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-claw-primary/30">
+                        <p class="m-0">
+                            <strong class="text-white">Short answer:</strong> Ornith 1.0 is worth listing because it is not just a datacenter monster. The <a href="../models/ornith-1.0-9b-gguf.html">9B GGUF</a> is the small-machine entry point, the <a href="../models/ornith-1.0-35b-gguf.html">35B GGUF</a> is the serious local coding target, and the <a href="../models/ornith-1.0-397b.html">397B</a> release is a server-grade reference model for teams with multi-GPU infrastructure.
+                        </p>
+                    </section>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">9B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Small local</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">35B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">32GB+ target</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">397B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Server grade</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">MIT</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">License</div></div>
+                    </div>
+
+                    <h2>What Ornith 1.0 actually is</h2>
+                    <p>
+                        Ornith 1.0 is a family of open-source models from DeepReinforce focused on agentic coding: terminal tasks, repository edits, software engineering benchmarks, tool calls and long multi-step workflows. The model card describes the family as self-improving and lists 9B-dense, 31B-dense, 35B-MoE and 397B-MoE releases trained or post-trained on top of Gemma 4 and Qwen 3.5 lineages.
+                    </p>
+                    <p>
+                        That matters because most "new model" announcements hide the practical detail users need. A 397B model can look impressive in a benchmark table and still be irrelevant to a MacBook owner. Ornith is different because it ships multiple sizes, including GGUF packages for the 9B and 35B variants.
+                    </p>
+
+                    <h2>The three Ornith versions that matter</h2>
+                    <div class="overflow-x-auto my-6">
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Version</th>
+                                    <th>Best local fit</th>
+                                    <th>What it is for</th>
+                                    <th>LocalClaw verdict</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong class="text-white">Ornith 1.0 9B GGUF</strong></td>
+                                    <td>8GB to 16GB machines</td>
+                                    <td>Fast local testing, lightweight coding agents, OpenClaw experiments.</td>
+                                    <td>Most accessible Ornith. Start here if you want to see the family behavior without buying hardware.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-white">Ornith 1.0 35B GGUF</strong></td>
+                                    <td>32GB+ machines</td>
+                                    <td>Agentic coding on stronger desktops, Mac Studio class machines, RTX systems with enough memory headroom.</td>
+                                    <td>The most interesting practical release. The Q4_K_M file is listed around 21.2GB, so it belongs in the same local tier as serious 30B-class coding models.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="text-white">Ornith 1.0 397B</strong></td>
+                                    <td>Multi-GPU server</td>
+                                    <td>Frontier agentic coding research, vLLM/SGLang serving, benchmark comparison.</td>
+                                    <td>Useful for SEO, research and comparison. Not a normal desktop recommendation.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Why the 35B GGUF is the real headline</h2>
+                    <p>
+                        The 397B model gets attention because the number is huge. But for LocalClaw users, the <a href="https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B-GGUF" rel="nofollow noopener" target="_blank">35B GGUF release</a> is the more important signal. Hugging Face lists it as GGUF, MIT licensed, with local app support including llama.cpp and LM Studio links. Its hardware table shows Q4_K_M at about 21.2GB, Q5_K_M at about 24.7GB, Q6_K at about 28.5GB, Q8_0 at about 36.9GB and BF16 at about 69.4GB.
+                    </p>
+                    <p>
+                        In practice, that means Q4_K_M is a 32GB+ target. A 24GB GPU may be tight depending on context length, KV cache, runtime overhead and whether the model spills to system RAM. A 48GB MacBook Pro, Mac Studio, high-memory Apple Silicon machine or serious NVIDIA desktop is a much cleaner fit.
+                    </p>
+
+                    <h2>How Ornith compares with the models people already care about</h2>
+                    <p>
+                        Ornith is not trying to be the best friendly general chat model. It is positioned as an agentic coding family. So the right comparison set is Qwen Coder, GLM-5.2, DeepSeek, Gemma 4 and the large Qwen 3.5/3.7 line.
+                    </p>
+
+                    <div class="overflow-x-auto my-6">
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Where it beats Ornith</th>
+                                    <th>Where Ornith is interesting</th>
+                                    <th>Best choice if...</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="../models/qwen3-coder-30b.html">Qwen 3 Coder 30B</a></td>
+                                    <td>Mature Qwen ecosystem, strong tooling, native 256K context, broad app support.</td>
+                                    <td>Ornith 35B is directly optimized and benchmarked for agentic coding tasks.</td>
+                                    <td>You want the safer, more proven coding model today.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="../models/glm-5.2.html">GLM-5.2</a></td>
+                                    <td>Massive frontier model with 1M context and strong long-horizon coding positioning.</td>
+                                    <td>Ornith 35B is vastly more practical; Ornith 397B competes in the frontier benchmark class.</td>
+                                    <td>You have huge memory and want maximum model ceiling.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="../models/deepseek-v3.2-exp.html">DeepSeek V3.2 Exp</a></td>
+                                    <td>DeepSeek ecosystem, sparse-attention research direction, strong reasoning/coding reputation.</td>
+                                    <td>Ornith is more explicitly packaged around coding-agent behavior and tool-call serving.</td>
+                                    <td>You want a frontier research reference rather than a desktop GGUF.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="../models/gemma4-12b.html">Gemma 4 12B</a></td>
+                                    <td>Cleaner general local model, multimodal angle, easier 16GB fit.</td>
+                                    <td>Ornith is more specialized for coding agents and terminal workflows.</td>
+                                    <td>You want general assistant quality on normal local hardware.</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="../models/qwen3.5-397b-a17b.html">Qwen 3.5 397B A17B</a></td>
+                                    <td>Broader Qwen flagship ecosystem and general-purpose frontier positioning.</td>
+                                    <td>Ornith 397B is a direct coding-agent challenger with MIT licensing and OpenAI-compatible serving notes.</td>
+                                    <td>You are evaluating frontier open MoEs, not normal desktop use.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Which Ornith should you install?</h2>
+                    <h3>8GB to 16GB RAM: Ornith 9B, but test against Qwen and Gemma</h3>
+                    <p>
+                        The <a href="../models/ornith-1.0-9b-gguf.html">9B GGUF</a> is the only Ornith variant that belongs in small-machine conversations. It is worth trying if your workflow is coding-heavy and you want to test agentic behavior. For general chat or writing, compare it against Qwen 3 8B, Gemma 4 12B on 16GB machines, and smaller Phi-style models.
+                    </p>
+
+                    <h3>32GB to 48GB RAM: Ornith 35B is the one to watch</h3>
+                    <p>
+                        This is the strongest LocalClaw recommendation for the family. The 35B GGUF release has the right combination: not tiny, not datacenter-only, explicitly coding-agent oriented, and packaged for local runtimes. On 32GB, keep context conservative. On 48GB+, you have more room for the OS, runtime, KV cache and longer prompts.
+                    </p>
+
+                    <h3>128GB+ and multi-GPU servers: Ornith 397B is a benchmark target</h3>
+                    <p>
+                        The <a href="https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B" rel="nofollow noopener" target="_blank">397B model card</a> documents vLLM and SGLang serving recipes. It explicitly describes an OpenAI-compatible server on a single 8x80GB GPU node with tensor parallelism. That is not consumer local AI. It is local-sovereign infrastructure.
+                    </p>
+
+                    <h2>Benchmark claims: useful, but do not over-trust them</h2>
+                    <p>
+                        DeepReinforce reports strong agentic-coding results for Ornith, including Terminal-Bench, SWE-bench, NL2Repo, ClawEval and SWE Atlas style evaluations. That is exactly the right benchmark neighborhood for this model family. But benchmark tables from model cards should be treated as starting evidence, not final truth.
+                    </p>
+                    <p>
+                        The practical test is simple: run your real repository tasks. Ask it to inspect files, modify code, call tools, keep state across a multi-step debugging session and recover when the first attempt fails. If Ornith handles that better than Qwen Coder or GLM on your machine, it deserves a permanent slot.
+                    </p>
+
+                    <h2>LocalClaw verdict</h2>
+                    <p>
+                        Ornith is absolutely worth adding to a local AI catalogue, but only if the catalogue separates the versions. A single "Ornith 397B" entry makes the family look irrelevant for normal users. The better framing is:
+                    </p>
+                    <ul>
+                        <li><strong class="text-white">Ornith 9B GGUF:</strong> local entry point for small machines and quick coding-agent tests.</li>
+                        <li><strong class="text-white">Ornith 35B GGUF:</strong> the main practical release for serious local coding on 32GB+ hardware.</li>
+                        <li><strong class="text-white">Ornith 397B:</strong> server-grade research and frontier comparison.</li>
+                    </ul>
+                    <p>
+                        If you already use LocalClaw, the practical next step is to compare <a href="../models/ornith-1.0-35b-gguf.html">Ornith 35B GGUF</a> against <a href="../models/qwen3-coder-30b.html">Qwen 3 Coder 30B</a>, <a href="../models/qwen3-32b.html">Qwen 3 32B</a> and <a href="../models/deepseek-r1-32b.html">DeepSeek R1 Distill 32B</a>. That is the comparison that will tell you whether Ornith is a real upgrade for your local coding workflow.
+                    </p>
+
+                    <section class="signal-card rounded-2xl p-5 sm:p-6 mt-10">
+                        <h2 class="!mt-0">Sources</h2>
+                        <ul class="source-list">
+                            <li><a href="https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF" rel="nofollow noopener" target="_blank">DeepReinforce Ornith-1.0-9B-GGUF model card</a></li>
+                            <li><a href="https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B-GGUF" rel="nofollow noopener" target="_blank">DeepReinforce Ornith-1.0-35B-GGUF model card</a></li>
+                            <li><a href="https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B" rel="nofollow noopener" target="_blank">DeepReinforce Ornith-1.0-397B model card</a></li>
+                            <li><a href="https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct" rel="nofollow noopener" target="_blank">Qwen3-Coder-30B-A3B-Instruct model card</a></li>
+                            <li><a href="https://huggingface.co/unsloth/GLM-5.2-GGUF" rel="nofollow noopener" target="_blank">Unsloth GLM-5.2-GGUF model card</a></li>
+                        </ul>
+                    </section>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-claw-border/50 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-claw-muted">&copy; 2026 LocalClaw. Find the right local AI model for your hardware.</p>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Ornith 1.0 Is Out: Which Version Can You Run Locally?",
+        "description": "A practical local AI guide to Ornith 9B GGUF, Ornith 35B GGUF and Ornith 397B, compared with Qwen, GLM-5.2, DeepSeek and Gemma.",
+        "author": { "@type": "Organization", "name": "LocalClaw" },
+        "publisher": {
+            "@type": "Organization",
+            "name": "LocalClaw",
+            "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png" }
+        },
+        "datePublished": "2026-06-28",
+        "dateModified": "2026-06-28",
+        "mainEntityOfPage": "https://localclaw.io/blog/ornith-1-0-local-ai.html",
+        "image": "https://localclaw.io/images/og-cover.png"
+    }
+    </script>
+</body>
+</html>
