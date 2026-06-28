@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ornith 1.0 (397B MoE) server-grade local AI model: RAM and serving setup | LocalClaw</title>
-  <meta name="description" content="Ornith 1.0 (397B MoE): 397B MoE server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.">
+  <title>Ornith 1.0 35B GGUF local AI model: RAM, quantization and LM Studio setup | LocalClaw</title>
+  <meta name="description" content="Ornith 1.0 35B GGUF: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/ornith-1.0-397b.html">
+  <link rel="canonical" href="https://localclaw.io/models/ornith-1.0-35b-gguf.html">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/ornith-1.0-397b.html">
-  <meta property="og:title" content="Ornith 1.0 (397B MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="Ornith 1.0 (397B MoE): 397B MoE server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.">
+  <meta property="og:url" content="https://localclaw.io/models/ornith-1.0-35b-gguf.html">
+  <meta property="og:title" content="Ornith 1.0 35B GGUF local AI model | LocalClaw">
+  <meta property="og:description" content="Ornith 1.0 35B GGUF: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ornith 1.0 (397B MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Ornith 1.0 (397B MoE): 397B MoE server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.">
+  <meta name="twitter:title" content="Ornith 1.0 35B GGUF local AI model | LocalClaw">
+  <meta name="twitter:description" content="Ornith 1.0 35B GGUF: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ornith 1.0 (397B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ornith-1.0-397b.html","description":"Ornith 1.0 (397B MoE): 397B MoE server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.","softwareVersion":"2026-06","memoryRequirements":"640 GB RAM minimum","license":"https://huggingface.co/deepreinforce-ai/Ornith-1.0-397B","creator":{"@type":"Organization","name":"DeepReinforce","url":"https://huggingface.co/deepreinforce-ai"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ornith 1.0 (397B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 (397B MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a vLLM/SGLang style serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is Ornith 1.0 (397B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 (397B MoE) is best used for Private server-grade agentic AI research."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Ornith 1.0 (397B MoE)","item":"https://localclaw.io/models/ornith-1.0-397b.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ornith 1.0 35B GGUF","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ornith-1.0-35b-gguf.html","description":"Ornith 1.0 35B GGUF: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"32 GB RAM minimum","license":"https://huggingface.co/deepreinforce-ai/Ornith-1.0-35B-GGUF","creator":{"@type":"Organization","name":"DeepReinforce","url":"https://huggingface.co/deepreinforce-ai"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ornith 1.0 35B GGUF run locally?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 35B GGUF can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Ornith 1.0 35B GGUF best for?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 35B GGUF is best used for Agentic coding on 32GB+ local machines."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Ornith 1.0 35B GGUF","item":"https://localclaw.io/models/ornith-1.0-35b-gguf.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -36,17 +36,17 @@
     <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Ornith 1.0 (397B MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Ornith 1.0 35B GGUF</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight MoE</div>
-        <h1 class="title">Ornith 1.0 <span>(397B MoE)</span></h1>
-        <p class="desc">DeepReinforce MIT-licensed open-weight MoE derived from DeepSeek-V3.1-Terminus, tuned for agentic tool use, coding and reasoning. Official local serving examples target vLLM/SGLang on 8x80GB GPU nodes, so this is server-grade only.</p>
+        <h1 class="title">Ornith 1.0 35B GGUF</h1>
+        <p class="desc">DeepReinforce Ornith 1.0 mid-size GGUF release for agentic coding. The Q4_K_M build is listed around 21.2GB, making it a realistic 32GB+ local model compared with the 397B server-grade version.</p>
         <div class="chips">
-          <span class="chip hot">Server-grade</span>
-          <span class="chip">640 GB RAM</span>
-          <span class="chip">BF16 / FP8 serving</span>
-          <span class="chip">Private server-grade agentic AI research</span>
+          <span class="chip hot">32 GB power user</span>
+          <span class="chip">32 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">Agentic coding on 32GB+ local machines</span>
         </div>
         <div class="cta">
           <a class="btn" href="/pricing.html">Run with LocalClaw</a>
@@ -57,8 +57,8 @@
         <div class="score-card">
           <div>
             <div class="score-label">Local fit score</div>
-            <div class="score">4.7<small>/10</small></div>
-            <p class="score-caption">Ornith 1.0 (397B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
+            <div class="score">7.0<small>/10</small></div>
+            <p class="score-caption">Ornith 1.0 35B GGUF belongs on 32 GB machines when you want stronger quality without jumping to server hardware.</p>
           </div>
         </div>
         <div class="panel-grid">
@@ -68,36 +68,36 @@
       </aside>
     </header>
     <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">397B MoE</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">640 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">800 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">BF16 / FP8 serving</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">35B MoE</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">32 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">21.2 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
     <section class="section">
-      <h2>Can Ornith 1.0 (397B MoE) run locally?</h2>
-      <p>Ornith 1.0 (397B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
-      <p>Use <code>Ornith-1.0-397B</code> with a server runtime such as vLLM, SGLang or Transformers. This is not a one-click GGUF/LM Studio listing.</p>
-      <div class="source-links"><code>deepreinforce-ai/Ornith-1.0-397B</code></div>
+      <h2>Can Ornith 1.0 35B GGUF run locally?</h2>
+      <p>Ornith 1.0 35B GGUF belongs on 32 GB machines when you want stronger quality without jumping to server hardware.</p>
+      <p>Search for <code>Ornith-1.0-35B-GGUF</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><code>deepreinforce-ai/Ornith-1.0-35B-GGUF</code></div>
       <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">quality</span><span class="tag">agentic</span><span class="tag">tool-calling</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 640 GB class multi-GPU memory.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Serve Ornith-1.0-397B with vLLM, SGLang or Transformers.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 32 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search Ornith-1.0-35B-GGUF in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list"><li>MIT licensed open-weight release</li><li>Agentic and tool-calling focus</li><li>Coding and reasoning oriented evaluation positioning</li><li>Official examples cover Transformers, vLLM and SGLang serving</li><li>Built from the DeepSeek-V3.1-Terminus base model lineage</li></ul></div>
-      <div><h2>Limitations</h2><ul class="list"><li>Server-grade only; not suitable for normal laptops, Mac mini, Mac Studio or single consumer GPUs</li><li>Official serving example targets an 8x80GB GPU node</li><li>No official GGUF or LM Studio friendly quantization was listed on the model card at review time</li><li>Full-weight local inference requires serious multi-GPU operations work</li></ul></div>
+      <div><h2>Strengths</h2><ul class="list"><li>Practical GGUF packaging for local runtimes</li><li>Q4_K_M build is listed around 21.2GB on Hugging Face</li><li>Strong fit for 32GB+ machines that want agentic coding behavior</li><li>Better quality ceiling than the compact 9B variant</li><li>MIT licensed release</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Too heavy for most 16GB laptops once OS and runtime overhead are included</li><li>Still early; real-world coding quality should be validated against Qwen, GLM and DeepSeek alternatives</li><li>Q8 and BF16 variants move into high-memory territory</li><li>Not as easy to run as mainstream 14B class models</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list"><li>Private server-grade agentic AI research</li><li>Tool-calling and multi-step coding experiments</li><li>Benchmarking large open MoE systems</li><li>Advanced vLLM or SGLang deployments</li><li>Comparing frontier open weights against smaller practical local models</li></ul></div>
+      <div><h2>Best use cases</h2><ul class="list"><li>Agentic coding on 32GB+ local machines</li><li>OpenClaw experiments with a stronger coding model</li><li>Local tool-calling research</li><li>Comparing new MoE coding models</li><li>Users who want Ornith without server-grade 397B hardware</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:10%"></div></div><strong>1</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:40%"></div></div><strong>4</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
         </div>
       </div>
     </section>
@@ -107,21 +107,21 @@
         <div class="meta"><div class="k">Developer</div><div class="v">DeepReinforce</div></div>
         <div class="meta"><div class="k">License</div><div class="v">MIT</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">Unknown tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Open-weight Mixture-of-Experts model derived from DeepSeek-V3.1-Terminus. The official release is distributed as safetensors and is intended for Transformers, vLLM and SGLang style serving rather than one-click GGUF desktop use.</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Mid-size Ornith 1.0 GGUF release using a qwen35moe architecture tag on Hugging Face. It is the practical middle ground between the small 9B model and the server-grade 397B model.</div></div>
       </div>
     </section>
     <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m3-ultra-256gb.html"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers.html"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list.html"><small>More practical alternatives</small>Compare smaller models</a>
+        <a href="/hardware/mac-mini-m4-pro-48gb.html"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb.html"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb.html"><small>Power-user picks</small>32GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/ornith-1.0-35b-gguf.html">Ornith 1.0 35B GGUF <span>35B MoE</span></a><a href="/models/qwen3.5-397b-a17b.html">Qwen 3.5 MoE (397B/17B active) <span>397B (17B active)</span></a><a href="/models/deepseek-v3.1.html">DeepSeek V3.1 (671B MoE) <span>671B (37B active, MoE)</span></a><a href="/models/glm-5.2.html">GLM-5.2 (744B MoE) <span>744B (40B active)</span></a><a href="/models/minimax-m3.html">MiniMax M3 (428B/23B active) <span>428B (23B active)</span></a><a href="/models/kimi-k2.7-code.html">Kimi K2.7 Code (1T MoE) <span>1T (32B active)</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3-32b.html">Qwen 3 (32B) <span>32B</span></a><a href="/models/qwen3-coder-30b.html">Qwen 3 Coder (30B) <span>30B</span></a><a href="/models/deepseek-r1-32b.html">DeepSeek R1 Distill (32B) <span>32B</span></a><a href="/models/ornith-1.0-9b-gguf.html">Ornith 1.0 9B GGUF <span>9B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/32gb.html"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>

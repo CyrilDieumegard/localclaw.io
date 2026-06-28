@@ -1,6 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
-// Previous: June 19, 2026 — Added GLM-5.2 Unsloth GGUF — 191 LLM total
+// Updated June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
+// Previous: June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
 // Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
 // Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
 // Previous: May 21 — Added Qwen 3.7 Max Preview API model and DANTE-Mosaic-3.5B — 185 LLM total
@@ -2810,6 +2810,38 @@ const APP_DATA = {
             recommended_quant: 'UD-IQ2_M',
             hf_repo: 'unsloth/GLM-5.2-GGUF',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'ornith-1.0-9b-gguf',
+            name: 'Ornith 1.0 9B GGUF',
+            family: 'deepreinforce',
+            params: '9B',
+            size_gb: 5.8,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'speed', 'agentic', 'tool-calling', 'general'],
+            description: 'Compact Ornith 1.0 GGUF variant from DeepReinforce for agentic coding experiments on consumer hardware. MIT licensed and much more practical than the frontier 397B release.',
+            search_term: 'Ornith-1.0-9B-GGUF',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'deepreinforce-ai/Ornith-1.0-9B-GGUF',
+            benchmarks: { speed: 8, quality: 7, coding: 8, reasoning: 7 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'ornith-1.0-35b-gguf',
+            name: 'Ornith 1.0 35B GGUF',
+            family: 'deepreinforce',
+            params: '35B MoE',
+            size_gb: 21.2,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'tool-calling', 'general'],
+            description: 'DeepReinforce Ornith 1.0 mid-size GGUF release for agentic coding. The Q4_K_M build is listed around 21.2GB, making it a realistic 32GB+ local model compared with the 397B server-grade version.',
+            search_term: 'Ornith-1.0-35B-GGUF',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'deepreinforce-ai/Ornith-1.0-35B-GGUF',
+            benchmarks: { speed: 4, quality: 8, coding: 9, reasoning: 8 },
             released: '2026-06',
             isNew: true
         },
