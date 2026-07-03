@@ -935,6 +935,18 @@
                 </div>
             </details>
             <details class="info-detail">
+                <summary>Is anything physically shipped?</summary>
+                <div class="detail-body">
+                    No. LocalClaw is delivered digitally as an Apple-notarized macOS DMG. There is no physical shipping; the installer can be downloaded from the website and activated with the license key from checkout.
+                </div>
+            </details>
+            <details class="info-detail">
+                <summary>What is the return policy?</summary>
+                <div class="detail-body">
+                    LocalClaw is a digital beta license. If activation, download or installation fails, email support with your checkout email so the order and license can be checked manually.
+                </div>
+            </details>
+            <details class="info-detail">
                 <summary>Is the free model recommender still free?</summary>
                 <div class="detail-body">
                     Yes. The web recommender, model catalogue, TTS catalogue and hardware guides stay free. The $49 purchase is only for the optional native macOS app.
@@ -1187,7 +1199,46 @@
             "priceCurrency": "USD",
             "price": "49",
             "availability": "https://schema.org/InStock",
-            "category": "Lifetime beta access"
+            "itemCondition": "https://schema.org/NewCondition",
+            "category": "Lifetime beta access",
+            "seller": {
+                "@type": "Organization",
+                "name": "LocalClaw",
+                "url": "https://localclaw.io/"
+            },
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "USD"
+                },
+                "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "US"
+                },
+                "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "handlingTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 0,
+                        "maxValue": 0,
+                        "unitCode": "DAY"
+                    },
+                    "transitTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 0,
+                        "maxValue": 0,
+                        "unitCode": "DAY"
+                    }
+                }
+            },
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "US",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnUnspecified",
+                "merchantReturnLink": "https://localclaw.io/pricing.html"
+            }
         }
     }
     </script>
@@ -1226,6 +1277,22 @@
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "Yes. The current LocalClaw DMG is signed with a Developer ID certificate and notarized by Apple so macOS Gatekeeper can verify it before launch. Notarization is Apple security scanning and ticketing, not App Store distribution or an Apple endorsement."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is anything physically shipped?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. LocalClaw is delivered digitally as an Apple-notarized macOS DMG. There is no physical shipping; the installer can be downloaded from the website and activated with the license key from checkout."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the return policy?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "LocalClaw is a digital beta license. If activation, download or installation fails, email support with your checkout email so the order and license can be checked manually."
                 }
             },
             {
