@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
+// Updated July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
+// Previous: June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
 // Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
 // Previous: June 2, 2026 — Added LFM2.5-8B-A1B and Granite 4.1 8B — 187 LLM total
@@ -191,6 +192,40 @@ const APP_DATA = {
             hf_repo: 'ibm-granite/granite-4.1-8b',
             benchmarks: { speed: 8, quality: 8, coding: 8, reasoning: 8 },
             released: '2026-04',
+            isNew: true
+        },
+        {
+            id: 'sarvam-30b',
+            name: 'Sarvam 30B',
+            family: 'sarvam',
+            params: '32B (2.4B active, MoE)',
+            size_gb: 18,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'multilingual', 'power'],
+            description: 'Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability.',
+            search_term: 'sarvam-30b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'sarvamai/sarvam-30b-gguf',
+            source_url: 'https://huggingface.co/sarvamai/sarvam-30b',
+            benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-03',
+            isNew: true
+        },
+        {
+            id: 'olmo3-32b-think',
+            name: 'OLMo 3 32B Think',
+            family: 'olmo',
+            params: '32B',
+            size_gb: 18,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'power', 'open-data'],
+            description: 'Ai2 fully open reasoning model with weights, data, code and training details. Strong 32B thinking model with GGUF and MLX artifacts for local workstations.',
+            search_term: 'olmo-3-32b-think',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'lmstudio-community/Olmo-3-32B-Think-GGUF',
+            source_url: 'https://huggingface.co/allenai/Olmo-3-32B-Think',
+            benchmarks: { speed: 4, quality: 9, coding: 8, reasoning: 9 },
+            released: '2025-11',
             isNew: true
         },
         {
