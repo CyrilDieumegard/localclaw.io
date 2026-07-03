@@ -204,10 +204,10 @@ function tagsMarkup(m) {
 function modelPage(m, d, allModels) {
   const url = `${BASE}/models/${encodeURIComponent(m.id)}.html`;
   const title = m.hosted_only
-    ? `${m.name} API model specs, benchmarks and availability | LocalClaw`
+    ? `${m.name} API model specs | LocalClaw`
     : isServerServingModel(m)
-      ? `${m.name} server-grade local AI model: RAM and serving setup | LocalClaw`
-    : `${m.name} local AI model: RAM, quantization and LM Studio setup | LocalClaw`;
+      ? `${m.name} server-grade local AI | LocalClaw`
+    : `${m.name} local AI: RAM + LM Studio | LocalClaw`;
   const desc = m.hosted_only
     ? `${m.name}: hosted/API LLM. Specs, benchmarks, use cases and current availability notes for local AI comparison.`.slice(0, 158)
     : isServerServingModel(m)
