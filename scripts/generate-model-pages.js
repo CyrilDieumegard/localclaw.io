@@ -55,6 +55,7 @@ const familyColors = {
   hermes: '#fb7185',
   exaone: '#a3e635',
   lfm: '#38bdf8',
+  apertus: '#0f766e',
   deepreinforce: '#ff453a'
 };
 

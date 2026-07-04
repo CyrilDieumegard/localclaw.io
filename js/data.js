@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
+// Updated July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
+// Previous: July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
 // Previous: June 4, 2026 — Added Gemma 4 12B — 188 LLM total
@@ -226,6 +227,40 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/allenai/Olmo-3-32B-Think',
             benchmarks: { speed: 4, quality: 9, coding: 8, reasoning: 9 },
             released: '2025-11',
+            isNew: true
+        },
+        {
+            id: 'qwen-agentworld-35b-a3b',
+            name: 'Qwen AgentWorld 35B-A3B',
+            family: 'qwen',
+            params: '35B (3B active, MoE)',
+            size_gb: 20,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'power'],
+            description: 'Official Qwen language world model for simulating agent environments across terminal, web, OS, Android, search, SWE and tool-calling domains. Apache 2.0 with active GGUF and MLX quantizations.',
+            search_term: 'qwen-agentworld-35b-a3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/Qwen-AgentWorld-35B-A3B-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen-AgentWorld-35B-A3B',
+            benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'apertus-8b-instruct',
+            name: 'Apertus 8B Instruct',
+            family: 'apertus',
+            params: '8B',
+            size_gb: 5.0,
+            min_ram: 16,
+            tags: ['chat', 'standard', 'multilingual', 'open-data', 'general'],
+            description: 'Swiss AI Initiative fully open multilingual model with open weights, open data, open training artifacts and Apache 2.0 licensing. Practical 8B local option with GGUF and MLX community builds.',
+            search_term: 'apertus-8b-instruct-2509',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/Apertus-8B-Instruct-2509-GGUF',
+            source_url: 'https://huggingface.co/swiss-ai/Apertus-8B-Instruct-2509',
+            benchmarks: { speed: 8, quality: 7, coding: 6, reasoning: 7 },
+            released: '2025-09',
             isNew: true
         },
         {
