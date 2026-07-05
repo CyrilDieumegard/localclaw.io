@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
+// Updated July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
+// Previous: July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
 // Previous: July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0-397B — 192 LLM total
@@ -261,6 +262,23 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/swiss-ai/Apertus-8B-Instruct-2509',
             benchmarks: { speed: 8, quality: 7, coding: 6, reasoning: 7 },
             released: '2025-09',
+            isNew: true
+        },
+        {
+            id: 'diffusiongemma-26b-a4b-it',
+            name: 'DiffusionGemma 26B-A4B Instruct',
+            family: 'gemma',
+            params: '26B (4B active, diffusion MoE)',
+            size_gb: 16,
+            min_ram: 32,
+            tags: ['chat', 'vision', 'reasoning', 'power', 'multimodal'],
+            description: 'Official Google Apache 2.0 diffusion-language Gemma model with image-text chat support. Strong local relevance thanks to active Unsloth GGUF quantizations for workstation-class machines.',
+            search_term: 'diffusiongemma-26b-a4b-it',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/diffusiongemma-26B-A4B-it-GGUF',
+            source_url: 'https://huggingface.co/google/diffusiongemma-26B-A4B-it',
+            benchmarks: { speed: 5, quality: 8, coding: 7, reasoning: 8 },
+            released: '2026-06',
             isNew: true
         },
         {
