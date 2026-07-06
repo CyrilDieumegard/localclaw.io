@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
+// Updated July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
+// Previous: July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
 // Previous: July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
 // Previous: July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
 // Previous: June 28, 2026 — Added Ornith-1.0 GGUF family — 194 LLM total
@@ -820,6 +821,23 @@ const APP_DATA = {
             hf_repo: 'lmstudio-community/Mistral-Small-3.2-24B-Instruct-GGUF',
             benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 8 },
             released: '2025-06'
+        },
+        {
+            id: 'ministral-3-3b-instruct',
+            name: 'Ministral 3 3B Instruct',
+            family: 'mistral',
+            params: '3B',
+            size_gb: 2.1,
+            min_ram: 4,
+            tags: ['chat', 'vision', 'light', 'speed', 'general'],
+            description: 'Mistral AI compact multimodal instruct model. Apache 2.0, strong local app support through official GGUF, LM Studio, Ollama and llama.cpp artifacts. Practical on normal laptops.',
+            search_term: 'ministral-3-3b-instruct-2512',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'mistralai/Ministral-3-3B-Instruct-2512-GGUF',
+            source_url: 'https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512',
+            benchmarks: { speed: 9, quality: 6, coding: 6, reasoning: 6 },
+            released: '2025-12',
+            isNew: true
         },
         {
             id: 'granite3.3-8b',
@@ -2278,6 +2296,23 @@ const APP_DATA = {
             recommended_quant: 'Q4_K_M',
             hf_repo: 'Qwen/Qwen3.6-27B',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 10 },
+            released: '2026-04',
+            isNew: true
+        },
+        {
+            id: 'qwen3.6-35b-a3b',
+            name: 'Qwen 3.6 35B-A3B',
+            family: 'qwen',
+            params: '35B (3B active, MoE)',
+            size_gb: 19,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'power', 'long-context'],
+            description: 'Qwen Team open-weight MoE for agentic coding and multimodal work. 35B total / 3B active, 262K native context, Apache 2.0, and strong GGUF availability through Unsloth and LM Studio-compatible artifacts.',
+            search_term: 'qwen3.6-35b-a3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/Qwen3.6-35B-A3B-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen3.6-35B-A3B',
+            benchmarks: { speed: 7, quality: 9, coding: 10, reasoning: 9 },
             released: '2026-04',
             isNew: true
         },

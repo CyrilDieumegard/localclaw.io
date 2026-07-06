@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ministral 3 3B Instruct local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="Ministral 3 3B Instruct: 3B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://localclaw.io/models/ministral-3-3b-instruct.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://localclaw.io/models/ministral-3-3b-instruct.html">
+  <meta property="og:title" content="Ministral 3 3B Instruct local AI model | LocalClaw">
+  <meta property="og:description" content="Ministral 3 3B Instruct: 3B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ministral 3 3B Instruct local AI model | LocalClaw">
+  <meta name="twitter:description" content="Ministral 3 3B Instruct: 3B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+  <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ministral 3 3B Instruct","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ministral-3-3b-instruct.html","description":"Ministral 3 3B Instruct: 3B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-12","memoryRequirements":"4 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Mistral AI","url":"https://mistral.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ministral 3 3B Instruct run locally?","acceptedAnswer":{"@type":"Answer","text":"Ministral 3 3B Instruct can run locally with at least 4 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Ministral 3 3B Instruct best for?","acceptedAnswer":{"@type":"Answer","text":"Ministral 3 3B Instruct is best used for Fast local chat on entry laptops."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Ministral 3 3B Instruct","item":"https://localclaw.io/models/ministral-3-3b-instruct.html"}]}]}</script>
+  <!-- TRACKING: DataFast Analytics -->
+  <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+  <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
+  <script src="/js/clarity.js" defer></script>
+  <style>
+    :root{--bg:#050505;--panel:#0d0d0d;--card:#111;--card2:#171717;--border:#262626;--border2:#3a3a3a;--primary:#ff453a;--orange:#ea580c;--text:#fff;--muted:#a1a1aa;--soft:#d4d4d8;--green:#22c55e;--blue:#3b82f6}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 18% 10%,rgba(255,69,58,.12),transparent 26rem),linear-gradient(180deg,#050505,#070707 42%,#050505);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 85%)}a{text-decoration:none}.site-nav{border-bottom:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.82);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),var(--orange));display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,69,58,.45)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:25px;font-weight:900;letter-spacing:-.04em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a{color:var(--muted);font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}.nav-links a:hover,.nav-links .active{color:#fff}.nav-links .pricing{color:var(--primary)}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.wrap{max-width:1180px;margin:0 auto;padding:34px 24px 64px}.breadcrumb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px}.breadcrumb a{color:#d4d4d8}.breadcrumb a:hover{color:#fff}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:24px;align-items:stretch;margin-bottom:24px}.hero-copy,.hero-panel,.section,.spec-card,.model-card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--border);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.38)}.hero-copy{padding:34px;position:relative;overflow:hidden}.hero-copy:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 0 0,rgba(255,69,58,.22),transparent 42%);pointer-events:none}.eyebrow{position:relative;color:var(--primary);font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.18em;display:flex;gap:10px;align-items:center}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}.title{position:relative;font-size:clamp(44px,7vw,86px);line-height:.92;margin:18px 0 16px;font-weight:950;letter-spacing:-.055em}.title span{color:var(--primary)}.desc{position:relative;max-width:760px;color:#d6d6dd;font-size:19px;margin:0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:999px;color:#d7d7dd;padding:7px 11px;font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em}.chip.hot{border-color:rgba(255,69,58,.45);color:var(--primary);background:rgba(255,69,58,.09)}.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,69,58,.5);background:var(--primary);color:#050505;font:950 13px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.05em;padding:14px 18px;border-radius:12px;box-shadow:6px 6px 0 rgba(154,25,18,.5)}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}.btn.secondary{background:#111;color:#fff;border-color:rgba(255,255,255,.18);box-shadow:none}.hero-panel{padding:22px;display:flex;flex-direction:column;gap:16px}.score-card{flex:1;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #ff453a66;border-radius:20px;padding:22px;background:radial-gradient(circle at 0 0,#ff453a26,transparent 45%),#0b0b0b}.score-label{font:900 12px ui-monospace,monospace;color:#b8b8c1;text-transform:uppercase;letter-spacing:.12em}.score{font-size:58px;line-height:1;font-weight:950;letter-spacing:-.05em}.score small{font-size:16px;color:var(--muted);letter-spacing:0}.score-caption{color:#d4d4d8;margin-top:10px}.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{border:1px solid var(--border);background:#101010;border-radius:16px;padding:14px}.mini .k{font:800 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.mini .v{font-weight:900;font-size:18px;margin-top:4px}.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.spec-card{border-radius:18px;padding:18px}.spec-card .k{font:900 11px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.spec-card .v{font-size:24px;font-weight:950;margin-top:4px;letter-spacing:-.03em}.section{padding:26px;margin-top:18px}h2{font-size:28px;line-height:1.1;margin:0 0 16px;letter-spacing:-.03em}.section p{color:#d4d4d8;margin:10px 0}.muted{color:var(--muted)!important}.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.list{margin:0;padding-left:18px}.list li{color:#d4d4d8;margin:8px 0}.install-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.step{border:1px solid var(--border);background:#0d0d0d;border-radius:16px;padding:16px}.step-num{color:var(--primary);font:950 12px ui-monospace,monospace;letter-spacing:.14em}.step strong{display:block;margin-top:6px}.step span{display:block;color:var(--muted);font-size:14px;margin-top:5px}.bars{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:92px 1fr 32px;gap:12px;align-items:center}.bar-row span{font:800 12px ui-monospace,monospace;color:var(--muted);text-transform:uppercase}.track{height:8px;background:#242424;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),#ff8a64)}.tag{display:inline-flex;align-items:center;border:1px solid rgba(255,255,255,.1);background:#161616;border-radius:999px;padding:6px 10px;margin:4px;color:#d4d4d8;font:800 12px ui-monospace,monospace}.tag:before{content:"#";color:var(--primary);margin-right:4px}.meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.meta{border:1px solid var(--border);border-radius:14px;background:#0e0e0e;padding:14px}.meta .k{font:900 10px ui-monospace,monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.meta .v{color:#fff;font-weight:800;margin-top:4px;word-break:break-word}.similar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.similar a{display:flex;justify-content:space-between;gap:8px;border:1px solid var(--border);background:#0d0d0d;color:#fff;border-radius:14px;padding:12px;font-weight:800}.similar a:hover{border-color:rgba(255,69,58,.5);box-shadow:0 0 24px rgba(255,69,58,.1)}.similar span{color:var(--muted);font:800 11px ui-monospace,monospace}.next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.next a{border:1px solid var(--border);border-radius:16px;background:#0d0d0d;color:#fff;padding:16px;font-weight:900}.next small{display:block;color:var(--muted);font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}.hardware-fit{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.hardware-fit a{border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));color:#fff;padding:16px;font-weight:900}.hardware-fit a:hover{border-color:rgba(255,69,58,.48);box-shadow:0 0 28px rgba(255,69,58,.09)}.hardware-fit small{display:block;color:var(--muted);font:800 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}code{background:#18181b;border:1px solid #27272a;padding:2px 6px;border-radius:6px;color:#fff}.source-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.source-links a,.source-links code{color:#fff;border:1px solid var(--border);background:#111;padding:8px 10px;border-radius:10px;font:800 12px ui-monospace,monospace}@media(max-width:940px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}.hero,.cols,.specs,.install-steps,.next,.hardware-fit{grid-template-columns:1fr}.panel-grid,.meta-grid,.similar{grid-template-columns:1fr 1fr}.wrap{padding:24px 16px 48px}.hero-copy{padding:24px}.title{font-size:clamp(42px,12vw,72px)}}@media(max-width:560px){.panel-grid,.meta-grid,.similar{grid-template-columns:1fr}.btn{width:100%}.score{font-size:48px}.bar-row{grid-template-columns:76px 1fr 28px}}
+  </style>
+</head>
+<body>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
+      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+    </div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+  </nav>
+  <main class="wrap">
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Ministral 3 3B Instruct</span></div>
+    <header class="hero">
+      <section class="hero-copy">
+        <div class="eyebrow">Open-weight local LLM</div>
+        <h1 class="title">Ministral 3 3B Instruct</h1>
+        <p class="desc">Mistral AI compact multimodal instruct model. Apache 2.0, strong local app support through official GGUF, LM Studio, Ollama and llama.cpp artifacts. Practical on normal laptops.</p>
+        <div class="chips">
+          <span class="chip hot">Laptop ready</span>
+          <span class="chip">4 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">Fast local chat on entry laptops</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <div class="score-card">
+          <div>
+            <div class="score-label">Local fit score</div>
+            <div class="score">6.8<small>/10</small></div>
+            <p class="score-caption">Ministral 3 3B Instruct is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">mistral</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2025-12</div></div>
+        </div>
+      </aside>
+    </header>
+    <section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">3B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">4 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">2.1 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+    </section>
+    <section class="section">
+      <h2>Can Ministral 3 3B Instruct run locally?</h2>
+      <p>Ministral 3 3B Instruct is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
+      <p>Search for <code>ministral-3-3b-instruct-2512</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><a href="https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512" target="_blank" rel="noopener">Model source</a><code>mistralai/Ministral-3-3B-Instruct-2512-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">vision</span><span class="tag">light</span><span class="tag">speed</span><span class="tag">general</span></div>
+    </section>
+    <section class="section">
+      <h2>Install path</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 4 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search ministral-3-3b-instruct-2512 in LM Studio.</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
+      </div>
+    </section>
+    <section class="section cols">
+      <div><h2>Strengths</h2><ul class="list"><li>Official Mistral AI release rather than a third-party fine-tune</li><li>Apache 2.0 licensing for commercial local use</li><li>Official GGUF repo supports Q4_K_M in llama.cpp, LM Studio and Ollama</li><li>Small enough for 4GB to 8GB laptops</li><li>Vision-capable tiny model for quick local image-text workflows</li><li>Good fit when Mistral Small 24B is too heavy</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Lower ceiling than 8B, 14B and 24B Mistral models</li><li>Multimodal accuracy depends on runtime support and projector handling</li><li>Not a specialist coding or deep reasoning model</li><li>Very long context increases memory use even though the base model is small</li></ul></div>
+    </section>
+    <section class="section cols">
+      <div><h2>Best use cases</h2><ul class="list"><li>Fast local chat on entry laptops</li><li>Light multimodal assistant</li><li>Private note summarization</li><li>Quick classification and extraction</li><li>Local app prototyping with llama.cpp or Ollama</li><li>European multilingual support workflows</li></ul></div>
+      <div>
+        <h2>Capability profile</h2>
+        <div class="bars">
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Technical notes</h2>
+      <div class="meta-grid">
+        <div class="meta"><div class="k">Developer</div><div class="v">Mistral AI</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">131,072 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Compact Mistral 3 multimodal Transformer, post-trained for instruction following with official GGUF quantizations.</div></div>
+      </div>
+    </section>
+    <section class="section">
+      <h2>This model fits these next steps</h2>
+      <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
+      <div class="hardware-fit">
+        <a href="/hardware/macbook-air-m3-8gb.html"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb.html"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb.html"><small>All compatible picks</small>8GB RAM guide</a>
+      </div>
+    </section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3.5-2b.html">Qwen 3.5 (2B) <span>2B</span></a><a href="/models/qwen3.5-4b.html">Qwen 3.5 (4B) <span>4B</span></a><a href="/models/gemma4-e2b.html">Gemma 4 E2B <span>E2B</span></a><a href="/models/phi4-mini.html">Phi-4 Mini (3.8B) <span>3.8B</span></a><a href="/models/mistral-nemo-12b.html">Mistral Nemo (12B) <span>12B</span></a></div></section>
+    <section class="section">
+      <h2>Where to go next</h2>
+      <div class="next">
+        <a href="/ram/8gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
