@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
+// Updated July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
+// Previous: July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
 // Previous: July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
 // Previous: July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
 // Previous: July 3, 2026 — Added Sarvam 30B and OLMo 3 32B Think — 196 LLM total
@@ -836,6 +837,40 @@ const APP_DATA = {
             hf_repo: 'mistralai/Ministral-3-3B-Instruct-2512-GGUF',
             source_url: 'https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512',
             benchmarks: { speed: 9, quality: 6, coding: 6, reasoning: 6 },
+            released: '2025-12',
+            isNew: true
+        },
+        {
+            id: 'ministral-3-8b-instruct',
+            name: 'Ministral 3 8B Instruct',
+            family: 'mistral',
+            params: '8B',
+            size_gb: 5.0,
+            min_ram: 8,
+            tags: ['chat', 'vision', 'standard', 'general', 'multilingual'],
+            description: 'Mistral AI mid-size multimodal instruct model. Apache 2.0, official GGUF availability, strong multilingual chat and vision-capable local assistant fit for 8-16GB machines.',
+            search_term: 'ministral-3-8b-instruct-2512',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'mistralai/Ministral-3-8B-Instruct-2512-GGUF',
+            source_url: 'https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512',
+            benchmarks: { speed: 8, quality: 7, coding: 7, reasoning: 7 },
+            released: '2025-12',
+            isNew: true
+        },
+        {
+            id: 'ministral-3-14b-instruct',
+            name: 'Ministral 3 14B Instruct',
+            family: 'mistral',
+            params: '14B',
+            size_gb: 8.5,
+            min_ram: 16,
+            tags: ['chat', 'vision', 'power', 'reasoning', 'multilingual'],
+            description: 'Mistral AI larger Ministral 3 instruct model. Apache 2.0, official GGUF availability, better quality ceiling than the 3B/8B variants while staying practical on 16-32GB workstations.',
+            search_term: 'ministral-3-14b-instruct-2512',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'mistralai/Ministral-3-14B-Instruct-2512-GGUF',
+            source_url: 'https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512',
+            benchmarks: { speed: 7, quality: 8, coding: 8, reasoning: 8 },
             released: '2025-12',
             isNew: true
         },

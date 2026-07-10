@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepSeek V4 Flash (284B MoE) local AI | LocalClaw</title>
-  <meta name="description" content="DeepSeek V4 Flash (284B MoE): 284B (13B active) local AI model guide with RAM requirements, FP4/FP8 quantization, benchmarks, use cases and LM Studio setup.">
+  <title>Ministral 3 14B Instruct local AI | LocalClaw</title>
+  <meta name="description" content="Ministral 3 14B Instruct: 14B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/deepseek-v4-flash.html">
+  <link rel="canonical" href="https://localclaw.io/models/ministral-3-14b-instruct.html">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/deepseek-v4-flash.html">
-  <meta property="og:title" content="DeepSeek V4 Flash (284B MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="DeepSeek V4 Flash (284B MoE): 284B (13B active) local AI model guide with RAM requirements, FP4/FP8 quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/ministral-3-14b-instruct.html">
+  <meta property="og:title" content="Ministral 3 14B Instruct local AI model | LocalClaw">
+  <meta property="og:description" content="Ministral 3 14B Instruct: 14B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DeepSeek V4 Flash (284B MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="DeepSeek V4 Flash (284B MoE): 284B (13B active) local AI model guide with RAM requirements, FP4/FP8 quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="Ministral 3 14B Instruct local AI model | LocalClaw">
+  <meta name="twitter:description" content="Ministral 3 14B Instruct: 14B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DeepSeek V4 Flash (284B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/deepseek-v4-flash.html","description":"DeepSeek V4 Flash (284B MoE): 284B (13B active) local AI model guide with RAM requirements, FP4/FP8 quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-05","memoryRequirements":"256 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can DeepSeek V4 Flash (284B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"DeepSeek V4 Flash (284B MoE) can run locally with at least 256 GB RAM. LocalClaw recommends FP4/FP8 quantization."}},{"@type":"Question","name":"What is DeepSeek V4 Flash (284B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"DeepSeek V4 Flash (284B MoE) is best used for Coding assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"DeepSeek V4 Flash (284B MoE)","item":"https://localclaw.io/models/deepseek-v4-flash.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ministral 3 14B Instruct","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ministral-3-14b-instruct.html","description":"Ministral 3 14B Instruct: 14B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-12","memoryRequirements":"16 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Mistral AI","url":"https://mistral.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ministral 3 14B Instruct run locally?","acceptedAnswer":{"@type":"Answer","text":"Ministral 3 14B Instruct can run locally with at least 16 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Ministral 3 14B Instruct best for?","acceptedAnswer":{"@type":"Answer","text":"Ministral 3 14B Instruct is best used for Higher-quality private assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Ministral 3 14B Instruct","item":"https://localclaw.io/models/ministral-3-14b-instruct.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -36,17 +36,17 @@
     <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>DeepSeek V4 Flash (284B MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Ministral 3 14B Instruct</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">DeepSeek V4 Flash <span>(284B MoE)</span></h1>
-        <p class="desc">Efficient DeepSeek V4 variant: 284B total, 13B active, 1M-token context. Flash-Max can approach Pro reasoning with larger thinking budget. MIT licensed.</p>
+        <h1 class="title">Ministral 3 14B Instruct</h1>
+        <p class="desc">Mistral AI larger Ministral 3 instruct model. Apache 2.0, official GGUF availability, better quality ceiling than the 3B/8B variants while staying practical on 16-32GB workstations.</p>
         <div class="chips">
-          <span class="chip hot">Server-grade</span>
-          <span class="chip">256 GB RAM</span>
-          <span class="chip">FP4/FP8</span>
-          <span class="chip">Coding assistant</span>
+          <span class="chip hot">16 GB sweet spot</span>
+          <span class="chip">16 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">Higher-quality private assistant</span>
         </div>
         <div class="cta">
           <a class="btn" href="/pricing.html">Run with LocalClaw</a>
@@ -57,71 +57,71 @@
         <div class="score-card">
           <div>
             <div class="score-label">Local fit score</div>
-            <div class="score">6.2<small>/10</small></div>
-            <p class="score-caption">DeepSeek V4 Flash (284B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
+            <div class="score">7.8<small>/10</small></div>
+            <p class="score-caption">Ministral 3 14B Instruct is a practical pick for 16 GB machines, especially with Q4_K_M quantization.</p>
           </div>
         </div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">deepseek-flash</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-05</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">mistral</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2025-12</div></div>
         </div>
       </aside>
     </header>
     <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">284B (13B active)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">256 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">170 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">FP4/FP8</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">14B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">16 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">8.5 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
     <section class="section">
-      <h2>Can DeepSeek V4 Flash (284B MoE) run locally?</h2>
-      <p>DeepSeek V4 Flash (284B MoE) is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.</p>
-      <p>Search for <code>deepseek-v4-flash</code> in LM Studio or another GGUF-compatible runtime.</p>
-      <div class="source-links"><code>deepseek-ai/DeepSeek-V4-Flash</code></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">agentic</span><span class="tag">long-context</span><span class="tag">general</span></div>
+      <h2>Can Ministral 3 14B Instruct run locally?</h2>
+      <p>Ministral 3 14B Instruct is a practical pick for 16 GB machines, especially with Q4_K_M quantization.</p>
+      <p>Search for <code>ministral-3-14b-instruct-2512</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><a href="https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512" target="_blank" rel="noopener">Model source</a><code>mistralai/Ministral-3-14B-Instruct-2512-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">vision</span><span class="tag">power</span><span class="tag">reasoning</span><span class="tag">multilingual</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 256 GB RAM. Start with the FP4/FP8 quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search deepseek-v4-flash in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 16 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search ministral-3-14b-instruct-2512 in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list"><li>Efficient DeepSeek V4 variant: 284B total, 13B active, 1M-token context. Flash-Max can approach Pro reasoning with larger thinking budget. MIT licensed.</li></ul></div>
-      <div><h2>Limitations</h2><ul class="list"><li>Performance depends on quantization, RAM bandwidth and runtime support.</li></ul></div>
+      <div><h2>Strengths</h2><ul class="list"><li>Official Mistral AI release with Apache 2.0 licensing</li><li>Official GGUF repo includes practical Q4_K_M and Q5_K_M local artifacts</li><li>Higher quality and reasoning ceiling than the 3B and 8B Ministral 3 variants</li><li>Still practical on 16GB to 32GB local workstations with quantization</li><li>Strong multilingual assistant fit for private European workflows</li><li>Vision-capable model family without moving to Mistral Small scale</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Heavier than the 8B variant and not ideal for entry 8GB laptops</li><li>Projector/runtime support matters for reliable multimodal use</li><li>Mistral Small and specialist coding models can outperform it on narrower tasks</li><li>Very long context increases memory pressure beyond the base Q4 footprint</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>power</li><li>agentic</li><li>long-context</li></ul></div>
+      <div><h2>Best use cases</h2><ul class="list"><li>Higher-quality private assistant</li><li>Multilingual business chat</li><li>Local document and image-text analysis</li><li>RAG and summarization</li><li>Coding assistance on 16GB+ machines</li><li>General reasoning without a 24B+ model</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">deepseek-flash</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">See model repository</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">Unknown tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">See model card</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">Mistral AI</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">131,072 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Mistral 3 multimodal Transformer, instruction tuned, with official GGUF quantizations.</div></div>
       </div>
     </section>
     <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m3-ultra-256gb.html"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers.html"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list.html"><small>More practical alternatives</small>Compare smaller models</a>
+        <a href="/hardware/mac-mini-m4-16gb.html"><small>Starter desktop</small>Mac mini M4 16GB</a><a href="/hardware/macbook-air-m4-16gb.html"><small>Portable fit</small>MacBook Air M4 16GB</a><a href="/ram/16gb.html"><small>Best 16GB models</small>16GB RAM guide</a>
       </div>
     </section>
-
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/ministral-3-8b-instruct.html">Ministral 3 8B Instruct <span>8B</span></a><a href="/models/mistral-small3.2-24b.html">Mistral Small 3.2 (24B) <span>24B</span></a><a href="/models/mistral-nemo-12b.html">Mistral Nemo (12B) <span>12B</span></a><a href="/models/gemma3-12b.html">Gemma 3 (12B) <span>12B</span></a><a href="/models/qwen3-14b.html">Qwen 3 (14B) <span>14B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/16gb.html"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
