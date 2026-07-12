@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
+// Updated July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
+// Previous: July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
 // Previous: July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
 // Previous: July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
 // Previous: July 4, 2026 — Added Qwen AgentWorld 35B-A3B and Apertus 8B Instruct — 198 LLM total
@@ -180,6 +181,23 @@ const APP_DATA = {
             hf_repo: 'LiquidAI/LFM2.5-8B-A1B-GGUF',
             benchmarks: { speed: 9, quality: 8, coding: 8, reasoning: 8 },
             released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'minicpm5-1b',
+            name: 'MiniCPM5 1B',
+            family: 'minicpm',
+            params: '1B',
+            size_gb: 0.8,
+            min_ram: 4,
+            tags: ['chat', 'code', 'reasoning', 'light', 'speed', 'tool-calling', 'general'],
+            description: 'OpenBMB compact on-device LLM with Apache 2.0 licensing, 128K context, tool-calling focus and official GGUF plus MLX artifacts for laptops and edge devices.',
+            search_term: 'minicpm5-1b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'openbmb/MiniCPM5-1B-GGUF',
+            source_url: 'https://huggingface.co/openbmb/MiniCPM5-1B',
+            benchmarks: { speed: 10, quality: 6, coding: 6, reasoning: 6 },
+            released: '2026-05',
             isNew: true
         },
         {
