@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
+// Updated July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
+// Previous: July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
 // Previous: July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
 // Previous: July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
 // Previous: July 5, 2026 — Added DiffusionGemma 26B-A4B Instruct — 199 LLM total
@@ -264,6 +265,23 @@ const APP_DATA = {
             hf_repo: 'unsloth/Qwen-AgentWorld-35B-A3B-GGUF',
             source_url: 'https://huggingface.co/Qwen/Qwen-AgentWorld-35B-A3B',
             benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'north-mini-code-1.0',
+            name: 'North Mini Code 1.0',
+            family: 'cohere',
+            params: '30B (3B active, MoE)',
+            size_gb: 18,
+            min_ram: 32,
+            tags: ['code', 'agent', 'reasoning', 'power'],
+            description: 'Cohere Labs Apache 2.0 coding and agent model. 30B total / 3B active MoE, 256K context, terminal-task training and mature GGUF quantizations for local workstation use.',
+            search_term: 'north-mini-code-1.0',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/North-Mini-Code-1.0-GGUF',
+            source_url: 'https://huggingface.co/CohereLabs/North-Mini-Code-1.0',
+            benchmarks: { speed: 5, quality: 8, coding: 9, reasoning: 8 },
             released: '2026-06',
             isNew: true
         },
