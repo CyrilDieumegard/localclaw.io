@@ -56,6 +56,7 @@ const familyColors = {
   exaone: '#a3e635',
   lfm: '#38bdf8',
   apertus: '#0f766e',
+  internscience: '#14b8a6',
   deepreinforce: '#ff453a'
 };
 

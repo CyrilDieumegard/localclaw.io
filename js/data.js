@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
+// Updated July 15, 2026 — Added Agents-A1 — 206 LLM total
+// Previous: July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
 // Previous: July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
 // Previous: July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
 // Previous: July 6, 2026 — Added Qwen 3.6 35B-A3B and Ministral 3 3B — 201 LLM total
@@ -282,6 +283,23 @@ const APP_DATA = {
             hf_repo: 'unsloth/North-Mini-Code-1.0-GGUF',
             source_url: 'https://huggingface.co/CohereLabs/North-Mini-Code-1.0',
             benchmarks: { speed: 5, quality: 8, coding: 9, reasoning: 8 },
+            released: '2026-06',
+            isNew: true
+        },
+        {
+            id: 'agents-a1',
+            name: 'Agents-A1',
+            family: 'internscience',
+            params: '35B (3B active, MoE)',
+            size_gb: 21,
+            min_ram: 32,
+            tags: ['chat', 'code', 'vision', 'agent', 'reasoning', 'power', 'tool-calling', 'multimodal'],
+            description: 'InternScience Apache 2.0 agentic VLM. 35B-A3B MoE, 262K context, strong long-horizon search/tool-use benchmarks and official Q4_K_M GGUF artifacts for local workstations.',
+            search_term: 'agents-a1',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'InternScience/Agents-A1-Q4_K_M-GGUF',
+            source_url: 'https://huggingface.co/InternScience/Agents-A1',
+            benchmarks: { speed: 5, quality: 9, coding: 8, reasoning: 9 },
             released: '2026-06',
             isNew: true
         },
