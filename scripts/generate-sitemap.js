@@ -41,6 +41,7 @@ addHtmlDir('tts', '/tts', 'monthly', '0.8');
 addHtmlDir('guides', '/guides', 'monthly', '0.88');
 urls.push(url('/blog/', TODAY, 'weekly', '0.9'));
 addHtmlDir('blog', '/blog', 'monthly', '0.8');
+addHtmlDir('changelog', '/changelog', 'monthly', '0.82');
 const seen = new Set();
 for (const m of loadModels()) {
   if (seen.has(m.id)) continue;

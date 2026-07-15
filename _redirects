@@ -60,6 +60,8 @@
 # Browser fallback favicon request — prevents noisy /favicon.ico 404s in console/crawlers
 /favicon.ico             /images/favicon.png?v=20260211g   301!
 
+/changelog/localclaw-installer-v1.0.168  /changelog/localclaw-installer-v1.0.168.html  200!
+
 /models/agents-a1       /models/agents-a1.html   200!
 
 /models                 /models/         301!

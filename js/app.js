@@ -1114,7 +1114,7 @@ const App = {
         `;
         const mockPanels = {
             home: `
-                ${mockPanelHeader('LocalClaw', 'Version 1.0.140 (build 285)')}
+                ${mockPanelHeader('LocalClaw', 'Version 1.0.168 (build 319)')}
                 <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
                     <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4"><div class="mb-2 text-[#22c55e]">⌁</div><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div><div class="mt-2 text-[10px] text-claw-muted">openai/gpt-5.4-mini</div></div>
                     <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-muted">▤</div><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div><div class="mt-2 text-[10px] text-claw-muted">CPU 28% · RAM 31.2/32 GB</div></div>
@@ -1264,6 +1264,10 @@ const App = {
                             <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                         </div>
                         <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
+                        <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
+                            LocalClaw 1.0.168 · Ready for OpenClaw v2026.7.1
+                        </a>
                     </div>
                     <div class="relative mx-auto w-full max-w-xl">
                         <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
@@ -1277,7 +1281,7 @@ const App = {
                 <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
                         <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0</div>
+                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0.168</div>
                         <div class="hidden sm:flex items-center rounded-lg border border-white/10 bg-[#242424] p-1 font-mono text-[11px] font-bold uppercase tracking-wider text-claw-muted shadow-[0_0_18px_rgba(255,69,58,0.08)]">
                             <span class="px-2.5 py-1">Cloud LLM</span>
                             <span class="h-4 w-px bg-white/10"></span>
@@ -1297,7 +1301,7 @@ const App = {
                             </div>
                             <div class="mt-4 border-t border-[#333] pt-4">
                                 <div class="text-[10px] uppercase tracking-[0.18em] text-claw-muted">OpenClaw Version</div>
-                                <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.5.22</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
+                                <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.7.1</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
                                 <div class="mt-3 text-claw-muted">Machine: <span class="text-white">Apple M2 Max</span></div>
                                 <div class="text-claw-muted">32 GB · macOS</div>
                                 <div class="mt-3 border-t border-[#333] pt-3 text-[10px] leading-relaxed text-claw-muted">

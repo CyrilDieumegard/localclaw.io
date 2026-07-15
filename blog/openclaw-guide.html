@@ -7,9 +7,9 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs | LocalClaw</title>
-    <meta name="description" content="OpenClaw guide for local AI: connect LM Studio or Ollama, configure skills, and run a self-hosted assistant gateway privately on your own machine.">
-    <meta name="keywords" content="OpenClaw, OpenClaw guide, OpenClaw tutorial, local AI gateway, AI assistant platform, ChatGPT alternative, open source AI, privacy AI, self-hosted AI, OpenClaw install, OpenClaw skills, AI orchestration, LM Studio, Ollama">
+    <title>OpenClaw v2026.7.1: Install &amp; Run Locally | LocalClaw</title>
+    <meta name="description" content="Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.168 on macOS.">
+    <meta name="keywords" content="OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, OpenClaw local models, OpenClaw LM Studio, OpenClaw Ollama, LocalClaw 1.0.168, local AI gateway, self-hosted AI">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/blog/openclaw-guide.html">
@@ -19,14 +19,14 @@
          ============================================================ -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/blog/openclaw-guide.html">
-    <meta property="og:title" content="OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs">
-    <meta property="og:description" content="Complete guide to OpenClaw: the self-hosted AI gateway that connects your tools and chat channels to local or remote model backends. 100% private.">
+    <meta property="og:title" content="OpenClaw v2026.7.1: Install &amp; Run Locally">
+    <meta property="og:description" content="A current, practical guide to OpenClaw v2026.7.1, local model providers, updates, privacy boundaries and LocalClaw 1.0.168 compatibility.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="article:published_time" content="2026-02-12T10:00:00+00:00">
-    <meta property="article:modified_time" content="2026-02-12T10:00:00+00:00">
+    <meta property="article:modified_time" content="2026-07-15T10:00:00+00:00">
     <meta property="article:author" content="LocalClaw">
     <meta property="article:section" content="Guide">
 
@@ -34,8 +34,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs">
-    <meta name="twitter:description" content="Complete guide to OpenClaw: the self-hosted AI gateway that routes your prompts to local or remote model backends. Open-source, privacy-first.">
+    <meta name="twitter:title" content="OpenClaw v2026.7.1: Install &amp; Run Locally">
+    <meta name="twitter:description" content="Install OpenClaw v2026.7.1, connect LM Studio or Ollama, and see what LocalClaw 1.0.168 adds on macOS.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <!-- ============================================================
@@ -115,6 +115,9 @@
         .feature-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; }
         .feature-card:hover { border-color: rgba(255,69,58,0.3); transform: translateY(-2px); }
         .step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
+        .step-card > :last-child { min-width: 0; flex: 1 1 auto; }
+        .step-card .command-block,
+        .step-card pre { min-width: 0; max-width: 100%; }
         .step-number { background: linear-gradient(135deg, #FF453A, #FF6D64); }
         .comparison-table th { background: rgba(255,69,58,0.1); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
         .comparison-table td { border: 1px solid rgba(255,255,255,0.06); padding: 0.75rem 1rem; color: #A1A1AA; }
@@ -240,17 +243,17 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span id="read-time">15 min read</span>
                 </span>
-                <span class="text-claw-muted text-sm">February 12, 2026</span>
+                <span class="text-claw-muted text-sm">Updated July 15, 2026</span>
             </div>
 
             <!-- Title -->
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
-                OpenClaw: The Complete Guide to the Self-Hosted <span class="text-claw-primary">AI Assistant Gateway</span>
+                OpenClaw v2026.7.1: Install, Update and <span class="text-claw-primary">Run It Locally</span>
             </h1>
 
             <!-- Subtitle -->
             <p class="text-xl text-claw-muted leading-relaxed mb-8">
-                                68,000+ GitHub stars. 100% self-hosted. Zero telemetry. OpenClaw is the open-source AI gateway that connects your chat surfaces, CLI, and tools to local or remote model backends — keeping every conversation under your control. Here's everything you need to know, and how to set it up in under 5 minutes.
+                OpenClaw connects agents, channels, scheduled work and tools to local or remote model providers. This guide explains the current v2026.7.1 setup, the real privacy boundaries, and the quickest macOS path with LocalClaw 1.0.168.
             </p>
 
             <!-- Key Info Box -->
@@ -262,12 +265,12 @@
                     <div>
                         <h3 class="text-lg font-bold text-white mb-2">Quick Facts</h3>
                         <ul class="!mb-0 !text-sm grid sm:grid-cols-2 gap-x-8 gap-y-1">
-                            <li><strong>What it is:</strong> Self-hosted AI assistant gateway</li>
-                            <li><strong>GitHub Stars:</strong> 68,000+</li>
-                            <li><strong>Surfaces:</strong> Desktop app, CLI, web UI</li>
-                            <li><strong>Stack:</strong> Electron + React + TypeScript</li>
-                            <li><strong>Backends:</strong> LM Studio, Ollama, any OpenAI-compatible API</li>
-                            <li><strong>License:</strong> MIT (fully open-source)</li>
+                            <li><strong>Current release:</strong> v2026.7.1 (July 13, 2026)</li>
+                            <li><strong>License:</strong> MIT open source</li>
+                            <li><strong>Core surfaces:</strong> Control UI, CLI, TUI and official apps</li>
+                            <li><strong>Update command:</strong> <code>openclaw update</code></li>
+                            <li><strong>Local providers:</strong> LM Studio and Ollama</li>
+                            <li><strong>LocalClaw:</strong> v1.0.168 supports OpenClaw v2026.7.1</li>
                         </ul>
                     </div>
                 </div>
@@ -287,7 +290,7 @@
                 </h3>
                 <ol class="!mb-0 !text-sm !pl-4 space-y-1">
                     <li><a href="#what-is-openclaw" class="toc-link no-underline">What Is OpenClaw?</a></li>
-                    <li><a href="#why-openclaw" class="toc-link no-underline">Why OpenClaw Over ChatGPT?</a></li>
+                    <li><a href="#why-openclaw" class="toc-link no-underline">Why Use OpenClaw?</a></li>
                     <li><a href="#features" class="toc-link no-underline">Key Features</a></li>
                     <li><a href="#how-it-works" class="toc-link no-underline">How It Works (Architecture)</a></li>
                     <li><a href="#installation" class="toc-link no-underline">Installation Guide (macOS, Linux, Windows)</a></li>
@@ -301,54 +304,65 @@
                 </ol>
             </div>
 
+            <div class="rounded-xl bg-white/[0.02] border border-white/10 p-5 mb-8">
+                <h3 class="!mt-0 !mb-3 text-base text-white">Official references used for this update</h3>
+                <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                    <a href="https://docs.openclaw.ai/releases/2026.7.1" target="_blank" rel="noopener">v2026.7.1 release notes</a>
+                    <a href="https://docs.openclaw.ai/install" target="_blank" rel="noopener">Installation</a>
+                    <a href="https://docs.openclaw.ai/cli/update" target="_blank" rel="noopener">Update CLI</a>
+                    <a href="https://docs.openclaw.ai/providers/lmstudio" target="_blank" rel="noopener">LM Studio provider</a>
+                    <a href="https://docs.openclaw.ai/providers/ollama" target="_blank" rel="noopener">Ollama provider</a>
+                </div>
+            </div>
+
             <!-- ======================= SECTION 1 ======================= -->
             <h2 id="what-is-openclaw">1. What Is OpenClaw?</h2>
 
-            <p><strong>OpenClaw</strong> is a self-hosted AI assistant gateway that connects your chat channels and tools to local or remote model backends (LM Studio, Ollama, any OpenAI-compatible API). Think of it less as "a ChatGPT clone" and more as an <strong>orchestration layer</strong> — it routes your prompts to whichever inference engine you choose, manages conversations and context, and extends functionality through a skills/plugin system.</p>
+            <p><strong>OpenClaw</strong> is an open-source AI gateway and agent platform. It connects conversations, channels, tools, sessions and scheduled work to the model provider you choose. That provider can be local, such as <strong>LM Studio</strong> or <strong>Ollama</strong>, or remote, such as a hosted API.</p>
 
-            <p>Created as a weekend experiment that exploded into a full-blown phenomenon, OpenClaw has amassed <strong>over 68,000 stars on GitHub</strong>, making it one of the most popular open-source AI projects in the world. It ships with multiple surfaces: a <strong>desktop app</strong> (Electron), a <strong>CLI</strong> for terminal workflows, and a <strong>web UI</strong> you can self-host. Under the hood, it connects to any server that exposes an OpenAI-compatible <code>/v1/chat/completions</code> endpoint — including <strong>LM Studio</strong>, <strong>Ollama</strong>, <strong>llama.cpp</strong>, <strong>vLLM</strong>, and even remote GPU servers you control.</p>
+            <p>The current <strong>v2026.7.1</strong> release expands the Control UI, official apps, model/provider support, scheduled work, workspace tools and Gateway reliability. OpenClaw is therefore broader than a local chat frontend: it is the control plane around agents and the services they use.</p>
 
-            <p>The core project is built with <strong>Electron, React, and TypeScript</strong> for the desktop surface, but the gateway architecture means it’s not locked to a single interface. You can interact with the same backend through the CLI, pipe output into scripts, or expose the web UI on your local network for other devices.</p>
+            <p>Privacy depends on configuration. With a local LM Studio or Ollama model, inference can stay on your machine. If you select a cloud provider or connect an online channel, those requests use the corresponding service and its policies. OpenClaw gives you the choice; it does not make every configuration offline by default.</p>
 
             <div class="info-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> The name:</strong> OpenClaw started as "Clawdbot" (a play on Claude + bot), then evolved into OpenClaw as it grew beyond a single AI personality into a universal AI gateway and orchestration platform. The claw mascot — a friendly red creature — has become the unofficial emoji of the local AI community.</p>
+                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> LocalClaw compatibility:</strong> LocalClaw 1.0.168 updates its Gateway health parsing and repair workflow for OpenClaw v2026.7.1. Read the <a href="../changelog/localclaw-installer-v1.0.168.html">release notes</a>.</p>
             </div>
 
             <!-- ======================= SECTION 2 ======================= -->
-            <h2 id="why-openclaw">2. Why OpenClaw Over ChatGPT?</h2>
+            <h2 id="why-openclaw">2. Why Use OpenClaw?</h2>
 
-            <p>ChatGPT is excellent — but it comes with trade-offs that matter increasingly in 2026. Here's why thousands of developers, researchers, and privacy-conscious users are switching to OpenClaw:</p>
+            <p>OpenClaw is useful when you want one system for agents, model providers, channels and scheduled work instead of a single hosted chat tab. Its strongest advantage is control: you decide which model runs where and which integrations may access the network.</p>
 
             <div class="grid sm:grid-cols-2 gap-4 mb-8 not-prose">
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">Complete Privacy</h4>
-                    <p class="text-claw-muted text-sm">Your conversations never leave your machine. No cloud processing, no data collection, no training on your inputs. Supports air-gapped environments.</p>
+                    <h4 class="text-white font-bold mb-2">Local Inference Option</h4>
+                    <p class="text-claw-muted text-sm">Choose LM Studio or Ollama to keep model inference on your own hardware. Connected channels and cloud providers remain optional.</p>
                 </div>
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12m-3-9h4.5a1.5 1.5 0 010 3H9m0 0h4.5a1.5 1.5 0 010 3H9"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">Zero Cost</h4>
-                    <p class="text-claw-muted text-sm">No subscription fees. No per-token pricing. No usage limits. Once your model is downloaded, it's unlimited forever.</p>
+                    <h4 class="text-white font-bold mb-2">No Per-Token Local Bill</h4>
+                    <p class="text-claw-muted text-sm">Downloaded local models avoid provider token charges. Your real costs are hardware, electricity and any optional paid APIs you enable.</p>
                 </div>
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">No Rate Limits</h4>
-                    <p class="text-claw-muted text-sm">No "you've reached your limit" messages. No waiting for servers. No downtime. Your AI is always available, as fast as your hardware allows.</p>
+                    <h4 class="text-white font-bold mb-2">Hardware-Limited, Not Quota-Limited</h4>
+                    <p class="text-claw-muted text-sm">A local model runs at the speed and capacity of your machine instead of a hosted plan quota. Remote services still keep their own limits.</p>
                 </div>
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#A855F7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 01-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 10-3.214 3.214c.446.166.855.497.925.968a.979.979 0 01-.276.837l-1.61 1.61a2.404 2.404 0 01-1.705.707 2.402 2.402 0 01-1.704-.706l-1.568-1.568a1.026 1.026 0 00-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 11-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 00-.289-.877l-1.568-1.568A2.402 2.402 0 011.998 12c0-.617.236-1.234.706-1.704L4.315 8.685a.98.98 0 01.837-.276c.47.07.802.48.968.925a2.501 2.501 0 103.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 01.276-.837l1.61-1.61a2.404 2.404 0 011.705-.707c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 113.237 3.237c-.464.18-.894.527-.967 1.02z"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">Fully Customizable</h4>
-                    <p class="text-claw-muted text-sm">Switch models instantly. Create custom system prompts. Install skills and plugins. Tune temperature, context length, and every parameter.</p>
+                    <h4 class="text-white font-bold mb-2">Provider Choice</h4>
+                    <p class="text-claw-muted text-sm">Switch between local and hosted providers, configure agents and install skills without rebuilding your entire assistant workflow.</p>
                 </div>
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#60A5FA" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">Works Offline</h4>
-                    <p class="text-claw-muted text-sm">No internet required after setup. Perfect for flights, restricted networks, or anywhere you need AI without connectivity.</p>
+                    <h4 class="text-white font-bold mb-2">Offline-Capable Workflows</h4>
+                    <p class="text-claw-muted text-sm">Local models can answer without internet once installed. Web tools, cloud models and messaging channels naturally require connectivity.</p>
                 </div>
                 <div class="feature-card rounded-xl p-5">
                     <div class="text-2xl mb-3"><svg style="width:24px;height:24px;color:#34D399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 019.9-1"/></svg></div>
-                    <h4 class="text-white font-bold mb-2">No Censorship</h4>
-                    <p class="text-claw-muted text-sm">Local models don't have the content restrictions of commercial APIs. Use uncensored models for creative writing, research, or red-teaming.</p>
+                    <h4 class="text-white font-bold mb-2">Open and Extensible</h4>
+                    <p class="text-claw-muted text-sm">The MIT-licensed codebase, skills and provider architecture give technical users a system they can inspect and adapt.</p>
                 </div>
             </div>
 
@@ -387,7 +401,7 @@
             <!-- ======================= SECTION 4 ======================= -->
             <h2 id="how-it-works">4. How It Works</h2>
 
-            <p>OpenClaw follows a <strong>gateway architecture</strong> — it sits between you (via desktop app, CLI, or web UI) and your inference backend. It doesn’t bundle its own model runtime; instead, it acts as an intelligent routing and orchestration layer:</p>
+            <p>OpenClaw follows a <strong>gateway architecture</strong>. The Control UI, CLI, TUI, official apps and connected channels talk to a Gateway, which coordinates agents, tools and model providers:</p>
 
             <div class="rounded-xl bg-claw-surface border border-white/8 p-6 mb-6 font-mono text-sm">
                 <div class="text-center space-y-3">
@@ -396,7 +410,7 @@
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-center">
                             <div class="text-white font-bold">You</div>
-                            <div class="text-claw-muted text-xs">Desktop • CLI • Web UI</div>
+                            <div class="text-claw-muted text-xs">Control UI • CLI • Apps • Channels</div>
                         </div>
                         <div class="text-claw-primary">→</div>
                         <div class="bg-claw-primary/10 border border-claw-primary/30 rounded-lg px-4 py-3 text-center">
@@ -415,118 +429,120 @@
                         </div>
                     </div>
                     <div class="h-px bg-white/10 my-4"></div>
-                    <div class="text-claw-muted text-xs">Everything happens on <strong class="text-white">localhost</strong> — no internet traffic whatsoever</div>
+                    <div class="text-claw-muted text-xs">With a local provider, model inference stays on <strong class="text-white">your host</strong>. Online tools and providers use the network when enabled.</div>
                 </div>
             </div>
 
-            <p>The key design principle: <strong>OpenClaw doesn’t ship its own inference engine</strong>. It delegates model execution to a dedicated backend (LM Studio, Ollama, vLLM, etc.) via the OpenAI-compatible API (<code>http://localhost:1234/v1</code> for LM Studio, <code>http://localhost:11434</code> for Ollama). This separation means OpenClaw focuses on what it does best — <em>orchestration, conversation management, skills, and multi-surface access</em> — while the backend focuses on <em>fast inference</em>. You pick the best tool for each role.</p>
+            <p>The model runtime remains separate. LM Studio exposes an OpenAI-compatible endpoint such as <code>http://127.0.0.1:1234/v1</code>. Ollama uses its native API at <code>http://127.0.0.1:11434</code> and should be configured without the <code>/v1</code> suffix. This separation lets OpenClaw focus on orchestration while the selected runtime handles inference.</p>
 
             <!-- ======================= SECTION 5 ======================= -->
             <h2 id="installation">5. Installation Guide</h2>
 
-            <p>OpenClaw offers multiple installation methods depending on your platform. Here's how to get it running in under 5 minutes.</p>
+            <p>The official installer detects the operating system, installs the required runtime when needed, installs OpenClaw and launches onboarding. Use the commands below from the current OpenClaw documentation.</p>
 
-            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> macOS</h3>
+            <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> macOS, Linux and WSL2</h3>
 
-            <p><strong>Option A: One-line installer</strong> (recommended)</p>
+            <p><strong>Recommended installer</strong></p>
             <div class="command-block">
                 <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash</code></pre>
                 <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://openclaw.ai/install.sh | bash');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
             </div>
 
-            <p><strong>Option B: Homebrew</strong></p>
+            <p>For scripted installs where onboarding should not open immediately:</p>
             <div class="command-block">
-                <pre><code>brew install --cask openclaw</code></pre>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('brew install --cask openclaw');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+                <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
             </div>
 
-            <p><strong>Option C: Direct download</strong> — grab the <code>.dmg</code> from <a href="https://openclaw.ai/" target="_blank" rel="noopener">openclaw.ai</a></p>
-
-            <h3>🐧 Linux</h3>
-
-            <p><strong>Option A: One-line installer</strong></p>
+            <h3>Windows PowerShell</h3>
             <div class="command-block">
-                <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash</code></pre>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://openclaw.ai/install.sh | bash');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+                <pre><code>iwr -useb https://openclaw.ai/install.ps1 | iex</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('iwr -useb https://openclaw.ai/install.ps1 | iex');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
             </div>
 
-            <p><strong>Option B: AppImage</strong> — download the <code>.AppImage</code> from the releases page. Make it executable and run:</p>
+            <h3>Already manage Node yourself?</h3>
+            <p>Install the latest package, then run onboarding and install the managed Gateway service:</p>
             <div class="command-block">
-                <pre><code>chmod +x OpenClaw-*.AppImage
-./OpenClaw-*.AppImage</code></pre>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('chmod +x OpenClaw-*.AppImage\n./OpenClaw-*.AppImage');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+                <pre><code>npm install -g openclaw@latest
+openclaw onboard --install-daemon</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('npm install -g openclaw@latest\nopenclaw onboard --install-daemon');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
             </div>
 
-            <p><strong>Option C: Snap / Flatpak</strong> — available on both package managers for Ubuntu, Fedora, and other distros.</p>
+            <h3>Updating to v2026.7.1</h3>
+            <p>The supported foreground update flow coordinates the package swap with the managed Gateway service:</p>
+            <div class="command-block">
+                <pre><code>openclaw update
+openclaw update status</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('openclaw update\nopenclaw update status');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
 
-            <h3>🪟 Windows</h3>
-
-            <p>Download the <code>.exe</code> installer from <a href="https://openclaw.ai/" target="_blank" rel="noopener">openclaw.ai</a> and run it. That's it — Windows Defender may ask for confirmation the first time.</p>
+            <p>If the core package updated but plugin synchronization or repair did not finish, run:</p>
+            <div class="command-block">
+                <pre><code>openclaw update repair</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('openclaw update repair');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
 
             <div class="tip-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> System Requirements:</strong> OpenClaw itself is lightweight — the desktop app is under 200 MB, and the CLI is even smaller. The real requirement is your inference backend — see our <a href="how-to-choose-local-llm.html">How to Choose a Local LLM</a> guide for RAM/VRAM recommendations.</p>
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Prefer a guided macOS setup?</strong> LocalClaw 1.0.168 is an Apple-notarized native control center updated for OpenClaw v2026.7.1. It handles setup, health checks and repair from one dashboard. <a href="../pricing.html">See the $49 lifetime beta</a>.</p>
             </div>
 
             <!-- ======================= SECTION 6 ======================= -->
             <h2 id="connect-lm-studio">6. Connecting to LM Studio</h2>
 
-            <p><a href="lm-studio-beginner-guide.html">LM Studio</a> is the most popular backend for OpenClaw. Here's how to connect them:</p>
+            <p><a href="lm-studio-beginner-guide.html">LM Studio</a> can expose a local OpenAI-compatible server that OpenClaw discovers during onboarding. The current official flow is:</p>
 
             <div class="space-y-4 mb-8">
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Start LM Studio's Local Server</h4>
-                        <p class="!text-sm !mb-0">Open LM Studio → Go to the <strong>Local Server</strong> tab (left sidebar) → Click <strong>"Start Server"</strong>. The server will launch on <code>http://localhost:1234</code></p>
+                        <h4 class="text-white font-bold mb-1">Start the LM Studio Server</h4>
+                        <p class="!text-sm !mb-0">Load a model in LM Studio, then start its local server from the Developer tab or run <code>lms server start --port 1234</code>. The default endpoint is <code>http://127.0.0.1:1234/v1</code>.</p>
                     </div>
                 </div>
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Open OpenClaw Settings</h4>
-                        <p class="!text-sm !mb-0">Launch OpenClaw → Click the ⚙️ gear icon → Navigate to <strong>"AI Provider"</strong> settings</p>
+                        <h4 class="text-white font-bold mb-1">Run OpenClaw Onboarding</h4>
+                        <p class="!text-sm !mb-0">Run <code>openclaw onboard</code>, choose <strong>LM Studio</strong>, and select the model served by your local runtime.</p>
                     </div>
                 </div>
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Configure the Endpoint</h4>
-                        <p class="!text-sm !mb-0">Set <strong>Provider</strong> to "OpenAI-Compatible" → Set <strong>Base URL</strong> to <code>http://localhost:1234/v1</code> → API Key can be left empty or set to <code>lm-studio</code></p>
+                        <h4 class="text-white font-bold mb-1">Confirm the Provider</h4>
+                        <p class="!text-sm !mb-0">OpenClaw uses <code>http://127.0.0.1:1234/v1</code> by default. If LM Studio authentication is enabled, provide the same token through <code>LM_API_TOKEN</code>.</p>
                     </div>
                 </div>
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">4</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Start Chatting</h4>
-                        <p class="!text-sm !mb-0">Select a model from the dropdown (OpenClaw auto-detects loaded models) → Type your first message. The response streams from LM Studio through OpenClaw's interface.</p>
+                        <h4 class="text-white font-bold mb-1">Verify Model Discovery</h4>
+                        <p class="!text-sm !mb-0">Check LM Studio's model endpoint before starting an agent session. This catches a stopped server or a mismatched model identifier immediately.</p>
                     </div>
                 </div>
             </div>
 
             <div class="command-block">
-                <pre><code># Verify the connection works (run in terminal):
-curl http://localhost:1234/v1/models
-
-# Expected output: JSON list of your loaded models</code></pre>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl http://localhost:1234/v1/models');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+                <pre><code>curl http://localhost:1234/api/v1/models</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl http://localhost:1234/api/v1/models');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
             </div>
 
             <!-- ======================= SECTION 7 ======================= -->
             <h2 id="connect-ollama">7. Connecting to Ollama</h2>
 
-            <p><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> is a popular alternative backend. The setup is slightly different:</p>
+            <p><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> is another supported local provider. Unlike LM Studio, OpenClaw connects to Ollama's native API, so the base URL must not include <code>/v1</code>.</p>
 
             <div class="space-y-4 mb-6">
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Install & Start Ollama</h4>
+                        <h4 class="text-white font-bold mb-1">Install Ollama and Pull a Model</h4>
                         <div class="command-block mt-2">
                             <pre><code># Install Ollama
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Pull a model (e.g., Qwen 3 8B)
-ollama pull qwen3:8b
+# Pull a practical small model
+ollama pull qwen3.5:9b
 
 # Ollama server starts automatically on port 11434</code></pre>
                         </div>
@@ -535,14 +551,19 @@ ollama pull qwen3:8b
                 <div class="step-card rounded-xl p-5 flex gap-4">
                     <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
                     <div>
-                        <h4 class="text-white font-bold mb-1">Configure OpenClaw</h4>
-                        <p class="!text-sm !mb-0">Settings → AI Provider → Set Base URL to <code>http://localhost:11434/v1</code> → Leave API Key empty → Select your model from the dropdown</p>
+                        <h4 class="text-white font-bold mb-1">Choose Ollama During Onboarding</h4>
+                        <p class="!text-sm !mb-0">Run <code>openclaw onboard</code>, select <strong>Ollama</strong>, and choose a local-only or mixed provider setup. The native endpoint is <code>http://127.0.0.1:11434</code>.</p>
                     </div>
                 </div>
             </div>
 
+            <div class="command-block">
+                <pre><code>openclaw models list --provider ollama</code></pre>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('openclaw models list --provider ollama');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+            </div>
+
             <div class="warning-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Note:</strong> Some advanced OpenClaw features (like real-time model loading/unloading) work better with LM Studio. Ollama requires models to be pre-pulled via the CLI. Both backends work well for daily chatting.</p>
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Common mistake:</strong> <code>http://127.0.0.1:11434/v1</code> selects the wrong protocol path for the native Ollama provider. Use <code>http://127.0.0.1:11434</code>.</p>
             </div>
 
             <!-- ======================= SECTION 8 ======================= -->
@@ -551,9 +572,9 @@ ollama pull qwen3:8b
             <p>One of OpenClaw's most powerful features is its <strong>skills system</strong> — a plugin architecture that extends the gateway beyond simple chat. Skills let OpenClaw orchestrate multi-step tasks, interact with external tools, and automate workflows that a basic prompt-response loop cannot handle.</p>
 
             <h3>What are Skills?</h3>
-            <p>Skills are modular add-ons that give OpenClaw new abilities. They can interact with files, browse the web, execute code, and more — all running locally. Think of them as "apps" for your AI assistant.</p>
+            <p>Skills are modular add-ons that give OpenClaw new abilities. A file-oriented skill can operate on local resources, while browser, channel and hosted-provider skills use the network. Review every skill's permissions and source before enabling it.</p>
 
-            <h3>Popular Skills</h3>
+            <h3>What Skills Can Do</h3>
             <div class="grid sm:grid-cols-2 gap-4 mb-6 not-prose">
                 <div class="feature-card rounded-xl p-4">
                     <h4 class="text-white font-bold mb-1 text-sm">📁 File Manager</h4>
@@ -565,11 +586,11 @@ ollama pull qwen3:8b
                 </div>
                 <div class="feature-card rounded-xl p-4">
                     <h4 class="text-white font-bold mb-1 text-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Code Executor</h4>
-                    <p class="text-claw-muted text-xs">Run Python, JavaScript, and shell scripts in a sandboxed environment. See output inline.</p>
+                    <p class="text-claw-muted text-xs">Run configured Python, JavaScript or shell workflows under the execution and permission policies you choose.</p>
                 </div>
                 <div class="feature-card rounded-xl p-4">
                     <h4 class="text-white font-bold mb-1 text-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Data Analyst</h4>
-                    <p class="text-claw-muted text-xs">Process CSV/JSON data, generate charts, run statistical analysis — powered by your local model.</p>
+                    <p class="text-claw-muted text-xs">Process CSV or JSON data and prepare analysis workflows with the selected model and tools.</p>
                 </div>
             </div>
 
@@ -595,53 +616,46 @@ ollama pull qwen3:8b
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-white">100% Local</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Yes</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Cloud</span></td>
+                            <td class="font-medium text-white">Primary role</td>
+                            <td>Agent gateway</td>
+                            <td>Local model runtime</td>
+                            <td>Local model runtime</td>
+                            <td>Hosted AI service</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Open Source</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> MIT</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Proprietary</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> MIT</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Proprietary</span></td>
+                            <td class="font-medium text-white">Local model support</td>
+                            <td><span class="text-emerald-400">Optional</span></td>
+                            <td><span class="text-emerald-400">Yes</span></td>
+                            <td><span class="text-emerald-400">Yes</span></td>
+                            <td><span class="text-red-400">No</span></td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Desktop App (GUI)</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Polished</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Built-in</span></td>
-                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> CLI only</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Web + App</span></td>
+                            <td class="font-medium text-white">Interfaces</td>
+                            <td>Control UI, CLI, TUI, apps</td>
+                            <td>Desktop GUI and API</td>
+                            <td>CLI, API and desktop app</td>
+                            <td>Web and apps</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Skills / Plugins</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Extensive</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> None</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> None</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> GPTs</span></td>
+                            <td class="font-medium text-white">Agents and scheduled work</td>
+                            <td><span class="text-emerald-400">Built in</span></td>
+                            <td>Not its primary role</td>
+                            <td>Not its primary role</td>
+                            <td>Product-dependent</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Multi-Backend</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Any OpenAI API</span></td>
-                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Own engine only</span></td>
-                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Own engine only</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> OpenAI only</span></td>
+                            <td class="font-medium text-white">Provider choice</td>
+                            <td><span class="text-emerald-400">Local and hosted</span></td>
+                            <td>Models served by LM Studio</td>
+                            <td>Local and Ollama Cloud</td>
+                            <td>OpenAI models</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Free</td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Forever</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Free</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Free</span></td>
-                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> $20/mo for Plus</span></td>
-                        </tr>
-                        <tr>
-                            <td class="font-medium text-white">Model Management</td>
-                            <td><span class="text-yellow-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Via backend</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Built-in</span></td>
-                            <td><span class="text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> CLI pull</span></td>
-                            <td><span class="text-red-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="display:inline;vertical-align:middle"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> N/A</span></td>
+                            <td class="font-medium text-white">Core pricing</td>
+                            <td>Open source</td>
+                            <td>Free app</td>
+                            <td>Free local runtime</td>
+                            <td>Free and paid plans</td>
                         </tr>
                     </tbody>
                 </table>
@@ -667,33 +681,33 @@ ollama pull qwen3:8b
                     <tbody>
                         <tr>
                             <td class="font-medium text-white">General Chat</td>
-                            <td>Qwen 3 8B</td>
-                            <td>Qwen 3 14B</td>
-                            <td>Qwen 3 32B</td>
+                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
+                            <td><a href="../models/qwen3.5-9b.html">Qwen 3.5 9B</a></td>
+                            <td><a href="../models/qwen3.6-27b.html">Qwen 3.6 27B</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Coding</td>
                             <td>Qwen 2.5 Coder 7B</td>
-                            <td>DeepSeek Coder V2 16B</td>
-                            <td>DeepSeek V3.2</td>
+                            <td><a href="../models/phi4-reasoning-14b.html">Phi-4 Reasoning 14B</a></td>
+                            <td><a href="../models/north-mini-code-1.0.html">North Mini Code 1.0</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Reasoning</td>
-                            <td>DeepSeek R1 8B</td>
-                            <td>Phi-4 Reasoning 14B</td>
-                            <td>DeepSeek R1 32B</td>
+                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
+                            <td><a href="../models/phi4-reasoning-14b.html">Phi-4 Reasoning 14B</a></td>
+                            <td><a href="../models/qwen3.6-27b.html">Qwen 3.6 27B</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Vision</td>
-                            <td>Gemma 3 4B</td>
-                            <td>Gemma 3 12B</td>
-                            <td>Gemma 3 27B</td>
+                            <td><a href="../models/gemma4-e2b.html">Gemma 4 E2B</a></td>
+                            <td><a href="../models/gemma4-e4b.html">Gemma 4 E4B</a></td>
+                            <td><a href="../models/gemma4-12b.html">Gemma 4 12B</a></td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-white">Bilingual (CN/EN)</td>
-                            <td>GLM 4.7 Flash</td>
-                            <td>GLM 4.7</td>
-                            <td>Kimi K2.5</td>
+                            <td class="font-medium text-white">Multilingual</td>
+                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
+                            <td><a href="../models/qwen3.5-9b.html">Qwen 3.5 9B</a></td>
+                            <td><a href="../models/sarvam-30b.html">Sarvam 30B</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -707,19 +721,19 @@ ollama pull qwen3:8b
             <div class="space-y-4 mb-6">
                 <div class="tip-box rounded-xl p-5">
                     <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Use System Prompts Wisely</h4>
-                    <p class="!mb-0 !text-sm">Create different "personas" with system prompts — a coding assistant, a writing coach, a data analyst. Save them in OpenClaw's preset system for instant switching. Example: <code>You are a senior Python developer. Write clean, well-documented code with type hints. Explain your reasoning.</code></p>
+                    <p class="!mb-0 !text-sm">Give each agent a focused instruction set — for example coding, writing or data analysis — and keep tool permissions as narrow as the task allows. Example: <code>You are a senior Python developer. Write clean, well-documented code with type hints. Explain your reasoning.</code></p>
                 </div>
                 <div class="tip-box rounded-xl p-5">
                     <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Context Window Management</h4>
-                    <p class="!mb-0 !text-sm">Local models have limited context (typically 4K–128K tokens). When conversations get long, start a new session or use the <code>/clear</code> command. Long context eats RAM exponentially — a 32K context uses 4× more memory than 8K.</p>
+                    <p class="!mb-0 !text-sm">Larger context windows increase KV-cache memory use and can slow local inference. Keep only the context the task needs, summarize long sessions, and start a fresh session when old turns stop adding value.</p>
                 </div>
                 <div class="tip-box rounded-xl p-5">
-                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Keyboard Shortcuts</h4>
-                    <p class="!mb-0 !text-sm"><code>Ctrl/Cmd + N</code> = new chat, <code>Ctrl/Cmd + Shift + S</code> = settings, <code>Ctrl/Cmd + K</code> = search conversations, <code>Esc</code> = stop generation. Master these and you'll never touch the mouse.</p>
+                    <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Verify Before Automating</h4>
+                    <p class="!mb-0 !text-sm">Test the selected model with one short agent task before enabling channels or scheduled work. Small local models may answer normal chat well but struggle with large tool schemas.</p>
                 </div>
                 <div class="tip-box rounded-xl p-5">
                     <h4 class="!mt-0 !mb-2 text-sm font-bold text-emerald-400"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Start Small, Scale Up</h4>
-                    <p class="!mb-0 !text-sm">If you're new to local AI, start with a small model (Qwen 3 8B, Q5_K_M quantization). Once comfortable, upgrade to 14B or 32B. The quality jump from 8B to 14B is significant, and from 14B to 32B is GPT-4 territory.</p>
+                    <p class="!mb-0 !text-sm">If you're new to local AI, start with Qwen 3.5 4B or 9B at Q4/Q5. Move to a 27B-class model only when your memory budget and workload justify the larger download and slower generation.</p>
                 </div>
             </div>
 
@@ -730,7 +744,7 @@ ollama pull qwen3:8b
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
                     <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Is OpenClaw safe to install?</summary>
                     <div class="px-5 pb-5">
-                        <p class="!text-sm !mb-0">Yes. OpenClaw is fully open-source (MIT license) with the entire codebase publicly auditable on GitHub. It has 68,000+ stars and an active community of contributors. The install script only downloads official releases. No code is obfuscated, no data is collected.</p>
+                        <p class="!text-sm !mb-0">OpenClaw is MIT-licensed and its source is publicly auditable. Use the official installer and documentation, keep it updated, review third-party skills before enabling them, and expose the Gateway only through the security controls recommended by OpenClaw.</p>
                     </div>
                 </details>
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
@@ -742,25 +756,25 @@ ollama pull qwen3:8b
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
                     <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Can I use OpenClaw with a remote server?</summary>
                     <div class="px-5 pb-5">
-                        <p class="!text-sm !mb-0">Absolutely. OpenClaw can connect to any OpenAI-compatible endpoint — local or remote. Point it at your cloud GPU server, a Runpod instance, or even a friend's machine via SSH tunnel. Just change the Base URL in settings.</p>
+                        <p class="!text-sm !mb-0">Yes. OpenClaw supports local and hosted providers, including remote OpenAI-compatible endpoints. Treat a remote endpoint as a network service: configure authentication, TLS and private-network access deliberately.</p>
                     </div>
                 </details>
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
                     <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">OpenClaw vs the built-in LM Studio chat — which is better?</summary>
                     <div class="px-5 pb-5">
-                        <p class="!text-sm !mb-0">LM Studio's built-in chat is good for quick testing. OpenClaw is better as a daily driver — it's a full assistant gateway with session management, slash commands, the skills/plugin system, multi-surface access (desktop + CLI + web), and it works with any backend (not just LM Studio). Think of LM Studio as the engine room and OpenClaw as the bridge.</p>
+                        <p class="!text-sm !mb-0">LM Studio is primarily a local model runtime, downloader and desktop interface. OpenClaw is an agent gateway with sessions, channels, tools and scheduled work. They complement each other: LM Studio can run the model while OpenClaw coordinates the workflow.</p>
                     </div>
                 </details>
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
                     <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">How much disk space does OpenClaw need?</summary>
                     <div class="px-5 pb-5">
-                        <p class="!text-sm !mb-0">The OpenClaw application itself is under 200 MB. Conversation history is stored locally and typically takes negligible space. The real disk space requirement is for your AI models (managed by LM Studio or Ollama), which range from 2 GB to 40+ GB depending on the model.</p>
+                        <p class="!text-sm !mb-0">The model files normally dominate disk use. A small quantized model may require only a few gigabytes, while workstation-class models can consume tens or hundreds of gigabytes. Check the chosen model's actual artifact size before downloading.</p>
                     </div>
                 </details>
                 <details class="rounded-xl bg-white/[0.02] border border-white/8 overflow-hidden">
                     <summary class="p-5 cursor-pointer text-white font-bold hover:text-claw-primary transition-colors">Can I use OpenClaw with ChatGPT's API?</summary>
                     <div class="px-5 pb-5">
-                        <p class="!text-sm !mb-0">Yes — since OpenClaw supports any OpenAI-compatible endpoint, you can point it at OpenAI's API (<code>https://api.openai.com/v1</code>) with your API key. This gives you the OpenClaw interface with GPT-4 as the backend. But the whole point is to go local — try a local model first!</p>
+                        <p class="!text-sm !mb-0">Yes. OpenAI is an optional hosted provider. Requests sent to it leave your machine and follow OpenAI's API terms, so choose LM Studio or Ollama when local inference is the requirement.</p>
                     </div>
                 </details>
             </div>
@@ -768,17 +782,17 @@ ollama pull qwen3:8b
             <!-- ======================= CONCLUSION ======================= -->
             <div class="rounded-2xl bg-gradient-to-br from-claw-primary/10 to-orange-600/5 border border-claw-primary/20 p-8 mt-12">
                 <h2 class="!mt-0 !mb-4 text-2xl">The Bottom Line</h2>
-                <p class="!text-lg">OpenClaw is the orchestration layer that ties the local AI stack together. You already have <strong>great models</strong> (Qwen 3, DeepSeek, Gemma 3) and <strong>great inference engines</strong> (LM Studio, Ollama). What was missing was a <strong>gateway</strong> — something that manages conversations, routes prompts to the right backend, extends functionality with skills, and gives you multiple ways to interact (desktop, CLI, web). OpenClaw fills that role.</p>
-                <p class="!mb-6">If you're serious about running AI locally in 2026, the stack is clear: <strong>LM Studio + OpenClaw + the right model for your RAM</strong>. That's it. No subscription, no cloud dependency, no compromises.</p>
+                <p class="!text-lg">OpenClaw is the coordination layer around models, agents, channels and scheduled work. Pair it with <strong>LM Studio or Ollama</strong> when you want local inference, or connect a hosted provider when its quality and availability matter more than keeping the request on-device.</p>
+                <p class="!mb-6">For macOS users who want the guided path, <strong>LocalClaw 1.0.168</strong> is updated for OpenClaw v2026.7.1 and brings installation, health checks, models, agents and repair into one native control center.</p>
                 <div class="flex flex-wrap gap-4">
                     <a href="https://openclaw.ai/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-claw-primary text-white font-bold no-underline hover:bg-claw-accent transition-colors">
-                        Download OpenClaw →
+                        Install OpenClaw →
                     </a>
                     <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
                         <img src="../images/crab-logo.png" alt="LocalClaw" width="20" height="20" style="display:inline;vertical-align:middle;opacity:0.8;"> Find My Ideal Model
                     </a>
                     <a href="../pricing.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Auto-Install Everything
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Get LocalClaw 1.0.168
                     </a>
                 </div>
             </div>
@@ -833,8 +847,8 @@ ollama pull qwen3:8b
     {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "OpenClaw Guide 2026 — The Self-Hosted AI Assistant Gateway for Local LLMs",
-        "description": "Complete guide to OpenClaw: the self-hosted AI assistant gateway. Installation, configuration, LM Studio connection, skills system, and best practices.",
+        "headline": "OpenClaw v2026.7.1 Guide: Install, Update and Run Locally",
+        "description": "Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.168 on macOS.",
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {
             "@type": "Organization",
@@ -842,10 +856,10 @@ ollama pull qwen3:8b
             "logo": {"@type": "ImageObject", "url": "https://localclaw.io/images/crab-logo.png"}
         },
         "datePublished": "2026-02-12",
-        "dateModified": "2026-02-12",
+        "dateModified": "2026-07-15",
         "mainEntityOfPage": "https://localclaw.io/blog/openclaw-guide.html",
         "image": "https://localclaw.io/images/twitter-card.jpg?v=3",
-        "keywords": "OpenClaw, local AI, AI assistant gateway, self-hosted AI, privacy-first AI, open source AI orchestration"
+        "keywords": "OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, local AI, LM Studio, Ollama, LocalClaw 1.0.168"
     }
     </script>
     <script type="application/ld+json">
@@ -856,7 +870,7 @@ ollama pull qwen3:8b
             {
                 "@type": "Question",
                 "name": "Is OpenClaw safe to install?",
-                "acceptedAnswer": {"@type": "Answer", "text": "Yes. OpenClaw is fully open-source (MIT license) with 68,000+ GitHub stars. The entire codebase is publicly auditable. No data is collected."}
+                "acceptedAnswer": {"@type": "Answer", "text": "OpenClaw is MIT-licensed and its source is publicly auditable. Use the official installer, keep it updated, review third-party skills, and follow the official Gateway security guidance."}
             },
             {
                 "@type": "Question",
@@ -866,12 +880,12 @@ ollama pull qwen3:8b
             {
                 "@type": "Question",
                 "name": "Can I use OpenClaw with a remote server?",
-                "acceptedAnswer": {"@type": "Answer", "text": "Yes. OpenClaw can connect to any OpenAI-compatible endpoint — local or remote. Just change the Base URL in settings to point at your cloud GPU server or SSH tunnel."}
+                "acceptedAnswer": {"@type": "Answer", "text": "Yes. OpenClaw supports local and hosted providers, including remote OpenAI-compatible endpoints. Configure authentication, TLS and private-network access deliberately for remote services."}
             },
             {
                 "@type": "Question",
                 "name": "What is the difference between OpenClaw and LM Studio?",
-                "acceptedAnswer": {"@type": "Answer", "text": "LM Studio is a model manager and inference engine with a basic chat UI. OpenClaw is an AI assistant gateway with orchestration, session management, skills/plugins, and multi-surface access (desktop, CLI, web). They complement each other: LM Studio runs the model, OpenClaw orchestrates the experience."}
+                "acceptedAnswer": {"@type": "Answer", "text": "LM Studio is a local model runtime, downloader and desktop interface. OpenClaw is an agent gateway with sessions, channels, tools and scheduled work. LM Studio can run the model while OpenClaw coordinates the workflow."}
             }
         ]
     }
@@ -883,7 +897,7 @@ ollama pull qwen3:8b
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://localclaw.io/"},
             {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://localclaw.io/blog/"},
-            {"@type": "ListItem", "position": 3, "name": "OpenClaw Guide", "item": "https://localclaw.io/blog/openclaw-guide.html"}
+            {"@type": "ListItem", "position": 3, "name": "OpenClaw v2026.7.1 Guide", "item": "https://localclaw.io/blog/openclaw-guide.html"}
         ]
     }
     </script>

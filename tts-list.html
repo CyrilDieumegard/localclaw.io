@@ -1651,19 +1651,19 @@
 
                 <div class="hero-stats" aria-label="Speech catalogue statistics">
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-records">0</div>
+                        <div class="hero-stat-val" id="total-records">58</div>
                         <div class="hero-stat-label">Records</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-langs">0</div>
+                        <div class="hero-stat-val" id="total-langs">1107+</div>
                         <div class="hero-stat-label">Languages</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-shown">0</div>
+                        <div class="hero-stat-val" id="total-shown">58</div>
                         <div class="hero-stat-label">Current view</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-picks">0</div>
+                        <div class="hero-stat-val" id="total-picks">26</div>
                         <div class="hero-stat-label">LocalClaw picks</div>
                     </div>
                 </div>
@@ -3794,15 +3794,13 @@
         const allLangs = new Set();
         TTS_MODELS.forEach(m => { if (m.languages.includes('multilingual')) { /* count by languageCount */ } else { m.languages.forEach(l => allLangs.add(l)); } });
         const totalUniqueLangs = Math.max(allLangs.size, ...TTS_MODELS.map(m => m.languageCount));
-        setTimeout(() => {
-            const totalRecordCount = TTS_MODELS.length;
-            const localPickCount = TTS_MODELS.filter(m => m.isPick).length;
-            document.getElementById('total-count').textContent = totalRecordCount;
-            animateCounter(document.getElementById('total-records'), totalRecordCount, '');
-            animateCounter(document.getElementById('total-langs'), totalUniqueLangs, '+');
-            document.getElementById('total-shown').textContent = totalRecordCount;
-            document.getElementById('total-picks').textContent = localPickCount;
-        }, 300);
+        const totalRecordCount = TTS_MODELS.length;
+        const localPickCount = TTS_MODELS.filter(m => m.isPick).length;
+        document.getElementById('total-count').textContent = totalRecordCount;
+        document.getElementById('total-records').textContent = totalRecordCount;
+        document.getElementById('total-langs').textContent = totalUniqueLangs + '+';
+        document.getElementById('total-shown').textContent = totalRecordCount;
+        document.getElementById('total-picks').textContent = localPickCount;
 
         // Mobile menu is handled by inline onclick in the navbar HTML
     </script>

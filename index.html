@@ -8,7 +8,7 @@
          PRIMARY SEO META TAGS
          ============================================================ -->
     <title>LocalClaw.io — Native Control Center for OpenClaw</title>
-    <meta name="description" content="LocalClaw is a native macOS control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban tasks on your machine. Lifetime $49.">
+    <meta name="description" content="LocalClaw 1.0.168 is a native macOS control center for OpenClaw v2026.7.1 plus a free local AI model finder. Manage models, agents and channels locally.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4 12B, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -554,6 +554,10 @@
                             <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                         </div>
                         <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
+                        <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
+                            LocalClaw 1.0.168 · Ready for OpenClaw v2026.7.1
+                        </a>
                     </div>
                     <div class="relative mx-auto w-full max-w-xl">
                         <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
@@ -567,7 +571,7 @@
                 <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
                         <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0</div>
+                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0.168</div>
                         <div class="hidden sm:flex items-center rounded-lg border border-white/10 bg-[#242424] p-1 font-mono text-[11px] font-bold uppercase tracking-wider text-claw-muted shadow-[0_0_18px_rgba(255,69,58,0.08)]">
                             <span class="px-2.5 py-1">Cloud LLM</span>
                             <span class="h-4 w-px bg-white/10"></span>
@@ -594,7 +598,7 @@
                             </div>
                             <div class="mt-4 border-t border-[#333] pt-4">
                                 <div class="text-[10px] uppercase tracking-[0.18em] text-claw-muted">OpenClaw Version</div>
-                                <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.5.22</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
+                                <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.7.1</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
                                 <div class="mt-3 text-claw-muted">Machine: <span class="text-white">Apple M2 Max</span></div>
                                 <div class="text-claw-muted">32 GB · macOS</div>
                                 <div class="mt-3 border-t border-[#333] pt-3 text-[10px] leading-relaxed text-claw-muted">
@@ -616,7 +620,7 @@
                                     </div>
                                     <div>
                                         <div class="text-base font-bold text-white">LocalClaw</div>
-                                        <div class="text-[11px] text-claw-muted">Version 1.0.140 (build 285)</div>
+                                        <div class="text-[11px] text-claw-muted">Version 1.0.168 (build 319)</div>
                                     </div>
                                 </div>
                                 <span class="w-fit rounded-md border border-claw-primary/35 bg-claw-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-claw-primary">Local LLM</span>
@@ -849,7 +853,7 @@
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What is OpenClaw?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">OpenClaw is the open-source, self-hosted AI assistant at the heart of the LocalClaw ecosystem. It connects to your local models running in LM Studio or Ollama and provides a unified chat interface on desktop, web, and CLI. It's 100% private — no telemetry, no cloud, no API keys required.</p>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">OpenClaw is an open-source AI gateway for agents, channels, scheduled work and model providers. Connect it to LM Studio or Ollama for local inference, or choose an optional cloud provider. Local models can keep prompts on your machine; cloud providers and connected online services follow their own data and API policies.</p>
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
@@ -896,11 +900,11 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260715b"></script>
-    <script src="js/app.js?v=20260604b"></script>
+    <script src="js/app.js?v=20260715b"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>
-        document.getElementById('seo-fallback').style.display = 'none';
+        document.getElementById('seo-fallback').remove();
         document.getElementById('view-container').classList.remove('hidden');
     </script>
 
@@ -919,7 +923,7 @@
         "browserRequirements": "Requires JavaScript",
         "softwareVersion": "3.22.0",
         "datePublished": "2026-01-01",
-        "dateModified": "2026-03-22",
+        "dateModified": "2026-07-15",
         "inLanguage": "en",
         "isAccessibleForFree": true,
         "author": {
@@ -996,7 +1000,7 @@
                 "name": "What is OpenClaw?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "OpenClaw is an open-source, self-hosted personal AI assistant that unifies your AI experience in one powerful interface. Connect it to local models via LM Studio or Ollama, or use remote APIs — all through a single, elegant chat interface available on desktop, web, and CLI. With its extensible skills system, OpenClaw enhances your productivity while keeping everything 100% private, offline, and telemetry-free."
+                    "text": "OpenClaw is an open-source AI gateway for agents, channels, scheduled work and model providers. It can use local models through LM Studio or Ollama, or optional remote providers. Local inference can keep prompts on your machine; cloud providers and connected online services follow their own data and API policies."
                 }
             }
         ]

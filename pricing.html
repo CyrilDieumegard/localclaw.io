@@ -215,7 +215,8 @@
             gap: 8px;
         }
 
-        .trust-strip span {
+        .trust-strip span,
+        .trust-strip a {
             border: 1px solid rgba(255, 69, 58, 0.22);
             background: rgba(255, 69, 58, 0.07);
             color: #e5e7eb;
@@ -226,6 +227,11 @@
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+        }
+
+        .trust-strip a:hover {
+            border-color: rgba(255, 69, 58, 0.55);
+            color: #fff;
         }
 
         .product-window {
@@ -715,8 +721,9 @@
                     <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get beta access - $49</a>
                     <a class="cta-secondary" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Download installer</a>
                 </div>
-                <p class="microcopy">Apple-notarized DMG. $49 one-time. No subscription. Installer downloads freely; activation requires a license key.</p>
+                <p class="microcopy">Apple-notarized DMG. A $49 one-time license is required to activate and use the app. No subscription.</p>
                 <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
+                    <a href="changelog/localclaw-installer-v1.0.168.html">v1.0.168 · OpenClaw v2026.7.1 ready</a>
                     <span>Apple-notarized DMG</span>
                     <span>$49 lifetime beta</span>
                     <span>No subscription</span>
@@ -727,7 +734,7 @@
             <aside class="product-window" aria-label="LocalClaw macOS app preview">
                 <div class="product-titlebar">
                     <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0 beta</div>
+                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.168 beta</div>
                     <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Local LLM</div>
                 </div>
                 <div class="product-shot">
@@ -1185,7 +1192,7 @@
         "description": "Apple-notarized native macOS beta app for OpenClaw setup, local AI control, models, agents, cron jobs and Kanban.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS",
-        "softwareVersion": "1.0 beta",
+        "softwareVersion": "1.0.168",
         "url": "https://localclaw.io/pricing.html",
         "image": "https://localclaw.io/images/pricing-carousel/home.jpg",
         "publisher": {
