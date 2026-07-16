@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 15, 2026 — Added Agents-A1 — 206 LLM total
+// Updated July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
+// Previous: July 15, 2026 — Added Agents-A1 — 206 LLM total
 // Previous: July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
 // Previous: July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
 // Previous: July 10, 2026 — Added Ministral 3 8B and 14B Instruct — 203 LLM total
@@ -162,12 +163,28 @@ const APP_DATA = {
             size_gb: 12,
             min_ram: 16,
             tags: ['chat', 'code', 'reasoning', 'power', 'general'],
-            description: 'OpenAI open-weight reasoning model. First open release from OpenAI. Strong general + coding capabilities. 3.4M downloads.',
+            description: 'OpenAI open-weight reasoning model. Strong general, coding and tool-use capabilities under Apache 2.0. Practical on 16GB+ machines.',
             search_term: 'gpt-oss-20b',
-            recommended_quant: 'Q5_K_M',
+            recommended_quant: 'MXFP4',
             hf_repo: 'openai/gpt-oss-20b',
             benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
-            released: '2026-01'
+            released: '2025-08'
+        },
+        {
+            id: 'gpt-oss-120b',
+            name: 'GPT-OSS (120B)',
+            family: 'gpt-oss',
+            params: '117B (5.1B active)',
+            size_gb: 63,
+            min_ram: 96,
+            tags: ['chat', 'code', 'reasoning', 'beast', 'general'],
+            description: 'OpenAI flagship open-weight reasoning model. 128K context, strong tool use and Apache 2.0 licensing, now practical for 96GB+ local workstations via GGUF MXFP4.',
+            search_term: 'gpt-oss-120b',
+            recommended_quant: 'MXFP4',
+            hf_repo: 'ggerganov/gpt-oss-120b-GGUF',
+            benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
+            released: '2025-08',
+            isNew: true
         },
         {
             id: 'lfm2.5-8b-a1b',

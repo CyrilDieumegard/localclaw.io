@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPT-OSS (20B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="GPT-OSS (20B): 20B local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
+  <title>GPT-OSS (120B) local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="GPT-OSS (120B): 117B (5.1B active) local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/gpt-oss-20b.html">
+  <link rel="canonical" href="https://localclaw.io/models/gpt-oss-120b.html">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/gpt-oss-20b.html">
-  <meta property="og:title" content="GPT-OSS (20B) local AI model | LocalClaw">
-  <meta property="og:description" content="GPT-OSS (20B): 20B local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/gpt-oss-120b.html">
+  <meta property="og:title" content="GPT-OSS (120B) local AI model | LocalClaw">
+  <meta property="og:description" content="GPT-OSS (120B): 117B (5.1B active) local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GPT-OSS (20B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="GPT-OSS (20B): 20B local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="GPT-OSS (120B) local AI model | LocalClaw">
+  <meta name="twitter:description" content="GPT-OSS (120B): 117B (5.1B active) local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"GPT-OSS (20B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gpt-oss-20b.html","description":"GPT-OSS (20B): 20B local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-08","memoryRequirements":"16 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"OpenAI","url":"https://openai.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can GPT-OSS (20B) run locally?","acceptedAnswer":{"@type":"Answer","text":"GPT-OSS (20B) can run locally with at least 16 GB RAM. LocalClaw recommends MXFP4 quantization."}},{"@type":"Question","name":"What is GPT-OSS (20B) best for?","acceptedAnswer":{"@type":"Answer","text":"GPT-OSS (20B) is best used for General AI assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"GPT-OSS (20B)","item":"https://localclaw.io/models/gpt-oss-20b.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"GPT-OSS (120B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gpt-oss-120b.html","description":"GPT-OSS (120B): 117B (5.1B active) local AI model guide with RAM requirements, MXFP4 quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2025-08","memoryRequirements":"96 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"OpenAI","url":"https://openai.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can GPT-OSS (120B) run locally?","acceptedAnswer":{"@type":"Answer","text":"GPT-OSS (120B) can run locally with at least 96 GB RAM. LocalClaw recommends MXFP4 quantization."}},{"@type":"Question","name":"What is GPT-OSS (120B) best for?","acceptedAnswer":{"@type":"Answer","text":"GPT-OSS (120B) is best used for High-end local reasoning."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"GPT-OSS (120B)","item":"https://localclaw.io/models/gpt-oss-120b.html"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -36,17 +36,17 @@
     <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>GPT-OSS (20B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>GPT-OSS (120B)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">GPT-OSS <span>(20B)</span></h1>
-        <p class="desc">OpenAI open-weight reasoning model. Strong general, coding and tool-use capabilities under Apache 2.0. Practical on 16GB+ machines.</p>
+        <h1 class="title">GPT-OSS <span>(120B)</span></h1>
+        <p class="desc">OpenAI flagship open-weight reasoning model. 128K context, strong tool use and Apache 2.0 licensing, now practical for 96GB+ local workstations via GGUF MXFP4.</p>
         <div class="chips">
-          <span class="chip hot">16 GB sweet spot</span>
-          <span class="chip">16 GB RAM</span>
+          <span class="chip hot">Large-memory workstation</span>
+          <span class="chip">96 GB RAM</span>
           <span class="chip">MXFP4</span>
-          <span class="chip">General AI assistant</span>
+          <span class="chip">High-end local reasoning</span>
         </div>
         <div class="cta">
           <a class="btn" href="/pricing.html">Run with LocalClaw</a>
@@ -57,8 +57,8 @@
         <div class="score-card">
           <div>
             <div class="score-label">Local fit score</div>
-            <div class="score">7.5<small>/10</small></div>
-            <p class="score-caption">GPT-OSS (20B) is a practical pick for 16 GB machines, especially with MXFP4 quantization.</p>
+            <div class="score">6.9<small>/10</small></div>
+            <p class="score-caption">GPT-OSS (120B) needs a serious workstation with large unified memory or high VRAM.</p>
           </div>
         </div>
         <div class="panel-grid">
@@ -68,36 +68,36 @@
       </aside>
     </header>
     <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">20B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">16 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">12 GB</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">117B (5.1B active)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">96 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">63 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">MXFP4</div></div>
     </section>
     <section class="section">
-      <h2>Can GPT-OSS (20B) run locally?</h2>
-      <p>GPT-OSS (20B) is a practical pick for 16 GB machines, especially with MXFP4 quantization.</p>
-      <p>Search for <code>gpt-oss-20b</code> in LM Studio or another GGUF-compatible runtime.</p>
-      <div class="source-links"><code>openai/gpt-oss-20b</code></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">general</span></div>
+      <h2>Can GPT-OSS (120B) run locally?</h2>
+      <p>GPT-OSS (120B) needs a serious workstation with large unified memory or high VRAM.</p>
+      <p>Search for <code>gpt-oss-120b</code> in LM Studio or another GGUF-compatible runtime.</p>
+      <div class="source-links"><code>ggerganov/gpt-oss-120b-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">beast</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 16 GB RAM. Start with the MXFP4 quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search gpt-oss-20b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 96 GB RAM. Start with the MXFP4 quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search gpt-oss-120b in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list"><li>OpenAI open-weight reasoning model</li><li>Apache 2.0 license</li><li>Runs on 16GB-class local machines</li><li>128K context</li><li>Strong tool use and coding</li></ul></div>
-      <div><h2>Limitations</h2><ul class="list"><li>Smaller than the 120B variant</li><li>MXFP4 runtime support is newer than standard GGUF quant families</li><li>Requires harmony-compatible prompting for best results</li></ul></div>
+      <div><h2>Strengths</h2><ul class="list"><li>Flagship OpenAI open-weight reasoning model</li><li>Apache 2.0 license</li><li>Near o4-mini-class reasoning target</li><li>128K context</li><li>Strong coding and tool-use behavior</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Needs a 96GB+ workstation or single 80GB GPU class setup</li><li>Large MXFP4 GGUF download</li><li>Slow on CPU-only systems</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list"><li>General AI assistant</li><li>Coding</li><li>Reasoning</li><li>Tool-use agents</li><li>Research comparison</li></ul></div>
+      <div><h2>Best use cases</h2><ul class="list"><li>High-end local reasoning</li><li>Coding agents</li><li>Tool-use workflows</li><li>Research comparison</li><li>Private workstation inference</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:20%"></div></div><strong>2</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div>
         </div>
       </div>
     </section>
@@ -107,21 +107,21 @@
         <div class="meta"><div class="k">Developer</div><div class="v">OpenAI</div></div>
         <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">131,072 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Sparse MoE Transformer with 21B total parameters, 3.6B active parameters and 128K context</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Sparse MoE Transformer with 117B total parameters, 5.1B active parameters, 128 experts and 128K context</div></div>
       </div>
     </section>
     <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-16gb.html"><small>Starter desktop</small>Mac mini M4 16GB</a><a href="/hardware/macbook-air-m4-16gb.html"><small>Portable fit</small>MacBook Air M4 16GB</a><a href="/ram/16gb.html"><small>Best 16GB models</small>16GB RAM guide</a>
+        <a href="/hardware/mac-studio-m4-max-128gb.html"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers.html"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb.html"><small>High-memory picks</small>128GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gpt-oss-120b.html">GPT-OSS (120B) <span>117B (5.1B active)</span></a><a href="/models/qwen3-14b.html">Qwen 3 (14B) <span>14B</span></a><a href="/models/phi4-14b.html">Phi-4 (14B) <span>14B</span></a><a href="/models/mistral-small-24b.html">Mistral Small (24B) <span>24B</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gpt-oss-20b.html">GPT-OSS (20B) <span>20B</span></a><a href="/models/qwen3.6-35b-a3b.html">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/llama3.3-70b.html">Llama 3.3 (70B) <span>70B</span></a><a href="/models/mistral-large-123b.html">Mistral Large (123B) <span>123B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/16gb.html"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
