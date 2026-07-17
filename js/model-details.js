@@ -791,6 +791,42 @@ var MODEL_DETAILS = {
         official_blog: 'https://openai.com/index/introducing-gpt-oss/',
         paper_url: 'https://arxiv.org/abs/2508.10925',
     },
+    'hy3': {
+        developer: 'Tencent Hy Team',
+        developer_url: 'https://www.tencent.com/',
+        context_window: 262144,
+        license: 'Apache 2.0',
+        license_url: 'https://www.apache.org/licenses/LICENSE-2.0',
+        architecture: 'Sparse Mixture-of-Experts model with 295B total parameters, 21B active parameters, 192 experts, top-8 routing and an MTP layer.',
+        training_data: 'Tencent describes Hy3 as post-trained from Hy3 Preview with higher-quality product, productivity, coding, long-context and agentic data. Exact corpus composition is not fully public.',
+        languages: ['English', 'Chinese', 'Code'],
+        strengths: [
+            'Official Tencent Apache 2.0 open-weight release',
+            'Large MoE model with 21B active parameters and 256K context',
+            'Strong public claims for coding, frontend, CI/CD, tool-calling and long-context reliability',
+            'Mature GGUF path through AngelSlim with llama.cpp, LM Studio, Ollama and OpenClaw examples',
+            'Useful high-end local alternative to much larger flagship open-weight models',
+            'Reasoning-effort modes support direct answers or deeper thinking-style responses',
+        ],
+        weaknesses: [
+            'The practical GGUF path is still huge: IQ1_M is about 89 GB and Q4_K_M is about 182 GB',
+            'Comfortable local use needs a 128GB+ memory workstation or large-GPU setup',
+            'IQ1_M is an extreme low-bit recipe, so quality should be validated before serious use',
+            'Full server-style deployment still expects multi-GPU vLLM or SGLang infrastructure',
+        ],
+        use_cases: [
+            'High-end local coding assistant',
+            'Agentic tool-use workflows',
+            'Long-context productivity analysis',
+            'Frontend and CI/CD engineering tasks',
+            'Private workstation reasoning',
+            'Chinese-English enterprise assistant experiments',
+        ],
+        similar_models: ['gpt-oss-120b', 'qwen3.6-35b-a3b', 'minimax-m2-230b', 'deepseek-v3.2-exp'],
+        fun_fact: 'Hy3 was previously deferred from LocalClaw because its local path was immature; the AngelSlim GGUF release changed that enough to justify tracking it as a 128GB+ workstation model.',
+        official_blog: 'https://huggingface.co/tencent/Hy3',
+        paper_url: 'https://huggingface.co/tencent/Hy3',
+    },
 
     // ==================== DEEPSEEK R1 DISTILL FAMILY ====================
     'deepseek-r1-8b': {

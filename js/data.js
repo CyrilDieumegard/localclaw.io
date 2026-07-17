@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
+// Updated July 17, 2026 — Added Hy3 — 208 LLM total
+// Previous: July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
 // Previous: July 15, 2026 — Added Agents-A1 — 206 LLM total
 // Previous: July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
 // Previous: July 12, 2026 — Added MiniCPM5 1B — 204 LLM total
@@ -184,6 +185,23 @@ const APP_DATA = {
             hf_repo: 'ggerganov/gpt-oss-120b-GGUF',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
             released: '2025-08',
+            isNew: true
+        },
+        {
+            id: 'hy3',
+            name: 'Hy3',
+            family: 'hy3',
+            params: '295B (21B active)',
+            size_gb: 89,
+            min_ram: 128,
+            tags: ['chat', 'code', 'reasoning', 'beast', 'tool-calling', 'general'],
+            description: 'Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF.',
+            search_term: 'hy3',
+            recommended_quant: 'IQ1_M',
+            hf_repo: 'AngelSlim/Hy3-GGUF',
+            source_url: 'https://huggingface.co/tencent/Hy3',
+            benchmarks: { speed: 2, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-07',
             isNew: true
         },
         {
