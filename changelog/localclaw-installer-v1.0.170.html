@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalClaw 1.0.170 Release Notes</title>
+    <meta name="description" content="LocalClaw 1.0.170 improves runtime diagnostics, recovery, automation history, local model guidance, and workspace clarity on macOS.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://localclaw.io/changelog/localclaw-installer-v1.0.170.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="LocalClaw 1.0.170">
+    <meta property="og:description" content="A stability-focused LocalClaw release for dependable OpenClaw setup and daily work.">
+    <meta property="og:image" content="https://localclaw.io/images/localclaw-app-home.jpg">
+    <meta property="article:published_time" content="2026-07-18T22:00:00+00:00">
+    <meta name="theme-color" content="#090909">
+    <link rel="icon" type="image/png" href="../images/favicon.png?v=20260211g">
+    <link rel="stylesheet" href="../css/style.css?v=20260211g">
+    <style>
+        :root { color-scheme: dark; --accent: #ff4b42; --surface: #171719; --line: #303034; --muted: #a7a7ad; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #090909; color: #fff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+        a { color: inherit; }
+        .nav { border-bottom: 1px solid var(--line); background: #0d0d0e; }
+        .nav-inner, main, footer { width: min(1040px, calc(100% - 36px)); margin: 0 auto; }
+        .nav-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; text-decoration: none; }
+        .brand img { width: 38px; height: 38px; border-radius: 8px; }
+        .nav-link { color: var(--muted); text-decoration: none; font-size: 14px; }
+        main { padding: 54px 0 80px; }
+        .eyebrow { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+        h1 { margin: 10px 0 16px; font-size: clamp(42px, 8vw, 76px); line-height: 1; letter-spacing: 0; }
+        .lede { max-width: 760px; color: #c8c8cd; font-size: 19px; line-height: 1.65; }
+        .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0; }
+        .meta span { padding: 7px 10px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 12px; }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .button { min-height: 46px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; font-weight: 800; }
+        .button-primary { color: #090909; border-color: var(--accent); background: var(--accent); }
+        .product-shot { width: 100%; margin-top: 34px; display: block; border: 1px solid var(--line); border-radius: 8px; }
+        section { margin-top: 54px; }
+        h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: 0; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        .item { min-height: 165px; padding: 22px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); }
+        .item strong { display: block; margin-bottom: 9px; font-size: 17px; }
+        .item p { margin: 0; color: var(--muted); line-height: 1.65; }
+        .install { padding: 24px; border-left: 3px solid var(--accent); background: var(--surface); }
+        .install p { margin: 6px 0 0; color: var(--muted); line-height: 1.65; }
+        footer { padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+        @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } .actions { display: grid; } .button { width: 100%; } }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="../index.html"><img src="../images/localclaw-logo.png" alt="LocalClaw logo">LocalClaw</a>
+            <a class="nav-link" href="../pricing.html">Get LocalClaw</a>
+        </div>
+    </header>
+    <main>
+        <article>
+            <div class="eyebrow">macOS release</div>
+            <h1>LocalClaw 1.0.170</h1>
+            <p class="lede">This release focuses on the part customers feel most: knowing whether OpenClaw is truly ready, recovering safely when it is not, and keeping daily work clear across chat, development, models, and automations.</p>
+            <div class="meta"><span>Build 321</span><span>July 18, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
+            <div class="actions">
+                <a class="button button-primary" href="../downloads/localclaw.dmg">Download LocalClaw</a>
+                <a class="button" href="https://github.com/CyrilDieumegard/LocalClaw">View source</a>
+            </div>
+            <img class="product-shot" src="../images/localclaw-app-home.jpg" alt="LocalClaw Home dashboard showing OpenClaw health and configuration" loading="eager">
+
+            <section>
+                <h2>What changed</h2>
+                <div class="grid">
+                    <div class="item"><strong>One runtime status</strong><p>Home, Help, Models, Chat, and Control Center now report the same Gateway, model, and authentication state.</p></div>
+                    <div class="item"><strong>Safer recovery</strong><p>LocalClaw creates private restore points before sensitive maintenance and can export a support report with credentials redacted.</p></div>
+                    <div class="item"><strong>Clearer workspaces</strong><p>Essentials and Advanced navigation reduce clutter, while OpenClaw Chat and Developer keep their own inputs, images, and sessions.</p></div>
+                    <div class="item"><strong>Automation receipts</strong><p>Manual Cron and Kanban runs retain their agent, model, destination, duration, and outcome for easier diagnosis.</p></div>
+                    <div class="item"><strong>Smarter local model guidance</strong><p>The advisor ranks curated local models for the Mac and workload, with a validated remote catalog and a built-in offline fallback.</p></div>
+                    <div class="item"><strong>More reliable packaging</strong><p>The release pipeline now stages outside synced folders before signing, preventing file-provider metadata from breaking codesign.</p></div>
+                </div>
+            </section>
+
+            <section class="install">
+                <strong>Existing customers</strong>
+                <p>Open Updates in LocalClaw and install version 1.0.170. Your OpenClaw configuration, channels, projects, and local models are preserved.</p>
+            </section>
+        </article>
+    </main>
+    <footer>LocalClaw 1.0.170 | Developer ID Application: Cyril Dieumegard</footer>
+</body>
+</html>
