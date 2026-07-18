@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LocalClaw New Local AI Models</title>
+    <link>https://localclaw.io/new.html</link>
+    <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
+    <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <ttl>1440</ttl>
+    <item>
+      <title>Hy3</title>
+      <link>https://localclaw.io/models/hy3</link>
+      <guid isPermaLink="true">https://localclaw.io/models/hy3</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>hy3</category>
+      <description>Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF. 295B (21B active) · 128 GB minimum RAM · IQ1_M · hy3.</description>
+    </item>
+    <item>
+      <title>LFM2.5-8B-A1B</title>
+      <link>https://localclaw.io/models/lfm2.5-8b-a1b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm2.5-8b-a1b</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0. 8.3B (1.5B active) · 8 GB minimum RAM · Q4_K_M · lfm.</description>
+    </item>
+    <item>
+      <title>Qwen AgentWorld 35B-A3B</title>
+      <link>https://localclaw.io/models/qwen-agentworld-35b-a3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen-agentworld-35b-a3b</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>Official Qwen language world model for simulating agent environments across terminal, web, OS, Android, search, SWE and tool-calling domains. Apache 2.0 with active GGUF and MLX quantizations. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+    <item>
+      <title>North Mini Code 1.0</title>
+      <link>https://localclaw.io/models/north-mini-code-1.0</link>
+      <guid isPermaLink="true">https://localclaw.io/models/north-mini-code-1.0</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>cohere</category>
+      <description>Cohere Labs Apache 2.0 coding and agent model. 30B total / 3B active MoE, 256K context, terminal-task training and mature GGUF quantizations for local workstation use. 30B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · cohere.</description>
+    </item>
+    <item>
+      <title>Agents-A1</title>
+      <link>https://localclaw.io/models/agents-a1</link>
+      <guid isPermaLink="true">https://localclaw.io/models/agents-a1</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>internscience</category>
+      <description>InternScience Apache 2.0 agentic VLM. 35B-A3B MoE, 262K context, strong long-horizon search/tool-use benchmarks and official Q4_K_M GGUF artifacts for local workstations. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · internscience.</description>
+    </item>
+    <item>
+      <title>DiffusionGemma 26B-A4B Instruct</title>
+      <link>https://localclaw.io/models/diffusiongemma-26b-a4b-it</link>
+      <guid isPermaLink="true">https://localclaw.io/models/diffusiongemma-26b-a4b-it</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>gemma</category>
+      <description>Official Google Apache 2.0 diffusion-language Gemma model with image-text chat support. Strong local relevance thanks to active Unsloth GGUF quantizations for workstation-class machines. 26B (4B active, diffusion MoE) · 32 GB minimum RAM · Q4_K_M · gemma.</description>
+    </item>
+    <item>
+      <title>Gemma 4 12B</title>
+      <link>https://localclaw.io/models/gemma4-12b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/gemma4-12b</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>gemma</category>
+      <description>Google DeepMind 12B unified multimodal model. Text, image, audio and video inputs, 256K context, Apache 2.0, and a strong local sweet spot for 16-32 GB machines. 12B · 16 GB minimum RAM · Q4_K_M · gemma.</description>
+    </item>
+    <item>
+      <title>GLM-5.2 (744B MoE)</title>
+      <link>https://localclaw.io/models/glm-5.2</link>
+      <guid isPermaLink="true">https://localclaw.io/models/glm-5.2</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>glm</category>
+      <description>Z.ai flagship open model for long-horizon coding, reasoning and agentic work. 744B total, 40B active, 1M-token context, MIT license. Unsloth Dynamic GGUF makes it technically local, but it needs workstation/server-class memory: ~245GB total memory for 2-bit and 372GB+ for 4-bit. 744B (40B active) · 256 GB minimum RAM · UD-IQ2_M · glm.</description>
+    </item>
+    <item>
+      <title>Ornith 1.0 9B GGUF</title>
+      <link>https://localclaw.io/models/ornith-1.0-9b-gguf</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ornith-1.0-9b-gguf</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>deepreinforce</category>
+      <description>Compact Ornith 1.0 GGUF variant from DeepReinforce for agentic coding experiments on consumer hardware. MIT licensed and much more practical than the frontier 397B release. 9B · 8 GB minimum RAM · Q4_K_M · deepreinforce.</description>
+    </item>
+    <item>
+      <title>Ornith 1.0 35B GGUF</title>
+      <link>https://localclaw.io/models/ornith-1.0-35b-gguf</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ornith-1.0-35b-gguf</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <category>deepreinforce</category>
+      <description>DeepReinforce Ornith 1.0 mid-size GGUF release for agentic coding. The Q4_K_M build is listed around 21.2GB, making it a realistic 32GB+ local model compared with the 397B server-grade version. 35B MoE · 32 GB minimum RAM · Q4_K_M · deepreinforce.</description>
+    </item>
+    <item>
+      <title>MiniCPM5 1B</title>
+      <link>https://localclaw.io/models/minicpm5-1b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/minicpm5-1b</guid>
+      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+      <category>minicpm</category>
+      <description>OpenBMB compact on-device LLM with Apache 2.0 licensing, 128K context, tool-calling focus and official GGUF plus MLX artifacts for laptops and edge devices. 1B · 4 GB minimum RAM · Q4_K_M · minicpm.</description>
+    </item>
+    <item>
+      <title>DeepSeek V4 Flash (284B MoE)</title>
+      <link>https://localclaw.io/models/deepseek-v4-flash</link>
+      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-flash</guid>
+      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+      <category>deepseek-flash</category>
+      <description>Efficient DeepSeek V4 variant: 284B total, 13B active, 1M-token context. Flash-Max can approach Pro reasoning with larger thinking budget. MIT licensed. 284B (13B active) · 256 GB minimum RAM · FP4/FP8 · deepseek-flash.</description>
+    </item>
+    <item>
+      <title>DANTE-Mosaic-3.5B</title>
+      <link>https://localclaw.io/models/dante-mosaic-3.5b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/dante-mosaic-3.5b</guid>
+      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+      <category>dante</category>
+      <description>OdaxAI compact dense model based on SmolLM3-3B and distilled from Kimi K2. Strong small-model benchmark profile: GSM8K 74.45, HellaSwag 76.73 and MBPP 42.6. Apache 2.0, BF16 weights, practical for local Transformers/vLLM use. 3.08B · 8 GB minimum RAM · BF16 · dante.</description>
+    </item>
+    <item>
+      <title>Granite 4.1 (8B)</title>
+      <link>https://localclaw.io/models/granite4.1-8b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/granite4.1-8b</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <category>granite</category>
+      <description>IBM Granite 4.1 long-context instruct model. Apache 2.0, 131K context, tool calling, RAG, code tasks, multilingual dialog and business assistant workflows on normal 8-16 GB machines. 8B · 8 GB minimum RAM · Q4_K_M · granite.</description>
+    </item>
+    <item>
+      <title>Qwen 3.6 (6.7B)</title>
+      <link>https://localclaw.io/models/qwen3.6-6.7b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-6.7b</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>Alibaba&apos;s hybrid-thinking micro-flagship. Toggles between instant answers and deep chain-of-thought reasoning on demand. 128K context, 29 languages, outperforms Qwen3-8B on reasoning benchmarks. Apache 2.0. 6.7B · 8 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+    <item>
+      <title>Qwen 3.6 (27B)</title>
+      <link>https://localclaw.io/models/qwen3.6-27b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-27b</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>Qwen 3.6 flagship dense model. Hybrid thinking mode with /think toggle for deep chain-of-thought reasoning. 128K context, 29+ languages. Significantly outperforms Qwen3.5-27B on reasoning, coding &amp; math. Apache 2.0. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+    <item>
+      <title>Qwen 3.6 35B-A3B</title>
+      <link>https://localclaw.io/models/qwen3.6-35b-a3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-35b-a3b</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>Qwen Team open-weight MoE for agentic coding and multimodal work. 35B total / 3B active, 262K native context, Apache 2.0, and strong GGUF availability through Unsloth and LM Studio-compatible artifacts. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+    <item>
+      <title>Ling-2.6-flash (104B MoE)</title>
+      <link>https://localclaw.io/models/ling-2.6-flash</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ling-2.6-flash</guid>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <category>ling</category>
+      <description>InclusionAI&apos;s MIT-licensed instruct MoE optimized for fast agent workloads. 104B total parameters, only 7.4B active, hybrid linear attention, 262K context and strong tool-use / multi-step execution with high token efficiency. 104B (7.4B active) · 80 GB minimum RAM · Q4_K_M · ling.</description>
+    </item>
+    <item>
+      <title>Sarvam 30B</title>
+      <link>https://localclaw.io/models/sarvam-30b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/sarvam-30b</guid>
+      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
+      <category>sarvam</category>
+      <description>Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability. 32B (2.4B active, MoE) · 32 GB minimum RAM · Q4_K_M · sarvam.</description>
+    </item>
+    <item>
+      <title>Qwen 3.5 (0.8B)</title>
+      <link>https://localclaw.io/models/qwen3.5-0.8b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen3.5-0.8b</guid>
+      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>The tiniest Qwen 3.5 — runs on any device including smartphones and Raspberry Pi. Hybrid thinking mode, 256K context, Apache 2.0. Perfect for on-device AI and embedded apps. 0.8B · 2 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+  </channel>
+</rss>

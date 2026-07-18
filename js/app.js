@@ -1071,12 +1071,12 @@ const App = {
         ];
         const formatModeExample = (example) => example.replace('→', '<span class="arrow">→</span>');
         const latestModels = [
-            ['DeepSeek V4 Pro', '1.6T MoE · 49B active · MIT', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
-            ['GLM-5.1', 'Agentic engineering · repo work · MIT', 'models/glm-5.1.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
+            ['DeepSeek V4 Pro', '1.6T MoE · 49B active · local catalogue', 'models/deepseek-v4-pro.html', 'Frontier', 'border-sky-500/30 bg-sky-500/5 text-sky-400'],
+            ['GLM-5.2', '744B MoE · 1M context · workstation class', 'models/glm-5.2.html', 'Agentic', 'border-claw-primary/30 bg-claw-primary/5 text-claw-primary'],
             ['Qwen 3.5 9B', 'Balanced local model for 16 GB+', 'models/qwen3.5-9b.html', 'Laptop', 'border-violet-500/30 bg-violet-500/5 text-violet-400'],
-            ['Gemma 4 12B', 'New unified multimodal sweet spot for 16 GB+', 'models/gemma4-12b.html', 'New', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
+            ['Gemma 4 12B', 'Unified multimodal sweet spot for 16 GB+', 'models/gemma4-12b.html', 'New', 'border-amber-500/30 bg-amber-500/5 text-amber-400'],
             ['NeuTTS Air', 'Real-time CPU TTS · voice cloning', 'tts/neutts-air.html', 'Voice', 'border-pink-500/30 bg-pink-500/5 text-pink-400'],
-            ['Whisper v3 Turbo', 'Offline speech-to-text in the TTS/ASR catalogue', 'tts/whisper-v3-turbo.html', 'ASR', 'border-blue-500/30 bg-blue-500/5 text-blue-400']
+            ['Dots TTS MF', '2B zero-shot voice cloning · Apache 2.0', 'tts/dots-tts-mf.html', 'New voice', 'border-blue-500/30 bg-blue-500/5 text-blue-400']
         ];
         const rankingSignals = [
             ['01', 'Hardware fit first', 'RAM, VRAM, OS and model size decide whether a model feels instant or painful.', 'Apple M4 · 16 GB → laptop-safe picks'],
@@ -1260,10 +1260,10 @@ const App = {
                             Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
-                            <a href="pricing.html" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
+                            <a href="pricing.html" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
+                            <a href="#model-finder" data-lc-path="finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                         </div>
-                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
+                        <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
                         <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
                             <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
                             LocalClaw 1.0.168 · Ready for OpenClaw v2026.7.1
@@ -1365,6 +1365,27 @@ const App = {
                 </div>
             </section>
 
+            <section id="fresh-local-ai" aria-label="Recently verified local AI models" class="mb-20">
+                <div class="rounded-2xl border border-claw-primary/20 bg-[radial-gradient(ellipse_at_top_left,rgba(255,69,58,0.10),transparent_42%),rgba(255,255,255,0.02)] p-6 sm:p-8">
+                    <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// RECENTLY VERIFIED</p>
+                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Fresh local AI worth checking</h2>
+                            <p class="mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">New open-weight releases are screened for a real local install path before they enter LocalClaw.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-3 text-xs font-mono font-bold uppercase tracking-wider">
+                            <a href="new.html" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="new_page" class="text-claw-primary hover:text-white">See every new model →</a>
+                            <a href="new-models.xml" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="rss" class="text-claw-muted hover:text-white">RSS feed</a>
+                        </div>
+                    </div>
+                    <div class="grid gap-3 md:grid-cols-3">
+                        <a href="models/hy3.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="hy3" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jul 2026 · MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">Hy3</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">295B total, 21B active, 256K context. A large-workstation local target.</p></a>
+                        <a href="models/agents-a1.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="agents-a1" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jun 2026 · Agentic VLM</p><h3 class="mt-3 text-lg font-display font-bold text-white">Agents-A1</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">35B-A3B with official Q4_K_M GGUF for 32 GB local workstations.</p></a>
+                        <a href="models/north-mini-code-1.0.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="north-mini-code-1.0" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jun 2026 · Coding</p><h3 class="mt-3 text-lg font-display font-bold text-white">North Mini Code 1.0</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">30B-A3B, 256K context and mature GGUFs for practical agentic coding.</p></a>
+                    </div>
+                </div>
+            </section>
+
             <section aria-label="Local AI guided paths" class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>
@@ -1424,7 +1445,7 @@ const App = {
             <section class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">Browse 188 models →</a><a href="tts-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="tts" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">57 speech models →</a><a href="ram/" data-fast-goal="catalogue_click" data-fast-goal-target="ram" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM guides →</a></div>
+                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="llm-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">Browse 208 models →</a><a href="tts-list.html" data-fast-goal="catalogue_click" data-fast-goal-target="tts" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">58 speech models →</a><a href="ram/" data-fast-goal="catalogue_click" data-fast-goal-target="ram" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM guides →</a><a href="ram-gpu-for-local-ai.html" data-fast-goal="catalogue_click" data-fast-goal-target="ram-gpu" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM/GPU upgrades →</a></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     ${latestModels.map(([name, meta, href, tag, classes]) => `

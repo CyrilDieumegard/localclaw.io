@@ -13,6 +13,7 @@
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://localclaw.io/">
+    <link rel="alternate" type="application/rss+xml" title="LocalClaw New Local AI Models" href="https://localclaw.io/new-models.xml">
 
     <!-- ============================================================
          OPEN GRAPH (Facebook, LinkedIn, Discord, etc.)
@@ -496,6 +497,7 @@
                     </button>
                     <a href="llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
                     <a href="tts-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="new.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">New</a>
                     <a href="computers.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
                     <a href="ram-gpu-for-local-ai.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
                     <a href="blog/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
@@ -512,6 +514,7 @@
                 <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white hover:bg-white/5 transition-colors">Home</a>
                 <a href="llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
                 <a href="tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+                <a href="new.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
                 <a href="computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
                 <a href="ram-gpu-for-local-ai.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
                 <a href="blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
@@ -550,10 +553,10 @@
                             Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
-                            <a href="pricing.html" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
+                            <a href="pricing.html" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
+                            <a href="#model-finder" data-lc-path="finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                         </div>
-                        <p class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49. No signup. No prompts collected. Runs on your machine.</p>
+                        <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
                         <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
                             <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
                             LocalClaw 1.0.168 · Ready for OpenClaw v2026.7.1
@@ -748,6 +751,28 @@
                 </div>
             </section>
 
+            <!-- Fresh local AI additions -->
+            <section id="fresh-local-ai" aria-label="Recently verified local AI models" class="mb-20">
+                <div class="rounded-2xl border border-claw-primary/20 bg-[radial-gradient(ellipse_at_top_left,rgba(255,69,58,0.10),transparent_42%),rgba(255,255,255,0.02)] p-6 sm:p-8">
+                    <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// RECENTLY VERIFIED</p>
+                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Fresh local AI worth checking</h2>
+                            <p class="mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">New open-weight releases are screened for a real local install path before they enter LocalClaw.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-3 text-xs font-mono font-bold uppercase tracking-wider">
+                            <a href="new.html" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="new_page" class="text-claw-primary hover:text-white">See every new model →</a>
+                            <a href="new-models.xml" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="rss" class="text-claw-muted hover:text-white">RSS feed</a>
+                        </div>
+                    </div>
+                    <div class="grid gap-3 md:grid-cols-3">
+                        <a href="models/hy3.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="hy3" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jul 2026 · MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">Hy3</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">295B total, 21B active, 256K context. A large-workstation local target.</p></a>
+                        <a href="models/agents-a1.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="agents-a1" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jun 2026 · Agentic VLM</p><h3 class="mt-3 text-lg font-display font-bold text-white">Agents-A1</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">35B-A3B with official Q4_K_M GGUF for 32 GB local workstations.</p></a>
+                        <a href="models/north-mini-code-1.0.html" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="north-mini-code-1.0" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jun 2026 · Coding</p><h3 class="mt-3 text-lg font-display font-bold text-white">North Mini Code 1.0</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">30B-A3B, 256K context and mature GGUFs for practical agentic coding.</p></a>
+                    </div>
+                </div>
+            </section>
+
             <!-- Guided paths -->
             <section aria-label="Local AI guided paths" class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -900,7 +925,8 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260717b"></script>
-    <script src="js/app.js?v=20260715c"></script>
+    <script src="js/app.js?v=20260718a"></script>
+    <script src="js/growth-paths.js?v=20260718a"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>
