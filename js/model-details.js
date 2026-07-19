@@ -827,6 +827,43 @@ var MODEL_DETAILS = {
         official_blog: 'https://huggingface.co/tencent/Hy3',
         paper_url: 'https://huggingface.co/tencent/Hy3',
     },
+    'bonsai-27b': {
+        developer: 'PrismML',
+        developer_url: 'https://prismml.com/',
+        context_window: 262144,
+        license: 'Apache 2.0',
+        license_url: 'https://www.apache.org/licenses/LICENSE-2.0',
+        architecture: 'Qwen 3.6 27B-derived hybrid-attention multimodal transformer compressed into native ternary Q2_0_g128 and binary Q1_0_g128 weights.',
+        training_data: 'Derived from Qwen 3.6 27B. PrismML publishes compression and evaluation methodology, but does not disclose a separate full training corpus for Bonsai 27B.',
+        languages: ['English', 'Chinese', 'Multilingual', 'Code'],
+        strengths: [
+            'Official Apache 2.0 GGUF and MLX releases from PrismML',
+            'Quality-oriented ternary build deploys in about 7.2GB',
+            'Experimental 1-bit build deploys in about 3.9GB',
+            '262K context with optional 4-bit KV-cache compression',
+            'Preserves vision, reasoning, coding and agentic tool-use capabilities',
+            'PrismML reports 26 tok/s for ternary and 44 tok/s for 1-bit on an Apple M5 Pro',
+        ],
+        weaknesses: [
+            'The low-bit GGUF builds currently depend on PrismML custom llama.cpp kernels',
+            'Ternary quality remains below the full-precision Qwen 3.6 27B reference',
+            'The most impressive benchmark and throughput numbers are vendor-reported',
+            'Long context still increases peak memory well beyond the model file size',
+            'Phone demonstrations use specialized MLX Swift deployment and one published demo uses cached, prefilled image context',
+        ],
+        use_cases: [
+            'Private local coding assistant',
+            'On-device reasoning',
+            'Local tool-use agents',
+            'Multimodal document analysis',
+            'Long-context research on 16GB+ laptops',
+            'Low-memory local AI experiments',
+        ],
+        similar_models: ['qwen3.6-27b', 'qwen3.6-35b-a3b', 'gemma4-12b', 'gpt-oss-20b'],
+        fun_fact: 'The official 1-bit build is smaller on disk than many full-precision 2B models, while PrismML reports that it retains 89.5% of its Qwen 3.6 27B FP16 benchmark average.',
+        official_blog: 'https://prismml.com/news/bonsai-27b',
+        paper_url: 'https://github.com/PrismML-Eng/Bonsai-demo/blob/main/bonsai-27b-whitepaper.pdf',
+    },
 
     // ==================== DEEPSEEK R1 DISTILL FAMILY ====================
     'deepseek-r1-8b': {

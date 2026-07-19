@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 17, 2026 — Added Hy3 — 208 LLM total
+// Updated July 19, 2026 — Added Bonsai 27B — 209 LLM total
 // Previous: July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
 // Previous: July 15, 2026 — Added Agents-A1 — 206 LLM total
 // Previous: July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
@@ -201,6 +201,25 @@ const APP_DATA = {
             hf_repo: 'AngelSlim/Hy3-GGUF',
             source_url: 'https://huggingface.co/tencent/Hy3',
             benchmarks: { speed: 2, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-07',
+            isNew: true
+        },
+        {
+            id: 'bonsai-27b',
+            name: 'Bonsai 27B',
+            family: 'bonsai',
+            params: '27.3B (ternary / 1-bit)',
+            size_gb: 7.2,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'multimodal', 'edge', 'speed', 'long-context'],
+            description: 'PrismML low-bit model derived from Qwen 3.6 27B. Official Apache 2.0 ternary (7.2GB deployed) and 1-bit (3.9GB) builds retain multimodal, reasoning and agentic capabilities through custom GGUF and MLX runtimes.',
+            search_term: 'bonsai-27b',
+            recommended_quant: 'Ternary Q2_0_g128',
+            hf_repo: 'prism-ml/Ternary-Bonsai-27B-gguf',
+            source_url: 'https://huggingface.co/prism-ml/Bonsai-27B-gguf',
+            custom_runtime: 'PrismML llama.cpp / MLX',
+            runtime_url: 'https://github.com/PrismML-Eng/Bonsai-demo',
+            benchmarks: { speed: 9, quality: 8, coding: 9, reasoning: 9 },
             released: '2026-07',
             isNew: true
         },

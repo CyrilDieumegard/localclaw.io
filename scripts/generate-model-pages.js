@@ -177,9 +177,14 @@ function isServerServingModel(m) {
   return !m.hosted_only && /serving/i.test(m.recommended_quant || '');
 }
 
+function requiresCustomRuntime(m) {
+  return !m.hosted_only && Boolean(m.custom_runtime);
+}
+
 function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
   if (isServerServingModel(m)) return `Use <code>${esc(m.search_term)}</code> with a server runtime such as vLLM, SGLang or Transformers. This is not a one-click GGUF/LM Studio listing.`;
+  if (requiresCustomRuntime(m)) return `Use the official <a href="${esc(m.runtime_url)}" target="_blank" rel="noopener">${esc(m.custom_runtime)}</a> setup. The current low-bit files are not a stock LM Studio install.`;
   return `Search for <code>${esc(m.search_term)}</code> in LM Studio or another GGUF-compatible runtime.`;
 }
 
@@ -205,7 +210,9 @@ function tagsMarkup(m) {
 
 function modelPage(m, d, allModels) {
   const url = `${BASE}/models/${encodeURIComponent(m.id)}.html`;
-  const localTitle = `${m.name} local AI: RAM + LM Studio | LocalClaw`;
+  const localTitle = requiresCustomRuntime(m)
+    ? `${m.name} local AI: custom runtime | LocalClaw`
+    : `${m.name} local AI: RAM + LM Studio | LocalClaw`;
   const compactLocalTitle = `${m.name} local AI | LocalClaw`;
   const title = m.hosted_only
     ? `${m.name} API model specs | LocalClaw`
@@ -216,6 +223,8 @@ function modelPage(m, d, allModels) {
     ? `${m.name}: hosted/API LLM. Specs, benchmarks, use cases and current availability notes for local AI comparison.`.slice(0, 158)
     : isServerServingModel(m)
       ? `${m.name}: ${m.params} server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.`.slice(0, 158)
+      : requiresCustomRuntime(m)
+        ? `${m.name}: ${m.params} local AI guide with RAM requirements, ${m.recommended_quant}, benchmarks and its required ${m.custom_runtime} runtime.`.slice(0, 158)
     : `${m.name}: ${m.params} local AI model guide with RAM requirements, ${m.recommended_quant} quantization, benchmarks, use cases and LM Studio setup.`.slice(0, 158);
   const color = familyColor(m);
   const score = localFitScore(m);
@@ -251,7 +260,7 @@ function modelPage(m, d, allModels) {
           {
             '@type': 'Question',
             name: `Can ${m.name} run locally?`,
-            acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a vLLM/SGLang style serving target, not a desktop GGUF install.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
+            acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a vLLM/SGLang style serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
           },
           {
             '@type': 'Question',
@@ -318,7 +327,7 @@ function modelPage(m, d, allModels) {
           <span class="chip">${esc(primaryUse(m, d))}</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
+          <a class="btn" href="${requiresCustomRuntime(m) ? esc(m.runtime_url) : '/pricing.html'}"${requiresCustomRuntime(m) ? ' target="_blank" rel="noopener"' : ''}>${requiresCustomRuntime(m) ? 'Open official runtime' : 'Run with LocalClaw'}</a>
           <a class="btn secondary" href="/llm-list.html">Compare all models</a>
         </div>
       </section>
@@ -353,7 +362,7 @@ function modelPage(m, d, allModels) {
       <h2>Install path</h2>
       <div class="install-steps">
         <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Serve ${esc(m.search_term)} with vLLM, SGLang or Transformers.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Serve ${esc(m.search_term)} with vLLM, SGLang or Transformers.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>

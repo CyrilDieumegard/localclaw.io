@@ -17,6 +17,14 @@
       <description>Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF. 295B (21B active) · 128 GB minimum RAM · IQ1_M · hy3.</description>
     </item>
     <item>
+      <title>Bonsai 27B</title>
+      <link>https://localclaw.io/models/bonsai-27b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/bonsai-27b</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>bonsai</category>
+      <description>PrismML low-bit model derived from Qwen 3.6 27B. Official Apache 2.0 ternary (7.2GB deployed) and 1-bit (3.9GB) builds retain multimodal, reasoning and agentic capabilities through custom GGUF and MLX runtimes. 27.3B (ternary / 1-bit) · 16 GB minimum RAM · Ternary Q2_0_g128 · bonsai.</description>
+    </item>
+    <item>
       <title>LFM2.5-8B-A1B</title>
       <link>https://localclaw.io/models/lfm2.5-8b-a1b</link>
       <guid isPermaLink="true">https://localclaw.io/models/lfm2.5-8b-a1b</guid>
@@ -159,14 +167,6 @@
       <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
       <category>sarvam</category>
       <description>Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability. 32B (2.4B active, MoE) · 32 GB minimum RAM · Q4_K_M · sarvam.</description>
-    </item>
-    <item>
-      <title>Qwen 3.5 (0.8B)</title>
-      <link>https://localclaw.io/models/qwen3.5-0.8b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.5-0.8b</guid>
-      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>The tiniest Qwen 3.5 — runs on any device including smartphones and Raspberry Pi. Hybrid thinking mode, 256K context, Apache 2.0. Perfect for on-device AI and embedded apps. 0.8B · 2 GB minimum RAM · Q4_K_M · qwen.</description>
     </item>
   </channel>
 </rss>
