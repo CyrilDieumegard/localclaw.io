@@ -996,3 +996,131 @@ body::before {
         align-items: stretch;
     }
 }
+
+/* ---- Product proof video ---- */
+.lc-case-video-shell {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #09090b;
+    border: 1px solid rgba(255, 69, 58, 0.35);
+    border-radius: 8px;
+}
+
+.lc-case-video-poster {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: #09090b;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+}
+
+.lc-case-video-poster:focus-visible {
+    outline: 3px solid #ff453a;
+    outline-offset: -3px;
+}
+
+.lc-case-video-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 220ms ease, filter 220ms ease;
+}
+
+.lc-case-video-poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.16);
+    transition: background 220ms ease;
+}
+
+.lc-case-video-poster:hover img {
+    transform: scale(1.01);
+    filter: brightness(1.08);
+}
+
+.lc-case-video-poster:hover::after {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.lc-case-video-play {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: clamp(58px, 7vw, 82px);
+    height: clamp(58px, 7vw, 82px);
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #ff453a;
+    color: #fff;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.45);
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.lc-case-video-poster:hover .lc-case-video-play {
+    transform: translate(-50%, -50%) scale(1.06);
+    background: #fff;
+    color: #09090b;
+}
+
+.lc-case-video-play svg {
+    width: 38%;
+    height: 38%;
+    margin-left: 5%;
+}
+
+.lc-case-video-label {
+    position: absolute;
+    z-index: 2;
+    left: clamp(12px, 2vw, 24px);
+    bottom: clamp(12px, 2vw, 24px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 6px;
+    background: rgba(5, 5, 5, 0.82);
+    color: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+}
+
+.lc-case-video-label::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+}
+
+.lc-case-video-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lc-case-video-poster img,
+    .lc-case-video-play {
+        transition: none;
+    }
+}

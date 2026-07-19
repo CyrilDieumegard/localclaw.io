@@ -8,7 +8,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://datafa.st; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: https://huggingface.co https://api.github.com https://datafa.st; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://datafa.st; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: https://huggingface.co https://api.github.com https://datafa.st; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'
 
 /index.html
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
@@ -45,6 +45,9 @@
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /use-case/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/case-study/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /tts/*

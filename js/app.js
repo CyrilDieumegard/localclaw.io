@@ -1084,6 +1084,47 @@ const App = {
             ['03', 'Use-case weighting', 'Coding, chat, reasoning, vision and speed priorities change the shortlist transparently.', 'Coding → code benchmark + model tags'],
             ['04', 'Installability matters', 'The best model is the one you can actually load locally with the right quantization.', 'Q5_K_M / Q4_K_M shown upfront']
         ];
+        const caseStudySection = `
+            <section id="built-with-localclaw" aria-labelledby="built-with-localclaw-title" class="mb-20 scroll-mt-24 border-y border-white/10 py-10 sm:py-14">
+                <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+                    <div>
+                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// REAL USE CASE</p>
+                        <h2 id="built-with-localclaw-title" class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-white uppercase tracking-tight">Kimi K3 built a playable 3D FPS inside LocalClaw</h2>
+                        <p class="mt-4 max-w-3xl text-sm sm:text-base text-claw-muted font-mono leading-relaxed">The model worked through OpenRouter while LocalClaw kept the project, AI activity, files and live preview in one native workspace. The result is Iron Descent, playable in the same screen where it was built.</p>
+                    </div>
+                    <dl class="grid grid-cols-2 overflow-hidden rounded-lg border border-white/10 bg-white/10 text-left">
+                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Model</dt><dd class="mt-2 text-sm font-bold text-white">Kimi K3</dd></div>
+                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Workspace</dt><dd class="mt-2 text-sm font-bold text-white">Developer</dd></div>
+                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Feedback</dt><dd class="mt-2 text-sm font-bold text-white">Live preview</dd></div>
+                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Result</dt><dd class="mt-2 text-sm font-bold text-white">Playable FPS</dd></div>
+                    </dl>
+                </div>
+
+                <div class="mt-8 lc-case-video-shell" data-lc-video-shell>
+                    <button type="button" class="lc-case-video-poster" data-lc-youtube-id="nt8XNV-bXM0" data-lc-video-title="Kimi K3 built a playable 3D FPS inside LocalClaw" aria-label="Play the 45-second LocalClaw game development demo">
+                        <img src="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg" alt="LocalClaw Developer showing AI activity beside a live preview of Iron Descent" width="1280" height="720" loading="lazy" decoding="async">
+                        <span class="lc-case-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+                        <span class="lc-case-video-label">45-second real app capture</span>
+                    </button>
+                    <noscript><a href="https://youtu.be/nt8XNV-bXM0" class="absolute inset-0 grid place-items-center text-white">Watch the demo on YouTube</a></noscript>
+                </div>
+
+                <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <li class="border-t border-claw-primary/45 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-2 font-display font-bold text-white">Describe the change</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Give the model a concrete product brief in the project chat.</p></li>
+                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">02</span><h3 class="mt-2 font-display font-bold text-white">See the work</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Follow tool activity, elapsed time and the files being changed.</p></li>
+                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">03</span><h3 class="mt-2 font-display font-bold text-white">Test it live</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Use the interactive preview without leaving LocalClaw.</p></li>
+                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">04</span><h3 class="mt-2 font-display font-bold text-white">Iterate in context</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Keep the project state and refine the result instead of starting over.</p></li>
+                </ol>
+
+                <div class="mt-7 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p class="text-xs font-mono text-claw-muted">Real workspace · visible AI activity · live preview · finished gameplay</p>
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <a href="case-study/iron-descent.html" data-fast-goal="case_study_open" data-fast-goal-source="home_demo" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Read the full case study →</a>
+                        <a href="pricing.html" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_demo" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black">Build with LocalClaw</a>
+                    </div>
+                </div>
+            </section>
+        `;
         const mockNavItems = [
             ['home', '● Home', ''],
             ['install', 'Install', ''],
@@ -1262,6 +1303,7 @@ const App = {
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
                             <a href="pricing.html" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
                             <a href="#model-finder" data-lc-path="finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
+                            <a href="#built-with-localclaw" data-fast-goal="case_study_open" data-fast-goal-source="home_hero" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Watch the game demo ↓</a>
                         </div>
                         <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
                         <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
@@ -1321,6 +1363,8 @@ const App = {
                     </div>
                 </div>
             </section>
+
+            ${caseStudySection}
 
             <section class="mb-20">
                 <div class="mb-8 text-center">
