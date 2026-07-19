@@ -1155,7 +1155,7 @@ const App = {
         `;
         const mockPanels = {
             home: `
-                ${mockPanelHeader('LocalClaw', 'Version 1.0.168 (build 319)')}
+                ${mockPanelHeader('LocalClaw', 'Version 1.0.175 (build 326)')}
                 <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
                     <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4"><div class="mb-2 text-[#22c55e]">⌁</div><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div><div class="mt-2 text-[10px] text-claw-muted">openai/gpt-5.4-mini</div></div>
                     <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-muted">▤</div><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div><div class="mt-2 text-[10px] text-claw-muted">CPU 28% · RAM 31.2/32 GB</div></div>
@@ -1249,10 +1249,56 @@ const App = {
                 </div>
             `,
             developer: `
-                ${mockPanelHeader('Developer', 'Chat-driven coding with live preview')}
-                <div class="grid gap-3 md:grid-cols-[260px_1fr]">
-                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="font-bold text-white">AI Developer</div><div class="mt-2 rounded bg-[#2a2a2a] p-2 text-xs text-claw-muted">Gemma 4 E4B · Fast context ready</div><div class="mt-4 h-32 rounded border border-[#333] p-3 text-[11px] text-claw-muted">Start by describing what you want to build or change.</div><button class="mt-3 w-full rounded bg-claw-primary p-3 text-sm font-bold text-white">Send</button></div>
-                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-3 flex gap-4 text-xs text-claw-muted"><span class="text-claw-primary">Preview</span><span>Files</span><span>Database</span><span>Deploy</span><span>Logs</span></div><div class="h-52 rounded bg-black"></div></div>
+                ${mockPanelHeader('Developer', 'Build, inspect source control, and preview without leaving LocalClaw')}
+                <div class="mb-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
+                    <div class="rounded-lg border border-[#333] bg-[#1a1a1a] p-2.5"><div class="text-[9px] uppercase tracking-wider text-claw-muted">Workspace</div><div class="mt-1 truncate text-[11px] font-bold text-white"><span class="mr-1 text-claw-primary">▰</span>My App</div></div>
+                    <div class="rounded-lg border border-[#333] bg-[#1a1a1a] p-2.5"><div class="text-[9px] uppercase tracking-wider text-claw-muted">Source control</div><div class="mt-1 truncate text-[11px] font-bold text-white"><span class="mr-1 text-[#22c55e]">⑂</span>main</div></div>
+                    <div class="rounded-lg border border-[#333] bg-[#1a1a1a] p-2.5"><div class="text-[9px] uppercase tracking-wider text-claw-muted">Changes</div><div class="mt-1 truncate text-[11px] font-bold text-white"><span class="mr-1 text-amber-400">●</span>3 files</div></div>
+                    <div class="rounded-lg border border-[#333] bg-[#1a1a1a] p-2.5"><div class="text-[9px] uppercase tracking-wider text-claw-muted">Preview</div><div class="mt-1 truncate text-[11px] font-bold text-white"><span class="mr-1 text-[#22c55e]">●</span>Running</div></div>
+                </div>
+                <div class="grid gap-3 xl:grid-cols-[320px_1fr]">
+                    <div class="rounded-xl border border-[#333] bg-[#171717] p-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div><div class="font-bold text-white">AI Developer</div><div class="mt-1 text-[10px] text-claw-muted">Gemma 4 E4B</div></div>
+                            <div class="flex items-center gap-1.5 text-[9px] font-bold"><span class="rounded-full bg-blue-500/15 px-2 py-1 text-blue-400">Fast context</span><span class="text-[#22c55e]">● Ready</span></div>
+                        </div>
+                        <div class="mt-3 rounded-lg border border-[#2a2a2a] bg-[#111] p-3 text-[10px] leading-relaxed text-claw-muted">
+                            <div class="mb-2 text-white">Build a private local AI dashboard and add a responsive model status panel.</div>
+                            <div class="rounded-lg border border-claw-primary/35 bg-claw-primary/5 p-2.5">
+                                <div class="flex items-center justify-between gap-2"><span class="font-bold text-white"><span class="mr-1 text-claw-primary">◌</span>Editing project files</span><span class="text-claw-primary">1m 18s</span></div>
+                                <div class="mt-2 space-y-1.5">
+                                    <div><span class="mr-1 text-[#22c55e]">●</span>Read package.json</div>
+                                    <div><span class="mr-1 text-[#22c55e]">●</span>Updated app.css</div>
+                                    <div><span class="mr-1 text-claw-primary">◌</span>Running project checks</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 rounded-lg border border-[#333] bg-[#1d1d1d] p-2.5">
+                            <div class="min-h-10 text-[10px] text-claw-muted">Ask OpenClaw to build, fix, or improve the app...</div>
+                            <div class="mt-2 flex items-center gap-2 text-[10px] text-claw-muted"><span>⌕</span><span>▣</span><span>▹</span><span class="ml-auto rounded-md bg-claw-primary px-3 py-1.5 font-bold text-white">Stop</span></div>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-xl border border-[#333] bg-[#171717]">
+                        <div class="flex items-center gap-3 border-b border-[#2a2a2a] bg-[#1c1c1c] px-3 py-2.5 text-[10px] font-bold text-claw-muted">
+                            <span class="text-claw-primary">◉ Preview</span><span>▤ Files</span><span>⑂ Git</span><span>••• Tools</span><span class="ml-auto text-[#22c55e]">● Gateway healthy</span>
+                        </div>
+                        <div class="border-b border-[#2a2a2a] px-3 py-2">
+                            <div class="flex items-center gap-2 text-[10px]"><span class="text-claw-muted">Project</span><span class="min-w-0 flex-1 rounded-md bg-[#222] px-2.5 py-1.5 font-bold text-white">My App</span><span class="rounded-md border border-[#333] px-2 py-1.5 text-claw-muted">Rename folder</span></div>
+                            <div class="mt-2 flex items-center gap-2"><span class="min-w-0 flex-1 truncate rounded-md bg-[#111] px-2.5 py-1.5 text-[10px] text-claw-muted">http://localhost:5173</span><span class="rounded bg-[#222] px-2 py-1 text-[9px] text-white">▶</span><span class="rounded bg-[#222] px-2 py-1 text-[9px] text-white">■</span><span class="rounded bg-[#222] px-2 py-1 text-[9px] text-white">Desktop</span><span class="hidden rounded bg-[#222] px-2 py-1 text-[9px] text-claw-muted sm:inline">Mobile</span></div>
+                            <div class="mt-2 flex items-center justify-between gap-2 text-[9px] text-claw-muted"><span class="text-[#22c55e]">● Preview running in LocalClaw</span><span class="max-w-[48%] truncate">/workspace/projects/my-app</span></div>
+                        </div>
+                        <div class="min-h-[235px] bg-[#0b0b0b] p-4">
+                            <div class="mx-auto h-full max-w-xl rounded-lg border border-[#2d2d2d] bg-[#111] p-4 shadow-[0_18px_55px_rgba(0,0,0,0.45)]">
+                                <div class="flex items-center justify-between border-b border-[#2a2a2a] pb-3"><div class="text-[10px] font-bold uppercase tracking-widest text-white">Private AI workspace</div><span class="rounded-full bg-[#12311d] px-2 py-1 text-[8px] font-bold text-[#22c55e]">LOCAL · READY</span></div>
+                                <div class="mt-4 grid grid-cols-3 gap-2">
+                                    <div class="rounded-md border border-[#292929] bg-[#171717] p-2"><div class="text-[8px] text-claw-muted">MODEL</div><div class="mt-1 text-[10px] font-bold text-white">Gemma 4 E4B</div></div>
+                                    <div class="rounded-md border border-[#292929] bg-[#171717] p-2"><div class="text-[8px] text-claw-muted">CONTEXT</div><div class="mt-1 text-[10px] font-bold text-white">32K</div></div>
+                                    <div class="rounded-md border border-[#292929] bg-[#171717] p-2"><div class="text-[8px] text-claw-muted">PRIVACY</div><div class="mt-1 text-[10px] font-bold text-[#22c55e]">On device</div></div>
+                                </div>
+                                <div class="mt-3 rounded-md border border-claw-primary/25 bg-claw-primary/5 p-3"><div class="text-[9px] font-bold text-claw-primary">Generated inside your project</div><div class="mt-1 text-[9px] leading-relaxed text-claw-muted">The embedded preview refreshes after code changes, while Files and Git keep every edit visible.</div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `,
             models: `
@@ -1306,9 +1352,9 @@ const App = {
                             <a href="#built-with-localclaw" data-fast-goal="case_study_open" data-fast-goal-source="home_hero" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Watch the game demo ↓</a>
                         </div>
                         <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
-                        <a href="changelog/localclaw-installer-v1.0.168.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
+                        <a href="changelog/localclaw-installer-v1.0.175.html" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
                             <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
-                            LocalClaw 1.0.168 · Ready for OpenClaw v2026.7.1
+                            LocalClaw 1.0.175 · Developer workspace upgraded
                         </a>
                     </div>
                     <div class="relative mx-auto w-full max-w-xl">
@@ -1323,7 +1369,7 @@ const App = {
                 <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
                     <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
                         <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0.168</div>
+                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0.175</div>
                         <div class="hidden sm:flex items-center rounded-lg border border-white/10 bg-[#242424] p-1 font-mono text-[11px] font-bold uppercase tracking-wider text-claw-muted shadow-[0_0_18px_rgba(255,69,58,0.08)]">
                             <span class="px-2.5 py-1">Cloud LLM</span>
                             <span class="h-4 w-px bg-white/10"></span>
