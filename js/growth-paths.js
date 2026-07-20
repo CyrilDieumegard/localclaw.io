@@ -202,7 +202,7 @@
     }
 
     function setupArticlePath() {
-        if (!/^\/blog\/[^/]+\.html$/.test(window.location.pathname)) return;
+        if (!/^\/blog\/[^/]+(?:\.html)?\/?$/.test(window.location.pathname)) return;
         const article = document.querySelector('article');
         if (!article || article.querySelector(`.${ARTICLE_CTA_CLASS}`)) return;
 
