@@ -25,6 +25,14 @@
       <description>PrismML low-bit model derived from Qwen 3.6 27B. Official Apache 2.0 ternary (7.2GB deployed) and 1-bit (3.9GB) builds retain multimodal, reasoning and agentic capabilities through custom GGUF and MLX runtimes. 27.3B (ternary / 1-bit) · 16 GB minimum RAM · Ternary Q2_0_g128 · bonsai.</description>
     </item>
     <item>
+      <title>Laguna XS 2.1</title>
+      <link>https://localclaw.io/models/laguna-xs-2.1</link>
+      <guid isPermaLink="true">https://localclaw.io/models/laguna-xs-2.1</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>laguna</category>
+      <description>Poolside agentic coding MoE with 262K context, 33B total / 3B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability for 36GB-class local machines. 33B (3B active, MoE) · 36 GB minimum RAM · Q4_K_M · laguna.</description>
+    </item>
+    <item>
       <title>LFM2.5-8B-A1B</title>
       <link>https://localclaw.io/models/lfm2.5-8b-a1b</link>
       <guid isPermaLink="true">https://localclaw.io/models/lfm2.5-8b-a1b</guid>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
       <category>ling</category>
       <description>InclusionAI&apos;s MIT-licensed instruct MoE optimized for fast agent workloads. 104B total parameters, only 7.4B active, hybrid linear attention, 262K context and strong tool-use / multi-step execution with high token efficiency. 104B (7.4B active) · 80 GB minimum RAM · Q4_K_M · ling.</description>
-    </item>
-    <item>
-      <title>Sarvam 30B</title>
-      <link>https://localclaw.io/models/sarvam-30b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/sarvam-30b</guid>
-      <pubDate>Sun, 01 Mar 2026 12:00:00 GMT</pubDate>
-      <category>sarvam</category>
-      <description>Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability. 32B (2.4B active, MoE) · 32 GB minimum RAM · Q4_K_M · sarvam.</description>
     </item>
   </channel>
 </rss>

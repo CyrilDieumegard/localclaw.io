@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 19, 2026 — Added Bonsai 27B — 209 LLM total
+// Updated July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
+// Previous: July 19, 2026 — Added Bonsai 27B — 209 LLM total
 // Previous: July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
 // Previous: July 15, 2026 — Added Agents-A1 — 206 LLM total
 // Previous: July 13, 2026 — Added North Mini Code 1.0 — 205 LLM total
@@ -220,6 +221,24 @@ const APP_DATA = {
             custom_runtime: 'PrismML llama.cpp / MLX',
             runtime_url: 'https://github.com/PrismML-Eng/Bonsai-demo',
             benchmarks: { speed: 9, quality: 8, coding: 9, reasoning: 9 },
+            released: '2026-07',
+            isNew: true
+        },
+        {
+            id: 'laguna-xs-2.1',
+            name: 'Laguna XS 2.1',
+            family: 'laguna',
+            params: '33B (3B active, MoE)',
+            size_gb: 20.3,
+            min_ram: 36,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'power', 'long-context'],
+            description: 'Poolside agentic coding MoE with 262K context, 33B total / 3B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability for 36GB-class local machines.',
+            search_term: 'laguna-xs-2.1',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'poolside/Laguna-XS-2.1-GGUF',
+            source_url: 'https://huggingface.co/poolside/Laguna-XS-2.1',
+            runtime_url: 'https://ollama.com/library/laguna-xs-2.1',
+            benchmarks: { speed: 6, quality: 8, coding: 9, reasoning: 8 },
             released: '2026-07',
             isNew: true
         },
