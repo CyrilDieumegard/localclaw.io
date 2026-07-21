@@ -3,6 +3,26 @@
 
     const STYLE_ID = 'lc-growth-paths-style';
     const ARTICLE_CTA_CLASS = 'lc-article-next-step';
+    const ARTICLE_PATHS = {
+        '/blog/local-tts-guide-2026': {
+            eyebrow: 'Choose a local voice stack',
+            title: 'Compare speech models by language, latency and hardware',
+            copy: 'Move from the guide to the complete TTS and ASR directory, then choose the setup path that fits this computer.',
+            primary: { href: '/tts-list.html', label: 'Compare local TTS and ASR models', target: 'tts_directory' }
+        },
+        '/blog/qwen-3-7-local-ai': {
+            eyebrow: 'Use the practical local alternative',
+            title: 'Qwen 3.7 is cloud-only. Qwen 3.6 27B runs locally.',
+            copy: 'Open the closest practical 27B Qwen option, check its RAM fit and continue with a setup matched to this computer.',
+            primary: { href: '/models/qwen3.6-27b.html', label: 'Open Qwen 3.6 27B', target: 'qwen3.6-27b' }
+        },
+        '/blog/glm-5-2-local-ai': {
+            eyebrow: 'Check the workstation reality',
+            title: 'See GLM-5.2 quantization and memory requirements first',
+            copy: 'Open the model record before downloading hundreds of gigabytes, then compare the setup path that fits this machine.',
+            primary: { href: '/models/glm-5.2.html', label: 'Open the GLM-5.2 model record', target: 'glm-5.2' }
+        }
+    };
 
     function track(name, data) {
         if (typeof window.datafast === 'function') {
@@ -212,7 +232,9 @@
 
         const intent = articleIntent();
         const platform = platformName();
-        const primary = exactArticleTarget(article) || directoryTarget(intent);
+        const normalizedPath = window.location.pathname.replace(/\.html\/?$/, '').replace(/\/$/, '');
+        const pathConfig = ARTICLE_PATHS[normalizedPath] || null;
+        const primary = (pathConfig && pathConfig.primary) || exactArticleTarget(article) || directoryTarget(intent);
         const secondary = platform === 'macos'
             ? { href: '/pricing.html', label: 'Get LocalClaw for macOS · $49', target: 'macos_app' }
             : { href: `/?from=article&intent=${encodeURIComponent(intent)}#model-finder`, label: 'Find what fits this computer', target: 'model_finder' };
@@ -221,11 +243,11 @@
         box.className = ARTICLE_CTA_CLASS;
         box.setAttribute('aria-label', 'Continue with LocalClaw');
         box.innerHTML = `
-            <p class="${ARTICLE_CTA_CLASS}__eyebrow">Make this guide practical</p>
-            <h2>Turn the article into a local setup</h2>
-            <p class="${ARTICLE_CTA_CLASS}__copy">Compare the exact model, then use the path that fits this computer. No signup and no hardware data is collected.</p>
+            <p class="${ARTICLE_CTA_CLASS}__eyebrow">${pathConfig ? pathConfig.eyebrow : 'Make this guide practical'}</p>
+            <h2>${pathConfig ? pathConfig.title : 'Turn the article into a local setup'}</h2>
+            <p class="${ARTICLE_CTA_CLASS}__copy">${pathConfig ? pathConfig.copy : 'Compare the exact model, then use the path that fits this computer. No signup and no hardware data is collected.'}</p>
             <div class="${ARTICLE_CTA_CLASS}__actions">
-                <a class="${ARTICLE_CTA_CLASS}__button" href="${primary.href}" data-fast-goal="article_to_tool" data-fast-goal-source="${window.location.pathname}" data-fast-goal-target="catalogue" data-fast-goal-intent="${intent}" data-fast-goal-platform="${platform}">${primary.label} →</a>
+                <a class="${ARTICLE_CTA_CLASS}__button" href="${primary.href}" data-fast-goal="article_to_tool" data-fast-goal-source="${window.location.pathname}" data-fast-goal-target="${primary.target || 'catalogue'}" data-fast-goal-intent="${intent}" data-fast-goal-platform="${platform}">${primary.label} →</a>
                 <a class="${ARTICLE_CTA_CLASS}__button" href="${secondary.href}" data-fast-goal="article_to_tool" data-fast-goal-source="${window.location.pathname}" data-fast-goal-target="${secondary.target}" data-fast-goal-intent="${intent}" data-fast-goal-platform="${platform}">${secondary.label} →</a>
             </div>
         `;

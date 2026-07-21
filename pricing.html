@@ -612,9 +612,6 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .product-window {
-                order: -1;
-            }
         }
 
         @media (max-width: 640px) {
@@ -630,6 +627,22 @@
             .cta-primary,
             .cta-secondary {
                 width: 100%;
+            }
+
+            .cta-primary,
+            .cta-secondary {
+                min-width: 0;
+                padding-inline: 14px;
+                font-size: 11px;
+                line-height: 1.35;
+                text-align: center;
+                white-space: normal;
+                overflow-wrap: anywhere;
+            }
+
+            .trust-strip > * {
+                max-width: 100%;
+                overflow-wrap: anywhere;
             }
 
             .quick-specs,
@@ -660,7 +673,7 @@
     </style>
 
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
-    <script src="js/clarity.js" defer></script>
+    <script src="js/clarity.js?v=20260721a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
@@ -718,14 +731,14 @@
                     A native control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban work from your Mac.
                 </p>
                 <div class="cta-row">
-                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get beta access - $49</a>
-                    <a class="cta-secondary" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Download installer</a>
+                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get LocalClaw - $49</a>
+                    <a class="cta-secondary" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Already purchased? Download installer</a>
                 </div>
                 <p class="microcopy">Apple-notarized DMG. A $49 one-time license is required to activate and use the app. No subscription.</p>
                 <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
-                    <a href="changelog/localclaw-installer-v1.0.168.html">v1.0.168 · OpenClaw v2026.7.1 ready</a>
+                    <a href="changelog/localclaw-installer-v1.0.175.html">v1.0.175 · OpenClaw v2026.7.1 ready</a>
                     <span>Apple-notarized DMG</span>
-                    <span>$49 lifetime beta</span>
+                    <span>$49 one-time · lifetime access</span>
                     <span>No subscription</span>
                     <span>Web recommender stays free</span>
                 </div>
@@ -734,7 +747,7 @@
             <aside class="product-window" aria-label="LocalClaw macOS app preview">
                 <div class="product-titlebar">
                     <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.168 beta</div>
+                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.175 beta</div>
                     <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Local LLM</div>
                 </div>
                 <div class="product-shot">
@@ -827,7 +840,7 @@
                         </div>
                         <div class="feature-line">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M5 13l4 4L19 7"/></svg>
-                            No subscription, no cloud requirement for the local app workflow.
+                            Fully local with LM Studio; cloud and OAuth modes remain optional.
                         </div>
                     </div>
                     <div class="cta-row">
@@ -920,7 +933,7 @@
             <details class="info-detail">
                 <summary>What does beta lifetime access mean?</summary>
                 <div class="detail-body">
-                    LocalClaw is available while it is still improving. The beta license gives you lifetime access to the macOS app for a one-time $49 purchase, with updates included as the product matures. Features and setup flows may change during beta.
+                    LocalClaw is available while it is still improving. The one-time $49 purchase gives you a lifetime license to the macOS app, with beta updates included and no recurring fee. Features and setup flows may change as the product matures.
                 </div>
             </details>
             <details class="info-detail">
@@ -948,9 +961,9 @@
                 </div>
             </details>
             <details class="info-detail">
-                <summary>What is the return policy?</summary>
+                <summary>How do support and refund requests work?</summary>
                 <div class="detail-body">
-                    LocalClaw is a digital beta license. If activation, download or installation fails, email support with your checkout email so the order and license can be checked manually.
+                    LocalClaw is delivered as a digital beta license. If activation, download or installation fails, email <a href="mailto:helplocalclaw@gmail.com" class="text-claw-primary hover:underline">helplocalclaw@gmail.com</a> with the email used at checkout so the order can be verified and support can restore access. Refund requests are reviewed manually against the Stripe payment record and applicable consumer law; the website does not promise an automatic refund after digital access has been delivered.
                 </div>
             </details>
             <details class="info-detail">
@@ -1192,7 +1205,7 @@
         "description": "Apple-notarized native macOS beta app for OpenClaw setup, local AI control, models, agents, cron jobs and Kanban.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS",
-        "softwareVersion": "1.0.168",
+        "softwareVersion": "1.0.175",
         "url": "https://localclaw.io/pricing.html",
         "image": "https://localclaw.io/images/pricing-carousel/home.jpg",
         "publisher": {
@@ -1296,10 +1309,10 @@
             },
             {
                 "@type": "Question",
-                "name": "What is the return policy?",
+                "name": "How do support and refund requests work?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "LocalClaw is a digital beta license. If activation, download or installation fails, email support with your checkout email so the order and license can be checked manually."
+                    "text": "LocalClaw is delivered as a digital beta license. If activation, download or installation fails, email helplocalclaw@gmail.com with the checkout email so the order can be verified and support can restore access. Refund requests are reviewed manually against the Stripe payment record and applicable consumer law; no automatic refund is promised after digital access has been delivered."
                 }
             },
             {
