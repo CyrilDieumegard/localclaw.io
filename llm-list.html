@@ -1387,8 +1387,12 @@
         var activeFresh = {};
         var minB = { speed:0, quality:0, coding:0, reasoning:0 };
         function trackDataFastGoal(name, data) {
-            if (typeof window.datafast !== 'function') return;
-            try { window.datafast(name, data || {}); } catch (e) {}
+            if (typeof window.datafast === 'function') {
+                try { window.datafast(name, data || {}); } catch (e) {}
+            }
+            if (typeof window.localClawPostHogCapture === 'function') {
+                window.localClawPostHogCapture(name, data || {});
+            }
         }
 
         var FCOL = {

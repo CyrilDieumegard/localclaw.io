@@ -5,8 +5,12 @@
     const ARTICLE_CTA_CLASS = 'lc-article-next-step';
 
     function track(name, data) {
-        if (typeof window.datafast !== 'function') return;
-        try { window.datafast(name, data || {}); } catch (error) {}
+        if (typeof window.datafast === 'function') {
+            try { window.datafast(name, data || {}); } catch (error) {}
+        }
+        if (typeof window.localClawPostHogCapture === 'function') {
+            window.localClawPostHogCapture(name, data || {});
+        }
     }
 
     function platformName() {

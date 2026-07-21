@@ -24,8 +24,12 @@ const App = {
     },
 
     trackGoal(name, data = {}) {
-        if (typeof window.datafast !== 'function') return;
-        try { window.datafast(name, data); } catch (e) {}
+        if (typeof window.datafast === 'function') {
+            try { window.datafast(name, data); } catch (e) {}
+        }
+        if (typeof window.localClawPostHogCapture === 'function') {
+            window.localClawPostHogCapture(name, data);
+        }
     },
 
     // ========================================================================
