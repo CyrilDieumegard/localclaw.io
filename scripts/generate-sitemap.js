@@ -34,6 +34,7 @@ urls.push(url('/hardware/', TODAY, 'weekly', '0.9'));
 urls.push(url('/use-case/', TODAY, 'weekly', '0.9'));
 urls.push(url('/tts/', TODAY, 'weekly', '0.9'));
 urls.push(url('/guides/', TODAY, 'weekly', '0.9'));
+addHtmlDir('case-study', '/case-study', 'monthly', '0.9');
 for (const tier of [8,16,32,64,128]) urls.push(url(`/ram/${tier}gb.html`, TODAY, 'monthly', '0.85'));
 addHtmlDir('hardware', '/hardware', 'monthly', '0.85');
 addHtmlDir('use-case', '/use-case', 'monthly', '0.85');

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kimi K3 Built a Playable 3D FPS in LocalClaw</title>
-    <meta name="description" content="Watch Kimi K3 build and iterate on Iron Descent, a playable 3D FPS, inside the LocalClaw Developer workspace with visible AI activity and live preview.">
+    <meta name="description" content="Watch Kimi K3 build Iron Descent inside LocalClaw Developer, then play the finished browser FPS and inspect its public source code.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://localclaw.io/case-study/iron-descent.html">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/case-study/iron-descent.html">
     <meta property="og:title" content="Kimi K3 Built a Playable 3D FPS in LocalClaw">
-    <meta property="og:description" content="A real LocalClaw Developer workflow: visible AI activity, project files, live preview and finished gameplay.">
+    <meta property="og:description" content="A real LocalClaw Developer workflow with visible AI activity, live preview, a playable public build and source code.">
     <meta property="og:image" content="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
@@ -18,7 +18,7 @@
     <meta property="og:video:type" content="text/html">
     <meta name="twitter:card" content="player">
     <meta name="twitter:title" content="Kimi K3 Built a Playable 3D FPS in LocalClaw">
-    <meta name="twitter:description" content="See the real workspace, visible AI activity, live preview and finished gameplay.">
+    <meta name="twitter:description" content="See the real workspace, then play Iron Descent and inspect its public source code.">
     <meta name="twitter:image" content="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg">
     <meta name="twitter:player" content="https://www.youtube.com/embed/nt8XNV-bXM0">
     <meta name="twitter:player:width" content="1280">
@@ -95,6 +95,8 @@
         .video-section { padding: 40px 0 70px; border-bottom: 1px solid var(--border); }
         .video-note { display: flex; justify-content: space-between; gap: 20px; margin-top: 14px; color: var(--muted); font: 600 12px ui-monospace, monospace; }
         .video-note a { color: #fff; }
+        .video-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; }
+        .video-links a:hover { color: var(--primary); }
         .section { padding: 72px 0; border-bottom: 1px solid var(--border); }
         .section-heading { max-width: 760px; }
         .section-heading h2 { margin: 12px 0 0; font-size: clamp(32px, 4vw, 52px); line-height: 1.05; text-transform: uppercase; }
@@ -131,6 +133,7 @@
         @media (max-width: 560px) {
             .proof-bar, .workflow, .outcomes { grid-template-columns: 1fr; }
             .video-note, .footer-inner { align-items: flex-start; flex-direction: column; }
+            .video-links { justify-content: flex-start; }
             .lc-case-video-label { display: none; }
             .fact-list li { grid-template-columns: 1fr; gap: 6px; }
         }
@@ -145,7 +148,13 @@
         "uploadDate": "2026-07-19",
         "duration": "PT45S",
         "contentUrl": "https://youtu.be/nt8XNV-bXM0",
-        "embedUrl": "https://www.youtube.com/embed/nt8XNV-bXM0"
+        "embedUrl": "https://www.youtube.com/embed/nt8XNV-bXM0",
+        "about": {
+            "@type": "VideoGame",
+            "name": "Iron Descent",
+            "url": "https://cyrildieumegard.github.io/iron-descent/",
+            "sameAs": "https://github.com/CyrilDieumegard/iron-descent"
+        }
     }
     </script>
 </head>
@@ -171,8 +180,9 @@
             <h1>Kimi K3 built a playable 3D FPS inside LocalClaw</h1>
             <p class="lead">Iron Descent went from a product brief to an interactive game through the LocalClaw Developer workspace. The model, project activity, files, preview and finished result stayed visible in one place.</p>
             <div class="hero-actions">
-                <a class="button" href="#watch">Watch the 45-second demo</a>
-                <a class="button secondary" href="/pricing.html">Get LocalClaw</a>
+                <a class="button" href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="case_study_hero">Play Iron Descent ↗</a>
+                <a class="button secondary" href="#watch">Watch the 45-second demo</a>
+                <a class="button secondary" href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_source" data-fast-goal-source="case_study_hero">View source ↗</a>
             </div>
             <dl class="proof-bar">
                 <div class="proof-item"><dt>Model</dt><dd>Kimi K3</dd></div>
@@ -193,7 +203,11 @@
             </div>
             <div class="video-note">
                 <span>45 seconds · real workspace · real gameplay</span>
-                <a href="https://youtu.be/nt8XNV-bXM0" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+                <div class="video-links">
+                    <a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="case_study_video">Play the finished build ↗</a>
+                    <a href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_source" data-fast-goal-source="case_study_video">Source code ↗</a>
+                    <a href="https://youtu.be/nt8XNV-bXM0" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+                </div>
             </div>
         </section>
 
@@ -223,6 +237,7 @@
                     <li><strong>Interface</strong><span>LocalClaw Developer with project chat, files, tools and embedded live preview.</span></li>
                     <li><strong>Feedback loop</strong><span>Playable preview used to test movement, combat, enemies and visual changes between iterations.</span></li>
                     <li><strong>Outcome</strong><span>A finished playable demo that can be inspected and continued as a normal project.</span></li>
+                    <li><strong>Public proof</strong><span><a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer">Play the deployed build</a> or <a href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer">inspect the repository</a>.</span></li>
                 </ul>
             </div>
         </section>
