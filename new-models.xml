@@ -9,6 +9,22 @@
     <lastBuildDate>Wed, 01 Jul 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
+      <title>Agents-A1 4B</title>
+      <link>https://localclaw.io/models/agents-a1-4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/agents-a1-4b</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>agents-a1</category>
+      <description>InternScience compact dense agent model with Apache 2.0 licensing, 262K context and official Q4_K_M GGUF artifacts for 8GB-class local assistants. 4B · 8 GB minimum RAM · Q4_K_M · agents-a1.</description>
+    </item>
+    <item>
+      <title>Laguna S 2.1</title>
+      <link>https://localclaw.io/models/laguna-s-2.1</link>
+      <guid isPermaLink="true">https://localclaw.io/models/laguna-s-2.1</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>laguna</category>
+      <description>Poolside workstation-class coding MoE with 1M context, 118B total / 8B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability. 118B (8B active, MoE) · 96 GB minimum RAM · Q4_K_M · laguna.</description>
+    </item>
+    <item>
       <title>Hy3</title>
       <link>https://localclaw.io/models/hy3</link>
       <guid isPermaLink="true">https://localclaw.io/models/hy3</guid>
@@ -151,22 +167,6 @@
       <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
       <category>qwen</category>
       <description>Qwen 3.6 flagship dense model. Hybrid thinking mode with /think toggle for deep chain-of-thought reasoning. 128K context, 29+ languages. Significantly outperforms Qwen3.5-27B on reasoning, coding &amp; math. Apache 2.0. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>Qwen 3.6 35B-A3B</title>
-      <link>https://localclaw.io/models/qwen3.6-35b-a3b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-35b-a3b</guid>
-      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Qwen Team open-weight MoE for agentic coding and multimodal work. 35B total / 3B active, 262K native context, Apache 2.0, and strong GGUF availability through Unsloth and LM Studio-compatible artifacts. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>Ling-2.6-flash (104B MoE)</title>
-      <link>https://localclaw.io/models/ling-2.6-flash</link>
-      <guid isPermaLink="true">https://localclaw.io/models/ling-2.6-flash</guid>
-      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
-      <category>ling</category>
-      <description>InclusionAI&apos;s MIT-licensed instruct MoE optimized for fast agent workloads. 104B total parameters, only 7.4B active, hybrid linear attention, 262K context and strong tool-use / multi-step execution with high token efficiency. 104B (7.4B active) · 80 GB minimum RAM · Q4_K_M · ling.</description>
     </item>
   </channel>
 </rss>
