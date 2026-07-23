@@ -208,6 +208,73 @@
             line-height: 1.6;
         }
 
+        .returning-customer-link {
+            color: #a1a1aa;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+            padding: 8px 2px 5px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .returning-customer-link:hover {
+            color: #fff;
+            border-color: var(--claw-orange);
+        }
+
+        .recommendation-context {
+            margin-top: 24px;
+            max-width: 610px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 69, 58, 0.34);
+            border-radius: 10px;
+            background: rgba(255, 69, 58, 0.07);
+            color: #d4d4d8;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .recommendation-context strong {
+            color: #fff;
+        }
+
+        .recommendation-context span {
+            color: var(--claw-orange-soft);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+        }
+
+        .purchase-flow {
+            margin-top: 18px;
+            max-width: 610px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .purchase-flow div {
+            min-height: 72px;
+            padding: 11px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.025);
+            color: #d4d4d8;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .purchase-flow b {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--claw-orange-soft);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
         .trust-strip {
             margin-top: 16px;
             display: flex;
@@ -645,6 +712,14 @@
                 overflow-wrap: anywhere;
             }
 
+            .purchase-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .purchase-flow div {
+                min-height: 0;
+            }
+
             .quick-specs,
             .app-grid {
                 grid-template-columns: 1fr;
@@ -730,11 +805,20 @@
                 <p class="hero-copy mt-6">
                     A native control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban work from your Mac.
                 </p>
-                <div class="cta-row">
-                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get LocalClaw - $49</a>
-                    <a class="cta-secondary" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Already purchased? Download installer</a>
+                <div id="pricing-recommendation-context" class="recommendation-context" hidden>
+                    Your LocalClaw recommendation: <strong id="pricing-recommendation-name"></strong>
+                    <span id="pricing-recommendation-spec"></span>. Continue with the same model and quantization in the guided macOS setup.
                 </div>
-                <p class="microcopy">Apple-notarized DMG. A $49 one-time license is required to activate and use the app. No subscription.</p>
+                <div class="cta-row">
+                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero">Get lifetime beta access · $49</a>
+                    <a class="returning-customer-link" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Already purchased? Download the latest DMG →</a>
+                </div>
+                <p class="microcopy">Secure Stripe checkout. Your license key appears after payment. No subscription.</p>
+                <div class="purchase-flow" aria-label="What happens after purchase">
+                    <div><b>1 · Checkout</b>Pay once through Stripe.</div>
+                    <div><b>2 · License</b>Copy the key shown after payment.</div>
+                    <div><b>3 · Install</b>Download the Apple-notarized DMG.</div>
+                </div>
                 <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
                     <a href="changelog/localclaw-installer-v1.0.175.html">v1.0.175 · OpenClaw v2026.7.1 ready</a>
                     <span>Apple-notarized DMG</span>
@@ -1193,6 +1277,45 @@
 
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') closeLightbox();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('from') !== 'recommender') return;
+
+            var modelName = params.get('name');
+            if (!modelName) return;
+
+            var quant = params.get('quant') || '';
+            var ram = params.get('ram') || '';
+            var context = document.getElementById('pricing-recommendation-context');
+            var nameNode = document.getElementById('pricing-recommendation-name');
+            var specNode = document.getElementById('pricing-recommendation-spec');
+            if (!context || !nameNode || !specNode) return;
+
+            nameNode.textContent = modelName;
+            var specification = [quant, ram ? ram + ' GB RAM' : ''].filter(Boolean).join(' · ');
+            specNode.textContent = specification ? ' · ' + specification : '';
+            context.hidden = false;
+
+            var properties = {
+                model: params.get('model') || '',
+                quant: quant,
+                ram: ram,
+                source: 'recommender'
+            };
+            document.querySelectorAll('[data-fast-goal="checkout_click"]').forEach(function(link) {
+                link.setAttribute('data-fast-goal-model', properties.model);
+                link.setAttribute('data-fast-goal-quant', properties.quant);
+                link.setAttribute('data-fast-goal-ram', properties.ram);
+                link.setAttribute('data-fast-goal-entry', 'recommender');
+            });
+            if (typeof window.datafast === 'function') {
+                try { window.datafast('pricing_rec_context_view', properties); } catch (error) {}
+            }
+            if (typeof window.localClawPostHogCapture === 'function') {
+                window.localClawPostHogCapture('pricing_rec_context_view', properties);
+            }
         });
     </script>
 

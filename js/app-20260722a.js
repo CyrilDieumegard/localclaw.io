@@ -339,6 +339,15 @@ const App = {
             count: String(finalRecs.length),
             ram: String(ramLimit || '')
         });
+        const recommendationPlatform = String(this.state.answers?.os || 'mac');
+        if (!['win', 'windows', 'linux'].includes(recommendationPlatform)) {
+            this.trackGoal('post_recommendation_offer_view', {
+                model: String(finalRecs[0]?.id || ''),
+                quant: String(finalRecs[0]?.recommended_quant || ''),
+                ram: String(ramLimit || ''),
+                platform: recommendationPlatform
+            });
+        }
     },
 
     // --- "Why this pick" explanation builder ---
@@ -625,6 +634,11 @@ const App = {
         });
 
         this.showToast(`Selected: ${this.state.recommendations[idx].name}`, 'copied');
+        this.trackGoal('recommendation_selected', {
+            model: String(this.state.recommendations[idx].id || ''),
+            quant: String(this.state.recommendations[idx].recommended_quant || ''),
+            rank: String(idx + 1)
+        });
     },
 
     getProgressPercent() {
@@ -845,9 +859,11 @@ const App = {
             const osRaw = answers.os || 'mac';
             // Normalisation : 'win', 'windows' → 'win' ; tout le reste → 'mac'
             const isWindows = (osRaw === 'win' || osRaw === 'windows');
+            const isLinux = osRaw === 'linux';
 
-            // Windows → message d'attente
-            if (isWindows) {
+            // Non-macOS visitors keep the free setup guide; the native app is macOS-only.
+            if (isWindows || isLinux) {
+                const platformLabel = isWindows ? 'Windows' : 'Linux';
                 return `
                 <div class="ocs-card ocs-card-disabled">
                     <div class="ocs-card-inner">
@@ -857,31 +873,37 @@ const App = {
                             </span>
                             <span class="ocs-title">LocalClaw Installer — macOS only for now</span>
                         </div>
-                        <p class="ocs-desc">The LocalClaw Installer is currently macOS only. Windows support is coming soon.</p>
+                        <p class="ocs-desc">The LocalClaw app is currently macOS only. Continue with the free ${platformLabel} setup guide below.</p>
                     </div>
                 </div>`;
             }
 
-            // macOS / Linux → CTA vers pricing.html
+            const modelName = String(selectedModel?.name || 'your recommended model');
+            const modelId = encodeURIComponent(String(selectedModel?.id || ''));
+            const quant = String(selectedModel?.recommended_quant || 'recommended quant');
+            const ram = String(answers.ram || '');
+            const pricingHref = `pricing.html?from=recommender&amp;model=${modelId}&amp;name=${encodeURIComponent(modelName)}&amp;quant=${encodeURIComponent(quant)}&amp;ram=${encodeURIComponent(ram)}`;
+
+            // macOS → contextual bridge from the free recommendation to the app.
             return `
-            <div class="ocs-card" onclick="window.location.href='pricing.html'" role="button" tabindex="0" aria-label="Get LocalClaw Installer" data-fast-goal="pricing_cta_click" data-fast-goal-source="one_click_overlay">
+            <div class="ocs-card" aria-label="Install ${modelName} with LocalClaw">
                 <div class="ocs-card-inner">
                     <div class="ocs-header">
                         <span class="ocs-icon">
                             <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </span>
-                        <span class="ocs-title">Optional LocalClaw Installer — Run AI locally in minutes</span>
+                        <span class="ocs-title">Install ${modelName} with LocalClaw</span>
                     </div>
                     <div class="ocs-body">
-                        <p class="ocs-desc">The web recommender is free. Upgrade only if you want the optional macOS app for one-click setup, activation and updates. No terminal needed.</p>
+                        <p class="ocs-desc">Keep this exact recommendation — <strong>${quant}</strong> — and use the native macOS app for guided setup, model control and OpenClaw updates.</p>
                     </div>
                     <div class="ocs-cta-row">
                         <div class="ocs-pricing">
                             <span class="ocs-price">$49</span>
                             <span class="ocs-price-note">one-time · optional</span>
                         </div>
-                        <a class="ocs-btn" href="pricing.html" onclick="event.stopPropagation()" data-fast-goal="pricing_cta_click" data-fast-goal-source="one_click_overlay">
-                            View optional installer →
+                        <a class="ocs-btn" href="${pricingHref}" data-fast-goal="pricing_cta_click" data-fast-goal-source="post_recommendation_offer" data-fast-goal-model="${modelId}" data-fast-goal-quant="${encodeURIComponent(quant)}" data-fast-goal-ram="${encodeURIComponent(ram)}">
+                            Continue with ${modelName} →
                         </a>
                     </div>
                     <div class="ocs-features">
