@@ -75,7 +75,7 @@ const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>LocalClaw New Local AI Models</title>
-    <link>${BASE_URL}/new.html</link>
+    <link>${BASE_URL}/new</link>
     <atom:link href="${BASE_URL}/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>

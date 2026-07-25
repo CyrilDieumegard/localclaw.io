@@ -6,9 +6,9 @@
   <title>GLM-5.2 (744B MoE) local AI: RAM + LM Studio | LocalClaw</title>
   <meta name="description" content="GLM-5.2 (744B MoE): 744B (40B active) local AI model guide with RAM requirements, UD-IQ2_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/glm-5.2.html">
+  <link rel="canonical" href="https://localclaw.io/models/glm-5.2">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/glm-5.2.html">
+  <meta property="og:url" content="https://localclaw.io/models/glm-5.2">
   <meta property="og:title" content="GLM-5.2 (744B MoE) local AI model | LocalClaw">
   <meta property="og:description" content="GLM-5.2 (744B MoE): 744B (40B active) local AI model guide with RAM requirements, UD-IQ2_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="GLM-5.2 (744B MoE): 744B (40B active) local AI model guide with RAM requirements, UD-IQ2_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"GLM-5.2 (744B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/glm-5.2.html","description":"GLM-5.2 (744B MoE): 744B (40B active) local AI model guide with RAM requirements, UD-IQ2_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"256 GB RAM minimum","license":"https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE","creator":{"@type":"Organization","name":"Z.ai","url":"https://z.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can GLM-5.2 (744B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"GLM-5.2 (744B MoE) can run locally with at least 256 GB RAM. LocalClaw recommends UD-IQ2_M quantization."}},{"@type":"Question","name":"What is GLM-5.2 (744B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"GLM-5.2 (744B MoE) is best used for Private long-horizon coding agents on large workstations."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"GLM-5.2 (744B MoE)","item":"https://localclaw.io/models/glm-5.2.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"GLM-5.2 (744B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/glm-5.2","description":"GLM-5.2 (744B MoE): 744B (40B active) local AI model guide with RAM requirements, UD-IQ2_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"256 GB RAM minimum","license":"https://huggingface.co/zai-org/GLM-5.2/blob/main/LICENSE","creator":{"@type":"Organization","name":"Z.ai","url":"https://z.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can GLM-5.2 (744B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"GLM-5.2 (744B MoE) can run locally with at least 256 GB RAM. LocalClaw recommends UD-IQ2_M quantization."}},{"@type":"Question","name":"What is GLM-5.2 (744B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"GLM-5.2 (744B MoE) is best used for Private long-horizon coding agents on large workstations."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"GLM-5.2 (744B MoE)","item":"https://localclaw.io/models/glm-5.2"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -31,12 +31,12 @@
     <div class="nav-inner">
       <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
       <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list" class="active">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing" class="pricing">Pricing</a></div>
     </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>GLM-5.2 (744B MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>GLM-5.2 (744B MoE)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
@@ -49,8 +49,8 @@
           <span class="chip">Private long-horizon coding agents on large workstations</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
-          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
       <aside class="hero-panel">
@@ -114,16 +114,16 @@
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m3-ultra-256gb.html"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers.html"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list.html"><small>More practical alternatives</small>Compare smaller models</a>
+        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/glm-5.1.html">GLM-5.1 <span>754B MoE</span></a><a href="/models/minimax-m3.html">MiniMax M3 (428B/23B active) <span>428B (23B active)</span></a><a href="/models/deepseek-v4-pro.html">DeepSeek V4 Pro (1.6T MoE) <span>1.6T (49B active)</span></a><a href="/models/kimi-k2.7-code.html">Kimi K2.7 Code (1T MoE) <span>1T (32B active)</span></a><a href="/models/qwen3.5-397b-a17b.html">Qwen 3.5 MoE (397B/17B active) <span>397B (17B active)</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/glm-5.1">GLM-5.1 <span>754B MoE</span></a><a href="/models/minimax-m3">MiniMax M3 (428B/23B active) <span>428B (23B active)</span></a><a href="/models/deepseek-v4-pro">DeepSeek V4 Pro (1.6T MoE) <span>1.6T (49B active)</span></a><a href="/models/kimi-k2.7-code">Kimi K2.7 Code (1T MoE) <span>1T (32B active)</span></a><a href="/models/qwen3.5-397b-a17b">Qwen 3.5 MoE (397B/17B active) <span>397B (17B active)</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>

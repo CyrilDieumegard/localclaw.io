@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "Static LocalClaw website with Cloudflare Pages Functions.",
+  "scripts": {
+    "urls:normalize": "node scripts/normalize-public-urls.js",
+    "urls:check": "node scripts/normalize-public-urls.js --check",
+    "sitemap:generate": "node scripts/generate-sitemap.js",
+    "seo:check": "node scripts/check-seo.js"
+  },
   "dependencies": {
     "@datafast/ai-crawl": "^1.0.5"
   }

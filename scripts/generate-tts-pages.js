@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { normalizeDirectory } = require('./normalize-public-urls');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -491,4 +492,5 @@ for (const model of models) {
   fs.writeFileSync(path.join(out, `${model.id}.html`), page(model, models));
 }
 fs.writeFileSync(path.join(out, 'index.html'), indexPage(models));
+normalizeDirectory(out);
 console.log(`Generated ${models.length} TTS pages.`);

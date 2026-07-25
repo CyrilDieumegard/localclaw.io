@@ -7,11 +7,11 @@
     <meta name="description" content="Open-source LLM specs: RAM and VRAM needs, quantization, benchmarks, license notes, and LM Studio setup guidance for local AI.">
     <!-- Legacy JS detail view. SEO lives on static /models/{id}.html pages. -->
     <meta name="robots" content="noindex, follow" id="robots-meta">
-    <link rel="canonical" href="https://localclaw.io/llm-list.html" id="canonical-link">
+    <link rel="canonical" href="https://localclaw.io/llm-list" id="canonical-link">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://localclaw.io/llm-detail.html">
+    <meta property="og:url" content="https://localclaw.io/llm-detail">
     <meta property="og:title" content="AI Model Details | LocalClaw">
     <meta property="og:description" content="Technical specs and performance data for open-source LLMs. Find the perfect model for your hardware.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -386,7 +386,7 @@
     <script>
     (function() {
         var slug = new URLSearchParams(window.location.search).get('model');
-        if (slug) window.location.replace('/models/' + slug + '.html');
+        if (slug) window.location.replace('/models/' + slug);
     })();
     </script>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
@@ -397,18 +397,18 @@
     <!-- Navbar -->
     <nav class="nav">
         <div class="nav-in">
-            <a href="index.html" class="nav-logo">
+            <a href="/" class="nav-logo">
                 <div class="nav-logo-i">
                     <img src="images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                 </div>
                 <span class="fd" style="font-size:1.2rem;font-weight:700;">Local<span style="color:var(--primary);">Claw</span></span>
             </a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="llm-list.html" style="color:var(--primary);">LLM</a>
-                <a href="tts-list.html" style="color:#A78BFA;">TTS</a>
+                <a href="/">Home</a>
+                <a href="/llm-list" style="color:var(--primary);">LLM</a>
+                <a href="/tts-list" style="color:#A78BFA;">TTS</a>
                 
-                <a href="computers.html">Computers</a>
+                <a href="/computers">Computers</a>
                 <a href="blog/">Blog</a>
                 <!-- Theme Toggle Button -->
             </div>
@@ -425,7 +425,7 @@
 
     <!-- Footer -->
     <footer class="footer" style="position:relative;z-index:1;">
-        <p style="color:var(--muted);font-size:11px;"><a href="index.html">LocalClaw</a> — Find the perfect AI model for your hardware</p>
+        <p style="color:var(--muted);font-size:11px;"><a href="/">LocalClaw</a> — Find the perfect AI model for your hardware</p>
     </footer>
 
     <!-- Early 404 detection: if no ?model= param, show 404 IMMEDIATELY -->
@@ -433,7 +433,7 @@
     (function(){
         var p = new URLSearchParams(window.location.search);
         if (!p.get('model')) {
-            document.getElementById('app').innerHTML = '<div style="text-align:center;padding:80px 20px;"><div style="font-size:72px;"><svg style="width:72px;height:72px;color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg></div><h2 style="font-family:Space Grotesk,Inter,sans-serif;font-size:2rem;margin:16px 0 8px;">Model Not Found</h2><p style="color:#A1A1AA;font-size:14px;">No model specified. Pick one from the full list.</p><a href="llm-list.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;background:#FF453A;color:#fff;text-decoration:none;margin-top:20px;box-shadow:0 4px 15px rgba(255,69,58,.3);">← Browse All Models</a></div>';
+            document.getElementById('app').innerHTML = '<div style="text-align:center;padding:80px 20px;"><div style="font-size:72px;"><svg style="width:72px;height:72px;color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg></div><h2 style="font-family:Space Grotesk,Inter,sans-serif;font-size:2rem;margin:16px 0 8px;">Model Not Found</h2><p style="color:#A1A1AA;font-size:14px;">No model specified. Pick one from the full list.</p><a href="/llm-list" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;background:#FF453A;color:#fff;text-decoration:none;margin-top:20px;box-shadow:0 4px 15px rgba(255,69,58,.3);">← Browse All Models</a></div>';
             window._lcNoModel = true;
         }
     })();
@@ -558,10 +558,10 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     // === SEO: legacy query pages stay noindex; canonical points to static model page ===
     try {
         var canonical=document.getElementById('canonical-link');
-        if(canonical) canonical.setAttribute('href','https://localclaw.io/models/'+encodeURIComponent(modelId)+'.html');
+        if(canonical) canonical.setAttribute('href','https://localclaw.io/models/'+encodeURIComponent(modelId)+'/');
         // Update OG URL too
         var ogUrl=document.querySelector('meta[property="og:url"]');
-        if(ogUrl) ogUrl.setAttribute('content','https://localclaw.io/models/'+encodeURIComponent(modelId)+'.html');
+        if(ogUrl) ogUrl.setAttribute('content','https://localclaw.io/models/'+encodeURIComponent(modelId)+'/');
         var ogTitle=document.querySelector('meta[property="og:title"]');
         if(ogTitle) ogTitle.setAttribute('content',model.name+' — Full Details | LocalClaw');
         var ogDesc=document.querySelector('meta[property="og:description"]');
@@ -575,7 +575,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     // Smart back navigation: uses history.back() if coming from llm-list.html
     function smartBack(e){
         var ref = document.referrer;
-        if (ref && ref.includes('llm-list.html')) {
+        if (ref && ref.includes('/llm-list')) {
             e.preventDefault();
             history.back();
             return false;
@@ -592,8 +592,8 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
 
         // ---- HERO ----
         h+='<div class="hero fade-up">';
-        h+='<a href="llm-list.html" id="back-link" class="back-link" onclick="return smartBack(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>← Back to LLM</span></a>';
-        h+='<div class="breadcrumb"><a href="index.html"><svg class="lc-icon lc-icon-sm" style="color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg> LocalClaw</a><span style="color:var(--border2);">›</span><a href="llm-list.html">LLM</a><span style="color:var(--border2);">›</span><span style="color:#fff;">'+esc(model.name)+'</span></div>';
+        h+='<a href="/llm-list" id="back-link" class="back-link" onclick="return smartBack(event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>← Back to LLM</span></a>';
+        h+='<div class="breadcrumb"><a href="/"><svg class="lc-icon lc-icon-sm" style="color:#FF453A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3c0 3 2 6 6 9-4 3-6 6-6 9m12-18c0 3-2 6-6 9 4 3 6 6 6 9"/></svg> LocalClaw</a><span style="color:var(--border2);">›</span><a href="/llm-list">LLM</a><span style="color:var(--border2);">›</span><span style="color:#fff;">'+esc(model.name)+'</span></div>';
         h+='<div class="hero-top">';
         h+='<div class="hero-info">';
         h+='<div class="hero-fam"><span class="hero-fam-dot" style="background:'+col+'"></span><span class="hero-fam-name" style="color:'+col+'">'+esc(model.family)+'</span>';
@@ -715,7 +715,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
             h+='<div class="similar-grid">';
             for(var sm=0;sm<simModels.length;sm++){var simId=simModels[sm];var simM=findModel(simId);if(simM){var sc=fcol(simM.family);h+='<a href="/models/'+esc(simId)+'.html" class="similar-chip"><span style="width:8px;height:8px;border-radius:50%;background:'+sc+';flex-shrink:0;"></span>'+esc(simM.name)+' <span class="fm" style="font-size:10px;opacity:.6;">'+esc(simM.params)+'</span></a>';}}
             h+='</div>';
-        } else { h+='<p style="font-size:13px;color:var(--muted);">Explore the <a href="llm-list.html" style="color:var(--primary);">full LLM list</a> to compare models.</p>'; }
+        } else { h+='<p style="font-size:13px;color:var(--muted);">Explore the <a href="/llm-list" style="color:var(--primary);">full LLM list</a> to compare models.</p>'; }
         h+='</div>';
 
         // Fun fact
@@ -729,7 +729,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         // Prev/Next
         h+='<div class="model-nav">';
         if(modelIdx>0){var prev=APP_DATA.models[modelIdx-1];h+='<a href="/models/'+esc(prev.id)+'.html">← '+esc(prev.name)+'</a>';}
-        h+='<a href="llm-list.html" style="color:var(--primary);border-color:rgba(255,69,58,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> All Models</a>';
+        h+='<a href="/llm-list" style="color:var(--primary);border-color:rgba(255,69,58,.3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> All Models</a>';
         if(modelIdx<APP_DATA.models.length-1){var next=APP_DATA.models[modelIdx+1];h+='<a href="/models/'+esc(next.id)+'.html">'+esc(next.name)+' →</a>';}
         h+='</div>';
 
@@ -853,7 +853,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         return items;
     }
 
-    function show404(){app.innerHTML='<div class="not-found"><div style="width:72px;height:72px;margin:0 auto;"><img src="images/crab-logo.png" alt="LocalClaw" width="72" height="72" style="opacity:0.6;"></div><h2 class="fd">Model Not Found</h2><p>The model you\'re looking for doesn\'t exist in our database.</p><a href="llm-list.html" class="btn btn-primary" style="display:inline-flex;margin-top:20px;">← Browse All Models</a></div>';}
+    function show404(){app.innerHTML='<div class="not-found"><div style="width:72px;height:72px;margin:0 auto;"><img src="images/crab-logo.png" alt="LocalClaw" width="72" height="72" style="opacity:0.6;"></div><h2 class="fd">Model Not Found</h2><p>The model you\'re looking for doesn\'t exist in our database.</p><a href="/llm-list" class="btn btn-primary" style="display:inline-flex;margin-top:20px;">← Browse All Models</a></div>';}
 
     // === Particles ===
     function initParticles(){

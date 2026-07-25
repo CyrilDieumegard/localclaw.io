@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { normalizeDirectory } = require('./normalize-public-urls');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -426,4 +427,5 @@ const cards = uniqueModels.map(m => `<li><a href="/models/${esc(m.id)}.html"><st
 fs.writeFileSync(path.join(outDir, 'index.html'), `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>All Local AI Model Pages | LocalClaw</title><meta name="description" content="Index of all static LocalClaw model pages: local LLM specs, RAM requirements, quantization and LM Studio setup."><meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/models/">${tracking}<style>body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:32px;line-height:1.6}a{color:#ff453a}li{margin:10px 0;padding:12px;border:1px solid #27272a;border-radius:12px;list-style:none;background:#0f0f11}span{color:#a1a1aa}</style></head><body><p><a href="/">Back to LocalClaw</a></p><h1>All Local AI Model Pages</h1><p>Static, indexable pages for LocalClaw's local LLM catalogue.</p><ul>${cards}</ul></body></html>`);
 
+normalizeDirectory(outDir);
 console.log(`Generated ${uniqueModels.length} unique static model pages in models/`);

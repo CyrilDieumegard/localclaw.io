@@ -6,9 +6,9 @@
   <title>WizardLM 2 (8x22B) local AI: RAM + LM Studio | LocalClaw</title>
   <meta name="description" content="WizardLM 2 (8x22B): 8x22B (141B total) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/wizardlm2-8x22b.html">
+  <link rel="canonical" href="https://localclaw.io/models/wizardlm2-8x22b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/wizardlm2-8x22b.html">
+  <meta property="og:url" content="https://localclaw.io/models/wizardlm2-8x22b">
   <meta property="og:title" content="WizardLM 2 (8x22B) local AI model | LocalClaw">
   <meta property="og:description" content="WizardLM 2 (8x22B): 8x22B (141B total) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="WizardLM 2 (8x22B): 8x22B (141B total) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"WizardLM 2 (8x22B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/wizardlm2-8x22b.html","description":"WizardLM 2 (8x22B): 8x22B (141B total) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2024-04","memoryRequirements":"96 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Microsoft AI","url":"https://www.microsoft.com/en-us/research/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can WizardLM 2 (8x22B) run locally?","acceptedAnswer":{"@type":"Answer","text":"WizardLM 2 (8x22B) can run locally with at least 96 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is WizardLM 2 (8x22B) best for?","acceptedAnswer":{"@type":"Answer","text":"WizardLM 2 (8x22B) is best used for Maximum quality chat."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"WizardLM 2 (8x22B)","item":"https://localclaw.io/models/wizardlm2-8x22b.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"WizardLM 2 (8x22B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/wizardlm2-8x22b","description":"WizardLM 2 (8x22B): 8x22B (141B total) local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2024-04","memoryRequirements":"96 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Microsoft AI","url":"https://www.microsoft.com/en-us/research/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can WizardLM 2 (8x22B) run locally?","acceptedAnswer":{"@type":"Answer","text":"WizardLM 2 (8x22B) can run locally with at least 96 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is WizardLM 2 (8x22B) best for?","acceptedAnswer":{"@type":"Answer","text":"WizardLM 2 (8x22B) is best used for Maximum quality chat."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"WizardLM 2 (8x22B)","item":"https://localclaw.io/models/wizardlm2-8x22b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -31,12 +31,12 @@
     <div class="nav-inner">
       <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
       <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list" class="active">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing" class="pricing">Pricing</a></div>
     </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>WizardLM 2 (8x22B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>WizardLM 2 (8x22B)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
@@ -49,8 +49,8 @@
           <span class="chip">Maximum quality chat</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
-          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
       <aside class="hero-panel">
@@ -114,16 +114,16 @@
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m4-max-128gb.html"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers.html"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb.html"><small>High-memory picks</small>128GB RAM guide</a>
+        <a href="/hardware/mac-studio-m4-max-128gb"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb"><small>High-memory picks</small>128GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3-235b-a22b.html">Qwen 3 MoE (235B/22B active) <span>235B (22B active)</span></a><a href="/models/mixtral-8x7b.html">Mixtral (8x7B) <span>8x7B (46.7B)</span></a><a href="/models/command-r-plus.html">Command R+ (104B) <span>104B</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3-235b-a22b">Qwen 3 MoE (235B/22B active) <span>235B (22B active)</span></a><a href="/models/mixtral-8x7b">Mixtral (8x7B) <span>8x7B (46.7B)</span></a><a href="/models/command-r-plus">Command R+ (104B) <span>104B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/128gb.html"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>

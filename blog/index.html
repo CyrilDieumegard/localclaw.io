@@ -238,7 +238,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <!-- Logo -->
-                <a href="../index.html" class="flex items-center gap-3 group">
+                <a href="/" class="flex items-center gap-3 group">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
                         <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
@@ -249,13 +249,13 @@
 
                 <!-- Desktop Nav Links -->
                 <div class="hidden sm:flex items-center gap-3 sm:gap-6">
-                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
-                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
-                    <a href="../ram-gpu-for-local-ai.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
+                    <a href="/" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="/tts-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="/computers" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="/ram-gpu-for-local-ai" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
                     <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
-                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <a href="/pricing" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                     
                     <!-- Theme Toggle Button -->
                 </div>
@@ -270,13 +270,13 @@
     <!-- Mobile Menu -->
     <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden" onclick="this.classList.add('hidden')">
         <div class="flex flex-col items-center justify-center h-full gap-1" onclick="event.stopPropagation()">
-            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
-            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
-            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
-            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
-            <a href="../ram-gpu-for-local-ai.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
-            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-white/10 transition-colors">Blog</a>
-            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
+            <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="/tts-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+            <a href="/computers" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
+            <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-white/10 transition-colors">Blog</a>
+            <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
             <div class="border-t border-claw-border mt-2 pt-2">
                 <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
             </div>
@@ -319,7 +319,7 @@
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <!-- Article NEW: Kimi K3 frontier model analysis -->
-                <a href="kimi-k3-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/kimi-k3-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#8b5cf6);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Frontier Model Analysis</span>
@@ -332,7 +332,7 @@
                 </a>
 
                 <!-- Article NEW: Qwen 3.8 local status -->
-                <a href="qwen-3-8-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/qwen-3-8-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#8b5cf6,#ff453a);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(139,92,246,0.12);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3);">Breaking Model News</span>
@@ -345,7 +345,7 @@
                 </a>
 
                 <!-- Article NEW: Bonsai 27B -->
-                <a href="bonsai-27b-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
+                <a href="/blog/bonsai-27b-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#22c55e);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Model Review</span>
@@ -358,7 +358,7 @@
                 </a>
 
                 <!-- Article NEW: Ornith 1.0 local AI -->
-                <a href="ornith-1-0-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
+                <a href="/blog/ornith-1-0-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#a78bfa);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Model Review</span>
@@ -388,7 +388,7 @@
                 </a>
 
                 <!-- Article NEW: MisoTTS 8B local TTS -->
-                <a href="misotts-8b-local-tts.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/misotts-8b-local-tts" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#a78bfa,#ff453a);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(167,139,250,0.12);color:#c4b5fd;border:1px solid rgba(167,139,250,0.3);">Voice AI</span>
@@ -418,7 +418,7 @@
                 </a>
 
                 <!-- Article NEW: Qwen 3.7 local reality check -->
-                <a href="qwen-3-7-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/qwen-3-7-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#8b5cf6);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Local AI Guide</span>
@@ -448,7 +448,7 @@
                 </a>
 
                 <!-- Article NEW: Gemma 4 12B -->
-                <a href="gemma-4-12b-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/gemma-4-12b-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#f59e0b);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Model Review</span>
@@ -478,7 +478,7 @@
                 </a>
 
                 <!-- Article NEW: NVIDIA RTX Spark -->
-                <a href="nvidia-rtx-spark-local-ai-pc.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="hardware">
+                <a href="/blog/nvidia-rtx-spark-local-ai-pc" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="hardware">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#f97316);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Hardware</span>
@@ -508,7 +508,7 @@
                 </a>
 
                 <!-- Article NEW: Ollama vs LM Studio -->
-                <a href="ollama-vs-lm-studio-2026.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="comparison">
+                <a href="/blog/ollama-vs-lm-studio-2026" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="comparison">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#f97316);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Comparison</span>
@@ -538,7 +538,7 @@
                 </a>
 
                 <!-- Article NEW: Gemma 4 MTP Drafters -->
-                <a href="gemma4-mtp-drafters.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/gemma4-mtp-drafters" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#a855f7,#22d3ee);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(255,69,58,0.12);color:#ff6d64;border:1px solid rgba(255,69,58,0.3);">Technical Guide</span>
@@ -568,7 +568,7 @@
                 </a>
 
                 <!-- Article NEW: Qwen 3.6-27B Deep Dive -->
-                <a href="qwen3-6-27b-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/qwen3-6-27b-deep-dive" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#a855f7,#ec4899);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(168,85,247,0.12);color:#a855f7;border:1px solid rgba(168,85,247,0.3);">Model Review</span>
@@ -598,7 +598,7 @@
                 </a>
 
                 <!-- Article NEW: Gemma 4 Suite Deep Dive -->
-                <a href="gemma4-suite-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/gemma4-suite-deep-dive" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#4ade80,#22d3ee);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.3);">Model Review</span>
@@ -628,7 +628,7 @@
                 </a>
 
                 <!-- Article NEW: Qwen 3.6 Deep Dive -->
-                <a href="glm-5-2-local-ai.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
+                <a href="/blog/glm-5-2-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-claw-primary text-white">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3);">Model Review</span>
@@ -657,7 +657,7 @@
                     </div>
                 </a>
 
-                <a href="qwen3-6-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/qwen3-6-deep-dive" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#f97316,#a855f7);">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3);">Model Review</span>
@@ -687,7 +687,7 @@
                 </a>
 
                 <!-- Article 0 — NEW: Local TTS Guide -->
-                <a href="local-tts-guide-2026.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/local-tts-guide-2026" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-purple-500 text-white">NEW</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(139,92,246,0.15);color:#A78BFA;border-color:rgba(139,92,246,0.3);">TTS Guide</span>
@@ -712,7 +712,7 @@
                 </a>
 
                 <!-- Article 0b — OpenClaw Guide -->
-                <a href="openclaw-guide.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/openclaw-guide" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-emerald-500 text-white">UPDATED</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Guide</span>
@@ -737,7 +737,7 @@
                 </a>
 
                 <!-- Article 1 -->
-                <a href="how-to-choose-local-llm.html" class="article-card rounded-2xl p-6 block group" data-category="guide">
+                <a href="/blog/how-to-choose-local-llm" class="article-card rounded-2xl p-6 block group" data-category="guide">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Guide</span>
                         <span class="reading-time text-xs flex items-center gap-1">
@@ -761,7 +761,7 @@
                 </a>
 
                 <!-- Article Qwen 3.5 — NEW -->
-                <a href="qwen35-deep-dive.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
+                <a href="/blog/qwen35-deep-dive" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="review">
                     <!-- NEW glow effect -->
                     <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-orange-500/5 pointer-events-none rounded-2xl"></div>
                     <div class="flex items-center gap-2 mb-4">
@@ -793,7 +793,7 @@
                 </a>
 
                 <!-- Article 2 -->
-                <a href="qwen3-vs-llama33.html" class="article-card rounded-2xl p-6 block group" data-category="comparison">
+                <a href="/blog/qwen3-vs-llama33" class="article-card rounded-2xl p-6 block group" data-category="comparison">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Comparison</span>
                         <span class="reading-time text-xs flex items-center gap-1">
@@ -817,7 +817,7 @@
                 </a>
 
                 <!-- Article 3 -->
-                <a href="quantization-guide.html" class="article-card rounded-2xl p-6 block group" data-category="technical">
+                <a href="/blog/quantization-guide" class="article-card rounded-2xl p-6 block group" data-category="technical">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Technical</span>
                         <span class="reading-time text-xs flex items-center gap-1">
@@ -841,7 +841,7 @@
                 </a>
 
                 <!-- Article 4 -->
-                <a href="apple-silicon-vs-nvidia.html" class="article-card rounded-2xl p-6 block group" data-category="hardware">
+                <a href="/blog/apple-silicon-vs-nvidia" class="article-card rounded-2xl p-6 block group" data-category="hardware">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Hardware</span>
                         <span class="reading-time text-xs flex items-center gap-1">
@@ -865,7 +865,7 @@
                 </a>
 
                 <!-- Article 5 -->
-                <a href="lm-studio-beginner-guide.html" class="article-card rounded-2xl p-6 block group" data-category="tutorial">
+                <a href="/blog/lm-studio-beginner-guide" class="article-card rounded-2xl p-6 block group" data-category="tutorial">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Tutorial</span>
                         <span class="reading-time text-xs flex items-center gap-1">
@@ -889,7 +889,7 @@
                 </a>
 
                 <!-- Article 6 — UPDATED -->
-                <a href="best-local-ai-models-2026.html" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                <a href="/blog/best-local-ai-models-2026" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold bg-claw-primary text-white">UPDATED</div>
                     <div class="flex items-center gap-2 mb-4">
                         <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Top 15 — Feb 2026</span>
@@ -925,22 +925,22 @@
                     </p>
                 </div>
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                    <a href="../llm-list.html" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
+                    <a href="/llm-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LLM</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Find a local model</h4>
                         <p class="mt-2 text-xs leading-relaxed text-claw-muted">Browse 191 RAM-aware LLM records.</p>
                     </a>
-                    <a href="../tts-list.html" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-purple-400/45">
+                    <a href="/tts-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-purple-400/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-purple-300">TTS</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Compare voice models</h4>
                         <p class="mt-2 text-xs leading-relaxed text-claw-muted">Explore 57 local TTS and ASR records.</p>
                     </a>
-                    <a href="../computers.html" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-blue-400/45">
+                    <a href="/computers" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-blue-400/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-blue-300">Hardware</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Choose a computer</h4>
                         <p class="mt-2 text-xs leading-relaxed text-claw-muted">Match Apple and NVIDIA machines to local AI.</p>
                     </a>
-                    <a href="../pricing.html" class="group rounded-xl border border-claw-primary/30 bg-claw-primary/10 p-4 transition-all hover:-translate-y-0.5 hover:bg-claw-primary hover:text-white">
+                    <a href="/pricing" class="group rounded-xl border border-claw-primary/30 bg-claw-primary/10 p-4 transition-all hover:-translate-y-0.5 hover:bg-claw-primary hover:text-white">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary group-hover:text-white">macOS app</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Get LocalClaw</h4>
                         <p class="mt-2 text-xs leading-relaxed text-claw-muted group-hover:text-white/80">$49 lifetime beta access, no subscription.</p>
@@ -962,7 +962,7 @@
                 <p class="text-claw-muted/60 text-xs whitespace-nowrap flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No prompts collected.</p>
             </div>
             <div class="flex gap-5 items-center">
-                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm font-medium">Home</a>
+                <a href="/" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm font-medium">Home</a>
                 <span class="text-claw-border">·</span>
                 <span class="text-claw-primary text-xs sm:text-sm font-medium">Blog</span>
             </div>

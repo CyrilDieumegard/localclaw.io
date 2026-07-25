@@ -6,9 +6,9 @@
   <title>Ornith 1.0 9B GGUF local AI: RAM + LM Studio | LocalClaw</title>
   <meta name="description" content="Ornith 1.0 9B GGUF: 9B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/ornith-1.0-9b-gguf.html">
+  <link rel="canonical" href="https://localclaw.io/models/ornith-1.0-9b-gguf">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/ornith-1.0-9b-gguf.html">
+  <meta property="og:url" content="https://localclaw.io/models/ornith-1.0-9b-gguf">
   <meta property="og:title" content="Ornith 1.0 9B GGUF local AI model | LocalClaw">
   <meta property="og:description" content="Ornith 1.0 9B GGUF: 9B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Ornith 1.0 9B GGUF: 9B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ornith 1.0 9B GGUF","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ornith-1.0-9b-gguf.html","description":"Ornith 1.0 9B GGUF: 9B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"8 GB RAM minimum","license":"https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF","creator":{"@type":"Organization","name":"DeepReinforce","url":"https://huggingface.co/deepreinforce-ai"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ornith 1.0 9B GGUF run locally?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 9B GGUF can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Ornith 1.0 9B GGUF best for?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 9B GGUF is best used for Testing Ornith locally on small machines."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Ornith 1.0 9B GGUF","item":"https://localclaw.io/models/ornith-1.0-9b-gguf.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ornith 1.0 9B GGUF","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ornith-1.0-9b-gguf","description":"Ornith 1.0 9B GGUF: 9B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"8 GB RAM minimum","license":"https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF","creator":{"@type":"Organization","name":"DeepReinforce","url":"https://huggingface.co/deepreinforce-ai"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ornith 1.0 9B GGUF run locally?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 9B GGUF can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Ornith 1.0 9B GGUF best for?","acceptedAnswer":{"@type":"Answer","text":"Ornith 1.0 9B GGUF is best used for Testing Ornith locally on small machines."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Ornith 1.0 9B GGUF","item":"https://localclaw.io/models/ornith-1.0-9b-gguf"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -31,12 +31,12 @@
     <div class="nav-inner">
       <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
       <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list" class="active">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing" class="pricing">Pricing</a></div>
     </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Ornith 1.0 9B GGUF</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Ornith 1.0 9B GGUF</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
@@ -49,8 +49,8 @@
           <span class="chip">Testing Ornith locally on small machines</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
-          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
       <aside class="hero-panel">
@@ -114,16 +114,16 @@
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/macbook-air-m3-8gb.html"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb.html"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb.html"><small>All compatible picks</small>8GB RAM guide</a>
+        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3-8b.html">Qwen 3 (8B) <span>8B</span></a><a href="/models/dante-mosaic-3.5b.html">DANTE-Mosaic-3.5B <span>3.08B</span></a><a href="/models/ornith-1.0-35b-gguf.html">Ornith 1.0 35B GGUF <span>35B MoE</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/qwen3-8b">Qwen 3 (8B) <span>8B</span></a><a href="/models/dante-mosaic-3.5b">DANTE-Mosaic-3.5B <span>3.08B</span></a><a href="/models/ornith-1.0-35b-gguf">Ornith 1.0 35B GGUF <span>35B MoE</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/8gb.html"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>

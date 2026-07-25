@@ -9,10 +9,10 @@
     <meta name="keywords" content="Gemma 4 MTP, Multi-Token Prediction, speculative decoding, Gemma 4, local LLM inference, MLX, vLLM, Hugging Face Transformers, LiteRT-LM, LocalClaw">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://localclaw.io/blog/gemma4-mtp-drafters.html">
+    <link rel="canonical" href="https://localclaw.io/blog/gemma4-mtp-drafters">
 
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://localclaw.io/blog/gemma4-mtp-drafters.html">
+    <meta property="og:url" content="https://localclaw.io/blog/gemma4-mtp-drafters">
     <meta property="og:title" content="Gemma 4 MTP Drafters: Why Multi-Token Prediction Matters for Local AI">
     <meta property="og:description" content="Google's new MTP drafters for Gemma 4 use speculative decoding to reduce latency and unlock faster local inference on Apple Silicon, NVIDIA GPUs and edge runtimes.">
     <meta property="og:site_name" content="LocalClaw Blog">
@@ -127,7 +127,7 @@
     <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="../index.html" class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
                         <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
@@ -137,10 +137,10 @@
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    <a href="../index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
-                    <a href="../pricing.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <a href="/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="/blog/" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
+                    <a href="/pricing" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                 </div>
             </div>
         </div>
@@ -149,17 +149,17 @@
     <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
         <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
             <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-                <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
-                <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
-                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
-                <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+                <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
+                <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
+                <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
             </div>
         </div>
     </div>
 
     <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
         <div class="flex items-center gap-2 flex-wrap mb-5">
-            <a href="index.html" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
+            <a href="/blog/" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
             <span class="text-claw-muted/40">·</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Technical Guide</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
@@ -235,7 +235,7 @@
 
             <h2>The Gemma 4 Angle</h2>
             <p>
-                Google’s announcement positions these MTP drafters as an efficiency upgrade for the <a href="gemma4-suite-deep-dive.html">Gemma 4 family</a>. Gemma 4 already targets a wide range of devices: small edge models, Apple Silicon laptops, high-end NVIDIA workstations and cloud GPUs. MTP adds a second lever: not just smaller quantization or more VRAM, but <strong>smarter decoding</strong>.
+                Google’s announcement positions these MTP drafters as an efficiency upgrade for the <a href="/blog/gemma4-suite-deep-dive">Gemma 4 family</a>. Gemma 4 already targets a wide range of devices: small edge models, Apple Silicon laptops, high-end NVIDIA workstations and cloud GPUs. MTP adds a second lever: not just smaller quantization or more VRAM, but <strong>smarter decoding</strong>.
             </p>
             <p>
                 The Google post highlights several implementation details that matter for developers:
@@ -331,7 +331,7 @@
                             <h3 class="text-xl font-display font-bold text-white mb-1">Large local Gemma 4 users</h3>
                             <p class="text-claw-muted text-sm mb-0">If you run 26B/31B-class Gemma 4 on Apple Silicon Max/Ultra or large NVIDIA GPUs, watch MTP support closely.</p>
                         </div>
-                        <a href="gemma4-suite-deep-dive.html" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Read Gemma 4 guide →</a>
+                        <a href="/blog/gemma4-suite-deep-dive" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Read Gemma 4 guide →</a>
                     </div>
                 </div>
                 <div class="model-card">
@@ -344,7 +344,7 @@
                             <h3 class="text-xl font-display font-bold text-white mb-1">Local API and agent builders</h3>
                             <p class="text-claw-muted text-sm mb-0">MTP should shine in local servers, coding agents and tool-use workflows where many short continuations benefit from lower latency.</p>
                         </div>
-                        <a href="../llm-list.html" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Browse models →</a>
+                        <a href="/llm-list" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">Browse models →</a>
                     </div>
                 </div>
             </div>
@@ -367,8 +367,8 @@
             <h2>Sources and Further Reading</h2>
             <ul>
                 <li><a href="https://blog.google/innovation-and-ai/technology/developers-tools/multi-token-prediction-gemma-4/" rel="noopener noreferrer" target="_blank">Google Blog: Accelerating Gemma 4 with multi-token prediction drafters</a></li>
-                <li><a href="gemma4-suite-deep-dive.html">LocalClaw: Gemma 4 Suite Deep Dive</a></li>
-                <li><a href="../llm-list.html">LocalClaw LLM catalogue</a> — browse 177 local LLMs and compare hardware fit.</li>
+                <li><a href="/blog/gemma4-suite-deep-dive">LocalClaw: Gemma 4 Suite Deep Dive</a></li>
+                <li><a href="/llm-list">LocalClaw LLM catalogue</a> — browse 177 local LLMs and compare hardware fit.</li>
             </ul>
         </article>
 
@@ -376,8 +376,8 @@
             <h2 class="cta-title text-2xl font-display font-bold text-white mb-3">Find the right Gemma 4 setup for your machine</h2>
             <p class="cta-desc text-claw-muted mb-5 max-w-2xl mx-auto">Use LocalClaw to match model size, RAM, GPU and use case before you download a giant checkpoint.</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <a href="../llm-list.html" class="bg-claw-primary hover:bg-claw-accent text-white px-6 py-3 rounded-lg font-bold transition-colors">Browse LLM Catalogue</a>
-                <a href="gemma4-suite-deep-dive.html" class="border border-white/20 hover:bg-white/10 text-white px-6 py-3 rounded-lg font-bold transition-colors">Read Gemma 4 Deep Dive</a>
+                <a href="/llm-list" class="bg-claw-primary hover:bg-claw-accent text-white px-6 py-3 rounded-lg font-bold transition-colors">Browse LLM Catalogue</a>
+                <a href="/blog/gemma4-suite-deep-dive" class="border border-white/20 hover:bg-white/10 text-white px-6 py-3 rounded-lg font-bold transition-colors">Read Gemma 4 Deep Dive</a>
             </div>
         </section>
     </main>
@@ -387,9 +387,9 @@
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p class="text-claw-muted text-sm">© 2026 LocalClaw. Private AI model recommendations.</p>
                 <div class="flex gap-4">
-                    <a href="../index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
-                    <a href="../llm-list.html" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
-                    <a href="index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
+                    <a href="/" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
+                    <a href="/llm-list" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
+                    <a href="/blog/" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
                 </div>
             </div>
         </div>
@@ -420,8 +420,8 @@
         "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
         "datePublished": "2026-05-10",
         "dateModified": "2026-05-10",
-        "url": "https://localclaw.io/blog/gemma4-mtp-drafters.html",
-        "mainEntityOfPage": "https://localclaw.io/blog/gemma4-mtp-drafters.html",
+        "url": "https://localclaw.io/blog/gemma4-mtp-drafters",
+        "mainEntityOfPage": "https://localclaw.io/blog/gemma4-mtp-drafters",
         "keywords": ["Gemma 4", "Multi-Token Prediction", "MTP", "speculative decoding", "local LLM", "MLX", "vLLM", "Transformers"]
     }
     </script>

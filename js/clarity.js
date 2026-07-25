@@ -224,11 +224,11 @@
   installGoalTracking();
   capturePageEvent('$pageview');
 
-  if (window.location.pathname === '/pricing.html' || window.location.pathname === '/pricing') {
+  if (window.location.pathname === '/pricing' || window.location.pathname === '/pricing') {
     capture('pricing_view', { source: 'page_context' }, 'page_context', false);
   }
 
-  if (window.location.pathname === '/success.html' || window.location.pathname === '/success') {
+  if (window.location.pathname === '/success' || window.location.pathname === '/success') {
     var checkoutSession = new URLSearchParams(window.location.search).get('session_id') || '';
     if (/^cs_(live|test)_[A-Za-z0-9]{20,}$/.test(checkoutSession)) {
       capture('checkout_success_view', { source: 'stripe_redirect' }, 'page_context', false);

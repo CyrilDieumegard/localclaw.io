@@ -8,67 +8,67 @@
             eyebrow: 'Choose a local voice stack',
             title: 'Compare speech models by language, latency and hardware',
             copy: 'Move from the guide to the complete TTS and ASR directory, then choose the setup path that fits this computer.',
-            primary: { href: '/tts-list.html', label: 'Compare local TTS and ASR models', target: 'tts_directory' }
+            primary: { href: '/tts-list', label: 'Compare local TTS and ASR models', target: 'tts_directory' }
         },
         '/blog/qwen-3-7-local-ai': {
             eyebrow: 'Use the practical local alternative',
             title: 'Qwen 3.7 is cloud-only. Qwen 3.6 27B runs locally.',
             copy: 'Open the closest practical 27B Qwen option, check its RAM fit and continue with a setup matched to this computer.',
-            primary: { href: '/models/qwen3.6-27b.html', label: 'Open Qwen 3.6 27B', target: 'qwen3.6-27b' }
+            primary: { href: '/models/qwen3.6-27b', label: 'Open Qwen 3.6 27B', target: 'qwen3.6-27b' }
         },
         '/blog/glm-5-2-local-ai': {
             eyebrow: 'Check the workstation reality',
             title: 'See GLM-5.2 quantization and memory requirements first',
             copy: 'Open the model record before downloading hundreds of gigabytes, then compare the setup path that fits this machine.',
-            primary: { href: '/models/glm-5.2.html', label: 'Open the GLM-5.2 model record', target: 'glm-5.2' }
+            primary: { href: '/models/glm-5.2', label: 'Open the GLM-5.2 model record', target: 'glm-5.2' }
         },
         '/blog/best-local-ai-models-2026': {
             eyebrow: 'Compare the current catalogue',
             title: 'Filter every local model by RAM, speed and use case',
             copy: 'Move from the editorial shortlist to the live directory and check which model actually fits this computer.',
-            primary: { href: '/llm-list.html', label: 'Compare all local LLMs', target: 'llm_directory' }
+            primary: { href: '/llm-list', label: 'Compare all local LLMs', target: 'llm_directory' }
         },
         '/blog/ornith-1-0-local-ai': {
             eyebrow: 'Check the practical Ornith build',
             title: 'See whether Ornith 1.0 35B fits your available memory',
             copy: 'Open the local model record for RAM, quantization and LM Studio search details before downloading.',
-            primary: { href: '/models/ornith-1.0-35b-gguf.html', label: 'Open Ornith 1.0 35B', target: 'ornith-1.0-35b-gguf' }
+            primary: { href: '/models/ornith-1.0-35b-gguf', label: 'Open Ornith 1.0 35B', target: 'ornith-1.0-35b-gguf' }
         },
         '/blog/qwen-3-8-local-ai': {
             eyebrow: 'Use the available local Qwen path',
             title: 'Qwen 3.8 is not a practical local download yet',
             copy: 'Check Qwen 3.6 27B, the current local alternative with a realistic RAM and quantization path.',
-            primary: { href: '/models/qwen3.6-27b.html', label: 'Open Qwen 3.6 27B', target: 'qwen3.6-27b' }
+            primary: { href: '/models/qwen3.6-27b', label: 'Open Qwen 3.6 27B', target: 'qwen3.6-27b' }
         },
         '/blog/kimi-k3-local-ai': {
             eyebrow: 'Move from frontier news to local hardware',
             title: 'Compare the strongest models you can actually run locally',
             copy: 'Kimi K3 is frontier-scale. Use the live directory to find a practical open model for your RAM and GPU.',
-            primary: { href: '/llm-list.html', label: 'Compare practical local alternatives', target: 'llm_directory' }
+            primary: { href: '/llm-list', label: 'Compare practical local alternatives', target: 'llm_directory' }
         },
         '/blog/openclaw-guide': {
             eyebrow: 'Use the guided OpenClaw path',
             title: 'Install and control OpenClaw from one native macOS app',
             copy: 'See the real LocalClaw interface, system requirements and exact one-time license terms before checkout.',
-            primary: { href: '/pricing.html', label: 'See LocalClaw for macOS', target: 'macos_app' }
+            primary: { href: '/pricing', label: 'See LocalClaw for macOS', target: 'macos_app' }
         },
         '/blog/nvidia-rtx-spark-local-ai-pc': {
             eyebrow: 'Compare complete local AI machines',
             title: 'Put RTX Spark next to current Apple and NVIDIA systems',
             copy: 'Compare memory tiers, practical model picks and current hardware options before choosing a machine.',
-            primary: { href: '/computers.html', label: 'Compare local AI computers', target: 'computers' }
+            primary: { href: '/computers', label: 'Compare local AI computers', target: 'computers' }
         },
         '/blog/misotts-8b-local-tts': {
             eyebrow: 'Check the local voice catalogue',
             title: 'Compare MisoTTS with lighter local speech models',
             copy: 'Open the exact MisoTTS record, then compare language support, latency and hardware requirements.',
-            primary: { href: '/tts/miso-tts.html', label: 'Open the MisoTTS model page', target: 'miso-tts' }
+            primary: { href: '/tts/miso-tts', label: 'Open the MisoTTS model page', target: 'miso-tts' }
         },
         '/blog/gemma-4-12b-local-ai': {
             eyebrow: 'Check the Gemma 4 hardware fit',
             title: 'See the exact RAM and quantization path for Gemma 4 12B',
             copy: 'Open the model record before downloading, then continue with a setup matched to this computer.',
-            primary: { href: '/models/gemma4-12b.html', label: 'Open Gemma 4 12B', target: 'gemma4-12b' }
+            primary: { href: '/models/gemma4-12b', label: 'Open Gemma 4 12B', target: 'gemma4-12b' }
         }
     };
 
@@ -281,10 +281,10 @@
     }
 
     function directoryTarget(intent) {
-        if (intent === 'speech') return { href: '/tts-list.html', label: 'Compare local speech models' };
-        if (intent === 'hardware') return { href: '/ram-gpu-for-local-ai.html', label: 'Compare RAM and GPU upgrades' };
-        if (intent === 'app') return { href: '/pricing.html', label: 'See the LocalClaw macOS app' };
-        return { href: '/llm-list.html', label: 'Compare local LLMs' };
+        if (intent === 'speech') return { href: '/tts-list', label: 'Compare local speech models' };
+        if (intent === 'hardware') return { href: '/ram-gpu-for-local-ai', label: 'Compare RAM and GPU upgrades' };
+        if (intent === 'app') return { href: '/pricing', label: 'See the LocalClaw macOS app' };
+        return { href: '/llm-list', label: 'Compare local LLMs' };
     }
 
     function setupArticlePath() {
@@ -300,7 +300,7 @@
         const primaryPath = new URL(primary.href, window.location.origin).pathname;
         const primaryIsMacApp = /\/pricing(?:\.html)?$/.test(primaryPath);
         const secondary = platform === 'macos' && !primaryIsMacApp
-            ? { href: '/pricing.html', label: 'Get LocalClaw for macOS · $49', target: 'macos_app' }
+            ? { href: '/pricing', label: 'Get LocalClaw for macOS · $49', target: 'macos_app' }
             : { href: `/?from=article&intent=${encodeURIComponent(intent)}#model-finder`, label: 'Find what fits this computer', target: 'model_finder' };
 
         const box = document.createElement('aside');

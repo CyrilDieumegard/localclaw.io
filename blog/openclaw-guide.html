@@ -12,13 +12,13 @@
     <meta name="keywords" content="OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, OpenClaw local models, OpenClaw LM Studio, OpenClaw Ollama, LocalClaw 1.0.168, local AI gateway, self-hosted AI">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://localclaw.io/blog/openclaw-guide.html">
+    <link rel="canonical" href="https://localclaw.io/blog/openclaw-guide">
 
     <!-- ============================================================
          OPEN GRAPH
          ============================================================ -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://localclaw.io/blog/openclaw-guide.html">
+    <meta property="og:url" content="https://localclaw.io/blog/openclaw-guide">
     <meta property="og:title" content="OpenClaw v2026.7.1: Install &amp; Run Locally">
     <meta property="og:description" content="A current, practical guide to OpenClaw v2026.7.1, local model providers, updates, privacy boundaries and LocalClaw 1.0.168 compatibility.">
     <meta property="og:site_name" content="LocalClaw Blog">
@@ -186,20 +186,20 @@
     <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50" role="navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="../index.html" class="flex items-center gap-3 group">
+                <a href="/" class="flex items-center gap-3 group">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
                         <img src="../images/crab-logo.png" alt="Logo LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                     <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
                 </a>
                 <div class="hidden sm:flex items-center gap-3 sm:gap-6">
-                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
-                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
-                    <a href="../ram-gpu-for-local-ai.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
+                    <a href="/" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="/tts-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="/computers" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="/ram-gpu-for-local-ai" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
                     <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
-                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <a href="/pricing" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                     
                     <!-- Theme Toggle Button -->
                 </div>
@@ -211,13 +211,13 @@
     </nav>
     <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
         <div class="flex flex-col items-center justify-center h-full gap-1">
-            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
-            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
-            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
-            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
-            <a href="../ram-gpu-for-local-ai.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
-            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
-            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="/tts-list" class="px-4 py-3 rounded-lg text-sm font-medium text-purple-400 hover:bg-white/5 hover:text-purple-300 transition-colors">TTS</a>
+            <a href="/computers" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
+            <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
             <div class="border-t border-claw-border mt-2 pt-2">
                 <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">✕ Close</button>
             </div>
@@ -229,9 +229,9 @@
         <div class="max-w-4xl mx-auto">
             <!-- Breadcrumbs -->
             <nav class="flex items-center gap-2 text-sm text-claw-muted mb-6" aria-label="Breadcrumb">
-                <a href="../index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="/" class="hover:text-white transition-colors">Home</a>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <a href="index.html" class="hover:text-white transition-colors">Blog</a>
+                <a href="/blog/" class="hover:text-white transition-colors">Blog</a>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 <span class="text-claw-primary">Guide</span>
             </nav>
@@ -325,7 +325,7 @@
             <p>Privacy depends on configuration. With a local LM Studio or Ollama model, inference can stay on your machine. If you select a cloud provider or connect an online channel, those requests use the corresponding service and its policies. OpenClaw gives you the choice; it does not make every configuration offline by default.</p>
 
             <div class="info-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> LocalClaw compatibility:</strong> LocalClaw 1.0.168 updates its Gateway health parsing and repair workflow for OpenClaw v2026.7.1. Read the <a href="../changelog/localclaw-installer-v1.0.168.html">release notes</a>.</p>
+                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> LocalClaw compatibility:</strong> LocalClaw 1.0.168 updates its Gateway health parsing and repair workflow for OpenClaw v2026.7.1. Read the <a href="/changelog/localclaw-installer-v1.0.168">release notes</a>.</p>
             </div>
 
             <!-- ======================= SECTION 2 ======================= -->
@@ -483,13 +483,13 @@ openclaw update status</code></pre>
             </div>
 
             <div class="tip-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Prefer a guided macOS setup?</strong> LocalClaw 1.0.168 is an Apple-notarized native control center updated for OpenClaw v2026.7.1. It handles setup, health checks and repair from one dashboard. <a href="../pricing.html">See the $49 lifetime beta</a>.</p>
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Prefer a guided macOS setup?</strong> LocalClaw 1.0.168 is an Apple-notarized native control center updated for OpenClaw v2026.7.1. It handles setup, health checks and repair from one dashboard. <a href="/pricing">See the $49 lifetime beta</a>.</p>
             </div>
 
             <!-- ======================= SECTION 6 ======================= -->
             <h2 id="connect-lm-studio">6. Connecting to LM Studio</h2>
 
-            <p><a href="lm-studio-beginner-guide.html">LM Studio</a> can expose a local OpenAI-compatible server that OpenClaw discovers during onboarding. The current official flow is:</p>
+            <p><a href="/blog/lm-studio-beginner-guide">LM Studio</a> can expose a local OpenAI-compatible server that OpenClaw discovers during onboarding. The current official flow is:</p>
 
             <div class="space-y-4 mb-8">
                 <div class="step-card rounded-xl p-5 flex gap-4">
@@ -681,39 +681,39 @@ ollama pull qwen3.5:9b
                     <tbody>
                         <tr>
                             <td class="font-medium text-white">General Chat</td>
-                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
-                            <td><a href="../models/qwen3.5-9b.html">Qwen 3.5 9B</a></td>
-                            <td><a href="../models/qwen3.6-27b.html">Qwen 3.6 27B</a></td>
+                            <td><a href="/models/qwen3.5-4b">Qwen 3.5 4B</a></td>
+                            <td><a href="/models/qwen3.5-9b">Qwen 3.5 9B</a></td>
+                            <td><a href="/models/qwen3.6-27b">Qwen 3.6 27B</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Coding</td>
                             <td>Qwen 2.5 Coder 7B</td>
-                            <td><a href="../models/phi4-reasoning-14b.html">Phi-4 Reasoning 14B</a></td>
-                            <td><a href="../models/north-mini-code-1.0.html">North Mini Code 1.0</a></td>
+                            <td><a href="/models/phi4-reasoning-14b">Phi-4 Reasoning 14B</a></td>
+                            <td><a href="/models/north-mini-code-1.0">North Mini Code 1.0</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Reasoning</td>
-                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
-                            <td><a href="../models/phi4-reasoning-14b.html">Phi-4 Reasoning 14B</a></td>
-                            <td><a href="../models/qwen3.6-27b.html">Qwen 3.6 27B</a></td>
+                            <td><a href="/models/qwen3.5-4b">Qwen 3.5 4B</a></td>
+                            <td><a href="/models/phi4-reasoning-14b">Phi-4 Reasoning 14B</a></td>
+                            <td><a href="/models/qwen3.6-27b">Qwen 3.6 27B</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Vision</td>
-                            <td><a href="../models/gemma4-e2b.html">Gemma 4 E2B</a></td>
-                            <td><a href="../models/gemma4-e4b.html">Gemma 4 E4B</a></td>
-                            <td><a href="../models/gemma4-12b.html">Gemma 4 12B</a></td>
+                            <td><a href="/models/gemma4-e2b">Gemma 4 E2B</a></td>
+                            <td><a href="/models/gemma4-e4b">Gemma 4 E4B</a></td>
+                            <td><a href="/models/gemma4-12b">Gemma 4 12B</a></td>
                         </tr>
                         <tr>
                             <td class="font-medium text-white">Multilingual</td>
-                            <td><a href="../models/qwen3.5-4b.html">Qwen 3.5 4B</a></td>
-                            <td><a href="../models/qwen3.5-9b.html">Qwen 3.5 9B</a></td>
-                            <td><a href="../models/sarvam-30b.html">Sarvam 30B</a></td>
+                            <td><a href="/models/qwen3.5-4b">Qwen 3.5 4B</a></td>
+                            <td><a href="/models/qwen3.5-9b">Qwen 3.5 9B</a></td>
+                            <td><a href="/models/sarvam-30b">Sarvam 30B</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <p>👉 Use our <a href="../index.html">model recommender</a> to find the perfect model for your exact hardware, or browse the <a href="../llm-list.html">complete model list</a> with filters and benchmarks.</p>
+            <p>👉 Use our <a href="/">model recommender</a> to find the perfect model for your exact hardware, or browse the <a href="/llm-list">complete model list</a> with filters and benchmarks.</p>
 
             <!-- ======================= SECTION 11 ======================= -->
             <h2 id="tips">11. Pro Tips & Best Practices</h2>
@@ -788,10 +788,10 @@ ollama pull qwen3.5:9b
                     <a href="https://openclaw.ai/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-claw-primary text-white font-bold no-underline hover:bg-claw-accent transition-colors">
                         Install OpenClaw →
                     </a>
-                    <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
+                    <a href="/" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
                         <img src="../images/crab-logo.png" alt="LocalClaw" width="20" height="20" style="display:inline;vertical-align:middle;opacity:0.8;"> Find My Ideal Model
                     </a>
-                    <a href="../pricing.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
+                    <a href="/pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Get LocalClaw 1.0.168
                     </a>
                 </div>
@@ -801,22 +801,22 @@ ollama pull qwen3.5:9b
             <div class="mt-12 pt-8 border-t border-white/10">
                 <h3 class="!mt-0 mb-6">Related Articles</h3>
                 <div class="grid sm:grid-cols-2 gap-4 not-prose">
-                    <a href="lm-studio-beginner-guide.html" class="feature-card rounded-xl p-4 block no-underline group">
+                    <a href="/blog/lm-studio-beginner-guide" class="feature-card rounded-xl p-4 block no-underline group">
                         <span class="text-xs text-claw-primary font-semibold">Tutorial</span>
                         <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">LM Studio Beginner Guide</h4>
                         <p class="text-claw-muted text-xs mt-1">Installation, GPU config, and first steps with LM Studio.</p>
                     </a>
-                    <a href="how-to-choose-local-llm.html" class="feature-card rounded-xl p-4 block no-underline group">
+                    <a href="/blog/how-to-choose-local-llm" class="feature-card rounded-xl p-4 block no-underline group">
                         <span class="text-xs text-claw-primary font-semibold">Guide</span>
                         <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">How to Choose the Right Local LLM</h4>
                         <p class="text-claw-muted text-xs mt-1">RAM, VRAM, use cases — find the perfect model.</p>
                     </a>
-                    <a href="best-local-ai-models-2026.html" class="feature-card rounded-xl p-4 block no-underline group">
+                    <a href="/blog/best-local-ai-models-2026" class="feature-card rounded-xl p-4 block no-underline group">
                         <span class="text-xs text-claw-primary font-semibold">Top 15</span>
                         <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">Best Open-Source AI Models 2026</h4>
                         <p class="text-claw-muted text-xs mt-1">Genspark leaderboard: the 15 best models to run locally.</p>
                     </a>
-                    <a href="local-llm-vs-chatgpt.html" class="feature-card rounded-xl p-4 block no-underline group">
+                    <a href="/blog/local-llm-vs-chatgpt" class="feature-card rounded-xl p-4 block no-underline group">
                         <span class="text-xs text-claw-primary font-semibold">Comparison</span>
                         <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">Local LLM vs ChatGPT</h4>
                         <p class="text-claw-muted text-xs mt-1">Privacy, cost, quality — the honest comparison.</p>
@@ -836,8 +836,8 @@ ollama pull qwen3.5:9b
                 <p class="text-claw-muted/60 text-xs flex items-center gap-1"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> No prompts collected.</p>
             </div>
             <div class="flex gap-4 items-center">
-                <a href="../index.html" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
-                <a href="index.html" class="text-claw-primary text-xs sm:text-sm">Blog</a>
+                <a href="/" class="text-claw-muted hover:text-claw-primary transition-colors text-xs sm:text-sm">Home</a>
+                <a href="/blog/" class="text-claw-primary text-xs sm:text-sm">Blog</a>
             </div>
         </div>
     </footer>
@@ -857,7 +857,7 @@ ollama pull qwen3.5:9b
         },
         "datePublished": "2026-02-12",
         "dateModified": "2026-07-15",
-        "mainEntityOfPage": "https://localclaw.io/blog/openclaw-guide.html",
+        "mainEntityOfPage": "https://localclaw.io/blog/openclaw-guide",
         "image": "https://localclaw.io/images/twitter-card.jpg?v=3",
         "keywords": "OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, local AI, LM Studio, Ollama, LocalClaw 1.0.168"
     }
@@ -897,7 +897,7 @@ ollama pull qwen3.5:9b
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://localclaw.io/"},
             {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://localclaw.io/blog/"},
-            {"@type": "ListItem", "position": 3, "name": "OpenClaw v2026.7.1 Guide", "item": "https://localclaw.io/blog/openclaw-guide.html"}
+            {"@type": "ListItem", "position": 3, "name": "OpenClaw v2026.7.1 Guide", "item": "https://localclaw.io/blog/openclaw-guide"}
         ]
     }
     </script>

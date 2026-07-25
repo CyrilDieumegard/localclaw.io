@@ -9,10 +9,10 @@
     <meta name="keywords" content="Qwen 3.6, Qwen3.6, Alibaba AI, hybrid thinking, local LLM, 6.7B model, LM Studio, open source LLM 2026, chain of thought, reasoning model">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://localclaw.io/blog/qwen3-6-deep-dive.html">
+    <link rel="canonical" href="https://localclaw.io/blog/qwen3-6-deep-dive">
 
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://localclaw.io/blog/qwen3-6-deep-dive.html">
+    <meta property="og:url" content="https://localclaw.io/blog/qwen3-6-deep-dive">
     <meta property="og:title" content="Qwen 3.6 Deep Dive: Alibaba's Surprise 6.7B Hybrid Thinking Model">
     <meta property="og:description" content="Everything you need to know about Qwen 3.6: hybrid thinking, hardware requirements, benchmarks and how to run it locally today.">
     <meta property="og:site_name" content="LocalClaw Blog">
@@ -208,7 +208,7 @@
     <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="../index.html" class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
                         <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
@@ -220,10 +220,10 @@
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    <a href="../index.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="index.html" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
-                    <a href="../pricing.html" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <a href="/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="/blog/" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
+                    <a href="/pricing" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                 </div>
             </div>
         </div>
@@ -233,10 +233,10 @@
     <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
         <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
             <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-                <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
-                <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
-                <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
-                <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+                <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
+                <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
+                <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
             </div>
         </div>
     </div>
@@ -244,7 +244,7 @@
     <!-- HERO -->
     <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-8">
         <div class="flex items-center gap-2 flex-wrap mb-5">
-            <a href="index.html" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
+            <a href="/blog/" class="text-sm text-claw-muted hover:text-claw-primary transition-colors">← Blog</a>
             <span class="text-claw-muted/40">·</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Model Review</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
@@ -331,7 +331,7 @@
                             <h3 class="text-xl font-display font-bold text-white mb-1">Qwen 3.6 — Instruct</h3>
                             <p class="text-claw-muted text-sm">6.7B dense · 128K context · ~5.5GB VRAM Q4</p>
                         </div>
-                        <a href="../llm-list.html?q=qwen3.6" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View on LocalClaw →</a>
+                        <a href="/llm-list?q=qwen3.6" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View on LocalClaw →</a>
                     </div>
 
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
@@ -586,7 +586,7 @@
             <ul>
                 <li><strong>MacBook Air / any 8GB device → Yes.</strong> Q4_K_M runs at 50+ tok/s on M1/M2. The hybrid thinking mode makes this the most capable 6B-class model you can run locally.</li>
                 <li><strong>You need maths or complex reasoning → Yes.</strong> 87.2 on MATH 500 in thinking mode puts it ahead of models 3× its size.</li>
-                <li><strong>You need vision (images) → No.</strong> Use <a href="gemma4-suite-deep-dive.html">Gemma4-E4B</a> instead — or run both side by side (they fit together on a 16GB device).</li>
+                <li><strong>You need vision (images) → No.</strong> Use <a href="/blog/gemma4-suite-deep-dive">Gemma4-E4B</a> instead — or run both side by side (they fit together on a 16GB device).</li>
                 <li><strong>You need commercial freedom → Yes.</strong> Apache 2.0 is the gold standard. No MAU caps, no enterprise licenses, no headaches.</li>
                 <li><strong>You care about non-English languages → Yes.</strong> Thinking mode in Chinese, Japanese, Arabic — unmatched at this size class.</li>
             </ul>
@@ -594,7 +594,7 @@
             <div class="highlight-box rounded-xl p-6 mt-8">
                 <h4 class="text-white font-bold mt-0 mb-2">🦀 Find Your Perfect Qwen Model</h4>
                 <p class="text-claw-muted text-sm mb-3">Not sure which Qwen to pick? Use LocalClaw's model finder — enter your RAM and get a personalized recommendation in 30 seconds.</p>
-                <a href="../index.html" class="inline-block bg-claw-primary hover:bg-red-500 px-5 py-2 rounded-lg font-bold text-sm transition-colors" style="color:#ffffff !important;">Use Model Finder →</a>
+                <a href="/" class="inline-block bg-claw-primary hover:bg-red-500 px-5 py-2 rounded-lg font-bold text-sm transition-colors" style="color:#ffffff !important;">Use Model Finder →</a>
             </div>
 
         </article>
@@ -604,11 +604,11 @@
             <h3 class="cta-title font-display font-bold text-white text-xl mb-2">Browse All Qwen Models on LocalClaw</h3>
             <p class="cta-desc text-claw-muted text-sm mb-4">Compare hardware requirements, benchmarks, and download links side by side.</p>
             <div class="flex flex-wrap gap-2 justify-center">
-                <a href="../llm-list.html?q=qwen3.6" class="px-4 py-2 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-xl font-bold hover:bg-orange-500/20 transition-all text-xs">Qwen 3.6</a>
-                <a href="qwen3-6-27b-deep-dive.html" class="px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">Qwen 3.6-27B Deep Dive</a>
-                <a href="qwen35-deep-dive.html" class="px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">Qwen 3.5 Deep Dive</a>
-                <a href="gemma4-suite-deep-dive.html" class="px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-300 rounded-xl font-bold hover:bg-green-500/20 transition-all text-xs">Gemma 4 Deep Dive</a>
-                <a href="../llm-list.html" class="px-4 py-2 bg-white/5 border border-white/10 text-claw-muted rounded-xl font-bold hover:bg-white/10 hover:text-white transition-all text-xs">All LLMs →</a>
+                <a href="/llm-list?q=qwen3.6" class="px-4 py-2 bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-xl font-bold hover:bg-orange-500/20 transition-all text-xs">Qwen 3.6</a>
+                <a href="/blog/qwen3-6-27b-deep-dive" class="px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">Qwen 3.6-27B Deep Dive</a>
+                <a href="/blog/qwen35-deep-dive" class="px-4 py-2 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-xl font-bold hover:bg-purple-500/20 transition-all text-xs">Qwen 3.5 Deep Dive</a>
+                <a href="/blog/gemma4-suite-deep-dive" class="px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-300 rounded-xl font-bold hover:bg-green-500/20 transition-all text-xs">Gemma 4 Deep Dive</a>
+                <a href="/llm-list" class="px-4 py-2 bg-white/5 border border-white/10 text-claw-muted rounded-xl font-bold hover:bg-white/10 hover:text-white transition-all text-xs">All LLMs →</a>
             </div>
         </div>
 
@@ -620,9 +620,9 @@
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw · Privacy-first AI recommendations</p>
                 <div class="flex gap-6">
-                    <a href="../index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
-                    <a href="../llm-list.html" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
-                    <a href="index.html" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
+                    <a href="/" class="text-claw-muted text-xs hover:text-white transition-colors">Home</a>
+                    <a href="/llm-list" class="text-claw-muted text-xs hover:text-white transition-colors">LLM List</a>
+                    <a href="/blog/" class="text-claw-muted text-xs hover:text-white transition-colors">Blog</a>
                 </div>
             </div>
         </div>
@@ -654,7 +654,7 @@
         "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
         "datePublished": "2026-04-04",
         "dateModified": "2026-04-04",
-        "url": "https://localclaw.io/blog/qwen3-6-deep-dive.html",
+        "url": "https://localclaw.io/blog/qwen3-6-deep-dive",
         "keywords": ["Qwen 3.6", "hybrid thinking", "local LLM", "LM Studio", "Alibaba AI", "Apache 2.0"]
     }
     </script>

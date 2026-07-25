@@ -1,63 +1,128 @@
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
+const crypto = require('crypto');
+const { extensionlessPath } = require('./normalize-public-urls');
+
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
 const TODAY = process.env.SITEMAP_DATE || new Date().toISOString().slice(0, 10);
-function loadModels(){const ctx={};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(ROOT,'js/data.js'),'utf8')+';this.APP_DATA=APP_DATA;',ctx);return ctx.APP_DATA.models;}
-function url(loc,lastmod=TODAY,changefreq='monthly',priority='0.8'){return `    <url>\n        <loc>${BASE}${loc}</loc>\n        <lastmod>${lastmod}</lastmod>\n        <changefreq>${changefreq}</changefreq>\n        <priority>${priority}</priority>\n    </url>`}
-function shouldIndexHtml(filePath){
-  const html = fs.readFileSync(filePath, 'utf8').slice(0, 2500);
+const DATE_STATE_FILE = path.join(__dirname, 'sitemap-dates.json');
+const contentCache = new Map();
+
+function fileContent(filePath) {
+  if (!contentCache.has(filePath)) contentCache.set(filePath, fs.readFileSync(filePath));
+  return contentCache.get(filePath);
+}
+
+function escapeXml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;'
+  }[character]));
+}
+
+function routeForFile(relativeFile) {
+  return extensionlessPath(`/${relativeFile.replace(/\\/g, '/')}`);
+}
+
+function shouldIndex(filePath) {
+  const html = fileContent(filePath).toString('utf8', 0, 5000);
   const robots = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']+)["']/i)?.[1] || '';
   return !/\bnoindex\b/i.test(robots);
 }
-function addHtmlDir(dir, basePath, changefreq='monthly', priority='0.8') {
-  const fullDir = path.join(ROOT, dir);
-  if (!fs.existsSync(fullDir)) return;
-  for (const f of fs.readdirSync(fullDir).filter(f => f.endsWith('.html') && f !== 'index.html').sort()) {
-    const filePath = path.join(fullDir, f);
-    if (shouldIndexHtml(filePath)) urls.push(url(`${basePath}/${f}`, TODAY, changefreq, priority));
+
+function loadDateState() {
+  try {
+    return JSON.parse(fs.readFileSync(DATE_STATE_FILE, 'utf8'));
+  } catch {
+    return {};
   }
 }
-const urls=[];
-urls.push(url('/', TODAY, 'weekly', '1.0'));
-urls.push(url('/pricing.html', TODAY, 'monthly', '0.9'));
-urls.push(url('/download.html', TODAY, 'monthly', '0.8'));
-urls.push(url('/llm-list.html', TODAY, 'weekly', '0.9'));
-urls.push(url('/tts-list.html', TODAY, 'weekly', '0.9'));
-urls.push(url('/computers.html', TODAY, 'monthly', '0.8'));
-urls.push(url('/ram-gpu-for-local-ai.html', TODAY, 'monthly', '0.85'));
-urls.push(url('/new.html', TODAY, 'weekly', '0.9'));
-urls.push(url('/models/', TODAY, 'weekly', '0.9'));
-urls.push(url('/ram/', TODAY, 'weekly', '0.9'));
-urls.push(url('/hardware/', TODAY, 'weekly', '0.9'));
-urls.push(url('/use-case/', TODAY, 'weekly', '0.9'));
-urls.push(url('/tts/', TODAY, 'weekly', '0.9'));
-urls.push(url('/guides/', TODAY, 'weekly', '0.9'));
-addHtmlDir('case-study', '/case-study', 'monthly', '0.9');
-for (const tier of [8,16,32,64,128]) urls.push(url(`/ram/${tier}gb.html`, TODAY, 'monthly', '0.85'));
-addHtmlDir('hardware', '/hardware', 'monthly', '0.85');
-addHtmlDir('use-case', '/use-case', 'monthly', '0.85');
-addHtmlDir('tts', '/tts', 'monthly', '0.8');
-addHtmlDir('guides', '/guides', 'monthly', '0.88');
-urls.push(url('/blog/', TODAY, 'weekly', '0.9'));
-addHtmlDir('blog', '/blog', 'monthly', '0.8');
-addHtmlDir('changelog', '/changelog', 'monthly', '0.82');
-const seen = new Set();
-for (const m of loadModels()) {
-  if (seen.has(m.id)) continue;
-  seen.add(m.id);
-  urls.push(url(`/models/${encodeURIComponent(m.id)}.html`, TODAY, 'monthly', m.isNew?'0.85':'0.75'));
+
+const previousDates = loadDateState();
+const nextDates = {};
+
+function lastModified(relativeFile) {
+  const content = fileContent(path.join(ROOT, relativeFile));
+  const hash = crypto.createHash('sha256').update(content).digest('hex');
+  const previous = previousDates[relativeFile];
+  const lastmod = previous?.hash === hash && previous?.lastmod ? previous.lastmod : TODAY;
+  nextDates[relativeFile] = { hash, lastmod };
+  return lastmod;
 }
-addHtmlDir('models', '/models', 'monthly', '0.75');
-const deduped = [];
-const seenUrls = new Set();
-for (const item of urls) {
-  const loc = item.match(/<loc>([^<]+)<\/loc>/)?.[1];
-  if (!loc || seenUrls.has(loc)) continue;
-  seenUrls.add(loc);
-  deduped.push(item);
+
+function htmlFiles(directory) {
+  const fullDirectory = path.join(ROOT, directory);
+  if (!fs.existsSync(fullDirectory)) return [];
+  return fs.readdirSync(fullDirectory)
+    .filter(file => file.endsWith('.html') && !/ \d+\.html$/i.test(file))
+    .sort()
+    .map(file => `${directory}/${file}`)
+    .filter(relativeFile => shouldIndex(path.join(ROOT, relativeFile)));
 }
-const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${deduped.join('\n\n')}\n</urlset>\n`;
-fs.writeFileSync(path.join(ROOT,'sitemap.xml'), xml);
-console.log(`Generated sitemap.xml with ${deduped.length} URLs (${seen.size} data model pages).`);
+
+function page(relativeFile, changefreq = 'monthly', priority = '0.8') {
+  const filePath = path.join(ROOT, relativeFile);
+  if (!fs.existsSync(filePath) || !shouldIndex(filePath)) return null;
+  return {
+    loc: `${BASE}${routeForFile(relativeFile)}`,
+    lastmod: lastModified(relativeFile),
+    changefreq,
+    priority
+  };
+}
+
+function unique(items) {
+  const seen = new Set();
+  return items.filter(Boolean).filter(item => {
+    if (seen.has(item.loc)) return false;
+    seen.add(item.loc);
+    return true;
+  });
+}
+
+const groups = {
+  core: unique([
+    page('index.html', 'weekly', '1.0'),
+    page('pricing.html', 'monthly', '0.9'),
+    page('download.html', 'monthly', '0.8'),
+    page('llm-list.html', 'weekly', '0.9'),
+    page('tts-list.html', 'weekly', '0.9'),
+    page('computers.html', 'monthly', '0.8'),
+    page('ram-gpu-for-local-ai.html', 'monthly', '0.85'),
+    page('new.html', 'weekly', '0.9'),
+    ...htmlFiles('case-study').map(file => page(file, 'monthly', '0.9')),
+    ...htmlFiles('changelog').map(file => page(file, 'monthly', '0.78'))
+  ]),
+  models: unique(htmlFiles('models').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.75'))),
+  tts: unique(htmlFiles('tts').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.8'))),
+  blog: unique(htmlFiles('blog').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.8'))),
+  guides: unique([
+    ...htmlFiles('ram').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
+    ...htmlFiles('hardware').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
+    ...htmlFiles('use-case').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
+    ...htmlFiles('guides').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.88'))
+  ])
+};
+
+function urlset(items) {
+  const rows = items.map(item => `  <url>\n    <loc>${escapeXml(item.loc)}</loc>\n    <lastmod>${item.lastmod}</lastmod>\n    <changefreq>${item.changefreq}</changefreq>\n    <priority>${item.priority}</priority>\n  </url>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows}\n</urlset>\n`;
+}
+
+const sitemapEntries = [];
+for (const [name, items] of Object.entries(groups)) {
+  const filename = `sitemap-${name}.xml`;
+  fs.writeFileSync(path.join(ROOT, filename), urlset(items));
+  sitemapEntries.push({
+    loc: `${BASE}/${filename}`,
+    lastmod: items.map(item => item.lastmod).sort().at(-1) || TODAY
+  });
+}
+
+const indexRows = sitemapEntries.map(item => `  <sitemap>\n    <loc>${escapeXml(item.loc)}</loc>\n    <lastmod>${item.lastmod}</lastmod>\n  </sitemap>`).join('\n');
+const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexRows}\n</sitemapindex>\n`;
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemapIndex);
+fs.writeFileSync(DATE_STATE_FILE, `${JSON.stringify(nextDates, null, 2)}\n`);
+
+const total = Object.values(groups).reduce((sum, items) => sum + items.length, 0);
+console.log(`Generated sitemap index with ${sitemapEntries.length} files and ${total} canonical URLs.`);

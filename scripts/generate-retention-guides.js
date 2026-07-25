@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { normalizeDirectory } = require('./normalize-public-urls');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -167,4 +168,5 @@ for (const guide of guideData) {
 }
 fs.writeFileSync(path.join(out, 'index.html'), indexPage(guideData));
 
+normalizeDirectory(out);
 console.log(`Generated ${guideData.length} retention guide pages.`);

@@ -6,9 +6,9 @@
   <title>Gemma 4 31B local AI: RAM + LM Studio | LocalClaw</title>
   <meta name="description" content="Gemma 4 31B: 31B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/gemma4-31b.html">
+  <link rel="canonical" href="https://localclaw.io/models/gemma4-31b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/gemma4-31b.html">
+  <meta property="og:url" content="https://localclaw.io/models/gemma4-31b">
   <meta property="og:title" content="Gemma 4 31B local AI model | LocalClaw">
   <meta property="og:description" content="Gemma 4 31B: 31B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Gemma 4 31B: 31B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Gemma 4 31B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gemma4-31b.html","description":"Gemma 4 31B: 31B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-03","memoryRequirements":"32 GB RAM minimum","license":"https://ai.google.dev/gemma/docs/gemma_4_license","creator":{"@type":"Organization","name":"Google DeepMind","url":"https://deepmind.google/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Gemma 4 31B run locally?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 31B can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Gemma 4 31B best for?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 31B is best used for Premium local assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list.html"},{"@type":"ListItem","position":3,"name":"Gemma 4 31B","item":"https://localclaw.io/models/gemma4-31b.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Gemma 4 31B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/gemma4-31b","description":"Gemma 4 31B: 31B local AI model guide with RAM requirements, Q4_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2026-03","memoryRequirements":"32 GB RAM minimum","license":"https://ai.google.dev/gemma/docs/gemma_4_license","creator":{"@type":"Organization","name":"Google DeepMind","url":"https://deepmind.google/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Gemma 4 31B run locally?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 31B can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Gemma 4 31B best for?","acceptedAnswer":{"@type":"Answer","text":"Gemma 4 31B is best used for Premium local assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Gemma 4 31B","item":"https://localclaw.io/models/gemma4-31b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -31,12 +31,12 @@
     <div class="nav-inner">
       <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
       <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a></div>
+      <div class="nav-links"><a href="/">Home</a><a href="/llm-list" class="active">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing" class="pricing">Pricing</a></div>
     </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a></div>
+    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing">Pricing</a></div>
   </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>Gemma 4 31B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Gemma 4 31B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
@@ -49,8 +49,8 @@
           <span class="chip">Premium local assistant</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing.html">Run with LocalClaw</a>
-          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
+          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
       <aside class="hero-panel">
@@ -114,16 +114,16 @@
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-pro-48gb.html"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb.html"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb.html"><small>Power-user picks</small>32GB RAM guide</a>
+        <a href="/hardware/mac-mini-m4-pro-48gb"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb"><small>Power-user picks</small>32GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gemma4-26b-a4b.html">Gemma 4 26B A4B <span>26B (A4B active)</span></a><a href="/models/qwen3.5-27b.html">Qwen 3.5 (27B) <span>27B</span></a><a href="/models/llama3.3-70b.html">Llama 3.3 (70B) <span>70B</span></a></div></section>
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/gemma4-26b-a4b">Gemma 4 26B A4B <span>26B (A4B active)</span></a><a href="/models/qwen3.5-27b">Qwen 3.5 (27B) <span>27B</span></a><a href="/models/llama3.3-70b">Llama 3.3 (70B) <span>70B</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/32gb.html"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+        <a href="/ram/32gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>

@@ -9,10 +9,10 @@
     <meta name="keywords" content="Ornith 1.0, Ornith 35B GGUF, Ornith 9B GGUF, Ornith 397B, run Ornith locally, agentic coding model, local LLM, Qwen Coder, GLM-5.2, DeepSeek V3.2, Gemma 4, LM Studio Ornith, GGUF coding model">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://localclaw.io/blog/ornith-1-0-local-ai.html">
+    <link rel="canonical" href="https://localclaw.io/blog/ornith-1-0-local-ai">
 
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://localclaw.io/blog/ornith-1-0-local-ai.html">
+    <meta property="og:url" content="https://localclaw.io/blog/ornith-1-0-local-ai">
     <meta property="og:title" content="Ornith 1.0 Is Out: Which Version Can You Run Locally?">
     <meta property="og:description" content="Ornith 1.0 brings 9B, 35B and 397B open models for agentic coding. Here is the practical local hardware guide and model comparison.">
     <meta property="og:site_name" content="LocalClaw">
@@ -155,7 +155,7 @@
     <nav class="border-b border-claw-border/50 bg-claw-bg/90 backdrop-blur-xl sticky top-0 z-50" role="navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="../index.html" class="flex items-center gap-3 group">
+                <a href="/" class="flex items-center gap-3 group">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
                         <img src="../images/crab-logo.png" alt="LocalClaw logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
@@ -163,13 +163,13 @@
                 </a>
 
                 <div class="hidden sm:flex items-center gap-3 sm:gap-6">
-                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
-                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
-                    <a href="../ram-gpu-for-local-ai.html" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
+                    <a href="/" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
+                    <a href="/tts-list" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">TTS</a>
+                    <a href="/computers" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
+                    <a href="/ram-gpu-for-local-ai" class="text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
                     <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
-                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
+                    <a href="/pricing" class="text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
                 </div>
 
                 <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors" aria-label="Open menu">
@@ -180,20 +180,20 @@
     </nav>
     <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
         <div class="flex flex-col items-center justify-center h-full gap-1">
-            <a href="../index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
-            <a href="../llm-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
-            <a href="../tts-list.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
-            <a href="../computers.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
-            <a href="../ram-gpu-for-local-ai.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
-            <a href="index.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
-            <a href="../pricing.html" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+            <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
+            <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
+            <a href="/tts-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
+            <a href="/computers" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
+            <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
+            <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-white/5 transition-colors">Blog</a>
+            <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
             <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Close</button>
         </div>
     </div>
 
     <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
         <div class="max-w-5xl mx-auto px-4 relative z-10">
-            <a href="index.html" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary transition-colors mb-8">
+            <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary transition-colors mb-8">
                 <span aria-hidden="true">&larr;</span>
                 Blog
             </a>
@@ -222,7 +222,7 @@
 
                     <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-claw-primary/30">
                         <p class="m-0">
-                            <strong class="text-white">Short answer:</strong> Ornith 1.0 is worth listing because it is not just a datacenter monster. The <a href="../models/ornith-1.0-9b-gguf.html">9B GGUF</a> is the small-machine entry point, the <a href="../models/ornith-1.0-35b-gguf.html">35B GGUF</a> is the serious local coding target, and the <a href="../models/ornith-1.0-397b.html">397B</a> release is a server-grade reference model for teams with multi-GPU infrastructure.
+                            <strong class="text-white">Short answer:</strong> Ornith 1.0 is worth listing because it is not just a datacenter monster. The <a href="/models/ornith-1.0-9b-gguf">9B GGUF</a> is the small-machine entry point, the <a href="/models/ornith-1.0-35b-gguf">35B GGUF</a> is the serious local coding target, and the <a href="/models/ornith-1.0-397b">397B</a> release is a server-grade reference model for teams with multi-GPU infrastructure.
                         </p>
                     </section>
 
@@ -300,31 +300,31 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><a href="../models/qwen3-coder-30b.html">Qwen 3 Coder 30B</a></td>
+                                    <td><a href="/models/qwen3-coder-30b">Qwen 3 Coder 30B</a></td>
                                     <td>Mature Qwen ecosystem, strong tooling, native 256K context, broad app support.</td>
                                     <td>Ornith 35B is directly optimized and benchmarked for agentic coding tasks.</td>
                                     <td>You want the safer, more proven coding model today.</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="../models/glm-5.2.html">GLM-5.2</a></td>
+                                    <td><a href="/models/glm-5.2">GLM-5.2</a></td>
                                     <td>Massive frontier model with 1M context and strong long-horizon coding positioning.</td>
                                     <td>Ornith 35B is vastly more practical; Ornith 397B competes in the frontier benchmark class.</td>
                                     <td>You have huge memory and want maximum model ceiling.</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="../models/deepseek-v3.2-exp.html">DeepSeek V3.2 Exp</a></td>
+                                    <td><a href="/models/deepseek-v3.2-exp">DeepSeek V3.2 Exp</a></td>
                                     <td>DeepSeek ecosystem, sparse-attention research direction, strong reasoning/coding reputation.</td>
                                     <td>Ornith is more explicitly packaged around coding-agent behavior and tool-call serving.</td>
                                     <td>You want a frontier research reference rather than a desktop GGUF.</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="../models/gemma4-12b.html">Gemma 4 12B</a></td>
+                                    <td><a href="/models/gemma4-12b">Gemma 4 12B</a></td>
                                     <td>Cleaner general local model, multimodal angle, easier 16GB fit.</td>
                                     <td>Ornith is more specialized for coding agents and terminal workflows.</td>
                                     <td>You want general assistant quality on normal local hardware.</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="../models/qwen3.5-397b-a17b.html">Qwen 3.5 397B A17B</a></td>
+                                    <td><a href="/models/qwen3.5-397b-a17b">Qwen 3.5 397B A17B</a></td>
                                     <td>Broader Qwen flagship ecosystem and general-purpose frontier positioning.</td>
                                     <td>Ornith 397B is a direct coding-agent challenger with MIT licensing and OpenAI-compatible serving notes.</td>
                                     <td>You are evaluating frontier open MoEs, not normal desktop use.</td>
@@ -336,7 +336,7 @@
                     <h2>Which Ornith should you install?</h2>
                     <h3>8GB to 16GB RAM: Ornith 9B, but test against Qwen and Gemma</h3>
                     <p>
-                        The <a href="../models/ornith-1.0-9b-gguf.html">9B GGUF</a> is the only Ornith variant that belongs in small-machine conversations. It is worth trying if your workflow is coding-heavy and you want to test agentic behavior. For general chat or writing, compare it against Qwen 3 8B, Gemma 4 12B on 16GB machines, and smaller Phi-style models.
+                        The <a href="/models/ornith-1.0-9b-gguf">9B GGUF</a> is the only Ornith variant that belongs in small-machine conversations. It is worth trying if your workflow is coding-heavy and you want to test agentic behavior. For general chat or writing, compare it against Qwen 3 8B, Gemma 4 12B on 16GB machines, and smaller Phi-style models.
                     </p>
 
                     <h3>32GB to 48GB RAM: Ornith 35B is the one to watch</h3>
@@ -367,7 +367,7 @@
                         <li><strong class="text-white">Ornith 397B:</strong> server-grade research and frontier comparison.</li>
                     </ul>
                     <p>
-                        If you already use LocalClaw, the practical next step is to compare <a href="../models/ornith-1.0-35b-gguf.html">Ornith 35B GGUF</a> against <a href="../models/qwen3-coder-30b.html">Qwen 3 Coder 30B</a>, <a href="../models/qwen3-32b.html">Qwen 3 32B</a> and <a href="../models/deepseek-r1-32b.html">DeepSeek R1 Distill 32B</a>. That is the comparison that will tell you whether Ornith is a real upgrade for your local coding workflow.
+                        If you already use LocalClaw, the practical next step is to compare <a href="/models/ornith-1.0-35b-gguf">Ornith 35B GGUF</a> against <a href="/models/qwen3-coder-30b">Qwen 3 Coder 30B</a>, <a href="/models/qwen3-32b">Qwen 3 32B</a> and <a href="/models/deepseek-r1-32b">DeepSeek R1 Distill 32B</a>. That is the comparison that will tell you whether Ornith is a real upgrade for your local coding workflow.
                     </p>
 
                     <section class="signal-card rounded-2xl p-5 sm:p-6 mt-10">
@@ -405,7 +405,7 @@
         },
         "datePublished": "2026-06-28",
         "dateModified": "2026-06-28",
-        "mainEntityOfPage": "https://localclaw.io/blog/ornith-1-0-local-ai.html",
+        "mainEntityOfPage": "https://localclaw.io/blog/ornith-1-0-local-ai",
         "image": "https://localclaw.io/images/og-cover.png"
     }
     </script>

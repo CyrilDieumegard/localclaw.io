@@ -8,10 +8,10 @@
     <meta name="keywords" content="Bonsai 27B, Bonsai 27B local, PrismML Bonsai, Bonsai 27B GGUF, Bonsai 27B MLX, 1-bit LLM, ternary LLM, Qwen 3.6 27B, run Bonsai locally, local AI 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://localclaw.io/blog/bonsai-27b-local-ai.html">
+    <link rel="canonical" href="https://localclaw.io/blog/bonsai-27b-local-ai">
 
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://localclaw.io/blog/bonsai-27b-local-ai.html">
+    <meta property="og:url" content="https://localclaw.io/blog/bonsai-27b-local-ai">
     <meta property="og:title" content="Bonsai 27B: Can a 27B Local AI Model Really Fit in 3.9GB?">
     <meta property="og:description" content="The practical guide to PrismML's 1-bit and ternary Bonsai 27B releases, including real memory requirements and runtime caveats.">
     <meta property="og:site_name" content="LocalClaw">
@@ -70,20 +70,20 @@
     <nav class="border-b border-claw-border/50 bg-claw-bg/90 backdrop-blur-xl sticky top-0 z-50" role="navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="../index.html" class="flex items-center gap-3 group">
+                <a href="/" class="flex items-center gap-3 group">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]">
                         <img src="../images/crab-logo.png" alt="LocalClaw logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                     <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
                 </a>
                 <div class="hidden sm:flex items-center gap-3 sm:gap-6">
-                    <a href="../index.html" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Home</a>
-                    <a href="../llm-list.html" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">LLM</a>
-                    <a href="../tts-list.html" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">TTS</a>
-                    <a href="../computers.html" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Computers</a>
-                    <a href="../ram-gpu-for-local-ai.html" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">RAM/GPU</a>
+                    <a href="/" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Home</a>
+                    <a href="/llm-list" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">LLM</a>
+                    <a href="/tts-list" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">TTS</a>
+                    <a href="/computers" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Computers</a>
+                    <a href="/ram-gpu-for-local-ai" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">RAM/GPU</a>
                     <span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span>
-                    <a href="../pricing.html" class="text-sm font-mono text-claw-primary hover:text-white uppercase tracking-wider">Pricing</a>
+                    <a href="/pricing" class="text-sm font-mono text-claw-primary hover:text-white uppercase tracking-wider">Pricing</a>
                 </div>
                 <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white" aria-label="Open menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -93,14 +93,14 @@
     </nav>
     <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden">
         <div class="flex flex-col items-center justify-center h-full gap-1">
-            <a href="../index.html" class="px-4 py-3 text-sm text-claw-muted">Home</a><a href="../llm-list.html" class="px-4 py-3 text-sm text-claw-muted">LLM</a><a href="../tts-list.html" class="px-4 py-3 text-sm text-claw-muted">TTS</a><a href="../computers.html" class="px-4 py-3 text-sm text-claw-muted">Computers</a><a href="../ram-gpu-for-local-ai.html" class="px-4 py-3 text-sm text-claw-muted">RAM/GPU</a><a href="index.html" class="px-4 py-3 text-sm text-claw-primary">Blog</a><a href="../pricing.html" class="px-4 py-3 text-sm text-claw-muted">Pricing</a>
+            <a href="/" class="px-4 py-3 text-sm text-claw-muted">Home</a><a href="/llm-list" class="px-4 py-3 text-sm text-claw-muted">LLM</a><a href="/tts-list" class="px-4 py-3 text-sm text-claw-muted">TTS</a><a href="/computers" class="px-4 py-3 text-sm text-claw-muted">Computers</a><a href="/ram-gpu-for-local-ai" class="px-4 py-3 text-sm text-claw-muted">RAM/GPU</a><a href="/blog/" class="px-4 py-3 text-sm text-claw-primary">Blog</a><a href="/pricing" class="px-4 py-3 text-sm text-claw-muted">Pricing</a>
             <button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 text-sm text-claw-muted">Close</button>
         </div>
     </div>
 
     <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
         <div class="max-w-5xl mx-auto px-4 relative z-10">
-            <a href="index.html" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary mb-8"><span aria-hidden="true">&larr;</span> Blog</a>
+            <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary mb-8"><span aria-hidden="true">&larr;</span> Blog</a>
             <div class="flex flex-wrap items-center gap-3 mb-6">
                 <span class="px-3 py-1 rounded-full bg-claw-primary/10 text-claw-primary text-xs font-bold uppercase tracking-wide border border-claw-primary/25">Model Review</span>
                 <span class="px-3 py-1 rounded-full bg-white/5 text-claw-muted text-xs font-bold uppercase tracking-wide border border-white/10">Bonsai 27B</span>
@@ -187,8 +187,8 @@
                     <p>Use it if you enjoy testing new runtimes, want 27B-class behavior on 16GB hardware, or need a private agent with long context. Wait if you need a zero-friction LM Studio workflow today. This is an important release, but the runtime ecosystem is still catching up to the weights.</p>
 
                     <div class="mt-10 flex flex-col sm:flex-row gap-3">
-                        <a href="../models/bonsai-27b.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">View Bonsai 27B in LocalClaw</a>
-                        <a href="../llm-list.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Compare all local LLMs</a>
+                        <a href="/models/bonsai-27b" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">View Bonsai 27B in LocalClaw</a>
+                        <a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Compare all local LLMs</a>
                     </div>
 
                     <h2>Sources</h2>
@@ -203,19 +203,19 @@
         </div>
     </main>
 
-    <footer class="border-t border-claw-border/50 py-8 mt-auto"><div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p><div class="flex gap-4 text-xs sm:text-sm text-claw-muted"><a href="../llm-list.html" class="hover:text-white">LLM List</a><a href="../tts-list.html" class="hover:text-white">TTS List</a><a href="../pricing.html" class="hover:text-white">Pricing</a></div></div></footer>
+    <footer class="border-t border-claw-border/50 py-8 mt-auto"><div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p><div class="flex gap-4 text-xs sm:text-sm text-claw-muted"><a href="/llm-list" class="hover:text-white">LLM List</a><a href="/tts-list" class="hover:text-white">TTS List</a><a href="/pricing" class="hover:text-white">Pricing</a></div></div></footer>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Bonsai 27B: Can a 27B Local AI Model Really Fit in 3.9GB?",
         "description": "A practical guide to PrismML Bonsai 27B, its official 1-bit and ternary local builds, hardware requirements, speed, quality and runtime support.",
-        "url": "https://localclaw.io/blog/bonsai-27b-local-ai.html",
+        "url": "https://localclaw.io/blog/bonsai-27b-local-ai",
         "datePublished": "2026-07-19",
         "dateModified": "2026-07-19",
         "author": { "@type": "Organization", "name": "LocalClaw" },
         "publisher": { "@type": "Organization", "name": "LocalClaw", "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png?v=20260211g" } },
-        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://localclaw.io/blog/bonsai-27b-local-ai.html" }
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://localclaw.io/blog/bonsai-27b-local-ai" }
     }
     </script>
     <script src="../js/growth-paths-20260720b.js?v=20260723a"></script>

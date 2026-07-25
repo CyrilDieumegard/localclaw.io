@@ -1,77 +1,42 @@
 # Canonicalize: /index.html → / (301)
-/index.html              /              301!
+/index.html              /              301
 
 # Canonicalize blog root: /blog/index.html → /blog/ (301)
-/blog/index.html         /blog/         301!
+/blog/index.html         /blog/         301
 
-# Prevent deep duplicate paths (e.g. /blog/blog/...) reported by SEO crawlers
-/blog/blog/*             /blog/:splat   301!
-
-# Prevent crawler-generated nested silo duplicates from serving the homepage as 200.
-# These paths are invalid; send them to the nearest canonical silo root.
-/blog/models/*           /models/       301!
-/blog/tts/*              /tts/          301!
-/blog/ram/*              /ram/          301!
-/blog/hardware/*         /hardware/     301!
-/blog/use-case/*         /use-case/     301!
-/models/blog/*           /blog/         301!
-/models/models/*         /models/       301!
-/models/tts/*            /tts/          301!
-/models/ram/*            /ram/          301!
-/models/hardware/*       /hardware/     301!
-/models/use-case/*       /use-case/     301!
-/tts/blog/*              /blog/         301!
-/tts/models/*            /models/       301!
-/tts/tts/*               /tts/          301!
-/tts/ram/*               /ram/          301!
-/tts/hardware/*          /hardware/     301!
-/tts/use-case/*          /use-case/     301!
-/ram/blog/*              /blog/         301!
-/ram/models/*            /models/       301!
-/ram/tts/*               /tts/          301!
-/ram/ram/*               /ram/          301!
-/ram/hardware/*          /hardware/     301!
-/ram/use-case/*          /use-case/     301!
-/hardware/blog/*         /blog/         301!
-/hardware/models/*       /models/       301!
-/hardware/tts/*          /tts/          301!
-/hardware/ram/*          /ram/          301!
-/hardware/hardware/*     /hardware/     301!
-/hardware/use-case/*     /use-case/     301!
-/use-case/blog/*         /blog/         301!
-/use-case/models/*       /models/       301!
-/use-case/tts/*          /tts/          301!
-/use-case/ram/*          /ram/          301!
-/use-case/hardware/*     /hardware/     301!
-/use-case/use-case/*     /use-case/     301!
+# Invalid nested silo paths are intentionally not redirected. Cloudflare serves
+# 404.html with a real 404 status, so crawlers can retire those obsolete URLs.
 
 # Legacy typo redirect (old internal link referenced a non-existent file)
-/blog/best-local-llms-2026.html   /blog/best-local-ai-models-2026.html   301!
+/blog/best-local-llms-2026.html   /blog/best-local-ai-models-2026   301
 
 # Any stray attempt to reach root pages from /blog/ -> send to the real page
-/blog/llm-list.html      /llm-list.html    301!
-/blog/llm-detail.html    /llm-list.html    301!
-/blog/pricing.html       /pricing.html     301!
-/blog/download.html      /download.html    301!
-/blog/new.html           /new.html         301!
-/blog/computers.html     /computers.html   301!
-/blog/tts-list.html      /tts-list.html    301!
+/blog/llm-list.html      /llm-list    301
+/blog/llm-detail.html    /llm-list    301
+/blog/pricing.html       /pricing     301
+/blog/download.html      /download    301
+/blog/new.html           /new         301
+/blog/computers.html     /computers   301
+/blog/tts-list.html      /tts-list    301
 
 # Browser fallback favicon request — prevents noisy /favicon.ico 404s in console/crawlers
-/favicon.ico             /images/favicon.png?v=20260211g   301!
+/favicon.ico             /images/favicon.png?v=20260211g   301
 
-/changelog/localclaw-installer-v1.0.168  /changelog/localclaw-installer-v1.0.168.html  200!
+/changelog/localclaw-installer-v1.0.168  /changelog/localclaw-installer-v1.0.168.html  200
 
-/models/agents-a1       /models/agents-a1.html   200!
-/models/agents-a1-4b    /models/agents-a1-4b.html   200!
-/models/gpt-oss-120b    /models/gpt-oss-120b.html   200!
-/models/hy3             /models/hy3.html   200!
-/models/laguna-s-2.1    /models/laguna-s-2.1.html   200!
+/models/agents-a1       /models/agents-a1.html   200
+/models/agents-a1-4b    /models/agents-a1-4b.html   200
+/models/gpt-oss-120b    /models/gpt-oss-120b.html   200
+/models/hy3             /models/hy3.html   200
+/models/laguna-s-2.1    /models/laguna-s-2.1.html   200
 
-/models                 /models/         301!
+/models                 /models/         301
 
-/ram                    /ram/            301!
-/ram-gpu                /ram-gpu-for-local-ai.html  301!
-/hardware               /hardware/       301!
-/use-case              /use-case/      301!
-/tts                   /tts/           301!
+/ram                    /ram/            301
+/ram-gpu                /ram-gpu-for-local-ai  301
+/hardware               /hardware/       301
+/use-case              /use-case/      301
+/tts                   /tts/           301
+
+# Keep wildcard rules last so exact legacy redirects are evaluated first.
+/blog/blog/*             /blog/:splat   301
