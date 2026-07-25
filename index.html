@@ -445,6 +445,12 @@
     <!-- ============================================================
          TRACKING: DataFast Analytics
          ============================================================ -->
+    <script id="datafast-queue">
+        window.datafast = window.datafast || function() {
+            window.datafast.q = window.datafast.q || [];
+            window.datafast.q.push(arguments);
+        };
+    </script>
     <script
         defer
         data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"
