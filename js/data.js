@@ -1,5 +1,7 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
+// Updated July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
+// Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
+// Previous: July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
 // Previous: July 19, 2026 — Added Bonsai 27B — 209 LLM total
 // Previous: July 16, 2026 — Added GPT-OSS 120B — 207 LLM total
 // Previous: July 15, 2026 — Added Agents-A1 — 206 LLM total
@@ -186,6 +188,25 @@ const APP_DATA = {
             hf_repo: 'ggerganov/gpt-oss-120b-GGUF',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
             released: '2025-08',
+            isNew: true
+        },
+        {
+            id: 'nanbeige4.2-3b',
+            name: 'Nanbeige4.2 3B',
+            family: 'nanbeige',
+            params: '4B (3B non-embedding)',
+            size_gb: 2.2,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'light', 'long-context', 'tool-calling'],
+            description: 'Nanbeige compact Apache 2.0 agentic model with 256K context, strong official code-agent and office-agent claims, and practical Q4_K_M GGUF/Ollama paths through Nanbeige-compatible llama.cpp runtimes.',
+            search_term: 'nanbeige4.2-3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'owao/Nanbeige4.2-3B-GGUF',
+            source_url: 'https://huggingface.co/Nanbeige/Nanbeige4.2-3B',
+            custom_runtime: 'Nanbeige llama.cpp / Ollama fork',
+            runtime_url: 'https://huggingface.co/Nanbeige/Nanbeige4.2-3B#llamacpp',
+            benchmarks: { speed: 9, quality: 7, coding: 8, reasoning: 8 },
+            released: '2026-07',
             isNew: true
         },
         {

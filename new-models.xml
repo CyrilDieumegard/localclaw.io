@@ -9,6 +9,14 @@
     <lastBuildDate>Wed, 01 Jul 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
+      <title>Nanbeige4.2 3B</title>
+      <link>https://localclaw.io/models/nanbeige4.2-3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/nanbeige4.2-3b</guid>
+      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
+      <category>nanbeige</category>
+      <description>Nanbeige compact Apache 2.0 agentic model with 256K context, strong official code-agent and office-agent claims, and practical Q4_K_M GGUF/Ollama paths through Nanbeige-compatible llama.cpp runtimes. 4B (3B non-embedding) · 8 GB minimum RAM · Q4_K_M · nanbeige.</description>
+    </item>
+    <item>
       <title>Agents-A1 4B</title>
       <link>https://localclaw.io/models/agents-a1-4b</link>
       <guid isPermaLink="true">https://localclaw.io/models/agents-a1-4b</guid>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
       <category>qwen</category>
       <description>Alibaba&apos;s hybrid-thinking micro-flagship. Toggles between instant answers and deep chain-of-thought reasoning on demand. 128K context, 29 languages, outperforms Qwen3-8B on reasoning benchmarks. Apache 2.0. 6.7B · 8 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>Qwen 3.6 (27B)</title>
-      <link>https://localclaw.io/models/qwen3.6-27b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-27b</guid>
-      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Qwen 3.6 flagship dense model. Hybrid thinking mode with /think toggle for deep chain-of-thought reasoning. 128K context, 29+ languages. Significantly outperforms Qwen3.5-27B on reasoning, coding &amp; math. Apache 2.0. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
     </item>
   </channel>
 </rss>
