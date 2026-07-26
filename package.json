@@ -10,6 +10,6 @@
     "seo:check": "node scripts/check-seo.js"
   },
   "dependencies": {
-    "@datafast/ai-crawl": "^1.0.5"
+    "@datafast/ai-crawl": "^1.0.9"
   }
 }
