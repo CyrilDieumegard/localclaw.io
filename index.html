@@ -561,7 +561,7 @@
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
                             <a href="/pricing" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <a href="#model-finder" data-lc-path="finder" data-fast-goal="recommender_start" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
+                            <a href="#model-finder" data-lc-path="finder" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided', 'home_hero');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
                             <a href="#built-with-localclaw" data-fast-goal="case_study_open" data-fast-goal-source="home_hero" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Watch the game demo ↓</a>
                         </div>
                         <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
@@ -780,7 +780,7 @@
                             <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
                             <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
                         </div>
-                        <a href="#model-finder" data-fast-goal="recommender_start" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided');" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
+                        <a href="#model-finder" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided', 'home_fit_engine');" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
                     </div>
                     <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                         <article class="rounded-xl border border-white/10 bg-black/35 p-4">
@@ -985,8 +985,8 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260726b"></script>
-    <script src="js/app-20260726a.js?v=20260726a"></script>
-    <script src="js/growth-paths-20260720b.js?v=20260723a"></script>
+    <script src="js/app-20260727a.js?v=20260727a"></script>
+    <script src="js/growth-paths-20260727a.js?v=20260727a"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
     <script>
