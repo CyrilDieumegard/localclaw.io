@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Gemma 4 Suite Deep Dive: E2B, E4B, 26B-A4B & 31B — Google's Best Local Models | LocalClaw</title>
-    <meta name="description" content="Complete guide to the Gemma 4 model family: hardware requirements, benchmarks, native multimodal vision, and how to run Gemma 4 locally with LM Studio. Updated April 2026.">
+    <meta name="description" content="Updated July 2026 guide to the complete Gemma 4 family: E2B, E4B, 12B, 26B-A4B and 31B, with official Q4 memory estimates and local hardware guidance.">
     <meta name="keywords" content="Gemma 4, Gemma4-E2B, Gemma4-E4B, Gemma4-26B-A4B, Gemma4-31B, Google Gemma, local LLM, MoE model, multimodal AI, LM Studio, open source LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow">
@@ -18,6 +18,7 @@
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="article:published_time" content="2026-04-04">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Model Reviews">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -243,7 +244,7 @@
             <span class="text-claw-muted/40">·</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Model Review</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
-            <span class="text-xs text-claw-muted/60">April 2026</span>
+            <span class="text-xs text-claw-muted/60">Updated July 28, 2026</span>
             <span class="new-badge-inline">⭐ New</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
@@ -255,9 +256,9 @@
         </p>
         <div class="flex flex-wrap gap-2">
             <span class="text-xs bg-green-500/10 border border-green-500/30 text-green-300 px-3 py-1 rounded-full font-mono">Native Vision</span>
-            <span class="text-xs bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 px-3 py-1 rounded-full font-mono">128K Context</span>
+            <span class="text-xs bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 px-3 py-1 rounded-full font-mono">Model-Specific Context</span>
             <span class="text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1 rounded-full font-mono">MoE Architecture</span>
-            <span class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1 rounded-full font-mono">Gemma ToU</span>
+            <span class="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1 rounded-full font-mono">Apache 2.0</span>
             <span class="text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 px-3 py-1 rounded-full font-mono">Google DeepMind</span>
         </div>
     </header>
@@ -269,410 +270,69 @@
         <div class="highlight-box rounded-xl p-6 mb-10">
             <h2 class="text-lg font-display font-bold text-white mb-3 mt-0" style="margin-top:0">⚡ TL;DR — What You Need to Know</h2>
             <ul class="tldr-list text-sm space-y-1.5" style="font-size:1rem;">
-                <li>🖼️ <strong>All 4 models are natively multimodal</strong> — text + vision built-in, no separate adapter needed</li>
+                <li>🖼️ <strong>The current family spans five main sizes</strong> — E2B, E4B, 12B, 26B-A4B and 31B</li>
                 <li>⚡ <strong>E2B / E4B are MoE</strong> — only 2B / 4B active params, runs on any laptop or 8GB GPU</li>
-                <li>🧠 <strong>128K context</strong> across the entire family — true long-document support everywhere</li>
-                <li>🏔️ <strong>Gemma4-31B</strong> is the flagship dense model, rivals GPT-4o on several benchmarks</li>
+                <li>🧠 <strong>Context and memory differ by checkpoint</strong> — use the exact official model card instead of one family-wide number</li>
+                <li>🏔️ <strong>Gemma4-31B</strong> is the largest dense local target in the current family</li>
                 <li>🖼️ <strong>SigLIP 2 vision</strong> — up to 896×896px per tile, 16 tiles max per prompt</li>
-                <li>📜 <strong>Gemma ToU</strong> — free for commercial use up to 50M MAU, permissive for research</li>
+                <li>📜 <strong>Apache 2.0 weights</strong> — verify the exact checkpoint card before redistribution or commercial deployment</li>
             </ul>
         </div>
 
         <article class="prose">
-
-            <h2>What Is Gemma 4?</h2>
-            <p>
-                Announced in April 2026, <strong>Gemma 4</strong> is Google DeepMind's fourth generation of open-weights language models. Building on Gemma 3 and the PaliGemma vision experiments, Gemma 4 fully unifies language and vision into a single family — every model natively processes both text and images.
-            </p>
-            <p>
-                Architecturally, Google doubled down on two innovations from Gemma 3: <strong>interleaved local/global attention</strong> (enabling the 128K context at manageable memory cost) and <strong>grouped-query attention (GQA)</strong> for faster inference. The two smaller models (E2B, E4B) additionally use a <strong>Mixture-of-Experts (MoE)</strong> design inspired by Gemini Flash.
-            </p>
-
-            <h2>Architecture: Two Design Paradigms</h2>
-            <p>The Gemma 4 family is split between MoE-based "E-series" models and denser larger models:</p>
-
-            <div class="moe-diagram p-6 rounded-xl mb-6">
-                <h4 class="text-white font-bold mb-3 mt-0" style="margin-top:0;">MoE E-Series vs Dense — Visual Comparison</h4>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div class="moe-card rounded-lg p-4">
-                        <div class="text-green-400 font-bold mb-2">⚡ E-Series (MoE) — E2B & E4B</div>
-                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">~16B / ~30B total params, only 2B / 4B active per token. Same knowledge, fraction of the compute. Runs on any 8GB device.</p>
-                    </div>
-                    <div class="moe-card rounded-lg p-4">
-                        <div class="text-cyan-400 font-bold mb-2">🏔️ Dense Series — 26B-A4B & 31B</div>
-                        <p class="text-claw-muted mb-0" style="font-size:0.9rem;">Full dense or hybrid-dense models. 26B with selective MoE layers, 31B fully dense. Maximum quality for workstation-class hardware.</p>
-                    </div>
-                </div>
+            <div class="highlight-box rounded-xl p-5 mb-8">
+                <p class="!mb-0"><strong>Updated July 28, 2026:</strong> this guide now includes Gemma 4 12B and the official QAT/Q4 memory guidance. Earlier copy treated the launch family as four models and used one context figure for every checkpoint; both have been corrected.</p>
             </div>
 
-            <!-- Section 2: Model Lineup -->
-            <h2>The Gemma 4 Lineup — All 4 Models</h2>
-            <p>Every Gemma 4 model shares the same SigLIP 2 vision encoder and 128K context window. Here's how they differ:</p>
+            <h2>What is Gemma 4?</h2>
+            <p>Gemma 4 is Google's current open-weight multimodal family for text-and-image workloads. It covers edge-size Mixture-of-Experts models, a practical 12B desktop checkpoint, a sparse 26B-A4B option and a dense 31B flagship.</p>
+            <p>The useful local-AI question is not “which Gemma is best?” but “which Gemma leaves enough memory for context, image input and the runtime on my machine?”</p>
 
-            <!-- Model cards -->
-            <div class="not-prose space-y-4 mb-8">
-
-                <!-- E2B -->
-                <div class="model-card">
-                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full font-mono font-bold">MoE</span>
-                                <span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Edge Champion</span>
-                            </div>
-                            <h3 class="text-xl font-display font-bold text-white mb-1">Gemma4-E2B</h3>
-                            <p class="text-claw-muted text-sm">~16B total · 2B active · ~2.5GB VRAM Q4</p>
-                        </div>
-                        <a href="/models/gemma4-e2b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Speed</div>
-                            <div class="text-emerald-400 font-bold text-lg">10/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-emerald-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Quality</div>
-                            <div class="text-blue-400 font-bold text-lg">6/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:60%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Vision</div>
-                            <div class="text-cyan-400 font-bold text-lg">✓</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-cyan-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">MMLU</div>
-                            <div class="text-orange-400 font-bold text-lg">72.1</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:72%"></div></div>
-                        </div>
-                    </div>
-                    <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 text-sm text-emerald-300">
-                        <strong>Best for:</strong> Edge devices, CPU-only inference, phone-class SoCs. Runs under 3GB RAM with Q4 quantization. Best multimodal model at the 2B class.
-                    </div>
-                </div>
-
-                <!-- E4B -->
-                <div class="model-card">
-                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-0.5 rounded-full font-mono font-bold">MoE</span>
-                                <span class="text-xs bg-orange-500/20 text-orange-300 border border-orange-500/30 px-2 py-0.5 rounded-full font-mono font-bold">⭐ Community Favourite</span>
-                            </div>
-                            <h3 class="text-xl font-display font-bold text-white mb-1">Gemma4-E4B</h3>
-                            <p class="text-claw-muted text-sm">~30B total · 4B active · ~4.8GB VRAM Q4</p>
-                        </div>
-                        <a href="/models/gemma4-e4b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Speed</div>
-                            <div class="text-emerald-400 font-bold text-lg">9/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-emerald-400" style="width:90%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Quality</div>
-                            <div class="text-blue-400 font-bold text-lg">7/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:70%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Vision</div>
-                            <div class="text-cyan-400 font-bold text-lg">✓</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-cyan-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">MMLU</div>
-                            <div class="text-orange-400 font-bold text-lg">79.3</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:79%"></div></div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-sm text-blue-300">
-                        <strong>Best for:</strong> Laptop / 8GB GPU (RTX 3060, M2 Pro). The sweet spot of the family. Near-7B dense quality at MoE efficiency. Ideal for daily coding, document analysis, image understanding.
-                    </div>
-                </div>
-
-                <!-- 26B-A4B -->
-                <div class="model-card">
-                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Hybrid</span>
-                                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Power User Pick</span>
-                            </div>
-                            <h3 class="text-xl font-display font-bold text-white mb-1">Gemma4-26B-A4B</h3>
-                            <p class="text-claw-muted text-sm">26B total · 4B active · ~15GB VRAM Q4</p>
-                        </div>
-                        <a href="/models/gemma4-26b-a4b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Speed</div>
-                            <div class="text-emerald-400 font-bold text-lg">7/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-emerald-400" style="width:70%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Quality</div>
-                            <div class="text-blue-400 font-bold text-lg">9/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:90%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Vision</div>
-                            <div class="text-cyan-400 font-bold text-lg">✓</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-cyan-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">MMLU</div>
-                            <div class="text-orange-400 font-bold text-lg">85.4</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:85%"></div></div>
-                        </div>
-                    </div>
-                    <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-300">
-                        <strong>Best for:</strong> Mac Studio 32GB / RTX 3090. Smarter knowledge base than E4B with same hardware requirements. Excellent reasoning + vision. Best capability-per-watt on mid-tier workstations.
-                    </div>
-                </div>
-
-                <!-- 31B -->
-                <div class="model-card border-purple-500/20" style="background: rgba(74,222,128,0.03);">
-                    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-xs bg-gradient-to-r from-green-500/30 to-cyan-500/30 text-white border border-green-500/30 px-2 py-0.5 rounded-full font-mono font-bold">🏆 FLAGSHIP</span>
-                                <span class="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-mono font-bold">Dense</span>
-                            </div>
-                            <h3 class="text-xl font-display font-bold text-white mb-1">Gemma4-31B</h3>
-                            <p class="text-claw-muted text-sm">31B dense · ~22GB VRAM Q4</p>
-                        </div>
-                        <a href="/models/gemma4-31b" class="text-xs bg-claw-primary/10 border border-claw-primary/30 text-claw-primary px-4 py-2 rounded-lg hover:bg-claw-primary/20 transition-colors font-bold whitespace-nowrap">View Details →</a>
-                    </div>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Speed</div>
-                            <div class="text-yellow-400 font-bold text-lg">5/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-yellow-400" style="width:50%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Quality</div>
-                            <div class="text-blue-400 font-bold text-lg">10/10</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-blue-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">Vision</div>
-                            <div class="text-cyan-400 font-bold text-lg">✓</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-cyan-400" style="width:100%"></div></div>
-                        </div>
-                        <div class="bg-white/5 rounded-lg p-3 text-center">
-                            <div class="text-xs text-claw-muted mb-1">MMLU</div>
-                            <div class="text-orange-400 font-bold text-lg">91.2</div>
-                            <div class="bench-bg mt-1"><div class="bench-fill bg-orange-400" style="width:91%"></div></div>
-                        </div>
-                    </div>
-                    <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-sm text-purple-300">
-                        <strong>Best for:</strong> RTX 4090 / M3 Ultra workstations. Competes with GPT-4o and Claude 3.5 Sonnet. Best open-weights model for instruction following, complex reasoning, code generation, and multimodal tasks.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 3: Hardware Table -->
-            <h2>Hardware Requirements — What Can You Run?</h2>
-            <p>Here's a clear table for each Gemma 4 model with Q4_K_M quantization:</p>
-
-            <div class="not-prose mb-8 overflow-x-auto rounded-xl border border-white/10">
+            <h2>The current Gemma 4 lineup</h2>
+            <div class="overflow-x-auto not-prose mb-8">
                 <table class="spec-table">
-                    <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Active Params</th>
-                            <th>VRAM Q4</th>
-                            <th>Recommended Hardware</th>
-                            <th>Vision</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Model</th><th>Shape</th><th>Official approximate Q4 memory*</th><th>Practical tier</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-E2B</strong></td>
-                            <td class="text-emerald-400 font-mono">2B (16B total)</td>
-                            <td>~2.5 GB</td>
-                            <td>Any device, CPU-only, phones, <strong class="text-emerald-400">Mac Mini M4 16GB ✅</strong></td>
-                            <td class="text-cyan-400">✓ Native</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-E4B</strong></td>
-                            <td class="text-blue-400 font-mono">4B (30B total)</td>
-                            <td>~4.8 GB</td>
-                            <td>M1/M2 8GB, RTX 3060 8GB, <strong class="text-emerald-400">Mac Mini M4 16GB ✅</strong></td>
-                            <td class="text-cyan-400">✓ Native</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-26B-A4B</strong></td>
-                            <td class="text-amber-400 font-mono">4B (26B total)</td>
-                            <td>~15 GB</td>
-                            <td>Mac Studio M4 Max 32GB, RTX 3090</td>
-                            <td class="text-cyan-400">✓ Native</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-31B</strong></td>
-                            <td class="text-red-400 font-mono">31B (dense)</td>
-                            <td>~22 GB</td>
-                            <td>RTX 4090 24GB, M3 Ultra, Mac Pro</td>
-                            <td class="text-cyan-400">✓ Native</td>
-                        </tr>
+                        <tr><td><a href="/models/gemma4-e2b">Gemma 4 E2B</a></td><td>2B active MoE</td><td>2.9GB</td><td>8GB systems and edge experiments</td></tr>
+                        <tr><td><a href="/models/gemma4-e4b">Gemma 4 E4B</a></td><td>4B active MoE</td><td>4.5GB</td><td>8-16GB general multimodal use</td></tr>
+                        <tr><td><a href="/models/gemma4-12b">Gemma 4 12B</a></td><td>12B dense</td><td>6.7GB</td><td>16GB local sweet spot</td></tr>
+                        <tr><td><a href="/models/gemma4-26b-a4b">Gemma 4 26B-A4B</a></td><td>26B total, 4B active MoE</td><td>14.4GB</td><td>24-32GB systems</td></tr>
+                        <tr><td><a href="/models/gemma4-31b">Gemma 4 31B</a></td><td>31B dense</td><td>17.5GB</td><td>32GB+ workstation</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p class="text-sm">*Google's published estimates include roughly 20% runtime overhead but not every possible KV-cache, image or application allocation. More context requires more memory.</p>
 
-            <div class="tip-box rounded-xl p-5 mb-6">
-                <h4 class="text-emerald-300 font-bold mt-0 mb-2">💡 Mac &amp; GPU Quick Guide</h4>
-                <ul class="text-emerald-200/80 text-sm space-y-1 mb-0" style="font-size:0.95rem;">
-                    <li><strong>MacBook Air / Pro M1-M2 8GB</strong> → Gemma4-E2B or <a href="/models/gemma4-e4b" class="text-emerald-400">E4B</a> ✅ Both run perfectly with vision</li>
-                    <li><strong>Mac Mini M4 16GB</strong> → <a href="/models/gemma4-e2b" class="text-emerald-400">Gemma4-E2B</a> &amp; <a href="/models/gemma4-e4b" class="text-emerald-400">Gemma4-E4B</a> ✅ Both are top picks — E2B at full speed, E4B at 70–90 tok/s with full vision</li>
-                    <li><strong>Mac Mini M4 Pro 24GB</strong> → Gemma4-E4B Q5_K_M or Q8_0 ✅ Maximum E4B quality, very comfortable</li>
-                    <li><strong>Mac Studio M4 Max 32GB</strong> → Gemma4-26B-A4B ✅ the sweet spot for power users</li>
-                    <li><strong>RTX 4090 / M3 Ultra</strong> → Gemma4-31B ✅ flagship quality locally</li>
-                    <li><strong>CPU-only PC</strong> → E2B runs at 3–8 tok/s on modern x86 — perfectly usable</li>
-                </ul>
-            </div>
-
-            <!-- Section 4: Vision -->
-            <h2>Native Vision — What Can It Actually Do?</h2>
-            <p>
-                Unlike previous Gemma generations that relied on separate PaliGemma checkpoints, <strong>Gemma 4 integrates vision natively</strong> via SigLIP 2. Images are processed at up to <strong>896×896px per tile</strong>, with up to 16 tiles per prompt.
-            </p>
-            <p>Practical use cases out of the box:</p>
-
-            <div class="not-prose mb-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-                        <div class="text-cyan-400 font-bold text-sm mb-2">📄 Document Analysis</div>
-                        <p class="text-claw-muted text-xs">Feed a scanned PDF page and ask questions — no OCR layer needed. Works natively on all 4 models.</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-                        <div class="text-green-400 font-bold text-sm mb-2">🐛 Code Screenshot Debug</div>
-                        <p class="text-claw-muted text-xs">Drop a screenshot of an error, Gemma 4 reads the code and identifies the bug. Works on E4B and up.</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-                        <div class="text-blue-400 font-bold text-sm mb-2">📊 Chart Reading</div>
-                        <p class="text-claw-muted text-xs">Describe trends from data visualisations — useful for business reports and research summaries.</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-xl p-4">
-                        <div class="text-purple-400 font-bold text-sm mb-2">🖼️ Multi-Image Reasoning</div>
-                        <p class="text-claw-muted text-xs">Compare two images side-by-side in the same prompt. 16-tile support = up to ~3584×3584px effective resolution.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 5: How to Run -->
-            <h2>How to Run Gemma 4 in LM Studio</h2>
-            <ol>
-                <li>Open <strong>LM Studio 0.3.8+</strong> (download at <a href="https://lmstudio.ai" target="_blank" rel="noopener">lmstudio.ai</a>)</li>
-                <li>Click the <strong>Search</strong> tab (🔍)</li>
-                <li>Type: <code>gemma4-e4b-instruct</code> (or your chosen model)</li>
-                <li>Select the <strong>Q4_K_M</strong> quantization for best quality/size balance</li>
-                <li>Click <strong>Download</strong>, then load in the <strong>Chat</strong> tab</li>
-                <li>To use vision: click the <strong>📎 attachment icon</strong> to add images to your prompt</li>
-            </ol>
-
-            <div class="not-prose mb-6">
-                <div class="bg-black/40 border border-white/10 rounded-xl p-4">
-                    <div class="text-xs text-claw-muted uppercase font-mono mb-3">Ollama — CLI</div>
-                    <code class="text-green-400 text-sm font-mono">ollama pull gemma4:e4b</code><br>
-                    <code class="text-green-400 text-sm font-mono">ollama pull gemma4:26b-a4b</code><br>
-                    <code class="text-green-400 text-sm font-mono">ollama pull gemma4:31b</code>
-                    <p class="text-claw-muted text-xs mt-2 mb-0">Requires Ollama 0.5.3+ for vision support. Add <code class="text-green-400">--img /path/to/image.png</code> for multimodal queries.</p>
-                </div>
-            </div>
-
-            <div class="warning-box rounded-xl p-5 mb-6">
-                <h4 class="text-amber-300 font-bold mt-0 mb-2">⚠️ Community GGUF Availability</h4>
-                <p class="text-amber-200/80 text-sm mb-0">
-                    At launch, official GGUFs are available for E2B and E4B from Bartowski and LM Studio's team. The 26B-A4B and 31B GGUFs are community-contributed. Always verify the sha256 hash before loading. Use <strong>Q4_K_M</strong> for the best quality/size trade-off.
-                </p>
-            </div>
-
-            <!-- Section 6: Comparison -->
-            <h2>Gemma 4 vs. The Competition</h2>
-
-            <div class="not-prose overflow-x-auto rounded-xl border border-white/10 mb-8">
-                <table class="spec-table">
-                    <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Active Params</th>
-                            <th>MMLU</th>
-                            <th>HumanEval</th>
-                            <th>Context</th>
-                            <th>Vision</th>
-                            <th>License</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-E4B</strong></td>
-                            <td class="text-emerald-400">4B active</td>
-                            <td class="text-emerald-400 font-bold">79.3</td>
-                            <td class="text-emerald-400 font-bold">75.8</td>
-                            <td>128K</td>
-                            <td class="text-cyan-400">✓</td>
-                            <td>Gemma ToU</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Qwen3-8B</strong></td>
-                            <td>8B</td>
-                            <td>77.4</td>
-                            <td>74.2</td>
-                            <td>128K</td>
-                            <td class="text-claw-muted">✗</td>
-                            <td>Apache 2.0</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Llama 4 Scout</strong></td>
-                            <td>5B active</td>
-                            <td>76.8</td>
-                            <td>71.0</td>
-                            <td>10M</td>
-                            <td class="text-cyan-400">✓</td>
-                            <td>Llama 4 ToU</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Gemma4-31B</strong></td>
-                            <td class="text-blue-400">31B dense</td>
-                            <td class="text-emerald-400 font-bold">91.2</td>
-                            <td class="text-emerald-400 font-bold">90.4</td>
-                            <td>128K</td>
-                            <td class="text-cyan-400">✓</td>
-                            <td>Gemma ToU</td>
-                        </tr>
-                        <tr>
-                            <td><strong class="text-white">Qwen3-32B</strong></td>
-                            <td>32B</td>
-                            <td>90.1</td>
-                            <td>88.5</td>
-                            <td>128K</td>
-                            <td class="text-claw-muted">✗</td>
-                            <td>Apache 2.0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h2>Verdict — Which Gemma 4 Should You Download?</h2>
+            <h2>Which Gemma 4 should you download?</h2>
             <ul>
-                <li><strong>MacBook Air / any 8GB device → Gemma4-E4B.</strong> The everyday workhorse. Runs on hardware you already own, handles images, delivers quality unthinkable at the 4B class a year ago.</li>
-                <li><strong>Mac Mini M4 16GB → Gemma4-E2B &amp; Gemma4-E4B.</strong> Both are top picks for this machine. E2B blazes at full speed, E4B runs at 70–90 tok/s with complete multimodal vision. You can even load both in LM Studio and switch between them.</li>
-                <li><strong>You want maximum vision quality on a laptop → Gemma4-E4B.</strong> Q4_K_M on M1/M2 8GB, with full multimodal support at 75+ tok/s.</li>
-                <li><strong>Mac Studio 32GB / RTX 3090 → Gemma4-26B-A4B.</strong> Same VRAM footprint as E4B but draws on a 26B knowledge base. Best capability-per-watt on mid-tier workstations.</li>
-                <li><strong>RTX 4090 / M3 Ultra → Gemma4-31B.</strong> Near-GPT-4o quality with complete privacy. The most capable open-weights model for multimodal tasks as of April 2026.</li>
-                <li><strong>Edge / embedded → Gemma4-E2B.</strong> Full vision capability in under 3GB RAM. Runs on a Raspberry Pi 5 or phone SoC.</li>
+                <li><strong>8GB:</strong> start with E2B; try E4B only with conservative context and enough free memory.</li>
+                <li><strong>16GB:</strong> Gemma 4 12B Q4 is the most interesting balance of capability and footprint.</li>
+                <li><strong>24-32GB:</strong> compare 26B-A4B against 12B at higher precision or longer context.</li>
+                <li><strong>32GB+:</strong> 31B becomes practical, but context and image workloads still need headroom.</li>
             </ul>
 
-            <div class="highlight-box rounded-xl p-6 mt-8">
-                <h4 class="text-white font-bold mt-0 mb-2">🦀 Find Your Perfect Gemma 4 Model</h4>
-                <p class="text-claw-muted text-sm mb-3">Not sure which Gemma 4 to pick? Use LocalClaw's model finder — enter your RAM and get a personalized recommendation in 30 seconds.</p>
-                <a href="/" class="inline-block bg-claw-primary hover:bg-red-500 px-5 py-2 rounded-lg font-bold text-sm transition-colors" style="color:#ffffff !important;">Use Model Finder →</a>
-            </div>
+            <h2>QAT, GGUF and local runtimes</h2>
+            <p>Google publishes quantization-aware trained Q4 artifacts for the family. QAT can preserve more quality than converting a floating-point checkpoint after training, but format still matters: a Google QAT release, a GGUF build and an MLX conversion are different artifacts.</p>
+            <p>LM Studio, llama.cpp-derived runtimes and MLX can all be relevant depending on the checkpoint. Match the model format to the runtime rather than downloading the largest file and assuming every app can load it.</p>
 
+            <h2>Multi-Token Prediction support</h2>
+            <p>Gemma 4 also has matching MTP drafters for speculative decoding. LM Studio moved MTP support to stable in version 0.4.14. A drafter can improve generation speed without changing the target model's output distribution, but the real gain depends on acceptance rate, context and hardware.</p>
+            <p><a href="/blog/gemma4-mtp-drafters">Read the full Gemma 4 MTP guide</a> before enabling it on a production workflow.</p>
+
+            <h2>Multimodal use</h2>
+            <p>Gemma 4 is designed for unified text and image input. That makes it useful for screenshots, document pages, UI inspection and private visual analysis. Image resolution, tiling and maximum context vary by model and runtime, so use the exact checkpoint card for production limits.</p>
+
+            <h2>LocalClaw verdict</h2>
+            <p><strong>Gemma 4 12B is the family sweet spot for most 16GB and 32GB users.</strong> E2B/E4B win on speed and footprint, 26B-A4B offers an interesting sparse step up, and 31B is the workstation choice. The family is unusually coherent, but no single memory or speed number applies to every checkpoint.</p>
+
+            <h2>Official sources</h2>
+            <ul>
+                <li><a href="https://ai.google.dev/gemma/docs/core" rel="nofollow noopener" target="_blank">Google Gemma core documentation</a></li>
+                <li><a href="https://ai.google.dev/gemma/docs/core/model_card_4" rel="nofollow noopener" target="_blank">Official Gemma 4 model card</a></li>
+                <li><a href="https://ai.google.dev/gemma/docs/get_started" rel="nofollow noopener" target="_blank">Official Gemma getting-started guide and memory estimates</a></li>
+                <li><a href="https://lmstudio.ai/changelog" rel="nofollow noopener" target="_blank">LM Studio changelog</a></li>
+            </ul>
         </article>
-
         <!-- Browse CTA -->
         <div id="browse-cta" class="mt-12 p-6 bg-claw-surface/50 border border-white/10 rounded-2xl text-center">
             <h3 class="cta-title font-display font-bold text-white text-xl mb-2">Browse All Gemma 4 Models</h3>
@@ -727,7 +387,7 @@
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
         "datePublished": "2026-04-04",
-        "dateModified": "2026-04-04",
+        "dateModified": "2026-07-28",
         "url": "https://localclaw.io/blog/gemma4-suite-deep-dive",
         "keywords": ["Gemma 4", "Gemma4-E2B", "Gemma4-E4B", "local LLM", "multimodal", "LM Studio", "Google DeepMind"]
     }

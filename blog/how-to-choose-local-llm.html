@@ -23,7 +23,7 @@
     <meta property="og:description" content="RAM, VRAM, quantization, use cases: discover how to select the perfect open-source model for your setup.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="article:published_time" content="2026-02-08">
-    <meta property="article:modified_time" content="2026-02-08">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Guides">
     <meta property="article:tag" content="Local LLM, Guide, Configuration, 2026">
 
@@ -260,7 +260,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span id="read-time">8 min read</span>
                 </span>
-                <span class="text-claw-muted text-sm">February 8, 2026</span>
+                <span class="text-claw-muted text-sm">Updated July 28, 2026</span>
             </div>
 
             <!-- Title -->
@@ -326,34 +326,34 @@
                         <tr>
                             <td><strong>4-6 GB</strong></td>
                             <td>3-4B parameters</td>
-                            <td>Phi-4 Mini, Gemma 3 1B, Qwen 3 4B (Q4)</td>
+                            <td>Nanbeige4.2 3B, Phi-4 Mini, Qwen 3 4B (Q4)</td>
                         </tr>
                         <tr>
                             <td><strong>8 GB</strong></td>
                             <td>7-8B parameters</td>
-                            <td>Llama 3.3 8B, Qwen 3 8B, GLM 4.7 Flash, Mistral 7B</td>
+                            <td>Qwen 3 8B, LFM2.5 8B-A1B, Ministral 3 8B, Gemma4 E4B</td>
                         </tr>
                         <tr>
                             <td><strong>16 GB</strong></td>
                             <td>13-14B parameters</td>
-                            <td>Qwen 3 14B, GLM 4.5 Air, Step 3.5 Flash, DeepSeek 14B</td>
+                            <td>Gemma 4 12B, Ministral 3 14B, Qwen 3 14B, DeepSeek R1 Distill 14B</td>
                         </tr>
                         <tr>
                             <td><strong>32 GB+</strong></td>
-                            <td>30-70B parameters</td>
-                            <td>Qwen 3 32B, DeepSeek R1 32B, GLM 4.7, Kimi K2.5</td>
+                            <td>Up to roughly 27-35B at Q4</td>
+                            <td>Qwen 3.6 27B, Qwen 3.6 35B-A3B, Bonsai 27B, DeepSeek R1 Distill 32B</td>
                         </tr>
                         <tr>
                             <td><strong>64 GB+</strong></td>
-                            <td>70B+ parameters</td>
-                            <td>DeepSeek V3.2, Trinity Large, Llama 3.3 70B (Q8), Qwen 3 32B</td>
+                            <td>70B Q4 class or smaller models at higher precision</td>
+                            <td>Llama 3.3 70B Q4, Qwen 3 32B at higher precision, large-context 27-35B models</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="highlight-box rounded-xl p-4 my-6">
-                <p class="!text-white !mb-0"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Apple Silicon Tip:</strong> On M1-M4 Macs, all RAM is "unified" and accessible for LLMs. A 36GB MacBook Pro M3 can comfortably run 32B models, which would be impossible on a Windows PC with an RTX 4090 (24GB VRAM max).</p>
+                <p class="!text-white !mb-0"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> Apple Silicon Tip:</strong> Unified memory lets the CPU and GPU share one pool, which makes 27-32B Q4 models practical on many 36GB Macs. NVIDIA systems can also offload layers between VRAM and system RAM, but performance drops when the model no longer fits in VRAM.</p>
             </div>
 
             <h3>2. Quantization (Q4, Q5, Q8)</h3>
@@ -430,8 +430,8 @@
             </p>
             <ul>
                 <li><strong>Recommended #1:</strong> <strong>Qwen 3 8B Q4_K_M</strong> — Best quality/weight ratio for general chat</li>
-                <li><strong>Recommended #2:</strong> <strong>Llama 3.3 8B Q5_K_M</strong> — Excellent in English, very good reasoning</li>
-                <li><strong>Alternative:</strong> <strong>Phi-4 Mini 3.8B Q8</strong> — If you prioritize speed and need an ultra-lightweight model</li>
+                <li><strong>Recommended #2:</strong> <strong>LFM2.5 8B-A1B</strong> — Efficient MoE option for fast local responses</li>
+                <li><strong>Alternative:</strong> <strong>Nanbeige4.2 3B Q4</strong> — If you prioritize speed and need an ultra-lightweight model</li>
             </ul>
 
             <h3><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> Powerful desktop PC (16GB RAM + RTX 3060/4060)</h3>
@@ -557,7 +557,7 @@
             }
         },
         "datePublished": "2026-02-08",
-        "dateModified": "2026-02-08",
+        "dateModified": "2026-07-28",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://localclaw.io/blog/how-to-choose-local-llm"

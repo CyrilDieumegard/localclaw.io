@@ -23,6 +23,7 @@
     <meta property="og:description" content="Complete tutorial: installation, GPU configuration, model download, and first steps. Step-by-step guide.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="article:published_time" content="2026-01-20">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Tutorial">
 
     <!-- ============================================================
@@ -221,7 +222,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     20 min
                 </span>
-                <span class="text-claw-muted text-sm">January 20, 2026</span>
+                <span class="text-claw-muted text-sm">Updated July 28, 2026</span>
             </div>
 
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 leading-tight">
@@ -255,6 +256,10 @@
     <article class="flex-grow px-4 pb-20">
         <div class="max-w-4xl mx-auto prose">
 
+            <div class="highlight-box rounded-xl p-5 mb-8">
+                <p class="!mb-0"><strong>Current version note:</strong> this guide has been refreshed for LM Studio 0.4.x. Recent releases include stable Multi-Token Prediction for compatible models and continued local API improvements. Labels can move between releases, so use the model-load panel as the source of truth.</p>
+            </div>
+
             <!-- STEP 1 -->
             <div class="step-card rounded-2xl p-6 mb-8">
                 <div class="flex items-start gap-4">
@@ -284,29 +289,23 @@
                 <div class="flex items-start gap-4">
                     <div class="step-number w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
                     <div class="flex-1">
-                        <h2 class="!mt-0 !mb-4">GPU Configuration</h2>
+                        <h2 class="!mt-0 !mb-4">Load Settings and GPU Acceleration</h2>
                         <p>
                             For optimal performance, configure GPU acceleration. This step is crucial for generation speed.
                         </p>
 
-                        <h3>Windows with NVIDIA</h3>
                         <ol class="list-decimal pl-6 space-y-2">
-                            <li>Open LM Studio and go to the <strong>Settings</strong> tab (⚙️)</li>
-                            <li>Click <strong>Hardware</strong> in the left menu</li>
-                            <li>Under "GPU Acceleration", select <strong>cuBLAS</strong> (NVIDIA)</li>
-                            <li>Enable "GPU offload" and set the slider to 100%</li>
-                            <li>Verify that your GPU appears in the list</li>
+                            <li>Install the runtime offered by LM Studio for your platform and keep graphics drivers current.</li>
+                            <li>Choose the model, then open its <strong>load settings</strong>.</li>
+                            <li>Start with the automatic GPU-offload recommendation.</li>
+                            <li>If loading fails, reduce context length or GPU offload before changing the model file.</li>
+                            <li>After loading, confirm memory use and generation speed in the runtime status panel.</li>
                         </ol>
 
-                        <h3>macOS (Apple Silicon)</h3>
-                        <ol class="list-decimal pl-6 space-y-2">
-                            <li>Go to <strong>Settings > Hardware</strong></li>
-                            <li>Select <strong>Metal</strong> as GPU backend</li>
-                            <li>Enable "GPU offload" — all unified RAM will be used</li>
-                        </ol>
+                        <p>Apple Silicon normally uses the Metal/MLX-compatible path selected by LM Studio. NVIDIA systems use the compatible CUDA runtime. Avoid forcing a backend from an older tutorial unless the current app exposes that exact option.</p>
 
                         <div class="warning-box rounded-lg p-4 mt-4">
-                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Warning:</strong> If you don't have a compatible GPU, LM Studio will use the CPU. It will work but be 5-10x slower.</p>
+                            <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Warning:</strong> CPU-only inference remains possible, but the slowdown varies widely by model, quantization and processor. Benchmark your exact configuration instead of relying on a fixed multiplier.</p>
                         </div>
                     </div>
                 </div>
@@ -324,7 +323,7 @@
 
                         <ol class="list-decimal pl-6 space-y-2">
                             <li>Click on the <strong>Search</strong> tab on the left</li>
-                            <li>In the search bar, type a model name (ex: "Qwen 3", "Llama 3.3")</li>
+                            <li>In the search bar, type a model name (for example "Gemma 4 12B", "Qwen 3.6 27B" or "Nanbeige4.2 3B")</li>
                             <li>Filter by recommended size according to your RAM:
                                 <ul class="list-disc pl-6 mt-2">
                                     <li>8GB RAM → 3-7B models</li>
@@ -531,7 +530,7 @@
             }
         },
         "datePublished": "2026-01-20",
-        "dateModified": "2026-01-20",
+        "dateModified": "2026-07-28",
         "mainEntityOfPage": {"@type": "WebPage", "@id": "https://localclaw.io/blog/lm-studio-beginner-guide"}
     }
     </script>

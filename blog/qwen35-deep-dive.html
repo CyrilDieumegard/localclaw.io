@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Qwen 3.5 Deep Dive: 35B-A3B, 27B, 122B-A10B, 397B-A17B — Local AI Guide | LocalClaw</title>
-    <meta name="description" content="Complete guide to Qwen 3.5 models: hardware requirements, benchmarks, MoE architecture explained, and how to run 35B-A3B on a Mac Studio 32GB. Updated April 2026.">
+    <meta name="description" content="Updated Qwen 3.5 local guide covering compact dense checkpoints and the 35B-A3B, 27B, 122B-A10B and 397B-A17B models, hardware fit and MoE tradeoffs.">
     <meta name="keywords" content="Qwen 3.5, Qwen3.5-35B-A3B, Qwen3.5-27B, Qwen3.5-122B-A10B, Qwen3.5-397B-A17B, local LLM, MoE model, LM Studio, Alibaba AI, open source LLM 2025">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow">
@@ -17,6 +17,7 @@
     <meta property="og:description" content="Everything you need to know about Qwen 3.5 MoE models: hardware requirements, benchmarks, and how to run them locally.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="article:published_time" content="2026-03-02">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Model Reviews">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -463,7 +464,7 @@
             <span class="text-claw-muted/40">·</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Model Review</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
-            <span class="text-xs text-claw-muted/60">April 2026</span>
+            <span class="text-xs text-claw-muted/60">Updated July 28, 2026</span>
             <span class="new-badge-inline">⭐ New</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
@@ -471,7 +472,7 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-orange-400 to-yellow-400">The MoE Revolution for Local AI</span>
         </h1>
         <p class="text-lg sm:text-xl text-claw-muted leading-relaxed max-w-3xl mb-6">
-            Qwen 3.5 brings four new models from Alibaba — all with MoE architecture, 256K context, and hybrid thinking mode. The <strong class="text-white">35B-A3B activates only 3B parameters at inference</strong>, making it a gamechanger for agentic coding on consumer hardware.
+            Qwen 3.5 spans compact dense checkpoints and much larger dense and MoE releases. The <strong class="text-white">35B-A3B activates about 3B parameters per token</strong>, reducing compute while the full quantized weights still have to fit in memory.
         </p>
         <div class="flex flex-wrap gap-2">
             <span class="text-xs bg-purple-500/10 border border-purple-500/30 text-purple-300 px-3 py-1 rounded-full font-mono">MoE Architecture</span>
@@ -489,12 +490,12 @@
         <div class="highlight-box rounded-xl p-6 mb-10">
             <h2 class="text-lg font-display font-bold text-white mb-3 mt-0" style="margin-top:0">⚡ TL;DR — What You Need to Know</h2>
             <ul class="tldr-list text-sm space-y-1.5" style="font-size:1rem;">
-                <li>🔥 <strong>35B-A3B</strong> = only 3B active at inference · 19× faster than Qwen3-Max · runs on <strong>Mac Studio 32GB</strong></li>
+                <li>🔥 <strong>35B-A3B</strong> = about 3B active per token · practical on a <strong>32GB-class system</strong> with an appropriate quantization</li>
                 <li>💪 <strong>27B Dense</strong> = stable quality, no MoE complexity · needs 32GB RAM · best for balanced workloads</li>
-                <li>🚀 <strong>122B-A10B</strong> = 60% cheaper to run than Qwen3-Max · 10B active · top-tier quality · 80GB RAM</li>
-                <li>🏆 <strong>397B-A17B</strong> = flagship open-source · matches GPT-4o · 256GB RAM · server-grade only</li>
-                <li>🆕 <strong>Small models (0.8B / 2B / 4B / 9B)</strong> = now available! Runs on any device · 4B fits Mac Air 16GB</li>
-                <li>🛠️ All models: <strong>Apache 2.0</strong>, 256K context, hybrid thinking mode, 29+ languages</li>
+                <li>🚀 <strong>122B-A10B</strong> = about 10B active · high-memory workstation or server territory</li>
+                <li>🏆 <strong>397B-A17B</strong> = server-grade only; total model memory, not active parameters alone, determines whether it loads</li>
+                <li>🆕 <strong>Small models (0.8B / 2B / 4B / 9B)</strong> = the practical family choices for entry-level and laptop hardware</li>
+                <li>🛠️ Check the exact model card for context, license and runtime support; family-level assumptions are not a substitute for checkpoint metadata</li>
                 <li>💡 <strong>Flash</strong> (not listed here) = API-only, not available for local download</li>
             </ul>
         </div>
@@ -522,12 +523,12 @@
             </div>
 
             <p>
-                The result: <strong>Qwen3.5-35B-A3B gives you near-27B quality at 3B inference cost</strong>. The model "knows" more because it has 35B total parameters, but it's as fast as a tiny model. This is the magic of MoE.
+                The result is a useful compute tradeoff: <strong>Qwen3.5-35B-A3B routes only part of the network for each token</strong>. That can reduce generation compute, but it does not turn the model into a 3B download: the full quantized expert weights still consume memory and bandwidth.
             </p>
 
             <!-- Section 2: Model Lineup -->
-            <h2>The Qwen 3.5 Lineup — All 4 Models</h2>
-            <p>Qwen 3.5 was released in August 2025 with four models targeting different hardware tiers:</p>
+            <h2>The Qwen 3.5 Flagship Lineup</h2>
+            <p>These four larger checkpoints sit alongside the later compact 0.8B, 2B, 4B and 9B releases described in the hardware section below:</p>
 
             <!-- Model cards -->
             <div class="not-prose space-y-4 mb-8">
@@ -618,7 +619,7 @@
                         <div>
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full font-mono font-bold">MoE</span>
-                                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-mono font-bold">60% Cheaper</span>
+                                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-mono font-bold">10B Active</span>
                             </div>
                             <h3 class="text-xl font-display font-bold text-white mb-1">Qwen3.5-122B-A10B</h3>
                             <p class="text-claw-muted text-sm">122B total · 10B active · ~80GB RAM</p>
@@ -648,7 +649,7 @@
                         </div>
                     </div>
                     <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-300">
-                        <strong>Best for:</strong> Mac Studio Ultra, multi-GPU rigs with 80GB+ VRAM/RAM. Maximum quality locally-runnable model. 60% cost reduction vs Qwen3-Max.
+                        <strong>Best for:</strong> high-memory workstations or multi-GPU rigs. Verify the chosen quantization, context allocation and runtime support before treating 80GB as a hard minimum.
                     </div>
                 </div>
 
@@ -688,7 +689,7 @@
                         </div>
                     </div>
                     <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-sm text-purple-300">
-                        <strong>Best for:</strong> Enterprise AI servers, multi-GPU clusters, Mac Pro Ultra. Matches GPT-4o on major benchmarks. The most capable open-source model available.
+                        <strong>Best for:</strong> enterprise inference servers and multi-GPU clusters. This is not a normal desktop recommendation, even though low-bit community builds may exist.
                     </div>
                 </div>
             </div>
@@ -826,7 +827,7 @@
                         <tr>
                             <td>MoE Efficiency</td>
                             <td class="text-claw-muted">Good</td>
-                            <td class="text-emerald-400 font-bold">19× faster ✅</td>
+                            <td class="text-emerald-400 font-bold">Fewer active parameters</td>
                         </tr>
                         <tr>
                             <td>License</td>
@@ -836,7 +837,7 @@
                         <tr>
                             <td>Flagship Model Size</td>
                             <td class="text-claw-muted">235B-A22B</td>
-                            <td class="text-emerald-400 font-bold">397B-A17B (GPT-4o level) ✅</td>
+                            <td class="text-emerald-400 font-bold">397B-A17B</td>
                         </tr>
                     </tbody>
                 </table>
@@ -929,7 +930,7 @@
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
         "datePublished": "2026-03-02",
-        "dateModified": "2026-03-02",
+        "dateModified": "2026-07-28",
         "url": "https://localclaw.io/blog/qwen35-deep-dive",
         "keywords": ["Qwen 3.5", "Qwen3.5-35B-A3B", "local LLM", "MoE", "LM Studio", "open source AI"]
     }

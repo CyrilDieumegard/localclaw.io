@@ -8,8 +8,8 @@
          PRIMARY SEO META TAGS
          ============================================================ -->
     <title>OpenClaw v2026.7.1: Install &amp; Run Locally | LocalClaw</title>
-    <meta name="description" content="Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.168 on macOS.">
-    <meta name="keywords" content="OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, OpenClaw local models, OpenClaw LM Studio, OpenClaw Ollama, LocalClaw 1.0.168, local AI gateway, self-hosted AI">
+    <meta name="description" content="Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.175 on macOS.">
+    <meta name="keywords" content="OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, OpenClaw local models, OpenClaw LM Studio, OpenClaw Ollama, LocalClaw 1.0.175, local AI gateway, self-hosted AI">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/blog/openclaw-guide">
@@ -20,13 +20,13 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/blog/openclaw-guide">
     <meta property="og:title" content="OpenClaw v2026.7.1: Install &amp; Run Locally">
-    <meta property="og:description" content="A current, practical guide to OpenClaw v2026.7.1, local model providers, updates, privacy boundaries and LocalClaw 1.0.168 compatibility.">
+    <meta property="og:description" content="A current, practical guide to OpenClaw v2026.7.1, local model providers, updates, privacy boundaries and LocalClaw 1.0.175 compatibility.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="article:published_time" content="2026-02-12T10:00:00+00:00">
-    <meta property="article:modified_time" content="2026-07-15T10:00:00+00:00">
+    <meta property="article:modified_time" content="2026-07-28T10:00:00+00:00">
     <meta property="article:author" content="LocalClaw">
     <meta property="article:section" content="Guide">
 
@@ -35,7 +35,7 @@
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="OpenClaw v2026.7.1: Install &amp; Run Locally">
-    <meta name="twitter:description" content="Install OpenClaw v2026.7.1, connect LM Studio or Ollama, and see what LocalClaw 1.0.168 adds on macOS.">
+    <meta name="twitter:description" content="Install OpenClaw v2026.7.1, connect LM Studio or Ollama, and see what LocalClaw 1.0.175 adds on macOS.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <!-- ============================================================
@@ -243,7 +243,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span id="read-time">15 min read</span>
                 </span>
-                <span class="text-claw-muted text-sm">Updated July 15, 2026</span>
+                <span class="text-claw-muted text-sm">Updated July 28, 2026</span>
             </div>
 
             <!-- Title -->
@@ -253,7 +253,7 @@
 
             <!-- Subtitle -->
             <p class="text-xl text-claw-muted leading-relaxed mb-8">
-                OpenClaw connects agents, channels, scheduled work and tools to local or remote model providers. This guide explains the current v2026.7.1 setup, the real privacy boundaries, and the quickest macOS path with LocalClaw 1.0.168.
+                OpenClaw connects agents, channels, scheduled work and tools to local or remote model providers. This guide explains the current v2026.7.1 setup, the real privacy boundaries, and the quickest macOS path with LocalClaw 1.0.175.
             </p>
 
             <!-- Key Info Box -->
@@ -270,7 +270,7 @@
                             <li><strong>Core surfaces:</strong> Control UI, CLI, TUI and official apps</li>
                             <li><strong>Update command:</strong> <code>openclaw update</code></li>
                             <li><strong>Local providers:</strong> LM Studio and Ollama</li>
-                            <li><strong>LocalClaw:</strong> v1.0.168 supports OpenClaw v2026.7.1</li>
+                            <li><strong>LocalClaw:</strong> v1.0.175 supports OpenClaw v2026.7.1</li>
                         </ul>
                     </div>
                 </div>
@@ -325,7 +325,7 @@
             <p>Privacy depends on configuration. With a local LM Studio or Ollama model, inference can stay on your machine. If you select a cloud provider or connect an online channel, those requests use the corresponding service and its policies. OpenClaw gives you the choice; it does not make every configuration offline by default.</p>
 
             <div class="info-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> LocalClaw compatibility:</strong> LocalClaw 1.0.168 updates its Gateway health parsing and repair workflow for OpenClaw v2026.7.1. Read the <a href="/changelog/localclaw-installer-v1.0.168">release notes</a>.</p>
+                <p class="!mb-0 !text-sm"><strong><svg class="lc-icon lc-icon-sm" style="color:#FBBF24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6m-5 3h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg> LocalClaw compatibility:</strong> LocalClaw 1.0.175 supports OpenClaw v2026.7.1 and brings the current guided setup, health checks and repair workflow into the native macOS dashboard. Read the <a href="/changelog/localclaw-installer-v1.0.175">release notes</a>.</p>
             </div>
 
             <!-- ======================= SECTION 2 ======================= -->
@@ -483,7 +483,7 @@ openclaw update status</code></pre>
             </div>
 
             <div class="tip-box rounded-xl p-5 mb-6">
-                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Prefer a guided macOS setup?</strong> LocalClaw 1.0.168 is an Apple-notarized native control center updated for OpenClaw v2026.7.1. It handles setup, health checks and repair from one dashboard. <a href="/pricing">See the $49 lifetime beta</a>.</p>
+                <p class="!mb-0 !text-sm"><strong><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" width="14" height="14" style="display:inline;vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> Prefer a guided macOS setup?</strong> LocalClaw 1.0.175 is an Apple-notarized native control center updated for OpenClaw v2026.7.1. It handles setup, health checks and repair from one dashboard. <a href="/pricing">See the $49 lifetime beta</a>.</p>
             </div>
 
             <!-- ======================= SECTION 6 ======================= -->
@@ -783,7 +783,7 @@ ollama pull qwen3.5:9b
             <div class="rounded-2xl bg-gradient-to-br from-claw-primary/10 to-orange-600/5 border border-claw-primary/20 p-8 mt-12">
                 <h2 class="!mt-0 !mb-4 text-2xl">The Bottom Line</h2>
                 <p class="!text-lg">OpenClaw is the coordination layer around models, agents, channels and scheduled work. Pair it with <strong>LM Studio or Ollama</strong> when you want local inference, or connect a hosted provider when its quality and availability matter more than keeping the request on-device.</p>
-                <p class="!mb-6">For macOS users who want the guided path, <strong>LocalClaw 1.0.168</strong> is updated for OpenClaw v2026.7.1 and brings installation, health checks, models, agents and repair into one native control center.</p>
+                <p class="!mb-6">For macOS users who want the guided path, <strong>LocalClaw 1.0.175</strong> is updated for OpenClaw v2026.7.1 and brings installation, health checks, models, agents and repair into one native control center.</p>
                 <div class="flex flex-wrap gap-4">
                     <a href="https://openclaw.ai/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-claw-primary text-white font-bold no-underline hover:bg-claw-accent transition-colors">
                         Install OpenClaw →
@@ -792,7 +792,7 @@ ollama pull qwen3.5:9b
                         <img src="../images/crab-logo.png" alt="LocalClaw" width="20" height="20" style="display:inline;vertical-align:middle;opacity:0.8;"> Find My Ideal Model
                     </a>
                     <a href="/pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/5 border border-white/15 text-white font-medium no-underline hover:bg-white/10 transition-colors">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Get LocalClaw 1.0.168
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Get LocalClaw 1.0.175
                     </a>
                 </div>
             </div>
@@ -812,9 +812,9 @@ ollama pull qwen3.5:9b
                         <p class="text-claw-muted text-xs mt-1">RAM, VRAM, use cases — find the perfect model.</p>
                     </a>
                     <a href="/blog/best-local-ai-models-2026" class="feature-card rounded-xl p-4 block no-underline group">
-                        <span class="text-xs text-claw-primary font-semibold">Top 15</span>
+                        <span class="text-xs text-claw-primary font-semibold">July 2026</span>
                         <h4 class="text-white font-bold text-sm mt-1 group-hover:text-claw-primary transition-colors">Best Open-Source AI Models 2026</h4>
-                        <p class="text-claw-muted text-xs mt-1">Genspark leaderboard: the 15 best models to run locally.</p>
+                        <p class="text-claw-muted text-xs mt-1">Current practical model picks organized by RAM tier.</p>
                     </a>
                     <a href="/blog/local-llm-vs-chatgpt" class="feature-card rounded-xl p-4 block no-underline group">
                         <span class="text-xs text-claw-primary font-semibold">Comparison</span>
@@ -848,7 +848,7 @@ ollama pull qwen3.5:9b
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "OpenClaw v2026.7.1 Guide: Install, Update and Run Locally",
-        "description": "Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.168 on macOS.",
+        "description": "Install or update OpenClaw v2026.7.1, connect LM Studio or Ollama, understand local privacy, and use LocalClaw 1.0.175 on macOS.",
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {
             "@type": "Organization",
@@ -856,10 +856,10 @@ ollama pull qwen3.5:9b
             "logo": {"@type": "ImageObject", "url": "https://localclaw.io/images/crab-logo.png"}
         },
         "datePublished": "2026-02-12",
-        "dateModified": "2026-07-15",
+        "dateModified": "2026-07-28",
         "mainEntityOfPage": "https://localclaw.io/blog/openclaw-guide",
         "image": "https://localclaw.io/images/twitter-card.jpg?v=3",
-        "keywords": "OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, local AI, LM Studio, Ollama, LocalClaw 1.0.168"
+        "keywords": "OpenClaw v2026.7.1, OpenClaw install, OpenClaw update, local AI, LM Studio, Ollama, LocalClaw 1.0.175"
     }
     </script>
     <script type="application/ld+json">

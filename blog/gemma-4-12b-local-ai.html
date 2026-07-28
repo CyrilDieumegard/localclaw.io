@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
     <meta property="article:published_time" content="2026-06-04">
-    <meta property="article:modified_time" content="2026-06-04">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Model Reviews">
     <meta property="article:tag" content="Gemma 4 12B">
     <meta property="article:tag" content="Local AI">
@@ -172,7 +172,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span id="read-time">8 min read</span>
                 </span>
-                <span class="text-claw-muted text-sm">June 4, 2026</span>
+                <span class="text-claw-muted text-sm">Updated July 28, 2026</span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[0.98]">
                 Gemma 4 12B: Google's New Local Multimodal Sweet Spot
@@ -192,6 +192,10 @@
                         <p class="m-0">
                             <strong class="text-white">Short answer:</strong> Gemma 4 12B is one of the most interesting local model releases of June 2026. It brings a 12B Apache 2.0 checkpoint, unified multimodal input, and a 256K context window into a size class that many 16 GB and 32 GB machines can realistically test.
                         </p>
+                    </section>
+
+                    <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-green-500/30">
+                        <p class="m-0"><strong class="text-white">July update:</strong> Google's official QAT/Q4 guidance puts Gemma 4 12B at roughly 6.7GB including about 20% runtime overhead, before large-context and multimodal allocations. Official quantized artifacts now make the 16GB recommendation more concrete than it was at launch.</p>
                     </section>
 
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
@@ -248,7 +252,7 @@
                         Yes, but the practical setup depends on runtime and quantization. The official Google blog points developers toward common local and developer runtimes, while the Hugging Face model card provides the open weights and usage instructions for Transformers.
                     </p>
                     <p>
-                        For normal desktop users, the most realistic path is to wait for high-quality quantized builds in your preferred runner, then test Q4 or Q5 style quantization. A Q4-class 12B model is the kind of target that fits the 16 GB tier, but long context and multimodal inputs can still increase memory pressure.
+                        For normal desktop users, the most realistic path is to use Google's QAT/Q4 release or a mature conversion supported by your runner. The official approximate Q4 requirement is 6.7GB including basic runtime overhead, but long context and multimodal inputs can still increase memory pressure substantially.
                     </p>
 
                     <h3>Hardware guidance</h3>
@@ -351,7 +355,7 @@
         "description": "Gemma 4 12B is Google's Apache 2.0 unified multimodal model with 256K context. This guide explains why it matters for local AI, consumer hardware and practical desktop workflows.",
         "url": "https://localclaw.io/blog/gemma-4-12b-local-ai",
         "datePublished": "2026-06-04",
-        "dateModified": "2026-06-04",
+        "dateModified": "2026-07-28",
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {
             "@type": "Organization",

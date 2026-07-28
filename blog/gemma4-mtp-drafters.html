@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="article:published_time" content="2026-05-10">
-    <meta property="article:modified_time" content="2026-05-10">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Technical Guides">
     <meta property="article:tag" content="Gemma 4">
     <meta property="article:tag" content="Multi-Token Prediction">
@@ -163,7 +163,7 @@
             <span class="text-claw-muted/40">·</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/60 font-mono">Technical Guide</span>
             <span class="text-xs uppercase tracking-widest text-claw-muted/40">·</span>
-            <span class="text-xs text-claw-muted/60">May 10, 2026</span>
+            <span class="text-xs text-claw-muted/60">Updated July 28, 2026</span>
             <span class="new-badge-inline">⭐ New</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-display font-bold text-white leading-tight mb-6">
@@ -290,12 +290,8 @@
             </div>
 
             <h2>Will This Work in LM Studio?</h2>
-            <p>
-                Not automatically. The MTP idea is model-and-runtime dependent. Google mentions availability through the broader open model ecosystem and runtimes such as <strong>Transformers, MLX, vLLM and LiteRT-LM</strong>. LM Studio support would depend on the underlying inference engine exposing speculative decoding for Gemma 4 MTP drafters and the exact model format users download.
-            </p>
-            <p>
-                For LocalClaw readers, the practical advice is: treat MTP as a <strong>near-future performance feature</strong>. If you are running Gemma 4 today, choose the model size and quantization that already fits your hardware. When your runtime adds MTP support, the same hardware may become noticeably more responsive without changing the model’s quality tier.
-            </p>
+            <p><strong>Yes, on compatible models and runtimes.</strong> LM Studio promoted Multi-Token Prediction from beta to stable in version 0.4.14. The feature is no longer merely “near future”, but it still requires a supported target/drafter combination and a runtime that exposes the correct speculative-decoding path.</p>
+            <p>For LocalClaw readers, the practical advice is unchanged: first choose a Gemma 4 size and quantization that fits your machine. Then enable MTP only when LM Studio recognizes the compatible drafter, and benchmark your own prompt because acceptance rate and speedup vary by workload.</p>
 
             <div class="warning-box rounded-xl p-5 my-8 not-prose">
                 <h4 class="text-amber-300 font-display font-bold mb-2 mt-0" style="margin-top:0">⚠️ Local setup caveat</h4>
@@ -419,7 +415,7 @@
         "author": {"@type": "Organization", "name": "LocalClaw"},
         "publisher": {"@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io"},
         "datePublished": "2026-05-10",
-        "dateModified": "2026-05-10",
+        "dateModified": "2026-07-28",
         "url": "https://localclaw.io/blog/gemma4-mtp-drafters",
         "mainEntityOfPage": "https://localclaw.io/blog/gemma4-mtp-drafters",
         "keywords": ["Gemma 4", "Multi-Token Prediction", "MTP", "speculative decoding", "local LLM", "MLX", "vLLM", "Transformers"]
