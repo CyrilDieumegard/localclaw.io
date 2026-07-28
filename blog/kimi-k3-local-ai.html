@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kimi K3 Is Here: Arena Benchmarks and Local Hardware Reality | LocalClaw</title>
-    <meta name="description" content="Kimi K3 reaches #1 on Frontend Code Arena with 1,679, packs 2.8T parameters and a 1M context window. Benchmarks, architecture, price and local reality.">
-    <meta name="keywords" content="Kimi K3, Kimi K3 benchmarks, Kimi K3 Arena, Kimi K3 local, run Kimi K3 locally, Kimi K3 open weights, Kimi K3 API, Kimi K3 2.8T, Moonshot AI, Frontend Code Arena, Kimi K3 vs Claude, Kimi K3 vs GPT, Kimi K3 hardware requirements">
+    <title>Kimi K3 Open Weights: Benchmarks &amp; Hardware | LocalClaw</title>
+    <meta name="description" content="Kimi K3 open weights explained: official benchmarks, 1.56TB download, Kimi K3 License, GPU cluster requirements and realistic local alternatives.">
+    <meta name="keywords" content="Kimi K3, Kimi K3 open source, Kimi K3 open weights, Kimi K3 benchmarks, Kimi K3 hardware requirements, run Kimi K3 locally, Kimi K3 Hugging Face, Kimi K3 license, Kimi K3 API, Kimi K3 2.8T, Moonshot AI, Frontend Code Arena, Kimi K3 vs Claude, Kimi K3 vs GPT">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/blog/kimi-k3-local-ai">
 
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/blog/kimi-k3-local-ai">
-    <meta property="og:title" content="Kimi K3 Is Here: Arena Benchmarks and Local Hardware Reality">
-    <meta property="og:description" content="Kimi K3 is a 2.8T-parameter agentic model with a 1M context window and a launch-week #1 on Frontend Code Arena. Here is what the scores mean and why it is not a desktop model.">
+    <meta property="og:title" content="Kimi K3 Open Weights: Benchmarks and Hardware Requirements">
+    <meta property="og:description" content="The 2.8T-parameter Kimi K3 weights are public. See the official scores, 1.56TB download and the multi-node GPU reality behind self-hosting it.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
     <meta property="article:published_time" content="2026-07-21">
-    <meta property="article:modified_time" content="2026-07-21">
+    <meta property="article:modified_time" content="2026-07-28">
     <meta property="article:section" content="Frontier Model Analysis">
     <meta property="article:tag" content="Kimi K3">
     <meta property="article:tag" content="AI Benchmarks">
     <meta property="article:tag" content="Open Weights">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Kimi K3: Arena Benchmarks and Local Hardware Reality">
-    <meta name="twitter:description" content="2.8T parameters, 1M context, #1 on Frontend Code Arena and 64+ accelerators. A source-backed Kimi K3 analysis.">
+    <meta name="twitter:title" content="Kimi K3 Open Weights: Benchmarks and Hardware Reality">
+    <meta name="twitter:description" content="2.8T parameters, 1M context, a 1.56TB repository and multi-node GPU recipes. A source-backed Kimi K3 deployment analysis.">
     <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
 
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -85,30 +85,30 @@
     <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
         <div class="max-w-5xl mx-auto px-4 relative z-10">
             <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary mb-8"><span aria-hidden="true">&larr;</span> Blog</a>
-            <div class="flex flex-wrap items-center gap-3 mb-6"><span class="px-3 py-1 rounded-full bg-red-500/10 text-red-300 text-xs font-bold uppercase tracking-wide border border-red-500/25">Frontier Model Analysis</span><span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-wide border border-purple-500/25">Kimi K3</span><span class="text-claw-muted text-sm">14 min read</span><span class="text-claw-muted text-sm">July 21, 2026</span></div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[.98]">Kimi K3 Is Here: Arena Benchmarks and the Local Hardware Reality</h1>
-            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">Moonshot AI built a 2.8-trillion-parameter agentic model with native vision, a 1M context window and a launch-week #1 on Frontend Code Arena. It is extraordinary. It is also not a desktop model.</p>
+            <div class="flex flex-wrap items-center gap-3 mb-6"><span class="px-3 py-1 rounded-full bg-red-500/10 text-red-300 text-xs font-bold uppercase tracking-wide border border-red-500/25">Frontier Model Analysis</span><span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-wide border border-purple-500/25">Kimi K3</span><span class="text-claw-muted text-sm">18 min read</span><span class="text-claw-muted text-sm">Updated July 28, 2026</span></div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[.98]">Kimi K3 Is Open Weight: Benchmarks, Hardware Requirements and the Brutal Local Reality</h1>
+            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">Moonshot AI published its 2.8-trillion-parameter frontier model. The weights are real, the benchmarks are exceptional, and self-hosting still requires datacenter-class infrastructure.</p>
         </div>
     </header>
 
     <main class="flex-grow py-10 sm:py-14"><div class="max-w-5xl mx-auto px-4"><article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10"><div class="prose-custom max-w-none">
-        <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-red-500/30"><p class="m-0"><strong class="text-white">Short answer:</strong> Kimi K3 is one of the most important frontier releases of 2026. It reached #1 on Frontend Code Arena during launch week and posts elite coding, search and agent benchmarks. But on July 21 its full weights are still promised for July 27, not downloadable, and Moonshot recommends 64 or more accelerators for deployment. Follow the model closely. Do not plan to install it on a Mac mini or gaming PC.</p></section>
+        <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-red-500/30"><p class="m-0"><strong class="text-white">Short answer:</strong> Kimi K3 is now genuinely downloadable as an <strong class="text-white">open-weight</strong> model. Its official Hugging Face repository is about <strong class="text-white">1.56TB</strong>, its sparse architecture contains 2.8T total parameters with 104B active, and published serving recipes use 8 to 32 datacenter GPUs before scaling to 64-GPU deployments. It is a major release for research and private infrastructure, but it is not remotely practical on a Mac mini, Mac Studio or gaming PC.</p></section>
 
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-10">
             <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">2.8T</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Total parameters</div></div>
             <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-purple-300">1M</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Context tokens</div></div>
-            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-red-300">1,679</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Frontend Arena</div></div>
+            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-red-300">104B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Active parameters</div></div>
             <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-orange-300">16/896</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Experts selected</div></div>
-            <div class="metric-card rounded-xl p-4 col-span-2 lg:col-span-1"><div class="text-2xl sm:text-3xl font-display font-bold text-green-300">Jul 27</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Weights promised</div></div>
+            <div class="metric-card rounded-xl p-4 col-span-2 lg:col-span-1"><div class="text-2xl sm:text-3xl font-display font-bold text-green-300">1.56TB</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Official repository</div></div>
         </div>
 
         <h2>What is Kimi K3?</h2>
-        <p><a href="https://www.kimi.com/blog/kimi-k3" rel="nofollow noopener" target="_blank">Moonshot AI released Kimi K3</a> on July 16, 2026 as its largest and most capable model. The headline number is 2.8 trillion total parameters, but the architecture is a sparse Mixture-of-Experts system. Each token selects 16 experts from a pool of 896 rather than using the whole network at once.</p>
+        <p><a href="https://www.kimi.com/blog/kimi-k3" rel="nofollow noopener" target="_blank">Moonshot AI introduced Kimi K3</a> on July 16, 2026 as its largest and most capable model, then <a href="https://huggingface.co/moonshotai/Kimi-K3" rel="nofollow noopener" target="_blank">published the full weights on Hugging Face</a>. The headline number is 2.8 trillion total parameters, but the architecture is a sparse Mixture-of-Experts system. Each token selects 16 experts from a pool of 896, resulting in 104B activated parameters per token rather than dense use of the whole network.</p>
         <p>K3 is designed for long-running agentic work rather than short chat alone. It combines native image understanding, a one-million-token context window, tool use, coding and document workflows. Moonshot says the model can operate Kimi Code, Kimi Work and general multi-step agents from the same foundation.</p>
 
         <div class="grid sm:grid-cols-2 gap-4 my-8">
-            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-claw-primary mb-2">Available now</div><h3 class="!mt-0">Web, API and Kimi tools</h3><p class="mb-0">K3 can be used through kimi.com, the Kimi API, Kimi Code and Kimi Work. These are hosted services.</p></div>
-            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-purple-300 mb-2">Not available yet</div><h3 class="!mt-0">Full downloadable weights</h3><p class="mb-0">Moonshot says full weights will arrive by July 27. Until they ship with a license and artifacts, "open" remains an announced release plan.</p></div>
+            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-claw-primary mb-2">Easiest route</div><h3 class="!mt-0">Web, API and Kimi tools</h3><p class="mb-0">K3 is available through kimi.com, the Kimi API, Kimi Code and Kimi Work. For almost every individual and most companies, hosted access is the practical route.</p></div>
+            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-purple-300 mb-2">Released</div><h3 class="!mt-0">Full downloadable weights</h3><p class="mb-0">The official repository contains 96 weight shards and totals about 1.56TB. The weights and code use the custom Kimi K3 License.</p></div>
         </div>
 
         <h2>Kimi K3 on Arena: what #1 actually means</h2>
@@ -123,7 +123,7 @@
         <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm min-w-[760px]"><thead class="bg-white/5 text-white"><tr><th class="p-4">Benchmark</th><th class="p-4 text-red-300">Kimi K3</th><th class="p-4">Claude Fable 5</th><th class="p-4">GPT-5.6 Sol</th><th class="p-4">Claude Opus 4.8</th><th class="p-4">GLM-5.2</th></tr></thead><tbody class="text-claw-muted">
             <tr><td class="p-4 text-white">DeepSWE</td><td class="p-4 font-bold text-red-300">67.5</td><td class="p-4">70.0</td><td class="p-4">73.0</td><td class="p-4">59.0</td><td class="p-4">46.2</td></tr>
             <tr><td class="p-4 text-white">Program Bench</td><td class="p-4 font-bold text-red-300">77.8</td><td class="p-4">76.8</td><td class="p-4">77.6</td><td class="p-4">71.9</td><td class="p-4">63.7</td></tr>
-            <tr><td class="p-4 text-white">Terminal Bench 2.1</td><td class="p-4 font-bold text-red-300">88.3</td><td class="p-4">84.6</td><td class="p-4">88.8</td><td class="p-4">84.6</td><td class="p-4">82.7</td></tr>
+            <tr><td class="p-4 text-white">Terminal Bench 2.1</td><td class="p-4 font-bold text-red-300">88.3</td><td class="p-4">88.0</td><td class="p-4">88.8</td><td class="p-4">84.6</td><td class="p-4">82.7</td></tr>
         </tbody></table></div>
         <p>K3 wins this comparison on Program Bench and comes within half a point of GPT-5.6 Sol on Terminal Bench 2.1. It does not win DeepSWE, where GPT-5.6 Sol leads. Moonshot&#39;s own conclusion is appropriately measured: K3 is competitive with the frontier, but still trails the strongest proprietary systems overall.</p>
         <p>There is also a small but important DeepSWE reporting detail. The main launch table shows 67.5, while an official footnote reports 67.3 with the benchmark&#39;s mini-SWE-agent harness. That difference is tiny, but it demonstrates why benchmark names without harness details can mislead.</p>
@@ -133,15 +133,15 @@
             <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-red-300">95.0</div><div class="text-sm text-white font-semibold mt-1">DeepSearchQA</div><div class="score-bar mt-4"><span style="width:95%"></span></div></div>
             <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-purple-300">91.2</div><div class="text-sm text-white font-semibold mt-1">BrowseComp</div><div class="score-bar mt-4"><span style="width:91.2%"></span></div></div>
             <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-orange-300">84.2</div><div class="text-sm text-white font-semibold mt-1">MCP Atlas</div><div class="score-bar mt-4"><span style="width:84.2%"></span></div></div>
-            <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-green-300">73.2</div><div class="text-sm text-white font-semibold mt-1">Toolathlon Verified</div><div class="score-bar mt-4"><span style="width:73.2%"></span></div></div>
+            <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-green-300">76.5</div><div class="text-sm text-white font-semibold mt-1">Toolathlon Verified</div><div class="score-bar mt-4"><span style="width:76.5%"></span></div></div>
             <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-blue-300">93.5</div><div class="text-sm text-white font-semibold mt-1">GPQA Diamond</div><div class="score-bar mt-4"><span style="width:93.5%"></span></div></div>
             <div class="signal-card rounded-xl p-5"><div class="text-3xl font-display font-bold text-pink-300">56.0</div><div class="text-sm text-white font-semibold mt-1">HLE with tools</div><div class="score-bar mt-4"><span style="width:56%"></span></div></div>
         </div>
         <p>These results explain why K3 feels bigger than a coding release. Search and tool-use scores are central to Moonshot&#39;s pitch. The model is meant to collect information, manipulate software and stay coherent across long tasks. For agent builders, that may matter more than a small difference on a single reasoning benchmark.</p>
 
-        <h2>An independent snapshot: Artificial Analysis</h2>
-        <p>At the time of writing, <a href="https://artificialanalysis.ai/models/kimi-k3/" rel="nofollow noopener" target="_blank">Artificial Analysis lists Kimi K3</a> at 57 on its Intelligence Index and fourth in a field of roughly 187 models. That ranking is dynamic, but it provides an independent counterweight to Moonshot&#39;s own tables.</p>
-        <p>Artificial Analysis also currently labels K3 proprietary. That is not necessarily a contradiction: the hosted model exists today, while the full weights are scheduled for July 27. A promise to publish weights is not the same as downloadable weights under a published license.</p>
+        <h2>How to read the benchmark claims</h2>
+        <p>Kimi K3 is clearly frontier-class, but a score is not a neutral fact without its harness. Moonshot reports all K3 results at maximum reasoning effort. Kimi Code is used for several coding evaluations, Claude Code or Codex is used for competing models on other rows, and some results come from public leaderboards while others are vendor-run. The official report documents these differences, which is good practice, but they still prevent a perfectly controlled model-to-model comparison.</p>
+        <p>The launch-week <strong class="text-white">1,679 Frontend Code Arena</strong> result is also historical rather than permanent. Arena is a live human-preference leaderboard, so ranks and confidence intervals can move as votes accumulate. Treat it as strong evidence of excellent frontend output, not a universal declaration that K3 is best at every form of software engineering.</p>
 
         <h2>Why the architecture is a big deal</h2>
         <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm"><thead class="bg-white/5 text-white"><tr><th class="p-4">Component</th><th class="p-4">Kimi K3 design</th><th class="p-4">Why it matters</th></tr></thead><tbody class="text-claw-muted">
@@ -154,13 +154,36 @@
         </tbody></table></div>
         <p>Kimi Delta Attention, Attention Residuals and Stable LatentMoE are not merely branding terms. Together they target the three problems that appear at this scale: attention cost over long contexts, stable signal flow through a deep network and efficient expert routing.</p>
 
+        <h2>Is Kimi K3 actually open source?</h2>
+        <section class="signal-card rounded-2xl p-5 sm:p-7 my-8 border-purple-500/30"><h3 class="!mt-0">The precise answer is: open weight under a custom license.</h3><p>Moonshot publishes the model weights, configuration and inference code, and the <a href="https://github.com/MoonshotAI/Kimi-K3/blob/main/LICENSE" rel="nofollow noopener" target="_blank">Kimi K3 License</a> broadly allows use, modification, distribution, fine-tuning and commercial products. That is materially more open than API-only access.</p><p class="mb-0">However, it is not an OSI-approved software license. Model-as-a-Service businesses above $20 million in aggregate revenue over a consecutive 12-month period need a separate agreement for commercial use. Commercial products above 100 million monthly active users or $20 million in monthly revenue must prominently display the Kimi K3 name. For individuals, researchers and most internal enterprise deployments, those thresholds are unlikely to apply, but legal review still belongs in a serious deployment plan.</p></section>
+        <p>Calling K3 "open source" is understandable shorthand, but "open weight" is the more accurate term. You can inspect and host the model, yet your rights are governed by a model-specific license with scale-dependent conditions.</p>
+
         <h2>Can you run Kimi K3 locally?</h2>
-        <section class="signal-card rounded-2xl p-5 sm:p-7 my-8 border-red-500/30"><h3 class="!mt-0">On a normal personal computer: no.</h3><p>Moonshot recommends supernodes with <strong class="text-white">64 or more accelerators</strong>. That statement is more useful than guessing a desktop RAM tier. Even if the announced MXFP4 weights average four bits per parameter, 2.8T parameters imply a rough raw-weight lower bound near <strong class="text-white">1.4 terabytes</strong> before metadata, routing, caches and runtime overhead. That 1.4TB figure is LocalClaw arithmetic, not a published K3 hardware requirement.</p><p class="mb-0">A 512GB Mac Studio is not the intended target. Neither is a single RTX 5090. K3 belongs to clustered datacenter infrastructure, even after the weights become downloadable.</p></section>
-        <p>"Open weights" and "consumer local" are different categories. Publishing K3 would be significant for research, reproducibility and independent hosting. It would not make the full model practical on everyday hardware.</p>
+        <section class="signal-card rounded-2xl p-5 sm:p-7 my-8 border-red-500/30"><h3 class="!mt-0">On a normal personal computer: no.</h3><p>The official Hugging Face repository is <strong class="text-white">1.56TB</strong> before you reserve working space for caches, containers, logs and model updates. A 512GB Mac Studio cannot even hold the weights in unified memory. A 32GB RTX 5090 provides less than 3% of the memory needed for the weight files alone.</p><p>Moonshot recommends supernodes with <strong class="text-white">64 or more accelerators</strong> for efficient serving. That is a scale-out recommendation, not a claim that 64 GPUs are the absolute minimum required to start the model. Published SGLang recipes show smaller configurations, but even the smallest is an eight-GPU datacenter server.</p><p class="mb-0">This is not an Ollama download. It is a distributed-systems project involving high-bandwidth GPU interconnects, multi-node networking, specialized kernels, container images, model parallelism and careful memory-pool tuning.</p></section>
+
+        <h3>Published Kimi K3 serving shapes</h3>
+        <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm min-w-[760px]"><thead class="bg-white/5 text-white"><tr><th class="p-4">Accelerator</th><th class="p-4">SGLang topology</th><th class="p-4">Infrastructure reality</th></tr></thead><tbody class="text-claw-muted">
+            <tr><td class="p-4 text-white">NVIDIA B300</td><td class="p-4">1 node x 8 GPUs</td><td class="p-4">Smallest published NVIDIA recipe; still a dedicated datacenter server.</td></tr>
+            <tr><td class="p-4 text-white">NVIDIA B200</td><td class="p-4">2 nodes x 8 GPUs</td><td class="p-4">16 GPUs with high-speed inter-node communication.</td></tr>
+            <tr><td class="p-4 text-white">NVIDIA H200</td><td class="p-4">2 nodes x 8 GPUs</td><td class="p-4">TP16/EP16 serving with NCCL and network-interface configuration.</td></tr>
+            <tr><td class="p-4 text-white">NVIDIA H100</td><td class="p-4">4 nodes x 8 GPUs</td><td class="p-4">32 GPUs; SGLang calls this the platform with the least post-weight headroom.</td></tr>
+            <tr><td class="p-4 text-white">AMD MI350X / MI355X</td><td class="p-4">1 node x 8 GPUs</td><td class="p-4">ROCm/AITER path with its own kernels and operational stack.</td></tr>
+        </tbody></table></div>
+        <p>SGLang also publishes large-scale presets for 16, 32 and 64 Blackwell GPUs. Its documentation warns that final-weight serving rounds and workload-specific re-measurement remain important. In other words, even with the right cluster, the recipe is a starting point rather than a one-click production guarantee.</p>
+
+        <h3>The hidden costs beyond GPU memory</h3>
+        <ul>
+            <li><strong class="text-white">Download and storage:</strong> 1.56TB takes roughly 3.5 hours at a perfect 1Gbps before protocol overhead. A production host should reserve several terabytes for the model, containers and update headroom.</li>
+            <li><strong class="text-white">Networking:</strong> tensor and expert parallelism depend on fast GPU-to-GPU and node-to-node communication. Ordinary office Ethernet is not suitable.</li>
+            <li><strong class="text-white">Context memory:</strong> a one-million-token maximum does not mean every deployment can serve that context at useful concurrency. KV cache and KDA state pools must be sized for the actual workload.</li>
+            <li><strong class="text-white">Software maturity:</strong> vLLM, SGLang and TokenSpeed are the recommended engines. Drivers, CUDA or ROCm versions, kernels and parsers must all match the selected recipe.</li>
+            <li><strong class="text-white">Operations:</strong> monitoring, failover, load testing, access control and cost management remain your responsibility.</li>
+        </ul>
+        <p>"Open weights" and "consumer local" are different categories. Publishing K3 is significant for research, reproducibility and private hosting. It does not make the full model practical on everyday hardware, and even well-funded enterprises should compare self-hosting against the API before buying a cluster.</p>
 
         <h2>Kimi K3 versus the current frontier</h2>
         <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm min-w-[720px]"><thead class="bg-white/5 text-white"><tr><th class="p-4">Model</th><th class="p-4">Best reason to choose it</th><th class="p-4">Access</th><th class="p-4">Personal local fit</th></tr></thead><tbody class="text-claw-muted">
-            <tr><td class="p-4 text-white font-semibold">Kimi K3</td><td class="p-4">Frontend coding, deep search, long-running agents, 1M context</td><td class="p-4">Hosted now, weights promised July 27</td><td class="p-4 text-red-300">No</td></tr>
+            <tr><td class="p-4 text-white font-semibold">Kimi K3</td><td class="p-4">Frontend coding, deep search, long-running agents, 1M context</td><td class="p-4">API plus official 1.56TB weights</td><td class="p-4 text-red-300">No</td></tr>
             <tr><td class="p-4 text-white font-semibold">Claude Fable 5</td><td class="p-4">Stronger overall proprietary frontier performance in Moonshot&#39;s comparison</td><td class="p-4">Hosted/API</td><td class="p-4 text-red-300">No</td></tr>
             <tr><td class="p-4 text-white font-semibold">GPT-5.6 Sol</td><td class="p-4">Leading DeepSWE and slightly leading Terminal Bench in Kimi&#39;s table</td><td class="p-4">Hosted/API</td><td class="p-4 text-red-300">No</td></tr>
             <tr><td class="p-4 text-white font-semibold">GLM-5.2</td><td class="p-4">Published open-weight path and Unsloth quantizations</td><td class="p-4">Downloadable, server-grade</td><td class="p-4 text-orange-300">Extreme hardware only</td></tr>
@@ -177,7 +200,7 @@
         </div>
 
         <h2>Kimi K3 API price</h2>
-        <p>Moonshot&#39;s official launch pricing is <strong class="text-white">$0.30 per million cache-hit input tokens</strong>, <strong class="text-white">$3 per million cache-miss input tokens</strong> and <strong class="text-white">$15 per million output tokens</strong>. The gap between cached and uncached input makes prompt caching important for long-context agents.</p>
+        <p>Moonshot&#39;s official pricing is <strong class="text-white">$0.30 per million cache-hit input tokens</strong>, <strong class="text-white">$3 per million cache-miss input tokens</strong> and <strong class="text-white">$15 per million output tokens</strong>. K3 uses flat token pricing across its 1,048,576-token window. The tenfold gap between cached and uncached input makes prompt caching important for long-context agents.</p>
         <p>Price alone does not determine agent cost. A proactive model can call more tools and generate more output than expected. Track complete task cost, latency and success rate rather than comparing only the input-token headline.</p>
 
         <h2>Known limitations</h2>
@@ -185,33 +208,37 @@
             <li><strong class="text-white">Thinking history must be preserved:</strong> Moonshot warns that dropping prior reasoning context or switching models mid-session can destabilize behavior.</li>
             <li><strong class="text-white">The model can be too proactive:</strong> K3 may take extra actions when a narrower answer would be enough.</li>
             <li><strong class="text-white">User experience still matters:</strong> Moonshot acknowledges a product-experience gap versus the strongest proprietary systems.</li>
-            <li><strong class="text-white">Weights are not shipped yet:</strong> the July 27 publication is a forward-looking commitment until the files and license are public.</li>
+            <li><strong class="text-white">Open serving is still young:</strong> the weights are public, but engine recipes, optimized kernels and final-weight performance measurements are still evolving.</li>
+            <li><strong class="text-white">Open-weight video support is not equivalent to the hosted product:</strong> Kimi&#39;s product materials discuss video understanding, while the current SGLang open serving contract accepts image input, not video or audio.</li>
             <li><strong class="text-white">Benchmarks are not your workload:</strong> test repository constraints, tool reliability, latency and cost before production use.</li>
         </ul>
 
         <h2>LocalClaw verdict</h2>
         <p>Kimi K3 deserves attention. Its #1 Frontend Code Arena launch, 88.3 Terminal Bench score, 95.0 DeepSearchQA result and one-million-token context make it a serious frontier system. Its architecture also shows where large open-weight AI is heading: sparse experts, native low-precision training, extreme context and one model coordinating many tools.</p>
-        <p>But the honest local answer is simple. K3 is not a personal-computer model. When the weights arrive, they will matter to labs, providers and large private clusters. For a Mac or consumer NVIDIA machine, use Kimi K2.5 32B, Qwen 3.6 27B or another verified local model today.</p>
-        <p>LocalClaw will revisit K3 after the official weight release. We will verify the license, file sizes, runtime support and actual serving requirements before treating it as an open-weight deployment target.</p>
+        <p>But the honest local answer is simple. K3 is not a personal-computer model. Its released weights matter to labs, inference providers and organizations with serious private clusters. For a Mac or consumer NVIDIA machine, use Kimi K2.5 32B, Qwen 3.6 27B or another verified local model today.</p>
+        <p>For an enterprise, the decision is economic as much as technical. Self-host K3 only when data locality, control, sustained utilization or custom research justifies a multi-node accelerator cluster and an experienced inference team. Otherwise, the official API is dramatically simpler.</p>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">Find a model that fits your hardware</a><a href="/models/kimi-k2.5-32b" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">View Kimi K2.5 32B</a></div>
 
         <h2>Frequently asked questions</h2>
         <div class="space-y-3 my-8">
-            <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Is Kimi K3 open source?</summary><p class="mb-0 mt-3">Not yet in a verifiable downloadable sense. Moonshot says full weights will be released by July 27, 2026. The files and their final license must be inspected when they appear. Today, K3 is available as a hosted model.</p></details>
-            <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Can Kimi K3 run on a Mac Studio?</summary><p class="mb-0 mt-3">Not as a practical full-model deployment. Moonshot recommends supernodes with 64 or more accelerators. Even a 512GB unified-memory Mac Studio is far below the intended infrastructure class.</p></details>
+            <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Is Kimi K3 open source?</summary><p class="mb-0 mt-3">Kimi K3 is open weight under the custom Kimi K3 License. The full 1.56TB repository is downloadable and the license permits broad use, modification and distribution, with additional conditions for very large Model-as-a-Service and commercial businesses. It is not an OSI-approved open-source software license.</p></details>
+            <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Can Kimi K3 run on a Mac Studio?</summary><p class="mb-0 mt-3">No practical full-model deployment fits on a Mac Studio. The official repository alone is about 1.56TB, while the largest Mac Studio has 512GB of unified memory. Published serving recipes start with eight datacenter GPUs.</p></details>
+            <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">How many GPUs does Kimi K3 need?</summary><p class="mb-0 mt-3">There is no single universal minimum. Current SGLang recipes use 8 B300 or MI350X-class GPUs, 16 B200 or H200 GPUs, or 32 H100 GPUs. Moonshot recommends supernodes with 64 or more accelerators for efficient large-scale serving.</p></details>
             <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Is Kimi K3 really #1 on Arena?</summary><p class="mb-0 mt-3">Kimi K3 reached #1 on Frontend Code Arena with a score of 1,679 during launch week. This is a specialized, live human-preference leaderboard. It does not mean K3 ranks first on every Arena category or every benchmark.</p></details>
             <details class="answer-chip rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">What is the best local alternative to Kimi K3?</summary><p class="mb-0 mt-3">For 32GB-class machines, start with Kimi K2.5 32B or Qwen 3.6 27B. Qwen 3.6 35B-A3B is another efficient MoE option. All have real local artifacts and far more practical memory requirements.</p></details>
         </div>
 
         <h2>Sources</h2>
         <ul class="source-list">
-            <li><a href="https://www.kimi.com/blog/kimi-k3" rel="nofollow noopener" target="_blank">Moonshot AI: official Kimi K3 launch, architecture, benchmarks, pricing and deployment notes</a></li>
+            <li><a href="https://github.com/MoonshotAI/Kimi-K3" rel="nofollow noopener" target="_blank">Moonshot AI: official Kimi K3 repository, architecture, benchmark table and runtime guidance</a></li>
+            <li><a href="https://huggingface.co/moonshotai/Kimi-K3" rel="nofollow noopener" target="_blank">Moonshot AI on Hugging Face: official 1.56TB model repository and weight files</a></li>
+            <li><a href="https://github.com/MoonshotAI/Kimi-K3/blob/main/LICENSE" rel="nofollow noopener" target="_blank">Official Kimi K3 License</a></li>
+            <li><a href="https://www.kimi.com/blog/kimi-k3" rel="nofollow noopener" target="_blank">Moonshot AI: launch article, architecture, pricing and 64-accelerator deployment recommendation</a></li>
+            <li><a href="https://docs.sglang.io/cookbook/autoregressive/Moonshotai/Kimi-K3" rel="nofollow noopener" target="_blank">SGLang: Kimi K3 deployment topologies and serving configuration</a></li>
+            <li><a href="https://www.kimi.com/help/kimi-api/api-pricing" rel="nofollow noopener" target="_blank">Kimi API: official pricing documentation</a></li>
             <li><a href="https://arena.ai/leaderboard" rel="nofollow noopener" target="_blank">Arena: live model leaderboards</a></li>
             <li><a href="https://arena.ai/blog/policy/" rel="nofollow noopener" target="_blank">Arena: leaderboard and voting policy</a></li>
-            <li><a href="https://artificialanalysis.ai/models/kimi-k3/" rel="nofollow noopener" target="_blank">Artificial Analysis: Kimi K3 independent model profile</a></li>
-            <li><a href="https://www.kimi.com/help/agent/agent-overview" rel="nofollow noopener" target="_blank">Kimi Help: Kimi K3 availability and agent overview</a></li>
-            <li><a href="https://apnews.com/article/0d8a5e268deb11a673f4d444fc597cc5" rel="nofollow noopener" target="_blank">Associated Press: Kimi K3 launch and Frontend Code Arena result</a></li>
         </ul>
     </div></article></div></main>
 
@@ -222,11 +249,11 @@
         "@graph": [
             {
                 "@type": "Article",
-                "headline": "Kimi K3 Is Here: Arena Benchmarks and the Local Hardware Reality",
-                "description": "A source-backed analysis of Kimi K3, its 2.8T-parameter architecture, Frontend Code Arena result, official benchmarks, API cost and impractical consumer local requirements.",
+                "headline": "Kimi K3 Is Open Weight: Benchmarks, Hardware Requirements and the Brutal Local Reality",
+                "description": "A source-backed analysis of Kimi K3, its 2.8T architecture, official benchmarks, Kimi K3 License, 1.56TB repository and multi-node GPU requirements.",
                 "url": "https://localclaw.io/blog/kimi-k3-local-ai",
                 "datePublished": "2026-07-21",
-                "dateModified": "2026-07-21",
+                "dateModified": "2026-07-28",
                 "author": { "@type": "Organization", "name": "LocalClaw" },
                 "publisher": { "@type": "Organization", "name": "LocalClaw", "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png?v=20260211g" } },
                 "image": "https://localclaw.io/images/og-cover.png",
@@ -243,8 +270,9 @@
             {
                 "@type": "FAQPage",
                 "mainEntity": [
-                    { "@type": "Question", "name": "Is Kimi K3 open source?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet in a verifiable downloadable sense. Moonshot says full weights will be released by July 27, 2026. Today Kimi K3 is available as a hosted model." } },
-                    { "@type": "Question", "name": "Can Kimi K3 run on a Mac Studio?", "acceptedAnswer": { "@type": "Answer", "text": "Not as a practical full-model deployment. Moonshot recommends supernodes with 64 or more accelerators, far above consumer Mac or single-GPU hardware." } },
+                    { "@type": "Question", "name": "Is Kimi K3 open source?", "acceptedAnswer": { "@type": "Answer", "text": "Kimi K3 is open weight under the custom Kimi K3 License. The full 1.56TB repository is downloadable, with additional license conditions for very large Model-as-a-Service and commercial businesses. It is not an OSI-approved open-source software license." } },
+                    { "@type": "Question", "name": "Can Kimi K3 run on a Mac Studio?", "acceptedAnswer": { "@type": "Answer", "text": "No practical full-model deployment fits on a Mac Studio. The official repository is about 1.56TB, while the largest Mac Studio has 512GB of unified memory. Published serving recipes start with eight datacenter GPUs." } },
+                    { "@type": "Question", "name": "How many GPUs does Kimi K3 need?", "acceptedAnswer": { "@type": "Answer", "text": "Current SGLang recipes use 8 B300 or MI350X-class GPUs, 16 B200 or H200 GPUs, or 32 H100 GPUs. Moonshot recommends supernodes with 64 or more accelerators for efficient large-scale serving." } },
                     { "@type": "Question", "name": "Is Kimi K3 number one on Arena?", "acceptedAnswer": { "@type": "Answer", "text": "Kimi K3 reached number one on Frontend Code Arena with a score of 1,679 during launch week. This is a specialized live human-preference leaderboard, not a universal ranking across every task." } },
                     { "@type": "Question", "name": "What is the best local alternative to Kimi K3?", "acceptedAnswer": { "@type": "Answer", "text": "For 32GB-class machines, Kimi K2.5 32B, Qwen 3.6 27B and Qwen 3.6 35B-A3B are practical alternatives with downloadable local artifacts." } }
                 ]
