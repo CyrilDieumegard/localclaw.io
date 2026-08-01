@@ -8,8 +8,8 @@
          PRIMARY SEO META TAGS
          ============================================================ -->
     <title>LocalClaw Blog | Local AI Guides &amp; Model Comparisons</title>
-    <meta name="description" content="Expert local AI guides: Kimi K3 Arena benchmarks and hardware reality, Qwen 3.8 open-weight status, Bonsai 27B, OpenClaw, Gemma 4, GGUF and hardware advice.">
-    <meta name="keywords" content="local AI blog, Kimi K3 benchmarks, Kimi K3 Arena, Kimi K3 local, Qwen 3.8 local, Qwen3.8 open weights, Bonsai 27B, Qwen 3.7 local, Gemma 4 12B, Ollama vs LM Studio, GGUF quantization, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
+    <meta name="description" content="Expert local AI guides: Colibri storage-streamed GLM-5.2, Kimi K3 hardware reality, Qwen 3.8 status, Bonsai 27B, GGUF and practical hardware advice.">
+    <meta name="keywords" content="local AI blog, Colibri AI, GLM-5.2 25GB RAM, storage streamed MoE, Kimi K3 benchmarks, Kimi K3 local, Qwen 3.8 local, Qwen3.8 open weights, Bonsai 27B, Gemma 4 12B, Ollama vs LM Studio, GGUF quantization, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://localclaw.io/blog/">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/blog/">
     <meta property="og:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta property="og:description" content="Expert AI guides: Kimi K3 Arena benchmarks, Qwen 3.8 open-weight status, practical local models, hardware optimization and LM Studio tutorials.">
+    <meta property="og:description" content="Expert AI guides: Colibri and GLM-5.2, Kimi K3 hardware reality, Qwen 3.8 status, practical local models and hardware optimization.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -32,7 +32,7 @@
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta name="twitter:description" content="Kimi K3 benchmarks, Qwen 3.8 status, local model comparisons, hardware optimization and practical local AI tutorials.">
+    <meta name="twitter:description" content="Colibri and GLM-5.2, Kimi K3 benchmarks, Qwen 3.8 status, local model comparisons and practical hardware guidance.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
@@ -318,6 +318,19 @@
             <!-- Articles Grid -->
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+                <!-- Article NEW: Colibri storage-streamed frontier inference -->
+                <a href="/blog/colibri-glm-5-2-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#22c55e);">NEW</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="category-badge px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.28);">Runtime Deep Dive</span>
+                        <span class="reading-time text-xs flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>14 min</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">Colibri Can Run GLM-5.2 on 25GB RAM. Here Is the Catch.</h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">A tiny C engine streams 744B to 2.8T MoE models from NVMe. We explain the 9.9GB resident claim, 372GB footprint, real speed and hardware limits.</p>
+                    <div class="flex flex-wrap gap-1.5 mb-4"><span class="text-xs px-2 py-0.5 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">GLM-5.2</span><span class="text-xs px-2 py-0.5 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">25GB RAM floor</span><span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">NVMe streaming</span></div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">August 1, 2026</span><span class="text-claw-primary text-sm font-medium flex items-center gap-1">Read<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span></div>
+                </a>
+
                 <!-- Article NEW: Kimi K3 frontier model analysis -->
                 <a href="/blog/kimi-k3-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
                     <div class="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-bold text-white" style="background:linear-gradient(135deg,#ff453a,#8b5cf6);">NEW</div>
@@ -328,7 +341,7 @@
                     <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">Kimi K3 Is Open Weight: Benchmarks and the Brutal Hardware Reality</h2>
                     <p class="text-claw-muted text-sm leading-relaxed mb-4">The 2.8T Kimi K3 weights are public. We analyze the official scores, 1.56TB download, license and multi-node GPU requirements.</p>
                     <div class="flex flex-wrap gap-1.5 mb-4"><span class="text-xs px-2 py-0.5 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">Kimi K3</span><span class="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">Open weights</span><span class="text-xs px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">1.56TB</span></div>
-                    <div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">Updated July 28, 2026</span><span class="text-claw-primary text-sm font-medium flex items-center gap-1">Read<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span></div>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">Updated August 1, 2026</span><span class="text-claw-primary text-sm font-medium flex items-center gap-1">Read<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span></div>
                 </a>
 
                 <!-- Article NEW: Qwen 3.8 local status -->
@@ -928,7 +941,7 @@
                     <a href="/llm-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LLM</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Find a local model</h4>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Browse 213 RAM-aware LLM records.</p>
+                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Browse 214 RAM-aware LLM records.</p>
                     </a>
                     <a href="/tts-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-purple-400/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-purple-300">TTS</span>

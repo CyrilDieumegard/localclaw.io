@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>GLM-5.2 Is Out: Can You Run This 744B Open Model Locally? | LocalClaw</title>
-    <meta name="description" content="GLM-5.2 is Z.ai's new MIT open model with 744B parameters, 40B active parameters and 1M context. Here is the real local hardware story with Unsloth GGUF.">
-    <meta name="keywords" content="GLM-5.2, GLM 5.2 local, GLM-5.2 GGUF, Unsloth GLM-5.2, run GLM-5.2 locally, Z.ai GLM, 744B model, 1M context, local LLM 2026, workstation LLM">
+    <meta name="description" content="GLM-5.2 is a 744B open MoE with 1M context. Compare the practical Unsloth GGUF path with Colibri's experimental 25GB RAM plus NVMe approach.">
+    <meta name="keywords" content="GLM-5.2, GLM 5.2 local, GLM-5.2 GGUF, Unsloth GLM-5.2, Colibri GLM-5.2, GLM-5.2 25GB RAM, run GLM-5.2 locally, Z.ai GLM, 744B model, 1M context, local LLM 2026, workstation LLM">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/blog/glm-5-2-local-ai">
@@ -14,14 +14,15 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/blog/glm-5-2-local-ai">
     <meta property="og:title" content="GLM-5.2 Is Out: Can You Run This 744B Open Model Locally?">
-    <meta property="og:description" content="GLM-5.2 is a massive MIT open MoE with 1M context. Unsloth makes it technically local, but the hardware requirements are serious.">
+    <meta property="og:description" content="GLM-5.2 is a massive MIT open MoE with 1M context. Unsloth offers the practical high-memory path; Colibri adds an experimental 25GB RAM path through NVMe streaming.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
     <meta property="article:published_time" content="2026-06-19">
-    <meta property="article:modified_time" content="2026-06-19">
+    <meta property="article:modified_time" content="2026-08-01T00:00:00+02:00">
     <meta property="article:section" content="Model Reviews">
     <meta property="article:tag" content="GLM-5.2">
     <meta property="article:tag" content="Unsloth">
+    <meta property="article:tag" content="Colibri">
     <meta property="article:tag" content="Local LLM">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -172,13 +173,13 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span id="read-time">10 min read</span>
                 </span>
-                <span class="text-claw-muted text-sm">June 19, 2026</span>
+                <span class="text-claw-muted text-sm">Updated August 1, 2026</span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[0.98]">
                 GLM-5.2 Is Out: Can You Run This 744B Open Model Locally?
             </h1>
             <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">
-                Z.ai's new flagship is open, enormous, and surprisingly local thanks to Unsloth GGUF. The catch is simple: this is not a laptop model.
+                Z.ai's flagship is open, enormous, and technically local through Unsloth GGUF or Colibri's storage-streamed runtime. The two paths have very different meanings.
             </p>
         </div>
     </header>
@@ -190,7 +191,7 @@
 
                     <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-claw-primary/30">
                         <p class="m-0">
-                            <strong class="text-white">Short answer:</strong> yes, GLM-5.2 can run locally through Unsloth's GGUF release, but only on very high-memory systems. The practical starting point is the 2-bit <code class="text-white">UD-IQ2_M</code> quant, which Unsloth says needs about <strong class="text-white">245GB total memory</strong>. For most LocalClaw users, GLM-5.2 is a reference frontier model, not a daily-driver laptop recommendation.
+                            <strong class="text-white">Short answer:</strong> yes, by two very different routes. Unsloth's 2-bit <code class="text-white">UD-IQ2_M</code> quant is the practical high-memory path at about <strong class="text-white">245GB total memory</strong>. Colibri can instead stream a 372GB int4 container from NVMe on a proven 25GB RAM baseline, but the project reports only <strong class="text-white">0.05 to 0.1 tokens per second</strong> there. For most LocalClaw users, GLM-5.2 remains a frontier experiment rather than a daily-driver recommendation.
                         </p>
                     </section>
 
@@ -243,15 +244,27 @@
                     </div>
 
                     <p>
-                        In practical terms: a 16GB, 32GB, 64GB or even 128GB machine should not be pointed at GLM-5.2 unless you are experimenting with extreme offload setups and accept pain. The realistic "local" machines are 256GB+ unified-memory systems, multi-GPU workstations with large system RAM, or private inference servers.
+                        In practical terms, 256GB+ unified-memory systems, multi-GPU workstations with large system RAM or private inference servers remain the sensible targets for useful GLM-5.2 work. Smaller machines now have an experimental route, but that route exchanges memory capacity for storage traffic and latency rather than making the model small.
                     </p>
+
+                    <h2>Colibri changes the RAM floor, not the model size</h2>
+                    <p>
+                        <a href="https://github.com/JustVugg/colibri" rel="nofollow noopener" target="_blank">Colibri</a> is an Apache 2.0 inference engine that treats VRAM, RAM and NVMe as one memory hierarchy. For its GLM-5.2 int4 container, roughly 9.9GB of dense weights remain resident while about 370GB of routed experts stay on storage and are loaded, prefetched or cached as the router selects them.
+                    </p>
+                    <p>
+                        This makes a 25GB machine technically sufficient to execute the same model semantics. It does not make GLM-5.2 a 9.9GB download, and it does not make minimum hardware fast. Colibri reports 0.05-0.1 tok/s on its 25GB development box, about 1.07 tok/s on a single RTX 5070 Ti laptop-class system, roughly 1.8 tok/s warm on a 128GB CPU desktop, and 5.8-6.8 tok/s when six RTX 5090 cards hold the experts resident. These are project-reported measurements across different systems, not a controlled LocalClaw benchmark.
+                    </p>
+                    <section class="signal-card rounded-xl p-5 sm:p-6 my-8 border-orange-500/30">
+                        <h3 class="!mt-0">The honest distinction</h3>
+                        <p class="mb-0"><strong class="text-white">Can it start?</strong> Yes, with 25GB RAM, about 372GB of fast storage and patience. <strong class="text-white">Is it a good daily assistant?</strong> Not at the minimum. Read the full <a href="/blog/colibri-glm-5-2-local-ai">Colibri architecture and performance analysis</a> before planning hardware.</p>
+                    </section>
 
                     <h2>Where GLM-5.2 fits in LocalClaw</h2>
                     <p>
                         LocalClaw should list GLM-5.2, but it should not recommend it to normal users. It belongs in the database as a frontier open model, a benchmark reference and a high-memory option for people deliberately searching the upper end of local AI.
                     </p>
                     <p>
-                        That is why the LocalClaw listing uses a 256GB minimum tier and the Unsloth <code class="text-white">UD-IQ2_M</code> quant as the practical reference. If someone has a Mac Studio Ultra with 256GB or 512GB unified memory, or a serious NVIDIA workstation with large RAM plus GPU offload, GLM-5.2 becomes interesting. If someone has a MacBook Air, Mac mini base model or RTX 4070 gaming PC, they should look elsewhere.
+                        That is why the LocalClaw listing keeps a 256GB minimum recommendation and the Unsloth <code class="text-white">UD-IQ2_M</code> quant as the practical reference. LocalClaw recommendations are about usable fit, not merely proving that a token can eventually be generated. Colibri belongs as an advanced runtime note rather than a reason to recommend GLM-5.2 to a MacBook Air, base Mac mini or ordinary gaming PC.
                     </p>
 
                     <div class="signal-card rounded-xl p-5 sm:p-6 my-8">
@@ -274,7 +287,7 @@
 
                     <h2>LocalClaw verdict</h2>
                     <p>
-                        GLM-5.2 is a "yes, but" model. Yes, it is open. Yes, it can run locally through Unsloth GGUF. Yes, it deserves a listing. But the honest recommendation is narrow: this is for workstation owners, researchers and local-AI power users with hundreds of gigabytes of available memory.
+                        GLM-5.2 is a "yes, but" model. Yes, it is open. Yes, it can run locally through Unsloth GGUF or Colibri's storage-streamed engine. Yes, it deserves a listing. But the honest recommendation is narrow: useful interactive deployment is still for workstation owners, researchers and local-AI power users with substantial memory, storage bandwidth or GPU residency.
                     </p>
                     <p>
                         For everyone else, the value of GLM-5.2 is strategic. It pushes the local ecosystem forward, gives Unsloth and llama.cpp a brutal test case, and raises the ceiling for what "local AI" can mean.
@@ -290,6 +303,8 @@
                         <li><a href="https://huggingface.co/zai-org/GLM-5.2" rel="nofollow noopener" target="_blank">Z.ai GLM-5.2 official Hugging Face model card</a></li>
                         <li><a href="https://huggingface.co/unsloth/GLM-5.2-GGUF" rel="nofollow noopener" target="_blank">Unsloth GLM-5.2 GGUF release</a></li>
                         <li><a href="https://unsloth.ai/docs/models/glm-5.2" rel="nofollow noopener" target="_blank">Unsloth GLM-5.2 local run guide</a></li>
+                        <li><a href="https://github.com/JustVugg/colibri" rel="nofollow noopener" target="_blank">Colibri official repository: storage-streamed GLM-5.2 architecture and measurements</a></li>
+                        <li><a href="https://github.com/JustVugg/colibri/releases/tag/v1.4.0" rel="nofollow noopener" target="_blank">Colibri v1.4.0 release notes</a></li>
                         <li><a href="https://arxiv.org/abs/2602.15763" rel="nofollow noopener" target="_blank">GLM-5 technical report</a></li>
                     </ul>
                 </div>
@@ -316,7 +331,7 @@
         "description": "A practical LocalClaw guide to GLM-5.2 local inference, Unsloth GGUF quantization and the real hardware requirements.",
         "url": "https://localclaw.io/blog/glm-5-2-local-ai",
         "datePublished": "2026-06-19",
-        "dateModified": "2026-06-19",
+        "dateModified": "2026-08-01T00:00:00+02:00",
         "author": { "@type": "Organization", "name": "LocalClaw" },
         "publisher": {
             "@type": "Organization",

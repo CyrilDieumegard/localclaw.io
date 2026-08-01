@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Colibri Runs GLM-5.2 on 25GB RAM: How It Works | LocalClaw</title>
+    <meta name="description" content="Colibri streams GLM-5.2, Kimi K3 and Inkling from NVMe. See the 25GB RAM claim, 372GB storage need, measured speeds, hardware and caveats.">
+    <meta name="keywords" content="Colibri AI, Colibri GLM-5.2, run GLM-5.2 locally, GLM-5.2 25GB RAM, GLM-5.2 NVMe, Kimi K3 local, Inkling 975B local, MoE streaming, local AI inference engine, consumer hardware LLM, OpenAI compatible local API">
+    <meta name="author" content="LocalClaw">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://localclaw.io/blog/colibri-glm-5-2-local-ai">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://localclaw.io/blog/colibri-glm-5-2-local-ai">
+    <meta property="og:title" content="Colibri Runs GLM-5.2 on 25GB RAM: How It Works">
+    <meta property="og:description" content="A 744B model on a 25GB machine sounds impossible. Colibri makes it technically real by streaming experts from NVMe, with a serious speed and storage catch.">
+    <meta property="og:site_name" content="LocalClaw">
+    <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
+    <meta property="article:published_time" content="2026-08-01T00:00:00+02:00">
+    <meta property="article:modified_time" content="2026-08-01T00:00:00+02:00">
+    <meta property="article:section" content="Local AI Runtimes">
+    <meta property="article:tag" content="Colibri">
+    <meta property="article:tag" content="GLM-5.2">
+    <meta property="article:tag" content="MoE inference">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Can Colibri Really Run GLM-5.2 on 25GB RAM?">
+    <meta name="twitter:description" content="The 372GB model, 9.9GB resident core, measured speeds and honest hardware reality behind storage-streamed MoE inference.">
+    <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
+                    },
+                    colors: {
+                        claw: { bg: '#050505', surface: '#0F0F11', border: '#27272A', primary: '#FF453A', text: '#FFFFFF', muted: '#A1A1AA' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 14% 8%, rgba(255,69,58,.14), transparent 28%),
+                radial-gradient(circle at 82% 20%, rgba(34,197,94,.07), transparent 30%),
+                #050505;
+        }
+        .article-shell { background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 100px rgba(0,0,0,.45); }
+        .prose-custom h2 { margin-top:3rem;margin-bottom:1rem;color:#fff;font-family:'Space Grotesk',Inter,sans-serif;font-weight:800;font-size:clamp(1.65rem,3vw,2.25rem);line-height:1.08; }
+        .prose-custom h3 { margin-top:2rem;margin-bottom:.75rem;color:#fff;font-family:'Space Grotesk',Inter,sans-serif;font-weight:750;font-size:1.25rem; }
+        .prose-custom p,.prose-custom li { color:#b8b8c0;line-height:1.78;font-size:1.03rem; }
+        .prose-custom a { color:#ff6d64;text-decoration:none; }
+        .prose-custom a:hover { color:#fff;text-decoration:underline; }
+        .signal-card { background:rgba(15,15,17,.8);border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.035); }
+        .metric-card { background:radial-gradient(circle at top left,rgba(255,69,58,.12),transparent 46%),rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08); }
+        .memory-tier { position:relative;background:#101012;border:1px solid rgba(255,255,255,.1); }
+        .memory-tier::after { content:'';position:absolute;left:50%;bottom:-18px;width:1px;height:18px;background:linear-gradient(#ff453a,rgba(255,69,58,.12)); }
+        .memory-tier:last-child::after { display:none; }
+        th,td { border-bottom:1px solid rgba(255,255,255,.08); }
+        .source-list li { font-size:.95rem; }
+        @media (max-width:640px) { .prose-custom p,.prose-custom li { font-size:1rem; } }
+    </style>
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <script src="../js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
+    <nav class="border-b border-claw-border/50 bg-claw-bg/90 backdrop-blur-xl sticky top-0 z-50" role="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16 sm:h-20">
+            <a href="/" class="flex items-center gap-3 group"><div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,69,58,0.4)]"><img src="../images/crab-logo.png" alt="LocalClaw logo" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async"></div><span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span></a>
+            <div class="hidden sm:flex items-center gap-3 sm:gap-6"><a href="/" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Home</a><a href="/llm-list" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">LLM</a><a href="/tts-list" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">TTS</a><a href="/computers" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">Computers</a><a href="/ram-gpu-for-local-ai" class="text-sm font-mono text-claw-muted hover:text-white uppercase tracking-wider">RAM/GPU</a><span class="text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</span><a href="/pricing" class="text-sm font-mono text-claw-primary hover:text-white uppercase tracking-wider">Pricing</a></div>
+            <button onclick="document.getElementById('blog-mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white" aria-label="Open menu"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div></div>
+    </nav>
+    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden"><div class="flex flex-col items-center justify-center h-full gap-1"><a href="/" class="px-4 py-3 text-sm text-claw-muted">Home</a><a href="/llm-list" class="px-4 py-3 text-sm text-claw-muted">LLM</a><a href="/tts-list" class="px-4 py-3 text-sm text-claw-muted">TTS</a><a href="/computers" class="px-4 py-3 text-sm text-claw-muted">Computers</a><a href="/ram-gpu-for-local-ai" class="px-4 py-3 text-sm text-claw-muted">RAM/GPU</a><a href="/blog/" class="px-4 py-3 text-sm text-claw-primary">Blog</a><a href="/pricing" class="px-4 py-3 text-sm text-claw-muted">Pricing</a><button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 text-sm text-claw-muted">Close</button></div></div>
+
+    <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary mb-8"><span aria-hidden="true">&larr;</span> Blog</a>
+            <div class="flex flex-wrap items-center gap-3 mb-6"><span class="px-3 py-1 rounded-full bg-claw-primary/10 text-claw-primary text-xs font-bold uppercase tracking-wide border border-claw-primary/25">Runtime Deep Dive</span><span class="px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs font-bold uppercase tracking-wide border border-green-500/25">Colibr&igrave; v1.4.0</span><span class="text-claw-muted text-sm">14 min read</span><span class="text-claw-muted text-sm">August 1, 2026</span></div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[.98]">Colibri Can Run GLM-5.2 on 25GB RAM. Here Is the Catch.</h1>
+            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">A tiny open inference engine turns NVMe storage into a memory tier for 744B to 2.8T MoE models. The result is technically remarkable and brutally slow at the minimum.</p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-10 sm:py-14"><div class="max-w-5xl mx-auto px-4"><article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10"><div class="prose-custom max-w-none">
+        <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-claw-primary/30"><p class="m-0"><strong class="text-white">Short answer:</strong> yes, <a href="https://github.com/JustVugg/colibri" rel="nofollow noopener" target="_blank">Colibr&igrave;</a> has demonstrated GLM-5.2 on a machine with 25GB of RAM by keeping the dense core resident and streaming routed experts from NVMe. But the model still occupies about <strong class="text-white">372GB on disk</strong>, and the project reports only <strong class="text-white">0.05 to 0.1 tokens per second</strong> on its 25GB baseline. This is a research breakthrough, not a fast laptop deployment.</p></section>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
+            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">25GB</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Proven RAM floor</div></div>
+            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-red-300">372GB</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">GLM container</div></div>
+            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-green-300">9.9GB</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Dense resident core</div></div>
+            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-purple-300">4</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Model families</div></div>
+        </div>
+
+        <h2>What Colibri is, and what it is not</h2>
+        <p>Colibr&igrave; is an Apache 2.0 inference engine and research platform written primarily in C. It is <strong class="text-white">not a model</strong>, a new quantization of GLM-5.2, or a smaller distilled checkpoint. Its central idea is to treat VRAM, system RAM and fast storage as one managed hierarchy instead of requiring every parameter to remain in expensive memory.</p>
+        <p>The engine currently supports four distinct MoE families through sibling runtime implementations: GLM-5.2, Thinking Machines' Inkling, Moonshot AI's Kimi K3 and AI2's OLMoE. The same command-line, server and web interfaces sit above them.</p>
+
+        <h2>How can a 744B model use only 9.9GB of resident RAM?</h2>
+        <p>The answer is sparsity. GLM-5.2 contains 744B total parameters, but only about 40B are active for each token. Colibr&igrave; separates the weights that must remain available on every pass from the routed experts that change token by token.</p>
+        <div class="space-y-[18px] my-8" aria-label="Colibri memory hierarchy">
+            <div class="memory-tier rounded-xl p-5"><div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"><div><div class="text-xs font-mono uppercase tracking-[.18em] text-green-300">Fast tier</div><h3 class="!my-1">VRAM</h3></div><p class="!m-0 text-sm sm:text-right">Hot experts and GPU work when available</p></div></div>
+            <div class="memory-tier rounded-xl p-5"><div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"><div><div class="text-xs font-mono uppercase tracking-[.18em] text-orange-300">Resident tier</div><h3 class="!my-1">System RAM</h3></div><p class="!m-0 text-sm sm:text-right">Dense attention, shared experts and a learned cache</p></div></div>
+            <div class="memory-tier rounded-xl p-5"><div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"><div><div class="text-xs font-mono uppercase tracking-[.18em] text-red-300">Capacity tier</div><h3 class="!my-1">NVMe storage</h3></div><p class="!m-0 text-sm sm:text-right">About 370GB of GLM-5.2 routed experts, loaded on demand</p></div></div>
+        </div>
+        <p>The much-shared <strong class="text-white">9.9GB resident</strong> number describes the dense part of the int4 GLM-5.2 container. It does not mean GLM-5.2 has become a 9.9GB model. The routed expert bank still exists, still needs hundreds of gigabytes of storage and still has to cross the storage bus when the router selects an expert that is not cached.</p>
+
+        <h2>The measured speed tells the real story</h2>
+        <p>Colibr&igrave;'s documentation is unusually clear that there is no speed SLA. The following figures are project-reported measurements on different community and development systems, not LocalClaw benchmark reproductions. They show how the same model moves from proof-of-possibility to something closer to interactive use as more weights become resident.</p>
+        <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm min-w-[720px]"><thead class="bg-white/5 text-white"><tr><th class="p-4">Hardware shape</th><th class="p-4">Reported decode</th><th class="p-4">What it means</th></tr></thead><tbody class="text-claw-muted">
+            <tr><td class="p-4 text-white">25GB development box</td><td class="p-4 font-semibold text-red-300">0.05-0.1 tok/s</td><td class="p-4">Ten to twenty seconds per token. A correctness and accessibility proof.</td></tr>
+            <tr><td class="p-4 text-white">Single RTX 5070 Ti laptop-class system</td><td class="p-4 font-semibold text-orange-300">1.07 tok/s</td><td class="p-4">Usable for patient experimentation, still slow for daily chat.</td></tr>
+            <tr><td class="p-4 text-white">128GB CPU-only desktop</td><td class="p-4 font-semibold text-green-300">~1.8 tok/s warm</td><td class="p-4">A more credible private research workstation path.</td></tr>
+            <tr><td class="p-4 text-white">6 x RTX 5090, full expert residency</td><td class="p-4 font-semibold text-purple-300">5.8-6.8 tok/s</td><td class="p-4">Interactive, but no longer ordinary consumer hardware.</td></tr>
+        </tbody></table></div>
+        <p>Storage speed, cache state, prompt routing, backend and expert residency all change performance. A second independent NVMe can help because Colibr&igrave; can distribute expert reads across drives, but the project itself asks users to measure rather than assume a universal gain.</p>
+
+        <h2>Which models does Colibri run?</h2>
+        <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm min-w-[760px]"><thead class="bg-white/5 text-white"><tr><th class="p-4">Family</th><th class="p-4">Scale</th><th class="p-4">Storage / resident reality</th><th class="p-4">Practical verdict</th></tr></thead><tbody class="text-claw-muted">
+            <tr><td class="p-4 text-white font-semibold">GLM-5.2</td><td class="p-4">744B / 40B active</td><td class="p-4">372GB int4 container; 9.9GB dense resident core</td><td class="p-4 text-orange-300">Best documented Colibr&igrave; path</td></tr>
+            <tr><td class="p-4 text-white font-semibold">Inkling</td><td class="p-4">975B / 41B active</td><td class="p-4">About 469GB; optional 15.3GB quantized dense set</td><td class="p-4 text-orange-300">Runnable on 25GB, very slow from NVMe</td></tr>
+            <tr><td class="p-4 text-white font-semibold">Kimi K3</td><td class="p-4">2.8T / 104B active</td><td class="p-4">About 1.45TB of routed experts; ~35GB dense set at 4-bit</td><td class="p-4 text-red-300">Text-only research path, not a daily driver</td></tr>
+            <tr><td class="p-4 text-white font-semibold">OLMoE</td><td class="p-4">7B / 1B active</td><td class="p-4">Converted local container</td><td class="p-4 text-green-300">Small validation and experimentation target</td></tr>
+        </tbody></table></div>
+        <p>Engine support does not change each model's license. Colibr&igrave; itself is Apache 2.0, while Kimi K3 remains governed by Moonshot's custom model license and other weights retain their own terms.</p>
+
+        <h2>Does this make Kimi K3 a consumer local model?</h2>
+        <p>No. It makes a previously unthinkable <strong class="text-white">text-only research run</strong> technically possible. Colibr&igrave;'s Kimi K3 implementation streams the checkpoint's native MXFP4 experts directly and quantizes the dense set at load time. The project documents approximately 1.45TB of expert data and a resident dense set of about 35GB at 4-bit.</p>
+        <p>In a measured 93-layer run, the project reports that direct I/O reduced output time from roughly 21 seconds per token to about 9.4 seconds per token. That is meaningful systems progress, but it remains far from an interactive assistant. The Colibr&igrave; path is also text-only and does not load Kimi K3's vision tower.</p>
+
+        <h2>Installation and platform support</h2>
+        <p>Colibr&igrave; publishes prebuilt archives for Linux, macOS and Windows, while the engine can also be built from source with GCC or Clang plus OpenMP. The engine is pure C, but the launcher, conversion helpers and API gateway use Python 3. The model download is the real installation cost: GLM-5.2 alone needs about 372GB plus safe free-space headroom.</p>
+        <section class="signal-card rounded-2xl p-5 sm:p-7 my-8 border-orange-500/30"><h3 class="!mt-0">Use v1.4.0 or newer for the new model families</h3><p class="mb-0">The August 1 release notes say earlier v1.3 archives omitted the extra model binaries, so Kimi K3 and Inkling could not work from those packaged downloads. Version 1.4.0 corrects that packaging issue. This is a fast-moving project: pin the exact release, container and command when reporting a result.</p></section>
+
+        <h2>Why this matters for LocalClaw and OpenClaw</h2>
+        <p>Colibr&igrave; exposes an OpenAI-compatible API with <code class="text-white">/v1/chat/completions</code>, plus an Anthropic-compatible <code class="text-white">/v1/messages</code> endpoint. That makes it conceptually relevant to local control centers and agent tools: a compatible client can point at the local server instead of a hosted provider.</p>
+        <p>But compatibility is not the same as product readiness. LocalClaw should treat Colibr&igrave; as an <strong class="text-white">experimental advanced runtime</strong>, not silently install it or recommend GLM-5.2 to ordinary Macs. A future integration would need reproducible macOS tests, disk-space checks, a clear speed warning, version pinning and a recovery path before it belongs in a one-click setup.</p>
+
+        <div class="grid sm:grid-cols-2 gap-4 my-8">
+            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-green-300 mb-2">Use it now if</div><h3 class="!mt-0">You are doing inference research</h3><p class="mb-0">You have hundreds of gigabytes of fast storage, accept experimental setup work and want to study enormous MoE models locally.</p></div>
+            <div class="signal-card rounded-xl p-5"><div class="text-xs font-mono uppercase tracking-[.18em] text-red-300 mb-2">Skip it for now if</div><h3 class="!mt-0">You want a fast daily assistant</h3><p class="mb-0">A smaller GGUF or MLX model that fits in RAM will be dramatically simpler, faster and easier to maintain.</p></div>
+        </div>
+
+        <h2>LocalClaw verdict</h2>
+        <p>Colibr&igrave; is one of the most interesting local inference projects of 2026 because it attacks the memory wall instead of merely publishing another quant. It proves that a model can remain semantically intact while its weights are staged across storage, RAM and VRAM according to measured routing behavior.</p>
+        <p>The honest conclusion is equally important: <strong class="text-white">runnable does not mean comfortable</strong>. On 25GB, GLM-5.2 is a slow experiment. At 128GB it becomes more credible. With six RTX 5090 cards and full residency it becomes interactive. Colibr&igrave; expands what is possible on hardware you own, but it does not repeal bandwidth, capacity or latency.</p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="/models/glm-5.2" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">View GLM-5.2 requirements</a><a href="/blog/kimi-k3-local-ai" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Read the Kimi K3 analysis</a><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Find a practical local model</a></div>
+
+        <h2>Frequently asked questions</h2>
+        <div class="space-y-3 my-8">
+            <details class="signal-card rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Is Colibri an open-source model?</summary><p class="mb-0 mt-3">No. Colibri is an Apache 2.0 inference engine and research platform. It runs supported model families whose weights retain their own licenses.</p></details>
+            <details class="signal-card rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Can GLM-5.2 really run with 25GB of RAM?</summary><p class="mb-0 mt-3">Yes, the project reports a proven 25GB baseline by streaming experts from a roughly 372GB NVMe container. Performance at that floor is only 0.05 to 0.1 tokens per second.</p></details>
+            <details class="signal-card rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Does 9.9GB resident mean GLM-5.2 is a 9.9GB model?</summary><p class="mb-0 mt-3">No. That figure covers the dense resident part of the int4 runtime. Roughly 370GB of routed experts remain on storage and are loaded or cached as needed.</p></details>
+            <details class="signal-card rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Can Colibri run Kimi K3 on a normal PC?</summary><p class="mb-0 mt-3">It can technically stream the text model from about 1.45TB of expert data, but the documented output remains measured in seconds per token. This is a research path, not normal interactive use.</p></details>
+            <details class="signal-card rounded-xl p-5"><summary class="text-white font-semibold cursor-pointer">Is Colibri compatible with OpenAI clients?</summary><p class="mb-0 mt-3">Yes. Its server implements OpenAI-compatible model and completion endpoints and also exposes an Anthropic Messages API endpoint. Client compatibility does not guarantee practical speed on minimum hardware.</p></details>
+        </div>
+
+        <h2>Sources</h2>
+        <ul class="source-list">
+            <li><a href="https://github.com/JustVugg/colibri" rel="nofollow noopener" target="_blank">Colibr&igrave; official repository and README: architecture, measurements, supported models and setup</a></li>
+            <li><a href="https://github.com/JustVugg/colibri/releases/tag/v1.4.0" rel="nofollow noopener" target="_blank">Colibr&igrave; v1.4.0 release notes and packaging correction</a></li>
+            <li><a href="https://github.com/JustVugg/colibri/blob/main/docs/api.md" rel="nofollow noopener" target="_blank">Official OpenAI and Anthropic-compatible API documentation</a></li>
+            <li><a href="https://github.com/JustVugg/colibri/blob/main/docs/kimi_k3.md" rel="nofollow noopener" target="_blank">Official Kimi K3 runtime notes, storage layout and measured I/O results</a></li>
+            <li><a href="https://github.com/JustVugg/colibri/blob/main/docs/inkling.md" rel="nofollow noopener" target="_blank">Official Inkling runtime notes and low-memory dense conversion</a></li>
+            <li><a href="https://huggingface.co/mastouri/GLM-5.2-colibri-int4-g64-with-int8-mtp" rel="nofollow noopener" target="_blank">Recommended GLM-5.2 Colibr&igrave; int4 container</a></li>
+        </ul>
+    </div></article></div></main>
+
+    <footer class="border-t border-claw-border/50 py-8 mt-auto"><div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p><div class="flex gap-4 text-xs sm:text-sm text-claw-muted"><a href="/llm-list" class="hover:text-white">LLM List</a><a href="/tts-list" class="hover:text-white">TTS List</a><a href="/pricing" class="hover:text-white">Pricing</a></div></div></footer>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Article",
+                "headline": "Colibri Can Run GLM-5.2 on 25GB RAM. Here Is the Catch.",
+                "description": "A source-backed explanation of Colibri, storage-streamed MoE inference, the 25GB GLM-5.2 claim, measured performance and hardware requirements.",
+                "url": "https://localclaw.io/blog/colibri-glm-5-2-local-ai",
+                "datePublished": "2026-08-01T00:00:00+02:00",
+                "dateModified": "2026-08-01T00:00:00+02:00",
+                "author": { "@type": "Organization", "name": "LocalClaw" },
+                "publisher": { "@type": "Organization", "name": "LocalClaw", "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png?v=20260211g" } },
+                "image": "https://localclaw.io/images/og-cover.png",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://localclaw.io/blog/colibri-glm-5-2-local-ai" }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "LocalClaw", "item": "https://localclaw.io/" },
+                    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://localclaw.io/blog/" },
+                    { "@type": "ListItem", "position": 3, "name": "Colibri", "item": "https://localclaw.io/blog/colibri-glm-5-2-local-ai" }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    { "@type": "Question", "name": "Is Colibri an open-source model?", "acceptedAnswer": { "@type": "Answer", "text": "No. Colibri is an Apache 2.0 inference engine and research platform. Supported model weights retain their own licenses." } },
+                    { "@type": "Question", "name": "Can GLM-5.2 really run with 25GB of RAM?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Colibri reports a proven 25GB baseline by streaming experts from a roughly 372GB NVMe container, at only 0.05 to 0.1 tokens per second." } },
+                    { "@type": "Question", "name": "Does 9.9GB resident mean GLM-5.2 is a 9.9GB model?", "acceptedAnswer": { "@type": "Answer", "text": "No. The 9.9GB figure covers the dense resident part. Roughly 370GB of routed experts remain on storage and are loaded or cached as needed." } },
+                    { "@type": "Question", "name": "Can Colibri run Kimi K3 on a normal PC?", "acceptedAnswer": { "@type": "Answer", "text": "Colibri can technically stream the text model from about 1.45TB of expert data, but documented performance remains measured in seconds per token, making this a research path rather than normal interactive use." } },
+                    { "@type": "Question", "name": "Is Colibri compatible with OpenAI clients?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Colibri implements OpenAI-compatible model and completion endpoints and an Anthropic Messages API endpoint." } }
+                ]
+            }
+        ]
+    }
+    </script>
+    <script src="../js/growth-paths-20260727a.js?v=20260727a"></script>
+</body>
+</html>

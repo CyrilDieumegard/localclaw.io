@@ -5,8 +5,8 @@
 ## Core Pages
 
 - [Home](https://localclaw.io/) - LocalClaw overview, OpenClaw control center, model finder entry point, and app positioning.
-- [LLM List](https://localclaw.io/llm-list.html) - Interactive catalogue of 188 LLM records with RAM fit, quantization, quality, coding, reasoning, speed, LM Studio links, and local install guidance.
-- [TTS List](https://localclaw.io/tts-list.html) - Interactive catalogue of 57 local TTS, ASR, and speech AI models with quality, speed, languages, hardware, licenses, and install commands.
+- [LLM List](https://localclaw.io/llm-list.html) - Interactive catalogue of 214 LLM records with RAM fit, quantization, quality, coding, reasoning, speed, LM Studio links, and local install guidance.
+- [TTS List](https://localclaw.io/tts-list.html) - Interactive catalogue of 58 local TTS, ASR, and speech AI models with quality, speed, languages, hardware, licenses, and install commands.
 - [Computers](https://localclaw.io/computers.html) - Apple Silicon and NVIDIA machines for local AI, with RAM tiers, compatible model picks, and buying links.
 - [RAM/GPU Upgrades](https://localclaw.io/ram-gpu-for-local-ai.html) - Affiliate buyer guide for DDR4, DDR5, SO-DIMM and NVIDIA RTX GPU upgrades for local AI.
 - [Pricing](https://localclaw.io/pricing.html) - LocalClaw macOS beta lifetime access, one-time $49 license, no subscription.
@@ -35,6 +35,8 @@ LocalClaw is a native macOS Control Center for OpenClaw. It focuses on local and
 
 ## Recommended Reading
 
+- [Colibri: GLM-5.2 on 25GB RAM](https://localclaw.io/blog/colibri-glm-5-2-local-ai) - Storage-streamed MoE inference, measured speed, hardware requirements, Kimi K3 support, and practical limits.
+- [Kimi K3 Open Weights and Hardware Reality](https://localclaw.io/blog/kimi-k3-local-ai) - Official benchmarks, cluster serving requirements, experimental Colibri runtime, and practical local alternatives.
 - [Ollama vs LM Studio in 2026](https://localclaw.io/blog/ollama-vs-lm-studio-2026.html)
 - [Best Local AI Models 2026](https://localclaw.io/blog/best-local-ai-models-2026.html)
 - [NVIDIA RTX Spark and Local AI PCs](https://localclaw.io/blog/nvidia-rtx-spark-local-ai-pc.html)
