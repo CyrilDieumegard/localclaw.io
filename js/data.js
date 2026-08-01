@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
+// Updated August 1, 2026 — Added LongCat-Flash-Lite — 214 LLM total
+// Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
 // Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
 // Previous: July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
 // Previous: July 19, 2026 — Added Bonsai 27B — 209 LLM total
@@ -188,6 +189,25 @@ const APP_DATA = {
             hf_repo: 'ggerganov/gpt-oss-120b-GGUF',
             benchmarks: { speed: 2, quality: 10, coding: 10, reasoning: 10 },
             released: '2025-08',
+            isNew: true
+        },
+        {
+            id: 'longcat-flash-lite',
+            name: 'LongCat-Flash-Lite',
+            family: 'longcat',
+            params: '68.5B (3-4.5B active, MoE)',
+            size_gb: 37.4,
+            min_ram: 64,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'power', 'long-context', 'moe'],
+            description: 'Meituan LongCat open-weight MoE with 68.5B total parameters, 3-4.5B active, MIT licensing and a 256K+ context window. Practical only for 64GB+ workstations through LongCat-specific GGUF/MLX runtimes.',
+            search_term: 'longcat-flash-lite',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'InquiringMinds-AI/LongCat-Flash-Lite-GGUF',
+            source_url: 'https://huggingface.co/meituan-longcat/LongCat-Flash-Lite',
+            custom_runtime: 'LongCat llama.cpp fork / MLX',
+            runtime_url: 'https://huggingface.co/InquiringMinds-AI/LongCat-Flash-Lite-GGUF',
+            benchmarks: { speed: 6, quality: 8, coding: 9, reasoning: 8 },
+            released: '2026-01',
             isNew: true
         },
         {
