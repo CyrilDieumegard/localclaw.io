@@ -8,6 +8,8 @@ Thumbs.db
 
 # Local secrets
 .env.local
+.dev.vars
+.dev.vars.*
 
 # Node (if needed later)
 node_modules/

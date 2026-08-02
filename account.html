@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>My Machines | LocalClaw</title>
+    <meta name="description" content="Manage your hardware profiles and view compatible local AI models in LocalClaw.">
+    <link rel="canonical" href="https://localclaw.io/account">
+    <link rel="icon" type="image/png" href="/images/crab-logo.png">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260802a">
+</head>
+<body>
+    <header class="lc-site-header">
+        <nav class="lc-shell lc-nav" aria-label="Main navigation">
+            <a class="lc-brand" href="/" aria-label="LocalClaw home">
+                <img src="/images/crab-logo.png" width="38" height="38" alt="LocalClaw crab logo">
+                <span>Local<span class="lc-brand-accent">Claw</span></span>
+            </a>
+            <div class="lc-nav-links">
+                <a href="/llm-list">LLM</a>
+                <a href="/tts-list">TTS</a>
+                <a href="/computers">Computers</a>
+                <a href="/ram-gpu-for-local-ai">RAM/GPU</a>
+                <a href="/blog/">Blog</a>
+                <a href="/pricing">Pricing</a>
+                <a class="lc-account-link is-active" href="/account" aria-current="page">Account</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="lc-shell lc-main">
+        <section id="auth-gate" class="lc-auth-gate" aria-labelledby="account-title">
+            <div>
+                <p class="lc-kicker">LocalClaw hardware workspace</p>
+                <h1 id="account-title" class="lc-page-title">Your machines. Their best local models.</h1>
+                <p class="lc-page-copy">Add the Macs, PCs and NVIDIA workstations you use. LocalClaw turns each hardware profile into a focused compatibility view across the current model catalogue.</p>
+            </div>
+            <div class="lc-auth-panel">
+                <h2>Open My Machines</h2>
+                <p>Use your Google account to create or access your LocalClaw hardware workspace.</p>
+                <button id="google-sign-in" class="lc-button lc-button-primary lc-button-full" type="button">
+                    <span class="lc-google-mark" aria-hidden="true">G</span>
+                    Continue with Google
+                </button>
+                <p id="auth-error" class="lc-form-error" role="alert"></p>
+            </div>
+        </section>
+
+        <section id="account-dashboard" class="lc-dashboard" hidden aria-labelledby="dashboard-title">
+            <header class="lc-dashboard-head">
+                <div>
+                    <p class="lc-kicker">Hardware workspace</p>
+                    <h1 id="dashboard-title" class="lc-page-title">My Machines</h1>
+                    <div id="profile" class="lc-profile"></div>
+                </div>
+                <div class="lc-dashboard-actions">
+                    <button id="add-machine" class="lc-button lc-button-primary" type="button">+ Add machine</button>
+                    <button id="sign-out" class="lc-button" type="button">Sign out</button>
+                </div>
+            </header>
+
+            <div class="lc-workspace">
+                <aside class="lc-machine-sidebar" aria-label="Saved machines">
+                    <p class="lc-sidebar-label">Saved hardware</p>
+                    <div id="machine-list" class="lc-machine-list"></div>
+                    <div class="lc-sidebar-footer">
+                        <button id="sidebar-add-machine" class="lc-button lc-button-full" type="button">+ Add another machine</button>
+                    </div>
+                </aside>
+
+                <section id="recommendation-panel" class="lc-recommendation-panel" aria-live="polite">
+                    <div class="lc-empty-state">
+                        <div>
+                            <h2>Add your first machine</h2>
+                            <p>Your compatible model list will appear here.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="lc-account-footer">
+        <div class="lc-shell">
+            <span>&copy; 2026 LocalClaw</span>
+            <a href="/privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <dialog id="machine-dialog" class="lc-dialog" aria-labelledby="machine-dialog-title">
+        <form id="machine-form" method="dialog">
+            <div class="lc-dialog-head">
+                <div>
+                    <p class="lc-kicker">Hardware profile</p>
+                    <h2 id="machine-dialog-title" class="lc-dialog-title">Add machine</h2>
+                </div>
+                <button id="close-dialog" class="lc-icon-button" type="button" aria-label="Close">×</button>
+            </div>
+
+            <div class="lc-form">
+                <input id="machine-id" name="id" type="hidden">
+                <input id="machine-source" name="source" type="hidden" value="manual">
+                <div class="lc-form-grid">
+                    <div class="lc-field lc-field-wide">
+                        <label for="machine-name">Machine name</label>
+                        <input id="machine-name" name="name" maxlength="60" placeholder="MacBook Pro, Gaming PC, AI workstation" required>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-platform">Operating system</label>
+                        <select id="machine-platform" name="platform" required>
+                            <option value="macos">macOS</option>
+                            <option value="windows">Windows</option>
+                            <option value="linux">Linux</option>
+                        </select>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-accelerator">Compute</label>
+                        <select id="machine-accelerator" name="accelerator" required>
+                            <option value="apple-silicon">Apple Silicon</option>
+                            <option value="nvidia">NVIDIA GPU</option>
+                            <option value="amd">AMD GPU</option>
+                            <option value="cpu">CPU / integrated GPU</option>
+                        </select>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-ram">System / unified memory (GB)</label>
+                        <input id="machine-ram" name="ramGb" type="number" min="4" max="2048" step="1" value="16" required>
+                    </div>
+
+                    <div id="vram-field" class="lc-field lc-vram-field" hidden>
+                        <label for="machine-vram">GPU VRAM (GB)</label>
+                        <input id="machine-vram" name="vramGb" type="number" min="0" max="256" step="1" placeholder="12">
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-cpu">Chip / CPU (optional)</label>
+                        <input id="machine-cpu" name="cpuModel" maxlength="80" placeholder="Apple M4 Pro, Ryzen 9 9950X">
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-gpu">GPU model (optional)</label>
+                        <input id="machine-gpu" name="gpuModel" maxlength="80" placeholder="RTX 4090, Radeon 7900 XTX">
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-use-case">Primary workload</label>
+                        <select id="machine-use-case" name="useCase">
+                            <option value="general">General assistant</option>
+                            <option value="chat">Chat and writing</option>
+                            <option value="coding">Coding</option>
+                            <option value="reasoning">Reasoning</option>
+                            <option value="vision">Vision</option>
+                            <option value="creative">Creative work</option>
+                        </select>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="machine-priority">Optimization</label>
+                        <select id="machine-priority" name="priority">
+                            <option value="balanced">Balanced</option>
+                            <option value="quality">Quality</option>
+                            <option value="speed">Speed</option>
+                            <option value="memory">Low memory</option>
+                        </select>
+                    </div>
+
+                    <label class="lc-check-label lc-field-wide" for="machine-primary">
+                        <input id="machine-primary" name="isPrimary" type="checkbox">
+                        Use as my primary machine
+                    </label>
+                </div>
+                <p id="machine-form-error" class="lc-form-error" role="alert"></p>
+            </div>
+
+            <div class="lc-dialog-actions">
+                <button id="cancel-machine" class="lc-button" type="button">Cancel</button>
+                <button id="save-machine" class="lc-button lc-button-primary" type="submit">Save machine</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" class="lc-toast" hidden role="status"></div>
+
+    <script src="/js/data.js?v=20260801b"></script>
+    <script src="/js/machine-compat-20260802a.js?v=20260802a"></script>
+    <script src="/js/account-20260802a.js?v=20260802a"></script>
+</body>
+</html>

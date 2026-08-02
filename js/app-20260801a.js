@@ -97,6 +97,53 @@ const App = {
         this.render();
     },
 
+    buildCurrentMachineProfile() {
+        const answers = this.state.answers || {};
+        const levelRam = { light: 8, standard: 16, power: 32, beast: 64 };
+        const ramGb = this.state.activeFlow === 'guided'
+            ? (levelRam[answers.level] || 8)
+            : this.state.activeFlow === 'quick'
+                ? (answers.ram === 'unknown' ? 8 : Number.parseInt(answers.ram, 10) || 8)
+                : (answers.parsedRam || 16);
+        const rawPlatform = String(answers.os || answers.parsedOS || 'linux').toLowerCase();
+        const platform = rawPlatform === 'mac' || rawPlatform === 'macos'
+            ? 'macos'
+            : rawPlatform === 'win' || rawPlatform === 'windows'
+                ? 'windows'
+                : 'linux';
+        const isApple = platform === 'macos' || answers.gpu === 'apple';
+        const hasNvidia = String(answers.gpu || '').startsWith('nvidia') || (!isApple && Number.parseInt(answers.vram, 10) > 0);
+        const accelerator = isApple ? 'apple-silicon' : hasNvidia ? 'nvidia' : answers.gpu === 'amd' ? 'amd' : 'cpu';
+        const usage = answers.usage === 'code' ? 'coding' : answers.usage === 'mix' ? 'general' : (answers.usage || 'general');
+
+        return {
+            name: `${platform === 'macos' ? 'Mac' : platform === 'windows' ? 'Windows PC' : 'Linux PC'} · ${ramGb} GB`,
+            platform,
+            accelerator,
+            cpuModel: '',
+            gpuModel: '',
+            ramGb,
+            vramGb: accelerator === 'nvidia' ? (Number.parseInt(answers.vram, 10) || null) : null,
+            useCase: usage,
+            priority: answers.priority || 'balanced',
+            isPrimary: false,
+            source: 'finder'
+        };
+    },
+
+    saveCurrentMachine() {
+        try {
+            localStorage.setItem('localclaw_pending_machine', JSON.stringify(this.buildCurrentMachineProfile()));
+            this.trackGoal('machine_save_started', {
+                source: 'recommender_results',
+                flow: String(this.state.activeFlow || '')
+            });
+            window.location.assign('/account?add=finder');
+        } catch {
+            this.showToast('Could not prepare this hardware profile', 'error');
+        }
+    },
+
     handleOptionSelect(key, value) {
         this.pushState();
         this.state.answers[key] = value;
@@ -2150,6 +2197,15 @@ const App = {
         }).join('');
 
         container.innerHTML = `
+            <div class="mb-6 flex flex-col gap-4 rounded-xl border border-claw-primary/25 bg-claw-primary/[0.045] p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <div class="text-sm font-bold text-white">Keep this hardware profile</div>
+                    <div class="mt-1 text-xs font-mono text-claw-muted">Save the machine and reopen its complete compatible-model list anytime.</div>
+                </div>
+                <button onclick="App.saveCurrentMachine()" class="shrink-0 rounded-lg border border-claw-primary bg-claw-primary px-4 py-2.5 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
+                    Save this machine
+                </button>
+            </div>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
                 <!-- Left: Instructions (dynamic based on selected model) -->

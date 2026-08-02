@@ -2,6 +2,11 @@
   "version": 1,
   "include": [
     "/api/license/*",
+    "/api/auth/*",
+    "/api/machines",
+    "/api/machines/*",
+    "/account",
+    "/account.html",
     "/",
     "/index.html",
     "/llm-list",

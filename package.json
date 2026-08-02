@@ -8,5 +8,11 @@
     "urls:check": "node scripts/normalize-public-urls.js --check",
     "sitemap:generate": "node scripts/generate-sitemap.js",
     "seo:check": "node scripts/check-seo.js"
+  },
+  "dependencies": {
+    "better-auth": "^1.6.25"
+  },
+  "devDependencies": {
+    "wrangler": "^4.118.0"
   }
 }
