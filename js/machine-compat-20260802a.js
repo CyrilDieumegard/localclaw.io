@@ -13,9 +13,12 @@
     function rankModels(machine, models) {
         const normalized = normalizeMachine(machine);
         const ranked = [];
+        const seenModelIds = new Set();
         let incompatibleCount = 0;
 
         for (const model of Array.isArray(models) ? models : []) {
+            if (!model?.id || seenModelIds.has(model.id)) continue;
+            seenModelIds.add(model.id);
             if (!isLocalModel(model)) continue;
 
             const result = scoreModel(normalized, model);

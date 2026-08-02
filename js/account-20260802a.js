@@ -5,7 +5,11 @@
     const state = {
         session: null,
         machines: [],
+        favorites: [],
+        knownModelIds: [],
+        newModelIds: [],
         selectedMachineId: null,
+        viewMode: 'compatible',
         saving: false
     };
 
@@ -83,7 +87,7 @@
             state.session = session;
             showDashboard();
             renderProfile();
-            await loadMachines();
+            await loadWorkspace();
             openPendingMachineIfNeeded();
         } catch {
             showSignedOut('Unable to reach the account service.');
@@ -140,31 +144,69 @@
                 body: '{}'
             });
         } finally {
+            try { localStorage.removeItem('localclaw_primary_machine'); } catch {}
             window.location.assign('/account');
         }
     }
 
-    async function loadMachines(preferredId) {
-        const response = await fetch('/api/machines', {
-            credentials: 'same-origin',
-            headers: { Accept: 'application/json' }
-        });
-        const data = await readJson(response);
+    async function loadWorkspace(preferredId) {
+        const [machineResponse, favoriteResponse, catalogResponse] = await Promise.all([
+            fetch('/api/machines', {
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json' }
+            }),
+            fetch('/api/favorites', {
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json' }
+            }),
+            fetch('/api/catalog-state', {
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json' }
+            })
+        ]);
+        const [machineData, favoriteData, catalogData] = await Promise.all([
+            readJson(machineResponse),
+            readJson(favoriteResponse),
+            readJson(catalogResponse)
+        ]);
 
-        if (response.status === 401) {
+        if (machineResponse.status === 401) {
             showSignedOut();
             return;
         }
 
-        if (!response.ok) {
-            showToast(data?.message || 'Could not load your machines.', 'error');
+        if (!machineResponse.ok) {
+            showToast(machineData?.message || 'Could not load your machines.', 'error');
             return;
         }
 
-        state.machines = Array.isArray(data.machines) ? data.machines : [];
+        state.machines = Array.isArray(machineData?.machines) ? machineData.machines : [];
+        state.favorites = favoriteResponse.ok && Array.isArray(favoriteData?.favorites) ? favoriteData.favorites : [];
         state.selectedMachineId = chooseSelectedMachineId(preferredId);
+        cachePrimaryMachine();
+
+        if (!favoriteResponse.ok && favoriteResponse.status !== 401) {
+            showToast('Saved models are temporarily unavailable.', 'error');
+        }
+
+        await syncCatalogState(catalogResponse.ok ? catalogData : null);
         renderMachineList();
         renderSelectedMachine();
+    }
+
+    async function syncCatalogState(catalogData) {
+        const currentIds = currentLocalModelIds();
+
+        if (!catalogData?.initialized) {
+            state.knownModelIds = currentIds;
+            state.newModelIds = [];
+            await updateCatalogState(currentIds, false);
+            return;
+        }
+
+        state.knownModelIds = Array.isArray(catalogData.knownModelIds) ? catalogData.knownModelIds : [];
+        const known = new Set(state.knownModelIds);
+        state.newModelIds = currentIds.filter((id) => !known.has(id));
     }
 
     function chooseSelectedMachineId(preferredId) {
@@ -176,6 +218,14 @@
         }
         const primary = state.machines.find((machine) => machine.isPrimary);
         return primary?.id || state.machines[0]?.id || null;
+    }
+
+    function cachePrimaryMachine() {
+        const primary = state.machines.find((machine) => machine.isPrimary) || state.machines[0] || null;
+        try {
+            if (primary) localStorage.setItem('localclaw_primary_machine', JSON.stringify(primary));
+            else localStorage.removeItem('localclaw_primary_machine');
+        } catch {}
     }
 
     function renderProfile() {
@@ -200,16 +250,22 @@
             return;
         }
 
-        elements.machineList.innerHTML = state.machines.map((machine) => `
-            <button class="lc-machine-item${machine.id === state.selectedMachineId ? ' is-active' : ''}" type="button" data-machine-id="${escapeAttribute(machine.id)}">
-                <span class="lc-machine-icon" aria-hidden="true">${machineIcon(machine)}</span>
-                <span>
-                    <span class="lc-machine-name">${escapeHtml(machine.name)}</span>
-                    <span class="lc-machine-spec">${escapeHtml(machineSpec(machine))}</span>
-                </span>
-                ${machine.isPrimary ? '<span class="lc-primary-dot" title="Primary machine"></span>' : '<span></span>'}
-            </button>
-        `).join('');
+        elements.machineList.innerHTML = state.machines.map((machine) => {
+            const newFitCount = countNewFitsForMachine(machine);
+            return `
+                <button class="lc-machine-item${machine.id === state.selectedMachineId ? ' is-active' : ''}" type="button" data-machine-id="${escapeAttribute(machine.id)}">
+                    <span class="lc-machine-icon" aria-hidden="true">${machineIcon(machine)}</span>
+                    <span>
+                        <span class="lc-machine-name">${escapeHtml(machine.name)}</span>
+                        <span class="lc-machine-spec">${escapeHtml(machineSpec(machine))}</span>
+                    </span>
+                    <span class="lc-machine-signals">
+                        ${newFitCount ? `<span class="lc-machine-new" title="New compatible models">+${newFitCount}</span>` : ''}
+                        ${machine.isPrimary ? '<span class="lc-primary-dot" title="Primary machine"></span>' : ''}
+                    </span>
+                </button>
+            `;
+        }).join('');
 
         elements.machineList.querySelectorAll('[data-machine-id]').forEach((button) => {
             button.addEventListener('click', () => {
@@ -237,8 +293,27 @@
         }
 
         const result = window.LocalClawCompatibility.rankModels(machine, APP_DATA.models);
-        const models = result.compatible.slice(0, 18);
+        const compatibleById = new Map(result.compatible.map((model) => [model.id, model]));
+        const machineFavorites = state.favorites.filter((favorite) => favorite.machineId === machine.id);
+        const favoriteById = new Map(machineFavorites.map((favorite) => [favorite.modelId, favorite]));
+        const newIds = new Set(state.newModelIds);
+        let models = result.compatible.slice(0, 18);
+
+        if (state.viewMode === 'saved') {
+            models = machineFavorites
+                .map((favorite) => savedModelForFavorite(favorite, compatibleById))
+                .filter(Boolean);
+        } else if (state.viewMode === 'new') {
+            models = result.compatible.filter((model) => newIds.has(model.id));
+        }
+
         const bestCount = result.compatible.filter((model) => model.compatibilityTier === 'best').length;
+        const newFitCount = result.compatible.filter((model) => newIds.has(model.id)).length;
+        const emptyCopy = state.viewMode === 'saved'
+            ? ['No saved models for this machine', 'Use the star on any recommendation to build a focused shortlist.']
+            : state.viewMode === 'new'
+                ? ['No new compatible models', 'You are caught up. New catalogue additions that fit this machine will appear here.']
+                : ['No compatible models found', 'Try increasing available memory or changing this hardware profile.'];
 
         elements.recommendationPanel.innerHTML = `
             <header class="lc-recommendation-head">
@@ -256,26 +331,55 @@
             <div class="lc-summary-row">
                 <div class="lc-summary-cell"><span class="lc-summary-value">${result.compatible.length}</span><span class="lc-summary-label">Compatible models</span></div>
                 <div class="lc-summary-cell"><span class="lc-summary-value">${bestCount}</span><span class="lc-summary-label">Best matches</span></div>
-                <div class="lc-summary-cell"><span class="lc-summary-value">${escapeHtml(machine.priority)}</span><span class="lc-summary-label">Optimization</span></div>
+                <div class="lc-summary-cell"><span class="lc-summary-value">${machineFavorites.length}</span><span class="lc-summary-label">Saved for this machine</span></div>
             </div>
 
-            <div class="lc-model-grid">
-                ${models.map(renderModelCard).join('')}
+            <div class="lc-model-toolbar" role="tablist" aria-label="Model views">
+                <button class="lc-view-tab${state.viewMode === 'compatible' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'compatible'}" data-model-view="compatible">Compatible</button>
+                <button class="lc-view-tab${state.viewMode === 'saved' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'saved'}" data-model-view="saved">Saved <span>${machineFavorites.length}</span></button>
+                <button class="lc-view-tab${state.viewMode === 'new' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'new'}" data-model-view="new">New fits <span>${newFitCount}</span></button>
+                ${state.newModelIds.length ? '<button class="lc-mark-seen" type="button" data-mark-seen>Mark catalogue seen</button>' : ''}
             </div>
+
+            ${models.length ? `
+                <div class="lc-model-grid">
+                    ${models.map((model) => renderModelCard(model, machine, favoriteById.get(model.id))).join('')}
+                </div>
+            ` : `
+                <div class="lc-model-empty">
+                    <h3>${emptyCopy[0]}</h3>
+                    <p>${emptyCopy[1]}</p>
+                </div>
+            `}
         `;
 
         elements.recommendationPanel.querySelector('[data-edit-machine]')?.addEventListener('click', () => openMachineDialog(machine));
         elements.recommendationPanel.querySelector('[data-delete-machine]')?.addEventListener('click', () => deleteMachine(machine));
+        elements.recommendationPanel.querySelectorAll('[data-model-view]').forEach((button) => {
+            button.addEventListener('click', () => {
+                state.viewMode = button.dataset.modelView;
+                renderSelectedMachine();
+            });
+        });
+        elements.recommendationPanel.querySelector('[data-mark-seen]')?.addEventListener('click', acknowledgeNewModels);
+        elements.recommendationPanel.querySelectorAll('[data-favorite-model]').forEach((button) => {
+            button.addEventListener('click', () => toggleFavorite(button.dataset.favoriteModel, machine));
+        });
+        elements.recommendationPanel.querySelectorAll('[data-favorite-status]').forEach((select) => {
+            select.addEventListener('change', () => updateFavoriteStatus(select.dataset.favoriteStatus, machine, select.value));
+        });
     }
 
-    function renderModelCard(model) {
+    function renderModelCard(model, machine, favorite) {
         const reasons = [...model.compatibilityReasons];
         reasons.push(`${formatNumber(model.size_gb)} GB model`);
+        const saved = Boolean(favorite);
 
         return `
             <article class="lc-model-card" data-tier="${escapeAttribute(model.compatibilityTier)}">
                 <div class="lc-model-meta">
                     <span class="lc-model-family">${escapeHtml(model.family || 'local model')}</span>
+                    <button class="lc-favorite-button${saved ? ' is-saved' : ''}" type="button" data-favorite-model="${escapeAttribute(model.id)}" aria-label="${saved ? 'Remove' : 'Save'} ${escapeAttribute(model.name)} ${saved ? 'from' : 'for'} ${escapeAttribute(machine.name)}" title="${saved ? 'Remove from saved models' : `Save for ${escapeAttribute(machine.name)}`}">${saved ? '★' : '☆'}</button>
                     <span class="lc-tier-pill">${escapeHtml(model.compatibilityLabel)}</span>
                 </div>
                 <h3>${escapeHtml(model.name)}</h3>
@@ -283,12 +387,158 @@
                 <div class="lc-reason-list">
                     ${reasons.slice(0, 4).map((reason) => `<span class="lc-spec-pill">${escapeHtml(reason)}</span>`).join('')}
                 </div>
+                ${saved ? `
+                    <div class="lc-saved-controls">
+                        <span>${escapeHtml(favorite.quantization || model.recommended_quant || 'Recommended quant')}</span>
+                        <label>
+                            <span class="sr-only">Saved model status</span>
+                            <select data-favorite-status="${escapeAttribute(model.id)}">
+                                ${favoriteStatusOptions(favorite.status)}
+                            </select>
+                        </label>
+                    </div>
+                ` : ''}
                 <footer class="lc-model-footer">
                     <span>${escapeHtml(model.runtimeNote)}</span>
                     <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}">View model →</a>
                 </footer>
             </article>
         `;
+    }
+
+    function savedModelForFavorite(favorite, compatibleById) {
+        const compatible = compatibleById.get(favorite.modelId);
+        if (compatible) return compatible;
+
+        const model = APP_DATA.models.find((item) => item.id === favorite.modelId);
+        if (!model || model.hosted_only) return null;
+
+        return {
+            ...model,
+            compatibilityTier: 'too-large',
+            compatibilityLabel: 'No longer fits',
+            compatibilityReasons: ['Hardware profile changed', `${model.min_ram || '?'} GB minimum RAM`],
+            runtimeNote: 'Review this machine before installing'
+        };
+    }
+
+    async function toggleFavorite(modelId, machine) {
+        const current = getFavorite(machine.id, modelId);
+        const model = APP_DATA.models.find((item) => item.id === modelId);
+        if (!model) return;
+
+        const response = await fetch(
+            current
+                ? `/api/favorites/${encodeURIComponent(modelId)}?machineId=${encodeURIComponent(machine.id)}`
+                : `/api/favorites/${encodeURIComponent(modelId)}`,
+            {
+                method: current ? 'DELETE' : 'PUT',
+                credentials: 'same-origin',
+                headers: current
+                    ? { Accept: 'application/json' }
+                    : { Accept: 'application/json', 'Content-Type': 'application/json' },
+                body: current ? undefined : JSON.stringify({
+                    machineId: machine.id,
+                    status: 'saved',
+                    quantization: model.recommended_quant || ''
+                })
+            }
+        );
+        const data = await readJson(response);
+
+        if (!response.ok) {
+            showToast(data?.message || 'Could not update this saved model.', 'error');
+            return;
+        }
+
+        if (current) {
+            state.favorites = state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId));
+            showToast('Removed from saved models.');
+        } else if (data?.favorite) {
+            state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId))];
+            showToast(`Saved for ${machine.name}.`);
+        }
+
+        renderSelectedMachine();
+    }
+
+    async function updateFavoriteStatus(modelId, machine, status) {
+        const current = getFavorite(machine.id, modelId);
+        if (!current) return;
+
+        const response = await fetch(`/api/favorites/${encodeURIComponent(modelId)}`, {
+            method: 'PUT',
+            credentials: 'same-origin',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                machineId: machine.id,
+                status,
+                quantization: current.quantization
+            })
+        });
+        const data = await readJson(response);
+
+        if (!response.ok || !data?.favorite) {
+            showToast(data?.message || 'Could not update model status.', 'error');
+            renderSelectedMachine();
+            return;
+        }
+
+        state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId))];
+        showToast('Saved model status updated.');
+        renderSelectedMachine();
+    }
+
+    async function acknowledgeNewModels() {
+        const currentIds = currentLocalModelIds();
+        const updated = await updateCatalogState(currentIds, true);
+        if (!updated) return;
+
+        state.knownModelIds = currentIds;
+        state.newModelIds = [];
+        if (state.viewMode === 'new') state.viewMode = 'compatible';
+        renderSelectedMachine();
+    }
+
+    async function updateCatalogState(modelIds, notify) {
+        try {
+            const response = await fetch('/api/catalog-state', {
+                method: 'PUT',
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ knownModelIds: modelIds })
+            });
+            const data = await readJson(response);
+            if (!response.ok) throw new Error(data?.message || 'Could not update catalogue state.');
+            if (notify) showToast('New-model feed cleared.');
+            return true;
+        } catch (error) {
+            if (notify) showToast(error.message || 'Could not update catalogue state.', 'error');
+            return false;
+        }
+    }
+
+    function currentLocalModelIds() {
+        return [...new Set(APP_DATA.models.filter((model) => !model.hosted_only && Number(model.size_gb) > 0).map((model) => model.id))];
+    }
+
+    function countNewFitsForMachine(machine) {
+        if (!state.newModelIds.length || !machine) return 0;
+        const newIds = new Set(state.newModelIds);
+        return window.LocalClawCompatibility.rankModels(machine, APP_DATA.models).compatible.filter((model) => newIds.has(model.id)).length;
+    }
+
+    function getFavorite(machineId, modelId) {
+        return state.favorites.find((favorite) => favorite.machineId === machineId && favorite.modelId === modelId) || null;
+    }
+
+    function favoriteStatusOptions(selected) {
+        return [
+            ['saved', 'Saved'],
+            ['to-test', 'To test'],
+            ['downloaded', 'Downloaded'],
+            ['installed', 'Installed']
+        ].map(([value, label]) => `<option value="${value}"${selected === value ? ' selected' : ''}>${label}</option>`).join('');
     }
 
     function openMachineDialog(machine) {
@@ -368,7 +618,7 @@
 
             closeMachineDialog();
             localStorage.removeItem(PENDING_MACHINE_KEY);
-            await loadMachines(data.machine?.id || id);
+            await loadWorkspace(data.machine?.id || id);
             showToast(id ? 'Machine updated.' : 'Machine added.');
         } catch (error) {
             elements.formError.textContent = error.message || 'Could not save this machine.';
@@ -395,7 +645,7 @@
         }
 
         state.selectedMachineId = null;
-        await loadMachines();
+        await loadWorkspace();
         showToast('Machine deleted.');
     }
 

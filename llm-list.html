@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>LLM List — Local & API AI Models | LocalClaw</title>
-    <meta name="description" content="Browse and filter 203 LocalClaw LLM records by RAM, quantization, quality, coding, reasoning, speed, family and LM Studio readiness.">
+    <meta name="description" content="Browse and filter 200+ LocalClaw LLM records by RAM, quantization, quality, coding, reasoning, speed, family and LM Studio readiness.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/llm-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/llm-list">
     <meta property="og:title" content="LLM List — Local & API AI Models | LocalClaw">
-    <meta property="og:description" content="Browse and filter 203 LocalClaw LLM records. Compare RAM fit, speed, coding, reasoning, quantization and local install links.">
+    <meta property="og:description" content="Browse and filter 200+ LocalClaw LLM records. Compare RAM fit, speed, coding, reasoning, quantization and local install links.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -1271,6 +1271,19 @@
                 </div>
             </div>
 
+            <section id="machine-context-bar" class="machine-context-bar" hidden aria-live="polite">
+                <div class="machine-context-copy">
+                    <span class="machine-context-label">Primary machine</span>
+                    <strong id="machine-context-name">My machine</strong>
+                    <span id="machine-context-spec"></span>
+                </div>
+                <div class="machine-context-actions">
+                    <span id="machine-context-count" class="machine-context-count"></span>
+                    <button id="machine-filter-toggle" class="machine-filter-toggle" type="button"></button>
+                    <a href="/account">Manage machines</a>
+                </div>
+            </section>
+
             <!-- Top bar: Search + Sort + View -->
             <div class="topbar">
                 <div class="search-wrap">
@@ -1360,10 +1373,73 @@
             background: none; border: none; cursor: pointer; transition: all 0.15s;
         }
         .sort-opt:hover { background: rgba(255,69,58,0.08); color: #fff; }
+        .machine-context-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 18px 0;
+            padding: 15px 17px;
+            border: 1px solid rgba(255,69,58,0.34);
+            border-radius: 12px;
+            background: linear-gradient(90deg,rgba(255,69,58,0.1),rgba(13,13,13,0.96) 42%);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.24);
+        }
+        .machine-context-bar[hidden] { display: none !important; }
+        .machine-context-copy { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px 10px; min-width: 0; }
+        .machine-context-label { color: var(--primary); font: 800 10px/1.2 monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+        .machine-context-copy strong { color: #fff; font-size: 15px; }
+        .machine-context-copy > span:last-child { color: var(--muted); font-size: 12px; }
+        .machine-context-actions { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+        .machine-context-count { color: #34d399; font: 800 11px/1 monospace; text-transform: uppercase; }
+        .machine-filter-toggle,
+        .machine-context-actions a {
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 7px;
+            background: #101012;
+            color: #d4d4d8;
+            padding: 0 11px;
+            cursor: pointer;
+            font: 800 10px/1 monospace;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .machine-filter-toggle.is-active { border-color: rgba(255,69,58,0.55); background: rgba(255,69,58,0.12); color: #fff; }
+        .machine-context-actions a:hover,
+        .machine-filter-toggle:hover { border-color: rgba(255,69,58,0.55); color: #fff; }
+        .machine-fit-pill {
+            display: inline-flex;
+            width: fit-content;
+            margin: 2px 0 12px;
+            border: 1px solid rgba(52,211,153,0.3);
+            border-radius: 999px;
+            background: rgba(16,185,129,0.08);
+            color: #6ee7b7;
+            padding: 5px 8px;
+            font: 800 9px/1 monospace;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .machine-fit-pill[data-tier="limited"] { border-color: rgba(96,165,250,0.32); background: rgba(59,130,246,0.08); color: #93c5fd; }
+        .card-link-save { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: #8f8f97; cursor: pointer; font-size: 17px; }
+        .card-link-save.is-saved { border-color: rgba(255,69,58,0.4); background: rgba(255,69,58,0.1); color: var(--primary); }
+        @media (max-width: 760px) {
+            .machine-context-bar { align-items: stretch; flex-direction: column; }
+            .machine-context-actions { flex-wrap: wrap; }
+            .machine-context-count { width: 100%; }
+            .machine-filter-toggle,
+            .machine-context-actions a { flex: 1 1 auto; }
+        }
     </style>
 
     <!-- DATA -->
     <script src="js/data.js?v=20260801b" onerror="console.error('Failed to load js/data.js');document.getElementById('loading-state').style.display='none';document.getElementById('error-state').style.display='block';document.getElementById('error-message').textContent='Failed to load data.js. Please check your connection and reload.';"></script>
+    <script src="js/machine-compat-20260802a.js?v=20260802b"></script>
+    <script src="js/account-context-20260802b.js?v=20260802b"></script>
 
     <!-- APP -->
     <script>
@@ -1388,6 +1464,10 @@
         var activeQuant = {};
         var activeFresh = {};
         var minB = { speed:0, quality:0, coding:0, reasoning:0 };
+        var primaryMachine = null;
+        var machineCompatibleIds = null;
+        var machineFitById = {};
+        var machineFilterEnabled = false;
         function trackDataFastGoal(name, data) {
             if (typeof window.datafast === 'function') {
                 try { window.datafast(name, data || {}); } catch (e) {}
@@ -1489,13 +1569,19 @@
             }
             
             // Assign loaded data
-            models = loadedModels;
+            var seenModelIds = {};
+            models = loadedModels.filter(function(model) {
+                if (!model || !model.id || seenModelIds[model.id]) return false;
+                seenModelIds[model.id] = true;
+                return true;
+            });
             
             // Hide loading, show content
             document.getElementById('loading-state').style.display = 'none';
             
             buildFamilies();
             bind();
+            bindAccountContext();
             run();
             // particles();
             
@@ -1507,6 +1593,85 @@
                 btt.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
             });
             btt.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
+            }
+        }
+
+        function bindAccountContext() {
+            if (!window.LocalClawAccountContext || !window.LocalClawCompatibility) return;
+
+            window.addEventListener('localclaw:account-context', function(event) {
+                applyAccountContext(event.detail);
+            });
+
+            document.getElementById('machine-filter-toggle').addEventListener('click', function() {
+                machineFilterEnabled = !machineFilterEnabled;
+                renderMachineContext();
+                run();
+            });
+
+            document.getElementById('models-grid').addEventListener('click', handleFavoriteClick);
+            document.getElementById('models-tbody').addEventListener('click', handleFavoriteClick);
+            applyAccountContext(window.LocalClawAccountContext.getState());
+        }
+
+        function applyAccountContext(accountState) {
+            var machine = accountState && accountState.primaryMachine;
+            if (!machine) {
+                primaryMachine = null;
+                machineCompatibleIds = null;
+                machineFitById = {};
+                machineFilterEnabled = false;
+                document.getElementById('machine-context-bar').hidden = true;
+                run();
+                return;
+            }
+
+            var changedMachine = !primaryMachine || primaryMachine.id !== machine.id;
+            primaryMachine = machine;
+            var ranked = window.LocalClawCompatibility.rankModels(machine, models).compatible;
+            machineCompatibleIds = {};
+            machineFitById = {};
+            for (var i = 0; i < ranked.length; i++) {
+                machineCompatibleIds[ranked[i].id] = true;
+                machineFitById[ranked[i].id] = ranked[i];
+            }
+            if (changedMachine) machineFilterEnabled = true;
+            renderMachineContext();
+            run();
+        }
+
+        function renderMachineContext() {
+            var bar = document.getElementById('machine-context-bar');
+            if (!primaryMachine || !machineCompatibleIds) {
+                bar.hidden = true;
+                return;
+            }
+
+            bar.hidden = false;
+            document.getElementById('machine-context-name').textContent = primaryMachine.name;
+            document.getElementById('machine-context-spec').textContent = primaryMachine.ramGb + ' GB ' + (primaryMachine.accelerator === 'apple-silicon' ? 'unified memory' : 'RAM');
+            document.getElementById('machine-context-count').textContent = Object.keys(machineCompatibleIds).length + ' compatible';
+            var toggle = document.getElementById('machine-filter-toggle');
+            toggle.classList.toggle('is-active', machineFilterEnabled);
+            toggle.textContent = machineFilterEnabled ? 'Showing compatible only' : 'Show compatible only';
+        }
+
+        async function handleFavoriteClick(event) {
+            var button = event.target.closest('[data-save-model]');
+            if (!button || !primaryMachine || !window.LocalClawAccountContext) return;
+            event.preventDefault();
+            event.stopPropagation();
+
+            var model = models.find(function(item) { return item.id === button.dataset.saveModel; });
+            if (!model) return;
+
+            button.disabled = true;
+            try {
+                await window.LocalClawAccountContext.toggleFavorite(model, primaryMachine);
+                trackDataFastGoal('model_save', { model: model.id, machine: primaryMachine.id });
+            } catch (error) {
+                button.disabled = false;
+                button.title = error.message || 'Could not update saved models';
             }
         }
 
@@ -1707,6 +1872,7 @@
             var frk=Object.keys(activeFresh);
             if(frk.length>0) res=res.filter(function(m){for(var i=0;i<frk.length;i++){if(freshTier(m,frk[i]))return true;}return false;});
             res=res.filter(function(m){return m.benchmarks.speed>=minB.speed&&m.benchmarks.quality>=minB.quality&&m.benchmarks.coding>=minB.coding&&m.benchmarks.reasoning>=minB.reasoning;});
+            if(machineFilterEnabled && machineCompatibleIds) res=res.filter(function(m){return !!machineCompatibleIds[m.id];});
 
             var parts=sortKey.split('-'),sf=parts[0],sd=parts[1];
             res.sort(function(a,b){
@@ -1762,6 +1928,8 @@
                     var ramLabel=m.hosted_only?'API':m.min_ram+' GB';
                     var sizeLabel=m.hosted_only?'Hosted':m.size_gb+' GB';
                     var quantLabel=m.hosted_only?'API':(m.recommended_quant||'Q4_K_M');
+                    var machineFit=machineFitById[m.id];
+                    var favorite=primaryMachine&&window.LocalClawAccountContext?window.LocalClawAccountContext.getFavorite(m.id,primaryMachine.id):null;
 
                     h+='<div class="card" style="--family-color:'+c+'" data-detail-url="'+detailUrl+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'" onclick="goToDetail(event,this)">';
                     h+='<div class="model-card-inner">';
@@ -1774,6 +1942,7 @@
                     h+='</div>';
 
                     h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid_title" data-fast-goal-model="'+esc(m.id)+'">'+esc(m.name)+'</a>';
+                    if(machineFit) h+='<span class="machine-fit-pill" data-tier="'+esc(machineFit.compatibilityTier)+'">'+esc(machineFit.compatibilityLabel)+' · '+esc(primaryMachine.name)+'</span>';
                     h+='<div class="model-desc">'+esc(m.description)+'</div>';
 
                     h+='<div class="model-tags">';
@@ -1798,6 +1967,7 @@
                     h+='<div class="model-actions">';
                     h+='<a href="'+detailUrl+'" class="model-details-link" data-fast-goal="model_open" data-fast-goal-source="llm_grid_cta" data-fast-goal-model="'+esc(m.id)+'">View model <span>→</span></a>';
                     h+='<div class="card-links">';
+                    if(primaryMachine&&!m.hosted_only) h+='<button type="button" class="card-link card-link-save'+(favorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(favorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(favorite?'★':'☆')+'</button>';
                     h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(m.hosted_only?'Source':'HuggingFace')+'" data-fast-goal="hf_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'API':'HF')+'</a>';
                     if(!m.hosted_only) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio" data-fast-goal="lmstudio_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">LM</a>';
                     h+='</div></div>';
@@ -1810,6 +1980,7 @@
                 for(var i=0;i<filtered.length;i++){
                     var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
+                    var tableFavorite=primaryMachine&&window.LocalClawAccountContext?window.LocalClawAccountContext.getFavorite(m.id,primaryMachine.id):null;
                     h+='<tr>';
                     var detailUrl2='models/'+encodeURIComponent(m.id)+'/';
                     h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" data-fast-goal="model_open" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
@@ -1823,7 +1994,9 @@
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+m.benchmarks.coding+'</td>';
                     h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+m.benchmarks.reasoning+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+esc(m.recommended_quant)+'</td>';
-                    h+='<td style="text-align:center;"><a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;" data-fast-goal="hf_click" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'↗':'🤗')+'</a></td>';
+                    h+='<td style="text-align:center;"><div style="display:flex;justify-content:center;gap:5px;">';
+                    if(primaryMachine&&!m.hosted_only) h+='<button type="button" class="card-link card-link-save'+(tableFavorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(tableFavorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(tableFavorite?'★':'☆')+'</button>';
+                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;" data-fast-goal="hf_click" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'↗':'🤗')+'</a></div></td>';
                     h+='</tr>';
                 }
                 document.getElementById('models-tbody').innerHTML=h;
