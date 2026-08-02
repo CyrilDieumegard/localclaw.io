@@ -40,6 +40,23 @@
     }
 
     async function loadPersonalRatings() {
+        const sessionResponse = await fetch('/api/auth/get-session', {
+            credentials: 'same-origin',
+            headers: { Accept: 'application/json' }
+        });
+
+        if (!sessionResponse.ok) {
+            authState = 'unavailable';
+            return;
+        }
+
+        const session = await sessionResponse.json().catch(function () { return null; });
+        if (!session?.user?.id) {
+            authState = 'signed-out';
+            userRatings.clear();
+            return;
+        }
+
         const response = await fetch('/api/ratings/mine', {
             credentials: 'same-origin',
             headers: { Accept: 'application/json' }

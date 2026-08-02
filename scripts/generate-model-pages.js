@@ -416,7 +416,7 @@ ${similar ? `    <section class="section"><h2>Similar models to compare</h2><div
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>
-  <script src="/js/community-ratings-20260802a.js?v=20260802a"></script>
+  <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>
 </body>
 </html>`;
 }
