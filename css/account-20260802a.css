@@ -657,7 +657,8 @@ a:focus-visible {
 }
 
 .lc-field input,
-.lc-field select {
+.lc-field select,
+.lc-field textarea {
     width: 100%;
     min-height: 44px;
     padding: 10px 12px;
@@ -665,6 +666,23 @@ a:focus-visible {
     border-radius: 5px;
     color: var(--lc-text);
     background: var(--lc-surface);
+}
+
+.lc-field textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.lc-field-hint,
+.lc-dialog-copy {
+    color: var(--lc-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.lc-dialog-copy {
+    margin: 6px 0 0;
 }
 
 .lc-field input::placeholder {
@@ -1001,6 +1019,323 @@ a:focus-visible {
     padding: 0 28px 0 9px;
 }
 
+.lc-test-button,
+.lc-compare-button {
+    min-height: 32px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #151515;
+    color: #d8d8dc;
+    cursor: pointer;
+    font: 800 10px/1 var(--lc-font);
+    letter-spacing: 0.04em;
+    padding: 0 10px;
+    text-transform: uppercase;
+}
+
+.lc-test-button:hover,
+.lc-test-button:focus-visible,
+.lc-compare-button:hover,
+.lc-compare-button:focus-visible,
+.lc-compare-button.is-selected {
+    border-color: rgba(255, 69, 58, 0.6);
+    color: #fff;
+}
+
+.lc-compare-button.is-selected {
+    background: rgba(255, 69, 58, 0.12);
+    color: var(--lc-accent);
+}
+
+.lc-model-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+}
+
+.lc-test-summary {
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px solid #292929;
+    border-left-color: rgba(96, 165, 250, 0.65);
+    background: #090909;
+}
+
+.lc-test-summary-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #c9c9ce;
+    font-size: 10px;
+}
+
+.lc-test-summary-head time {
+    margin-left: auto;
+    color: #777982;
+}
+
+.lc-test-summary p {
+    display: block;
+    margin-top: 8px;
+    color: #a8a9b0;
+    font-size: 11px;
+    white-space: pre-line;
+    -webkit-line-clamp: initial;
+}
+
+.lc-test-verdict {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 0 7px;
+    border: 1px solid #343434;
+    border-radius: 999px;
+    color: #c8c8cc;
+    font-weight: 850;
+    text-transform: uppercase;
+}
+
+.lc-test-verdict[data-verdict="works"] {
+    border-color: rgba(34, 197, 94, 0.45);
+    color: #67dc8b;
+}
+
+.lc-test-verdict[data-verdict="limited"] {
+    border-color: rgba(249, 115, 22, 0.5);
+    color: #ff9d55;
+}
+
+.lc-test-verdict[data-verdict="failed"] {
+    border-color: rgba(255, 69, 58, 0.55);
+    color: #ff8b84;
+}
+
+.lc-compare-tray {
+    position: sticky;
+    top: 78px;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin: -4px 0 18px;
+    padding: 13px 14px;
+    border: 1px solid rgba(255, 69, 58, 0.45);
+    border-radius: 7px;
+    background: rgba(12, 12, 12, 0.96);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(10px);
+}
+
+.lc-compare-tray > div:first-child {
+    min-width: 0;
+    display: grid;
+    gap: 5px;
+}
+
+.lc-compare-count {
+    color: var(--lc-accent);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.lc-compare-names {
+    overflow: hidden;
+    color: #d4d4d8;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lc-compare-tray-actions,
+.lc-upgrade-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.lc-compare-tray .lc-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.48;
+}
+
+.lc-compare-dialog {
+    width: min(1120px, calc(100% - 28px));
+}
+
+.lc-compare-dialog-body {
+    padding: 20px;
+}
+
+.lc-compare-intro {
+    margin: 0 0 16px;
+    color: var(--lc-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.lc-comparison-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--lc-border);
+    border-radius: 7px;
+}
+
+.lc-comparison-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    background: #0d0d0d;
+    table-layout: fixed;
+}
+
+.lc-comparison-table th,
+.lc-comparison-table td {
+    padding: 12px 14px;
+    border-right: 1px solid var(--lc-border-soft);
+    border-bottom: 1px solid var(--lc-border-soft);
+    color: #d7d7db;
+    font-size: 11px;
+    line-height: 1.45;
+    text-align: left;
+    vertical-align: top;
+}
+
+.lc-comparison-table tr:last-child th,
+.lc-comparison-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.lc-comparison-table th:last-child,
+.lc-comparison-table td:last-child {
+    border-right: 0;
+}
+
+.lc-comparison-table thead th {
+    min-width: 180px;
+    color: #fff;
+    font: 800 15px/1.3 var(--lc-display);
+    background: #151515;
+}
+
+.lc-comparison-table thead th:first-child,
+.lc-comparison-table tbody th {
+    width: 150px;
+    min-width: 150px;
+}
+
+.lc-comparison-table tbody th {
+    color: #898b92;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.lc-comparison-table thead a {
+    display: block;
+    color: #fff;
+}
+
+.lc-comparison-table thead a:hover {
+    color: var(--lc-accent);
+}
+
+.lc-recommended-tag {
+    display: inline-flex;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+    border: 1px solid rgba(34, 197, 94, 0.45);
+    border-radius: 999px;
+    color: #67dc8b;
+    font: 850 9px/1 var(--lc-font);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.lc-upgrade-planner {
+    margin-top: 24px;
+    padding: 20px;
+    border: 1px solid var(--lc-border);
+    border-top-color: rgba(255, 69, 58, 0.65);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(255, 69, 58, 0.07), transparent 42%), #0d0d0d;
+}
+
+.lc-upgrade-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.lc-upgrade-heading h3 {
+    margin: 7px 0 0;
+    color: #fff;
+    font: 850 22px/1.2 var(--lc-display);
+}
+
+.lc-upgrade-heading label {
+    width: min(410px, 100%);
+    display: grid;
+    gap: 6px;
+    color: #8f9097;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.lc-upgrade-heading select {
+    width: 100%;
+    min-height: 42px;
+    border: 1px solid #363636;
+    border-radius: 5px;
+    color: #fff;
+    background: #151515;
+    padding: 0 38px 0 11px;
+}
+
+.lc-upgrade-result {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.lc-upgrade-result > div {
+    min-height: 72px;
+    display: grid;
+    align-content: center;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid var(--lc-border-soft);
+    border-radius: 6px;
+    background: #111;
+}
+
+.lc-upgrade-result span {
+    color: #7e8087;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.lc-upgrade-result strong {
+    color: #fff;
+    font: 850 17px/1.2 var(--lc-display);
+}
+
+.lc-upgrade-copy {
+    margin: 15px 0;
+    color: #a9aab0;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
 .lc-model-card[data-tier="too-large"] {
     border-color: #3a2a2a;
 }
@@ -1040,6 +1375,62 @@ a:focus-visible {
         width: 100%;
         margin-left: 0;
         text-align: left;
+    }
+
+    .lc-saved-controls,
+    .lc-model-footer,
+    .lc-compare-tray,
+    .lc-upgrade-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .lc-saved-controls select,
+    .lc-test-button {
+        width: 100%;
+    }
+
+    .lc-model-actions,
+    .lc-compare-tray-actions,
+    .lc-upgrade-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .lc-compare-tray {
+        position: static;
+    }
+
+    .lc-compare-names {
+        white-space: normal;
+    }
+
+    .lc-compare-tray-actions .lc-button,
+    .lc-upgrade-actions .lc-button {
+        flex: 1 1 180px;
+    }
+
+    .lc-compare-dialog-body {
+        padding: 14px;
+    }
+
+    .lc-upgrade-planner {
+        padding: 16px;
+    }
+
+    .lc-upgrade-result {
+        grid-template-columns: 1fr;
+    }
+
+    .lc-test-summary-head {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .lc-test-summary-head time {
+        width: 100%;
+        margin-left: 0;
     }
 }
 

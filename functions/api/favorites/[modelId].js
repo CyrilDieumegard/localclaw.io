@@ -27,7 +27,8 @@ export async function onRequestPut(context) {
   if (!machine) return json({ ok: false, error: "machine_not_found" }, 404);
 
   const existing = await context.env.LOCALCLAW_DB.prepare(`
-    SELECT model_id FROM model_favorites
+    SELECT model_id, status, quantization, test_verdict, measured_tps, notes, last_tested_at
+    FROM model_favorites
     WHERE user_id = ? AND machine_id = ? AND model_id = ?
   `).bind(auth.session.user.id, favorite.machineId, favorite.modelId).first();
 
@@ -46,26 +47,49 @@ export async function onRequestPut(context) {
   }
 
   const now = new Date().toISOString();
+  const resolved = {
+    status: validation.provided.status ? favorite.status : existing?.status || favorite.status,
+    quantization: validation.provided.quantization ? favorite.quantization : existing?.quantization || favorite.quantization,
+    testVerdict: validation.provided.testVerdict ? favorite.testVerdict : existing?.test_verdict || favorite.testVerdict,
+    measuredTps: validation.provided.measuredTps ? favorite.measuredTps : existing?.measured_tps ?? null,
+    notes: validation.provided.notes ? favorite.notes : existing?.notes || "",
+    lastTestedAt: validation.provided.testVerdict || validation.provided.measuredTps || validation.provided.notes
+      ? now
+      : existing?.last_tested_at || null
+  };
+
   await context.env.LOCALCLAW_DB.prepare(`
     INSERT INTO model_favorites (
-      user_id, machine_id, model_id, status, quantization, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+      user_id, machine_id, model_id, status, quantization,
+      test_verdict, measured_tps, notes, last_tested_at,
+      created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT (user_id, machine_id, model_id) DO UPDATE SET
       status = excluded.status,
       quantization = excluded.quantization,
+      test_verdict = excluded.test_verdict,
+      measured_tps = excluded.measured_tps,
+      notes = excluded.notes,
+      last_tested_at = excluded.last_tested_at,
       updated_at = excluded.updated_at
   `).bind(
     auth.session.user.id,
     favorite.machineId,
     favorite.modelId,
-    favorite.status,
-    favorite.quantization || null,
+    resolved.status,
+    resolved.quantization || null,
+    resolved.testVerdict,
+    resolved.measuredTps,
+    resolved.notes || null,
+    resolved.lastTestedAt,
     now,
     now
   ).run();
 
   const row = await context.env.LOCALCLAW_DB.prepare(`
-    SELECT machine_id, model_id, status, quantization, created_at, updated_at
+    SELECT machine_id, model_id, status, quantization,
+           test_verdict, measured_tps, notes, last_tested_at,
+           created_at, updated_at
     FROM model_favorites
     WHERE user_id = ? AND machine_id = ? AND model_id = ?
   `).bind(auth.session.user.id, favorite.machineId, favorite.modelId).first();

@@ -10,6 +10,8 @@
         newModelIds: [],
         selectedMachineId: null,
         viewMode: 'compatible',
+        compareModelIds: [],
+        upgradeModelId: null,
         saving: false
     };
 
@@ -43,6 +45,14 @@
         elements.accelerator = document.getElementById('machine-accelerator');
         elements.vramField = document.getElementById('vram-field');
         elements.vramInput = document.getElementById('machine-vram');
+        elements.compareDialog = document.getElementById('compare-dialog');
+        elements.compareDialogBody = document.getElementById('compare-dialog-body');
+        elements.closeCompareDialog = document.getElementById('close-compare-dialog');
+        elements.testDialog = document.getElementById('test-dialog');
+        elements.testForm = document.getElementById('test-form');
+        elements.testFormError = document.getElementById('test-form-error');
+        elements.closeTestDialog = document.getElementById('close-test-dialog');
+        elements.cancelTest = document.getElementById('cancel-test');
         elements.toast = document.getElementById('toast');
     }
 
@@ -55,6 +65,16 @@
         elements.cancelMachine.addEventListener('click', closeMachineDialog);
         elements.accelerator.addEventListener('change', updateVramField);
         elements.form.addEventListener('submit', saveMachine);
+        elements.closeCompareDialog.addEventListener('click', closeCompareDialog);
+        elements.compareDialog.addEventListener('click', (event) => {
+            if (event.target === elements.compareDialog) closeCompareDialog();
+        });
+        elements.closeTestDialog.addEventListener('click', closeTestDialog);
+        elements.cancelTest.addEventListener('click', closeTestDialog);
+        elements.testForm.addEventListener('submit', saveTestLog);
+        elements.testDialog.addEventListener('click', (event) => {
+            if (event.target === elements.testDialog) closeTestDialog();
+        });
         elements.dialog.addEventListener('click', (event) => {
             if (event.target === elements.dialog) closeMachineDialog();
         });
@@ -269,6 +289,10 @@
 
         elements.machineList.querySelectorAll('[data-machine-id]').forEach((button) => {
             button.addEventListener('click', () => {
+                if (state.selectedMachineId !== button.dataset.machineId) {
+                    state.compareModelIds = [];
+                    state.upgradeModelId = null;
+                }
                 state.selectedMachineId = button.dataset.machineId;
                 renderMachineList();
                 renderSelectedMachine();
@@ -297,6 +321,8 @@
         const machineFavorites = state.favorites.filter((favorite) => favorite.machineId === machine.id);
         const favoriteById = new Map(machineFavorites.map((favorite) => [favorite.modelId, favorite]));
         const newIds = new Set(state.newModelIds);
+        state.compareModelIds = state.compareModelIds.filter((modelId) => compatibleById.has(modelId));
+        const selectedCompareModels = state.compareModelIds.map((modelId) => compatibleById.get(modelId)).filter(Boolean);
         let models = result.compatible.slice(0, 18);
 
         if (state.viewMode === 'saved') {
@@ -341,9 +367,17 @@
                 ${state.newModelIds.length ? '<button class="lc-mark-seen" type="button" data-mark-seen>Mark catalogue seen</button>' : ''}
             </div>
 
+            ${selectedCompareModels.length ? renderCompareTray(selectedCompareModels) : ''}
+
             ${models.length ? `
                 <div class="lc-model-grid">
-                    ${models.map((model) => renderModelCard(model, machine, favoriteById.get(model.id))).join('')}
+                    ${models.map((model) => renderModelCard(
+                        model,
+                        machine,
+                        favoriteById.get(model.id),
+                        state.compareModelIds.includes(model.id),
+                        compatibleById.has(model.id)
+                    )).join('')}
                 </div>
             ` : `
                 <div class="lc-model-empty">
@@ -351,6 +385,8 @@
                     <p>${emptyCopy[1]}</p>
                 </div>
             `}
+
+            ${renderUpgradePlanner(machine, compatibleById)}
         `;
 
         elements.recommendationPanel.querySelector('[data-edit-machine]')?.addEventListener('click', () => openMachineDialog(machine));
@@ -368,9 +404,24 @@
         elements.recommendationPanel.querySelectorAll('[data-favorite-status]').forEach((select) => {
             select.addEventListener('change', () => updateFavoriteStatus(select.dataset.favoriteStatus, machine, select.value));
         });
+        elements.recommendationPanel.querySelectorAll('[data-compare-model]').forEach((button) => {
+            button.addEventListener('click', () => toggleComparison(button.dataset.compareModel));
+        });
+        elements.recommendationPanel.querySelector('[data-open-comparison]')?.addEventListener('click', () => openCompareDialog(machine, compatibleById));
+        elements.recommendationPanel.querySelector('[data-clear-comparison]')?.addEventListener('click', () => {
+            state.compareModelIds = [];
+            renderSelectedMachine();
+        });
+        elements.recommendationPanel.querySelectorAll('[data-open-test]').forEach((button) => {
+            button.addEventListener('click', () => openTestDialog(button.dataset.openTest, machine));
+        });
+        elements.recommendationPanel.querySelector('[data-upgrade-model]')?.addEventListener('change', (event) => {
+            state.upgradeModelId = event.target.value;
+            renderSelectedMachine();
+        });
     }
 
-    function renderModelCard(model, machine, favorite) {
+    function renderModelCard(model, machine, favorite, isCompared, canCompare) {
         const reasons = [...model.compatibilityReasons];
         reasons.push(`${formatNumber(model.size_gb)} GB model`);
         const saved = Boolean(favorite);
@@ -396,14 +447,284 @@
                                 ${favoriteStatusOptions(favorite.status)}
                             </select>
                         </label>
+                        <button class="lc-test-button" type="button" data-open-test="${escapeAttribute(model.id)}">Test log</button>
                     </div>
+                    ${renderTestSummary(favorite)}
                 ` : ''}
                 <footer class="lc-model-footer">
                     <span>${escapeHtml(model.runtimeNote)}</span>
-                    <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}">View model →</a>
+                    <span class="lc-model-actions">
+                        ${canCompare ? `<button class="lc-compare-button${isCompared ? ' is-selected' : ''}" type="button" data-compare-model="${escapeAttribute(model.id)}" aria-pressed="${isCompared ? 'true' : 'false'}">${isCompared ? 'Selected' : 'Compare'}</button>` : ''}
+                        <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}">View model →</a>
+                    </span>
                 </footer>
             </article>
         `;
+    }
+
+    function renderCompareTray(models) {
+        const canCompare = models.length >= 2;
+        return `
+            <section class="lc-compare-tray" aria-label="Selected models for comparison">
+                <div>
+                    <span class="lc-compare-count">${models.length}/4 selected</span>
+                    <span class="lc-compare-names">${models.map((model) => escapeHtml(model.name)).join(' · ')}</span>
+                </div>
+                <div class="lc-compare-tray-actions">
+                    <button class="lc-button" type="button" data-clear-comparison>Clear</button>
+                    <button class="lc-button lc-button-primary" type="button" data-open-comparison${canCompare ? '' : ' disabled'}>Compare ${canCompare ? 'models' : 'after 2 picks'}</button>
+                </div>
+            </section>
+        `;
+    }
+
+    function toggleComparison(modelId) {
+        if (state.compareModelIds.includes(modelId)) {
+            state.compareModelIds = state.compareModelIds.filter((id) => id !== modelId);
+        } else if (state.compareModelIds.length >= 4) {
+            showToast('Compare up to four models at a time.', 'error');
+            return;
+        } else {
+            state.compareModelIds = [...state.compareModelIds, modelId];
+        }
+        renderSelectedMachine();
+    }
+
+    function openCompareDialog(machine, compatibleById) {
+        const models = state.compareModelIds.map((modelId) => compatibleById.get(modelId)).filter(Boolean);
+        if (models.length < 2) {
+            showToast('Select at least two compatible models.', 'error');
+            return;
+        }
+
+        const bestScore = Math.max(...models.map((model) => Number(model.compatibilityScore) || 0));
+        const rows = [
+            ['Personal fit', (model) => `${formatNumber(model.compatibilityScore)}/100`],
+            ['Fit tier', (model) => model.compatibilityLabel],
+            ['Parameters', (model) => model.params || 'Not listed'],
+            ['Model size', (model) => `${formatNumber(model.size_gb)} GB`],
+            ['Minimum RAM', (model) => `${formatNumber(model.min_ram)} GB`],
+            ['Recommended quant', (model) => model.recommended_quant || 'Not listed'],
+            ['Quality', (model) => benchmarkValue(model, 'quality')],
+            ['Coding', (model) => benchmarkValue(model, 'coding')],
+            ['Reasoning', (model) => benchmarkValue(model, 'reasoning')],
+            ['Speed', (model) => benchmarkValue(model, 'speed')],
+            ['Saved status', (model) => getFavorite(machine.id, model.id)?.status || 'Not saved']
+        ];
+
+        elements.compareDialogBody.innerHTML = `
+            <p class="lc-compare-intro">A side-by-side view for <strong>${escapeHtml(machine.name)}</strong>. Scores use the same hardware, use-case and priority settings as your recommendations.</p>
+            <div class="lc-comparison-scroll">
+                <table class="lc-comparison-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Metric</th>
+                            ${models.map((model) => `
+                                <th scope="col">
+                                    ${Number(model.compatibilityScore) === bestScore ? '<span class="lc-recommended-tag">Recommended</span>' : ''}
+                                    <a href="/models/${encodeURIComponent(model.id)}">${escapeHtml(model.name)}</a>
+                                </th>
+                            `).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rows.map(([label, valueFor]) => `
+                            <tr>
+                                <th scope="row">${escapeHtml(label)}</th>
+                                ${models.map((model) => `<td>${escapeHtml(valueFor(model))}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+        elements.compareDialog.showModal();
+    }
+
+    function closeCompareDialog() {
+        if (elements.compareDialog.open) elements.compareDialog.close();
+    }
+
+    function renderTestSummary(favorite) {
+        const hasTest = favorite.testVerdict && favorite.testVerdict !== 'untested';
+        const hasSpeed = Number(favorite.measuredTps) > 0;
+        const hasNotes = Boolean(String(favorite.notes || '').trim());
+        if (!hasTest && !hasSpeed && !hasNotes) return '';
+
+        const note = String(favorite.notes || '').trim();
+        const shortNote = note.length > 110 ? `${note.slice(0, 107)}...` : note;
+        return `
+            <div class="lc-test-summary">
+                <div class="lc-test-summary-head">
+                    <span class="lc-test-verdict" data-verdict="${escapeAttribute(favorite.testVerdict || 'untested')}">${escapeHtml(testVerdictLabel(favorite.testVerdict))}</span>
+                    ${hasSpeed ? `<strong>${formatNumber(favorite.measuredTps)} tok/s</strong>` : ''}
+                    ${favorite.lastTestedAt ? `<time datetime="${escapeAttribute(favorite.lastTestedAt)}">${escapeHtml(formatShortDate(favorite.lastTestedAt))}</time>` : ''}
+                </div>
+                ${hasNotes ? `<p>${escapeHtml(shortNote)}</p>` : ''}
+            </div>
+        `;
+    }
+
+    function openTestDialog(modelId, machine) {
+        const favorite = getFavorite(machine.id, modelId);
+        const model = APP_DATA.models.find((item) => item.id === modelId);
+        if (!favorite || !model) {
+            showToast('Save this model before recording a test.', 'error');
+            return;
+        }
+
+        elements.testForm.reset();
+        elements.testFormError.textContent = '';
+        document.getElementById('test-machine-id').value = machine.id;
+        document.getElementById('test-model-id').value = model.id;
+        document.getElementById('test-status').value = favorite.status || 'saved';
+        document.getElementById('test-verdict').value = favorite.testVerdict || 'untested';
+        document.getElementById('test-quantization').value = favorite.quantization || model.recommended_quant || '';
+        document.getElementById('test-tps').value = favorite.measuredTps ?? '';
+        document.getElementById('test-notes').value = favorite.notes || '';
+        document.getElementById('test-dialog-copy').textContent = `${model.name} on ${machine.name}`;
+        elements.testDialog.showModal();
+        window.setTimeout(() => document.getElementById('test-verdict').focus(), 30);
+    }
+
+    function closeTestDialog() {
+        if (elements.testDialog.open) elements.testDialog.close();
+    }
+
+    async function saveTestLog(event) {
+        event.preventDefault();
+        if (state.saving) return;
+
+        const formData = new FormData(elements.testForm);
+        const machineId = String(formData.get('machineId') || '');
+        const modelId = String(formData.get('modelId') || '');
+        const measuredValue = String(formData.get('measuredTps') || '').trim();
+        const payload = {
+            machineId,
+            status: String(formData.get('status') || 'saved'),
+            testVerdict: String(formData.get('testVerdict') || 'untested'),
+            quantization: String(formData.get('quantization') || ''),
+            measuredTps: measuredValue ? Number(measuredValue) : null,
+            notes: String(formData.get('notes') || '')
+        };
+
+        state.saving = true;
+        elements.testForm.classList.add('lc-loading');
+        elements.testFormError.textContent = '';
+
+        try {
+            const response = await fetch(`/api/favorites/${encodeURIComponent(modelId)}`, {
+                method: 'PUT',
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await readJson(response);
+            if (!response.ok || !data?.favorite) {
+                throw new Error(data?.message || 'Could not save this test log.');
+            }
+
+            state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machineId && favorite.modelId === modelId))];
+            closeTestDialog();
+            renderSelectedMachine();
+            showToast('Private test log saved.');
+        } catch (error) {
+            elements.testFormError.textContent = error.message || 'Could not save this test log.';
+        } finally {
+            state.saving = false;
+            elements.testForm.classList.remove('lc-loading');
+        }
+    }
+
+    function renderUpgradePlanner(machine, compatibleById) {
+        const candidates = upgradeCandidates(compatibleById);
+        if (!candidates.length) return '';
+
+        if (!state.upgradeModelId || !candidates.some((model) => model.id === state.upgradeModelId)) {
+            state.upgradeModelId = candidates[0].id;
+        }
+
+        const target = candidates.find((model) => model.id === state.upgradeModelId) || candidates[0];
+        const requiredRam = recommendedTier(requiredMemoryForModel(target), [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]);
+        const requiredVram = recommendedTier(Number(target.size_gb) / 0.88, [8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192]);
+        const isApple = machine.accelerator === 'apple-silicon';
+        const advice = isApple
+            ? `Apple unified memory cannot be expanded after purchase. A ${requiredRam} GB unified-memory Mac is the planning target for this catalogue fit.`
+            : machine.accelerator === 'nvidia'
+                ? `Plan for at least ${requiredRam} GB system RAM. About ${requiredVram} GB VRAM is the full-offload planning tier; less VRAM may use partial offload.`
+                : `Plan for at least ${requiredRam} GB system RAM. GPU acceleration and usable VRAM depend on your runtime and operating system.`;
+        const primaryLink = isApple ? '/computers#apple-machines-title' : '/ram-gpu-for-local-ai#ram-picks';
+        const primaryLabel = isApple ? 'Browse Apple systems' : 'Browse RAM upgrades';
+
+        return `
+            <section class="lc-upgrade-planner" aria-labelledby="upgrade-planner-title">
+                <div class="lc-upgrade-heading">
+                    <div>
+                        <p class="lc-kicker">Hardware upgrade planner</p>
+                        <h3 id="upgrade-planner-title">What would unlock a larger model?</h3>
+                    </div>
+                    <label>
+                        <span>Target model</span>
+                        <select data-upgrade-model>
+                            ${candidates.slice(0, 80).map((model) => `<option value="${escapeAttribute(model.id)}"${model.id === target.id ? ' selected' : ''}>${escapeHtml(model.name)} · ${formatNumber(model.size_gb)} GB</option>`).join('')}
+                        </select>
+                    </label>
+                </div>
+                <div class="lc-upgrade-result">
+                    <div><span>Current machine</span><strong>${escapeHtml(machine.ramGb)} GB${machine.vramGb ? ` · ${escapeHtml(machine.vramGb)} GB VRAM` : ''}</strong></div>
+                    <div><span>Planning target</span><strong>${requiredRam} GB RAM${machine.accelerator === 'nvidia' ? ` · ${requiredVram} GB VRAM` : ''}</strong></div>
+                    <div><span>Model size</span><strong>${formatNumber(target.size_gb)} GB</strong></div>
+                </div>
+                <p class="lc-upgrade-copy">${escapeHtml(advice)} These are conservative planning estimates, not a performance guarantee.</p>
+                <div class="lc-upgrade-actions">
+                    <a class="lc-button lc-button-primary" href="${primaryLink}">${primaryLabel}</a>
+                    ${isApple ? '' : '<a class="lc-button" href="/ram-gpu-for-local-ai#gpu-picks">Browse GPUs</a>'}
+                    <a class="lc-button" href="/models/${encodeURIComponent(target.id)}">View target model</a>
+                </div>
+            </section>
+        `;
+    }
+
+    function upgradeCandidates(compatibleById) {
+        const seen = new Set();
+        return APP_DATA.models
+            .filter((model) => {
+                if (!model?.id || seen.has(model.id) || model.hosted_only || Number(model.size_gb) <= 0 || compatibleById.has(model.id)) return false;
+                seen.add(model.id);
+                return true;
+            })
+            .sort((a, b) => {
+                const memoryDelta = requiredMemoryForModel(a) - requiredMemoryForModel(b);
+                if (memoryDelta) return memoryDelta;
+                return Number(b.benchmarks?.quality || 0) - Number(a.benchmarks?.quality || 0);
+            });
+    }
+
+    function requiredMemoryForModel(model) {
+        return Math.max(Number(model.min_ram) || 0, Math.ceil((Number(model.size_gb) || 0) + 2.5));
+    }
+
+    function recommendedTier(required, tiers) {
+        const match = tiers.find((tier) => tier >= required);
+        return match || Math.ceil(required / 128) * 128;
+    }
+
+    function benchmarkValue(model, key) {
+        const value = Number(model.benchmarks?.[key]);
+        return Number.isFinite(value) ? `${formatNumber(value)}/10` : 'Not listed';
+    }
+
+    function testVerdictLabel(verdict) {
+        if (verdict === 'works') return 'Works well';
+        if (verdict === 'limited') return 'Works with limits';
+        if (verdict === 'failed') return 'Did not work';
+        return 'Not tested';
+    }
+
+    function formatShortDate(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return '';
+        return new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
     }
 
     function savedModelForFavorite(favorite, compatibleById) {

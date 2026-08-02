@@ -8,7 +8,7 @@
     <meta name="description" content="Manage your hardware profiles and view compatible local AI models in LocalClaw.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
-    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260802c">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260802d">
 </head>
 <body>
     <header class="lc-site-header">
@@ -183,10 +183,82 @@
         </form>
     </dialog>
 
+    <dialog id="compare-dialog" class="lc-dialog lc-compare-dialog" aria-labelledby="compare-dialog-title">
+        <div class="lc-dialog-head">
+            <div>
+                <p class="lc-kicker">Personalized comparison</p>
+                <h2 id="compare-dialog-title" class="lc-dialog-title">Compare local models</h2>
+            </div>
+            <button id="close-compare-dialog" class="lc-icon-button" type="button" aria-label="Close comparison">×</button>
+        </div>
+        <div id="compare-dialog-body" class="lc-compare-dialog-body"></div>
+    </dialog>
+
+    <dialog id="test-dialog" class="lc-dialog lc-test-dialog" aria-labelledby="test-dialog-title">
+        <form id="test-form" method="dialog">
+            <div class="lc-dialog-head">
+                <div>
+                    <p class="lc-kicker">My Test Bench</p>
+                    <h2 id="test-dialog-title" class="lc-dialog-title">Record a local test</h2>
+                    <p id="test-dialog-copy" class="lc-dialog-copy"></p>
+                </div>
+                <button id="close-test-dialog" class="lc-icon-button" type="button" aria-label="Close test log">×</button>
+            </div>
+
+            <div class="lc-form">
+                <input id="test-machine-id" name="machineId" type="hidden">
+                <input id="test-model-id" name="modelId" type="hidden">
+                <div class="lc-form-grid">
+                    <div class="lc-field">
+                        <label for="test-status">Workflow status</label>
+                        <select id="test-status" name="status">
+                            <option value="saved">Saved</option>
+                            <option value="to-test">To test</option>
+                            <option value="downloaded">Downloaded</option>
+                            <option value="installed">Installed</option>
+                        </select>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="test-verdict">Test verdict</label>
+                        <select id="test-verdict" name="testVerdict">
+                            <option value="untested">Not tested yet</option>
+                            <option value="works">Works well</option>
+                            <option value="limited">Works with limits</option>
+                            <option value="failed">Did not work</option>
+                        </select>
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="test-quantization">Quantization</label>
+                        <input id="test-quantization" name="quantization" maxlength="32" placeholder="Q4_K_M">
+                    </div>
+
+                    <div class="lc-field">
+                        <label for="test-tps">Measured speed (tokens/s)</label>
+                        <input id="test-tps" name="measuredTps" type="number" min="0.1" max="10000" step="0.1" placeholder="18.4">
+                    </div>
+
+                    <div class="lc-field lc-field-wide">
+                        <label for="test-notes">Private notes</label>
+                        <textarea id="test-notes" name="notes" maxlength="800" rows="5" placeholder="Context length, prompt type, memory pressure, what worked..."></textarea>
+                        <span class="lc-field-hint">Stored in your LocalClaw account and never published.</span>
+                    </div>
+                </div>
+                <p id="test-form-error" class="lc-form-error" role="alert"></p>
+            </div>
+
+            <div class="lc-dialog-actions">
+                <button id="cancel-test" class="lc-button" type="button">Cancel</button>
+                <button id="save-test" class="lc-button lc-button-primary" type="submit">Save test log</button>
+            </div>
+        </form>
+    </dialog>
+
     <div id="toast" class="lc-toast" hidden role="status"></div>
 
     <script src="/js/data.js?v=20260801b"></script>
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
-    <script src="/js/account-20260802a.js?v=20260802c"></script>
+    <script src="/js/account-20260802a.js?v=20260802d"></script>
 </body>
 </html>
