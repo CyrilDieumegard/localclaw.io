@@ -546,6 +546,18 @@ a:focus-visible {
     margin: 14px 0;
 }
 
+.lc-model-card > .lc-community-rating {
+    margin: 0 0 14px;
+}
+
+.lc-model-card > .lc-community-rating .lc-rating-panel {
+    padding: 11px 12px;
+}
+
+.lc-model-card > .lc-community-rating .lc-rating-average {
+    font-size: 18px;
+}
+
 .lc-spec-pill {
     padding: 4px 7px;
     color: #b9bbc0;

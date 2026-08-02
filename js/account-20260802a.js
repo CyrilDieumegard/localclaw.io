@@ -122,7 +122,11 @@
         elements.googleSignIn.classList.add('lc-loading');
 
         try {
-            const callbackURL = `${window.location.origin}/account`;
+            const requestedPath = new URLSearchParams(window.location.search).get('next');
+            const safePath = requestedPath && requestedPath.startsWith('/') && !requestedPath.startsWith('//')
+                ? requestedPath
+                : '/account';
+            const callbackURL = `${window.location.origin}${safePath}`;
             const response = await fetch('/api/auth/sign-in/social', {
                 method: 'POST',
                 credentials: 'same-origin',
@@ -389,6 +393,8 @@
             ${renderUpgradePlanner(machine, compatibleById)}
         `;
 
+        window.LocalClawRatings?.refresh(elements.recommendationPanel);
+
         elements.recommendationPanel.querySelector('[data-edit-machine]')?.addEventListener('click', () => openMachineDialog(machine));
         elements.recommendationPanel.querySelector('[data-delete-machine]')?.addEventListener('click', () => deleteMachine(machine));
         elements.recommendationPanel.querySelectorAll('[data-model-view]').forEach((button) => {
@@ -434,6 +440,7 @@
                     <span class="lc-tier-pill">${escapeHtml(model.compatibilityLabel)}</span>
                 </div>
                 <h3>${escapeHtml(model.name)}</h3>
+                <div data-community-rating data-model-id="${escapeAttribute(model.id)}" data-rating-mode="interactive"></div>
                 <p>${escapeHtml(model.description || 'Local model in the LocalClaw catalogue.')}</p>
                 <div class="lc-reason-list">
                     ${reasons.slice(0, 4).map((reason) => `<span class="lc-spec-pill">${escapeHtml(reason)}</span>`).join('')}
@@ -505,6 +512,7 @@
             ['Model size', (model) => `${formatNumber(model.size_gb)} GB`],
             ['Minimum RAM', (model) => `${formatNumber(model.min_ram)} GB`],
             ['Recommended quant', (model) => model.recommended_quant || 'Not listed'],
+            ['Community', (model) => formatCommunityRating(model.id)],
             ['Quality', (model) => benchmarkValue(model, 'quality')],
             ['Coding', (model) => benchmarkValue(model, 'coding')],
             ['Reasoning', (model) => benchmarkValue(model, 'reasoning')],
@@ -627,7 +635,10 @@
             state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machineId && favorite.modelId === modelId))];
             closeTestDialog();
             renderSelectedMachine();
-            showToast('Private test log saved.');
+            showToast(payload.testVerdict === 'untested' ? 'Private test log saved.' : 'Test saved. You can now share a community rating.');
+            if (payload.testVerdict !== 'untested') {
+                window.setTimeout(() => window.LocalClawRatings?.focus(modelId, elements.recommendationPanel), 120);
+            }
         } catch (error) {
             elements.testFormError.textContent = error.message || 'Could not save this test log.';
         } finally {
@@ -712,6 +723,12 @@
     function benchmarkValue(model, key) {
         const value = Number(model.benchmarks?.[key]);
         return Number.isFinite(value) ? `${formatNumber(value)}/10` : 'Not listed';
+    }
+
+    function formatCommunityRating(modelId) {
+        const aggregate = window.LocalClawRatings?.get(modelId);
+        if (!aggregate?.count) return 'Not rated';
+        return `${Number(aggregate.average).toFixed(1)}/5 · ${aggregate.count} vote${aggregate.count === 1 ? '' : 's'}`;
     }
 
     function testVerdictLabel(verdict) {

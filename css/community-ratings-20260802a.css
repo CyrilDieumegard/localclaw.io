@@ -1,0 +1,192 @@
+.lc-community-rating {
+    --lc-rating-accent: #ff6a1e;
+    --lc-rating-muted: #8d8d98;
+    color: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.lc-community-rating[data-rating-mode="compact"] {
+    align-items: center;
+    display: inline-flex;
+    min-height: 24px;
+}
+
+.lc-rating-compact {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+    color: #d4d4d8;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.lc-rating-compact-star {
+    color: var(--lc-rating-accent);
+    filter: drop-shadow(0 0 7px rgba(255, 106, 30, .28));
+    font-size: 14px;
+}
+
+.lc-rating-compact-count {
+    color: var(--lc-rating-muted);
+    font-weight: 700;
+}
+
+.lc-rating-panel {
+    border: 1px solid rgba(255, 106, 30, .28);
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255, 106, 30, .08), rgba(12, 12, 12, .92) 48%);
+    padding: 14px 16px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.lc-community-rating[data-rating-mode="full"] .lc-rating-panel {
+    padding: 18px;
+}
+
+.lc-rating-heading {
+    color: #a1a1aa;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    margin: 0 0 6px;
+    text-transform: uppercase;
+}
+
+.lc-rating-summary {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 9px;
+}
+
+.lc-rating-average {
+    color: #fff;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+.lc-rating-out-of,
+.lc-rating-count {
+    color: var(--lc-rating-muted);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.lc-rating-stars {
+    align-items: center;
+    display: flex;
+    gap: 3px;
+}
+
+.lc-rating-star {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: #4a4a50;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 25px;
+    height: 34px;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    transition: color .16s ease, filter .16s ease, transform .16s ease;
+    width: 30px;
+}
+
+.lc-rating-star.is-average {
+    color: rgba(255, 106, 30, .48);
+}
+
+.lc-rating-star.is-selected,
+.lc-rating-star:hover,
+.lc-rating-star:focus-visible,
+.lc-rating-star:hover ~ .lc-rating-star.is-average {
+    color: var(--lc-rating-accent);
+}
+
+.lc-rating-star:hover,
+.lc-rating-star:focus-visible {
+    filter: drop-shadow(0 0 8px rgba(255, 106, 30, .48));
+    outline: 1px solid rgba(255, 106, 30, .42);
+    transform: translateY(-1px);
+}
+
+.lc-rating-star:disabled {
+    cursor: wait;
+    opacity: .55;
+}
+
+.lc-rating-foot {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    min-height: 18px;
+}
+
+.lc-rating-status,
+.lc-rating-signin {
+    color: var(--lc-rating-muted);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.lc-rating-signin,
+.lc-rating-clear {
+    color: var(--lc-rating-accent);
+}
+
+.lc-rating-clear {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: 800 10px ui-monospace, SFMono-Regular, Menlo, monospace;
+    padding: 0;
+}
+
+.lc-rating-panel.is-saving {
+    opacity: .72;
+}
+
+.lc-rating-panel.is-highlighted {
+    border-color: rgba(255, 106, 30, .72);
+    box-shadow: 0 0 0 3px rgba(255, 106, 30, .1), 0 0 24px rgba(255, 106, 30, .16);
+}
+
+@media (hover: hover) {
+    .lc-rating-stars:hover .lc-rating-star {
+        color: #4a4a50;
+    }
+
+    .lc-rating-stars .lc-rating-star:hover,
+    .lc-rating-stars .lc-rating-star:has(~ .lc-rating-star:hover) {
+        color: var(--lc-rating-accent);
+    }
+}
+
+@media (max-width: 560px) {
+    .lc-rating-star {
+        font-size: 23px;
+        height: 38px;
+        width: 34px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lc-rating-panel,
+    .lc-rating-star {
+        transition: none;
+    }
+}

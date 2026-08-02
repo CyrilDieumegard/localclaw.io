@@ -33,6 +33,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1298,6 +1299,8 @@
                         <button class="sort-opt" data-sort="speed-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed (Fast → Slow)</button>
                         <button class="sort-opt" data-sort="coding-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding (Best → Worst)</button>
                         <button class="sort-opt" data-sort="reasoning-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning (Best → Worst)</button>
+                        <button class="sort-opt" data-sort="community-desc"><span aria-hidden="true">★</span> Community rating</button>
+                        <button class="sort-opt" data-sort="rated-desc"><span aria-hidden="true">◎</span> Most rated</button>
                         <button class="sort-opt" data-sort="size-asc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg> Size (Small → Large)</button>
                         <button class="sort-opt" data-sort="size-desc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></svg> Size (Large → Small)</button>
                         <button class="sort-opt" data-sort="ram-asc"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> RAM (Least → Most)</button>
@@ -1440,6 +1443,7 @@
     <script src="js/data.js?v=20260801b" onerror="console.error('Failed to load js/data.js');document.getElementById('loading-state').style.display='none';document.getElementById('error-state').style.display='block';document.getElementById('error-message').textContent='Failed to load data.js. Please check your connection and reload.';"></script>
     <script src="js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="js/account-context-20260802b.js?v=20260802b"></script>
+    <script src="/js/community-ratings-20260802a.js?v=20260802a"></script>
 
     <!-- APP -->
     <script>
@@ -1582,6 +1586,13 @@
             buildFamilies();
             bind();
             bindAccountContext();
+            document.addEventListener('localclaw:ratings-ready', function(){
+                if(sortKey==='community-desc'||sortKey==='rated-desc') run();
+                else window.LocalClawRatings&&window.LocalClawRatings.refresh(document.getElementById(viewMode==='grid'?'models-grid':'models-tbody'));
+            });
+            document.addEventListener('localclaw:rating-updated', function(){
+                if(sortKey==='community-desc'||sortKey==='rated-desc') run();
+            });
             run();
             // particles();
             
@@ -1882,6 +1893,16 @@
                     case 'speed':va=a.benchmarks.speed;vb=b.benchmarks.speed;break;
                     case 'coding':va=a.benchmarks.coding;vb=b.benchmarks.coding;break;
                     case 'reasoning':va=a.benchmarks.reasoning;vb=b.benchmarks.reasoning;break;
+                    case 'community':
+                        var ar=window.LocalClawRatings?window.LocalClawRatings.get(a.id):{average:0,count:0};
+                        var br=window.LocalClawRatings?window.LocalClawRatings.get(b.id):{average:0,count:0};
+                        va=(ar.average||0)+Math.min(ar.count||0,999999)/10000000;
+                        vb=(br.average||0)+Math.min(br.count||0,999999)/10000000;
+                        break;
+                    case 'rated':
+                        va=window.LocalClawRatings?window.LocalClawRatings.get(a.id).count:0;
+                        vb=window.LocalClawRatings?window.LocalClawRatings.get(b.id).count:0;
+                        break;
                     case 'size':va=a.size_gb;vb=b.size_gb;break;
                     case 'ram':va=a.min_ram;vb=b.min_ram;break;
                     case 'name':va=a.name.toLowerCase();vb=b.name.toLowerCase();break;
@@ -1942,6 +1963,7 @@
                     h+='</div>';
 
                     h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid_title" data-fast-goal-model="'+esc(m.id)+'">'+esc(m.name)+'</a>';
+                    h+='<div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact"></div>';
                     if(machineFit) h+='<span class="machine-fit-pill" data-tier="'+esc(machineFit.compatibilityTier)+'">'+esc(machineFit.compatibilityLabel)+' · '+esc(primaryMachine.name)+'</span>';
                     h+='<div class="model-desc">'+esc(m.description)+'</div>';
 
@@ -1985,7 +2007,7 @@
                     var detailUrl2='models/'+encodeURIComponent(m.id)+'/';
                     h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" data-fast-goal="model_open" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
                     if(isN) h+=' <span class="new-badge">NEW</span>';
-                    h+='</div></td>';
+                    h+='</div><div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact" style="margin-top:5px;"></div></td>';
                     h+='<td style="color:var(--muted);text-transform:capitalize;">'+esc(m.family)+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+esc(m.params)+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+(m.hosted_only?'API':m.min_ram+'GB')+'</td>';
@@ -2001,6 +2023,7 @@
                 }
                 document.getElementById('models-tbody').innerHTML=h;
             }
+            if(window.LocalClawRatings) window.LocalClawRatings.refresh(viewMode==='grid'?g:document.getElementById('models-tbody'));
         }
 
         function scoreAvg(m) {
