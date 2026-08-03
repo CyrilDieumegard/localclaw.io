@@ -717,6 +717,102 @@ a:focus-visible {
     padding: 20px;
 }
 
+.lc-machine-picker {
+    margin-bottom: 20px;
+    padding: 18px;
+    border: 1px solid rgba(255, 69, 58, 0.32);
+    border-radius: 7px;
+    background: linear-gradient(135deg, rgba(255, 69, 58, 0.08), rgba(17, 17, 17, 0.96) 42%);
+}
+
+.lc-machine-picker-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.lc-machine-picker-head h3 {
+    margin: 3px 0 0;
+    color: var(--lc-text);
+    font: 800 19px/1.2 var(--lc-display);
+}
+
+.lc-form-section-label {
+    margin: 0;
+    color: var(--lc-accent);
+    font: 800 10px/1.4 var(--lc-mono);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.lc-machine-picker-badge {
+    flex: 0 0 auto;
+    padding: 5px 8px;
+    border: 1px solid rgba(255, 69, 58, 0.38);
+    border-radius: 999px;
+    color: var(--lc-accent);
+    background: rgba(255, 69, 58, 0.08);
+    font: 800 9px/1 var(--lc-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.lc-machine-picker-copy {
+    max-width: 570px;
+    margin: 10px 0 15px;
+    color: var(--lc-muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.lc-machine-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.lc-machine-picker-status {
+    min-height: 18px;
+    margin: 13px 0 0;
+    color: #a4a6ac;
+    font: 700 11px/1.5 var(--lc-mono);
+}
+
+.lc-machine-picker-status::before {
+    content: '○';
+    margin-right: 7px;
+    color: var(--lc-accent);
+}
+
+.lc-machine-picker-status.is-ready {
+    color: #c7c9cd;
+}
+
+.lc-machine-picker-status.is-ready::before {
+    content: '●';
+    color: #22c55e;
+}
+
+.lc-form-section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: #777a81;
+    font: 800 10px/1 var(--lc-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.lc-form-section-divider::before,
+.lc-form-section-divider::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: var(--lc-border-soft);
+}
+
 .lc-form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -924,6 +1020,16 @@ a:focus-visible {
 
     .lc-form-grid {
         grid-template-columns: 1fr;
+    }
+
+    .lc-machine-picker-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lc-machine-picker-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
     }
 
     .lc-field-wide {

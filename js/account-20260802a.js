@@ -2,6 +2,64 @@
     'use strict';
 
     const PENDING_MACHINE_KEY = 'localclaw_pending_machine';
+    const MAC_PRESETS = [
+        { id: 'macbook-neo-a18-pro-2026', year: 2026, name: 'MacBook Neo A18 Pro', chip: 'A18 Pro', ram: [8], defaultRam: 8 },
+        { id: 'macbook-air-13-m5-2026', year: 2026, name: 'MacBook Air 13-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-air-15-m5-2026', year: 2026, name: 'MacBook Air 15-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m5-pro-2026', year: 2026, name: 'MacBook Pro 14-inch M5 Pro', chip: 'Apple M5 Pro', ram: [24, 48, 64], defaultRam: 24 },
+        { id: 'macbook-pro-14-m5-max-2026', year: 2026, name: 'MacBook Pro 14-inch M5 Max', chip: 'Apple M5 Max', ram: [36, 48, 64, 128], defaultRam: 36 },
+        { id: 'macbook-pro-16-m5-pro-2026', year: 2026, name: 'MacBook Pro 16-inch M5 Pro', chip: 'Apple M5 Pro', ram: [24, 48, 64], defaultRam: 24 },
+        { id: 'macbook-pro-16-m5-max-2026', year: 2026, name: 'MacBook Pro 16-inch M5 Max', chip: 'Apple M5 Max', ram: [36, 48, 64, 128], defaultRam: 36 },
+
+        { id: 'macbook-air-13-m4-2025', year: 2025, name: 'MacBook Air 13-inch M4', chip: 'Apple M4', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-air-15-m4-2025', year: 2025, name: 'MacBook Air 15-inch M4', chip: 'Apple M4', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m5-2025', year: 2025, name: 'MacBook Pro 14-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'mac-studio-m4-max-2025', year: 2025, name: 'Mac Studio M4 Max', chip: 'Apple M4 Max', ram: [36, 48, 64, 128], defaultRam: 36 },
+        { id: 'mac-studio-m3-ultra-2025', year: 2025, name: 'Mac Studio M3 Ultra', chip: 'Apple M3 Ultra', ram: [96, 256, 512], defaultRam: 96 },
+
+        { id: 'macbook-air-13-m3-2024', year: 2024, name: 'MacBook Air 13-inch M3', chip: 'Apple M3', ram: [8, 16, 24], defaultRam: 16 },
+        { id: 'macbook-air-15-m3-2024', year: 2024, name: 'MacBook Air 15-inch M3', chip: 'Apple M3', ram: [8, 16, 24], defaultRam: 16 },
+        { id: 'mac-mini-m4-2024', year: 2024, name: 'Mac mini M4', chip: 'Apple M4', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'mac-mini-m4-pro-2024', year: 2024, name: 'Mac mini M4 Pro', chip: 'Apple M4 Pro', ram: [24, 48, 64], defaultRam: 24 },
+        { id: 'imac-24-m4-2024', year: 2024, name: 'iMac 24-inch M4', chip: 'Apple M4', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m4-2024', year: 2024, name: 'MacBook Pro 14-inch M4', chip: 'Apple M4', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m4-pro-2024', year: 2024, name: 'MacBook Pro 14-inch M4 Pro', chip: 'Apple M4 Pro', ram: [24, 48, 64], defaultRam: 24 },
+        { id: 'macbook-pro-14-m4-max-2024', year: 2024, name: 'MacBook Pro 14-inch M4 Max', chip: 'Apple M4 Max', ram: [36, 48, 64, 128], defaultRam: 36 },
+        { id: 'macbook-pro-16-m4-pro-2024', year: 2024, name: 'MacBook Pro 16-inch M4 Pro', chip: 'Apple M4 Pro', ram: [24, 48, 64], defaultRam: 24 },
+        { id: 'macbook-pro-16-m4-max-2024', year: 2024, name: 'MacBook Pro 16-inch M4 Max', chip: 'Apple M4 Max', ram: [36, 48, 64, 128], defaultRam: 36 },
+
+        { id: 'mac-mini-m2-2023', year: 2023, name: 'Mac mini M2', chip: 'Apple M2', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'mac-mini-m2-pro-2023', year: 2023, name: 'Mac mini M2 Pro', chip: 'Apple M2 Pro', ram: [16, 32], defaultRam: 16 },
+        { id: 'macbook-air-15-m2-2023', year: 2023, name: 'MacBook Air 15-inch M2', chip: 'Apple M2', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'macbook-pro-14-m2-pro-2023', year: 2023, name: 'MacBook Pro 14-inch M2 Pro', chip: 'Apple M2 Pro', ram: [16, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m2-max-2023', year: 2023, name: 'MacBook Pro 14-inch M2 Max', chip: 'Apple M2 Max', ram: [32, 64, 96], defaultRam: 32 },
+        { id: 'macbook-pro-16-m2-pro-2023', year: 2023, name: 'MacBook Pro 16-inch M2 Pro', chip: 'Apple M2 Pro', ram: [16, 32], defaultRam: 16 },
+        { id: 'macbook-pro-16-m2-max-2023', year: 2023, name: 'MacBook Pro 16-inch M2 Max', chip: 'Apple M2 Max', ram: [32, 64, 96], defaultRam: 32 },
+        { id: 'mac-studio-m2-max-2023', year: 2023, name: 'Mac Studio M2 Max', chip: 'Apple M2 Max', ram: [32, 64, 96], defaultRam: 32 },
+        { id: 'mac-studio-m2-ultra-2023', year: 2023, name: 'Mac Studio M2 Ultra', chip: 'Apple M2 Ultra', ram: [64, 128, 192], defaultRam: 64 },
+        { id: 'mac-pro-m2-ultra-2023', year: 2023, name: 'Mac Pro M2 Ultra', chip: 'Apple M2 Ultra', ram: [64, 128, 192], defaultRam: 64 },
+        { id: 'imac-24-m3-2023', year: 2023, name: 'iMac 24-inch M3', chip: 'Apple M3', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'macbook-pro-14-m3-2023', year: 2023, name: 'MacBook Pro 14-inch M3', chip: 'Apple M3', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'macbook-pro-14-m3-pro-2023', year: 2023, name: 'MacBook Pro 14-inch M3 Pro', chip: 'Apple M3 Pro', ram: [18, 36], defaultRam: 18 },
+        { id: 'macbook-pro-14-m3-max-2023', year: 2023, name: 'MacBook Pro 14-inch M3 Max', chip: 'Apple M3 Max', ram: [36, 48, 64, 96, 128], defaultRam: 36 },
+        { id: 'macbook-pro-16-m3-pro-2023', year: 2023, name: 'MacBook Pro 16-inch M3 Pro', chip: 'Apple M3 Pro', ram: [18, 36], defaultRam: 18 },
+        { id: 'macbook-pro-16-m3-max-2023', year: 2023, name: 'MacBook Pro 16-inch M3 Max', chip: 'Apple M3 Max', ram: [36, 48, 64, 96, 128], defaultRam: 36 },
+
+        { id: 'macbook-air-13-m2-2022', year: 2022, name: 'MacBook Air 13-inch M2', chip: 'Apple M2', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'macbook-pro-13-m2-2022', year: 2022, name: 'MacBook Pro 13-inch M2', chip: 'Apple M2', ram: [8, 16, 24], defaultRam: 8 },
+        { id: 'mac-studio-m1-max-2022', year: 2022, name: 'Mac Studio M1 Max', chip: 'Apple M1 Max', ram: [32, 64], defaultRam: 32 },
+        { id: 'mac-studio-m1-ultra-2022', year: 2022, name: 'Mac Studio M1 Ultra', chip: 'Apple M1 Ultra', ram: [64, 128], defaultRam: 64 },
+
+        { id: 'imac-24-m1-2021', year: 2021, name: 'iMac 24-inch M1', chip: 'Apple M1', ram: [8, 16], defaultRam: 8 },
+        { id: 'macbook-pro-14-m1-pro-2021', year: 2021, name: 'MacBook Pro 14-inch M1 Pro', chip: 'Apple M1 Pro', ram: [16, 32], defaultRam: 16 },
+        { id: 'macbook-pro-14-m1-max-2021', year: 2021, name: 'MacBook Pro 14-inch M1 Max', chip: 'Apple M1 Max', ram: [32, 64], defaultRam: 32 },
+        { id: 'macbook-pro-16-m1-pro-2021', year: 2021, name: 'MacBook Pro 16-inch M1 Pro', chip: 'Apple M1 Pro', ram: [16, 32], defaultRam: 16 },
+        { id: 'macbook-pro-16-m1-max-2021', year: 2021, name: 'MacBook Pro 16-inch M1 Max', chip: 'Apple M1 Max', ram: [32, 64], defaultRam: 32 },
+
+        { id: 'macbook-air-13-m1-2020', year: 2020, name: 'MacBook Air 13-inch M1', chip: 'Apple M1', ram: [8, 16], defaultRam: 8 },
+        { id: 'macbook-pro-13-m1-2020', year: 2020, name: 'MacBook Pro 13-inch M1', chip: 'Apple M1', ram: [8, 16], defaultRam: 8 },
+        { id: 'mac-mini-m1-2020', year: 2020, name: 'Mac mini M1', chip: 'Apple M1', ram: [8, 16], defaultRam: 8 }
+    ];
     const state = {
         session: null,
         machines: [],
@@ -44,6 +102,12 @@
         elements.dialogTitle = document.getElementById('machine-dialog-title');
         elements.closeDialog = document.getElementById('close-dialog');
         elements.cancelMachine = document.getElementById('cancel-machine');
+        elements.presetType = document.getElementById('machine-preset-type');
+        elements.presetYear = document.getElementById('machine-preset-year');
+        elements.presetModel = document.getElementById('machine-preset-model');
+        elements.presetMemory = document.getElementById('machine-preset-memory');
+        elements.presetStatus = document.getElementById('machine-preset-status');
+        elements.presetFields = [...document.querySelectorAll('[data-machine-preset-field]')];
         elements.accelerator = document.getElementById('machine-accelerator');
         elements.vramField = document.getElementById('vram-field');
         elements.vramInput = document.getElementById('machine-vram');
@@ -65,6 +129,20 @@
         elements.sidebarAddMachine.addEventListener('click', () => openMachineDialog());
         elements.closeDialog.addEventListener('click', closeMachineDialog);
         elements.cancelMachine.addEventListener('click', closeMachineDialog);
+        elements.presetType.addEventListener('change', updatePresetMode);
+        elements.presetYear.addEventListener('change', () => populatePresetModels(elements.presetYear.value));
+        elements.presetModel.addEventListener('change', () => {
+            const preset = selectedMacPreset();
+            if (!preset) {
+                resetPresetMemory();
+                const count = MAC_PRESETS.filter((item) => item.year === Number(elements.presetYear.value)).length;
+                setPresetStatus(`${count} Mac${count === 1 ? '' : 's'} introduced in ${elements.presetYear.value}. Choose your exact model.`);
+                return;
+            }
+            populatePresetMemory(preset, preset.defaultRam);
+            applySelectedPreset();
+        });
+        elements.presetMemory.addEventListener('change', applySelectedPreset);
         elements.accelerator.addEventListener('change', updateVramField);
         elements.form.addEventListener('submit', saveMachine);
         elements.closeCompareDialog.addEventListener('click', closeCompareDialog);
@@ -941,8 +1019,12 @@
         document.getElementById('machine-primary').checked = machine?.isPrimary === true || state.machines.length === 0;
         elements.dialogTitle.textContent = machine?.id ? 'Edit machine' : 'Add machine';
         updateVramField();
+        initializePresetPicker(machine);
         elements.dialog.showModal();
-        window.setTimeout(() => document.getElementById('machine-name').focus(), 30);
+        window.setTimeout(() => {
+            const target = machine?.id ? document.getElementById('machine-name') : elements.presetYear;
+            target.focus();
+        }, 30);
     }
 
     function closeMachineDialog() {
@@ -954,6 +1036,155 @@
         elements.vramField.hidden = !showVram;
         elements.vramInput.required = elements.accelerator.value === 'nvidia';
         if (!showVram) elements.vramInput.value = '';
+    }
+
+    function initializePresetPicker(machine) {
+        const preset = findPresetForMachine(machine);
+        const isManualMachine = machine && (machine.platform !== 'macos' || machine.accelerator !== 'apple-silicon');
+        elements.presetType.value = isManualMachine ? 'manual' : 'mac';
+
+        if (isManualMachine) {
+            updatePresetMode();
+            return;
+        }
+
+        setPresetFieldsHidden(false);
+        populatePresetYears(preset ? String(preset.year) : '');
+        if (!preset) {
+            resetPresetModel();
+            setPresetStatus(machine ? 'This Mac is not in the quick list. Keep the specifications below or choose another model.' : 'Choose the year your Mac model was introduced.');
+            return;
+        }
+
+        populatePresetModels(String(preset.year), preset.id);
+        populatePresetMemory(preset, machine?.ramGb || preset.defaultRam);
+        setPresetStatus(`${preset.name} matched. Confirm its installed memory below.`, true);
+    }
+
+    function updatePresetMode() {
+        const manual = elements.presetType.value === 'manual';
+        setPresetFieldsHidden(manual);
+
+        if (manual) {
+            setPresetStatus('Enter the operating system, compute and memory specifications below.');
+            return;
+        }
+
+        document.getElementById('machine-platform').value = 'macos';
+        elements.accelerator.value = 'apple-silicon';
+        updateVramField();
+        populatePresetYears(elements.presetYear.value);
+        if (elements.presetYear.value) {
+            populatePresetModels(elements.presetYear.value, elements.presetModel.value);
+        } else {
+            resetPresetModel();
+            setPresetStatus('Choose the year your Mac model was introduced.');
+        }
+    }
+
+    function setPresetFieldsHidden(hidden) {
+        elements.presetFields.forEach((field) => {
+            field.hidden = hidden;
+            const select = field.querySelector('select');
+            if (select) select.disabled = hidden;
+        });
+    }
+
+    function populatePresetYears(selectedYear = '') {
+        const years = [...new Set(MAC_PRESETS.map((preset) => preset.year))].sort((a, b) => b - a);
+        elements.presetYear.innerHTML = '<option value="">Choose a year</option>' + years
+            .map((year) => `<option value="${year}">${year}</option>`)
+            .join('');
+        if (years.includes(Number(selectedYear))) elements.presetYear.value = String(selectedYear);
+        elements.presetYear.disabled = false;
+    }
+
+    function populatePresetModels(year, selectedId = '') {
+        const matches = MAC_PRESETS
+            .filter((preset) => preset.year === Number(year))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        if (!matches.length) {
+            resetPresetModel();
+            setPresetStatus('Choose the year your Mac model was introduced.');
+            return;
+        }
+
+        elements.presetModel.disabled = false;
+        elements.presetModel.innerHTML = '<option value="">Choose a Mac model</option>' + matches
+            .map((preset) => `<option value="${escapeAttribute(preset.id)}">${escapeHtml(preset.name)}</option>`)
+            .join('');
+
+        if (matches.some((preset) => preset.id === selectedId)) {
+            elements.presetModel.value = selectedId;
+            return;
+        }
+
+        resetPresetMemory();
+        setPresetStatus(`${matches.length} Mac${matches.length === 1 ? '' : 's'} introduced in ${year}. Choose your exact model.`);
+    }
+
+    function populatePresetMemory(preset, selectedRam) {
+        const memoryOptions = [...new Set(preset.ram)].sort((a, b) => a - b);
+        const requestedRam = Number(selectedRam);
+        const memory = memoryOptions.includes(requestedRam) ? requestedRam : preset.defaultRam;
+        elements.presetMemory.disabled = false;
+        elements.presetMemory.innerHTML = memoryOptions
+            .map((ram) => `<option value="${ram}">${ram} GB unified memory</option>`)
+            .join('');
+        elements.presetMemory.value = String(memory);
+    }
+
+    function resetPresetModel() {
+        elements.presetModel.innerHTML = '<option value="">Choose a year first</option>';
+        elements.presetModel.disabled = true;
+        resetPresetMemory();
+    }
+
+    function resetPresetMemory() {
+        elements.presetMemory.innerHTML = '<option value="">Choose a model first</option>';
+        elements.presetMemory.disabled = true;
+    }
+
+    function selectedMacPreset() {
+        return MAC_PRESETS.find((preset) => preset.id === elements.presetModel.value) || null;
+    }
+
+    function applySelectedPreset() {
+        const preset = selectedMacPreset();
+        if (!preset) return;
+
+        const memory = Number(elements.presetMemory.value || preset.defaultRam);
+        document.getElementById('machine-name').value = preset.name;
+        document.getElementById('machine-platform').value = 'macos';
+        elements.accelerator.value = 'apple-silicon';
+        document.getElementById('machine-cpu').value = preset.chip;
+        document.getElementById('machine-gpu').value = '';
+        document.getElementById('machine-ram').value = String(memory);
+        elements.vramInput.value = '';
+        document.getElementById('machine-source').value = 'manual';
+        updateVramField();
+        setPresetStatus(`${preset.name} · ${memory} GB. Specifications filled; confirm the memory in About This Mac.`, true);
+    }
+
+    function findPresetForMachine(machine) {
+        if (!machine || machine.platform !== 'macos' || machine.accelerator !== 'apple-silicon') return null;
+        const name = normalizeMachineLabel(machine.name);
+        if (!name) return null;
+        return MAC_PRESETS.find((preset) => normalizeMachineLabel(preset.name) === name) || null;
+    }
+
+    function normalizeMachineLabel(value) {
+        return String(value || '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim()
+            .replace(/\s+/g, ' ');
+    }
+
+    function setPresetStatus(message, ready = false) {
+        elements.presetStatus.textContent = message;
+        elements.presetStatus.classList.toggle('is-ready', ready);
     }
 
     async function saveMachine(event) {

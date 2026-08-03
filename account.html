@@ -8,7 +8,7 @@
     <meta name="description" content="Manage your hardware profiles and view compatible local AI models in LocalClaw.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
-    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803a">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803b">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
@@ -116,6 +116,48 @@
             <div class="lc-form">
                 <input id="machine-id" name="id" type="hidden">
                 <input id="machine-source" name="source" type="hidden" value="manual">
+                <section class="lc-machine-picker" aria-labelledby="machine-picker-title">
+                    <div class="lc-machine-picker-head">
+                        <div>
+                            <p class="lc-form-section-label">Quick setup</p>
+                            <h3 id="machine-picker-title">Find your exact machine</h3>
+                        </div>
+                        <span class="lc-machine-picker-badge">Recommended</span>
+                    </div>
+                    <p class="lc-machine-picker-copy">Choose a Mac by release year and model. LocalClaw fills the technical fields, then you confirm the installed memory.</p>
+                    <div class="lc-machine-picker-grid">
+                        <div class="lc-field">
+                            <label for="machine-preset-type">Machine type</label>
+                            <select id="machine-preset-type">
+                                <option value="mac">Apple Mac</option>
+                                <option value="manual">PC or manual setup</option>
+                            </select>
+                        </div>
+                        <div class="lc-field" data-machine-preset-field="year">
+                            <label for="machine-preset-year">Release year</label>
+                            <select id="machine-preset-year">
+                                <option value="">Choose a year</option>
+                            </select>
+                        </div>
+                        <div class="lc-field" data-machine-preset-field="model">
+                            <label for="machine-preset-model">Mac model</label>
+                            <select id="machine-preset-model" disabled>
+                                <option value="">Choose a year first</option>
+                            </select>
+                        </div>
+                        <div class="lc-field" data-machine-preset-field="memory">
+                            <label for="machine-preset-memory">Installed memory</label>
+                            <select id="machine-preset-memory" disabled>
+                                <option value="">Choose a model first</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p id="machine-preset-status" class="lc-machine-picker-status" aria-live="polite">Choose the year your Mac model was introduced.</p>
+                </section>
+
+                <div class="lc-form-section-divider">
+                    <span>Confirm specifications</span>
+                </div>
                 <div class="lc-form-grid">
                     <div class="lc-field lc-field-wide">
                         <label for="machine-name">Machine name</label>
@@ -275,6 +317,6 @@
     <script src="/js/data.js?v=20260801b"></script>
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
-    <script src="/js/account-20260802a.js?v=20260803a"></script>
+    <script src="/js/account-20260802a.js?v=20260803b"></script>
 </body>
 </html>
