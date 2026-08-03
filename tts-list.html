@@ -31,6 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -509,7 +510,7 @@
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
 
         /* Sort Controls */
-        .sort-controls { display: flex; gap: 4px; align-items: center; }
+        .sort-controls { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
         .sort-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px; white-space: nowrap; }
         .sort-btn {
             padding: 13px 14px; border-radius: 12px;
@@ -1684,6 +1685,8 @@
                     <button class="sort-btn" data-sort="speed">Speed</button>
                     <button class="sort-btn" data-sort="size">Size</button>
                     <button class="sort-btn" data-sort="date">Newest</button>
+                    <button class="sort-btn" data-sort="community">Community</button>
+                    <button class="sort-btn" data-sort="rated">Most rated</button>
                 </div>
             </div>
             <div class="result-count" id="result-count"></div>
@@ -3431,6 +3434,7 @@
                         </div>
                         <div class="card-name">${model.name}</div>
                         <div class="card-developer">${model.developer}<span>${model.releaseDate}</span></div>
+                        <div data-community-rating data-model-id="tts-${model.id}" data-rating-mode="compact" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
                     </div>
                     <div class="card-meta-row">
                         <div class="meta-chip"><span class="meta-label">Best for</span><span class="meta-value">${bestFor}</span></div>
@@ -3487,6 +3491,7 @@
                 </article>
                 `;
             }).join('');
+            window.LocalClawRatings?.refresh(grid);
         }
 
         function isInteractiveCardTarget(target) {
@@ -3536,6 +3541,20 @@
                     break;
                 case 'date':
                     sorted.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+                    break;
+                case 'community':
+                    sorted.sort((a, b) => {
+                        const aRating = window.LocalClawRatings?.get(`tts-${a.id}`) || { average: 0, count: 0 };
+                        const bRating = window.LocalClawRatings?.get(`tts-${b.id}`) || { average: 0, count: 0 };
+                        return (bRating.average - aRating.average) || (bRating.count - aRating.count) || (b.quality - a.quality);
+                    });
+                    break;
+                case 'rated':
+                    sorted.sort((a, b) => {
+                        const aRating = window.LocalClawRatings?.get(`tts-${a.id}`) || { average: 0, count: 0 };
+                        const bRating = window.LocalClawRatings?.get(`tts-${b.id}`) || { average: 0, count: 0 };
+                        return (bRating.count - aRating.count) || (bRating.average - aRating.average) || (b.quality - a.quality);
+                    });
                     break;
             }
             return sorted;
@@ -3762,6 +3781,16 @@
             });
         });
 
+        document.addEventListener('localclaw:ratings-ready', () => {
+            window.LocalClawRatings?.refresh(document.getElementById('tts-grid'));
+            if (currentSort === 'community' || currentSort === 'rated') filterModels();
+        });
+
+        document.addEventListener('localclaw:rating-updated', (event) => {
+            if (!String(event.detail?.modelId || '').startsWith('tts-')) return;
+            if (currentSort === 'community' || currentSort === 'rated') filterModels();
+        });
+
         // Mobile sidebar
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebar-overlay');
@@ -3810,6 +3839,7 @@
 
         // Mobile menu is handled by inline onclick in the navbar HTML
     </script>
+    <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
     <!-- Theme Toggle Script -->
     <!-- TRACKING: DataFast Analytics -->
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>

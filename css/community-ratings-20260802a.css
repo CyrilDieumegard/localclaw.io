@@ -1,8 +1,20 @@
 .lc-community-rating {
     --lc-rating-accent: #ff6a1e;
+    --lc-rating-accent-soft: rgba(255, 106, 30, .48);
+    --lc-rating-border: rgba(255, 106, 30, .28);
+    --lc-rating-glow: rgba(255, 106, 30, .28);
+    --lc-rating-surface: rgba(255, 106, 30, .08);
     --lc-rating-muted: #8d8d98;
     color: #fff;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.lc-community-rating[data-rating-theme="voice"] {
+    --lc-rating-accent: #a78bfa;
+    --lc-rating-accent-soft: rgba(167, 139, 250, .5);
+    --lc-rating-border: rgba(139, 92, 246, .36);
+    --lc-rating-glow: rgba(139, 92, 246, .3);
+    --lc-rating-surface: rgba(139, 92, 246, .1);
 }
 
 .lc-community-rating[data-rating-mode="compact"] {
@@ -24,7 +36,7 @@
 
 .lc-rating-compact-star {
     color: var(--lc-rating-accent);
-    filter: drop-shadow(0 0 7px rgba(255, 106, 30, .28));
+    filter: drop-shadow(0 0 7px var(--lc-rating-glow));
     font-size: 14px;
 }
 
@@ -34,9 +46,9 @@
 }
 
 .lc-rating-panel {
-    border: 1px solid rgba(255, 106, 30, .28);
+    border: 1px solid var(--lc-rating-border);
     border-radius: 14px;
-    background: linear-gradient(135deg, rgba(255, 106, 30, .08), rgba(12, 12, 12, .92) 48%);
+    background: linear-gradient(135deg, var(--lc-rating-surface), rgba(12, 12, 12, .92) 48%);
     padding: 14px 16px;
     transition: border-color .2s ease, box-shadow .2s ease;
 }
@@ -103,7 +115,7 @@
 }
 
 .lc-rating-star.is-average {
-    color: rgba(255, 106, 30, .48);
+    color: var(--lc-rating-accent-soft);
 }
 
 .lc-rating-star.is-selected,
@@ -115,8 +127,8 @@
 
 .lc-rating-star:hover,
 .lc-rating-star:focus-visible {
-    filter: drop-shadow(0 0 8px rgba(255, 106, 30, .48));
-    outline: 1px solid rgba(255, 106, 30, .42);
+    filter: drop-shadow(0 0 8px var(--lc-rating-glow));
+    outline: 1px solid var(--lc-rating-accent-soft);
     transform: translateY(-1px);
 }
 
@@ -161,8 +173,8 @@
 }
 
 .lc-rating-panel.is-highlighted {
-    border-color: rgba(255, 106, 30, .72);
-    box-shadow: 0 0 0 3px rgba(255, 106, 30, .1), 0 0 24px rgba(255, 106, 30, .16);
+    border-color: var(--lc-rating-accent);
+    box-shadow: 0 0 0 3px var(--lc-rating-surface), 0 0 24px var(--lc-rating-glow);
 }
 
 @media (hover: hover) {

@@ -34,6 +34,8 @@
         elements.profile = document.getElementById('profile');
         elements.machineList = document.getElementById('machine-list');
         elements.recommendationPanel = document.getElementById('recommendation-panel');
+        elements.voiceRatingsGrid = document.getElementById('voice-ratings-grid');
+        elements.voiceRatingsCount = document.getElementById('voice-ratings-count');
         elements.addMachine = document.getElementById('add-machine');
         elements.sidebarAddMachine = document.getElementById('sidebar-add-machine');
         elements.dialog = document.getElementById('machine-dialog');
@@ -78,6 +80,8 @@
         elements.dialog.addEventListener('click', (event) => {
             if (event.target === elements.dialog) closeMachineDialog();
         });
+        document.addEventListener('localclaw:ratings-ready', renderVoiceRatings);
+        document.addEventListener('localclaw:rating-updated', renderVoiceRatings);
     }
 
     async function loadSession() {
@@ -216,6 +220,7 @@
         await syncCatalogState(catalogResponse.ok ? catalogData : null);
         renderMachineList();
         renderSelectedMachine();
+        renderVoiceRatings();
     }
 
     async function syncCatalogState(catalogData) {
@@ -264,6 +269,46 @@
             ${avatar}
             <span><strong>${escapeHtml(user.name || 'LocalClaw user')}</strong><br>${escapeHtml(user.email || '')}</span>
         `;
+    }
+
+    function renderVoiceRatings() {
+        if (!elements.voiceRatingsGrid || !elements.voiceRatingsCount) return;
+
+        const ratings = (window.LocalClawRatings?.getUserRatings?.() || [])
+            .filter((item) => String(item.modelId || '').startsWith('tts-'))
+            .sort((a, b) => b.rating - a.rating || a.modelId.localeCompare(b.modelId));
+
+        elements.voiceRatingsCount.textContent = `${ratings.length} rated`;
+        if (!ratings.length) {
+            elements.voiceRatingsGrid.innerHTML = `
+                <div class="lc-voice-ratings-empty">No voice ratings yet. Open the TTS catalogue, choose a model and share a 1–5 star rating.</div>
+            `;
+            return;
+        }
+
+        elements.voiceRatingsGrid.innerHTML = ratings.map((item) => {
+            const slug = item.modelId.slice(4);
+            return `
+                <article class="lc-voice-rating-item">
+                    <h3><a href="/tts/${encodeURIComponent(slug)}">${escapeHtml(voiceModelName(slug))}</a></h3>
+                    <div data-community-rating data-model-id="${escapeAttribute(item.modelId)}" data-rating-mode="interactive" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
+                </article>
+            `;
+        }).join('');
+        window.LocalClawRatings?.refresh(elements.voiceRatingsGrid);
+    }
+
+    function voiceModelName(slug) {
+        const acronyms = new Map([
+            ['tts', 'TTS'], ['asr', 'ASR'], ['ai', 'AI'], ['mlx', 'MLX'], ['onnx', 'ONNX'],
+            ['vits', 'VITS'], ['xtts', 'XTTS'], ['gpt', 'GPT'], ['sovits', 'SoVITS'], ['f5', 'F5']
+        ]);
+        return String(slug || '').split('-').filter(Boolean).map((part) => {
+            const lower = part.toLowerCase();
+            if (acronyms.has(lower)) return acronyms.get(lower);
+            if (/^qwen\d/.test(lower)) return `Qwen${lower.slice(4)}`;
+            return part.charAt(0).toUpperCase() + part.slice(1);
+        }).join(' ');
     }
 
     function renderMachineList() {

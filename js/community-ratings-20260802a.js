@@ -101,27 +101,31 @@
         container.replaceChildren();
 
         const aggregate = get(modelId);
+        const copy = {
+            label: String(container.dataset.ratingLabel || 'Community rating').trim(),
+            subject: String(container.dataset.ratingSubject || 'model').trim()
+        };
         if (mode === 'compact') {
-            container.appendChild(buildCompact(aggregate));
+            container.appendChild(buildCompact(aggregate, copy));
             return;
         }
 
-        container.appendChild(buildPanel(modelId, aggregate, mode));
+        container.appendChild(buildPanel(modelId, aggregate, mode, copy));
     }
 
-    function buildCompact(aggregate) {
+    function buildCompact(aggregate, copy) {
         const row = element('span', 'lc-rating-compact');
-        row.title = aggregate.count ? communityLabel(aggregate) : 'No community ratings yet';
+        row.title = aggregate.count ? communityLabel(aggregate) : `No ${copy.label.toLowerCase()}s yet`;
         row.appendChild(textElement('span', 'lc-rating-compact-star', aggregate.count ? '★' : '☆'));
         row.appendChild(textElement('span', 'lc-rating-compact-value', aggregate.count ? formatAverage(aggregate.average) : 'New'));
-        row.appendChild(textElement('span', 'lc-rating-compact-count', aggregate.count ? `(${aggregate.count})` : 'community rating'));
+        row.appendChild(textElement('span', 'lc-rating-compact-count', aggregate.count ? `(${aggregate.count})` : copy.label.toLowerCase()));
         return row;
     }
 
-    function buildPanel(modelId, aggregate, mode) {
+    function buildPanel(modelId, aggregate, mode, copy) {
         const panel = element('div', 'lc-rating-panel');
         panel.dataset.modelId = modelId;
-        panel.appendChild(textElement('p', 'lc-rating-heading', 'Community rating'));
+        panel.appendChild(textElement('p', 'lc-rating-heading', copy.label));
 
         const summary = element('div', 'lc-rating-summary');
         summary.appendChild(textElement('strong', 'lc-rating-average', aggregate.count ? formatAverage(aggregate.average) : '—'));
@@ -131,7 +135,7 @@
 
         const stars = element('div', 'lc-rating-stars');
         stars.setAttribute('role', 'group');
-        stars.setAttribute('aria-label', 'Rate this model from 1 to 5 stars');
+        stars.setAttribute('aria-label', `Rate this ${copy.subject} from 1 to 5 stars`);
         const userRating = userRatings.get(modelId) || 0;
         const roundedAverage = Math.round(aggregate.average || 0);
 
@@ -163,7 +167,7 @@
                 foot.appendChild(clear);
             }
         } else if (authState === 'signed-out') {
-            const signIn = textElement('a', 'lc-rating-signin', 'Sign in to rate this model');
+            const signIn = textElement('a', 'lc-rating-signin', `Sign in to rate this ${copy.subject}`);
             signIn.href = `/account?next=${encodeURIComponent(window.location.pathname)}`;
             foot.appendChild(signIn);
         } else if (authState === 'unavailable') {
@@ -273,6 +277,12 @@
         return userRatings.get(modelId) || null;
     }
 
+    function getUserRatings() {
+        return Array.from(userRatings, function (entry) {
+            return { modelId: entry[0], rating: entry[1] };
+        });
+    }
+
     function normalizeAggregate(item) {
         return {
             modelId: String(item.modelId || ''),
@@ -309,6 +319,7 @@
         focus,
         get,
         getUserRating,
+        getUserRatings,
         load,
         refresh
     };

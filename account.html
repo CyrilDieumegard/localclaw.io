@@ -8,8 +8,8 @@
     <meta name="description" content="Manage your hardware profiles and view compatible local AI models in LocalClaw.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
-    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260802e">
-    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803a">
+    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
 </head>
 <body>
     <header class="lc-site-header">
@@ -79,6 +79,21 @@
                     </div>
                 </section>
             </div>
+
+            <section id="voice-ratings-panel" class="lc-voice-ratings" aria-labelledby="voice-ratings-title">
+                <header class="lc-voice-ratings-head">
+                    <div>
+                        <p class="lc-kicker">Speech community</p>
+                        <h2 id="voice-ratings-title">Your voice ratings</h2>
+                        <p>Keep track of the local TTS and ASR models you have rated.</p>
+                    </div>
+                    <div class="lc-voice-ratings-actions">
+                        <span id="voice-ratings-count" class="lc-voice-ratings-count">0 rated</span>
+                        <a class="lc-button" href="/tts-list">Browse TTS models</a>
+                    </div>
+                </header>
+                <div id="voice-ratings-grid" class="lc-voice-ratings-grid"></div>
+            </section>
         </section>
     </main>
 
@@ -260,7 +275,7 @@
 
     <script src="/js/data.js?v=20260801b"></script>
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
-    <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>
-    <script src="/js/account-20260802a.js?v=20260802e"></script>
+    <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
+    <script src="/js/account-20260802a.js?v=20260803a"></script>
 </body>
 </html>

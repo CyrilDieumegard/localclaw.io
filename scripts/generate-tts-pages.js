@@ -266,6 +266,7 @@ function page(model, all) {
   <meta name="twitter:description" content="${esc(desc)}">
   <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
+  <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
   <style>${style(color)}</style>
 </head>
@@ -297,6 +298,7 @@ function page(model, all) {
             <p class="score-caption">${bestForSentence(model)}</p>
           </div>
         </div>
+        <div data-community-rating data-model-id="tts-${esc(model.id)}" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
         <div class="panel-grid">
           <div class="mini"><div class="k">Developer</div><div class="v">${esc(model.developer || model.family || 'Open model')}</div></div>
           <div class="mini"><div class="k">Released</div><div class="v">${esc(model.releaseDate || 'Unknown')}</div></div>
@@ -390,6 +392,7 @@ function page(model, all) {
       <a href="/pricing.html"><small>macOS app</small>Get LocalClaw</a>
     </section>
   </main>
+  <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
 </body>
 </html>`;
 }
