@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 const { normalizeDirectory } = require('./normalize-public-urls');
+const { siteNavigation, siteNavAssets } = require('./site-navigation');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -36,7 +37,8 @@ const tracking = `
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
-  <script src="/js/clarity.js" defer></script>`;
+  <script src="/js/clarity.js" defer></script>
+  ${siteNavAssets()}`;
 
 const familyColors = {
   qwen: '#a855f7',
@@ -310,14 +312,7 @@ function modelPage(m, d, allModels) {
   </style>
 </head>
 <body>
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
-      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html" class="active">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a><a href="/account">Account</a></div>
-    </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a><a href="/account">Account</a></div>
-  </nav>
+  ${siteNavigation('llm')}
   <main class="wrap">
     <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>${esc(m.name)}</span></div>
     <header class="hero">
@@ -436,7 +431,7 @@ for (const m of uniqueModels) {
 const cards = uniqueModels.map(m => `<li><a href="/models/${esc(m.id)}.html"><strong>${esc(m.name)}</strong></a> <span>${esc(m.params)} · ${m.hosted_only ? 'API only' : `${esc(m.min_ram)} GB RAM`} · ${esc(m.recommended_quant)}</span></li>`).join('\n');
 
 fs.writeFileSync(path.join(outDir, 'index.html'), `<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>All Local AI Model Pages | LocalClaw</title><meta name="description" content="Index of all static LocalClaw model pages: local LLM specs, RAM requirements, quantization and LM Studio setup."><meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/models/">${tracking}<style>body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;max-width:1000px;margin:0 auto;padding:32px;line-height:1.6}a{color:#ff453a}li{margin:10px 0;padding:12px;border:1px solid #27272a;border-radius:12px;list-style:none;background:#0f0f11}span{color:#a1a1aa}</style></head><body><p><a href="/">Back to LocalClaw</a></p><h1>All Local AI Model Pages</h1><p>Static, indexable pages for LocalClaw's local LLM catalogue.</p><ul>${cards}</ul></body></html>`);
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>All Local AI Model Pages | LocalClaw</title><meta name="description" content="Index of all static LocalClaw model pages: local LLM specs, RAM requirements, quantization and LM Studio setup."><meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/models/">${tracking}<style>body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;margin:0;line-height:1.6}.models-index{max-width:1000px;margin:0 auto;padding:32px}.models-index a{color:#ff453a}.models-index li{margin:10px 0;padding:12px;border:1px solid #27272a;border-radius:12px;list-style:none;background:#0f0f11}.models-index span{color:#a1a1aa}</style></head><body>${siteNavigation('llm')}<main class="models-index"><p><a href="/">Back to LocalClaw</a></p><h1>All Local AI Model Pages</h1><p>Static, indexable pages for LocalClaw's local LLM catalogue.</p><ul>${cards}</ul></main></body></html>`);
 
 normalizeDirectory(outDir);
 console.log(`Generated ${uniqueModels.length} unique static model pages in models/`);

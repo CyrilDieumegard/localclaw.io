@@ -167,41 +167,28 @@
 
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="../js/clarity.js" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
 <body>
     <canvas id="bg-circuit" aria-hidden="true"></canvas>
     <script src="../js/bg-circuit.js" defer></script>
 
     <div class="page-shell">
-        <header class="site-nav">
-            <div class="nav-inner">
-                <a class="brand" href="/" aria-label="LocalClaw home">
-                    <img src="../images/crab-logo.png" width="38" height="38" alt="LocalClaw crab logo" decoding="async">
-                    <span class="brand-name">Local<span>Claw</span></span>
-                </a>
-                <nav class="nav-links" aria-label="Primary navigation">
-                    <a href="/">Home</a>
-                    <a href="/llm-list">LLM</a>
-                    <a href="/tts-list">TTS</a>
-                    <a href="/computers">Computers</a>
-                    <a href="/ram-gpu-for-local-ai">RAM/GPU</a>
-                    <a href="../blog/">Blog</a>
-                    <a href="/pricing">Pricing</a>
-                </nav>
-                <details class="mobile-nav">
-                    <summary>Menu</summary>
-                    <div class="mobile-links">
-                        <a href="/">Home</a>
-                        <a href="/llm-list">LLM</a>
-                        <a href="/tts-list">TTS</a>
-                        <a href="/computers">Computers</a>
-                        <a href="/ram-gpu-for-local-ai">RAM/GPU</a>
-                        <a href="../blog/">Blog</a>
-                        <a href="/pricing">Pricing</a>
-                    </div>
-                </details>
-            </div>
-        </header>
+        <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+  </div>
+</nav>
 
         <main class="content">
             <nav class="breadcrumb mono" aria-label="Breadcrumb">
@@ -313,7 +300,7 @@ openclaw gateway status --json --require-rpc --timeout 5000</pre>
         <footer class="footer">
             <div class="footer-inner">
                 <span>&copy; 2026 LocalClaw. No prompts collected by the web recommender.</span>
-                <div class="footer-links"><a href="../blog/">Blog</a><a href="/download">Download</a><a href="/pricing">Pricing</a></div>
+                <div class="footer-links"><a href="../blog/">Blog</a><a href="/download">Download</a><a href="/software">Software</a></div>
             </div>
         </footer>
     </div>

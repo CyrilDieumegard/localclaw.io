@@ -6,30 +6,47 @@
   <meta name="robots" content="noindex, follow">
   <title>Page not found | LocalClaw</title>
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a">
+  <script src="/js/site-nav.js?v=20260803a" defer></script>
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #050505; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    main { width: min(680px, 100%); border: 1px solid #292929; background: #0d0d0d; padding: clamp(28px, 6vw, 56px); }
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: #050505; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    main { width: min(680px, calc(100% - 48px)); margin: auto; border: 1px solid #292929; background: #0d0d0d; padding: clamp(28px, 6vw, 56px); }
     .code { color: #ff453a; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     h1 { margin: 18px 0 12px; font: 800 clamp(34px, 7vw, 64px)/1 system-ui, sans-serif; }
     p { color: #a1a1aa; line-height: 1.7; }
-    nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    a { border: 1px solid #3f3f46; color: #fff; padding: 11px 14px; text-decoration: none; }
-    a:first-child { border-color: #ff453a; background: #ff453a; color: #050505; font-weight: 800; }
+    .useful-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .useful-links a { border: 1px solid #3f3f46; color: #fff; padding: 11px 14px; text-decoration: none; }
+    .useful-links a:first-child { border-color: #ff453a; background: #ff453a; color: #050505; font-weight: 800; }
   </style>
 </head>
 <body>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+  </div>
+</nav>
   <main>
     <div class="code">Error 404 // route not found</div>
     <h1>This page does not exist.</h1>
     <p>The URL may be outdated. Continue with a current LocalClaw catalogue or guide.</p>
-    <nav aria-label="Useful destinations">
+    <div class="useful-links" aria-label="Useful destinations">
       <a href="/">Home</a>
       <a href="/llm-list">LLM catalogue</a>
       <a href="/tts-list">TTS catalogue</a>
       <a href="/blog/">Blog</a>
-    </nav>
+    </div>
   </main>
 </body>
 </html>

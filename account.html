@@ -10,25 +10,24 @@
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
     <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803a">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
 <body>
-    <header class="lc-site-header">
-        <nav class="lc-shell lc-nav" aria-label="Main navigation">
-            <a class="lc-brand" href="/" aria-label="LocalClaw home">
-                <img src="/images/crab-logo.png" width="38" height="38" alt="LocalClaw crab logo">
-                <span>Local<span class="lc-brand-accent">Claw</span></span>
-            </a>
-            <div class="lc-nav-links">
-                <a href="/llm-list">LLM</a>
-                <a href="/tts-list">TTS</a>
-                <a href="/computers">Computers</a>
-                <a href="/ram-gpu-for-local-ai">RAM/GPU</a>
-                <a href="/blog/">Blog</a>
-                <a href="/pricing">Pricing</a>
-                <a class="lc-account-link is-active" href="/account" aria-current="page">Account</a>
-            </div>
-        </nav>
-    </header>
+    <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account" aria-current="page">My Machines</a></div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account" aria-current="page">My Machines</a></div>
+  </div>
+</nav>
 
     <main class="lc-shell lc-main">
         <section id="auth-gate" class="lc-auth-gate" aria-labelledby="account-title">

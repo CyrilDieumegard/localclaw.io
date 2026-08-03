@@ -120,31 +120,26 @@
         html.light #mobile-menu > div { background: #ffffff !important; border-bottom-color: #e5e7eb !important; }
         html.light #mobile-menu a { color: #374151 !important; }</style>
     <script src="../js/clarity.js" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
     <div id="reading-progress"></div>
 
-    <nav class="border-b border-claw-border/50 bg-claw-bg/80 backdrop-blur-xl sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20">
-                <a href="/" class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 flex items-center justify-center">
-                        <img src="../images/crab-logo.png" alt="LocalClaw" width="28" height="28" style="width:28px;height:28px;border-radius:6px;" loading="eager" fetchpriority="high" decoding="async">
-                    </div>
-                    <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-white uppercase">Local<span class="text-claw-primary">Claw</span></span>
-                </a>
-                <div class="flex items-center gap-3 sm:gap-6">
-                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="sm:hidden p-2 text-claw-muted hover:text-white transition-colors border border-transparent hover:border-white/20" aria-label="Open menu">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    </button>
-                    <a href="/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Home</a>
-                    <a href="/llm-list" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">LLM</a>
-                    <a href="/blog/" class="hidden sm:inline text-sm font-mono text-claw-primary uppercase tracking-wider">Blog</a>
-                    <a href="/pricing" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+  </div>
+</nav>
 
     <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
         <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
@@ -152,7 +147,7 @@
                 <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Home</a>
                 <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM List</a>
                 <a href="/blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-white bg-claw-primary/10 border border-claw-primary/30 transition-colors">Blog</a>
-                <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Pricing</a>
+                <a href="/software" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Software</a>
             </div>
         </div>
     </div>

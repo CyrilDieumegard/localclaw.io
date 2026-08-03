@@ -1,0 +1,186 @@
+.lc-global-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: #000;
+  color: #fff;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.lc-global-nav *,
+.lc-global-nav *::before,
+.lc-global-nav *::after {
+  box-sizing: border-box;
+}
+
+.lc-global-nav a {
+  text-decoration: none;
+}
+
+.lc-global-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1280px, 100%);
+  min-height: 80px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 24px;
+}
+
+.lc-global-nav__brand {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.lc-global-nav__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff453a, #ea580c);
+  box-shadow: 0 0 15px rgba(255, 69, 58, 0.4);
+}
+
+.lc-global-nav__logo img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.lc-global-nav__brand-accent,
+.lc-global-nav [aria-current="page"] {
+  color: #ff453a;
+}
+
+.lc-global-nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(14px, 1.7vw, 24px);
+  min-width: 0;
+}
+
+.lc-global-nav__link {
+  flex: 0 0 auto;
+  color: #a1a1aa;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.lc-global-nav__link:hover,
+.lc-global-nav__link:focus-visible {
+  color: #fff;
+}
+
+.lc-global-nav__link--account {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  color: #fff;
+}
+
+.lc-global-nav__link--account:hover,
+.lc-global-nav__link--account:focus-visible,
+.lc-global-nav__link--account[aria-current="page"] {
+  border-color: rgba(255, 69, 58, 0.55);
+  color: #ff453a;
+}
+
+.lc-global-nav__menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  background: #0d0d0d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.lc-global-nav__menu-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lc-global-nav__mobile {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #090909;
+}
+
+.lc-global-nav__mobile[hidden] {
+  display: none !important;
+}
+
+.lc-global-nav__mobile-inner {
+  display: grid;
+  width: min(1280px, 100%);
+  max-height: calc(100vh - 64px);
+  margin: 0 auto;
+  padding: 12px 16px 18px;
+  overflow-y: auto;
+}
+
+.lc-global-nav__mobile .lc-global-nav__link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.lc-global-nav__mobile .lc-global-nav__link--account {
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 1120px) {
+  .lc-global-nav__inner {
+    min-height: 64px;
+    padding: 0 16px;
+  }
+
+  .lc-global-nav__brand {
+    font-size: 21px;
+  }
+
+  .lc-global-nav__links {
+    display: none;
+  }
+
+  .lc-global-nav__menu-button {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-global-nav__link {
+    transition: none;
+  }
+}

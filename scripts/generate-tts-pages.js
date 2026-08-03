@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { normalizeDirectory } = require('./normalize-public-urls');
+const { siteNavigation, siteNavAssets } = require('./site-navigation');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -32,7 +33,8 @@ const tracking = `
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
-  <script src="/js/clarity.js" defer></script>`;
+  <script src="/js/clarity.js" defer></script>
+  ${siteNavAssets()}`;
 
 const familyColors = {
   kokoro: '#ff453a',
@@ -224,14 +226,7 @@ function style(color) {
 }
 
 function nav() {
-  return `<nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
-      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html" class="active">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html" class="pricing">Pricing</a><a href="/account">Account</a></div>
-    </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list.html">LLM</a><a href="/tts-list.html">TTS</a><a href="/computers.html">Computers</a><a href="/ram-gpu-for-local-ai.html">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing.html">Pricing</a><a href="/account">Account</a></div>
-  </nav>`;
+  return siteNavigation('tts');
 }
 
 function page(model, all) {

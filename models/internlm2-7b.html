@@ -29,16 +29,24 @@
   <style>
     .personal-fit{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 20px;padding:20px 22px;border:1px solid rgba(52,211,153,.32);border-radius:18px;background:linear-gradient(100deg,rgba(16,185,129,.11),rgba(13,13,13,.96) 46%);box-shadow:0 18px 50px rgba(0,0,0,.28)}.personal-fit[hidden]{display:none!important}.personal-fit[data-fit="limited"]{border-color:rgba(96,165,250,.34);background:linear-gradient(100deg,rgba(59,130,246,.1),rgba(13,13,13,.96) 46%)}.personal-fit[data-fit="too-large"]{border-color:rgba(255,69,58,.38);background:linear-gradient(100deg,rgba(255,69,58,.1),rgba(13,13,13,.96) 46%)}.personal-fit-kicker{margin:0 0 5px!important;color:#6ee7b7!important;font:900 10px ui-monospace,monospace!important;letter-spacing:.12em;text-transform:uppercase}.personal-fit[data-fit="too-large"] .personal-fit-kicker{color:var(--primary)!important}.personal-fit h2{margin:0 0 5px;font-size:21px}.personal-fit p{margin:0;color:var(--muted);font-size:13px}.personal-fit-actions{display:flex;align-items:center;gap:9px;flex-shrink:0}.personal-fit-actions button,.personal-fit-actions a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:#111;color:#fff;padding:0 13px;font:900 10px ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}.personal-fit-actions button{border-color:rgba(255,69,58,.48);color:var(--primary)}.personal-fit-actions button:disabled{cursor:wait;opacity:.65}@media(max-width:700px){.personal-fit{align-items:stretch;flex-direction:column}.personal-fit-actions{align-items:stretch;flex-direction:column}.personal-fit-actions button,.personal-fit-actions a{width:100%}}
   </style>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
 <body>
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="/" class="logo"><span class="logo-box"><img src="/images/crab-logo.png" alt="LocalClaw logo" width="28" height="28"></span><span class="logo-text">Local<span>Claw</span></span></a>
-      <button class="hamb" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Open menu">Menu</button>
-      <div class="nav-links"><a href="/">Home</a><a href="/llm-list" class="active">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing" class="pricing">Pricing</a><a href="/account">Account</a></div>
-    </div>
-    <div id="mobile-menu" class="mobile-links"><a href="/">Home</a><a href="/llm-list">LLM</a><a href="/tts-list">TTS</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/pricing">Pricing</a><a href="/account">Account</a></div>
-  </nav>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm" aria-current="page">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm" aria-current="page">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+  </div>
+</nav>
   <main class="wrap">
     <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>InternLM 2.5 (7B)</span></div>
     <header class="hero">
