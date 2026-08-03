@@ -83,7 +83,8 @@ function unique(items) {
 const groups = {
   core: unique([
     page('index.html', 'weekly', '1.0'),
-    page('pricing.html', 'monthly', '0.9'),
+    page('software.html', 'monthly', '0.9'),
+    page('pricing.html', 'monthly', '0.8'),
     page('download.html', 'monthly', '0.8'),
     page('llm-list.html', 'weekly', '0.9'),
     page('tts-list.html', 'weekly', '0.9'),

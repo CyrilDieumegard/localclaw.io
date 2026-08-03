@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalClaw for Mac - Native OpenClaw Control Center</title>
+    <meta name="description" content="Explore LocalClaw for Mac, the Apple-notarized native control center for OpenClaw setup, health, models, chat, agents, channels, cron jobs, Kanban and developer workflows.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://localclaw.io/software">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://localclaw.io/software">
+    <meta property="og:title" content="LocalClaw for Mac - Control OpenClaw from One Native App">
+    <meta property="og:description" content="See the real LocalClaw dashboard: guided setup, system health, models, agents, channels, scheduled work and live developer preview.">
+    <meta property="og:site_name" content="LocalClaw">
+    <meta property="og:image" content="https://localclaw.io/images/pricing-carousel/home.jpg?v=20260602">
+    <meta property="og:image:width" content="1400">
+    <meta property="og:image:height" content="770">
+    <meta property="og:image:alt" content="LocalClaw for Mac dashboard showing OpenClaw readiness and system health">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LocalClaw for Mac - Native OpenClaw Control Center">
+    <meta name="twitter:description" content="A native macOS dashboard for OpenClaw setup, health, models, agents, channels and scheduled work.">
+    <meta name="twitter:image" content="https://localclaw.io/images/pricing-carousel/home.jpg?v=20260602">
+
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preload" as="image" href="/images/pricing-carousel/home.jpg?v=20260602" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {
+                fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], display: ['Space Grotesk', 'Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                colors: { claw: { bg: '#050505', surface: '#09090b', border: '#27272a', primary: '#ff453a', accent: '#ff6d64', text: '#f4f4f5', muted: '#a1a1aa' } }
+            }}
+        };
+    </script>
+    <link rel="stylesheet" href="/css/style.css?v=20260719a">
+    <style>
+        :root { --orange:#ff453a; --muted:#a1a1aa; --line:rgba(255,255,255,.1); }
+        html, body { overflow-x:hidden; background:#050505; color:#fff; }
+        body { min-height:100vh; }
+        .software-shell { width:min(1180px, calc(100% - 32px)); margin-inline:auto; }
+        .software-glow { position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 70% 16%,rgba(255,69,58,.12),transparent 34%),linear-gradient(180deg,rgba(5,5,5,.1),#050505 76%); }
+        .software-hero { padding:68px 0 44px; }
+        .software-kicker { display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,69,58,.4); background:rgba(255,69,58,.08); color:#ff6d64; border-radius:999px; padding:7px 12px; font:700 11px 'JetBrains Mono',monospace; letter-spacing:.14em; text-transform:uppercase; }
+        .software-kicker::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 12px rgba(255,69,58,.8); }
+        .software-title { max-width:920px; margin-top:24px; font-size:clamp(3rem,8vw,6.7rem); line-height:.9; letter-spacing:-.045em; text-transform:uppercase; }
+        .software-copy { max-width:780px; margin-top:24px; color:var(--muted); font:500 clamp(15px,2vw,18px)/1.7 'JetBrains Mono',monospace; }
+        .software-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+        .software-button { display:inline-flex; align-items:center; justify-content:center; min-height:50px; padding:0 22px; border-radius:7px; font:700 13px 'JetBrains Mono',monospace; letter-spacing:.04em; text-transform:uppercase; transition:.2s ease; }
+        .software-button.primary { background:var(--orange); color:#fff; box-shadow:4px 4px 0 rgba(234,88,12,.28); }
+        .software-button.primary:hover { background:#fff; color:#000; transform:translateY(-2px); box-shadow:4px 4px 0 rgba(255,255,255,.35); }
+        .software-button.secondary { border:1px solid rgba(255,255,255,.18); color:#fff; }
+        .software-button.secondary:hover { border-color:#fff; background:#fff; color:#000; }
+        .software-trust { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+        .software-trust span { border:1px solid var(--line); background:rgba(255,255,255,.025); border-radius:999px; padding:7px 10px; color:var(--muted); font:600 10px 'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+        .product-window { margin-top:38px; overflow:hidden; border:1px solid rgba(255,69,58,.28); border-radius:16px; background:#0a0a0b; box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 80px rgba(255,69,58,.1); }
+        .product-titlebar { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; min-height:52px; padding:0 16px; border-bottom:1px solid var(--line); background:#151515; }
+        .window-dots { display:flex; gap:8px; }
+        .window-dots span { width:12px; height:12px; border-radius:50%; }
+        .window-dots span:nth-child(1){background:#ff5f57}.window-dots span:nth-child(2){background:#ffbd2e}.window-dots span:nth-child(3){background:#28c840}
+        .product-mode { justify-self:end; color:var(--orange); font:700 10px 'JetBrains Mono',monospace; letter-spacing:.16em; text-transform:uppercase; }
+        .carousel-button { display:block; width:100%; padding:0; border:0; background:#080808; cursor:zoom-in; }
+        .carousel-button img { display:block; width:100%; height:auto; aspect-ratio:1400/770; object-fit:cover; }
+        .carousel-info { display:grid; grid-template-columns:1fr auto; gap:20px; align-items:center; padding:18px; border-top:1px solid var(--line); }
+        .carousel-info strong { display:block; font:700 18px 'Space Grotesk',sans-serif; }
+        .carousel-info p { margin-top:4px; color:var(--muted); font-size:13px; line-height:1.5; }
+        .carousel-nav { display:flex; align-items:center; gap:8px; }
+        .carousel-arrow { width:40px; height:40px; border:1px solid var(--line); border-radius:7px; color:#fff; background:rgba(255,255,255,.035); font-size:20px; transition:.2s; }
+        .carousel-arrow:hover { border-color:rgba(255,69,58,.55); color:var(--orange); }
+        .carousel-count { min-width:54px; text-align:center; color:var(--muted); font:700 11px 'JetBrains Mono',monospace; }
+        .carousel-tabs { display:flex; gap:7px; overflow-x:auto; padding:0 18px 18px; scrollbar-width:thin; }
+        .carousel-tab { flex:0 0 auto; min-width:34px; height:30px; border:1px solid var(--line); border-radius:6px; background:rgba(255,255,255,.025); color:var(--muted); font:700 10px 'JetBrains Mono',monospace; }
+        .carousel-tab[aria-current="true"] { border-color:rgba(255,69,58,.55); background:rgba(255,69,58,.13); color:#fff; }
+        .software-section { padding:68px 0; border-top:1px solid var(--line); }
+        .section-head { max-width:760px; margin-bottom:28px; }
+        .section-head p:first-child { color:var(--orange); font:700 11px 'JetBrains Mono',monospace; letter-spacing:.18em; text-transform:uppercase; }
+        .section-head h2 { margin-top:12px; font:700 clamp(2rem,5vw,3.8rem)/1 'Space Grotesk',sans-serif; text-transform:uppercase; }
+        .section-head p:last-child { margin-top:14px; color:var(--muted); line-height:1.7; }
+        .capability-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+        .capability { border:1px solid var(--line); border-radius:10px; background:#0d0d0e; padding:24px; }
+        .capability span { color:var(--orange); font:700 11px 'JetBrains Mono',monospace; }
+        .capability h3 { margin-top:16px; font:700 20px 'Space Grotesk',sans-serif; }
+        .capability p { margin-top:8px; color:var(--muted); font-size:14px; line-height:1.65; }
+        .proof-grid { display:grid; grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr); gap:20px; align-items:stretch; }
+        .proof-media { overflow:hidden; border:1px solid var(--line); border-radius:12px; background:#090909; }
+        .proof-media img { width:100%; height:100%; min-height:320px; object-fit:cover; }
+        .proof-copy { border:1px solid var(--line); border-radius:12px; background:#0d0d0e; padding:28px; }
+        .proof-copy h2 { font:700 clamp(2rem,4vw,3.2rem)/1.05 'Space Grotesk',sans-serif; text-transform:uppercase; }
+        .proof-copy p { margin-top:16px; color:var(--muted); line-height:1.7; }
+        .proof-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:22px; }
+        .proof-stats div { border:1px solid var(--line); background:#080808; border-radius:7px; padding:12px; }
+        .proof-stats small { display:block; color:var(--muted); font:700 9px 'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.12em; }
+        .proof-stats strong { display:block; margin-top:6px; font-size:14px; }
+        .compare-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+        .compare-panel { border:1px solid var(--line); border-radius:12px; background:#0d0d0e; padding:28px; }
+        .compare-panel.is-localclaw { border-color:rgba(255,69,58,.36); background:rgba(255,69,58,.07); }
+        .compare-panel h3 { font:700 26px 'Space Grotesk',sans-serif; text-transform:uppercase; }
+        .compare-panel ul { display:grid; gap:12px; margin-top:20px; color:var(--muted); font:500 13px/1.55 'JetBrains Mono',monospace; }
+        .compare-panel li::before { content:'>'; margin-right:10px; color:var(--orange); }
+        .final-cta { padding:72px 24px; text-align:center; border-top:1px solid var(--line); background:linear-gradient(180deg,#080808,#111); }
+        .final-cta h2 { font:700 clamp(2.2rem,6vw,4.8rem)/.95 'Space Grotesk',sans-serif; text-transform:uppercase; }
+        .final-cta p { max-width:660px; margin:18px auto 0; color:var(--muted); line-height:1.7; }
+        .final-cta .software-actions { justify-content:center; }
+        @media (max-width:900px) { .capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.proof-grid{grid-template-columns:1fr}.proof-media img{min-height:0}.compare-grid{grid-template-columns:1fr} }
+        @media (max-width:640px) { .software-shell{width:min(100% - 24px,1180px)}.software-hero{padding-top:44px}.software-title{font-size:clamp(2.7rem,15vw,4.1rem)}.software-actions{flex-direction:column}.software-button{width:100%}.product-titlebar{grid-template-columns:1fr auto}.product-titlebar>span:nth-child(2){display:none}.carousel-info{grid-template-columns:1fr}.carousel-nav{justify-content:space-between}.capability-grid{grid-template-columns:1fr}.software-section{padding:52px 0}.product-mode{font-size:9px} }
+    </style>
+
+    <script id="datafast-queue">
+        window.datafast = window.datafast || function(){ (window.datafast.q = window.datafast.q || []).push(arguments); };
+    </script>
+    <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+    <script src="/js/clarity.js" defer></script>
+</head>
+<body class="bg-claw-bg text-claw-text font-sans antialiased">
+    <div class="software-glow" aria-hidden="true"></div>
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+
+    <nav class="relative z-50 border-b border-white/20 bg-black" aria-label="Main navigation">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
+            <a href="/" class="flex items-center gap-3" aria-label="LocalClaw home"><span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-claw-primary to-orange-600 shadow-[0_0_15px_rgba(255,69,58,0.4)]"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" class="rounded-md"></span><span class="text-xl font-display font-bold uppercase tracking-tight text-white sm:text-2xl">Local<span class="text-claw-primary">Claw</span></span></a>
+            <div class="hidden items-center gap-5 md:flex"><a href="/llm-list" class="text-sm font-mono uppercase tracking-wider text-claw-muted hover:text-white">LLM</a><a href="/tts-list" class="text-sm font-mono uppercase tracking-wider text-claw-muted hover:text-white">TTS</a><a href="/computers" class="text-sm font-mono uppercase tracking-wider text-claw-muted hover:text-white">Computers</a><a href="/ram-gpu-for-local-ai" class="text-sm font-mono uppercase tracking-wider text-claw-muted hover:text-white">RAM/GPU</a><a href="/blog/" class="text-sm font-mono uppercase tracking-wider text-claw-muted hover:text-white">Blog</a><a href="/software" class="text-sm font-mono uppercase tracking-wider text-claw-primary" aria-current="page">Software</a><a href="/account" class="rounded-md border border-white/15 px-3 py-2 text-sm font-mono uppercase tracking-wider text-white hover:border-claw-primary/50 hover:text-claw-primary">My Machines</a></div>
+            <button id="software-menu-button" class="border border-white/15 p-2 text-white md:hidden" type="button" aria-controls="software-mobile-menu" aria-expanded="false" aria-label="Open menu"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+        <div id="software-mobile-menu" class="hidden border-t border-white/10 bg-[#090909] px-4 py-4 md:hidden"><div class="mx-auto grid max-w-7xl gap-1"><a href="/llm-list" class="px-3 py-2 text-sm text-claw-muted">LLM</a><a href="/tts-list" class="px-3 py-2 text-sm text-claw-muted">TTS</a><a href="/computers" class="px-3 py-2 text-sm text-claw-muted">Computers</a><a href="/ram-gpu-for-local-ai" class="px-3 py-2 text-sm text-claw-muted">RAM/GPU</a><a href="/blog/" class="px-3 py-2 text-sm text-claw-muted">Blog</a><a href="/software" class="px-3 py-2 text-sm text-claw-primary">Software</a><a href="/account" class="px-3 py-2 text-sm text-white">My Machines</a></div></div>
+    </nav>
+
+    <main class="relative z-10">
+        <header class="software-shell software-hero">
+            <div class="software-kicker">Optional native macOS software</div>
+            <h1 class="software-title font-display font-extrabold text-white">Control <span class="text-claw-primary">OpenClaw</span> from one native app</h1>
+            <p class="software-copy">Install, inspect and operate your OpenClaw stack from a visual macOS control center. Models, health, chat, agents, channels and scheduled work stay in one place.</p>
+            <div class="software-actions"><a href="#dashboard" class="software-button primary">Explore the dashboard</a><a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="software_hero" class="software-button secondary">Pricing and download</a></div>
+            <div class="software-trust"><span>Apple-notarized DMG</span><span>macOS 13+</span><span>Local, cloud and OAuth models</span><span>$49 one-time lifetime access</span></div>
+
+            <section id="dashboard" class="product-window" aria-labelledby="carousel-title">
+                <div class="product-titlebar"><div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div><span class="font-mono text-xs text-claw-muted">LocalClaw v1.0.175</span><span class="product-mode">Local LLM</span></div>
+                <button id="software-carousel-frame" class="carousel-button" type="button" aria-label="Open current LocalClaw screenshot in a new tab"><img id="software-carousel-image" src="/images/pricing-carousel/home.jpg?v=20260602" width="1400" height="770" alt="LocalClaw Home dashboard showing OpenClaw readiness, tokens, channels and system load" fetchpriority="high" decoding="async"></button>
+                <div class="carousel-info"><div><strong id="carousel-title">Dashboard overview</strong><p id="software-carousel-caption">Home, readiness checks, tokens, channels and system load in the native app.</p></div><div class="carousel-nav"><button id="software-carousel-prev" class="carousel-arrow" type="button" aria-label="Previous screenshot">←</button><span id="software-carousel-count" class="carousel-count">1 / 14</span><button id="software-carousel-next" class="carousel-arrow" type="button" aria-label="Next screenshot">→</button></div></div>
+                <div id="software-carousel-tabs" class="carousel-tabs" aria-label="LocalClaw app screens"></div>
+            </section>
+        </header>
+
+        <section class="software-shell software-section" aria-labelledby="capabilities-title">
+            <div class="section-head"><p>// ONE CONTROL SURFACE</p><h2 id="capabilities-title">Everything visible before you run it</h2><p>LocalClaw exposes the parts of an OpenClaw setup that are normally spread across terminals, config files and separate dashboards.</p></div>
+            <div class="capability-grid">
+                <article class="capability"><span>01</span><h3>Control Center</h3><p>Gateway health, CPU/RAM pressure, token usage, versions, logs and repair actions.</p></article>
+                <article class="capability"><span>02</span><h3>Models</h3><p>Switch between local, cloud and OAuth LLM modes while keeping the active configuration visible.</p></article>
+                <article class="capability"><span>03</span><h3>Chat and Skills</h3><p>Keep project discussions, memory and installed OpenClaw skills inside the same workspace.</p></article>
+                <article class="capability"><span>04</span><h3>Agents</h3><p>Create assistants, assign models and inspect each agent's workspace and routing state.</p></article>
+                <article class="capability"><span>05</span><h3>Cron Jobs</h3><p>See recurring tasks, delivery channels, schedules and the agent responsible for each run.</p></article>
+                <article class="capability"><span>06</span><h3>Kanban and Developer</h3><p>Turn work into visible tasks, then build with project files, AI activity and a live preview.</p></article>
+            </div>
+        </section>
+
+        <section class="software-shell software-section" aria-labelledby="proof-title">
+            <div class="proof-grid">
+                <a class="proof-media" href="https://youtu.be/nt8XNV-bXM0" target="_blank" rel="noopener noreferrer" data-fast-goal="case_study_video" data-fast-goal-source="software_proof"><img src="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg" width="1280" height="720" alt="LocalClaw Developer workspace beside a live preview of Iron Descent" loading="lazy" decoding="async"></a>
+                <div class="proof-copy"><p class="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-claw-primary">// REAL PROJECT PROOF</p><h2 id="proof-title">Kimi K3 built a playable FPS inside LocalClaw</h2><p>The model worked through OpenRouter while LocalClaw kept project chat, tool activity, files and live preview together. The finished Iron Descent build is public and playable.</p><div class="proof-stats"><div><small>Model</small><strong>Kimi K3</strong></div><div><small>Workspace</small><strong>Developer</strong></div><div><small>Feedback</small><strong>Live preview</strong></div><div><small>Result</small><strong>Playable FPS</strong></div></div><div class="software-actions"><a href="/case-study/iron-descent" class="software-button primary">Read the case study</a><a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" class="software-button secondary">Play the build</a></div></div>
+            </div>
+        </section>
+
+        <section class="software-shell software-section" aria-labelledby="comparison-title">
+            <div class="section-head"><p>// SETUP REALITY</p><h2 id="comparison-title">A dashboard instead of a terminal-first workflow</h2><p>The software is for people who want to operate OpenClaw without manually coordinating every dependency and config surface.</p></div>
+            <div class="compare-grid"><article class="compare-panel is-localclaw"><h3>LocalClaw for Mac</h3><ul><li>Apple-notarized native DMG</li><li>Guided OpenClaw and runtime setup</li><li>Models, agents, channels and schedules in one UI</li><li>Health checks, updates and repair actions</li></ul></article><article class="compare-panel"><h3>Manual setup</h3><ul><li>Install dependencies in the terminal</li><li>Edit config files and CLI flags by hand</li><li>Track services and work across separate tools</li><li>Diagnose runtime issues from logs after failure</li></ul></article></div>
+        </section>
+
+        <section class="final-cta" aria-labelledby="software-cta-title"><div class="software-shell"><h2 id="software-cta-title">Ready to run OpenClaw from your Mac?</h2><p>See the current beta offer, system requirements, purchase flow and latest Apple-notarized download.</p><div class="software-actions"><a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="software_final" class="software-button primary">See pricing and download</a><a href="/" class="software-button secondary">Use the free model finder</a></div></div></section>
+    </main>
+
+    <footer class="relative z-10 border-t border-white/10 bg-black py-9"><div class="software-shell flex flex-col items-center justify-between gap-4 text-center text-xs font-mono uppercase tracking-wider text-claw-muted sm:flex-row sm:text-left"><span>&copy; 2026 LocalClaw</span><div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/software" class="hover:text-white">Software</a><a href="/account" class="hover:text-white">My Machines</a></div></div></footer>
+
+    <script src="/js/bg-circuit.js" defer></script>
+    <script>
+        const softwareScreens = [
+            ['/images/pricing-carousel/home.jpg?v=20260602', 'LocalClaw Home dashboard showing OpenClaw readiness, tokens, channels and system load', 'Dashboard overview', 'Home, readiness checks, tokens, channels and system load in the native app.'],
+            ['/images/pricing-carousel/install.jpg?v=20260602', 'LocalClaw guided install screen with local, cloud and OAuth setup modes', 'Guided installation', 'Choose local, cloud or OAuth mode, then run preflight checks before installation.'],
+            ['/images/pricing-carousel/updates.jpg?v=20260602', 'LocalClaw update center showing app, runtime and dependency status', 'Update center', 'Check LocalClaw, OpenClaw, Homebrew, Node and LM Studio from one view.'],
+            ['/images/pricing-carousel/control-center.jpg?v=20260602', 'LocalClaw Control Center with gateway health and repair actions', 'Control Center', 'Inspect gateway health, ports and repair actions without hunting through logs.'],
+            ['/images/pricing-carousel/chat.jpg?v=20260602', 'LocalClaw OpenClaw Chat with projects and memory', 'OpenClaw Chat', 'Organize discussions by project and keep the visible context beside the conversation.'],
+            ['/images/pricing-carousel/developer.jpg?v=20260602', 'LocalClaw Developer workspace with AI panel and live preview', 'Developer workspace', 'Build with project files, AI activity and live preview in the same dashboard.'],
+            ['/images/pricing-carousel/models.jpg?v=20260602', 'LocalClaw model selection for local cloud and OAuth backends', 'Model control', 'Switch active model mode and inspect the current runtime configuration.'],
+            ['/images/pricing-carousel/skills.jpg?v=20260602', 'LocalClaw Skills library with setup state', 'Skills library', 'Browse installed skills, see which are ready and search ClawHub.'],
+            ['/images/pricing-carousel/channels.jpg?v=20260602', 'LocalClaw Channels with Telegram Discord and WhatsApp', 'Channels', 'Connect messaging channels and inspect pairing, account and configuration status.'],
+            ['/images/pricing-carousel/agents.jpg?v=20260602', 'LocalClaw Agents screen with assistants and routed agents', 'Agents', 'Create and monitor OpenClaw agents, their models and workspace state.'],
+            ['/images/pricing-carousel/cron-jobs.jpg?v=20260602', 'LocalClaw Cron Jobs with scheduled tasks', 'Cron Jobs', 'Manage recurring automation, delivery channels and manual runs.'],
+            ['/images/pricing-carousel/kanban.jpg?v=20260602', 'LocalClaw Kanban with backlog ready doing review and done', 'Kanban', 'Plan work as cards, route tasks to agents and schedule execution.'],
+            ['/images/pricing-carousel/help.jpg?v=20260602', 'LocalClaw Help screen with guided setup steps', 'Guided help', 'Follow setup steps and recovery guidance from inside the app.'],
+            ['/images/pricing-carousel/uninstall.jpg?v=20260602', 'LocalClaw Uninstall Center with selective removal controls', 'Uninstall Center', 'Remove app components and local configuration with visible safety controls.']
+        ];
+        let softwareScreenIndex = 0;
+        const image = document.getElementById('software-carousel-image');
+        const title = document.getElementById('carousel-title');
+        const caption = document.getElementById('software-carousel-caption');
+        const count = document.getElementById('software-carousel-count');
+        const tabs = document.getElementById('software-carousel-tabs');
+        const trackSoftwareEvent = (name, properties) => {
+            if (typeof window.datafast === 'function') window.datafast(name, properties || {});
+            if (typeof window.localClawPostHogCapture === 'function') window.localClawPostHogCapture(name, properties || {});
+        };
+        const renderSoftwareScreen = (index) => {
+            softwareScreenIndex = (index + softwareScreens.length) % softwareScreens.length;
+            const [src, alt, heading, copy] = softwareScreens[softwareScreenIndex];
+            image.src = src; image.alt = alt; title.textContent = heading; caption.textContent = copy; count.textContent = `${softwareScreenIndex + 1} / ${softwareScreens.length}`;
+            tabs.querySelectorAll('button').forEach((button, buttonIndex) => button.setAttribute('aria-current', buttonIndex === softwareScreenIndex ? 'true' : 'false'));
+            trackSoftwareEvent('software_carousel_slide', { slide: heading, index: softwareScreenIndex + 1 });
+        };
+        softwareScreens.forEach((screen, index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'carousel-tab'; button.textContent = index + 1; button.setAttribute('aria-label', `Show ${screen[2]}`); button.setAttribute('aria-current', index === 0 ? 'true' : 'false'); button.addEventListener('click', () => renderSoftwareScreen(index)); tabs.appendChild(button); });
+        document.getElementById('software-carousel-prev').addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex - 1));
+        document.getElementById('software-carousel-next').addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex + 1));
+        document.getElementById('software-carousel-frame').addEventListener('click', () => window.open(softwareScreens[softwareScreenIndex][0], '_blank', 'noopener'));
+        document.getElementById('software-menu-button').addEventListener('click', (event) => { const menu = document.getElementById('software-mobile-menu'); const open = menu.classList.toggle('hidden') === false; event.currentTarget.setAttribute('aria-expanded', String(open)); });
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "LocalClaw for Mac",
+        "url": "https://localclaw.io/software",
+        "description": "Apple-notarized native macOS control center for OpenClaw setup, health, models, chat, agents, channels, cron jobs, Kanban and developer workflows.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS 13 or later",
+        "softwareVersion": "1.0.175",
+        "image": "https://localclaw.io/images/pricing-carousel/home.jpg?v=20260602",
+        "isAccessibleForFree": false,
+        "offers": {
+            "@type": "Offer",
+            "url": "https://localclaw.io/pricing",
+            "price": "49.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "author": { "@type": "Organization", "name": "LocalClaw", "url": "https://localclaw.io/" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://localclaw.io/" },
+            { "@type": "ListItem", "position": 2, "name": "Software", "item": "https://localclaw.io/software" }
+        ]
+    }
+    </script>
+</body>
+</html>

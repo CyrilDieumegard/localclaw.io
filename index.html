@@ -7,8 +7,8 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>LocalClaw.io — Native Control Center for OpenClaw</title>
-    <meta name="description" content="LocalClaw 1.0.175 is a native macOS control center for OpenClaw. Manage models, agents, channels, Git projects and embedded previews on your Mac.">
+    <title>LocalClaw.io - Find the Right Local AI for Your Hardware</title>
+    <meta name="description" content="Compare 215 local LLM records and 58 speech models by RAM, VRAM, speed, use case, quantization and install path. Save machines, compatible models and test results.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4 12B, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -20,8 +20,8 @@
          ============================================================ -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
-    <meta property="og:title" content="LocalClaw.io - Native Control Center for OpenClaw">
-    <meta property="og:description" content="Run OpenClaw locally from a native macOS dashboard. Manage models, agents, channels, cron jobs and tasks without a terminal-first workflow.">
+    <meta property="og:title" content="LocalClaw.io - Find the Right Local AI for Your Hardware">
+    <meta property="og:description" content="Compare local LLMs and speech models by hardware fit, then save the best options for every machine you own.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -33,8 +33,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw.io - Native Control Center for OpenClaw">
-    <meta name="twitter:description" content="A native macOS control center for OpenClaw: local models, agents, channels, cron jobs and Kanban on your machine.">
+    <meta name="twitter:title" content="LocalClaw.io - Find the Right Local AI for Your Hardware">
+    <meta name="twitter:description" content="Hardware-aware local LLM and speech model discovery with saved machines, compatible picks and practical install paths.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
 
@@ -281,165 +281,6 @@
         /* bg-black inline (SEO header badge) */
         html.light .bg-black { background-color: #ffffff !important; }
 
-        @property --lc-card-angle {
-            syntax: '<angle>';
-            initial-value: 0deg;
-            inherits: false;
-        }
-
-        .lc-hero-mockup {
-            transform: perspective(1200px) rotateX(2deg);
-            transform-origin: center top;
-            animation: lcMockupReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-            transition: transform 0.4s ease;
-            background:
-                radial-gradient(ellipse at 78% 6%, rgba(255, 69, 58, 0.16), transparent 42%),
-                radial-gradient(ellipse at 18% 92%, rgba(255, 69, 58, 0.10), transparent 36%),
-                #0d0d0d;
-            box-shadow:
-                0 0 40px rgba(255, 106, 30, 0.08),
-                0 0 80px rgba(255, 106, 30, 0.04),
-                0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .lc-hero-mockup:hover {
-            transform: perspective(1200px) rotateX(0deg);
-        }
-
-        .lc-fresh-dot {
-            animation: lcPulse 2.4s ease-in-out infinite;
-        }
-
-        .lc-mode-example {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 6px 10px;
-            border-radius: 4px;
-            background: #0d0d0d;
-            color: #888;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-            font-size: 13px;
-            line-height: 1.35;
-        }
-
-        .lc-mode-example .arrow {
-            color: #ff6a1e;
-        }
-
-        .lc-feature-card {
-            position: relative;
-            isolation: isolate;
-            overflow: visible;
-            border: 1px solid #222;
-            background: #111;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .lc-feature-card::before,
-        .lc-feature-card::after {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            border-radius: 14px;
-            background: conic-gradient(
-                from var(--lc-card-angle),
-                transparent 0%,
-                transparent 30%,
-                #ff6a1e 50%,
-                #ff3d00 60%,
-                #ff6a1e 70%,
-                transparent 80%,
-                transparent 100%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .lc-feature-card::after {
-            filter: blur(15px);
-        }
-
-        .lc-feature-icon {
-            color: #ff453a;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .lc-feature-card:hover {
-                transform: translateY(-4px);
-                border-color: #ff6a1e;
-                box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
-            }
-
-            .lc-feature-card:hover::before,
-            .lc-feature-card:hover::after {
-                opacity: 1;
-                animation: lcRotateBorder 3s linear infinite;
-            }
-
-            .lc-feature-card:hover .lc-feature-icon {
-                transform: scale(1.1);
-                filter: drop-shadow(0 0 8px rgba(255, 106, 30, 0.5));
-            }
-
-            @supports not (background: conic-gradient(from 0deg, #ff6a1e, transparent)) {
-                .lc-feature-card:hover {
-                    border-color: #ff6a1e;
-                    box-shadow: 0 0 28px rgba(255, 106, 30, 0.18);
-                }
-
-                .lc-feature-card:hover::before,
-                .lc-feature-card:hover::after {
-                    display: none;
-                }
-            }
-        }
-
-        .lc-latest-compact article:nth-of-type(n+7) {
-            display: none;
-        }
-
-        @keyframes lcRotateBorder {
-            to {
-                --lc-card-angle: 360deg;
-            }
-        }
-
-        @keyframes lcPulse {
-            0%, 100% {
-                opacity: 0.65;
-                box-shadow: 0 0 0 rgba(255, 69, 58, 0);
-            }
-            50% {
-                opacity: 1;
-                box-shadow: 0 0 18px rgba(255, 69, 58, 0.5);
-            }
-        }
-
-        @keyframes lcMockupReveal {
-            from {
-                opacity: 0;
-                transform: perspective(1200px) rotateX(6deg) translateY(24px) scale(0.985);
-                box-shadow: 0 12px 60px rgba(0,0,0,0.7), 0 0 0 rgba(255,69,58,0);
-            }
-            to {
-                opacity: 1;
-                transform: perspective(1200px) rotateX(2deg) translateY(0) scale(1);
-            }
-        }
-
-        @media (max-width: 768px), (prefers-reduced-motion: reduce) {
-            .lc-hero-mockup {
-                transform: none;
-                animation: none;
-            }
-
-            .lc-fresh-dot {
-                animation: none;
-            }
-        }
     </style>
 
     <!-- ============================================================
@@ -508,8 +349,8 @@
                     <a href="/computers" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Computers</a>
                     <a href="/ram-gpu-for-local-ai" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">RAM/GPU</a>
                     <a href="blog/" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Blog</a>
-                    <a href="/pricing" class="hidden sm:inline text-sm font-mono text-claw-primary hover:text-white transition-colors uppercase tracking-wider">Pricing</a>
-                    <a href="/account" class="hidden sm:inline rounded-md border border-white/15 px-3 py-2 text-sm font-mono text-white hover:border-claw-primary/50 hover:text-claw-primary transition-colors uppercase tracking-wider">Account</a>
+                    <a href="/software" class="hidden sm:inline text-sm font-mono text-claw-muted hover:text-white transition-colors uppercase tracking-wider">Software</a>
+                    <a href="/account" class="hidden sm:inline rounded-md border border-white/15 px-3 py-2 text-sm font-mono text-white hover:border-claw-primary/50 hover:text-claw-primary transition-colors uppercase tracking-wider">My Machines</a>
                 </div>
             </div>
         </div>
@@ -526,8 +367,8 @@
                 <a href="/computers" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
                 <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
                 <a href="blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
-                <a href="/pricing" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-primary hover:bg-claw-primary/10 transition-colors">Pricing</a>
-                <a href="/account" class="px-4 py-3 rounded-lg text-sm font-medium text-white border border-white/10 hover:border-claw-primary/40 hover:text-claw-primary transition-colors">Account</a>
+                <a href="/software" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Software</a>
+                <a href="/account" class="px-4 py-3 rounded-lg text-sm font-medium text-white border border-white/10 hover:border-claw-primary/40 hover:text-claw-primary transition-colors">My Machines</a>
                 <div class="border-t border-claw-border mt-2 pt-2">
                     <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
                 </div>
@@ -547,229 +388,63 @@
 
             <!-- Primary H1 -->
             <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12">
-                <div class="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+                <div class="grid items-center gap-10 lg:grid-cols-[1.04fr_0.96fr]">
                     <div class="text-center lg:text-left">
                         <div class="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">local-first</span>
-                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">your machine</span>
-                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">cloud optional</span>
-                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">214 local models</span>
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">215 LLM records</span>
+                            <span class="rounded-full border border-purple-400/25 bg-purple-400/[0.06] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">58 speech models</span>
+                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">hardware-aware</span>
                         </div>
                         <h1 class="text-[clamp(2.7rem,7vw,5.15rem)] font-display font-bold leading-[0.93] tracking-tight text-white uppercase">
-                            Native Control Center for <span class="text-claw-primary">OpenClaw</span>
+                            Find the right local AI for <span class="text-claw-primary">your machine</span>
                         </h1>
                         <p class="mt-6 max-w-2xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed lg:mx-0 mx-auto">
-                            Install LocalClaw once. Control your local models, agents, channels and scheduled OpenClaw work from a native macOS dashboard.
+                            Compare local LLMs and speech models by RAM, VRAM, speed, use case, quantization and a real install path.
                         </p>
-                        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
-                            <a href="/pricing" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <a href="#model-finder" data-lc-path="finder" data-fast-goal-source="home_hero" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided', 'home_hero');" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
-                            <a href="#built-with-localclaw" data-fast-goal="case_study_open" data-fast-goal-source="home_hero" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Watch the game demo ↓</a>
+                        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 lg:justify-start">
+                            <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-sm transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Add My Machine</a>
+                            <a href="/llm-list" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_hero" class="w-full sm:w-auto border border-white/15 px-8 py-4 text-center text-sm font-mono font-bold uppercase tracking-tight text-white transition-colors hover:border-white hover:bg-white hover:text-black">Browse Local Models</a>
                         </div>
-                        <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Native macOS control center or free hardware-aware model finder.</p>
-                        <a href="/changelog/localclaw-installer-v1.0.175" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
-                            <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
-                            LocalClaw 1.0.175 · Developer workspace upgraded
-                        </a>
+                        <button type="button" onclick="if(typeof App !== 'undefined') App.startFlow('guided', 'home_hero');" class="mt-5 text-xs font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Quick match without an account →</button>
                     </div>
-                    <div class="relative mx-auto w-full max-w-xl">
-                        <div class="absolute inset-8 rounded-full bg-claw-primary/25 blur-3xl"></div>
-                        <div class="absolute inset-x-10 bottom-8 h-16 rounded-full bg-claw-primary/25 blur-2xl"></div>
-                        <div class="relative p-2">
-                            <img src="images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_38px_rgba(234,88,12,0.55)]" loading="eager" decoding="async" fetchpriority="high">
+                    <div class="relative mx-auto w-full max-w-xl pt-56 sm:pt-80">
+                        <div class="absolute left-1/2 top-6 h-40 w-3/4 -translate-x-1/2 rounded-full bg-claw-primary/20 blur-3xl" aria-hidden="true"></div>
+                        <img src="images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[76%] -translate-x-1/2 object-contain drop-shadow-[0_18px_34px_rgba(234,88,12,0.42)] sm:w-[72%]" loading="eager" decoding="async" fetchpriority="high">
+                        <div class="relative z-20 overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0c] shadow-[0_28px_90px_rgba(0,0,0,0.58),0_0_55px_rgba(255,69,58,0.10)]">
+                            <div class="flex items-center justify-between border-b border-white/10 bg-[#121214] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em]"><span class="text-claw-muted">Example hardware profile</span><span class="text-[#22c55e]">● fit ready</span></div>
+                            <div class="p-5 sm:p-6">
+                                <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Primary machine</p>
+                                <h2 class="mt-2 text-2xl font-display font-bold text-white">Mac mini M4</h2>
+                                <p class="mt-1 border-b border-white/10 pb-5 text-sm font-mono text-claw-muted">16 GB unified memory · macOS · coding</p>
+                                <p class="mt-5 text-xs font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Top compatible picks</p>
+                                <div class="mt-3 space-y-2">
+                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-claw-primary/25 bg-claw-primary/[0.07] p-3"><div><strong class="block text-sm text-white">Qwen 3.5 9B</strong><span class="text-[11px] font-mono text-claw-muted">Q5_K_M · balanced fit</span></div><span class="text-xs font-mono font-bold text-[#22c55e]">READY</span></div>
+                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-white/10 bg-white/[0.025] p-3"><div><strong class="block text-sm text-white">Gemma 4 12B</strong><span class="text-[11px] font-mono text-claw-muted">Q4_K_M · multimodal</span></div><span class="text-xs font-mono font-bold text-white">FITS</span></div>
+                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-white/10 bg-white/[0.025] p-3"><div><strong class="block text-sm text-white">Qwen 3.5 4B</strong><span class="text-[11px] font-mono text-claw-muted">Q6_K · extra headroom</span></div><span class="text-xs font-mono font-bold text-white">FAST</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="lc-hero-mockup mx-auto mt-10 max-w-6xl overflow-hidden rounded-2xl border border-claw-primary/25 text-left shadow-[0_30px_120px_rgba(0,0,0,0.65),0_0_90px_rgba(255,69,58,0.18)]">
-                    <div class="relative flex items-center justify-between border-b border-[#2a2a2a] bg-[#151515] px-4 py-3">
-                        <div class="flex items-center gap-2" aria-hidden="true"><span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span><span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span><span class="w-3 h-3 rounded-full bg-[#28c840]"></span></div>
-                        <div class="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-claw-muted">LocalClaw v1.0.175</div>
-                        <div class="hidden sm:flex items-center rounded-lg border border-white/10 bg-[#242424] p-1 font-mono text-[11px] font-bold uppercase tracking-wider text-claw-muted shadow-[0_0_18px_rgba(255,69,58,0.08)]">
-                            <span class="px-2.5 py-1">Cloud LLM</span>
-                            <span class="h-4 w-px bg-white/10"></span>
-                            <span class="px-2.5 py-1">OAuth LLM</span>
-                            <span class="rounded-md bg-claw-primary px-2.5 py-1 text-white">Local LLM</span>
-                        </div>
-                    </div>
-                    <div class="grid lg:grid-cols-[210px_1fr]">
-                        <aside class="border-b lg:border-b-0 lg:border-r border-[#2a2a2a] bg-[#090909] p-4 font-mono text-[11px]">
-                            <div class="mb-3 text-[10px] uppercase tracking-[0.18em] text-claw-muted">Navigation</div>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-1.5">
-                                <div class="rounded-md bg-claw-primary px-3 py-2 font-bold text-white">● Home</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Install</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Updates</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Control Center</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">OpenClaw Chat</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Developer</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Models</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Skills</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Channels</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Agents</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Cron Jobs</div>
-                                <div class="rounded-md bg-[#1a1a1a] px-3 py-2 text-claw-muted">Kanban</div>
-                            </div>
-                            <div class="mt-4 border-t border-[#333] pt-4">
-                                <div class="text-[10px] uppercase tracking-[0.18em] text-claw-muted">OpenClaw Version</div>
-                                <div class="mt-2 flex items-center justify-between text-base font-bold text-white"><span>v2026.7.1</span><span class="h-2.5 w-2.5 rounded-full bg-[#22c55e]"></span></div>
-                                <div class="mt-3 text-claw-muted">Machine: <span class="text-white">Apple M2 Max</span></div>
-                                <div class="text-claw-muted">32 GB · macOS</div>
-                                <div class="mt-3 border-t border-[#333] pt-3 text-[10px] leading-relaxed text-claw-muted">
-                                    <div>Model: Mac Studio</div>
-                                    <div>Year: 2023</div>
-                                    <div>ID: Mac14,13</div>
-                                </div>
-                                <div class="mt-3 grid grid-cols-2 gap-2">
-                                    <button class="rounded-md border border-[#333] bg-[#151515] px-2 py-1.5 text-[10px] font-bold text-white">Refresh</button>
-                                    <button class="rounded-md border border-[#333] bg-[#151515] px-2 py-1.5 text-[10px] font-bold text-white">Copy</button>
-                                </div>
-                            </div>
-                        </aside>
-                        <div class="p-4 sm:p-5 font-mono">
-                            <div class="mb-4 flex flex-col gap-3 rounded-xl border border-[#2a2a2a] bg-[#151515] p-4 sm:flex-row sm:items-center sm:justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-claw-primary shadow-[0_0_24px_rgba(255,69,58,0.25)]">
-                                        <img src="images/logo-localclaw.svg" width="40" height="40" alt="LocalClaw logo" class="h-full w-full object-cover" loading="eager" decoding="async">
-                                    </div>
-                                    <div>
-                                        <div class="text-base font-bold text-white">LocalClaw</div>
-                                        <div class="text-[11px] text-claw-muted">Version 1.0.175 (build 326)</div>
-                                    </div>
-                                </div>
-                                <span class="w-fit rounded-md border border-claw-primary/35 bg-claw-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-claw-primary">Local LLM</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
-                                <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4"><div class="mb-2 text-[#22c55e]">⌁</div><div class="text-lg font-bold text-white">Online</div><div class="mt-1 text-[11px] text-claw-muted">Gateway</div><div class="mt-2 text-[10px] text-claw-muted">google/gemma-4-e4b</div></div>
-                                <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-muted">▤</div><div class="text-lg font-bold text-white">Healthy</div><div class="mt-1 text-[11px] text-claw-muted">System</div><div class="mt-2 text-[10px] text-claw-muted">CPU 28% · RAM 31.2/32 GB</div></div>
-                                <div class="rounded-xl border border-claw-primary/35 bg-[#1a1a1a] p-4"><div class="mb-2 text-claw-primary">▥</div><div class="text-lg font-bold text-white">299.2K</div><div class="mt-1 text-[11px] text-claw-muted">Tokens used</div><div class="mt-2 text-[10px] text-claw-muted">6 requests · 30 days</div></div>
-                                <div class="rounded-xl border border-blue-500/30 bg-[#1a1a1a] p-4"><div class="mb-2 text-blue-400">▣</div><div class="text-lg font-bold text-white">1 active</div><div class="mt-1 text-[11px] text-claw-muted">Channels</div><div class="mt-2 text-[10px] text-claw-muted">22 available · 1 account</div></div>
-                            </div>
-                            <div class="mt-4 grid gap-3 xl:grid-cols-[1fr_260px]">
-                                <div class="space-y-3">
-                                    <div class="rounded-xl border border-[#2f4f35] bg-[#1a1a1a] p-4">
-                                        <div class="mb-3 flex items-center justify-between gap-3">
-                                            <div><div class="text-[11px] font-bold text-claw-muted"><span class="mr-1 inline-block h-2 w-2 rounded-full bg-[#22c55e]"></span>OpenClaw readiness</div><div class="mt-1 text-xl font-bold text-white">Ready</div><div class="text-[11px] text-claw-muted">5/5 checks passing</div></div>
-                                            <button class="rounded-lg bg-claw-primary px-4 py-2 text-xs font-bold text-white">Fix issues</button>
-                                        </div>
-                                        <div class="flex flex-wrap gap-2 text-[10px] font-bold text-[#22c55e]">
-                                            <span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>Gateway</span>
-                                            <span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>Chat</span>
-                                            <span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>Model</span>
-                                            <span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>Channel</span>
-                                            <span class="rounded-full bg-[#102719] px-2.5 py-1"><span class="mr-1">●</span>Skill</span>
-                                        </div>
-                                    </div>
-                                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                        <div class="mb-3 text-sm font-bold text-white">Next best actions</div>
-                                        <div class="rounded-lg bg-[#111] p-3 text-[11px] text-claw-muted"><span class="text-[#22c55e]">▱</span> <span class="font-bold text-white">Open OpenClaw Chat</span><br><span class="ml-4">Everything essential is ready.</span></div>
-                                    </div>
-                                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                        <div class="mb-3 text-sm font-bold text-white">System Load</div>
-                                        <div class="space-y-3 text-[11px]">
-                                            <div><div class="mb-1 flex justify-between text-claw-muted"><span>CPU</span><span>38%</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[38%] rounded-full bg-claw-primary"></div></div></div>
-                                            <div><div class="mb-1 flex justify-between text-claw-muted"><span>RAM</span><span>31.3 / 32.0 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[98%] rounded-full bg-blue-500"></div></div></div>
-                                            <div><div class="mb-1 flex justify-between text-claw-muted"><span>Swap</span><span>1.85 / 3.00 GB</span></div><div class="h-2 rounded-full bg-[#333]"><div class="h-full w-[62%] rounded-full bg-orange-400"></div></div></div>
-                                        </div>
-                                        <div class="mt-3 grid grid-cols-3 gap-2 text-[10px] text-claw-muted">
-                                            <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>OpenClaw</div>
-                                            <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>LM Studio</div>
-                                            <div class="rounded bg-[#111] p-2"><span class="font-bold text-white">0 MB</span><br>Node</div>
-                                        </div>
-                                    </div>
-                                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4 text-[11px] text-claw-muted">
-                                        <div class="mb-2 text-sm font-bold text-white">Recent activity</div>
-                                        <div class="space-y-1"><div><span class="text-claw-primary">●</span> Managed skills: /Users/redsun/.openclaw/skills</div><div><span class="text-claw-primary">●</span> Workspace: /Users/redsun/.openclaw/workspace</div><div><span class="text-claw-primary">●</span> Channel inventory refreshed.</div></div>
-                                    </div>
-                                </div>
-                                <div class="space-y-3">
-                                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                        <div class="mb-3 text-sm font-bold text-white">Working now</div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">▱</span>Chat</span><span class="text-claw-muted">Ready</span><span class="ml-1 text-[#22c55e]">●</span></div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">▣</span>Channels</span><span class="text-claw-muted">1 connected · 22 available</span><span class="ml-1 text-[#22c55e]">●</span></div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">⌁</span>Skills</span><span class="text-claw-muted">18 active · 58 installed</span><span class="ml-1 text-[#22c55e]">●</span></div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">▤</span>Models</span><span class="text-claw-muted">google/gemma-4-e4b</span><span class="ml-1 text-[#22c55e]">●</span></div>
-                                        <div class="flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px]"><span class="font-bold text-white"><span class="mr-1 text-[#22c55e]">▥</span>Automation</span><span class="text-claw-muted">6 active · 7 jobs</span><span class="ml-1 text-[#22c55e]">●</span></div>
-                                    </div>
-                                    <div class="rounded-xl border border-[#333] bg-[#1a1a1a] p-4">
-                                        <div class="mb-3 text-sm font-bold text-white">Operations</div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px] text-claw-muted"><span><span class="mr-1 text-claw-primary">▸</span><span class="font-bold text-white">OpenClaw Chat</span></span><span>›</span></div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px] text-claw-muted"><span><span class="mr-1 text-claw-primary">▸</span><span class="font-bold text-white">Connect channels</span></span><span>›</span></div>
-                                        <div class="mb-2 flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px] text-claw-muted"><span><span class="mr-1 text-claw-primary">▸</span><span class="font-bold text-white">Manage models</span></span><span>›</span></div>
-                                        <div class="flex items-center justify-between rounded-lg bg-[#111] p-2 text-[10px] text-claw-muted"><span><span class="mr-1 text-claw-primary">▸</span><span class="font-bold text-white">Add skills</span></span><span>›</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+</header>
 
             <!-- Real product proof -->
-            <section id="built-with-localclaw" aria-labelledby="built-with-localclaw-title" class="mb-20 scroll-mt-24 border-y border-white/10 py-10 sm:py-14">
-                <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+
+<section aria-labelledby="workspace-value-title" class="mb-20">
+                <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                     <div>
-                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// REAL USE CASE</p>
-                        <h2 id="built-with-localclaw-title" class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-white uppercase tracking-tight">Kimi K3 built a playable 3D FPS inside LocalClaw</h2>
-                        <p class="mt-4 max-w-3xl text-sm sm:text-base text-claw-muted font-mono leading-relaxed">The model worked through OpenRouter while LocalClaw kept the project, AI activity, files and live preview in one native workspace. The result is Iron Descent, playable in the same screen where it was built.</p>
+                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// YOUR HARDWARE WORKSPACE</p>
+                        <h2 id="workspace-value-title" class="max-w-3xl text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Stop rebuilding the same shortlist for every computer</h2>
+                        <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">Save your Macs, PCs and NVIDIA workstations once. LocalClaw gives each machine its own compatible models, saved picks and test history.</p>
                     </div>
-                    <dl class="grid grid-cols-2 overflow-hidden rounded-lg border border-white/10 bg-white/10 text-left">
-                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Model</dt><dd class="mt-2 text-sm font-bold text-white">Kimi K3</dd></div>
-                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Workspace</dt><dd class="mt-2 text-sm font-bold text-white">Developer</dd></div>
-                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Feedback</dt><dd class="mt-2 text-sm font-bold text-white">Live preview</dd></div>
-                        <div class="bg-[#0b0b0c] p-4"><dt class="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Result</dt><dd class="mt-2 text-sm font-bold text-white">Playable FPS</dd></div>
-                    </dl>
+                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">Open My Machines →</a>
                 </div>
-
-                <div class="mt-8 lc-case-video-shell" data-lc-video-shell>
-                    <button type="button" class="lc-case-video-poster" data-lc-youtube-id="nt8XNV-bXM0" data-lc-video-title="Kimi K3 built a playable 3D FPS inside LocalClaw" aria-label="Play the 45-second LocalClaw game development demo">
-                        <img src="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg" alt="LocalClaw Developer showing AI activity beside a live preview of Iron Descent" width="1280" height="720" loading="lazy" decoding="async">
-                        <span class="lc-case-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-                        <span class="lc-case-video-label">45-second real app capture</span>
-                    </button>
-                    <noscript><a href="https://youtu.be/nt8XNV-bXM0" class="absolute inset-0 grid place-items-center text-white">Watch the demo on YouTube</a></noscript>
-                </div>
-
-                <div class="mt-4 flex flex-col gap-4 rounded-lg border border-white/10 bg-[#0b0b0c] p-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">// PLAYABLE PUBLIC BUILD</p>
-                        <p class="mt-1 text-xs font-mono leading-relaxed text-claw-muted">The finished browser FPS is live, and its source is public for inspection.</p>
-                    </div>
-                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-                        <a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="home_demo" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black">Play Iron Descent ↗</a>
-                        <a href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_source" data-fast-goal-source="home_demo" class="rounded-lg border border-white/15 px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white hover:text-black">View source ↗</a>
-                    </div>
-                </div>
-
-                <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <li class="border-t border-claw-primary/45 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-2 font-display font-bold text-white">Describe the change</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Give the model a concrete product brief in the project chat.</p></li>
-                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">02</span><h3 class="mt-2 font-display font-bold text-white">See the work</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Follow tool activity, elapsed time and the files being changed.</p></li>
-                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">03</span><h3 class="mt-2 font-display font-bold text-white">Test it live</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Use the interactive preview without leaving LocalClaw.</p></li>
-                    <li class="border-t border-white/15 pt-4"><span class="font-mono text-xs font-bold text-claw-primary">04</span><h3 class="mt-2 font-display font-bold text-white">Iterate in context</h3><p class="mt-1 text-xs leading-relaxed text-claw-muted">Keep the project state and refine the result instead of starting over.</p></li>
-                </ol>
-
-                <div class="mt-7 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-                    <p class="text-xs font-mono text-claw-muted">Real workspace · visible AI activity · live preview · finished gameplay</p>
-                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-                        <a href="/case-study/iron-descent" data-fast-goal="case_study_open" data-fast-goal-source="home_demo" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Read the full case study →</a>
-                        <a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_demo" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white transition-colors hover:bg-white hover:text-black">Build with LocalClaw</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- THE APP -->
-            <section aria-label="LocalClaw app capabilities" class="mb-20">
-                <div class="mb-8 text-center">
-                    <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// THE APP</p>
-                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Everything to run OpenClaw locally, in one place</h2>
-                    <p class="mx-auto mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">A native macOS control center for the local AI stack you already own: models, agents, channels, schedules and system health.</p>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Control Center</h3><p class="text-sm text-claw-muted leading-relaxed">See gateway health, CPU/RAM pressure, tokens used and OpenClaw version before anything breaks.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 7c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z"/><path d="M4 7v5c0 1.1 3.6 2 8 2s8-.9 8-2V7"/><path d="M4 12v5c0 1.1 3.6 2 8 2s8-.9 8-2v-5"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Models</h3><p class="text-sm text-claw-muted leading-relaxed">Switch between Local LLM, Cloud LLM and OAuth LLM without hand-editing config files.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M16 11a4 4 0 10-8 0"/><path d="M5 21a7 7 0 0114 0"/><path d="M18 8l2 2 2-2"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Agents</h3><p class="text-sm text-claw-muted leading-relaxed">Create autonomous OpenClaw agents, assign models and keep their local workspace visible.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M9 15h.01M12 15h.01M15 15h.01"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Cron Jobs</h3><p class="text-sm text-claw-muted leading-relaxed">Schedule recurring local tasks and see what will run, when it runs and which agent owns it.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Kanban</h3><p class="text-sm text-claw-muted leading-relaxed">Turn local automation into visible work: backlog, ready, doing, review and done.</p></article>
-                    <article class="lc-feature-card rounded-xl p-7"><div class="lc-feature-icon mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-claw-primary/25 bg-claw-primary/10"><svg class="w-6 h-6 text-claw-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 5h16v10H7l-3 3V5z"/><path d="M8 9h8M8 12h5"/></svg></div><h3 class="text-lg font-display font-bold text-white mb-2">Chat · Skills · Channels</h3><p class="text-sm text-claw-muted leading-relaxed">Use beta dev tools, channel connections and local skills from the same dashboard.</p></article>
+                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-4 text-lg font-display font-bold text-white">Hardware profiles</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Keep RAM, VRAM, OS, accelerator and workload together.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">02</span><h3 class="mt-4 text-lg font-display font-bold text-white">Compatible models</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">See what fits each machine and which quantization leaves headroom.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">03</span><h3 class="mt-4 text-lg font-display font-bold text-white">Saved picks and tests</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Shortlist models, record measured speed and keep private notes.</p></article>
+                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">04</span><h3 class="mt-4 text-lg font-display font-bold text-white">Community signal</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Use LLM and speech ratings as context beside hardware fit.</p></article>
                 </div>
             </section>
 
@@ -870,30 +545,8 @@
             </section>
 
             <!-- LocalClaw vs Manual -->
-            <section aria-label="LocalClaw versus manual setup" class="mb-20">
-                <div class="grid gap-4 lg:grid-cols-2">
-                    <article class="rounded-2xl border border-claw-primary/35 bg-claw-primary/10 p-6 sm:p-8 shadow-[0_0_60px_rgba(234,88,12,0.08)]">
-                        <div class="mb-5 flex items-center gap-3"><img src="images/logo-localclaw.svg" width="38" height="38" alt="LocalClaw crab logo" class="rounded-lg bg-claw-primary"><div><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LocalClaw</p><h2 class="text-2xl font-display font-bold text-white uppercase">Download it like an app</h2></div></div>
-                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
-                            <li><span class="text-claw-primary">▸</span> Guided macOS setup for OpenClaw</li>
-                            <li><span class="text-claw-primary">▸</span> Managed local models and runtime checks</li>
-                            <li><span class="text-claw-primary">▸</span> Agents, channels, skills and schedules in one UI</li>
-                            <li><span class="text-claw-primary">▸</span> Local-first: local models and prompts stay on your machine</li>
-                        </ul>
-                    </article>
-                    <article class="rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-8">
-                        <div class="mb-5"><p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-claw-muted">Manual setup</p><h2 class="text-2xl font-display font-bold text-white uppercase">Hours in the terminal</h2></div>
-                        <ul class="space-y-3 text-sm text-claw-muted font-mono">
-                            <li><span class="text-white/35">▸</span> Install dependencies by hand</li>
-                            <li><span class="text-white/35">▸</span> Edit config files and CLI flags</li>
-                            <li><span class="text-white/35">▸</span> Track models, agents and channels separately</li>
-                            <li><span class="text-white/35">▸</span> Debug local runtime issues after the fact</li>
-                        </ul>
-                    </article>
-                </div>
-            </section>
 
-            <!-- Catalogue teaser -->
+<!-- Catalogue teaser -->
             <section aria-label="Local AI catalogue teaser" class="mb-20">
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
@@ -906,6 +559,21 @@
                     <a href="/models/gemma4-12b" data-fast-goal="model_open" data-fast-goal-source="home_teaser" data-fast-goal-model="gemma4-12b" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">New</p><h3 class="mt-3 text-lg font-display font-bold text-white">Gemma 4 12B</h3><p class="mt-2 text-xs font-mono text-claw-muted">Unified multimodal sweet spot for 16 GB+</p></a>
                     <a href="/tts/neutts-air" data-fast-goal="tts_open" data-fast-goal-source="home_teaser" data-fast-goal-model="neutts-air" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Voice</p><h3 class="mt-3 text-lg font-display font-bold text-white">NeuTTS Air</h3><p class="mt-2 text-xs font-mono text-claw-muted">Real-time CPU TTS and voice cloning</p></a>
                     <a href="/tts/dots-tts-mf" data-fast-goal="tts_open" data-fast-goal-source="home_teaser" data-fast-goal-model="dots-tts-mf" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">New voice</p><h3 class="mt-3 text-lg font-display font-bold text-white">Dots TTS MF</h3><p class="mt-2 text-xs font-mono text-claw-muted">2B zero-shot voice cloning · Apache 2.0</p></a>
+                </div>
+            </section>
+
+            <section aria-labelledby="software-title" class="mb-20 overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(255,69,58,0.10),rgba(255,255,255,0.02)_45%,rgba(0,0,0,0.35))]">
+                <div class="grid items-center gap-8 p-6 sm:p-8 lg:grid-cols-[0.82fr_1.18fr]">
+                    <div>
+                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// OPTIONAL MAC SOFTWARE</p>
+                        <h2 id="software-title" class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Operate OpenClaw from a native dashboard</h2>
+                        <p class="mt-4 text-sm leading-relaxed text-claw-muted">LocalClaw for Mac handles setup, health, models, agents, channels and scheduled work. The web database and hardware workspace remain useful on their own.</p>
+                        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                            <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_software_teaser" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black">Explore LocalClaw for Mac</a>
+                            <a href="/pricing" class="rounded-lg border border-white/15 px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white hover:border-white">View pricing</a>
+                        </div>
+                    </div>
+                    <a href="/software" class="block overflow-hidden rounded-xl border border-white/10 bg-black/40" aria-label="Explore the LocalClaw for Mac software"><img src="/images/pricing-carousel/home.jpg?v=20260602" width="1400" height="770" alt="LocalClaw for Mac dashboard with OpenClaw health, models and system load" class="h-auto w-full" loading="lazy" decoding="async"></a>
                 </div>
             </section>
 
@@ -944,7 +612,7 @@
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The LocalClaw web model finder is free: use it to choose the right LLM/TTS model for your hardware. The LocalClaw beta app is the optional native macOS app that simplifies setup, handles activation, supports updates and helps manage your local AI stack. No terminal-first workflow. The current beta lifetime offer is <strong class="text-white">$49 one-time</strong>, no subscription, no recurring fees. Your license is valid forever. <a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_faq" class="text-claw-primary hover:underline">See pricing →</a></p>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The model finder, LLM and speech catalogues, hardware guides and My Machines workspace are free. LocalClaw for Mac is separate, optional software for installing and operating OpenClaw from a native dashboard. <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_faq" class="text-claw-primary hover:underline">Explore the software →</a></p>
                     </details>
                 </div>
             </section>
@@ -989,6 +657,7 @@
          ============================================================ -->
     <script src="js/data.js?v=20260803a"></script>
     <script src="js/app-20260803a.js?v=20260803a"></script>
+    <script src="js/home-positioning-20260803b.js?v=20260803b"></script>
     <script src="js/growth-paths-20260727a.js?v=20260727a"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
@@ -1006,13 +675,13 @@
         "@type": "WebApplication",
         "name": "LocalClaw Model Finder",
         "url": "https://localclaw.io/",
-        "description": "Free browser-based local AI model finder for LM Studio and OpenClaw. Tracks 215 LLMs and 58 TTS/ASR speech entries including Nanbeige4.2 3B, Agents-A1 4B, Laguna S 2.1, Laguna XS 2.1, Bonsai 27B, Hy3, GPT-OSS 120B, LongCat-Flash-Lite, Agents-A1, North Mini Code 1.0, MiniCPM5 1B, Ministral 3 14B, Ministral 3 8B, Qwen 3.6 35B-A3B, Ministral 3 3B, DiffusionGemma 26B-A4B Instruct, Qwen AgentWorld 35B-A3B, Apertus 8B Instruct, Sarvam 30B, OLMo 3 32B Think, Dots TTS, MisoTTS, WavTTS, NeuTTS Air, Step-Audio 2, Higgs Audio v2, Whisper Turbo.",
+        "description": "Free hardware-aware local AI discovery platform. Compare 215 LLM records and 58 TTS/ASR speech entries by RAM, VRAM, speed, use case, quantization and install path, then save compatible picks for each machine.",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
         "browserRequirements": "Requires JavaScript",
         "softwareVersion": "3.22.0",
         "datePublished": "2026-01-01",
-        "dateModified": "2026-07-25",
+        "dateModified": "2026-08-03",
         "inLanguage": "en",
         "isAccessibleForFree": true,
         "author": {
@@ -1110,16 +779,16 @@
     </script>
 
     <!-- ============================================================
-         STRUCTURED DATA: SoftwareApplication (for app-like results)
+         STRUCTURED DATA: Organization
          ============================================================ -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "LocalClaw macOS Control Center",
-        "description": "Native macOS Control Center for OpenClaw with local models, agents, channels, cron jobs, Kanban task orchestration, health checks and guided setup.",
-        "operatingSystem": "macOS",
-        "applicationCategory": "DeveloperApplication"
+        "@type": "Organization",
+        "name": "LocalClaw",
+        "url": "https://localclaw.io/",
+        "logo": "https://localclaw.io/images/logo-localclaw.svg",
+        "description": "Hardware-aware local AI model discovery, compatibility guides and optional native software for OpenClaw."
     }
     </script>
 
