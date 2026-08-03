@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 1, 2026 — Added LongCat-Flash-Lite — 214 LLM total
+// Updated August 3, 2026 — Added OLMo 3 7B Instruct — 215 LLM total
 // Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
 // Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
 // Previous: July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
@@ -398,6 +398,23 @@ const APP_DATA = {
             hf_repo: 'lmstudio-community/Olmo-3-32B-Think-GGUF',
             source_url: 'https://huggingface.co/allenai/Olmo-3-32B-Think',
             benchmarks: { speed: 4, quality: 9, coding: 8, reasoning: 9 },
+            released: '2025-11',
+            isNew: true
+        },
+        {
+            id: 'olmo3-7b-instruct',
+            name: 'OLMo 3 7B Instruct',
+            family: 'olmo',
+            params: '7B',
+            size_gb: 4.5,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'standard', 'open-data'],
+            description: 'Ai2 fully open 7B OLMo 3 instruct model with Apache 2.0 licensing, transparent training artifacts and established GGUF options from Unsloth, bartowski and LM Studio for everyday local machines.',
+            search_term: 'olmo-3-7b-instruct',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/Olmo-3-7B-Instruct-GGUF',
+            source_url: 'https://huggingface.co/allenai/Olmo-3-7B-Instruct',
+            benchmarks: { speed: 8, quality: 8, coding: 7, reasoning: 8 },
             released: '2025-11',
             isNew: true
         },
