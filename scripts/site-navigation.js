@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260803a';
+const NAV_VERSION = '20260806a';
 
 const items = [
   ['llm', '/llm-list', 'LLM'],

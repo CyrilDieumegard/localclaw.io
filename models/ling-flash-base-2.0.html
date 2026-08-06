@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenCoder (8B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="OpenCoder (8B): 8B local AI model guide with RAM requirements, Q5_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <title>Ling Flash Base 2.0 local AI: custom runtime | LocalClaw</title>
+  <meta name="description" content="Ling Flash Base 2.0: 106B (6.1B active, MoE) local AI guide with RAM requirements, Q4_K_M, benchmarks and its required Ling llama.cpp fork runtime.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/opencoder-8b">
+  <link rel="canonical" href="https://localclaw.io/models/ling-flash-base-2.0">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/opencoder-8b">
-  <meta property="og:title" content="OpenCoder (8B) local AI model | LocalClaw">
-  <meta property="og:description" content="OpenCoder (8B): 8B local AI model guide with RAM requirements, Q5_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/ling-flash-base-2.0">
+  <meta property="og:title" content="Ling Flash Base 2.0 local AI model | LocalClaw">
+  <meta property="og:description" content="Ling Flash Base 2.0: 106B (6.1B active, MoE) local AI guide with RAM requirements, Q4_K_M, benchmarks and its required Ling llama.cpp fork runtime.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="OpenCoder (8B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="OpenCoder (8B): 8B local AI model guide with RAM requirements, Q5_K_M quantization, benchmarks, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="Ling Flash Base 2.0 local AI model | LocalClaw">
+  <meta name="twitter:description" content="Ling Flash Base 2.0: 106B (6.1B active, MoE) local AI guide with RAM requirements, Q4_K_M, benchmarks and its required Ling llama.cpp fork runtime.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"OpenCoder (8B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/opencoder-8b","description":"OpenCoder (8B): 8B local AI model guide with RAM requirements, Q5_K_M quantization, benchmarks, use cases and LM Studio setup.","softwareVersion":"2024-11","memoryRequirements":"8 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can OpenCoder (8B) run locally?","acceptedAnswer":{"@type":"Answer","text":"OpenCoder (8B) can run locally with at least 8 GB RAM. LocalClaw recommends Q5_K_M quantization."}},{"@type":"Question","name":"What is OpenCoder (8B) best for?","acceptedAnswer":{"@type":"Answer","text":"OpenCoder (8B) is best used for Coding assistant."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"OpenCoder (8B)","item":"https://localclaw.io/models/opencoder-8b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Ling Flash Base 2.0","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/ling-flash-base-2.0","description":"Ling Flash Base 2.0: 106B (6.1B active, MoE) local AI guide with RAM requirements, Q4_K_M, benchmarks and its required Ling llama.cpp fork runtime.","softwareVersion":"2025-09","memoryRequirements":"128 GB RAM minimum","license":"https://github.com/inclusionAI/Ling-V2/blob/master/LICENCE","creator":{"@type":"Organization","name":"InclusionAI","url":"https://huggingface.co/inclusionAI"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Ling Flash Base 2.0 run locally?","acceptedAnswer":{"@type":"Answer","text":"Ling Flash Base 2.0 can run locally with at least 128 GB RAM using the official Ling llama.cpp fork runtime. Its low-bit files are not a stock LM Studio install today."}},{"@type":"Question","name":"What is Ling Flash Base 2.0 best for?","acceptedAnswer":{"@type":"Answer","text":"Ling Flash Base 2.0 is best used for 128GB workstation reasoning experiments."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Ling Flash Base 2.0","item":"https://localclaw.io/models/ling-flash-base-2.0"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,20 +48,20 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>OpenCoder (8B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Ling Flash Base 2.0</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">OpenCoder <span>(8B)</span></h1>
-        <p class="desc">Open reproducible code LLM. Fully transparent training. Bilingual coding. 172K downloads.</p>
+        <div class="eyebrow">Open-weight MoE</div>
+        <h1 class="title">Ling Flash Base 2.0</h1>
+        <p class="desc">InclusionAI MIT-licensed Ling 2.0 base MoE with about 106B total parameters, 6.1B active parameters and 32K context extendable toward 128K with YaRN. Practical local use requires the official Ling GGUF files and patched llama.cpp runtime.</p>
         <div class="chips">
-          <span class="chip hot">Laptop ready</span>
-          <span class="chip">8 GB RAM</span>
-          <span class="chip">Q5_K_M</span>
-          <span class="chip">Coding assistant</span>
+          <span class="chip hot">Large-memory workstation</span>
+          <span class="chip">128 GB RAM</span>
+          <span class="chip">Q4_K_M</span>
+          <span class="chip">128GB workstation reasoning experiments</span>
         </div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/inclusionAI/Ling-flash-2.0-GGUF" target="_blank" rel="noopener">Open official runtime</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -69,79 +69,79 @@
         <div class="score-card">
           <div>
             <div class="score-label">Local fit score</div>
-            <div class="score">7.0<small>/10</small></div>
-            <p class="score-caption">OpenCoder (8B) is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
+            <div class="score">6.9<small>/10</small></div>
+            <p class="score-caption">Ling Flash Base 2.0 needs a serious workstation with large unified memory or high VRAM.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="opencoder-8b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="ling-flash-base-2.0" data-rating-mode="full"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">opencoder</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2024-11</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">ling</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2025-09</div></div>
         </div>
       </aside>
     </header>
     <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">8B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">5 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q5_K_M</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">106B (6.1B active, MoE)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">128 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">37.7 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="opencoder-8b" aria-live="polite"></section>
+    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="ling-flash-base-2.0" aria-live="polite"></section>
     <section class="section">
-      <h2>Can OpenCoder (8B) run locally?</h2>
-      <p>OpenCoder (8B) is a good fit for normal laptops and compact desktops with 8 GB RAM or more.</p>
-      <p>Search for <code>opencoder-8b-instruct</code> in LM Studio or another GGUF-compatible runtime.</p>
-      <div class="source-links"><code>infly/OpenCoder-8B-Instruct-GGUF</code></div>
-      <div style="margin-top:16px"><span class="tag">code</span><span class="tag">standard</span></div>
+      <h2>Can Ling Flash Base 2.0 run locally?</h2>
+      <p>Ling Flash Base 2.0 needs a serious workstation with large unified memory or high VRAM.</p>
+      <p>Use the official <a href="https://huggingface.co/inclusionAI/Ling-flash-2.0-GGUF" target="_blank" rel="noopener">Ling llama.cpp fork</a> setup. The current low-bit files are not a stock LM Studio install.</p>
+      <div class="source-links"><a href="https://huggingface.co/inclusionAI/Ling-flash-base-2.0" target="_blank" rel="noopener">Model source</a><code>inclusionAI/Ling-flash-2.0-GGUF</code></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">long-context</span><span class="tag">moe</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q5_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search opencoder-8b-instruct in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 128 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Follow the official Ling llama.cpp fork instructions. Stock LM Studio support is not confirmed.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list"><li>Open reproducible code LLM. Fully transparent training. Bilingual coding. 172K downloads.</li></ul></div>
-      <div><h2>Limitations</h2><ul class="list"><li>Performance depends on quantization, RAM bandwidth and runtime support.</li></ul></div>
+      <div><h2>Strengths</h2><ul class="list"><li>Official InclusionAI Ling 2.0 base release with MIT licensing</li><li>Small active MoE footprint for a 100B-class total-parameter model</li><li>Strong author-positioned reasoning, code generation and frontend development performance</li><li>Official GGUF repository includes Q2_K, Q4_K_M, Q6_K and Q8_0 files</li><li>Documented patched llama.cpp release can run local CLI and OpenAI-compatible server modes</li><li>128K long-context path is documented through YaRN configuration</li></ul></div>
+      <div><h2>Limitations</h2><ul class="list"><li>Not a stock LM Studio or upstream llama.cpp install today</li><li>Official GGUF path depends on a Ling/BailingMoeV2-specific llama.cpp fork while upstream PRs mature</li><li>Q4_K_M is about 37.7GB and needs large RAM headroom for practical local use</li><li>BF16 source weights are about 212GB, so full-precision local use is server-class</li><li>Base model behavior may require prompt work compared with the chat-tuned Ling Flash 2.0 variant</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list"><li>code</li><li>standard</li></ul></div>
+      <div><h2>Best use cases</h2><ul class="list"><li>128GB workstation reasoning experiments</li><li>Local code-generation and frontend-development testing</li><li>OpenAI-compatible local API server experiments through patched llama.cpp</li><li>Long-context research with YaRN configuration</li><li>Comparing small-active MoE designs against dense 30B-40B models</li><li>Private multilingual analysis when larger RAM is available</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">opencoder</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">See model repository</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">Unknown tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">See model card</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">InclusionAI</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">MIT</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">32,768 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">BailingMoeV2 sparse MoE causal language model with about 106B total parameters, 6.1B active parameters, 256 experts and 8 routed experts per token. The model card describes 32K native context and YaRN extrapolation toward 128K.</div></div>
       </div>
     </section>
     <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
+        <a href="/hardware/mac-studio-m4-max-128gb"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb"><small>High-memory picks</small>128GB RAM guide</a>
       </div>
     </section>
-
+    <section class="section"><h2>Similar models to compare</h2><div class="similar"><a href="/models/longcat-flash-lite">LongCat-Flash-Lite <span>68.5B (3-4.5B active, MoE)</span></a><a href="/models/gpt-oss-120b">GPT-OSS (120B) <span>117B (5.1B active)</span></a><a href="/models/qwen3.5-122b-a10b">Qwen 3.5 MoE (122B/10B active) <span>122B (10B active)</span></a><a href="/models/kimi-linear-48b-a3b-instruct">Kimi Linear 48B-A3B Instruct <span>48B (3B active, MoE)</span></a></div></section>
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"opencoder-8b","name":"OpenCoder (8B)","family":"opencoder","params":"8B","size_gb":5,"min_ram":8,"tags":["code","standard"],"description":"Open reproducible code LLM. Fully transparent training. Bilingual coding. 172K downloads.","search_term":"opencoder-8b-instruct","recommended_quant":"Q5_K_M","hf_repo":"infly/OpenCoder-8B-Instruct-GGUF","benchmarks":{"speed":8,"quality":6,"coding":8,"reasoning":6},"released":"2024-11"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"ling-flash-base-2.0","name":"Ling Flash Base 2.0","family":"ling","params":"106B (6.1B active, MoE)","size_gb":37.7,"min_ram":128,"tags":["chat","code","reasoning","power","long-context","moe"],"description":"InclusionAI MIT-licensed Ling 2.0 base MoE with about 106B total parameters, 6.1B active parameters and 32K context extendable toward 128K with YaRN. Practical local use requires the official Ling GGUF files and patched llama.cpp runtime.","search_term":"ling-flash-base-2.0","recommended_quant":"Q4_K_M","hf_repo":"inclusionAI/Ling-flash-2.0-GGUF","source_url":"https://huggingface.co/inclusionAI/Ling-flash-base-2.0","custom_runtime":"Ling llama.cpp fork","runtime_url":"https://huggingface.co/inclusionAI/Ling-flash-2.0-GGUF","benchmarks":{"speed":5,"quality":9,"coding":9,"reasoning":9},"released":"2025-09","isNew":true};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

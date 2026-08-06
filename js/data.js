@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 3, 2026 — Added OLMo 3 7B Instruct — 215 LLM total
+// Updated August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
 // Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
 // Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
 // Previous: July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
@@ -208,6 +208,25 @@ const APP_DATA = {
             runtime_url: 'https://huggingface.co/InquiringMinds-AI/LongCat-Flash-Lite-GGUF',
             benchmarks: { speed: 6, quality: 8, coding: 9, reasoning: 8 },
             released: '2026-01',
+            isNew: true
+        },
+        {
+            id: 'ling-flash-base-2.0',
+            name: 'Ling Flash Base 2.0',
+            family: 'ling',
+            params: '106B (6.1B active, MoE)',
+            size_gb: 37.7,
+            min_ram: 128,
+            tags: ['chat', 'code', 'reasoning', 'power', 'long-context', 'moe'],
+            description: 'InclusionAI MIT-licensed Ling 2.0 base MoE with about 106B total parameters, 6.1B active parameters and 32K context extendable toward 128K with YaRN. Practical local use requires the official Ling GGUF files and patched llama.cpp runtime.',
+            search_term: 'ling-flash-base-2.0',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'inclusionAI/Ling-flash-2.0-GGUF',
+            source_url: 'https://huggingface.co/inclusionAI/Ling-flash-base-2.0',
+            custom_runtime: 'Ling llama.cpp fork',
+            runtime_url: 'https://huggingface.co/inclusionAI/Ling-flash-2.0-GGUF',
+            benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
+            released: '2025-09',
             isNew: true
         },
         {
