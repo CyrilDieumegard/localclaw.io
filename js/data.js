@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
+// Updated August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
+// Previous: August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
 // Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
 // Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
 // Previous: July 20, 2026 — Added Laguna XS 2.1 — 210 LLM total
@@ -227,6 +228,24 @@ const APP_DATA = {
             runtime_url: 'https://huggingface.co/inclusionAI/Ling-flash-2.0-GGUF',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
             released: '2025-09',
+            isNew: true
+        },
+        {
+            id: 'qwen3-coder-next',
+            name: 'Qwen3-Coder-Next',
+            family: 'qwen-coder',
+            params: '80B (3B active, MoE)',
+            size_gb: 48.4,
+            min_ram: 64,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'power', 'long-context', 'moe', 'tool-calling'],
+            description: 'Qwen Team Apache 2.0 coding-agent MoE with 80B total parameters, 3B active parameters, 262K native context and official Q4_K_M GGUF files. Practical local use fits best on 64GB+ workstations with recent llama.cpp or LM Studio-compatible runtimes.',
+            search_term: 'Qwen3-Coder-Next',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'Qwen/Qwen3-Coder-Next-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen3-Coder-Next',
+            runtime_url: 'https://huggingface.co/Qwen/Qwen3-Coder-Next-GGUF',
+            benchmarks: { speed: 8, quality: 9, coding: 10, reasoning: 9 },
+            released: '2026-02',
             isNew: true
         },
         {

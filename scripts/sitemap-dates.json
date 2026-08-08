@@ -1,7 +1,7 @@
 {
   "index.html": {
-    "hash": "62e2702e1efe839afcf6aa55c0b2b0810d7f8195fb61aa4185ded46e2b461a86",
-    "lastmod": "2026-08-06"
+    "hash": "091b5954b2f199b1273cf384e08d68547d0977180d5d492251daad2e0adbefe7",
+    "lastmod": "2026-08-08"
   },
   "software.html": {
     "hash": "93780525e2db91c597f61b4cf8ab3f90e725d900c3dfc0f3b6940115d5d57c55",
@@ -16,8 +16,8 @@
     "lastmod": "2026-08-06"
   },
   "llm-list.html": {
-    "hash": "dc4565d444048663d53a670e7d38c468c5c20e76866e7ca2457d8b774d545b2b",
-    "lastmod": "2026-08-06"
+    "hash": "cc1c0e7874dbb72cdd5b68a90fa2c87685de966f4842e02b83403a85372cfd85",
+    "lastmod": "2026-08-08"
   },
   "tts-list.html": {
     "hash": "3227c7366b66cb5262e71267034ddf89e19d8d2793938e1d29cb3f46392aada4",
@@ -32,8 +32,8 @@
     "lastmod": "2026-08-06"
   },
   "new.html": {
-    "hash": "795d86aa2f970bf79f6827e3d38543f145769fbf27ed07f96344d84e3d5f37f5",
-    "lastmod": "2026-08-06"
+    "hash": "3757d54668be38e6f42028b302119c443cc550ee957fbb8928f211d3cf34c9d8",
+    "lastmod": "2026-08-08"
   },
   "case-study/iron-descent.html": {
     "hash": "6111a776d0b2a57535ddb595dd48b74df14c698a7690367d5b9e6c81f2a3b406",
@@ -404,8 +404,8 @@
     "lastmod": "2026-08-06"
   },
   "models/index.html": {
-    "hash": "e7e0880aac3c6533bb9a1e1c01c531959706124e46eea0f4a5c0336e0d1f4ec4",
-    "lastmod": "2026-08-06"
+    "hash": "47e5a9cf567620975eb6c48bf5e8415a0332efef2f778bdf84ab1e6b2093d844",
+    "lastmod": "2026-08-08"
   },
   "models/internlm2-7b.html": {
     "hash": "eaadb697c47435c6bc965c3f2059476da94ac52fea6e00d7882966460f9f1703",
@@ -810,6 +810,10 @@
   "models/qwen3-coder-8b.html": {
     "hash": "64c1d1deddf1de8eae5543691e7a45c3f67931a1b72d571ce33e937ddee9a949",
     "lastmod": "2026-08-06"
+  },
+  "models/qwen3-coder-next.html": {
+    "hash": "445f12bff83eeb4f003737119a40bdb8085201752c7a6335aba7e862f8e009f2",
+    "lastmod": "2026-08-08"
   },
   "models/qwen3-next-80b-a3b.html": {
     "hash": "6a7859ee2136393f5543a045f6ec202e224fe05e938b1c043f2bde57b7748b2b",
@@ -1292,8 +1296,8 @@
     "lastmod": "2026-08-06"
   },
   "ram/128gb.html": {
-    "hash": "655caca3ec2353951bad72c00fc3ed4c66a767f97322abd3c9e4931a75647e23",
-    "lastmod": "2026-08-06"
+    "hash": "8471330bdf3168ea97846b0780c1f050677f6c03f19850b51dda5776f7d52b68",
+    "lastmod": "2026-08-08"
   },
   "ram/16gb.html": {
     "hash": "c21b55855e8dd7510a8c29565e0941b0651ec5da11fc82fc15cfd107b6228e7e",
@@ -1304,8 +1308,8 @@
     "lastmod": "2026-08-06"
   },
   "ram/64gb.html": {
-    "hash": "13f515fc7eeb1e8a96e1c93f768016a3de971091878446e64a0072c4ea0cf678",
-    "lastmod": "2026-08-06"
+    "hash": "954630e111b3b52f8ce64d2420fa1489e45010082460769e7c0326033bc30363",
+    "lastmod": "2026-08-08"
   },
   "ram/8gb.html": {
     "hash": "1c3e0467f9ac3f2416d8470c597e3de6a13c92a2a493ec67411abe14df39f07c",
@@ -1332,24 +1336,24 @@
     "lastmod": "2026-08-06"
   },
   "hardware/mac-studio-m3-ultra-128gb.html": {
-    "hash": "4ffc3705f84518bc5264ff56045536e525be621c8cfb44eae355a12c80439490",
-    "lastmod": "2026-08-06"
+    "hash": "1cf7245dbaac4a9ad6fab1ba3cd3a0e2148d830c7281ee060733fd8fad8e5a87",
+    "lastmod": "2026-08-08"
   },
   "hardware/mac-studio-m3-ultra-256gb.html": {
-    "hash": "4d8e250709051ab5e311afee36301532bc6707df3eea334394607ea5d27b12ee",
-    "lastmod": "2026-08-06"
+    "hash": "aad9a8d049b8707d5ecf7594935abe3393d142de2d79e101964b0245db82ed8b",
+    "lastmod": "2026-08-08"
   },
   "hardware/mac-studio-m3-ultra-512gb.html": {
-    "hash": "752bd9eb014b505ce202c6a6819a25a2c4ea466791f2dc73990554880303c732",
-    "lastmod": "2026-08-06"
+    "hash": "b64cd2ba6be4af179f82a05083160787c187a3572197a5564cc8936ab44dc3a6",
+    "lastmod": "2026-08-08"
   },
   "hardware/mac-studio-m4-max-128gb.html": {
-    "hash": "8e44009d6e7f24e5e5d10a9240917583b01ae236bc8071b6e42b3c2df629b987",
-    "lastmod": "2026-08-06"
+    "hash": "610c9b05cad89dbb3c17c104efaf249217ebd4bba8dbca2770d296e95754f8b2",
+    "lastmod": "2026-08-08"
   },
   "hardware/mac-studio-m4-max-64gb.html": {
-    "hash": "07feffd34a9940653e901cac8db2c9ab5c04fcae1fad74b2477be2fe069def6c",
-    "lastmod": "2026-08-06"
+    "hash": "9839765a76ca3fe566022d1f640f50afa7dce20a325fc2099e1d9d1b0964197b",
+    "lastmod": "2026-08-08"
   },
   "hardware/macbook-air-m2-8gb.html": {
     "hash": "728fb7d6f2fbf068e9440180fc0b624e53c780e3a16a0053c5514afa422632ff",
@@ -1380,16 +1384,16 @@
     "lastmod": "2026-08-06"
   },
   "use-case/chat.html": {
-    "hash": "4d660dd81f95d41ba516de16f7babfbb1f722214353bd3d19f6950406150f646",
-    "lastmod": "2026-08-06"
+    "hash": "4fa33cc55a23f14c3bd9d23004a815e4790f11587c8cab2c6e46994dcd511e69",
+    "lastmod": "2026-08-08"
   },
   "use-case/coding.html": {
-    "hash": "1d01111ae2aa7844c65996957fabe6ebf4673613136cdc282c9c38df5b887334",
-    "lastmod": "2026-08-06"
+    "hash": "c79df926206e2b577cea3988a0a8bbf239c6a2055bd8f584bc58abe0da726aeb",
+    "lastmod": "2026-08-08"
   },
   "use-case/creative-writing.html": {
-    "hash": "b5b353f97ae007021e299bad802d7080eb84ece661a4a57b12c7ed83e652e2e7",
-    "lastmod": "2026-08-06"
+    "hash": "ddb85581f114a0d62951b862b2830a8b1c627db13e96d79858265c2926c5062b",
+    "lastmod": "2026-08-08"
   },
   "use-case/fast.html": {
     "hash": "6b89c44f40274f080800d26a269f4b84b500b92ed115a5b1c9f3caefab395648",
@@ -1400,16 +1404,16 @@
     "lastmod": "2026-08-06"
   },
   "use-case/multilingual.html": {
-    "hash": "be86d22f9f0be6f1ed4e07e36104901881da8583e08607bd46f5d24de1cc799a",
-    "lastmod": "2026-08-06"
+    "hash": "1c4ce95ef30e35769d6ac5cba822eee6caefcfab0c81224460db527e5c1d2c9d",
+    "lastmod": "2026-08-08"
   },
   "use-case/rag.html": {
-    "hash": "99672cb94eca7c4318245e39d186728399b124f05a444bf99ad34174cac2ee0d",
-    "lastmod": "2026-08-06"
+    "hash": "29b2b74c09ab0e68d32fdcb1f62dd8dcc228fc14a5c9ed23759a16d45b0f938c",
+    "lastmod": "2026-08-08"
   },
   "use-case/reasoning.html": {
-    "hash": "c1837bc23c23ec5a0a5be3d63e431170bf0a9feae103a6bca696b79dece8ce80",
-    "lastmod": "2026-08-06"
+    "hash": "4a815410773aa1a66f752487077bf019768b9100af41e82be61e092ecda9be0e",
+    "lastmod": "2026-08-08"
   },
   "use-case/vision.html": {
     "hash": "6246afeb7bb65ef387210763905a4bca1efdd3e6b7db8e940b4c852b0449324b",
@@ -1420,8 +1424,8 @@
     "lastmod": "2026-08-06"
   },
   "guides/best-local-llms-for-coding.html": {
-    "hash": "643fbdb2bed04aff4655c99c4ca42b976975e938ae3508f35e90b9e307fadbfe",
-    "lastmod": "2026-08-06"
+    "hash": "0cf86f3192096d3fa9773b8358da21a6a8dfb947c2ba9eb141ac449bdaacbeab",
+    "lastmod": "2026-08-08"
   },
   "guides/best-local-llms-for-mac-mini-m4.html": {
     "hash": "343c48dde57a53541d40572f89f25f8d903450b40ee3e39f30876592df0f53cd",

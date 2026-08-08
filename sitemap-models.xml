@@ -470,7 +470,7 @@
   </url>
   <url>
     <loc>https://localclaw.io/models/</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -1077,6 +1077,12 @@
   <url>
     <loc>https://localclaw.io/models/qwen3-coder-8b</loc>
     <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://localclaw.io/models/qwen3-coder-next</loc>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
