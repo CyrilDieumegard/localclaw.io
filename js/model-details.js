@@ -1965,6 +1965,44 @@ var MODEL_DETAILS = {
         paper_url: 'https://www.scmp.com/tech/tech-trends/article/3354087/alibaba-teases-new-qwen-previews-highest-ranking-chinese-ai-models-arena',
     },
 
+    // ==================== DEEPSEEK V4 FLASH 0731 (July 2026 — NEW) ====================
+    'deepseek-v4-flash-0731': {
+        developer: 'DeepSeek AI',
+        developer_url: 'https://www.deepseek.com/',
+        context_window: 1048576,
+        license: 'MIT',
+        license_url: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE',
+        architecture: 'DeepSeek V4 Flash MoE successor release with 284B total parameters, about 13B active parameters, million-token context and the same DSpark speculative-decoding structure as DeepSeek V4 Flash DSpark.',
+        training_data: 'Not fully disclosed. DeepSeek positions this release around agentic coding, long-context reasoning, terminal automation and full-stack software tasks.',
+        languages: ['English', 'Chinese', 'Multilingual'],
+        strengths: [
+            'Official DeepSeek release that supersedes the earlier DeepSeek V4 Flash preview',
+            'MIT licensed weights with strong Hugging Face adoption',
+            'Large gains over the preview Flash release on Terminal Bench, NL2Repo, DeepSWE and tool-use benchmarks reported by DeepSeek',
+            'Unsloth Dynamic GGUF, Bartowski, ggml-org and LM Studio community artifacts provide practical local-runtime paths',
+            'DSpark speculative decoding support can improve decoding throughput on supported runtimes',
+            '1M-token context for repository-scale and long-document workflows',
+        ],
+        weaknesses: [
+            'Not a normal laptop model; Q4 local use still needs roughly 155GB of model weights plus runtime overhead',
+            'Conservative LocalClaw recommendation is 256GB RAM or server-class GPU memory',
+            'DeepSeek chat encoding and reasoning-effort controls require current runtime support',
+            'Long-context sessions can exceed the static model-file estimate because KV cache memory grows quickly',
+            'Official vLLM/SGLang examples target multi-GPU datacenter hardware',
+        ],
+        use_cases: [
+            'Private agentic coding on very large workstations',
+            'Terminal automation and tool-use experiments',
+            'Repository-scale refactoring and debugging',
+            'Long-context technical document analysis',
+            'Benchmarking local frontier MoE models against hosted coding agents',
+        ],
+        similar_models: ['deepseek-v4-flash', 'deepseek-v4-pro', 'glm-5.2', 'qwen3-coder-next', 'kimi-k2.7-code'],
+        fun_fact: 'Unsloth reports that the Q8 build is about 162GB, only around 7GB larger than the Q4 build, which is unusual enough to make high-precision testing plausible on very high-memory workstations.',
+        official_blog: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731',
+        paper_url: 'https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF',
+    },
+
     // ==================== MINIMAX M3 (June 2026 — NEW) ====================
     'minimax-m3': {
         developer: 'MiniMax AI',

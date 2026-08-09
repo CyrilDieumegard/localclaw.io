@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>DeepSeek V4 Flash 0731 (284B MoE)</title>
+      <link>https://localclaw.io/models/deepseek-v4-flash-0731</link>
+      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-flash-0731</guid>
+      <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
+      <category>deepseek-flash</category>
+      <description>Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB. 284B (13B active) · 256 GB minimum RAM · UD-Q4_K_XL · deepseek-flash.</description>
+    </item>
     <item>
       <title>Nanbeige4.2 3B</title>
       <link>https://localclaw.io/models/nanbeige4.2-3b</link>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.1 long-context instruct model. Apache 2.0, 131K context, tool calling, RAG, code tasks, multilingual dialog and business assistant workflows on normal 8-16 GB machines. 8B · 8 GB minimum RAM · Q4_K_M · granite.</description>
-    </item>
-    <item>
-      <title>Qwen 3.6 (6.7B)</title>
-      <link>https://localclaw.io/models/qwen3.6-6.7b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.6-6.7b</guid>
-      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Alibaba&apos;s hybrid-thinking micro-flagship. Toggles between instant answers and deep chain-of-thought reasoning on demand. 128K context, 29 languages, outperforms Qwen3-8B on reasoning benchmarks. Apache 2.0. 6.7B · 8 GB minimum RAM · Q4_K_M · qwen.</description>
     </item>
   </channel>
 </rss>

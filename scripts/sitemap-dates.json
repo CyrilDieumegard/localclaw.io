@@ -1,7 +1,7 @@
 {
   "index.html": {
-    "hash": "091b5954b2f199b1273cf384e08d68547d0977180d5d492251daad2e0adbefe7",
-    "lastmod": "2026-08-08"
+    "hash": "101932ddcbd7005020f8cab30b4ce1a59a69f3966c3eeba2c55b8b6ad91311aa",
+    "lastmod": "2026-08-09"
   },
   "software.html": {
     "hash": "93780525e2db91c597f61b4cf8ab3f90e725d900c3dfc0f3b6940115d5d57c55",
@@ -16,8 +16,8 @@
     "lastmod": "2026-08-06"
   },
   "llm-list.html": {
-    "hash": "cc1c0e7874dbb72cdd5b68a90fa2c87685de966f4842e02b83403a85372cfd85",
-    "lastmod": "2026-08-08"
+    "hash": "d022d8e4ea99728016d4ff4e9371f0fa6a18a281ca6c72efb4f7d39b22450d1e",
+    "lastmod": "2026-08-09"
   },
   "tts-list.html": {
     "hash": "3227c7366b66cb5262e71267034ddf89e19d8d2793938e1d29cb3f46392aada4",
@@ -32,8 +32,8 @@
     "lastmod": "2026-08-06"
   },
   "new.html": {
-    "hash": "3757d54668be38e6f42028b302119c443cc550ee957fbb8928f211d3cf34c9d8",
-    "lastmod": "2026-08-08"
+    "hash": "1a62ead88e98b60ceff719786fffe35819136749f1b34fe1b971543a76193334",
+    "lastmod": "2026-08-09"
   },
   "case-study/iron-descent.html": {
     "hash": "6111a776d0b2a57535ddb595dd48b74df14c698a7690367d5b9e6c81f2a3b406",
@@ -231,6 +231,10 @@
     "hash": "561ad285db09016f7a5c3140b42bd12755ff25a4121a8c438ad34615f3cb663e",
     "lastmod": "2026-08-06"
   },
+  "models/deepseek-v4-flash-0731.html": {
+    "hash": "7b0d1265694aac3e38dfc9668483418d6b457f97b5e6bdd3d7ba4bf03f9fc5b9",
+    "lastmod": "2026-08-09"
+  },
   "models/deepseek-v4-flash.html": {
     "hash": "b2b9a2867b91a86a9e30f6e7f99eee973573cf8db0d84273ee00ea67096f1a04",
     "lastmod": "2026-08-06"
@@ -404,8 +408,8 @@
     "lastmod": "2026-08-06"
   },
   "models/index.html": {
-    "hash": "47e5a9cf567620975eb6c48bf5e8415a0332efef2f778bdf84ab1e6b2093d844",
-    "lastmod": "2026-08-08"
+    "hash": "655225747de953d4bc2d1d420200a977ba8301afffa1e45ddb7732cc606c42e0",
+    "lastmod": "2026-08-09"
   },
   "models/internlm2-7b.html": {
     "hash": "eaadb697c47435c6bc965c3f2059476da94ac52fea6e00d7882966460f9f1703",
@@ -641,7 +645,7 @@
   },
   "models/nanbeige4.2-3b.html": {
     "hash": "fd30f1cf7bd19cc27840b29e2bb80966b6940b8b4f8168367263fce2ad320e9c",
-    "lastmod": "2026-08-06"
+    "lastmod": "2026-08-09"
   },
   "models/nemotron-mini-4b.html": {
     "hash": "6e4455d0e600c513944e8cd57a129c040eb51f8bca3bcf7416810be6c3c3f7d1",
@@ -1340,12 +1344,12 @@
     "lastmod": "2026-08-08"
   },
   "hardware/mac-studio-m3-ultra-256gb.html": {
-    "hash": "aad9a8d049b8707d5ecf7594935abe3393d142de2d79e101964b0245db82ed8b",
-    "lastmod": "2026-08-08"
+    "hash": "dc1979b25595555970f39d306b289c4dfc6f732fc7831d17327ac72d4323311c",
+    "lastmod": "2026-08-09"
   },
   "hardware/mac-studio-m3-ultra-512gb.html": {
-    "hash": "b64cd2ba6be4af179f82a05083160787c187a3572197a5564cc8936ab44dc3a6",
-    "lastmod": "2026-08-08"
+    "hash": "6da153a605f297474d22d2bb08b31e59049ee396d2e47c11523267345ff8d12b",
+    "lastmod": "2026-08-09"
   },
   "hardware/mac-studio-m4-max-128gb.html": {
     "hash": "610c9b05cad89dbb3c17c104efaf249217ebd4bba8dbca2770d296e95754f8b2",
@@ -1384,16 +1388,16 @@
     "lastmod": "2026-08-06"
   },
   "use-case/chat.html": {
-    "hash": "4fa33cc55a23f14c3bd9d23004a815e4790f11587c8cab2c6e46994dcd511e69",
-    "lastmod": "2026-08-08"
+    "hash": "f8eaf742d4639620a36ac46efba290bd665ba05e8de264700825159a0e24bea5",
+    "lastmod": "2026-08-09"
   },
   "use-case/coding.html": {
-    "hash": "c79df926206e2b577cea3988a0a8bbf239c6a2055bd8f584bc58abe0da726aeb",
-    "lastmod": "2026-08-08"
+    "hash": "7a15cb7aa71315515550b05bfd93c95467799738a2252c2a1424edb6d7326cc7",
+    "lastmod": "2026-08-09"
   },
   "use-case/creative-writing.html": {
-    "hash": "ddb85581f114a0d62951b862b2830a8b1c627db13e96d79858265c2926c5062b",
-    "lastmod": "2026-08-08"
+    "hash": "3cc98baa73013d8b9b810d1253222b5d4099c5ac8263445321a9be1a0559f0a9",
+    "lastmod": "2026-08-09"
   },
   "use-case/fast.html": {
     "hash": "6b89c44f40274f080800d26a269f4b84b500b92ed115a5b1c9f3caefab395648",
@@ -1404,16 +1408,16 @@
     "lastmod": "2026-08-06"
   },
   "use-case/multilingual.html": {
-    "hash": "1c4ce95ef30e35769d6ac5cba822eee6caefcfab0c81224460db527e5c1d2c9d",
-    "lastmod": "2026-08-08"
+    "hash": "bc5db3ef09114aac82e9e638913bcd584ccd26a4e4cd4ad6116a81c2b4100fe6",
+    "lastmod": "2026-08-09"
   },
   "use-case/rag.html": {
-    "hash": "29b2b74c09ab0e68d32fdcb1f62dd8dcc228fc14a5c9ed23759a16d45b0f938c",
-    "lastmod": "2026-08-08"
+    "hash": "fb5d36331231e8f2f091da5bb75a98fbfa3af172595a5555dd0090d43cc955de",
+    "lastmod": "2026-08-09"
   },
   "use-case/reasoning.html": {
-    "hash": "4a815410773aa1a66f752487077bf019768b9100af41e82be61e092ecda9be0e",
-    "lastmod": "2026-08-08"
+    "hash": "24500e2abe7a12bd1a47272867eafd501f9ff684485eda37804670de08225920",
+    "lastmod": "2026-08-09"
   },
   "use-case/vision.html": {
     "hash": "6246afeb7bb65ef387210763905a4bca1efdd3e6b7db8e940b4c852b0449324b",
@@ -1424,8 +1428,8 @@
     "lastmod": "2026-08-06"
   },
   "guides/best-local-llms-for-coding.html": {
-    "hash": "0cf86f3192096d3fa9773b8358da21a6a8dfb947c2ba9eb141ac449bdaacbeab",
-    "lastmod": "2026-08-08"
+    "hash": "f405a5e199c0ea7a8045ad4d3d41e0eabda93aacfe81301287dc5c3564f37d99",
+    "lastmod": "2026-08-09"
   },
   "guides/best-local-llms-for-mac-mini-m4.html": {
     "hash": "343c48dde57a53541d40572f89f25f8d903450b40ee3e39f30876592df0f53cd",

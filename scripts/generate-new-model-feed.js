@@ -25,9 +25,9 @@ function escapeXml(value = '') {
 }
 
 function releaseDate(released) {
-  const match = String(released || '').match(/^(\d{4})-(\d{2})/);
+  const match = String(released || '').match(/^(\d{4})-(\d{2})(?:-(\d{2}))?/);
   if (!match) return new Date('2026-01-01T12:00:00Z');
-  return new Date(`${match[1]}-${match[2]}-01T12:00:00Z`);
+  return new Date(`${match[1]}-${match[2]}-${match[3] || '01'}T12:00:00Z`);
 }
 
 function modelDescription(model) {

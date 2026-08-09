@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
+// Updated August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
+// Previous: August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
 // Previous: August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
 // Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
 // Previous: July 22, 2026 — Added Agents-A1 4B and Laguna S 2.1 — 212 LLM total
@@ -3193,6 +3194,22 @@ const APP_DATA = {
             hf_repo: 'deepseek-ai/DeepSeek-V4-Flash',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
             released: '2026-05',
+            isNew: true
+        },
+        {
+            id: 'deepseek-v4-flash-0731',
+            name: 'DeepSeek V4 Flash 0731 (284B MoE)',
+            family: 'deepseek-flash',
+            params: '284B (13B active)',
+            size_gb: 155,
+            min_ram: 256,
+            tags: ['chat', 'code', 'reasoning', 'quality', 'agentic', 'long-context', 'general'],
+            description: 'Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB.',
+            search_term: 'deepseek-v4-flash-0731',
+            recommended_quant: 'UD-Q4_K_XL',
+            hf_repo: 'unsloth/DeepSeek-V4-Flash-0731-GGUF',
+            benchmarks: { speed: 5, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-07-31',
             isNew: true
         },
 
