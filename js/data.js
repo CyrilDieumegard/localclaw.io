@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
+// Updated August 10, 2026 — Added LFM2.5-2.6B — 219 LLM total
+// Previous: August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
 // Previous: August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
 // Previous: August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
 // Previous: July 26, 2026 — Added Nanbeige4.2 3B — 213 LLM total
@@ -147,6 +148,23 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'lfm2.5-2.6b',
+            name: 'LFM2.5-2.6B',
+            family: 'lfm',
+            params: '2.7B',
+            size_gb: 1.8,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'light', 'speed', 'long-context', 'general'],
+            description: 'Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines.',
+            search_term: 'lfm2.5-2.6b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'LiquidAI/LFM2.5-2.6B-GGUF',
+            source_url: 'https://huggingface.co/LiquidAI/LFM2.5-2.6B',
+            benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 7 },
+            released: '2026-08',
+            isNew: true
+        },
         {
             id: 'glm4.7-flash',
             name: 'GLM 4.7 Flash',
