@@ -2254,7 +2254,7 @@ var MODEL_DETAILS = {
         official_blog: 'https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B',
         paper_url: 'https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B',
     },
-    'lfm2.5-2.6b': {
+    'lfm2-5-2-6b': {
         developer: 'Liquid AI',
         developer_url: 'https://www.liquid.ai/',
         context_window: 128000,

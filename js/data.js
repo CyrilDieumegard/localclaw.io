@@ -149,7 +149,7 @@ const APP_DATA = {
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
         {
-            id: 'lfm2.5-2.6b',
+            id: 'lfm2-5-2-6b',
             name: 'LFM2.5-2.6B',
             family: 'lfm',
             params: '2.7B',
