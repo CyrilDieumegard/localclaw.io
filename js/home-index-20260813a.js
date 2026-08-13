@@ -56,42 +56,35 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <td>${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</td>
                 <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
                 <td>${escapeHtml(releaseLabel(model.released))}</td>
-                <td><span class="lc-index-method">Method preview</span></td>
                 <td><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
             </tr>
         `).join('');
 
         container.className = 'lc-index-shell';
         container.innerHTML = `
-            <header class="lc-index-hero">
-                <div class="lc-index-hero__copy">
-                    <p class="lc-index-kicker">// LocalClaw directory · local models only</p>
-                    <h1>The Local <span>Model Index</span></h1>
-                    <p>A dense, hardware-aware directory built from LocalClaw's existing catalogue. Compare real local model records by family, parameters, minimum RAM, licence and release date.</p>
-                    <div class="lc-index-hero__actions">
-                        <a class="lc-index-button lc-index-button--primary" href="#llm-index">Explore the index</a>
-                        <a class="lc-index-button" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_index">Account</a>
-                    </div>
-                </div>
-                <div class="lc-index-hero__mascot" aria-hidden="true">
-                    <img src="/images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="" loading="eager" decoding="async" fetchpriority="high">
-                </div>
-            </header>
-
-            <section class="lc-index-facts" aria-label="Index information">
-                <article class="lc-index-fact"><span class="lc-index-eyebrow">Leader</span><strong>${escapeHtml(localModels[0].name)}</strong><p>First entry in the maintained catalogue order. This is not a benchmark claim.</p></article>
-                <article class="lc-index-fact"><span class="lc-index-eyebrow">Variations</span><strong>${localModels.length} unique local LLM pages</strong><p>${new Set(localModels.map((model) => model.family)).size} model families after hosted-only filtering and ID de-duplication.</p></article>
-                <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong>Latest catalogue month · ${escapeHtml(releaseLabel(newestRelease))}</strong><p>Release metadata comes directly from the repository catalogue.</p></article>
-            </section>
-
             <div class="lc-index-grid">
-                <aside class="lc-sponsor-rail" aria-label="Left sponsor placeholder"><div class="lc-sponsor-slot"><span class="lc-sponsor-slot__label">Sponsor space</span><span class="lc-sponsor-slot__mark"></span><p>Reserved placeholder. No commercial partner.</p></div></aside>
+                <aside class="lc-sponsor-rail" aria-label="Left sponsor placeholder"><div class="lc-sponsor-slot"><span class="lc-sponsor-slot__label">Reserved placement</span><span class="lc-sponsor-slot__mark"></span><p>Future sponsor space. No partner or paid placement.</p><span class="lc-sponsor-slot__size">NON-COMMERCIAL</span></div></aside>
 
                 <div class="lc-index-directory">
+                    <header class="lc-index-hero">
+                        <div class="lc-index-hero__copy">
+                            <p class="lc-index-kicker">// LocalClaw · local models only</p>
+                            <h1>The Local <span>Model Index</span></h1>
+                            <p>One maintained directory for comparing local models by family, parameters, minimum RAM, licence and release date.</p>
+                        </div>
+                        <div class="lc-index-hero__mascot" aria-hidden="true"><img src="/images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
+                    </header>
+
+                    <section class="lc-index-facts" aria-label="Index information">
+                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Catalogue</span><strong>${localModels.length} local LLM pages</strong><p>Hosted-only records excluded.</p></article>
+                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Families</span><strong>${new Set(localModels.map((model) => model.family)).size} model families</strong><p>Duplicate route IDs collapsed.</p></article>
+                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong>Through ${escapeHtml(releaseLabel(newestRelease))}</strong><p>From repository release metadata.</p></article>
+                    </section>
+
                     <section id="llm-index" aria-labelledby="llm-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 01</span><h2 id="llm-index-title">Local LLMs</h2></div>
-                            <p><span id="lc-index-result-count">${localModels.length}</span> local entries · use the catalogue page order as an index, not a benchmark ranking.</p>
+                            <div class="lc-index-section-meta"><p><span id="lc-index-result-count">${localModels.length}</span> entries · catalogue order, not a benchmark ranking.</p><span class="lc-index-method-pill">Scoring method · preview</span></div>
                         </div>
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
@@ -100,11 +93,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
-                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th>Status</th><th></th></tr></thead>
+                                <thead><tr><th class="lc-index-rank">Index</th><th class="lc-index-model-col">Model / family</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th></th></tr></thead>
                                 <tbody id="lc-index-model-rows">${renderModelRows(localModels)}</tbody>
                             </table>
                         </div>
-                        <p class="lc-index-method-note"><strong>Method note.</strong> LocalClaw has hardware-fit signals inside its recommendation flow, but the repository does not provide one global, source-backed score that can fairly rank every model here. The index therefore labels score space as a method preview instead of publishing invented values. RAM, licence and release fields come from existing LocalClaw data and detail records.</p>
+                        <p class="lc-index-method-note"><strong>Method note.</strong> LocalClaw has hardware-fit signals inside its recommendation flow, but the repository does not provide one global, source-backed score that can fairly rank every model here. No score is published until that method is ready. RAM, licence and release fields come from existing LocalClaw data and detail records.</p>
                     </section>
 
                     <section class="lc-index-tts" aria-labelledby="tts-index-title">
@@ -114,7 +107,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </section>
                 </div>
 
-                <aside class="lc-sponsor-rail" aria-label="Right sponsor placeholder"><div class="lc-sponsor-slot"><span class="lc-sponsor-slot__label">Sponsor space</span><span class="lc-sponsor-slot__mark"></span><p>Reserved placeholder. No commercial partner.</p></div></aside>
+                <aside class="lc-sponsor-rail" aria-label="Right sponsor placeholder"><div class="lc-sponsor-slot"><span class="lc-sponsor-slot__label">Reserved placement</span><span class="lc-sponsor-slot__mark"></span><p>Future sponsor space. No partner or paid placement.</p><span class="lc-sponsor-slot__size">NON-COMMERCIAL</span></div></aside>
             </div>
         `;
 
@@ -133,7 +126,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (sort.value === 'fresh') filtered.sort((a, b) => String(b.released).localeCompare(String(a.released)) || a.name.localeCompare(b.name));
             if (sort.value === 'ram') filtered.sort((a, b) => Number(a.min_ram || Infinity) - Number(b.min_ram || Infinity) || a.name.localeCompare(b.name));
             if (sort.value === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
-            rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="8">No local model matches these filters.</td></tr>';
+            rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="7">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
         };
         search.addEventListener('input', updateIndex);
