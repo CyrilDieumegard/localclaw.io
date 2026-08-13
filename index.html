@@ -7,8 +7,8 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>LocalClaw.io - Find the Right Local AI for Your Hardware</title>
-    <meta name="description" content="Compare 216 local LLM records and 58 speech models by RAM, VRAM, speed, use case, quantization and install path. Save machines, compatible models and test results.">
+    <title>The Local Model Index — Local LLMs &amp; TTS | LocalClaw</title>
+    <meta name="description" content="Explore LocalClaw's dynamic index of local LLM and speech model records. Compare real catalogue data by family, parameters, RAM, licence and release date.">
     <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4 12B, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -20,8 +20,8 @@
          ============================================================ -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
-    <meta property="og:title" content="LocalClaw.io - Find the Right Local AI for Your Hardware">
-    <meta property="og:description" content="Compare local LLMs and speech models by hardware fit, then save the best options for every machine you own.">
+    <meta property="og:title" content="The Local Model Index — LocalClaw">
+    <meta property="og:description" content="A dynamic, hardware-aware directory of local LLM and speech model records.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -33,8 +33,8 @@
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw.io - Find the Right Local AI for Your Hardware">
-    <meta name="twitter:description" content="Hardware-aware local LLM and speech model discovery with saved machines, compatible picks and practical install paths.">
+    <meta name="twitter:title" content="The Local Model Index — LocalClaw">
+    <meta name="twitter:description" content="Compare local LLM and speech model records by family, RAM, licence and release date.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
 
@@ -140,6 +140,7 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css?v=20260719a">
+    <link rel="stylesheet" href="css/home-index-20260813a.css?v=20260813a">
     <script src="js/video-player.js?v=20260719b" defer></script>
     
     <!-- Theme Toggle Script -->
@@ -353,7 +354,7 @@
                 <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
                 <a href="blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
                 <a href="/software" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Software</a>
-                <a href="/account" class="px-4 py-3 rounded-lg text-sm font-medium text-white border border-white/10 hover:border-claw-primary/40 hover:text-claw-primary transition-colors">My Machines</a>
+                <a href="/account" class="px-4 py-3 rounded-lg text-sm font-medium text-white border border-white/10 hover:border-claw-primary/40 hover:text-claw-primary transition-colors">Account</a>
                 <div class="border-t border-claw-border mt-2 pt-2">
                     <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
                 </div>
@@ -423,7 +424,7 @@
                         <h2 id="workspace-value-title" class="max-w-3xl text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Stop rebuilding the same shortlist for every computer</h2>
                         <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">Save your Macs, PCs and NVIDIA workstations once. LocalClaw gives each machine its own compatible models, saved picks and test history.</p>
                     </div>
-                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">Open My Machines →</a>
+                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">Open Account →</a>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                     <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-4 text-lg font-display font-bold text-white">Hardware profiles</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Keep RAM, VRAM, OS, accelerator and workload together.</p></article>
@@ -597,7 +598,7 @@
                     </details>
                     <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
                         <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The model finder, LLM and speech catalogues, hardware guides and My Machines workspace are free. LocalClaw for Mac is separate, optional software for installing and operating OpenClaw from a native dashboard. <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_faq" class="text-claw-primary hover:underline">Explore the software →</a></p>
+                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The model finder, LLM and speech catalogues, hardware guides and Account workspace are free. LocalClaw for Mac is separate, optional software for installing and operating OpenClaw from a native dashboard. <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_faq" class="text-claw-primary hover:underline">Explore the software →</a></p>
                     </details>
                 </div>
             </section>
@@ -615,7 +616,7 @@
              DYNAMIC APP CONTAINER
              JS replaces the static content on load
              ======================================================== -->
-        <div id="view-container" class="w-full max-w-6xl mx-auto min-h-[400px] hidden">
+        <div id="view-container" class="w-full min-h-[400px] hidden">
             <!-- Content injected via JS -->
         </div>
     </main>
@@ -641,8 +642,9 @@
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
     <script src="js/data.js?v=20260810b"></script>
+    <script src="js/model-details.js?v=20260810b"></script>
     <script src="js/app-20260810b.js?v=20260810b"></script>
-    <script src="js/home-positioning-20260803b.js?v=20260803b"></script>
+    <script src="js/home-index-20260813a.js?v=20260813a"></script>
     <script src="js/growth-paths-20260727a.js?v=20260727a"></script>
 
     <!-- Hide SEO fallback once JS loads and show dynamic container -->
@@ -658,15 +660,15 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "LocalClaw Model Finder",
+        "name": "The Local Model Index by LocalClaw",
         "url": "https://localclaw.io/",
-        "description": "Free hardware-aware local AI discovery platform. Compare 219 LLM records and 58 TTS/ASR speech entries by RAM, VRAM, speed, use case, quantization and install path, then save compatible picks for each machine.",
+        "description": "Dynamic local AI directory built from LocalClaw's catalogue. Compare local LLM and speech records by family, parameters, RAM, licence and release date.",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
         "browserRequirements": "Requires JavaScript",
-        "softwareVersion": "3.22.0",
+        "softwareVersion": "3.23.0",
         "datePublished": "2026-01-01",
-        "dateModified": "2026-08-06",
+        "dateModified": "2026-08-13",
         "inLanguage": "en",
         "isAccessibleForFree": true,
         "author": {
