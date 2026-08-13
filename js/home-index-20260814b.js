@@ -7,26 +7,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const localModels = Array.from(new Map(allLocalModels.map((model) => [model.id, model])).values());
         const newestRelease = localModels.reduce((latest, model) => model.released > latest ? model.released : latest, '');
 
-        const speechModels = [
-            ['qwen3-tts', 'Qwen3 TTS', 'Alibaba Cloud · Apache 2.0', 'TTS'],
-            ['melotts', 'MeloTTS', 'MYShell · MIT', 'TTS'],
-            ['piper', 'Piper', 'Rhasspy · MIT', 'TTS'],
-            ['coqui-tts', 'Coqui TTS (XTTS v2)', 'Coqui · CPML', 'TTS'],
-            ['bark', 'Bark (Suno)', 'Suno · MIT', 'TTS'],
-            ['mms', 'MMS (Meta)', 'Meta AI · CC-BY-NC', 'TTS'],
-            ['parler-tts', 'Parler TTS', 'Hugging Face · Apache 2.0', 'TTS'],
-            ['fish-speech', 'Fish Speech', 'Fish Audio · Apache 2.0', 'TTS'],
-            ['styletts2', 'StyleTTS 2', 'Y. L. Ma et al. · MIT', 'TTS'],
-            ['f5-tts', 'F5-TTS', 'Speech Research · MIT', 'TTS'],
-            ['chattts', 'ChatTTS', '2Noise · AGPL-3.0', 'TTS'],
-            ['tortoise-tts', 'Tortoise TTS', 'James Betker · Apache 2.0', 'TTS'],
-            ['metavoice', 'MetaVoice-1B', 'Metavoice · Apache 2.0', 'TTS'],
-            ['kokoro', 'Kokoro TTS', 'hexgrad · Apache 2.0', 'TTS'],
-            ['orpheus-tts', 'Orpheus TTS', 'Canopy Labs · Apache 2.0', 'TTS'],
-            ['chatterbox', 'Chatterbox TTS', 'Resemble AI · MIT', 'TTS'],
-            ['qwen3-asr', 'Qwen3 ASR', 'Alibaba Cloud · Apache 2.0', 'ASR'],
-            ['whisper-v3-turbo', 'Whisper v3 Turbo', 'OpenAI · MIT', 'ASR']
-        ];
+        const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
+        const logoRegistry = window.HOME_INDEX_LOGOS || {llm: {}, speech: {}, labels: {}};
 
         const familyDetails = (model) => {
             if (typeof MODEL_DETAILS !== 'undefined' && MODEL_DETAILS[model.id]) return MODEL_DETAILS[model.id];
@@ -34,7 +16,15 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return {};
         };
         const modelLicense = (model) => familyDetails(model).license || 'See model page';
-        const familyInitials = (family) => String(family || 'AI').split(/[-_\s]+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
+        const logoAsset = (scope, family) => logoRegistry[scope] && logoRegistry[scope][family] ? logoRegistry[scope][family] : '';
+        const avatarFormats = window.HOME_INDEX_AVATAR_FORMATS || {};
+        const logoExtension = (asset) => avatarFormats[asset] || 'svg';
+        const logoMarkup = (scope, family, upstreamLabel) => {
+            const asset = logoAsset(scope, family);
+            if (!asset) return '';
+            const label = logoRegistry.labels[asset] || upstreamLabel || 'Upstream project';
+            return `<span class="lc-index-family-mark" title="${escapeHtml(label)}" aria-hidden="true"><img src="/images/model-logos/${encodeURIComponent(asset)}.${logoExtension(asset)}" width="24" height="24" alt="" loading="lazy" decoding="async"></span>`;
+        };
         const releaseLabel = (value) => {
             if (!/^\d{4}-\d{2}$/.test(value || '')) return value || '—';
             return new Intl.DateTimeFormat('en', {month: 'short', year: 'numeric', timeZone: 'UTC'}).format(new Date(`${value}-01T00:00:00Z`));
@@ -48,7 +38,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <td class="lc-index-rank">${String(index + 1).padStart(3, '0')}</td>
                 <td>
                     <a class="lc-index-model-link" href="/models/${encodeURIComponent(model.id)}" data-fast-goal="model_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
-                        <span class="lc-index-family-mark" aria-hidden="true">${escapeHtml(familyInitials(model.family))}</span>
+                        ${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}
                         <span><strong class="lc-index-model-name">${escapeHtml(model.name)}</strong><span class="lc-index-model-family">${escapeHtml(model.family || 'local model')}</span></span>
                     </a>
                 </td>
@@ -101,9 +91,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </section>
 
                     <section class="lc-index-tts" aria-labelledby="tts-index-title">
-                        <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directory 02</span><h2 id="tts-index-title">Local speech / TTS</h2></div><p>A separate list sampled from the existing 58-entry LocalClaw speech catalogue.</p></div>
-                        <div class="lc-index-tts-list">${speechModels.map(([id, name, meta, type], index) => `<a class="lc-index-tts-row" href="/tts/${id}" data-fast-goal="tts_open" data-fast-goal-source="home_index"><span class="lc-index-tts-rank">${String(index + 1).padStart(2, '0')}</span><span><strong class="lc-index-tts-name">${escapeHtml(name)}</strong><span class="lc-index-tts-meta">${escapeHtml(meta)}</span></span><span class="lc-index-tts-type">${type}</span></a>`).join('')}</div>
-                        <a class="lc-index-more" href="/tts-list">Browse all 58 speech models →</a>
+                        <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directory 02</span><h2 id="tts-index-title">Local speech / TTS</h2></div><p>${speechModels.length} existing local speech records. Internet-required and API-only entries stay off this homepage index.</p></div>
+                        <div class="lc-index-tts-list">${speechModels.map((model, index) => `<a class="lc-index-tts-row" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index"><span class="lc-index-tts-rank">${String(index + 1).padStart(2, '0')}</span>${logoMarkup('speech', model.family, model.developer)}<span><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span></span><span class="lc-index-tts-type">${escapeHtml(model.type)}</span></a>`).join('')}</div>
+                        <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
                     </section>
                 </div>
 

@@ -9,7 +9,9 @@
     "urls:normalize": "node scripts/normalize-public-urls.js",
     "urls:check": "node scripts/normalize-public-urls.js --check",
     "sitemap:generate": "node scripts/generate-sitemap.js",
-    "seo:check": "node scripts/check-seo.js"
+    "seo:check": "node scripts/check-seo.js",
+    "home-index:data": "node scripts/export-home-index-data.js",
+    "home-index:check": "node scripts/check-home-index-logos.js"
   },
   "dependencies": {
     "better-auth": "^1.6.25"

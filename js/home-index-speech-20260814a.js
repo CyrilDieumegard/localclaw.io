@@ -1,0 +1,508 @@
+// Generated from the canonical TTS_MODELS array in tts-list.html.
+// Run `node scripts/export-home-index-data.js` after speech catalogue changes.
+window.HOME_INDEX_SPEECH_MODELS = [
+  {
+    "id": "qwen3-tts",
+    "name": "Qwen3 TTS",
+    "developer": "Alibaba Cloud (Qwen Team)",
+    "family": "qwen",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-12",
+    "type": "TTS"
+  },
+  {
+    "id": "melotts",
+    "name": "MeloTTS",
+    "developer": "MYShell",
+    "family": "melo",
+    "license": "MIT",
+    "releaseDate": "2024-03",
+    "type": "TTS"
+  },
+  {
+    "id": "piper",
+    "name": "Piper",
+    "developer": "Rhasspy",
+    "family": "piper",
+    "license": "MIT",
+    "releaseDate": "2023-06",
+    "type": "TTS"
+  },
+  {
+    "id": "coqui-tts",
+    "name": "Coqui TTS (XTTS v2)",
+    "developer": "Coqui",
+    "family": "coqui",
+    "license": "CPML (custom)",
+    "releaseDate": "2023-09",
+    "type": "TTS"
+  },
+  {
+    "id": "bark",
+    "name": "Bark (Suno)",
+    "developer": "Suno",
+    "family": "bark",
+    "license": "MIT",
+    "releaseDate": "2023-04",
+    "type": "TTS"
+  },
+  {
+    "id": "mms",
+    "name": "MMS (Meta)",
+    "developer": "Meta AI",
+    "family": "mms",
+    "license": "CC-BY-NC 4.0",
+    "releaseDate": "2023-05",
+    "type": "TTS"
+  },
+  {
+    "id": "parler-tts",
+    "name": "Parler TTS",
+    "developer": "Hugging Face",
+    "family": "parler",
+    "license": "Apache 2.0",
+    "releaseDate": "2024-02",
+    "type": "TTS"
+  },
+  {
+    "id": "fish-speech",
+    "name": "Fish Speech",
+    "developer": "Fish Audio",
+    "family": "fish",
+    "license": "Apache 2.0",
+    "releaseDate": "2024-06",
+    "type": "TTS"
+  },
+  {
+    "id": "styletts2",
+    "name": "StyleTTS 2",
+    "developer": "Y.L. Ma et al.",
+    "family": "styletts",
+    "license": "MIT",
+    "releaseDate": "2024-01",
+    "type": "TTS"
+  },
+  {
+    "id": "f5-tts",
+    "name": "F5-TTS",
+    "developer": "Speech Research",
+    "family": "f5",
+    "license": "MIT",
+    "releaseDate": "2024-10",
+    "type": "TTS"
+  },
+  {
+    "id": "chattts",
+    "name": "ChatTTS",
+    "developer": "2Noise",
+    "family": "chattts",
+    "license": "AGPL-3.0",
+    "releaseDate": "2024-05",
+    "type": "TTS"
+  },
+  {
+    "id": "tortoise-tts",
+    "name": "Tortoise TTS",
+    "developer": "James Betker",
+    "family": "tortoise",
+    "license": "Apache 2.0",
+    "releaseDate": "2022-05",
+    "type": "TTS"
+  },
+  {
+    "id": "metavoice",
+    "name": "MetaVoice-1B",
+    "developer": "Metavoice Inc.",
+    "family": "metavoice",
+    "license": "Apache 2.0",
+    "releaseDate": "2024-03",
+    "type": "TTS"
+  },
+  {
+    "id": "espeak-ng",
+    "name": "eSpeak NG",
+    "developer": "eSpeak Team",
+    "family": "espeak",
+    "license": "GPL-3.0",
+    "releaseDate": "2010-01",
+    "type": "TTS"
+  },
+  {
+    "id": "kokoro",
+    "name": "Kokoro TTS",
+    "developer": "hexgrad",
+    "family": "kokoro",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-01",
+    "type": "TTS"
+  },
+  {
+    "id": "orpheus-tts",
+    "name": "Orpheus TTS",
+    "developer": "Canopy Labs",
+    "family": "orpheus",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-03",
+    "type": "TTS"
+  },
+  {
+    "id": "chatterbox",
+    "name": "Chatterbox TTS",
+    "developer": "Resemble AI",
+    "family": "chatterbox",
+    "license": "MIT",
+    "releaseDate": "2025-05",
+    "type": "TTS"
+  },
+  {
+    "id": "dia-tts",
+    "name": "Dia",
+    "developer": "Nari Labs",
+    "family": "dia",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-04",
+    "type": "TTS"
+  },
+  {
+    "id": "outetts",
+    "name": "OuteTTS",
+    "developer": "OuteAI",
+    "family": "outetts",
+    "license": "MIT",
+    "releaseDate": "2025-01",
+    "type": "TTS"
+  },
+  {
+    "id": "cosyvoice2",
+    "name": "CosyVoice 2",
+    "developer": "Alibaba FunAudioLLM",
+    "family": "cosyvoice",
+    "license": "Apache 2.0",
+    "releaseDate": "2024-12",
+    "type": "TTS"
+  },
+  {
+    "id": "spark-tts",
+    "name": "Spark TTS",
+    "developer": "SparkAudio",
+    "family": "spark",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-03",
+    "type": "TTS"
+  },
+  {
+    "id": "voicebox",
+    "name": "Voicebox",
+    "developer": "jamiepine / Community",
+    "family": "app",
+    "license": "MIT",
+    "releaseDate": "2025-02",
+    "type": "APP"
+  },
+  {
+    "id": "sesame-csm",
+    "name": "Sesame CSM",
+    "developer": "Sesame AI",
+    "family": "sesame",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-03",
+    "type": "TTS"
+  },
+  {
+    "id": "gpt-sovits",
+    "name": "GPT-SoVITS",
+    "developer": "RVC-Boss",
+    "family": "gptsovits",
+    "license": "MIT",
+    "releaseDate": "2024-01",
+    "type": "TTS"
+  },
+  {
+    "id": "emotivoice",
+    "name": "EmotiVoice",
+    "developer": "NetEase Youdao",
+    "family": "emotivoice",
+    "license": "Apache 2.0",
+    "releaseDate": "2023-11",
+    "type": "TTS"
+  },
+  {
+    "id": "mars5",
+    "name": "MARS5",
+    "developer": "Camb.ai",
+    "family": "mars",
+    "license": "AGPL-3.0",
+    "releaseDate": "2024-06",
+    "type": "TTS"
+  },
+  {
+    "id": "maskgct",
+    "name": "MaskGCT",
+    "developer": "Amphion Team",
+    "family": "maskgct",
+    "license": "MIT",
+    "releaseDate": "2024-10",
+    "type": "TTS"
+  },
+  {
+    "id": "indic-tts",
+    "name": "IndicTTS",
+    "developer": "Ai4Bharat (IIT Madras)",
+    "family": "indic",
+    "license": "MIT",
+    "releaseDate": "2024-02",
+    "type": "TTS"
+  },
+  {
+    "id": "tada",
+    "name": "TADA",
+    "developer": "Hume AI",
+    "family": "tada",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-02",
+    "type": "TTS"
+  },
+  {
+    "id": "kitten-tts",
+    "name": "Kitten TTS",
+    "developer": "Rohan Joshi (@ron_joshi)",
+    "family": "kitten",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-03",
+    "type": "TTS"
+  },
+  {
+    "id": "vibevoice-realtime-0.5b",
+    "name": "VibeVoice Realtime 0.5B",
+    "developer": "Microsoft Research",
+    "family": "vibevoice",
+    "license": "MIT",
+    "releaseDate": "2025-12",
+    "type": "TTS"
+  },
+  {
+    "id": "vibevoice-1.5b",
+    "name": "VibeVoice 1.5B",
+    "developer": "Microsoft Research",
+    "family": "vibevoice",
+    "license": "MIT",
+    "releaseDate": "2025-08",
+    "type": "TTS"
+  },
+  {
+    "id": "vibevoice-asr",
+    "name": "VibeVoice ASR",
+    "developer": "Microsoft Research",
+    "family": "vibevoice",
+    "license": "MIT",
+    "releaseDate": "2026-01",
+    "type": "ASR"
+  },
+  {
+    "id": "cohere-transcribe-03-2026",
+    "name": "Cohere Transcribe 03-2026",
+    "developer": "Cohere",
+    "family": "cohere",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-03",
+    "type": "ASR"
+  },
+  {
+    "id": "voxcpm2",
+    "name": "VoxCPM2",
+    "developer": "OpenBMB",
+    "family": "voxcpm",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-05",
+    "type": "TTS"
+  },
+  {
+    "id": "supertonic-3",
+    "name": "Supertonic 3",
+    "developer": "Supertone",
+    "family": "supertonic",
+    "license": "OpenRAIL-M",
+    "releaseDate": "2026-05",
+    "type": "TTS"
+  },
+  {
+    "id": "moss-tts-nano",
+    "name": "MOSS-TTS-Nano",
+    "developer": "OpenMOSS / MOSI.AI",
+    "family": "moss",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-04",
+    "type": "TTS"
+  },
+  {
+    "id": "granite-speech-4.1-2b",
+    "name": "Granite Speech 4.1 2B",
+    "developer": "IBM Granite Team",
+    "family": "granite-speech",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-04",
+    "type": "ASR"
+  },
+  {
+    "id": "qwen3-asr",
+    "name": "Qwen3-ASR",
+    "developer": "Alibaba Cloud (Qwen Team)",
+    "family": "qwen",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-01",
+    "type": "ASR"
+  },
+  {
+    "id": "higgs-audio-v2",
+    "name": "Higgs Audio v2",
+    "developer": "Boson AI",
+    "family": "higgs",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-07",
+    "type": "TTS"
+  },
+  {
+    "id": "miso-tts",
+    "name": "MisoTTS",
+    "developer": "Miso Labs",
+    "family": "miso",
+    "license": "Other / custom",
+    "releaseDate": "2026-05",
+    "type": "TTS"
+  },
+  {
+    "id": "wavtts",
+    "name": "WavTTS",
+    "developer": "WavTTS Team",
+    "family": "wavtts",
+    "license": "CC-BY-NC 4.0 weights / MIT code",
+    "releaseDate": "2026-06",
+    "type": "TTS"
+  },
+  {
+    "id": "dots-tts-mf",
+    "name": "Dots TTS MF",
+    "developer": "RedNote HiLab",
+    "family": "dots",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-06",
+    "type": "TTS"
+  },
+  {
+    "id": "zonos",
+    "name": "Zonos v0.1",
+    "developer": "Zyphra",
+    "family": "zonos",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-02",
+    "type": "TTS"
+  },
+  {
+    "id": "index-tts-2",
+    "name": "IndexTTS 2",
+    "developer": "Bilibili",
+    "family": "indextts",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-09",
+    "type": "TTS"
+  },
+  {
+    "id": "openvoice-v2",
+    "name": "OpenVoice V2",
+    "developer": "MyShell",
+    "family": "openvoice",
+    "license": "MIT",
+    "releaseDate": "2024-05",
+    "type": "TTS"
+  },
+  {
+    "id": "whisper-v3-turbo",
+    "name": "Whisper v3 Turbo",
+    "developer": "OpenAI",
+    "family": "whisper",
+    "license": "MIT",
+    "releaseDate": "2024-10",
+    "type": "ASR"
+  },
+  {
+    "id": "parakeet-tdt-0.6b-v2",
+    "name": "Parakeet TDT 0.6B v2",
+    "developer": "NVIDIA",
+    "family": "parakeet",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2025-05",
+    "type": "ASR"
+  },
+  {
+    "id": "canary-1b-v2",
+    "name": "Canary 1B v2",
+    "developer": "NVIDIA",
+    "family": "canary",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2025-07",
+    "type": "ASR"
+  },
+  {
+    "id": "moshi",
+    "name": "Moshi",
+    "developer": "Kyutai",
+    "family": "moshi",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2024-09",
+    "type": "TTS"
+  },
+  {
+    "id": "neutts-air",
+    "name": "NeuTTS Air",
+    "developer": "Neuphonic",
+    "family": "neutts",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-10",
+    "type": "TTS"
+  },
+  {
+    "id": "step-audio-2-mini",
+    "name": "Step-Audio 2 Mini",
+    "developer": "StepFun",
+    "family": "step",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-08",
+    "type": "TTS"
+  },
+  {
+    "id": "llasa-3b",
+    "name": "LLaSA 3B",
+    "developer": "HKUST Audio",
+    "family": "llasa",
+    "license": "CC-BY-NC 4.0",
+    "releaseDate": "2025-01",
+    "type": "TTS"
+  },
+  {
+    "id": "xtts-v3",
+    "name": "XTTS v3 (Community)",
+    "developer": "Coqui Community",
+    "family": "coqui",
+    "license": "MPL 2.0",
+    "releaseDate": "2025-06",
+    "type": "TTS"
+  },
+  {
+    "id": "f5-tts-v1.1",
+    "name": "F5-TTS v1.1",
+    "developer": "Speech Research (SWivid)",
+    "family": "f5",
+    "license": "MIT",
+    "releaseDate": "2025-08",
+    "type": "TTS"
+  },
+  {
+    "id": "kyutai-stt-2.6b",
+    "name": "Kyutai STT 2.6B",
+    "developer": "Kyutai",
+    "family": "kyutai",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2025-06",
+    "type": "ASR"
+  }
+];
