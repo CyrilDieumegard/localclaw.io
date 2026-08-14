@@ -33,7 +33,7 @@ window.HOME_INDEX_LOGOS = {
     internlm: 'internlm',
     internscience: 'internscience-avatar',
     internvl: 'opengvlab-avatar',
-    kimi: 'kimi',
+    kimi: 'kimi-inverted',
     laguna: 'poolside',
     lfm: 'liquid',
     ling: 'inclusionai-avatar',
@@ -134,6 +134,6 @@ window.HOME_INDEX_LOGOS = {
     zonos: 'zyphra-avatar'
   },
   labels: {
-    ai2: 'Allen Institute for AI', alibaba: 'Alibaba', arcee: 'Arcee AI', aya: 'Aya', bilibiliindex: 'Bilibili Index', codegeex: 'CodeGeeX', cohere: 'Cohere', coqui: 'Coqui', dbrx: 'Databricks DBRX', deepcogito: 'Deep Cogito', deepseek: 'DeepSeek', dolphin: 'Dolphin', fishaudio: 'Fish Audio', gemma: 'Gemma', 'gemma-official-color': 'Google DeepMind Gemma', github: 'Upstream GitHub project', huggingface: 'Upstream project', ibm: 'IBM', internlm: 'InternLM', internscience: 'InternScience', jina: 'Jina AI', kimi: 'Kimi', lg: 'LG AI Research', liquid: 'Liquid AI', llava: 'LLaVA', longcat: 'LongCat', meta: 'Meta', microsoft: 'Microsoft', minimax: 'MiniMax', mistral: 'Mistral AI', myshell: 'MyShell', nousresearch: 'Nous Research', nvidia: 'NVIDIA', openai: 'OpenAI', openchat: 'OpenChat', perplexity: 'Perplexity', poolside: 'Poolside', prismml: 'PrismML', qwen: 'Qwen', spark: 'SparkAudio', stepfun: 'StepFun', suno: 'Suno', tencent: 'Tencent', upstage: 'Upstage', xiaomimimo: 'Xiaomi MiMo', zeroone: '01.AI', zhipu: 'Zhipu AI', nanbeige: 'Nanbeige'
+    ai2: 'Allen Institute for AI', alibaba: 'Alibaba', arcee: 'Arcee AI', aya: 'Aya', bilibiliindex: 'Bilibili Index', codegeex: 'CodeGeeX', cohere: 'Cohere', coqui: 'Coqui', dbrx: 'Databricks DBRX', deepcogito: 'Deep Cogito', deepseek: 'DeepSeek', dolphin: 'Dolphin', fishaudio: 'Fish Audio', gemma: 'Gemma', 'gemma-official-color': 'Google DeepMind Gemma', github: 'Upstream GitHub project', huggingface: 'Upstream project', ibm: 'IBM', internlm: 'InternLM', internscience: 'InternScience', jina: 'Jina AI', kimi: 'Kimi', 'kimi-inverted': 'Kimi', lg: 'LG AI Research', liquid: 'Liquid AI', llava: 'LLaVA', longcat: 'LongCat', meta: 'Meta', microsoft: 'Microsoft', minimax: 'MiniMax', mistral: 'Mistral AI', myshell: 'MyShell', nousresearch: 'Nous Research', nvidia: 'NVIDIA', openai: 'OpenAI', openchat: 'OpenChat', perplexity: 'Perplexity', poolside: 'Poolside', prismml: 'PrismML', qwen: 'Qwen', spark: 'SparkAudio', stepfun: 'StepFun', suno: 'Suno', tencent: 'Tencent', upstage: 'Upstage', xiaomimimo: 'Xiaomi MiMo', zeroone: '01.AI', zhipu: 'Zhipu AI', nanbeige: 'Nanbeige'
   }
 };

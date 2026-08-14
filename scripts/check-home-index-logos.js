@@ -8,7 +8,7 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8') + ';this.DATA=APP_DATA', context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-speech-20260814c.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-avatar-formats-20260814a.js'), 'utf8'), context);
-vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814b.js'), 'utf8'), context);
+vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814c.js'), 'utf8'), context);
 
 const models = Array.from(new Map(context.DATA.models.filter((model) => !model.hosted_only).map((model) => [model.id, model])).values());
 const speechModels = context.window.HOME_INDEX_SPEECH_MODELS;
@@ -58,6 +58,9 @@ for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight']) {
 }
 for (const marker of ['css/home-index-20260814f.css?v=20260814f', 'js/home-index-20260814f.js?v=20260814f']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
+}
+if (!homepageHtml.includes('js/home-index-logos-20260814c.js?v=20260814c')) {
+  missing.push('Homepage version marker: js/home-index-logos-20260814c.js?v=20260814c');
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
 if (confidenceScore(4.5, 2) <= confidenceScore(5, 1)) {
