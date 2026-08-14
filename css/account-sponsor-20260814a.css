@@ -9,6 +9,10 @@
     background: rgba(8, 8, 8, 0.92);
 }
 
+.lc-account-tabs:has(#sponsor-admin-tab:not([hidden])) {
+    grid-template-columns: repeat(3, minmax(0, 240px));
+}
+
 .lc-account-tab {
     position: relative;
     min-height: 58px;
@@ -652,6 +656,7 @@ body[data-account-preview="sponsorship"] #sign-out {
 
 @media (max-width: 760px) {
     .lc-account-tabs { grid-template-columns: 1fr 1fr; }
+    .lc-account-tabs:has(#sponsor-admin-tab:not([hidden])) { grid-template-columns: repeat(3, 1fr); }
     .lc-sponsor-hero { grid-template-columns: 1fr; min-height: 0; padding: 24px; }
     .lc-sponsor-mode { max-width: 330px; }
     .lc-sponsor-summary { grid-template-columns: 1fr 1fr; }

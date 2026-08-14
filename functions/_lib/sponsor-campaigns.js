@@ -84,7 +84,7 @@ export function campaignRowToJson(row, metrics = null) {
   const paidThrough = Number(row.paid_through || 0);
   const startsAt = Number(row.starts_at || 0);
   let effectiveStatus = row.status;
-  if (row.billing_status === "paid" && paidThrough > 0) {
+  if (row.billing_status === "paid" && paidThrough > 0 && row.status !== "cancelled") {
     effectiveStatus = paidThrough <= now ? "completed" : startsAt > now ? "scheduled" : "active";
   }
   return {

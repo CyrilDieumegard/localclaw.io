@@ -1,6 +1,6 @@
 # LocalClaw Sponsor Account Architecture
 
-Status: the fixed-position sponsor commerce implementation is complete in code. Production checkout remains pilot-gated by account email and cannot operate until the D1 migration, R2 buckets, Stripe product, restricted API key and signed webhook secret are configured and verified.
+Status: the fixed-position sponsor commerce implementation is deployed and pilot-gated by account email. D1, R2, the Stripe product, restricted API key, customer portal and signed webhook are configured; the owner's real-money end-to-end purchase remains the final commercial proof.
 
 ## Commercial contract
 
@@ -55,6 +55,7 @@ The code expects Cloudflare secrets or variables, never committed values:
 - `STRIPE_WEBHOOK_SECRET` — signing secret for `/api/stripe/webhook`;
 - `STRIPE_SPONSOR_PRODUCT_ID` — the single Stripe sponsor product;
 - `SPONSOR_PILOT_EMAILS` — authenticated accounts allowed through the pilot gate;
+- `SPONSOR_ADMIN_EMAILS` — authenticated accounts allowed to access campaign administration;
 - `SPONSOR_CHECKOUT_MODE` — `off`, `pilot` or `live`;
 - `SPONSOR_SERVING_ENABLED` — public placement kill switch; and
 - `STRIPE_EXPECTED_LIVEMODE` — rejects test/live webhook mismatches.
@@ -71,11 +72,21 @@ A visible impression requires at least 50% of a sponsor card to remain in the vi
 
 Daily rollups retain impressions and clicks. Campaign-level unique hashes support the distinct visitor count. The dashboard labels these as operational, non-audited measurements.
 
+## Owner-only campaign administration
+
+- `Campaign Admin` is revealed only after `/api/sponsor/admin/overview` authorizes the signed-in Google account against the encrypted `SPONSOR_ADMIN_EMAILS` Cloudflare allowlist.
+- Every admin endpoint repeats the same server-side authorization. Hiding the browser tab is not treated as an access control.
+- The overview reports visible impressions, estimated unique visitors, redirect-tracked clicks and CTR independently, both globally and per campaign.
+- `Stop now` ends delivery and releases inventory without issuing an automatic refund. Attached Stripe subscriptions are cancelled before local inventory is released.
+- `Cancel renewal` uses Stripe `cancel_at_period_end`, keeping the already-paid campaign period intact.
+- Manual `+7 days` and `+1 month` extensions never create a Stripe charge. D1 updates the campaign and its sold reservation atomically, and the overlap trigger rejects conflicting dates.
+- `sponsor_admin_actions` records the administrator, action, previous state, resulting state, paid-through change and optional private note.
+
 ## Production gates
 
 Before public self-service is opened:
 
-1. apply migrations `0005` and `0006` to the production D1 database;
+1. apply migrations `0005`, `0006` and `0007` to the production D1 database;
 2. create and bind the production and preview R2 logo buckets;
 3. create one active Stripe product for LocalClaw homepage sponsorship;
 4. configure a least-privilege production key and the webhook signing secret in Cloudflare;

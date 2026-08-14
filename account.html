@@ -9,7 +9,8 @@
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
     <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803b">
-    <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814b">
+    <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814c">
+    <link rel="stylesheet" href="/css/account-sponsor-admin-20260814a.css?v=20260814a">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
@@ -70,6 +71,11 @@
                     <span>Sponsorship</span>
                     <small>Campaign workspace</small>
                     <em>Pilot</em>
+                </button>
+                <button id="sponsor-admin-tab" class="lc-account-tab" type="button" data-account-tab="campaign-admin" aria-controls="account-sponsor-admin-panel" aria-selected="false" hidden>
+                    <span>Campaign Admin</span>
+                    <small>All sponsors &amp; delivery</small>
+                    <em>Owner</em>
                 </button>
             </nav>
 
@@ -174,6 +180,52 @@
                         <p>Launch prices can change with LocalClaw's audience. The amount shown at checkout is locked for that campaign period. Automatic renewal is optional and is managed by Stripe; no click or conversion volume is promised.</p>
                     </div>
                     <button id="manage-sponsor-billing" class="lc-button" type="button" hidden>Manage renewal</button>
+                </section>
+            </section>
+
+            <section id="account-sponsor-admin-panel" class="lc-sponsor-admin" data-account-panel="campaign-admin" hidden aria-labelledby="sponsor-admin-title">
+                <header class="lc-sponsor-admin-hero">
+                    <div>
+                        <p class="lc-kicker">Owner-only sponsorship operations</p>
+                        <h2 id="sponsor-admin-title">Campaign operations</h2>
+                        <p>Review every advertiser, fixed position, billing state and delivery metric. Administrative changes are server-authorized, atomically checked against inventory and written to the audit log.</p>
+                    </div>
+                    <div class="lc-sponsor-admin-badge"><span aria-hidden="true"></span><strong>Private admin</strong><small id="sponsor-admin-email">Checking access…</small></div>
+                </header>
+
+                <div class="lc-sponsor-admin-summary" aria-label="All sponsorship delivery metrics">
+                    <article><span>Campaigns</span><strong id="sponsor-admin-total">0</strong><small>all customer records</small></article>
+                    <article><span>Active</span><strong id="sponsor-admin-active">0</strong><small>serving now</small></article>
+                    <article><span>Scheduled</span><strong id="sponsor-admin-scheduled">0</strong><small>paid future starts</small></article>
+                    <article><span>Visible</span><strong id="sponsor-admin-impressions">0</strong><small>qualified impressions</small></article>
+                    <article><span>Visitors</span><strong id="sponsor-admin-visitors">0</strong><small>estimated unique</small></article>
+                    <article><span>Clicks</span><strong id="sponsor-admin-clicks">0</strong><small>redirect tracked</small></article>
+                    <article><span>CTR</span><strong id="sponsor-admin-ctr">—</strong><small>clicks / visible</small></article>
+                </div>
+
+                <section class="lc-sponsor-admin-section" aria-labelledby="sponsor-admin-delivery-title">
+                    <div class="lc-sponsor-admin-section__head">
+                        <div><p class="lc-kicker">Last 30 days</p><h3 id="sponsor-admin-delivery-title">Delivery pulse</h3><p>Visible impressions and tracked clicks only. These operational measurements are never a traffic or conversion guarantee.</p></div>
+                        <button id="sponsor-admin-refresh" class="lc-button" type="button">Refresh</button>
+                    </div>
+                    <div id="sponsor-admin-timeline" class="lc-sponsor-admin-timeline" aria-label="Daily sponsor delivery"></div>
+                </section>
+
+                <section class="lc-sponsor-admin-section" aria-labelledby="sponsor-admin-campaigns-title">
+                    <div class="lc-sponsor-admin-section__head lc-sponsor-admin-section__head--campaigns">
+                        <div><p class="lc-kicker">Inventory control</p><h3 id="sponsor-admin-campaigns-title">All campaigns</h3><p>Stopping a campaign never creates a refund. Manual extensions never create a Stripe charge.</p></div>
+                        <div class="lc-sponsor-admin-filters">
+                            <label><span>Search</span><input id="sponsor-admin-search" type="search" placeholder="Campaign, advertiser or email"></label>
+                            <label><span>Status</span><select id="sponsor-admin-status"><option value="all">All statuses</option><option value="active">Active</option><option value="scheduled">Scheduled</option><option value="pending">Checkout hold</option><option value="draft">Draft</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label>
+                            <label><span>Position</span><select id="sponsor-admin-placement"><option value="all">All positions</option><option value="home-left-1">Left 01</option><option value="home-left-2">Left 02</option><option value="home-left-3">Left 03</option><option value="home-right-1">Right 01</option><option value="home-right-2">Right 02</option><option value="home-right-3">Right 03</option></select></label>
+                        </div>
+                    </div>
+                    <div id="sponsor-admin-campaign-list" class="lc-sponsor-admin-list" aria-live="polite"><div class="lc-sponsor-admin-state"><span class="lc-sponsor-spinner" aria-hidden="true"></span><div><strong>Checking owner access</strong><p>The campaign ledger loads only after server authorization.</p></div></div></div>
+                </section>
+
+                <section class="lc-sponsor-admin-section" aria-labelledby="sponsor-admin-audit-title">
+                    <div class="lc-sponsor-admin-section__head"><div><p class="lc-kicker">Accountability</p><h3 id="sponsor-admin-audit-title">Recent admin actions</h3><p>Every stop, renewal cancellation and manual extension is retained with its previous and resulting state.</p></div></div>
+                    <div id="sponsor-admin-audit-list" class="lc-sponsor-admin-audit"></div>
                 </section>
             </section>
         </section>
@@ -494,12 +546,30 @@
         </form>
     </dialog>
 
+    <dialog id="sponsor-admin-action-dialog" class="lc-dialog lc-sponsor-admin-dialog" aria-labelledby="sponsor-admin-dialog-title">
+        <form id="sponsor-admin-action-form" method="dialog">
+            <div class="lc-dialog-head">
+                <div><p class="lc-kicker">Privileged campaign action</p><h2 id="sponsor-admin-dialog-title" class="lc-dialog-title">Confirm campaign action</h2><p id="sponsor-admin-dialog-copy" class="lc-dialog-copy"></p></div>
+                <button id="close-sponsor-admin-dialog" class="lc-icon-button" type="button" aria-label="Close">×</button>
+            </div>
+            <div class="lc-form">
+                <input id="sponsor-admin-action-campaign-id" type="hidden">
+                <input id="sponsor-admin-action-type" type="hidden">
+                <div id="sponsor-admin-action-target" class="lc-sponsor-admin-target"></div>
+                <div class="lc-field"><label for="sponsor-admin-action-note">Private admin note (optional)</label><textarea id="sponsor-admin-action-note" maxlength="240" rows="3" placeholder="Reason or customer context for the audit trail"></textarea></div>
+                <p id="sponsor-admin-action-error" class="lc-form-error" role="alert"></p>
+            </div>
+            <div class="lc-dialog-actions"><button id="cancel-sponsor-admin-action" class="lc-button" type="button">Keep campaign unchanged</button><button id="confirm-sponsor-admin-action" class="lc-button lc-button-primary" type="submit">Confirm</button></div>
+        </form>
+    </dialog>
+
     <div id="toast" class="lc-toast" hidden role="status"></div>
 
     <script src="/js/data.js?v=20260814g"></script>
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
     <script src="/js/account-20260802a.js?v=20260803b"></script>
-    <script src="/js/account-sponsor-20260814b.js?v=20260814b"></script>
+    <script src="/js/account-sponsor-20260814b.js?v=20260814c"></script>
+    <script src="/js/account-sponsor-admin-20260814a.js?v=20260814a"></script>
 </body>
 </html>

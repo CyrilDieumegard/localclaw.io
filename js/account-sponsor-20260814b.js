@@ -81,7 +81,7 @@
     }
 
     function switchView(view, updateUrl = true) {
-        if (!new Set(['machines', 'sponsorship']).has(view)) return;
+        if (!new Set(['machines', 'sponsorship', 'campaign-admin']).has(view)) return;
         state.activeView = view;
         elements.tabs.forEach((tab) => {
             const active = tab.dataset.accountTab === view;
@@ -93,10 +93,12 @@
         if (updateUrl) {
             const url = new URL(window.location.href);
             if (view === 'sponsorship') url.searchParams.set('view', 'sponsorship');
+            else if (view === 'campaign-admin') url.searchParams.set('view', 'campaign-admin');
             else url.searchParams.delete('view');
             history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
         }
         if (view === 'sponsorship' && state.accountReady) loadSponsorWorkspace();
+        if (view === 'campaign-admin') document.dispatchEvent(new CustomEvent('localclaw:sponsor-admin-view'));
     }
 
     function isSponsorVisualPreview(params) {
