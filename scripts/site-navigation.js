@@ -8,7 +8,7 @@ const items = [
   ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU'],
   ['blog', '/blog/', 'Blog'],
   ['software', '/software', 'Software'],
-  ['account', '/account', 'My Machines']
+  ['account', '/account', 'Account']
 ];
 
 function link([key, href, label], active) {
