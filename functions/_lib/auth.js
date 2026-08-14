@@ -67,7 +67,7 @@ export async function getRequiredSession(context) {
       response: json({
         ok: false,
         error: "authentication_required",
-        message: "Sign in to manage your machines."
+        message: "Sign in to manage your LocalClaw account."
       }, 401),
       session: null
     };

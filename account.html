@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>My Machines | LocalClaw</title>
-    <meta name="description" content="Manage your hardware profiles and view compatible local AI models in LocalClaw.">
+    <title>Account | LocalClaw</title>
+    <meta name="description" content="Manage your LocalClaw machines, ratings and sponsorship campaign drafts from one private workspace.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
     <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803b">
+    <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814a">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
@@ -32,13 +33,13 @@
     <main class="lc-shell lc-main">
         <section id="auth-gate" class="lc-auth-gate" aria-labelledby="account-title">
             <div>
-                <p class="lc-kicker">LocalClaw hardware workspace</p>
-                <h1 id="account-title" class="lc-page-title">Your machines. Their best local models.</h1>
-                <p class="lc-page-copy">Add the Macs, PCs and NVIDIA workstations you use. LocalClaw turns each hardware profile into a focused compatibility view across the current model catalogue.</p>
+                <p class="lc-kicker">Your private LocalClaw workspace</p>
+                <h1 id="account-title" class="lc-page-title">Machines, ratings and sponsorship.</h1>
+                <p class="lc-page-copy">Use one account to manage your hardware profiles, community ratings and future homepage sponsorship campaigns. Sponsorship is in preview: no placement is for sale and no payment can be made yet.</p>
             </div>
             <div class="lc-auth-panel">
-                <h2>Open My Machines</h2>
-                <p>Use your Google account to create or access your LocalClaw hardware workspace.</p>
+                <h2>Open your account</h2>
+                <p>Use your Google account to access your private LocalClaw workspace.</p>
                 <button id="google-sign-in" class="lc-button lc-button-primary lc-button-full" type="button">
                     <span class="lc-google-mark" aria-hidden="true">G</span>
                     Continue with Google
@@ -50,16 +51,29 @@
         <section id="account-dashboard" class="lc-dashboard" hidden aria-labelledby="dashboard-title">
             <header class="lc-dashboard-head">
                 <div>
-                    <p class="lc-kicker">Hardware workspace</p>
-                    <h1 id="dashboard-title" class="lc-page-title">My Machines</h1>
+                    <p class="lc-kicker">Private workspace</p>
+                    <h1 id="dashboard-title" class="lc-page-title">Account</h1>
                     <div id="profile" class="lc-profile"></div>
                 </div>
                 <div class="lc-dashboard-actions">
-                    <button id="add-machine" class="lc-button lc-button-primary" type="button">+ Add machine</button>
+                    <button id="add-machine" class="lc-button lc-button-primary" type="button" data-account-machine-action>+ Add machine</button>
                     <button id="sign-out" class="lc-button" type="button">Sign out</button>
                 </div>
             </header>
 
+            <nav class="lc-account-tabs" aria-label="Account workspace">
+                <button class="lc-account-tab is-active" type="button" data-account-tab="machines" aria-controls="account-machines-panel" aria-selected="true">
+                    <span>Machines</span>
+                    <small>Hardware &amp; ratings</small>
+                </button>
+                <button class="lc-account-tab" type="button" data-account-tab="sponsorship" aria-controls="account-sponsor-panel" aria-selected="false">
+                    <span>Sponsorship</span>
+                    <small>Campaign workspace</small>
+                    <em>Preview</em>
+                </button>
+            </nav>
+
+            <div id="account-machines-panel" data-account-panel="machines">
             <div class="lc-workspace">
                 <aside class="lc-machine-sidebar" aria-label="Saved machines">
                     <p class="lc-sidebar-label">Saved hardware</p>
@@ -92,6 +106,75 @@
                     </div>
                 </header>
                 <div id="voice-ratings-grid" class="lc-voice-ratings-grid"></div>
+            </section>
+            </div>
+
+            <section id="account-sponsor-panel" class="lc-sponsor-workspace" data-account-panel="sponsorship" hidden aria-labelledby="sponsor-workspace-title">
+                <header class="lc-sponsor-hero">
+                    <div>
+                        <p class="lc-kicker">Homepage sponsorship</p>
+                        <h2 id="sponsor-workspace-title">Campaign control center</h2>
+                        <p>Prepare a campaign, choose one of the six desktop rail placements and submit it for review. Editorial model order, LocalClaw scores and community ratings always remain independent.</p>
+                    </div>
+                    <div class="lc-sponsor-mode" aria-label="Sponsorship rollout status">
+                        <span class="lc-sponsor-mode__dot" aria-hidden="true"></span>
+                        <strong>Structure ready</strong>
+                        <small>Billing offline · no campaigns live</small>
+                    </div>
+                </header>
+
+                <div class="lc-sponsor-summary" aria-label="Sponsorship summary">
+                    <article><span>Inventory</span><strong>6</strong><small>bounded homepage slots</small></article>
+                    <article><span>Campaigns</span><strong id="sponsor-campaign-count">0</strong><small>owned by this account</small></article>
+                    <article><span>Live</span><strong>0</strong><small>activation disabled</small></article>
+                    <article><span>Billing</span><strong class="lc-sponsor-summary__word">Offline</strong><small>Stripe planned, not connected</small></article>
+                </div>
+
+                <section class="lc-sponsor-section" aria-labelledby="sponsor-inventory-title">
+                    <div class="lc-sponsor-section__head">
+                        <div>
+                            <p class="lc-kicker">Bounded inventory</p>
+                            <h3 id="sponsor-inventory-title">Six homepage rail placements</h3>
+                            <p>Desktop-only rails, clearly labelled as sponsored when activated later. Every slot remains a non-commercial placeholder today.</p>
+                        </div>
+                        <span class="lc-sponsor-lock">Not for sale yet</span>
+                    </div>
+                    <div id="sponsor-inventory-grid" class="lc-sponsor-inventory-grid">
+                        <article data-sponsor-placement="home-left-1"><span>Left rail</span><strong>01</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-left-2"><span>Left rail</span><strong>02</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-left-3"><span>Left rail</span><strong>03</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-right-1"><span>Right rail</span><strong>01</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-right-2"><span>Right rail</span><strong>02</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-right-3"><span>Right rail</span><strong>03</strong><small>Preview only</small></article>
+                    </div>
+                </section>
+
+                <section class="lc-sponsor-section" aria-labelledby="sponsor-campaigns-title">
+                    <div class="lc-sponsor-section__head">
+                        <div>
+                            <p class="lc-kicker">Campaigns</p>
+                            <h3 id="sponsor-campaigns-title">Your drafts and review requests</h3>
+                            <p>Analytics stay empty until a campaign is genuinely active. No estimate is presented as real delivery.</p>
+                        </div>
+                        <button id="new-sponsor-campaign" class="lc-button lc-button-primary" type="button">+ New campaign draft</button>
+                    </div>
+                    <div id="sponsor-campaign-list" class="lc-sponsor-campaign-list" aria-live="polite">
+                        <div class="lc-sponsor-empty">
+                            <span aria-hidden="true">＋</span>
+                            <div><strong>No campaigns yet</strong><p>Create a private draft. Submission does not reserve inventory or trigger payment.</p></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lc-sponsor-billing" aria-labelledby="sponsor-billing-title">
+                    <div class="lc-sponsor-billing__icon" aria-hidden="true">$</div>
+                    <div>
+                        <p class="lc-kicker">Billing boundary</p>
+                        <h3 id="sponsor-billing-title">Stripe comes in the next phase</h3>
+                        <p>The campaign, review, inventory and analytics structure is prepared. There is no Stripe SDK, checkout, webhook, secret or payment call in this release, so no campaign can become scheduled or active.</p>
+                    </div>
+                    <span>Fail-closed</span>
+                </section>
             </section>
         </section>
     </main>
@@ -312,11 +395,85 @@
         </form>
     </dialog>
 
+    <dialog id="sponsor-dialog" class="lc-dialog lc-sponsor-dialog" aria-labelledby="sponsor-dialog-title">
+        <form id="sponsor-form" method="dialog">
+            <div class="lc-dialog-head">
+                <div>
+                    <p class="lc-kicker">Private campaign draft</p>
+                    <h2 id="sponsor-dialog-title" class="lc-dialog-title">New sponsorship campaign</h2>
+                    <p class="lc-dialog-copy">Nothing is published, reserved or billed when you save a draft.</p>
+                </div>
+                <button id="close-sponsor-dialog" class="lc-icon-button" type="button" aria-label="Close">×</button>
+            </div>
+            <div class="lc-form">
+                <input id="sponsor-campaign-id" name="campaignId" type="hidden">
+                <div class="lc-form-grid">
+                    <div class="lc-field">
+                        <label for="sponsor-campaign-name">Campaign name</label>
+                        <input id="sponsor-campaign-name" name="campaignName" maxlength="80" placeholder="Autumn local AI launch" required>
+                    </div>
+                    <div class="lc-field">
+                        <label for="sponsor-advertiser-name">Advertiser / product</label>
+                        <input id="sponsor-advertiser-name" name="advertiserName" maxlength="80" placeholder="Your company or product" required>
+                    </div>
+                    <div class="lc-field lc-field-wide">
+                        <label for="sponsor-destination-url">Destination URL</label>
+                        <input id="sponsor-destination-url" name="destinationUrl" type="url" maxlength="500" placeholder="https://example.com/local-ai" required>
+                        <span class="lc-field-hint">HTTPS only. Redirects and destination content will be reviewed before activation.</span>
+                    </div>
+                    <div class="lc-field lc-field-wide">
+                        <label for="sponsor-tagline">Short message</label>
+                        <textarea id="sponsor-tagline" name="tagline" maxlength="140" rows="3" placeholder="Describe the useful, relevant offer in one factual sentence." required></textarea>
+                    </div>
+                    <div class="lc-field">
+                        <label for="sponsor-cta-label">CTA label</label>
+                        <input id="sponsor-cta-label" name="ctaLabel" maxlength="28" value="Learn more" required>
+                    </div>
+                    <div class="lc-field">
+                        <label for="sponsor-placement-key">Preferred placement</label>
+                        <select id="sponsor-placement-key" name="placementKey" required>
+                            <option value="home-left-1">Homepage · Left rail · 01</option>
+                            <option value="home-left-2">Homepage · Left rail · 02</option>
+                            <option value="home-left-3">Homepage · Left rail · 03</option>
+                            <option value="home-right-1">Homepage · Right rail · 01</option>
+                            <option value="home-right-2">Homepage · Right rail · 02</option>
+                            <option value="home-right-3">Homepage · Right rail · 03</option>
+                        </select>
+                    </div>
+                    <div class="lc-field">
+                        <label for="sponsor-start-date">Requested start</label>
+                        <input id="sponsor-start-date" name="requestedStartDate" type="date">
+                    </div>
+                    <div class="lc-field">
+                        <label for="sponsor-end-date">Requested end</label>
+                        <input id="sponsor-end-date" name="requestedEndDate" type="date">
+                    </div>
+                    <div class="lc-field lc-field-wide">
+                        <label for="sponsor-logo-alt">Logo description</label>
+                        <input id="sponsor-logo-alt" name="logoAltText" maxlength="120" placeholder="Brand name logo">
+                        <span class="lc-field-hint">Asset upload is deliberately disabled until storage and moderation are configured.</span>
+                    </div>
+                </div>
+                <div id="sponsor-creative-preview" class="lc-sponsor-creative-preview" aria-live="polite">
+                    <span id="sponsor-preview-mark">LC</span>
+                    <div><small>Sponsored preview</small><strong id="sponsor-preview-name">Your product</strong><p id="sponsor-preview-copy">Your concise campaign message will appear here.</p></div>
+                </div>
+                <p id="sponsor-form-error" class="lc-form-error" role="alert"></p>
+            </div>
+            <div class="lc-dialog-actions lc-sponsor-dialog-actions">
+                <button id="cancel-sponsor-edit" class="lc-button" type="button">Cancel</button>
+                <button id="save-sponsor-draft" class="lc-button" type="submit">Save draft</button>
+                <button id="submit-sponsor-review" class="lc-button lc-button-primary" type="button">Submit for review</button>
+            </div>
+        </form>
+    </dialog>
+
     <div id="toast" class="lc-toast" hidden role="status"></div>
 
     <script src="/js/data.js?v=20260814g"></script>
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
     <script src="/js/account-20260802a.js?v=20260803b"></script>
+    <script src="/js/account-sponsor-20260814a.js?v=20260814a"></script>
 </body>
 </html>

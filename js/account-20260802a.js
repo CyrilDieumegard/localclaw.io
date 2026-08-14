@@ -190,6 +190,9 @@
             showDashboard();
             renderProfile();
             await loadWorkspace();
+            document.dispatchEvent(new CustomEvent('localclaw:account-ready', {
+                detail: { session: state.session }
+            }));
             openPendingMachineIfNeeded();
         } catch {
             showSignedOut('Unable to reach the account service.');
