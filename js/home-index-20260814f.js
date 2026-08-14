@@ -13,6 +13,23 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const catalogueOrder = new Map(localModels.map((model, index) => [model.id, index]));
         const communityRatings = new Map();
         let communityState = 'loading';
+        const COMMUNITY_PRIOR_AVERAGE = 3.5;
+        const COMMUNITY_PRIOR_WEIGHT = 5;
+        const COMMUNITY_CONFIDENCE_VOTES = 5;
+        const comparedModelIds = new Set();
+        const normalizeMachineRam = (value) => {
+            const parsed = Number.parseInt(value, 10);
+            return Number.isFinite(parsed) && parsed >= 4 && parsed <= 2048 ? parsed : 0;
+        };
+        let machineRam = (() => {
+            const queryRam = normalizeMachineRam(new URLSearchParams(window.location.search).get('ram'));
+            if (queryRam) return queryRam;
+            try {
+                return normalizeMachineRam(window.localStorage.getItem('localclaw_home_machine_ram'));
+            } catch (error) {
+                return 0;
+            }
+        })();
 
         const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
         const speechCatalogueOrder = new Map(speechModels.map((model, index) => [model.id, index]));
@@ -49,14 +66,21 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const scoreLabel = (value) => finite(value).toFixed(1);
         const communityAggregate = (modelId) => communityRatings.get(modelId) || {average: 0, count: 0};
         const speechCommunityId = (model) => `tts-${model.id}`;
+        const communityConfidenceScore = (aggregate) => {
+            const count = Math.max(0, finite(aggregate && aggregate.count));
+            if (!count) return 0;
+            const average = Math.max(0, Math.min(5, finite(aggregate && aggregate.average)));
+            return ((average * count) + (COMMUNITY_PRIOR_AVERAGE * COMMUNITY_PRIOR_WEIGHT)) / (count + COMMUNITY_PRIOR_WEIGHT);
+        };
         const communityCompare = (aId, bId, mode) => {
             if (communityState !== 'ready') return 0;
             const a = communityAggregate(aId);
             const b = communityAggregate(bId);
             if (mode === 'votes') return finite(b.count) - finite(a.count) || finite(b.average) - finite(a.average);
             return Number(b.count > 0) - Number(a.count > 0)
-                || finite(b.average) - finite(a.average)
-                || finite(b.count) - finite(a.count);
+                || communityConfidenceScore(b) - communityConfidenceScore(a)
+                || finite(b.count) - finite(a.count)
+                || finite(b.average) - finite(a.average);
         };
         const communityMarkup = (modelId, modifier = '') => {
             if (communityState === 'loading') {
@@ -71,8 +95,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 return `<span class="lc-index-community is-empty ${modifier}" title="No LocalClaw community ratings yet" aria-label="No LocalClaw community ratings yet"><strong>☆ —</strong><small>/5 · 0 votes</small></span>`;
             }
             const average = finite(aggregate.average).toFixed(1);
-            const title = `LocalClaw community rating ${average} out of 5 from ${voteLabel}. Independent from the LocalClaw score.`;
-            return `<span class="lc-index-community ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>★ ${average}</strong><small>/5 · ${voteLabel}</small></span>`;
+            const isEarly = aggregate.count < COMMUNITY_CONFIDENCE_VOTES;
+            const confidenceCopy = isEarly ? ' Early signal: fewer than 5 votes.' : '';
+            const title = `LocalClaw community rating ${average} out of 5 from ${voteLabel}.${confidenceCopy} The confidence ranking uses only community rating and vote count, independently from the LocalClaw score.`;
+            return `<span class="lc-index-community ${isEarly ? 'is-early' : ''} ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>★ ${average}</strong><small>/5 · ${voteLabel}${isEarly ? ' · EARLY' : ''}</small></span>`;
         };
         const familyLabel = (value) => String(value || '')
             .replace(/[-_]+/g, ' ')
@@ -112,6 +138,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return result || speechScore(b) - speechScore(a) || finite(b.quality) - finite(a.quality) || finite(b.speed) - finite(a.speed) || nameCompare(a, b) || speechCatalogueOrder.get(a.id) - speechCatalogueOrder.get(b.id);
         };
         const scoreMarkup = (value, title, modifier = '') => `<span class="lc-index-score ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>${scoreLabel(value)}</strong><small>/10</small></span>`;
+        const machineFit = (model) => {
+            if (!machineRam) return {key: 'unset', label: 'Set RAM'};
+            const minimum = finite(model && model.min_ram, Infinity);
+            if (minimum > machineRam) return {key: 'too-large', label: 'Too large'};
+            if (minimum > machineRam * 0.75) return {key: 'tight', label: 'Tight'};
+            return {key: 'fits', label: 'Fits'};
+        };
+        const fitMarkup = (model) => {
+            const fit = machineFit(model);
+            if (fit.key === 'unset') return '';
+            const title = `${fit.label} for a ${machineRam} GB machine using the catalogue minimum-RAM field. Actual context and runtime overhead can require more memory.`;
+            return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
+        };
         const sponsorRail = (side) => `
             <aside class="lc-sponsor-rail" aria-label="${side} advertising placeholders — three non-commercial slots">
                 ${[1, 2, 3].map((slot) => `<div class="lc-sponsor-slot" data-sponsor-placeholder="${side.toLowerCase()}-${slot}"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Reserved placeholder.<br>No advertiser.</p><span class="lc-sponsor-slot__size">NON-COMMERCIAL</span></div>`).join('')}
@@ -121,6 +160,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const ratings = model.benchmarks || {};
             const overall = llmScore(model);
             const scoreTitle = `LocalClaw catalogue score ${scoreLabel(overall)} out of 10. Quality ${finite(ratings.quality)}; coding ${finite(ratings.coding)}; reasoning ${finite(ratings.reasoning)}; speed ${finite(ratings.speed)}.`;
+            const isCompared = comparedModelIds.has(model.id);
+            const compareLimitReached = comparedModelIds.size >= 3 && !isCompared;
             return `
                 <tr>
                     <td class="lc-index-rank">${String(index + 1).padStart(3, '0')}</td>
@@ -133,10 +174,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <td class="lc-index-score-cell">${scoreMarkup(overall, scoreTitle)}</td>
                     <td class="lc-index-community-cell">${communityMarkup(model.id)}</td>
                     <td>${escapeHtml(model.params || '—')}</td>
-                    <td>${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</td>
+                    <td><span class="lc-index-ram-value">${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</span>${fitMarkup(model)}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
                     <td>${escapeHtml(releaseLabel(model.released))}</td>
-                    <td><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
+                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
                 </tr>`;
         }).join('');
 
@@ -183,17 +224,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </div>
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
-                            <label><span class="sr-only">Filter by RAM</span><select id="lc-index-ram" class="lc-index-control"><option value="all">All RAM classes</option><option value="8">Up to 8 GB</option><option value="16">Up to 16 GB</option><option value="32">Up to 32 GB</option><option value="64">Up to 64 GB</option><option value="128">Up to 128 GB</option></select></label>
+                            <label><span class="sr-only">Choose machine memory</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">My machine · set RAM</option><option value="8">My machine · 8 GB</option><option value="16">My machine · 16 GB</option><option value="32">My machine · 32 GB</option><option value="64">My machine · 64 GB</option><option value="128">My machine · 128 GB</option><option value="256">My machine · 256 GB</option><option value="512">My machine · 512 GB</option></select></label>
+                            <label><span class="sr-only">Filter by machine fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Fits my machine</option><option value="fits">Comfortable fits</option><option value="tight">Tight fits</option><option value="too-large">Too large</option></select></label>
                             <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Top community ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
+                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
-                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th class="lc-index-score-col">LocalClaw</th><th class="lc-index-community-col">Community</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th></th></tr></thead>
+                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th class="lc-index-score-col">LocalClaw</th><th class="lc-index-community-col">Community</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th class="lc-index-action-col">Compare</th></tr></thead>
                                 <tbody id="lc-index-model-rows">${renderModelRows(rankedModels)}</tbody>
                             </table>
                         </div>
-                        <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ is the average 1–5 star rating submitted by signed-in LocalClaw members; ties use the number of votes, and unrated models follow. “Community votes” sorts by vote count first. The separate LocalClaw /10 score remains 38% quality + 24% coding + 24% reasoning + 14% speed. Community votes never change or blend into that software score.</p>
+                        <aside id="lc-index-compare-tray" class="lc-index-compare-tray" aria-live="polite" hidden><div><strong><span id="lc-index-compare-count">0</span>/3 selected</strong><span id="lc-index-compare-status">Select at least two LLMs.</span></div><div id="lc-index-compare-chips" class="lc-index-compare-chips"></div><div class="lc-index-compare-actions"><button id="lc-index-compare-clear" type="button">Clear</button><button id="lc-index-compare-open" type="button" disabled>Compare models</button></div></aside>
+                        <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ shows the raw 1–5 star average. “Community confidence” orders rated models with a transparent Bayesian prior of 3.5/5 over five votes, so one vote cannot dominate; EARLY marks fewer than five votes. Unrated ties may use LocalClaw order, but community ratings never change or blend into the separate LocalClaw /10 score (38% quality + 24% coding + 24% reasoning + 14% speed).</p>
                     </section>
 
                     <section class="lc-index-tts" aria-labelledby="tts-index-title">
@@ -204,40 +247,152 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-controls lc-index-tts-controls">
                             <label><span class="sr-only">Search speech models</span><input id="lc-index-tts-search" class="lc-index-control" type="search" placeholder="Search speech model or maker…" autocomplete="off"></label>
                             <label><span class="sr-only">Filter speech model type</span><select id="lc-index-tts-type" class="lc-index-control"><option value="all">All speech types</option><option value="TTS">TTS only</option><option value="ASR">ASR only</option><option value="APP">Apps only</option></select></label>
-                            <label><span class="sr-only">Sort speech models</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Top community ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
+                            <label><span class="sr-only">Sort speech models</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
                         </div>
                         <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels)}</div>
-                        <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community ★ and vote count come only from signed-in LocalClaw members. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
+                        <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community confidence uses only the raw star average and number of signed-in member votes; EARLY marks fewer than five votes. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
                     </section>
+                    <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><div id="lc-index-compare-content" class="lc-index-compare-content"></div></dialog>
                 </div>
 
                 ${sponsorRail('Right')}
             </div>`;
 
         const search = document.getElementById('lc-index-search');
-        const ram = document.getElementById('lc-index-ram');
+        const machineRamSelect = document.getElementById('lc-index-machine-ram');
+        const fitFilter = document.getElementById('lc-index-fit-filter');
         const family = document.getElementById('lc-index-family');
         const sort = document.getElementById('lc-index-sort');
         const rows = document.getElementById('lc-index-model-rows');
         const count = document.getElementById('lc-index-result-count');
+        const compareTray = document.getElementById('lc-index-compare-tray');
+        const compareCount = document.getElementById('lc-index-compare-count');
+        const compareStatus = document.getElementById('lc-index-compare-status');
+        const compareChips = document.getElementById('lc-index-compare-chips');
+        const compareOpen = document.getElementById('lc-index-compare-open');
+        const compareClear = document.getElementById('lc-index-compare-clear');
+        const compareDialog = document.getElementById('lc-index-compare-dialog');
+        const compareContent = document.getElementById('lc-index-compare-content');
+        const compareClose = document.getElementById('lc-index-compare-close');
+        const ensureMachineOption = (ramValue, label) => {
+            const value = String(normalizeMachineRam(ramValue));
+            if (value === '0') return;
+            let option = Array.from(machineRamSelect.options).find((item) => item.value === value);
+            if (!option) {
+                option = document.createElement('option');
+                option.value = value;
+                machineRamSelect.appendChild(option);
+            }
+            option.textContent = label || `My machine · ${value} GB`;
+        };
+        if (machineRam) {
+            ensureMachineOption(machineRam);
+            machineRamSelect.value = String(machineRam);
+        }
+        fitFilter.disabled = !machineRam;
+
+        const renderCompareDialog = () => {
+            const models = Array.from(comparedModelIds).map((id) => localModels.find((model) => model.id === id)).filter(Boolean);
+            const valueRow = (label, values) => `<tr><th scope="row">${escapeHtml(label)}</th>${values.map((value) => `<td>${value}</td>`).join('')}</tr>`;
+            const headers = models.map((model) => `<th scope="col"><a href="/models/${encodeURIComponent(model.id)}">${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}<span>${escapeHtml(model.name)}</span></a></th>`).join('');
+            const rowsMarkup = [
+                valueRow('Community', models.map((model) => communityMarkup(model.id))),
+                valueRow('LocalClaw', models.map((model) => {
+                    const ratings = model.benchmarks || {};
+                    const title = `LocalClaw catalogue score. Quality ${finite(ratings.quality)}; coding ${finite(ratings.coding)}; reasoning ${finite(ratings.reasoning)}; speed ${finite(ratings.speed)}.`;
+                    return scoreMarkup(llmScore(model), title);
+                })),
+                valueRow('Machine fit', models.map((model) => machineRam ? fitMarkup(model) : '<span class="lc-index-compare-muted">Set RAM above</span>')),
+                valueRow('Minimum RAM', models.map((model) => escapeHtml(Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'))),
+                valueRow('Parameters', models.map((model) => escapeHtml(model.params || '—'))),
+                valueRow('Quality', models.map((model) => escapeHtml(scoreLabel(model.benchmarks && model.benchmarks.quality)))),
+                valueRow('Coding', models.map((model) => escapeHtml(scoreLabel(model.benchmarks && model.benchmarks.coding)))),
+                valueRow('Reasoning', models.map((model) => escapeHtml(scoreLabel(model.benchmarks && model.benchmarks.reasoning)))),
+                valueRow('Speed', models.map((model) => escapeHtml(scoreLabel(model.benchmarks && model.benchmarks.speed)))),
+                valueRow('Licence', models.map((model) => escapeHtml(modelLicense(model)))),
+                valueRow('Released', models.map((model) => escapeHtml(releaseLabel(model.released)))),
+                valueRow('Details', models.map((model) => `<a class="lc-index-compare-detail" href="/models/${encodeURIComponent(model.id)}">Open model →</a>`))
+            ].join('');
+            compareContent.innerHTML = `<div class="lc-index-compare-table-wrap"><table class="lc-index-compare-table"><thead><tr><th scope="col">Signal</th>${headers}</tr></thead><tbody>${rowsMarkup}</tbody></table></div>`;
+        };
+        const renderCompareTray = () => {
+            const models = Array.from(comparedModelIds).map((id) => localModels.find((model) => model.id === id)).filter(Boolean);
+            compareTray.hidden = models.length === 0;
+            compareCount.textContent = models.length;
+            compareStatus.textContent = models.length < 2 ? 'Select one more LLM.' : models.length === 3 ? 'Maximum reached.' : 'Ready to compare.';
+            compareChips.innerHTML = models.map((model) => `<button type="button" data-compare-remove="${escapeHtml(model.id)}" aria-label="Remove ${escapeHtml(model.name)} from comparison">${escapeHtml(model.name)} <span>×</span></button>`).join('');
+            compareOpen.disabled = models.length < 2;
+            rows.querySelectorAll('[data-compare-id]').forEach((button) => {
+                const selected = comparedModelIds.has(button.dataset.compareId);
+                button.classList.toggle('is-selected', selected);
+                button.setAttribute('aria-pressed', String(selected));
+                button.textContent = selected ? 'Added' : 'Compare';
+                button.disabled = comparedModelIds.size >= 3 && !selected;
+            });
+        };
         const updateIndex = () => {
             const query = search.value.trim().toLowerCase();
-            const maxRam = ram.value === 'all' ? Infinity : Number(ram.value);
             const selectedFamily = family.value;
+            const selectedFit = fitFilter.value;
             const filtered = localModels.filter((model) => {
                 const haystack = `${model.name} ${model.family} ${(model.tags || []).join(' ')}`.toLowerCase();
+                const fit = machineFit(model).key;
+                const matchesFit = selectedFit === 'all'
+                    || (selectedFit === 'compatible' && (fit === 'fits' || fit === 'tight'))
+                    || fit === selectedFit;
                 return haystack.includes(query)
-                    && Number(model.min_ram || Infinity) <= maxRam
+                    && matchesFit
                     && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(sort.value));
             rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
+            renderCompareTray();
         };
         search.addEventListener('input', updateIndex);
-        ram.addEventListener('change', updateIndex);
+        machineRamSelect.addEventListener('change', () => {
+            machineRam = normalizeMachineRam(machineRamSelect.value);
+            fitFilter.disabled = !machineRam;
+            if (!machineRam) fitFilter.value = 'all';
+            try {
+                if (machineRam) window.localStorage.setItem('localclaw_home_machine_ram', String(machineRam));
+                else window.localStorage.removeItem('localclaw_home_machine_ram');
+            } catch (error) {
+                // Storage can be unavailable in privacy modes; the current selection still works.
+            }
+            updateIndex();
+        });
+        fitFilter.addEventListener('change', updateIndex);
         family.addEventListener('change', updateIndex);
         sort.addEventListener('change', updateIndex);
+        rows.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-compare-id]');
+            if (!button) return;
+            const modelId = button.dataset.compareId;
+            if (comparedModelIds.has(modelId)) comparedModelIds.delete(modelId);
+            else if (comparedModelIds.size < 3) comparedModelIds.add(modelId);
+            renderCompareTray();
+        });
+        compareChips.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-compare-remove]');
+            if (!button) return;
+            comparedModelIds.delete(button.dataset.compareRemove);
+            renderCompareTray();
+        });
+        compareClear.addEventListener('click', () => {
+            comparedModelIds.clear();
+            renderCompareTray();
+        });
+        compareOpen.addEventListener('click', () => {
+            if (comparedModelIds.size < 2) return;
+            renderCompareDialog();
+            if (typeof compareDialog.showModal === 'function') compareDialog.showModal();
+            else compareDialog.setAttribute('open', '');
+        });
+        compareClose.addEventListener('click', () => compareDialog.close());
+        compareDialog.addEventListener('click', (event) => {
+            if (event.target === compareDialog) compareDialog.close();
+        });
 
         const speechSearch = document.getElementById('lc-index-tts-search');
         const speechType = document.getElementById('lc-index-tts-type');
@@ -282,6 +437,34 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             updateIndex();
             updateSpeechIndex();
         };
+        const loadPrimaryMachine = async () => {
+            try {
+                const response = await fetch('/api/machines', {
+                    credentials: 'same-origin',
+                    headers: {Accept: 'application/json'}
+                });
+                if (!response.ok) return;
+                const data = await response.json();
+                const machines = Array.isArray(data && data.machines) ? data.machines : [];
+                const primary = machines.find((item) => item && item.isPrimary) || machines[0];
+                const accountRam = normalizeMachineRam(primary && primary.ramGb);
+                if (!accountRam) return;
+                machineRam = accountRam;
+                ensureMachineOption(accountRam, `${primary.name || 'Primary machine'} · ${accountRam} GB`);
+                machineRamSelect.value = String(accountRam);
+                fitFilter.disabled = false;
+                try {
+                    window.localStorage.setItem('localclaw_home_machine_ram', String(accountRam));
+                } catch (error) {
+                    // The account-backed selection still works without local storage.
+                }
+                updateIndex();
+            } catch (error) {
+                // Anonymous visitors and unavailable account APIs keep the local quick selector.
+            }
+        };
+        renderCompareTray();
         loadCommunityRatings();
+        loadPrimaryMachine();
     };
 }

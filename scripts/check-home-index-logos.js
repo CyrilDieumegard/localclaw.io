@@ -14,6 +14,9 @@ const models = Array.from(new Map(context.DATA.models.filter((model) => !model.h
 const speechModels = context.window.HOME_INDEX_SPEECH_MODELS;
 const logos = context.window.HOME_INDEX_LOGOS;
 const missing = [];
+const homepageHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const homepageJs = fs.readFileSync(path.join(ROOT, 'js/home-index-20260814f.js'), 'utf8');
+const homepageCss = fs.readFileSync(path.join(ROOT, 'css/home-index-20260814f.css'), 'utf8');
 
 for (const family of new Set(models.map((model) => model.family))) {
   if (!logos.llm[family]) missing.push(`LLM family mapping: ${family}`);
@@ -41,6 +44,24 @@ for (const model of speechModels) {
 }
 for (const forbiddenId of ['edge-tts', 'octave-2']) {
   if (speechModels.some((model) => model.id === forbiddenId)) missing.push(`Non-local speech record leaked onto homepage: ${forbiddenId}`);
+}
+for (const marker of [
+  'COMMUNITY_PRIOR_WEIGHT = 5',
+  'data-compare-id',
+  'localclaw_home_machine_ram',
+  "fetch('/api/machines'"
+]) {
+  if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
+}
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight']) {
+  if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
+}
+for (const marker of ['css/home-index-20260814f.css?v=20260814f', 'js/home-index-20260814f.js?v=20260814f']) {
+  if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
+}
+const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
+if (confidenceScore(4.5, 2) <= confidenceScore(5, 1)) {
+  missing.push('Community confidence must reward the stronger two-vote signal over a single perfect vote');
 }
 
 if (missing.length) {
