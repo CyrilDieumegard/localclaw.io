@@ -8,6 +8,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "qwen",
     "license": "Apache 2.0",
     "releaseDate": "2025-12",
+    "quality": 9.5,
+    "speed": 8.5,
     "type": "TTS"
   },
   {
@@ -17,6 +19,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "melo",
     "license": "MIT",
     "releaseDate": "2024-03",
+    "quality": 9,
+    "speed": 9,
     "type": "TTS"
   },
   {
@@ -26,6 +30,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "piper",
     "license": "MIT",
     "releaseDate": "2023-06",
+    "quality": 7.5,
+    "speed": 10,
     "type": "TTS"
   },
   {
@@ -35,6 +41,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "coqui",
     "license": "CPML (custom)",
     "releaseDate": "2023-09",
+    "quality": 9.2,
+    "speed": 6,
     "type": "TTS"
   },
   {
@@ -44,6 +52,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "bark",
     "license": "MIT",
     "releaseDate": "2023-04",
+    "quality": 8.5,
+    "speed": 4,
     "type": "TTS"
   },
   {
@@ -53,6 +63,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "mms",
     "license": "CC-BY-NC 4.0",
     "releaseDate": "2023-05",
+    "quality": 7,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -62,6 +74,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "parler",
     "license": "Apache 2.0",
     "releaseDate": "2024-02",
+    "quality": 8.8,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -71,6 +85,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "fish",
     "license": "Apache 2.0",
     "releaseDate": "2024-06",
+    "quality": 9,
+    "speed": 8.5,
     "type": "TTS"
   },
   {
@@ -80,6 +96,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "styletts",
     "license": "MIT",
     "releaseDate": "2024-01",
+    "quality": 9.3,
+    "speed": 6.5,
     "type": "TTS"
   },
   {
@@ -89,6 +107,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "f5",
     "license": "MIT",
     "releaseDate": "2024-10",
+    "quality": 9.4,
+    "speed": 9,
     "type": "TTS"
   },
   {
@@ -98,6 +118,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "chattts",
     "license": "AGPL-3.0",
     "releaseDate": "2024-05",
+    "quality": 8.8,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -107,6 +129,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "tortoise",
     "license": "Apache 2.0",
     "releaseDate": "2022-05",
+    "quality": 9.1,
+    "speed": 3,
     "type": "TTS"
   },
   {
@@ -116,6 +140,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "metavoice",
     "license": "Apache 2.0",
     "releaseDate": "2024-03",
+    "quality": 8.9,
+    "speed": 6,
     "type": "TTS"
   },
   {
@@ -125,6 +151,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "espeak",
     "license": "GPL-3.0",
     "releaseDate": "2010-01",
+    "quality": 5.5,
+    "speed": 10,
     "type": "TTS"
   },
   {
@@ -134,6 +162,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "kokoro",
     "license": "Apache 2.0",
     "releaseDate": "2025-01",
+    "quality": 9.2,
+    "speed": 9.8,
     "type": "TTS"
   },
   {
@@ -143,6 +173,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "orpheus",
     "license": "Apache 2.0",
     "releaseDate": "2025-03",
+    "quality": 9.6,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -152,6 +184,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "chatterbox",
     "license": "MIT",
     "releaseDate": "2025-05",
+    "quality": 9.4,
+    "speed": 8,
     "type": "TTS"
   },
   {
@@ -161,6 +195,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "dia",
     "license": "Apache 2.0",
     "releaseDate": "2025-04",
+    "quality": 9.3,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -170,6 +206,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "outetts",
     "license": "MIT",
     "releaseDate": "2025-01",
+    "quality": 8.7,
+    "speed": 8.5,
     "type": "TTS"
   },
   {
@@ -179,6 +217,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "cosyvoice",
     "license": "Apache 2.0",
     "releaseDate": "2024-12",
+    "quality": 9.3,
+    "speed": 8.8,
     "type": "TTS"
   },
   {
@@ -188,6 +228,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "spark",
     "license": "Apache 2.0",
     "releaseDate": "2025-03",
+    "quality": 9,
+    "speed": 8.2,
     "type": "TTS"
   },
   {
@@ -197,6 +239,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "app",
     "license": "MIT",
     "releaseDate": "2025-02",
+    "quality": 9,
+    "speed": 9.5,
     "type": "APP"
   },
   {
@@ -206,6 +250,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "sesame",
     "license": "Apache 2.0",
     "releaseDate": "2025-03",
+    "quality": 9.5,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -215,6 +261,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "gptsovits",
     "license": "MIT",
     "releaseDate": "2024-01",
+    "quality": 9.1,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -224,6 +272,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "emotivoice",
     "license": "Apache 2.0",
     "releaseDate": "2023-11",
+    "quality": 8.5,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -233,6 +283,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "mars",
     "license": "AGPL-3.0",
     "releaseDate": "2024-06",
+    "quality": 9,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -242,6 +294,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "maskgct",
     "license": "MIT",
     "releaseDate": "2024-10",
+    "quality": 9.4,
+    "speed": 9,
     "type": "TTS"
   },
   {
@@ -251,6 +305,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "indic",
     "license": "MIT",
     "releaseDate": "2024-02",
+    "quality": 8,
+    "speed": 8.5,
     "type": "TTS"
   },
   {
@@ -260,6 +316,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "tada",
     "license": "Apache 2.0",
     "releaseDate": "2025-02",
+    "quality": 9.1,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -269,6 +327,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "kitten",
     "license": "Apache 2.0",
     "releaseDate": "2025-03",
+    "quality": 7.5,
+    "speed": 10,
     "type": "TTS"
   },
   {
@@ -278,6 +338,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "vibevoice",
     "license": "MIT",
     "releaseDate": "2025-12",
+    "quality": 9.1,
+    "speed": 9.2,
     "type": "TTS"
   },
   {
@@ -287,6 +349,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "vibevoice",
     "license": "MIT",
     "releaseDate": "2025-08",
+    "quality": 9.4,
+    "speed": 6.5,
     "type": "TTS"
   },
   {
@@ -296,6 +360,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "vibevoice",
     "license": "MIT",
     "releaseDate": "2026-01",
+    "quality": 9.3,
+    "speed": 7.5,
     "type": "ASR"
   },
   {
@@ -305,6 +371,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "cohere",
     "license": "Apache 2.0",
     "releaseDate": "2026-03",
+    "quality": 9,
+    "speed": 8,
     "type": "ASR"
   },
   {
@@ -314,6 +382,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "voxcpm",
     "license": "Apache 2.0",
     "releaseDate": "2026-05",
+    "quality": 9.4,
+    "speed": 8.3,
     "type": "TTS"
   },
   {
@@ -323,6 +393,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "supertonic",
     "license": "OpenRAIL-M",
     "releaseDate": "2026-05",
+    "quality": 8.8,
+    "speed": 9.8,
     "type": "TTS"
   },
   {
@@ -332,6 +404,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "moss",
     "license": "Apache 2.0",
     "releaseDate": "2026-04",
+    "quality": 8.5,
+    "speed": 9.7,
     "type": "TTS"
   },
   {
@@ -341,6 +415,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "granite-speech",
     "license": "Apache 2.0",
     "releaseDate": "2026-04",
+    "quality": 9.2,
+    "speed": 8,
     "type": "ASR"
   },
   {
@@ -350,6 +426,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "qwen",
     "license": "Apache 2.0",
     "releaseDate": "2026-01",
+    "quality": 9.5,
+    "speed": 9,
     "type": "ASR"
   },
   {
@@ -359,6 +437,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "higgs",
     "license": "Apache 2.0",
     "releaseDate": "2025-07",
+    "quality": 9.7,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -368,6 +448,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "miso",
     "license": "Other / custom",
     "releaseDate": "2026-05",
+    "quality": 9.4,
+    "speed": 5.8,
     "type": "TTS"
   },
   {
@@ -377,6 +459,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "wavtts",
     "license": "CC-BY-NC 4.0 weights / MIT code",
     "releaseDate": "2026-06",
+    "quality": 9.1,
+    "speed": 5.2,
     "type": "TTS"
   },
   {
@@ -386,6 +470,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "dots",
     "license": "Apache 2.0",
     "releaseDate": "2026-06",
+    "quality": 9.4,
+    "speed": 8,
     "type": "TTS"
   },
   {
@@ -395,6 +481,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "zonos",
     "license": "Apache 2.0",
     "releaseDate": "2025-02",
+    "quality": 9.5,
+    "speed": 8.5,
     "type": "TTS"
   },
   {
@@ -404,6 +492,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "indextts",
     "license": "Apache 2.0",
     "releaseDate": "2025-09",
+    "quality": 9.4,
+    "speed": 8,
     "type": "TTS"
   },
   {
@@ -413,6 +503,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "openvoice",
     "license": "MIT",
     "releaseDate": "2024-05",
+    "quality": 8.9,
+    "speed": 9,
     "type": "TTS"
   },
   {
@@ -422,6 +514,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "whisper",
     "license": "MIT",
     "releaseDate": "2024-10",
+    "quality": 9.1,
+    "speed": 9.5,
     "type": "ASR"
   },
   {
@@ -431,6 +525,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "parakeet",
     "license": "CC-BY-4.0",
     "releaseDate": "2025-05",
+    "quality": 9.4,
+    "speed": 10,
     "type": "ASR"
   },
   {
@@ -440,6 +536,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "canary",
     "license": "CC-BY-4.0",
     "releaseDate": "2025-07",
+    "quality": 9.3,
+    "speed": 9,
     "type": "ASR"
   },
   {
@@ -449,6 +547,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "moshi",
     "license": "CC-BY-4.0",
     "releaseDate": "2024-09",
+    "quality": 9,
+    "speed": 9.5,
     "type": "TTS"
   },
   {
@@ -458,6 +558,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "neutts",
     "license": "Apache 2.0",
     "releaseDate": "2025-10",
+    "quality": 9,
+    "speed": 9.5,
     "type": "TTS"
   },
   {
@@ -467,6 +569,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "step",
     "license": "Apache 2.0",
     "releaseDate": "2025-08",
+    "quality": 9.3,
+    "speed": 7.5,
     "type": "TTS"
   },
   {
@@ -476,6 +580,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "llasa",
     "license": "CC-BY-NC 4.0",
     "releaseDate": "2025-01",
+    "quality": 9.2,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -485,6 +591,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "coqui",
     "license": "MPL 2.0",
     "releaseDate": "2025-06",
+    "quality": 9.1,
+    "speed": 7,
     "type": "TTS"
   },
   {
@@ -494,6 +602,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "f5",
     "license": "MIT",
     "releaseDate": "2025-08",
+    "quality": 9.5,
+    "speed": 9.2,
     "type": "TTS"
   },
   {
@@ -503,6 +613,8 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "family": "kyutai",
     "license": "CC-BY-4.0",
     "releaseDate": "2025-06",
+    "quality": 9.4,
+    "speed": 9.5,
     "type": "ASR"
   }
 ];

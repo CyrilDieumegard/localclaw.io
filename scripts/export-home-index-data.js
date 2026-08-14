@@ -24,6 +24,8 @@ const speechModels = context.TTS_MODELS.filter((model) => !HOMEPAGE_EXCLUSIONS.h
   family: model.family,
   license: model.license,
   releaseDate: model.releaseDate,
+  quality: model.quality,
+  speed: model.speed,
   type: model.isAsr ? 'ASR' : model.isOrchestrator ? 'APP' : 'TTS'
 }));
 
@@ -31,5 +33,5 @@ const output = `// Generated from the canonical TTS_MODELS array in tts-list.htm
   `// Run \`node scripts/export-home-index-data.js\` after speech catalogue changes.\n` +
   `window.HOME_INDEX_SPEECH_MODELS = ${JSON.stringify(speechModels, null, 2)};\n`;
 
-fs.writeFileSync(path.join(ROOT, 'js/home-index-speech-20260814a.js'), output);
+fs.writeFileSync(path.join(ROOT, 'js/home-index-speech-20260814c.js'), output);
 console.log(`Exported ${speechModels.length} local speech catalogue entries (${HOMEPAGE_EXCLUSIONS.size} non-local or API-only records excluded).`);
