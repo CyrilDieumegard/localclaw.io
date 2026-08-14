@@ -11,6 +11,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const llmFamilies = Array.from(new Set(localModels.map((model) => model.family).filter(Boolean)))
             .sort((a, b) => String(a).localeCompare(String(b), 'en', {sensitivity: 'base'}));
         const catalogueOrder = new Map(localModels.map((model, index) => [model.id, index]));
+        const communityRatings = new Map();
+        let communityState = 'loading';
 
         const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
         const speechCatalogueOrder = new Map(speechModels.map((model, index) => [model.id, index]));
@@ -45,6 +47,33 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const speechScore = (model) => Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
         const scoreLabel = (value) => finite(value).toFixed(1);
+        const communityAggregate = (modelId) => communityRatings.get(modelId) || {average: 0, count: 0};
+        const speechCommunityId = (model) => `tts-${model.id}`;
+        const communityCompare = (aId, bId, mode) => {
+            if (communityState !== 'ready') return 0;
+            const a = communityAggregate(aId);
+            const b = communityAggregate(bId);
+            if (mode === 'votes') return finite(b.count) - finite(a.count) || finite(b.average) - finite(a.average);
+            return Number(b.count > 0) - Number(a.count > 0)
+                || finite(b.average) - finite(a.average)
+                || finite(b.count) - finite(a.count);
+        };
+        const communityMarkup = (modelId, modifier = '') => {
+            if (communityState === 'loading') {
+                return `<span class="lc-index-community is-loading ${modifier}" aria-label="Community rating loading"><strong>★ —</strong><small>loading</small></span>`;
+            }
+            if (communityState === 'unavailable') {
+                return `<span class="lc-index-community is-empty ${modifier}" aria-label="Community rating unavailable"><strong>☆ —</strong><small>unavailable</small></span>`;
+            }
+            const aggregate = communityAggregate(modelId);
+            const voteLabel = `${aggregate.count} vote${aggregate.count === 1 ? '' : 's'}`;
+            if (!aggregate.count) {
+                return `<span class="lc-index-community is-empty ${modifier}" title="No LocalClaw community ratings yet" aria-label="No LocalClaw community ratings yet"><strong>☆ —</strong><small>/5 · 0 votes</small></span>`;
+            }
+            const average = finite(aggregate.average).toFixed(1);
+            const title = `LocalClaw community rating ${average} out of 5 from ${voteLabel}. Independent from the LocalClaw score.`;
+            return `<span class="lc-index-community ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>★ ${average}</strong><small>/5 · ${voteLabel}</small></span>`;
+        };
         const familyLabel = (value) => String(value || '')
             .replace(/[-_]+/g, ' ')
             .replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -62,6 +91,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const compareModels = (sortKey) => (a, b) => {
             if (sortKey === 'catalogue') return catalogueOrder.get(a.id) - catalogueOrder.get(b.id);
             let result = 0;
+            if (sortKey === 'community') result = communityCompare(a.id, b.id, 'average');
+            if (sortKey === 'votes') result = communityCompare(a.id, b.id, 'votes');
             if (sortKey === 'score') result = llmScore(b) - llmScore(a);
             if (['quality', 'coding', 'reasoning', 'speed'].includes(sortKey)) result = finite(b.benchmarks && b.benchmarks[sortKey]) - finite(a.benchmarks && a.benchmarks[sortKey]);
             if (sortKey === 'fresh') result = String(b.released || '').localeCompare(String(a.released || ''));
@@ -71,6 +102,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const compareSpeech = (sortKey) => (a, b) => {
             let result = 0;
+            if (sortKey === 'community') result = communityCompare(speechCommunityId(a), speechCommunityId(b), 'average');
+            if (sortKey === 'votes') result = communityCompare(speechCommunityId(a), speechCommunityId(b), 'votes');
             if (sortKey === 'score') result = speechScore(b) - speechScore(a);
             if (sortKey === 'quality') result = finite(b.quality) - finite(a.quality);
             if (sortKey === 'speed') result = finite(b.speed) - finite(a.speed);
@@ -98,6 +131,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </a>
                     </td>
                     <td class="lc-index-score-cell">${scoreMarkup(overall, scoreTitle)}</td>
+                    <td class="lc-index-community-cell">${communityMarkup(model.id)}</td>
                     <td>${escapeHtml(model.params || '—')}</td>
                     <td>${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
@@ -113,12 +147,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <span class="lc-index-tts-rank">${String(index + 1).padStart(2, '0')}</span>
                 ${logoMarkup('speech', model.family, model.developer)}
                 <span class="lc-index-tts-copy"><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span><span class="lc-index-tts-signals">QUALITY ${scoreLabel(model.quality)} · SPEED ${scoreLabel(model.speed)}</span></span>
-                <span class="lc-index-tts-score-group">${scoreMarkup(overall, scoreTitle, 'lc-index-score--speech')}<span class="lc-index-tts-type">${escapeHtml(model.type)}</span></span>
+                <span class="lc-index-tts-score-group">${communityMarkup(speechCommunityId(model), 'lc-index-community--speech')}${scoreMarkup(overall, scoreTitle, 'lc-index-score--speech')}<span class="lc-index-tts-type">${escapeHtml(model.type)}</span></span>
             </a>`;
         }).join('');
 
-        const rankedModels = [...localModels].sort(compareModels('score'));
-        const rankedSpeechModels = [...speechModels].sort(compareSpeech('score'));
+        const rankedModels = [...localModels].sort(compareModels('community'));
+        const rankedSpeechModels = [...speechModels].sort(compareSpeech('community'));
         const releaseMonth = releaseLabel(newestRelease);
 
         container.className = 'lc-index-shell';
@@ -145,35 +179,35 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <section id="llm-index" aria-labelledby="llm-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 01</span><h2 id="llm-index-title">Local LLMs</h2></div>
-                            <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> ranked entries · repository signals</p><span class="lc-index-method-pill">LocalClaw score · /10</span></div>
+                            <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> ranked entries · independent signals</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">LocalClaw · /10</span></div>
                         </div>
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
                             <label><span class="sr-only">Filter by RAM</span><select id="lc-index-ram" class="lc-index-control"><option value="all">All RAM classes</option><option value="8">Up to 8 GB</option><option value="16">Up to 16 GB</option><option value="32">Up to 32 GB</option><option value="64">Up to 64 GB</option><option value="128">Up to 128 GB</option></select></label>
                             <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="score">Score — overall</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
+                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Top community ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
-                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th class="lc-index-score-col">Score</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th></th></tr></thead>
+                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th class="lc-index-score-col">LocalClaw</th><th class="lc-index-community-col">Community</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th></th></tr></thead>
                                 <tbody id="lc-index-model-rows">${renderModelRows(rankedModels)}</tbody>
                             </table>
                         </div>
-                        <p class="lc-index-method-note"><strong>LLM score method.</strong> This reuses the catalogue composite already shown on LocalClaw: 38% quality + 24% coding + 24% reasoning + 14% speed. Every input is an existing repository rating on a 0–10 scale. It is a LocalClaw comparison signal, not an external or lab benchmark.</p>
+                        <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ is the average 1–5 star rating submitted by signed-in LocalClaw members; ties use the number of votes, and unrated models follow. “Community votes” sorts by vote count first. The separate LocalClaw /10 score remains 38% quality + 24% coding + 24% reasoning + 14% speed. Community votes never change or blend into that software score.</p>
                     </section>
 
                     <section class="lc-index-tts" aria-labelledby="tts-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 02</span><h2 id="tts-index-title">Local speech / TTS</h2></div>
-                            <div class="lc-index-section-meta"><p><strong id="lc-index-tts-result-count">${speechModels.length}</strong> ranked speech records · local only</p><span class="lc-index-method-pill">Audio score · /10</span></div>
+                            <div class="lc-index-section-meta"><p><strong id="lc-index-tts-result-count">${speechModels.length}</strong> ranked speech records · local only</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">Audio · /10</span></div>
                         </div>
                         <div class="lc-index-controls lc-index-tts-controls">
                             <label><span class="sr-only">Search speech models</span><input id="lc-index-tts-search" class="lc-index-control" type="search" placeholder="Search speech model or maker…" autocomplete="off"></label>
                             <label><span class="sr-only">Filter speech model type</span><select id="lc-index-tts-type" class="lc-index-control"><option value="all">All speech types</option><option value="TTS">TTS only</option><option value="ASR">ASR only</option><option value="APP">Apps only</option></select></label>
-                            <label><span class="sr-only">Sort speech models</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="score">Score — overall</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
+                            <label><span class="sr-only">Sort speech models</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Top community ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
                         </div>
                         <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels)}</div>
-                        <p class="lc-index-method-note lc-index-method-note--speech"><strong>Speech score method.</strong> This reuses the Audio score already shown in the speech catalogue: 68% quality + 32% speed, capped at 10. Both inputs come from the existing speech records. It is a LocalClaw comparison signal, not an external benchmark.</p>
+                        <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community ★ and vote count come only from signed-in LocalClaw members. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
                     </section>
                 </div>
@@ -197,7 +231,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     && Number(model.min_ram || Infinity) <= maxRam
                     && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(sort.value));
-            rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="8">No local model matches these filters.</td></tr>';
+            rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
         };
         search.addEventListener('input', updateIndex);
@@ -223,5 +257,31 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         speechSearch.addEventListener('input', updateSpeechIndex);
         speechType.addEventListener('change', updateSpeechIndex);
         speechSort.addEventListener('change', updateSpeechIndex);
+
+        const loadCommunityRatings = async () => {
+            try {
+                const response = await fetch('/api/ratings', {
+                    credentials: 'same-origin',
+                    headers: {Accept: 'application/json'}
+                });
+                if (!response.ok) throw new Error('Community ratings unavailable');
+                const data = await response.json();
+                communityRatings.clear();
+                (Array.isArray(data && data.ratings) ? data.ratings : []).forEach((item) => {
+                    const modelId = String(item && item.modelId || '').trim();
+                    if (!modelId) return;
+                    communityRatings.set(modelId, {
+                        average: Math.max(0, Math.min(5, finite(item.average))),
+                        count: Math.max(0, Math.floor(finite(item.count)))
+                    });
+                });
+                communityState = 'ready';
+            } catch (error) {
+                communityState = 'unavailable';
+            }
+            updateIndex();
+            updateSpeechIndex();
+        };
+        loadCommunityRatings();
     };
 }
