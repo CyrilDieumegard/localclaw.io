@@ -74,6 +74,7 @@
             element?.addEventListener('change', renderBookingSummary);
         });
         elements.logoFile?.addEventListener('change', selectLogoFile);
+        elements.previewLogo?.addEventListener('error', renderCreativePreviewFallback);
         document.addEventListener('localclaw:account-ready', () => {
             state.accountReady = true;
             if (state.activeView === 'sponsorship') loadSponsorWorkspace();
@@ -277,6 +278,14 @@
             elements.previewMark.hidden = false;
             elements.previewMark.textContent = initials(advertiser);
         }
+    }
+
+    function renderCreativePreviewFallback() {
+        if (!elements.previewLogo || !elements.previewMark) return;
+        elements.previewLogo.hidden = true;
+        elements.previewLogo.removeAttribute('src');
+        elements.previewMark.hidden = false;
+        elements.previewMark.textContent = initials(elements.form?.elements.advertiserName.value || 'LC');
     }
 
     function configureDateInput() {

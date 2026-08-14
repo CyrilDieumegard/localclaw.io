@@ -118,6 +118,10 @@ requireText(files.analytics, '5 * 60', 'Impression burst deduplication is missin
 requireText(files.click, 'activeSponsorClickTarget', 'Click redirect must resolve a server-owned active destination');
 requireText(files.click, '"Referrer-Policy": "no-referrer"', 'Sponsor click redirect must suppress referrer leakage');
 requireText(files.account, 'Visible impressions, estimated unique visitors, clicks and CTR', 'Account must display all four independent sponsor metrics');
+requireText(files.styles, '.lc-sponsor-creative-preview > [hidden]', 'Creative preview must not render both the fallback mark and logo');
+requireText(files.styles, 'display: none !important;', 'Creative preview hidden media must override component display rules');
+requireText(files.client, "elements.previewLogo?.addEventListener('error', renderCreativePreviewFallback)", 'Creative preview needs an image-error fallback');
+requireText(files.client, 'elements.previewLogo.removeAttribute(\'src\')', 'Creative preview fallback must remove a failed image source');
 
 requireText(files.routes, '"/api/stripe/*"', 'Stripe webhook route is missing from Pages Functions routes');
 requireText(files.routes, '"/sponsor/*"', 'Public sponsor click/logo routes are missing');

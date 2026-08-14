@@ -506,9 +506,9 @@ body[data-account-preview="sponsorship"] #sign-out {
 .lc-sponsor-creative-preview {
     min-height: 112px;
     display: grid;
-    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-columns: 58px minmax(0, 1fr);
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     margin-top: 18px;
     padding: 16px;
     border: 1px dashed #3a3a40;
@@ -516,9 +516,25 @@ body[data-account-preview="sponsorship"] #sign-out {
     background: linear-gradient(120deg, rgba(255, 69, 58, 0.06), transparent 45%), #0b0b0c;
 }
 
+.lc-sponsor-creative-preview > [hidden] {
+    display: none !important;
+}
+
+.lc-sponsor-creative-preview > span,
+.lc-sponsor-creative-preview > img {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.lc-sponsor-creative-preview > div {
+    min-width: 0;
+    grid-column: 2;
+    grid-row: 1;
+}
+
 .lc-sponsor-creative-preview > span {
-    width: 50px;
-    height: 50px;
+    width: 58px;
+    height: 58px;
     display: grid;
     place-items: center;
     border: 1px solid rgba(255, 69, 58, 0.36);
@@ -529,8 +545,8 @@ body[data-account-preview="sponsorship"] #sign-out {
 }
 
 .lc-sponsor-creative-preview > img {
-    width: 50px;
-    height: 50px;
+    width: 58px;
+    height: 58px;
     display: block;
     border: 1px solid rgba(255, 69, 58, 0.36);
     border-radius: 10px;
@@ -640,6 +656,7 @@ body[data-account-preview="sponsorship"] #sign-out {
     color: var(--lc-muted);
     font-size: 11px;
     line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .lc-sponsor-dialog-actions {
