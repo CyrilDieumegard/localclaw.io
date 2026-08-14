@@ -75,8 +75,9 @@
         });
         elements.logoFile?.addEventListener('change', selectLogoFile);
         elements.previewLogo?.addEventListener('error', renderCreativePreviewFallback);
-        document.addEventListener('localclaw:account-ready', () => {
+        document.addEventListener('localclaw:account-ready', (event) => {
             state.accountReady = true;
+            identifyDataFastVisitor(event.detail?.session?.user);
             if (state.activeView === 'sponsorship') loadSponsorWorkspace();
         });
     }
@@ -361,6 +362,13 @@
             if (!checkout.ok || !checkout.data?.checkoutUrl) {
                 throw new Error(checkout.data?.message || 'Stripe checkout could not be opened.');
             }
+            trackDataFastGoal('sponsor_checkout_started', {
+                campaign_id: campaignId,
+                plan: schedule.planKey,
+                placement: payload.placementKey,
+                start_mode: schedule.startMode,
+                auto_renew: schedule.autoRenew ? 'true' : 'false'
+            });
             window.location.assign(checkout.data.checkoutUrl);
         } catch (error) {
             elements.formError.textContent = error.message || 'Could not prepare the campaign.';
@@ -502,6 +510,22 @@
         let data = null;
         try { data = await response.json(); } catch {}
         return { ok: response.ok, status: response.status, data };
+    }
+
+    function identifyDataFastVisitor(user) {
+        if (!user?.id || typeof window.datafast !== 'function') return;
+        const profile = {
+            user_id: String(user.id).slice(0, 255),
+            account_area: 'sponsorship'
+        };
+        if (user.name) profile.name = String(user.name).slice(0, 255);
+        if (user.image && /^https:\/\//i.test(String(user.image))) profile.image = String(user.image).slice(0, 250);
+        try { window.datafast('identify', profile); } catch {}
+    }
+
+    function trackDataFastGoal(name, parameters = {}) {
+        if (typeof window.datafast !== 'function') return;
+        try { window.datafast(name, parameters); } catch {}
     }
 
     function fieldError(data) {

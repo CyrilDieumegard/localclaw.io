@@ -1,4 +1,5 @@
 import { getRequiredSession, json, requireSameOrigin } from "../../../../_lib/auth.js";
+import { datafastCheckoutMetadata } from "../../../../_lib/datafast-attribution.mjs";
 import { readSponsorJson } from "../../../../_lib/sponsor-campaigns.js";
 import {
   SPONSOR_CHECKOUT_SECONDS,
@@ -132,7 +133,8 @@ export async function onRequestPost(context) {
       localclaw_starts_at: String(schedule.startsAt),
       localclaw_ends_at: String(schedule.endsAt),
       localclaw_auto_renew: schedule.autoRenew ? "true" : "false",
-      localclaw_terms_version: SPONSOR_TERMS_VERSION
+      localclaw_terms_version: SPONSOR_TERMS_VERSION,
+      ...datafastCheckoutMetadata(context.request)
     };
     const lineItem = {
       price_data: {

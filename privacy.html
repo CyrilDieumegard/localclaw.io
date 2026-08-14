@@ -46,11 +46,11 @@
             <p>Session tokens, IP addresses and browser user-agent information may be processed to keep accounts signed in and protect the service. Sessions expire after 30 days unless renewed through continued use. Signing out invalidates the active browser session.</p>
 
             <h2>Website analytics</h2>
-            <p>Public LocalClaw pages use DataFast and Microsoft Clarity to understand page visits, referrals, devices and interactions. These services process analytics data under their own privacy terms. The account workspace is not used to collect prompts, local files, device serial numbers or operating-system credentials.</p>
+            <p>Public LocalClaw pages use DataFast and Microsoft Clarity to understand page visits, referrals, devices and interactions. The private account workspace uses DataFast to connect an authenticated account journey to a sponsorship checkout. These services process analytics data under their own privacy terms. The account workspace is not used to collect prompts, local files, device serial numbers or operating-system credentials.</p>
 
             <h2>Sponsorship campaigns and payment</h2>
             <p>If you create a sponsorship campaign, LocalClaw stores the campaign name, advertiser name, HTTPS destination, short message, selected fixed position, dates, logo metadata, purchase state and delivery analytics. Sponsor logos are stored in a private Cloudflare R2 bucket and are served publicly only while the paid campaign is active.</p>
-            <p>Stripe hosts Checkout and manages payment methods, receipts, subscriptions and renewal cancellation. LocalClaw stores Stripe object identifiers and payment state needed to reconcile a campaign, but does not receive or store full card numbers.</p>
+            <p>Stripe hosts Checkout and manages payment methods, receipts, subscriptions and renewal cancellation. LocalClaw stores Stripe object identifiers and payment state needed to reconcile a campaign, but does not receive or store full card numbers. When DataFast analytics cookies are available, their visitor and session identifiers are copied into Stripe Checkout metadata so DataFast can attribute aggregate sponsorship revenue to the originating visit. No card data is sent to DataFast.</p>
 
             <h2>Sponsor delivery measurement</h2>
             <p>When an active sponsor placement is viewed or clicked, LocalClaw uses a random first-party, HttpOnly cookie to deduplicate short bursts and estimate unique campaign visitors. LocalClaw stores a one-way hash of that random identifier, not its raw value, IP address or Google account. Campaign owners receive aggregate impressions, estimated unique visitors, clicks and CTR, not visitor identities.</p>

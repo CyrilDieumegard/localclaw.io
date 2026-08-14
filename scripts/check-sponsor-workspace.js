@@ -15,6 +15,7 @@ const files = {
   campaigns: read('functions/_lib/sponsor-campaigns.js'),
   commerce: read('functions/_lib/sponsor-commerce.js'),
   stripe: read('functions/_lib/stripe.js'),
+  datafastAttribution: read('functions/_lib/datafast-attribution.mjs'),
   logo: read('functions/_lib/sponsor-logo.js'),
   analytics: read('functions/_lib/sponsor-analytics.js'),
   checkout: read('functions/api/sponsor/campaigns/[id]/checkout.js'),
@@ -73,6 +74,15 @@ requireText(files.wrangler, 'SPONSOR_CHECKOUT_MODE = "pilot"', 'Production confi
 requireText(files.wrangler, 'binding = "SPONSOR_LOGOS"', 'Private R2 logo binding is missing');
 
 requireText(files.checkout, 'integration_identifier', 'Checkout integration identifier is missing');
+requireText(files.account, 'data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"', 'Account page must load the LocalClaw DataFast tracker');
+requireText(files.account, 'data-disable-payments="true"', 'Account page must avoid duplicate URL-based payment tracking');
+requireText(files.client, "window.datafast('identify', profile)", 'Authenticated account visitors must be identified in DataFast');
+requireText(files.client, "trackDataFastGoal('sponsor_checkout_started'", 'Successful sponsor checkout creation must emit a DataFast funnel goal');
+requireText(files.checkout, 'datafastCheckoutMetadata(context.request)', 'Checkout must add validated DataFast attribution metadata');
+requireText(files.datafastAttribution, 'datafast_visitor_id', 'Checkout metadata must carry the DataFast visitor cookie');
+requireText(files.datafastAttribution, 'datafast_session_id', 'Checkout metadata must carry the DataFast session cookie');
+requireText(files.datafastAttribution, 'validDatafastVisitorId', 'DataFast visitor cookie metadata must be validated before reaching Stripe');
+requireText(files.datafastAttribution, 'validDatafastSessionId', 'DataFast session cookie metadata must be validated before reaching Stripe');
 requireText(files.checkout, 'idempotencyKey', 'Checkout idempotency key is missing');
 requireText(files.checkout, 'expires_at: checkoutExpiresAt', 'Checkout expiry is missing');
 requireText(files.checkout, 'mode: schedule.autoRenew ? "subscription" : "payment"', 'One-time and subscription Checkout modes are not separated');
@@ -128,6 +138,7 @@ requireText(files.routes, '"/sponsor/*"', 'Public sponsor click/logo routes are 
 requireText(files.terms, 'No performance guarantee', 'Sponsor terms must disclaim performance guarantees');
 requireText(files.privacy, 'Sponsorship campaigns and payment', 'Privacy policy lacks sponsorship and Stripe disclosure');
 requireText(files.privacy, 'random first-party, HttpOnly cookie', 'Privacy policy lacks sponsor unique-visitor disclosure');
+requireText(files.privacy, 'copied into Stripe Checkout metadata', 'Privacy policy lacks DataFast revenue-attribution disclosure');
 
 const runtime = Object.values(files).join('\n');
 const credentialPattern = /(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{16,}|whsec_[A-Za-z0-9]{16,}/;
