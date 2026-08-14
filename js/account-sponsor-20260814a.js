@@ -7,7 +7,8 @@
         campaigns: [],
         activeView: 'machines',
         loading: false,
-        saving: false
+        saving: false,
+        visualPreview: false
     };
 
     const elements = {};
@@ -17,8 +18,11 @@
     function init() {
         cacheElements();
         bindEvents();
-        const requestedView = new URLSearchParams(window.location.search).get('view');
-        if (requestedView === 'sponsorship') switchView('sponsorship', false);
+        const params = new URLSearchParams(window.location.search);
+        state.visualPreview = isSponsorVisualPreview(params);
+        const requestedView = params.get('view');
+        if (requestedView === 'sponsorship' || state.visualPreview) switchView('sponsorship', false);
+        if (state.visualPreview) renderVisualPreview();
     }
 
     function cacheElements() {
@@ -82,6 +86,24 @@
             history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
         }
         if (view === 'sponsorship' && state.accountReady) loadSponsorWorkspace();
+    }
+
+    function isSponsorVisualPreview(params = new URLSearchParams(window.location.search)) {
+        const hostname = window.location.hostname.toLowerCase();
+        const previewHost = hostname.endsWith('.pages.dev') || hostname === 'localhost' || hostname === '127.0.0.1';
+        return previewHost && params.get('preview') === 'sponsorship';
+    }
+
+    function renderVisualPreview() {
+        const mode = document.querySelector('.lc-sponsor-mode');
+        if (mode) {
+            mode.querySelector('strong').textContent = 'Read-only design preview';
+            mode.querySelector('small').textContent = 'No account, database or billing connection';
+        }
+        if (elements.newCampaign) elements.newCampaign.textContent = '+ Preview campaign form';
+        if (elements.campaignList) {
+            elements.campaignList.innerHTML = '<div class="lc-sponsor-empty"><span aria-hidden="true">◇</span><div><strong>Live UI preview</strong><p>This branch preview uses no account or campaign data. Open the form to inspect the draft experience; saving and submission remain disabled.</p></div></div>';
+        }
     }
 
     async function loadSponsorWorkspace() {
@@ -221,6 +243,12 @@
         if (state.saving || !elements.form) return;
         elements.formError.textContent = '';
         if (!elements.form.reportValidity()) return;
+
+        if (state.visualPreview) {
+            elements.formError.textContent = 'Read-only preview: this form cannot save, submit, reserve inventory or start billing.';
+            showToast('Read-only preview — no campaign data was sent.');
+            return;
+        }
 
         const payload = formPayload();
         if (Boolean(payload.requestedStartDate) !== Boolean(payload.requestedEndDate)) {

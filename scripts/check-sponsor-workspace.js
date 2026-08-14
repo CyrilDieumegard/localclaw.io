@@ -7,6 +7,7 @@ const errors = [];
 
 const files = {
   account: read('account.html'),
+  accountRuntime: read('js/account-20260802a.js'),
   client: read('js/account-sponsor-20260814a.js'),
   styles: read('css/account-sponsor-20260814a.css'),
   migration: read('migrations/0005_sponsor_workspace.sql'),
@@ -46,6 +47,11 @@ requireText(files.account, 'Billing offline · no campaigns live', 'Account must
 requireText(files.account, 'Editorial model order, LocalClaw scores and community ratings always remain independent.', 'Account must disclose editorial independence');
 requireText(files.account, 'no Stripe SDK, checkout, webhook, secret or payment call', 'Account must disclose the Stripe boundary');
 requireText(files.client, "credentials: 'same-origin'", 'Sponsor client requests must include same-origin credentials');
+requireText(files.client, "hostname.endsWith('.pages.dev')", 'Visual preview must be restricted to Cloudflare Pages preview hosts');
+requireText(files.client, "params.get('preview') === 'sponsorship'", 'Visual preview must require an explicit sponsorship query');
+requireText(files.client, 'Read-only preview: this form cannot save', 'Visual preview must block campaign mutations');
+requireText(files.accountRuntime, "hostname.endsWith('.pages.dev')", 'Account auth bypass must be restricted to Cloudflare Pages preview hosts');
+requireText(files.accountRuntime, "get('preview') === 'sponsorship'", 'Account auth bypass must require an explicit sponsorship query');
 requireText(files.campaigns, 'getRequiredSession', 'Campaign collection API must require authentication');
 requireText(files.campaign, 'getRequiredSession', 'Campaign mutation API must require authentication');
 requireText(files.campaigns, 'WHERE c.user_id = ?', 'Campaign list must be owner-scoped');

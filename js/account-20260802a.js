@@ -80,7 +80,28 @@
     async function init() {
         cacheElements();
         bindEvents();
+        if (isSponsorVisualPreview()) {
+            state.session = {
+                user: {
+                    id: 'sponsor-preview',
+                    name: 'Sponsor workspace preview',
+                    email: 'Read-only · no account data'
+                }
+            };
+            document.body.dataset.accountPreview = 'sponsorship';
+            showDashboard();
+            renderProfile();
+            elements.signOut.hidden = true;
+            setPageLoading(false);
+            return;
+        }
         await loadSession();
+    }
+
+    function isSponsorVisualPreview() {
+        const hostname = window.location.hostname.toLowerCase();
+        const previewHost = hostname.endsWith('.pages.dev') || hostname === 'localhost' || hostname === '127.0.0.1';
+        return previewHost && new URLSearchParams(window.location.search).get('preview') === 'sponsorship';
     }
 
     function cacheElements() {
