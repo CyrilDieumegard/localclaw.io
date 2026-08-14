@@ -40,6 +40,11 @@
     }
 
     async function loadPersonalRatings() {
+        if (isSponsorVisualPreview()) {
+            authState = 'signed-out';
+            userRatings.clear();
+            return;
+        }
         const sessionResponse = await fetch('/api/auth/get-session', {
             credentials: 'same-origin',
             headers: { Accept: 'application/json' }
@@ -81,6 +86,12 @@
                 userRatings.set(item.modelId, Number(item.rating));
             }
         });
+    }
+
+    function isSponsorVisualPreview() {
+        const hostname = window.location.hostname.toLowerCase();
+        const previewHost = hostname.endsWith('.pages.dev') || hostname === 'localhost' || hostname === '127.0.0.1';
+        return previewHost && new URLSearchParams(window.location.search).get('preview') === 'sponsorship';
     }
 
     function refresh(root) {

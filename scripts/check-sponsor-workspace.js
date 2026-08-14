@@ -9,6 +9,7 @@ const files = {
   account: read('account.html'),
   accountRuntime: read('js/account-20260802a.js'),
   client: read('js/account-sponsor-20260814a.js'),
+  ratingsClient: read('js/community-ratings-20260802a.js'),
   styles: read('css/account-sponsor-20260814a.css'),
   migration: read('migrations/0005_sponsor_workspace.sql'),
   library: read('functions/_lib/sponsor-campaigns.js'),
@@ -52,6 +53,9 @@ requireText(files.client, "params.get('preview') === 'sponsorship'", 'Visual pre
 requireText(files.client, 'Read-only preview: this form cannot save', 'Visual preview must block campaign mutations');
 requireText(files.accountRuntime, "hostname.endsWith('.pages.dev')", 'Account auth bypass must be restricted to Cloudflare Pages preview hosts');
 requireText(files.accountRuntime, "get('preview') === 'sponsorship'", 'Account auth bypass must require an explicit sponsorship query');
+requireText(files.ratingsClient, "hostname.endsWith('.pages.dev')", 'Ratings auth bypass must be restricted to Cloudflare Pages preview hosts');
+requireText(files.ratingsClient, "get('preview') === 'sponsorship'", 'Ratings auth bypass must require an explicit sponsorship query');
+requireText(files.styles, 'body[data-account-preview="sponsorship"] #sign-out', 'Visual preview must hide the real account sign-out action');
 requireText(files.campaigns, 'getRequiredSession', 'Campaign collection API must require authentication');
 requireText(files.campaign, 'getRequiredSession', 'Campaign mutation API must require authentication');
 requireText(files.campaigns, 'WHERE c.user_id = ?', 'Campaign list must be owner-scoped');

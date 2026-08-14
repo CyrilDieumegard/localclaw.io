@@ -66,6 +66,10 @@
     display: none !important;
 }
 
+body[data-account-preview="sponsorship"] #sign-out {
+    display: none !important;
+}
+
 .lc-sponsor-workspace {
     display: grid;
     gap: 22px;
