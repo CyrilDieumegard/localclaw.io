@@ -29,8 +29,25 @@ for (const declaredFile of ['llms.txt', 'llms-full.txt', 'sitemap.xml', 'new-mod
 }
 
 const routes = JSON.parse(fs.readFileSync(path.join(ROOT, '_routes.json'), 'utf8'));
+function routePatternMatches(pattern, route) {
+  const expression = pattern
+    .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*/g, '.*');
+  return new RegExp(`^${expression}$`).test(route);
+}
 for (const route of ['/llms.txt', '/llms-full.txt', '/sitemap.xml', '/new-models.xml']) {
   if (!routes.include.includes(route)) errors.push(`_routes.json missing ${route}`);
+}
+const middleware = fs.readFileSync(path.join(ROOT, 'functions/_middleware.js'), 'utf8');
+for (const privatePath of PRIVATE_PROBES) {
+  const route = `/${privatePath}`;
+  if (!routes.include.includes(route)) errors.push(`_routes.json does not send private path through the 404 guard: ${route}`);
+  if (!middleware.includes(JSON.stringify(route))) errors.push(`Functions middleware does not deny private path: ${route}`);
+  const conflictingExclude = routes.exclude.find(pattern => routePatternMatches(pattern, route));
+  if (conflictingExclude) errors.push(`_routes.json exclude ${conflictingExclude} bypasses private-path guard ${route}`);
+}
+for (const marker of ['status: 404', '"Cache-Control": "no-store"', '"Cloudflare-CDN-Cache-Control": "no-store"', '"X-Robots-Tag": "noindex, nofollow, noarchive"']) {
+  if (!middleware.includes(marker)) errors.push(`Functions private-path guard is missing marker: ${marker}`);
 }
 
 const headers = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
