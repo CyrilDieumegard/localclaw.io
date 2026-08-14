@@ -4,7 +4,7 @@ const { extensionlessPath, normalizeFiles } = require('./normalize-public-urls')
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const SKIP = new Set(['.git', '_check', 'downloads', 'node_modules']);
+const SKIP = new Set(['.git', '.pages-dist', '_check', 'downloads', 'node_modules']);
 const errors = [];
 const internalTargets = new Map();
 

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS List — Best Local Text-to-Speech AI Models | LocalClaw</title>
-    <meta name="description" content="Discover 58 local TTS, ASR and speech AI models: Dots TTS, MisoTTS, WavTTS, VoxCPM2, Supertonic 3, Qwen3-ASR, Granite Speech, Qwen3 TTS, Kokoro & more.">
+    <title>TTS &amp; Speech AI List — 56 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 56 local TTS, ASR and speech AI records plus 2 clearly labelled online/API references by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Discover 58 local TTS, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.">
+    <meta property="og:description" content="Compare 56 local TTS, ASR and speech AI records plus 2 online/API references by quality, speed, languages, hardware and licence.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1619,10 +1619,11 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records with languages, latency, runtime format, voice quality, speed and local install commands in one clean view.
+                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records: <strong style="color:#fff;">56 local</strong> models and <strong style="color:#fff;">2 online/API references</strong>, clearly separated with languages, quality, speed and access requirements.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>Local</strong> voice models</span>
+                        <span class="catalog-pill"><strong>56 local</strong> voice records</span>
+                        <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">TTS + ASR records</span>
                         <span class="catalog-pill"><a href="tts/" style="color:inherit;">Static model pages →</a></span>
                     </div>
@@ -1919,7 +1920,8 @@
                 name: "Edge TTS",
                 developer: "Microsoft (unofficial)",
                 family: "edge",
-                description: "Python interface to Microsoft Edge's online TTS. Not fully local but works offline with cached voices.",
+                delivery: "online",
+                description: "Python interface to Microsoft Edge's online TTS service. Internet access is required for synthesis; no local speech checkpoint is provided.",
                 languages: ["multilingual"],
                 languageCount: 100,
                 features: ["realtime", "multilingual"],
@@ -3080,6 +3082,7 @@
                 name: "OCTAVE 2",
                 developer: "Hume AI",
                 family: "octave",
+                delivery: "api",
                 description: "Second-gen emotion-aware speech-language model. Generates voice, style and personality from a text description alone — no reference audio required. Rich control over arousal, valence and speaking style. Research-first release.",
                 languages: ["en", "de", "fr", "es", "it", "pt", "ja"],
                 languageCount: 7,
@@ -3357,7 +3360,7 @@
                     ['sfx', 'SFX']
                 ];
                 const matchedBestFor = bestForLabels.find(([feature]) => model.features.includes(feature));
-                const bestFor = model.isAsr ? 'Speech-to-text' : (model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech'));
+                const bestFor = model.delivery === 'online' ? 'Online speech service' : (model.delivery === 'api' ? 'Vendor speech API' : (model.isAsr ? 'Speech-to-text' : (model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech'))));
                 
                 const features = model.features.map(f => {
                     const classes = {
@@ -3391,6 +3394,10 @@
                     <div class="orch-badge" title="ASR model (speech-to-text), included as a related speech model. Not a text-to-speech generator.">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2v20"/><path d="M5 8v8"/><path d="M19 8v8"/></svg>
                         ASR · SPEECH-TO-TEXT
+                    </div>` : '';
+                const remoteBadge = model.delivery ? `
+                    <div class="orch-badge" title="This is an online or vendor API reference, not a verified local speech model.">
+                        ${model.delivery === 'online' ? 'ONLINE · INTERNET REQUIRED' : 'VENDOR API · NOT LOCAL'}
                     </div>` : '';
                 const backendsRow = model.isOrchestrator && model.backendModels ? `
                     <div class="backends-row">
@@ -3426,6 +3433,7 @@
                     </div>
                     ${orchBadge}
                     ${asrBadge}
+                    ${remoteBadge}
                     <p class="card-desc">${model.description}</p>
                     ${backendsRow}
                     <div class="features-bar">${features}</div>

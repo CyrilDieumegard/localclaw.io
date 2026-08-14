@@ -41,9 +41,14 @@ function loadDateState() {
 const previousDates = loadDateState();
 const nextDates = {};
 
-function lastModified(relativeFile) {
-  const content = fileContent(path.join(ROOT, relativeFile));
-  const hash = crypto.createHash('sha256').update(content).digest('hex');
+function lastModified(relativeFile, dependencies = []) {
+  const hashBuilder = crypto.createHash('sha256');
+  hashBuilder.update(fileContent(path.join(ROOT, relativeFile)));
+  for (const file of dependencies) {
+    hashBuilder.update('\0');
+    hashBuilder.update(fileContent(path.join(ROOT, file)));
+  }
+  const hash = hashBuilder.digest('hex');
   const previous = previousDates[relativeFile];
   const lastmod = previous?.hash === hash && previous?.lastmod ? previous.lastmod : TODAY;
   nextDates[relativeFile] = { hash, lastmod };
@@ -60,12 +65,12 @@ function htmlFiles(directory) {
     .filter(relativeFile => shouldIndex(path.join(ROOT, relativeFile)));
 }
 
-function page(relativeFile, changefreq = 'monthly', priority = '0.8') {
+function page(relativeFile, changefreq = 'monthly', priority = '0.8', dependencies = []) {
   const filePath = path.join(ROOT, relativeFile);
   if (!fs.existsSync(filePath) || !shouldIndex(filePath)) return null;
   return {
     loc: `${BASE}${routeForFile(relativeFile)}`,
-    lastmod: lastModified(relativeFile),
+    lastmod: lastModified(relativeFile, dependencies),
     changefreq,
     priority
   };
@@ -82,15 +87,15 @@ function unique(items) {
 
 const groups = {
   core: unique([
-    page('index.html', 'weekly', '1.0'),
+    page('index.html', 'weekly', '1.0', ['js/data.js', 'js/home-index-speech-20260814c.js']),
     page('software.html', 'monthly', '0.9'),
     page('pricing.html', 'monthly', '0.8'),
     page('download.html', 'monthly', '0.8'),
-    page('llm-list.html', 'weekly', '0.9'),
+    page('llm-list.html', 'weekly', '0.9', ['js/data.js']),
     page('tts-list.html', 'weekly', '0.9'),
     page('computers.html', 'monthly', '0.8'),
     page('ram-gpu-for-local-ai.html', 'monthly', '0.85'),
-    page('new.html', 'weekly', '0.9'),
+    page('new.html', 'weekly', '0.9', ['js/data.js', 'new-models.xml']),
     ...htmlFiles('case-study').map(file => page(file, 'monthly', '0.9')),
     ...htmlFiles('changelog').map(file => page(file, 'monthly', '0.78'))
   ]),

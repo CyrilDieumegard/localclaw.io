@@ -4,7 +4,7 @@ const { siteNavigation, siteNavAssets } = require('./site-navigation');
 
 const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
-const excludedDirectories = new Set(['.git', '.wrangler', 'node_modules', '_check']);
+const excludedDirectories = new Set(['.git', '.pages-dist', '.wrangler', 'node_modules', '_check']);
 
 function htmlFiles(directory, files = []) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -18,8 +18,8 @@ function htmlFiles(directory, files = []) {
 
 function activeSection(relativePath) {
   const clean = relativePath.replace(/\\/g, '/').replace(/\.html$/, '');
-  if (clean === 'llm-list' || clean === 'llm-detail' || clean.startsWith('models/')) return 'llm';
-  if (clean === 'tts-list' || clean.startsWith('tts/')) return 'tts';
+  if (clean === 'llm-list' || clean === 'llm-detail' || clean.startsWith('models/') || clean.startsWith('use-case/') || clean.startsWith('guides/best-local-llms')) return 'llm';
+  if (clean === 'tts-list' || clean.startsWith('tts/') || clean.startsWith('guides/best-local-tts')) return 'tts';
   if (clean === 'new') return 'new';
   if (clean === 'computers' || clean.startsWith('hardware/')) return 'computers';
   if (clean === 'ram-gpu-for-local-ai' || clean.startsWith('ram/')) return 'ram-gpu';
@@ -38,7 +38,7 @@ function synchronize(html, relativePath) {
   if (relativePath === 'google7a49ecaded8c2575.html') return html;
 
   const active = activeSection(relativePath);
-  const navigation = siteNavigation(active);
+  const navigation = siteNavigation(active, relativePath === 'index.html' ? { accountLabel: 'Account' } : {});
 
   const accountHeader = html.match(/<header class="lc-site-header">[\s\S]*?<\/header>/i);
   if (accountHeader) return addAssets(html.replace(accountHeader[0], navigation));

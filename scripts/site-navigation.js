@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260806a';
+const NAV_VERSION = '20260810b';
 
 const items = [
   ['llm', '/llm-list', 'LLM'],
@@ -17,20 +17,23 @@ function link([key, href, label], active) {
   return `<a href="${href}" class="lc-global-nav__link${account}" data-nav-key="${key}"${current}>${label}</a>`;
 }
 
-function siteNavigation(active = '') {
+function siteNavigation(active = '', options = {}) {
+  const navigationItems = items.map(item => item[0] === 'account' && options.accountLabel
+    ? [item[0], item[1], options.accountLabel]
+    : item);
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links">${items.map(item => link(item, active)).join('')}</div>
+    <div class="lc-global-nav__links">${navigationItems.map(item => link(item, active)).join('')}</div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner">${items.map(item => link(item, active)).join('')}</div>
+    <div class="lc-global-nav__mobile-inner">${navigationItems.map(item => link(item, active)).join('')}</div>
   </div>
 </nav>`;
 }

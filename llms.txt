@@ -1,45 +1,62 @@
-# LocalClaw.io
+# LocalClaw — The Local Model Index
 
-> LocalClaw helps people choose and run local AI models on their own hardware. The site covers local LLMs, TTS/ASR speech models, RAM guides, Apple Silicon and NVIDIA hardware, and the LocalClaw macOS Control Center for OpenClaw.
+> A maintained, hardware-aware directory for choosing local LLM, TTS and ASR models. Compare independent community stars, LocalClaw scores, minimum RAM, licences and release dates.
+
+- Verified snapshot: 2026-08-14
+- Local LLM pages: 218 unique routes across 76 families
+- Local speech records: 56 across 51 families (47 TTS, 8 ASR, 1 app)
+- Latest catalogue release month: Aug 2026
+- Scope: hosted-only LLMs, Edge TTS and API-only OCTAVE 2 are excluded from the local-only homepage index
+
+## Ranking Rules
+
+- Community ★ is the raw 1–5 average from signed-in LocalClaw members and is always paired with a vote count.
+- Community confidence uses only stars and vote count with a 3.5/5 prior over five votes. EARLY means fewer than five votes.
+- LocalClaw /10 is separate: 38% quality + 24% coding + 24% reasoning + 14% speed.
+- Audio /10 is separate: 68% quality + 32% speed.
+- Community ratings never change or blend into either software score.
+- RAM fit compares a model's catalogue minimum with installed RAM; runtime and context overhead can require more memory.
 
 ## Core Pages
 
-- [Home](https://localclaw.io/) - LocalClaw overview, OpenClaw control center, model finder entry point, and app positioning.
-- [LLM List](https://localclaw.io/llm-list.html) - Interactive catalogue of 214 LLM records with RAM fit, quantization, quality, coding, reasoning, speed, LM Studio links, and local install guidance.
-- [TTS List](https://localclaw.io/tts-list.html) - Interactive catalogue of 58 local TTS, ASR, and speech AI models with quality, speed, languages, hardware, licenses, and install commands.
-- [Computers](https://localclaw.io/computers.html) - Apple Silicon and NVIDIA machines for local AI, with RAM tiers, compatible model picks, and buying links.
-- [RAM/GPU Upgrades](https://localclaw.io/ram-gpu-for-local-ai.html) - Affiliate buyer guide for DDR4, DDR5, SO-DIMM and NVIDIA RTX GPU upgrades for local AI.
-- [Pricing](https://localclaw.io/pricing.html) - LocalClaw macOS beta lifetime access, one-time $49 license, no subscription.
-- [Iron Descent case study](https://localclaw.io/case-study/iron-descent.html) - A real LocalClaw Developer workflow with Kimi K3, visible AI activity, live preview, a playable browser FPS, and public source code.
-- [Blog](https://localclaw.io/blog/) - Editorial guides on local AI, models, hardware, privacy, and OpenClaw workflows.
+- [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
+- [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
+- [Speech catalogue](https://localclaw.io/tts-list) — 56 local records plus two clearly labelled online/API references
+- [Newest local models](https://localclaw.io/new) — current releases and RSS feed
+- [RAM guides](https://localclaw.io/ram/) — recommendations by memory tier
+- [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
+- [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
+- [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) — all 274 local homepage entries
 
-## SEO Silo Pages
+## RAM Decision Paths
 
-- [All model pages](https://localclaw.io/models/) - Static pages for individual LLMs.
-- [All speech model pages](https://localclaw.io/tts/) - Static pages for individual TTS, ASR, and speech models.
-- [Practical local AI guides](https://localclaw.io/guides/) - Short decision paths that connect hardware, RAM, models, TTS workflows, and the next LocalClaw action.
-- [RAM guides](https://localclaw.io/ram/) - Local AI model recommendations by memory tier.
-- [Hardware guides](https://localclaw.io/hardware/) - Local AI model recommendations by machine.
-- [Use-case guides](https://localclaw.io/use-case/) - Model recommendations by workload such as chat, coding, RAG, reasoning, multilingual work, and speed.
+- [8 GB](https://localclaw.io/ram/8gb)
+- [16 GB](https://localclaw.io/ram/16gb)
+- [32 GB](https://localclaw.io/ram/32gb)
+- [64 GB](https://localclaw.io/ram/64gb)
+- [128 GB](https://localclaw.io/ram/128gb)
 
-## Guided Paths
+## Current LocalClaw Score Leaders
 
-- [Best local LLMs for Mac mini M4](https://localclaw.io/guides/best-local-llms-for-mac-mini-m4.html) - Model picks for Apple Silicon desktops with unified memory.
-- [Best local LLMs for 16GB RAM](https://localclaw.io/guides/best-local-llms-for-16gb-ram.html) - Laptop-safe recommendations for local chat, coding and reasoning.
-- [Best local LLMs for coding](https://localclaw.io/guides/best-local-llms-for-coding.html) - Private code assistants and agent-friendly local model choices.
-- [Best local TTS for voice cloning](https://localclaw.io/guides/best-local-tts-for-voice-cloning.html) - Speech model picks for private local voice workflows.
+- [DeepSeek V4 Flash 0731 (284B MoE)](https://localclaw.io/models/deepseek-v4-flash-0731) — LocalClaw 9.3/10; minimum 256 GB RAM; 284B (13B active); released Jul 31, 2026.
+- [Kimi K2.5 (32B/1T MoE)](https://localclaw.io/models/kimi-k2.5-32b) — LocalClaw 9.2/10; minimum 32 GB RAM; 32B active (1T total MoE); released Jan 2026.
+- [Qwen 3 (32B)](https://localclaw.io/models/qwen3-32b) — LocalClaw 9.2/10; minimum 32 GB RAM; 32B; released Apr 2025.
+- [Qwen3-Coder-Next](https://localclaw.io/models/qwen3-coder-next) — LocalClaw 9.1/10; minimum 64 GB RAM; 80B (3B active, MoE); released Feb 2026.
+- [MiniMax M3 (428B/23B active)](https://localclaw.io/models/minimax-m3) — LocalClaw 9.0/10; minimum 2048 GB RAM; 428B (23B active); released Jun 2026.
+- [DeepSeek V3.2 (37B/671B MoE)](https://localclaw.io/models/deepseek-v3.2) — LocalClaw 9.0/10; minimum 48 GB RAM; 37B (671B MoE); released Dec 2025.
+- [Trinity Large Preview (70B MoE)](https://localclaw.io/models/trinity-large) — LocalClaw 9.0/10; minimum 48 GB RAM; 70B (MoE, ~400B total); released Dec 2025.
+- [Kimi K2 Instruct (1T MoE)](https://localclaw.io/models/kimi-k2-instruct) — LocalClaw 9.0/10; minimum 1024 GB RAM; 1T (32B active, 384 experts); released Jul 2025.
 
-## Product Context
+## Current Audio Score Leaders
 
-LocalClaw is a native macOS Control Center for OpenClaw. It focuses on local and sovereign AI workflows: local models, agents, channels, scheduled jobs, Kanban-style task orchestration, and dashboard health checks. The site does not require signup for the model finder, and the macOS app is sold as lifetime beta access for $49.
+- [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — Audio 9.6/10; ASR; CC-BY-4.0.
+- [Kyutai STT 2.6B](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
+- [F5-TTS v1.1](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; MIT.
+- [Kokoro TTS](https://localclaw.io/tts/kokoro) — Audio 9.4/10; TTS; Apache 2.0.
+- [Qwen3-ASR](https://localclaw.io/tts/qwen3-asr) — Audio 9.3/10; ASR; Apache 2.0.
+- [F5-TTS](https://localclaw.io/tts/f5-tts) — Audio 9.3/10; TTS; MIT.
 
-## Recommended Reading
+## Data Notes
 
-- [Colibri: GLM-5.2 on 25GB RAM](https://localclaw.io/blog/colibri-glm-5-2-local-ai) - Storage-streamed MoE inference, measured speed, hardware requirements, Kimi K3 support, and practical limits.
-- [Kimi K3 Open Weights and Hardware Reality](https://localclaw.io/blog/kimi-k3-local-ai) - Official benchmarks, cluster serving requirements, experimental Colibri runtime, and practical local alternatives.
-- [Ollama vs LM Studio in 2026](https://localclaw.io/blog/ollama-vs-lm-studio-2026.html)
-- [Best Local AI Models 2026](https://localclaw.io/blog/best-local-ai-models-2026.html)
-- [NVIDIA RTX Spark and Local AI PCs](https://localclaw.io/blog/nvidia-rtx-spark-local-ai-pc.html)
-- [MisoTTS 8B local TTS guide](https://localclaw.io/blog/misotts-8b-local-tts.html)
-- [Apple Silicon vs NVIDIA for Local AI](https://localclaw.io/blog/apple-silicon-vs-nvidia.html)
-- [OpenClaw Guide](https://localclaw.io/blog/openclaw-guide.html)
+The counts and score leaders in this file are generated from the same repository records as the homepage. Community aggregates are intentionally not frozen here because votes change live; the homepage and each model page show the current average and count independently from LocalClaw scores.

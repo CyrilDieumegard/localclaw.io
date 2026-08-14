@@ -3,7 +3,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const SKIP_DIRECTORIES = new Set(['.git', '_check', 'downloads', 'node_modules']);
+const SKIP_DIRECTORIES = new Set(['.git', '.pages-dist', '_check', 'downloads', 'node_modules']);
 
 function splitSuffix(value) {
   const match = String(value).match(/^([^?#]*)([?#].*)?$/);

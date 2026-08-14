@@ -32,6 +32,12 @@ const esc = (s = '') => String(s).replace(/[&<>'"]/g, c => ({
 const slug = s => String(s).toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
 const fmt = n => n ? Number(n).toLocaleString('en-US') : 'Unknown';
 const pct = n => Math.max(0, Math.min(100, (Number(n) || 0) * 10));
+const metaDescription = (value, max = 158) => {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (text.length <= max) return text;
+  const clipped = text.slice(0, max - 1).replace(/\s+\S*$/, '').replace(/[,:;\s]+$/, '');
+  return `${clipped}.`;
+};
 
 const tracking = `
   <!-- TRACKING: DataFast Analytics -->
@@ -67,37 +73,24 @@ function familyColor(m) {
   return familyColors[m.family] || '#ff453a';
 }
 
-function averageBenchmark(m) {
-  const b = m.benchmarks || {};
-  const values = ['speed', 'quality', 'coding', 'reasoning'].map(k => Number(b[k]) || 0).filter(Boolean);
-  return values.length ? values.reduce((a, n) => a + n, 0) / values.length : 0;
-}
-
-function localFitScore(m) {
+function localClawCatalogueScore(m) {
   if (m.hosted_only) return null;
-  const base = averageBenchmark(m);
-  const ramPenalty = m.min_ram > 256 ? 2.3 : m.min_ram > 128 ? 1.8 : m.min_ram > 64 ? 1.1 : m.min_ram > 32 ? 0.6 : m.min_ram > 16 ? 0.25 : 0;
-  return Math.max(3.2, Math.min(9.8, base - ramPenalty)).toFixed(1);
+  const b = m.benchmarks || {};
+  const score = (Number(b.quality) || 0) * 0.38
+    + (Number(b.coding) || 0) * 0.24
+    + (Number(b.reasoning) || 0) * 0.24
+    + (Number(b.speed) || 0) * 0.14;
+  return Math.max(0, Math.min(10, score)).toFixed(1);
 }
 
 function hardwareTier(m) {
   if (m.hosted_only) return 'API only';
-  if (m.min_ram <= 8) return 'Laptop ready';
-  if (m.min_ram <= 16) return '16 GB sweet spot';
-  if (m.min_ram <= 32) return '32 GB power user';
-  if (m.min_ram <= 64) return '64 GB workstation';
-  if (m.min_ram <= 128) return 'Large-memory workstation';
-  return 'Server-grade';
+  return `${m.min_ram} GB catalogue minimum`;
 }
 
 function hardwareSentence(m) {
   if (m.hosted_only) return `${esc(m.name)} is listed for comparison, but it is a hosted/API model rather than a downloadable local release.`;
-  if (m.min_ram <= 8) return `${esc(m.name)} is a good fit for normal laptops and compact desktops with 8 GB RAM or more.`;
-  if (m.min_ram <= 16) return `${esc(m.name)} is a practical pick for 16 GB machines, especially with ${esc(m.recommended_quant)} quantization.`;
-  if (m.min_ram <= 32) return `${esc(m.name)} belongs on 32 GB machines when you want stronger quality without jumping to server hardware.`;
-  if (m.min_ram <= 64) return `${esc(m.name)} is best for 64 GB workstations and larger Apple Silicon or NVIDIA setups.`;
-  if (m.min_ram <= 128) return `${esc(m.name)} needs a serious workstation with large unified memory or high VRAM.`;
-  return `${esc(m.name)} is server-grade locally. Keep it for comparison unless you have very large unified memory, multiple GPUs or remote inference.`;
+  return `${esc(m.name)} has a catalogue minimum of ${esc(m.min_ram)} GB RAM with ${esc(m.recommended_quant)}. Actual memory use and speed vary by context length, runtime, backend and system headroom.`;
 }
 
 function ramGuide(m) {
@@ -160,8 +153,6 @@ function hardwareMatches(m) {
 }
 
 function primaryUse(m, d) {
-  const uses = d.use_cases || [];
-  if (uses.length) return uses[0];
   const tags = m.tags || [];
   if (tags.includes('code')) return 'Coding assistant';
   if (tags.includes('reasoning')) return 'Reasoning';
@@ -188,17 +179,24 @@ function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
   if (isServerServingModel(m)) return `Use <code>${esc(m.search_term)}</code> with a server runtime such as vLLM, SGLang or Transformers. This is not a one-click GGUF/LM Studio listing.`;
   if (requiresCustomRuntime(m)) return `Use the official <a href="${esc(m.runtime_url)}" target="_blank" rel="noopener">${esc(m.custom_runtime)}</a> setup. The current low-bit files are not a stock LM Studio install.`;
-  return `Search for <code>${esc(m.search_term)}</code> in LM Studio or another GGUF-compatible runtime.`;
+  return `Use <code>${esc(m.search_term)}</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.`;
 }
 
-function similarLinks(ids, allModels) {
-  return (ids || []).map(id => {
-    const model = allModels.find(m => m.id === id);
-    if (!model) return '';
-    const name = model ? model.name : id;
-    const params = model ? ` <span>${esc(model.params)}</span>` : '';
-    return `<a href="/models/${esc(id)}.html">${esc(name)}${params}</a>`;
-  }).filter(Boolean).slice(0, 8).join('');
+function similarLinks(current, allModels) {
+  const currentTags = new Set(current.tags || []);
+  return allModels
+    .filter(model => model.id !== current.id && !model.hosted_only)
+    .map(model => ({
+      model,
+      score: (model.family === current.family ? 100 : 0)
+        + (model.tags || []).filter(tag => currentTags.has(tag)).length * 5
+        - Math.abs((Number(model.min_ram) || 0) - (Number(current.min_ram) || 0)) / 8
+    }))
+    .filter(entry => entry.score > 0)
+    .sort((left, right) => right.score - left.score || String(left.model.name).localeCompare(String(right.model.name)))
+    .slice(0, 8)
+    .map(({ model }) => `<a href="/models/${esc(model.id)}.html">${esc(model.name)} <span>${esc(model.params)}</span></a>`)
+    .join('');
 }
 
 function list(items, fallback) {
@@ -222,26 +220,47 @@ function modelPage(m, d, allModels) {
     : isServerServingModel(m)
       ? `${m.name} server-grade local AI | LocalClaw`
     : localTitle.length > 60 ? compactLocalTitle : localTitle;
-  const desc = m.hosted_only
-    ? `${m.name}: hosted/API LLM. Specs, benchmarks, use cases and current availability notes for local AI comparison.`.slice(0, 158)
+  const desc = metaDescription(m.hosted_only
+    ? `${m.name}: hosted/API LLM. Specs, catalogue capability ratings, use cases and current availability notes for local AI comparison.`
     : isServerServingModel(m)
-      ? `${m.name}: ${m.params} server-grade open model guide with RAM requirements, runtime notes, benchmarks and local serving caveats.`.slice(0, 158)
+      ? `${m.name}: ${m.params} server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.`
       : requiresCustomRuntime(m)
-        ? `${m.name}: ${m.params} local AI guide with RAM requirements, ${m.recommended_quant}, benchmarks and its required ${m.custom_runtime} runtime.`.slice(0, 158)
-    : `${m.name}: ${m.params} local AI model guide with RAM requirements, ${m.recommended_quant} quantization, benchmarks, use cases and LM Studio setup.`.slice(0, 158);
+        ? `${m.name}: ${m.params} local AI guide with RAM requirements, ${m.recommended_quant}, catalogue ratings and its required ${m.custom_runtime} runtime.`
+    : `${m.name}: ${m.params} local AI model guide with RAM requirements, ${m.recommended_quant} quantization, catalogue ratings, use cases and LM Studio setup.`);
   const color = familyColor(m);
-  const score = localFitScore(m);
-  const strengths = list(d.strengths, esc(m.description));
-  const weaknesses = list(d.weaknesses, 'Performance depends on quantization, RAM bandwidth and runtime support.');
-  const uses = list(d.use_cases || m.tags, 'General local AI assistant.');
-  const similar = similarLinks(d.similar_models, allModels);
+  const score = localClawCatalogueScore(m);
+  const catalogueFacts = list([
+    `Family: ${m.family || 'Unknown'}`,
+    `Parameters: ${m.params || 'Unknown'}`,
+    `Recommended quantization: ${m.recommended_quant || 'See upstream'}`,
+    `Catalogue minimum RAM: ${m.hosted_only ? 'API only' : `${m.min_ram} GB`}`,
+    `Catalogue model size: ${m.hosted_only ? 'Hosted' : `${m.size_gb} GB`}`,
+    `Tags: ${(m.tags || []).join(', ') || 'None listed'}`
+  ], 'See the upstream repository for model details.');
+  const limitations = list([
+    'Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.',
+    'Speed and memory use vary by quantization, backend, context length and system headroom.',
+    'Verify architecture, licence and usage restrictions in the linked upstream material before deployment.'
+  ], 'Verify the upstream model card before use.');
+  const similar = similarLinks(m, allModels);
   const tags = tagsMarkup(m);
   const ramLabel = m.hosted_only ? 'API only' : `${esc(m.min_ram)} GB`;
   const sizeLabel = m.hosted_only ? 'Hosted' : `${esc(m.size_gb)} GB`;
   const sourceLine = m.source_url
     ? `<a href="${esc(m.source_url)}" target="_blank" rel="noopener">Model source</a>`
     : '';
-  const hfLine = m.hf_repo ? `<code>${esc(m.hf_repo)}</code>` : '';
+  const hfLine = m.hf_repo
+    ? `<a href="https://huggingface.co/${esc(m.hf_repo)}" target="_blank" rel="noopener">Hugging Face repository: ${esc(m.hf_repo)}</a>`
+    : '';
+  const detailSourceLine = [
+    ['Upstream release', d.official_blog],
+    ['Paper or model card', d.paper_url],
+    ['Licence text', d.license_url]
+  ].filter(([, href]) => href).map(([label, href]) => `<a href="${esc(href)}" target="_blank" rel="noopener">${label}</a>`).join('');
+  const hasModelDetailSource = Boolean(m.source_url || d.official_blog || d.paper_url);
+  const verifiedDeveloper = hasModelDetailSource ? d.developer : '';
+  const verifiedLicense = d.license_url ? d.license : '';
+  const verifiedTechnicalDetails = Boolean(d.official_blog || d.paper_url);
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -254,8 +273,8 @@ function modelPage(m, d, allModels) {
         description: desc,
         softwareVersion: m.released || undefined,
         memoryRequirements: m.hosted_only ? 'Hosted API only' : `${m.min_ram} GB RAM minimum`,
-        license: d.license_url || d.license || undefined,
-        creator: d.developer ? {'@type': 'Organization', name: d.developer, url: d.developer_url} : undefined
+        license: d.license_url || undefined,
+        creator: verifiedDeveloper ? {'@type': 'Organization', name: verifiedDeveloper, url: d.developer_url} : undefined
       },
       {
         '@type': 'FAQPage',
@@ -268,7 +287,7 @@ function modelPage(m, d, allModels) {
           {
             '@type': 'Question',
             name: `What is ${m.name} best for?`,
-            acceptedAnswer: {'@type': 'Answer', text: `${m.name} is best used for ${primaryUse(m, d)}.`}
+            acceptedAnswer: {'@type': 'Answer', text: `${m.name} is tagged in the LocalClaw catalogue for ${primaryUse(m, d)}. Verify task performance on your own workload.`}
           }
         ]
       },
@@ -319,7 +338,8 @@ function modelPage(m, d, allModels) {
       <section class="hero-copy">
         <div class="eyebrow">${esc(modelType(m))}</div>
         <h1 class="title">${esc(m.name).replace(/\s*\(([^)]+)\)$/, ' <span>($1)</span>')}</h1>
-        <p class="desc">${esc(m.description)}</p>
+        <p class="desc"><strong>Catalogue summary:</strong> ${esc(m.description)}</p>
+        <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
         <div class="chips">
           <span class="chip hot">${esc(hardwareTier(m))}</span>
           <span class="chip">${ramLabel} RAM</span>
@@ -334,9 +354,9 @@ function modelPage(m, d, allModels) {
       <aside class="hero-panel">
         <div class="score-card">
           <div>
-            <div class="score-label">${m.hosted_only ? 'Local status' : 'Local fit score'}</div>
+            <div class="score-label">${m.hosted_only ? 'Local status' : 'LocalClaw catalogue score'}</div>
             <div class="score">${m.hosted_only ? 'API' : `${score}<small>/10</small>`}</div>
-            <p class="score-caption">${hardwareSentence(m)}</p>
+            <p class="score-caption">${m.hosted_only ? hardwareSentence(m) : 'Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.'}</p>
           </div>
         </div>
         <div data-community-rating data-model-id="${esc(m.id)}" data-rating-mode="full"></div>
@@ -357,7 +377,7 @@ function modelPage(m, d, allModels) {
       <h2>Can ${esc(m.name)} run locally?</h2>
       <p>${hardwareSentence(m)}</p>
       <p>${lmStudioLine(m)}</p>
-      <div class="source-links">${sourceLine}${hfLine}</div>
+      <div class="source-links">${sourceLine}${hfLine}${detailSourceLine}</div>
       <div style="margin-top:16px">${tags}</div>
     </section>
     <section class="section">
@@ -369,13 +389,14 @@ function modelPage(m, d, allModels) {
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Strengths</h2><ul class="list">${strengths}</ul></div>
-      <div><h2>Limitations</h2><ul class="list">${weaknesses}</ul></div>
+      <div><h2>Catalogue record</h2><ul class="list">${catalogueFacts}</ul></div>
+      <div><h2>Practical limits</h2><ul class="list">${limitations}</ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Best use cases</h2><ul class="list">${uses}</ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list">${list(m.tags, 'No task tags are listed; check the upstream model card.')}</ul></div>
       <div>
         <h2>Capability profile</h2>
+        <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
           ${['speed', 'quality', 'coding', 'reasoning'].map(k => `<div class="bar-row"><span>${k}</span><div class="track"><div class="fill" style="width:${pct(m.benchmarks?.[k])}%"></div></div><strong>${m.benchmarks?.[k] || '?'}</strong></div>`).join('')}
         </div>
@@ -384,10 +405,10 @@ function modelPage(m, d, allModels) {
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">${esc(d.developer || m.family || 'Unknown')}</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">${esc(d.license || 'See model repository')}</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">${fmt(d.context_window)} tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">${esc(d.architecture || 'See model card')}</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">${esc(verifiedDeveloper || 'See upstream repository')}</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">${esc(verifiedLicense || 'See upstream repository')}</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">${verifiedTechnicalDetails && d.context_window ? `${fmt(d.context_window)} tokens` : 'See upstream repository'}</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">${esc(verifiedTechnicalDetails && d.architecture ? d.architecture : 'See upstream repository')}</div></div>
       </div>
     </section>
     <section class="section">
@@ -397,7 +418,7 @@ function modelPage(m, d, allModels) {
         ${hardwareMatches(m).map(([label, href, note]) => `<a href="${esc(href)}"><small>${esc(note)}</small>${esc(label)}</a>`).join('')}
       </div>
     </section>
-${similar ? `    <section class="section"><h2>Similar models to compare</h2><div class="similar">${similar}</div></section>` : ''}
+${similar ? `    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar">${similar}</div></section>` : ''}
     <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
@@ -418,7 +439,7 @@ ${similar ? `    <section class="section"><h2>Similar models to compare</h2><div
 
 const APP_DATA = loadAppData();
 const MODEL_DETAILS = loadModelDetails();
-const uniqueModels = APP_DATA.models.filter((m, i, arr) => arr.findIndex(x => x.id === m.id) === i);
+const uniqueModels = Array.from(new Map(APP_DATA.models.map(model => [model.id, model])).values());
 const outDir = path.join(ROOT, 'models');
 
 fs.rmSync(outDir, {recursive: true, force: true});

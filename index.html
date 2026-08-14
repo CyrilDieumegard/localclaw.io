@@ -7,13 +7,14 @@
     <!-- ============================================================
          PRIMARY SEO META TAGS
          ============================================================ -->
-    <title>The Local Model Index — Local LLMs &amp; TTS | LocalClaw</title>
-    <meta name="description" content="Explore LocalClaw's dynamic index of local LLM and speech model records. Compare real catalogue data by family, parameters, RAM, licence and release date.">
-    <meta name="keywords" content="local LLM, LM Studio, AI model recommendation, run AI locally, Llama 4, Llama 3.3, Qwen 3.5, Qwen 3 VL, Gemma 4 12B, Gemma 4, GLM 4.6, Granite 3.3, Hermes 4, Command A, DeepSeek R1, Phi-4, open source AI, GGUF, quantization, privacy AI, local AI configurator, local TTS, Whisper Turbo, Kokoro, Higgs Audio, Zonos, best local LLM 2026">
+    <title>The Local Model Index — Local LLM &amp; TTS Scores | LocalClaw</title>
+    <meta name="description" content="Compare 218 local LLM pages and 56 local speech records by community stars, LocalClaw score, RAM, licence and release date.">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://localclaw.io/">
     <link rel="alternate" type="application/rss+xml" title="LocalClaw New Local AI Models" href="https://localclaw.io/new-models.xml">
+    <link rel="alternate" type="text/plain" title="LocalClaw AI-readable summary" href="https://localclaw.io/llms.txt">
+    <link rel="alternate" type="text/plain" title="LocalClaw full model index" href="https://localclaw.io/llms-full.txt">
 
     <!-- ============================================================
          OPEN GRAPH (Facebook, LinkedIn, Discord, etc.)
@@ -21,22 +22,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/">
     <meta property="og:title" content="The Local Model Index — LocalClaw">
-    <meta property="og:description" content="A dynamic, hardware-aware directory of local LLM and speech model records.">
+    <meta property="og:description" content="Compare local LLM and speech models by independent community stars, LocalClaw score, RAM, licence and release date.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="LocalClaw — Run AI On Your Terms. Find the perfect open-source AI model for your hardware.">
+    <meta property="og:image:alt" content="LocalClaw — The Local Model Index for local LLM and speech models">
 
     <!-- ============================================================
          TWITTER CARD
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="The Local Model Index — LocalClaw">
-    <meta name="twitter:description" content="Compare local LLM and speech model records by family, RAM, licence and release date.">
+    <meta name="twitter:description" content="A hardware-aware index of local LLM and speech models with independent scores, community votes and RAM fit.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
-    <meta name="twitter:image:alt" content="LocalClaw — AI Model Configurator">
+    <meta name="twitter:image:alt" content="LocalClaw — The Local Model Index">
 
     <!-- ============================================================
          SECURITY HEADERS (via meta http-equiv)
@@ -71,76 +72,21 @@
          ============================================================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://lmstudio.ai">
 
     <!-- LCP OPTIMIZATION — preload above-the-fold logo (quick win, bounce rate ↓) -->
-    <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/localclaw-mascot-hero.webp?v=20260601" fetchpriority="high">
 
     <!-- ============================================================
          FONTS (with display=swap for performance)
          ============================================================ -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- ============================================================
-         TAILWIND CSS
-         ============================================================ -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            safelist: [
-                'bg-red-500', 'text-red-500',
-                'bg-orange-500', 'text-orange-500',
-                'bg-emerald-500', 'text-emerald-500',
-                'bg-blue-500', 'bg-purple-500', 'bg-yellow-500',
-                'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-5',
-                'border-claw-primary', 'border-claw-border',
-                'ring-1', 'ring-claw-primary',
-                'from-claw-primary', 'to-orange-600',
-                'text-claw-primary',
-                'group-hover:text-claw-primary', 'group-hover:text-orange-500', 'group-hover:text-emerald-500',
-                // Light mode classes
-                'bg-gray-50', 'bg-white', 'text-gray-900', 'text-gray-600',
-                'border-gray-200', 'hover:bg-gray-100',
-            ],
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        claw: {
-                            // Dark mode (default)
-                            bg: '#050505',
-                            surface: '#09090b',
-                            border: '#27272a',
-                            primary: '#ff453a',
-                            accent: '#ff6d64',
-                            text: '#f4f4f5',
-                            muted: '#a1a1aa',
-                            // Light mode variants
-                            'bg-light': '#faf9f6',
-                            'surface-light': '#ffffff',
-                            'border-light': '#e2e8f0',
-                            'text-light': '#1e293b',
-                            'muted-light': '#64748b'
-                        }
-                    },
-                    backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, #18181b 1px, transparent 1px), linear-gradient(to bottom, #18181b 1px, transparent 1px)",
-                        'grid-pattern-light': "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="css/home-tailwind-20260814a.css?v=20260814a">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css?v=20260719a">
-    <link rel="stylesheet" href="css/home-index-20260814f.css?v=20260814f">
+    <link rel="stylesheet" href="css/home-index-20260814g.css?v=20260814g">
     <script src="js/video-player.js?v=20260719b" defer></script>
     
     <!-- Theme Toggle Script -->
@@ -332,35 +278,15 @@
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
   </div>
 </nav>
-
-    <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="hidden sm:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm" onclick="this.classList.add('hidden')">
-        <div class="bg-claw-surface border-b border-claw-border shadow-2xl" onclick="event.stopPropagation()">
-            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-                <a href="/" class="px-4 py-3 rounded-lg text-sm font-medium text-white hover:bg-white/5 transition-colors">Home</a>
-                <a href="/llm-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">LLM</a>
-                <a href="/tts-list" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">TTS</a>
-                <a href="/new" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">New</a>
-                <a href="/computers" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Computers</a>
-                <a href="/ram-gpu-for-local-ai" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">RAM/GPU</a>
-                <a href="blog/" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Blog</a>
-                <a href="/software" class="px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors">Software</a>
-                <a href="/account" class="px-4 py-3 rounded-lg text-sm font-medium text-white border border-white/10 hover:border-claw-primary/40 hover:text-claw-primary transition-colors">Account</a>
-                <div class="border-t border-claw-border mt-2 pt-2">
-                    <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="w-full px-4 py-3 rounded-lg text-sm font-medium text-claw-muted hover:bg-white/5 hover:text-white transition-colors text-center">✕ Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- ============================================================
          MAIN CONTENT
@@ -370,255 +296,254 @@
         <!-- ========================================================
              SEO: STATIC CRAWLABLE CONTENT
              ======================================================== -->
-        <div id="seo-fallback" class="w-full max-w-6xl mx-auto">
+        <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="2026-08-14">
+          <header class="lc-index-fallback__hero">
+            <p class="lc-index-kicker">// LocalClaw · local models only</p>
+            <h1>The Local <span>Model Index</span></h1>
+            <p>A hardware-aware directory for comparing local LLM and speech models by independent community stars, LocalClaw score, minimum RAM, family, licence and release date.</p>
+            <div class="lc-index-fallback__stats" aria-label="Current LocalClaw index statistics">
+              <span><strong>218</strong> local LLM pages</span>
+              <span><strong>76</strong> LLM families</span>
+              <span><strong>56</strong> local speech records</span>
+              <span><strong>Aug 2026</strong> latest release month</span>
+            </div>
+            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#llm-snapshot">LLM snapshot</a><a href="#speech-snapshot">Speech snapshot</a><a href="#index-methodology">Methodology</a><a href="/new">Newest models</a></nav>
+          </header>
 
-            <!-- Primary H1 -->
-            <header class="py-10 sm:py-16 lg:py-20 border-b border-white/20 mb-12">
-                <div class="grid items-center gap-10 lg:grid-cols-[1.04fr_0.96fr]">
-                    <div class="text-center lg:text-left">
-                        <div class="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">222 LLM records</span>
-                            <span class="rounded-full border border-purple-400/25 bg-purple-400/[0.06] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">58 speech models</span>
-                            <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">hardware-aware</span>
-                        </div>
-                        <h1 class="text-[clamp(2.7rem,7vw,5.15rem)] font-display font-bold leading-[0.93] tracking-tight text-white uppercase">
-                            Find the right local AI for <span class="text-claw-primary">your machine</span>
-                        </h1>
-                        <p class="mt-6 max-w-2xl text-base sm:text-lg text-claw-muted font-mono leading-relaxed lg:mx-0 mx-auto">
-                            Compare local LLMs and speech models by RAM, VRAM, speed, use case, quantization and a real install path.
-                        </p>
-                        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 lg:justify-start">
-                            <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-sm transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Add My Machine</a>
-                            <a href="/llm-list" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_hero" class="w-full sm:w-auto border border-white/15 px-8 py-4 text-center text-sm font-mono font-bold uppercase tracking-tight text-white transition-colors hover:border-white hover:bg-white hover:text-black">Browse Local Models</a>
-                        </div>
-                        <button type="button" onclick="if(typeof App !== 'undefined') App.startFlow('guided', 'home_hero');" class="mt-5 text-xs font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Quick match without an account →</button>
-                    </div>
-                    <div class="relative mx-auto w-full max-w-xl pt-56 sm:pt-80">
-                        <div class="absolute left-1/2 top-6 h-40 w-3/4 -translate-x-1/2 rounded-full bg-claw-primary/20 blur-3xl" aria-hidden="true"></div>
-                        <img src="images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="LocalClaw mascot, orange robot crab" class="pointer-events-none absolute left-1/2 top-0 z-10 h-auto w-[76%] -translate-x-1/2 object-contain drop-shadow-[0_18px_34px_rgba(234,88,12,0.42)] sm:w-[72%]" loading="eager" decoding="async" fetchpriority="high">
-                        <div class="relative z-20 overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0c] shadow-[0_28px_90px_rgba(0,0,0,0.58),0_0_55px_rgba(255,69,58,0.10)]">
-                            <div class="flex items-center justify-between border-b border-white/10 bg-[#121214] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em]"><span class="text-claw-muted">Example hardware profile</span><span class="text-[#22c55e]">● fit ready</span></div>
-                            <div class="p-5 sm:p-6">
-                                <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Primary machine</p>
-                                <h2 class="mt-2 text-2xl font-display font-bold text-white">Mac mini M4</h2>
-                                <p class="mt-1 border-b border-white/10 pb-5 text-sm font-mono text-claw-muted">16 GB unified memory · macOS · coding</p>
-                                <p class="mt-5 text-xs font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">Top compatible picks</p>
-                                <div class="mt-3 space-y-2">
-                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-claw-primary/25 bg-claw-primary/[0.07] p-3"><div><strong class="block text-sm text-white">Qwen 3.5 9B</strong><span class="text-[11px] font-mono text-claw-muted">Q5_K_M · balanced fit</span></div><span class="text-xs font-mono font-bold text-[#22c55e]">READY</span></div>
-                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-white/10 bg-white/[0.025] p-3"><div><strong class="block text-sm text-white">Gemma 4 12B</strong><span class="text-[11px] font-mono text-claw-muted">Q4_K_M · multimodal</span></div><span class="text-xs font-mono font-bold text-white">FITS</span></div>
-                                    <div class="grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg border border-white/10 bg-white/[0.025] p-3"><div><strong class="block text-sm text-white">Qwen 3.5 4B</strong><span class="text-[11px] font-mono text-claw-muted">Q6_K · extra headroom</span></div><span class="text-xs font-mono font-bold text-white">FAST</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <section id="llm-snapshot" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
+            <div><span class="lc-index-eyebrow">Crawlable snapshot</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>The first 16 current local records ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal.</p></div>
+            <div class="lc-index-fallback__table-wrap"><table><thead><tr><th>Rank</th><th>Model / family</th><th>LocalClaw</th><th>Parameters</th><th>Min RAM</th><th>Licence</th><th>Released</th></tr></thead><tbody>
+<tr>
+                <td>01</td>
+                <td><a href="/models/deepseek-v4-flash-0731"><strong>DeepSeek V4 Flash 0731 (284B MoE)</strong><span>deepseek-flash</span></a></td>
+                <td>9.3/10</td>
+                <td>284B (13B active)</td>
+                <td>256 GB</td>
+                <td>MIT</td>
+                <td>Jul 31, 2026</td>
+              </tr>
+<tr>
+                <td>02</td>
+                <td><a href="/models/kimi-k2.5-32b"><strong>Kimi K2.5 (32B/1T MoE)</strong><span>kimi</span></a></td>
+                <td>9.2/10</td>
+                <td>32B active (1T total MoE)</td>
+                <td>32 GB</td>
+                <td>Model License</td>
+                <td>Jan 2026</td>
+              </tr>
+<tr>
+                <td>03</td>
+                <td><a href="/models/qwen3-32b"><strong>Qwen 3 (32B)</strong><span>qwen</span></a></td>
+                <td>9.2/10</td>
+                <td>32B</td>
+                <td>32 GB</td>
+                <td>Apache 2.0</td>
+                <td>Apr 2025</td>
+              </tr>
+<tr>
+                <td>04</td>
+                <td><a href="/models/qwen3-coder-next"><strong>Qwen3-Coder-Next</strong><span>qwen-coder</span></a></td>
+                <td>9.1/10</td>
+                <td>80B (3B active, MoE)</td>
+                <td>64 GB</td>
+                <td>Apache 2.0</td>
+                <td>Feb 2026</td>
+              </tr>
+<tr>
+                <td>05</td>
+                <td><a href="/models/minimax-m3"><strong>MiniMax M3 (428B/23B active)</strong><span>minimax</span></a></td>
+                <td>9.0/10</td>
+                <td>428B (23B active)</td>
+                <td>2048 GB</td>
+                <td>MiniMax Community License</td>
+                <td>Jun 2026</td>
+              </tr>
+<tr>
+                <td>06</td>
+                <td><a href="/models/deepseek-v3.2"><strong>DeepSeek V3.2 (37B/671B MoE)</strong><span>deepseek-v3</span></a></td>
+                <td>9.0/10</td>
+                <td>37B (671B MoE)</td>
+                <td>48 GB</td>
+                <td>MIT</td>
+                <td>Dec 2025</td>
+              </tr>
+<tr>
+                <td>07</td>
+                <td><a href="/models/trinity-large"><strong>Trinity Large Preview (70B MoE)</strong><span>trinity</span></a></td>
+                <td>9.0/10</td>
+                <td>70B (MoE, ~400B total)</td>
+                <td>48 GB</td>
+                <td>Apache 2.0</td>
+                <td>Dec 2025</td>
+              </tr>
+<tr>
+                <td>08</td>
+                <td><a href="/models/kimi-k2-instruct"><strong>Kimi K2 Instruct (1T MoE)</strong><span>kimi</span></a></td>
+                <td>9.0/10</td>
+                <td>1T (32B active, 384 experts)</td>
+                <td>1024 GB</td>
+                <td>See upstream model page</td>
+                <td>Jul 2025</td>
+              </tr>
+<tr>
+                <td>09</td>
+                <td><a href="/models/qwen3-235b-a22b"><strong>Qwen 3 MoE (235B/22B active)</strong><span>qwen-moe</span></a></td>
+                <td>9.0/10</td>
+                <td>235B (22B active)</td>
+                <td>96 GB</td>
+                <td>Apache 2.0</td>
+                <td>Apr 2025</td>
+              </tr>
+<tr>
+                <td>10</td>
+                <td><a href="/models/qwen3.6-35b-a3b"><strong>Qwen 3.6 35B-A3B</strong><span>qwen</span></a></td>
+                <td>9.0/10</td>
+                <td>35B (3B active, MoE)</td>
+                <td>32 GB</td>
+                <td>Apache 2.0</td>
+                <td>Apr 2026</td>
+              </tr>
+<tr>
+                <td>11</td>
+                <td><a href="/models/qwen3.5-122b-a10b"><strong>Qwen 3.5 MoE (122B/10B active)</strong><span>qwen</span></a></td>
+                <td>8.9/10</td>
+                <td>122B (10B active)</td>
+                <td>80 GB</td>
+                <td>Apache 2.0</td>
+                <td>Aug 2025</td>
+              </tr>
+<tr>
+                <td>12</td>
+                <td><a href="/models/glm-5.2"><strong>GLM-5.2 (744B MoE)</strong><span>glm</span></a></td>
+                <td>8.9/10</td>
+                <td>744B (40B active)</td>
+                <td>256 GB</td>
+                <td>MIT</td>
+                <td>Jun 2026</td>
+              </tr>
+<tr>
+                <td>13</td>
+                <td><a href="/models/kimi-k2.7-code"><strong>Kimi K2.7 Code (1T MoE)</strong><span>kimi</span></a></td>
+                <td>8.9/10</td>
+                <td>1T (32B active)</td>
+                <td>1024 GB</td>
+                <td>Modified MIT</td>
+                <td>Jun 2026</td>
+              </tr>
+<tr>
+                <td>14</td>
+                <td><a href="/models/deepseek-v4-pro"><strong>DeepSeek V4 Pro (1.6T MoE)</strong><span>deepseek</span></a></td>
+                <td>8.9/10</td>
+                <td>1.6T (49B active)</td>
+                <td>1024 GB</td>
+                <td>See upstream model page</td>
+                <td>May 2026</td>
+              </tr>
+<tr>
+                <td>15</td>
+                <td><a href="/models/glm-5.1"><strong>GLM-5.1</strong><span>glm</span></a></td>
+                <td>8.9/10</td>
+                <td>754B MoE</td>
+                <td>640 GB</td>
+                <td>See upstream model page</td>
+                <td>May 2026</td>
+              </tr>
+<tr>
+                <td>16</td>
+                <td><a href="/models/kimi-k2-thinking"><strong>Kimi K2 Thinking (1T MoE)</strong><span>kimi</span></a></td>
+                <td>8.9/10</td>
+                <td>1T (32B active, 384 experts)</td>
+                <td>1024 GB</td>
+                <td>See upstream model page</td>
+                <td>Nov 2025</td>
+              </tr>
+            </tbody></table></div>
+            <a class="lc-index-more" href="/llm-list">Browse all LLM catalogue records →</a>
+          </section>
 
-</header>
+          <section id="speech-snapshot" class="lc-index-fallback__section" aria-labelledby="speech-snapshot-title">
+            <div><span class="lc-index-eyebrow">Crawlable snapshot</span><h2 id="speech-snapshot-title">Local speech score leaders</h2><p>The first 10 records ordered by the homepage Audio score: 68% quality and 32% speed. Community stars remain independent.</p></div>
+            <ol class="lc-index-fallback__speech">
+<li><span>01</span><a href="/tts/parakeet-tdt-0.6b-v2"><strong>Parakeet TDT 0.6B v2</strong><small>ASR · Audio 9.6/10 · CC-BY-4.0</small></a></li>
+<li><span>02</span><a href="/tts/kyutai-stt-2.6b"><strong>Kyutai STT 2.6B</strong><small>ASR · Audio 9.4/10 · CC-BY-4.0</small></a></li>
+<li><span>03</span><a href="/tts/f5-tts-v1.1"><strong>F5-TTS v1.1</strong><small>TTS · Audio 9.4/10 · MIT</small></a></li>
+<li><span>04</span><a href="/tts/kokoro"><strong>Kokoro TTS</strong><small>TTS · Audio 9.4/10 · Apache 2.0</small></a></li>
+<li><span>05</span><a href="/tts/qwen3-asr"><strong>Qwen3-ASR</strong><small>ASR · Audio 9.3/10 · Apache 2.0</small></a></li>
+<li><span>06</span><a href="/tts/f5-tts"><strong>F5-TTS</strong><small>TTS · Audio 9.3/10 · MIT</small></a></li>
+<li><span>07</span><a href="/tts/maskgct"><strong>MaskGCT</strong><small>TTS · Audio 9.3/10 · MIT</small></a></li>
+<li><span>08</span><a href="/tts/whisper-v3-turbo"><strong>Whisper v3 Turbo</strong><small>ASR · Audio 9.2/10 · MIT</small></a></li>
+<li><span>09</span><a href="/tts/canary-1b-v2"><strong>Canary 1B v2</strong><small>ASR · Audio 9.2/10 · CC-BY-4.0</small></a></li>
+<li><span>10</span><a href="/tts/qwen3-tts"><strong>Qwen3 TTS</strong><small>TTS · Audio 9.2/10 · Apache 2.0</small></a></li>
+            </ol>
+            <a class="lc-index-more" href="/tts-list">Browse the complete speech catalogue →</a>
+          </section>
 
-            <!-- Real product proof -->
-
-<section aria-labelledby="workspace-value-title" class="mb-20">
-                <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                    <div>
-                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// YOUR HARDWARE WORKSPACE</p>
-                        <h2 id="workspace-value-title" class="max-w-3xl text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Stop rebuilding the same shortlist for every computer</h2>
-                        <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">Save your Macs, PCs and NVIDIA workstations once. LocalClaw gives each machine its own compatible models, saved picks and test history.</p>
-                    </div>
-                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">Open Account →</a>
-                </div>
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-4 text-lg font-display font-bold text-white">Hardware profiles</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Keep RAM, VRAM, OS, accelerator and workload together.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">02</span><h3 class="mt-4 text-lg font-display font-bold text-white">Compatible models</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">See what fits each machine and which quantization leaves headroom.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">03</span><h3 class="mt-4 text-lg font-display font-bold text-white">Saved picks and tests</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Shortlist models, record measured speed and keep private notes.</p></article>
-                    <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">04</span><h3 class="mt-4 text-lg font-display font-bold text-white">Community signal</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Use LLM and speech ratings as context beside hardware fit.</p></article>
-                </div>
-            </section>
-
-            <!-- Local Fit Engine -->
-            <section id="model-finder" aria-label="LocalClaw local fit ranking engine" class="mb-20">
-                <div class="rounded-2xl border border-white/10 bg-[radial-gradient(ellipse_at_top,rgba(255,69,58,0.10),transparent_45%),rgba(255,255,255,0.025)] p-6 sm:p-8">
-                    <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                        <div>
-                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// LOCAL FIT ENGINE</p>
-                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
-                            <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
-                        </div>
-                        <a href="#model-finder" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); if(typeof App !== 'undefined') App.startFlow('guided', 'home_fit_engine');" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
-                    </div>
-                    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
-                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">01</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
-                            <h3 class="mb-2 text-base font-display font-bold text-white">Hardware fit first</h3>
-                            <p class="text-xs leading-relaxed text-claw-muted">RAM, VRAM, OS and model size decide whether a model feels instant or painful.</p>
-                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Apple M4 · 16 GB → laptop-safe picks</p>
-                        </article>
-                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
-                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">02</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
-                            <h3 class="mb-2 text-base font-display font-bold text-white">Context has a cost</h3>
-                            <p class="text-xs leading-relaxed text-claw-muted">Long context increases KV cache memory, so LocalClaw warns before a model becomes slow.</p>
-                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">32K context → extra headroom check</p>
-                        </article>
-                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
-                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">03</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
-                            <h3 class="mb-2 text-base font-display font-bold text-white">Use-case weighting</h3>
-                            <p class="text-xs leading-relaxed text-claw-muted">Coding, chat, reasoning, vision and speed priorities change the shortlist transparently.</p>
-                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Coding → code benchmark + model tags</p>
-                        </article>
-                        <article class="rounded-xl border border-white/10 bg-black/35 p-4">
-                            <div class="mb-4 flex items-center justify-between"><span class="font-mono text-xs font-bold text-claw-primary">04</span><span class="h-1.5 w-1.5 rounded-full bg-claw-primary shadow-[0_0_12px_rgba(255,69,58,0.65)]"></span></div>
-                            <h3 class="mb-2 text-base font-display font-bold text-white">Installability matters</h3>
-                            <p class="text-xs leading-relaxed text-claw-muted">The best model is the one you can actually load locally with the right quantization.</p>
-                            <p class="mt-4 rounded-md border border-white/10 bg-[#0d0d0d] px-3 py-2 font-mono text-[11px] text-claw-muted">Q5_K_M / Q4_K_M shown upfront</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Fresh local AI additions -->
-            <section id="fresh-local-ai" aria-label="Recently verified local AI models" class="mb-20">
-                <div class="rounded-2xl border border-claw-primary/20 bg-[radial-gradient(ellipse_at_top_left,rgba(255,69,58,0.10),transparent_42%),rgba(255,255,255,0.02)] p-6 sm:p-8">
-                    <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                        <div>
-                            <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// RECENTLY VERIFIED</p>
-                            <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Fresh local AI worth checking</h2>
-                            <p class="mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">New open-weight releases are screened for a real local install path before they enter LocalClaw.</p>
-                        </div>
-                        <div class="flex flex-wrap gap-3 text-xs font-mono font-bold uppercase tracking-wider">
-                            <a href="/new" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="new_page" class="text-claw-primary hover:text-white">See every new model →</a>
-                            <a href="new-models.xml" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="rss" class="text-claw-muted hover:text-white">RSS feed</a>
-                        </div>
-                    </div>
-                    <div class="grid gap-3 md:grid-cols-3">
-                        <a href="/models/lfm2-5-2-6b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="lfm2-5-2-6b" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Aug 2026 · Edge 2.6B</p><h3 class="mt-3 text-lg font-display font-bold text-white">LFM2.5-2.6B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Official LiquidAI GGUF and MLX paths with 128K context for 8 GB local machines.</p></a>
-                        <a href="/models/muse-glimmer-30b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="muse-glimmer-30b" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Aug 2026 · Agentic VLM</p><h3 class="mt-3 text-lg font-display font-bold text-white">Muse Glimmer 30B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 local agent model with official 17 GB GGUF, vision input and 131K context.</p></a>
-                        <a href="/models/deepseek-v4-flash-0731" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="deepseek-v4-flash-0731" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Jul 2026 · Agentic MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">DeepSeek V4 Flash 0731</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Official MIT successor release with Unsloth Dynamic GGUF for 256 GB local workstations.</p></a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Guided paths -->
-            <section aria-label="Local AI guided paths" class="mb-20">
-                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// START HERE</p>
-                        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Not sure what to open next?</h2>
-                        <p class="mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">Pick a practical path. Each guide connects hardware, RAM, model fit and the next LocalClaw action.</p>
-                    </div>
-                    <a href="guides/" data-fast-goal="catalogue_click" data-fast-goal-source="home_guides" data-fast-goal-target="guides" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">All guides →</a>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <a href="/guides/best-local-llms-for-mac-mini-m4" data-fast-goal="guide_open" data-fast-goal-source="home_guides" data-fast-goal-guide="mac-mini-m4" class="group rounded-xl border border-white/10 bg-white/[0.025] p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Hardware</p>
-                        <h3 class="mt-3 text-lg font-display font-bold text-white">Best local LLMs for Mac mini M4</h3>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Start from the machine and choose models that fit unified memory.</p>
-                    </a>
-                    <a href="/guides/best-local-llms-for-16gb-ram" data-fast-goal="guide_open" data-fast-goal-source="home_guides" data-fast-goal-guide="16gb-ram" class="group rounded-xl border border-white/10 bg-white/[0.025] p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">RAM</p>
-                        <h3 class="mt-3 text-lg font-display font-bold text-white">Best local LLMs for 16GB RAM</h3>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Laptop-safe picks that avoid memory pressure and slow inference.</p>
-                    </a>
-                    <a href="/guides/best-local-llms-for-coding" data-fast-goal="guide_open" data-fast-goal-source="home_guides" data-fast-goal-guide="coding" class="group rounded-xl border border-white/10 bg-white/[0.025] p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Use case</p>
-                        <h3 class="mt-3 text-lg font-display font-bold text-white">Best local LLMs for coding</h3>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Private code assistants, agents, debugging and repo workflows.</p>
-                    </a>
-                    <a href="/guides/best-local-tts-for-voice-cloning" data-fast-goal="guide_open" data-fast-goal-source="home_guides" data-fast-goal-guide="voice-cloning" class="group rounded-xl border border-purple-400/20 bg-purple-400/[0.045] p-5 transition-all hover:-translate-y-0.5 hover:border-purple-300/55">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-purple-300">Voice</p>
-                        <h3 class="mt-3 text-lg font-display font-bold text-white">Best local TTS for voice cloning</h3>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Speech models for private voice workflows and offline pipelines.</p>
-                    </a>
-                </div>
-            </section>
-
-            <!-- LocalClaw vs Manual -->
-
-<!-- Catalogue teaser -->
-            <section aria-label="Local AI catalogue teaser" class="mb-20">
-                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                    <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// CATALOGUE</p><h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">A small sample of what LocalClaw tracks</h2></div>
-                    <div class="flex flex-wrap gap-3 text-sm font-mono"><a href="/llm-list" data-fast-goal="catalogue_click" data-fast-goal-target="llm" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">Browse 222 models →</a><a href="/tts-list" data-fast-goal="catalogue_click" data-fast-goal-target="tts" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">58 speech models →</a><a href="ram/" data-fast-goal="catalogue_click" data-fast-goal-target="ram" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM guides →</a><a href="/ram-gpu-for-local-ai" data-fast-goal="catalogue_click" data-fast-goal-target="ram-gpu" data-fast-goal-source="home_teaser" class="text-claw-primary hover:text-white">RAM/GPU upgrades →</a></div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <a href="/models/deepseek-v4-pro" data-fast-goal="model_open" data-fast-goal-source="home_teaser" data-fast-goal-model="deepseek-v4-pro" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Frontier</p><h3 class="mt-3 text-lg font-display font-bold text-white">DeepSeek V4 Pro</h3><p class="mt-2 text-xs font-mono text-claw-muted">1.6T MoE · 49B active · local catalogue</p></a>
-                    <a href="/models/glm-5.2" data-fast-goal="model_open" data-fast-goal-source="home_teaser" data-fast-goal-model="glm-5.2" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Agentic</p><h3 class="mt-3 text-lg font-display font-bold text-white">GLM-5.2</h3><p class="mt-2 text-xs font-mono text-claw-muted">744B MoE · 1M context · workstation class</p></a>
-                    <a href="/models/qwen3.5-9b" data-fast-goal="model_open" data-fast-goal-source="home_teaser" data-fast-goal-model="qwen3.5-9b" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Laptop</p><h3 class="mt-3 text-lg font-display font-bold text-white">Qwen 3.5 9B</h3><p class="mt-2 text-xs font-mono text-claw-muted">Balanced local model for 16 GB+</p></a>
-                    <a href="/models/gemma4-12b" data-fast-goal="model_open" data-fast-goal-source="home_teaser" data-fast-goal-model="gemma4-12b" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">New</p><h3 class="mt-3 text-lg font-display font-bold text-white">Gemma 4 12B</h3><p class="mt-2 text-xs font-mono text-claw-muted">Unified multimodal sweet spot for 16 GB+</p></a>
-                    <a href="/tts/neutts-air" data-fast-goal="tts_open" data-fast-goal-source="home_teaser" data-fast-goal-model="neutts-air" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">Voice</p><h3 class="mt-3 text-lg font-display font-bold text-white">NeuTTS Air</h3><p class="mt-2 text-xs font-mono text-claw-muted">Real-time CPU TTS and voice cloning</p></a>
-                    <a href="/tts/dots-tts-mf" data-fast-goal="tts_open" data-fast-goal-source="home_teaser" data-fast-goal-model="dots-tts-mf" class="rounded-xl border border-white/10 bg-white/[0.025] p-5 hover:border-claw-primary/40 transition-colors"><p class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">New voice</p><h3 class="mt-3 text-lg font-display font-bold text-white">Dots TTS MF</h3><p class="mt-2 text-xs font-mono text-claw-muted">2B zero-shot voice cloning · Apache 2.0</p></a>
-                </div>
-            </section>
-
-            <section aria-labelledby="software-title" class="mb-20 overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(255,69,58,0.10),rgba(255,255,255,0.02)_45%,rgba(0,0,0,0.35))]">
-                <div class="grid items-center gap-8 p-6 sm:p-8 lg:grid-cols-[0.82fr_1.18fr]">
-                    <div>
-                        <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// OPTIONAL MAC SOFTWARE</p>
-                        <h2 id="software-title" class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Operate OpenClaw from a native dashboard</h2>
-                        <p class="mt-4 text-sm leading-relaxed text-claw-muted">LocalClaw for Mac handles setup, health, models, agents, channels and scheduled work. The web database and hardware workspace remain useful on their own.</p>
-                        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                            <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_software_teaser" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black">Explore LocalClaw for Mac</a>
-                            <a href="/pricing" class="rounded-lg border border-white/15 px-5 py-3 text-center text-sm font-mono font-bold uppercase tracking-wider text-white hover:border-white">View pricing</a>
-                        </div>
-                    </div>
-                    <a href="/software" class="block overflow-hidden rounded-xl border border-white/10 bg-black/40" aria-label="Explore the LocalClaw for Mac software"><img src="/images/pricing-carousel/home.jpg?v=20260602" width="1400" height="770" alt="LocalClaw for Mac dashboard with OpenClaw health, models and system load" class="h-auto w-full" loading="lazy" decoding="async"></a>
-                </div>
-            </section>
-
-            <!-- SEO: FAQ Section (crawlable, matches structured data) -->
-            <section aria-label="Frequently Asked Questions" class="mb-16 max-w-3xl mx-auto">
-                <h2 class="text-2xl font-display font-bold text-white mb-6 text-center">Frequently Asked Questions</h2>
-                
-                <div class="space-y-4">
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5" open>
-                        <summary class="text-white font-bold cursor-pointer">What is LM Studio?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">LM Studio is a free desktop application that lets you run Large Language Models (LLMs) locally on your computer. No internet needed, no data sent anywhere. It provides a chat interface similar to ChatGPT but everything runs on YOUR hardware.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">What is quantization (Q4, Q5, Q8)?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Quantization is a compression technique that reduces model size while preserving most of the quality. Think of it like JPEG compression for images. Q4 = more compressed (smaller, slightly lower quality), Q8 = less compressed (larger, nearly original quality). Q5_K_M is the sweet spot for most users.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">How much RAM do I need to run a local AI model?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Rule of thumb: the model file size plus 2-3 GB for the system. A 5 GB model needs at least 8 GB RAM. On macOS with Apple Silicon, the unified memory makes things more efficient. On Windows/Linux with a GPU, VRAM helps offload the model.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">Apple Silicon vs NVIDIA GPU for local AI?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Apple Silicon (M1-M4) uses unified memory, meaning your entire RAM is available for the model. This is incredibly efficient. NVIDIA GPUs are faster for inference but limited by VRAM (typically 8-24 GB). Both are great choices.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">Where does LocalClaw run AI inference?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">Local LLM mode runs models through a local runtime on your machine. Cloud LLM and OAuth LLM modes use the provider you select, so that provider's data and API policies apply.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">What are the best local AI models in 2026?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">For 8 GB RAM: Qwen 3.5 4B or Gemma 4 E4B. For 16 GB: Gemma 4 12B, Qwen 3.5 9B, GLM 4.6 Air 12B or Mistral Small 3.2 24B (tight). For 32 GB+: Gemma 4 31B, Qwen 3 Next 80B/3B MoE or Qwen 3 Coder 30B. For reasoning: Kimi K2 Thinking, DeepSeek V3.2 Exp, or Hermes 4 70B. For coding: MiniMax M2 and Qwen 3 Coder. For vision: Qwen 3 VL 32B or Gemma 4 multimodal.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">What is OpenClaw?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">OpenClaw is an open-source AI gateway for agents, channels, scheduled work and model providers. Connect it to LM Studio or Ollama for local inference, or choose an optional cloud provider. Local models can keep prompts on your machine; cloud providers and connected online services follow their own data and API policies.</p>
-                    </details>
-                    <details class="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-                        <summary class="text-white font-bold cursor-pointer">What is free and what is paid?</summary>
-                        <p class="mt-3 text-sm text-claw-muted leading-relaxed">The model finder, LLM and speech catalogues, hardware guides and Account workspace are free. LocalClaw for Mac is separate, optional software for installing and operating OpenClaw from a native dashboard. <a href="/software" data-fast-goal="software_open" data-fast-goal-source="home_faq" class="text-claw-primary hover:underline">Explore the software →</a></p>
-                    </details>
-                </div>
-            </section>
-
-            <!-- noscript: tell users they need JS -->
-            <noscript>
-                <div class="text-center p-8 rounded-xl bg-red-500/10 border border-red-500/30 max-w-xl mx-auto">
-                    <p class="text-red-400 font-bold mb-2">JavaScript Required</p>
-                    <p class="text-claw-muted text-sm">LocalClaw requires JavaScript to provide personalized AI model recommendations. Please enable JavaScript in your browser settings and reload the page.</p>
-                </div>
-            </noscript>
+          <p class="lc-index-fallback__enhance"><strong>Progressive enhancement:</strong> JavaScript adds live community vote counts, machine-fit filtering, search, sorting and comparison. This verified snapshot remains useful if those enhancements are unavailable.</p>
         </div>
 
-        <!-- ========================================================
-             DYNAMIC APP CONTAINER
-             JS replaces the static content on load
-             ======================================================== -->
         <div id="view-container" class="w-full min-h-[400px] hidden">
             <!-- Content injected via JS -->
         </div>
+
+        <!-- HOME_INDEX_GUIDE_START -->
+        <section id="home-index-guide" class="lc-index-guide" aria-labelledby="home-index-guide-title">
+          <header class="lc-index-guide__head">
+            <div><span class="lc-index-eyebrow">Verified index guide</span><h2 id="home-index-guide-title">Choose a local model with transparent signals</h2></div>
+            <p>Catalogue snapshot updated <time datetime="2026-08-14">August 14, 2026</time>. Counts, score formulas and links below are generated from the same repository data as the interactive directory.</p>
+          </header>
+
+          <section class="lc-index-guide__ram" aria-labelledby="ram-answers-title">
+            <div class="lc-index-guide__section-title"><h3 id="ram-answers-title">Quick answers by installed RAM</h3><p>These are catalogue-score leaders whose minimum-RAM field fits each tier, not universal benchmark winners.</p></div>
+            <div class="lc-index-guide__ram-grid"><article>
+              <span class="lc-index-eyebrow">8 GB RAM</span>
+              <h3>Highest catalogue scores that fit</h3>
+              <ol><li><a href="/models/lfm2.5-8b-a1b">LFM2.5-8B-A1B</a><span>8.1/10 · min 8 GB</span></li><li><a href="/models/granite4.1-8b">Granite 4.1 (8B)</a><span>8.0/10 · min 8 GB</span></li><li><a href="/models/qwen3-8b">Qwen 3 (8B)</a><span>8.0/10 · min 8 GB</span></li></ol>
+              <a href="/ram/8gb">Open the 8 GB guide →</a>
+            </article>
+<article>
+              <span class="lc-index-eyebrow">16 GB RAM</span>
+              <h3>Highest catalogue scores that fit</h3>
+              <ol><li><a href="/models/glm4.5-air">GLM 4.5 Air (MoE)</a><span>8.7/10 · min 16 GB</span></li><li><a href="/models/bonsai-27b">Bonsai 27B</a><span>8.6/10 · min 16 GB</span></li><li><a href="/models/qwen3-14b">Qwen 3 (14B)</a><span>8.6/10 · min 16 GB</span></li></ol>
+              <a href="/ram/16gb">Open the 16 GB guide →</a>
+            </article>
+<article>
+              <span class="lc-index-eyebrow">32 GB RAM</span>
+              <h3>Highest catalogue scores that fit</h3>
+              <ol><li><a href="/models/kimi-k2.5-32b">Kimi K2.5 (32B/1T MoE)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/qwen3-32b">Qwen 3 (32B)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/glm4.5-air">GLM 4.5 Air (MoE)</a><span>8.7/10 · min 16 GB</span></li></ol>
+              <a href="/ram/32gb">Open the 32 GB guide →</a>
+            </article>
+<article>
+              <span class="lc-index-eyebrow">64 GB RAM</span>
+              <h3>Highest catalogue scores that fit</h3>
+              <ol><li><a href="/models/kimi-k2.5-32b">Kimi K2.5 (32B/1T MoE)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/qwen3-32b">Qwen 3 (32B)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/qwen3-coder-next">Qwen3-Coder-Next</a><span>9.1/10 · min 64 GB</span></li></ol>
+              <a href="/ram/64gb">Open the 64 GB guide →</a>
+            </article></div>
+          </section>
+
+          <section id="index-methodology" class="lc-index-guide__method" aria-labelledby="method-title">
+            <div class="lc-index-guide__section-title"><h3 id="method-title">Three signals, never blended</h3><p>Each signal answers a different question. No community average is converted into a software score.</p></div>
+            <div class="lc-index-guide__method-grid">
+              <article><span>01</span><h4>Community ★ /5</h4><p>Raw signed-in member average plus vote count. The confidence sort uses a transparent 3.5/5 prior over five votes; fewer than five votes is marked EARLY.</p><a href="/api/ratings">Live public aggregates →</a></article>
+              <article><span>02</span><h4>LocalClaw /10</h4><p>Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed, using only maintained repository fields. It is not a standardized third-party benchmark.</p></article>
+              <article><span>03</span><h4>Hardware fit</h4><p>Compares installed RAM with the catalogue minimum. Context, runtime overhead, GPU offload and other applications can require more headroom.</p></article>
+            </div>
+          </section>
+
+          <section class="lc-index-guide__faq" aria-labelledby="index-faq-title">
+            <div class="lc-index-guide__section-title"><h3 id="index-faq-title">Local model index FAQ</h3><p>Short, source-aligned answers for people and answer engines.</p></div>
+            <div><details open><summary>What is The Local Model Index?</summary><p>It is LocalClaw&#39;s hardware-aware directory of 218 unique local LLM pages and 56 local speech records. Hosted-only LLM records are excluded and duplicate route IDs are collapsed.</p></details>
+<details><summary>How is the LocalClaw score calculated?</summary><p>The homepage LocalClaw catalogue score is a separate 0-10 method calculated from repository fields: 38% quality, 24% coding, 24% reasoning and 14% speed. It is not a community rating or an external benchmark leaderboard.</p></details>
+<details><summary>Are community stars mixed into the LocalClaw score?</summary><p>No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score.</p></details>
+<details><summary>How should I choose a local model for 8, 16, 32 or 64 GB RAM?</summary><p>Use the machine RAM selector or a RAM guide. A model is considered compatible when its catalogue minimum-RAM value is at or below the selected memory; context length, runtime overhead and other applications can require additional headroom.</p></details>
+<details><summary>Does the homepage include cloud-only or API-only models?</summary><p>No. The homepage is a local-only index. Hosted-only LLM records, Edge TTS and OCTAVE 2 are excluded because the current catalogue does not provide a verified fully local runtime path for those records.</p></details>
+<details><summary>What speech models are covered?</summary><p>The local speech index contains 56 records: 47 TTS models, 8 ASR models and 1 local speech application. Each entry keeps its Audio score separate from community stars.</p></details>
+<details><summary>How fresh is the LocalClaw catalogue?</summary><p>This homepage snapshot was generated from the repository catalogue updated August 14, 2026. Release dates, RAM requirements, licences and links come from the maintained LocalClaw records and linked model pages.</p></details></div>
+          </section>
+
+          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/models/">All model pages</a><a href="/tts/">All speech pages</a><a href="/use-case/chat">Chat models</a><a href="/use-case/coding">Coding models</a><a href="/use-case/reasoning">Reasoning models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
+        </section>
+        <!-- HOME_INDEX_GUIDE_END -->
+
     </main>
 
     <!-- ============================================================
@@ -647,140 +572,406 @@
     <script src="js/home-index-avatar-formats-20260814a.js?v=20260814a"></script>
     <script src="js/home-index-logos-20260814c.js?v=20260814c"></script>
     <script src="js/app-20260814f.js?v=20260814f"></script>
-    <script src="js/home-index-20260814f.js?v=20260814f"></script>
+    <script src="js/home-index-20260814g.js?v=20260814g"></script>
     <script src="js/growth-paths-20260727a.js?v=20260727a"></script>
 
-    <!-- Hide SEO fallback once JS loads and show dynamic container -->
-    <script>
-        document.getElementById('seo-fallback').remove();
-        document.getElementById('view-container').classList.remove('hidden');
-    </script>
-
-    <!-- ============================================================
-         STRUCTURED DATA: WebApplication
-         ============================================================ -->
+    <!-- HOME_INDEX_STRUCTURED_DATA_START -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "The Local Model Index by LocalClaw",
-        "url": "https://localclaw.io/",
-        "description": "Dynamic local AI directory built from LocalClaw's catalogue. Compare local LLM and speech records by family, parameters, RAM, licence and release date.",
-        "applicationCategory": "UtilityApplication",
-        "operatingSystem": "Web Browser",
-        "browserRequirements": "Requires JavaScript",
-        "softwareVersion": "3.23.0",
-        "datePublished": "2026-01-01",
-        "dateModified": "2026-08-14",
-        "inLanguage": "en",
-        "isAccessibleForFree": true,
-        "author": {
-            "@type": "Organization",
-            "name": "LocalClaw",
-            "url": "https://localclaw.io/"
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://localclaw.io/#organization",
+          "name": "LocalClaw",
+          "url": "https://localclaw.io/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://localclaw.io/images/logo-localclaw.svg"
+          },
+          "description": "Hardware-aware local AI model discovery, compatibility guides and optional native software for OpenClaw."
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://localclaw.io/#website",
+          "url": "https://localclaw.io/",
+          "name": "LocalClaw",
+          "alternateName": "The Local Model Index",
+          "inLanguage": "en",
+          "publisher": {
+            "@id": "https://localclaw.io/#organization"
+          }
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://localclaw.io/#webpage",
+          "url": "https://localclaw.io/",
+          "name": "The Local Model Index — Local LLMs & TTS",
+          "description": "Compare 218 unique local LLM pages and 56 local speech records by community stars, LocalClaw score, RAM, licence and release date.",
+          "dateModified": "2026-08-14",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://localclaw.io/#website"
+          },
+          "publisher": {
+            "@id": "https://localclaw.io/#organization"
+          },
+          "about": [
+            {
+              "@type": "Thing",
+              "name": "Local large language models"
+            },
+            {
+              "@type": "Thing",
+              "name": "Local text-to-speech models"
+            },
+            {
+              "@type": "Thing",
+              "name": "Local speech recognition models"
+            },
+            {
+              "@type": "Thing",
+              "name": "AI hardware compatibility"
+            }
+          ],
+          "mainEntity": [
+            {
+              "@id": "https://localclaw.io/#local-llm-list"
+            },
+            {
+              "@id": "https://localclaw.io/#local-speech-list"
+            },
+            {
+              "@id": "https://localclaw.io/#local-model-faq"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://localclaw.io/#local-llm-list",
+          "name": "Highest current LocalClaw catalogue scores for local LLMs",
+          "description": "A representative crawlable snapshot ordered by the documented LocalClaw catalogue score, separate from community ratings.",
+          "numberOfItems": 218,
+          "itemListOrder": "https://schema.org/ItemListOrderDescending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "DeepSeek V4 Flash 0731 (284B MoE)",
+              "url": "https://localclaw.io/models/deepseek-v4-flash-0731"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Kimi K2.5 (32B/1T MoE)",
+              "url": "https://localclaw.io/models/kimi-k2.5-32b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Qwen 3 (32B)",
+              "url": "https://localclaw.io/models/qwen3-32b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Qwen3-Coder-Next",
+              "url": "https://localclaw.io/models/qwen3-coder-next"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "MiniMax M3 (428B/23B active)",
+              "url": "https://localclaw.io/models/minimax-m3"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "DeepSeek V3.2 (37B/671B MoE)",
+              "url": "https://localclaw.io/models/deepseek-v3.2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "Trinity Large Preview (70B MoE)",
+              "url": "https://localclaw.io/models/trinity-large"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Kimi K2 Instruct (1T MoE)",
+              "url": "https://localclaw.io/models/kimi-k2-instruct"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Qwen 3 MoE (235B/22B active)",
+              "url": "https://localclaw.io/models/qwen3-235b-a22b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "name": "Qwen 3.6 35B-A3B",
+              "url": "https://localclaw.io/models/qwen3.6-35b-a3b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 11,
+              "name": "Qwen 3.5 MoE (122B/10B active)",
+              "url": "https://localclaw.io/models/qwen3.5-122b-a10b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 12,
+              "name": "GLM-5.2 (744B MoE)",
+              "url": "https://localclaw.io/models/glm-5.2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 13,
+              "name": "Kimi K2.7 Code (1T MoE)",
+              "url": "https://localclaw.io/models/kimi-k2.7-code"
+            },
+            {
+              "@type": "ListItem",
+              "position": 14,
+              "name": "DeepSeek V4 Pro (1.6T MoE)",
+              "url": "https://localclaw.io/models/deepseek-v4-pro"
+            },
+            {
+              "@type": "ListItem",
+              "position": 15,
+              "name": "GLM-5.1",
+              "url": "https://localclaw.io/models/glm-5.1"
+            },
+            {
+              "@type": "ListItem",
+              "position": 16,
+              "name": "Kimi K2 Thinking (1T MoE)",
+              "url": "https://localclaw.io/models/kimi-k2-thinking"
+            },
+            {
+              "@type": "ListItem",
+              "position": 17,
+              "name": "DeepSeek V3.2 Exp (671B MoE)",
+              "url": "https://localclaw.io/models/deepseek-v3.2-exp"
+            },
+            {
+              "@type": "ListItem",
+              "position": 18,
+              "name": "GLM 4.6 (355B MoE)",
+              "url": "https://localclaw.io/models/glm-4.6-355b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 19,
+              "name": "GPT-OSS (120B)",
+              "url": "https://localclaw.io/models/gpt-oss-120b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 20,
+              "name": "Qwen 3.5 MoE (397B/17B active)",
+              "url": "https://localclaw.io/models/qwen3.5-397b-a17b"
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://localclaw.io/#local-speech-list",
+          "name": "Highest current LocalClaw Audio scores for local speech models",
+          "description": "A representative crawlable snapshot ordered by the documented Audio score, separate from community ratings.",
+          "numberOfItems": 56,
+          "itemListOrder": "https://schema.org/ItemListOrderDescending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Parakeet TDT 0.6B v2",
+              "url": "https://localclaw.io/tts/parakeet-tdt-0.6b-v2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Kyutai STT 2.6B",
+              "url": "https://localclaw.io/tts/kyutai-stt-2.6b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "F5-TTS v1.1",
+              "url": "https://localclaw.io/tts/f5-tts-v1.1"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Kokoro TTS",
+              "url": "https://localclaw.io/tts/kokoro"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Qwen3-ASR",
+              "url": "https://localclaw.io/tts/qwen3-asr"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "F5-TTS",
+              "url": "https://localclaw.io/tts/f5-tts"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "MaskGCT",
+              "url": "https://localclaw.io/tts/maskgct"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Whisper v3 Turbo",
+              "url": "https://localclaw.io/tts/whisper-v3-turbo"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Canary 1B v2",
+              "url": "https://localclaw.io/tts/canary-1b-v2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "name": "Qwen3 TTS",
+              "url": "https://localclaw.io/tts/qwen3-tts"
+            },
+            {
+              "@type": "ListItem",
+              "position": 11,
+              "name": "Zonos v0.1",
+              "url": "https://localclaw.io/tts/zonos"
+            },
+            {
+              "@type": "ListItem",
+              "position": 12,
+              "name": "Moshi",
+              "url": "https://localclaw.io/tts/moshi"
+            },
+            {
+              "@type": "ListItem",
+              "position": 13,
+              "name": "NeuTTS Air",
+              "url": "https://localclaw.io/tts/neutts-air"
+            },
+            {
+              "@type": "ListItem",
+              "position": 14,
+              "name": "Voicebox",
+              "url": "https://localclaw.io/tts/voicebox"
+            },
+            {
+              "@type": "ListItem",
+              "position": 15,
+              "name": "CosyVoice 2",
+              "url": "https://localclaw.io/tts/cosyvoice2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 16,
+              "name": "VibeVoice Realtime 0.5B",
+              "url": "https://localclaw.io/tts/vibevoice-realtime-0.5b"
+            },
+            {
+              "@type": "ListItem",
+              "position": 17,
+              "name": "Supertonic 3",
+              "url": "https://localclaw.io/tts/supertonic-3"
+            },
+            {
+              "@type": "ListItem",
+              "position": 18,
+              "name": "VoxCPM2",
+              "url": "https://localclaw.io/tts/voxcpm2"
+            },
+            {
+              "@type": "ListItem",
+              "position": 19,
+              "name": "MeloTTS",
+              "url": "https://localclaw.io/tts/melotts"
+            },
+            {
+              "@type": "ListItem",
+              "position": 20,
+              "name": "Chatterbox TTS",
+              "url": "https://localclaw.io/tts/chatterbox"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://localclaw.io/#local-model-faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is The Local Model Index?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It is LocalClaw's hardware-aware directory of 218 unique local LLM pages and 56 local speech records. Hosted-only LLM records are excluded and duplicate route IDs are collapsed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is the LocalClaw score calculated?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The homepage LocalClaw catalogue score is a separate 0-10 method calculated from repository fields: 38% quality, 24% coding, 24% reasoning and 14% speed. It is not a community rating or an external benchmark leaderboard."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are community stars mixed into the LocalClaw score?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How should I choose a local model for 8, 16, 32 or 64 GB RAM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Use the machine RAM selector or a RAM guide. A model is considered compatible when its catalogue minimum-RAM value is at or below the selected memory; context length, runtime overhead and other applications can require additional headroom."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the homepage include cloud-only or API-only models?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The homepage is a local-only index. Hosted-only LLM records, Edge TTS and OCTAVE 2 are excluded because the current catalogue does not provide a verified fully local runtime path for those records."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What speech models are covered?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The local speech index contains 56 records: 47 TTS models, 8 ASR models and 1 local speech application. Each entry keeps its Audio score separate from community stars."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How fresh is the LocalClaw catalogue?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "This homepage snapshot was generated from the repository catalogue updated August 14, 2026. Release dates, RAM requirements, licences and links come from the maintained LocalClaw records and linked model pages."
+              }
+            }
+          ]
         }
+      ]
     }
     </script>
-
-    <!-- ============================================================
-         STRUCTURED DATA: FAQPage (Rich Snippets in Google)
-         ============================================================ -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What is LM Studio?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "LM Studio is a free desktop application that lets you run Large Language Models (LLMs) locally on your computer. No internet needed, no data sent anywhere. It provides a chat interface similar to ChatGPT but everything runs on your hardware."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is quantization (Q4, Q5, Q8)?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Quantization is a compression technique that reduces model size while preserving most quality. Q4 means more compression (smaller, slightly lower quality), Q8 means less compression (larger, nearly original quality). Q5_K_M is the sweet spot for most users."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How much RAM do I need to run a local AI model?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Rule of thumb: the model file size plus 2-3 GB for the OS. A 5 GB model needs at least 8 GB RAM. Apple Silicon with unified memory is more efficient. NVIDIA GPUs with VRAM help offload the model on Windows and Linux."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Apple Silicon vs NVIDIA GPU for local AI?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Apple Silicon (M1-M4) uses unified memory, meaning your entire RAM is available for the model. NVIDIA GPUs are faster for inference but limited by VRAM (typically 8-24 GB). Both are great choices for running local LLMs."
-                }
-            },
-            {
-                "@type": "Question",
-                    "name": "Where does LocalClaw run AI inference?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Local LLM mode runs models through a local runtime on your machine. Cloud LLM and OAuth LLM modes use the provider you select, so that provider's data and API policies apply."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What are the best local AI models in 2026?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For 8 GB RAM: Qwen 3.5 4B or Gemma 4 E4B. For 16 GB: Gemma 4 12B, Qwen 3.5 9B, GLM 4.6 Air 12B, or Mistral Small 3.2 24B with a tighter setup. For 32 GB+: Gemma 4 31B, Qwen 3 Next 80B/3B MoE, or Qwen 3 Coder 30B. For reasoning: Kimi K2 Thinking, DeepSeek V3.2 Exp, or Hermes 4 70B."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is OpenClaw?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "OpenClaw is an open-source AI gateway for agents, channels, scheduled work and model providers. It can use local models through LM Studio or Ollama, or optional remote providers. Local inference can keep prompts on your machine; cloud providers and connected online services follow their own data and API policies."
-                }
-            }
-        ]
-    }
-    </script>
-
-    <!-- ============================================================
-         STRUCTURED DATA: BreadcrumbList
-         ============================================================ -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://localclaw.io/"
-            }
-        ]
-    }
-    </script>
-
-    <!-- ============================================================
-         STRUCTURED DATA: Organization
-         ============================================================ -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "LocalClaw",
-        "url": "https://localclaw.io/",
-        "logo": "https://localclaw.io/images/logo-localclaw.svg",
-        "description": "Hardware-aware local AI model discovery, compatibility guides and optional native software for OpenClaw."
-    }
-    </script>
+    <!-- HOME_INDEX_STRUCTURED_DATA_END -->
 
     <!-- ============================================================
          SCROLL TO TOP BUTTON

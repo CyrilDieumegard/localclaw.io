@@ -11,7 +11,9 @@ function loadModels() {
   vm.createContext(context);
   const source = fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8');
   vm.runInContext(`${source};this.APP_DATA=APP_DATA;`, context);
-  return context.APP_DATA.models || [];
+  const updatedMatch = source.match(/^\/\/ Updated ([A-Za-z]+ \d{1,2}, \d{4})/m);
+  const updatedAt = updatedMatch ? new Date(`${updatedMatch[1]} 12:00:00 UTC`) : new Date();
+  return { models: context.APP_DATA.models || [], updatedAt };
 }
 
 function escapeXml(value = '') {
@@ -49,7 +51,8 @@ function isPracticalLocalModel(model) {
   return !model.hosted_only && !excluded && !tags.includes('experimental') && workstationFit && installReference;
 }
 
-const models = loadModels()
+const catalogue = loadModels();
+const models = Array.from(new Map(catalogue.models.map(model => [model.id, model])).values())
   .filter(model => model.id && model.name && model.released && isPracticalLocalModel(model))
   .sort((a, b) => {
     const releaseDifference = releaseDate(b.released) - releaseDate(a.released);
@@ -58,7 +61,7 @@ const models = loadModels()
   })
   .slice(0, LIMIT);
 
-const lastBuildDate = models.length ? releaseDate(models[0].released) : new Date();
+const lastBuildDate = catalogue.updatedAt;
 const items = models.map(model => {
   const url = `${BASE_URL}/models/${encodeURIComponent(model.id)}`;
   return `    <item>

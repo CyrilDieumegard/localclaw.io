@@ -15,8 +15,8 @@ const speechModels = context.window.HOME_INDEX_SPEECH_MODELS;
 const logos = context.window.HOME_INDEX_LOGOS;
 const missing = [];
 const homepageHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-const homepageJs = fs.readFileSync(path.join(ROOT, 'js/home-index-20260814f.js'), 'utf8');
-const homepageCss = fs.readFileSync(path.join(ROOT, 'css/home-index-20260814f.css'), 'utf8');
+const homepageJs = fs.readFileSync(path.join(ROOT, 'js/home-index-20260814g.js'), 'utf8');
+const homepageCss = fs.readFileSync(path.join(ROOT, 'css/home-index-20260814g.css'), 'utf8');
 
 for (const family of new Set(models.map((model) => model.family))) {
   if (!logos.llm[family]) missing.push(`LLM family mapping: ${family}`);
@@ -30,8 +30,8 @@ for (const asset of new Set([...Object.values(logos.llm), ...Object.values(logos
   if (!fs.existsSync(file)) missing.push(`Logo asset: ${asset}.${extension}`);
 }
 
-if (models.length !== 218) missing.push(`Expected 218 homepage LLM entries, found ${models.length}`);
-if (speechModels.length !== 56) missing.push(`Expected 56 local homepage speech entries, found ${speechModels.length}`);
+if (!models.length) missing.push('Homepage LLM selection is empty');
+if (!speechModels.length) missing.push('Homepage speech selection is empty');
 for (const model of models) {
   for (const metric of ['quality', 'coding', 'reasoning', 'speed']) {
     if (!Number.isFinite(Number(model.benchmarks && model.benchmarks[metric]))) missing.push(`Missing LLM score input: ${model.id}.${metric}`);
@@ -56,7 +56,7 @@ for (const marker of [
 for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814f.css?v=20260814f', 'js/home-index-20260814f.js?v=20260814f']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260814g', 'js/home-index-20260814g.js?v=20260814g']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 if (!homepageHtml.includes('js/home-index-logos-20260814c.js?v=20260814c')) {

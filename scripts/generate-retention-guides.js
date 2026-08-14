@@ -11,7 +11,7 @@ function loadModels() {
   const ctx = {};
   vm.createContext(ctx);
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8') + ';this.APP_DATA=APP_DATA;', ctx);
-  return ctx.APP_DATA.models.filter((m, i, arr) => arr.findIndex(x => x.id === m.id) === i);
+  return Array.from(new Map(ctx.APP_DATA.models.map(model => [model.id, model])).values());
 }
 
 function loadTts() {
@@ -62,11 +62,11 @@ function scoreModel(m, mode) {
 }
 
 function modelCard(m, i) {
-  return `<article class="card"><div class="rank">#${i + 1}</div><h3><a href="/models/${esc(m.id)}.html">${esc(m.name)}</a></h3><div class="meta">${esc(m.params)} · ${esc(m.min_ram)}GB RAM · ${esc(m.recommended_quant)} · ${esc(m.size_gb)}GB</div><p>${esc(m.description)}</p><div>${(m.tags || []).slice(0, 6).map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div></article>`;
+  return `<article class="card"><div class="rank">#${i + 1}</div><h3><a href="/models/${esc(m.id)}.html">${esc(m.name)}</a></h3><div class="meta">${esc(m.params)} · ${esc(m.min_ram)}GB RAM · ${esc(m.recommended_quant)} · ${esc(m.size_gb)}GB</div><p><strong>Catalogue summary:</strong> ${esc(m.description)}</p><div>${(m.tags || []).slice(0, 6).map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div></article>`;
 }
 
 function ttsCard(m, i) {
-  return `<article class="card"><div class="rank">#${i + 1}</div><h3><a href="/tts/${esc(m.id)}.html">${esc(m.name)}</a></h3><div class="meta">${esc(m.developer || m.family || 'Open model')} · quality ${esc(m.quality)}/10 · speed ${esc(m.speed)}/10</div><p>${esc(m.description || 'Local speech model tracked by LocalClaw.')}</p><div>${(m.features || []).slice(0, 6).map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div></article>`;
+  return `<article class="card"><div class="rank">#${i + 1}</div><h3><a href="/tts/${esc(m.id)}.html">${esc(m.name)}</a></h3><div class="meta">${esc(m.developer || m.family || 'Open model')} · catalogue quality ${esc(m.quality)}/10 · catalogue speed ${esc(m.speed)}/10</div><p><strong>Catalogue summary:</strong> ${esc(m.description || 'Local speech model tracked by LocalClaw.')}</p><div>${(m.features || []).slice(0, 6).map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div></article>`;
 }
 
 function page({ id, title, accent, description, active, metrics, quick, cards, cardRenderer, links, sources }) {
@@ -98,7 +98,7 @@ function page({ id, title, accent, description, active, metrics, quick, cards, c
 <section class="section quick"><h2>Quick answer</h2><p>${quick}</p></section>
 <section class="section"><h2>Recommended starting points</h2><div class="grid">${cards.slice(0, 9).map(cardRenderer).join('')}</div></section>
 <section class="section"><h2>Keep exploring</h2><div class="next-grid">${links.map(([k, label, href]) => `<a href="${esc(href)}"><small>${esc(k)}</small>${esc(label)}</a>`).join('')}</div></section>
-<section class="section"><h2>Source checks</h2><p>These guides use LocalClaw's internal model database for scoring, then avoid hard claims beyond public hardware and model availability signals checked before publishing.</p><div class="source-list">${sources.map(([label, href]) => `<a href="${esc(href)}" target="_blank" rel="noopener nofollow">${esc(label)} →</a>`).join('')}</div></section>
+<section class="section"><h2>Method and source checks</h2><p>These contextual lists use LocalClaw catalogue tags and editorial quality, coding, reasoning or speed fields. They are not the homepage LocalClaw score, not standardized third-party benchmarks and never include community stars. Catalogue summaries can repeat upstream claims; verify them in the linked material.</p><div class="source-list">${sources.map(([label, href]) => `<a href="${esc(href)}" target="_blank" rel="noopener nofollow">${esc(label)} →</a>`).join('')}</div></section>
 </main></body></html>`;
 }
 

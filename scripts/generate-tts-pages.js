@@ -6,6 +6,11 @@ const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
+const ONLINE_ONLY_IDS = new Set(['edge-tts', 'octave-2']);
+
+function isLocalSpeechModel(model) {
+  return !ONLINE_ONLY_IDS.has(model.id);
+}
 
 function extractTTS() {
   const html = fs.readFileSync(path.join(ROOT, 'tts-list.html'), 'utf8');
@@ -62,27 +67,27 @@ function voiceColor(model) {
 }
 
 function modelKind(model) {
+  if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Online TTS interface' : 'Vendor API speech reference';
   if (model.isAsr) return 'Local ASR model';
   if (model.isOrchestrator) return 'Local speech app';
   return 'Local TTS model';
 }
 
 function modelTask(model) {
+  if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'online text-to-speech access' : 'vendor-hosted speech generation';
   if (model.isAsr) return 'speech-to-text transcription';
   if (model.isOrchestrator) return 'local voice workflow orchestration';
   return 'text-to-speech generation';
 }
 
-function audioFitScore(model) {
+function audioCatalogueScore(model) {
   const quality = Number(model.quality) || 0;
   const speed = Number(model.speed) || 0;
-  const size = Number(model.sizeGB) || 0;
-  const sizePenalty = size > 10 ? 0.7 : size > 5 ? 0.45 : size > 2 ? 0.2 : 0;
-  const localBonus = (model.hardware || []).includes('cpu') ? 0.2 : 0;
-  return Math.max(4.8, Math.min(9.8, quality * 0.68 + speed * 0.32 - sizePenalty + localBonus)).toFixed(1);
+  return Math.max(0, Math.min(10, quality * 0.68 + speed * 0.32)).toFixed(1);
 }
 
 function hardwareTier(model) {
+  if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Internet required' : 'Vendor API required';
   const hardware = model.hardware || [];
   const size = Number(model.sizeGB) || 0;
   if (hardware.includes('edge')) return 'Edge ready';
@@ -95,6 +100,12 @@ function hardwareTier(model) {
 function localSentence(model) {
   const name = esc(model.name);
   const command = model.installCommand ? `Start with <code>${esc(model.installCommand)}</code>.` : 'Use the upstream install notes before deployment.';
+  if (model.id === 'edge-tts') {
+    return `${name} does not run speech inference locally. The Python package calls Microsoft Edge's online speech service, so an internet connection and the upstream service are required. ${command}`;
+  }
+  if (model.id === 'octave-2') {
+    return `${name} does not currently have a verified local checkpoint or runtime in the LocalClaw catalogue. The listed Python package is a client for Hume AI's vendor-hosted API. ${command}`;
+  }
   if (model.isAsr) {
     return `${name} can run locally for offline speech-to-text. ${command}`;
   }
@@ -106,6 +117,8 @@ function localSentence(model) {
 
 function bestForSentence(model) {
   const features = model.features || [];
+  if (model.id === 'edge-tts') return `${esc(model.name)} is useful for quick access to Microsoft Edge's online multilingual voices when cloud delivery is acceptable.`;
+  if (model.id === 'octave-2') return `${esc(model.name)} is useful for evaluating Hume AI's hosted expressive speech controls when vendor API use is acceptable.`;
   if (model.isAsr) {
     return `${esc(model.name)} is best for offline transcription, speech indexing and local voice pipelines.`;
   }
@@ -163,6 +176,7 @@ function relatedCard(model) {
 
 function schemaFor(model, url, desc) {
   const kind = modelKind(model);
+  const isLocal = isLocalSpeechModel(model);
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -170,11 +184,11 @@ function schemaFor(model, url, desc) {
         '@type': 'SoftwareApplication',
         name: model.name,
         applicationCategory: kind,
-        operatingSystem: 'macOS, Windows, Linux',
+        operatingSystem: isLocal ? 'macOS, Windows, Linux' : 'Web service; API client',
         url,
         description: desc,
         softwareVersion: model.releaseDate || undefined,
-        softwareRequirements: `${model.sizeGB || 'Unknown'} GB model size; ${niceList(model.hardware)}`,
+        softwareRequirements: isLocal ? `${model.sizeGB || 'Unknown'} GB model size; ${niceList(model.hardware)}` : 'Internet connection and upstream vendor service',
         license: model.license || undefined,
         creator: model.developer ? { '@type': 'Organization', name: model.developer } : undefined
       },
@@ -186,7 +200,9 @@ function schemaFor(model, url, desc) {
             name: `Can ${model.name} run locally?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
+              text: isLocal
+                ? `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
+                : `${model.name} is an online or vendor API reference, not a verified local speech model. An internet connection and the upstream service are required.`
             }
           },
           {
@@ -231,9 +247,14 @@ function nav() {
 
 function page(model, all) {
   const color = voiceColor(model);
+  const isLocal = isLocalSpeechModel(model);
   const url = `${BASE}/tts/${encodeURIComponent(model.id)}.html`;
-  const title = `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`;
-  const desc = `${model.name}: local ${modelTask(model)} guide with quality ${model.quality}/10, speed ${model.speed}/10, ${model.languageCount || (model.languages || []).length || '?'} languages, hardware and install notes.`.slice(0, 158);
+  const title = isLocal
+    ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
+    : `${model.name} online speech reference: quality, speed and access | LocalClaw`;
+  const desc = isLocal
+    ? `${model.name}: local ${modelTask(model)} guide with quality ${model.quality}/10, speed ${model.speed}/10, ${model.languageCount || (model.languages || []).length || '?'} languages, hardware and install notes.`.slice(0, 158)
+    : `${model.name}: online/vendor API speech reference with quality ${model.quality}/10, speed ${model.speed}/10, access requirements, licence and upstream link.`.slice(0, 158);
   const schema = schemaFor(model, url, desc);
   const related = relatedModels(all, model);
   const features = tagsMarkup(model.features);
@@ -273,7 +294,8 @@ function page(model, all) {
       <section class="hero-copy">
         <div class="eyebrow">${esc(modelKind(model))}</div>
         <h1 class="title">${titleMarkup(model.name)}</h1>
-        <p class="desc">${esc(model.description)}</p>
+        <p class="desc"><strong>Catalogue summary:</strong> ${esc(model.description)}</p>
+        <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
         <div class="chips">
           <span class="chip hot">${esc(hardwareTier(model))}</span>
           <span class="chip">${esc(modelTask(model))}</span>
@@ -288,9 +310,9 @@ function page(model, all) {
       <aside class="hero-panel">
         <div class="score-card">
           <div>
-            <div class="score-label">Local voice fit score</div>
-            <div class="score">${audioFitScore(model)}<small>/10</small></div>
-            <p class="score-caption">${bestForSentence(model)}</p>
+            <div class="score-label">${isLocal ? 'Audio catalogue score' : 'Audio profile score'}</div>
+            <div class="score">${audioCatalogueScore(model)}<small>/10</small></div>
+            <p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>
           </div>
         </div>
         <div data-community-rating data-model-id="tts-${esc(model.id)}" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
@@ -302,8 +324,8 @@ function page(model, all) {
     </header>
 
     <section class="specs" aria-label="Model specs">
-      <div class="spec-card"><div class="k">Quality</div><div class="v">${esc(model.quality)}/10</div></div>
-      <div class="spec-card"><div class="k">Speed</div><div class="v">${esc(model.speed)}/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">${esc(model.speed)}/10</div></div>
       <div class="spec-card"><div class="k">Model size</div><div class="v">${esc(model.sizeGB)} GB</div></div>
       <div class="spec-card"><div class="k">Voices</div><div class="v">${esc(model.voices || 'Varies')}</div></div>
     </section>
@@ -323,9 +345,9 @@ function page(model, all) {
       <div>
         <h2>Audio profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>Quality</span><div class="track"><div class="fill" style="width:${pct(model.quality)}%"></div></div><span>${esc(model.quality)}</span></div>
-          <div class="bar-row"><span>Speed</span><div class="track"><div class="fill" style="width:${pct(model.speed)}%"></div></div><span>${esc(model.speed)}</span></div>
-          <div class="bar-row"><span>Local</span><div class="track"><div class="fill" style="width:${Math.min(100, Number(audioFitScore(model)) * 10)}%"></div></div><span>${audioFitScore(model)}</span></div>
+          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:${pct(model.quality)}%"></div></div><span>${esc(model.quality)}</span></div>
+          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:${pct(model.speed)}%"></div></div><span>${esc(model.speed)}</span></div>
+          <div class="bar-row"><span>${isLocal ? 'Audio' : 'Profile'}</span><div class="track"><div class="fill" style="width:${Math.min(100, Number(audioCatalogueScore(model)) * 10)}%"></div></div><span>${audioCatalogueScore(model)}</span></div>
         </div>
       </div>
       <div>
@@ -348,11 +370,11 @@ function page(model, all) {
     </section>
 
     <section class="section">
-      <h2>Install locally</h2>
+      <h2>${isLocal ? 'Install locally' : 'Access the online service'}</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports ${esc(niceList(model.supportedFormats || ['the upstream format']))} on your machine.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Install model</strong><span>Use the upstream command or repository instructions.</span></div>
-        <div class="step"><div class="step-num">03</div><strong>Test locally</strong><span>Run a short private audio prompt before moving into production workflows.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>${isLocal ? 'Check runtime' : 'Check service terms'}</strong><span>${isLocal ? `Confirm the backend supports ${esc(niceList(model.supportedFormats || ['the upstream format']))} on your machine.` : 'Review the upstream service, privacy and usage terms before sending any text.'}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>${isLocal ? 'Install model' : 'Install client'}</strong><span>${isLocal ? 'Use the upstream command or repository instructions.' : 'Install the client package; this does not download a local inference model.'}</span></div>
+        <div class="step"><div class="step-num">03</div><strong>${isLocal ? 'Test locally' : 'Test online'}</strong><span>${isLocal ? 'Run a short private audio prompt before moving into production workflows.' : 'Confirm network delivery, data handling, latency and vendor availability.'}</span></div>
       </div>
       <pre class="command">${command}</pre>
     </section>
@@ -362,7 +384,7 @@ function page(model, all) {
         <h2>Good for</h2>
         <ul class="list">
           <li>${esc(modelTask(model))}</li>
-          <li>${esc(hardwareTier(model))} local workflows</li>
+          <li>${isLocal ? `${esc(hardwareTier(model))} local workflows` : esc(hardwareTier(model))}</li>
           <li>${esc((model.features || []).slice(0, 3).join(', ') || 'Private local speech experiments')}</li>
         </ul>
       </div>
@@ -393,10 +415,12 @@ function page(model, all) {
 }
 
 function indexPage(models) {
-  const picks = models.filter(m => m.isPick || m.isNew).slice(0, 12);
-  const bestQuality = [...models].sort((a, b) => (b.quality || 0) - (a.quality || 0))[0];
-  const fastest = [...models].sort((a, b) => (b.speed || 0) - (a.speed || 0))[0];
-  const desc = 'Static pages for local text-to-speech, ASR and speech AI models. Compare quality, speed, languages, hardware, install commands and licenses.';
+  const localModels = models.filter(isLocalSpeechModel);
+  const onlineReferences = models.filter(model => !isLocalSpeechModel(model));
+  const picks = localModels.filter(m => m.isPick || m.isNew).slice(0, 12);
+  const bestQuality = [...localModels].sort((a, b) => (b.quality || 0) - (a.quality || 0))[0];
+  const fastest = [...localModels].sort((a, b) => (b.speed || 0) - (a.speed || 0))[0];
+  const desc = `Static pages for ${localModels.length} local text-to-speech, ASR and speech AI records, plus ${onlineReferences.length} clearly labelled online/API references.`;
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -405,8 +429,8 @@ function indexPage(models) {
     description: desc,
     mainEntity: {
       '@type': 'ItemList',
-      numberOfItems: models.length,
-      itemListElement: models.slice(0, 20).map((m, i) => ({
+      numberOfItems: localModels.length,
+      itemListElement: localModels.slice(0, 20).map((m, i) => ({
         '@type': 'ListItem',
         position: i + 1,
         name: m.name,
@@ -443,7 +467,7 @@ function indexPage(models) {
         <h1 class="title">Local TTS <span>models</span></h1>
         <p class="desc">${esc(desc)}</p>
         <div class="chips">
-          <span class="chip hot">${models.length} records</span>
+          <span class="chip hot">${localModels.length} local records</span>
           <span class="chip">TTS</span>
           <span class="chip">ASR</span>
           <span class="chip">Voice apps</span>
@@ -457,7 +481,7 @@ function indexPage(models) {
         <div class="score-card">
           <div>
             <div class="score-label">Speech catalogue</div>
-            <div class="score">${models.length}<small> pages</small></div>
+            <div class="score">${localModels.length}<small> local pages</small></div>
             <p class="score-caption">Indexable, model-by-model guides for local voice generation, transcription and speech tooling.</p>
           </div>
         </div>
@@ -475,7 +499,13 @@ function indexPage(models) {
 
     <section class="section">
       <h2>All TTS model pages</h2>
-      <div class="similar">${[...models].sort((a, b) => a.name.localeCompare(b.name)).map(relatedCard).join('')}</div>
+      <div class="similar">${[...localModels].sort((a, b) => a.name.localeCompare(b.name)).map(relatedCard).join('')}</div>
+    </section>
+
+    <section class="section">
+      <h2>Online and API references</h2>
+      <p>These routes are preserved for comparison but are not counted as local models.</p>
+      <div class="similar">${onlineReferences.map(relatedCard).join('')}</div>
     </section>
   </main>
 </body>

@@ -10,7 +10,13 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://static.cloudflareinsights.com https://datafa.st https://us-assets.i.posthog.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: https://huggingface.co https://api.github.com https://datafa.st https://us.i.posthog.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'
 
+/
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
 /index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/llm-list
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /success.html
@@ -25,6 +31,30 @@
 
 /llm-detail.html
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/tts-list
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/tts-list.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/new
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/new.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/llms.txt
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/llms-full.txt
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/new-models.xml
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/sitemap*.xml
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
 /blog/
   Cache-Control: public, max-age=60, stale-while-revalidate=300

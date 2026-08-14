@@ -2,8 +2,6 @@
 // tts-list.html; this view filters non-local records and de-duplicates routes.
 if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
     App.renderHero = function renderLocalModelIndex(container) {
-        document.querySelectorAll('.lc-global-nav__link[data-nav-key="account"]').forEach((link) => { link.textContent = 'Account'; });
-
         const allLocalModels = APP_DATA.models.filter((model) => !model.hosted_only);
         const localModels = Array.from(new Map(allLocalModels.map((model) => [model.id, model])).values());
         const newestRelease = localModels.reduce((latest, model) => model.released > latest ? model.released : latest, '');
@@ -37,10 +35,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
         const familyDetails = (model) => {
             if (typeof MODEL_DETAILS !== 'undefined' && MODEL_DETAILS[model.id]) return MODEL_DETAILS[model.id];
-            if (typeof generateDefaultDetails === 'function') return generateDefaultDetails(model);
             return {};
         };
-        const modelLicense = (model) => familyDetails(model).license || 'See model page';
+        const modelLicense = (model) => familyDetails(model).license || 'See upstream';
         const logoAsset = (scope, family) => logoRegistry[scope] && logoRegistry[scope][family] ? logoRegistry[scope][family] : '';
         const avatarFormats = window.HOME_INDEX_AVATAR_FORMATS || {};
         const logoExtension = (asset) => avatarFormats[asset] || 'svg';
@@ -206,7 +203,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-hero__copy">
                             <p class="lc-index-kicker">// LocalClaw · local models only</p>
                             <h1>The Local <span>Model Index</span></h1>
-                            <p>One maintained directory for comparing local models by LocalClaw score, family, parameters, minimum RAM, licence and release date.</p>
+                            <p>One maintained directory for comparing local models by independent community stars, LocalClaw score, family, minimum RAM, licence and release date.</p>
+                            <a class="lc-index-hero__guide-link" href="#home-index-guide">How rankings work · RAM quick answers ↓</a>
                         </div>
                         <div class="lc-index-hero__mascot" aria-hidden="true"><img src="/images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
                     </header>
@@ -236,7 +234,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             </table>
                         </div>
                         <aside id="lc-index-compare-tray" class="lc-index-compare-tray" aria-live="polite" hidden><div><strong><span id="lc-index-compare-count">0</span>/3 selected</strong><span id="lc-index-compare-status">Select at least two LLMs.</span></div><div id="lc-index-compare-chips" class="lc-index-compare-chips"></div><div class="lc-index-compare-actions"><button id="lc-index-compare-clear" type="button">Clear</button><button id="lc-index-compare-open" type="button" disabled>Compare models</button></div></aside>
-                        <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ shows the raw 1–5 star average. “Community confidence” orders rated models with a transparent Bayesian prior of 3.5/5 over five votes, so one vote cannot dominate; EARLY marks fewer than five votes. Unrated ties may use LocalClaw order, but community ratings never change or blend into the separate LocalClaw /10 score (38% quality + 24% coding + 24% reasoning + 14% speed).</p>
+                        <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ shows the raw 1–5 star average. “Community confidence” orders rated models with a transparent Bayesian prior of 3.5/5 over five votes, so one vote cannot dominate; EARLY marks fewer than five votes. Unrated ties may use LocalClaw order, but community ratings never change or blend into the separate LocalClaw /10 editorial catalogue rubric (38% quality + 24% coding + 24% reasoning + 14% speed). It is not a standardized third-party benchmark.</p>
                     </section>
 
                     <section class="lc-index-tts" aria-labelledby="tts-index-title">
@@ -466,5 +464,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         renderCompareTray();
         loadCommunityRatings();
         loadPrimaryMachine();
+        const seoFallback = document.getElementById('seo-fallback');
+        if (seoFallback) seoFallback.remove();
     };
 }
