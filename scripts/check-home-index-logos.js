@@ -8,7 +8,7 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8') + ';this.DATA=APP_DATA', context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-speech-20260814c.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-avatar-formats-20260814a.js'), 'utf8'), context);
-vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814a.js'), 'utf8'), context);
+vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814b.js'), 'utf8'), context);
 
 const models = Array.from(new Map(context.DATA.models.filter((model) => !model.hosted_only).map((model) => [model.id, model])).values());
 const speechModels = context.window.HOME_INDEX_SPEECH_MODELS;
@@ -27,7 +27,7 @@ for (const asset of new Set([...Object.values(logos.llm), ...Object.values(logos
   if (!fs.existsSync(file)) missing.push(`Logo asset: ${asset}.${extension}`);
 }
 
-if (models.length !== 217) missing.push(`Expected 217 homepage LLM entries, found ${models.length}`);
+if (models.length !== 218) missing.push(`Expected 218 homepage LLM entries, found ${models.length}`);
 if (speechModels.length !== 56) missing.push(`Expected 56 local homepage speech entries, found ${speechModels.length}`);
 for (const model of models) {
   for (const metric of ['quality', 'coding', 'reasoning', 'speed']) {
