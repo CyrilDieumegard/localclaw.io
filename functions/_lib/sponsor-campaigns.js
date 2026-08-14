@@ -13,21 +13,17 @@ export const SPONSOR_PLACEMENTS = Object.freeze([
 
 const PLACEMENTS_BY_KEY = new Map(SPONSOR_PLACEMENTS.map((item) => [item.key, item]));
 const EDITABLE_STATUSES = new Set(["draft", "changes_requested"]);
-const CANCELLABLE_STATUSES = new Set([
-  "draft", "submitted", "changes_requested", "approved_pending_billing"
-]);
+const CANCELLABLE_STATUSES = new Set(["draft", "changes_requested"]);
 
-export function sponsorCatalogPayload() {
+export function sponsorCatalogPayload(commerce = {}, inventoryRanges = new Map()) {
   return {
-    placements: SPONSOR_PLACEMENTS,
+    placements: SPONSOR_PLACEMENTS.map((item) => ({
+      ...item,
+      availability: "fixed_position",
+      blockedRanges: inventoryRanges.get(item.key) || []
+    })),
     inventoryCount: SPONSOR_PLACEMENTS.length,
-    inventoryState: "preview_only",
-    pricing: null,
-    billing: {
-      plannedProvider: "stripe",
-      checkoutAvailable: false,
-      status: "not_connected"
-    },
+    ...commerce,
     editorialPolicy: "Sponsorship never changes model rankings, scores or community ratings."
   };
 }
@@ -84,6 +80,13 @@ export function validateSponsorCampaign(input, { requireComplete = false } = {})
 export function campaignRowToJson(row, metrics = null) {
   const impressions = Number(metrics?.impressions || 0);
   const clicks = Number(metrics?.clicks || 0);
+  const now = Math.floor(Date.now() / 1000);
+  const paidThrough = Number(row.paid_through || 0);
+  const startsAt = Number(row.starts_at || 0);
+  let effectiveStatus = row.status;
+  if (row.billing_status === "paid" && paidThrough > 0) {
+    effectiveStatus = paidThrough <= now ? "completed" : startsAt > now ? "scheduled" : "active";
+  }
   return {
     id: row.id,
     campaignName: row.campaign_name,
@@ -95,22 +98,39 @@ export function campaignRowToJson(row, metrics = null) {
     placement: PLACEMENTS_BY_KEY.get(row.placement_key) || null,
     requestedStartDate: row.requested_start_date || null,
     requestedEndDate: row.requested_end_date || null,
-    status: row.status,
+    status: effectiveStatus,
+    storedStatus: row.status,
     reviewNote: row.review_note || null,
+    planKey: row.plan_key || null,
+    startsAt: toIso(row.starts_at),
+    endsAt: toIso(row.ends_at),
+    paidThrough: toIso(row.paid_through),
+    autoRenew: Boolean(row.auto_renew),
+    price: row.price_cents ? {
+      amountCents: Number(row.price_cents),
+      currency: row.currency || "usd"
+    } : null,
     billing: {
       status: row.billing_status,
-      plannedProvider: "stripe",
-      checkoutAvailable: false
+      provider: "stripe",
+      customerConfigured: Boolean(row.stripe_customer_id),
+      subscriptionConfigured: Boolean(row.stripe_subscription_id),
+      subscriptionStatus: row.stripe_subscription_status || null,
+      cancelAtPeriodEnd: Boolean(row.stripe_cancel_at_period_end),
+      checkoutExpiresAt: toIso(row.checkout_expires_at)
     },
     creative: {
       status: row.creative_status || "missing",
       logoAltText: row.logo_alt_text || null,
-      uploadAvailable: false
+      logoUrl: row.logo_asset_key ? `/api/sponsor/campaigns/${encodeURIComponent(row.id)}/logo?v=${String(row.logo_sha256 || "").slice(0, 12)}` : null,
+      uploadAvailable: canEditCampaign(row.status),
+      width: Number(row.logo_width || 0) || null,
+      height: Number(row.logo_height || 0) || null
     },
     analytics: {
       impressions,
       clicks,
-      uniqueImpressions: Number(metrics?.unique_impressions || 0),
+      uniqueVisitors: Number(metrics?.unique_visitors || 0),
       uniqueClicks: Number(metrics?.unique_clicks || 0),
       ctrPercent: impressions > 0 ? Math.round((clicks / impressions) * 10_000) / 100 : null
     },
@@ -145,7 +165,7 @@ function placement(key, label, rail, position) {
     rail,
     position,
     viewport: "desktop",
-    availability: "not_for_sale"
+    availability: "fixed_position"
   });
 }
 
@@ -180,4 +200,9 @@ function cleanDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
   const date = new Date(`${text}T00:00:00Z`);
   return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === text ? text : null;
+}
+
+function toIso(value) {
+  const seconds = Number(value);
+  return Number.isFinite(seconds) && seconds > 0 ? new Date(seconds * 1000).toISOString() : null;
 }

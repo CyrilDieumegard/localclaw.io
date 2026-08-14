@@ -31,6 +31,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'sitemap-tts.xml',
   'sitemap.xml',
   'software.html',
+  'sponsor-terms.html',
   'success.html',
   'tts-list.html'
 ]);
@@ -70,10 +71,16 @@ const PRIVATE_PROBES = Object.freeze([
   'functions/_middleware.js',
   'migrations/0004_model_ratings.sql',
   'migrations/0005_sponsor_workspace.sql',
+  'migrations/0006_sponsor_commerce.sql',
   'scripts/check-seo.js',
   'scripts/check-sponsor-workspace.js',
   'functions/_lib/sponsor-campaigns.js',
+  'functions/_lib/sponsor-commerce.js',
+  'functions/_lib/sponsor-logo.js',
+  'functions/_lib/sponsor-analytics.js',
+  'functions/_lib/stripe.js',
   'functions/api/sponsor/campaigns/index.js',
+  'functions/api/stripe/webhook.js',
   '_check/hf-search-gemma4.json',
   'images/model-logos/ATTRIBUTION.md',
   'images/ram-gpu/ATTRIBUTION.md'

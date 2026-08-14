@@ -23,7 +23,8 @@
     "pages:check": "node scripts/check-pages-output.js"
   },
   "dependencies": {
-    "better-auth": "^1.6.25"
+    "better-auth": "^1.6.25",
+    "stripe": "22.5.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17",

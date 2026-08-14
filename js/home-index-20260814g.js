@@ -150,9 +150,61 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
         };
         const sponsorRail = (side) => `
-            <aside class="lc-sponsor-rail" aria-label="${side} advertising placeholders — three non-commercial slots">
-                ${[1, 2, 3].map((slot) => `<div class="lc-sponsor-slot" data-sponsor-placeholder="${side.toLowerCase()}-${slot}"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Reserved placeholder.<br>No advertiser.</p><span class="lc-sponsor-slot__size">NON-COMMERCIAL</span></div>`).join('')}
+            <aside class="lc-sponsor-rail" aria-label="${side} advertising rail — three fixed positions">
+                ${[1, 2, 3].map((slot) => `<a class="lc-sponsor-slot" href="/account?view=sponsorship" data-sponsor-placement="home-${side.toLowerCase()}-${slot}"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Fixed position available.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`).join('')}
             </aside>`;
+
+        const hydrateSponsorRails = async () => {
+            try {
+                const response = await fetch('/api/sponsor/placements', { headers: { Accept: 'application/json' }, credentials: 'same-origin' });
+                if (!response.ok) return;
+                const payload = await response.json();
+                (payload.placements || []).forEach((placement) => {
+                    const slot = document.querySelector(`[data-sponsor-placement="${placement.key}"]`);
+                    if (!slot || !placement.campaign) return;
+                    const campaign = placement.campaign;
+                    slot.classList.add('lc-sponsor-slot--active');
+                    slot.href = campaign.clickUrl;
+                    slot.target = '_blank';
+                    slot.rel = 'sponsored nofollow noopener';
+                    slot.dataset.sponsorCampaign = campaign.id;
+                    slot.innerHTML = `<span class="lc-sponsor-slot__label">Sponsored · ${String(placement.position).padStart(2, '0')}</span><img class="lc-sponsor-slot__logo" src="${escapeHtml(campaign.logoUrl)}" alt="${escapeHtml(campaign.logoAltText || '')}" loading="lazy" decoding="async"><strong class="lc-sponsor-slot__name">${escapeHtml(campaign.advertiserName)}</strong><p>${escapeHtml(campaign.tagline)}</p><span class="lc-sponsor-slot__cta">${escapeHtml(campaign.ctaLabel)} →</span>`;
+                });
+                observeSponsorImpressions();
+            } catch {
+                // Placeholders remain useful when sponsor APIs are unavailable.
+            }
+        };
+
+        const observeSponsorImpressions = () => {
+            if (!('IntersectionObserver' in window)) return;
+            const timers = new Map();
+            const recorded = new Set();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const campaignId = entry.target.dataset.sponsorCampaign;
+                    const placementKey = entry.target.dataset.sponsorPlacement;
+                    if (!campaignId || recorded.has(campaignId)) return;
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        if (timers.has(campaignId)) return;
+                        timers.set(campaignId, window.setTimeout(() => {
+                            recorded.add(campaignId);
+                            timers.delete(campaignId);
+                            observer.unobserve(entry.target);
+                            fetch('/api/sponsor/impressions', {
+                                method: 'POST', credentials: 'same-origin', keepalive: true,
+                                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                                body: JSON.stringify({ campaignId, placementKey })
+                            }).catch(() => {});
+                        }, 1000));
+                    } else if (timers.has(campaignId)) {
+                        window.clearTimeout(timers.get(campaignId));
+                        timers.delete(campaignId);
+                    }
+                });
+            }, { threshold: [0, 0.5, 1] });
+            document.querySelectorAll('[data-sponsor-campaign]').forEach((slot) => observer.observe(slot));
+        };
 
         const renderModelRows = (models) => models.map((model, index) => {
             const ratings = model.benchmarks || {};
@@ -257,6 +309,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
                 ${sponsorRail('Right')}
             </div>`;
+
+        hydrateSponsorRails();
 
         const search = document.getElementById('lc-index-search');
         const machineRamSelect = document.getElementById('lc-index-machine-ram');

@@ -62,7 +62,9 @@
 
 [data-account-panel][hidden],
 [data-account-machine-action][hidden],
-.lc-sponsor-workspace[hidden] {
+.lc-sponsor-workspace[hidden],
+.lc-sponsor-billing [hidden],
+#sponsor-date-field[hidden] {
     display: none !important;
 }
 
@@ -258,6 +260,14 @@ body[data-account-preview="sponsorship"] #sign-out {
     margin-left: 8px;
 }
 
+.lc-sponsor-inventory-grid article[data-state="open"] {
+    border-style: solid;
+    border-color: rgba(74, 222, 128, 0.28);
+}
+
+.lc-sponsor-inventory-grid article[data-state="open"] small { color: #4ade80; }
+.lc-sponsor-inventory-grid article[data-state="bounded"] small { color: #fbbf24; }
+
 .lc-sponsor-inventory-grid span,
 .lc-sponsor-inventory-grid small {
     font: 750 9px/1.4 var(--lc-font);
@@ -331,7 +341,7 @@ body[data-account-preview="sponsorship"] #sign-out {
 
 .lc-sponsor-campaign {
     display: grid;
-    grid-template-columns: minmax(250px, 1.25fr) minmax(190px, 0.8fr) minmax(260px, 1fr) auto;
+    grid-template-columns: minmax(230px, 1.15fr) minmax(190px, 0.8fr) minmax(300px, 1.15fr) auto;
     align-items: center;
     gap: 20px;
     padding: 17px;
@@ -358,6 +368,14 @@ body[data-account-preview="sponsorship"] #sign-out {
     color: var(--lc-accent);
     background: rgba(255, 69, 58, 0.07);
     font: 900 14px/1 var(--lc-display);
+}
+
+.lc-sponsor-campaign__mark img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: inherit;
+    object-fit: contain;
 }
 
 .lc-sponsor-campaign h4 {
@@ -405,9 +423,14 @@ body[data-account-preview="sponsorship"] #sign-out {
     font: 750 11px/1.4 var(--lc-font);
 }
 
+.lc-sponsor-campaign__schedule small {
+    color: var(--lc-muted);
+    font: 650 9px/1.4 var(--lc-font);
+}
+
 .lc-sponsor-campaign__metrics {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
 }
 
@@ -499,6 +522,99 @@ body[data-account-preview="sponsorship"] #sign-out {
     color: var(--lc-accent);
     background: rgba(255, 69, 58, 0.07);
     font: 900 14px/1 var(--lc-display);
+}
+
+.lc-sponsor-creative-preview > img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    border: 1px solid rgba(255, 69, 58, 0.36);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.96);
+    object-fit: contain;
+}
+
+.lc-sponsor-booking-summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 5px 14px;
+    margin-top: 14px;
+    padding: 15px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 7px;
+    background: rgba(74, 222, 128, 0.035);
+}
+
+.lc-sponsor-booking-summary[data-state="unavailable"] {
+    border-color: rgba(255, 69, 58, 0.42);
+    background: rgba(255, 69, 58, 0.05);
+}
+
+.lc-sponsor-booking-summary span {
+    color: #4ade80;
+    font: 800 9px/1.4 var(--lc-font);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.lc-sponsor-booking-summary[data-state="unavailable"] span { color: #ff8b84; }
+
+.lc-sponsor-booking-summary strong {
+    color: var(--lc-text);
+    font: 850 15px/1.3 var(--lc-display);
+}
+
+.lc-sponsor-booking-summary p {
+    grid-column: 1 / -1;
+    margin: 2px 0 0;
+    color: var(--lc-muted);
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+.lc-sponsor-checkbox {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 13px;
+    border: 1px solid #303036;
+    border-radius: 7px;
+    background: #0c0c0d;
+    cursor: pointer;
+}
+
+.lc-sponsor-checkbox input {
+    width: 17px;
+    height: 17px;
+    margin: 1px 0 0;
+    accent-color: var(--lc-accent);
+}
+
+.lc-sponsor-checkbox span,
+.lc-sponsor-checkbox strong,
+.lc-sponsor-checkbox small { display: block; }
+
+.lc-sponsor-checkbox strong {
+    color: var(--lc-text);
+    font: 800 11px/1.35 var(--lc-display);
+}
+
+.lc-sponsor-checkbox small {
+    margin-top: 4px;
+    color: var(--lc-muted);
+    font: 600 9px/1.5 var(--lc-font);
+}
+
+.lc-sponsor-checkbox a { color: var(--lc-accent); }
+.lc-sponsor-terms { margin-top: 14px; }
+
+#sponsor-logo-file {
+    padding: 9px;
+    border: 1px dashed #3a3a40;
+    border-radius: 7px;
+    color: var(--lc-muted);
+    background: #09090a;
 }
 
 .lc-sponsor-creative-preview small {

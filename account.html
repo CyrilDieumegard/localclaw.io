@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
     <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803b">
-    <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814a">
+    <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814b">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
@@ -114,38 +114,38 @@
                     <div>
                         <p class="lc-kicker">Homepage sponsorship</p>
                         <h2 id="sponsor-workspace-title">Campaign control center</h2>
-                        <p>Prepare a campaign, choose one of the six desktop rail placements and submit it for review. Editorial model order, LocalClaw scores and community ratings always remain independent.</p>
+                        <p>Book one of six fixed desktop rail placements, upload your logo and follow real delivery from the same account. Positions never rotate. Editorial model order, LocalClaw scores and community ratings always remain independent.</p>
                     </div>
                     <div class="lc-sponsor-mode" aria-label="Sponsorship rollout status">
                         <span class="lc-sponsor-mode__dot" aria-hidden="true"></span>
-                        <strong>Structure ready</strong>
-                        <small>Billing offline · no campaigns live</small>
+                        <strong>Stripe pilot</strong>
+                        <small>Fixed inventory · verified payment activation</small>
                     </div>
                 </header>
 
                 <div class="lc-sponsor-summary" aria-label="Sponsorship summary">
-                    <article><span>Inventory</span><strong>6</strong><small>bounded homepage slots</small></article>
+                    <article><span>Inventory</span><strong>6</strong><small>fixed homepage positions</small></article>
                     <article><span>Campaigns</span><strong id="sponsor-campaign-count">0</strong><small>owned by this account</small></article>
-                    <article><span>Live</span><strong>0</strong><small>activation disabled</small></article>
-                    <article><span>Billing</span><strong class="lc-sponsor-summary__word">Offline</strong><small>Stripe planned, not connected</small></article>
+                    <article><span>Active</span><strong id="sponsor-active-count">0</strong><small>paid campaigns serving now</small></article>
+                    <article><span>Billing</span><strong class="lc-sponsor-summary__word">Stripe</strong><small>$29 weekly · $99 monthly</small></article>
                 </div>
 
                 <section class="lc-sponsor-section" aria-labelledby="sponsor-inventory-title">
                     <div class="lc-sponsor-section__head">
                         <div>
-                            <p class="lc-kicker">Bounded inventory</p>
-                            <h3 id="sponsor-inventory-title">Six homepage rail placements</h3>
-                            <p>Desktop-only rails, clearly labelled as sponsored when activated later. Every slot remains a non-commercial placeholder today.</p>
+                            <p class="lc-kicker">Fixed inventory · no rotation</p>
+                            <h3 id="sponsor-inventory-title">Choose the exact homepage position</h3>
+                            <p>Each paid campaign owns its selected position for the purchased period. Existing holds and bookings block overlapping dates before Stripe Checkout can open.</p>
                         </div>
-                        <span class="lc-sponsor-lock">Not for sale yet</span>
+                        <span class="lc-sponsor-lock">Launch pricing</span>
                     </div>
                     <div id="sponsor-inventory-grid" class="lc-sponsor-inventory-grid">
-                        <article data-sponsor-placement="home-left-1"><span>Left rail</span><strong>01</strong><small>Preview only</small></article>
-                        <article data-sponsor-placement="home-left-2"><span>Left rail</span><strong>02</strong><small>Preview only</small></article>
-                        <article data-sponsor-placement="home-left-3"><span>Left rail</span><strong>03</strong><small>Preview only</small></article>
-                        <article data-sponsor-placement="home-right-1"><span>Right rail</span><strong>01</strong><small>Preview only</small></article>
-                        <article data-sponsor-placement="home-right-2"><span>Right rail</span><strong>02</strong><small>Preview only</small></article>
-                        <article data-sponsor-placement="home-right-3"><span>Right rail</span><strong>03</strong><small>Preview only</small></article>
+                        <article data-sponsor-placement="home-left-1"><span>Left rail</span><strong>01</strong><small>Checking dates…</small></article>
+                        <article data-sponsor-placement="home-left-2"><span>Left rail</span><strong>02</strong><small>Checking dates…</small></article>
+                        <article data-sponsor-placement="home-left-3"><span>Left rail</span><strong>03</strong><small>Checking dates…</small></article>
+                        <article data-sponsor-placement="home-right-1"><span>Right rail</span><strong>01</strong><small>Checking dates…</small></article>
+                        <article data-sponsor-placement="home-right-2"><span>Right rail</span><strong>02</strong><small>Checking dates…</small></article>
+                        <article data-sponsor-placement="home-right-3"><span>Right rail</span><strong>03</strong><small>Checking dates…</small></article>
                     </div>
                 </section>
 
@@ -153,15 +153,15 @@
                     <div class="lc-sponsor-section__head">
                         <div>
                             <p class="lc-kicker">Campaigns</p>
-                            <h3 id="sponsor-campaigns-title">Your drafts and review requests</h3>
-                            <p>Analytics stay empty until a campaign is genuinely active. No estimate is presented as real delivery.</p>
+                            <h3 id="sponsor-campaigns-title">Your sponsorship campaigns</h3>
+                            <p>Visible impressions, estimated unique visitors, clicks and CTR are reported independently. Zero remains zero until a real event is recorded.</p>
                         </div>
                         <button id="new-sponsor-campaign" class="lc-button lc-button-primary" type="button">+ New campaign draft</button>
                     </div>
                     <div id="sponsor-campaign-list" class="lc-sponsor-campaign-list" aria-live="polite">
                         <div class="lc-sponsor-empty">
                             <span aria-hidden="true">＋</span>
-                            <div><strong>No campaigns yet</strong><p>Create a private draft. Submission does not reserve inventory or trigger payment.</p></div>
+                            <div><strong>No campaigns yet</strong><p>Create a draft, upload your logo and continue to Stripe when the fixed position and dates are available.</p></div>
                         </div>
                     </div>
                 </section>
@@ -169,11 +169,11 @@
                 <section class="lc-sponsor-billing" aria-labelledby="sponsor-billing-title">
                     <div class="lc-sponsor-billing__icon" aria-hidden="true">$</div>
                     <div>
-                        <p class="lc-kicker">Billing boundary</p>
-                        <h3 id="sponsor-billing-title">Stripe comes in the next phase</h3>
-                        <p>The campaign, review, inventory and analytics structure is prepared. There is no Stripe SDK, checkout, webhook, secret or payment call in this release, so no campaign can become scheduled or active.</p>
+                        <p class="lc-kicker">Stripe Checkout</p>
+                        <h3 id="sponsor-billing-title">$29 for 7 days · $99 for one month</h3>
+                        <p>Launch prices can change with LocalClaw's audience. The amount shown at checkout is locked for that campaign period. Automatic renewal is optional and is managed by Stripe; no click or conversion volume is promised.</p>
                     </div>
-                    <span>Fail-closed</span>
+                    <button id="manage-sponsor-billing" class="lc-button" type="button" hidden>Manage renewal</button>
                 </section>
             </section>
         </section>
@@ -399,9 +399,9 @@
         <form id="sponsor-form" method="dialog">
             <div class="lc-dialog-head">
                 <div>
-                    <p class="lc-kicker">Private campaign draft</p>
+                    <p class="lc-kicker">Fixed-position homepage campaign</p>
                     <h2 id="sponsor-dialog-title" class="lc-dialog-title">New sponsorship campaign</h2>
-                    <p class="lc-dialog-copy">Nothing is published, reserved or billed when you save a draft.</p>
+                    <p class="lc-dialog-copy">Saving remains free. Continuing to Stripe creates a temporary inventory hold; only a verified Stripe webhook can activate the campaign.</p>
                 </div>
                 <button id="close-sponsor-dialog" class="lc-icon-button" type="button" aria-label="Close">×</button>
             </div>
@@ -419,7 +419,7 @@
                     <div class="lc-field lc-field-wide">
                         <label for="sponsor-destination-url">Destination URL</label>
                         <input id="sponsor-destination-url" name="destinationUrl" type="url" maxlength="500" placeholder="https://example.com/local-ai" required>
-                        <span class="lc-field-hint">HTTPS only. Redirects and destination content will be reviewed before activation.</span>
+                        <span class="lc-field-hint">HTTPS only. The public sponsor click route never exposes an open redirect.</span>
                     </div>
                     <div class="lc-field lc-field-wide">
                         <label for="sponsor-tagline">Short message</label>
@@ -430,7 +430,7 @@
                         <input id="sponsor-cta-label" name="ctaLabel" maxlength="28" value="Learn more" required>
                     </div>
                     <div class="lc-field">
-                        <label for="sponsor-placement-key">Preferred placement</label>
+                        <label for="sponsor-placement-key">Fixed placement</label>
                         <select id="sponsor-placement-key" name="placementKey" required>
                             <option value="home-left-1">Homepage · Left rail · 01</option>
                             <option value="home-left-2">Homepage · Left rail · 02</option>
@@ -441,29 +441,55 @@
                         </select>
                     </div>
                     <div class="lc-field">
-                        <label for="sponsor-start-date">Requested start</label>
-                        <input id="sponsor-start-date" name="requestedStartDate" type="date">
+                        <label for="sponsor-plan-key">Campaign period</label>
+                        <select id="sponsor-plan-key" name="planKey" required>
+                            <option value="week">7 days · $29</option>
+                            <option value="month">1 calendar month · $99</option>
+                        </select>
                     </div>
                     <div class="lc-field">
-                        <label for="sponsor-end-date">Requested end</label>
-                        <input id="sponsor-end-date" name="requestedEndDate" type="date">
+                        <label for="sponsor-start-mode">Start</label>
+                        <select id="sponsor-start-mode" name="startMode" required>
+                            <option value="now">Start as soon as payment clears</option>
+                            <option value="date">Start on an exact date</option>
+                        </select>
+                    </div>
+                    <div class="lc-field lc-field-wide" id="sponsor-date-field" hidden>
+                        <label for="sponsor-start-date">Exact start date</label>
+                        <input id="sponsor-start-date" name="startDate" type="date">
+                        <span class="lc-field-hint">Scheduled campaigns start at 00:00 UTC. Unavailable dates are rejected again on the server before checkout.</span>
+                    </div>
+                    <div class="lc-field lc-field-wide">
+                        <label for="sponsor-logo-file">Logo file</label>
+                        <input id="sponsor-logo-file" name="logoFile" type="file" accept="image/png,image/webp">
+                        <span class="lc-field-hint">PNG or WebP, square or near-square, 64–1024 px and no more than 512 KB.</span>
                     </div>
                     <div class="lc-field lc-field-wide">
                         <label for="sponsor-logo-alt">Logo description</label>
-                        <input id="sponsor-logo-alt" name="logoAltText" maxlength="120" placeholder="Brand name logo">
-                        <span class="lc-field-hint">Asset upload is deliberately disabled until storage and moderation are configured.</span>
+                        <input id="sponsor-logo-alt" name="logoAltText" maxlength="120" placeholder="Your product logo" required>
                     </div>
+                    <label class="lc-sponsor-checkbox lc-field-wide" for="sponsor-auto-renew">
+                        <input id="sponsor-auto-renew" name="autoRenew" type="checkbox">
+                        <span><strong>Renew automatically through Stripe</strong><small>The first period is charged now. Stripe charges the same launch price again at the end of each period until you cancel. Your fixed position remains blocked while renewal is enabled.</small></span>
+                    </label>
                 </div>
                 <div id="sponsor-creative-preview" class="lc-sponsor-creative-preview" aria-live="polite">
-                    <span id="sponsor-preview-mark">LC</span>
+                    <span id="sponsor-preview-mark">LC</span><img id="sponsor-preview-logo" alt="" hidden>
                     <div><small>Sponsored preview</small><strong id="sponsor-preview-name">Your product</strong><p id="sponsor-preview-copy">Your concise campaign message will appear here.</p></div>
                 </div>
+                <div id="sponsor-booking-summary" class="lc-sponsor-booking-summary" aria-live="polite">
+                    <span>Launch price</span><strong>$29 · 7 days</strong><p>Choose a fixed position and start time. Availability is checked again atomically before Stripe opens.</p>
+                </div>
+                <label class="lc-sponsor-checkbox lc-sponsor-terms" for="sponsor-accept-terms">
+                    <input id="sponsor-accept-terms" name="acceptTerms" type="checkbox">
+                    <span><strong>I accept the <a href="/sponsor-terms" target="_blank" rel="noopener">LocalClaw sponsorship terms</a>.</strong><small>No traffic, clicks, conversions or ranking benefit is guaranteed. I have the right to use the uploaded logo and destination.</small></span>
+                </label>
                 <p id="sponsor-form-error" class="lc-form-error" role="alert"></p>
             </div>
             <div class="lc-dialog-actions lc-sponsor-dialog-actions">
                 <button id="cancel-sponsor-edit" class="lc-button" type="button">Cancel</button>
                 <button id="save-sponsor-draft" class="lc-button" type="submit">Save draft</button>
-                <button id="submit-sponsor-review" class="lc-button lc-button-primary" type="button">Submit for review</button>
+                <button id="start-sponsor-checkout" class="lc-button lc-button-primary" type="button">Continue to Stripe</button>
             </div>
         </form>
     </dialog>
@@ -474,6 +500,6 @@
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
     <script src="/js/account-20260802a.js?v=20260803b"></script>
-    <script src="/js/account-sponsor-20260814a.js?v=20260814a"></script>
+    <script src="/js/account-sponsor-20260814b.js?v=20260814b"></script>
 </body>
 </html>

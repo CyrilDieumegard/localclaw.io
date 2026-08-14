@@ -131,7 +131,8 @@ async function cancelCampaign(context, userId, existing) {
 
 async function getOwnedCampaign(context, userId, id) {
   return context.env.LOCALCLAW_DB.prepare(`
-    SELECT c.*, cr.logo_alt_text, cr.creative_status
+    SELECT c.*, cr.logo_alt_text, cr.creative_status, cr.logo_asset_key,
+           cr.logo_sha256, cr.logo_width, cr.logo_height
     FROM sponsor_campaigns c
     LEFT JOIN sponsor_campaign_creatives cr ON cr.campaign_id = c.id
     WHERE c.id = ? AND c.user_id = ?

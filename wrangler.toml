@@ -9,5 +9,13 @@ binding = "LOCALCLAW_DB"
 database_name = "localclaw-accounts"
 database_id = "e428ae5d-c6a3-4a5e-8956-35294e1a8bae"
 
+[[r2_buckets]]
+binding = "SPONSOR_LOGOS"
+bucket_name = "localclaw-sponsor-logos-production"
+preview_bucket_name = "localclaw-sponsor-logos-preview"
+
 [vars]
 BETTER_AUTH_URL = "https://localclaw.io"
+SPONSOR_CHECKOUT_MODE = "pilot"
+SPONSOR_SERVING_ENABLED = "true"
+STRIPE_EXPECTED_LIVEMODE = "true"

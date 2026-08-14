@@ -11,7 +11,12 @@ const CAMPAIGN_COLUMNS = `
   c.id, c.campaign_name, c.advertiser_name, c.destination_url, c.tagline,
   c.cta_label, c.placement_key, c.requested_start_date, c.requested_end_date,
   c.status, c.review_note, c.billing_status, c.created_at, c.updated_at,
-  c.submitted_at, c.version, cr.logo_alt_text, cr.creative_status
+  c.submitted_at, c.version, c.plan_key, c.starts_at, c.ends_at, c.paid_through,
+  c.auto_renew, c.price_cents, c.currency, c.stripe_customer_id,
+  c.stripe_subscription_id, c.stripe_subscription_status,
+  c.stripe_cancel_at_period_end, c.checkout_expires_at,
+  cr.logo_alt_text, cr.creative_status, cr.logo_asset_key, cr.logo_sha256,
+  cr.logo_width, cr.logo_height
 `;
 
 export async function onRequestGet(context) {
@@ -31,12 +36,19 @@ export async function onRequestGet(context) {
         SELECT m.campaign_id,
                SUM(m.impressions) AS impressions,
                SUM(m.clicks) AS clicks,
-               SUM(m.unique_impressions) AS unique_impressions,
-               SUM(m.unique_clicks) AS unique_clicks
+               COALESCE(u.unique_visitors, 0) AS unique_visitors,
+               COALESCE(u.unique_clicks, 0) AS unique_clicks
         FROM sponsor_daily_metrics m
         JOIN sponsor_campaigns c ON c.id = m.campaign_id
+        LEFT JOIN (
+          SELECT campaign_id,
+                 SUM(CASE WHEN event_type = 'impression' THEN 1 ELSE 0 END) AS unique_visitors,
+                 SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) AS unique_clicks
+          FROM sponsor_campaign_metric_uniques
+          GROUP BY campaign_id
+        ) u ON u.campaign_id = m.campaign_id
         WHERE c.user_id = ?
-        GROUP BY m.campaign_id
+        GROUP BY m.campaign_id, u.unique_visitors, u.unique_clicks
       `).bind(auth.session.user.id).all()
     ]);
     const metrics = new Map((metricResult.results || []).map((row) => [row.campaign_id, row]));
@@ -63,7 +75,7 @@ export async function onRequestPost(context) {
 
   try {
     const countRow = await context.env.LOCALCLAW_DB.prepare(
-      "SELECT COUNT(*) AS count FROM sponsor_campaigns WHERE user_id = ? AND status <> 'completed'"
+      "SELECT COUNT(*) AS count FROM sponsor_campaigns WHERE user_id = ? AND status NOT IN ('completed', 'cancelled')"
     ).bind(auth.session.user.id).first();
     if (Number(countRow?.count || 0) >= MAX_SPONSOR_CAMPAIGNS_PER_ACCOUNT) {
       return json({ ok: false, error: "campaign_limit_reached" }, 409);

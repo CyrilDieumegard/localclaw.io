@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | LocalClaw</title>
-    <meta name="description" content="How LocalClaw handles account, hardware profile, session and website analytics data.">
+    <meta name="description" content="How LocalClaw handles account, hardware profile, sponsorship, payment and website analytics data.">
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://localclaw.io/privacy">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
@@ -32,7 +32,7 @@
         <article class="lc-legal">
             <p class="lc-kicker">LocalClaw account service</p>
             <h1>Privacy Policy</h1>
-            <p class="lc-legal-meta">Last updated: August 2, 2026</p>
+            <p class="lc-legal-meta">Last updated: August 14, 2026</p>
 
             <p>This policy explains the data used by the LocalClaw website and the optional My Machines account workspace.</p>
 
@@ -48,15 +48,24 @@
             <h2>Website analytics</h2>
             <p>Public LocalClaw pages use DataFast and Microsoft Clarity to understand page visits, referrals, devices and interactions. These services process analytics data under their own privacy terms. The account workspace is not used to collect prompts, local files, device serial numbers or operating-system credentials.</p>
 
+            <h2>Sponsorship campaigns and payment</h2>
+            <p>If you create a sponsorship campaign, LocalClaw stores the campaign name, advertiser name, HTTPS destination, short message, selected fixed position, dates, logo metadata, purchase state and delivery analytics. Sponsor logos are stored in a private Cloudflare R2 bucket and are served publicly only while the paid campaign is active.</p>
+            <p>Stripe hosts Checkout and manages payment methods, receipts, subscriptions and renewal cancellation. LocalClaw stores Stripe object identifiers and payment state needed to reconcile a campaign, but does not receive or store full card numbers.</p>
+
+            <h2>Sponsor delivery measurement</h2>
+            <p>When an active sponsor placement is viewed or clicked, LocalClaw uses a random first-party, HttpOnly cookie to deduplicate short bursts and estimate unique campaign visitors. LocalClaw stores a one-way hash of that random identifier, not its raw value, IP address or Google account. Campaign owners receive aggregate impressions, estimated unique visitors, clicks and CTR, not visitor identities.</p>
+
             <h2>Infrastructure and service providers</h2>
             <ul>
                 <li>Google provides account authentication.</li>
                 <li>Cloudflare Pages, Functions and D1 host the website, account API and account database.</li>
+                <li>Cloudflare R2 stores uploaded sponsor logos.</li>
+                <li>Stripe processes sponsor payments and optional automatic renewals.</li>
                 <li>DataFast and Microsoft Clarity provide analytics on public website pages.</li>
             </ul>
 
             <h2>Retention and deletion</h2>
-            <p>Account and machine data remain stored while the account is active. To request access, correction or deletion of an account and its saved machines, email <a href="mailto:helplocalclaw@gmail.com">helplocalclaw@gmail.com</a> from the address associated with the account.</p>
+            <p>Account, machine and sponsor campaign data remain stored while needed to provide the service, document payment and resolve support or legal obligations. Short-lived metric deduplication rows can be removed without changing historical aggregate totals. To request access, correction or deletion, email <a href="mailto:helplocalclaw@gmail.com">helplocalclaw@gmail.com</a> from the address associated with the account.</p>
 
             <h2>Contact</h2>
             <p>Questions about this policy can be sent to <a href="mailto:helplocalclaw@gmail.com">helplocalclaw@gmail.com</a>.</p>
@@ -66,7 +75,7 @@
     <footer class="lc-account-footer">
         <div class="lc-shell">
             <span>&copy; 2026 LocalClaw</span>
-            <a href="/account">My Machines</a>
+            <a href="/account">Account</a>
         </div>
     </footer>
 </body>

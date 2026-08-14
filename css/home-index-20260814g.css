@@ -131,13 +131,64 @@
     border: 1px dashed rgba(255,255,255,0.16);
     border-radius: 12px;
     background: rgba(8,8,9,0.38);
+    color: inherit;
+    text-decoration: none;
     text-align: center;
+}
+
+.lc-sponsor-slot:hover,
+.lc-sponsor-slot:focus-visible {
+    border-color: rgba(255,69,58,0.42);
+    background: rgba(255,69,58,0.045);
 }
 
 .lc-sponsor-slot__label { color: #7e7e88; font: 700 9px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; }
 .lc-sponsor-slot__mark { width: 38px; height: 1px; background: #ff453a; opacity: 0.7; }
 .lc-sponsor-slot p { max-width: 130px; color: #595962; font: 500 9px/1.5 "JetBrains Mono", monospace; }
 .lc-sponsor-slot__size { color: #44444c; font: 600 8px/1.4 "JetBrains Mono", monospace; letter-spacing: 0.12em; }
+
+.lc-sponsor-slot--active {
+    justify-content: flex-start;
+    border-style: solid;
+    border-color: rgba(255,69,58,0.32);
+    background: linear-gradient(145deg, rgba(255,69,58,0.09), rgba(8,8,9,0.72) 55%);
+}
+
+.lc-sponsor-slot__logo {
+    width: 54px;
+    height: 54px;
+    display: block;
+    margin: 2px auto;
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.96);
+    object-fit: contain;
+}
+
+.lc-sponsor-slot__name {
+    max-width: 145px;
+    overflow: hidden;
+    color: #fff;
+    font: 750 13px/1.25 "Space Grotesk", sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lc-sponsor-slot--active p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    color: #92929d;
+}
+
+.lc-sponsor-slot__cta {
+    margin-top: auto;
+    color: #ff6d64;
+    font: 750 8px/1.3 "JetBrains Mono", monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
 
 .lc-index-directory { min-width: 0; }
 
