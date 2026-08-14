@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kimi K2.5 (32B/1T MoE) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Kimi K2.5 (32B/1T MoE): 32B active (1T total MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <title>Kimi K2.5 (1T MoE) server-grade local AI | LocalClaw</title>
+  <meta name="description" content="Kimi K2.5 (1T MoE): 1T (32B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/kimi-k2.5-32b">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/kimi-k2.5-32b">
-  <meta property="og:title" content="Kimi K2.5 (32B/1T MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="Kimi K2.5 (32B/1T MoE): 32B active (1T total MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <meta property="og:title" content="Kimi K2.5 (1T MoE) local AI model | LocalClaw">
+  <meta property="og:description" content="Kimi K2.5 (1T MoE): 1T (32B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kimi K2.5 (32B/1T MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Kimi K2.5 (32B/1T MoE): 32B active (1T total MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <meta name="twitter:title" content="Kimi K2.5 (1T MoE) local AI model | LocalClaw">
+  <meta name="twitter:description" content="Kimi K2.5 (1T MoE): 1T (32B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Kimi K2.5 (32B/1T MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/kimi-k2.5-32b","description":"Kimi K2.5 (32B/1T MoE): 32B active (1T total MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.","softwareVersion":"2026-01","memoryRequirements":"32 GB RAM minimum","creator":{"@type":"Organization","name":"Moonshot AI","url":"https://www.moonshot.cn/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Kimi K2.5 (32B/1T MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"Kimi K2.5 (32B/1T MoE) can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Kimi K2.5 (32B/1T MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"Kimi K2.5 (32B/1T MoE) is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Kimi K2.5 (32B/1T MoE)","item":"https://localclaw.io/models/kimi-k2.5-32b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Kimi K2.5 (1T MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/kimi-k2.5-32b","description":"Kimi K2.5 (1T MoE): 1T (32B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.","softwareVersion":"2026-01","memoryRequirements":"1024 GB RAM minimum","license":"https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE","creator":{"@type":"Organization","name":"Moonshot AI","url":"https://www.moonshot.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Kimi K2.5 (1T MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"Kimi K2.5 (1T MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is Kimi K2.5 (1T MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"Kimi K2.5 (1T MoE) is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Kimi K2.5 (1T MoE)","item":"https://localclaw.io/models/kimi-k2.5-32b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,21 +48,16 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Kimi K2.5 (32B/1T MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Kimi K2.5 (1T MoE)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight MoE</div>
-        <h1 class="title">Kimi K2.5 <span>(32B/1T MoE)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Moonshot AI&#39;s agentic flagship. 1T total MoE parameters with 32B active per forward pass. Unmatched long-context reasoning at 256K tokens. Designed for complex agentic tasks and tool use. Model License — check moonshotai.com for commercial terms.</p>
+        <h1 class="title">Kimi K2.5 <span>(1T MoE)</span></h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Moonshot AI open-weight multimodal agentic MoE with 1T total parameters and 32B active per token. The verified Q4_K_M GGUF is roughly 621.2 GB, making this a server-grade local target. The legacy route ID keeps its active-parameter shorthand for URL stability. Modified MIT licence.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">32 GB catalogue minimum</span>
-          <span class="chip">32 GB RAM</span>
-          <span class="chip">Q4_K_M</span>
-          <span class="chip">Coding assistant</span>
-        </div>
+        <div class="chips"><span class="chip hot">1024 GB catalogue minimum</span><span class="chip">1024 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/unsloth/Kimi-K2.5-GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,34 +76,34 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">32B active (1T total MoE)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">32 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">22 GB</div></div>
+<section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">1T (32B active, MoE)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">1024 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">621.2 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="kimi-k2.5-32b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="kimi-k2.5-32b" aria-live="polite"></section>
     <section class="section">
-      <h2>Can Kimi K2.5 (32B/1T MoE) run locally?</h2>
-      <p>Kimi K2.5 (32B/1T MoE) has a catalogue minimum of 32 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>kimi-k2.5-32b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/moonshotai/Kimi-K2.5-32B-GGUF" target="_blank" rel="noopener">Hugging Face repository: moonshotai/Kimi-K2.5-32B-GGUF</a><a href="https://www.moonshot.cn/" target="_blank" rel="noopener">Upstream release</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">quality</span></div>
+      <h2>Can Kimi K2.5 (1T MoE) run locally?</h2>
+      <p>Kimi K2.5 (1T MoE) has a catalogue minimum of 1024 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Treat <code>kimi-k2.5</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/moonshotai/Kimi-K2.5" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/unsloth/Kimi-K2.5-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): unsloth/Kimi-K2.5-GGUF</a><a href="https://www.kimi.com/blog/kimi-k2-5" target="_blank" rel="noopener">Upstream release</a><a href="https://arxiv.org/abs/2602.02276" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">server-grade</span><span class="tag">quality</span><span class="tag">moe</span><span class="tag">multimodal</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 32 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search kimi-k2.5-32b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 1024 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use kimi-k2.5 only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: kimi</li><li>Parameters: 32B active (1T total MoE)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 32 GB</li><li>Catalogue model size: 22 GB</li><li>Tags: chat, code, reasoning, power, quality</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: kimi</li><li>Parameters: 1T (32B active, MoE)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 1024 GB</li><li>Catalogue model size: 621.2 GB</li><li>Tags: chat, code, reasoning, server-grade, quality, moe, multimodal</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>power</li><li>quality</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>server-grade</li><li>quality</li><li>moe</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
@@ -121,29 +116,29 @@
       <h2>Technical notes</h2>
       <div class="meta-grid">
         <div class="meta"><div class="k">Developer</div><div class="v">Moonshot AI</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">See upstream repository</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Modified MIT</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">262,144 tokens</div></div>
         <div class="meta"><div class="k">Architecture</div><div class="v">Mixture of Experts — 1T total, 32B active</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-pro-48gb"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb"><small>Power-user picks</small>32GB RAM guide</a>
+        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/kimi-linear-48b-a3b-instruct">Kimi Linear 48B-A3B Instruct <span>48B (3B active, MoE)</span></a><a href="/models/qwen3-32b">Qwen 3 (32B) <span>32B</span></a><a href="/models/qwen3.6-27b">Qwen 3.6 (27B) <span>27B</span></a><a href="/models/nemotron3-49b">Llama-3.3-Nemotron-Super (49B) <span>49B</span></a><a href="/models/muse-glimmer-30b">Muse Glimmer 30B <span>29.8B multimodal</span></a><a href="/models/deepseek-v3.2">DeepSeek V3.2 (37B/671B MoE) <span>37B (671B MoE)</span></a><a href="/models/trinity-large">Trinity Large Preview (70B MoE) <span>70B (MoE, ~400B total)</span></a><a href="/models/qwen3-next-80b-a3b">Qwen 3 Next (80B/3B MoE) <span>80B (3B active)</span></a></div></section>
-    <section class="section">
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/kimi-k2-instruct">Kimi K2 Instruct (1T MoE) <span>1T (32B active, 384 experts)</span></a><a href="/models/kimi-k2.7-code">Kimi K2.7 Code (1T MoE) <span>1T (32B active)</span></a><a href="/models/kimi-k2-thinking">Kimi K2 Thinking (1T MoE) <span>1T (32B active, 384 experts)</span></a><a href="/models/deepseek-v4-pro">DeepSeek V4 Pro (1.6T MoE) <span>1.6T (49B active)</span></a><a href="/models/ling-1t">Ling 1T (1T MoE) <span>1T (50B active)</span></a><a href="/models/mimo-v2.5-pro">MiMo-V2.5-Pro (1.02T MoE) <span>1.02T (42B active)</span></a></div></section>
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/32gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"kimi-k2.5-32b","name":"Kimi K2.5 (32B/1T MoE)","family":"kimi","params":"32B active (1T total MoE)","size_gb":22,"min_ram":32,"tags":["chat","code","reasoning","power","quality"],"description":"Moonshot AI's agentic flagship. 1T total MoE parameters with 32B active per forward pass. Unmatched long-context reasoning at 256K tokens. Designed for complex agentic tasks and tool use. Model License — check moonshotai.com for commercial terms.","search_term":"kimi-k2.5-32b","recommended_quant":"Q4_K_M","hf_repo":"moonshotai/Kimi-K2.5-32B-GGUF","benchmarks":{"speed":4,"quality":10,"coding":10,"reasoning":10},"released":"2026-01"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"kimi-k2.5-32b","name":"Kimi K2.5 (1T MoE)","family":"kimi","params":"1T (32B active, MoE)","size_gb":621.2,"min_ram":1024,"tags":["chat","code","reasoning","server-grade","quality","moe","multimodal"],"description":"Moonshot AI open-weight multimodal agentic MoE with 1T total parameters and 32B active per token. The verified Q4_K_M GGUF is roughly 621.2 GB, making this a server-grade local target. The legacy route ID keeps its active-parameter shorthand for URL stability. Modified MIT licence.","search_term":"kimi-k2.5","recommended_quant":"Q4_K_M","hf_repo":"unsloth/Kimi-K2.5-GGUF","source_url":"https://huggingface.co/moonshotai/Kimi-K2.5","benchmarks":{"speed":4,"quality":10,"coding":10,"reasoning":10},"released":"2026-01"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

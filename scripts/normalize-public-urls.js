@@ -35,6 +35,11 @@ function normalizePublicUrl(value, filePath) {
     return `${BASE}${parsed.pathname}${parsed.search}${parsed.hash}`;
   }
 
+  // External absolute URLs are source references, not LocalClaw routes. In
+  // particular, an upstream URL ending in `.html` must keep both its origin
+  // and extension instead of being resolved relative to the current page.
+  if (/^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(original)) return value;
+
   const { pathname, suffix } = splitSuffix(original);
   if (pathname === '.html') return value;
   if (!/\.html$/i.test(pathname)) return value;

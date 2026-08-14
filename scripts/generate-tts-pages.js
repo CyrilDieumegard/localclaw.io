@@ -6,10 +6,17 @@ const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const ONLINE_ONLY_IDS = new Set(['edge-tts', 'octave-2']);
-
+const CHECK_ONLY = process.argv.includes('--check');
 function isLocalSpeechModel(model) {
-  return !ONLINE_ONLY_IDS.has(model.id);
+  return !model.delivery;
+}
+
+function isUnverifiedSpeechRecord(model) {
+  return model.delivery === 'unverified';
+}
+
+function isRemoteSpeechService(model) {
+  return model.delivery === 'online' || model.delivery === 'api';
 }
 
 function extractTTS() {
@@ -29,6 +36,10 @@ const esc = (s = '') => String(s).replace(/[\u2014\u2013]/g, '-').replace(/[&<>'
   "'": '&#39;',
   '"': '&quot;'
 }[c]));
+
+function cleanGeneratedHtml(html) {
+  return `${String(html).replace(/[ \t]+$/gm, '').replace(/\n+$/, '')}\n`;
+}
 
 const pct = n => Math.max(0, Math.min(100, Number(n || 0) * 10));
 const fmtNum = n => Number.isFinite(Number(n)) ? Number(n).toLocaleString('en-US') : esc(n || 'Unknown');
@@ -67,6 +78,7 @@ function voiceColor(model) {
 }
 
 function modelKind(model) {
+  if (isUnverifiedSpeechRecord(model)) return 'Unverified speech reference';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Online TTS interface' : 'Vendor API speech reference';
   if (model.isAsr) return 'Local ASR model';
   if (model.isOrchestrator) return 'Local speech app';
@@ -74,6 +86,7 @@ function modelKind(model) {
 }
 
 function modelTask(model) {
+  if (isUnverifiedSpeechRecord(model)) return 'preserved catalogue route without a verified checkpoint';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'online text-to-speech access' : 'vendor-hosted speech generation';
   if (model.isAsr) return 'speech-to-text transcription';
   if (model.isOrchestrator) return 'local voice workflow orchestration';
@@ -81,12 +94,14 @@ function modelTask(model) {
 }
 
 function audioCatalogueScore(model) {
+  if (isUnverifiedSpeechRecord(model)) return null;
   const quality = Number(model.quality) || 0;
   const speed = Number(model.speed) || 0;
   return Math.max(0, Math.min(10, quality * 0.68 + speed * 0.32)).toFixed(1);
 }
 
 function hardwareTier(model) {
+  if (isUnverifiedSpeechRecord(model)) return 'Checkpoint not verified';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Internet required' : 'Vendor API required';
   const hardware = model.hardware || [];
   const size = Number(model.sizeGB) || 0;
@@ -106,6 +121,9 @@ function localSentence(model) {
   if (model.id === 'octave-2') {
     return `${name} does not currently have a verified local checkpoint or runtime in the LocalClaw catalogue. The listed Python package is a client for Hume AI's vendor-hosted API. ${command}`;
   }
+  if (isUnverifiedSpeechRecord(model)) {
+    return `${name} does not have an exact public checkpoint or upstream release verified by LocalClaw. This route is preserved for transparency and is not installation guidance; similarly named releases must not be substituted. `;
+  }
   if (model.isAsr) {
     return `${name} can run locally for offline speech-to-text. ${command}`;
   }
@@ -117,6 +135,7 @@ function localSentence(model) {
 
 function bestForSentence(model) {
   const features = model.features || [];
+  if (isUnverifiedSpeechRecord(model)) return `${esc(model.name)} is retained only as an unverified catalogue reference, not as a ranked local speech model.`;
   if (model.id === 'edge-tts') return `${esc(model.name)} is useful for quick access to Microsoft Edge's online multilingual voices when cloud delivery is acceptable.`;
   if (model.id === 'octave-2') return `${esc(model.name)} is useful for evaluating Hume AI's hosted expressive speech controls when vendor API use is acceptable.`;
   if (model.isAsr) {
@@ -132,6 +151,7 @@ function bestForSentence(model) {
 }
 
 function commercialNote(model) {
+  if (isUnverifiedSpeechRecord(model)) return 'No licence is published because no exact model release was verified.';
   if (!model.license) return 'Check the upstream license before commercial use.';
   if (/non.?commercial|\bNC\b|by-nc|research|custom|terms|cpml/i.test(model.license)) return `${esc(model.license)} license. Review upstream restrictions before commercial use.`;
   if (/apache|mit|bsd/i.test(model.license)) return `${esc(model.license)} license. Still verify upstream usage notes before shipping.`;
@@ -152,7 +172,7 @@ function pillMarkup(items) {
 
 function relatedModels(all, model) {
   return all
-    .filter(item => item.id !== model.id)
+    .filter(item => item.id !== model.id && !isUnverifiedSpeechRecord(item))
     .map(item => {
       const sharedFeatures = (item.features || []).filter(feature => (model.features || []).includes(feature)).length;
       const family = item.family === model.family ? 4 : 0;
@@ -174,9 +194,39 @@ function relatedCard(model) {
   </a>`;
 }
 
+function unverifiedCard(model) {
+  return `<a class="similar-card" href="/tts/${esc(model.id)}.html" style="--model-color:#71717a">
+    <span class="similar-family">Preserved route</span>
+    <strong>${esc(model.name)}</strong>
+    <small>Unverified reference · excluded from local counts and rankings</small>
+  </a>`;
+}
+
 function schemaFor(model, url, desc) {
   const kind = modelKind(model);
   const isLocal = isLocalSpeechModel(model);
+  if (isUnverifiedSpeechRecord(model)) {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          name: model.name,
+          url,
+          description: desc,
+          about: 'Unverified speech catalogue reference'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: BASE },
+            { '@type': 'ListItem', position: 2, name: 'TTS', item: `${BASE}/tts-list.html` },
+            { '@type': 'ListItem', position: 3, name: model.name, item: url }
+          ]
+        }
+      ]
+    };
+  }
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -248,11 +298,16 @@ function nav() {
 function page(model, all) {
   const color = voiceColor(model);
   const isLocal = isLocalSpeechModel(model);
+  const isUnverified = isUnverifiedSpeechRecord(model);
   const url = `${BASE}/tts/${encodeURIComponent(model.id)}.html`;
-  const title = isLocal
+  const title = isUnverified
+    ? `${model.name}: preserved unverified speech reference | LocalClaw`
+    : isLocal
     ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
     : `${model.name} online speech reference: quality, speed and access | LocalClaw`;
-  const desc = isLocal
+  const desc = isUnverified
+    ? `${model.name}: preserved catalogue route. No exact public checkpoint, release, score or installation path was verified on August 14, 2026.`.slice(0, 158)
+    : isLocal
     ? `${model.name}: local ${modelTask(model)} guide with quality ${model.quality}/10, speed ${model.speed}/10, ${model.languageCount || (model.languages || []).length || '?'} languages, hardware and install notes.`.slice(0, 158)
     : `${model.name}: online/vendor API speech reference with quality ${model.quality}/10, speed ${model.speed}/10, access requirements, licence and upstream link.`.slice(0, 158);
   const schema = schemaFor(model, url, desc);
@@ -261,7 +316,92 @@ function page(model, all) {
   const hardware = pillMarkup(model.hardware);
   const formats = pillMarkup(model.supportedFormats);
   const sourceLink = model.hfLink ? `<a href="${esc(model.hfLink)}" target="_blank" rel="noopener nofollow">Upstream source</a>` : '';
-  const command = esc(model.installCommand || 'Check upstream installation instructions');
+  const command = esc(model.installCommand || (isUnverified ? 'No verified installation command' : 'Check upstream installation instructions'));
+  const audioScore = audioCatalogueScore(model);
+  const sourceAction = model.hfLink
+    ? `<a class="btn secondary" href="${esc(model.hfLink)}" target="_blank" rel="noopener nofollow">Open upstream source</a>`
+    : isUnverified
+      ? '<span class="btn secondary" aria-disabled="true">No verified source</span>'
+      : '<a class="btn secondary" href="/pricing.html">Get LocalClaw</a>';
+  const scorePanel = isUnverified
+    ? '<div class="score-label">Verification status</div><div class="score">Unverified</div><p class="score-caption">No Audio, quality or speed score is published because no exact model release or checkpoint was verified.</p>'
+    : `<div class="score-label">${isLocal ? 'Audio catalogue score' : 'Audio profile score'}</div><div class="score">${audioScore}<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>`;
+  const communityPanel = isUnverified
+    ? '<p class="muted">Community model ratings are disabled for this unverified reference.</p>'
+    : `<div data-community-rating data-model-id="tts-${esc(model.id)}" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>`;
+  const statusChips = isUnverified
+    ? '<span class="chip hot">Excluded from local index</span><span class="chip">No verified checkpoint</span><span class="chip">No verified release</span>'
+    : `<span class="chip hot">${esc(hardwareTier(model))}</span><span class="chip">${esc(modelTask(model))}</span><span class="chip">${fmtNum(model.languageCount || (model.languages || []).length)} languages</span><span class="chip">${esc(model.license || 'License varies')}</span>`;
+  const specsSection = isUnverified ? '' : `
+    <section class="specs" aria-label="Model specs">
+      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">${esc(model.speed)}/10</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">${esc(model.sizeLabel || (Number.isFinite(Number(model.sizeGB)) ? `${model.sizeGB} GB` : 'Not verified'))}</div></div>
+      <div class="spec-card"><div class="k">Voices</div><div class="v">${esc(model.voices || 'Varies')}</div></div>
+    </section>`;
+  const verificationSection = isUnverified ? `
+    <section class="section">
+      <h2>Why this route is preserved</h2>
+      <p>${localSentence(model)}</p>
+      <p>${commercialNote(model)}</p>
+      <p class="muted">It is excluded from local counts, rankings, comparison and community ratings.</p>
+      <div class="source-links"><a href="/tts/coqui-tts.html">Open the verified XTTS v2 catalogue page</a></div>
+    </section>` : `
+    <section class="section">
+      <h2>Can ${esc(model.name)} run locally?</h2>
+      <p>${localSentence(model)}</p>
+      <p>${commercialNote(model)}</p>
+      <div class="source-links"><code>${command}</code>${sourceLink}</div>
+      <div style="margin-top:18px">${features}</div>
+    </section>`;
+  const profileSection = isUnverified ? '' : `
+    <section class="section cols">
+      <div>
+        <h2>Audio profile</h2>
+        <div class="bars">
+          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:${pct(model.quality)}%"></div></div><span>${esc(model.quality)}</span></div>
+          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:${pct(model.speed)}%"></div></div><span>${esc(model.speed)}</span></div>
+          <div class="bar-row"><span>${isLocal ? 'Audio' : 'Profile'}</span><div class="track"><div class="fill" style="width:${Math.min(100, Number(audioScore) * 10)}%"></div></div><span>${audioScore}</span></div>
+        </div>
+      </div>
+      <div><h2>Best fit</h2><p>${bestForSentence(model)}</p><p class="muted">Hardware: ${hardware || 'Not specified'}</p></div>
+    </section>`;
+  const detailsSection = isUnverified ? `
+    <section class="section">
+      <h2>Verification details</h2>
+      <div class="detail-grid">
+        <div class="detail"><div class="k">Type</div><div class="v">Unverified speech reference</div></div>
+        <div class="detail"><div class="k">Public checkpoint</div><div class="v">Not verified</div></div>
+        <div class="detail"><div class="k">Release</div><div class="v">Not verified</div></div>
+        <div class="detail"><div class="k">Local index</div><div class="v">Excluded</div></div>
+      </div>
+    </section>` : `
+    <section class="section">
+      <h2>Model details</h2>
+      <div class="detail-grid">
+        <div class="detail"><div class="k">Type</div><div class="v">${esc(modelKind(model))}</div></div>
+        <div class="detail"><div class="k">Family</div><div class="v">${esc(model.family || 'Unknown')}</div></div>
+        <div class="detail"><div class="k">Latency</div><div class="v">${esc(model.latency || 'Not specified')}</div></div>
+        <div class="detail"><div class="k">Formats</div><div class="v">${formats || 'Not specified'}</div></div>
+        <div class="detail"><div class="k">Languages</div><div class="v">${esc(niceList(model.languages))}</div></div>
+        <div class="detail"><div class="k">Context</div><div class="v">${esc(model.context || 'Not specified')}</div></div>
+      </div>
+    </section>`;
+  const installSection = isUnverified ? '' : `
+    <section class="section">
+      <h2>${isLocal ? 'Install locally' : 'Access the online service'}</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>${isLocal ? 'Check runtime' : 'Check service terms'}</strong><span>${isLocal ? `Confirm the backend supports ${esc(niceList(model.supportedFormats || ['the upstream format']))} on your machine.` : 'Review the upstream service, privacy and usage terms before sending any text.'}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>${isLocal ? 'Install model' : 'Install client'}</strong><span>${isLocal ? 'Use the upstream command or repository instructions.' : 'Install the client package; this does not download a local inference model.'}</span></div>
+        <div class="step"><div class="step-num">03</div><strong>${isLocal ? 'Test locally' : 'Test online'}</strong><span>${isLocal ? 'Run a short private audio prompt before moving into production workflows.' : 'Confirm network delivery, data handling, latency and vendor availability.'}</span></div>
+      </div>
+      <pre class="command">${command}</pre>
+    </section>`;
+  const shippingSection = isUnverified ? '' : `
+    <section class="section cols">
+      <div><h2>Good for</h2><ul class="list"><li>${esc(modelTask(model))}</li><li>${isLocal ? `${esc(hardwareTier(model))} local workflows` : esc(hardwareTier(model))}</li><li>${esc((model.features || []).slice(0, 3).join(', ') || 'Private local speech experiments')}</li></ul></div>
+      <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
+    </section>`;
 
   return `<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -270,7 +410,7 @@ function page(model, all) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="robots" content="${isUnverified ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large'}">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${url}">
@@ -296,26 +436,17 @@ function page(model, all) {
         <h1 class="title">${titleMarkup(model.name)}</h1>
         <p class="desc"><strong>Catalogue summary:</strong> ${esc(model.description)}</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">${esc(hardwareTier(model))}</span>
-          <span class="chip">${esc(modelTask(model))}</span>
-          <span class="chip">${fmtNum(model.languageCount || (model.languages || []).length)} languages</span>
-          <span class="chip">${esc(model.license || 'License varies')}</span>
-        </div>
+        <div class="chips">${statusChips}</div>
         <div class="cta">
           <a class="btn" href="/tts-list.html">Compare TTS models</a>
-          ${model.hfLink ? `<a class="btn secondary" href="${esc(model.hfLink)}" target="_blank" rel="noopener nofollow">Open source page</a>` : '<a class="btn secondary" href="/pricing.html">Get LocalClaw</a>'}
+          ${sourceAction}
         </div>
       </section>
       <aside class="hero-panel">
         <div class="score-card">
-          <div>
-            <div class="score-label">${isLocal ? 'Audio catalogue score' : 'Audio profile score'}</div>
-            <div class="score">${audioCatalogueScore(model)}<small>/10</small></div>
-            <p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>
-          </div>
+          <div>${scorePanel}</div>
         </div>
-        <div data-community-rating data-model-id="tts-${esc(model.id)}" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
+        ${communityPanel}
         <div class="panel-grid">
           <div class="mini"><div class="k">Developer</div><div class="v">${esc(model.developer || model.family || 'Open model')}</div></div>
           <div class="mini"><div class="k">Released</div><div class="v">${esc(model.releaseDate || 'Unknown')}</div></div>
@@ -323,80 +454,12 @@ function page(model, all) {
       </aside>
     </header>
 
-    <section class="specs" aria-label="Model specs">
-      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
-      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">${esc(model.speed)}/10</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">${esc(model.sizeGB)} GB</div></div>
-      <div class="spec-card"><div class="k">Voices</div><div class="v">${esc(model.voices || 'Varies')}</div></div>
-    </section>
-
-    <section class="section">
-      <h2>Can ${esc(model.name)} run locally?</h2>
-      <p>${localSentence(model)}</p>
-      <p>${commercialNote(model)}</p>
-      <div class="source-links">
-        <code>${command}</code>
-        ${sourceLink}
-      </div>
-      <div style="margin-top:18px">${features}</div>
-    </section>
-
-    <section class="section cols">
-      <div>
-        <h2>Audio profile</h2>
-        <div class="bars">
-          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:${pct(model.quality)}%"></div></div><span>${esc(model.quality)}</span></div>
-          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:${pct(model.speed)}%"></div></div><span>${esc(model.speed)}</span></div>
-          <div class="bar-row"><span>${isLocal ? 'Audio' : 'Profile'}</span><div class="track"><div class="fill" style="width:${Math.min(100, Number(audioCatalogueScore(model)) * 10)}%"></div></div><span>${audioCatalogueScore(model)}</span></div>
-        </div>
-      </div>
-      <div>
-        <h2>Best fit</h2>
-        <p>${bestForSentence(model)}</p>
-        <p class="muted">Hardware: ${hardware || 'Not specified'}</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Model details</h2>
-      <div class="detail-grid">
-        <div class="detail"><div class="k">Type</div><div class="v">${esc(modelKind(model))}</div></div>
-        <div class="detail"><div class="k">Family</div><div class="v">${esc(model.family || 'Unknown')}</div></div>
-        <div class="detail"><div class="k">Latency</div><div class="v">${esc(model.latency || 'Not specified')}</div></div>
-        <div class="detail"><div class="k">Formats</div><div class="v">${formats || 'Not specified'}</div></div>
-        <div class="detail"><div class="k">Languages</div><div class="v">${esc(niceList(model.languages))}</div></div>
-        <div class="detail"><div class="k">Context</div><div class="v">${esc(model.context || 'Not specified')}</div></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>${isLocal ? 'Install locally' : 'Access the online service'}</h2>
-      <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>${isLocal ? 'Check runtime' : 'Check service terms'}</strong><span>${isLocal ? `Confirm the backend supports ${esc(niceList(model.supportedFormats || ['the upstream format']))} on your machine.` : 'Review the upstream service, privacy and usage terms before sending any text.'}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>${isLocal ? 'Install model' : 'Install client'}</strong><span>${isLocal ? 'Use the upstream command or repository instructions.' : 'Install the client package; this does not download a local inference model.'}</span></div>
-        <div class="step"><div class="step-num">03</div><strong>${isLocal ? 'Test locally' : 'Test online'}</strong><span>${isLocal ? 'Run a short private audio prompt before moving into production workflows.' : 'Confirm network delivery, data handling, latency and vendor availability.'}</span></div>
-      </div>
-      <pre class="command">${command}</pre>
-    </section>
-
-    <section class="section cols">
-      <div>
-        <h2>Good for</h2>
-        <ul class="list">
-          <li>${esc(modelTask(model))}</li>
-          <li>${isLocal ? `${esc(hardwareTier(model))} local workflows` : esc(hardwareTier(model))}</li>
-          <li>${esc((model.features || []).slice(0, 3).join(', ') || 'Private local speech experiments')}</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Watch before shipping</h2>
-        <ul class="list">
-          <li>Validate pronunciation, latency and artifacts with your own voice samples.</li>
-          <li>Review the upstream license and acceptable-use notes.</li>
-          <li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li>
-        </ul>
-      </div>
-    </section>
+    ${specsSection}
+    ${verificationSection}
+    ${profileSection}
+    ${detailsSection}
+    ${installSection}
+    ${shippingSection}
 
     <section class="section">
       <h2>Related TTS and speech models</h2>
@@ -409,18 +472,19 @@ function page(model, all) {
       <a href="/pricing.html"><small>macOS app</small>Get LocalClaw</a>
     </section>
   </main>
-  <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
+  ${isUnverified ? '' : '<script src="/js/community-ratings-20260802a.js?v=20260803a"></script>'}
 </body>
 </html>`;
 }
 
 function indexPage(models) {
   const localModels = models.filter(isLocalSpeechModel);
-  const onlineReferences = models.filter(model => !isLocalSpeechModel(model));
+  const onlineReferences = models.filter(isRemoteSpeechService);
+  const unverifiedRecords = models.filter(isUnverifiedSpeechRecord);
   const picks = localModels.filter(m => m.isPick || m.isNew).slice(0, 12);
   const bestQuality = [...localModels].sort((a, b) => (b.quality || 0) - (a.quality || 0))[0];
   const fastest = [...localModels].sort((a, b) => (b.speed || 0) - (a.speed || 0))[0];
-  const desc = `Static pages for ${localModels.length} local text-to-speech, ASR and speech AI records, plus ${onlineReferences.length} clearly labelled online/API references.`;
+  const desc = `Static pages for ${localModels.length} verified-local text-to-speech, ASR and speech AI records, plus ${onlineReferences.length} online/API references and ${unverifiedRecords.length} preserved unverified route.`;
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -507,18 +571,62 @@ function indexPage(models) {
       <p>These routes are preserved for comparison but are not counted as local models.</p>
       <div class="similar">${onlineReferences.map(relatedCard).join('')}</div>
     </section>
+
+    <section class="section">
+      <h2>Unverified preserved route</h2>
+      <p>This route remains available for transparency, but is noindexed and excluded from local counts, rankings, comparison and installation guidance.</p>
+      <div class="similar">${unverifiedRecords.map(unverifiedCard).join('')}</div>
+    </section>
   </main>
 </body>
 </html>`;
 }
 
 const models = extractTTS();
-const out = path.join(ROOT, 'tts');
-fs.rmSync(out, { recursive: true, force: true });
-fs.mkdirSync(out, { recursive: true });
-for (const model of models) {
-  fs.writeFileSync(path.join(out, `${model.id}.html`), page(model, models));
+const localModels = models.filter(isLocalSpeechModel);
+const remoteModels = models.filter(isRemoteSpeechService);
+const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
+const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
+const renderedIndex = cleanGeneratedHtml(indexPage(models));
+
+if (models.length !== 58 || localModels.length !== 55 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+  throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
-fs.writeFileSync(path.join(out, 'index.html'), indexPage(models));
-normalizeDirectory(out);
-console.log(`Generated ${models.length} TTS pages.`);
+
+const tombstone = renderedPages.get('xtts-v3') || '';
+for (const marker of [
+  '<meta name="robots" content="noindex, follow">',
+  'Verification status',
+  'No Audio, quality or speed score is published',
+  'href="/tts/coqui-tts.html"'
+]) {
+  if (!tombstone.includes(marker)) throw new Error(`XTTS v3 tombstone missing marker: ${marker}`);
+}
+for (const forbidden of [
+  'Audio catalogue score',
+  'Audio profile score',
+  'data-community-rating',
+  'class="install-steps"',
+  'class="command"',
+  'SoftwareApplication',
+  'FAQPage'
+]) {
+  if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
+}
+if (!renderedIndex.includes('55<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+  throw new Error('Speech index does not expose the verified-local and unverified route counts');
+}
+
+if (CHECK_ONLY) {
+  console.log(`Verified ${renderedPages.size} speech routes in memory: ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified.`);
+} else {
+  const out = path.join(ROOT, 'tts');
+  fs.rmSync(out, { recursive: true, force: true });
+  fs.mkdirSync(out, { recursive: true });
+  for (const [id, html] of renderedPages) {
+    fs.writeFileSync(path.join(out, `${id}.html`), html);
+  }
+  fs.writeFileSync(path.join(out, 'index.html'), renderedIndex);
+  normalizeDirectory(out);
+  console.log(`Generated ${models.length} TTS pages.`);
+}

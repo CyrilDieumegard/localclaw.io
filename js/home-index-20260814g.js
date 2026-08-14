@@ -2,7 +2,8 @@
 // tts-list.html; this view filters non-local records and de-duplicates routes.
 if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
     App.renderHero = function renderLocalModelIndex(container) {
-        const allLocalModels = APP_DATA.models.filter((model) => !model.hosted_only);
+        const unavailableLlmIds = new Set(Object.keys((APP_DATA.hfRepoVerification && APP_DATA.hfRepoVerification.unavailable) || {}));
+        const allLocalModels = APP_DATA.models.filter((model) => !model.hosted_only && !unavailableLlmIds.has(model.id));
         const localModels = Array.from(new Map(allLocalModels.map((model) => [model.id, model])).values());
         const newestRelease = localModels.reduce((latest, model) => model.released > latest ? model.released : latest, '');
         const familyCount = new Set(localModels.map((model) => model.family)).size;

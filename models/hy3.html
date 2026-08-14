@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hy3 local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Hy3: 295B (21B active) local AI model guide with RAM requirements, IQ1_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>Hy3 server-grade local AI | LocalClaw</title>
+  <meta name="description" content="Hy3: 295B (21B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/hy3">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/hy3">
   <meta property="og:title" content="Hy3 local AI model | LocalClaw">
-  <meta property="og:description" content="Hy3: 295B (21B active) local AI model guide with RAM requirements, IQ1_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:description" content="Hy3: 295B (21B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hy3 local AI model | LocalClaw">
-  <meta name="twitter:description" content="Hy3: 295B (21B active) local AI model guide with RAM requirements, IQ1_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:description" content="Hy3: 295B (21B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Hy3","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/hy3","description":"Hy3: 295B (21B active) local AI model guide with RAM requirements, IQ1_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-07","memoryRequirements":"128 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Tencent Hy Team","url":"https://www.tencent.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Hy3 run locally?","acceptedAnswer":{"@type":"Answer","text":"Hy3 can run locally with at least 128 GB RAM. LocalClaw recommends IQ1_M quantization."}},{"@type":"Question","name":"What is Hy3 best for?","acceptedAnswer":{"@type":"Answer","text":"Hy3 is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Hy3","item":"https://localclaw.io/models/hy3"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Hy3","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/hy3","description":"Hy3: 295B (21B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.","softwareVersion":"2026-07","memoryRequirements":"128 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Tencent Hy Team","url":"https://www.tencent.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Hy3 run locally?","acceptedAnswer":{"@type":"Answer","text":"Hy3 can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is Hy3 best for?","acceptedAnswer":{"@type":"Answer","text":"Hy3 is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Hy3","item":"https://localclaw.io/models/hy3"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -55,14 +55,9 @@
         <h1 class="title">Hy3</h1>
         <p class="desc"><strong>Catalogue summary:</strong> Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">128 GB catalogue minimum</span>
-          <span class="chip">128 GB RAM</span>
-          <span class="chip">IQ1_M</span>
-          <span class="chip">Coding assistant</span>
-        </div>
+        <div class="chips"><span class="chip hot">128 GB catalogue minimum</span><span class="chip">128 GB RAM</span><span class="chip">IQ1_M</span><span class="chip">Coding assistant</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/AngelSlim/Hy3-GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,25 +76,25 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
+<section class="specs" aria-label="Key local AI model specs">
       <div class="spec-card"><div class="k">Parameters</div><div class="v">295B (21B active)</div></div>
       <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">128 GB</div></div>
       <div class="spec-card"><div class="k">Model size</div><div class="v">89 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">IQ1_M</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="hy3" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="hy3" aria-live="polite"></section>
     <section class="section">
       <h2>Can Hy3 run locally?</h2>
       <p>Hy3 has a catalogue minimum of 128 GB RAM with IQ1_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>hy3</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/AngelSlim/Hy3-GGUF" target="_blank" rel="noopener">Hugging Face repository: AngelSlim/Hy3-GGUF</a><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
+      <p>Treat <code>hy3</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/AngelSlim/Hy3-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): AngelSlim/Hy3-GGUF</a><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/tencent/Hy3" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
       <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">beast</span><span class="tag">tool-calling</span><span class="tag">general</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 128 GB RAM. Start with the IQ1_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search hy3 in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 128 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use hy3 only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
@@ -126,15 +121,15 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">Sparse Mixture-of-Experts model with 295B total parameters, 21B active parameters, 192 experts, top-8 routing and an MTP layer.</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
         <a href="/hardware/mac-studio-m4-max-128gb"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb"><small>High-memory picks</small>128GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/gpt-oss-120b">GPT-OSS (120B) <span>117B (5.1B active)</span></a><a href="/models/laguna-s-2.1">Laguna S 2.1 <span>118B (8B active, MoE)</span></a><a href="/models/ling-flash-base-2.0">Ling Flash Base 2.0 <span>106B (6.1B active, MoE)</span></a><a href="/models/ornith-1.0-35b-gguf">Ornith 1.0 35B GGUF <span>35B MoE</span></a><a href="/models/qwen3-coder-next">Qwen3-Coder-Next <span>80B (3B active, MoE)</span></a><a href="/models/command-a-111b">Command A (111B) <span>111B</span></a><a href="/models/mistral-small-4-119b">Mistral Small 4 (119B-A6.5B) <span>119B (6.5B active, MoE)</span></a><a href="/models/qwen3-235b-a22b">Qwen 3 MoE (235B/22B active) <span>235B (22B active)</span></a></div></section>
-    <section class="section">
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/gpt-oss-120b">GPT-OSS (120B) <span>117B (5.1B active)</span></a><a href="/models/laguna-s-2.1">Laguna S 2.1 <span>118B (8B active, MoE)</span></a><a href="/models/ling-flash-base-2.0">Ling Flash Base 2.0 <span>106B (6.1B active, MoE)</span></a><a href="/models/ornith-1.0-35b-gguf">Ornith 1.0 35B GGUF <span>35B MoE</span></a><a href="/models/qwen3-coder-next">Qwen3-Coder-Next <span>80B (3B active, MoE)</span></a><a href="/models/command-a-111b">Command A (111B) <span>111B</span></a><a href="/models/glm4.5-air">GLM 4.5 Air (MoE) <span>106B (12B active, MoE)</span></a><a href="/models/mistral-small-4-119b">Mistral Small 4 (119B-A6.5B) <span>119B (6.5B active, MoE)</span></a></div></section>
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
         <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>

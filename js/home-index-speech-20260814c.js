@@ -3,11 +3,11 @@
 window.HOME_INDEX_SPEECH_MODELS = [
   {
     "id": "qwen3-tts",
-    "name": "Qwen3 TTS",
-    "developer": "Alibaba Cloud (Qwen Team)",
+    "name": "Qwen3-TTS (0.6B / 1.7B)",
+    "developer": "Qwen Team (Alibaba Cloud)",
     "family": "qwen",
-    "license": "Apache 2.0",
-    "releaseDate": "2025-12",
+    "license": "Apache-2.0",
+    "releaseDate": "2026-01-22",
     "quality": 9.5,
     "speed": 8.5,
     "type": "TTS"
@@ -103,9 +103,9 @@ window.HOME_INDEX_SPEECH_MODELS = [
   {
     "id": "f5-tts",
     "name": "F5-TTS",
-    "developer": "Speech Research",
+    "developer": "SWivid",
     "family": "f5",
-    "license": "MIT",
+    "license": "CC-BY-NC-4.0 weights; MIT code",
     "releaseDate": "2024-10",
     "quality": 9.4,
     "speed": 9,
@@ -322,11 +322,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
   },
   {
     "id": "kitten-tts",
-    "name": "Kitten TTS",
-    "developer": "Rohan Joshi (@ron_joshi)",
+    "name": "Kitten TTS v0.8",
+    "developer": "KittenML",
     "family": "kitten",
-    "license": "Apache 2.0",
-    "releaseDate": "2025-03",
+    "license": "Apache-2.0",
+    "releaseDate": "2026-02-24",
     "quality": 7.5,
     "speed": 10,
     "type": "TTS"
@@ -585,30 +585,19 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "TTS"
   },
   {
-    "id": "xtts-v3",
-    "name": "XTTS v3 (Community)",
-    "developer": "Coqui Community",
-    "family": "coqui",
-    "license": "MPL 2.0",
-    "releaseDate": "2025-06",
-    "quality": 9.1,
-    "speed": 7,
-    "type": "TTS"
-  },
-  {
     "id": "f5-tts-v1.1",
-    "name": "F5-TTS v1.1",
+    "name": "F5-TTS v1 Base",
     "developer": "Speech Research (SWivid)",
     "family": "f5",
-    "license": "MIT",
-    "releaseDate": "2025-08",
+    "license": "CC-BY-NC-4.0 weights; MIT code",
+    "releaseDate": "2025-03-12",
     "quality": 9.5,
     "speed": 9.2,
     "type": "TTS"
   },
   {
     "id": "kyutai-stt-2.6b",
-    "name": "Kyutai STT 2.6B",
+    "name": "Kyutai STT 2.6B English",
     "developer": "Kyutai",
     "family": "kyutai",
     "license": "CC-BY-4.0",

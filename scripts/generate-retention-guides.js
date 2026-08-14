@@ -11,7 +11,9 @@ function loadModels() {
   const ctx = {};
   vm.createContext(ctx);
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8') + ';this.APP_DATA=APP_DATA;', ctx);
-  return Array.from(new Map(ctx.APP_DATA.models.map(model => [model.id, model])).values());
+  const unavailable = ctx.APP_DATA.hfRepoVerification && ctx.APP_DATA.hfRepoVerification.unavailable || {};
+  return Array.from(new Map(ctx.APP_DATA.models.map(model => [model.id, model])).values())
+    .filter(model => unavailable[model.id] !== model.hf_repo);
 }
 
 function loadTts() {
@@ -107,7 +109,7 @@ function indexPage(guides) {
 }
 
 const models = loadModels().filter(m => !m.hosted_only);
-const ttsModels = loadTts();
+const ttsModels = loadTts().filter(model => !model.delivery);
 const out = path.join(ROOT, 'guides');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });

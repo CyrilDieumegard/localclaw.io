@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InternVL3 (8B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="InternVL3 (8B): 8B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>InternVL3 (8B) public model card status | LocalClaw</title>
+  <meta name="description" content="InternVL3 (8B): public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/internvl3-8b">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/internvl3-8b">
-  <meta property="og:title" content="InternVL3 (8B) local AI model | LocalClaw">
-  <meta property="og:description" content="InternVL3 (8B): 8B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:title" content="InternVL3 (8B) public model card status | LocalClaw">
+  <meta property="og:description" content="InternVL3 (8B): public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="InternVL3 (8B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="InternVL3 (8B): 8B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="InternVL3 (8B) public model card status | LocalClaw">
+  <meta name="twitter:description" content="InternVL3 (8B): public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"InternVL3 (8B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/internvl3-8b","description":"InternVL3 (8B): 8B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2025-04","memoryRequirements":"8 GB RAM minimum","license":"https://opensource.org/licenses/MIT","creator":{"@type":"Organization","name":"Shanghai AI Lab (OpenGVLab)","url":"https://internvl.github.io/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can InternVL3 (8B) run locally?","acceptedAnswer":{"@type":"Answer","text":"InternVL3 (8B) can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is InternVL3 (8B) best for?","acceptedAnswer":{"@type":"Answer","text":"InternVL3 (8B) is tagged in the LocalClaw catalogue for Vision tasks. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"InternVL3 (8B)","item":"https://localclaw.io/models/internvl3-8b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"InternVL3 (8B) source and local availability status","url":"https://localclaw.io/models/internvl3-8b","description":"InternVL3 (8B): public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.","about":{"@type":"Thing","name":"InternVL3 (8B)"},"isPartOf":{"@type":"WebSite","name":"LocalClaw","url":"https://localclaw.io"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What source was verified for InternVL3 (8B)?","acceptedAnswer":{"@type":"Answer","text":"A public Hugging Face model card was verified on 2026-08-14, but no public GGUF file was verified in that repository."}},{"@type":"Question","name":"Does LocalClaw provide a one-click install for InternVL3 (8B)?","acceptedAnswer":{"@type":"Answer","text":"No. LocalClaw links to the public model card but does not claim an LM Studio, GGUF or one-click installation path for this record."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"InternVL3 (8B)","item":"https://localclaw.io/models/internvl3-8b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -51,18 +51,13 @@
     <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>InternVL3 (8B)</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight local LLM</div>
+        <div class="eyebrow">Public model card reference</div>
         <h1 class="title">InternVL3 <span>(8B)</span></h1>
         <p class="desc"><strong>Catalogue summary:</strong> Shanghai AI Lab multimodal model. Strong vision understanding for documents, charts, and photos. MIT licensed. Note: primarily PyTorch/safetensors — community GGUF may vary.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">8 GB catalogue minimum</span>
-          <span class="chip">8 GB RAM</span>
-          <span class="chip">Q4_K_M</span>
-          <span class="chip">Vision tasks</span>
-        </div>
+        <div class="chips"><span class="chip hot">Public model card</span><span class="chip">No public GGUF verified</span><span class="chip">8B</span><span class="chip">2025-04</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/OpenGVLab/InternVL3-8B-Instruct" target="_blank" rel="noopener">Open public model card</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,26 +76,26 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
+<section class="specs" aria-label="Verified model source status">
+      <div class="spec-card"><div class="k">Source status</div><div class="v">Public model card</div></div>
+      <div class="spec-card"><div class="k">Public GGUF</div><div class="v">Not verified</div></div>
       <div class="spec-card"><div class="k">Parameters</div><div class="v">8B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">5 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+      <div class="spec-card"><div class="k">Access</div><div class="v">Public card</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="internvl3-8b" aria-live="polite"></section>
+
     <section class="section">
-      <h2>Can InternVL3 (8B) run locally?</h2>
-      <p>InternVL3 (8B) has a catalogue minimum of 8 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>internvl3-8b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/OpenGVLab/InternVL3-8B-Instruct" target="_blank" rel="noopener">Hugging Face repository: OpenGVLab/InternVL3-8B-Instruct</a><a href="https://internvl.github.io/blog/2025-04-11-InternVL3/" target="_blank" rel="noopener">Upstream release</a><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">Licence text</a></div>
+      <h2>Verified source status</h2>
+      <p>LocalClaw verified a public model card for InternVL3 (8B) on 2026-08-14, but no public GGUF file in that repository. The catalogue RAM and quantization fields are estimates, not a verified install path.</p>
+      <p>Only the public model card was verified; no public GGUF file was verified in that repository. Open the model card to confirm current artefacts and supported runtimes. LocalClaw does not claim a one-click LM Studio install.</p>
+      <div class="source-links"><a href="https://huggingface.co/OpenGVLab/InternVL3-8B-Instruct" target="_blank" rel="noopener" data-hf-repo-status="public-model-card">Public model card (no GGUF file verified 2026-08-14): OpenGVLab/InternVL3-8B-Instruct</a><a href="https://internvl.github.io/blog/2025-04-11-InternVL3/" target="_blank" rel="noopener">Upstream release</a><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">Licence text</a></div>
       <div style="margin-top:16px"><span class="tag">vision</span><span class="tag">standard</span></div>
     </section>
-    <section class="section">
-      <h2>Install path</h2>
+    <section class="section" data-source-only-status="publicModelCard">
+      <h2>Source availability</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search internvl3-8b in LM Studio.</span></div>
-        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Open the model card</strong><span>Use the verified upstream card as the source of truth for this record.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Inspect current files</strong><span>No public GGUF file was verified in the repository during the catalogue audit.</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Confirm a supported runtime</strong><span>Choose a local runtime only after verifying the exact artefact, licence and hardware requirements upstream.</span></div>
       </div>
     </section>
     <section class="section cols">
@@ -126,22 +121,13 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">Vision-Language Model with InternViT-6B vision encoder</div></div>
       </div>
     </section>
-    <section class="section">
-      <h2>This model fits these next steps</h2>
-      <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
-      <div class="hardware-fit">
-        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
-      </div>
-    </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/gemma3-4b">Gemma 3 (4B) <span>4B</span></a><a href="/models/gemma3n-8b">Gemma 3n (8B) <span>8B</span></a><a href="/models/gemma4-e4b">Gemma 4 E4B <span>E4B</span></a><a href="/models/llava-1.6-7b">LLaVA 1.6 (7B) <span>7B</span></a><a href="/models/llava-llama3-8b">LLaVA-Llama3 (8B) <span>8B</span></a><a href="/models/minicpm-v-8b">MiniCPM-V (8B) <span>8B</span></a><a href="/models/ministral-3-8b-instruct">Ministral 3 8B Instruct <span>8B</span></a><a href="/models/qwen2.5vl-7b">Qwen 2.5 VL (7B) <span>7B</span></a></div></section>
-    <section class="section">
-      <h2>Where to go next</h2>
-      <div class="next">
-        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
-      </div>
-    </section>
+
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/gemma3-4b">Gemma 3 (4B) <span>4B</span></a><a href="/models/gemma4-e4b">Gemma 4 E4B <span>E4B</span></a><a href="/models/llava-1.6-7b">LLaVA 1.6 (7B) <span>7B</span></a><a href="/models/llava-llama3-8b">LLaVA-Llama3 (8B) <span>8B</span></a><a href="/models/minicpm-v-8b">MiniCPM-V (8B) <span>8B</span></a><a href="/models/ministral-3-8b-instruct">Ministral 3 8B Instruct <span>8B</span></a><a href="/models/qwen2.5vl-7b">Qwen 2.5 VL (7B) <span>7B</span></a><a href="/models/llama3.2-vision-11b">Llama 3.2 Vision (11B) <span>11B</span></a></div></section>
+<section class="section"><h2>Where to go next</h2><div class="next">
+        <a href="https://huggingface.co/OpenGVLab/InternVL3-8B-Instruct" target="_blank" rel="noopener"><small>Upstream</small>Open the public model card</a>
+        <a href="/llm-list"><small>Verified artefacts</small>Compare models with public GGUF files</a>
+        <a href="/"><small>Directory</small>Browse The Local Model Index</a>
+      </div></section>
   </main>
   <script>window.LOCALCLAW_MODEL={"id":"internvl3-8b","name":"InternVL3 (8B)","family":"internvl","params":"8B","size_gb":5,"min_ram":8,"tags":["vision","standard"],"description":"Shanghai AI Lab multimodal model. Strong vision understanding for documents, charts, and photos. MIT licensed. Note: primarily PyTorch/safetensors — community GGUF may vary.","search_term":"internvl3-8b","recommended_quant":"Q4_K_M","hf_repo":"OpenGVLab/InternVL3-8B-Instruct","benchmarks":{"speed":7,"quality":7,"coding":5,"reasoning":7},"released":"2025-04","isNew":true};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>

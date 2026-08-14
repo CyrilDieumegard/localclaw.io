@@ -12,12 +12,19 @@ const context = {};
 vm.createContext(context);
 vm.runInContext(`this.TTS_MODELS=${match[1]}`, context);
 
-// Edge TTS declares an Internet requirement in the source catalogue, so it is
-// intentionally kept off the homepage's "local models only" index. OCTAVE 2
-// only exposes a vendor/API entry point in the current record and is excluded
-// until the repository carries a verified local checkpoint/runtime path.
-const HOMEPAGE_EXCLUSIONS = new Set(['edge-tts', 'octave-2']);
-const speechModels = context.TTS_MODELS.filter((model) => !HOMEPAGE_EXCLUSIONS.has(model.id)).map((model) => ({
+// Records without a delivery marker have a verified local path. Online/API
+// services and preserved unverified routes remain in the full speech catalogue
+// but must never enter the homepage's local-only index.
+const allSpeechRecords = context.TTS_MODELS;
+const localSpeechRecords = allSpeechRecords.filter((model) => !model.delivery);
+const remoteSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'online' || model.delivery === 'api');
+const unverifiedSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'unverified');
+
+if (allSpeechRecords.length !== 58 || localSpeechRecords.length !== 55 || remoteSpeechRecords.length !== 2 || unverifiedSpeechRecords.length !== 1) {
+  throw new Error(`Unexpected speech classification: ${allSpeechRecords.length} total, ${localSpeechRecords.length} local, ${remoteSpeechRecords.length} remote, ${unverifiedSpeechRecords.length} unverified`);
+}
+
+const speechModels = localSpeechRecords.map((model) => ({
   id: model.id,
   name: model.name,
   developer: model.developer,
@@ -34,4 +41,4 @@ const output = `// Generated from the canonical TTS_MODELS array in tts-list.htm
   `window.HOME_INDEX_SPEECH_MODELS = ${JSON.stringify(speechModels, null, 2)};\n`;
 
 fs.writeFileSync(path.join(ROOT, 'js/home-index-speech-20260814c.js'), output);
-console.log(`Exported ${speechModels.length} local speech catalogue entries (${HOMEPAGE_EXCLUSIONS.size} non-local or API-only records excluded).`);
+console.log(`Exported ${speechModels.length} local speech entries; excluded ${remoteSpeechRecords.length} online/API records and ${unverifiedSpeechRecords.length} unverified preserved route.`);

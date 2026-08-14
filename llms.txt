@@ -3,10 +3,11 @@
 > A maintained, hardware-aware directory for choosing local LLM, TTS and ASR models. Compare independent community stars, LocalClaw scores, minimum RAM, licences and release dates.
 
 - Verified snapshot: 2026-08-14
-- Local LLM pages: 218 unique routes across 76 families
-- Local speech records: 56 across 51 families (47 TTS, 8 ASR, 1 app)
+- Local LLM pages: 212 unique routes across 76 families
+- Local speech records: 55 across 51 families (46 TTS, 8 ASR, 1 app)
 - Latest catalogue release month: Aug 2026
-- Scope: hosted-only LLMs, Edge TTS and API-only OCTAVE 2 are excluded from the local-only homepage index
+- LLM source states: 171 public GGUF repositories, 37 public model cards without a verified GGUF file and 4 gated model cards
+- Scope: hosted-only LLMs, 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
 
 ## Ranking Rules
 
@@ -21,13 +22,13 @@
 
 - [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 56 local records plus two clearly labelled online/API references
+- [Speech catalogue](https://localclaw.io/tts-list) — 55 local records, two online/API references and one unverified preserved route
 - [Newest local models](https://localclaw.io/new) — current releases and RSS feed
 - [RAM guides](https://localclaw.io/ram/) — recommendations by memory tier
 - [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) — all 274 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) — all 267 local homepage entries
 
 ## RAM Decision Paths
 
@@ -40,7 +41,7 @@
 ## Current LocalClaw Score Leaders
 
 - [DeepSeek V4 Flash 0731 (284B MoE)](https://localclaw.io/models/deepseek-v4-flash-0731) — LocalClaw 9.3/10; minimum 256 GB RAM; 284B (13B active); released Jul 31, 2026.
-- [Kimi K2.5 (32B/1T MoE)](https://localclaw.io/models/kimi-k2.5-32b) — LocalClaw 9.2/10; minimum 32 GB RAM; 32B active (1T total MoE); released Jan 2026.
+- [Kimi K2.5 (1T MoE)](https://localclaw.io/models/kimi-k2.5-32b) — LocalClaw 9.2/10; minimum 1024 GB RAM; 1T (32B active, MoE); released Jan 2026.
 - [Qwen 3 (32B)](https://localclaw.io/models/qwen3-32b) — LocalClaw 9.2/10; minimum 32 GB RAM; 32B; released Apr 2025.
 - [Qwen3-Coder-Next](https://localclaw.io/models/qwen3-coder-next) — LocalClaw 9.1/10; minimum 64 GB RAM; 80B (3B active, MoE); released Feb 2026.
 - [MiniMax M3 (428B/23B active)](https://localclaw.io/models/minimax-m3) — LocalClaw 9.0/10; minimum 2048 GB RAM; 428B (23B active); released Jun 2026.
@@ -51,11 +52,11 @@
 ## Current Audio Score Leaders
 
 - [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — Audio 9.6/10; ASR; CC-BY-4.0.
-- [Kyutai STT 2.6B](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
-- [F5-TTS v1.1](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; MIT.
+- [Kyutai STT 2.6B English](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
+- [F5-TTS v1 Base](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 - [Kokoro TTS](https://localclaw.io/tts/kokoro) — Audio 9.4/10; TTS; Apache 2.0.
 - [Qwen3-ASR](https://localclaw.io/tts/qwen3-asr) — Audio 9.3/10; ASR; Apache 2.0.
-- [F5-TTS](https://localclaw.io/tts/f5-tts) — Audio 9.3/10; TTS; MIT.
+- [F5-TTS](https://localclaw.io/tts/f5-tts) — Audio 9.3/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 
 ## Data Notes
 

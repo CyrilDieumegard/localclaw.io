@@ -1423,7 +1423,7 @@
     </style>
 
     <!-- DATA -->
-    <script src="js/data.js?v=20260814f" onerror="console.error('Failed to load js/data.js');document.getElementById('loading-state').style.display='none';document.getElementById('error-state').style.display='block';document.getElementById('error-message').textContent='Failed to load data.js. Please check your connection and reload.';"></script>
+    <script src="js/data.js?v=20260814g" onerror="console.error('Failed to load js/data.js');document.getElementById('loading-state').style.display='none';document.getElementById('error-state').style.display='block';document.getElementById('error-message').textContent='Failed to load data.js. Please check your connection and reload.';"></script>
     <script src="js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="js/account-context-20260802b.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>
@@ -1473,11 +1473,24 @@
             'granite':'#94A3B8','cogito':'#F472B6','exaone':'#A3E635','aya':'#FBBF24'
         };
         function fcol(f) { f=(f||'').toLowerCase(); for(var k in FCOL){if(f.indexOf(k)!==-1)return FCOL[k];} return '#6B7280'; }
+        function hfRepoStateFor(m) {
+            var verification=(typeof APP_DATA!=='undefined'&&APP_DATA.hfRepoVerification)||{};
+            var states=['publicGguf','publicModelCard','gated','unavailable'];
+            for(var i=0;i<states.length;i++){
+                var entries=verification[states[i]]||{};
+                if(entries[m.id]===m.hf_repo)return states[i];
+            }
+            return 'unclassified';
+        }
+        function isUnverifiedModel(m) {
+            var state=hfRepoStateFor(m);
+            return !m.hosted_only&&(state==='unavailable'||state==='unclassified');
+        }
         var TEMOJI = {'chat':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>','code':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','reasoning':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>','vision':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>','speed':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','quality':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M8 21h8m-4-4v4M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.3 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg>','general':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>','light':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4M4 7l8 4M4 7v10l8 4m0-10v10"/></svg>','power':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','standard':'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 3L2 9l10 6 10-6-10-6z"/><path d="M2 17l10 6 10-6M2 13l10 6 10-6"/></svg>'};
         function temoji(t) { return TEMOJI[t]||'<svg class="lc-icon lc-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01"/></svg>'; }
         function bcol(v) { return v>=8?'#34D399':v>=6?'#60A5FA':v>=4?'#FACC15':'#F87171'; }
         function sizeTier(m,k) {
-            if(m.hosted_only) return false;
+            if(m.hosted_only||isUnverifiedModel(m)) return false;
             var s=Number(m.size_gb||0);
             if(k==='tiny') return s<=4;
             if(k==='laptop') return s>4&&s<=12;
@@ -1487,6 +1500,7 @@
             return false;
         }
         function quantTier(m,k) {
+            if(isUnverifiedModel(m)) return false;
             var q=String(m.recommended_quant||'').toUpperCase();
             if(k==='api') return !!m.hosted_only||q==='API';
             if(k==='q4') return q.indexOf('Q4')!==-1;
@@ -1622,7 +1636,7 @@
 
             var changedMachine = !primaryMachine || primaryMachine.id !== machine.id;
             primaryMachine = machine;
-            var ranked = window.LocalClawCompatibility.rankModels(machine, models).compatible;
+            var ranked = window.LocalClawCompatibility.rankModels(machine, models.filter(function(model){return !isUnverifiedModel(model);})).compatible;
             machineCompatibleIds = {};
             machineFitById = {};
             for (var i = 0; i < ranked.length; i++) {
@@ -1657,7 +1671,7 @@
             event.stopPropagation();
 
             var model = models.find(function(item) { return item.id === button.dataset.saveModel; });
-            if (!model) return;
+            if (!model || isUnverifiedModel(model)) return;
 
             button.disabled = true;
             try {
@@ -1854,11 +1868,11 @@
             var tk=Object.keys(activeTags);
             if(tk.length>0) res=res.filter(function(m){for(var i=0;i<tk.length;i++){if(m.tags.indexOf(tk[i])===-1)return false;}return true;});
             var rk=Object.keys(activeRam);
-            if(rk.length>0) res=res.filter(function(m){if(m.hosted_only)return false;for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
+            if(rk.length>0) res=res.filter(function(m){if(m.hosted_only||isUnverifiedModel(m))return false;for(var i=0;i<rk.length;i++){var r=parseInt(rk[i]);if(r===64&&m.min_ram>32)return true;if(m.min_ram<=r)return true;}return false;});
             var fk=Object.keys(activeFam);
             if(fk.length>0) res=res.filter(function(m){return !!activeFam[m.family];});
             var mk=Object.keys(activeMode);
-            if(mk.length>0) res=res.filter(function(m){for(var i=0;i<mk.length;i++){if(mk[i]==='local'&&!m.hosted_only)return true;if(mk[i]==='api'&&m.hosted_only)return true;}return false;});
+            if(mk.length>0) res=res.filter(function(m){for(var i=0;i<mk.length;i++){if(mk[i]==='local'&&!m.hosted_only&&!isUnverifiedModel(m))return true;if(mk[i]==='api'&&m.hosted_only)return true;}return false;});
             var sk=Object.keys(activeSize);
             if(sk.length>0) res=res.filter(function(m){for(var i=0;i<sk.length;i++){if(sizeTier(m,sk[i]))return true;}return false;});
             var qk=Object.keys(activeQuant);
@@ -1870,6 +1884,8 @@
 
             var parts=sortKey.split('-'),sf=parts[0],sd=parts[1];
             res.sort(function(a,b){
+                var aUnverified=isUnverifiedModel(a),bUnverified=isUnverifiedModel(b);
+                if(aUnverified!==bUnverified)return aUnverified?1:-1;
                 var va,vb;
                 switch(sf){
                     case 'quality':va=a.benchmarks.quality;vb=b.benchmarks.quality;break;
@@ -1925,14 +1941,15 @@
                 var h='';
                 for(var i=0;i<filtered.length;i++){
                     var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var unverified=isUnverifiedModel(m);
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     var lms='lmstudio://open?search='+encodeURIComponent(m.search_term||m.name);
                     var detailUrl='models/'+encodeURIComponent(m.id)+'/';
                     var ts=(m.tags||[]).slice(0,4);
-                    var ramLabel=m.hosted_only?'API':m.min_ram+' GB';
-                    var sizeLabel=m.hosted_only?'Hosted':m.size_gb+' GB';
-                    var quantLabel=m.hosted_only?'API':(m.recommended_quant||'Q4_K_M');
-                    var machineFit=machineFitById[m.id];
+                    var ramLabel=unverified?'—':(m.hosted_only?'API':m.min_ram+' GB');
+                    var sizeLabel=unverified?'Unverified':(m.hosted_only?'Hosted':m.size_gb+' GB');
+                    var quantLabel=unverified?'—':(m.hosted_only?'API':(m.recommended_quant||'Q4_K_M'));
+                    var machineFit=unverified?null:machineFitById[m.id];
                     var favorite=primaryMachine&&window.LocalClawAccountContext?window.LocalClawAccountContext.getFavorite(m.id,primaryMachine.id):null;
 
                     h+='<div class="card" style="--family-color:'+c+'" data-detail-url="'+detailUrl+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'" onclick="goToDetail(event,this)">';
@@ -1941,12 +1958,13 @@
                     h+='<div class="model-card-top">';
                     h+='<div class="family-pill"><span class="family-dot" style="background:'+c+'"></span>'+esc(m.family);
                     if(isN) h+=' <span class="new-badge">NEW</span>';
+                    if(unverified) h+=' <span class="new-badge" style="background:rgba(250,204,21,.12);color:#facc15;border-color:rgba(250,204,21,.3);">UNVERIFIED</span>';
                     h+='</div>';
                     h+='<span class="param-pill">'+esc(m.params)+'</span>';
                     h+='</div>';
 
                     h+='<a href="'+detailUrl+'" class="model-title" title="'+esc(m.name)+'" data-fast-goal="model_open" data-fast-goal-source="llm_grid_title" data-fast-goal-model="'+esc(m.id)+'">'+esc(m.name)+'</a>';
-                    h+='<div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact"></div>';
+                    if(!unverified) h+='<div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact"></div>';
                     if(machineFit) h+='<span class="machine-fit-pill" data-tier="'+esc(machineFit.compatibilityTier)+'">'+esc(machineFit.compatibilityLabel)+' · '+esc(primaryMachine.name)+'</span>';
                     h+='<div class="model-desc">'+esc(m.description)+'</div>';
 
@@ -1954,14 +1972,18 @@
                     for(var t2=0;t2<ts.length;t2++) h+='<span class="model-tag">'+temoji(ts[t2])+' '+esc(ts[t2])+'</span>';
                     h+='</div>';
 
-                    h+='<div class="model-decision">';
-                    h+='<div class="model-score"><span>Fit score</span><strong>'+scoreAvg(m)+'</strong><small>/10</small></div>';
-                    h+='<div class="metric-stack">';
-                    h+=metricLine('Quality',m.benchmarks.quality,'#A855F7');
-                    h+=metricLine('Coding',m.benchmarks.coding,'#3B82F6');
-                    h+=metricLine('Reason',m.benchmarks.reasoning,'#F59E0B');
-                    h+=metricLine('Speed',m.benchmarks.speed,'#10B981');
-                    h+='</div></div>';
+                    if(unverified){
+                        h+='<div class="model-decision"><div class="model-score"><span>Catalogue status</span><strong style="font-size:16px;color:#facc15;">REVIEW</strong></div><p style="margin:0;color:var(--muted);font-size:12px;line-height:1.5;">Exact public model repository not verified. Excluded from rankings and hardware fit.</p></div>';
+                    }else{
+                        h+='<div class="model-decision">';
+                        h+='<div class="model-score"><span>LocalClaw</span><strong>'+scoreAvg(m)+'</strong><small>/10</small></div>';
+                        h+='<div class="metric-stack">';
+                        h+=metricLine('Quality',m.benchmarks.quality,'#A855F7');
+                        h+=metricLine('Coding',m.benchmarks.coding,'#3B82F6');
+                        h+=metricLine('Reason',m.benchmarks.reasoning,'#F59E0B');
+                        h+=metricLine('Speed',m.benchmarks.speed,'#10B981');
+                        h+='</div></div>';
+                    }
 
                     h+='<div class="spec-grid">';
                     h+=specItem('RAM',ramLabel);
@@ -1972,9 +1994,9 @@
                     h+='<div class="model-actions">';
                     h+='<a href="'+detailUrl+'" class="model-details-link" data-fast-goal="model_open" data-fast-goal-source="llm_grid_cta" data-fast-goal-model="'+esc(m.id)+'">View model <span>→</span></a>';
                     h+='<div class="card-links">';
-                    if(primaryMachine&&!m.hosted_only) h+='<button type="button" class="card-link card-link-save'+(favorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(favorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(favorite?'★':'☆')+'</button>';
-                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(m.hosted_only?'Source':'HuggingFace')+'" data-fast-goal="hf_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'API':'HF')+'</a>';
-                    if(!m.hosted_only) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio" data-fast-goal="lmstudio_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">LM</a>';
+                    if(primaryMachine&&!m.hosted_only&&!unverified) h+='<button type="button" class="card-link card-link-save'+(favorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(favorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(favorite?'★':'☆')+'</button>';
+                    h+='<a href="'+esc(unverified?hf:(m.source_url||hf))+'" target="_blank" rel="noopener" class="card-link card-link-hf" title="'+(unverified?'Search source':(m.hosted_only?'Source':'HuggingFace'))+'" data-fast-goal="hf_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">'+(unverified?'?':(m.hosted_only?'API':'HF'))+'</a>';
+                    if(!m.hosted_only&&!unverified) h+='<a href="'+esc(lms)+'" class="card-link card-link-lms" title="Open in LM Studio" data-fast-goal="lmstudio_click" data-fast-goal-source="llm_grid" data-fast-goal-model="'+esc(m.id)+'">LM</a>';
                     h+='</div></div>';
                     h+='</div></div>';
                 }
@@ -1984,24 +2006,26 @@
                 var h='';
                 for(var i=0;i<filtered.length;i++){
                     var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var unverified=isUnverifiedModel(m);
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     var tableFavorite=primaryMachine&&window.LocalClawAccountContext?window.LocalClawAccountContext.getFavorite(m.id,primaryMachine.id):null;
                     h+='<tr>';
                     var detailUrl2='models/'+encodeURIComponent(m.id)+'/';
                     h+='<td style="white-space:nowrap;"><div style="display:flex;align-items:center;gap:6px;"><span class="family-dot" style="background:'+c+'"></span><a href="'+detailUrl2+'" style="color:#fff;font-weight:500;text-decoration:none;" data-fast-goal="model_open" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'" onmouseover="this.style.color=\'#FF453A\'" onmouseout="this.style.color=\'#fff\'">'+esc(m.name)+'</a>';
                     if(isN) h+=' <span class="new-badge">NEW</span>';
-                    h+='</div><div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact" style="margin-top:5px;"></div></td>';
+                    if(unverified) h+=' <span class="new-badge" style="background:rgba(250,204,21,.12);color:#facc15;">UNVERIFIED</span>';
+                    h+='</div>'+(unverified?'':'<div data-community-rating data-model-id="'+esc(m.id)+'" data-rating-mode="compact" style="margin-top:5px;"></div>')+'</td>';
                     h+='<td style="color:var(--muted);text-transform:capitalize;">'+esc(m.family)+'</td>';
                     h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+esc(m.params)+'</td>';
-                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+(m.hosted_only?'API':m.min_ram+'GB')+'</td>';
-                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.speed)+';">'+m.benchmarks.speed+'</td>';
-                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.quality)+';">'+m.benchmarks.quality+'</td>';
-                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+m.benchmarks.coding+'</td>';
-                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+m.benchmarks.reasoning+'</td>';
-                    h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+esc(m.recommended_quant)+'</td>';
+                    h+='<td style="text-align:center;font-family:monospace;color:var(--muted);">'+(unverified?'—':(m.hosted_only?'API':m.min_ram+'GB'))+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.speed)+';">'+(unverified?'—':m.benchmarks.speed)+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.quality)+';">'+(unverified?'—':m.benchmarks.quality)+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.coding)+';">'+(unverified?'—':m.benchmarks.coding)+'</td>';
+                    h+='<td style="text-align:center;font-weight:700;color:'+bcol(m.benchmarks.reasoning)+';">'+(unverified?'—':m.benchmarks.reasoning)+'</td>';
+                    h+='<td style="text-align:center;font-family:monospace;font-size:10px;color:var(--muted);">'+(unverified?'—':esc(m.recommended_quant))+'</td>';
                     h+='<td style="text-align:center;"><div style="display:flex;justify-content:center;gap:5px;">';
-                    if(primaryMachine&&!m.hosted_only) h+='<button type="button" class="card-link card-link-save'+(tableFavorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(tableFavorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(tableFavorite?'★':'☆')+'</button>';
-                    h+='<a href="'+esc(m.source_url||hf)+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;" data-fast-goal="hf_click" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'">'+(m.hosted_only?'↗':'🤗')+'</a></div></td>';
+                    if(primaryMachine&&!m.hosted_only&&!unverified) h+='<button type="button" class="card-link card-link-save'+(tableFavorite?' is-saved':'')+'" data-save-model="'+esc(m.id)+'" title="'+(tableFavorite?'Remove from saved models':'Save for '+esc(primaryMachine.name))+'">'+(tableFavorite?'★':'☆')+'</button>';
+                    h+='<a href="'+esc(unverified?hf:(m.source_url||hf))+'" target="_blank" rel="noopener" style="color:var(--muted);font-size:15px;" data-fast-goal="hf_click" data-fast-goal-source="llm_table" data-fast-goal-model="'+esc(m.id)+'">'+(unverified?'?':(m.hosted_only?'↗':'🤗'))+'</a></div></td>';
                     h+='</tr>';
                 }
                 document.getElementById('models-tbody').innerHTML=h;

@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"F5-TTS","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/f5-tts","description":"F5-TTS: local text-to-speech generation guide with quality 9.4/10, speed 9/10, 2 languages, hardware and install notes.","softwareVersion":"2024-10","softwareRequirements":"1.5 GB model size; gpu, apple","license":"MIT","creator":{"@type":"Organization","name":"Speech Research"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can F5-TTS run locally?","acceptedAnswer":{"@type":"Answer","text":"F5-TTS is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is F5-TTS best for?","acceptedAnswer":{"@type":"Answer","text":"F5-TTS is best for local voice cloning and expressive speech generation."}},{"@type":"Question","name":"What license does F5-TTS use?","acceptedAnswer":{"@type":"Answer","text":"MIT"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"F5-TTS","item":"https://localclaw.io/tts/f5-tts"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"F5-TTS","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/f5-tts","description":"F5-TTS: local text-to-speech generation guide with quality 9.4/10, speed 9/10, 2 languages, hardware and install notes.","softwareVersion":"2024-10","softwareRequirements":"1.5 GB model size; gpu, apple","license":"CC-BY-NC-4.0 weights; MIT code","creator":{"@type":"Organization","name":"SWivid"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can F5-TTS run locally?","acceptedAnswer":{"@type":"Answer","text":"F5-TTS is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is F5-TTS best for?","acceptedAnswer":{"@type":"Answer","text":"F5-TTS is best for local voice cloning and expressive speech generation."}},{"@type":"Question","name":"What license does F5-TTS use?","acceptedAnswer":{"@type":"Answer","text":"CC-BY-NC-4.0 weights; MIT code"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"F5-TTS","item":"https://localclaw.io/tts/f5-tts"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -52,32 +52,24 @@
         <h1 class="title">F5-TTS</h1>
         <p class="desc"><strong>Catalogue summary:</strong> Flow-matching based TTS with SOTA quality and extremely fast inference. Simple and efficient architecture.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">Apple Silicon ready</span>
-          <span class="chip">text-to-speech generation</span>
-          <span class="chip">2 languages</span>
-          <span class="chip">MIT</span>
-        </div>
+        <div class="chips"><span class="chip hot">Apple Silicon ready</span><span class="chip">text-to-speech generation</span><span class="chip">2 languages</span><span class="chip">CC-BY-NC-4.0 weights; MIT code</span></div>
         <div class="cta">
           <a class="btn" href="/tts-list">Compare TTS models</a>
-          <a class="btn secondary" href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener nofollow">Open source page</a>
+          <a class="btn secondary" href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener nofollow">Open upstream source</a>
         </div>
       </section>
       <aside class="hero-panel">
         <div class="score-card">
-          <div>
-            <div class="score-label">Audio catalogue score</div>
-            <div class="score">9.3<small>/10</small></div>
-            <p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>
-          </div>
+          <div><div class="score-label">Audio catalogue score</div><div class="score">9.3<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p></div>
         </div>
         <div data-community-rating data-model-id="tts-f5-tts" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Developer</div><div class="v">Speech Research</div></div>
+          <div class="mini"><div class="k">Developer</div><div class="v">SWivid</div></div>
           <div class="mini"><div class="k">Released</div><div class="v">2024-10</div></div>
         </div>
       </aside>
     </header>
+
 
     <section class="specs" aria-label="Model specs">
       <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">9.4/10</div></div>
@@ -89,11 +81,8 @@
     <section class="section">
       <h2>Can F5-TTS run locally?</h2>
       <p>F5-TTS can generate speech locally for private voice workflows. Start with <code>pip install f5-tts</code>.</p>
-      <p>MIT license. Still verify upstream usage notes before shipping.</p>
-      <div class="source-links">
-        <code>pip install f5-tts</code>
-        <a href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener nofollow">Upstream source</a>
-      </div>
+      <p>CC-BY-NC-4.0 weights; MIT code license. Review upstream restrictions before commercial use.</p>
+      <div class="source-links"><code>pip install f5-tts</code><a href="https://huggingface.co/SWivid/F5-TTS" target="_blank" rel="noopener nofollow">Upstream source</a></div>
       <div style="margin-top:18px"><span class="tag">realtime</span><span class="tag">cloning</span><span class="tag">streaming</span></div>
     </section>
 
@@ -106,11 +95,7 @@
           <div class="bar-row"><span>Audio</span><div class="track"><div class="fill" style="width:93%"></div></div><span>9.3</span></div>
         </div>
       </div>
-      <div>
-        <h2>Best fit</h2>
-        <p>F5-TTS is best for local voice cloning and expressive speech generation.</p>
-        <p class="muted">Hardware: <span class="chip">gpu</span><span class="chip">apple</span></p>
-      </div>
+      <div><h2>Best fit</h2><p>F5-TTS is best for local voice cloning and expressive speech generation.</p><p class="muted">Hardware: <span class="chip">gpu</span><span class="chip">apple</span></p></div>
     </section>
 
     <section class="section">
@@ -136,29 +121,15 @@
     </section>
 
     <section class="section cols">
-      <div>
-        <h2>Good for</h2>
-        <ul class="list">
-          <li>text-to-speech generation</li>
-          <li>Apple Silicon ready local workflows</li>
-          <li>realtime, cloning, streaming</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Watch before shipping</h2>
-        <ul class="list">
-          <li>Validate pronunciation, latency and artifacts with your own voice samples.</li>
-          <li>Review the upstream license and acceptable-use notes.</li>
-          <li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li>
-        </ul>
-      </div>
+      <div><h2>Good for</h2><ul class="list"><li>text-to-speech generation</li><li>Apple Silicon ready local workflows</li><li>realtime, cloning, streaming</li></ul></div>
+      <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
     </section>
 
     <section class="section">
       <h2>Related TTS and speech models</h2>
       <div class="similar"><a class="similar-card" href="/tts/f5-tts-v1.1" style="--model-color:#f97316">
     <span class="similar-family">Speech Research (SWivid)</span>
-    <strong>F5-TTS v1.1</strong>
+    <strong>F5-TTS v1 Base</strong>
     <small>Local TTS model · Q 9.5 · Speed 9.2</small>
   </a><a class="similar-card" href="/tts/maskgct" style="--model-color:#ff453a">
     <span class="similar-family">Amphion Team</span>

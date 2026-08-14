@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phi-3 (3.8B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q4 quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/phi3-3.8b">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/phi3-3.8b">
   <meta property="og:title" content="Phi-3 (3.8B) local AI model | LocalClaw">
-  <meta property="og:description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q4 quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Phi-3 (3.8B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:description" content="Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q4 quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Phi-3 (3.8B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/phi3-3.8b","description":"Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2024-04","memoryRequirements":"6 GB RAM minimum","license":"https://opensource.org/licenses/MIT","creator":{"@type":"Organization","name":"Microsoft Research","url":"https://www.microsoft.com/en-us/research/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Phi-3 (3.8B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Phi-3 (3.8B) can run locally with at least 6 GB RAM. LocalClaw recommends Q5_K_M quantization."}},{"@type":"Question","name":"What is Phi-3 (3.8B) best for?","acceptedAnswer":{"@type":"Answer","text":"Phi-3 (3.8B) is tagged in the LocalClaw catalogue for Reasoning. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Phi-3 (3.8B)","item":"https://localclaw.io/models/phi3-3.8b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Phi-3 (3.8B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/phi3-3.8b","description":"Phi-3 (3.8B): 3.8B local AI model guide with RAM requirements, Q4 quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2024-04","memoryRequirements":"6 GB RAM minimum","license":"https://opensource.org/licenses/MIT","creator":{"@type":"Organization","name":"Microsoft Research","url":"https://www.microsoft.com/en-us/research/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Phi-3 (3.8B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Phi-3 (3.8B) can run locally with at least 6 GB RAM. LocalClaw recommends Q4 quantization."}},{"@type":"Question","name":"What is Phi-3 (3.8B) best for?","acceptedAnswer":{"@type":"Answer","text":"Phi-3 (3.8B) is tagged in the LocalClaw catalogue for Reasoning. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Phi-3 (3.8B)","item":"https://localclaw.io/models/phi3-3.8b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -55,12 +55,7 @@
         <h1 class="title">Phi-3 <span>(3.8B)</span></h1>
         <p class="desc"><strong>Catalogue summary:</strong> Microsoft lightweight powerhouse. Punches way above its weight. 11.3M downloads. Great for edge devices.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">6 GB catalogue minimum</span>
-          <span class="chip">6 GB RAM</span>
-          <span class="chip">Q5_K_M</span>
-          <span class="chip">Reasoning</span>
-        </div>
+        <div class="chips"><span class="chip hot">6 GB catalogue minimum</span><span class="chip">6 GB RAM</span><span class="chip">Q4</span><span class="chip">Reasoning</span></div>
         <div class="cta">
           <a class="btn" href="/pricing">Run with LocalClaw</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
@@ -81,30 +76,30 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
+<section class="specs" aria-label="Key local AI model specs">
       <div class="spec-card"><div class="k">Parameters</div><div class="v">3.8B</div></div>
       <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">6 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">2.3 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q5_K_M</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">2.4 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="phi3-3.8b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="phi3-3.8b" aria-live="polite"></section>
     <section class="section">
       <h2>Can Phi-3 (3.8B) run locally?</h2>
-      <p>Phi-3 (3.8B) has a catalogue minimum of 6 GB RAM with Q5_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Phi-3 (3.8B) has a catalogue minimum of 6 GB RAM with Q4. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
       <p>Use <code>phi-3-mini-4k-instruct</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/lmstudio-community/Phi-3-mini-4k-instruct-GGUF" target="_blank" rel="noopener">Hugging Face repository: lmstudio-community/Phi-3-mini-4k-instruct-GGUF</a><a href="https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/" target="_blank" rel="noopener">Upstream release</a><a href="https://arxiv.org/abs/2404.14219" target="_blank" rel="noopener">Paper or model card</a><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">Licence text</a></div>
+      <div class="source-links"><a href="https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): microsoft/Phi-3-mini-4k-instruct-gguf</a><a href="https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/" target="_blank" rel="noopener">Upstream release</a><a href="https://arxiv.org/abs/2404.14219" target="_blank" rel="noopener">Paper or model card</a><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">Licence text</a></div>
       <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">reasoning</span><span class="tag">light</span><span class="tag">speed</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 6 GB RAM. Start with the Q5_K_M quant.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 6 GB RAM. Start with the Q4 quant.</span></div>
         <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search phi-3-mini-4k-instruct in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: phi</li><li>Parameters: 3.8B</li><li>Recommended quantization: Q5_K_M</li><li>Catalogue minimum RAM: 6 GB</li><li>Catalogue model size: 2.3 GB</li><li>Tags: chat, reasoning, light, speed</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: phi</li><li>Parameters: 3.8B</li><li>Recommended quantization: Q4</li><li>Catalogue minimum RAM: 6 GB</li><li>Catalogue model size: 2.4 GB</li><li>Tags: chat, reasoning, light, speed</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
@@ -126,7 +121,7 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">Transformer decoder-only</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
@@ -134,7 +129,7 @@
       </div>
     </section>
     <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/phi3.5-3.8b">Phi-3.5 (3.8B) <span>3.8B</span></a><a href="/models/phi4-mini-reasoning">Phi-4 Mini Reasoning (3.8B) <span>3.8B</span></a><a href="/models/phi4-mini">Phi-4 Mini (3.8B) <span>3.8B</span></a><a href="/models/phi3-14b">Phi-3 Medium (14B) <span>14B</span></a><a href="/models/phi4-14b">Phi-4 (14B) <span>14B</span></a><a href="/models/phi3.5-moe-instruct">Phi-3.5 MoE Instruct <span>42B (6.6B active, MoE)</span></a><a href="/models/phi4-reasoning-14b">Phi-4 Reasoning (14B) <span>14B</span></a><a href="/models/llama3.1-nemotron-nano-4b">Llama-3.1-Nemotron-Nano (4B) <span>4B</span></a></div></section>
-    <section class="section">
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
         <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
@@ -143,7 +138,7 @@
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"phi3-3.8b","name":"Phi-3 (3.8B)","family":"phi","params":"3.8B","size_gb":2.3,"min_ram":6,"tags":["chat","reasoning","light","speed"],"description":"Microsoft lightweight powerhouse. Punches way above its weight. 11.3M downloads. Great for edge devices.","search_term":"phi-3-mini-4k-instruct","recommended_quant":"Q5_K_M","hf_repo":"lmstudio-community/Phi-3-mini-4k-instruct-GGUF","benchmarks":{"speed":9,"quality":6,"coding":6,"reasoning":6},"released":"2024-04"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"phi3-3.8b","name":"Phi-3 (3.8B)","family":"phi","params":"3.8B","size_gb":2.4,"min_ram":6,"tags":["chat","reasoning","light","speed"],"description":"Microsoft lightweight powerhouse. Punches way above its weight. 11.3M downloads. Great for edge devices.","search_term":"phi-3-mini-4k-instruct","recommended_quant":"Q4","hf_repo":"microsoft/Phi-3-mini-4k-instruct-gguf","benchmarks":{"speed":9,"quality":6,"coding":6,"reasoning":6},"released":"2024-04"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

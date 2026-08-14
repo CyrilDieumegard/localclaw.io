@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { isPracticalLocalModel } = require('../js/new-model-sort-20260814a.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE_URL = 'https://localclaw.io';
@@ -13,7 +14,11 @@ function loadModels() {
   vm.runInContext(`${source};this.APP_DATA=APP_DATA;`, context);
   const updatedMatch = source.match(/^\/\/ Updated ([A-Za-z]+ \d{1,2}, \d{4})/m);
   const updatedAt = updatedMatch ? new Date(`${updatedMatch[1]} 12:00:00 UTC`) : new Date();
-  return { models: context.APP_DATA.models || [], updatedAt };
+  return {
+    models: context.APP_DATA.models || [],
+    hfRepoVerification: context.APP_DATA.hfRepoVerification || {},
+    updatedAt
+  };
 }
 
 function escapeXml(value = '') {
@@ -42,18 +47,9 @@ function modelDescription(model) {
   return `${model.description || ''}${facts ? ` ${facts}.` : ''}`.trim();
 }
 
-function isPracticalLocalModel(model) {
-  const description = String(model.description || '').toLowerCase();
-  const tags = Array.isArray(model.tags) ? model.tags.map(tag => String(tag).toLowerCase()) : [];
-  const excluded = /server-grade only|datacenter-grade only|not yet verified|api only/.test(description);
-  const workstationFit = Number(model.min_ram || 0) > 0 && Number(model.min_ram) <= 256;
-  const installReference = Boolean(model.hf_repo && model.recommended_quant);
-  return !model.hosted_only && !excluded && !tags.includes('experimental') && workstationFit && installReference;
-}
-
 const catalogue = loadModels();
 const models = Array.from(new Map(catalogue.models.map(model => [model.id, model])).values())
-  .filter(model => model.id && model.name && model.released && isPracticalLocalModel(model))
+  .filter(model => model.id && model.name && model.released && isPracticalLocalModel(model, catalogue.hfRepoVerification))
   .sort((a, b) => {
     const releaseDifference = releaseDate(b.released) - releaseDate(a.released);
     if (releaseDifference) return releaseDifference;

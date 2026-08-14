@@ -409,7 +409,7 @@
     .lc-index-hero { min-height: 0; }
     .lc-index-hero__copy { padding: 8px 16px 22px; }
     .lc-index-hero h1 { white-space: normal; }
-    .lc-index-hero__mascot img { right: -28px; top: 24px; width: 150px; opacity: 0.12; }
+    .lc-index-hero__mascot img { right: -56px; top: 46px; width: 135px; opacity: 0.08; }
     .lc-index-facts { grid-template-columns: 1fr; }
     .lc-index-fact { padding: 14px 15px; }
     .lc-index-fact__number { font-size: 26px; }

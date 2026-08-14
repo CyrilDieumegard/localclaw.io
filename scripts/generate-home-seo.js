@@ -25,8 +25,15 @@ const speechContext = evaluate(SPEECH_PATH, '', { window: {} });
 const appData = dataContext.APP_DATA_EXPORT;
 const modelDetails = detailContext.MODEL_DETAILS_EXPORT || {};
 const speechModels = speechContext.window.HOME_INDEX_SPEECH_MODELS || [];
+const hfRepoVerification = appData.hfRepoVerification || {};
+const publicGgufCount = Object.keys(hfRepoVerification.publicGguf || {}).length;
+const publicModelCardCount = Object.keys(hfRepoVerification.publicModelCard || {}).length;
+const gatedModelCardCount = Object.keys(hfRepoVerification.gated || {}).length;
+const unavailableLlmIds = new Set(Object.keys(hfRepoVerification.unavailable || {}));
 const localModels = Array.from(new Map(
-  appData.models.filter(model => !model.hosted_only).map(model => [model.id, model])
+  appData.models
+    .filter(model => !model.hosted_only && !unavailableLlmIds.has(model.id))
+    .map(model => [model.id, model])
 ).values());
 
 function finite(value, fallback = 0) {
@@ -115,7 +122,7 @@ const ramTiers = [8, 16, 32, 64].map(ram => ({ ram, models: tierPicks(ram) }));
 const faqs = [
   {
     question: 'What is The Local Model Index?',
-    answer: `It is LocalClaw's hardware-aware directory of ${localModels.length} unique local LLM pages and ${speechModels.length} local speech records. Hosted-only LLM records are excluded and duplicate route IDs are collapsed.`
+    answer: `It is LocalClaw's hardware-aware directory of ${localModels.length} indexable local LLM pages and ${speechModels.length} local speech records. The LLM set includes ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards with no GGUF file verified and ${gatedModelCardCount} gated model cards; each detail page discloses its source state. Hosted-only and exact-repository-unavailable LLM records are excluded, and duplicate route IDs are collapsed.`
   },
   {
     question: 'How is the LocalClaw score calculated?',
@@ -131,7 +138,7 @@ const faqs = [
   },
   {
     question: 'Does the homepage include cloud-only or API-only models?',
-    answer: 'No. The homepage is a local-only index. Hosted-only LLM records, Edge TTS and OCTAVE 2 are excluded because the current catalogue does not provide a verified fully local runtime path for those records.'
+    answer: `No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains ${publicGgufCount} records with a public GGUF repository, plus ${publicModelCardCount} public and ${gatedModelCardCount} gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The ${unavailableLlmIds.size} exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded.`
   },
   {
     question: 'What speech models are covered?',
@@ -389,7 +396,8 @@ function compactLlmsText() {
 - Local LLM pages: ${localModels.length} unique routes across ${llmFamilyCount} families
 - Local speech records: ${speechModels.length} across ${speechFamilyCount} families (${speechTypeCounts.TTS} TTS, ${speechTypeCounts.ASR} ASR, ${speechTypeCounts.APP} app)
 - Latest catalogue release month: ${releaseLabel(newestRelease)}
-- Scope: hosted-only LLMs, Edge TTS and API-only OCTAVE 2 are excluded from the local-only homepage index
+- LLM source states: ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards without a verified GGUF file and ${gatedModelCardCount} gated model cards
+- Scope: hosted-only LLMs, ${unavailableLlmIds.size} exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
 
 ## Ranking Rules
 
@@ -404,7 +412,7 @@ function compactLlmsText() {
 
 - [The Local Model Index](${BASE_URL}/) — interactive local-only homepage directory
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
-- [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records plus two clearly labelled online/API references
+- [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
 - [Newest local models](${BASE_URL}/new) — current releases and RSS feed
 - [RAM guides](${BASE_URL}/ram/) — recommendations by memory tier
 - [Hardware guides](${BASE_URL}/hardware/) — model fit by machine
@@ -439,7 +447,7 @@ function fullLlmsText() {
   const speechLines = rankedSpeech.map((model, index) => `- ${String(index + 1).padStart(2, '0')} [${model.name}](${BASE_URL}/tts/${encodeURIComponent(model.id)}) — family: ${model.family || 'unknown'}; type: ${model.type}; Audio: ${scoreLabel(speechScore(model))}/10; quality: ${scoreLabel(model.quality)}/10; speed: ${scoreLabel(model.speed)}/10; licence: ${model.license || 'see model page'}; released: ${releaseLabel(model.releaseDate)}.`).join('\n');
   return `# LocalClaw Full Local Model Index
 
-> Generated ${updatedIso} from the LocalClaw repository catalogue. This file lists the ${localModels.length} unique local LLM routes and ${speechModels.length} local speech routes used by the homepage. It excludes hosted-only/API-only records.
+> Generated ${updatedIso} from the LocalClaw repository catalogue. This file lists the ${localModels.length} indexable local LLM routes and ${speechModels.length} local speech routes used by the homepage. The LLM set contains ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards without a verified GGUF file and ${gatedModelCardCount} gated model cards. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at ${BASE_URL}/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 

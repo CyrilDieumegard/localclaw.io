@@ -17,6 +17,7 @@
     "home-seo:check": "node scripts/generate-home-seo.js --check",
     "public-surface:check": "node scripts/check-public-surface.js",
     "content-truth:check": "node scripts/check-content-truth.js",
+    "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "pages:build": "npm run home-css:build && node scripts/build-pages-output.js",
     "pages:check": "node scripts/check-pages-output.js"
   },

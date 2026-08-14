@@ -437,7 +437,7 @@
     </script>
 
     <!-- Data scripts - static tags (no document.write) -->
-    <script src="js/data.js?v=20260514c"></script>
+    <script src="js/data.js?v=20260814g"></script>
 
     <script>
     // ================================================================
@@ -546,11 +546,11 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     }
     if(!model){show404();initParticles();return;}
 
-    var details=(typeof MODEL_DETAILS!=='undefined'&&MODEL_DETAILS[modelId])?MODEL_DETAILS[modelId]:generateDefaultDetails(model);
+    var details=(typeof MODEL_DETAILS!=='undefined'&&MODEL_DETAILS[modelId])?MODEL_DETAILS[modelId]:{};
 
     document.title=model.name+' — Full Details | LocalClaw';
     var metaDesc=document.querySelector('meta[name="description"]');
-    if(metaDesc) metaDesc.content=model.name+' — '+model.description+' Benchmarks, specs, quantization guide, download links.';
+    if(metaDesc) metaDesc.content=model.name+' — '+model.description+' Catalogue ratings, specs, quantization estimates and verified source status.';
 
     // === SEO: legacy query pages stay noindex; canonical points to static model page ===
     try {
@@ -580,11 +580,60 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         return true;
     }
 
+    function hfRepoStateFor(m){
+        var verification=APP_DATA.hfRepoVerification||{};
+        var states=['publicGguf','publicModelCard','gated','unavailable'];
+        for(var i=0;i<states.length;i++){
+            var records=verification[states[i]]||{};
+            if(records[m.id]===m.hf_repo)return states[i];
+        }
+        return 'unclassified';
+    }
+
+    function hfVerificationDate(){
+        var value=APP_DATA.hfRepoVerification&&APP_DATA.hfRepoVerification.checkedAt;
+        return value?String(value).slice(0,10):'latest check';
+    }
+
+    function buildUnavailablePage(hfSearchUrl){
+        document.title=model.name+' — source not verified | LocalClaw';
+        var col=fcol(model.family);
+        var h='';
+        h+='<div class="hero fade-up">';
+        h+='<a href="/llm-list" class="back-link"><span>← Back to LLM</span></a>';
+        h+='<div class="breadcrumb"><a href="/">LocalClaw</a><span style="color:var(--border2);">›</span><a href="/llm-list">LLM</a><span style="color:var(--border2);">›</span><span style="color:#fff;">'+esc(model.name)+'</span></div>';
+        h+='<div class="hero-top"><div class="hero-info">';
+        h+='<div class="hero-fam"><span class="hero-fam-dot" style="background:'+col+'"></span><span class="hero-fam-name" style="color:'+col+'">UNVERIFIED CATALOGUE ROUTE</span></div>';
+        h+='<h1 class="hero-name fd">'+esc(model.name)+'</h1>';
+        h+='<p class="hero-desc">This URL is preserved for continuity, but LocalClaw could not verify an exact current public repository for this catalogue record on '+esc(hfVerificationDate())+'. It is excluded from the local index, rankings and hardware recommendations until the model identity and artefact are confirmed.</p>';
+        h+='</div><div class="hero-actions"><a href="'+esc(hfSearchUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary">Search Hugging Face</a><a href="/llm-list" class="btn btn-primary">Compare verified models</a></div></div></div>';
+        h+='<div class="main-grid">';
+        h+='<div class="card card-full fade-up fade-up-d1"><div class="card-title">Repository status</div><ul class="list-items">';
+        h+='<li><span class="list-icon">!</span>No exact public repository was verified for <span class="fm">'+esc(model.hf_repo||model.search_term||model.name)+'</span>.</li>';
+        h+='<li><span class="list-icon">→</span>No LocalClaw score, capability bars, RAM-fit claim or install command is published for this record.</li>';
+        h+='<li><span class="list-icon">→</span>The route and canonical destination remain stable while the catalogue record is reviewed.</li>';
+        h+='</ul></div>';
+        h+='<div class="card card-full fade-up fade-up-d2"><div class="card-title">What to do instead</div><p style="color:var(--muted);line-height:1.7;">Use the verified local directory to choose a source-resolvable model, or search the upstream catalogue and confirm the exact publisher, model identity, licence, format and memory requirement before downloading anything.</p><div class="hero-actions" style="margin-top:18px;"><a href="/" class="btn btn-primary">Open The Local Model Index</a><a href="'+esc(hfSearchUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary">Search upstream</a></div></div>';
+        h+='</div>';
+        app.innerHTML=h;
+    }
+
     function buildPage(){
         var col=fcol(model.family);
-        var hfUrl='https://huggingface.co/'+(model.hf_repo||'');
-        var lmsUrl='lmstudio://open?search='+encodeURIComponent(model.search_term||model.name);
-        var overall=((model.benchmarks.speed+model.benchmarks.quality+model.benchmarks.coding+model.benchmarks.reasoning)/4).toFixed(1);
+        var hfState=hfRepoStateFor(model);
+        var hfUrl=hfState==='unavailable'||hfState==='unclassified'?'':'https://huggingface.co/'+(model.hf_repo||'');
+        var hfSearchUrl='https://huggingface.co/models?search='+encodeURIComponent((model.search_term||model.name)+' GGUF')+'&sort=downloads';
+        if(hfState==='unavailable'||hfState==='unclassified'){
+            buildUnavailablePage(hfSearchUrl);
+            return;
+        }
+        var hasPublicGguf=hfState==='publicGguf';
+        var sourceOnly=hfState==='publicModelCard'||hfState==='gated';
+        var serverGrade=(model.tags||[]).indexOf('server-grade')!==-1||Number(model.min_ram||0)>=128;
+        var lmsUrl=hasPublicGguf&&!serverGrade?'lmstudio://open?search='+encodeURIComponent(model.search_term||model.name):'';
+        var hasDetailSource=Boolean(model.source_url||details.official_blog||details.paper_url);
+        var ratings=model.benchmarks||{};
+        var overall=Math.max(0,Math.min(10,(Number(ratings.quality)||0)*.38+(Number(ratings.coding)||0)*.24+(Number(ratings.reasoning)||0)*.24+(Number(ratings.speed)||0)*.14)).toFixed(1);
         var h='';
 
         // ---- HERO ----
@@ -598,10 +647,16 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         h+='</div>';
         h+='<h1 class="hero-name fd">'+esc(model.name)+'</h1>';
         h+='<p class="hero-desc">'+esc(model.description)+'</p>';
+        if(sourceOnly) h+='<p class="hero-desc" style="margin-top:12px;color:#facc15;">'+(hfState==='gated'?'Gated model card verified; access approval or licence acceptance may be required. No public GGUF or one-click install is claimed.':'Public model card verified, but no public GGUF file was verified in this repository. No LM Studio or one-click install is claimed.')+'</p>';
         h+='</div>';
         h+='<div class="hero-actions">';
-        h+='<a href="'+esc(hfUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9l-1 1 1 1"/><path d="M15 9l1 1-1 1"/></svg> HuggingFace</a>';
-        h+='<a href="'+esc(lmsUrl)+'" class="btn btn-primary">⬇ Open in LM Studio</a>';
+        if(hfUrl){
+            var hfButtonLabel=hfState==='publicGguf'?'Public GGUF repository':(hfState==='gated'?'Gated model card':'Public model card');
+            h+='<a href="'+esc(hfUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9l-1 1 1 1"/><path d="M15 9l1 1-1 1"/></svg> '+hfButtonLabel+'</a>';
+        }else{
+            h+='<a href="'+esc(hfSearchUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary">Search Hugging Face · source not verified</a>';
+        }
+        if(hasPublicGguf&&!serverGrade) h+='<a href="'+esc(lmsUrl)+'" class="btn btn-primary">⬇ Open in LM Studio</a>';
         h+='</div></div>';
 
         // Tags
@@ -609,7 +664,7 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         for(var t=0;t<model.tags.length;t++) h+='<span class="tag-pill">'+(TEMOJI[model.tags[t]]||'<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>')+' '+esc(model.tags[t])+'</span>';
         h+='<span class="tag-pill special fm">'+esc(model.params)+'</span>';
         h+='<span class="tag-pill green fm">'+fmtCtx(details.context_window)+' ctx</span>';
-        if(details.license) h+='<span class="tag-pill" style="background:rgba(96,165,250,.06);color:var(--blue);border-color:rgba(96,165,250,.15);"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> '+esc(details.license)+'</span>';
+        if(details.license&&details.license_url) h+='<span class="tag-pill" style="background:rgba(96,165,250,.06);color:var(--blue);border-color:rgba(96,165,250,.15);"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> '+esc(details.license)+'</span>';
         h+='</div></div>';
 
         // ---- LIVE STATS ----
@@ -625,9 +680,10 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
 
         // Radar + Bars
         h+='<div class="card fade-up fade-up-d1">';
-        h+='<div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Performance Benchmarks</div>';
+        h+='<div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> LocalClaw catalogue ratings</div>';
         h+='<div class="radar-wrap"><canvas id="radar-chart" width="340" height="340"></canvas></div>';
-        h+='<div class="radar-score"><div class="radar-score-num fd">'+overall+'<span style="font-size:1rem;color:var(--muted);"> / 10</span></div><div class="radar-score-label">Overall Score</div></div>';
+        h+='<div class="radar-score"><div class="radar-score-num fd">'+overall+'<span style="font-size:1rem;color:var(--muted);"> / 10</span></div><div class="radar-score-label">LocalClaw catalogue score</div></div>';
+        h+='<p style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:14px;">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. It is not a standardized third-party benchmark; community ratings remain independent.</p>';
         h+='<div class="bench-bars">';
         var bkeys=[['speed','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed',BCOL.speed],['quality','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality',BCOL.quality],['coding','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding',BCOL.coding],['reasoning','<svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning',BCOL.reasoning]];
         for(var b=0;b<bkeys.length;b++){
@@ -640,46 +696,47 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         h+='<div class="card fade-up fade-up-d2">';
         h+='<div class="card-title">⚙️ Technical Specifications</div>';
         h+='<div class="spec-grid">';
-        h+=specItem('Developer',details.developer_url?'<a href="'+esc(details.developer_url)+'" target="_blank" rel="noopener">'+esc(details.developer||'Unknown')+'</a>':esc(details.developer||'Unknown'));
+        var developerValue=hasDetailSource&&details.developer?(details.developer_url?'<a href="'+esc(details.developer_url)+'" target="_blank" rel="noopener">'+esc(details.developer)+'</a>':esc(details.developer)):'See verified source status';
+        h+=specItem('Developer',developerValue);
         h+=specItem('Parameters',esc(model.params));
-        h+=specItem('Context Window',fmtCtx(details.context_window)+' tokens');
-        h+=specItem('Model Size (GGUF)',fmtSize(model.size_gb));
-        h+=specItem('Min RAM',model.min_ram+' GB');
-        h+=specItem('Rec. Quant','<span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'Q4_K_M')+'</span>');
-        h+=specItem('Architecture',esc(details.architecture||'Transformer'));
+        h+=specItem('Context Window',hasDetailSource&&details.context_window?fmtCtx(details.context_window)+' tokens':'See upstream model card');
+        h+=specItem(hasPublicGguf?'Model Size (GGUF)':'Catalogue size estimate',fmtSize(model.size_gb));
+        h+=specItem(hasPublicGguf?'Min RAM':'Catalogue RAM estimate',model.min_ram+' GB');
+        h+=specItem(hasPublicGguf?'Rec. Quant':'Catalogue quantization','<span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'See model card')+'</span>');
+        h+=specItem('Architecture',hasDetailSource&&details.architecture?esc(details.architecture):'See upstream model card');
         h+=specItem('Released',esc(model.released||'Unknown'));
         h+='</div>';
-        if(details.training_data){
+        if(hasDetailSource&&details.training_data){
             h+='<div style="margin-top:14px;padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.2);">';
             h+='<div class="spec-label">Training Data</div>';
             h+='<div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;">'+esc(details.training_data)+'</div></div>';
         }
-        if(details.languages&&details.languages.length>0){
+        if(hasDetailSource&&details.languages&&details.languages.length>0){
             h+='<div style="margin-top:12px;"><div class="spec-label" style="margin-bottom:6px;">Languages</div><div style="display:flex;flex-wrap:wrap;gap:4px;">';
             for(var l=0;l<details.languages.length;l++) h+='<span style="padding:3px 10px;border-radius:6px;background:rgba(59,130,246,.06);color:var(--blue);font-size:10px;font-weight:500;border:1px solid rgba(59,130,246,.1);">'+esc(details.languages[l])+'</span>';
             h+='</div></div>';
         }
         h+='</div>';
 
-        // Strengths
-        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Strengths</div><ul class="list-items">';
-        var strs=details.strengths||['Solid general-purpose model'];
-        for(var s=0;s<strs.length;s++) h+='<li><span class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg></span>'+esc(strs[s])+'</li>';
+        // Crawlable catalogue facts only; no generated strengths, weaknesses or best-use claims.
+        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Catalogue signals</div><ul class="list-items">';
+        var catalogueSignals=['Family: '+(model.family||'unknown'),'Parameters: '+(model.params||'unknown'),'Catalogue tags: '+((model.tags||[]).join(', ')||'none listed'),(hasPublicGguf?'Recommended quantization: ':'Catalogue quantization estimate: ')+(model.recommended_quant||'verify upstream')];
+        for(var s=0;s<catalogueSignals.length;s++) h+='<li><span class="list-icon">→</span>'+esc(catalogueSignals[s])+'</li>';
         h+='</ul></div>';
 
-        // Weaknesses
-        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Weaknesses</div><ul class="list-items">';
-        var wks=details.weaknesses||['May be surpassed by newer models'];
-        for(var w=0;w<wks.length;w++) h+='<li><span class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg></span>'+esc(wks[w])+'</li>';
+        h+='<div class="card fade-up fade-up-d2"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.58 14.57A2 2 0 003.43 21h17.14a2 2 0 001.72-2.57L13.71 3.86a2 2 0 00-3.42 0z"/></svg> Operational limits</div><ul class="list-items">';
+        var limits=['Minimum RAM is a catalogue estimate, not a guarantee.','Memory and speed vary by context length, quantization, runtime and backend.','Verify architecture, licence and usage restrictions in current upstream material.'];
+        for(var w=0;w<limits.length;w++) h+='<li><span class="list-icon">!</span>'+esc(limits[w])+'</li>';
         h+='</ul></div>';
 
-        // Use Cases
-        h+='<div class="card fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Best Use Cases</div><ul class="list-items">';
-        var ucs=details.use_cases||['General AI tasks'];
-        for(var u=0;u<ucs.length;u++) h+='<li><span class="list-icon">→</span>'+esc(ucs[u])+'</li>';
+        h+='<div class="card fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Repository status</div><ul class="list-items">';
+        var sourceStatus=hfState==='publicGguf'?'Exact public GGUF repository resolved on '+hfVerificationDate():hfState==='publicModelCard'?'Public model card resolved; no GGUF file was verified on '+hfVerificationDate():hfState==='gated'?'Gated model card resolved; account or licence acceptance may be required.':'No exact public repository was verified on '+hfVerificationDate()+'.';
+        h+='<li><span class="list-icon">→</span>'+esc(sourceStatus)+'</li>';
+        h+='<li><span class="list-icon">→</span>Search term: <span class="fm">'+esc(model.search_term||model.name)+'</span></li>';
         h+='</ul></div>';
 
         // RAM Guide + Amazon Hardware
+        if(hasPublicGguf){
         h+='<div class="card fade-up fade-up-d3"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4m4 2V4m4 2V4m4 2V4M6 18v2m4-2v2m4-2v2m4-2v2"/></svg> Hardware Requirements</div>';
         h+=ramGuide(model);
         h+='</div>';
@@ -694,19 +751,23 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
             if(isRec) h+='<span class="quant-rec">★ REC</span>'; else h+='<span style="width:42px;"></span>';
             h+='</div>';
         }
-        h+='<div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> <strong>Tip:</strong> Search for <span class="fm" style="color:#fff;">'+esc(model.search_term||model.name)+'</span> in LM Studio, then pick <span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'Q4_K_M')+'</span> for the best balance.</div></div>';
+        h+='<div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;padding:12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(39,39,42,.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> <strong>Tip:</strong> '+(serverGrade?'Verify the exact upstream artefact, total shard size and distributed runtime instructions before deployment.':'Search for <span class="fm" style="color:#fff;">'+esc(model.search_term||model.name)+'</span> in LM Studio, then pick <span class="fm" style="color:var(--primary);">'+esc(model.recommended_quant||'Q4_K_M')+'</span> for the best balance.')+'</div></div>';
+        }else{
+            h+='<div class="card card-full fade-up fade-up-d3"><div class="card-title">Source status only</div><p style="color:var(--muted);line-height:1.7;">'+(hfState==='gated'?'This gated model card may require account approval or licence acceptance.':'This public model card did not expose a public GGUF file during the catalogue audit.')+' LocalClaw therefore does not publish a hardware-fit recommendation, quantization download table or one-click installation path for this record.</p><div class="hero-actions" style="margin-top:16px;"><a href="'+esc(hfUrl)+'" target="_blank" rel="noopener" class="btn btn-secondary">Open '+(hfState==='gated'?'gated':'public')+' model card</a></div></div>';
+        }
 
         // Links
         h+='<div class="card fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Links & Resources</div>';
-        h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>','HuggingFace Model Page',hfUrl,'rgba(255,200,50,.1)');
-        h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>','Open in LM Studio',lmsUrl,'rgba(255,69,58,.1)');
+        if(hfUrl) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',hfState==='publicGguf'?'Public GGUF repository':(hfState==='gated'?'Gated model card':'Public model card'),hfUrl,'rgba(255,200,50,.1)');
+        else h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>','Search Hugging Face — source not verified',hfSearchUrl,'rgba(255,200,50,.1)');
+        if(hasPublicGguf&&!serverGrade) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>','Search in LM Studio',lmsUrl,'rgba(255,69,58,.1)');
         if(details.official_blog) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>','Official Blog / Announcement',details.official_blog,'rgba(59,130,246,.1)');
         if(details.paper_url) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>','Research Paper (arXiv)',details.paper_url,'rgba(168,85,247,.1)');
         if(details.developer_url) h+=linkRow('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="22" x2="9" y2="2"/><line x1="15" y1="22" x2="15" y2="2"/></svg>','Developer Website',details.developer_url,'rgba(16,185,129,.1)');
         h+='</div>';
 
         // Similar Models
-        var simModels=details.similar_models||[];
+        var simModels=similarModelIds(model);
         h+='<div class="card fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Similar Models</div>';
         if(simModels.length>0){
             h+='<div class="similar-grid">';
@@ -715,11 +776,6 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
         } else { h+='<p style="font-size:13px;color:var(--muted);">Explore the <a href="/llm-list" style="color:var(--primary);">full LLM list</a> to compare models.</p>'; }
         h+='</div>';
 
-        // Fun fact
-        if(details.fun_fact){
-            h+='<div class="card card-full fun-fact fade-up fade-up-d4"><div class="card-title"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" style="display:inline;vertical-align:middle"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/><path d="M9 21h6"/></svg> Fun Fact</div>';
-            h+='<p style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;">'+esc(details.fun_fact)+'</p></div>';
-        }
 
         h+='</div>'; // end main-grid
 
@@ -757,7 +813,8 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
 
     // === HuggingFace API ===
     function fetchHuggingFaceData(){
-        if(!model.hf_repo) return setHfError();
+        var state=hfRepoStateFor(model);
+        if(!model.hf_repo||state==='unavailable'||state==='unclassified') return setHfError();
         fetch('https://huggingface.co/api/models/'+model.hf_repo).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(data){
             var dlEl=document.getElementById('hf-downloads');if(dlEl) dlEl.textContent=fmtN(data.downloads||data.downloadsAllTime||0);var dlStat=document.getElementById('stat-downloads');if(dlStat) dlStat.classList.add('loaded');
             var likeEl=document.getElementById('hf-likes');if(likeEl) likeEl.textContent=fmtN(data.likes||0);var likeStat=document.getElementById('stat-likes');if(likeStat) likeStat.classList.add('loaded');
@@ -771,6 +828,18 @@ function generateUseCases(m){var u=[];if(m.tags.indexOf('chat')!==-1)u.push('Gen
     function specItem(label,value){return '<div class="spec-item"><div class="spec-label">'+label+'</div><div class="spec-val">'+value+'</div></div>';}
     function linkRow(icon,label,url,bg){return '<a href="'+esc(url)+'" target="_blank" rel="noopener" class="link-row"><div class="link-icon" style="background:'+bg+';">'+icon+'</div><span>'+esc(label)+'</span><span class="link-arrow">↗</span></a>';}
     function findModel(id){for(var i=0;i<APP_DATA.models.length;i++){if(APP_DATA.models[i].id===id)return APP_DATA.models[i];}return null;}
+    function similarModelIds(current){
+        var seen={},ranked=[];
+        for(var i=0;i<APP_DATA.models.length;i++){
+            var candidate=APP_DATA.models[i];
+            if(!candidate||candidate.id===current.id||candidate.hosted_only||seen[candidate.id])continue;
+            seen[candidate.id]=true;
+            var shared=(candidate.tags||[]).filter(function(tag){return (current.tags||[]).indexOf(tag)!==-1;}).length;
+            ranked.push({id:candidate.id,score:(candidate.family===current.family?4:0)+shared-Math.abs(Number(candidate.min_ram||0)-Number(current.min_ram||0))/512});
+        }
+        ranked.sort(function(a,b){return b.score-a.score||a.id.localeCompare(b.id);});
+        return ranked.slice(0,8).map(function(item){return item.id;});
+    }
 
     // === Amazon Affiliate ===
     var AMZ_TAG='localclaw-20';

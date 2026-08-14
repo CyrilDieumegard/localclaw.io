@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DBRX (132B MoE) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="DBRX (132B MoE): 132B (36B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>DBRX (132B MoE) server-grade local AI | LocalClaw</title>
+  <meta name="description" content="DBRX (132B MoE): 132B (36B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/dbrx-132b">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/dbrx-132b">
   <meta property="og:title" content="DBRX (132B MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="DBRX (132B MoE): 132B (36B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:description" content="DBRX (132B MoE): 132B (36B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DBRX (132B MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="DBRX (132B MoE): 132B (36B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:description" content="DBRX (132B MoE): 132B (36B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DBRX (132B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/dbrx-132b","description":"DBRX (132B MoE): 132B (36B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2024-03","memoryRequirements":"96 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can DBRX (132B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"DBRX (132B MoE) can run locally with at least 96 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is DBRX (132B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"DBRX (132B MoE) is tagged in the LocalClaw catalogue for General local assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"DBRX (132B MoE)","item":"https://localclaw.io/models/dbrx-132b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DBRX (132B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/dbrx-132b","description":"DBRX (132B MoE): 132B (36B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.","softwareVersion":"2024-03","memoryRequirements":"128 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can DBRX (132B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"DBRX (132B MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is DBRX (132B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"DBRX (132B MoE) is tagged in the LocalClaw catalogue for General local assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"DBRX (132B MoE)","item":"https://localclaw.io/models/dbrx-132b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -55,14 +55,9 @@
         <h1 class="title">DBRX <span>(132B MoE)</span></h1>
         <p class="desc"><strong>Catalogue summary:</strong> Databricks open MoE LLM. 132B total with 36B active. Strong general purpose. 111K downloads.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">96 GB catalogue minimum</span>
-          <span class="chip">96 GB RAM</span>
-          <span class="chip">Q4_K_M</span>
-          <span class="chip">General local assistant</span>
-        </div>
+        <div class="chips"><span class="chip hot">128 GB catalogue minimum</span><span class="chip">128 GB RAM</span><span class="chip">Q6_K</span><span class="chip">General local assistant</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/dranger003/dbrx-instruct-iMat.GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,30 +76,30 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
+<section class="specs" aria-label="Key local AI model specs">
       <div class="spec-card"><div class="k">Parameters</div><div class="v">132B (36B active)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">96 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">75 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">128 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">108 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q6_K</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="dbrx-132b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="dbrx-132b" aria-live="polite"></section>
     <section class="section">
       <h2>Can DBRX (132B MoE) run locally?</h2>
-      <p>DBRX (132B MoE) has a catalogue minimum of 96 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>dbrx-instruct</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/databricks/dbrx-instruct-GGUF" target="_blank" rel="noopener">Hugging Face repository: databricks/dbrx-instruct-GGUF</a></div>
+      <p>DBRX (132B MoE) has a catalogue minimum of 128 GB RAM with Q6_K. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Treat <code>dbrx-instruct</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/dranger003/dbrx-instruct-iMat.GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): dranger003/dbrx-instruct-iMat.GGUF</a></div>
       <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">general</span><span class="tag">quality</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 96 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search dbrx-instruct in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 128 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use dbrx-instruct only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: dbrx</li><li>Parameters: 132B (36B active)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 96 GB</li><li>Catalogue model size: 75 GB</li><li>Tags: chat, general, quality</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: dbrx</li><li>Parameters: 132B (36B active)</li><li>Recommended quantization: Q6_K</li><li>Catalogue minimum RAM: 128 GB</li><li>Catalogue model size: 108 GB</li><li>Tags: chat, general, quality</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
@@ -126,15 +121,15 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">See upstream repository</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
         <a href="/hardware/mac-studio-m4-max-128gb"><small>Large unified memory</small>Mac Studio M4 Max 128GB</a><a href="/computers"><small>128GB AI PC class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/128gb"><small>High-memory picks</small>128GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/command-a-111b">Command A (111B) <span>111B</span></a><a href="/models/wizardlm2-8x22b">WizardLM 2 (8x22B) <span>8x22B (141B total)</span></a><a href="/models/command-r-plus">Command R+ (104B) <span>104B</span></a><a href="/models/qwen2.5-72b">Qwen 2.5 (72B) <span>72B</span></a><a href="/models/gpt-oss-120b">GPT-OSS (120B) <span>117B (5.1B active)</span></a><a href="/models/mistral-large-123b">Mistral Large (123B) <span>123B</span></a><a href="/models/qwen3-235b-a22b">Qwen 3 MoE (235B/22B active) <span>235B (22B active)</span></a><a href="/models/deepseek-v3.2">DeepSeek V3.2 (37B/671B MoE) <span>37B (671B MoE)</span></a></div></section>
-    <section class="section">
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/command-a-111b">Command A (111B) <span>111B</span></a><a href="/models/glm4.5-air">GLM 4.5 Air (MoE) <span>106B (12B active, MoE)</span></a><a href="/models/wizardlm2-8x22b">WizardLM 2 (8x22B) <span>8x22B (141B total)</span></a><a href="/models/hy3">Hy3 <span>295B (21B active)</span></a><a href="/models/command-r-plus">Command R+ (104B) <span>104B</span></a><a href="/models/minimax-m2.1">MiniMax M2.1 <span>230B (10B active, MoE)</span></a><a href="/models/qwen2.5-72b">Qwen 2.5 (72B) <span>72B</span></a><a href="/models/gpt-oss-120b">GPT-OSS (120B) <span>117B (5.1B active)</span></a></div></section>
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
         <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
@@ -143,7 +138,7 @@
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"dbrx-132b","name":"DBRX (132B MoE)","family":"dbrx","params":"132B (36B active)","size_gb":75,"min_ram":96,"tags":["chat","general","quality"],"description":"Databricks open MoE LLM. 132B total with 36B active. Strong general purpose. 111K downloads.","search_term":"dbrx-instruct","recommended_quant":"Q4_K_M","hf_repo":"databricks/dbrx-instruct-GGUF","benchmarks":{"speed":2,"quality":9,"coding":8,"reasoning":8},"released":"2024-03"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"dbrx-132b","name":"DBRX (132B MoE)","family":"dbrx","params":"132B (36B active)","size_gb":108,"min_ram":128,"tags":["chat","general","quality"],"description":"Databricks open MoE LLM. 132B total with 36B active. Strong general purpose. 111K downloads.","search_term":"dbrx-instruct","recommended_quant":"Q6_K","hf_repo":"dranger003/dbrx-instruct-iMat.GGUF","benchmarks":{"speed":2,"quality":9,"coding":8,"reasoning":8},"released":"2024-03"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

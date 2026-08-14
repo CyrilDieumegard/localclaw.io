@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>R1-1776 (14B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="R1-1776 (14B): 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>R1-1776 (671B MoE) server-grade local AI | LocalClaw</title>
+  <meta name="description" content="R1-1776 (671B MoE): 671B (37B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/r1-1776-14b">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/r1-1776-14b">
-  <meta property="og:title" content="R1-1776 (14B) local AI model | LocalClaw">
-  <meta property="og:description" content="R1-1776 (14B): 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:title" content="R1-1776 (671B MoE) local AI model | LocalClaw">
+  <meta property="og:description" content="R1-1776 (671B MoE): 671B (37B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="R1-1776 (14B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="R1-1776 (14B): 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="R1-1776 (671B MoE) local AI model | LocalClaw">
+  <meta name="twitter:description" content="R1-1776 (671B MoE): 671B (37B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"R1-1776 (14B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/r1-1776-14b","description":"R1-1776 (14B): 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2025-02","memoryRequirements":"12 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can R1-1776 (14B) run locally?","acceptedAnswer":{"@type":"Answer","text":"R1-1776 (14B) can run locally with at least 12 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is R1-1776 (14B) best for?","acceptedAnswer":{"@type":"Answer","text":"R1-1776 (14B) is tagged in the LocalClaw catalogue for Reasoning. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"R1-1776 (14B)","item":"https://localclaw.io/models/r1-1776-14b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"R1-1776 (671B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/r1-1776-14b","description":"R1-1776 (671B MoE): 671B (37B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.","softwareVersion":"2025-02","memoryRequirements":"512 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can R1-1776 (671B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"R1-1776 (671B MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is R1-1776 (671B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"R1-1776 (671B MoE) is tagged in the LocalClaw catalogue for Reasoning. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"R1-1776 (671B MoE)","item":"https://localclaw.io/models/r1-1776-14b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,21 +48,16 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>R1-1776 (14B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>R1-1776 (671B MoE)</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">R1-1776 <span>(14B)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Perplexity unbiased DeepSeek R1. Debiased reasoning model. 115K downloads.</p>
+        <div class="eyebrow">Open-weight MoE</div>
+        <h1 class="title">R1-1776 <span>(671B MoE)</span></h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Perplexity R1-1776 is a full DeepSeek-R1 derivative with 671B total parameters and about 37B active per token. The verified Q4_K_M GGUF is roughly 404.4 GB, so this is a server-grade local target rather than a desktop 14B model. This legacy route ID is retained for URL stability.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">12 GB catalogue minimum</span>
-          <span class="chip">12 GB RAM</span>
-          <span class="chip">Q4_K_M</span>
-          <span class="chip">Reasoning</span>
-        </div>
+        <div class="chips"><span class="chip hot">512 GB catalogue minimum</span><span class="chip">512 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Reasoning</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/unsloth/r1-1776-GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,34 +76,34 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">14B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">12 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">8.5 GB</div></div>
+<section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">671B (37B active, MoE)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">512 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">404.4 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="r1-1776-14b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="r1-1776-14b" aria-live="polite"></section>
     <section class="section">
-      <h2>Can R1-1776 (14B) run locally?</h2>
-      <p>R1-1776 (14B) has a catalogue minimum of 12 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>r1-1776-14b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/perplexity-ai/r1-1776-GGUF" target="_blank" rel="noopener">Hugging Face repository: perplexity-ai/r1-1776-GGUF</a></div>
-      <div style="margin-top:16px"><span class="tag">reasoning</span><span class="tag">power</span></div>
+      <h2>Can R1-1776 (671B MoE) run locally?</h2>
+      <p>R1-1776 (671B MoE) has a catalogue minimum of 512 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Treat <code>r1-1776</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/perplexity-ai/r1-1776" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/unsloth/r1-1776-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): unsloth/r1-1776-GGUF</a></div>
+      <div style="margin-top:16px"><span class="tag">reasoning</span><span class="tag">server-grade</span><span class="tag">moe</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 12 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search r1-1776-14b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 512 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use r1-1776 only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: r1-1776</li><li>Parameters: 14B</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 12 GB</li><li>Catalogue model size: 8.5 GB</li><li>Tags: reasoning, power</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: r1-1776</li><li>Parameters: 671B (37B active, MoE)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 512 GB</li><li>Catalogue model size: 404.4 GB</li><li>Tags: reasoning, server-grade, moe</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>reasoning</li><li>power</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>reasoning</li><li>server-grade</li><li>moe</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
@@ -126,24 +121,24 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">See upstream repository</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-16gb"><small>Starter desktop</small>Mac mini M4 16GB</a><a href="/hardware/macbook-air-m4-16gb"><small>Portable fit</small>MacBook Air M4 16GB</a><a href="/ram/16gb"><small>Best 16GB models</small>16GB RAM guide</a>
+        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/deepcoder-14b">DeepCoder (14B) <span>14B</span></a><a href="/models/phi3-14b">Phi-3 Medium (14B) <span>14B</span></a><a href="/models/phi4-reasoning-14b">Phi-4 Reasoning (14B) <span>14B</span></a><a href="/models/apriel-nemotron-15b-thinker">Apriel Nemotron 15B Thinker <span>15B</span></a><a href="/models/deepseek-r1-14b">DeepSeek R1 Distill (14B) <span>14B</span></a><a href="/models/gemma4-12b">Gemma 4 12B <span>12B</span></a><a href="/models/gpt-oss-20b">GPT-OSS (20B) <span>20B</span></a><a href="/models/ministral-3-14b-instruct">Ministral 3 14B Instruct <span>14B</span></a></div></section>
-    <section class="section">
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/deepseek-r1-0528">DeepSeek R1 0528 (671B MoE) <span>671B (37B active)</span></a><a href="/models/deepseek-v3.1">DeepSeek V3.1 (671B MoE) <span>671B (37B active, MoE)</span></a><a href="/models/deepseek-v3.2-exp">DeepSeek V3.2 Exp (671B MoE) <span>671B (37B active)</span></a></div></section>
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/16gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"r1-1776-14b","name":"R1-1776 (14B)","family":"r1-1776","params":"14B","size_gb":8.5,"min_ram":12,"tags":["reasoning","power"],"description":"Perplexity unbiased DeepSeek R1. Debiased reasoning model. 115K downloads.","search_term":"r1-1776-14b","recommended_quant":"Q4_K_M","hf_repo":"perplexity-ai/r1-1776-GGUF","benchmarks":{"speed":6,"quality":8,"coding":7,"reasoning":9},"released":"2025-02"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"r1-1776-14b","name":"R1-1776 (671B MoE)","family":"r1-1776","params":"671B (37B active, MoE)","size_gb":404.4,"min_ram":512,"tags":["reasoning","server-grade","moe"],"description":"Perplexity R1-1776 is a full DeepSeek-R1 derivative with 671B total parameters and about 37B active per token. The verified Q4_K_M GGUF is roughly 404.4 GB, so this is a server-grade local target rather than a desktop 14B model. This legacy route ID is retained for URL stability.","search_term":"r1-1776","recommended_quant":"Q4_K_M","hf_repo":"unsloth/r1-1776-GGUF","source_url":"https://huggingface.co/perplexity-ai/r1-1776","benchmarks":{"speed":6,"quality":8,"coding":7,"reasoning":9},"released":"2025-02"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

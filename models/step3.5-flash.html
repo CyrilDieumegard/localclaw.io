@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Step 3.5 Flash local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Step 3.5 Flash: 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>Step 3.5 Flash server-grade local AI | LocalClaw</title>
+  <meta name="description" content="Step 3.5 Flash: 196.81B (11B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/step3.5-flash">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/step3.5-flash">
   <meta property="og:title" content="Step 3.5 Flash local AI model | LocalClaw">
-  <meta property="og:description" content="Step 3.5 Flash: 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:description" content="Step 3.5 Flash: 196.81B (11B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Step 3.5 Flash local AI model | LocalClaw">
-  <meta name="twitter:description" content="Step 3.5 Flash: 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:description" content="Step 3.5 Flash: 196.81B (11B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Step 3.5 Flash","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/step3.5-flash","description":"Step 3.5 Flash: 14B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2025-11","memoryRequirements":"16 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Step 3.5 Flash run locally?","acceptedAnswer":{"@type":"Answer","text":"Step 3.5 Flash can run locally with at least 16 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Step 3.5 Flash best for?","acceptedAnswer":{"@type":"Answer","text":"Step 3.5 Flash is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Step 3.5 Flash","item":"https://localclaw.io/models/step3.5-flash"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Step 3.5 Flash","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/step3.5-flash","description":"Step 3.5 Flash: 196.81B (11B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.","softwareVersion":"2025-11","memoryRequirements":"192 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Step 3.5 Flash run locally?","acceptedAnswer":{"@type":"Answer","text":"Step 3.5 Flash can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is Step 3.5 Flash best for?","acceptedAnswer":{"@type":"Answer","text":"Step 3.5 Flash is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Step 3.5 Flash","item":"https://localclaw.io/models/step3.5-flash"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -51,18 +51,13 @@
     <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Step 3.5 Flash</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight local LLM</div>
+        <div class="eyebrow">Open-weight MoE</div>
         <h1 class="title">Step 3.5 Flash</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> StepFun&#39;s fast and free model. Exceptional speed-to-quality ratio. Popular in Asian markets. Ranks #9 on global usage leaderboards with 18.7B monthly tokens.</p>
+        <p class="desc"><strong>Catalogue summary:</strong> StepFun open-weight sparse MoE with 196.81B total parameters and about 11B active per token. The verified GGUF currently provides Q4_K at roughly 118.7 GB, requiring a high-memory workstation. Apache 2.0.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">16 GB catalogue minimum</span>
-          <span class="chip">16 GB RAM</span>
-          <span class="chip">Q4_K_M</span>
-          <span class="chip">Coding assistant</span>
-        </div>
+        <div class="chips"><span class="chip hot">192 GB catalogue minimum</span><span class="chip">192 GB RAM</span><span class="chip">Q4_K</span><span class="chip">Coding assistant</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/ggml-org/Step-3.5-Flash-GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -81,34 +76,34 @@
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">14B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">16 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">9.5 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+<section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">196.81B (11B active, MoE)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">192 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">118.7 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K</div></div>
     </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="step3.5-flash" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="step3.5-flash" aria-live="polite"></section>
     <section class="section">
       <h2>Can Step 3.5 Flash run locally?</h2>
-      <p>Step 3.5 Flash has a catalogue minimum of 16 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>step-3.5-flash</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/stepfun-ai/Step-3.5-Flash-GGUF" target="_blank" rel="noopener">Hugging Face repository: stepfun-ai/Step-3.5-Flash-GGUF</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">power</span><span class="tag">speed</span></div>
+      <p>Step 3.5 Flash has a catalogue minimum of 192 GB RAM with Q4_K. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Treat <code>step-3.5-flash</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/stepfun-ai/Step-3.5-Flash" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/ggml-org/Step-3.5-Flash-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-14): ggml-org/Step-3.5-Flash-GGUF</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">power</span><span class="tag">reasoning</span><span class="tag">moe</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 16 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search step-3.5-flash in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 192 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use step-3.5-flash only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: step</li><li>Parameters: 14B</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 16 GB</li><li>Catalogue model size: 9.5 GB</li><li>Tags: chat, code, power, speed</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: step</li><li>Parameters: 196.81B (11B active, MoE)</li><li>Recommended quantization: Q4_K</li><li>Catalogue minimum RAM: 192 GB</li><li>Catalogue model size: 118.7 GB</li><li>Tags: chat, code, power, reasoning, moe</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>power</li><li>speed</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>power</li><li>reasoning</li><li>moe</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
@@ -126,24 +121,24 @@
         <div class="meta"><div class="k">Architecture</div><div class="v">See upstream repository</div></div>
       </div>
     </section>
-    <section class="section">
+<section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-16gb"><small>Starter desktop</small>Mac mini M4 16GB</a><a href="/hardware/macbook-air-m4-16gb"><small>Portable fit</small>MacBook Air M4 16GB</a><a href="/ram/16gb"><small>Best 16GB models</small>16GB RAM guide</a>
+        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/glm4.7-flash">GLM 4.7 Flash <span>14B</span></a><a href="/models/qwen3-30b-a3b">Qwen 3 MoE (30B/3B active) <span>30B (3B active)</span></a><a href="/models/qwen3.5-35b-a3b">Qwen 3.5 MoE (35B/3B active) <span>35B (3B active)</span></a><a href="/models/bonsai-27b">Bonsai 27B <span>27.3B (ternary / 1-bit)</span></a><a href="/models/gemma4-12b">Gemma 4 12B <span>12B</span></a><a href="/models/glm4.5-air">GLM 4.5 Air (MoE) <span>106B (14B active, MoE)</span></a><a href="/models/gpt-oss-20b">GPT-OSS (20B) <span>20B</span></a><a href="/models/phi4-14b">Phi-4 (14B) <span>14B</span></a></div></section>
-    <section class="section">
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/ling-flash-base-2.0">Ling Flash Base 2.0 <span>106B (6.1B active, MoE)</span></a><a href="/models/minimax-m2-230b">MiniMax M2 (230B MoE) <span>230B (10B active)</span></a><a href="/models/minimax-m2.1">MiniMax M2.1 <span>230B (10B active, MoE)</span></a><a href="/models/deepseek-v4-flash">DeepSeek V4 Flash (284B MoE) <span>284B (13B active)</span></a><a href="/models/longcat-flash-lite">LongCat-Flash-Lite <span>68.5B (3-4.5B active, MoE)</span></a><a href="/models/qwen3-coder-next">Qwen3-Coder-Next <span>80B (3B active, MoE)</span></a><a href="/models/mistral-small-4-119b">Mistral Small 4 (119B-A6.5B) <span>119B (6.5B active, MoE)</span></a><a href="/models/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731 (284B MoE) <span>284B (13B active)</span></a></div></section>
+<section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/16gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"step3.5-flash","name":"Step 3.5 Flash","family":"step","params":"14B","size_gb":9.5,"min_ram":16,"tags":["chat","code","power","speed"],"description":"StepFun's fast and free model. Exceptional speed-to-quality ratio. Popular in Asian markets. Ranks #9 on global usage leaderboards with 18.7B monthly tokens.","search_term":"step-3.5-flash","recommended_quant":"Q4_K_M","hf_repo":"stepfun-ai/Step-3.5-Flash-GGUF","benchmarks":{"speed":8,"quality":7,"coding":7,"reasoning":7},"released":"2025-11"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"step3.5-flash","name":"Step 3.5 Flash","family":"step","params":"196.81B (11B active, MoE)","size_gb":118.7,"min_ram":192,"tags":["chat","code","power","reasoning","moe"],"description":"StepFun open-weight sparse MoE with 196.81B total parameters and about 11B active per token. The verified GGUF currently provides Q4_K at roughly 118.7 GB, requiring a high-memory workstation. Apache 2.0.","search_term":"step-3.5-flash","recommended_quant":"Q4_K","hf_repo":"ggml-org/Step-3.5-Flash-GGUF","source_url":"https://huggingface.co/stepfun-ai/Step-3.5-Flash","benchmarks":{"speed":8,"quality":7,"coding":7,"reasoning":7},"released":"2025-11"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

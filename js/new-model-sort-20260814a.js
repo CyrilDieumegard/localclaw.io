@@ -24,7 +24,17 @@
         return timestamp;
     }
 
-    function latestLocalModels(sourceModels, limit) {
+    function isPracticalLocalModel(model, verification) {
+        const description = String(model && model.description || '').toLowerCase();
+        const tags = Array.isArray(model && model.tags) ? model.tags.map(tag => String(tag).toLowerCase()) : [];
+        const publicGguf = verification && verification.publicGguf || {};
+        const hasVerifiedGguf = Boolean(model && model.hf_repo && publicGguf[model.id] === model.hf_repo);
+        const excluded = /server-grade only|datacenter-grade only|not yet verified|api only/.test(description);
+        const workstationFit = Number(model && model.min_ram || 0) > 0 && Number(model.min_ram) <= 256;
+        return Boolean(model && !model.hosted_only && !excluded && !tags.includes('experimental') && workstationFit && model.recommended_quant && hasVerifiedGguf);
+    }
+
+    function latestLocalModels(sourceModels, limit, verification) {
         const canonical = new Map();
         for (const [sourceIndex, model] of (Array.isArray(sourceModels) ? sourceModels : []).entries()) {
             if (!model || !model.id) continue;
@@ -33,7 +43,7 @@
 
         const dated = [];
         for (const { model, sourceIndex } of canonical.values()) {
-            if (model.hosted_only) continue;
+            if (!isPracticalLocalModel(model, verification)) continue;
             const timestamp = releaseTimestamp(model.released);
             if (!Number.isFinite(timestamp)) continue;
             dated.push({ model, sourceIndex, timestamp });
@@ -45,5 +55,5 @@
         return dated.slice(0, Number.isFinite(limit) ? Math.max(0, limit) : 12).map(entry => entry.model);
     }
 
-    return { latestLocalModels, releaseTimestamp };
+    return { isPracticalLocalModel, latestLocalModels, releaseTimestamp };
 });

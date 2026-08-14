@@ -90,7 +90,24 @@ function hardwareTier(m) {
 
 function hardwareSentence(m) {
   if (m.hosted_only) return `${esc(m.name)} is listed for comparison, but it is a hosted/API model rather than a downloadable local release.`;
+  const state = hfRepoState(m);
+  if (state === 'publicModelCard') return `LocalClaw verified a public model card for ${esc(m.name)} on ${esc(hfVerificationDate())}, but no public GGUF file in that repository. The catalogue RAM and quantization fields are estimates, not a verified install path.`;
+  if (state === 'gated') return `LocalClaw verified a gated model card for ${esc(m.name)} on ${esc(hfVerificationDate())}. Access approval or licence acceptance is required, and no public GGUF install path is claimed.`;
   return `${esc(m.name)} has a catalogue minimum of ${esc(m.min_ram)} GB RAM with ${esc(m.recommended_quant)}. Actual memory use and speed vary by context length, runtime, backend and system headroom.`;
+}
+
+function hfRepoState(m) {
+  const verification = APP_DATA.hfRepoVerification || {};
+  if (!m.hf_repo) return 'missing';
+  for (const state of ['publicGguf', 'publicModelCard', 'gated', 'unavailable']) {
+    if (verification[state] && verification[state][m.id] === m.hf_repo) return state;
+  }
+  return 'unclassified';
+}
+
+function hfVerificationDate() {
+  const value = APP_DATA.hfRepoVerification && APP_DATA.hfRepoVerification.checkedAt;
+  return value ? String(value).slice(0, 10) : 'the latest catalogue check';
 }
 
 function ramGuide(m) {
@@ -163,12 +180,18 @@ function primaryUse(m, d) {
 
 function modelType(m) {
   if (m.hosted_only) return 'Hosted/API reference';
+  if (hfRepoState(m) === 'publicModelCard') return 'Public model card reference';
+  if (hfRepoState(m) === 'gated') return 'Gated model card reference';
   if ((m.params || '').toLowerCase().includes('moe')) return 'Open-weight MoE';
   return 'Open-weight local LLM';
 }
 
 function isServerServingModel(m) {
-  return !m.hosted_only && /serving/i.test(m.recommended_quant || '');
+  return !m.hosted_only && (
+    /serving/i.test(m.recommended_quant || '')
+    || (m.tags || []).includes('server-grade')
+    || Number(m.min_ram || 0) >= 128
+  );
 }
 
 function requiresCustomRuntime(m) {
@@ -177,7 +200,10 @@ function requiresCustomRuntime(m) {
 
 function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
-  if (isServerServingModel(m)) return `Use <code>${esc(m.search_term)}</code> with a server runtime such as vLLM, SGLang or Transformers. This is not a one-click GGUF/LM Studio listing.`;
+  const state = hfRepoState(m);
+  if (state === 'publicModelCard') return `Only the public model card was verified; no public GGUF file was verified in that repository. Open the model card to confirm current artefacts and supported runtimes. LocalClaw does not claim a one-click LM Studio install.`;
+  if (state === 'gated') return `The model card is gated and may require account approval or licence acceptance. No public GGUF file was verified, so LocalClaw does not publish an LM Studio or one-click installation path.`;
+  if (isServerServingModel(m)) return `Treat <code>${esc(m.search_term)}</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.`;
   if (requiresCustomRuntime(m)) return `Use the official <a href="${esc(m.runtime_url)}" target="_blank" rel="noopener">${esc(m.custom_runtime)}</a> setup. The current low-bit files are not a stock LM Studio install.`;
   return `Use <code>${esc(m.search_term)}</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.`;
 }
@@ -185,7 +211,7 @@ function lmStudioLine(m) {
 function similarLinks(current, allModels) {
   const currentTags = new Set(current.tags || []);
   return allModels
-    .filter(model => model.id !== current.id && !model.hosted_only)
+    .filter(model => model.id !== current.id && !model.hosted_only && hfRepoState(model) !== 'unavailable')
     .map(model => ({
       model,
       score: (model.family === current.family ? 100 : 0)
@@ -209,7 +235,99 @@ function tagsMarkup(m) {
   return (m.tags || []).slice(0, 8).map(t => `<span class="tag">${esc(t)}</span>`).join('');
 }
 
+function unavailableModelPage(m) {
+  const url = `${BASE}/models/${encodeURIComponent(m.id)}.html`;
+  const verificationDate = hfVerificationDate();
+  const expectedRepository = m.hf_repo || 'No exact repository recorded';
+  const searchQuery = `${m.search_term || m.name} GGUF`;
+  const searchUrl = `https://huggingface.co/models?search=${encodeURIComponent(searchQuery)}&sort=downloads`;
+  const title = `${m.name} repository status | LocalClaw`;
+  const desc = metaDescription(`${m.name} is a preserved LocalClaw catalogue route. Its exact recorded repository was not publicly verified on ${verificationDate}, so no local install, RAM fit or score is claimed.`);
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: `${m.name} repository status`,
+        url,
+        description: desc,
+        isPartOf: {'@type': 'WebSite', name: 'LocalClaw', url: BASE}
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {'@type': 'ListItem', position: 1, name: 'Home', item: BASE},
+          {'@type': 'ListItem', position: 2, name: 'LLM', item: `${BASE}/llm-list.html`},
+          {'@type': 'ListItem', position: 3, name: m.name, item: url}
+        ]
+      }
+    ]
+  };
+  return `<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}">
+  <meta name="robots" content="noindex, follow, noarchive">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${url}">
+  <meta property="og:title" content="${esc(title)}">
+  <meta property="og:description" content="${esc(desc)}">
+  <meta property="og:image" content="${BASE}/images/twitter-card.jpg?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(title)}">
+  <meta name="twitter:description" content="${esc(desc)}">
+  <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
+  <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
+  <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
+  <style>
+    :root{--bg:#050505;--panel:#0d0d0d;--border:#2b2b2b;--primary:#ff453a;--text:#fff;--muted:#a1a1aa}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 20% 12%,rgba(255,69,58,.13),transparent 28rem),#050505;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.82),transparent 88%)}a{text-decoration:none}.site-nav{border-bottom:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.86);backdrop-filter:blur(16px);position:sticky;top:0;z-index:50}.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:12px;color:#fff}.logo-box{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#ea580c);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,69,58,.45)}.logo-box img{width:28px;height:28px;border-radius:6px}.logo-text{font-family:'Space Grotesk',Inter,sans-serif;font-size:25px;font-weight:900;letter-spacing:-.04em;text-transform:uppercase}.logo-text span{color:var(--primary)}.nav-links{display:flex;align-items:center;gap:24px}.nav-links a{color:var(--muted);font:700 14px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}.nav-links a:hover,.nav-links .active{color:#fff}.nav-links .pricing{color:var(--primary)}.mobile-links{display:none;border-top:1px solid var(--border);padding:12px 24px;background:#0f0f11}.mobile-links a{display:block;color:#d4d4d8;padding:10px 0}.hamb{display:none;background:none;border:1px solid transparent;color:var(--muted);font-size:24px}.wrap{max-width:980px;margin:0 auto;padding:38px 24px 80px}.breadcrumb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px}.breadcrumb a{color:#d4d4d8}.status{border:1px solid var(--border);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));box-shadow:0 28px 90px rgba(0,0,0,.42);overflow:hidden}.status-head{padding:36px;border-bottom:1px solid var(--border);background:radial-gradient(circle at 0 0,rgba(255,69,58,.2),transparent 42%)}.eyebrow{color:var(--primary);font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.16em}.status h1{font-size:clamp(42px,8vw,76px);line-height:.96;letter-spacing:-.05em;margin:18px 0}.status h1 span{color:var(--primary)}.lead{max-width:760px;color:#dedee4;font-size:19px;margin:0}.status-body{padding:30px 36px}.notice{border-left:3px solid var(--primary);background:rgba(255,69,58,.08);padding:16px 18px;color:#f4f4f5}.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}.fact{border:1px solid var(--border);border-radius:14px;background:#0b0b0b;padding:15px}.fact span{display:block;color:var(--muted);font:900 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em}.fact strong,.fact code{display:block;margin-top:6px;color:#fff;font-weight:800;word-break:break-word}.status h2{font-size:24px;margin:28px 0 10px}.status ul{padding-left:20px;color:#d4d4d8}.status li{margin:7px 0}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,69,58,.5);border-radius:11px;background:var(--primary);color:#080808;padding:13px 17px;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.05em}.btn.secondary{background:#111;color:#fff;border-color:rgba(255,255,255,.18)}@media(max-width:940px){.nav-inner{height:64px}.nav-links{display:none}.hamb{display:block}.mobile-links.open{display:block}}@media(max-width:620px){.wrap{padding:24px 16px 54px}.status-head,.status-body{padding:24px}.facts{grid-template-columns:1fr}.btn{width:100%}}
+  </style>
+</head>
+<body data-preserved-model-route="${esc(m.id)}">
+  ${siteNavigation('llm')}
+  <main class="wrap">
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list.html">LLM</a><span>/</span><span>${esc(m.name)}</span></div>
+    <article class="status" data-hf-repo-status="unavailable">
+      <header class="status-head">
+        <div class="eyebrow">Preserved catalogue route · verification pending</div>
+        <h1>${esc(m.name)}</h1>
+        <p class="lead">LocalClaw could not verify the exact recorded Hugging Face repository as publicly reachable during the anonymous catalogue audit on ${esc(verificationDate)}.</p>
+      </header>
+      <div class="status-body">
+        <p class="notice"><strong>This is a tombstone, not an active local-model recommendation.</strong> The URL is retained so existing links do not break while the upstream record is investigated.</p>
+        <div class="facts">
+          <div class="fact"><span>Preserved LocalClaw ID</span><strong>${esc(m.id)}</strong></div>
+          <div class="fact"><span>Exact repository not verified</span><code>${esc(expectedRepository)}</code></div>
+        </div>
+        <h2>What LocalClaw intentionally does not claim</h2>
+        <ul>
+          <li>No downloadable local checkpoint or install path is asserted.</li>
+          <li>No RAM fit, quantization availability, capability rating or LocalClaw score is shown.</li>
+          <li>This route is excluded from the homepage index, score leaders, AI-readable model lists and sitemaps.</li>
+        </ul>
+        <h2>Look for a current upstream release</h2>
+        <p>Search Hugging Face and verify the publisher, licence, files and runtime support before downloading anything.</p>
+        <div class="actions">
+          <a class="btn" href="${esc(searchUrl)}" target="_blank" rel="noopener">Search Hugging Face</a>
+          <a class="btn secondary" href="/">Browse verified local models</a>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>`;
+}
+
 function modelPage(m, d, allModels) {
+  const hfState = hfRepoState(m);
+  if (hfState === 'unavailable') return unavailableModelPage(m);
+  const hasPublicGguf = hfState === 'publicGguf';
+  const sourceOnly = hfState === 'publicModelCard' || hfState === 'gated';
+  const sourceStatusLabel = hfState === 'gated' ? 'Gated model card' : 'Public model card';
   const url = `${BASE}/models/${encodeURIComponent(m.id)}.html`;
   const localTitle = requiresCustomRuntime(m)
     ? `${m.name} local AI: custom runtime | LocalClaw`
@@ -217,11 +335,17 @@ function modelPage(m, d, allModels) {
   const compactLocalTitle = `${m.name} local AI | LocalClaw`;
   const title = m.hosted_only
     ? `${m.name} API model specs | LocalClaw`
+    : sourceOnly
+      ? `${m.name} ${hfState === 'gated' ? 'gated' : 'public'} model card status | LocalClaw`
     : isServerServingModel(m)
       ? `${m.name} server-grade local AI | LocalClaw`
     : localTitle.length > 60 ? compactLocalTitle : localTitle;
   const desc = metaDescription(m.hosted_only
     ? `${m.name}: hosted/API LLM. Specs, catalogue capability ratings, use cases and current availability notes for local AI comparison.`
+    : hfState === 'publicModelCard'
+      ? `${m.name}: public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.`
+      : hfState === 'gated'
+        ? `${m.name}: gated upstream model card. Access approval may be required; no public GGUF or one-click local install is claimed.`
     : isServerServingModel(m)
       ? `${m.name}: ${m.params} server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving caveats.`
       : requiresCustomRuntime(m)
@@ -249,9 +373,16 @@ function modelPage(m, d, allModels) {
   const sourceLine = m.source_url
     ? `<a href="${esc(m.source_url)}" target="_blank" rel="noopener">Model source</a>`
     : '';
-  const hfLine = m.hf_repo
-    ? `<a href="https://huggingface.co/${esc(m.hf_repo)}" target="_blank" rel="noopener">Hugging Face repository: ${esc(m.hf_repo)}</a>`
-    : '';
+  const hfDirectUrl = `https://huggingface.co/${esc(m.hf_repo)}`;
+  const hfLine = hfState === 'publicGguf'
+    ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
+    : hfState === 'publicModelCard'
+      ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="public-model-card">Public model card (no GGUF file verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
+      : hfState === 'gated'
+        ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="gated">Gated model card (access terms apply; no public GGUF verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
+        : m.hf_repo
+          ? `<span data-hf-repo-status="unavailable">Hugging Face repository not publicly verified on ${esc(hfVerificationDate())}; verify the current publisher. <a href="https://huggingface.co/models?search=${encodeURIComponent(`${m.search_term || m.name} GGUF`)}&amp;sort=downloads" target="_blank" rel="noopener">Search Hugging Face for current quantizations</a>.</span>`
+          : '';
   const detailSourceLine = [
     ['Upstream release', d.official_blog],
     ['Paper or model card', d.paper_url],
@@ -261,10 +392,31 @@ function modelPage(m, d, allModels) {
   const verifiedDeveloper = hasModelDetailSource ? d.developer : '';
   const verifiedLicense = d.license_url ? d.license : '';
   const verifiedTechnicalDetails = Boolean(d.official_blog || d.paper_url);
-  const schema = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
+  const primaryActionHref = sourceOnly
+    ? `https://huggingface.co/${m.hf_repo}`
+    : requiresCustomRuntime(m)
+      ? m.runtime_url
+      : isServerServingModel(m)
+        ? `https://huggingface.co/${m.hf_repo}`
+        : '/pricing.html';
+  const primaryActionLabel = sourceOnly
+    ? `Open ${hfState === 'gated' ? 'gated' : 'public'} model card`
+    : requiresCustomRuntime(m)
+      ? 'Open official runtime'
+      : isServerServingModel(m)
+        ? 'Open verified repository'
+        : 'Run with LocalClaw';
+  const primaryActionExternal = sourceOnly || requiresCustomRuntime(m) || isServerServingModel(m);
+  const schemaMainEntity = sourceOnly
+    ? {
+        '@type': 'WebPage',
+        name: `${m.name} source and local availability status`,
+        url,
+        description: desc,
+        about: {'@type': 'Thing', name: m.name},
+        isPartOf: {'@type': 'WebSite', name: 'LocalClaw', url: BASE}
+      }
+    : {
         '@type': 'SoftwareApplication',
         name: m.name,
         applicationCategory: 'AIApplication',
@@ -275,21 +427,39 @@ function modelPage(m, d, allModels) {
         memoryRequirements: m.hosted_only ? 'Hosted API only' : `${m.min_ram} GB RAM minimum`,
         license: d.license_url || undefined,
         creator: verifiedDeveloper ? {'@type': 'Organization', name: verifiedDeveloper, url: d.developer_url} : undefined
-      },
+      };
+  const faqEntities = sourceOnly
+    ? [
+        {
+          '@type': 'Question',
+          name: `What source was verified for ${m.name}?`,
+          acceptedAnswer: {'@type': 'Answer', text: hfState === 'gated' ? `A gated Hugging Face model card was verified on ${hfVerificationDate()}. Access approval or licence acceptance may be required, and no public GGUF file was verified.` : `A public Hugging Face model card was verified on ${hfVerificationDate()}, but no public GGUF file was verified in that repository.`}
+        },
+        {
+          '@type': 'Question',
+          name: `Does LocalClaw provide a one-click install for ${m.name}?`,
+          acceptedAnswer: {'@type': 'Answer', text: `No. LocalClaw links to the ${hfState === 'gated' ? 'gated' : 'public'} model card but does not claim an LM Studio, GGUF or one-click installation path for this record.`}
+        }
+      ]
+    : [
+        {
+          '@type': 'Question',
+          name: `Can ${m.name} run locally?`,
+          acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
+        },
+        {
+          '@type': 'Question',
+          name: `What is ${m.name} best for?`,
+          acceptedAnswer: {'@type': 'Answer', text: `${m.name} is tagged in the LocalClaw catalogue for ${primaryUse(m, d)}. Verify task performance on your own workload.`}
+        }
+      ];
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      schemaMainEntity,
       {
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: `Can ${m.name} run locally?`,
-            acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a vLLM/SGLang style serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
-          },
-          {
-            '@type': 'Question',
-            name: `What is ${m.name} best for?`,
-            acceptedAnswer: {'@type': 'Answer', text: `${m.name} is tagged in the LocalClaw catalogue for ${primaryUse(m, d)}. Verify task performance on your own workload.`}
-          }
-        ]
+        mainEntity: faqEntities
       },
       {
         '@type': 'BreadcrumbList',
@@ -301,6 +471,62 @@ function modelPage(m, d, allModels) {
       }
     ]
   };
+  const socialDescriptor = sourceOnly ? `${sourceStatusLabel.toLowerCase()} status` : m.hosted_only ? 'API model' : 'local AI model';
+  const heroChips = sourceOnly
+    ? `<span class="chip hot">${esc(sourceStatusLabel)}</span><span class="chip">No public GGUF verified</span><span class="chip">${esc(m.params)}</span><span class="chip">${esc(m.released || 'Release unknown')}</span>`
+    : `<span class="chip hot">${esc(hardwareTier(m))}</span><span class="chip">${ramLabel} RAM</span><span class="chip">${esc(m.recommended_quant)}</span><span class="chip">${esc(primaryUse(m, d))}</span>`;
+  const keySpecsSection = sourceOnly
+    ? `<section class="specs" aria-label="Verified model source status">
+      <div class="spec-card"><div class="k">Source status</div><div class="v">${esc(sourceStatusLabel)}</div></div>
+      <div class="spec-card"><div class="k">Public GGUF</div><div class="v">Not verified</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">${esc(m.params)}</div></div>
+      <div class="spec-card"><div class="k">Access</div><div class="v">${hfState === 'gated' ? 'Approval required' : 'Public card'}</div></div>
+    </section>`
+    : `<section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">${esc(m.params)}</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">${ramLabel}</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">${sizeLabel}</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">${esc(m.recommended_quant)}</div></div>
+    </section>`;
+  const personalFitSection = sourceOnly ? '' : `<section class="personal-fit" hidden data-localclaw-model-context data-model-id="${esc(m.id)}" aria-live="polite"></section>`;
+  const deploymentSection = sourceOnly
+    ? `<section class="section" data-source-only-status="${hfState}">
+      <h2>${hfState === 'gated' ? 'Access and source status' : 'Source availability'}</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>Open the model card</strong><span>Use the verified upstream card as the source of truth for this record.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>${hfState === 'gated' ? 'Request access' : 'Inspect current files'}</strong><span>${hfState === 'gated' ? 'Account approval or licence acceptance may be required before the files can be inspected.' : 'No public GGUF file was verified in the repository during the catalogue audit.'}</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Confirm a supported runtime</strong><span>Choose a local runtime only after verifying the exact artefact, licence and hardware requirements upstream.</span></div>
+      </div>
+    </section>`
+    : `<section class="section">
+      <h2>${isServerServingModel(m) ? 'Deployment path' : 'Install path'}</h2>
+      <div class="install-steps">
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Use ${esc(m.search_term)} only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
+      </div>
+    </section>`;
+  const hardwareFitSection = sourceOnly ? '' : `<section class="section">
+      <h2>This model fits these next steps</h2>
+      <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
+      <div class="hardware-fit">
+        ${hardwareMatches(m).map(([label, href, note]) => `<a href="${esc(href)}"><small>${esc(note)}</small>${esc(label)}</a>`).join('')}
+      </div>
+    </section>`;
+  const nextStepsSection = sourceOnly
+    ? `<section class="section"><h2>Where to go next</h2><div class="next">
+        <a href="${hfDirectUrl}" target="_blank" rel="noopener"><small>Upstream</small>Open the ${hfState === 'gated' ? 'gated' : 'public'} model card</a>
+        <a href="/llm-list.html"><small>Verified artefacts</small>Compare models with public GGUF files</a>
+        <a href="/"><small>Directory</small>Browse The Local Model Index</a>
+      </div></section>`
+    : `<section class="section">
+      <h2>Where to go next</h2>
+      <div class="next">
+        <a href="${ramGuide(m)}"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+      </div>
+    </section>`;
 
   return `<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -313,11 +539,11 @@ function modelPage(m, d, allModels) {
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${url}">
-  <meta property="og:title" content="${esc(m.name)} ${m.hosted_only ? 'API model' : 'local AI model'} | LocalClaw">
+  <meta property="og:title" content="${esc(m.name)} ${esc(socialDescriptor)} | LocalClaw">
   <meta property="og:description" content="${esc(desc)}">
   <meta property="og:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${esc(m.name)} ${m.hosted_only ? 'API model' : 'local AI model'} | LocalClaw">
+  <meta name="twitter:title" content="${esc(m.name)} ${esc(socialDescriptor)} | LocalClaw">
   <meta name="twitter:description" content="${esc(desc)}">
   <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
@@ -340,14 +566,9 @@ function modelPage(m, d, allModels) {
         <h1 class="title">${esc(m.name).replace(/\s*\(([^)]+)\)$/, ' <span>($1)</span>')}</h1>
         <p class="desc"><strong>Catalogue summary:</strong> ${esc(m.description)}</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">${esc(hardwareTier(m))}</span>
-          <span class="chip">${ramLabel} RAM</span>
-          <span class="chip">${esc(m.recommended_quant)}</span>
-          <span class="chip">${esc(primaryUse(m, d))}</span>
-        </div>
+        <div class="chips">${heroChips}</div>
         <div class="cta">
-          <a class="btn" href="${requiresCustomRuntime(m) ? esc(m.runtime_url) : '/pricing.html'}"${requiresCustomRuntime(m) ? ' target="_blank" rel="noopener"' : ''}>${requiresCustomRuntime(m) ? 'Open official runtime' : 'Run with LocalClaw'}</a>
+          <a class="btn" href="${esc(primaryActionHref)}"${primaryActionExternal ? ' target="_blank" rel="noopener"' : ''}>${primaryActionLabel}</a>
           <a class="btn secondary" href="/llm-list.html">Compare all models</a>
         </div>
       </section>
@@ -366,28 +587,16 @@ function modelPage(m, d, allModels) {
         </div>
       </aside>
     </header>
-    <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">${esc(m.params)}</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">${ramLabel}</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">${sizeLabel}</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">${esc(m.recommended_quant)}</div></div>
-    </section>
-    <section class="personal-fit" hidden data-localclaw-model-context data-model-id="${esc(m.id)}" aria-live="polite"></section>
+${keySpecsSection}
+${personalFitSection}
     <section class="section">
-      <h2>Can ${esc(m.name)} run locally?</h2>
+      <h2>${sourceOnly ? 'Verified source status' : `Can ${esc(m.name)} run locally?`}</h2>
       <p>${hardwareSentence(m)}</p>
       <p>${lmStudioLine(m)}</p>
       <div class="source-links">${sourceLine}${hfLine}${detailSourceLine}</div>
       <div style="margin-top:16px">${tags}</div>
     </section>
-    <section class="section">
-      <h2>Install path</h2>
-      <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Serve ${esc(m.search_term)} with vLLM, SGLang or Transformers.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
-        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
-      </div>
-    </section>
+    ${deploymentSection}
     <section class="section cols">
       <div><h2>Catalogue record</h2><ul class="list">${catalogueFacts}</ul></div>
       <div><h2>Practical limits</h2><ul class="list">${limitations}</ul></div>
@@ -411,22 +620,9 @@ function modelPage(m, d, allModels) {
         <div class="meta"><div class="k">Architecture</div><div class="v">${esc(verifiedTechnicalDetails && d.architecture ? d.architecture : 'See upstream repository')}</div></div>
       </div>
     </section>
-    <section class="section">
-      <h2>This model fits these next steps</h2>
-      <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
-      <div class="hardware-fit">
-        ${hardwareMatches(m).map(([label, href, note]) => `<a href="${esc(href)}"><small>${esc(note)}</small>${esc(label)}</a>`).join('')}
-      </div>
-    </section>
+${hardwareFitSection}
 ${similar ? `    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar">${similar}</div></section>` : ''}
-    <section class="section">
-      <h2>Where to go next</h2>
-      <div class="next">
-        <a href="${ramGuide(m)}"><small>RAM guide</small>Find models for this memory tier</a>
-        <a href="/computers.html"><small>Hardware</small>See computers for local AI</a>
-        <a href="/pricing.html"><small>LocalClaw</small>Control OpenClaw from one native app</a>
-      </div>
-    </section>
+${nextStepsSection}
   </main>
   <script>window.LOCALCLAW_MODEL=${JSON.stringify(m).replace(/</g, '\\u003c')};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
@@ -449,10 +645,11 @@ for (const m of uniqueModels) {
   fs.writeFileSync(path.join(outDir, `${slug(m.id)}.html`), modelPage(m, MODEL_DETAILS[m.id] || {}, uniqueModels));
 }
 
-const cards = uniqueModels.map(m => `<li><a href="/models/${esc(m.id)}.html"><strong>${esc(m.name)}</strong></a> <span>${esc(m.params)} · ${m.hosted_only ? 'API only' : `${esc(m.min_ram)} GB RAM`} · ${esc(m.recommended_quant)}</span></li>`).join('\n');
+const indexableModels = uniqueModels.filter(model => hfRepoState(model) !== 'unavailable');
+const cards = indexableModels.map(m => `<li><a href="/models/${esc(m.id)}.html"><strong>${esc(m.name)}</strong></a> <span>${esc(m.params)} · ${m.hosted_only ? 'API only' : `${esc(m.min_ram)} GB RAM`} · ${esc(m.recommended_quant)}</span></li>`).join('\n');
 
 fs.writeFileSync(path.join(outDir, 'index.html'), `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>All Local AI Model Pages | LocalClaw</title><meta name="description" content="Index of all static LocalClaw model pages: local LLM specs, RAM requirements, quantization and LM Studio setup."><meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/models/">${tracking}<style>body{background:#050505;color:#fff;font-family:Inter,system-ui,sans-serif;margin:0;line-height:1.6}.models-index{max-width:1000px;margin:0 auto;padding:32px}.models-index a{color:#ff453a}.models-index li{margin:10px 0;padding:12px;border:1px solid #27272a;border-radius:12px;list-style:none;background:#0f0f11}.models-index span{color:#a1a1aa}</style></head><body>${siteNavigation('llm')}<main class="models-index"><p><a href="/">Back to LocalClaw</a></p><h1>All Local AI Model Pages</h1><p>Static, indexable pages for LocalClaw's local LLM catalogue.</p><ul>${cards}</ul></main></body></html>`);
 
 normalizeDirectory(outDir);
-console.log(`Generated ${uniqueModels.length} unique static model pages in models/`);
+console.log(`Generated ${uniqueModels.length} unique static model pages in models/ (${uniqueModels.length - indexableModels.length} preserved noindex tombstones).`);

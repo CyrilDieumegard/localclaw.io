@@ -10,7 +10,10 @@ vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-speech-20260814c.
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-avatar-formats-20260814a.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814c.js'), 'utf8'), context);
 
-const models = Array.from(new Map(context.DATA.models.filter((model) => !model.hosted_only).map((model) => [model.id, model])).values());
+const unavailableLlmIds = new Set(Object.keys((context.DATA.hfRepoVerification && context.DATA.hfRepoVerification.unavailable) || {}));
+const models = Array.from(new Map(context.DATA.models
+  .filter((model) => !model.hosted_only && !unavailableLlmIds.has(model.id))
+  .map((model) => [model.id, model])).values());
 const speechModels = context.window.HOME_INDEX_SPEECH_MODELS;
 const logos = context.window.HOME_INDEX_LOGOS;
 const missing = [];
@@ -32,6 +35,9 @@ for (const asset of new Set([...Object.values(logos.llm), ...Object.values(logos
 
 if (!models.length) missing.push('Homepage LLM selection is empty');
 if (!speechModels.length) missing.push('Homepage speech selection is empty');
+for (const modelId of unavailableLlmIds) {
+  if (models.some((model) => model.id === modelId)) missing.push(`Unverified LLM leaked onto homepage: ${modelId}`);
+}
 for (const model of models) {
   for (const metric of ['quality', 'coding', 'reasoning', 'speed']) {
     if (!Number.isFinite(Number(model.benchmarks && model.benchmarks[metric]))) missing.push(`Missing LLM score input: ${model.id}.${metric}`);
@@ -42,7 +48,7 @@ for (const model of speechModels) {
     if (!Number.isFinite(Number(model[metric]))) missing.push(`Missing speech score input: ${model.id}.${metric}`);
   }
 }
-for (const forbiddenId of ['edge-tts', 'octave-2']) {
+for (const forbiddenId of ['edge-tts', 'octave-2', 'xtts-v3']) {
   if (speechModels.some((model) => model.id === forbiddenId)) missing.push(`Non-local speech record leaked onto homepage: ${forbiddenId}`);
 }
 for (const marker of [
@@ -56,7 +62,7 @@ for (const marker of [
 for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260814g', 'js/home-index-20260814g.js?v=20260814g']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260814h', 'js/home-index-20260814g.js?v=20260814h']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 if (!homepageHtml.includes('js/home-index-logos-20260814c.js?v=20260814c')) {

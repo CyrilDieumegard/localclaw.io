@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Qwen3 TTS local TTS: quality, speed and setup | LocalClaw</title>
-  <meta name="description" content="Qwen3 TTS: local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 30 languages, hardware and install notes.">
+  <title>Qwen3-TTS (0.6B / 1.7B) local TTS: quality, speed and setup | LocalClaw</title>
+  <meta name="description" content="Qwen3-TTS (0.6B / 1.7B): local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 10 languages, hardware and install notes.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/tts/qwen3-tts">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/tts/qwen3-tts">
-  <meta property="og:title" content="Qwen3 TTS Local TTS model | LocalClaw">
-  <meta property="og:description" content="Qwen3 TTS: local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 30 languages, hardware and install notes.">
+  <meta property="og:title" content="Qwen3-TTS (0.6B / 1.7B) Local TTS model | LocalClaw">
+  <meta property="og:description" content="Qwen3-TTS (0.6B / 1.7B): local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 10 languages, hardware and install notes.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Qwen3 TTS Local TTS model | LocalClaw">
-  <meta name="twitter:description" content="Qwen3 TTS: local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 30 languages, hardware and install notes.">
+  <meta name="twitter:title" content="Qwen3-TTS (0.6B / 1.7B) Local TTS model | LocalClaw">
+  <meta name="twitter:description" content="Qwen3-TTS (0.6B / 1.7B): local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 10 languages, hardware and install notes.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qwen3 TTS","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/qwen3-tts","description":"Qwen3 TTS: local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 30 languages, hardware and install notes.","softwareVersion":"2025-12","softwareRequirements":"2.8 GB model size; gpu, apple","license":"Apache 2.0","creator":{"@type":"Organization","name":"Alibaba Cloud (Qwen Team)"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Qwen3 TTS run locally?","acceptedAnswer":{"@type":"Answer","text":"Qwen3 TTS is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is Qwen3 TTS best for?","acceptedAnswer":{"@type":"Answer","text":"Qwen3 TTS is best for fast on-device voice responses and local assistants."}},{"@type":"Question","name":"What license does Qwen3 TTS use?","acceptedAnswer":{"@type":"Answer","text":"Apache 2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"Qwen3 TTS","item":"https://localclaw.io/tts/qwen3-tts"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qwen3-TTS (0.6B / 1.7B)","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/qwen3-tts","description":"Qwen3-TTS (0.6B / 1.7B): local text-to-speech generation guide with quality 9.5/10, speed 8.5/10, 10 languages, hardware and install notes.","softwareVersion":"2026-01-22","softwareRequirements":"4.52 GB model size; gpu","license":"Apache-2.0","creator":{"@type":"Organization","name":"Qwen Team (Alibaba Cloud)"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Qwen3-TTS (0.6B / 1.7B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Qwen3-TTS (0.6B / 1.7B) is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is Qwen3-TTS (0.6B / 1.7B) best for?","acceptedAnswer":{"@type":"Answer","text":"Qwen3-TTS (0.6B / 1.7B) is best for fast on-device voice responses and local assistants."}},{"@type":"Question","name":"What license does Qwen3-TTS (0.6B / 1.7B) use?","acceptedAnswer":{"@type":"Answer","text":"Apache-2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"Qwen3-TTS (0.6B / 1.7B)","item":"https://localclaw.io/tts/qwen3-tts"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -45,55 +45,44 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>Qwen3 TTS</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>Qwen3-TTS (0.6B / 1.7B)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Local TTS model</div>
-        <h1 class="title">Qwen3 TTS</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> State-of-the-art multilingual TTS with natural prosody and emotion control. Supports 30+ languages with streaming inference.</p>
+        <h1 class="title">Qwen3-TTS <span>(0.6B / 1.7B)</span></h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Qwen Team&#39;s open-source 0.6B and 1.7B TTS series for streaming speech, voice design and short-reference voice cloning across 10 documented languages.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips">
-          <span class="chip hot">Apple Silicon ready</span>
-          <span class="chip">text-to-speech generation</span>
-          <span class="chip">30 languages</span>
-          <span class="chip">Apache 2.0</span>
-        </div>
+        <div class="chips"><span class="chip hot">GPU recommended</span><span class="chip">text-to-speech generation</span><span class="chip">10 languages</span><span class="chip">Apache-2.0</span></div>
         <div class="cta">
           <a class="btn" href="/tts-list">Compare TTS models</a>
-          <a class="btn secondary" href="https://huggingface.co/Qwen/Qwen3-TTS" target="_blank" rel="noopener nofollow">Open source page</a>
+          <a class="btn secondary" href="https://github.com/QwenLM/Qwen3-TTS" target="_blank" rel="noopener nofollow">Open upstream source</a>
         </div>
       </section>
       <aside class="hero-panel">
         <div class="score-card">
-          <div>
-            <div class="score-label">Audio catalogue score</div>
-            <div class="score">9.2<small>/10</small></div>
-            <p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>
-          </div>
+          <div><div class="score-label">Audio catalogue score</div><div class="score">9.2<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p></div>
         </div>
         <div data-community-rating data-model-id="tts-qwen3-tts" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Developer</div><div class="v">Alibaba Cloud (Qwen Team)</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2025-12</div></div>
+          <div class="mini"><div class="k">Developer</div><div class="v">Qwen Team (Alibaba Cloud)</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-01-22</div></div>
         </div>
       </aside>
     </header>
 
+
     <section class="specs" aria-label="Model specs">
       <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">9.5/10</div></div>
       <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">8.5/10</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">2.8 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">2.5-4.52 GB</div></div>
       <div class="spec-card"><div class="k">Voices</div><div class="v">Multiple speakers + voice cloning</div></div>
     </section>
 
     <section class="section">
-      <h2>Can Qwen3 TTS run locally?</h2>
-      <p>Qwen3 TTS can generate speech locally for private voice workflows. Start with <code>lmstudio install qwen3-tts</code>.</p>
-      <p>Apache 2.0 license. Still verify upstream usage notes before shipping.</p>
-      <div class="source-links">
-        <code>lmstudio install qwen3-tts</code>
-        <a href="https://huggingface.co/Qwen/Qwen3-TTS" target="_blank" rel="noopener nofollow">Upstream source</a>
-      </div>
+      <h2>Can Qwen3-TTS (0.6B / 1.7B) run locally?</h2>
+      <p>Qwen3-TTS (0.6B / 1.7B) can generate speech locally for private voice workflows. Start with <code>pip install -U qwen-tts</code>.</p>
+      <p>Apache-2.0 license. Still verify upstream usage notes before shipping.</p>
+      <div class="source-links"><code>pip install -U qwen-tts</code><a href="https://github.com/QwenLM/Qwen3-TTS" target="_blank" rel="noopener nofollow">Upstream source</a></div>
       <div style="margin-top:18px"><span class="tag">streaming</span><span class="tag">realtime</span><span class="tag">multilingual</span><span class="tag">emotion</span></div>
     </section>
 
@@ -106,11 +95,7 @@
           <div class="bar-row"><span>Audio</span><div class="track"><div class="fill" style="width:92%"></div></div><span>9.2</span></div>
         </div>
       </div>
-      <div>
-        <h2>Best fit</h2>
-        <p>Qwen3 TTS is best for fast on-device voice responses and local assistants.</p>
-        <p class="muted">Hardware: <span class="chip">gpu</span><span class="chip">apple</span></p>
-      </div>
+      <div><h2>Best fit</h2><p>Qwen3-TTS (0.6B / 1.7B) is best for fast on-device voice responses and local assistants.</p><p class="muted">Hardware: <span class="chip">gpu</span></p></div>
     </section>
 
     <section class="section">
@@ -119,8 +104,8 @@
         <div class="detail"><div class="k">Type</div><div class="v">Local TTS model</div></div>
         <div class="detail"><div class="k">Family</div><div class="v">qwen</div></div>
         <div class="detail"><div class="k">Latency</div><div class="v">ultra-low</div></div>
-        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">gguf</span><span class="chip">onnx</span></div></div>
-        <div class="detail"><div class="k">Languages</div><div class="v">en, zh, fr, de, es, it, pt, ru, ja, ko, ar</div></div>
+        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">pytorch</span><span class="chip">safetensors</span></div></div>
+        <div class="detail"><div class="k">Languages</div><div class="v">en, zh, fr, de, es, it, pt, ru, ja, ko</div></div>
         <div class="detail"><div class="k">Context</div><div class="v">Emotion tags, speed control</div></div>
       </div>
     </section>
@@ -128,30 +113,16 @@
     <section class="section">
       <h2>Install locally</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports gguf, onnx on your machine.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports pytorch, safetensors on your machine.</span></div>
         <div class="step"><div class="step-num">02</div><strong>Install model</strong><span>Use the upstream command or repository instructions.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Test locally</strong><span>Run a short private audio prompt before moving into production workflows.</span></div>
       </div>
-      <pre class="command">lmstudio install qwen3-tts</pre>
+      <pre class="command">pip install -U qwen-tts</pre>
     </section>
 
     <section class="section cols">
-      <div>
-        <h2>Good for</h2>
-        <ul class="list">
-          <li>text-to-speech generation</li>
-          <li>Apple Silicon ready local workflows</li>
-          <li>streaming, realtime, multilingual</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Watch before shipping</h2>
-        <ul class="list">
-          <li>Validate pronunciation, latency and artifacts with your own voice samples.</li>
-          <li>Review the upstream license and acceptable-use notes.</li>
-          <li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li>
-        </ul>
-      </div>
+      <div><h2>Good for</h2><ul class="list"><li>text-to-speech generation</li><li>GPU recommended local workflows</li><li>streaming, realtime, multilingual</li></ul></div>
+      <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
     </section>
 
     <section class="section">
@@ -172,10 +143,6 @@
     <span class="similar-family">hexgrad</span>
     <strong>Kokoro TTS</strong>
     <small>Local TTS model · Q 9.2 · Speed 9.8</small>
-  </a><a class="similar-card" href="/tts/f5-tts-v1.1" style="--model-color:#f97316">
-    <span class="similar-family">Speech Research (SWivid)</span>
-    <strong>F5-TTS v1.1</strong>
-    <small>Local TTS model · Q 9.5 · Speed 9.2</small>
   </a><a class="similar-card" href="/tts/zonos" style="--model-color:#ff453a">
     <span class="similar-family">Zyphra</span>
     <strong>Zonos v0.1</strong>
@@ -188,6 +155,10 @@
     <span class="similar-family">Supertone</span>
     <strong>Supertonic 3</strong>
     <small>Local TTS model · Q 8.8 · Speed 9.8</small>
+  </a><a class="similar-card" href="/tts/moss-tts-nano" style="--model-color:#ff453a">
+    <span class="similar-family">OpenMOSS / MOSI.AI</span>
+    <strong>MOSS-TTS-Nano</strong>
+    <small>Local TTS model · Q 8.5 · Speed 9.7</small>
   </a></div>
     </section>
 

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 56 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 56 local TTS, ASR and speech AI records plus 2 clearly labelled online/API references by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 55 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 55 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 56 local TTS, ASR and speech AI records plus 2 online/API references by quality, speed, languages, hardware and licence.">
+    <meta property="og:description" content="Compare 55 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1619,11 +1619,12 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records: <strong style="color:#fff;">56 local</strong> models and <strong style="color:#fff;">2 online/API references</strong>, clearly separated with languages, quality, speed and access requirements.
+                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records: <strong style="color:#fff;">55 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>56 local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>55 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
+                        <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
                         <span class="catalog-pill"><a href="tts/" style="color:inherit;">Static model pages →</a></span>
                     </div>
@@ -1717,28 +1718,30 @@
         const TTS_MODELS = [
             {
                 id: "qwen3-tts",
-                name: "Qwen3 TTS",
-                developer: "Alibaba Cloud (Qwen Team)",
+                name: "Qwen3-TTS (0.6B / 1.7B)",
+                developer: "Qwen Team (Alibaba Cloud)",
                 family: "qwen",
-                description: "State-of-the-art multilingual TTS with natural prosody and emotion control. Supports 30+ languages with streaming inference.",
-                languages: ["en", "zh", "fr", "de", "es", "it", "pt", "ru", "ja", "ko", "ar"],
-                languageCount: 30,
+                description: "Qwen Team's open-source 0.6B and 1.7B TTS series for streaming speech, voice design and short-reference voice cloning across 10 documented languages.",
+                languages: ["en", "zh", "fr", "de", "es", "it", "pt", "ru", "ja", "ko"],
+                languageCount: 10,
                 features: ["streaming", "realtime", "multilingual", "emotion"],
-                hardware: ["gpu", "apple"],
-                sizeGB: 2.8,
-                sizeCategory: "medium",
+                hardware: ["gpu"],
+                sizeGB: 4.52,
+                sizeLabel: "2.5–4.52 GB",
+                sizeCategory: "large",
                 quality: 9.5,
                 speed: 8.5,
                 latency: "ultra-low",
-                releaseDate: "2025-12",
+                releaseDate: "2026-01-22",
                 isNew: true,
                 isPick: true,
-                hfLink: "https://huggingface.co/Qwen/Qwen3-TTS",
-                installCommand: "lmstudio install qwen3-tts",
-                supportedFormats: ["gguf", "onnx"],
+                hfLink: "https://github.com/QwenLM/Qwen3-TTS",
+                sourceStatus: "verified-code",
+                installCommand: "pip install -U qwen-tts",
+                supportedFormats: ["pytorch", "safetensors"],
                 voices: "Multiple speakers + voice cloning",
                 context: "Emotion tags, speed control",
-                license: "Apache 2.0"
+                license: "Apache-2.0"
             },
             {
                 id: "melotts",
@@ -1751,7 +1754,7 @@
                 features: ["cloning", "realtime", "multilingual"],
                 hardware: ["cpu", "gpu", "apple"],
                 sizeGB: 1.5,
-                sizeCategory: "medium",
+                sizeCategory: "large",
                 quality: 9.0,
                 speed: 9.0,
                 latency: "low",
@@ -1969,7 +1972,7 @@
             {
                 id: "f5-tts",
                 name: "F5-TTS",
-                developer: "Speech Research",
+                developer: "SWivid",
                 family: "f5",
                 description: "Flow-matching based TTS with SOTA quality and extremely fast inference. Simple and efficient architecture.",
                 languages: ["en", "zh"],
@@ -1982,14 +1985,14 @@
                 speed: 9.0,
                 latency: "ultra-low",
                 releaseDate: "2024-10",
-                isNew: true,
+                isNew: false,
                 isPick: false,
                 hfLink: "https://huggingface.co/SWivid/F5-TTS",
                 installCommand: "pip install f5-tts",
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "Reference cloning",
                 context: "Flow matching",
-                license: "MIT"
+                license: "CC-BY-NC-4.0 weights; MIT code"
             },
             {
                 id: "chattts",
@@ -2107,7 +2110,7 @@
                 speed: 9.8,
                 latency: "ultra-low",
                 releaseDate: "2025-01",
-                isNew: true,
+                isNew: false,
                 isPick: true,
                 hfLink: "https://huggingface.co/hexgrad/Kokoro-82M",
                 installCommand: "pip install kokoro",
@@ -2470,28 +2473,30 @@
             },
             {
                 id: "kitten-tts",
-                name: "Kitten TTS",
-                developer: "Rohan Joshi (@ron_joshi)",
+                name: "Kitten TTS v0.8",
+                developer: "KittenML",
                 family: "kitten",
-                description: "Tiny open-source TTS built for edge devices. Three variants: 80M, 40M, and 14M params — the smallest fits in under 25 MB. Highly expressive despite its size. Runs entirely on CPU, no GPU required. Perfect for embedded systems, mobile, and offline apps.",
+                description: "KittenML's 0.8 developer-preview TTS line for CPU and edge use, with 15M, 40M and 80M variants, eight built-in voices and 25–80 MB published footprints.",
                 languages: ["en"],
                 languageCount: 1,
                 features: ["realtime", "low-latency"],
-                hardware: ["cpu", "edge", "apple"],
+                hardware: ["cpu", "edge"],
                 sizeGB: 0.025,
+                sizeLabel: "25–80 MB",
                 sizeCategory: "tiny",
                 quality: 7.5,
                 speed: 10,
                 latency: "ultra-low",
-                releaseDate: "2025-03",
+                releaseDate: "2026-02-24",
                 isNew: true,
                 isPick: false,
-                hfLink: "https://huggingface.co/rohan_joshi/kitten-tts",
-                installCommand: "pip install kitten-tts",
-                supportedFormats: ["onnx", "pytorch"],
-                voices: "Built-in expressive voice",
-                context: "3 variants: 80M / 40M / 14M params",
-                license: "Apache 2.0"
+                hfLink: "https://github.com/KittenML/KittenTTS",
+                sourceStatus: "verified-code",
+                installCommand: "pip install https://github.com/KittenML/KittenTTS/releases/download/0.8.1/kittentts-0.8.1-py3-none-any.whl",
+                supportedFormats: ["onnx"],
+                voices: "8 built-in voices",
+                context: "15M / 40M / 80M variants; developer preview",
+                license: "Apache-2.0"
             },
             {
                 id: "vibevoice-realtime-0.5b",
@@ -3105,78 +3110,82 @@
             },
             {
                 id: "xtts-v3",
-                name: "XTTS v3 (Community)",
-                developer: "Coqui Community",
+                name: "XTTS v3 (unverified reference)",
+                developer: "Unverified community reference",
                 family: "coqui",
-                description: "Community-maintained successor to XTTS v2 after Coqui shut down. Improved cloning stability, lower artefacts, and 20+ languages. Drop-in replacement for existing XTTS pipelines with better prosody.",
-                languages: ["en", "es", "fr", "de", "it", "pt", "pl", "tr", "ru", "nl", "cs", "ar", "zh", "ja", "hu", "ko", "hi", "ro", "sv", "uk"],
-                languageCount: 20,
-                features: ["cloning", "multilingual", "emotion"],
-                hardware: ["gpu", "apple"],
-                sizeGB: 2.0,
-                sizeCategory: "medium",
-                quality: 9.1,
-                speed: 7.0,
-                latency: "low",
-                releaseDate: "2025-06",
-                isNew: true,
+                description: "No exact public XTTS v3 checkpoint or official v3 release was verified on August 14, 2026. The route is preserved for transparency and must not be used as installation guidance; XTTS v2 is a different release.",
+                languages: [],
+                languageCount: 0,
+                features: [],
+                hardware: [],
+                sizeGB: null,
+                sizeCategory: "unknown",
+                quality: null,
+                speed: null,
+                latency: "unknown",
+                releaseDate: "",
+                isNew: false,
                 isPick: false,
-                hfLink: "https://huggingface.co/coqui-community/XTTS-v3",
-                installCommand: "pip install TTS-community",
-                supportedFormats: ["pytorch", "onnx"],
-                voices: "Unlimited via cloning (6s sample)",
-                context: "Community fork — active maintenance",
-                license: "MPL 2.0"
+                delivery: "unverified",
+                sourceStatus: "unverified",
+                hfLink: "",
+                installCommand: "",
+                supportedFormats: [],
+                voices: "Not verified",
+                context: "No exact public checkpoint or release verified",
+                license: "Not verified"
             },
             {
                 id: "f5-tts-v1.1",
-                name: "F5-TTS v1.1",
+                name: "F5-TTS v1 Base",
                 developer: "Speech Research (SWivid)",
                 family: "f5",
-                description: "Iterative upgrade over the original F5-TTS. Faster convergence via improved flow-matching schedule, better Chinese prosody, cross-lingual cloning. Now with streaming inference and improved CFM sampler.",
-                languages: ["en", "zh", "ja", "fr", "de"],
-                languageCount: 5,
-                features: ["realtime", "cloning", "streaming", "multilingual"],
+                description: "The official F5TTS_v1_Base checkpoint released in March 2025. The preserved route ID reflects the 1.1 package line, not a separate F5-TTS-v1.1 model checkpoint.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "streaming"],
                 hardware: ["gpu", "apple"],
-                sizeGB: 1.6,
+                sizeGB: 1.35,
                 sizeCategory: "medium",
                 quality: 9.5,
                 speed: 9.2,
                 latency: "ultra-low",
-                releaseDate: "2025-08",
-                isNew: true,
+                releaseDate: "2025-03-12",
+                isNew: false,
                 isPick: true,
-                hfLink: "https://huggingface.co/SWivid/F5-TTS-v1.1",
-                installCommand: "pip install f5-tts",
+                hfLink: "https://huggingface.co/SWivid/F5-TTS/tree/main/F5TTS_v1_Base",
+                sourceStatus: "verified-model",
+                installCommand: "pip install -U f5-tts",
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "Reference-based cloning",
-                context: "Improved flow-matching + streaming",
-                license: "MIT"
+                context: "F5TTS_v1_Base; no separate v1.1 checkpoint",
+                license: "CC-BY-NC-4.0 weights; MIT code"
             },
             {
                 id: "kyutai-stt-2.6b",
-                name: "Kyutai STT 2.6B",
+                name: "Kyutai STT 2.6B English",
                 developer: "Kyutai",
                 family: "kyutai",
                 isAsr: true,
-                description: "Production-grade streaming ASR from Kyutai (makers of Moshi). Delay-streaming transformer with 500ms latency, word-level timestamps, speaker diarization. Top of Open ASR Leaderboard for real-time French + English.",
-                languages: ["en", "fr"],
-                languageCount: 2,
-                features: ["streaming", "realtime", "low-latency", "multilingual"],
+                description: "Kyutai's English-only 2.6B streaming ASR model. The decoder-only Transformer consumes Mimi audio tokens, uses a documented 2.5-second delay and emits punctuated transcripts with recoverable token timestamps.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["streaming"],
                 hardware: ["gpu", "cpu", "apple"],
-                sizeGB: 2.7,
-                sizeCategory: "medium",
+                sizeGB: 5.62,
+                sizeCategory: "large",
                 quality: 9.4,
                 speed: 9.5,
-                latency: "ultra-low",
+                latency: "medium",
                 releaseDate: "2025-06",
-                isNew: true,
+                isNew: false,
                 isPick: true,
-                hfLink: "https://huggingface.co/kyutai/stt-2.6b-en_fr",
+                hfLink: "https://huggingface.co/kyutai/stt-2.6b-en",
+                sourceStatus: "verified-model",
                 installCommand: "pip install moshi",
-                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                supportedFormats: ["pytorch", "safetensors"],
                 voices: "N/A (ASR: outputs text + timestamps)",
-                context: "Delay-streaming transformer, 500ms latency",
+                context: "Delay-streaming transformer, 2.5-second delay, English only",
                 license: "CC-BY-4.0"
             }
         ];
@@ -3242,6 +3251,8 @@
 
         // Compare functionality
         function toggleCompare(id) {
+            const model = TTS_MODELS.find(item => item.id === id);
+            if (!model || model.delivery === 'unverified') return;
             const idx = compareList.indexOf(id);
             if (idx > -1) {
                 compareList.splice(idx, 1);
@@ -3282,12 +3293,15 @@
 
         function openCompareModal() {
             if (compareList.length < 2) return;
-            const models = compareList.map(id => TTS_MODELS.find(x => x.id === id));
+            const models = compareList
+                .map(id => TTS_MODELS.find(x => x.id === id))
+                .filter(model => model && model.delivery !== 'unverified');
+            if (models.length < 2) return;
             const rows = [
                 ['Developer', m => m.developer],
                 ['Quality', m => `<span class="${qualityColor(m.quality)}">${m.quality}/10</span>`],
                 ['Speed', m => `${m.speed}/10`],
-                ['Size', m => `${m.sizeGB} GB`],
+                ['Size', m => m.sizeLabel || `${m.sizeGB} GB`],
                 ['Latency', m => m.latency],
                 ['Languages', m => `${m.languageCount}`],
                 ['Features', m => m.features.join(', ')],
@@ -3338,16 +3352,17 @@
             resultCount.innerHTML = `<strong>${models.length}</strong> model${models.length > 1 ? 's' : ''} found${pickCount > 0 ? ` · <span style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> ${pickCount} LocalClaw Pick${pickCount > 1 ? 's' : ''}</span>` : ''}`;
             
             grid.innerHTML = models.map((model, i) => {
+                const isUnverified = model.delivery === 'unverified';
                 const langDisplay = model.languages.slice(0, 5).map(l => 
                     `<span class="lang-tag">${l.toUpperCase()}</span>`
                 ).join('');
                 const langMore = model.languageCount > 5 ? 
                     `<span class="lang-more">+${model.languageCount - 5} more</span>` : '';
-                const typeLabel = model.isAsr ? 'ASR' : (model.isOrchestrator ? 'APP' : 'TTS');
+                const typeLabel = isUnverified ? 'UNVERIFIED' : (model.isAsr ? 'ASR' : (model.isOrchestrator ? 'APP' : 'TTS'));
                 const latencyLabel = String(model.latency || '').replace('-', ' ');
                 const formats = model.supportedFormats || [];
                 const formatSummary = formats.slice(0, 2).map(f => f.toUpperCase()).join(' · ') + (formats.length > 2 ? ` +${formats.length - 2}` : '');
-                const audioScore = Math.min(10, (model.quality * 0.68) + (model.speed * 0.32)).toFixed(1);
+                const audioScore = isUnverified ? null : Math.min(10, (model.quality * 0.68) + (model.speed * 0.32)).toFixed(1);
                 const bestForLabels = [
                     ['cloning', 'Voice cloning'],
                     ['realtime', 'Realtime voice'],
@@ -3360,8 +3375,8 @@
                     ['sfx', 'SFX']
                 ];
                 const matchedBestFor = bestForLabels.find(([feature]) => model.features.includes(feature));
-                const bestFor = model.delivery === 'online' ? 'Online speech service' : (model.delivery === 'api' ? 'Vendor speech API' : (model.isAsr ? 'Speech-to-text' : (model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech'))));
-                
+                const bestFor = isUnverified ? 'Preserved route only' : (model.delivery === 'online' ? 'Online speech service' : (model.delivery === 'api' ? 'Vendor speech API' : (model.isAsr ? 'Speech-to-text' : (model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech')))));
+
                 const features = model.features.map(f => {
                     const classes = {
                         'streaming': 'streaming',
@@ -3396,8 +3411,8 @@
                         ASR · SPEECH-TO-TEXT
                     </div>` : '';
                 const remoteBadge = model.delivery ? `
-                    <div class="orch-badge" title="This is an online or vendor API reference, not a verified local speech model.">
-                        ${model.delivery === 'online' ? 'ONLINE · INTERNET REQUIRED' : 'VENDOR API · NOT LOCAL'}
+                    <div class="orch-badge" title="${isUnverified ? 'No exact public checkpoint or release was verified for this preserved route.' : 'This is an online or vendor API reference, not a verified local speech model.'}">
+                        ${isUnverified ? 'UNVERIFIED · EXCLUDED FROM LOCAL INDEX' : (model.delivery === 'online' ? 'ONLINE · INTERNET REQUIRED' : 'VENDOR API · NOT LOCAL')}
                     </div>` : '';
                 const backendsRow = model.isOrchestrator && model.backendModels ? `
                     <div class="backends-row">
@@ -3410,34 +3425,14 @@
                         <span class="pick-badge-text">LocalClaw Pick</span>
                     </div>` : '';
                 
-                const cardClass = model.isPick ? 'card localclaw-pick' : 'card';
+                const cardClass = `${model.isPick ? 'card localclaw-pick' : 'card'}${isUnverified ? ' card-unverified' : ''}`;
                 const isCompared = compareList.includes(model.id);
-                
-                return `
-                <article class="${cardClass}" data-id="${model.id}" data-url="/tts/${model.id}" data-fast-goal="tts_open" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}" onclick="openTtsCard(event, '/tts/${model.id}')" tabindex="0" role="link" aria-label="Open ${model.name} model page">
-                    ${newBadge}
-                    <div class="card-header">
-                        <div class="card-kicker">
-                            ${pickBadge}
-                            <span class="card-family">${model.family}</span>
-                            <span class="card-type-pill">${typeLabel}</span>
-                        </div>
-                        <div class="card-name">${model.name}</div>
-                        <div class="card-developer">${model.developer}<span>${model.releaseDate}</span></div>
-                        <div data-community-rating data-model-id="tts-${model.id}" data-rating-mode="compact" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
-                    </div>
-                    <div class="card-meta-row">
-                        <div class="meta-chip"><span class="meta-label">Best for</span><span class="meta-value">${bestFor}</span></div>
-                        <div class="meta-chip"><span class="meta-label">Latency</span><span class="meta-value">${latencyLabel}</span></div>
-                        <div class="meta-chip"><span class="meta-label">Runtime</span><span class="meta-value">${formatSummary || 'N/A'}</span></div>
-                    </div>
-                    ${orchBadge}
-                    ${asrBadge}
-                    ${remoteBadge}
-                    <p class="card-desc">${model.description}</p>
-                    ${backendsRow}
-                    <div class="features-bar">${features}</div>
-                    <div class="voice-panel">
+                const communityMarkup = isUnverified
+                    ? '<div class="meta-chip"><span class="meta-label">Community</span><span class="meta-value">Disabled for unverified route</span></div>'
+                    : `<div data-community-rating data-model-id="tts-${model.id}" data-rating-mode="compact" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>`;
+                const voicePanelMarkup = isUnverified
+                    ? `<div class="voice-panel"><p class="card-desc">No Audio score, quality score or speed score is published for this unverified reference.</p></div>`
+                    : `<div class="voice-panel">
                         <div class="voice-score">
                             <span class="score-label">Audio score</span>
                             <strong class="score-value">${audioScore}</strong>
@@ -3455,27 +3450,60 @@
                                 <span class="voice-meter-value">${model.speed}</span>
                             </div>
                             <div class="voice-mini-grid">
-                                <div class="voice-mini"><span>Size</span><strong>${model.sizeGB}GB</strong></div>
+                                <div class="voice-mini"><span>Size</span><strong>${model.sizeLabel || `${model.sizeGB}GB`}</strong></div>
                                 <div class="voice-mini"><span>Languages</span><strong>${model.languageCount} languages</strong></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="languages">${langDisplay}${langMore}</div>
+                    </div>`;
+                const installMarkup = isUnverified ? '' : `
                     <div class="install-cmd" onclick="copyInstall(this, '${model.installCommand}')">
                         <code>$ ${model.installCommand}</code>
                         <span class="copy-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
+                    </div>`;
+                const upstreamMarkup = model.hfLink
+                    ? `<a href="${model.hfLink}" target="_blank" rel="noopener nofollow" class="card-link card-link-secondary" data-fast-goal="upstream_click" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">↗ Upstream source</a>`
+                    : '<span class="card-link card-link-secondary" aria-disabled="true">No verified upstream source</span>';
+                const compareMarkup = isUnverified ? '' : `
+                    <button class="compare-btn-card ${isCompared ? 'active' : ''}" data-id="${model.id}" onclick="toggleCompare('${model.id}')" title="Add to comparison" data-fast-goal="compare_tts" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
+                        </svg>
+                        <span>${isCompared ? 'Added' : 'Compare'}</span>
+                    </button>`;
+
+                return `
+                <article class="${cardClass}" data-id="${model.id}" data-url="/tts/${model.id}" data-fast-goal="tts_open" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}" onclick="openTtsCard(event, '/tts/${model.id}')" tabindex="0" role="link" aria-label="Open ${model.name} model page">
+                    ${newBadge}
+                    <div class="card-header">
+                        <div class="card-kicker">
+                            ${pickBadge}
+                            <span class="card-family">${model.family}</span>
+                            <span class="card-type-pill">${typeLabel}</span>
+                        </div>
+                        <div class="card-name">${model.name}</div>
+                        <div class="card-developer">${model.developer}<span>${model.releaseDate || 'No verified release'}</span></div>
+                        ${communityMarkup}
                     </div>
+                    <div class="card-meta-row">
+                        <div class="meta-chip"><span class="meta-label">Best for</span><span class="meta-value">${bestFor}</span></div>
+                        <div class="meta-chip"><span class="meta-label">Latency</span><span class="meta-value">${latencyLabel}</span></div>
+                        <div class="meta-chip"><span class="meta-label">Runtime</span><span class="meta-value">${formatSummary || 'N/A'}</span></div>
+                    </div>
+                    ${orchBadge}
+                    ${asrBadge}
+                    ${remoteBadge}
+                    <p class="card-desc">${model.description}</p>
+                    ${backendsRow}
+                    <div class="features-bar">${features}</div>
+                    ${voicePanelMarkup}
+                    <div class="languages">${isUnverified ? '<span class="lang-tag">UNVERIFIED</span>' : `${langDisplay}${langMore}`}</div>
+                    ${installMarkup}
                     <div class="card-footer">
                         <div class="card-links">
-                            <a href="${model.hfLink}" target="_blank" class="card-link card-link-secondary" data-fast-goal="hf_click" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">🤗 HuggingFace</a>
+                            ${upstreamMarkup}
                         </div>
                         <div class="card-links">
-                            <button class="compare-btn-card ${isCompared ? 'active' : ''}" data-id="${model.id}" onclick="toggleCompare('${model.id}')" title="Add to comparison" data-fast-goal="compare_tts" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
-                                </svg>
-                                <span>${isCompared ? 'Added' : 'Compare'}</span>
-                            </button>
+                            ${compareMarkup}
                             <span class="card-link card-link-primary" style="cursor:default;">${model.license}</span>
                         </div>
                     </div>
@@ -3548,7 +3576,7 @@
                     });
                     break;
             }
-            return sorted;
+            return sorted.sort((a, b) => Number(a.delivery === 'unverified') - Number(b.delivery === 'unverified'));
         }
 
         function selectedKeys(obj) {
@@ -3560,6 +3588,7 @@
         }
 
         function matchesType(model, type) {
+            if (model.delivery === 'unverified') return false;
             if (type === 'tts') return !model.isAsr && !model.isOrchestrator;
             if (type === 'asr') return !!model.isAsr;
             if (type === 'app') return !!model.isOrchestrator;
