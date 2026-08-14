@@ -409,6 +409,22 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'granite4.1-3b',
+            name: 'Granite 4.1 (3B)',
+            family: 'granite',
+            params: '3B',
+            size_gb: 2.1,
+            min_ram: 4,
+            tags: ['chat', 'code', 'reasoning', 'light', 'speed', 'tool-calling', 'general'],
+            description: 'IBM Granite 4.1 compact long-context instruct model. Apache 2.0, 131K context, tool calling, RAG and code tasks, with an official Q4_K_M GGUF for practical 4-8 GB local machines.',
+            search_term: 'granite-4.1-3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ibm-granite/granite-4.1-3b-GGUF',
+            source_url: 'https://huggingface.co/ibm-granite/granite-4.1-3b',
+            benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 7 },
+            released: '2026-04-29'
+        },
+        {
             id: 'granite4.1-8b',
             name: 'Granite 4.1 (8B)',
             family: 'granite',
@@ -423,6 +439,23 @@ const APP_DATA = {
             benchmarks: { speed: 8, quality: 8, coding: 8, reasoning: 8 },
             released: '2026-04',
             isNew: true
+        },
+        {
+            id: 'mistral-small-4-119b',
+            name: 'Mistral Small 4 (119B-A6.5B)',
+            family: 'mistral',
+            params: '119B (6.5B active, MoE)',
+            size_gb: 72.1,
+            min_ram: 96,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agent', 'power', 'long-context', 'multilingual'],
+            description: 'Mistral AI hybrid instruct, reasoning and coding MoE. Apache 2.0, 256K context, multimodal input, official NVFP4 weights and a practical Q4_K_M GGUF for high-memory offline workstations.',
+            search_term: 'mistral-small-4-119b-2603',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'lmstudio-community/Mistral-Small-4-119B-2603-GGUF',
+            source_url: 'https://huggingface.co/mistralai/Mistral-Small-4-119B-2603',
+            runtime_url: 'https://docs.mistral.ai/vibe/code/cli/offline-models',
+            benchmarks: { speed: 3, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-03-16'
         },
         {
             id: 'sarvam-30b',

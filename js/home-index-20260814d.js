@@ -8,6 +8,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const localModels = Array.from(new Map(allLocalModels.map((model) => [model.id, model])).values());
         const newestRelease = localModels.reduce((latest, model) => model.released > latest ? model.released : latest, '');
         const familyCount = new Set(localModels.map((model) => model.family)).size;
+        const llmFamilies = Array.from(new Set(localModels.map((model) => model.family).filter(Boolean)))
+            .sort((a, b) => String(a).localeCompare(String(b), 'en', {sensitivity: 'base'}));
         const catalogueOrder = new Map(localModels.map((model, index) => [model.id, index]));
 
         const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
@@ -43,6 +45,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const speechScore = (model) => Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
         const scoreLabel = (value) => finite(value).toFixed(1);
+        const familyLabel = (value) => String(value || '')
+            .replace(/[-_]+/g, ' ')
+            .replace(/\b\w/g, (letter) => letter.toUpperCase());
         const nameCompare = (a, b) => String(a.name).localeCompare(String(b.name), 'en', {sensitivity: 'base'});
         const llmTieBreak = (a, b) => {
             const aRatings = a.benchmarks || {};
@@ -145,6 +150,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
                             <label><span class="sr-only">Filter by RAM</span><select id="lc-index-ram" class="lc-index-control"><option value="all">All RAM classes</option><option value="8">Up to 8 GB</option><option value="16">Up to 16 GB</option><option value="32">Up to 32 GB</option><option value="64">Up to 64 GB</option><option value="128">Up to 128 GB</option></select></label>
+                            <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
                             <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="score">Score — overall</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
@@ -177,21 +183,26 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
         const search = document.getElementById('lc-index-search');
         const ram = document.getElementById('lc-index-ram');
+        const family = document.getElementById('lc-index-family');
         const sort = document.getElementById('lc-index-sort');
         const rows = document.getElementById('lc-index-model-rows');
         const count = document.getElementById('lc-index-result-count');
         const updateIndex = () => {
             const query = search.value.trim().toLowerCase();
             const maxRam = ram.value === 'all' ? Infinity : Number(ram.value);
+            const selectedFamily = family.value;
             const filtered = localModels.filter((model) => {
                 const haystack = `${model.name} ${model.family} ${(model.tags || []).join(' ')}`.toLowerCase();
-                return haystack.includes(query) && Number(model.min_ram || Infinity) <= maxRam;
+                return haystack.includes(query)
+                    && Number(model.min_ram || Infinity) <= maxRam
+                    && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(sort.value));
             rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="8">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
         };
         search.addEventListener('input', updateIndex);
         ram.addEventListener('change', updateIndex);
+        family.addEventListener('change', updateIndex);
         sort.addEventListener('change', updateIndex);
 
         const speechSearch = document.getElementById('lc-index-tts-search');

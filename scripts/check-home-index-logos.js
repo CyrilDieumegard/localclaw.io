@@ -27,7 +27,7 @@ for (const asset of new Set([...Object.values(logos.llm), ...Object.values(logos
   if (!fs.existsSync(file)) missing.push(`Logo asset: ${asset}.${extension}`);
 }
 
-if (models.length !== 215) missing.push(`Expected 215 homepage LLM entries, found ${models.length}`);
+if (models.length !== 217) missing.push(`Expected 217 homepage LLM entries, found ${models.length}`);
 if (speechModels.length !== 56) missing.push(`Expected 56 local homepage speech entries, found ${speechModels.length}`);
 for (const model of models) {
   for (const metric of ['quality', 'coding', 'reasoning', 'speed']) {

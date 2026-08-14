@@ -154,10 +154,12 @@
 
 .lc-index-controls {
     display: grid;
-    grid-template-columns: minmax(180px, 1fr) repeat(2, minmax(150px, 0.38fr));
+    grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(135px, 0.34fr));
     gap: 9px;
     margin-bottom: 12px;
 }
+
+.lc-index-tts-controls { grid-template-columns: minmax(180px, 1fr) repeat(2, minmax(150px, 0.38fr)); }
 
 .lc-index-control {
     width: 100%;
