@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 10, 2026 — Added LFM2.5-2.6B — 219 LLM total
+// Updated August 14, 2026 — Added Muse Glimmer 30B — 222 LLM total
 // Previous: August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
 // Previous: August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
 // Previous: August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
@@ -2247,6 +2247,24 @@ const APP_DATA = {
             hf_repo: 'lmstudio-community/Mistral-Small-24B-Instruct-2501-GGUF',
             benchmarks: { speed: 5, quality: 8, coding: 7, reasoning: 8 },
             released: '2025-01'
+        },
+        {
+            id: 'muse-glimmer-30b',
+            name: 'Muse Glimmer 30B',
+            family: 'meta',
+            params: '29.8B multimodal',
+            size_gb: 17,
+            min_ram: 24,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'vision', 'long-context', 'power', 'quality'],
+            description: 'Meta Superintelligence Lab local agent model with text+image input, 131K context, Apache 2.0 weights and official GGUF/ExecuTorch artifacts. The K-Quant 17GB build targets 24GB machines; 32GB is safer for vision and long-context sessions.',
+            search_term: 'muse-glimmer-30b',
+            recommended_quant: 'K-Quant 17GB Q4_K_M',
+            hf_repo: 'meta-models/Muse-Glimmer-30B-GGUF',
+            source_url: 'https://huggingface.co/meta-models/Muse-Glimmer-30B',
+            benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-08',
+            isNew: true,
+            isPick: true
         },
 
         // ==================== POWER+ (New 2026 entries) ====================

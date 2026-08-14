@@ -2002,6 +2002,44 @@ var MODEL_DETAILS = {
         paper_url: 'https://www.scmp.com/tech/tech-trends/article/3354087/alibaba-teases-new-qwen-previews-highest-ranking-chinese-ai-models-arena',
     },
 
+    // ==================== MUSE GLIMMER 30B (August 2026 — NEW) ====================
+    'muse-glimmer-30b': {
+        developer: 'Meta Superintelligence Lab',
+        developer_url: 'https://ai.meta.com/',
+        context_window: 131072,
+        license: 'Apache 2.0',
+        license_url: 'https://huggingface.co/meta-models/Muse-Glimmer-30B/blob/main/LICENSE',
+        architecture: 'Dense multimodal causal transformer with a dedicated perception encoder. The release reports about 29.6B total parameters including a roughly 1.8B ViT-G/14 perception encoder, grouped-query attention, local/global attention layers and 131K+ context.',
+        training_data: 'Multimodal content from publicly available data, third-party data, Meta product/service data and curated external-vendor / Meta personnel enrichment, as described in the model card.',
+        languages: ['English', 'Multilingual', 'Text plus image input'],
+        strengths: [
+            'Apache 2.0 open-weight release with official BF16, GGUF and ExecuTorch artifacts',
+            'Official GGUF repo includes a 17GB K-Quant Q4-class build plus DFlash drafter and mmproj files',
+            'Designed for local agentic tasks, tool use, coding and failure recovery',
+            '131K context for long documents, screenshots and repository-scale work',
+            'Model card reports 24GB and 32GB local hardware targets for quantized builds',
+            'Strong early Hugging Face adoption across source, official GGUF and LM Studio-compatible artifacts',
+        ],
+        weaknesses: [
+            'Vision, DFlash and long-context support need current runtimes; older GGUF loaders may not understand the architecture',
+            '24GB is the floor for the 17GB K-Quant build; 32GB is safer once KV cache, drafter and vision encoder are included',
+            'The release is image-text-to-text, so it is broader than a pure text LLM catalogue entry',
+            'Benchmark and safety claims are early and mostly source-reported',
+            'No audio input or output support',
+        ],
+        use_cases: [
+            'Local AI agents on 24GB to 32GB machines',
+            'Screenshot and document reasoning',
+            'Private coding-agent experiments',
+            'Long-context tool-use workflows',
+            'Multimodal assistant tasks without cloud infrastructure',
+        ],
+        similar_models: ['qwen3.6-35b-a3b', 'gemma4-26b-a4b', 'qwen3-32b', 'mistral-small-3.2-24b', 'lfm2-5-2-6b'],
+        fun_fact: 'The official GGUF card lists a 16.8GB K-Quant build with a 131,072-token context window, plus separate DFlash drafter and vision-projector files for local speculative decoding and image input.',
+        official_blog: 'https://huggingface.co/meta-models/Muse-Glimmer-30B',
+        paper_url: 'https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF',
+    },
+
     // ==================== DEEPSEEK V4 FLASH 0731 (July 2026 — NEW) ====================
     'deepseek-v4-flash-0731': {
         developer: 'DeepSeek AI',

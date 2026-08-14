@@ -17,6 +17,14 @@
       <description>Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines. 2.7B · 8 GB minimum RAM · Q4_K_M · lfm.</description>
     </item>
     <item>
+      <title>Muse Glimmer 30B</title>
+      <link>https://localclaw.io/models/muse-glimmer-30b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/muse-glimmer-30b</guid>
+      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <category>meta</category>
+      <description>Meta Superintelligence Lab local agent model with text+image input, 131K context, Apache 2.0 weights and official GGUF/ExecuTorch artifacts. The K-Quant 17GB build targets 24GB machines; 32GB is safer for vision and long-context sessions. 29.8B multimodal · 24 GB minimum RAM · K-Quant 17GB Q4_K_M · meta.</description>
+    </item>
+    <item>
       <title>DeepSeek V4 Flash 0731 (284B MoE)</title>
       <link>https://localclaw.io/models/deepseek-v4-flash-0731</link>
       <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-flash-0731</guid>
@@ -159,14 +167,6 @@
       <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
       <category>deepseek-flash</category>
       <description>Efficient DeepSeek V4 variant: 284B total, 13B active, 1M-token context. Flash-Max can approach Pro reasoning with larger thinking budget. MIT licensed. 284B (13B active) · 256 GB minimum RAM · FP4/FP8 · deepseek-flash.</description>
-    </item>
-    <item>
-      <title>DANTE-Mosaic-3.5B</title>
-      <link>https://localclaw.io/models/dante-mosaic-3.5b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/dante-mosaic-3.5b</guid>
-      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
-      <category>dante</category>
-      <description>OdaxAI compact dense model based on SmolLM3-3B and distilled from Kimi K2. Strong small-model benchmark profile: GSM8K 74.45, HellaSwag 76.73 and MBPP 42.6. Apache 2.0, BF16 weights, practical for local Transformers/vLLM use. 3.08B · 8 GB minimum RAM · BF16 · dante.</description>
     </item>
   </channel>
 </rss>
