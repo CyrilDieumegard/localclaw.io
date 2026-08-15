@@ -333,13 +333,17 @@ function modelPage(m, d, allModels) {
     ? `${m.name} local AI: custom runtime | LocalClaw`
     : `${m.name} local AI: RAM + LM Studio | LocalClaw`;
   const compactLocalTitle = `${m.name} local AI | LocalClaw`;
-  const title = m.hosted_only
+  const shortTitle = `${m.name} | LocalClaw`;
+  const titleCandidate = m.hosted_only
     ? `${m.name} API model specs | LocalClaw`
     : sourceOnly
       ? `${m.name} ${hfState === 'gated' ? 'gated' : 'public'} model card status | LocalClaw`
     : isServerServingModel(m)
       ? `${m.name} server-grade local AI | LocalClaw`
-    : localTitle.length > 60 ? compactLocalTitle : localTitle;
+    : localTitle;
+  const title = titleCandidate.length > 60
+    ? (compactLocalTitle.length > 60 ? shortTitle : compactLocalTitle)
+    : titleCandidate;
   const desc = metaDescription(m.hosted_only
     ? `${m.name}: hosted/API LLM. Specs, catalogue capability ratings, use cases and current availability notes for local AI comparison.`
     : hfState === 'publicModelCard'

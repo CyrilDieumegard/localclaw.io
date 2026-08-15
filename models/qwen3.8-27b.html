@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Qwen 2.5 VL (7B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Qwen 2.5 VL (7B): 7B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>Qwen3.8-27B local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="Qwen3.8-27B: 27B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/qwen2.5vl-7b">
+  <link rel="canonical" href="https://localclaw.io/models/qwen3.8-27b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/qwen2.5vl-7b">
-  <meta property="og:title" content="Qwen 2.5 VL (7B) local AI model | LocalClaw">
-  <meta property="og:description" content="Qwen 2.5 VL (7B): 7B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/qwen3.8-27b">
+  <meta property="og:title" content="Qwen3.8-27B local AI model | LocalClaw">
+  <meta property="og:description" content="Qwen3.8-27B: 27B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Qwen 2.5 VL (7B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Qwen 2.5 VL (7B): 7B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="Qwen3.8-27B local AI model | LocalClaw">
+  <meta name="twitter:description" content="Qwen3.8-27B: 27B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qwen 2.5 VL (7B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/qwen2.5vl-7b","description":"Qwen 2.5 VL (7B): 7B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2025-01","memoryRequirements":"8 GB RAM minimum"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Qwen 2.5 VL (7B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Qwen 2.5 VL (7B) can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Qwen 2.5 VL (7B) best for?","acceptedAnswer":{"@type":"Answer","text":"Qwen 2.5 VL (7B) is tagged in the LocalClaw catalogue for Vision tasks. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Qwen 2.5 VL (7B)","item":"https://localclaw.io/models/qwen2.5vl-7b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Qwen3.8-27B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/qwen3.8-27b","description":"Qwen3.8-27B: 27B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-08","memoryRequirements":"32 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Alibaba Cloud (Qwen Team)","url":"https://qwenlm.github.io/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Qwen3.8-27B run locally?","acceptedAnswer":{"@type":"Answer","text":"Qwen3.8-27B can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Qwen3.8-27B best for?","acceptedAnswer":{"@type":"Answer","text":"Qwen3.8-27B is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Qwen3.8-27B","item":"https://localclaw.io/models/qwen3.8-27b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,14 +48,14 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Qwen 2.5 VL (7B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Qwen3.8-27B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">Qwen 2.5 VL <span>(7B)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Qwen flagship vision-language model. Excellent at image understanding. 732K downloads.</p>
+        <h1 class="title">Qwen3.8-27B</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">8 GB catalogue minimum</span><span class="chip">8 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Vision tasks</span></div>
+        <div class="chips"><span class="chip hot">32 GB catalogue minimum</span><span class="chip">32 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
         <div class="cta">
           <a class="btn" href="/pricing">Run with LocalClaw</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
@@ -65,80 +65,80 @@
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">6.5<small>/10</small></div>
+            <div class="score">8.9<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="qwen2.5vl-7b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="qwen3.8-27b" data-rating-mode="full"></div>
         <div class="panel-grid">
           <div class="mini"><div class="k">Family</div><div class="v" style="color:#a855f7">qwen</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2025-01</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-08</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">7B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">4.5 GB</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">27B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">32 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">16.8 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-<section class="personal-fit" hidden data-localclaw-model-context data-model-id="qwen2.5vl-7b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="qwen3.8-27b" aria-live="polite"></section>
     <section class="section">
-      <h2>Can Qwen 2.5 VL (7B) run locally?</h2>
-      <p>Qwen 2.5 VL (7B) has a catalogue minimum of 8 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>qwen2.5-vl-7b-instruct</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/unsloth/Qwen2.5-VL-7B-Instruct-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-15): unsloth/Qwen2.5-VL-7B-Instruct-GGUF</a></div>
-      <div style="margin-top:16px"><span class="tag">vision</span><span class="tag">standard</span></div>
+      <h2>Can Qwen3.8-27B run locally?</h2>
+      <p>Qwen3.8-27B has a catalogue minimum of 32 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use <code>qwen3.8-27b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
+      <div class="source-links"><a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-15): unsloth/Qwen3.8-27B-GGUF</a><a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="tag">agentic</span><span class="tag">power</span><span class="tag">long-context</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search qwen2.5-vl-7b-instruct in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 32 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search qwen3.8-27b in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: qwen</li><li>Parameters: 7B</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 8 GB</li><li>Catalogue model size: 4.5 GB</li><li>Tags: vision, standard</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: qwen</li><li>Parameters: 27B</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 32 GB</li><li>Catalogue model size: 16.8 GB</li><li>Tags: chat, code, reasoning, vision, agentic, power, long-context</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>vision</li><li>standard</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>vision</li><li>agentic</li><li>power</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">See upstream repository</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">See upstream repository</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">See upstream repository</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">See upstream repository</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">Alibaba Cloud (Qwen Team)</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">262,144 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Dense Qwen3.8 vision-language causal model with 27B language parameters, Gated DeltaNet and gated attention layers, MTP training, native 262K context and optional YaRN extension toward 1M-token workflows.</div></div>
       </div>
     </section>
 <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
+        <a href="/hardware/mac-mini-m4-pro-48gb"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb"><small>Power-user picks</small>32GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/qwen3-vl-8b">Qwen 3 VL (8B) <span>8B</span></a><a href="/models/qwen2.5-7b">Qwen 2.5 (7B) <span>7B</span></a><a href="/models/qwen3-8b">Qwen 3 (8B) <span>8B</span></a><a href="/models/qwen3-vl-32b">Qwen 3 VL (32B) <span>32B</span></a><a href="/models/qwen3.6-35b-a3b">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/qwen3.8-27b">Qwen3.8-27B <span>27B</span></a><a href="/models/qwen3.5-9b">Qwen 3.5 (9B) <span>9B</span></a><a href="/models/qwen3.5-4b">Qwen 3.5 (4B) <span>4B</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/qwen3.6-35b-a3b">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/qwen3-32b">Qwen 3 (32B) <span>32B</span></a><a href="/models/qwen3.5-27b">Qwen 3.5 (27B) <span>27B</span></a><a href="/models/qwen3.6-27b">Qwen 3.6 (27B) <span>27B</span></a><a href="/models/qwen-agentworld-35b-a3b">Qwen AgentWorld 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/qwen3.5-35b-a3b">Qwen 3.5 MoE (35B/3B active) <span>35B (3B active)</span></a><a href="/models/qwen3-14b">Qwen 3 (14B) <span>14B</span></a><a href="/models/qwen3-vl-32b">Qwen 3 VL (32B) <span>32B</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/32gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"qwen2.5vl-7b","name":"Qwen 2.5 VL (7B)","family":"qwen","params":"7B","size_gb":4.5,"min_ram":8,"tags":["vision","standard"],"description":"Qwen flagship vision-language model. Excellent at image understanding. 732K downloads.","search_term":"qwen2.5-vl-7b-instruct","recommended_quant":"Q4_K_M","hf_repo":"unsloth/Qwen2.5-VL-7B-Instruct-GGUF","source_url":"https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct","benchmarks":{"speed":7,"quality":7,"coding":5,"reasoning":7},"released":"2025-01"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"qwen3.8-27b","name":"Qwen3.8-27B","family":"qwen","params":"27B","size_gb":16.8,"min_ram":32,"tags":["chat","code","reasoning","vision","agentic","power","long-context"],"description":"Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts.","search_term":"qwen3.8-27b","recommended_quant":"Q4_K_M","hf_repo":"unsloth/Qwen3.8-27B-GGUF","source_url":"https://huggingface.co/Qwen/Qwen3.8-27B","benchmarks":{"speed":5,"quality":9,"coding":10,"reasoning":10},"released":"2026-08","isNew":true};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

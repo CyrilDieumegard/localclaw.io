@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 14, 2026 — Added Muse Glimmer 30B — 222 LLM total
+// Updated August 15, 2026 — Added Qwen3.8-27B — 223 LLM total
 // Previous: August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
 // Previous: August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
 // Previous: August 6, 2026 — Added Ling Flash Base 2.0 — 216 LLM total
@@ -2727,6 +2727,23 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'qwen3.8-27b',
+            name: 'Qwen3.8-27B',
+            family: 'qwen',
+            params: '27B',
+            size_gb: 16.8,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'power', 'long-context'],
+            description: 'Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts.',
+            search_term: 'qwen3.8-27b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'unsloth/Qwen3.8-27B-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen3.8-27B',
+            benchmarks: { speed: 5, quality: 9, coding: 10, reasoning: 10 },
+            released: '2026-08',
+            isNew: true
+        },
+        {
             id: 'qwen3.7-max-preview',
             name: 'Qwen 3.7 Max Preview',
             family: 'qwen',
@@ -3658,7 +3675,7 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-14T08:52:42.065Z",
+        checkedAt: "2026-08-15T08:20:00.000Z",
         catalogueHash: "4964e1ad54a2e8759853038f3a77a00209caee719e86eecf794d4c06c221f6b9",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
@@ -3795,6 +3812,7 @@ const APP_DATA = {
             "deepseek-r1-14b": "lmstudio-community/DeepSeek-R1-Distill-Qwen-14B-GGUF",
             "mistral-small-24b": "lmstudio-community/Mistral-Small-24B-Instruct-2501-GGUF",
             "muse-glimmer-30b": "meta-models/Muse-Glimmer-30B-GGUF",
+            "qwen3.8-27b": "unsloth/Qwen3.8-27B-GGUF",
             "glm4.7": "unsloth/GLM-4.7-GGUF",
             "minimax-m2.1": "unsloth/MiniMax-M2.1-GGUF",
             "qwen3-32b": "lmstudio-community/Qwen3-32B-GGUF",
