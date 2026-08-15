@@ -9,3 +9,4 @@ The RAM/GPU page uses optimized local WebP derivatives generated from real produ
   https://commons.wikimedia.org/wiki/File:Assorted_SO-DIMM_Modules_(cropped_and_perspective).jpg
 - `nvidia-gpu.webp` is derived from `NVIDIA Quadro K6000.jpg`:
   https://commons.wikimedia.org/wiki/File:NVIDIA_Quadro_K6000.jpg
+- `nvidia-gpu-modern.jpg` is an AI-generated, unbranded modern GPU category image created for LocalClaw in August 2026. It intentionally contains no manufacturer logo or model number and is not presented as a photograph of any specific NVIDIA product.
