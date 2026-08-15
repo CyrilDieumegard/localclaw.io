@@ -359,6 +359,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const sponsorOfferContinue = document.getElementById('lc-sponsor-offer-continue');
         const sponsorSelectedPlacement = document.getElementById('lc-sponsor-selected-placement');
         let sponsorOfferOpener = null;
+        let sponsorFocusTimer = 0;
         const sponsorAccountUrl = (placementKey = '') => {
             const params = new URLSearchParams({ view: 'sponsorship', intent: 'new', plan: 'week' });
             if (placementKey) params.set('placement', placementKey);
@@ -369,6 +370,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return match ? `${match[1] === 'left' ? 'Left' : 'Right'} rail · position ${match[2].padStart(2, '0')}` : 'Choose any available position';
         };
         const openSponsorOffer = (opener) => {
+            if (!sponsorOfferDialog?.isConnected) return;
             const placementKey = opener?.dataset.sponsorPlacement || '';
             sponsorOfferOpener = opener || null;
             if (sponsorSelectedPlacement) sponsorSelectedPlacement.textContent = sponsorPlacementLabel(placementKey);
@@ -381,10 +383,24 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 sponsorOfferDialog.showModal();
             } else window.location.assign(sponsorAccountUrl(placementKey));
         };
-        const closeSponsorOffer = () => {
+        const restoreSponsorOfferFocus = () => {
             const opener = sponsorOfferOpener;
+            if (sponsorFocusTimer) window.clearTimeout(sponsorFocusTimer);
+            sponsorFocusTimer = window.setTimeout(() => {
+                sponsorFocusTimer = 0;
+                const active = document.activeElement;
+                const mayRestore = !sponsorOfferDialog?.open && (
+                    !active
+                    || active === document.body
+                    || active === sponsorOfferDialog
+                    || sponsorOfferDialog?.contains(active)
+                );
+                if (mayRestore && opener?.isConnected) opener.focus({ preventScroll: true });
+            }, 100);
+        };
+        const closeSponsorOffer = () => {
             if (sponsorOfferDialog?.open) sponsorOfferDialog.close();
-            window.setTimeout(() => opener?.focus({ preventScroll: true }), 0);
+            else restoreSponsorOfferFocus();
         };
         const updateSponsorAvailability = (placements) => {
             const count = document.getElementById('lc-sponsor-open-count');
@@ -394,14 +410,26 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             count.textContent = `${openNow}/${placements.length}`;
             note.textContent = openNow === 1 ? 'One position open now' : `${openNow} positions open now`;
         };
-        container.addEventListener('click', (event) => {
+        if (container.__lcSponsorOfferClickHandler) {
+            container.removeEventListener('click', container.__lcSponsorOfferClickHandler);
+        }
+        const sponsorOfferClickHandler = (event) => {
             const offer = event.target.closest('[data-sponsor-offer]');
             if (!offer || offer.dataset.sponsorCampaign) return;
             event.preventDefault();
             openSponsorOffer(offer);
-        });
+        };
+        container.__lcSponsorOfferClickHandler = sponsorOfferClickHandler;
+        container.addEventListener('click', sponsorOfferClickHandler);
         sponsorOfferClose?.addEventListener('click', closeSponsorOffer);
+        sponsorOfferDialog?.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            event.preventDefault();
+            event.stopPropagation();
+            closeSponsorOffer();
+        });
         sponsorOfferDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeSponsorOffer(); });
+        sponsorOfferDialog?.addEventListener('close', restoreSponsorOfferFocus);
         sponsorOfferDialog?.addEventListener('click', (event) => { if (event.target === sponsorOfferDialog) closeSponsorOffer(); });
 
         hydrateSponsorRails();

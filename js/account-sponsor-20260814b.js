@@ -234,8 +234,10 @@
         elements.form.elements.destinationUrl.value = campaign?.destinationUrl || '';
         elements.form.elements.tagline.value = campaign?.tagline || '';
         elements.form.elements.ctaLabel.value = campaign?.ctaLabel || 'Learn more';
-        const requestedPlacement = placementByKey(defaults.placementKey) ? defaults.placementKey : 'home-left-1';
         const requestedPlan = planByKey(defaults.planKey) ? defaults.planKey : 'week';
+        const requestedPlacement = placementByKey(defaults.placementKey)
+            ? defaults.placementKey
+            : firstAvailablePlacementKey(requestedPlan);
         elements.form.elements.placementKey.value = campaign?.placementKey || requestedPlacement;
         elements.form.elements.logoAltText.value = campaign?.creative?.logoAltText || '';
         elements.planKey.value = campaign?.planKey || requestedPlan;
@@ -248,6 +250,7 @@
         renderBookingSummary();
         elements.dialog.showModal();
         elements.form.elements.campaignName.focus();
+        return elements.form.elements.placementKey.value;
     }
 
     function openPendingSponsorIntent() {
@@ -257,10 +260,10 @@
         state.pendingIntentHandled = true;
         const placementKey = url.searchParams.get('placement') || '';
         const planKey = url.searchParams.get('plan') || 'week';
-        openCampaignDialog(null, { placementKey, planKey });
+        const resolvedPlacementKey = openCampaignDialog(null, { placementKey, planKey });
         trackDataFastGoal('sponsor_campaign_form_opened', {
             source: 'homepage_offer_modal',
-            placement: placementByKey(placementKey) ? placementKey : 'unselected',
+            placement: placementByKey(resolvedPlacementKey) ? resolvedPlacementKey : 'unselected',
             plan: planByKey(planKey) ? planKey : 'week'
         });
         ['intent', 'placement', 'plan', 'next'].forEach((key) => url.searchParams.delete(key));
@@ -487,10 +490,10 @@
         };
     }
 
-    function clientSchedule(planKey) {
+    function scheduleFor(planKey, startMode = 'now', startDate = '') {
         let startsAt;
-        if (elements.startMode.value === 'now') startsAt = new Date();
-        else if (elements.startDate.value) startsAt = new Date(`${elements.startDate.value}T00:00:00Z`);
+        if (startMode === 'now') startsAt = new Date();
+        else if (startDate) startsAt = new Date(`${startDate}T00:00:00Z`);
         if (!startsAt || !Number.isFinite(startsAt.getTime())) return null;
         const endsAt = new Date(startsAt.getTime());
         if (planKey === 'month') {
@@ -504,12 +507,25 @@
         return { startsAt, endsAt };
     }
 
+    function clientSchedule(planKey) {
+        return scheduleFor(planKey, elements.startMode.value, elements.startDate.value);
+    }
+
     function rangesOverlap(ranges, start, end) {
         return (ranges || []).some((range) => {
             const rangeStart = new Date(range.startsAt);
             const rangeEnd = range.blocksUntil ? new Date(range.blocksUntil) : new Date('9999-12-31T23:59:59Z');
             return rangeStart < end && rangeEnd > start;
         });
+    }
+
+    function firstAvailablePlacementKey(planKey) {
+        const placements = Array.isArray(state.catalog?.placements) ? state.catalog.placements : [];
+        const schedule = scheduleFor(planKey, 'now');
+        const available = schedule
+            ? placements.find((placement) => !rangesOverlap(placement.blockedRanges, schedule.startsAt, schedule.endsAt))
+            : placements[0];
+        return available?.key || placements[0]?.key || 'home-left-1';
     }
 
     function planByKey(key) { return (state.catalog?.pricing?.plans || []).find((plan) => plan.key === key) || null; }

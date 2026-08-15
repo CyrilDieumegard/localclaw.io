@@ -56,8 +56,17 @@ requireText(files.home, "sourceLabel: 'DataFast · Europe/Zurich'", 'Homepage sp
 requireText(files.home, 'No traffic, click, conversion or ranking benefit is guaranteed.', 'Homepage sponsor offer must retain the no-performance guarantee');
 requireText(files.home, 'intent: \'new\'', 'Homepage sponsor CTA must preserve campaign intent');
 requireText(files.home, 'updateSponsorAvailability(payload.placements || [])', 'Homepage sponsor offer must hydrate live placement availability');
+requireText(files.home, 'sponsorOfferDialog?.contains(active)', 'Homepage sponsor modal must restore focus when native close leaves focus inside the closing dialog');
+requireText(files.home, 'const mayRestore = !sponsorOfferDialog?.open', 'Homepage sponsor modal must not move focus out of a dialog that reopened');
+requireText(files.home, "sponsorOfferDialog?.addEventListener('close', restoreSponsorOfferFocus)", 'Homepage sponsor modal must restore focus after every native close path');
+requireText(files.home, "if (event.key !== 'Escape') return;", 'Homepage sponsor modal must handle Escape before the browser drops focus to the page body');
+requireText(files.home, 'container.removeEventListener(\'click\', container.__lcSponsorOfferClickHandler)', 'Homepage sponsor modal must replace stale delegated handlers after a rerender');
+requireText(files.home, 'if (!sponsorOfferDialog?.isConnected) return;', 'Homepage sponsor modal must ignore detached dialog instances');
 requireText(files.client, 'openPendingSponsorIntent()', 'Sponsor account must continue a homepage campaign intent after authentication');
 requireText(files.client, "source: 'homepage_offer_modal'", 'Sponsor account must measure homepage offer continuation');
+requireText(files.client, 'firstAvailablePlacementKey(requestedPlan)', 'Generic sponsor intents must select a currently available placement');
+requireText(files.client, '!rangesOverlap(placement.blockedRanges, schedule.startsAt, schedule.endsAt)', 'Default sponsor placement must avoid blocked date ranges');
+requireText(files.client, 'placementByKey(resolvedPlacementKey)', 'Homepage intent analytics must record the resolved placement');
 requireText(files.accountClient, 'currentSponsorPath', 'Google sign-in must preserve the sponsorship return path');
 requireText(files.accountClient, "errorCallbackURL.searchParams.set('auth', 'error')", 'Google sign-in error handling must preserve existing sponsorship query parameters');
 
