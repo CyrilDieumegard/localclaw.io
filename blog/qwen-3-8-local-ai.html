@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qwen 3.8 Is Launching: Can You Run It Locally Yet? | LocalClaw</title>
-    <meta name="description" content="Qwen announced Qwen 3.8 with 2.4T parameters and an open-weight release coming soon. Here is what is confirmed, what is missing, and what to run locally today.">
-    <meta name="keywords" content="Qwen 3.8, Qwen3.8 local, Qwen 3.8 open weights, Qwen3.8 GGUF, Qwen 3.8 2.4T, run Qwen 3.8 locally, Qwen 3.6 27B, Qwen local AI, Qwen 2026">
+    <title>Qwen3.8-27B: 27B Vision Model Built for Agents | LocalClaw</title>
+    <meta name="description" content="Qwen3.8-27B deep dive: 27B dense architecture, native vision, 262K context, agentic benchmarks, thinking controls and honest local hardware guidance.">
+    <meta name="keywords" content="Qwen3.8-27B, Qwen 3.8 27B, Qwen3.8 local, Qwen3.8 benchmarks, Qwen3.8 hardware, Qwen3.8 vision, Qwen3.8 agent, Qwen3.8 GGUF, 262K context, local multimodal AI">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/blog/qwen-3-8-local-ai">
 
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://localclaw.io/blog/qwen-3-8-local-ai">
-    <meta property="og:title" content="Qwen 3.8 Is Launching: Can You Run It Locally Yet?">
-    <meta property="og:description" content="Qwen 3.8 is official and open weights are promised soon. Today, however, there is no official checkpoint, GGUF or MLX download.">
+    <meta property="og:title" content="Qwen3.8-27B: The 27B Vision Model Built for Agents">
+    <meta property="og:description" content="A dense 27B open model with native vision, 262K context and unusually strong coding and computer-use results. Here is what makes it special—and what local hardware it really needs.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:image" content="https://localclaw.io/images/og-cover.png">
-    <meta property="article:published_time" content="2026-07-19">
-    <meta property="article:modified_time" content="2026-07-28">
-    <meta property="article:section" content="Local AI News">
-    <meta property="article:tag" content="Qwen 3.8">
-    <meta property="article:tag" content="Open Weights">
+    <meta property="article:published_time" content="2026-08-15">
+    <meta property="article:modified_time" content="2026-08-15">
+    <meta property="article:section" content="Model Deep Dive">
+    <meta property="article:tag" content="Qwen3.8-27B">
+    <meta property="article:tag" content="Multimodal AI">
     <meta property="article:tag" content="Local AI">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Qwen 3.8: Can You Run It Locally Yet?">
-    <meta name="twitter:description" content="What Qwen officially announced, what is not public yet, and the best Qwen models you can actually run locally today.">
+    <meta name="twitter:title" content="Qwen3.8-27B: The 27B Vision Model Built for Agents">
+    <meta name="twitter:description" content="Why Qwen3.8-27B is more than a model upgrade: architecture, agentic benchmarks, vision, local memory and the limits behind the numbers.">
     <meta name="twitter:image" content="https://localclaw.io/images/og-cover.png">
 
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -37,7 +37,7 @@
     <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -50,120 +50,207 @@
     </script>
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        body { background: radial-gradient(circle at 12% 8%, rgba(255,69,58,.14), transparent 30%), radial-gradient(circle at 80% 18%, rgba(139,92,246,.1), transparent 34%), #050505; }
-        .article-shell { background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.018)); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 30px 100px rgba(0,0,0,.45); }
-        .prose-custom h2 { margin-top: 3rem; margin-bottom: 1rem; color: #fff; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 800; font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1.08; }
-        .prose-custom h3 { margin-top: 2rem; margin-bottom: .75rem; color: #fff; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 750; font-size: 1.25rem; }
-        .prose-custom p, .prose-custom li { color: #b8b8c0; line-height: 1.78; font-size: 1.03rem; }
-        .prose-custom a { color: #ff6d64; text-decoration: none; }
+        body { background: radial-gradient(circle at 15% 5%, rgba(10,46,254,.2), transparent 31%), radial-gradient(circle at 88% 12%, rgba(255,69,58,.12), transparent 31%), #050505; }
+        .article-shell { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.018)); border: 1px solid rgba(255,255,255,.09); box-shadow: 0 30px 100px rgba(0,0,0,.46); }
+        .prose-custom h2 { margin-top: 3.25rem; margin-bottom: 1rem; color: #fff; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 800; font-size: clamp(1.7rem, 3vw, 2.35rem); line-height: 1.08; letter-spacing: -.025em; }
+        .prose-custom h3 { margin-top: 2rem; margin-bottom: .75rem; color: #fff; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 750; font-size: 1.28rem; }
+        .prose-custom p, .prose-custom li { color: #b8b8c0; line-height: 1.8; font-size: 1.04rem; }
+        .prose-custom a { color: #8ba2ff; text-decoration: none; }
         .prose-custom a:hover { color: #fff; text-decoration: underline; }
-        .signal-card { background: rgba(15,15,17,.8); border: 1px solid rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.035); }
-        .metric-card { background: radial-gradient(circle at top left, rgba(139,92,246,.14), transparent 46%), rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.08); }
-        th, td { border-bottom: 1px solid rgba(255,255,255,.08); }
+        .signal-card { background: rgba(15,15,17,.84); border: 1px solid rgba(255,255,255,.09); box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+        .metric-card { background: radial-gradient(circle at top left, rgba(10,46,254,.2), transparent 55%), rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.09); }
+        .verdict-card { background: linear-gradient(135deg, rgba(10,46,254,.16), rgba(255,69,58,.08)); border: 1px solid rgba(99,125,255,.35); }
+        .benchmark-track { height: .48rem; background: rgba(255,255,255,.08); border-radius: 999px; overflow: hidden; }
+        .benchmark-fill { height: 100%; background: linear-gradient(90deg, #4968ff, #8ba2ff); border-radius: inherit; }
+        .code-block { background: #09090b; border: 1px solid rgba(255,255,255,.1); color: #d4d4d8; overflow-x: auto; }
+        .hardware-table th, .hardware-table td { border-bottom: 1px solid rgba(255,255,255,.08); }
         .source-list li { font-size: .95rem; }
         @media (max-width: 640px) { .prose-custom p, .prose-custom li { font-size: 1rem; } }
     </style>
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="../js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
+    <link rel="stylesheet" href="/css/site-nav.css?v=20260803a"><script src="/js/site-nav.js?v=20260803a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
     <nav class="lc-global-nav" aria-label="Main navigation">
-  <div class="lc-global-nav__inner">
-    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
-      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
-      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
-    </a>
-    <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
-    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
-  </div>
-  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
-  </div>
-</nav>
-    <div id="blog-mobile-menu" class="hidden fixed inset-0 z-[60] bg-claw-bg/95 backdrop-blur-xl sm:hidden"><div class="flex flex-col items-center justify-center h-full gap-1"><a href="/" class="px-4 py-3 text-sm text-claw-muted">Home</a><a href="/llm-list" class="px-4 py-3 text-sm text-claw-muted">LLM</a><a href="/tts-list" class="px-4 py-3 text-sm text-claw-muted">TTS</a><a href="/computers" class="px-4 py-3 text-sm text-claw-muted">Computers</a><a href="/ram-gpu-for-local-ai" class="px-4 py-3 text-sm text-claw-muted">RAM/GPU</a><a href="/blog/" class="px-4 py-3 text-sm text-claw-primary">Blog</a><a href="/software" class="px-4 py-3 text-sm text-claw-muted">Software</a><button onclick="document.getElementById('blog-mobile-menu').classList.add('hidden')" class="px-4 py-3 text-sm text-claw-muted">Close</button></div></div>
+        <div class="lc-global-nav__inner">
+            <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home"><span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span><span>Local<span class="lc-global-nav__brand-accent">Claw</span></span></a>
+            <div class="lc-global-nav__links"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div>
+            <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+        <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden><div class="lc-global-nav__mobile-inner"><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="tts">TTS</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/blog/" class="lc-global-nav__link" data-nav-key="blog" aria-current="page">Blog</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a></div></div>
+    </nav>
 
-    <header class="relative py-16 sm:py-24 border-b border-claw-border/30">
+    <header class="relative py-16 sm:py-24 border-b border-claw-border/30 overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true"><div class="absolute left-[8%] top-10 w-48 h-48 rounded-full border border-blue-500/10"></div><div class="absolute right-[7%] bottom-[-5rem] w-72 h-72 rounded-full border border-red-500/10"></div></div>
         <div class="max-w-5xl mx-auto px-4 relative z-10">
             <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-claw-muted hover:text-claw-primary mb-8"><span aria-hidden="true">&larr;</span> Blog</a>
-            <div class="flex flex-wrap items-center gap-3 mb-6"><span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 text-xs font-bold uppercase tracking-wide border border-purple-500/25">Breaking Model News</span><span class="px-3 py-1 rounded-full bg-white/5 text-claw-muted text-xs font-bold uppercase tracking-wide border border-white/10">Qwen 3.8</span><span class="text-claw-muted text-sm">7 min read</span><span class="text-claw-muted text-sm">Last verified July 28, 2026</span></div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[.98]">Qwen 3.8 Is Launching: Can You Run It Locally Yet?</h1>
-            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">Qwen announced a 2.4-trillion-parameter model and says open weights are coming soon. The announcement is official. A local download is not available yet.</p>
+            <div class="flex flex-wrap items-center gap-3 mb-6"><span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 text-xs font-bold uppercase tracking-wide border border-blue-500/25">Model Deep Dive</span><span class="px-3 py-1 rounded-full bg-white/5 text-claw-muted text-xs font-bold uppercase tracking-wide border border-white/10">Open Weights</span><span class="text-claw-muted text-sm">9 min read</span><span class="text-claw-muted text-sm">Verified August 15, 2026</span></div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-6 tracking-tight leading-[.98]">Qwen3.8-27B Is the Rare Model That Feels Bigger Than 27B</h1>
+            <p class="text-xl sm:text-2xl text-claw-muted leading-relaxed max-w-4xl">A dense open model with native vision, 262K context and an agent-first design. The headline is not one benchmark—it is how much Qwen packed into a size that can still reach a serious workstation.</p>
         </div>
     </header>
 
-    <main class="flex-grow py-10 sm:py-14"><div class="max-w-5xl mx-auto px-4"><article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10"><div class="prose-custom max-w-none">
-        <section class="signal-card rounded-2xl p-5 sm:p-6 mb-8 border-purple-500/30"><p class="m-0"><strong class="text-white">Short answer:</strong> no, you cannot run Qwen 3.8 locally yet. Qwen officially announced on July 19 that Qwen 3.8 is launching with 2.4T parameters and will go open-weight soon. Last verified July 28, the official Qwen Hugging Face organization and GitHub still do not publish a Qwen 3.8 checkpoint, model card, GGUF or MLX build. LocalClaw will not list it as a local model until those artifacts exist.</p></section>
+    <main class="flex-grow py-10 sm:py-14">
+        <div class="max-w-5xl mx-auto px-4">
+            <article class="article-shell rounded-2xl p-5 sm:p-8 lg:p-10">
+                <div class="prose-custom max-w-none">
+                    <section class="verdict-card rounded-2xl p-5 sm:p-7 mb-8">
+                        <div class="text-xs font-mono uppercase tracking-[.18em] text-blue-300 mb-3">LocalClaw verdict</div>
+                        <p class="m-0 text-lg"><strong class="text-white">Qwen3.8-27B is one of the most interesting open models of 2026.</strong> It combines coding, visual understanding, tool use and long-horizon reasoning in one 27B dense checkpoint. It is not a casual 16GB-laptop download, and Qwen's benchmark tables are not independent testing. But the official release is real, Apache-2.0 licensed and unusually ambitious for its size.</p>
+                    </section>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
-            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">2.4T</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Announced parameters</div></div>
-            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-purple-300">Soon</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Open-weight status</div></div>
-            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-red-300">No</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Official GGUF / MLX</div></div>
-            <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-red-300">No</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Local install today</div></div>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-white">27B</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Dense parameters</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-blue-300">262K</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Native context</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-violet-300">Vision</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Images + video</div></div>
+                        <div class="metric-card rounded-xl p-4"><div class="text-2xl sm:text-3xl font-display font-bold text-green-300">Apache 2.0</div><div class="text-xs font-mono uppercase tracking-wider text-claw-muted mt-1">Official license</div></div>
+                    </div>
+
+                    <h2>The big idea: a model designed to finish the job</h2>
+                    <p>Most model releases are sold as a higher score on the same old tests. Qwen3.8-27B is more interesting because its design target is broader: read the screen, understand a document, reason over a long task, write or repair code, call tools, observe what happened and keep going.</p>
+                    <p>Qwen describes improvements in coding, professional work, research and long-horizon agents. That positioning matters. This is not only a chatbot with a vision add-on. It is a native vision-language model whose text, image and video abilities are intended to live inside the same workflow.</p>
+
+                    <h2>What exactly is Qwen3.8-27B?</h2>
+                    <p>The official checkpoint is a post-trained, dense 27-billion-parameter causal model with a vision encoder. Its language stack has 64 layers and a 5,120-wide hidden dimension. The architecture repeats three Gated DeltaNet linear-attention blocks followed by one full gated-attention block, sixteen times: 48 linear-attention layers and 16 full-attention layers in total.</p>
+                    <div class="grid md:grid-cols-3 gap-4 my-8">
+                        <div class="signal-card rounded-xl p-5"><div class="text-blue-300 font-mono text-xs uppercase tracking-wider mb-2">Hybrid attention</div><p class="m-0">Linear attention handles most layers, while periodic full attention preserves richer token-to-token interaction.</p></div>
+                        <div class="signal-card rounded-xl p-5"><div class="text-violet-300 font-mono text-xs uppercase tracking-wider mb-2">Multi-token prediction</div><p class="m-0">The model is trained with multiple prediction steps, a technique aimed at stronger representation learning and faster compatible inference.</p></div>
+                        <div class="signal-card rounded-xl p-5"><div class="text-green-300 font-mono text-xs uppercase tracking-wider mb-2">Native multimodality</div><p class="m-0">A 27-layer vision encoder feeds the same system used for text reasoning, agent actions and tool calls.</p></div>
+                    </div>
+                    <p>The result is a model that tries to balance long context and capability without jumping to a giant Mixture-of-Experts footprint. Dense means all 27B parameters participate in each forward pass: simpler to reason about than an MoE, but still demanding on memory and compute.</p>
+
+                    <h2>The benchmark jump is concentrated where agents need it</h2>
+                    <p>In Qwen's own published evaluations, Qwen3.8-27B improves sharply over Qwen3.6-27B on coding and task execution. The most striking gains are not on classic knowledge tests; they appear in software engineering, computer use and long workflows.</p>
+                    <div class="signal-card rounded-2xl p-5 sm:p-6 my-8" role="img" aria-label="Selected Qwen-published benchmark scores comparing Qwen3.8-27B and Qwen3.6-27B">
+                        <div class="flex items-center justify-between mb-5"><h3 class="!m-0">Selected Qwen-published scores</h3><span class="text-xs text-claw-muted">3.8 vs 3.6</span></div>
+                        <div class="space-y-5">
+                            <div><div class="flex justify-between gap-3 mb-2"><span class="text-sm text-white font-semibold">QwenSWEBench</span><span class="text-sm"><strong class="text-blue-300">79.0</strong> <span class="text-claw-muted">vs 49.3</span></span></div><div class="benchmark-track"><div class="benchmark-fill" style="width:79%"></div></div></div>
+                            <div><div class="flex justify-between gap-3 mb-2"><span class="text-sm text-white font-semibold">OSWorld-Verified</span><span class="text-sm"><strong class="text-blue-300">84.3</strong> <span class="text-claw-muted">vs 63.9</span></span></div><div class="benchmark-track"><div class="benchmark-fill" style="width:84.3%"></div></div></div>
+                            <div><div class="flex justify-between gap-3 mb-2"><span class="text-sm text-white font-semibold">Terminal Bench 2.1</span><span class="text-sm"><strong class="text-blue-300">73.0</strong> <span class="text-claw-muted">vs 63.4</span></span></div><div class="benchmark-track"><div class="benchmark-fill" style="width:73%"></div></div></div>
+                            <div><div class="flex justify-between gap-3 mb-2"><span class="text-sm text-white font-semibold">CoWorkBench</span><span class="text-sm"><strong class="text-blue-300">70.7</strong> <span class="text-claw-muted">vs 61.0</span></span></div><div class="benchmark-track"><div class="benchmark-fill" style="width:70.7%"></div></div></div>
+                            <div><div class="flex justify-between gap-3 mb-2"><span class="text-sm text-white font-semibold">Vision2Web</span><span class="text-sm"><strong class="text-blue-300">62.9</strong> <span class="text-claw-muted">vs 45.0</span></span></div><div class="benchmark-track"><div class="benchmark-fill" style="width:62.9%"></div></div></div>
+                        </div>
+                    </div>
+                    <p><strong class="text-white">Read those numbers carefully.</strong> They come from the model publisher. Some tests use specific harnesses, corrected tasks or in-house datasets such as QwenSWEBench and CoWorkBench. They are useful evidence of direction, not a guarantee that your own agent will reproduce the same results.</p>
+
+                    <h2>Why the vision layer changes the value of a 27B model</h2>
+                    <p>Qwen3.8-27B can accept text, images and video. That opens workflows a text-only local model cannot handle cleanly: inspect a screenshot before clicking, read a chart inside a PDF, compare a design against a brief, understand a UI error or answer a question about a recorded process.</p>
+                    <p>The published multimodal results are especially strong on action-oriented tasks. Qwen reports 84.3 on OSWorld-Verified for computer use, 64.8 on WebArena-Verified for browser use and 62.9 on Vision2Web. On the same table, Qwen3.6-27B scores 63.9, 48.8 and 45.0 respectively.</p>
+                    <p>That is the real promise: perception is connected to execution. For a local agent, understanding a screenshot is valuable only if the model can use that understanding to choose the next action reliably.</p>
+
+                    <h2>Thinking is now a control, not a separate model</h2>
+                    <p>Qwen3.8-27B thinks by default, but the behavior can be changed per request. The official chat template supports <code class="text-blue-200">enable_thinking</code>, three reasoning-effort levels—<code class="text-blue-200">low</code>, <code class="text-blue-200">medium</code> and <code class="text-blue-200">xhigh</code>—and <code class="text-blue-200">preserve_thinking</code> for keeping reasoning context across turns.</p>
+                    <p>This is more useful than forcing one reasoning style onto every prompt. A quick classification does not need the same budget as a repository migration. Qwen also makes an important point in its model card: cheaper reasoning per turn can be a false economy if shallow analysis creates more failures and retries.</p>
+
+                    <h2>262K native context—and a path to one million</h2>
+                    <p>The native context window is 262,144 tokens. Qwen documents extension to one million tokens with YaRN in vLLM, SGLang and TokenSpeed. That does not mean one-million-token inference is free or equally accurate at every position. It means the architecture and supported serving stacks expose a serious long-context path.</p>
+                    <p>For local users, context is also a memory decision. Loading the model is only the first bill; the runtime cache, visual tokens and long generations add to it. Choosing 32K or 64K for everyday work can be much more practical than allocating the maximum because the number exists.</p>
+
+                    <h2>Can you run Qwen3.8-27B locally?</h2>
+                    <p><strong class="text-white">Yes—but the official checkpoint is workstation-class.</strong> The Hugging Face repository contains 18 Safetensors weight shards totalling about 55.6GB (51.7GiB). Qwen also publishes an official FP8 checkpoint totalling 28.7GiB, while the NVFP4 build linked by vLLM totals 24.6GiB. Every format still needs additional memory for runtime state, cache and inputs, so download size is not a VRAM recommendation.</p>
+                    <div class="overflow-x-auto my-8 rounded-xl border border-white/10">
+                        <table class="hardware-table w-full text-left text-sm">
+                            <thead class="bg-white/5 text-white"><tr><th class="p-4">Checkpoint</th><th class="p-4">Verified download</th><th class="p-4">Practical target</th><th class="p-4">LocalClaw take</th></tr></thead>
+                            <tbody class="text-claw-muted">
+                                <tr><td class="p-4 text-white">Qwen BF16</td><td class="p-4">51.7GiB</td><td class="p-4">1× H200; 96GB unified memory is the safer local tier</td><td class="p-4">Highest-fidelity official path, but firmly workstation-class.</td></tr>
+                                <tr><td class="p-4 text-white">Qwen FP8</td><td class="p-4">28.7GiB</td><td class="p-4">40–48GB GPU</td><td class="p-4">Official and Apache-2.0. SGLang warns that 32GB leaves very little concurrency.</td></tr>
+                                <tr><td class="p-4 text-white">Inferact NVFP4</td><td class="p-4">24.6GiB</td><td class="p-4">32GB Blackwell GPU</td><td class="p-4">The single-GPU path documented by vLLM; SGLang covers RTX 5090, RTX PRO 6000 and DGX Spark.</td></tr>
+                                <tr><td class="p-4 text-white">GGUF / MLX</td><td class="p-4">No official Qwen artifact verified</td><td class="p-4">Wait for runtime-specific validation</td><td class="p-4">Do not infer full vision or tool support from a community filename alone.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-sm"><strong class="text-white">Important:</strong> the file totals above were verified from the Hugging Face repositories on August 15. The practical targets synthesize the current vLLM and SGLang recipes; they are not LocalClaw throughput measurements. Context allocation, concurrency and multimodal inputs can move the real requirement substantially.</p>
+
+                    <h2>How to try it today</h2>
+                    <p>Qwen lists Transformers, vLLM, SGLang and TokenSpeed as compatible frameworks, while recommending dedicated serving engines for production throughput. The current vLLM recipe requires Transformers 5.8 or newer and explicitly says its verified path is text serving. SGLang's dedicated recipe, by contrast, documents the live vision tower for image and video requests.</p>
+                    <pre class="code-block rounded-xl p-4 my-6 text-sm"><code>from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:8000/v1",
+    api_key="local"
+)
+
+response = client.chat.completions.create(
+    model="Qwen/Qwen3.8-27B",
+    messages=[{"role": "user", "content": "Review this implementation plan."}],
+    reasoning_effort="medium",
+    temperature=1.0,
+    top_p=0.95
+)
+
+print(response.choices[0].message.content)</code></pre>
+                    <p>The snippet assumes you have already exposed the model through a compatible local OpenAI-style server. The temperature and top-p values match Qwen's shipped generation configuration. Use the current recipes linked below for the serving command; support is moving quickly, and older runtime versions may not recognize the architecture.</p>
+
+                    <div class="signal-card rounded-xl p-5 sm:p-6 my-8">
+                        <h3 class="!mt-0">Deployment details that can save hours</h3>
+                        <ul class="mb-0">
+                            <li><strong class="text-white">Enable the trained MTP head:</strong> vLLM documents three speculative tokens; SGLang exposes the same in-checkpoint draft capability through EAGLE.</li>
+                            <li><strong class="text-white">Use the correct tool parser:</strong> SGLang recommends <code class="text-blue-200">qwen3_coder</code>. The model emits XML-style function and parameter blocks, not Hermes-format JSON.</li>
+                            <li><strong class="text-white">On NVIDIA, choose NVFP4 rather than MXFP4:</strong> the current vLLM recipe says its NVIDIA MXFP4 implementation lacks the required linear method.</li>
+                            <li><strong class="text-white">Do not allocate 262K blindly:</strong> hybrid GDN state and KV cache can restrict concurrency before raw weights do. Reduce the served context to match the actual workload.</li>
+                            <li><strong class="text-white">Treat multimodal support per runtime:</strong> the base checkpoint supports images and video, but a text-only serving recipe does not automatically prove that its vision path is working.</li>
+                        </ul>
+                    </div>
+
+                    <h2>Where Qwen3.8-27B should shine</h2>
+                    <ul>
+                        <li><strong class="text-white">Coding agents:</strong> repository work, terminal tasks and multi-step debugging where the model must react to tool output.</li>
+                        <li><strong class="text-white">Computer-use agents:</strong> browser, desktop and mobile workflows that combine visual perception with action.</li>
+                        <li><strong class="text-white">Document and research work:</strong> long reports, charts, screenshots and mixed visual-text evidence.</li>
+                        <li><strong class="text-white">Private professional workflows:</strong> a strong candidate for teams that need capable on-premise multimodal inference and can provide workstation-class hardware.</li>
+                    </ul>
+
+                    <h2>What keeps it from being a universal recommendation</h2>
+                    <p>The model is compact relative to frontier systems, not small in absolute terms. A validated 4-bit release still wants a serious 24–32GB machine, and native 262K context can push memory much higher. Multimodal support also narrows the choice of runtimes and quantization formats compared with a conventional text-only GGUF.</p>
+                    <p>There is also a measurement caveat. The official numbers are impressive, but several agent tests depend on scaffolds, tool permissions, timeouts and graders. The model weights are open; the full real-world experience is a system, not a checkpoint.</p>
+
+                    <h2>Final verdict: this is what open 27B models should become</h2>
+                    <p>Qwen3.8-27B is exciting because it refuses the old trade-off between “small enough to deploy” and “ambitious enough to act.” It brings native vision, long context, controllable reasoning and credible agentic gains into one dense 27B package under Apache 2.0.</p>
+                    <p>It will not replace every smaller model. It will not turn a 16GB laptop into a frontier workstation. But for developers with 32GB to 96GB of fast memory, depending on quantization and context, it may become one of the most useful open checkpoints of its generation. The right question is no longer whether Qwen3.8 exists. It is how quickly the local runtime ecosystem can catch up with it.</p>
+
+                    <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="https://huggingface.co/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">Open the official model card</a><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Compare local models</a></div>
+
+                    <h2>Sources and methodology</h2>
+                    <ul class="source-list">
+                        <li><a href="https://huggingface.co/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank">Qwen3.8-27B official model card and benchmark tables</a></li>
+                        <li><a href="https://huggingface.co/Qwen/Qwen3.8-27B/tree/main" rel="nofollow noopener" target="_blank">Official checkpoint files and configuration</a></li>
+                        <li><a href="https://huggingface.co/Qwen/Qwen3.8-27B-FP8" rel="nofollow noopener" target="_blank">Official Qwen FP8 checkpoint</a></li>
+                        <li><a href="https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank">Officially linked SGLang deployment cookbook</a></li>
+                        <li><a href="https://recipes.vllm.ai/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank">Officially linked vLLM recipe</a></li>
+                        <li><a href="https://huggingface.co/Inferact/Qwen3.8-27B-NVFP4" rel="nofollow noopener" target="_blank">Inferact NVFP4 checkpoint referenced by vLLM</a></li>
+                    </ul>
+                    <p class="text-sm">Architecture, context, license and benchmark figures are taken from Qwen's official model card. Checkpoint totals were calculated from the published Safetensors files. Runtime requirements, parser guidance and hardware caveats were cross-checked against the vLLM and SGLang recipes updated August 14, 2026.</p>
+                </div>
+            </article>
         </div>
-
-        <h2>What Qwen actually announced</h2>
-        <p>On July 19, 2026, the official Qwen account posted that <a href="https://x.com/Alibaba_Qwen/status/2078759124914098291" rel="nofollow noopener" target="_blank">Qwen 3.8 is launching and going open-weight soon</a>. The same announcement describes a 2.4T-parameter model and positions it against leading frontier systems.</p>
-        <p>That is the reliable core of the news. Qwen 3.8 is real, the parameter claim comes directly from Qwen, and an open-weight release is promised. It does not yet tell local users the architecture, active parameter count, context window, license, memory requirement or quantization path.</p>
-
-        <h2>Qwen 3.8 local status: confirmed versus missing</h2>
-        <div class="overflow-x-auto my-8 rounded-xl border border-white/10"><table class="w-full text-left text-sm"><thead class="bg-white/5 text-white"><tr><th class="p-4">Question</th><th class="p-4">Status verified July 28</th><th class="p-4">What it means</th></tr></thead><tbody class="text-claw-muted">
-            <tr><td class="p-4 text-white">Is Qwen 3.8 officially announced?</td><td class="p-4 text-green-300">Yes</td><td class="p-4">The official Qwen account published the launch message.</td></tr>
-            <tr><td class="p-4 text-white">Are official open weights downloadable?</td><td class="p-4 text-red-300">Not yet</td><td class="p-4">Qwen says they are coming soon, not that they are already public.</td></tr>
-            <tr><td class="p-4 text-white">Is there an official model card?</td><td class="p-4 text-red-300">Not yet</td><td class="p-4">Architecture, active parameters, context and license remain unverified.</td></tr>
-            <tr><td class="p-4 text-white">Is there an official GGUF or MLX?</td><td class="p-4 text-red-300">No</td><td class="p-4">There is no trustworthy local install target today.</td></tr>
-            <tr><td class="p-4 text-white">Is it in the LocalClaw model list?</td><td class="p-4 text-red-300">No</td><td class="p-4">LocalClaw requires a verifiable downloadable local artifact.</td></tr>
-        </tbody></table></div>
-
-        <h2>Why 2.4 trillion parameters does not answer the local question</h2>
-        <p>Total parameters alone do not determine local hardware requirements. A dense 2.4T model would be far beyond consumer deployment. A highly sparse Mixture-of-Experts model could activate only a fraction of those weights per token and run much faster, but the full weight set still has to be stored and made available to the runtime.</p>
-        <p>Until Qwen publishes the architecture, we cannot responsibly estimate RAM, VRAM, disk size or tokens per second. Any specific local hardware table published before the model card would be speculation. Even extreme 1-bit compression of 2.4T raw weights would imply hundreds of gigabytes before runtime overhead, unless the released model uses a different structure or smaller variants.</p>
-
-        <h2>Will there be a smaller Qwen 3.8 for laptops?</h2>
-        <p>Qwen has not officially announced a 27B, 35B, 8B or other consumer-size Qwen 3.8 checkpoint in the launch post. The correct answer today is unknown. Qwen has historically released broad open model families, so smaller checkpoints are plausible, but LocalClaw will not turn that pattern into a claim.</p>
-
-        <h2>What should you run locally instead?</h2>
-        <div class="signal-card rounded-xl p-5 sm:p-6 my-8"><h3 class="!mt-0">Best current Qwen local alternatives</h3><ul class="mb-0">
-            <li><strong class="text-white">Qwen 3.6 27B:</strong> the strongest straightforward dense Qwen choice for 32GB-class machines.</li>
-            <li><strong class="text-white">Qwen 3.6 35B-A3B:</strong> efficient MoE behavior with only 3B active parameters and a practical local path.</li>
-            <li><strong class="text-white">Qwen 3 Coder 30B-A3B:</strong> a proven local coding and agentic option with broad GGUF support.</li>
-            <li><strong class="text-white">Bonsai 27B:</strong> a Qwen 3.6 27B-derived 1-bit and ternary release for unusually low-memory experiments.</li>
-        </ul></div>
-
-        <h2>What LocalClaw will verify next</h2>
-        <p>Qwen 3.8 will enter the LocalClaw catalogue only after the official Qwen organization publishes downloadable weights with a clear model card and license. We will then verify the architecture, actual local size, context window, runtime support, GGUF or MLX availability and realistic RAM tiers.</p>
-        <p>This distinction matters for SEO and for users. A model announcement is news. A local model entry is a compatibility promise. Those should never be treated as the same thing.</p>
-
-        <h2>LocalClaw verdict</h2>
-        <p>Qwen 3.8 is one of the biggest AI model announcements of July 2026, and the promised open-weight release could become extremely important. But today it is a watchlist item, not a local recommendation. If a page claims you can already download Qwen 3.8 GGUF or run a verified 27B version, ask for the official Qwen repository.</p>
-        <p>For now, use Qwen 3.6 27B or 35B-A3B. They are real, documented and locally deployable. Return to this page when the Qwen 3.8 weights arrive: the hardware analysis will be updated from official artifacts, not rumors.</p>
-
-        <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">Compare verified local Qwen models</a><a href="/models/qwen3.6-27b" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">View Qwen 3.6 27B</a></div>
-
-        <h2>Sources</h2>
-        <ul class="source-list">
-            <li><a href="https://x.com/Alibaba_Qwen/status/2078759124914098291" rel="nofollow noopener" target="_blank">Official Qwen 3.8 launch announcement on X</a></li>
-            <li><a href="https://huggingface.co/Qwen/models" rel="nofollow noopener" target="_blank">Official Qwen Hugging Face model index</a></li>
-            <li><a href="https://github.com/QwenLM" rel="nofollow noopener" target="_blank">Official Qwen GitHub organization</a></li>
-            <li><a href="https://www.alibabacloud.com/help/en/model-studio/models" rel="nofollow noopener" target="_blank">Alibaba Cloud Model Studio model documentation</a></li>
-        </ul>
-    </div></article></div></main>
+    </main>
 
     <footer class="border-t border-claw-border/50 py-8 mt-auto"><div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p><div class="flex gap-4 text-xs sm:text-sm text-claw-muted"><a href="/llm-list" class="hover:text-white">LLM List</a><a href="/tts-list" class="hover:text-white">TTS List</a><a href="/software" class="hover:text-white">Software</a></div></div></footer>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Qwen 3.8 Is Launching: Can You Run It Locally Yet?",
-        "description": "A source-backed status check on Qwen 3.8, its announced 2.4T parameters, promised open weights and the absence of a verified local download today.",
-        "url": "https://localclaw.io/blog/qwen-3-8-local-ai",
-        "datePublished": "2026-07-19",
-        "dateModified": "2026-07-28",
-        "author": { "@type": "Organization", "name": "LocalClaw" },
-        "publisher": { "@type": "Organization", "name": "LocalClaw", "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png?v=20260211g" } },
-        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://localclaw.io/blog/qwen-3-8-local-ai" }
+        "@graph": [
+            {
+                "@type": "Article",
+                "headline": "Qwen3.8-27B Is the Rare Model That Feels Bigger Than 27B",
+                "description": "A source-backed deep dive into Qwen3.8-27B: architecture, native vision, 262K context, agentic benchmarks, reasoning controls and local hardware requirements.",
+                "url": "https://localclaw.io/blog/qwen-3-8-local-ai",
+                "datePublished": "2026-08-15",
+                "dateModified": "2026-08-15",
+                "author": { "@type": "Organization", "name": "LocalClaw" },
+                "publisher": { "@type": "Organization", "name": "LocalClaw", "logo": { "@type": "ImageObject", "url": "https://localclaw.io/images/favicon.png?v=20260211g" } },
+                "mainEntityOfPage": { "@type": "WebPage", "@id": "https://localclaw.io/blog/qwen-3-8-local-ai" }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    { "@type": "Question", "name": "Can Qwen3.8-27B run locally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The official BF16 checkpoint totals 51.7GiB and the official FP8 checkpoint totals 28.7GiB. A vLLM-documented NVFP4 build totals 24.6GiB and targets a single 32GB Blackwell GPU, while longer contexts and higher concurrency require more memory." } },
+                    { "@type": "Question", "name": "Does Qwen3.8-27B support images and video?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Qwen3.8-27B is a native vision-language model designed for text, image and video understanding." } },
+                    { "@type": "Question", "name": "What is the context length of Qwen3.8-27B?", "acceptedAnswer": { "@type": "Answer", "text": "The native context length is 262,144 tokens. Qwen documents extension up to one million tokens with YaRN in supported serving frameworks." } }
+                ]
+            }
+        ]
     }
     </script>
     <script src="../js/growth-paths-20260727a.js?v=20260727a"></script>
