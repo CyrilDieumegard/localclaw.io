@@ -156,11 +156,11 @@
                                 <tr><td class="p-4 text-white">Qwen BF16</td><td class="p-4">51.7GiB</td><td class="p-4">1× H200; 96GB unified memory is the safer local tier</td><td class="p-4">Highest-fidelity official path, but firmly workstation-class.</td></tr>
                                 <tr><td class="p-4 text-white">Qwen FP8</td><td class="p-4">28.7GiB</td><td class="p-4">40–48GB GPU</td><td class="p-4">Official and Apache-2.0. SGLang warns that 32GB leaves very little concurrency.</td></tr>
                                 <tr><td class="p-4 text-white">Inferact NVFP4</td><td class="p-4">24.6GiB</td><td class="p-4">32GB Blackwell GPU</td><td class="p-4">The single-GPU path documented by vLLM; SGLang covers RTX 5090, RTX PRO 6000 and DGX Spark.</td></tr>
-                                <tr><td class="p-4 text-white">GGUF / MLX</td><td class="p-4">No official Qwen artifact verified</td><td class="p-4">Wait for runtime-specific validation</td><td class="p-4">Do not infer full vision or tool support from a community filename alone.</td></tr>
+                                <tr><td class="p-4 text-white">Unsloth GGUF</td><td class="p-4">15.9GiB Q4_K_M + 0.86GiB vision projector</td><td class="p-4">32GB RAM</td><td class="p-4">The practical LM Studio-class path verified by LocalClaw; confirm vision support in your chosen runtime.</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="text-sm"><strong class="text-white">Important:</strong> the file totals above were verified from the Hugging Face repositories on August 15. The practical targets synthesize the current vLLM and SGLang recipes; they are not LocalClaw throughput measurements. Context allocation, concurrency and multimodal inputs can move the real requirement substantially.</p>
+                    <p class="text-sm"><strong class="text-white">Important:</strong> the file totals above were verified from the Hugging Face repositories on August 15. The practical targets synthesize the current vLLM and SGLang recipes plus the public Unsloth GGUF files; they are not LocalClaw throughput measurements. Context allocation, concurrency and multimodal inputs can move the real requirement substantially.</p>
 
                     <h2>How to try it today</h2>
                     <p>Qwen lists Transformers, vLLM, SGLang and TokenSpeed as compatible frameworks, while recommending dedicated serving engines for production throughput. The current vLLM recipe requires Transformers 5.8 or newer and explicitly says its verified path is text serving. SGLang's dedicated recipe, by contrast, documents the live vision tower for image and video requests.</p>
@@ -202,14 +202,14 @@ print(response.choices[0].message.content)</code></pre>
                     </ul>
 
                     <h2>What keeps it from being a universal recommendation</h2>
-                    <p>The model is compact relative to frontier systems, not small in absolute terms. A validated 4-bit release still wants a serious 24–32GB machine, and native 262K context can push memory much higher. Multimodal support also narrows the choice of runtimes and quantization formats compared with a conventional text-only GGUF.</p>
+                    <p>The model is compact relative to frontier systems, not small in absolute terms. The public Q4_K_M plus its vision projector total roughly 16.8GiB before runtime overhead, so 32GB remains the sensible local tier. Native 262K context can push memory much higher, and multimodal support narrows the choice of runtimes compared with a conventional text-only GGUF.</p>
                     <p>There is also a measurement caveat. The official numbers are impressive, but several agent tests depend on scaffolds, tool permissions, timeouts and graders. The model weights are open; the full real-world experience is a system, not a checkpoint.</p>
 
                     <h2>Final verdict: this is what open 27B models should become</h2>
                     <p>Qwen3.8-27B is exciting because it refuses the old trade-off between “small enough to deploy” and “ambitious enough to act.” It brings native vision, long context, controllable reasoning and credible agentic gains into one dense 27B package under Apache 2.0.</p>
                     <p>It will not replace every smaller model. It will not turn a 16GB laptop into a frontier workstation. But for developers with 32GB to 96GB of fast memory, depending on quantization and context, it may become one of the most useful open checkpoints of its generation. The right question is no longer whether Qwen3.8 exists. It is how quickly the local runtime ecosystem can catch up with it.</p>
 
-                    <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="https://huggingface.co/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">Open the official model card</a><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Compare local models</a></div>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-3"><a href="/models/qwen3.8-27b" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-claw-primary text-black font-bold hover:bg-white">View the LocalClaw model card</a><a href="https://huggingface.co/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-blue-400/60">Open the official weights</a><a href="/llm-list" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-white/15 text-white font-bold hover:border-claw-primary/50">Compare local models</a></div>
 
                     <h2>Sources and methodology</h2>
                     <ul class="source-list">
@@ -219,6 +219,7 @@ print(response.choices[0].message.content)</code></pre>
                         <li><a href="https://docs.sglang.io/cookbook/autoregressive/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank">Officially linked SGLang deployment cookbook</a></li>
                         <li><a href="https://recipes.vllm.ai/Qwen/Qwen3.8-27B" rel="nofollow noopener" target="_blank">Officially linked vLLM recipe</a></li>
                         <li><a href="https://huggingface.co/Inferact/Qwen3.8-27B-NVFP4" rel="nofollow noopener" target="_blank">Inferact NVFP4 checkpoint referenced by vLLM</a></li>
+                        <li><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF" rel="nofollow noopener" target="_blank">Unsloth GGUF repository with Q4_K_M and vision projector</a></li>
                     </ul>
                     <p class="text-sm">Architecture, context, license and benchmark figures are taken from Qwen's official model card. Checkpoint totals were calculated from the published Safetensors files. Runtime requirements, parser guidance and hardware caveats were cross-checked against the vLLM and SGLang recipes updated August 14, 2026.</p>
                 </div>
@@ -245,7 +246,7 @@ print(response.choices[0].message.content)</code></pre>
             {
                 "@type": "FAQPage",
                 "mainEntity": [
-                    { "@type": "Question", "name": "Can Qwen3.8-27B run locally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The official BF16 checkpoint totals 51.7GiB and the official FP8 checkpoint totals 28.7GiB. A vLLM-documented NVFP4 build totals 24.6GiB and targets a single 32GB Blackwell GPU, while longer contexts and higher concurrency require more memory." } },
+                    { "@type": "Question", "name": "Can Qwen3.8-27B run locally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. LocalClaw verified a public Unsloth Q4_K_M GGUF of 15.9GiB plus a 0.86GiB F16 vision projector and recommends 32GB RAM. The official BF16 checkpoint totals 51.7GiB, the official FP8 checkpoint totals 28.7GiB, and longer contexts require additional memory." } },
                     { "@type": "Question", "name": "Does Qwen3.8-27B support images and video?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Qwen3.8-27B is a native vision-language model designed for text, image and video understanding." } },
                     { "@type": "Question", "name": "What is the context length of Qwen3.8-27B?", "acceptedAnswer": { "@type": "Answer", "text": "The native context length is 262,144 tokens. Qwen documents extension up to one million tokens with YaRN in supported serving frameworks." } }
                 ]
