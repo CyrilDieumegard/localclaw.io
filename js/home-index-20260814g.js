@@ -16,6 +16,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const COMMUNITY_PRIOR_WEIGHT = 5;
         const COMMUNITY_CONFIDENCE_VOTES = 5;
         const comparedModelIds = new Set();
+        const trackHomeGoal = (name, properties = {}) => {
+            const payload = {source: 'home_index', ...properties};
+            if (typeof App.trackGoal === 'function') {
+                App.trackGoal(name, payload);
+                return;
+            }
+            if (typeof window.datafast === 'function') {
+                try { window.datafast(name, payload); } catch (error) {}
+            }
+            if (typeof window.localClawPostHogCapture === 'function') {
+                window.localClawPostHogCapture(name, payload);
+            }
+        };
         const normalizeMachineRam = (value) => {
             const parsed = Number.parseInt(value, 10);
             return Number.isFinite(parsed) && parsed >= 4 && parsed <= 2048 ? parsed : 0;
@@ -160,7 +173,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             <aside class="lc-sponsor-rail" aria-label="${side} advertising rail — three fixed positions">
                 ${[1, 2, 3].map((slot) => {
                     const placementKey = `home-${side.toLowerCase()}-${slot}`;
-                    return `<a class="lc-sponsor-slot" href="/account?view=sponsorship&amp;intent=new&amp;placement=${placementKey}&amp;plan=week" data-sponsor-offer data-sponsor-placement="${placementKey}" data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_slot" data-fast-goal-placement="${placementKey}" aria-label="See audience details and sponsor ${side.toLowerCase()} rail position ${String(slot).padStart(2, '0')} at the $29 weekly launch rate"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Founding sponsor launch rate.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`;
+                    return `<a class="lc-sponsor-slot" href="/account?view=sponsorship&amp;intent=new&amp;placement=${placementKey}&amp;plan=week" data-sponsor-offer data-sponsor-empty-slot data-sponsor-placement="${placementKey}" aria-label="See audience details and sponsor ${side.toLowerCase()} rail position ${String(slot).padStart(2, '0')} at the $29 weekly launch rate"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Founding sponsor launch rate.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`;
                 }).join('')}
             </aside>`;
 
@@ -176,6 +189,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     const campaign = placement.campaign;
                     slot.classList.add('lc-sponsor-slot--active');
                     slot.removeAttribute('data-sponsor-offer');
+                    slot.removeAttribute('data-sponsor-empty-slot');
                     slot.removeAttribute('data-fast-goal');
                     slot.removeAttribute('data-fast-goal-source');
                     slot.removeAttribute('data-fast-goal-placement');
@@ -417,6 +431,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const offer = event.target.closest('[data-sponsor-offer]');
             if (!offer || offer.dataset.sponsorCampaign) return;
             event.preventDefault();
+            if (offer.hasAttribute('data-sponsor-empty-slot')) {
+                trackHomeGoal('sponsor_empty_slot_click', {
+                    source: 'home_sponsor_slot', placement: offer.dataset.sponsorPlacement || 'unknown'
+                });
+            }
             openSponsorOffer(offer);
         };
         container.__lcSponsorOfferClickHandler = sponsorOfferClickHandler;
@@ -524,7 +543,23 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             count.textContent = filtered.length;
             renderCompareTray();
         };
-        search.addEventListener('input', updateIndex);
+        let llmSearchGoalTimer = 0;
+        let lastTrackedLlmSearch = '';
+        search.addEventListener('input', () => {
+            updateIndex();
+            if (llmSearchGoalTimer) window.clearTimeout(llmSearchGoalTimer);
+            const query = search.value.trim().toLowerCase();
+            if (query.length < 2) {
+                lastTrackedLlmSearch = '';
+                return;
+            }
+            llmSearchGoalTimer = window.setTimeout(() => {
+                llmSearchGoalTimer = 0;
+                if (query === lastTrackedLlmSearch) return;
+                lastTrackedLlmSearch = query;
+                trackHomeGoal('home_index_search', {target: 'llm', shown: count.textContent});
+            }, 400);
+        });
         machineRamSelect.addEventListener('change', () => {
             machineRam = normalizeMachineRam(machineRamSelect.value);
             fitFilter.disabled = !machineRam;
@@ -536,17 +571,36 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 // Storage can be unavailable in privacy modes; the current selection still works.
             }
             updateIndex();
+            trackHomeGoal('home_index_filter', {
+                target: 'llm', group: 'machine_ram', value: machineRam ? String(machineRam) : 'unset', shown: count.textContent
+            });
         });
-        fitFilter.addEventListener('change', updateIndex);
-        family.addEventListener('change', updateIndex);
-        sort.addEventListener('change', updateIndex);
+        fitFilter.addEventListener('change', () => {
+            updateIndex();
+            trackHomeGoal('home_index_filter', {target: 'llm', group: 'fit', value: fitFilter.value, shown: count.textContent});
+        });
+        family.addEventListener('change', () => {
+            updateIndex();
+            trackHomeGoal('home_index_filter', {target: 'llm', group: 'family', value: family.value, shown: count.textContent});
+        });
+        sort.addEventListener('change', () => {
+            updateIndex();
+            trackHomeGoal('home_index_sort', {target: 'llm', sort: sort.value, shown: count.textContent});
+        });
         rows.addEventListener('click', (event) => {
             const button = event.target.closest('[data-compare-id]');
             if (!button) return;
             const modelId = button.dataset.compareId;
+            let added = false;
             if (comparedModelIds.has(modelId)) comparedModelIds.delete(modelId);
-            else if (comparedModelIds.size < 3) comparedModelIds.add(modelId);
+            else if (comparedModelIds.size < 3) {
+                comparedModelIds.add(modelId);
+                added = true;
+            }
             renderCompareTray();
+            if (added) {
+                trackHomeGoal('home_index_compare_add', {target: 'llm', model: modelId, shown: comparedModelIds.size});
+            }
         });
         compareChips.addEventListener('click', (event) => {
             const button = event.target.closest('[data-compare-remove]');
@@ -561,6 +615,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         compareOpen.addEventListener('click', () => {
             if (comparedModelIds.size < 2) return;
             renderCompareDialog();
+            trackHomeGoal('home_index_compare_open', {
+                target: 'llm', value: Array.from(comparedModelIds).join(','), shown: comparedModelIds.size
+            });
             if (typeof compareDialog.showModal === 'function') compareDialog.showModal();
             else compareDialog.setAttribute('open', '');
         });
@@ -584,9 +641,31 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             speechRows.innerHTML = filtered.length ? renderSpeechRows(filtered) : '<p class="lc-index-tts-empty">No local speech model matches these filters.</p>';
             speechCount.textContent = filtered.length;
         };
-        speechSearch.addEventListener('input', updateSpeechIndex);
-        speechType.addEventListener('change', updateSpeechIndex);
-        speechSort.addEventListener('change', updateSpeechIndex);
+        let speechSearchGoalTimer = 0;
+        let lastTrackedSpeechSearch = '';
+        speechSearch.addEventListener('input', () => {
+            updateSpeechIndex();
+            if (speechSearchGoalTimer) window.clearTimeout(speechSearchGoalTimer);
+            const query = speechSearch.value.trim().toLowerCase();
+            if (query.length < 2) {
+                lastTrackedSpeechSearch = '';
+                return;
+            }
+            speechSearchGoalTimer = window.setTimeout(() => {
+                speechSearchGoalTimer = 0;
+                if (query === lastTrackedSpeechSearch) return;
+                lastTrackedSpeechSearch = query;
+                trackHomeGoal('home_index_search', {target: 'speech', shown: speechCount.textContent});
+            }, 400);
+        });
+        speechType.addEventListener('change', () => {
+            updateSpeechIndex();
+            trackHomeGoal('home_index_filter', {target: 'speech', group: 'type', value: speechType.value, shown: speechCount.textContent});
+        });
+        speechSort.addEventListener('change', () => {
+            updateSpeechIndex();
+            trackHomeGoal('home_index_sort', {target: 'speech', sort: speechSort.value, shown: speechCount.textContent});
+        });
 
         const loadCommunityRatings = async () => {
             try {

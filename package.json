@@ -11,7 +11,7 @@
     "sitemap:generate": "node scripts/generate-sitemap.js",
     "seo:check": "node scripts/check-seo.js",
     "home-index:data": "node scripts/export-home-index-data.js",
-    "home-index:check": "node scripts/check-home-index-logos.js",
+    "home-index:check": "node scripts/check-home-index-logos.js && node scripts/check-home-index-analytics.js",
     "home-css:build": "tailwindcss -c scripts/tailwind.home.config.js -i scripts/home-tailwind.css -o css/home-tailwind-20260814a.css --minify",
     "home-seo:generate": "node scripts/generate-home-seo.js",
     "home-seo:check": "node scripts/generate-home-seo.js --check",

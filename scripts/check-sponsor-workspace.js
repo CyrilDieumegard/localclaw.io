@@ -48,6 +48,9 @@ for (const key of placementKeys) {
 if ((files.account.match(/data-sponsor-placement=/g) || []).length !== 6) errors.push('Account must contain exactly six fixed placement cards');
 if ((files.campaigns.match(/placement\("home-/g) || []).length !== 6) errors.push('Server catalog must contain exactly six fixed placements');
 requireText(files.home, 'data-sponsor-placement="${placementKey}"', 'Homepage must map each rail card to its exact fixed placement key');
+requireText(files.home, 'data-sponsor-empty-slot', 'Homepage sponsor rails must mark empty inventory explicitly');
+requireText(files.home, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty homepage sponsor slots must emit a dedicated DataFast goal');
+requireText(files.home, "slot.removeAttribute('data-sponsor-empty-slot')", 'Active sponsor campaigns must not retain the empty-slot marker');
 requireText(files.home, 'id="lc-sponsor-offer-dialog"', 'Homepage must show sponsorship evidence before authentication');
 requireText(files.home, 'desktopHomepageVisitors: 308', 'Homepage sponsor offer must disclose the measured desktop placement audience');
 requireText(files.home, "asOf: '2026-08-15'", 'Homepage sponsor audience snapshot must expose a machine-readable freshness date');
