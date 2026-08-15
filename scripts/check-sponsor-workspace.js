@@ -6,6 +6,7 @@ const read = (relativePath) => fs.readFileSync(path.join(ROOT, relativePath), 'u
 const errors = [];
 const files = {
   account: read('account.html'),
+  accountClient: read('js/account-20260802a.js'),
   client: read('js/account-sponsor-20260814b.js'),
   home: read('js/home-index-20260814g.js'),
   homeCss: read('css/home-index-20260814g.css'),
@@ -46,7 +47,26 @@ for (const key of placementKeys) {
 }
 if ((files.account.match(/data-sponsor-placement=/g) || []).length !== 6) errors.push('Account must contain exactly six fixed placement cards');
 if ((files.campaigns.match(/placement\("home-/g) || []).length !== 6) errors.push('Server catalog must contain exactly six fixed placements');
-requireText(files.home, 'data-sponsor-placement="home-${side.toLowerCase()}-${slot}"', 'Homepage must map each rail card to its exact fixed placement key');
+requireText(files.home, 'data-sponsor-placement="${placementKey}"', 'Homepage must map each rail card to its exact fixed placement key');
+requireText(files.home, 'id="lc-sponsor-offer-dialog"', 'Homepage must show sponsorship evidence before authentication');
+requireText(files.home, 'desktopHomepageVisitors: 308', 'Homepage sponsor offer must disclose the measured desktop placement audience');
+requireText(files.home, "asOf: '2026-08-15'", 'Homepage sponsor audience snapshot must expose a machine-readable freshness date');
+requireText(files.home, "periodLabel: 'Jul 17–Aug 15, 2026'", 'Homepage sponsor audience snapshot must be explicitly dated');
+requireText(files.home, "sourceLabel: 'DataFast · Europe/Zurich'", 'Homepage sponsor audience snapshot must name its source and timezone');
+requireText(files.home, 'No traffic, click, conversion or ranking benefit is guaranteed.', 'Homepage sponsor offer must retain the no-performance guarantee');
+requireText(files.home, 'intent: \'new\'', 'Homepage sponsor CTA must preserve campaign intent');
+requireText(files.home, 'updateSponsorAvailability(payload.placements || [])', 'Homepage sponsor offer must hydrate live placement availability');
+requireText(files.client, 'openPendingSponsorIntent()', 'Sponsor account must continue a homepage campaign intent after authentication');
+requireText(files.client, "source: 'homepage_offer_modal'", 'Sponsor account must measure homepage offer continuation');
+requireText(files.accountClient, 'currentSponsorPath', 'Google sign-in must preserve the sponsorship return path');
+requireText(files.accountClient, "errorCallbackURL.searchParams.set('auth', 'error')", 'Google sign-in error handling must preserve existing sponsorship query parameters');
+
+const sponsorAudienceAsOf = files.home.match(/asOf:\s*'(\d{4}-\d{2}-\d{2})'/)?.[1];
+if (sponsorAudienceAsOf) {
+  const ageDays = Math.floor((Date.now() - Date.parse(`${sponsorAudienceAsOf}T23:59:59Z`)) / 86_400_000);
+  if (ageDays > 45) errors.push(`Homepage sponsor audience snapshot is stale by ${ageDays} days`);
+  if (ageDays < -1) errors.push('Homepage sponsor audience snapshot date is in the future');
+}
 
 [
   ['2900', 'Weekly launch price must be server controlled at $29'],

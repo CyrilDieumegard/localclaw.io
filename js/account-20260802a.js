@@ -228,11 +228,19 @@
         elements.googleSignIn.classList.add('lc-loading');
 
         try {
-            const requestedPath = new URLSearchParams(window.location.search).get('next');
+            const currentUrl = new URL(window.location.href);
+            const requestedPath = currentUrl.searchParams.get('next');
+            currentUrl.searchParams.delete('auth');
+            currentUrl.searchParams.delete('next');
+            const currentSponsorPath = currentUrl.searchParams.get('view') === 'sponsorship'
+                ? `${currentUrl.pathname}${currentUrl.search}`
+                : '/account';
             const safePath = requestedPath && requestedPath.startsWith('/') && !requestedPath.startsWith('//')
                 ? requestedPath
-                : '/account';
+                : currentSponsorPath;
             const callbackURL = `${window.location.origin}${safePath}`;
+            const errorCallbackURL = new URL(callbackURL);
+            errorCallbackURL.searchParams.set('auth', 'error');
             const response = await fetch('/api/auth/sign-in/social', {
                 method: 'POST',
                 credentials: 'same-origin',
@@ -243,7 +251,7 @@
                 body: JSON.stringify({
                     provider: 'google',
                     callbackURL,
-                    errorCallbackURL: `${callbackURL}?auth=error`,
+                    errorCallbackURL: errorCallbackURL.toString(),
                     disableRedirect: true
                 })
             });

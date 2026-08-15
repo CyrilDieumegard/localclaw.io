@@ -11,7 +11,8 @@
         visualPreview: false,
         selectedLogoFile: null,
         previewObjectUrl: null,
-        checkoutReturnHandled: false
+        checkoutReturnHandled: false,
+        pendingIntentHandled: false
     };
 
     const elements = {};
@@ -23,7 +24,11 @@
         const params = new URLSearchParams(window.location.search);
         state.visualPreview = isSponsorVisualPreview(params);
         if (params.get('view') === 'sponsorship' || state.visualPreview || params.has('checkout')) switchView('sponsorship', false);
-        if (state.visualPreview) renderVisualPreview();
+        if (state.visualPreview) {
+            state.accountReady = true;
+            renderVisualPreview();
+            openPendingSponsorIntent();
+        }
     }
 
     function cacheElements() {
@@ -136,6 +141,7 @@
             renderInventory();
             renderCampaigns();
             await handleCheckoutReturn();
+            openPendingSponsorIntent();
         } catch (error) {
             renderWorkspaceError(error.message || 'Sponsorship workspace is temporarily unavailable.');
         } finally {
@@ -216,7 +222,7 @@
         return state.campaigns.find((campaign) => campaign.id === id) || null;
     }
 
-    function openCampaignDialog(campaign = null) {
+    function openCampaignDialog(campaign = null, defaults = {}) {
         if (!elements.dialog || !elements.form) return;
         elements.form.reset();
         clearPreviewObjectUrl();
@@ -228,9 +234,11 @@
         elements.form.elements.destinationUrl.value = campaign?.destinationUrl || '';
         elements.form.elements.tagline.value = campaign?.tagline || '';
         elements.form.elements.ctaLabel.value = campaign?.ctaLabel || 'Learn more';
-        elements.form.elements.placementKey.value = campaign?.placementKey || 'home-left-1';
+        const requestedPlacement = placementByKey(defaults.placementKey) ? defaults.placementKey : 'home-left-1';
+        const requestedPlan = planByKey(defaults.planKey) ? defaults.planKey : 'week';
+        elements.form.elements.placementKey.value = campaign?.placementKey || requestedPlacement;
         elements.form.elements.logoAltText.value = campaign?.creative?.logoAltText || '';
-        elements.planKey.value = campaign?.planKey || 'week';
+        elements.planKey.value = campaign?.planKey || requestedPlan;
         elements.startMode.value = 'now';
         elements.autoRenew.checked = Boolean(campaign?.autoRenew);
         elements.acceptTerms.checked = false;
@@ -240,6 +248,24 @@
         renderBookingSummary();
         elements.dialog.showModal();
         elements.form.elements.campaignName.focus();
+    }
+
+    function openPendingSponsorIntent() {
+        if (state.pendingIntentHandled || !state.accountReady || !state.catalog) return;
+        const url = new URL(window.location.href);
+        if (url.searchParams.get('intent') !== 'new') return;
+        state.pendingIntentHandled = true;
+        const placementKey = url.searchParams.get('placement') || '';
+        const planKey = url.searchParams.get('plan') || 'week';
+        openCampaignDialog(null, { placementKey, planKey });
+        trackDataFastGoal('sponsor_campaign_form_opened', {
+            source: 'homepage_offer_modal',
+            placement: placementByKey(placementKey) ? placementKey : 'unselected',
+            plan: planByKey(planKey) ? planKey : 'week'
+        });
+        ['intent', 'placement', 'plan', 'next'].forEach((key) => url.searchParams.delete(key));
+        url.searchParams.set('view', 'sponsorship');
+        history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
     }
 
     function closeCampaignDialog() {

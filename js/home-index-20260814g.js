@@ -149,9 +149,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const title = `${fit.label} for a ${machineRam} GB machine using the catalogue minimum-RAM field. Actual context and runtime overhead can require more memory.`;
             return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
         };
+        const sponsorAudienceSnapshot = Object.freeze({
+            siteVisitors: 3430,
+            desktopHomepageVisitors: 308,
+            asOf: '2026-08-15',
+            periodLabel: 'Jul 17–Aug 15, 2026',
+            sourceLabel: 'DataFast · Europe/Zurich'
+        });
         const sponsorRail = (side) => `
             <aside class="lc-sponsor-rail" aria-label="${side} advertising rail — three fixed positions">
-                ${[1, 2, 3].map((slot) => `<a class="lc-sponsor-slot" href="/account?view=sponsorship" data-sponsor-placement="home-${side.toLowerCase()}-${slot}"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Fixed position available.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`).join('')}
+                ${[1, 2, 3].map((slot) => {
+                    const placementKey = `home-${side.toLowerCase()}-${slot}`;
+                    return `<a class="lc-sponsor-slot" href="/account?view=sponsorship&amp;intent=new&amp;placement=${placementKey}&amp;plan=week" data-sponsor-offer data-sponsor-placement="${placementKey}" data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_slot" data-fast-goal-placement="${placementKey}" aria-label="See audience details and sponsor ${side.toLowerCase()} rail position ${String(slot).padStart(2, '0')} for $29 per week"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Fixed position available.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`;
+                }).join('')}
             </aside>`;
 
         const hydrateSponsorRails = async () => {
@@ -159,11 +169,16 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const response = await fetch('/api/sponsor/placements', { headers: { Accept: 'application/json' }, credentials: 'same-origin' });
                 if (!response.ok) return;
                 const payload = await response.json();
+                updateSponsorAvailability(payload.placements || []);
                 (payload.placements || []).forEach((placement) => {
                     const slot = document.querySelector(`[data-sponsor-placement="${placement.key}"]`);
                     if (!slot || !placement.campaign) return;
                     const campaign = placement.campaign;
                     slot.classList.add('lc-sponsor-slot--active');
+                    slot.removeAttribute('data-sponsor-offer');
+                    slot.removeAttribute('data-fast-goal');
+                    slot.removeAttribute('data-fast-goal-source');
+                    slot.removeAttribute('data-fast-goal-placement');
                     slot.href = campaign.clickUrl;
                     slot.target = '_blank';
                     slot.rel = 'sponsored nofollow noopener';
@@ -268,6 +283,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label">latest catalogue month</span></strong><p>From repository release metadata.</p></article>
                     </section>
 
+                    <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
+                        <span><strong>Sponsor LocalClaw</strong><small>See the audience and live availability before signing in.</small></span>
+                        <span>$29 / 7 days</span>
+                    </a>
+
                     <section id="llm-index" aria-labelledby="llm-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 01</span><h2 id="llm-index-title">Local LLMs</h2></div>
@@ -305,10 +325,84 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
                     </section>
                     <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><div id="lc-index-compare-content" class="lc-index-compare-content"></div></dialog>
+                    <dialog id="lc-sponsor-offer-dialog" class="lc-sponsor-offer-dialog" aria-labelledby="lc-sponsor-offer-title" aria-describedby="lc-sponsor-offer-description">
+                        <div class="lc-sponsor-offer-dialog__scroll">
+                            <header class="lc-sponsor-offer-dialog__head">
+                                <div><span class="lc-index-eyebrow">Homepage sponsorship</span><h2 id="lc-sponsor-offer-title">Own a fixed LocalClaw position</h2></div>
+                                <button id="lc-sponsor-offer-close" type="button">Close</button>
+                            </header>
+                            <p id="lc-sponsor-offer-description" class="lc-sponsor-offer-dialog__intro">Put your product in front of a focused local-AI audience for seven days. Your selected desktop homepage position never rotates.</p>
+                            <div class="lc-sponsor-offer-metrics" aria-label="LocalClaw audience snapshot">
+                                <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.siteVisitors)}</strong><span>Site visitors</span><small>Last 30 days</small></article>
+                                <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.desktopHomepageVisitors)}</strong><span>Desktop homepage visitors</span><small>Where placements appear</small></article>
+                                <article><strong id="lc-sponsor-open-count">Exact dates</strong><span>Live availability</span><small id="lc-sponsor-open-note">Checked before Stripe</small></article>
+                            </div>
+                            <p class="lc-sponsor-offer-source"><strong>Search-led, product-specific traffic.</strong> Popular visits include model, TTS and RAM guides. Audience snapshot: ${sponsorAudienceSnapshot.periodLabel} · ${sponsorAudienceSnapshot.sourceLabel}.</p>
+                            <section class="lc-sponsor-offer-benefits" aria-labelledby="lc-sponsor-benefits-title">
+                                <h3 id="lc-sponsor-benefits-title">What the booking includes</h3>
+                                <div><article><span>01</span><strong>Fixed placement</strong><p>Choose one exact desktop rail position. No rotation or ranking influence.</p></article><article><span>02</span><strong>Measured delivery</strong><p>Track visible impressions, estimated unique visitors, clicks and CTR.</p></article><article><span>03</span><strong>Clear seven-day test</strong><p>One $29 booking. Optional renewal is selected later and managed by Stripe.</p></article></div>
+                            </section>
+                            <div class="lc-sponsor-offer-checkout">
+                                <div><span id="lc-sponsor-selected-placement">Choose any available position</span><strong>$29 <small>/ 7 days</small></strong><p>Logo and destination are reviewed before serving.</p></div>
+                                <a id="lc-sponsor-offer-continue" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-fast-goal="sponsor_offer_continue" data-fast-goal-source="home_sponsor_modal">Choose a position</a>
+                            </div>
+                            <p class="lc-sponsor-offer-disclaimer">No traffic, click, conversion or ranking benefit is guaranteed. Exact dates and availability are checked again before Stripe opens. <a href="/sponsor-terms" target="_blank" rel="noopener">Read sponsorship terms</a>.</p>
+                        </div>
+                    </dialog>
                 </div>
 
                 ${sponsorRail('Right')}
             </div>`;
+
+        const sponsorOfferDialog = document.getElementById('lc-sponsor-offer-dialog');
+        const sponsorOfferClose = document.getElementById('lc-sponsor-offer-close');
+        const sponsorOfferContinue = document.getElementById('lc-sponsor-offer-continue');
+        const sponsorSelectedPlacement = document.getElementById('lc-sponsor-selected-placement');
+        let sponsorOfferOpener = null;
+        const sponsorAccountUrl = (placementKey = '') => {
+            const params = new URLSearchParams({ view: 'sponsorship', intent: 'new', plan: 'week' });
+            if (placementKey) params.set('placement', placementKey);
+            return `/account?${params.toString()}`;
+        };
+        const sponsorPlacementLabel = (placementKey) => {
+            const match = /^home-(left|right)-(\d)$/.exec(String(placementKey || ''));
+            return match ? `${match[1] === 'left' ? 'Left' : 'Right'} rail · position ${match[2].padStart(2, '0')}` : 'Choose any available position';
+        };
+        const openSponsorOffer = (opener) => {
+            const placementKey = opener?.dataset.sponsorPlacement || '';
+            sponsorOfferOpener = opener || null;
+            if (sponsorSelectedPlacement) sponsorSelectedPlacement.textContent = sponsorPlacementLabel(placementKey);
+            if (sponsorOfferContinue) {
+                sponsorOfferContinue.href = sponsorAccountUrl(placementKey);
+                sponsorOfferContinue.textContent = placementKey ? 'Continue with this position' : 'Choose a position';
+            }
+            if (typeof sponsorOfferDialog?.showModal === 'function') {
+                if (sponsorOfferDialog.open) sponsorOfferDialog.close();
+                sponsorOfferDialog.showModal();
+            } else window.location.assign(sponsorAccountUrl(placementKey));
+        };
+        const closeSponsorOffer = () => {
+            const opener = sponsorOfferOpener;
+            if (sponsorOfferDialog?.open) sponsorOfferDialog.close();
+            window.setTimeout(() => opener?.focus({ preventScroll: true }), 0);
+        };
+        const updateSponsorAvailability = (placements) => {
+            const count = document.getElementById('lc-sponsor-open-count');
+            const note = document.getElementById('lc-sponsor-open-note');
+            if (!count || !note || !Array.isArray(placements) || !placements.length) return;
+            const openNow = placements.filter((placement) => !placement.campaign).length;
+            count.textContent = `${openNow}/${placements.length}`;
+            note.textContent = openNow === 1 ? 'One position open now' : `${openNow} positions open now`;
+        };
+        container.addEventListener('click', (event) => {
+            const offer = event.target.closest('[data-sponsor-offer]');
+            if (!offer || offer.dataset.sponsorCampaign) return;
+            event.preventDefault();
+            openSponsorOffer(offer);
+        });
+        sponsorOfferClose?.addEventListener('click', closeSponsorOffer);
+        sponsorOfferDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeSponsorOffer(); });
+        sponsorOfferDialog?.addEventListener('click', (event) => { if (event.target === sponsorOfferDialog) closeSponsorOffer(); });
 
         hydrateSponsorRails();
 
