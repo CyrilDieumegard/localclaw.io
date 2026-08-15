@@ -144,7 +144,7 @@
                     <article><span>Inventory</span><strong>6</strong><small>fixed homepage positions</small></article>
                     <article><span>Campaigns</span><strong id="sponsor-campaign-count">0</strong><small>owned by this account</small></article>
                     <article><span>Active</span><strong id="sponsor-active-count">0</strong><small>paid campaigns serving now</small></article>
-                    <article><span>Billing</span><strong class="lc-sponsor-summary__word">Stripe</strong><small>$29 weekly · $99 monthly</small></article>
+                    <article><span>Billing</span><strong class="lc-sponsor-summary__word">Stripe</strong><small>$29 weekly launch rate · $99 monthly</small></article>
                 </div>
 
                 <section class="lc-sponsor-section" aria-labelledby="sponsor-inventory-title">
@@ -154,7 +154,7 @@
                             <h3 id="sponsor-inventory-title">Choose the exact homepage position</h3>
                             <p>Each paid campaign owns its selected position for the purchased period. Existing holds and bookings block overlapping dates before Stripe Checkout can open.</p>
                         </div>
-                        <span class="lc-sponsor-lock">Launch pricing</span>
+                        <span class="lc-sponsor-lock">Founding sponsor offer</span>
                     </div>
                     <div id="sponsor-inventory-grid" class="lc-sponsor-inventory-grid">
                         <article data-sponsor-placement="home-left-1"><span>Left rail</span><strong>01</strong><small>Checking dates…</small></article>
@@ -186,9 +186,9 @@
                 <section class="lc-sponsor-billing" aria-labelledby="sponsor-billing-title">
                     <div class="lc-sponsor-billing__icon" aria-hidden="true">$</div>
                     <div>
-                        <p class="lc-kicker">Stripe Checkout</p>
-                        <h3 id="sponsor-billing-title">$29 for 7 days · $99 for one month</h3>
-                        <p>Launch prices can change with LocalClaw's audience. The amount shown at checkout is locked for that campaign period. Automatic renewal is optional and is managed by Stripe; no click or conversion volume is promised.</p>
+                        <p class="lc-kicker">Founding sponsor offer</p>
+                        <h3 id="sponsor-billing-title">$29 for 7 days · introductory sponsor rate</h3>
+                        <p>Book now at LocalClaw's launch rate before new-campaign pricing changes with the audience. Enable automatic renewal to keep the same rate while your campaign remains subscribed. Stripe manages renewal; no click or conversion volume is promised.</p>
                     </div>
                     <button id="manage-sponsor-billing" class="lc-button" type="button" hidden>Manage renewal</button>
                 </section>
@@ -533,7 +533,7 @@
                     </div>
                     <label class="lc-sponsor-checkbox lc-field-wide" for="sponsor-auto-renew">
                         <input id="sponsor-auto-renew" name="autoRenew" type="checkbox">
-                        <span><strong>Renew automatically through Stripe</strong><small>The first period is charged now. Stripe charges the same launch price again at the end of each period until you cancel. Your fixed position remains blocked while renewal is enabled.</small></span>
+                        <span><strong>Lock in this launch rate with automatic renewal</strong><small>The first period is charged now. Stripe charges the same launch price again at the end of each period until you cancel. Your fixed position remains blocked while renewal is enabled.</small></span>
                     </label>
                 </div>
                 <div id="sponsor-creative-preview" class="lc-sponsor-creative-preview" aria-live="polite">
@@ -541,7 +541,7 @@
                     <div><small>Sponsored preview</small><strong id="sponsor-preview-name">Your product</strong><p id="sponsor-preview-copy">Your concise campaign message will appear here.</p></div>
                 </div>
                 <div id="sponsor-booking-summary" class="lc-sponsor-booking-summary" aria-live="polite">
-                    <span>Launch price</span><strong>$29 · 7 days</strong><p>Choose a fixed position and start time. Availability is checked again atomically before Stripe opens.</p>
+                    <span>Founding sponsor rate</span><strong>$29 · 7 days</strong><p>This introductory rate is locked for the purchased period. Enable renewal to keep it while subscribed.</p>
                 </div>
                 <label class="lc-sponsor-checkbox lc-sponsor-terms" for="sponsor-accept-terms">
                     <input id="sponsor-accept-terms" name="acceptTerms" type="checkbox">
@@ -552,7 +552,7 @@
             <div class="lc-dialog-actions lc-sponsor-dialog-actions">
                 <button id="cancel-sponsor-edit" class="lc-button" type="button">Cancel</button>
                 <button id="save-sponsor-draft" class="lc-button" type="submit">Save draft</button>
-                <button id="start-sponsor-checkout" class="lc-button lc-button-primary" type="button">Continue to Stripe</button>
+                <button id="start-sponsor-checkout" class="lc-button lc-button-primary" type="button">Lock in launch rate</button>
             </div>
         </form>
     </dialog>
@@ -580,7 +580,7 @@
     <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
     <script src="/js/account-20260802a.js?v=20260815b"></script>
-    <script src="/js/account-sponsor-20260814b.js?v=20260815c"></script>
+    <script src="/js/account-sponsor-20260814b.js?v=20260815d"></script>
     <script src="/js/account-sponsor-admin-20260814a.js?v=20260814a"></script>
 </body>
 </html>

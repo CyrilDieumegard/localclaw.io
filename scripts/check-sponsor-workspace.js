@@ -54,6 +54,8 @@ requireText(files.home, "asOf: '2026-08-15'", 'Homepage sponsor audience snapsho
 requireText(files.home, "periodLabel: 'Jul 17–Aug 15, 2026'", 'Homepage sponsor audience snapshot must be explicitly dated');
 requireText(files.home, "sourceLabel: 'DataFast · Europe/Zurich'", 'Homepage sponsor audience snapshot must name its source and timezone');
 requireText(files.home, 'No traffic, click, conversion or ranking benefit is guaranteed.', 'Homepage sponsor offer must retain the no-performance guarantee');
+requireText(files.home, 'Lock in the $29 launch rate', 'Homepage sponsor offer must explain the introductory weekly rate');
+requireText(files.home, 'Enable renewal in your account to keep the same rate until you cancel.', 'Homepage sponsor offer must explain how to retain the launch rate');
 requireText(files.home, 'intent: \'new\'', 'Homepage sponsor CTA must preserve campaign intent');
 requireText(files.home, 'updateSponsorAvailability(payload.placements || [])', 'Homepage sponsor offer must hydrate live placement availability');
 requireText(files.home, 'sponsorOfferDialog?.contains(active)', 'Homepage sponsor modal must restore focus when native close leaves focus inside the closing dialog');
@@ -90,7 +92,9 @@ if (sponsorAudienceAsOf) {
 ].forEach(([needle, message]) => requireText(files.migration, needle, message));
 
 requireText(files.account, 'Fixed inventory · no rotation', 'Account must disclose fixed positions and no rotation');
-requireText(files.account, '$29 for 7 days · $99 for one month', 'Account pricing copy is missing');
+requireText(files.account, '$29 for 7 days · introductory sponsor rate', 'Account launch pricing copy is missing');
+requireText(files.account, 'Enable automatic renewal to keep the same rate while your campaign remains subscribed.', 'Account must explain how the launch rate remains locked');
+requireText(files.client, "'Lock in launch rate'", 'Checkout action must reinforce the launch-rate benefit');
 requireText(files.terms, 'does not rotate', 'Terms must contractually prohibit rotation');
 requireText(files.architecture, 'There is no rotation or randomization.', 'Architecture must preserve no-rotation rule');
 

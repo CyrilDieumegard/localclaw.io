@@ -160,7 +160,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             <aside class="lc-sponsor-rail" aria-label="${side} advertising rail — three fixed positions">
                 ${[1, 2, 3].map((slot) => {
                     const placementKey = `home-${side.toLowerCase()}-${slot}`;
-                    return `<a class="lc-sponsor-slot" href="/account?view=sponsorship&amp;intent=new&amp;placement=${placementKey}&amp;plan=week" data-sponsor-offer data-sponsor-placement="${placementKey}" data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_slot" data-fast-goal-placement="${placementKey}" aria-label="See audience details and sponsor ${side.toLowerCase()} rail position ${String(slot).padStart(2, '0')} for $29 per week"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Fixed position available.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`;
+                    return `<a class="lc-sponsor-slot" href="/account?view=sponsorship&amp;intent=new&amp;placement=${placementKey}&amp;plan=week" data-sponsor-offer data-sponsor-placement="${placementKey}" data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_slot" data-fast-goal-placement="${placementKey}" aria-label="See audience details and sponsor ${side.toLowerCase()} rail position ${String(slot).padStart(2, '0')} at the $29 weekly launch rate"><span class="lc-sponsor-slot__label">Ad slot ${String(slot).padStart(2, '0')}</span><span class="lc-sponsor-slot__mark"></span><p>Founding sponsor launch rate.</p><span class="lc-sponsor-slot__size">$29 / WEEK</span></a>`;
                 }).join('')}
             </aside>`;
 
@@ -284,7 +284,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </section>
 
                     <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
-                        <span><strong>Sponsor LocalClaw</strong><small>See the audience and live availability before signing in.</small></span>
+                        <span><strong>Founding sponsor offer</strong><small>Lock in the introductory rate before new-campaign pricing changes.</small></span>
                         <span>$29 / 7 days</span>
                     </a>
 
@@ -328,10 +328,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <dialog id="lc-sponsor-offer-dialog" class="lc-sponsor-offer-dialog" aria-labelledby="lc-sponsor-offer-title" aria-describedby="lc-sponsor-offer-description">
                         <div class="lc-sponsor-offer-dialog__scroll">
                             <header class="lc-sponsor-offer-dialog__head">
-                                <div><span class="lc-index-eyebrow">Homepage sponsorship</span><h2 id="lc-sponsor-offer-title">Own a fixed LocalClaw position</h2></div>
+                                <div><span class="lc-index-eyebrow">Founding sponsor offer</span><h2 id="lc-sponsor-offer-title">Lock in the $29 launch rate</h2></div>
                                 <button id="lc-sponsor-offer-close" type="button">Close</button>
                             </header>
-                            <p id="lc-sponsor-offer-description" class="lc-sponsor-offer-dialog__intro">Put your product in front of a focused local-AI audience for seven days. Your selected desktop homepage position never rotates.</p>
+                            <p id="lc-sponsor-offer-description" class="lc-sponsor-offer-dialog__intro">Book a fixed homepage position at LocalClaw's introductory sponsor rate. New-campaign pricing may increase as the audience grows, while your selected desktop position never rotates.</p>
                             <div class="lc-sponsor-offer-metrics" aria-label="LocalClaw audience snapshot">
                                 <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.siteVisitors)}</strong><span>Site visitors</span><small>Last 30 days</small></article>
                                 <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.desktopHomepageVisitors)}</strong><span>Desktop homepage visitors</span><small>Where placements appear</small></article>
@@ -340,11 +340,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <p class="lc-sponsor-offer-source"><strong>Search-led, product-specific traffic.</strong> Popular visits include model, TTS and RAM guides. Audience snapshot: ${sponsorAudienceSnapshot.periodLabel} · ${sponsorAudienceSnapshot.sourceLabel}.</p>
                             <section class="lc-sponsor-offer-benefits" aria-labelledby="lc-sponsor-benefits-title">
                                 <h3 id="lc-sponsor-benefits-title">What the booking includes</h3>
-                                <div><article><span>01</span><strong>Fixed placement</strong><p>Choose one exact desktop rail position. No rotation or ranking influence.</p></article><article><span>02</span><strong>Measured delivery</strong><p>Track visible impressions, estimated unique visitors, clicks and CTR.</p></article><article><span>03</span><strong>Clear seven-day test</strong><p>One $29 booking. Optional renewal is selected later and managed by Stripe.</p></article></div>
+                                <div><article><span>01</span><strong>Fixed placement</strong><p>Choose one exact desktop rail position. No rotation or ranking influence.</p></article><article><span>02</span><strong>Measured delivery</strong><p>Track visible impressions, estimated unique visitors, clicks and CTR.</p></article><article><span>03</span><strong>Launch rate you can keep</strong><p>Book seven days for $29. Enable renewal in your account to keep the same rate until you cancel.</p></article></div>
                             </section>
                             <div class="lc-sponsor-offer-checkout">
-                                <div><span id="lc-sponsor-selected-placement">Choose any available position</span><strong>$29 <small>/ 7 days</small></strong><p>Logo and destination are reviewed before serving.</p></div>
-                                <a id="lc-sponsor-offer-continue" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-fast-goal="sponsor_offer_continue" data-fast-goal-source="home_sponsor_modal">Choose a position</a>
+                                <div><span id="lc-sponsor-selected-placement">Choose any available position</span><strong>$29 <small>/ 7 days</small></strong><p>Founding sponsor rate. Logo and destination are reviewed before serving.</p></div>
+                                <a id="lc-sponsor-offer-continue" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-fast-goal="sponsor_offer_continue" data-fast-goal-source="home_sponsor_modal">Lock in the launch rate</a>
                             </div>
                             <p class="lc-sponsor-offer-disclaimer">No traffic, click, conversion or ranking benefit is guaranteed. Exact dates and availability are checked again before Stripe opens. <a href="/sponsor-terms" target="_blank" rel="noopener">Read sponsorship terms</a>.</p>
                         </div>
@@ -376,7 +376,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (sponsorSelectedPlacement) sponsorSelectedPlacement.textContent = sponsorPlacementLabel(placementKey);
             if (sponsorOfferContinue) {
                 sponsorOfferContinue.href = sponsorAccountUrl(placementKey);
-                sponsorOfferContinue.textContent = placementKey ? 'Continue with this position' : 'Choose a position';
+                sponsorOfferContinue.textContent = placementKey ? 'Lock this position at $29' : 'Lock in the launch rate';
             }
             if (typeof sponsorOfferDialog?.showModal === 'function') {
                 if (sponsorOfferDialog.open) sponsorOfferDialog.close();

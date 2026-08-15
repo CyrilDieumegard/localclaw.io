@@ -339,10 +339,10 @@
         const price = formatMoney(plan?.priceCents || 0, state.catalog.pricing?.currency || 'usd');
         const period = plan?.key === 'month' ? 'one calendar month' : '7 days';
         elements.bookingSummary.dataset.state = unavailable ? 'unavailable' : 'available';
-        elements.bookingSummary.innerHTML = `<span>${unavailable ? 'Dates unavailable' : 'Launch price'}</span><strong>${escapeHtml(price)} · ${escapeHtml(period)}</strong><p>${unavailable ? 'This exact fixed position overlaps another hold or paid booking. Choose another date or position.' : `${elements.autoRenew.checked ? 'Automatic Stripe renewal enabled. ' : ''}${schedule ? `${formatDateTime(schedule.startsAt)} → ${formatDateTime(schedule.endsAt)}.` : ''} No rotation.`}</p>`;
+        elements.bookingSummary.innerHTML = `<span>${unavailable ? 'Dates unavailable' : 'Founding sponsor rate'}</span><strong>${escapeHtml(price)} · ${escapeHtml(period)}</strong><p>${unavailable ? 'This exact fixed position overlaps another hold or paid booking. Choose another date or position.' : `${elements.autoRenew.checked ? 'Launch rate locked while subscribed. ' : 'Enable renewal to keep this launch rate while subscribed. '}${schedule ? `${formatDateTime(schedule.startsAt)} → ${formatDateTime(schedule.endsAt)}.` : ''} No rotation.`}</p>`;
         if (elements.startCheckout) {
             elements.startCheckout.disabled = unavailable || !state.catalog.billing?.checkoutAvailable;
-            elements.startCheckout.textContent = state.catalog.billing?.checkoutAvailable ? 'Continue to Stripe' : 'Stripe pilot access required';
+            elements.startCheckout.textContent = state.catalog.billing?.checkoutAvailable ? 'Lock in launch rate' : 'Stripe pilot access required';
         }
     }
 
