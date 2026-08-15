@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Best Computers for Local AI — MacBook M5, Mac & NVIDIA | LocalClaw</title>
-    <meta name="description" content="Compare MacBook Air M5, MacBook Pro M5, Mac mini, Mac Studio, and NVIDIA GB10 computers for local AI. See unified-memory tiers, compatible models, and Amazon options.">
+    <title>Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw</title>
+    <meta name="description" content="Compare MacBook M5, Ryzen AI Max 128GB, GeForce RTX, Mac Studio, and GB10 computers for local AI by usable memory, model fit, and Amazon options.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/computers">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/computers">
-    <meta property="og:title" content="Best Computers for Local AI — MacBook M5, Mac & NVIDIA | LocalClaw">
-    <meta property="og:description" content="Compare current MacBook M5 laptops, Apple desktops, and NVIDIA GB10 workstations for local AI.">
+    <meta property="og:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
+    <meta property="og:description" content="Compare current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Best Computers for Local AI — MacBook M5, Mac & NVIDIA | LocalClaw">
-    <meta name="twitter:description" content="Compare current MacBook M5 laptops, Apple desktops, and NVIDIA GB10 workstations for local AI.">
+    <meta name="twitter:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
+    <meta name="twitter:description" content="Compare current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <meta name="theme-color" content="#050505">
@@ -956,28 +956,32 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge"> Updated August 2026 · Apple + NVIDIA</div>
+        <div class="hero-badge"> Updated August 2026 · Apple + AMD + NVIDIA</div>
         <h1 class="fd">Best Computers For<br><span>Local AI</span></h1>
-        <p>Compare current MacBook M5 laptops, Apple desktops, and NVIDIA GB10 workstations. The list prioritizes unified memory because it determines which local models you can actually run.</p>
+        <p>Compare current Apple Silicon, AMD Ryzen AI Max, NVIDIA GeForce RTX, and GB10 computers. LocalClaw prioritizes usable AI memory, runtime support, and real form factor—not marketing TOPS.</p>
     </section>
 
     <div class="buying-guide" aria-label="Local AI memory buying guide">
         <div class="buying-tier">
-            <span class="buying-tier-label">Portable starter</span>
-            <strong>24–32GB unified memory</strong>
-            <span>Great for everyday assistants, coding, RAG, and compact quantized models. Choose 24GB or more when buying a new Mac for AI.</span>
+            <span class="buying-tier-label">Everyday local AI</span>
+            <strong>24–32GB unified or 12–16GB VRAM</strong>
+            <span>Great for assistants, coding, RAG, image generation, and compact quantized models. Avoid buying an 8GB GPU for a new AI-focused machine.</span>
         </div>
         <div class="buying-tier recommended">
             <span class="buying-tier-label">Best long-term value</span>
-            <strong>48–64GB unified memory</strong>
-            <span>The practical sweet spot for serious local AI, larger contexts, and stronger 30B–70B-class quantized models.</span>
+            <strong>48–64GB unified or 24–32GB VRAM</strong>
+            <span>The practical sweet spot for serious local AI, larger contexts, fast CUDA workflows, and stronger quantized models.</span>
         </div>
         <div class="buying-tier">
             <span class="buying-tier-label">Large-model tier</span>
-            <strong>96–128GB and above</strong>
-            <span>For large local models, demanding multimodal workflows, and users who need maximum headroom.</span>
+            <strong>96–128GB unified and above</strong>
+            <span>For 70B–120B-class quantized models, demanding multimodal workflows, concurrent agents, and maximum local headroom.</span>
         </div>
     </div>
+
+    <p style="max-width:1160px;margin:-10px auto 28px;padding:0 20px;color:var(--muted2);font-size:13px;line-height:1.65;">
+        Memory is compared honestly: Apple and Ryzen AI Max cards use unified memory, while GeForce cards use dedicated VRAM for the model-fit calculation. A PC may offload a larger model into system RAM, but it will usually run much slower.
+    </p>
 
     <section style="max-width:1200px;margin:0 auto 24px;padding:0 20px;">
         <a href="/ram-gpu-for-local-ai" data-fast-goal="internal_click" data-fast-goal-source="computers_component_banner" data-fast-goal-target="ram-gpu" style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;border:1px solid rgba(255,69,58,.26);background:linear-gradient(135deg,rgba(255,69,58,.12),rgba(255,153,0,.045));border-radius:18px;padding:18px 20px;color:inherit;text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.24);">
@@ -1072,6 +1076,46 @@
                 badge: 'Maximum Portable'
             },
             {
+                id: 'asus_rog_flow_z13_64', section: 'amd-laptops', type: 'amd',
+                name: 'ASUS ROG Flow Z13 (2025)',
+                image: 'images/computers/local-ai-laptop-modern.jpg', imageAlt: 'Unbranded modern laptop representing the ASUS ROG Flow Z13 local AI configuration', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 64, storage: '1TB SSD',
+                memoryLabel: '64GB unified',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=ASUS+ROG+Flow+Z13+Ryzen+AI+Max%2B+395+64GB&tag=localclaw-20', appleUrl: null,
+                badge: 'Portable AMD Value'
+            },
+            {
+                id: 'hp_zbook_ultra_g1a_128', section: 'amd-laptops', type: 'amd',
+                name: 'HP ZBook Ultra G1a 14',
+                image: 'images/computers/local-ai-laptop-modern.jpg', imageAlt: 'Unbranded mobile workstation representing the HP ZBook Ultra G1a local AI configuration', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ PRO 395', ram: 128, storage: '1TB / 2TB SSD',
+                memoryLabel: '128GB unified',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=HP+ZBook+Ultra+G1a+128GB+Ryzen+AI+Max+395&tag=localclaw-20', appleUrl: null,
+                badge: '128GB Mobile Workstation'
+            },
+            {
+                id: 'lenovo_legion_pro_7i_5080', section: 'nvidia-laptops', type: 'nvidia-pc',
+                name: 'Lenovo Legion Pro 7i Gen 10',
+                image: 'images/computers/local-ai-laptop-modern.jpg', imageAlt: 'Unbranded performance laptop representing a Lenovo Legion Pro 7i with RTX 5080', imageFit: 'cover',
+                chip: 'RTX 5080 Laptop', ram: 32, aiMemory: 16, storage: '1TB SSD',
+                memoryLabel: '16GB VRAM · 32GB RAM',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Lenovo+Legion+Pro+7i+Gen+10+RTX+5080&tag=localclaw-20', appleUrl: null,
+                badge: 'Portable CUDA Value'
+            },
+            {
+                id: 'msi_titan_18_5090', section: 'nvidia-laptops', type: 'nvidia-pc',
+                name: 'MSI Titan 18 HX AI',
+                image: 'images/computers/local-ai-laptop-modern.jpg', imageAlt: 'Unbranded performance laptop representing an MSI Titan 18 HX AI with RTX 5090', imageFit: 'cover',
+                chip: 'RTX 5090 Laptop', ram: 64, aiMemory: 24, storage: '2TB / 4TB SSD',
+                memoryLabel: '24GB VRAM · 64GB RAM',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=MSI+Titan+18+HX+AI+RTX+5090+24GB&tag=localclaw-20', appleUrl: null,
+                badge: 'Maximum Laptop CUDA'
+            },
+            {
                 id: 'mac_mini_16', section: 'apple-desktops', type: 'apple',
                 name: 'Apple Mac mini M4',
                 image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini M4 product photo', imageFit: 'cover',
@@ -1142,6 +1186,46 @@
                 price: 'Check current price',
                 asin: null, amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+Studio+M3+Ultra+512GB+4TB&tag=localclaw-20', appleUrl: 'https://www.apple.com/mac-studio/',
                 badge: 'Ultimate Beast'
+            },
+            {
+                id: 'framework_desktop_128', section: 'amd-desktops', type: 'amd',
+                name: 'Framework Desktop',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Unbranded compact workstation representing the Framework Desktop local AI configuration', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 128, storage: 'DIY / NVMe SSD',
+                memoryLabel: '128GB unified',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Framework+Desktop+Ryzen+AI+Max%2B+395+128GB&tag=localclaw-20', appleUrl: null,
+                badge: 'Best Open Desktop'
+            },
+            {
+                id: 'hp_z2_mini_g1a_128', section: 'amd-desktops', type: 'amd',
+                name: 'HP Z2 Mini G1a',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Unbranded compact workstation representing the HP Z2 Mini G1a local AI configuration', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ PRO 395', ram: 128, storage: '1TB SSD',
+                memoryLabel: '128GB unified ECC',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=HP+Z2+Mini+G1a+128GB+Ryzen+AI+Max+395&tag=localclaw-20', appleUrl: null,
+                badge: 'Compact Pro Workstation'
+            },
+            {
+                id: 'amd_ryzen_ai_halo_128', section: 'amd-desktops', type: 'amd',
+                name: 'AMD Ryzen AI Halo',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Unbranded compact AI developer workstation representing AMD Ryzen AI Halo', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 128, storage: 'Check configuration',
+                memoryLabel: '128GB unified',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=AMD+Ryzen+AI+Halo+128GB+developer+platform&tag=localclaw-20', appleUrl: null,
+                badge: 'AI Developer Platform'
+            },
+            {
+                id: 'alienware_area_51_5090', section: 'nvidia-desktops', type: 'nvidia-pc',
+                name: 'Alienware Area-51',
+                image: 'images/computers/local-ai-tower.jpg', imageAlt: 'Unbranded tower workstation representing an Alienware Area-51 with RTX 5090', imageFit: 'cover',
+                chip: 'RTX 5090 Desktop', ram: 64, aiMemory: 32, storage: '2TB NVMe SSD',
+                memoryLabel: '32GB VRAM · 64GB RAM',
+                price: 'Check current price',
+                asin: null, amazonUrl: 'https://www.amazon.com/s?k=Alienware+Area-51+RTX+5090+32GB&tag=localclaw-20', appleUrl: null,
+                badge: 'Fastest Consumer CUDA'
             },
             {
                 id: 'nvidia_dgx_spark', section: 'nvidia', type: 'nvidia',
@@ -1216,10 +1300,34 @@
                 copy: 'Current M5, M5 Pro, and M5 Max portable configurations selected for local AI. We prioritize 24GB or more of unified memory instead of recommending the cheapest base model.'
             },
             {
+                id: 'amd-laptops',
+                kicker: 'AMD unified-memory laptops',
+                title: 'Ryzen AI Max Portable Workstations',
+                copy: 'Windows laptops with up to 128GB of fast unified memory. They trade CUDA compatibility for unusually large local-model capacity in a portable machine.'
+            },
+            {
+                id: 'nvidia-laptops',
+                kicker: 'NVIDIA CUDA laptops',
+                title: 'GeForce RTX 5080 & 5090 Laptops',
+                copy: 'Portable CUDA systems for fast inference, image generation, and broad AI software support. Model fit is calculated from dedicated VRAM, not the much larger system-RAM number.'
+            },
+            {
                 id: 'apple-desktops',
                 kicker: 'Apple desktops',
                 title: 'Mac mini & Mac Studio',
                 copy: 'Quiet desktop Macs from the affordable M4 mini to the 512GB M3 Ultra Studio for very large local models.'
+            },
+            {
+                id: 'amd-desktops',
+                kicker: 'AMD compact workstations',
+                title: 'Ryzen AI Max 128GB Desktops',
+                copy: 'Compact Windows or Linux machines that can expose a large part of their 128GB unified-memory pool to local AI workloads without a discrete GPU.'
+            },
+            {
+                id: 'nvidia-desktops',
+                kicker: 'NVIDIA CUDA desktops',
+                title: 'RTX 5090 Prebuilt Workstations',
+                copy: 'Turnkey desktops with 32GB of dedicated GDDR7 VRAM for the strongest consumer CUDA performance. They are fast, power-hungry, and still have less model capacity than 128GB unified-memory systems.'
             },
             {
                 id: 'nvidia',
@@ -1264,7 +1372,7 @@
 
         // ===== CURATED TOP PICKS PER MACHINE =====
         // Hand-picked by RAM tier from LM Studio's current local catalog, LocalClaw fit data,
-        // and the page's real RAM*0.75 compatibility filter. Keep IDs present in js/data.js.
+        // and the page's real usable-AI-memory*0.75 compatibility filter. Keep IDs present in js/data.js.
         const CURATED_PICKS = {
             8:   ['qwen3.6-6.7b', 'qwen3.5-9b', 'qwen3-coder-8b', 'gemma4-e4b', 'qwen3.5-4b', 'gemma4-e2b'],
             16:  ['glm4.6-air', 'gpt-oss-20b', 'gemma4-e4b', 'qwen3.6-6.7b', 'qwen3.5-9b', 'nemotron-nano-9b-v2', 'apriel-nemotron-15b-thinker', 'glm4.7-flash'],
@@ -1280,9 +1388,10 @@
 
         // ===== COMPATIBLE MODELS =====
         function getCompatible(computer) {
+            const aiMemory = computer.aiMemory || computer.ram;
             const compatible = MODELS.filter(m => {
-                if ((m.min_ram || 4) > computer.ram) return false;
-                if ((m.size_gb || 4) > computer.ram * 0.75) return false;
+                if ((m.min_ram || 4) > aiMemory) return false;
+                if ((m.size_gb || 4) > aiMemory * 0.75) return false;
                 return true;
             });
 
@@ -1290,7 +1399,7 @@
             const tiers = Object.keys(CURATED_PICKS).map(Number).sort((a, b) => a - b);
             let tier = tiers[0];
             for (const t of tiers) {
-                if (t <= computer.ram) tier = t;
+                if (t <= aiMemory) tier = t;
             }
             const picks = CURATED_PICKS[tier] || [];
 
@@ -1332,12 +1441,14 @@
 
         function brandIcon(type) {
             if (type === 'apple') return `<div class="brand-icon apple">${SVG.apple}</div>`;
-            if (type === 'nvidia') return `<div class="brand-icon nvidia">${SVG.gpu}</div>`;
+            if (type === 'nvidia' || type === 'nvidia-pc') return `<div class="brand-icon nvidia">${SVG.gpu}</div>`;
             return `<div class="brand-icon windows">${windowsIcon}</div>`;
         }
         function brandLabel(type) {
             if (type === 'apple') return '<span class="brand-label apple">Apple Silicon</span>';
             if (type === 'nvidia') return '<span class="brand-label nvidia">NVIDIA GB10</span>';
+            if (type === 'nvidia-pc') return '<span class="brand-label nvidia">NVIDIA GeForce</span>';
+            if (type === 'amd') return '<span class="brand-label windows">AMD Unified Memory</span>';
             return '<span class="brand-label windows">Windows PC</span>';
         }
 
@@ -1359,7 +1470,8 @@
             // Find curated picks for badge
             const tiers = Object.keys(CURATED_PICKS).map(Number).sort((a, b) => a - b);
             let tier = tiers[0];
-            for (const t of tiers) { if (t <= comp.ram) tier = t; }
+            const aiMemory = comp.aiMemory || comp.ram;
+            for (const t of tiers) { if (t <= aiMemory) tier = t; }
             const picks = CURATED_PICKS[tier] || [];
 
             let modelsHtml = top.map(m => {
@@ -1406,7 +1518,7 @@
                     </div>
                     <div class="price-row">
                         <span class="price">${priceLabel}</span>
-                        <span class="ram-badge">${SVG.ram} ${comp.ram}GB</span>
+                        <span class="ram-badge">${SVG.ram} ${esc(comp.memoryLabel || `${comp.ram}GB`)}</span>
                     </div>
                 </div>
                 <div class="card-models">
