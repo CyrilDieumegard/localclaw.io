@@ -62,7 +62,7 @@ for (const marker of [
 for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260815b', 'js/home-index-20260814g.js?v=20260815d']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260815b', 'js/home-index-20260814g.js?v=20260815e']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 if (!homepageHtml.includes('js/home-index-logos-20260814c.js?v=20260814c')) {
