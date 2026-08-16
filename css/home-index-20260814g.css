@@ -105,6 +105,10 @@ html { scroll-behavior: smooth; }
 
 .lc-index-fact__number--date { color: #ff5d53; font-size: 23px; }
 .lc-index-fact__label { min-width: 0; color: #d9d9df; font: 650 13px/1.15 "Space Grotesk", sans-serif; }
+.lc-index-fact__value--stacked { display: grid; align-items: start; gap: 8px; }
+.lc-index-fact__value--stacked .lc-index-fact__number { font-size: 31px; }
+.lc-index-fact__value--stacked .lc-index-fact__number--date { font-size: 26px; letter-spacing: -0.035em; text-transform: uppercase; }
+.lc-index-fact__label--detail { color: #bdbdc5; font: 700 7.5px/1.35 "JetBrains Mono", monospace; letter-spacing: 0.045em; text-transform: uppercase; }
 .lc-index-fact p { margin-top: 7px; color: #74747e; font: 500 9px/1.45 "JetBrains Mono", monospace; }
 
 .lc-index-universe {
@@ -661,6 +665,8 @@ html { scroll-behavior: smooth; }
     .lc-index-fact { padding: 14px 15px; }
     .lc-index-fact__number { font-size: 26px; }
     .lc-index-fact__number--date { font-size: 22px; }
+    .lc-index-fact__value--stacked .lc-index-fact__number { font-size: 29px; }
+    .lc-index-fact__value--stacked .lc-index-fact__number--date { font-size: 24px; }
     .lc-index-universe > header { align-items: flex-start; flex-direction: column; }
     .lc-index-universe nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lc-index-universe nav span { white-space: normal; }

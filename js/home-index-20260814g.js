@@ -334,7 +334,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
         const rankedModels = [...localModels].sort(compareModels(activeSortKey, activeSortDirection));
         const rankedSpeechModels = [...speechModels].sort(compareSpeech('community'));
-        const releaseMonth = releaseLabel(newestRelease);
+        const releaseMonth = releaseLabel(newestRelease.slice(0, 7));
 
         container.className = 'lc-index-shell';
         container.innerHTML = `
@@ -355,8 +355,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <section class="lc-index-facts" aria-label="Index information">
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Catalogue</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${localModels.length}</span><span class="lc-index-fact__label">local LLM pages</span></strong><p>Hosted-only records excluded.</p></article>
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Families</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${familyCount}</span><span class="lc-index-fact__label">model families</span></strong><p>Duplicate route IDs collapsed.</p></article>
-                        <article class="lc-index-fact"><span class="lc-index-eyebrow">More local AI</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${multimodalModels.length}</span><span class="lc-index-fact__label">image, video, 3D, music and vision</span></strong><p>Every verified entry appears below.</p></article>
-                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label">latest catalogue month</span></strong><p>From repository release metadata.</p></article>
+                        <article class="lc-index-fact lc-index-fact--stacked"><span class="lc-index-eyebrow">More local AI</span><strong class="lc-index-fact__value lc-index-fact__value--stacked"><span class="lc-index-fact__number">${multimodalModels.length}</span><span class="lc-index-fact__label lc-index-fact__label--detail">Image · Video · 3D · Music · Vision</span></strong><p>Every verified entry appears below.</p></article>
+                        <article class="lc-index-fact lc-index-fact--stacked"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value lc-index-fact__value--stacked"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label lc-index-fact__label--detail">Latest verified release</span></strong><p>From repository release metadata.</p></article>
                     </section>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">

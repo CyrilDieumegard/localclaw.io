@@ -67,14 +67,16 @@ for (const marker of [
   'updateMultimodalRatings',
   'data-multimodal-community-id',
   '<a class="lc-index-multimodal-card" href="${multimodalPath(model)}"',
-  '<span class="lc-index-multimodal-card__link">Open local guide →</span>'
+  '<span class="lc-index-multimodal-card__link">Open local guide →</span>',
+  'lc-index-fact__value--stacked',
+  'Latest verified release'
 ]) {
   if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer']) {
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260816k', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260816g', 'js/local-ai-catalog.js?v=20260816g', 'js/home-index-20260814g.js?v=20260816h']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260816l', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260816g', 'js/local-ai-catalog.js?v=20260816g', 'js/home-index-20260814g.js?v=20260816i']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
