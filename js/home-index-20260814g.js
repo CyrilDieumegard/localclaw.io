@@ -59,7 +59,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             category.key,
             multimodalModels.filter((model) => model.category === category.key)
         ]));
-        const logoRegistry = window.HOME_INDEX_LOGOS || {llm: {}, speech: {}, labels: {}};
+        const logoRegistry = window.HOME_INDEX_LOGOS || {llm: {}, speech: {}, multimodal: {}, labels: {}};
 
         const familyDetails = (model) => {
             if (typeof MODEL_DETAILS !== 'undefined' && MODEL_DETAILS[model.id]) return MODEL_DETAILS[model.id];
@@ -311,7 +311,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const tasks = (model.tasks || []).slice(0, 3).map((task) => `<span>${escapeHtml(prettyTerm(task))}</span>`).join('');
             const runtime = (model.runtime || []).slice(0, 2).map(prettyTerm).join(' · ');
             return `<article class="lc-index-multimodal-card" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
-                <div class="lc-index-multimodal-card__top"><span>${escapeHtml(model.developer)}</span><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
+                <div class="lc-index-multimodal-card__top"><div class="lc-index-multimodal-card__developer">${logoMarkup('multimodal', model.developer, model.developer)}<span>${escapeHtml(model.developer)}</span></div><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
                 <h3><a href="${multimodalPath(model)}">${escapeHtml(model.name)}</a></h3>
                 <p>${escapeHtml(model.summary)}</p>
                 <div class="lc-index-multimodal-card__tasks">${tasks}</div>

@@ -605,8 +605,14 @@ html { scroll-behavior: smooth; }
 }
 .lc-index-multimodal-card:hover { border-color: rgba(255,69,58,0.46); transform: translateY(-1px); }
 .lc-index-multimodal-card[hidden] { display: none; }
-.lc-index-multimodal-card__top { display: flex; align-items: start; justify-content: space-between; gap: 12px; color: #707079; font: 650 7.5px/1.35 "JetBrains Mono", monospace; text-transform: uppercase; }
-.lc-index-multimodal-card__top span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-index-multimodal-card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #707079; font: 650 7.5px/1.35 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-index-multimodal-card__developer { display: flex; min-width: 0; align-items: center; gap: 8px; }
+.lc-index-multimodal-card__developer > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-index-multimodal-card__developer .lc-index-family-mark { width: 30px; height: 30px; flex: 0 0 30px; }
+.lc-index-multimodal-card__developer .lc-index-family-mark img { width: 21px; height: 21px; }
+.lc-index-multimodal-card__developer .lc-index-family-mark img[src$=".webp"],
+.lc-index-multimodal-card__developer .lc-index-family-mark img[src$=".png"],
+.lc-index-multimodal-card__developer .lc-index-family-mark img[src$=".jpg"] { width: 100%; height: 100%; object-fit: cover; }
 .lc-index-multimodal-card__top strong { flex: 0 0 auto; color: #ff746a; font-weight: 750; }
 .lc-index-multimodal-card h3 { margin-top: 12px; font: 750 18px/1.15 "Space Grotesk", sans-serif; letter-spacing: -0.025em; }
 .lc-index-multimodal-card h3 a { color: #fff; }

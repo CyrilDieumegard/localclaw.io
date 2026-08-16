@@ -133,7 +133,41 @@ window.HOME_INDEX_LOGOS = {
     whisper: 'openai',
     zonos: 'zyphra-avatar'
   },
+  multimodal: {
+    '3DTopia': '3dtopia-avatar',
+    'ACE-Step Team': 'ace-step-avatar',
+    'AILab-CVC': 'ailab-cvc-avatar',
+    'Alibaba VILab': 'alibaba',
+    'AnimateDiff Team': 'guoyww-avatar',
+    'Black Forest Labs': 'black-forest-labs-avatar',
+    'Doubiiu / CUHK': 'doubiiu-avatar',
+    'DreamGaussian Team': 'github',
+    'Genmo': 'genmo-avatar',
+    'HKUST / M-A-P': 'github',
+    'Hugging Face': 'huggingface-avatar',
+    'Lightricks': 'lightricks-avatar',
+    'Meta AI': 'meta',
+    'Microsoft': 'microsoft',
+    'Microsoft Research': 'microsoft',
+    'Moondream': 'moondream-avatar',
+    'OpenAI': 'openai',
+    'PaddlePaddle': 'paddlepaddle-avatar',
+    'Peking University / VAST AI Research': 'github',
+    'Qwen Team': 'qwen',
+    'Stability AI': 'stabilityai-avatar',
+    'Stability AI / Tripo AI': 'stabilityai-avatar',
+    'Tencent ARC': 'tencentarc-avatar',
+    'Tencent Hunyuan': 'tencent',
+    'Tsinghua University': 'github',
+    'VAST AI Research': 'github',
+    'Wan Team / Alibaba': 'alibaba',
+    'Wan Team / Wan2GP': 'alibaba',
+    'XLong Research': 'github',
+    'Zhipu AI / THUDM': 'zhipu',
+    'Zimeng Xiong / Tencent Hunyuan': 'tencent',
+    'lllyasviel': 'lllyasviel-avatar'
+  },
   labels: {
-    ai2: 'Allen Institute for AI', alibaba: 'Alibaba', arcee: 'Arcee AI', aya: 'Aya', bilibiliindex: 'Bilibili Index', codegeex: 'CodeGeeX', cohere: 'Cohere', coqui: 'Coqui', dbrx: 'Databricks DBRX', deepcogito: 'Deep Cogito', deepseek: 'DeepSeek', dolphin: 'Dolphin', fishaudio: 'Fish Audio', gemma: 'Gemma', 'gemma-official-color': 'Google DeepMind Gemma', github: 'Upstream GitHub project', huggingface: 'Upstream project', ibm: 'IBM', internlm: 'InternLM', internscience: 'InternScience', jina: 'Jina AI', kimi: 'Kimi', 'kimi-inverted': 'Kimi', lg: 'LG AI Research', liquid: 'Liquid AI', llava: 'LLaVA', longcat: 'LongCat', meta: 'Meta', microsoft: 'Microsoft', minimax: 'MiniMax', mistral: 'Mistral AI', myshell: 'MyShell', nousresearch: 'Nous Research', nvidia: 'NVIDIA', openai: 'OpenAI', openchat: 'OpenChat', perplexity: 'Perplexity', poolside: 'Poolside', prismml: 'PrismML', qwen: 'Qwen', spark: 'SparkAudio', stepfun: 'StepFun', suno: 'Suno', tencent: 'Tencent', upstage: 'Upstage', xiaomimimo: 'Xiaomi MiMo', zeroone: '01.AI', zhipu: 'Zhipu AI', nanbeige: 'Nanbeige'
+    ai2: 'Allen Institute for AI', alibaba: 'Alibaba', arcee: 'Arcee AI', aya: 'Aya', bilibiliindex: 'Bilibili Index', codegeex: 'CodeGeeX', cohere: 'Cohere', coqui: 'Coqui', dbrx: 'Databricks DBRX', deepcogito: 'Deep Cogito', deepseek: 'DeepSeek', dolphin: 'Dolphin', fishaudio: 'Fish Audio', gemma: 'Gemma', 'gemma-official-color': 'Google DeepMind Gemma', github: 'Upstream GitHub project', huggingface: 'Upstream project', ibm: 'IBM', internlm: 'InternLM', internscience: 'InternScience', jina: 'Jina AI', kimi: 'Kimi', 'kimi-inverted': 'Kimi', lg: 'LG AI Research', liquid: 'Liquid AI', llava: 'LLaVA', longcat: 'LongCat', meta: 'Meta', microsoft: 'Microsoft', minimax: 'MiniMax', mistral: 'Mistral AI', myshell: 'MyShell', nousresearch: 'Nous Research', nvidia: 'NVIDIA', openai: 'OpenAI', openchat: 'OpenChat', perplexity: 'Perplexity', poolside: 'Poolside', prismml: 'PrismML', qwen: 'Qwen', spark: 'SparkAudio', stepfun: 'StepFun', suno: 'Suno', tencent: 'Tencent', upstage: 'Upstage', xiaomimimo: 'Xiaomi MiMo', zeroone: '01.AI', zhipu: 'Zhipu AI', nanbeige: 'Nanbeige', '3dtopia-avatar': '3DTopia', 'ace-step-avatar': 'ACE-Step', 'ailab-cvc-avatar': 'AILab-CVC', 'black-forest-labs-avatar': 'Black Forest Labs', 'doubiiu-avatar': 'Doubiiu', 'genmo-avatar': 'Genmo', 'guoyww-avatar': 'AnimateDiff', 'huggingface-avatar': 'Hugging Face', 'lightricks-avatar': 'Lightricks', 'lllyasviel-avatar': 'lllyasviel', 'paddlepaddle-avatar': 'PaddlePaddle', 'stabilityai-avatar': 'Stability AI', 'tencentarc-avatar': 'Tencent ARC'
   }
 };

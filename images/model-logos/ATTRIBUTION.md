@@ -10,6 +10,10 @@ Files containing `-avatar` are public profile avatars returned by the
 Hugging Face organization or user avatar API for the upstream handle recorded
 in `scripts/fetch-home-index-avatars.js`, downloaded on 2026-08-14.
 
+The multimodal developer additions, including Black Forest Labs, Stability AI,
+Lightricks, Genmo, PaddlePaddle and the listed upstream research teams, were
+downloaded from the same official Hugging Face avatar API on 2026-08-16.
+
 `tinyllama-avatar.jpg`, `ornith-avatar.png`, `smallthinker-avatar.png`,
 `emotivoice-avatar.png`, `ai4bharat-avatar.jpg` and `kittenml-avatar.png` are
 the public avatars of their official GitHub project owners. `rednote-avatar.png`
