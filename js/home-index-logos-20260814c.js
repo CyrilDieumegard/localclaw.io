@@ -147,6 +147,7 @@ window.HOME_INDEX_LOGOS = {
     'Hugging Face': 'huggingface-avatar',
     'Lightricks': 'lightricks-avatar',
     'Meta AI': 'meta',
+    'MiniMax': 'minimax',
     'Microsoft': 'microsoft',
     'Microsoft Research': 'microsoft',
     'Moondream': 'moondream-avatar',

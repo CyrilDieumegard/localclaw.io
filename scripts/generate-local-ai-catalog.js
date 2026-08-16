@@ -136,7 +136,7 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${hasVisualExamples ? '<script src="/js/external-media-catalog.js?v=20260816c"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/local-ai-catalog.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816e"></script></body></html>`;
+${hasVisualExamples ? '<script src="/js/external-media-catalog.js?v=20260816f"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/local-ai-catalog.js?v=20260816f"></script><script src="/js/local-ai-catalog-app.js?v=20260816e"></script></body></html>`;
 }
 
 function detailPage(model) {
@@ -177,7 +177,7 @@ function detailPage(model) {
   <div class="lc-ai-detail-grid"><div>${hasVisualExample ? `<section class="lc-ai-detail-panel"><h2>${model.category === 'image' ? 'Official examples' : 'Official example'}</h2><p>${model.category === 'image' ? 'Browse several official outputs directly below. Each image stays on the official publisher server and is never hosted by LocalClaw.' : 'Play the official source preview directly below. The media stays on the official publisher server and is never hosted by LocalClaw.'}</p><div class="lc-external-media" data-external-media data-media-category="${esc(model.category)}" data-media-id="${esc(model.id)}"></div></section>` : ''}<section class="lc-ai-detail-panel"><h2>What it does</h2><div class="lc-ai-task-list">${model.tasks.map((task) => `<span class="lc-ai-task">${esc(prettyTerm(task))}</span>`).join('')}</div><p>${esc(model.hardware_note)}</p><div class="lc-ai-source-note">Hardware figures are practical entry floors, not performance guarantees. Resolution, duration, precision, offloading and runtime versions can materially change memory use.</div></section>
   <section class="lc-ai-detail-panel"><h2>Strengths</h2><ul>${list(model.strengths)}</ul></section><section class="lc-ai-detail-panel"><h2>Limits to know</h2><ul>${list(model.caveats)}</ul></section></div>
   <aside><section class="lc-ai-detail-panel"><h2>Local requirements</h2><div class="lc-ai-detail-specs">${specs}</div></section><section class="lc-ai-detail-panel"><h2>Primary evidence</h2><p>LocalClaw links to the official project or model repository used to verify the downloadable local path.</p><a class="lc-ai-button" href="${esc(model.source_url)}" target="_blank" rel="noopener">Official source</a></section></aside></div>
-</div></main>${footer()}${hasVisualExample ? '<script src="/js/external-media-catalog.js?v=20260816c"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}</body></html>`;
+</div></main>${footer()}${hasVisualExample ? '<script src="/js/external-media-catalog.js?v=20260816f"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}</body></html>`;
 }
 
 for (const [key, config] of Object.entries(categoryConfig)) {

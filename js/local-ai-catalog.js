@@ -1,16 +1,28 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
-      id: 'ltx-video', name: 'LTX Video', category: 'video', developer: 'Lightricks',
-      summary: 'Local text, image and audio-to-video generation with an official desktop application.',
-      tasks: ['text-to-video', 'image-to-video', 'audio-to-video', 'video-editing'],
+      id: 'ltx-video', name: 'LTX 2.5', category: 'video', developer: 'Lightricks',
+      summary: 'Current open-weight LTX release for local synchronized audio and video generation, with an official desktop application.',
+      tasks: ['text-to-video', 'image-to-video', 'audio-to-video', 'video-to-video'],
       platforms: ['macos', 'windows', 'linux'], accelerators: ['apple-silicon', 'nvidia'],
       min_ram_gb: 32, min_vram_gb: 16, runtime: ['LTX Desktop', 'ComfyUI', 'PyTorch'],
-      output: ['MP4'], local_status: 'local', license: 'Open weights, model terms apply', released: '2026-01',
-      source_url: 'https://github.com/Lightricks/LTX-Video', install_url: 'https://github.com/Lightricks/ltx-desktop',
-      hardware_note: 'Official desktop guidance supports Apple Silicon with at least 15 GB free memory and NVIDIA systems with at least 16 GB VRAM.',
-      strengths: ['Official local desktop path', 'Apple Silicon and NVIDIA support', 'Generation and editing workflows'],
-      caveats: ['Large downloads', 'Generation speed varies sharply by resolution and duration']
+      output: ['MP4', 'stereo audio'], local_status: 'local', license: 'LTX-2 Community License', released: '2026-07',
+      source_url: 'https://github.com/Lightricks/LTX-2', install_url: 'https://github.com/Lightricks/ltx-desktop',
+      hardware_note: 'Official LTX Desktop guidance supports Apple Silicon with at least 15 GB free memory and NVIDIA systems with at least 16 GB VRAM. The local app defaults to LTX 2.5 Fast.',
+      strengths: ['Official local desktop path', 'Apple Silicon and NVIDIA support', 'Synchronized audio and video'],
+      caveats: ['About 66 GiB for the official quick-start components', 'LTX 2.5 Pro remains API-only']
+    },
+    {
+      id: 'minimax-h3', name: 'MiniMax H3', category: 'video', developer: 'MiniMax',
+      summary: 'Open-weight omni-modal video model with native stereo audio and local ComfyUI workflows for text, keyframes and multimodal references.',
+      tasks: ['text-to-video', 'image-to-video', 'reference-to-video', 'audio-conditioned-video'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['ComfyUI', 'Diffusers', 'SGLang', 'vLLM'], output: ['MP4', 'stereo audio'],
+      local_status: 'local', license: 'MiniMax H3 Community License', released: '2026-07',
+      source_url: 'https://github.com/MiniMax-AI/MiniMax-H3', install_url: 'https://docs.comfy.org/tutorials/video/minimax/minimax-h3',
+      hardware_note: 'The official ComfyUI path uses an approximately 21 GB INT8 transformer, a 16 GB NVFP4 text encoder and CPU offloading. A 24 GB NVIDIA GPU with 64 GB system RAM is a conservative practical floor for local 768p previews; the official server example uses four GPUs.',
+      strengths: ['Native synchronized stereo audio', 'Text, keyframe and multimodal reference workflows', 'Official ComfyUI templates and quantized weights'],
+      caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
       id: 'hunyuanvideo-1.5', name: 'HunyuanVideo 1.5', category: 'video', developer: 'Tencent Hunyuan',

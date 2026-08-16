@@ -48,7 +48,8 @@
       }
     },
     video: {
-      'ltx-video': { kind: 'image', url: 'https://media.githubusercontent.com/media/Lightricks/LTX-Video/main/docs/_static/ltx-video_i2v_example_00001.gif', alt: 'Official LTX-Video image-to-video example', sourceLabel: 'LTX-Video official repository', sourceUrl: 'https://github.com/Lightricks/LTX-Video' },
+      'ltx-video': { kind: 'video', url: 'https://github.com/user-attachments/assets/4414adc0-086c-43de-b367-9362eeb20228', alt: 'Official LTX 2.5 synchronized audio and video example', sourceLabel: 'LTX 2.5 official repository', sourceUrl: 'https://github.com/Lightricks/LTX-2' },
+      'minimax-h3': { kind: 'video', url: 'https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/main/assets/t2va.mp4', alt: 'Official MiniMax H3 text-to-audio-video example', sourceLabel: 'MiniMax H3 official repository', sourceUrl: 'https://github.com/MiniMax-AI/MiniMax-H3' },
       'hunyuanvideo-1.5': { kind: 'video', url: 'https://github.com/user-attachments/assets/d45ec78e-ea40-47f1-8d4d-f4d9a0682e2d', alt: 'Official HunyuanVideo 1.5 video example', sourceLabel: 'HunyuanVideo 1.5 official repository', sourceUrl: 'https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5' },
       'cogvideox-2b': { kind: 'image', url: 'https://raw.githubusercontent.com/THUDM/CogVideo/CogVideo/assets/intro-image.png', alt: 'Official CogVideoX showcase', sourceLabel: 'CogVideo official repository', sourceUrl: 'https://github.com/THUDM/CogVideo' },
       'wan2.2-ti2v-5b': { kind: 'video', url: 'https://github.com/user-attachments/assets/b63bfa58-d5d7-4de6-a1a2-98970b06d9a7', alt: 'Official Wan2.2 video example', sourceLabel: 'Wan2.2 official repository', sourceUrl: 'https://github.com/Wan-Video/Wan2.2' },
