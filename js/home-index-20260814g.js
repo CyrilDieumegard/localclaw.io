@@ -311,15 +311,15 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const accelerators = (model.accelerators || []).map(prettyTerm);
             const tasks = (model.tasks || []).slice(0, 3).map((task) => `<span>${escapeHtml(prettyTerm(task))}</span>`).join('');
             const runtime = (model.runtime || []).slice(0, 2).map(prettyTerm).join(' · ');
-            return `<article class="lc-index-multimodal-card" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
+            return `<a class="lc-index-multimodal-card" href="${multimodalPath(model)}" aria-label="Open ${escapeHtml(model.name)} local guide" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
                 <div class="lc-index-multimodal-card__top"><div class="lc-index-multimodal-card__developer">${logoMarkup('multimodal', model.developer, model.developer)}<span>${escapeHtml(model.developer)}</span></div><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
-                <h3><a href="${multimodalPath(model)}">${escapeHtml(model.name)}</a></h3>
+                <h3>${escapeHtml(model.name)}</h3>
                 <p>${escapeHtml(model.summary)}</p>
                 <div class="lc-index-multimodal-card__rating"><span class="lc-index-multimodal-card__rating-label">Community rating</span><span class="lc-index-multimodal-card__rating-value" data-multimodal-community-id="${escapeHtml(multimodalCommunityId(model))}">${communityMarkup(multimodalCommunityId(model), 'lc-index-community--multimodal')}</span></div>
                 <div class="lc-index-multimodal-card__tasks">${tasks}</div>
                 <dl><div><dt>System</dt><dd>${escapeHtml(platforms.join(', ') || 'See guide')}</dd></div><div><dt>Compute</dt><dd>${escapeHtml(accelerators.join(', ') || 'See guide')}</dd></div><div><dt>Runtime</dt><dd>${escapeHtml(runtime || 'See guide')}</dd></div></dl>
-                <a class="lc-index-multimodal-card__link" href="${multimodalPath(model)}">Open local guide →</a>
-            </article>`;
+                <span class="lc-index-multimodal-card__link">Open local guide →</span>
+            </a>`;
         }).join('');
 
         const renderMultimodalSections = () => multimodalCategories.map((category) => {
