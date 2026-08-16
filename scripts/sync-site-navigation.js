@@ -6,6 +6,18 @@ const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
 const excludedDirectories = new Set(['.git', '.pages-dist', '.wrangler', 'node_modules', '_check']);
 
+const navigationContract = siteNavigation();
+for (const marker of [
+  'href="/computers"',
+  'data-nav-key="computers"',
+  '>Computers</a>',
+  'href="/ram-gpu-for-local-ai"',
+  'data-nav-key="ram-gpu"',
+  '>RAM/GPU</a>'
+]) {
+  if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
+}
+
 function htmlFiles(directory, files = []) {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     if (entry.isDirectory() && excludedDirectories.has(entry.name)) continue;

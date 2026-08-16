@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260816b';
+const NAV_VERSION = '20260816c';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
@@ -9,6 +9,8 @@ const items = [
   ['3d', '/3d-models', '3D'],
   ['music', '/music-models', 'Music'],
   ['vision', '/vision-models', 'Vision'],
+  ['computers', '/computers', 'Computers'],
+  ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU'],
   ['new', '/new', 'New'],
   ['account', '/account', 'Account']
 ];
