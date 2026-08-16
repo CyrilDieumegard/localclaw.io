@@ -9,18 +9,10 @@
     <lastBuildDate>Sat, 15 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
-      <title>LFM2.5-2.6B</title>
-      <link>https://localclaw.io/models/lfm2-5-2-6b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/lfm2-5-2-6b</guid>
-      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
-      <category>lfm</category>
-      <description>Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines. 2.7B · 8 GB minimum RAM · Q4_K_M · lfm.</description>
-    </item>
-    <item>
       <title>Muse Glimmer 30B</title>
       <link>https://localclaw.io/models/muse-glimmer-30b</link>
       <guid isPermaLink="true">https://localclaw.io/models/muse-glimmer-30b</guid>
-      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
       <category>meta</category>
       <description>Meta Superintelligence Lab local agent model with text+image input, 131K context, Apache 2.0 weights and official GGUF/ExecuTorch artifacts. The K-Quant 17GB build targets 24GB machines; 32GB is safer for vision and long-context sessions. 29.8B multimodal · 24 GB minimum RAM · K-Quant 17GB Q4_K_M · meta.</description>
     </item>
@@ -28,7 +20,7 @@
       <title>Qwen3.8-27B</title>
       <link>https://localclaw.io/models/qwen3.8-27b</link>
       <guid isPermaLink="true">https://localclaw.io/models/qwen3.8-27b</guid>
-      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
       <category>qwen</category>
       <description>Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
     </item>
@@ -39,6 +31,14 @@
       <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
       <category>deepseek-flash</category>
       <description>Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB. 284B (13B active) · 256 GB minimum RAM · UD-Q4_K_XL · deepseek-flash.</description>
+    </item>
+    <item>
+      <title>LFM2.5-2.6B</title>
+      <link>https://localclaw.io/models/lfm2-5-2-6b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm2-5-2-6b</guid>
+      <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines. 2.7B · 8 GB minimum RAM · Q4_K_M · lfm.</description>
     </item>
     <item>
       <title>Nanbeige4.2 3B</title>

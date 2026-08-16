@@ -162,7 +162,7 @@ const APP_DATA = {
             hf_repo: 'LiquidAI/LFM2.5-2.6B-GGUF',
             source_url: 'https://huggingface.co/LiquidAI/LFM2.5-2.6B',
             benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 7 },
-            released: '2026-08',
+            released: '2026-07-28',
             isNew: true
         },
         {
@@ -2303,7 +2303,7 @@ const APP_DATA = {
             hf_repo: 'meta-models/Muse-Glimmer-30B-GGUF',
             source_url: 'https://huggingface.co/meta-models/Muse-Glimmer-30B',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
-            released: '2026-08',
+            released: '2026-08-09',
             isNew: true,
             isPick: true
         },
@@ -2740,7 +2740,7 @@ const APP_DATA = {
             hf_repo: 'unsloth/Qwen3.8-27B-GGUF',
             source_url: 'https://huggingface.co/Qwen/Qwen3.8-27B',
             benchmarks: { speed: 5, quality: 9, coding: 10, reasoning: 10 },
-            released: '2026-08',
+            released: '2026-08-05',
             isNew: true
         },
         {
@@ -3676,7 +3676,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-08-15T08:20:00.000Z",
-        catalogueHash: "4964e1ad54a2e8759853038f3a77a00209caee719e86eecf794d4c06c221f6b9",
+        catalogueHash: "bc111222d582a96e9af6aff5adeee11054a668c7412230fc9b648553b7da57bd",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",

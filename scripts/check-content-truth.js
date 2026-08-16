@@ -48,8 +48,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 218) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 218 preserved routes`);
-if (indexableLocalModels.length !== 212) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 212`);
+if (uniqueLocalModels.length !== 219) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 219 preserved routes`);
+if (indexableLocalModels.length !== 213) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 213`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 
 const localModelsById = new Map(uniqueLocalModels.map(model => [model.id, model]));
@@ -250,7 +250,7 @@ for (const model of uniqueLocalModels) {
   }
   const serverGrade = Number(model.min_ram || 0) >= 128 || (model.tags || []).includes('server-grade');
   if (hfState === 'public-gguf' && serverGrade) {
-    for (const marker of ['server-grade local AI', '<h2>Deployment path</h2>']) {
+    for (const marker of ['server-grade catalogue target', '<h2>Deployment path</h2>']) {
       if (!html.includes(marker)) errors.push(`${model.id} server-grade page missing marker: ${marker}`);
     }
     for (const forbidden of ['Run with LocalClaw', 'lmstudio://', '<h2>Install path</h2>']) {
@@ -378,7 +378,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 220) errors.push('models/ must contain 219 model pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 221) errors.push('models/ must contain 220 model pages plus one index');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 59) errors.push('tts/ must contain 58 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -401,10 +401,12 @@ for (const file of fs.readdirSync(path.join(ROOT, 'use-case')).filter(name => na
 const newPage = read('new.html');
 for (const marker of [
   'href="/models/muse-glimmer-30b"',
-  'href="/models/lfm2-5-2-6b"',
+  'href="/models/qwen3.8-27b"',
+  'href="/models/deepseek-v4-flash-0731"',
   '24 GB RAM · K-Quant 17GB Q4_K_M',
-  '8 GB RAM · Q4_K_M · 128K context',
+  '32 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
+  'js/data.js?v=20260816a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -419,8 +421,23 @@ for (const staleMarker of ['218-page LocalClaw index', '218 local pages', '56 lo
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-if (latestIds[0] !== 'lfm2-5-2-6b' || latestIds[1] !== 'muse-glimmer-30b' || !latestIds.includes('deepseek-v4-flash-0731')) {
+const expectedLatestIds = ['muse-glimmer-30b', 'qwen3.8-27b', 'deepseek-v4-flash-0731', 'lfm2-5-2-6b'];
+if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
+}
+for (const model of latestModels.slice(0, 3)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(model.released || ''))) {
+    errors.push(`${model.id}.released needs YYYY-MM-DD precision while it appears in the newest-three surfaces`);
+  }
+}
+for (const [modelId, released] of Object.entries({
+  'muse-glimmer-30b': '2026-08-09',
+  'qwen3.8-27b': '2026-08-05',
+  'lfm2-5-2-6b': '2026-07-28'
+})) {
+  if (localModelsById.get(modelId)?.released !== released) {
+    errors.push(`${modelId}.released must retain its exact YYYY-MM-DD publication date`);
+  }
 }
 const newJsonLdBlocks = [...newPage.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
 if (newJsonLdBlocks.length !== 1) errors.push(`/new must expose exactly one JSON-LD graph, found ${newJsonLdBlocks.length}`);
@@ -467,9 +484,27 @@ if ((newPage.match(/LocalClawNewModels\.releaseTimestamp\(dateStr\)/g) || []).le
   errors.push('/new date formatting, age and NEW badge helpers must all use the shared release parser');
 }
 if (newPage.includes("new Date(dateStr + '-")) errors.push('/new renderer still corrupts complete release dates by appending a day');
-const fallbackOrder = ['lfm2-5-2-6b', 'muse-glimmer-30b', 'deepseek-v4-flash-0731'].map(id => newPage.indexOf(`href="/models/${id}"`));
+const fallbackOrder = ['muse-glimmer-30b', 'qwen3.8-27b', 'deepseek-v4-flash-0731'].map(id => newPage.indexOf(`href="/models/${id}"`));
 if (fallbackOrder.some(index => index < 0) || !(fallbackOrder[0] < fallbackOrder[1] && fallbackOrder[1] < fallbackOrder[2])) {
   errors.push('/new static fallback order does not match the canonical freshness sort');
+}
+
+const expectedFreshIds = expectedLatestIds.slice(0, 3);
+const currentApp = read('js/app.js');
+const versionedApp = read('js/app-20260816a.js');
+function freshCardIds(source) {
+  const section = source.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
+  return [...section.matchAll(/data-fast-goal-source="home_recent" data-fast-goal-model="([^"]+)"/g)].map(match => match[1]);
+}
+for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js', versionedApp]]) {
+  const ids = freshCardIds(source);
+  if (ids.join(',') !== expectedFreshIds.join(',')) {
+    errors.push(`${name} Fresh cards are stale or mis-sorted: ${ids.join(', ')}`);
+  }
+}
+if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
+if (!index.includes('js/data.js?v=20260816a') || !index.includes('js/app-20260816a.js?v=20260816a')) {
+  errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
 const updateMatch = dataSource.match(/^\/\/ Updated ([A-Za-z]+ \d{1,2}, \d{4})/m);
@@ -529,7 +564,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 171, publicModelCard: 37, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 172, publicModelCard: 37, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);
