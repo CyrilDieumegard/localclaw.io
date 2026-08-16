@@ -1,7 +1,7 @@
 import { json } from "./auth.js";
 
 const MODEL_ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,159}$/i;
-export const MAX_RATINGS_PER_ACCOUNT = 300;
+export const MAX_RATINGS_PER_ACCOUNT = 1000;
 
 export function validateModelId(value) {
   const modelId = String(value || "").trim();

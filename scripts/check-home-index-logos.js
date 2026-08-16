@@ -62,14 +62,16 @@ for (const marker of [
   'data-compare-id',
   'localclaw_home_machine_ram',
   "fetch('/api/machines'",
-  "logoMarkup('multimodal', model.developer, model.developer)"
+  "logoMarkup('multimodal', model.developer, model.developer)",
+  'multimodalCommunityId',
+  'data-community-rating'
 ]) {
   if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer']) {
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260816h', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260816g', 'js/local-ai-catalog.js?v=20260816g', 'js/home-index-20260814g.js?v=20260816e']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260816i', 'css/community-ratings-20260802a.css?v=20260803a', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260816g', 'js/local-ai-catalog.js?v=20260816g', 'js/home-index-20260814g.js?v=20260816f', 'js/community-ratings-20260802a.js?v=20260803a']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);

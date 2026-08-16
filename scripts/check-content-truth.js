@@ -13,6 +13,9 @@ vm.runInContext(`${dataSource};this.DATA=APP_DATA;`, dataContext);
 const speechContext = { window: {} };
 vm.createContext(speechContext);
 vm.runInContext(read('js/home-index-speech-20260814c.js'), speechContext);
+const multimodalContext = { window: {} };
+vm.createContext(multimodalContext);
+vm.runInContext(read('js/local-ai-catalog.js'), multimodalContext);
 const detailsContext = {};
 vm.createContext(detailsContext);
 vm.runInContext(`${read('js/model-details.js')};this.DETAILS=MODEL_DETAILS;`, detailsContext);
@@ -29,6 +32,7 @@ const hfVerificationDate = String(hfRepoVerification.checkedAt || '').slice(0, 1
 const unavailableLlmIds = new Set(Object.keys(unavailableHfRepos));
 const indexableLocalModels = uniqueLocalModels.filter(model => !unavailableLlmIds.has(model.id));
 const speechModels = speechContext.window.HOME_INDEX_SPEECH_MODELS || [];
+const multimodalModels = multimodalContext.window.LOCAL_AI_CATALOG || [];
 const modelDetails = detailsContext.DETAILS || {};
 const ttsList = read('tts-list.html');
 const ttsMatch = ttsList.match(/const TTS_MODELS = (\[[\s\S]*?\n\s*\]);/);
@@ -52,6 +56,7 @@ const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 if (uniqueLocalModels.length !== 219) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 219 preserved routes`);
 if (indexableLocalModels.length !== 213) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 213`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
+if (multimodalModels.length !== 48) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 48`);
 
 const localModelsById = new Map(uniqueLocalModels.map(model => [model.id, model]));
 const correctedModelFacts = {
@@ -333,6 +338,41 @@ for (const model of allSpeechRecords) {
   if (!html.includes('<strong>Catalogue summary:</strong>')) errors.push(`${model.id} does not label its speech description as catalogue metadata`);
 }
 if (allSpeechRecords.length !== 58) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 58 preserved routes`);
+
+const multimodalRatingIds = new Set();
+for (const model of multimodalModels) {
+  const directory = model.category === '3d' ? '3d' : model.category;
+  const ratingId = `${model.category}-${model.id}`;
+  const ratingCategoryLabel = model.category === '3d' ? '3D' : String(model.category).toLowerCase();
+  const html = read(`${directory}/${model.id}.html`);
+  if (multimodalRatingIds.has(ratingId)) errors.push(`Duplicate multimodal rating ID: ${ratingId}`);
+  multimodalRatingIds.add(ratingId);
+  for (const marker of [
+    'css/community-ratings-20260802a.css?v=20260803a',
+    'js/community-ratings-20260802a.js?v=20260803a',
+    `data-model-id="${ratingId}"`,
+    'data-rating-mode="full"',
+    `data-rating-label="Community ${ratingCategoryLabel} rating"`
+  ]) {
+    if (!html.includes(marker)) errors.push(`${ratingId} detail page missing rating marker: ${marker}`);
+  }
+}
+for (const category of ['image', 'video', '3d', 'music', 'vision']) {
+  const landing = read(`${category}-models.html`);
+  for (const marker of [
+    'css/community-ratings-20260802a.css?v=20260803a',
+    'js/community-ratings-20260802a.js?v=20260803a',
+    'js/local-ai-catalog-app.js?v=20260816f'
+  ]) {
+    if (!landing.includes(marker)) errors.push(`${category} catalogue missing rating marker: ${marker}`);
+  }
+}
+if (!read('js/local-ai-catalog-app.js').includes('data-community-rating') || !read('js/local-ai-catalog-app.js').includes('LocalClawRatings?.refresh')) {
+  errors.push('Multimodal catalogue app is missing compact rating rendering or refresh');
+}
+if (!read('functions/_lib/model-ratings.js').includes('MAX_RATINGS_PER_ACCOUNT = 1000')) {
+  errors.push('Account rating limit must cover the complete LocalClaw catalogue');
+}
 if (localSpeechRecords.length !== 55) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 55`);
 if (remoteSpeechRecords.length !== 2) errors.push(`Remote speech source count is ${remoteSpeechRecords.length}, expected 2 online/API references`);
 if (unverifiedSpeechRecords.length !== 1 || unverifiedSpeechRecords[0]?.id !== 'xtts-v3') {

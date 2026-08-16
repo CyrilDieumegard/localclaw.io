@@ -617,6 +617,7 @@ html { scroll-behavior: smooth; }
 .lc-index-multimodal-card h3 { margin-top: 12px; font: 750 18px/1.15 "Space Grotesk", sans-serif; letter-spacing: -0.025em; }
 .lc-index-multimodal-card h3 a { color: #fff; }
 .lc-index-multimodal-card > p { display: -webkit-box; margin-top: 8px; overflow: hidden; color: #8f8f99; font: 500 9px/1.55 "JetBrains Mono", monospace; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.lc-index-multimodal-card__rating { min-height: 24px; margin-top: 10px; }
 .lc-index-multimodal-card__tasks { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
 .lc-index-multimodal-card__tasks span { padding: 5px 6px; border: 1px solid rgba(255,69,58,0.2); border-radius: 999px; color: #c8c8cf; font: 700 6.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
 .lc-index-multimodal-card dl { display: grid; gap: 6px; margin-top: 14px; }

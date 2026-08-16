@@ -305,6 +305,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         }).join('');
 
         const multimodalPath = (model) => `/${model.category === '3d' ? '3d' : model.category}/${encodeURIComponent(model.id)}`;
+        const multimodalCommunityId = (model) => `${model.category}-${model.id}`;
+        const multimodalRatingLabel = (model) => model.category === '3d' ? '3D' : prettyTerm(model.category).toLowerCase();
         const renderMultimodalCards = (models) => models.map((model) => {
             const platforms = (model.platforms || []).map(prettyTerm);
             const accelerators = (model.accelerators || []).map(prettyTerm);
@@ -314,6 +316,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <div class="lc-index-multimodal-card__top"><div class="lc-index-multimodal-card__developer">${logoMarkup('multimodal', model.developer, model.developer)}<span>${escapeHtml(model.developer)}</span></div><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
                 <h3><a href="${multimodalPath(model)}">${escapeHtml(model.name)}</a></h3>
                 <p>${escapeHtml(model.summary)}</p>
+                <div class="lc-index-multimodal-card__rating" data-community-rating data-model-id="${escapeHtml(multimodalCommunityId(model))}" data-rating-mode="compact" data-rating-label="Community ${escapeHtml(multimodalRatingLabel(model))} rating" data-rating-subject="${escapeHtml(multimodalRatingLabel(model))} AI model"></div>
                 <div class="lc-index-multimodal-card__tasks">${tasks}</div>
                 <dl><div><dt>System</dt><dd>${escapeHtml(platforms.join(', ') || 'See guide')}</dd></div><div><dt>Compute</dt><dd>${escapeHtml(accelerators.join(', ') || 'See guide')}</dd></div><div><dt>Runtime</dt><dd>${escapeHtml(runtime || 'See guide')}</dd></div></dl>
                 <a class="lc-index-multimodal-card__link" href="${multimodalPath(model)}">Open local guide →</a>

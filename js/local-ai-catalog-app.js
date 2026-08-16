@@ -130,6 +130,14 @@
     return `<span class="lc-ai-badge${modifier}">${label}</span>`;
   }
 
+  function ratingModelId(model) {
+    return `${model.category}-${model.id}`;
+  }
+
+  function ratingCategoryLabel(model) {
+    return model.category === '3d' ? '3D' : (labels[model.category] || titleCase(model.category)).toLowerCase();
+  }
+
   function modelCard(model, fit) {
     const tasks = array(model.tasks).slice(0, 4).map((task) => `<span class="lc-ai-task">${escapeHtml(prettyTerm(task))}</span>`).join('');
     const fitClass = fit.fits === false ? ' lc-ai-fit-no' : '';
@@ -141,6 +149,7 @@
       <div class="lc-ai-card-top"><span class="lc-ai-card-category">${escapeHtml(labels[model.category] || titleCase(model.category))}</span>${badge(model)}</div>
       <h3><a href="${escapeHtml(model.path)}">${escapeHtml(model.name)}</a></h3>
       <p class="lc-ai-card-summary">${escapeHtml(model.summary)}</p>
+      <div class="lc-ai-card-rating" data-community-rating data-model-id="${escapeHtml(ratingModelId(model))}" data-rating-mode="compact" data-rating-label="Community ${escapeHtml(ratingCategoryLabel(model))} rating" data-rating-subject="${escapeHtml(ratingCategoryLabel(model))} AI model"></div>
       ${preview}
       <div class="lc-ai-task-list">${tasks}</div>
       <div class="lc-ai-specs"><div class="lc-ai-spec"><span>RAM floor</span><strong>${Number(model.min_ram_gb) ? `${Number(model.min_ram_gb)} GB` : 'Hosted'}</strong></div><div class="lc-ai-spec"><span>VRAM floor</span><strong>${escapeHtml(vram)}</strong></div><div class="lc-ai-spec"><span>Runtime</span><strong>${escapeHtml(array(model.runtime).slice(0, 2).join(' · ') || 'See guide')}</strong></div><div class="lc-ai-spec"><span>License</span><strong>${escapeHtml(model.license || 'See source')}</strong></div></div>
@@ -168,6 +177,7 @@
     if (machineChosen && elements.machineStatus && !readSavedMachine()) {
       elements.machineStatus.textContent = `${prettyTerm(machine.platform === 'all' ? 'any system' : machine.platform)} · ${prettyTerm(machine.accelerator === 'all' ? 'any compute' : machine.accelerator)} · ${machine.ram || 'Any'} GB RAM${machine.vram ? ` · ${machine.vram} GB VRAM` : ''}.`;
     }
+    window.LocalClawRatings?.refresh(elements.grid);
   }
 
   [elements.search, elements.category, elements.platform, elements.accelerator, elements.ram, elements.vram].filter(Boolean).forEach((element) => {
