@@ -33,10 +33,10 @@
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /tts-list
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /tts-list.html
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /local-ai-index
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
@@ -45,10 +45,16 @@
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /video-models
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/video-models.html
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /3d-models
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/3d-models.html
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /music-models
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
@@ -99,16 +105,16 @@
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /tts/*
-  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /image/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /video/*
-  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /3d/*
-  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+  Cache-Control: no-cache, no-store, must-revalidate
 
 /music/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
