@@ -9151,6 +9151,296 @@
     "resource_basis": "source-backed floor"
   },
   {
+    "id": "wan2.1-t2v-1.3b",
+    "name": "Wan 2.1 T2V 1.3B",
+    "category": "video",
+    "summary": "Compact text-to-video member of the Wan family designed to run on consumer NVIDIA GPUs.",
+    "tasks": [
+      "text-to-video"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "PyTorch",
+      "Diffusers",
+      "ComfyUI"
+    ],
+    "license": "Apache 2.0",
+    "local_status": "local",
+    "released": "2025-02",
+    "path": "/video/wan2.1-t2v-1.3b",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "framepack-f1",
+    "name": "FramePack F1",
+    "category": "video",
+    "summary": "Local image-to-video system that makes long HunyuanVideo generation practical on laptop and desktop GPUs.",
+    "tasks": [
+      "image-to-video",
+      "long-video-generation"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 32,
+    "min_vram_gb": 6,
+    "runtime": [
+      "FramePack desktop",
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "Open code, Hunyuan model terms apply",
+    "local_status": "local",
+    "released": "2025-04",
+    "path": "/video/framepack-f1",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "vace-wan2.1-1.3b",
+    "name": "VACE Wan 2.1 1.3B",
+    "category": "video",
+    "summary": "All-in-one local video creation and editing model for reference, masked and video-to-video workflows.",
+    "tasks": [
+      "reference-to-video",
+      "video-to-video",
+      "video-inpainting",
+      "video-editing"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 10,
+    "runtime": [
+      "PyTorch",
+      "ComfyUI",
+      "VACE CLI"
+    ],
+    "license": "Apache 2.0",
+    "local_status": "local",
+    "released": "2025-05",
+    "path": "/video/vace-wan2.1-1.3b",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "ltx-video-0.9.8-distilled",
+    "name": "LTX Video 0.9.8 Distilled",
+    "category": "video",
+    "summary": "Distilled LTX checkpoint for faster local text-to-video and image-to-video workflows.",
+    "tasks": [
+      "text-to-video",
+      "image-to-video"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 12,
+    "runtime": [
+      "ComfyUI",
+      "Diffusers",
+      "PyTorch"
+    ],
+    "license": "Open weights, model terms apply",
+    "local_status": "local",
+    "released": "2025-05",
+    "path": "/video/ltx-video-0.9.8-distilled",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "cogvideox-5b",
+    "name": "CogVideoX 5B",
+    "category": "video",
+    "summary": "Higher-capacity CogVideoX text-to-video model with official Diffusers quantization and CPU offloading paths.",
+    "tasks": [
+      "text-to-video"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 12,
+    "runtime": [
+      "Diffusers",
+      "ComfyUI",
+      "PyTorch"
+    ],
+    "license": "CogVideoX model license",
+    "local_status": "local",
+    "released": "2024-08",
+    "path": "/video/cogvideox-5b",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "stable-video-diffusion-xt-1.1",
+    "name": "Stable Video Diffusion XT 1.1",
+    "category": "video",
+    "summary": "Mature local image-to-video model for short 25-frame clips with a large community runtime ecosystem.",
+    "tasks": [
+      "image-to-video"
+    ],
+    "platforms": [
+      "macos",
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "apple-silicon",
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "Diffusers",
+      "ComfyUI",
+      "PyTorch"
+    ],
+    "license": "Stability AI Community License",
+    "local_status": "local",
+    "released": "2024-02",
+    "path": "/video/stable-video-diffusion-xt-1.1",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "animatediff-sd15",
+    "name": "AnimateDiff SD 1.5",
+    "category": "video",
+    "summary": "Lightweight motion modules that animate Stable Diffusion 1.5 models on mainstream local GPUs.",
+    "tasks": [
+      "text-to-video",
+      "image-animation",
+      "camera-motion"
+    ],
+    "platforms": [
+      "macos",
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "apple-silicon",
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "ComfyUI",
+      "Diffusers",
+      "PyTorch"
+    ],
+    "license": "CreativeML Open RAIL-M and module terms",
+    "local_status": "local",
+    "released": "2023-07",
+    "path": "/video/animatediff-sd15",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "videocrafter2",
+    "name": "VideoCrafter2",
+    "category": "video",
+    "summary": "Open local toolbox with dedicated text-to-video and image-to-video checkpoints.",
+    "tasks": [
+      "text-to-video",
+      "image-to-video"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 12,
+    "runtime": [
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "Research use, repository terms apply",
+    "local_status": "local",
+    "released": "2024-01",
+    "path": "/video/videocrafter2",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "dynamicrafter-512",
+    "name": "DynamiCrafter 512",
+    "category": "video",
+    "summary": "Image animation model that turns a still image and text prompt into a locally generated video.",
+    "tasks": [
+      "image-to-video",
+      "image-animation"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 12,
+    "runtime": [
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "Research use, model terms apply",
+    "local_status": "local",
+    "released": "2023-10",
+    "path": "/video/dynamicrafter-512",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "wan2.1-i2v-14b-gp",
+    "name": "Wan 2.1 I2V 14B via Wan2GP",
+    "category": "video",
+    "summary": "High-quality Wan image-to-video model packaged with aggressive CPU offloading for consumer NVIDIA systems.",
+    "tasks": [
+      "image-to-video",
+      "video-extension"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 32,
+    "min_vram_gb": 12,
+    "runtime": [
+      "Wan2GP",
+      "Gradio",
+      "PyTorch"
+    ],
+    "license": "Apache 2.0 model, runtime license applies",
+    "local_status": "local",
+    "released": "2025-03",
+    "path": "/video/wan2.1-i2v-14b-gp",
+    "resource_basis": "source-backed floor"
+  },
+  {
     "id": "stable-fast-3d",
     "name": "Stable Fast 3D",
     "category": "3d",
@@ -9293,6 +9583,359 @@
     "local_status": "local",
     "released": "2024-03",
     "path": "/3d/triposr",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "hunyuan3d-2-mini-turbo",
+    "name": "Hunyuan3D 2 Mini Turbo",
+    "category": "3d",
+    "summary": "Distilled 0.6B image-to-shape model built for lower-memory local 3D generation.",
+    "tasks": [
+      "image-to-3d",
+      "mesh-generation"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 6,
+    "runtime": [
+      "Hunyuan3D-2GP",
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "Tencent Hunyuan community license",
+    "local_status": "local",
+    "released": "2025-03",
+    "path": "/3d/hunyuan3d-2-mini-turbo",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "hunyuan3d-swift",
+    "name": "Hunyuan3D Swift",
+    "category": "3d",
+    "summary": "Native Swift and MLX port of Hunyuan3D shape and paint pipelines for Apple Silicon.",
+    "tasks": [
+      "image-to-3d",
+      "mesh-generation",
+      "texturing"
+    ],
+    "platforms": [
+      "macos"
+    ],
+    "accelerators": [
+      "apple-silicon"
+    ],
+    "min_ram_gb": 8,
+    "min_vram_gb": 0,
+    "runtime": [
+      "Swift",
+      "MLX",
+      "Modelr"
+    ],
+    "license": "MIT runtime, original model terms apply",
+    "local_status": "local",
+    "released": "2026-07",
+    "path": "/3d/hunyuan3d-swift",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "spar3d",
+    "name": "SPAR3D",
+    "category": "3d",
+    "summary": "Point-aware single-image reconstruction with editable point clouds and textured GLB output.",
+    "tasks": [
+      "image-to-3d",
+      "mesh-reconstruction",
+      "point-cloud-editing",
+      "texturing"
+    ],
+    "platforms": [
+      "macos",
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "apple-silicon",
+      "nvidia",
+      "cpu"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 7,
+    "runtime": [
+      "PyTorch",
+      "Gradio",
+      "ComfyUI"
+    ],
+    "license": "Stability AI Community License",
+    "local_status": "local",
+    "released": "2025-02",
+    "path": "/3d/spar3d",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "triposg",
+    "name": "TripoSG 1.5B",
+    "category": "3d",
+    "summary": "High-fidelity image-to-shape model that exports controllable GLB meshes on consumer GPUs.",
+    "tasks": [
+      "image-to-3d",
+      "mesh-generation",
+      "scribble-to-3d"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "MIT",
+    "local_status": "local",
+    "released": "2025-03",
+    "path": "/3d/triposg",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "partcrafter",
+    "name": "PartCrafter",
+    "category": "3d",
+    "summary": "Structured image-to-3D generation that produces objects and scenes as separately editable parts.",
+    "tasks": [
+      "image-to-3d",
+      "part-based-generation",
+      "scene-generation"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 8,
+    "runtime": [
+      "PyTorch"
+    ],
+    "license": "MIT",
+    "local_status": "local",
+    "released": "2025-07",
+    "path": "/3d/partcrafter",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "instantmesh",
+    "name": "InstantMesh",
+    "category": "3d",
+    "summary": "Feed-forward single-image reconstruction with multiple mesh and NeRF checkpoint sizes.",
+    "tasks": [
+      "image-to-3d",
+      "mesh-reconstruction",
+      "nerf-reconstruction",
+      "texturing"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 16,
+    "runtime": [
+      "PyTorch",
+      "Gradio",
+      "Docker"
+    ],
+    "license": "Apache 2.0",
+    "local_status": "local",
+    "released": "2024-04",
+    "path": "/3d/instantmesh",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "crm",
+    "name": "CRM",
+    "category": "3d",
+    "summary": "Single-image model that reconstructs a UV-textured mesh through six consistent views.",
+    "tasks": [
+      "image-to-3d",
+      "multiview-generation",
+      "mesh-reconstruction",
+      "texturing"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 16,
+    "runtime": [
+      "PyTorch",
+      "Gradio"
+    ],
+    "license": "MIT",
+    "local_status": "local",
+    "released": "2024-01",
+    "path": "/3d/crm",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "wonder3d",
+    "name": "Wonder3D",
+    "category": "3d",
+    "summary": "Single-image reconstruction using consistent multiview color and normal-map diffusion.",
+    "tasks": [
+      "image-to-3d",
+      "multiview-generation",
+      "normal-generation",
+      "mesh-reconstruction"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 16,
+    "runtime": [
+      "PyTorch",
+      "Diffusers"
+    ],
+    "license": "Repository and model terms apply",
+    "local_status": "local",
+    "released": "2023-10",
+    "path": "/3d/wonder3d",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "dreamgaussian",
+    "name": "DreamGaussian",
+    "category": "3d",
+    "summary": "Fast text-to-3D and image-to-3D generation using Gaussian splatting followed by mesh extraction.",
+    "tasks": [
+      "text-to-3d",
+      "image-to-3d",
+      "gaussian-splatting",
+      "mesh-generation"
+    ],
+    "platforms": [
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "PyTorch",
+      "GUI"
+    ],
+    "license": "Repository license applies",
+    "local_status": "local",
+    "released": "2023-09",
+    "path": "/3d/dreamgaussian",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "shap-e",
+    "name": "Shap-E",
+    "category": "3d",
+    "summary": "Compact open model that generates implicit 3D functions from text or synthetic images.",
+    "tasks": [
+      "text-to-3d",
+      "image-to-3d",
+      "implicit-3d-generation"
+    ],
+    "platforms": [
+      "macos",
+      "windows",
+      "linux"
+    ],
+    "accelerators": [
+      "apple-silicon",
+      "nvidia",
+      "cpu"
+    ],
+    "min_ram_gb": 16,
+    "min_vram_gb": 8,
+    "runtime": [
+      "PyTorch",
+      "Jupyter"
+    ],
+    "license": "MIT",
+    "local_status": "local",
+    "released": "2023-05",
+    "path": "/3d/shap-e",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "trellis-text-base",
+    "name": "TRELLIS Text Base",
+    "category": "3d",
+    "summary": "Official 342M text-to-3D checkpoint producing meshes, radiance fields and 3D Gaussians.",
+    "tasks": [
+      "text-to-3d",
+      "gaussian-splatting",
+      "mesh-generation"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 32,
+    "min_vram_gb": 16,
+    "runtime": [
+      "PyTorch"
+    ],
+    "license": "MIT code, model terms apply",
+    "local_status": "local",
+    "released": "2024-12",
+    "path": "/3d/trellis-text-base",
+    "resource_basis": "source-backed floor"
+  },
+  {
+    "id": "openlrm",
+    "name": "OpenLRM",
+    "category": "3d",
+    "summary": "Open implementation of large reconstruction models with image-to-NeRF and optional mesh export.",
+    "tasks": [
+      "image-to-3d",
+      "nerf-reconstruction",
+      "mesh-reconstruction"
+    ],
+    "platforms": [
+      "linux"
+    ],
+    "accelerators": [
+      "nvidia"
+    ],
+    "min_ram_gb": 24,
+    "min_vram_gb": 16,
+    "runtime": [
+      "PyTorch",
+      "Accelerate"
+    ],
+    "license": "Apache 2.0 code, checkpoint terms apply",
+    "local_status": "local",
+    "released": "2023-11",
+    "path": "/3d/openlrm",
     "resource_basis": "source-backed floor"
   },
   {

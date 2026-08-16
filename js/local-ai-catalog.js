@@ -56,6 +56,118 @@
       strengths: ['Apache 2.0', 'Open inference stack', 'Good motion consistency for its generation'],
       caveats: ['Heavy full-precision model', 'Consumer workflows rely on optimization']
     },
+    {
+      id: 'wan2.1-t2v-1.3b', name: 'Wan 2.1 T2V 1.3B', category: 'video', developer: 'Wan Team / Alibaba',
+      summary: 'Compact text-to-video member of the Wan family designed to run on consumer NVIDIA GPUs.',
+      tasks: ['text-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 16, min_vram_gb: 8, runtime: ['PyTorch', 'Diffusers', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2025-02',
+      source_url: 'https://github.com/Wan-Video/Wan2.1', install_url: 'https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B-Diffusers',
+      hardware_note: 'The official project reports 8.19 GB VRAM and recommends 480p for the most stable output from the 1.3B model.',
+      strengths: ['Official consumer GPU target', 'Diffusers and ComfyUI support', 'Open weights and inference code'],
+      caveats: ['480p is the recommended quality tier', 'Generation remains slow on entry-level cards']
+    },
+    {
+      id: 'framepack-f1', name: 'FramePack F1', category: 'video', developer: 'lllyasviel',
+      summary: 'Local image-to-video system that makes long HunyuanVideo generation practical on laptop and desktop GPUs.',
+      tasks: ['image-to-video', 'long-video-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 6, runtime: ['FramePack desktop', 'PyTorch', 'Gradio'], output: ['MP4'],
+      local_status: 'local', license: 'Open code, Hunyuan model terms apply', released: '2025-04',
+      source_url: 'https://github.com/lllyasviel/FramePack', install_url: 'https://github.com/lllyasviel/FramePack',
+      hardware_note: 'The official repository supports RTX 30, 40 and 50 series GPUs with at least 6 GB VRAM, including laptop GPUs.',
+      strengths: ['Six GB VRAM floor', 'One-click Windows package', 'Progressive long-video generation'],
+      caveats: ['More than 30 GB of model downloads', 'Low-memory systems trade speed for capacity']
+    },
+    {
+      id: 'vace-wan2.1-1.3b', name: 'VACE Wan 2.1 1.3B', category: 'video', developer: 'Alibaba VILab',
+      summary: 'All-in-one local video creation and editing model for reference, masked and video-to-video workflows.',
+      tasks: ['reference-to-video', 'video-to-video', 'video-inpainting', 'video-editing'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 24, min_vram_gb: 10,
+      runtime: ['PyTorch', 'ComfyUI', 'VACE CLI'], output: ['MP4'], local_status: 'local',
+      license: 'Apache 2.0', released: '2025-05', source_url: 'https://github.com/ali-vilab/VACE',
+      install_url: 'https://huggingface.co/ali-vilab/VACE-Wan2.1-1.3B-Preview',
+      hardware_note: 'The 1.3B 480p checkpoint is the consumer entry point. The 10 GB floor is a conservative practical synthesis from its Wan 1.3B base and preprocessing overhead.',
+      strengths: ['Creation and editing in one model', 'Reference and mask controls', 'Official weights and ComfyUI integration'],
+      caveats: ['Preprocessing adds memory and setup work', 'The 14B variant needs much more hardware']
+    },
+    {
+      id: 'ltx-video-0.9.8-distilled', name: 'LTX Video 0.9.8 Distilled', category: 'video', developer: 'Lightricks',
+      summary: 'Distilled LTX checkpoint for faster local text-to-video and image-to-video workflows.',
+      tasks: ['text-to-video', 'image-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 12, runtime: ['ComfyUI', 'Diffusers', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'Open weights, model terms apply', released: '2025-05',
+      source_url: 'https://github.com/Lightricks/LTX-Video', install_url: 'https://huggingface.co/Lightricks/LTX-Video-0.9.8-13B-distilled',
+      hardware_note: 'Quantized and offloaded ComfyUI workflows make the distilled checkpoint practical around the 12 GB consumer tier. Exact use depends on resolution and frame count.',
+      strengths: ['Fast distilled sampling', 'Text and image conditioning', 'Broad ComfyUI support'],
+      caveats: ['Official full precision needs more memory', 'Quality varies with aggressive quantization']
+    },
+    {
+      id: 'cogvideox-5b', name: 'CogVideoX 5B', category: 'video', developer: 'Zhipu AI / THUDM',
+      summary: 'Higher-capacity CogVideoX text-to-video model with official Diffusers quantization and CPU offloading paths.',
+      tasks: ['text-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 12, runtime: ['Diffusers', 'ComfyUI', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'CogVideoX model license', released: '2024-08',
+      source_url: 'https://github.com/zai-org/CogVideo', install_url: 'https://huggingface.co/zai-org/CogVideoX-5b',
+      hardware_note: 'The official project documents quantization, sequential CPU offload and tiled decoding. Twelve GB is a practical consumer floor for optimized inference.',
+      strengths: ['Better capacity than the 2B model', 'Official low-memory techniques', 'Diffusers and ComfyUI support'],
+      caveats: ['Offloading can be slow', 'Model license differs from Apache code']
+    },
+    {
+      id: 'stable-video-diffusion-xt-1.1', name: 'Stable Video Diffusion XT 1.1', category: 'video', developer: 'Stability AI',
+      summary: 'Mature local image-to-video model for short 25-frame clips with a large community runtime ecosystem.',
+      tasks: ['image-to-video'], platforms: ['macos', 'windows', 'linux'], accelerators: ['apple-silicon', 'nvidia'],
+      min_ram_gb: 16, min_vram_gb: 8, runtime: ['Diffusers', 'ComfyUI', 'PyTorch'], output: ['MP4', 'GIF'],
+      local_status: 'local', license: 'Stability AI Community License', released: '2024-02',
+      source_url: 'https://github.com/Stability-AI/generative-models', install_url: 'https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt-1-1',
+      hardware_note: 'Tiled decoding and CPU offloading allow practical use near 8 GB VRAM. Apple Silicon support depends on the selected runtime and unified memory.',
+      strengths: ['Accessible image animation', 'Mature ComfyUI workflows', 'Short and predictable generation format'],
+      caveats: ['Image-to-video only', 'Short clips and older visual quality']
+    },
+    {
+      id: 'animatediff-sd15', name: 'AnimateDiff SD 1.5', category: 'video', developer: 'AnimateDiff Team',
+      summary: 'Lightweight motion modules that animate Stable Diffusion 1.5 models on mainstream local GPUs.',
+      tasks: ['text-to-video', 'image-animation', 'camera-motion'], platforms: ['macos', 'windows', 'linux'],
+      accelerators: ['apple-silicon', 'nvidia'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['ComfyUI', 'Diffusers', 'PyTorch'], output: ['MP4', 'GIF'], local_status: 'local',
+      license: 'CreativeML Open RAIL-M and module terms', released: '2023-07',
+      source_url: 'https://github.com/guoyww/AnimateDiff', install_url: 'https://huggingface.co/guoyww/animatediff',
+      hardware_note: 'The SD 1.5 motion-module path is substantially lighter than the documented 13 GB SDXL beta and is widely usable around 8 GB VRAM.',
+      strengths: ['Works with many SD 1.5 checkpoints', 'Camera-motion LoRAs', 'Large ComfyUI ecosystem'],
+      caveats: ['Short clips', 'Visible flicker and lower temporal consistency than newer video transformers']
+    },
+    {
+      id: 'videocrafter2', name: 'VideoCrafter2', category: 'video', developer: 'AILab-CVC',
+      summary: 'Open local toolbox with dedicated text-to-video and image-to-video checkpoints.',
+      tasks: ['text-to-video', 'image-to-video'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 12, runtime: ['PyTorch', 'Gradio'], output: ['MP4'],
+      local_status: 'local', license: 'Research use, repository terms apply', released: '2024-01',
+      source_url: 'https://github.com/AILab-CVC/VideoCrafter', install_url: 'https://github.com/AILab-CVC/VideoCrafter',
+      hardware_note: 'A 12 GB consumer GPU is a conservative entry floor for reduced-resolution inference. The official reference stack is CUDA and Linux focused.',
+      strengths: ['Text and image checkpoints', 'Local Gradio application', 'Established open research model'],
+      caveats: ['Older dependency stack', 'Research-oriented licensing and setup']
+    },
+    {
+      id: 'dynamicrafter-512', name: 'DynamiCrafter 512', category: 'video', developer: 'Doubiiu / CUHK',
+      summary: 'Image animation model that turns a still image and text prompt into a locally generated video.',
+      tasks: ['image-to-video', 'image-animation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 12, runtime: ['PyTorch', 'Gradio'], output: ['MP4'],
+      local_status: 'local', license: 'Research use, model terms apply', released: '2023-10',
+      source_url: 'https://github.com/Doubiiu/DynamiCrafter', install_url: 'https://github.com/Doubiiu/DynamiCrafter',
+      hardware_note: 'The 512 resolution checkpoint is the lighter practical option. Twelve GB is a conservative floor with memory-aware settings.',
+      strengths: ['Strong still-image animation', 'Dedicated 512 checkpoint', 'Official code and weights'],
+      caveats: ['CUDA-first reference implementation', 'Research model with an older environment']
+    },
+    {
+      id: 'wan2.1-i2v-14b-gp', name: 'Wan 2.1 I2V 14B via Wan2GP', category: 'video', developer: 'Wan Team / Wan2GP',
+      summary: 'High-quality Wan image-to-video model packaged with aggressive CPU offloading for consumer NVIDIA systems.',
+      tasks: ['image-to-video', 'video-extension'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 12, runtime: ['Wan2GP', 'Gradio', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0 model, runtime license applies', released: '2025-03',
+      source_url: 'https://github.com/Wan-Video/Wan2.1', install_url: 'https://github.com/opendreamnet/Wan2GP',
+      hardware_note: 'Wan2GP uses model and text-encoder offloading to target 32 GB system RAM and 12 GB VRAM. More RAM and VRAM materially improve speed.',
+      strengths: ['14B image-to-video quality on consumer cards', 'Automatic downloads and Gradio UI', 'Multiple memory profiles'],
+      caveats: ['Community runtime rather than the official Wan launcher', 'Heavy CPU offloading can be slow']
+    },
 
     {
       id: 'stable-fast-3d', name: 'Stable Fast 3D', category: '3d', developer: 'Stability AI',
@@ -112,6 +224,142 @@
       hardware_note: 'A practical lightweight entry for CUDA machines. Texturing requires an additional pipeline.',
       strengths: ['Fast inference', 'Simple image-to-mesh workflow', 'Widely integrated'],
       caveats: ['Geometry only by default', 'Lower fidelity than newer multi-stage systems']
+    },
+    {
+      id: 'hunyuan3d-2-mini-turbo', name: 'Hunyuan3D 2 Mini Turbo', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Distilled 0.6B image-to-shape model built for lower-memory local 3D generation.',
+      tasks: ['image-to-3d', 'mesh-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 16, min_vram_gb: 6, runtime: ['Hunyuan3D-2GP', 'PyTorch', 'Gradio'], output: ['GLB', 'OBJ'],
+      local_status: 'local', license: 'Tencent Hunyuan community license', released: '2025-03',
+      source_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-2', install_url: 'https://github.com/deepbeepmeep/Hunyuan3D-2GP',
+      hardware_note: 'The 0.6B Mini Turbo checkpoint and Hunyuan3D-2GP memory profiles target systems with about 6 GB VRAM.',
+      strengths: ['Low-memory Hunyuan entry point', 'Fast distilled geometry', 'Windows and Linux local UI'],
+      caveats: ['Texture generation needs more memory', 'Low-memory launcher is community maintained']
+    },
+    {
+      id: 'hunyuan3d-swift', name: 'Hunyuan3D Swift', category: '3d', developer: 'Zimeng Xiong / Tencent Hunyuan',
+      summary: 'Native Swift and MLX port of Hunyuan3D shape and paint pipelines for Apple Silicon.',
+      tasks: ['image-to-3d', 'mesh-generation', 'texturing'], platforms: ['macos'], accelerators: ['apple-silicon'],
+      min_ram_gb: 8, min_vram_gb: 0, runtime: ['Swift', 'MLX', 'Modelr'], output: ['GLB'],
+      local_status: 'local', license: 'MIT runtime, original model terms apply', released: '2026-07',
+      source_url: 'https://github.com/ZimengXiong/Hunyuan3D-Swift', install_url: 'https://github.com/ZimengXiong/Modelr',
+      hardware_note: 'The parity-checked Swift port reports about 5.6 GB peak memory for the small shape model. Full paint pipelines require substantially more unified memory.',
+      strengths: ['Native Apple Silicon inference', 'No Python for the Swift package', 'Shape and optional PBR paint'],
+      caveats: ['Young community port', 'Full texture generation can use 25 GB or more unified memory']
+    },
+    {
+      id: 'spar3d', name: 'SPAR3D', category: '3d', developer: 'Stability AI',
+      summary: 'Point-aware single-image reconstruction with editable point clouds and textured GLB output.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'point-cloud-editing', 'texturing'],
+      platforms: ['macos', 'windows', 'linux'], accelerators: ['apple-silicon', 'nvidia', 'cpu'],
+      min_ram_gb: 16, min_vram_gb: 7, runtime: ['PyTorch', 'Gradio', 'ComfyUI'], output: ['GLB'],
+      local_status: 'local', license: 'Stability AI Community License', released: '2025-02',
+      source_url: 'https://github.com/Stability-AI/stable-point-aware-3d', install_url: 'https://github.com/Stability-AI/stable-point-aware-3d',
+      hardware_note: 'The official low-VRAM mode uses roughly 7 GB. Experimental MPS and CPU backends are available, with 32 GB unified memory recommended for Mac GPU use.',
+      strengths: ['Seven GB low-VRAM mode', 'Editable point-cloud conditioning', 'Experimental Mac and Windows support'],
+      caveats: ['Gated model access', 'Mac and Windows paths are experimental']
+    },
+    {
+      id: 'triposg', name: 'TripoSG 1.5B', category: '3d', developer: 'VAST AI Research',
+      summary: 'High-fidelity image-to-shape model that exports controllable GLB meshes on consumer GPUs.',
+      tasks: ['image-to-3d', 'mesh-generation', 'scribble-to-3d'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 16, min_vram_gb: 8, runtime: ['PyTorch', 'Gradio'], output: ['GLB'],
+      local_status: 'local', license: 'MIT', released: '2025-03',
+      source_url: 'https://github.com/VAST-AI-Research/TripoSG', install_url: 'https://github.com/VAST-AI-Research/TripoSG',
+      hardware_note: 'The official repository requires a CUDA GPU with at least 8 GB VRAM and downloads the checkpoints automatically.',
+      strengths: ['Eight GB VRAM floor', 'GLB mesh export', 'Image and scribble conditioning'],
+      caveats: ['Geometry-focused output', 'CUDA required by the reference implementation']
+    },
+    {
+      id: 'partcrafter', name: 'PartCrafter', category: '3d', developer: 'Peking University / VAST AI Research',
+      summary: 'Structured image-to-3D generation that produces objects and scenes as separately editable parts.',
+      tasks: ['image-to-3d', 'part-based-generation', 'scene-generation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 8, runtime: ['PyTorch'], output: ['GLB', 'Part meshes'],
+      local_status: 'local', license: 'MIT', released: '2025-07',
+      source_url: 'https://github.com/wgsxm/PartCrafter', install_url: 'https://github.com/wgsxm/PartCrafter',
+      hardware_note: 'The official inference requirement is a CUDA GPU with at least 8 GB VRAM. Reducing parts or tokens lowers memory use.',
+      strengths: ['Editable multi-part assets', 'Object and scene checkpoints', 'Eight GB entry requirement'],
+      caveats: ['Part count can reduce fidelity', 'Optional automatic suggestions may use an external VLM unless configured manually']
+    },
+    {
+      id: 'instantmesh', name: 'InstantMesh', category: '3d', developer: 'Tencent ARC',
+      summary: 'Feed-forward single-image reconstruction with multiple mesh and NeRF checkpoint sizes.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'nerf-reconstruction', 'texturing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 24, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Gradio', 'Docker'], output: ['OBJ', 'Textured mesh', 'Turntable video'],
+      local_status: 'local', license: 'Apache 2.0', released: '2024-04',
+      source_url: 'https://github.com/TencentARC/InstantMesh', install_url: 'https://github.com/TencentARC/InstantMesh',
+      hardware_note: 'The official stack is CUDA-first and offers smaller reconstruction variants. Sixteen GB is a conservative single-GPU floor for the full local demo.',
+      strengths: ['Multiple checkpoint sizes', 'Mesh and NeRF outputs', 'Local Gradio and Docker paths'],
+      caveats: ['Complex CUDA dependencies', 'Texture-map export adds processing time']
+    },
+    {
+      id: 'crm', name: 'CRM', category: '3d', developer: 'Tsinghua University',
+      summary: 'Single-image model that reconstructs a UV-textured mesh through six consistent views.',
+      tasks: ['image-to-3d', 'multiview-generation', 'mesh-reconstruction', 'texturing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 24, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Gradio'], output: ['OBJ', 'UV texture'], local_status: 'local',
+      license: 'MIT', released: '2024-01', source_url: 'https://github.com/thu-ml/CRM', install_url: 'https://github.com/thu-ml/CRM',
+      hardware_note: 'The official CUDA implementation still lists low-memory optimization as future work. Sixteen GB is therefore a conservative consumer floor.',
+      strengths: ['UV-textured mesh', 'Fast feed-forward reconstruction', 'Official model weights'],
+      caveats: ['Older CUDA and PyTorch stack', 'Input preprocessing strongly affects output']
+    },
+    {
+      id: 'wonder3d', name: 'Wonder3D', category: '3d', developer: 'XLong Research',
+      summary: 'Single-image reconstruction using consistent multiview color and normal-map diffusion.',
+      tasks: ['image-to-3d', 'multiview-generation', 'normal-generation', 'mesh-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 24, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Diffusers'], output: ['OBJ', 'Multiview images', 'Normal maps'],
+      local_status: 'local', license: 'Repository and model terms apply', released: '2023-10',
+      source_url: 'https://github.com/xxlong0/Wonder3D', install_url: 'https://github.com/xxlong0/Wonder3D',
+      hardware_note: 'The official reference path is CUDA-based. Sixteen GB is a conservative local floor for multiview generation plus reconstruction.',
+      strengths: ['Color and normal consistency', 'Official weights and inference code', 'Mesh reconstruction pipeline'],
+      caveats: ['Multi-stage setup', 'Linux and NVIDIA reference environment']
+    },
+    {
+      id: 'dreamgaussian', name: 'DreamGaussian', category: '3d', developer: 'DreamGaussian Team',
+      summary: 'Fast text-to-3D and image-to-3D generation using Gaussian splatting followed by mesh extraction.',
+      tasks: ['text-to-3d', 'image-to-3d', 'gaussian-splatting', 'mesh-generation'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['PyTorch', 'GUI'], output: ['PLY', 'OBJ', 'Textured mesh'], local_status: 'local',
+      license: 'Repository license applies', released: '2023-09',
+      source_url: 'https://github.com/dreamgaussian/dreamgaussian', install_url: 'https://github.com/dreamgaussian/dreamgaussian',
+      hardware_note: 'Reduced image size and refinement settings make the pipeline usable near the 8 GB tier. Exact use depends on the image diffusion backbone.',
+      strengths: ['Text and image inputs', 'Fast Gaussian optimization', 'Mesh extraction and texture refinement'],
+      caveats: ['Older generation quality', 'Several compiled CUDA dependencies']
+    },
+    {
+      id: 'shap-e', name: 'Shap-E', category: '3d', developer: 'OpenAI',
+      summary: 'Compact open model that generates implicit 3D functions from text or synthetic images.',
+      tasks: ['text-to-3d', 'image-to-3d', 'implicit-3d-generation'], platforms: ['macos', 'windows', 'linux'],
+      accelerators: ['apple-silicon', 'nvidia', 'cpu'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['PyTorch', 'Jupyter'], output: ['PLY', 'OBJ', 'NeRF render'], local_status: 'local',
+      license: 'MIT', released: '2023-05', source_url: 'https://github.com/openai/shap-e', install_url: 'https://github.com/openai/shap-e',
+      hardware_note: 'Shap-E is smaller than current mesh transformers and can fall back to CPU, although GPU inference is much faster. Eight GB is a practical GPU floor.',
+      strengths: ['Text and image conditioning', 'MIT license', 'CPU fallback and simple notebooks'],
+      caveats: ['Lower mesh fidelity than newer systems', 'Image conditioning works best with synthetic isolated objects']
+    },
+    {
+      id: 'trellis-text-base', name: 'TRELLIS Text Base', category: '3d', developer: 'Microsoft Research',
+      summary: 'Official 342M text-to-3D checkpoint producing meshes, radiance fields and 3D Gaussians.',
+      tasks: ['text-to-3d', 'gaussian-splatting', 'mesh-generation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 16, runtime: ['PyTorch'], output: ['GLB', 'PLY', '3D Gaussian'],
+      local_status: 'local', license: 'MIT code, model terms apply', released: '2024-12',
+      source_url: 'https://github.com/microsoft/TRELLIS', install_url: 'https://github.com/microsoft/TRELLIS',
+      hardware_note: 'The official TRELLIS repository requires Linux and an NVIDIA GPU with at least 16 GB VRAM.',
+      strengths: ['Direct text-to-3D checkpoint', 'Multiple 3D representations', 'Official Microsoft weights'],
+      caveats: ['Reference project still recommends image-conditioned generation for best results', 'Complex CUDA dependencies']
+    },
+    {
+      id: 'openlrm', name: 'OpenLRM', category: '3d', developer: '3DTopia',
+      summary: 'Open implementation of large reconstruction models with image-to-NeRF and optional mesh export.',
+      tasks: ['image-to-3d', 'nerf-reconstruction', 'mesh-reconstruction'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 24, min_vram_gb: 16, runtime: ['PyTorch', 'Accelerate'], output: ['NeRF', 'Mesh', 'Turntable video'],
+      local_status: 'local', license: 'Apache 2.0 code, checkpoint terms apply', released: '2023-11',
+      source_url: 'https://github.com/3DTopia/OpenLRM', install_url: 'https://github.com/3DTopia/OpenLRM',
+      hardware_note: 'Checkpoint size and rendering resolution drive memory use. Sixteen GB is a conservative floor for the smaller public inference configurations.',
+      strengths: ['Multiple public checkpoints', 'NeRF and mesh export', 'Open training and inference stack'],
+      caveats: ['Research-oriented configuration system', 'Results depend heavily on clean foreground images']
     },
 
     {

@@ -205,7 +205,7 @@ function landingPage(key, config) {
   <title>${esc(config.title)}</title><meta name="description" content="${esc(config.description)}"><meta name="robots" content="index, follow">
   <link rel="canonical" href="${BASE}${config.route}"><meta property="og:type" content="website"><meta property="og:url" content="${BASE}${config.route}"><meta property="og:title" content="${esc(config.title)}"><meta property="og:description" content="${esc(config.description)}">
   <link rel="icon" href="/images/crab-logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816a">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
+  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816b">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page" data-local-ai-category="${key}">${siteNavigation(config.nav)}
 <main class="lc-ai-main"><div class="lc-ai-shell">
   <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index · ${esc(config.label)}</p><h1 class="lc-ai-title">${esc(config.heading.replace(/ locally$/i, ''))} <span>locally</span></h1><p class="lc-ai-copy">${esc(config.description)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="/local-ai-index">Search by machine</a><a class="lc-ai-button" href="#catalogue">Browse ${count} verified entries</a></div></div>${machinePanel()}</section>
@@ -214,7 +214,7 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-<script src="/js/local-ai-catalog.js?v=20260816a"></script><script src="/js/local-ai-catalog-app.js?v=20260816a"></script></body></html>`;
+<script src="/js/local-ai-catalog.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816b"></script></body></html>`;
 }
 
 function indexPage() {
@@ -229,7 +229,7 @@ function indexPage() {
   <title>The Local AI Index: search by machine | LocalClaw</title><meta name="description" content="Search local LLM, voice, image, video, 3D, music and vision models by RAM, VRAM, operating system and accelerator."><meta name="robots" content="index, follow">
   <link rel="canonical" href="${BASE}/local-ai-index"><meta property="og:type" content="website"><meta property="og:url" content="${BASE}/local-ai-index"><meta property="og:title" content="The Local AI Index"><meta property="og:description" content="Find every kind of AI you can actually run on your machine.">
   <link rel="icon" href="/images/crab-logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816a">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
+  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816b">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page" data-local-ai-category="all">${siteNavigation('index')}
 <main class="lc-ai-main"><div class="lc-ai-shell">
   <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index</p><h1 class="lc-ai-title">Everything local AI. <span>Matched to your machine.</span></h1><p class="lc-ai-copy">Search language, voice, image, video, 3D, music and vision models in one hardware-aware index. Local means downloadable weights and a practical inference path, not an API that only saves its output locally.</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="#catalogue">Match my machine</a><a class="lc-ai-button" href="/account">Add a machine</a></div></div>${machinePanel()}</section>
@@ -238,7 +238,7 @@ function indexPage() {
   <div class="lc-ai-results-head" id="catalogue"><h2>Local AI results</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-<script src="/js/local-ai-search-index.js?v=20260816a"></script><script src="/js/local-ai-catalog-app.js?v=20260816a"></script></body></html>`;
+<script src="/js/local-ai-search-index.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816b"></script></body></html>`;
 }
 
 function detailPage(model) {
@@ -272,7 +272,7 @@ function detailPage(model) {
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(model.name)} local ${esc(config.label.toLowerCase())} AI guide | LocalClaw</title><meta name="description" content="${esc(`${model.name}: local ${config.label.toLowerCase()} model hardware, RAM, VRAM, runtime, output, license and installation guidance.`)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}">
   <meta property="og:type" content="article"><meta property="og:url" content="${url}"><meta property="og:title" content="${esc(model.name)} local ${esc(config.label)} guide"><meta property="og:description" content="${esc(model.summary)}"><link rel="icon" href="/images/crab-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816a">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816b">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page">${siteNavigation(config.nav)}<main class="lc-ai-main"><div class="lc-ai-shell">
   <header class="lc-ai-detail-head"><p class="lc-ai-kicker"><a href="${config.route}">${esc(config.label)} catalogue</a> · Verified local path</p><h1 class="lc-ai-title">${esc(model.name)} <span>local guide</span></h1><p class="lc-ai-copy">${esc(model.summary)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="${esc(model.install_url)}" target="_blank" rel="noopener">Open installation source</a><a class="lc-ai-button" href="${config.route}">Compare ${esc(config.plural)}</a></div></header>
   <div class="lc-ai-detail-grid"><div><section class="lc-ai-detail-panel"><h2>What it does</h2><div class="lc-ai-task-list">${model.tasks.map((task) => `<span class="lc-ai-task">${esc(prettyTerm(task))}</span>`).join('')}</div><p>${esc(model.hardware_note)}</p><div class="lc-ai-source-note">Hardware figures are practical entry floors, not performance guarantees. Resolution, duration, precision, offloading and runtime versions can materially change memory use.</div></section>
