@@ -486,7 +486,7 @@ function page(model, all) {
     </section>
   </main>
   ${isUnverified ? '' : '<script src="/js/community-ratings-20260802a.js?v=20260803a"></script>'}
-  ${hasAudioExample ? '<script src="/js/external-media-catalog.js?v=20260816a"></script><script src="/js/external-media.js?v=20260816c"></script>' : ''}
+  ${hasAudioExample ? '<script src="/js/external-media-catalog.js?v=20260816b"></script><script src="/js/external-media.js?v=20260816c"></script>' : ''}
 </body>
 </html>`;
 }
