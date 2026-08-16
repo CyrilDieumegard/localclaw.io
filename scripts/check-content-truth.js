@@ -406,7 +406,7 @@ for (const marker of [
   '24 GB RAM · K-Quant 17GB Q4_K_M',
   '32 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260816a',
+  'js/data.js?v=20260816b',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -503,7 +503,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
   }
 }
 if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260816a') || !index.includes('js/app-20260816a.js?v=20260816a')) {
+if (!index.includes('js/data.js?v=20260816b') || !index.includes('js/app-20260816a.js?v=20260816a')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
