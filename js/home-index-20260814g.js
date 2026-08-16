@@ -115,6 +115,17 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             .replace(/[-_]+/g, ' ')
             .replace(/\b\w/g, (letter) => letter.toUpperCase());
         const nameCompare = (a, b) => String(a.name).localeCompare(String(b.name), 'en', {sensitivity: 'base'});
+        const textCompare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en', {sensitivity: 'base'});
+        const parameterCount = (model) => {
+            const value = String(model && model.params || '');
+            const mixture = value.match(/([\d.]+)\s*[x×]\s*([\d.]+)\s*([TBMK])/i);
+            if (mixture) return finite(mixture[1]) * finite(mixture[2]) * ({T: 1e12, B: 1e9, M: 1e6, K: 1e3}[mixture[3].toUpperCase()] || 1);
+            const amount = value.match(/([\d.]+)\s*([TBMK])/i);
+            return amount ? finite(amount[1]) * ({T: 1e12, B: 1e9, M: 1e6, K: 1e3}[amount[2].toUpperCase()] || 1) : 0;
+        };
+        const defaultSortDirection = (sortKey) => ['catalogue', 'name', 'family', 'ram', 'license'].includes(sortKey) ? 'asc' : 'desc';
+        let activeSortKey = 'community';
+        let activeSortDirection = defaultSortDirection(activeSortKey);
         const llmTieBreak = (a, b) => {
             const aRatings = a.benchmarks || {};
             const bRatings = b.benchmarks || {};
@@ -125,7 +136,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 || String(b.released || '').localeCompare(String(a.released || ''))
                 || nameCompare(a, b);
         };
-        const compareModels = (sortKey) => (a, b) => {
+        const compareModels = (sortKey, direction = defaultSortDirection(sortKey)) => (a, b) => {
             if (sortKey === 'catalogue') return catalogueOrder.get(a.id) - catalogueOrder.get(b.id);
             let result = 0;
             if (sortKey === 'community') result = communityCompare(a.id, b.id, 'average');
@@ -135,6 +146,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (sortKey === 'fresh') result = String(b.released || '').localeCompare(String(a.released || ''));
             if (sortKey === 'ram') result = finite(a.min_ram, Infinity) - finite(b.min_ram, Infinity);
             if (sortKey === 'name') result = nameCompare(a, b);
+            if (sortKey === 'family') result = textCompare(a.family, b.family) || nameCompare(a, b);
+            if (sortKey === 'params') result = parameterCount(b) - parameterCount(a);
+            if (sortKey === 'license') result = textCompare(modelLicense(a), modelLicense(b));
+            if (direction !== defaultSortDirection(sortKey)) result *= -1;
             return result || llmScore(b) - llmScore(a) || llmTieBreak(a, b);
         };
         const compareSpeech = (sortKey) => (a, b) => {
@@ -271,7 +286,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             </a>`;
         }).join('');
 
-        const rankedModels = [...localModels].sort(compareModels('community'));
+        const rankedModels = [...localModels].sort(compareModels(activeSortKey, activeSortDirection));
         const rankedSpeechModels = [...speechModels].sort(compareSpeech('community'));
         const releaseMonth = releaseLabel(newestRelease);
 
@@ -312,11 +327,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <label><span class="sr-only">Choose machine memory</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">My machine · set RAM</option><option value="8">My machine · 8 GB</option><option value="16">My machine · 16 GB</option><option value="32">My machine · 32 GB</option><option value="64">My machine · 64 GB</option><option value="128">My machine · 128 GB</option><option value="256">My machine · 256 GB</option><option value="512">My machine · 512 GB</option></select></label>
                             <label><span class="sr-only">Filter by machine fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Fits my machine</option><option value="fits">Comfortable fits</option><option value="tight">Tight fits</option><option value="too-large">Too large</option></select></label>
                             <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="ram">Lowest RAM first</option><option value="name">Name A–Z</option><option value="catalogue">Catalogue order</option></select></label>
+                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
-                                <thead><tr><th class="lc-index-rank">Rank</th><th class="lc-index-model-col">Model / family</th><th class="lc-index-score-col">LocalClaw</th><th class="lc-index-community-col">Community</th><th>Params</th><th>Min RAM</th><th>Licence</th><th>Released</th><th class="lc-index-action-col">Compare</th></tr></thead>
+                                <thead><tr><th class="lc-index-rank" scope="col">Rank</th><th class="lc-index-model-col" scope="col" data-sort-key="name" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="name" data-sort-label="model name">Model / family<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-score-col" scope="col" data-sort-key="score" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="score" data-sort-label="LocalClaw score">LocalClaw<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-community-col" scope="col" data-sort-key="community" aria-sort="descending"><button class="lc-index-sort-button" type="button" data-sort-key="community" data-sort-label="community confidence">Community<span class="lc-index-sort-indicator" aria-hidden="true">↓</span></button></th><th scope="col" data-sort-key="params" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="params" data-sort-label="parameter count">Params<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="ram" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="ram" data-sort-label="minimum RAM">Min RAM<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="license" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="license" data-sort-label="licence">Licence<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="fresh" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="fresh" data-sort-label="release date">Released<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-action-col" scope="col">Compare</th></tr></thead>
                                 <tbody id="lc-index-model-rows">${renderModelRows(rankedModels)}</tbody>
                             </table>
                         </div>
@@ -469,6 +484,25 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const compareDialog = document.getElementById('lc-index-compare-dialog');
         const compareContent = document.getElementById('lc-index-compare-content');
         const compareClose = document.getElementById('lc-index-compare-close');
+        const sortHeaders = Array.from(document.querySelectorAll('.lc-index-table thead th[data-sort-key]'));
+        const syncSortControls = () => {
+            sort.value = activeSortKey;
+            sortHeaders.forEach((header) => {
+                const isActive = header.dataset.sortKey === activeSortKey;
+                const button = header.querySelector('.lc-index-sort-button');
+                const indicator = header.querySelector('.lc-index-sort-indicator');
+                header.setAttribute('aria-sort', isActive ? (activeSortDirection === 'asc' ? 'ascending' : 'descending') : 'none');
+                if (indicator) indicator.textContent = isActive ? (activeSortDirection === 'asc' ? '↑' : '↓') : '↕';
+                if (button) {
+                    const nextSortDirection = isActive
+                        ? (activeSortDirection === 'asc' ? 'desc' : 'asc')
+                        : defaultSortDirection(header.dataset.sortKey);
+                    const nextDirection = nextSortDirection === 'asc' ? 'ascending' : 'descending';
+                    button.setAttribute('aria-label', `Sort by ${button.dataset.sortLabel} ${nextDirection}`);
+                    button.title = `Sort by ${button.dataset.sortLabel} ${nextDirection}`;
+                }
+            });
+        };
         const ensureMachineOption = (ramValue, label) => {
             const value = String(normalizeMachineRam(ramValue));
             if (value === '0') return;
@@ -538,7 +572,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 return haystack.includes(query)
                     && matchesFit
                     && (selectedFamily === 'all' || model.family === selectedFamily);
-            }).sort(compareModels(sort.value));
+            }).sort(compareModels(activeSortKey, activeSortDirection));
             rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
             renderCompareTray();
@@ -584,8 +618,23 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             trackHomeGoal('home_index_filter', {target: 'llm', group: 'family', value: family.value, shown: count.textContent});
         });
         sort.addEventListener('change', () => {
+            activeSortKey = sort.value;
+            activeSortDirection = defaultSortDirection(activeSortKey);
+            syncSortControls();
             updateIndex();
-            trackHomeGoal('home_index_sort', {target: 'llm', sort: sort.value, shown: count.textContent});
+            trackHomeGoal('home_index_sort', {target: 'llm', sort: activeSortKey, direction: activeSortDirection, source_control: 'select', shown: count.textContent});
+        });
+        sortHeaders.forEach((header) => {
+            header.querySelector('.lc-index-sort-button')?.addEventListener('click', () => {
+                const nextSortKey = header.dataset.sortKey;
+                activeSortDirection = nextSortKey === activeSortKey
+                    ? (activeSortDirection === 'asc' ? 'desc' : 'asc')
+                    : defaultSortDirection(nextSortKey);
+                activeSortKey = nextSortKey;
+                syncSortControls();
+                updateIndex();
+                trackHomeGoal('home_index_sort', {target: 'llm', sort: activeSortKey, direction: activeSortDirection, source_control: 'column_header', shown: count.textContent});
+            });
         });
         rows.addEventListener('click', (event) => {
             const button = event.target.closest('[data-compare-id]');
@@ -717,6 +766,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 // Anonymous visitors and unavailable account APIs keep the local quick selector.
             }
         };
+        syncSortControls();
         renderCompareTray();
         loadCommunityRatings();
         loadPrimaryMachine();

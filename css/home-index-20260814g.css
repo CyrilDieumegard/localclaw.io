@@ -339,6 +339,26 @@
     text-transform: uppercase;
 }
 
+.lc-index-sort-button {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    color: inherit;
+    text-align: inherit;
+    transition: color 140ms ease;
+}
+.lc-index-sort-button:hover { color: #fff; }
+.lc-index-sort-button:focus-visible { border-radius: 4px; outline: 2px solid rgba(255,69,58,0.82); outline-offset: 3px; }
+.lc-index-sort-indicator { color: #4f4f58; font-size: 10px; letter-spacing: 0; }
+.lc-index-table th[aria-sort="ascending"] .lc-index-sort-button,
+.lc-index-table th[aria-sort="descending"] .lc-index-sort-button,
+.lc-index-table th[aria-sort="ascending"] .lc-index-sort-indicator,
+.lc-index-table th[aria-sort="descending"] .lc-index-sort-indicator { color: #ff6d64; }
+.lc-index-score-col .lc-index-sort-button,
+.lc-index-community-col .lc-index-sort-button { justify-content: center; }
+
 .lc-index-table td { padding: 10px 9px; border-bottom: 1px solid rgba(255,255,255,0.065); color: #b0b0b8; font: 500 10px/1.4 "JetBrains Mono", monospace; vertical-align: middle; }
 .lc-index-table tbody tr { transition: 140ms ease; }
 .lc-index-table tbody tr:hover { background: rgba(255,69,58,0.055); }
@@ -620,6 +640,11 @@ html.light .lc-index-section-meta p strong { color: #111827; }
 html.light .lc-index-fact__number--date { color: #e63b32; }
 html.light .lc-index-fact__label { color: #374151; }
 html.light .lc-index-table th { background: #f4f1ec; }
+html.light .lc-index-sort-button:hover { color: #111827; }
+html.light .lc-index-table th[aria-sort="ascending"] .lc-index-sort-button,
+html.light .lc-index-table th[aria-sort="descending"] .lc-index-sort-button,
+html.light .lc-index-table th[aria-sort="ascending"] .lc-index-sort-indicator,
+html.light .lc-index-table th[aria-sort="descending"] .lc-index-sort-indicator { color: #e63b32; }
 html.light .lc-index-table td { border-bottom-color: rgba(15,23,42,0.08); }
 html.light .lc-index-score { background: rgba(255,69,58,0.08); color: #111827; }
 html.light .lc-index-community { background: rgba(255,138,76,0.09); color: #111827; }
