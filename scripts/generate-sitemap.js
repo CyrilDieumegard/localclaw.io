@@ -93,6 +93,12 @@ const groups = {
     page('download.html', 'monthly', '0.8'),
     page('llm-list.html', 'weekly', '0.9', ['js/data.js']),
     page('tts-list.html', 'weekly', '0.9'),
+    page('local-ai-index.html', 'weekly', '1.0', ['js/local-ai-search-index.js']),
+    page('image-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
+    page('video-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
+    page('3d-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
+    page('music-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
+    page('vision-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
     page('computers.html', 'monthly', '0.8'),
     page('ram-gpu-for-local-ai.html', 'monthly', '0.85'),
     page('new.html', 'weekly', '0.9', ['js/data.js', 'new-models.xml']),
@@ -101,6 +107,13 @@ const groups = {
   ]),
   models: unique(htmlFiles('models').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.75'))),
   tts: unique(htmlFiles('tts').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.8'))),
+  multimodal: unique([
+    ...htmlFiles('image').map(file => page(file, 'monthly', '0.8')),
+    ...htmlFiles('video').map(file => page(file, 'monthly', '0.8')),
+    ...htmlFiles('3d').map(file => page(file, 'monthly', '0.8')),
+    ...htmlFiles('music').map(file => page(file, 'monthly', '0.8')),
+    ...htmlFiles('vision').map(file => page(file, 'monthly', '0.8'))
+  ]),
   blog: unique(htmlFiles('blog').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.8'))),
   guides: unique([
     ...htmlFiles('ram').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),

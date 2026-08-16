@@ -181,6 +181,11 @@ function renderFallback() {
             <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#llm-snapshot">LLM snapshot</a><a href="#speech-snapshot">Speech snapshot</a><a href="#index-methodology">Methodology</a><a href="/new">Newest models</a></nav>
           </header>
 
+          <section class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
+            <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="fallback-local-ai-universe-title">Every kind of AI your machine can run</h2></div><a href="/local-ai-index">Match my machine →</a></header>
+            <nav aria-label="Local AI categories"><a href="/llm-list"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="/tts-list"><strong>Voice</strong><span>${speechModels.length} local records</span></a><a href="/image-models"><strong>Image</strong><span>Generate and edit</span></a><a href="/video-models"><strong>Video</strong><span>Create and animate</span></a><a href="/3d-models"><strong>3D</strong><span>Meshes and splats</span></a><a href="/music-models"><strong>Music</strong><span>Songs and sound</span></a><a href="/vision-models"><strong>Vision</strong><span>OCR and documents</span></a></nav>
+          </section>
+
           <section id="llm-snapshot" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
             <div><span class="lc-index-eyebrow">Crawlable snapshot</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>The first 16 current local records ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal.</p></div>
             <div class="lc-index-fallback__table-wrap"><table><thead><tr><th>Rank</th><th>Model / family</th><th>LocalClaw</th><th>Parameters</th><th>Min RAM</th><th>Licence</th><th>Released</th></tr></thead><tbody>
@@ -235,7 +240,7 @@ function renderGuide() {
             <div>${faqMarkup}</div>
           </section>
 
-          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/models/">All model pages</a><a href="/tts/">All speech pages</a><a href="/use-case/chat">Chat models</a><a href="/use-case/coding">Coding models</a><a href="/use-case/reasoning">Reasoning models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
+          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/local-ai-index">All local AI</a><a href="/models/">All LLM pages</a><a href="/tts/">All speech pages</a><a href="/image-models">Image models</a><a href="/video-models">Video models</a><a href="/3d-models">3D models</a><a href="/music-models">Music models</a><a href="/vision-models">Vision models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
         </section>
         <!-- HOME_INDEX_GUIDE_END -->`;
 }

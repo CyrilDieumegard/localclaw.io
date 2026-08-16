@@ -1,13 +1,15 @@
-const NAV_VERSION = '20260810b';
+const NAV_VERSION = '20260816a';
 
 const items = [
+  ['index', '/local-ai-index', 'AI Index'],
   ['llm', '/llm-list', 'LLM'],
-  ['tts', '/tts-list', 'TTS'],
+  ['voice', '/tts-list', 'Voice'],
+  ['image', '/image-models', 'Image'],
+  ['video', '/video-models', 'Video'],
+  ['3d', '/3d-models', '3D'],
+  ['music', '/music-models', 'Music'],
+  ['vision', '/vision-models', 'Vision'],
   ['new', '/new', 'New'],
-  ['computers', '/computers', 'Computers'],
-  ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU'],
-  ['blog', '/blog/', 'Blog'],
-  ['software', '/software', 'Software'],
   ['account', '/account', 'Account']
 ];
 

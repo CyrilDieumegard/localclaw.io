@@ -18,8 +18,14 @@ function htmlFiles(directory, files = []) {
 
 function activeSection(relativePath) {
   const clean = relativePath.replace(/\\/g, '/').replace(/\.html$/, '');
+  if (clean === 'local-ai-index') return 'index';
   if (clean === 'llm-list' || clean === 'llm-detail' || clean.startsWith('models/') || clean.startsWith('use-case/') || clean.startsWith('guides/best-local-llms')) return 'llm';
-  if (clean === 'tts-list' || clean.startsWith('tts/') || clean.startsWith('guides/best-local-tts')) return 'tts';
+  if (clean === 'tts-list' || clean.startsWith('tts/') || clean.startsWith('guides/best-local-tts')) return 'voice';
+  if (clean === 'image-models' || clean.startsWith('image/')) return 'image';
+  if (clean === 'video-models' || clean.startsWith('video/')) return 'video';
+  if (clean === '3d-models' || clean.startsWith('3d/')) return '3d';
+  if (clean === 'music-models' || clean.startsWith('music/')) return 'music';
+  if (clean === 'vision-models' || clean.startsWith('vision/')) return 'vision';
   if (clean === 'new') return 'new';
   if (clean === 'computers' || clean.startsWith('hardware/')) return 'computers';
   if (clean === 'ram-gpu-for-local-ai' || clean.startsWith('ram/')) return 'ram-gpu';

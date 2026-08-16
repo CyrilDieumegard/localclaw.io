@@ -14,6 +14,12 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'favicon.ico',
   'google7a49ecaded8c2575.html',
   'index.html',
+  'local-ai-index.html',
+  'image-models.html',
+  'video-models.html',
+  '3d-models.html',
+  'music-models.html',
+  'vision-models.html',
   'llm-detail.html',
   'llm-list.html',
   'llms-full.txt',
@@ -28,6 +34,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'sitemap-core.xml',
   'sitemap-guides.xml',
   'sitemap-models.xml',
+  'sitemap-multimodal.xml',
   'sitemap-tts.xml',
   'sitemap.xml',
   'software.html',
@@ -37,6 +44,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
 ]);
 
 const PUBLIC_DIRECTORIES = Object.freeze([
+  '3d',
   'blog',
   'case-study',
   'changelog',
@@ -45,11 +53,15 @@ const PUBLIC_DIRECTORIES = Object.freeze([
   'guides',
   'hardware',
   'images',
+  'image',
   'js',
   'models',
+  'music',
   'ram',
   'tts',
-  'use-case'
+  'use-case',
+  'video',
+  'vision'
 ]);
 
 const PUBLIC_EXTENSIONS = new Set([

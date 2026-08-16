@@ -105,6 +105,24 @@
 .lc-index-fact__label { min-width: 0; color: #d9d9df; font: 650 13px/1.15 "Space Grotesk", sans-serif; }
 .lc-index-fact p { margin-top: 7px; color: #74747e; font: 500 9px/1.45 "JetBrains Mono", monospace; }
 
+.lc-index-universe {
+    margin: 0 0 28px;
+    padding: 17px;
+    border: 1px solid rgba(255,69,58,0.26);
+    border-radius: 12px;
+    background: radial-gradient(circle at 10% 0%, rgba(255,69,58,0.11), transparent 45%), rgba(10,10,11,0.78);
+}
+
+.lc-index-universe > header { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 13px; }
+.lc-index-universe h2 { margin-top: 4px; color: #fff; font: 700 20px/1.05 "Space Grotesk", sans-serif; letter-spacing: -0.025em; }
+.lc-index-universe > header > a { color: #ff6d64; font: 700 9px/1.3 "JetBrains Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
+.lc-index-universe > header > a:hover { color: #fff; }
+.lc-index-universe nav { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
+.lc-index-universe nav a { min-width: 0; padding: 10px 9px; border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; background: rgba(0,0,0,0.28); }
+.lc-index-universe nav a:hover { border-color: rgba(255,69,58,0.42); background: rgba(255,69,58,0.05); }
+.lc-index-universe nav strong { display: block; color: #fff; font: 700 12px/1.2 "Space Grotesk", sans-serif; }
+.lc-index-universe nav span { display: block; margin-top: 4px; overflow: hidden; color: #72727d; font: 500 7px/1.35 "JetBrains Mono", monospace; text-overflow: ellipsis; white-space: nowrap; }
+
 .lc-index-grid {
     display: grid;
     grid-template-columns: 180px minmax(0, 920px) 180px;
@@ -582,6 +600,9 @@
     .lc-index-fact { padding: 14px 15px; }
     .lc-index-fact__number { font-size: 26px; }
     .lc-index-fact__number--date { font-size: 22px; }
+    .lc-index-universe > header { align-items: flex-start; flex-direction: column; }
+    .lc-index-universe nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lc-index-universe nav span { white-space: normal; }
     .lc-index-section-meta { justify-content: flex-start; }
     .lc-index-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lc-index-controls label:first-child { grid-column: 1 / -1; }
@@ -627,10 +648,13 @@
 
 html.light .lc-index-hero,
 html.light .lc-index-facts,
+html.light .lc-index-universe,
 html.light .lc-index-table-wrap,
 html.light .lc-index-control,
 html.light .lc-index-tts-row { background: rgba(255,255,255,0.94); border-color: rgba(15,23,42,0.12); }
 html.light .lc-index-hero h1,
+html.light .lc-index-universe h2,
+html.light .lc-index-universe nav strong,
 html.light .lc-index-section-head h2,
 html.light .lc-index-model-link,
 html.light .lc-index-model-name,

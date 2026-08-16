@@ -38,6 +38,24 @@
 /tts-list.html
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
+/local-ai-index
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/image-models
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/video-models
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/3d-models
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/music-models
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/vision-models
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 /new
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
@@ -81,6 +99,21 @@
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /tts/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/image/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/video/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/3d/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/music/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+/vision/*
   Cache-Control: public, max-age=7200, stale-while-revalidate=86400
 
 /js/*

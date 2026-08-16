@@ -312,6 +312,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label">latest catalogue month</span></strong><p>From repository release metadata.</p></article>
                     </section>
 
+                    <section class="lc-index-universe" aria-labelledby="lc-index-universe-title">
+                        <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="lc-index-universe-title">Every kind of AI your machine can run</h2></div><a href="/local-ai-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_index" data-fast-goal-target="local-ai-index">Match my machine →</a></header>
+                        <nav aria-label="Local AI categories">
+                            <a href="/llm-list"><strong>LLM</strong><span>${localModels.length} local pages</span></a>
+                            <a href="/tts-list"><strong>Voice</strong><span>${speechModels.length} local records</span></a>
+                            <a href="/image-models"><strong>Image</strong><span>Generate and edit</span></a>
+                            <a href="/video-models"><strong>Video</strong><span>Create and animate</span></a>
+                            <a href="/3d-models"><strong>3D</strong><span>Meshes and splats</span></a>
+                            <a href="/music-models"><strong>Music</strong><span>Songs and sound</span></a>
+                            <a href="/vision-models"><strong>Vision</strong><span>OCR and documents</span></a>
+                        </nav>
+                    </section>
+
                     <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
                         <span><strong>Founding sponsor offer</strong><small>Lock in the introductory rate before new-campaign pricing changes.</small></span>
                         <span>$29 / 7 days</span>

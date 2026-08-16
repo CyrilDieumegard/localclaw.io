@@ -4,6 +4,7 @@
   "private": true,
   "description": "Static LocalClaw website with Cloudflare Pages Functions.",
   "scripts": {
+    "catalog:generate": "node scripts/generate-local-ai-catalog.js",
     "nav:sync": "node scripts/sync-site-navigation.js",
     "nav:check": "node scripts/sync-site-navigation.js --check",
     "urls:normalize": "node scripts/normalize-public-urls.js",
