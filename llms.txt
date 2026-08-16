@@ -18,6 +18,7 @@
 - Audio /10 is separate: 68% quality + 32% speed.
 - Community ratings never change or blend into either software score.
 - RAM fit compares a model's catalogue minimum with installed RAM; runtime and context overhead can require more memory.
+- Artificial Analysis is an independent performance reference for covered models. Its results are not blended into LocalClaw scores and do not prove local compatibility.
 
 ## Core Pages
 
@@ -34,6 +35,7 @@
 - [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
+- [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
 - [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 316 local homepage entries
 
 ## RAM Decision Paths

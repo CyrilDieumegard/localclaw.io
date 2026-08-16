@@ -91,7 +91,9 @@ for (const marker of [
 for (const marker of [
   `numberOfItems": ${indexableLocalModels.length}`,
   `numberOfItems": ${speechModels.length}`,
-  'Three signals, never blended',
+  'Four signals, never blended',
+  'Independent benchmark reality check',
+  'does not scrape, copy or blend their rankings',
   'It is not a standardized third-party benchmark.'
 ]) {
   if (!index.includes(marker)) errors.push(`Homepage missing truth marker: ${marker}`);

@@ -144,6 +144,10 @@ const faqs = [
     answer: 'No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score.'
   },
   {
+    question: 'Does an Artificial Analysis result prove that a model runs locally?',
+    answer: 'No. Artificial Analysis provides independent performance context for covered models. LocalClaw separately verifies the downloadable model, local runtime path, RAM or VRAM floor and licence. A model missing from an external leaderboard is treated as not covered, not as a poor performer.'
+  },
+  {
     question: 'How should I choose a local model for 8, 16, 32 or 64 GB RAM?',
     answer: 'Use the machine RAM selector or a RAM guide. A model is considered compatible when its catalogue minimum-RAM value is at or below the selected memory; context length, runtime overhead and other applications can require additional headroom.'
   },
@@ -251,12 +255,24 @@ function renderGuide() {
           </section>
 
           <section id="index-methodology" class="lc-index-guide__method" aria-labelledby="method-title">
-            <div class="lc-index-guide__section-title"><h3 id="method-title">Three signals, never blended</h3><p>Each signal answers a different question. No community average is converted into a software score.</p></div>
+            <div class="lc-index-guide__section-title"><h3 id="method-title">Four signals, never blended</h3><p>Each signal answers a different question. Community votes, editorial ratings, machine fit and external benchmarks stay separate.</p></div>
             <div class="lc-index-guide__method-grid">
               <article><span>01</span><h4>Community ★ /5</h4><p>Raw signed-in member average plus vote count. The confidence sort uses a transparent 3.5/5 prior over five votes; fewer than five votes is marked EARLY.</p><a href="/api/ratings">Live public aggregates →</a></article>
               <article><span>02</span><h4>LocalClaw /10</h4><p>Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed, using only maintained repository fields. It is not a standardized third-party benchmark.</p></article>
               <article><span>03</span><h4>Hardware fit</h4><p>Compares installed RAM with the catalogue minimum. Context, runtime overhead, GPU offload and other applications can require more headroom.</p></article>
+              <article><span>04</span><h4>Independent benchmarks</h4><p>Artificial Analysis adds third-party performance context for covered models. It never replaces LocalClaw's local-runtime, licence, RAM or VRAM checks.</p><a href="#independent-benchmarks">Choose the right benchmark ↓</a></article>
             </div>
+          </section>
+
+          <section id="independent-benchmarks" class="lc-index-guide__benchmarks" aria-labelledby="independent-benchmarks-title">
+            <div class="lc-index-guide__section-title"><h3 id="independent-benchmarks-title">Independent benchmark reality check</h3><p>Use the external signal that matches the output, then come back to LocalClaw for local compatibility. Coverage is not universal, so absence is never scored as failure.</p></div>
+            <div class="lc-index-guide__benchmark-grid">
+              <a href="https://artificialanalysis.ai/models/open-source" target="_blank" rel="noopener external"><span>LLM</span><strong>Open-weight intelligence</strong><small>Compare intelligence, openness, model size and context. Local RAM fit remains a LocalClaw check.</small><b>Open independent LLM data ↗</b></a>
+              <a href="https://artificialanalysis.ai/image/arena" target="_blank" rel="noopener external"><span>Image</span><strong>Visual preference arena</strong><small>Compare generated-image preference. Installation, quantization and VRAM are verified here.</small><b>Open the image arena ↗</b></a>
+              <a href="https://artificialanalysis.ai/text-to-speech/leaderboard/provider-voice" target="_blank" rel="noopener external"><span>Voice</span><strong>Speech preference leaderboard</strong><small>Use the Open weights filter for local candidates. Voice quality does not prove a local runtime exists.</small><b>Open the speech leaderboard ↗</b></a>
+              <a href="https://artificialanalysis.ai/video/arena" target="_blank" rel="noopener external"><span>Video</span><strong>Video preference arena</strong><small>Compare text-to-video and image-to-video output. LocalClaw supplies the practical RAM and VRAM path.</small><b>Open the video arena ↗</b></a>
+            </div>
+            <p class="lc-index-guide__benchmark-note"><strong>Source boundary:</strong> LocalClaw links to the official Artificial Analysis surfaces and does not scrape, copy or blend their rankings into the LocalClaw score. Live score ingestion can be added later through their official API with server-side caching and attribution.</p>
           </section>
 
           <section class="lc-index-guide__faq" aria-labelledby="index-faq-title">
@@ -458,6 +474,7 @@ function compactLlmsText() {
 - Audio /10 is separate: 68% quality + 32% speed.
 - Community ratings never change or blend into either software score.
 - RAM fit compares a model's catalogue minimum with installed RAM; runtime and context overhead can require more memory.
+- Artificial Analysis is an independent performance reference for covered models. Its results are not blended into LocalClaw scores and do not prove local compatibility.
 
 ## Core Pages
 
@@ -474,6 +491,7 @@ function compactLlmsText() {
 - [Hardware guides](${BASE_URL}/hardware/) — model fit by machine
 - [Use-case guides](${BASE_URL}/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](${BASE_URL}/api/ratings) — current independent star averages and vote counts as JSON
+- [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
 - [Full AI-readable model index](${BASE_URL}/llms-full.txt) - all ${totalLocalAiRecords} local homepage entries
 
 ## RAM Decision Paths

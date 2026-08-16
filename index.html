@@ -86,7 +86,7 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css?v=20260719a">
-    <link rel="stylesheet" href="css/home-index-20260814g.css?v=20260816e">
+    <link rel="stylesheet" href="css/home-index-20260814g.css?v=20260816h">
     <script src="js/video-player.js?v=20260719b" defer></script>
     
     <!-- Theme Toggle Script -->
@@ -2353,12 +2353,24 @@
           </section>
 
           <section id="index-methodology" class="lc-index-guide__method" aria-labelledby="method-title">
-            <div class="lc-index-guide__section-title"><h3 id="method-title">Three signals, never blended</h3><p>Each signal answers a different question. No community average is converted into a software score.</p></div>
+            <div class="lc-index-guide__section-title"><h3 id="method-title">Four signals, never blended</h3><p>Each signal answers a different question. Community votes, editorial ratings, machine fit and external benchmarks stay separate.</p></div>
             <div class="lc-index-guide__method-grid">
               <article><span>01</span><h4>Community ★ /5</h4><p>Raw signed-in member average plus vote count. The confidence sort uses a transparent 3.5/5 prior over five votes; fewer than five votes is marked EARLY.</p><a href="/api/ratings">Live public aggregates →</a></article>
               <article><span>02</span><h4>LocalClaw /10</h4><p>Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed, using only maintained repository fields. It is not a standardized third-party benchmark.</p></article>
               <article><span>03</span><h4>Hardware fit</h4><p>Compares installed RAM with the catalogue minimum. Context, runtime overhead, GPU offload and other applications can require more headroom.</p></article>
+              <article><span>04</span><h4>Independent benchmarks</h4><p>Artificial Analysis adds third-party performance context for covered models. It never replaces LocalClaw's local-runtime, licence, RAM or VRAM checks.</p><a href="#independent-benchmarks">Choose the right benchmark ↓</a></article>
             </div>
+          </section>
+
+          <section id="independent-benchmarks" class="lc-index-guide__benchmarks" aria-labelledby="independent-benchmarks-title">
+            <div class="lc-index-guide__section-title"><h3 id="independent-benchmarks-title">Independent benchmark reality check</h3><p>Use the external signal that matches the output, then come back to LocalClaw for local compatibility. Coverage is not universal, so absence is never scored as failure.</p></div>
+            <div class="lc-index-guide__benchmark-grid">
+              <a href="https://artificialanalysis.ai/models/open-source" target="_blank" rel="noopener external"><span>LLM</span><strong>Open-weight intelligence</strong><small>Compare intelligence, openness, model size and context. Local RAM fit remains a LocalClaw check.</small><b>Open independent LLM data ↗</b></a>
+              <a href="https://artificialanalysis.ai/image/arena" target="_blank" rel="noopener external"><span>Image</span><strong>Visual preference arena</strong><small>Compare generated-image preference. Installation, quantization and VRAM are verified here.</small><b>Open the image arena ↗</b></a>
+              <a href="https://artificialanalysis.ai/text-to-speech/leaderboard/provider-voice" target="_blank" rel="noopener external"><span>Voice</span><strong>Speech preference leaderboard</strong><small>Use the Open weights filter for local candidates. Voice quality does not prove a local runtime exists.</small><b>Open the speech leaderboard ↗</b></a>
+              <a href="https://artificialanalysis.ai/video/arena" target="_blank" rel="noopener external"><span>Video</span><strong>Video preference arena</strong><small>Compare text-to-video and image-to-video output. LocalClaw supplies the practical RAM and VRAM path.</small><b>Open the video arena ↗</b></a>
+            </div>
+            <p class="lc-index-guide__benchmark-note"><strong>Source boundary:</strong> LocalClaw links to the official Artificial Analysis surfaces and does not scrape, copy or blend their rankings into the LocalClaw score. Live score ingestion can be added later through their official API with server-side caching and attribution.</p>
           </section>
 
           <section class="lc-index-guide__faq" aria-labelledby="index-faq-title">
@@ -2366,6 +2378,7 @@
             <div><details open><summary>What is The Local Model Index?</summary><p>It is LocalClaw&#39;s hardware-aware homepage directory of 316 local records: 213 indexable LLM pages, 55 speech records and 48 image, video, 3D, music and vision models. Hosted-only and exact-repository-unavailable LLM records are excluded, and duplicate route IDs are collapsed.</p></details>
 <details><summary>How is the LocalClaw score calculated?</summary><p>The homepage LocalClaw catalogue score is a separate 0-10 method calculated from repository fields: 38% quality, 24% coding, 24% reasoning and 14% speed. It is not a community rating or an external benchmark leaderboard.</p></details>
 <details><summary>Are community stars mixed into the LocalClaw score?</summary><p>No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score.</p></details>
+<details><summary>Does an Artificial Analysis result prove that a model runs locally?</summary><p>No. Artificial Analysis provides independent performance context for covered models. LocalClaw separately verifies the downloadable model, local runtime path, RAM or VRAM floor and licence. A model missing from an external leaderboard is treated as not covered, not as a poor performer.</p></details>
 <details><summary>How should I choose a local model for 8, 16, 32 or 64 GB RAM?</summary><p>Use the machine RAM selector or a RAM guide. A model is considered compatible when its catalogue minimum-RAM value is at or below the selected memory; context length, runtime overhead and other applications can require additional headroom.</p></details>
 <details><summary>Does the homepage include cloud-only or API-only models?</summary><p>No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains 172 records with a public GGUF repository, plus 37 public and 4 gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded.</p></details>
 <details><summary>What speech models are covered?</summary><p>The local speech index contains 55 records: 46 TTS models, 8 ASR models and 1 local speech application. Each entry keeps its Audio score separate from community stars.</p></details>
@@ -3074,6 +3087,14 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does an Artificial Analysis result prove that a model runs locally?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Artificial Analysis provides independent performance context for covered models. LocalClaw separately verifies the downloadable model, local runtime path, RAM or VRAM floor and licence. A model missing from an external leaderboard is treated as not covered, not as a poor performer."
               }
             },
             {
