@@ -51,9 +51,15 @@ for (const marker of ['status: 404', '"Cache-Control": "no-store"', '"Cloudflare
 }
 
 const headers = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
-for (const route of ['/', '/llm-list', '/tts-list', '/local-ai-index', '/image-models', '/video-models', '/3d-models', '/music-models', '/vision-models', '/new']) {
+for (const route of ['/', '/llm-list', '/tts-list', '/image-models', '/video-models', '/3d-models', '/music-models', '/vision-models', '/new']) {
   if (!new RegExp(`^${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'm').test(headers)) {
     errors.push(`_headers missing canonical cache rule for ${route}`);
+  }
+}
+const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+for (const legacyRoute of ['/local-ai-index.html', '/local-ai-index']) {
+  if (!new RegExp(`^${legacyRoute.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+/#local-ai-index\\s+301$`, 'm').test(redirects)) {
+    errors.push(`_redirects must send ${legacyRoute} to the homepage index anchor`);
   }
 }
 

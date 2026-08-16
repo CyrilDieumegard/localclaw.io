@@ -3,8 +3,14 @@
 
   function currentSection(pathname) {
     var path = String(pathname || '/').replace(/\.html$/, '');
+    if (path === '/' || path === '/index') return 'index';
     if (path === '/llm-list' || path === '/llm-detail' || path.indexOf('/models/') === 0) return 'llm';
-    if (path === '/tts-list' || path.indexOf('/tts/') === 0) return 'tts';
+    if (path === '/tts-list' || path.indexOf('/tts/') === 0) return 'voice';
+    if (path === '/image-models' || path.indexOf('/image/') === 0) return 'image';
+    if (path === '/video-models' || path.indexOf('/video/') === 0) return 'video';
+    if (path === '/3d-models' || path.indexOf('/3d/') === 0) return '3d';
+    if (path === '/music-models' || path.indexOf('/music/') === 0) return 'music';
+    if (path === '/vision-models' || path.indexOf('/vision/') === 0) return 'vision';
     if (path === '/new') return 'new';
     if (path === '/computers' || path.indexOf('/hardware/') === 0) return 'computers';
     if (path === '/ram-gpu-for-local-ai' || path.indexOf('/ram/') === 0) return 'ram-gpu';

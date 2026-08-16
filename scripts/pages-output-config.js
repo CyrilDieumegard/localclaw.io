@@ -14,7 +14,6 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'favicon.ico',
   'google7a49ecaded8c2575.html',
   'index.html',
-  'local-ai-index.html',
   'image-models.html',
   'video-models.html',
   '3d-models.html',

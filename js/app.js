@@ -1671,20 +1671,20 @@ const App = {
                 </div>
             </section>
 
-            <section aria-labelledby="local-ai-universe-title" class="mb-20">
+            <section id="local-ai-index" aria-labelledby="local-ai-universe-title" class="mb-20 scroll-mt-24">
                 <div class="rounded-2xl border border-claw-primary/20 bg-[radial-gradient(ellipse_at_top_left,rgba(255,69,58,0.13),transparent_45%),rgba(255,255,255,0.02)] p-6 sm:p-8">
                     <div class="mb-7 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                         <div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// THE LOCAL AI INDEX</p><h2 id="local-ai-universe-title" class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Every kind of AI your machine can run</h2><p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">Language, voice, image, video, 3D, music and vision in one hardware-aware index. Local means downloadable weights and a practical inference path.</p></div>
-                        <a href="/local-ai-index" data-fast-goal="catalogue_click" data-fast-goal-target="local-ai-index" data-fast-goal-source="home_categories" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black">Match My Machine →</a>
+                        <a href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-target="llm-index" data-fast-goal-source="home_categories" class="rounded-lg bg-claw-primary px-5 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black">Match My Machine ↓</a>
                     </div>
                     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
-                        <a href="/llm-list" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">LLM</strong><span class="mt-1 block text-xs text-claw-muted">Language and agents</span></a>
-                        <a href="/tts-list" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-purple-300/45"><strong class="block text-white">Voice</strong><span class="mt-1 block text-xs text-claw-muted">TTS, ASR, cloning</span></a>
-                        <a href="/image-models" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Image</strong><span class="mt-1 block text-xs text-claw-muted">Generate and edit</span></a>
-                        <a href="/video-models" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Video</strong><span class="mt-1 block text-xs text-claw-muted">Create and animate</span></a>
-                        <a href="/3d-models" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">3D</strong><span class="mt-1 block text-xs text-claw-muted">Meshes and splats</span></a>
-                        <a href="/music-models" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Music</strong><span class="mt-1 block text-xs text-claw-muted">Songs and sound</span></a>
-                        <a href="/vision-models" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Vision</strong><span class="mt-1 block text-xs text-claw-muted">OCR and documents</span></a>
+                        <a href="#llm-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">LLM</strong><span class="mt-1 block text-xs text-claw-muted">Language and agents</span></a>
+                        <a href="#tts-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-purple-300/45"><strong class="block text-white">Voice</strong><span class="mt-1 block text-xs text-claw-muted">TTS, ASR, cloning</span></a>
+                        <a href="#image-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Image</strong><span class="mt-1 block text-xs text-claw-muted">Generate and edit</span></a>
+                        <a href="#video-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Video</strong><span class="mt-1 block text-xs text-claw-muted">Create and animate</span></a>
+                        <a href="#three-d-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">3D</strong><span class="mt-1 block text-xs text-claw-muted">Meshes and splats</span></a>
+                        <a href="#music-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Music</strong><span class="mt-1 block text-xs text-claw-muted">Songs and sound</span></a>
+                        <a href="#vision-index" class="rounded-xl border border-white/10 bg-black/35 p-4 hover:border-claw-primary/45"><strong class="block text-white">Vision</strong><span class="mt-1 block text-xs text-claw-muted">OCR and documents</span></a>
                     </div>
                 </div>
             </section>

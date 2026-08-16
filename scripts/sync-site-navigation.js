@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { siteNavigation, siteNavAssets } = require('./site-navigation');
+const { NAV_VERSION, siteNavigation, siteNavAssets } = require('./site-navigation');
 
 const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
@@ -18,7 +18,7 @@ function htmlFiles(directory, files = []) {
 
 function activeSection(relativePath) {
   const clean = relativePath.replace(/\\/g, '/').replace(/\.html$/, '');
-  if (clean === 'local-ai-index') return 'index';
+  if (clean === 'index') return 'index';
   if (clean === 'llm-list' || clean === 'llm-detail' || clean.startsWith('models/') || clean.startsWith('use-case/') || clean.startsWith('guides/best-local-llms')) return 'llm';
   if (clean === 'tts-list' || clean.startsWith('tts/') || clean.startsWith('guides/best-local-tts')) return 'voice';
   if (clean === 'image-models' || clean.startsWith('image/')) return 'image';
@@ -36,7 +36,11 @@ function activeSection(relativePath) {
 }
 
 function addAssets(html) {
-  if (html.includes('/css/site-nav.css')) return html;
+  if (html.includes('/css/site-nav.css') || html.includes('href="css/site-nav.css')) {
+    return html
+      .replace(/(href="\/?css\/site-nav\.css)(?:\?v=[^"]*)?("\s*\/?>)/g, `$1?v=${NAV_VERSION}$2`)
+      .replace(/(src="\/?js\/site-nav\.js)(?:\?v=[^"]*)?("[^>]*>)/g, `$1?v=${NAV_VERSION}$2`);
+  }
   return html.replace('</head>', `  ${siteNavAssets()}\n</head>`);
 }
 

@@ -44,6 +44,7 @@ const unverifiedSpeechRecords = allSpeechRecords.filter(model => model.delivery 
 const speechById = new Map(allSpeechRecords.map(model => [model.id, model]));
 const localSpeechIds = new Set(speechModels.map(model => model.id));
 const index = read('index.html');
+const indexText = index.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
@@ -83,7 +84,11 @@ for (const [modelId, expected] of Object.entries(correctedModelFacts)) {
 
 for (const marker of [
   `${indexableLocalModels.length} local LLM pages`,
-  `${speechModels.length} local speech records`,
+  `${speechModels.length} local speech records`
+]) {
+  if (!indexText.includes(marker)) errors.push(`Homepage missing visible truth marker: ${marker}`);
+}
+for (const marker of [
   `numberOfItems": ${indexableLocalModels.length}`,
   `numberOfItems": ${speechModels.length}`,
   'Three signals, never blended',
@@ -91,6 +96,12 @@ for (const marker of [
 ]) {
   if (!index.includes(marker)) errors.push(`Homepage missing truth marker: ${marker}`);
 }
+const fallbackLlmSection = (index.match(/<section id="llm-index"[\s\S]*?<\/section>/) || [''])[0];
+const fallbackSpeechSection = (index.match(/<section id="tts-index"[\s\S]*?<\/section>/) || [''])[0];
+const fallbackLlmLinks = (fallbackLlmSection.match(/href="\/models\//g) || []).length;
+const fallbackSpeechLinks = (fallbackSpeechSection.match(/href="\/tts\//g) || []).length;
+if (fallbackLlmLinks !== indexableLocalModels.length) errors.push(`Homepage crawlable LLM catalogue has ${fallbackLlmLinks} links, expected ${indexableLocalModels.length}`);
+if (fallbackSpeechLinks !== speechModels.length) errors.push(`Homepage crawlable speech catalogue has ${fallbackSpeechLinks} links, expected ${speechModels.length}`);
 for (const marker of [
   `Local LLM pages: ${indexableLocalModels.length}`,
   `Local speech records: ${speechModels.length}`,

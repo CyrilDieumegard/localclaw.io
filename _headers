@@ -38,9 +38,6 @@
 /tts-list.html
   Cache-Control: no-cache, no-store, must-revalidate
 
-/local-ai-index
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
 /image-models
   Cache-Control: no-cache, no-store, must-revalidate
 

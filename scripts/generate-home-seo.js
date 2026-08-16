@@ -11,6 +11,7 @@ const LLMS_FULL_PATH = path.join(ROOT, 'llms-full.txt');
 const DATA_PATH = path.join(ROOT, 'js/data.js');
 const DETAILS_PATH = path.join(ROOT, 'js/model-details.js');
 const SPEECH_PATH = path.join(ROOT, 'js/home-index-speech-20260814c.js');
+const MULTIMODAL_PATH = path.join(ROOT, 'js/local-ai-catalog.js');
 
 function evaluate(filePath, suffix, context = {}) {
   vm.createContext(context);
@@ -22,9 +23,18 @@ const dataSource = fs.readFileSync(DATA_PATH, 'utf8');
 const dataContext = evaluate(DATA_PATH, ';this.APP_DATA_EXPORT=APP_DATA;');
 const detailContext = evaluate(DETAILS_PATH, ';this.MODEL_DETAILS_EXPORT=MODEL_DETAILS;');
 const speechContext = evaluate(SPEECH_PATH, '', { window: {} });
+const multimodalContext = evaluate(MULTIMODAL_PATH, '', { window: {} });
 const appData = dataContext.APP_DATA_EXPORT;
 const modelDetails = detailContext.MODEL_DETAILS_EXPORT || {};
 const speechModels = speechContext.window.HOME_INDEX_SPEECH_MODELS || [];
+const multimodalModels = (multimodalContext.window.LOCAL_AI_CATALOG || []).filter(model => model.local_status === 'local');
+const multimodalCategories = [
+  { key: 'image', label: 'Image', directory: 'image', catalogue: '/image-models', anchor: 'image-index' },
+  { key: 'video', label: 'Video', directory: 'video', catalogue: '/video-models', anchor: 'video-index' },
+  { key: '3d', label: '3D', directory: '3d', catalogue: '/3d-models', anchor: 'three-d-index' },
+  { key: 'music', label: 'Music', directory: 'music', catalogue: '/music-models', anchor: 'music-index' },
+  { key: 'vision', label: 'Vision', directory: 'vision', catalogue: '/vision-models', anchor: 'vision-index' }
+];
 const hfRepoVerification = appData.hfRepoVerification || {};
 const publicGgufCount = Object.keys(hfRepoVerification.publicGguf || {}).length;
 const publicModelCardCount = Object.keys(hfRepoVerification.publicModelCard || {}).length;
@@ -96,6 +106,7 @@ const rankedModels = [...localModels].sort((a, b) => llmScore(b) - llmScore(a)
 const rankedSpeech = [...speechModels].sort((a, b) => speechScore(b) - speechScore(a)
   || finite(b.quality) - finite(a.quality)
   || String(a.name).localeCompare(String(b.name), 'en', { sensitivity: 'base' }));
+const totalLocalAiRecords = localModels.length + speechModels.length + multimodalModels.length;
 
 function verifiedLicense(model) {
   return modelDetails[model.id] && modelDetails[model.id].license
@@ -122,7 +133,7 @@ const ramTiers = [8, 16, 32, 64].map(ram => ({ ram, models: tierPicks(ram) }));
 const faqs = [
   {
     question: 'What is The Local Model Index?',
-    answer: `It is LocalClaw's hardware-aware directory of ${localModels.length} indexable local LLM pages and ${speechModels.length} local speech records. The LLM set includes ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards with no GGUF file verified and ${gatedModelCardCount} gated model cards; each detail page discloses its source state. Hosted-only and exact-repository-unavailable LLM records are excluded, and duplicate route IDs are collapsed.`
+    answer: `It is LocalClaw's hardware-aware homepage directory of ${totalLocalAiRecords} local records: ${localModels.length} indexable LLM pages, ${speechModels.length} speech records and ${multimodalModels.length} image, video, 3D, music and vision models. Hosted-only and exact-repository-unavailable LLM records are excluded, and duplicate route IDs are collapsed.`
   },
   {
     question: 'How is the LocalClaw score calculated?',
@@ -166,43 +177,56 @@ function renderSpeechList(models) {
   return models.map((model, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span><a href="/tts/${encodeURIComponent(model.id)}"><strong>${escapeHtml(model.name)}</strong><small>${escapeHtml(model.type)} · Audio ${scoreLabel(speechScore(model))}/10 · ${escapeHtml(model.license || 'See model page')}</small></a></li>`).join('\n');
 }
 
+function renderMultimodalFallback() {
+  return multimodalCategories.map(category => {
+    const models = multimodalModels.filter(model => model.category === category.key);
+    const cards = models.map(model => `<a href="/${category.directory}/${encodeURIComponent(model.id)}"><strong>${escapeHtml(model.name)}</strong><span>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</span><small>${escapeHtml(model.summary)}</small></a>`).join('');
+    return `<section id="${category.anchor}" class="lc-index-fallback__multi-category" aria-labelledby="fallback-${category.key}-title"><header><div><span class="lc-index-eyebrow">${models.length} verified records</span><h3 id="fallback-${category.key}-title">Local ${category.label}</h3></div><a href="${category.catalogue}">Dedicated catalogue →</a></header><div>${cards}</div></section>`;
+  }).join('\n');
+}
+
 function renderFallback() {
   return `        <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="${updatedIso}">
           <header class="lc-index-fallback__hero">
             <p class="lc-index-kicker">// LocalClaw · local models only</p>
             <h1>The Local <span>Model Index</span></h1>
-            <p>A hardware-aware directory for comparing local LLM and speech models by independent community stars, LocalClaw score, minimum RAM, family, licence and release date.</p>
+            <p>A hardware-aware directory for local language, voice, image, video, 3D, music and vision models, with independent scores, minimum RAM and verified local paths.</p>
             <div class="lc-index-fallback__stats" aria-label="Current LocalClaw index statistics">
               <span><strong>${localModels.length}</strong> local LLM pages</span>
               <span><strong>${llmFamilyCount}</strong> LLM families</span>
               <span><strong>${speechModels.length}</strong> local speech records</span>
-              <span><strong>${escapeHtml(releaseLabel(newestRelease))}</strong> latest release month</span>
+              <span><strong>${multimodalModels.length}</strong> image, video, 3D, music and vision records</span>
             </div>
-            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#llm-snapshot">LLM snapshot</a><a href="#speech-snapshot">Speech snapshot</a><a href="#index-methodology">Methodology</a><a href="/new">Newest models</a></nav>
+            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#llm-index">LLM</a><a href="#tts-index">Voice</a><a href="#multimodal-index">Every other AI</a><a href="#index-methodology">Methodology</a><a href="/new">Newest models</a></nav>
           </header>
 
-          <section class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
-            <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="fallback-local-ai-universe-title">Every kind of AI your machine can run</h2></div><a href="/local-ai-index">Match my machine →</a></header>
-            <nav aria-label="Local AI categories"><a href="/llm-list"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="/tts-list"><strong>Voice</strong><span>${speechModels.length} local records</span></a><a href="/image-models"><strong>Image</strong><span>Generate and edit</span></a><a href="/video-models"><strong>Video</strong><span>Create and animate</span></a><a href="/3d-models"><strong>3D</strong><span>Meshes and splats</span></a><a href="/music-models"><strong>Music</strong><span>Songs and sound</span></a><a href="/vision-models"><strong>Vision</strong><span>OCR and documents</span></a></nav>
+          <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
+            <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="fallback-local-ai-universe-title">Every kind of AI your machine can run</h2></div><a href="#llm-index">Match my machine ↓</a></header>
+            <nav aria-label="Local AI categories"><a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>${multimodalCategories.map(category => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${multimodalModels.filter(model => model.category === category.key).length} local models</span></a>`).join('')}</nav>
           </section>
 
-          <section id="llm-snapshot" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
-            <div><span class="lc-index-eyebrow">Crawlable snapshot</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>The first 16 current local records ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal.</p></div>
+          <section id="llm-index" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
+            <div><span class="lc-index-eyebrow">Complete crawlable catalogue</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>All ${localModels.length} current local records, ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal.</p></div>
             <div class="lc-index-fallback__table-wrap"><table><thead><tr><th>Rank</th><th>Model / family</th><th>LocalClaw</th><th>Parameters</th><th>Min RAM</th><th>Licence</th><th>Released</th></tr></thead><tbody>
-${renderModelTableRows(rankedModels.slice(0, 16))}
+${renderModelTableRows(rankedModels)}
             </tbody></table></div>
             <a class="lc-index-more" href="/llm-list">Browse all LLM catalogue records →</a>
           </section>
 
-          <section id="speech-snapshot" class="lc-index-fallback__section" aria-labelledby="speech-snapshot-title">
-            <div><span class="lc-index-eyebrow">Crawlable snapshot</span><h2 id="speech-snapshot-title">Local speech score leaders</h2><p>The first 10 records ordered by the homepage Audio score: 68% quality and 32% speed. Community stars remain independent.</p></div>
+          <section id="tts-index" class="lc-index-fallback__section" aria-labelledby="speech-snapshot-title">
+            <div><span class="lc-index-eyebrow">Complete crawlable catalogue</span><h2 id="speech-snapshot-title">Local speech score leaders</h2><p>All ${speechModels.length} records, ordered by the homepage Audio score: 68% quality and 32% speed. Community stars remain independent.</p></div>
             <ol class="lc-index-fallback__speech">
-${renderSpeechList(rankedSpeech.slice(0, 10))}
+${renderSpeechList(rankedSpeech)}
             </ol>
             <a class="lc-index-more" href="/tts-list">Browse the complete speech catalogue →</a>
           </section>
 
-          <p class="lc-index-fallback__enhance"><strong>Progressive enhancement:</strong> JavaScript adds live community vote counts, machine-fit filtering, search, sorting and comparison. This verified snapshot remains useful if those enhancements are unavailable.</p>
+          <section id="multimodal-index" class="lc-index-fallback__section lc-index-fallback__multimodal" aria-labelledby="multimodal-snapshot-title">
+            <div><span class="lc-index-eyebrow">Complete local catalogue</span><h2 id="multimodal-snapshot-title">Image, video, 3D, music and vision</h2><p>Every verified record is listed on the homepage. JavaScript adds search plus system, compute, RAM and VRAM filters.</p></div>
+            ${renderMultimodalFallback()}
+          </section>
+
+          <p class="lc-index-fallback__enhance"><strong>Progressive enhancement:</strong> JavaScript adds live community vote counts, machine-fit filtering, search, sorting and comparison across all ${totalLocalAiRecords} local records. This verified snapshot remains useful if those enhancements are unavailable.</p>
         </div>`;
 }
 
@@ -240,7 +264,7 @@ function renderGuide() {
             <div>${faqMarkup}</div>
           </section>
 
-          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/local-ai-index">All local AI</a><a href="/models/">All LLM pages</a><a href="/tts/">All speech pages</a><a href="/image-models">Image models</a><a href="/video-models">Video models</a><a href="/3d-models">3D models</a><a href="/music-models">Music models</a><a href="/vision-models">Vision models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
+          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/#local-ai-index">All local AI</a><a href="/models/">All LLM pages</a><a href="/tts/">All speech pages</a><a href="/image-models">Image models</a><a href="/video-models">Video models</a><a href="/3d-models">3D models</a><a href="/music-models">Music models</a><a href="/vision-models">Vision models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
         </section>
         <!-- HOME_INDEX_GUIDE_END -->`;
 }
@@ -251,6 +275,15 @@ function listItems(models, scoreFn, routePrefix, limit) {
     position: index + 1,
     name: model.name,
     url: `${BASE_URL}/${routePrefix}/${encodeURIComponent(model.id)}`
+  }));
+}
+
+function multimodalListItems() {
+  return multimodalModels.map((model, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: model.name,
+    url: `${BASE_URL}/${model.category === '3d' ? '3d' : model.category}/${encodeURIComponent(model.id)}`
   }));
 }
 
@@ -279,8 +312,8 @@ function structuredDataMarkup() {
         '@type': 'CollectionPage',
         '@id': `${BASE_URL}/#webpage`,
         url: `${BASE_URL}/`,
-        name: 'The Local Model Index — Local LLMs & TTS',
-        description: `Compare ${localModels.length} unique local LLM pages and ${speechModels.length} local speech records by community stars, LocalClaw score, RAM, licence and release date.`,
+        name: 'The Local AI Index on LocalClaw',
+        description: `Explore ${totalLocalAiRecords} local language, voice, image, video, 3D, music and vision records with machine requirements and verified local paths.`,
         dateModified: updatedIso,
         inLanguage: 'en',
         isPartOf: { '@id': `${BASE_URL}/#website` },
@@ -289,11 +322,14 @@ function structuredDataMarkup() {
           { '@type': 'Thing', name: 'Local large language models' },
           { '@type': 'Thing', name: 'Local text-to-speech models' },
           { '@type': 'Thing', name: 'Local speech recognition models' },
+          { '@type': 'Thing', name: 'Local image and video generation models' },
+          { '@type': 'Thing', name: 'Local 3D, music and vision models' },
           { '@type': 'Thing', name: 'AI hardware compatibility' }
         ],
         mainEntity: [
           { '@id': `${BASE_URL}/#local-llm-list` },
           { '@id': `${BASE_URL}/#local-speech-list` },
+          { '@id': `${BASE_URL}/#local-multimodal-list` },
           { '@id': `${BASE_URL}/#local-model-faq` }
         ]
       },
@@ -314,6 +350,15 @@ function structuredDataMarkup() {
         numberOfItems: speechModels.length,
         itemListOrder: 'https://schema.org/ItemListOrderDescending',
         itemListElement: listItems(rankedSpeech, speechScore, 'tts', 20)
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${BASE_URL}/#local-multimodal-list`,
+        name: 'Local image, video, 3D, music and vision models',
+        description: 'Every source-verified local multimodal catalogue record shown on the LocalClaw homepage.',
+        numberOfItems: multimodalModels.length,
+        itemListOrder: 'https://schema.org/ItemListUnordered',
+        itemListElement: multimodalListItems()
       },
       {
         '@type': 'FAQPage',
@@ -344,12 +389,12 @@ function generateIndexHtml() {
   let html = fs.readFileSync(INDEX_PATH, 'utf8');
 
   html = html
-    .replace(/<title>[\s\S]*?<\/title>/, '<title>The Local Model Index — Local LLM &amp; TTS Scores | LocalClaw</title>')
-    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="Compare ${localModels.length} local LLM pages and ${speechModels.length} local speech records by community stars, LocalClaw score, RAM, licence and release date.">`)
+    .replace(/<title>[\s\S]*?<\/title>/, '<title>LocalClaw: The Local AI Index for your machine</title>')
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="Explore ${totalLocalAiRecords} local LLM, voice, image, video, 3D, music and vision records with hardware guidance and verified local paths.">`)
     .replace(/\n\s*<meta name="keywords"[^>]*>/, '')
-    .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="Compare local LLM and speech models by independent community stars, LocalClaw score, RAM, licence and release date.">')
-    .replace(/<meta name="twitter:description" content="[^"]*">/, '<meta name="twitter:description" content="A hardware-aware index of local LLM and speech models with independent scores, community votes and RAM fit.">')
-    .replace(/<meta property="og:image:alt" content="[^"]*">/, '<meta property="og:image:alt" content="LocalClaw — The Local Model Index for local LLM and speech models">')
+    .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="Find local language, voice, image, video, 3D, music and vision models matched to your machine.">')
+    .replace(/<meta name="twitter:description" content="[^"]*">/, '<meta name="twitter:description" content="One hardware-aware homepage for every category of local AI.">')
+    .replace(/<meta property="og:image:alt" content="[^"]*">/, '<meta property="og:image:alt" content="LocalClaw: The Local AI Index for every kind of local model">')
     .replace(/<meta name="twitter:image:alt" content="[^"]*">/, '<meta name="twitter:image:alt" content="LocalClaw — The Local Model Index">')
     .replace(/<link rel="preload" as="image" href="images\/crab-logo\.png" fetchpriority="high">/, '<link rel="preload" as="image" href="images/localclaw-mascot-hero.webp?v=20260601" fetchpriority="high">');
 
@@ -393,13 +438,14 @@ function generateIndexHtml() {
 function compactLlmsText() {
   const leaders = rankedModels.slice(0, 8).map(model => `- [${model.name}](${BASE_URL}/models/${encodeURIComponent(model.id)}) — LocalClaw ${scoreLabel(llmScore(model))}/10; minimum ${model.min_ram} GB RAM; ${model.params}; released ${releaseLabel(model.released)}.`).join('\n');
   const speechLeaders = rankedSpeech.slice(0, 6).map(model => `- [${model.name}](${BASE_URL}/tts/${encodeURIComponent(model.id)}) — Audio ${scoreLabel(speechScore(model))}/10; ${model.type}; ${model.license || 'see model page'}.`).join('\n');
-  return `# LocalClaw — The Local Model Index
+  return `# LocalClaw: The Local AI Index
 
-> A maintained, hardware-aware directory for choosing local LLM, TTS and ASR models. Compare independent community stars, LocalClaw scores, minimum RAM, licences and release dates.
+> A maintained, hardware-aware homepage for choosing local language, voice, image, video, 3D, music and vision models.
 
 - Verified snapshot: ${updatedIso}
 - Local LLM pages: ${localModels.length} unique routes across ${llmFamilyCount} families
 - Local speech records: ${speechModels.length} across ${speechFamilyCount} families (${speechTypeCounts.TTS} TTS, ${speechTypeCounts.ASR} ASR, ${speechTypeCounts.APP} app)
+- Local image, video, 3D, music and vision records: ${multimodalModels.length}
 - Latest catalogue release month: ${releaseLabel(newestRelease)}
 - LLM source states: ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards without a verified GGUF file and ${gatedModelCardCount} gated model cards
 - Scope: hosted-only LLMs, ${unavailableLlmIds.size} exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
@@ -418,12 +464,17 @@ function compactLlmsText() {
 - [The Local Model Index](${BASE_URL}/) — interactive local-only homepage directory
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
 - [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
+- [Image catalogue](${BASE_URL}/image-models) - local generation and editing models
+- [Video catalogue](${BASE_URL}/video-models) - local generation and animation models
+- [3D catalogue](${BASE_URL}/3d-models) - local mesh and splat models
+- [Music catalogue](${BASE_URL}/music-models) - local song and sound models
+- [Vision catalogue](${BASE_URL}/vision-models) - local OCR and document models
 - [Newest local models](${BASE_URL}/new) — current releases and RSS feed
 - [RAM guides](${BASE_URL}/ram/) — recommendations by memory tier
 - [Hardware guides](${BASE_URL}/hardware/) — model fit by machine
 - [Use-case guides](${BASE_URL}/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](${BASE_URL}/api/ratings) — current independent star averages and vote counts as JSON
-- [Full AI-readable model index](${BASE_URL}/llms-full.txt) — all ${localModels.length + speechModels.length} local homepage entries
+- [Full AI-readable model index](${BASE_URL}/llms-full.txt) - all ${totalLocalAiRecords} local homepage entries
 
 ## RAM Decision Paths
 
@@ -450,9 +501,13 @@ The counts and score leaders in this file are generated from the same repository
 function fullLlmsText() {
   const llmLines = rankedModels.map((model, index) => `- ${String(index + 1).padStart(3, '0')} [${model.name}](${BASE_URL}/models/${encodeURIComponent(model.id)}) — family: ${model.family || 'unknown'}; LocalClaw: ${scoreLabel(llmScore(model))}/10; parameters: ${model.params || 'unknown'}; minimum RAM: ${Number.isFinite(Number(model.min_ram)) ? `${Number(model.min_ram)} GB` : 'see page'}; licence: ${verifiedLicense(model)}; released: ${releaseLabel(model.released)}.`).join('\n');
   const speechLines = rankedSpeech.map((model, index) => `- ${String(index + 1).padStart(2, '0')} [${model.name}](${BASE_URL}/tts/${encodeURIComponent(model.id)}) — family: ${model.family || 'unknown'}; type: ${model.type}; Audio: ${scoreLabel(speechScore(model))}/10; quality: ${scoreLabel(model.quality)}/10; speed: ${scoreLabel(model.speed)}/10; licence: ${model.license || 'see model page'}; released: ${releaseLabel(model.releaseDate)}.`).join('\n');
+  const multimodalLines = multimodalCategories.map(category => {
+    const models = multimodalModels.filter(model => model.category === category.key);
+    return `## Local ${category.label} Models (${models.length})\n\n${models.map((model, index) => `- ${String(index + 1).padStart(2, '0')} [${model.name}](${BASE_URL}/${category.directory}/${encodeURIComponent(model.id)}) - developer: ${model.developer}; minimum RAM: ${model.min_ram_gb} GB; minimum VRAM: ${model.min_vram_gb || 0} GB; licence: ${model.license}; released: ${releaseLabel(model.released)}.`).join('\n')}`;
+  }).join('\n\n');
   return `# LocalClaw Full Local Model Index
 
-> Generated ${updatedIso} from the LocalClaw repository catalogue. This file lists the ${localModels.length} indexable local LLM routes and ${speechModels.length} local speech routes used by the homepage. The LLM set contains ${publicGgufCount} public GGUF repositories, ${publicModelCardCount} public model cards without a verified GGUF file and ${gatedModelCardCount} gated model cards. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated ${updatedIso} from the LocalClaw repository catalogue. This file lists all ${totalLocalAiRecords} local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at ${BASE_URL}/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
@@ -463,6 +518,8 @@ ${llmLines}
 ## Local Speech Models (${speechModels.length})
 
 ${speechLines}
+
+${multimodalLines}
 `;
 }
 

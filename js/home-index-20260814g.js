@@ -45,6 +45,20 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
         const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
         const speechCatalogueOrder = new Map(speechModels.map((model, index) => [model.id, index]));
+        const multimodalModels = Array.isArray(window.LOCAL_AI_CATALOG)
+            ? window.LOCAL_AI_CATALOG.filter((model) => model.local_status === 'local')
+            : [];
+        const multimodalCategories = [
+            {key: 'image', label: 'Image', directory: 'image', number: '03', catalogue: '/image-models', anchor: 'image-index'},
+            {key: 'video', label: 'Video', directory: 'video', number: '04', catalogue: '/video-models', anchor: 'video-index'},
+            {key: '3d', label: '3D', directory: '3d', number: '05', catalogue: '/3d-models', anchor: 'three-d-index'},
+            {key: 'music', label: 'Music', directory: 'music', number: '06', catalogue: '/music-models', anchor: 'music-index'},
+            {key: 'vision', label: 'Vision', directory: 'vision', number: '07', catalogue: '/vision-models', anchor: 'vision-index'}
+        ];
+        const multimodalByCategory = new Map(multimodalCategories.map((category) => [
+            category.key,
+            multimodalModels.filter((model) => model.category === category.key)
+        ]));
         const logoRegistry = window.HOME_INDEX_LOGOS || {llm: {}, speech: {}, labels: {}};
 
         const familyDetails = (model) => {
@@ -114,6 +128,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const familyLabel = (value) => String(value || '')
             .replace(/[-_]+/g, ' ')
             .replace(/\b\w/g, (letter) => letter.toUpperCase());
+        const prettyTerm = (value) => ({
+            macos: 'macOS', nvidia: 'NVIDIA', amd: 'AMD', cpu: 'CPU',
+            'apple-silicon': 'Apple Silicon', pytorch: 'PyTorch', onnx: 'ONNX', '3d': '3D'
+        }[String(value || '').toLowerCase()] || familyLabel(value));
         const nameCompare = (a, b) => String(a.name).localeCompare(String(b.name), 'en', {sensitivity: 'base'});
         const textCompare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en', {sensitivity: 'base'});
         const parameterCount = (model) => {
@@ -286,6 +304,32 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             </a>`;
         }).join('');
 
+        const multimodalPath = (model) => `/${model.category === '3d' ? '3d' : model.category}/${encodeURIComponent(model.id)}`;
+        const renderMultimodalCards = (models) => models.map((model) => {
+            const platforms = (model.platforms || []).map(prettyTerm);
+            const accelerators = (model.accelerators || []).map(prettyTerm);
+            const tasks = (model.tasks || []).slice(0, 3).map((task) => `<span>${escapeHtml(prettyTerm(task))}</span>`).join('');
+            const runtime = (model.runtime || []).slice(0, 2).map(prettyTerm).join(' · ');
+            return `<article class="lc-index-multimodal-card" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
+                <div class="lc-index-multimodal-card__top"><span>${escapeHtml(model.developer)}</span><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
+                <h3><a href="${multimodalPath(model)}">${escapeHtml(model.name)}</a></h3>
+                <p>${escapeHtml(model.summary)}</p>
+                <div class="lc-index-multimodal-card__tasks">${tasks}</div>
+                <dl><div><dt>System</dt><dd>${escapeHtml(platforms.join(', ') || 'See guide')}</dd></div><div><dt>Compute</dt><dd>${escapeHtml(accelerators.join(', ') || 'See guide')}</dd></div><div><dt>Runtime</dt><dd>${escapeHtml(runtime || 'See guide')}</dd></div></dl>
+                <a class="lc-index-multimodal-card__link" href="${multimodalPath(model)}">Open local guide →</a>
+            </article>`;
+        }).join('');
+
+        const renderMultimodalSections = () => multimodalCategories.map((category) => {
+            const models = multimodalByCategory.get(category.key) || [];
+            return `<section id="${category.anchor}" class="lc-index-multimodal-category" data-multimodal-category="${category.key}" aria-labelledby="${category.anchor}-title">
+                <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directory ${category.number}</span><h2 id="${category.anchor}-title">Local ${category.label}</h2></div><div class="lc-index-section-meta"><p><strong data-multimodal-count="${category.key}">${models.length}</strong> of ${models.length} verified local records</p></div></div>
+                <div class="lc-index-multimodal-grid">${renderMultimodalCards(models)}</div>
+                <p class="lc-index-multimodal-empty" hidden>No ${escapeHtml(category.label.toLowerCase())} model matches these hardware filters.</p>
+                <a class="lc-index-more" href="${category.catalogue}">Open the dedicated ${escapeHtml(category.label)} catalogue →</a>
+            </section>`;
+        }).join('');
+
         const rankedModels = [...localModels].sort(compareModels(activeSortKey, activeSortDirection));
         const rankedSpeechModels = [...speechModels].sort(compareSpeech('community'));
         const releaseMonth = releaseLabel(newestRelease);
@@ -300,7 +344,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-hero__copy">
                             <p class="lc-index-kicker">// LocalClaw · local models only</p>
                             <h1>The Local <span>Model Index</span></h1>
-                            <p>One maintained directory for comparing local models by independent community stars, LocalClaw score, family, minimum RAM, licence and release date.</p>
+                            <p>One maintained directory for local language, voice, image, video, 3D, music and vision models, with machine requirements and source-backed local paths.</p>
                             <a class="lc-index-hero__guide-link" href="#home-index-guide">How rankings work · RAM quick answers ↓</a>
                         </div>
                         <div class="lc-index-hero__mascot" aria-hidden="true"><img src="/images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
@@ -309,19 +353,16 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <section class="lc-index-facts" aria-label="Index information">
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Catalogue</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${localModels.length}</span><span class="lc-index-fact__label">local LLM pages</span></strong><p>Hosted-only records excluded.</p></article>
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Families</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${familyCount}</span><span class="lc-index-fact__label">model families</span></strong><p>Duplicate route IDs collapsed.</p></article>
+                        <article class="lc-index-fact"><span class="lc-index-eyebrow">More local AI</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${multimodalModels.length}</span><span class="lc-index-fact__label">image, video, 3D, music and vision</span></strong><p>Every verified entry appears below.</p></article>
                         <article class="lc-index-fact"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label">latest catalogue month</span></strong><p>From repository release metadata.</p></article>
                     </section>
 
-                    <section class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="lc-index-universe-title">Every kind of AI your machine can run</h2></div><a href="/local-ai-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_index" data-fast-goal-target="local-ai-index">Match my machine →</a></header>
+                    <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
+                        <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="lc-index-universe-title">Every kind of AI your machine can run</h2></div><a href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_index" data-fast-goal-target="home-directory">Match my machine ↓</a></header>
                         <nav aria-label="Local AI categories">
-                            <a href="/llm-list"><strong>LLM</strong><span>${localModels.length} local pages</span></a>
-                            <a href="/tts-list"><strong>Voice</strong><span>${speechModels.length} local records</span></a>
-                            <a href="/image-models"><strong>Image</strong><span>Generate and edit</span></a>
-                            <a href="/video-models"><strong>Video</strong><span>Create and animate</span></a>
-                            <a href="/3d-models"><strong>3D</strong><span>Meshes and splats</span></a>
-                            <a href="/music-models"><strong>Music</strong><span>Songs and sound</span></a>
-                            <a href="/vision-models"><strong>Vision</strong><span>OCR and documents</span></a>
+                            <a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a>
+                            <a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>
+                            ${multimodalCategories.map((category) => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${(multimodalByCategory.get(category.key) || []).length} local models</span></a>`).join('')}
                         </nav>
                     </section>
 
@@ -352,7 +393,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ shows the raw 1–5 star average. “Community confidence” orders rated models with a transparent Bayesian prior of 3.5/5 over five votes, so one vote cannot dominate; EARLY marks fewer than five votes. Unrated ties may use LocalClaw order, but community ratings never change or blend into the separate LocalClaw /10 editorial catalogue rubric (38% quality + 24% coding + 24% reasoning + 14% speed). It is not a standardized third-party benchmark.</p>
                     </section>
 
-                    <section class="lc-index-tts" aria-labelledby="tts-index-title">
+                    <section id="tts-index" class="lc-index-tts" aria-labelledby="tts-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 02</span><h2 id="tts-index-title">Local speech / TTS</h2></div>
                             <div class="lc-index-section-meta"><p><strong id="lc-index-tts-result-count">${speechModels.length}</strong> ranked speech records · local only</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">Audio · /10</span></div>
@@ -365,6 +406,17 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels)}</div>
                         <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community confidence uses only the raw star average and number of signed-in member votes; EARLY marks fewer than five votes. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
+                    </section>
+                    <section id="multimodal-index" class="lc-index-multimodal" aria-labelledby="multimodal-index-title">
+                        <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directories 03–07</span><h2 id="multimodal-index-title">Image, video, 3D, music and vision</h2></div><div class="lc-index-section-meta"><p><strong id="lc-index-multimodal-result-count">${multimodalModels.length}</strong> of ${multimodalModels.length} verified local records</p><span class="lc-index-method-pill">Hardware-aware</span></div></div>
+                        <div class="lc-index-controls lc-index-multimodal-controls">
+                            <label><span class="sr-only">Search image, video, 3D, music and vision models</span><input id="lc-index-multimodal-search" class="lc-index-control" type="search" placeholder="Search every other AI model…" autocomplete="off"></label>
+                            <label><span class="sr-only">Filter by operating system</span><select id="lc-index-multimodal-platform" class="lc-index-control"><option value="all">Any system</option><option value="macos">macOS</option><option value="windows">Windows</option><option value="linux">Linux</option></select></label>
+                            <label><span class="sr-only">Filter by compute</span><select id="lc-index-multimodal-accelerator" class="lc-index-control"><option value="all">Any compute</option><option value="apple-silicon">Apple Silicon</option><option value="nvidia">NVIDIA</option><option value="amd">AMD</option><option value="cpu">CPU</option></select></label>
+                            <label><span class="sr-only">Filter by available RAM</span><select id="lc-index-multimodal-ram" class="lc-index-control"><option value="0">Any RAM</option>${[8, 16, 24, 32, 48, 64, 96, 128, 192, 256].map((value) => `<option value="${value}">${value} GB RAM</option>`).join('')}</select></label>
+                            <label><span class="sr-only">Filter by available VRAM</span><select id="lc-index-multimodal-vram" class="lc-index-control"><option value="0">Any VRAM</option>${[4, 6, 8, 12, 16, 24, 32, 48, 64, 80].map((value) => `<option value="${value}">${value} GB VRAM</option>`).join('')}</select></label>
+                        </div>
+                        ${renderMultimodalSections()}
                     </section>
                     <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><div id="lc-index-compare-content" class="lc-index-compare-content"></div></dialog>
                     <dialog id="lc-sponsor-offer-dialog" class="lc-sponsor-offer-dialog" aria-labelledby="lc-sponsor-offer-title" aria-describedby="lc-sponsor-offer-description">
@@ -729,6 +781,66 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             trackHomeGoal('home_index_sort', {target: 'speech', sort: speechSort.value, shown: speechCount.textContent});
         });
 
+        const multimodalSearch = document.getElementById('lc-index-multimodal-search');
+        const multimodalPlatform = document.getElementById('lc-index-multimodal-platform');
+        const multimodalAccelerator = document.getElementById('lc-index-multimodal-accelerator');
+        const multimodalRam = document.getElementById('lc-index-multimodal-ram');
+        const multimodalVram = document.getElementById('lc-index-multimodal-vram');
+        const multimodalCount = document.getElementById('lc-index-multimodal-result-count');
+        const multimodalCards = Array.from(document.querySelectorAll('[data-multimodal-card]'));
+        const updateMultimodalIndex = () => {
+            const query = multimodalSearch.value.trim().toLowerCase();
+            const platform = multimodalPlatform.value;
+            const accelerator = multimodalAccelerator.value;
+            const ram = finite(multimodalRam.value);
+            const vram = finite(multimodalVram.value);
+            let visibleTotal = 0;
+            multimodalCards.forEach((card) => {
+                const visible = (!query || card.dataset.search.includes(query))
+                    && (platform === 'all' || card.dataset.platforms.split(' ').includes(platform))
+                    && (accelerator === 'all' || card.dataset.accelerators.split(' ').includes(accelerator))
+                    && (!ram || finite(card.dataset.ram) <= ram)
+                    && (!vram || finite(card.dataset.vram) <= vram);
+                card.hidden = !visible;
+                if (visible) visibleTotal += 1;
+            });
+            multimodalCategories.forEach((category) => {
+                const section = document.querySelector(`[data-multimodal-category="${category.key}"]`);
+                const categoryCards = Array.from(section.querySelectorAll('[data-multimodal-card]'));
+                const categoryVisible = categoryCards.filter((card) => !card.hidden).length;
+                section.querySelector(`[data-multimodal-count="${category.key}"]`).textContent = categoryVisible;
+                section.querySelector('.lc-index-multimodal-grid').hidden = categoryVisible === 0;
+                section.querySelector('.lc-index-multimodal-empty').hidden = categoryVisible !== 0;
+            });
+            multimodalCount.textContent = visibleTotal;
+        };
+        let multimodalSearchGoalTimer = 0;
+        let lastTrackedMultimodalSearch = '';
+        multimodalSearch.addEventListener('input', () => {
+            updateMultimodalIndex();
+            if (multimodalSearchGoalTimer) window.clearTimeout(multimodalSearchGoalTimer);
+            const query = multimodalSearch.value.trim().toLowerCase();
+            if (query.length < 2) {
+                lastTrackedMultimodalSearch = '';
+                return;
+            }
+            multimodalSearchGoalTimer = window.setTimeout(() => {
+                multimodalSearchGoalTimer = 0;
+                if (query === lastTrackedMultimodalSearch) return;
+                lastTrackedMultimodalSearch = query;
+                trackHomeGoal('home_index_search', {target: 'multimodal', shown: multimodalCount.textContent});
+            }, 400);
+        });
+        [multimodalPlatform, multimodalAccelerator, multimodalRam, multimodalVram].forEach((control) => {
+            control.addEventListener('change', () => {
+                updateMultimodalIndex();
+                trackHomeGoal('home_index_filter', {
+                    target: 'multimodal', group: control.id.replace('lc-index-multimodal-', ''), value: control.value, shown: multimodalCount.textContent
+                });
+            });
+        });
+        updateMultimodalIndex();
+
         const loadCommunityRatings = async () => {
             try {
                 const response = await fetch('/api/ratings', {
@@ -785,5 +897,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         loadPrimaryMachine();
         const seoFallback = document.getElementById('seo-fallback');
         if (seoFallback) seoFallback.remove();
+        if (window.location.hash) {
+            window.requestAnimationFrame(() => {
+                const target = document.getElementById(window.location.hash.slice(1));
+                if (target) target.scrollIntoView({block: 'start'});
+            });
+        }
     };
 }

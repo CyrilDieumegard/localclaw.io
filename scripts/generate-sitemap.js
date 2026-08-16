@@ -93,7 +93,6 @@ const groups = {
     page('download.html', 'monthly', '0.8'),
     page('llm-list.html', 'weekly', '0.9', ['js/data.js']),
     page('tts-list.html', 'weekly', '0.9'),
-    page('local-ai-index.html', 'weekly', '1.0', ['js/local-ai-search-index.js']),
     page('image-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
     page('video-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
     page('3d-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),

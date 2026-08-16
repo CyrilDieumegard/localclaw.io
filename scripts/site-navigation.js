@@ -1,7 +1,7 @@
-const NAV_VERSION = '20260816a';
+const NAV_VERSION = '20260816b';
 
 const items = [
-  ['index', '/local-ai-index', 'AI Index'],
+  ['index', '/#local-ai-index', 'AI Index'],
   ['llm', '/llm-list', 'LLM'],
   ['voice', '/tts-list', 'Voice'],
   ['image', '/image-models', 'Image'],

@@ -1,10 +1,11 @@
-# LocalClaw — The Local Model Index
+# LocalClaw: The Local AI Index
 
-> A maintained, hardware-aware directory for choosing local LLM, TTS and ASR models. Compare independent community stars, LocalClaw scores, minimum RAM, licences and release dates.
+> A maintained, hardware-aware homepage for choosing local language, voice, image, video, 3D, music and vision models.
 
 - Verified snapshot: 2026-08-15
 - Local LLM pages: 213 unique routes across 76 families
 - Local speech records: 55 across 51 families (46 TTS, 8 ASR, 1 app)
+- Local image, video, 3D, music and vision records: 47
 - Latest catalogue release month: Aug 9, 2026
 - LLM source states: 172 public GGUF repositories, 37 public model cards without a verified GGUF file and 4 gated model cards
 - Scope: hosted-only LLMs, 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
@@ -23,12 +24,17 @@
 - [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
 - [Speech catalogue](https://localclaw.io/tts-list) — 55 local records, two online/API references and one unverified preserved route
+- [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
+- [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
+- [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
+- [Music catalogue](https://localclaw.io/music-models) - local song and sound models
+- [Vision catalogue](https://localclaw.io/vision-models) - local OCR and document models
 - [Newest local models](https://localclaw.io/new) — current releases and RSS feed
 - [RAM guides](https://localclaw.io/ram/) — recommendations by memory tier
 - [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) — all 268 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 315 local homepage entries
 
 ## RAM Decision Paths
 

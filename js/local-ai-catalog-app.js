@@ -1,9 +1,9 @@
 (function localAiCatalogueApp() {
   const body = document.body;
   const requestedCategory = body.dataset.localAiCategory || 'all';
-  const allModels = requestedCategory === 'all'
-    ? (window.LOCAL_AI_SEARCH_INDEX || [])
-    : (window.LOCAL_AI_CATALOG || []).filter((model) => model.category === requestedCategory).map((model) => ({
+  const allModels = (window.LOCAL_AI_CATALOG || [])
+    .filter((model) => requestedCategory === 'all' || model.category === requestedCategory)
+    .map((model) => ({
       ...model,
       path: `/${model.category === '3d' ? '3d' : model.category}/${model.id}`,
       resource_basis: 'source-backed floor'

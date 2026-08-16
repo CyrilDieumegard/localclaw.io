@@ -1,6 +1,10 @@
 # Canonicalize: /index.html → / (301)
 /index.html              /              301
 
+# The universal AI index now lives inside the sponsor-supported homepage.
+/local-ai-index.html     /#local-ai-index  301
+/local-ai-index          /#local-ai-index  301
+
 # Canonicalize blog root: /blog/index.html → /blog/ (301)
 /blog/index.html         /blog/         301
 

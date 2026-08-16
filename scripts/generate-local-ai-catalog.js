@@ -73,85 +73,6 @@ const prettyTerm = (value) => ({
   gguf: 'GGUF', api: 'API', tts: 'TTS', asr: 'ASR', '3d': '3D'
 }[String(value).toLowerCase()] || titleCase(value));
 
-function normalizeMultimodal(model) {
-  return {
-    id: model.id,
-    name: model.name,
-    category: model.category,
-    summary: model.summary,
-    tasks: model.tasks,
-    platforms: model.platforms,
-    accelerators: model.accelerators,
-    min_ram_gb: model.min_ram_gb,
-    min_vram_gb: model.min_vram_gb,
-    runtime: model.runtime,
-    license: model.license,
-    local_status: model.local_status,
-    released: model.released,
-    path: `/${categoryConfig[model.category].directory}/${model.id}`,
-    resource_basis: 'source-backed floor'
-  };
-}
-
-function normalizeLlm(model) {
-  const hosted = Boolean(model.hosted_only);
-  return {
-    id: model.id,
-    name: model.name,
-    category: 'llm',
-    summary: String(model.description || `${model.params || 'Open'} local language model.`).replace(/—/g, '-'),
-    tasks: array(model.tags),
-    platforms: hosted ? [] : ['macos', 'windows', 'linux'],
-    accelerators: hosted ? [] : ['apple-silicon', 'nvidia', 'cpu'],
-    min_ram_gb: hosted ? 0 : Number(model.min_ram) || 8,
-    min_vram_gb: hosted ? 0 : Math.max(0, Math.ceil((Number(model.size_gb) || 0) / 0.88)),
-    runtime: hosted ? ['API'] : [model.custom_runtime || 'GGUF / local runtime'],
-    license: model.license || 'See model card',
-    local_status: hosted ? 'api' : 'local',
-    released: model.released || '',
-    path: `/models/${model.id}`,
-    resource_basis: hosted ? 'API only' : 'catalogue RAM floor'
-  };
-}
-
-function normalizeTts(model) {
-  const hardware = array(model.hardware);
-  const formats = array(model.supportedFormats);
-  const clearlyOnline = /\bonline\b|not fully local|api[- ]only|cloud[- ]only/i.test(model.description || '');
-  const isApi = clearlyOnline || (formats.includes('api') && !formats.some((format) => ['gguf', 'onnx', 'pytorch', 'safetensors', 'mlx', 'native-app'].includes(format)));
-  const size = Number(model.sizeGB) || 0;
-  return {
-    id: model.id,
-    name: model.name,
-    category: 'voice',
-    summary: String(model.description || 'Local speech model.').replace(/—/g, '-'),
-    tasks: array(model.features).concat(model.type ? [model.type] : ['tts']),
-    platforms: isApi ? [] : ['macos', 'windows', 'linux'],
-    accelerators: isApi ? [] : [
-      ...(hardware.includes('apple') ? ['apple-silicon'] : []),
-      ...(hardware.includes('gpu') ? ['nvidia'] : []),
-      ...(hardware.includes('cpu') ? ['cpu'] : [])
-    ],
-    min_ram_gb: isApi ? 0 : Math.max(4, Math.ceil(size * 2.5)),
-    min_vram_gb: isApi || !hardware.includes('gpu') ? 0 : Math.max(4, Math.ceil(size * 1.4)),
-    runtime: formats.length ? formats.map(titleCase) : ['See model card'],
-    license: model.license || 'See model card',
-    local_status: isApi ? 'api' : 'local',
-    released: model.releaseDate || '',
-    path: `/tts/${model.id}`,
-    resource_basis: isApi ? 'API only' : 'estimated from catalogue size'
-  };
-}
-
-const searchIndex = [
-  ...appData.models.map(normalizeLlm),
-  ...ttsModels.map(normalizeTts),
-  ...multimodal.map(normalizeMultimodal)
-];
-
-const searchIndexSource = `(function exposeLocalAiSearchIndex(root) {\n  root.LOCAL_AI_SEARCH_INDEX = ${JSON.stringify(searchIndex, null, 2)};\n})(typeof window !== 'undefined' ? window : globalThis);\n`;
-fs.writeFileSync(path.join(ROOT, 'js/local-ai-search-index.js'), searchIndexSource);
-
 function tracking() {
   return `<!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
@@ -173,7 +94,7 @@ function categoryLinks(active = '') {
 }
 
 function footer() {
-  return `<footer class="lc-ai-footer"><div class="lc-ai-shell lc-ai-footer-inner"><span>© 2026 LocalClaw · The Local AI Index</span><div class="lc-ai-footer-links"><a href="/local-ai-index">All local AI</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/software">Software</a><a href="/privacy">Privacy</a></div></div></footer>`;
+  return `<footer class="lc-ai-footer"><div class="lc-ai-shell lc-ai-footer-inner"><span>© 2026 LocalClaw · The Local AI Index</span><div class="lc-ai-footer-links"><a href="/#local-ai-index">All local AI</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/software">Software</a><a href="/privacy">Privacy</a></div></div></footer>`;
 }
 
 function filters(includeCategory = false) {
@@ -209,37 +130,13 @@ function landingPage(key, config) {
   ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816b">${hasVisualExamples ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816c">' : ''}${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page" data-local-ai-category="${key}">${siteNavigation(config.nav)}
 <main class="lc-ai-main"><div class="lc-ai-shell">
-  <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index · ${esc(config.label)}</p><h1 class="lc-ai-title">${esc(config.heading.replace(/ locally$/i, ''))} <span>locally</span></h1><p class="lc-ai-copy">${esc(config.description)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="/local-ai-index">Search by machine</a><a class="lc-ai-button" href="#catalogue">Browse ${count} verified entries</a></div></div>${machinePanel()}</section>
+  <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index · ${esc(config.label)}</p><h1 class="lc-ai-title">${esc(config.heading.replace(/ locally$/i, ''))} <span>locally</span></h1><p class="lc-ai-copy">${esc(config.description)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="/#local-ai-index">Search on the homepage</a><a class="lc-ai-button" href="#catalogue">Browse ${count} verified entries</a></div></div>${machinePanel()}</section>
   <nav class="lc-ai-category-grid" aria-label="Local AI categories">${categoryLinks(key)}</nav>
   ${filters(false)}
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${hasVisualExamples ? '<script src="/js/external-media-catalog.js?v=20260816c"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/local-ai-catalog.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816d"></script></body></html>`;
-}
-
-function indexPage() {
-  const total = searchIndex.filter((model) => model.local_status === 'local').length;
-  const schema = {
-    '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'The Local AI Index',
-    url: `${BASE}/local-ai-index`, description: 'Search local LLM, voice, image, video, 3D, music and vision models by the hardware you own.',
-    numberOfItems: total, isPartOf: { '@type': 'WebSite', name: 'LocalClaw', url: BASE }
-  };
-  return `<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Local AI Index: search by machine | LocalClaw</title><meta name="description" content="Search local LLM, voice, image, video, 3D, music and vision models by RAM, VRAM, operating system and accelerator."><meta name="robots" content="index, follow">
-  <link rel="canonical" href="${BASE}/local-ai-index"><meta property="og:type" content="website"><meta property="og:url" content="${BASE}/local-ai-index"><meta property="og:title" content="The Local AI Index"><meta property="og:description" content="Find every kind of AI you can actually run on your machine.">
-  <link rel="icon" href="/images/crab-logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816b"><link rel="stylesheet" href="/css/external-media.css?v=20260816c">${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
-</head><body class="local-ai-page" data-local-ai-category="all">${siteNavigation('index')}
-<main class="lc-ai-main"><div class="lc-ai-shell">
-  <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index</p><h1 class="lc-ai-title">Everything local AI. <span>Matched to your machine.</span></h1><p class="lc-ai-copy">Search language, voice, image, video, 3D, music and vision models in one hardware-aware index. Local means downloadable weights and a practical inference path, not an API that only saves its output locally.</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="#catalogue">Match my machine</a><a class="lc-ai-button" href="/account">Add a machine</a></div></div>${machinePanel()}</section>
-  <nav class="lc-ai-category-grid" aria-label="Local AI categories">${categoryLinks()}</nav>
-  ${filters(true)}
-  <div class="lc-ai-results-head" id="catalogue"><h2>Local AI results</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
-  <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
-</div></main>${footer()}
-<script src="/js/external-media-catalog.js?v=20260816c"></script><script src="/js/external-media.js?v=20260816d"></script><script src="/js/local-ai-search-index.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816d"></script></body></html>`;
+${hasVisualExamples ? '<script src="/js/external-media-catalog.js?v=20260816c"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/local-ai-catalog.js?v=20260816b"></script><script src="/js/local-ai-catalog-app.js?v=20260816e"></script></body></html>`;
 }
 
 function detailPage(model) {
@@ -256,7 +153,7 @@ function detailPage(model) {
       },
       {
         '@type': 'BreadcrumbList', itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Local AI Index', item: `${BASE}/local-ai-index` },
+          { '@type': 'ListItem', position: 1, name: 'Local AI Index', item: `${BASE}/` },
           { '@type': 'ListItem', position: 2, name: config.label, item: `${BASE}${config.route}` },
           { '@type': 'ListItem', position: 3, name: model.name, item: url }
         ]
@@ -295,6 +192,4 @@ for (const [key, config] of Object.entries(categoryConfig)) {
   normalizeDirectory(directory);
 }
 
-fs.writeFileSync(path.join(ROOT, 'local-ai-index.html'), indexPage());
-normalizeDirectory(path.join(ROOT, 'local-ai-index.html'));
-console.log(`Generated ${Object.keys(categoryConfig).length} catalogues, ${multimodal.length} detail pages and ${searchIndex.length} universal search records.`);
+console.log(`Generated ${Object.keys(categoryConfig).length} catalogues and ${multimodal.length} detail pages. The universal index lives on the homepage.`);
