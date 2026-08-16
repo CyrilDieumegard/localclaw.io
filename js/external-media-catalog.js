@@ -1,5 +1,52 @@
 (function exposeExternalMediaCatalog(root) {
   root.LOCAL_AI_EXTERNAL_MEDIA = {
+    image: {
+      'flux-2-klein-4b': {
+        kind: 'image',
+        items: [
+          { kind: 'image', url: 'https://raw.githubusercontent.com/black-forest-labs/flux2/main/assets/t2i_klein_realism.jpg', alt: 'Official FLUX.2 Klein realism examples', caption: 'Text-to-image realism' },
+          { kind: 'image', url: 'https://raw.githubusercontent.com/black-forest-labs/flux2/main/assets/t2i_klein_others.jpg', alt: 'Official FLUX.2 Klein output diversity examples', caption: 'Output diversity' },
+          { kind: 'image', url: 'https://raw.githubusercontent.com/black-forest-labs/flux2/main/assets/i2i_klein.jpg', alt: 'Official FLUX.2 Klein image editing examples', caption: 'Image editing' }
+        ],
+        sourceLabel: 'FLUX.2 official repository', sourceUrl: 'https://github.com/black-forest-labs/flux2'
+      },
+      'flux-1-schnell': {
+        kind: 'image',
+        items: [
+          { kind: 'image', url: 'https://raw.githubusercontent.com/black-forest-labs/flux/main/assets/schnell_grid.jpg', alt: 'Official FLUX.1 Schnell output grid', caption: 'FLUX.1 Schnell outputs' },
+          { kind: 'image', url: 'https://cdn.sanity.io/images/2gpum2i6/production/4fc13384ce864f0b922e59b738babaa897428b74-2500x1750.png', alt: 'Official Black Forest Labs FLUX.1 family showcase', caption: 'FLUX.1 family showcase' },
+          { kind: 'image', url: 'https://cdn.sanity.io/images/2gpum2i6/production/76bc98bc6fdb4166fe93bfb439bb5d2e089762b7-1536x864.png', alt: 'Official FLUX.1 aspect ratio examples', caption: 'FLUX.1 aspect ratios' }
+        ],
+        sourceLabel: 'Black Forest Labs official showcase', sourceUrl: 'https://bfl.ai/blog/24-08-01-bfl'
+      },
+      'stable-diffusion-3.5-medium': {
+        kind: 'image',
+        items: [
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/9746d34b-4302-446f-a2aa-32f94cd0ad33/hero_img_sd3.5.jpg?format=1500w', alt: 'Official Stable Diffusion 3.5 showcase', caption: 'Stable Diffusion 3.5 showcase' },
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/3c9a05b4-aa10-4a46-882e-1c32ac7bf18e/diverse_sd3.5.jpg?format=1500w', alt: 'Official Stable Diffusion 3.5 diverse output examples', caption: 'Diverse outputs' },
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/38fa9269-fc25-4a17-b46c-f9f0b9b6b76a/versatile_sd3.5.jpg?format=1500w', alt: 'Official Stable Diffusion 3.5 style examples', caption: 'Versatile styles' }
+        ],
+        sourceLabel: 'Stability AI official SD3.5 release', sourceUrl: 'https://stability.ai/news/introducing-stable-diffusion-3-5'
+      },
+      'qwen-image-2512': {
+        kind: 'image',
+        items: [
+          { kind: 'image', url: 'https://qianwen-res.oss-accelerate-overseas.aliyuncs.com/Qwen-Image/image2512/image2512big.png', alt: 'Official Qwen Image 2512 output showcase', caption: 'Qwen Image 2512 showcase' },
+          { kind: 'image', url: 'https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-Image/image2512/%E5%B9%BB%E7%81%AF%E7%89%871.JPG', alt: 'Official Qwen Image 2512 realistic portrait comparison', caption: 'Realistic people and prompt adherence' },
+          { kind: 'image', url: 'https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-Image/image2512/%E5%B9%BB%E7%81%AF%E7%89%872.JPG', alt: 'Official Qwen Image 2512 natural detail comparison', caption: 'Natural detail' }
+        ],
+        sourceLabel: 'Qwen Image official repository', sourceUrl: 'https://github.com/QwenLM/Qwen-Image'
+      },
+      'sdxl-base-1.0': {
+        kind: 'image',
+        items: [
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/c6d4be29-8502-402b-8ccc-1a5f28d59fe2/sdxl_horizontal2.png?format=1500w', alt: 'Official Stable Diffusion XL output examples', caption: 'SDXL output examples' },
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/cc1b0eab-ed11-4af9-bde5-f62bbc3b728d/sdxl_horizontal3.png?format=1500w', alt: 'Official Stable Diffusion XL style examples', caption: 'Style range' },
+          { kind: 'image', url: 'https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/1a31bba2-829f-4939-a398-d65d546f9eb8/sdxl_refiner_horizontal_stack.png?format=1500w', alt: 'Official Stable Diffusion XL base and refiner examples', caption: 'Base and refiner pipeline' }
+        ],
+        sourceLabel: 'Stability AI official SDXL release', sourceUrl: 'https://stability.ai/news-updates/stable-diffusion-sdxl-1-announcement'
+      }
+    },
     video: {
       'ltx-video': { kind: 'image', url: 'https://media.githubusercontent.com/media/Lightricks/LTX-Video/main/docs/_static/ltx-video_i2v_example_00001.gif', alt: 'Official LTX-Video image-to-video example', sourceLabel: 'LTX-Video official repository', sourceUrl: 'https://github.com/Lightricks/LTX-Video' },
       'hunyuanvideo-1.5': { kind: 'video', url: 'https://github.com/user-attachments/assets/d45ec78e-ea40-47f1-8d4d-f4d9a0682e2d', alt: 'Official HunyuanVideo 1.5 video example', sourceLabel: 'HunyuanVideo 1.5 official repository', sourceUrl: 'https://github.com/Tencent-Hunyuan/HunyuanVideo-1.5' },

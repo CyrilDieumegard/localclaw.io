@@ -134,7 +134,7 @@
     const tasks = array(model.tasks).slice(0, 4).map((task) => `<span class="lc-ai-task">${escapeHtml(prettyTerm(task))}</span>`).join('');
     const fitClass = fit.fits === false ? ' lc-ai-fit-no' : '';
     const vram = Number(model.min_vram_gb) ? `${Number(model.min_vram_gb)} GB` : 'None';
-    const preview = ['video', '3d'].includes(model.category)
+    const preview = ['image', 'video', '3d'].includes(model.category)
       ? `<div class="lc-external-media lc-external-media-compact" data-external-media data-media-category="${escapeHtml(model.category)}" data-media-id="${escapeHtml(model.id)}"></div>`
       : '';
     return `<article class="lc-ai-card">

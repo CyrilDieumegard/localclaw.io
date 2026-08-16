@@ -16,15 +16,20 @@
       container.remove();
       return;
     }
+    const items = Array.isArray(entry.items) && entry.items.length ? entry.items : [entry];
+    const primaryKind = items[0].kind || entry.kind;
     container.dataset.mediaReady = 'true';
-    container.classList.add(`lc-external-media-${entry.kind}`);
+    container.classList.add(`lc-external-media-${primaryKind}`);
+    if (items.length > 1 && !container.classList.contains('lc-external-media-compact')) {
+      container.classList.add('lc-external-media-gallery');
+    }
     container.innerHTML = `
       <div class="lc-external-media-stage"></div>
       <div class="lc-external-media-meta">
         <span>Streamed from the official source</span>
         <a href="${entry.sourceUrl}" target="_blank" rel="noopener nofollow">${entry.sourceLabel}</a>
       </div>`;
-    renderMedia(container, entry);
+    renderMedia(container, entry, items);
   }
 
   function showError(container, entry) {
@@ -33,17 +38,13 @@
     stage.innerHTML = `<p class="lc-external-media-error">The external preview could not be loaded. <a href="${entry.sourceUrl}" target="_blank" rel="noopener nofollow">Open the official source</a>.</p>`;
   }
 
-  function renderMedia(container, entry) {
-    const stage = container.querySelector('.lc-external-media-stage');
-    if (!entry || !stage || container.dataset.mediaLoaded === 'true') return;
-    container.dataset.mediaLoaded = 'true';
-
+  function createMedia(container, entry, item) {
     let media;
-    if (entry.kind === 'audio') {
+    if (item.kind === 'audio') {
       media = document.createElement('audio');
       media.controls = true;
       media.preload = 'metadata';
-    } else if (entry.kind === 'video') {
+    } else if (item.kind === 'video') {
       media = document.createElement('video');
       media.controls = true;
       media.preload = 'metadata';
@@ -53,13 +54,47 @@
       media.loading = 'lazy';
       media.decoding = 'async';
       media.referrerPolicy = 'no-referrer';
-      media.alt = entry.alt || 'Official external model example';
+      media.alt = item.alt || entry.alt || 'Official external model example';
     }
     media.className = 'lc-external-media-object';
+    if (item.kind === 'audio' || item.kind === 'video') media.pause();
+    return media;
+  }
+
+  function renderMedia(container, entry, items) {
+    const stage = container.querySelector('.lc-external-media-stage');
+    if (!entry || !stage || container.dataset.mediaLoaded === 'true') return;
+    container.dataset.mediaLoaded = 'true';
+
+    const visibleItems = container.classList.contains('lc-external-media-compact') ? items.slice(0, 1) : items;
+    if (visibleItems.length > 1) {
+      const gallery = document.createElement('div');
+      gallery.className = 'lc-external-media-gallery-grid';
+      visibleItems.forEach((item) => {
+        const figure = document.createElement('figure');
+        figure.className = 'lc-external-media-gallery-item';
+        const media = createMedia(container, entry, item);
+        media.addEventListener('error', () => {
+          figure.remove();
+          if (!gallery.children.length) showError(container, entry);
+        }, { once: true });
+        media.src = item.url;
+        figure.appendChild(media);
+        if (item.caption) {
+          const caption = document.createElement('figcaption');
+          caption.textContent = item.caption;
+          figure.appendChild(caption);
+        }
+        gallery.appendChild(figure);
+      });
+      stage.appendChild(gallery);
+      return;
+    }
+
+    const media = createMedia(container, entry, visibleItems[0]);
     media.addEventListener('error', () => showError(container, entry), { once: true });
-    media.src = entry.url;
+    media.src = visibleItems[0].url;
     stage.appendChild(media);
-    if (entry.kind === 'audio' || entry.kind === 'video') media.pause();
   }
 
   function hydrateWithin(root) {
