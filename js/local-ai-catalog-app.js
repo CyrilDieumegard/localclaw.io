@@ -134,10 +134,14 @@
     const tasks = array(model.tasks).slice(0, 4).map((task) => `<span class="lc-ai-task">${escapeHtml(prettyTerm(task))}</span>`).join('');
     const fitClass = fit.fits === false ? ' lc-ai-fit-no' : '';
     const vram = Number(model.min_vram_gb) ? `${Number(model.min_vram_gb)} GB` : 'None';
+    const preview = ['video', '3d'].includes(model.category)
+      ? `<div class="lc-external-media lc-external-media-compact" data-external-media data-media-category="${escapeHtml(model.category)}" data-media-id="${escapeHtml(model.id)}"></div>`
+      : '';
     return `<article class="lc-ai-card">
       <div class="lc-ai-card-top"><span class="lc-ai-card-category">${escapeHtml(labels[model.category] || titleCase(model.category))}</span>${badge(model)}</div>
       <h3><a href="${escapeHtml(model.path)}">${escapeHtml(model.name)}</a></h3>
       <p class="lc-ai-card-summary">${escapeHtml(model.summary)}</p>
+      ${preview}
       <div class="lc-ai-task-list">${tasks}</div>
       <div class="lc-ai-specs"><div class="lc-ai-spec"><span>RAM floor</span><strong>${Number(model.min_ram_gb) ? `${Number(model.min_ram_gb)} GB` : 'Hosted'}</strong></div><div class="lc-ai-spec"><span>VRAM floor</span><strong>${escapeHtml(vram)}</strong></div><div class="lc-ai-spec"><span>Runtime</span><strong>${escapeHtml(array(model.runtime).slice(0, 2).join(' · ') || 'See guide')}</strong></div><div class="lc-ai-spec"><span>License</span><strong>${escapeHtml(model.license || 'See source')}</strong></div></div>
       <div class="lc-ai-card-actions"><span class="lc-ai-fit${fitClass}">${escapeHtml(fit.reason)}</span><a class="lc-ai-button" href="${escapeHtml(model.path)}">Open guide</a></div>

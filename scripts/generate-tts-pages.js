@@ -7,6 +7,10 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
 const CHECK_ONLY = process.argv.includes('--check');
+const externalMediaContext = {};
+vm.createContext(externalMediaContext);
+vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/external-media-catalog.js'), 'utf8'), externalMediaContext);
+const externalMedia = externalMediaContext.LOCAL_AI_EXTERNAL_MEDIA || {};
 function isLocalSpeechModel(model) {
   return !model.delivery;
 }
@@ -299,6 +303,7 @@ function page(model, all) {
   const color = voiceColor(model);
   const isLocal = isLocalSpeechModel(model);
   const isUnverified = isUnverifiedSpeechRecord(model);
+  const hasAudioExample = Boolean(externalMedia.voice && externalMedia.voice[model.id]);
   const url = `${BASE}/tts/${encodeURIComponent(model.id)}.html`;
   const title = isUnverified
     ? `${model.name}: preserved unverified speech reference | LocalClaw`
@@ -402,6 +407,12 @@ function page(model, all) {
       <div><h2>Good for</h2><ul class="list"><li>${esc(modelTask(model))}</li><li>${isLocal ? `${esc(hardwareTier(model))} local workflows` : esc(hardwareTier(model))}</li><li>${esc((model.features || []).slice(0, 3).join(', ') || 'Private local speech experiments')}</li></ul></div>
       <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
     </section>`;
+  const audioExampleSection = hasAudioExample ? `
+    <section class="section">
+      <h2>Official audio example</h2>
+      <p>Load an audio example from the official project source. The file stays on the source server and is never hosted by LocalClaw.</p>
+      <div class="lc-external-media" data-external-media data-media-category="voice" data-media-id="${esc(model.id)}"></div>
+    </section>` : '';
 
   return `<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -423,6 +434,7 @@ function page(model, all) {
   <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
+  ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816a">' : ''}
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
   <style>${style(color)}</style>
 </head>
@@ -455,6 +467,7 @@ function page(model, all) {
     </header>
 
     ${specsSection}
+    ${audioExampleSection}
     ${verificationSection}
     ${profileSection}
     ${detailsSection}
@@ -473,6 +486,7 @@ function page(model, all) {
     </section>
   </main>
   ${isUnverified ? '' : '<script src="/js/community-ratings-20260802a.js?v=20260803a"></script>'}
+  ${hasAudioExample ? '<script src="/js/external-media-catalog.js?v=20260816a"></script><script src="/js/external-media.js?v=20260816a"></script>' : ''}
 </body>
 </html>`;
 }

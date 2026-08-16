@@ -32,9 +32,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
+    <link rel="stylesheet" href="/css/external-media.css?v=20260816a">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/external-media-catalog.js?v=20260816a"></script>
+    <script src="/js/external-media.js?v=20260816a"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -3455,6 +3458,9 @@
                             </div>
                         </div>
                     </div>`;
+                const audioPreviewMarkup = window.LOCAL_AI_EXTERNAL_MEDIA?.voice?.[model.id]
+                    ? `<div class="lc-external-media lc-external-media-compact" data-external-media data-media-category="voice" data-media-id="${model.id}"></div>`
+                    : '';
                 const installMarkup = isUnverified ? '' : `
                     <div class="install-cmd" onclick="copyInstall(this, '${model.installCommand}')">
                         <code>$ ${model.installCommand}</code>
@@ -3493,6 +3499,7 @@
                     ${asrBadge}
                     ${remoteBadge}
                     <p class="card-desc">${model.description}</p>
+                    ${audioPreviewMarkup}
                     ${backendsRow}
                     <div class="features-bar">${features}</div>
                     ${voicePanelMarkup}
