@@ -32,12 +32,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
-    <link rel="stylesheet" href="/css/external-media.css?v=20260816a">
+    <link rel="stylesheet" href="/css/external-media.css?v=20260816b">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/external-media-catalog.js?v=20260816a"></script>
-    <script src="/js/external-media.js?v=20260816b"></script>
+    <script src="/js/external-media.js?v=20260816c"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -3521,7 +3521,7 @@
         }
 
         function isInteractiveCardTarget(target) {
-            return Boolean(target.closest('a, button, .install-cmd, input, select, textarea, [role="button"]'));
+            return Boolean(target.closest('a, button, audio, video, .install-cmd, input, select, textarea, [role="button"]'));
         }
 
         function openTtsCard(event, url) {

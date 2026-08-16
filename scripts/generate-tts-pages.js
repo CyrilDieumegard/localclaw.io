@@ -410,7 +410,7 @@ function page(model, all) {
   const audioExampleSection = hasAudioExample ? `
     <section class="section">
       <h2>Official audio example</h2>
-      <p>Load an audio example from the official project source. The file stays on the source server and is never hosted by LocalClaw.</p>
+      <p>Play the official source sample directly below. The file remains on the project server and is not hosted by LocalClaw.</p>
       <div class="lc-external-media" data-external-media data-media-category="voice" data-media-id="${esc(model.id)}"></div>
     </section>` : '';
 
@@ -434,7 +434,7 @@ function page(model, all) {
   <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
-  ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816a">' : ''}
+  ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816b">' : ''}
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
   <style>${style(color)}</style>
 </head>
@@ -486,7 +486,7 @@ function page(model, all) {
     </section>
   </main>
   ${isUnverified ? '' : '<script src="/js/community-ratings-20260802a.js?v=20260803a"></script>'}
-  ${hasAudioExample ? '<script src="/js/external-media-catalog.js?v=20260816a"></script><script src="/js/external-media.js?v=20260816b"></script>' : ''}
+  ${hasAudioExample ? '<script src="/js/external-media-catalog.js?v=20260816a"></script><script src="/js/external-media.js?v=20260816c"></script>' : ''}
 </body>
 </html>`;
 }
