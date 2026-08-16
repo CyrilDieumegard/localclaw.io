@@ -68,6 +68,11 @@
     media.addEventListener('error', () => showError(container, entry), { once: true });
     media.src = entry.url;
     stage.appendChild(media);
+    if (entry.kind === 'audio' || entry.kind === 'video') {
+      media.play().catch(() => {
+        // Native controls remain available if the browser or source blocks autoplay.
+      });
+    }
   }
 
   function hydrateWithin(root) {
