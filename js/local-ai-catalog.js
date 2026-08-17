@@ -306,6 +306,18 @@
       caveats: ['Complex CUDA dependencies', 'Texture-map export adds processing time']
     },
     {
+      id: 'lgm', name: 'LGM', category: '3d', developer: '3DTopia / Nanyang Technological University',
+      summary: 'Large Multi-View Gaussian Model for fast text or image-to-3D generation with Gaussian splats and mesh conversion.',
+      tasks: ['text-to-3d', 'image-to-3d', 'gaussian-splatting', 'mesh-conversion'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 24, min_vram_gb: 12,
+      runtime: ['PyTorch', 'Gradio', 'Diffusers'], output: ['PLY', 'MP4 preview', 'Mesh'],
+      local_status: 'local', license: 'MIT', released: '2024-02',
+      source_url: 'https://github.com/3DTopia/LGM', install_url: 'https://github.com/3DTopia/LGM',
+      hardware_note: 'The official repository reports about 10 GB GPU memory for inference with ImageDream or MVDream plus LGM loaded. Twelve GB VRAM is the practical entry floor.',
+      strengths: ['MIT licensed weights', 'Text and image conditioning', 'Saved PLY splats with a mesh conversion script'],
+      caveats: ['Requires xformers, gaussian rasterization and nvdiffrast setup', 'Older than TRELLIS-style workflows but still useful for lightweight Gaussian output']
+    },
+    {
       id: 'crm', name: 'CRM', category: '3d', developer: 'Tsinghua University',
       summary: 'Single-image model that reconstructs a UV-textured mesh through six consistent views.',
       tasks: ['image-to-3d', 'multiview-generation', 'mesh-reconstruction', 'texturing'],
