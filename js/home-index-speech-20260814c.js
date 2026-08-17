@@ -409,6 +409,28 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "TTS"
   },
   {
+    "id": "moss-tts",
+    "name": "MOSS-TTS",
+    "developer": "OpenMOSS / MOSI.AI",
+    "family": "moss",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-03",
+    "quality": 9.2,
+    "speed": 6.8,
+    "type": "TTS"
+  },
+  {
+    "id": "silma-tts",
+    "name": "SILMA TTS",
+    "developer": "Silma AI",
+    "family": "silma",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-03",
+    "quality": 8.7,
+    "speed": 8.8,
+    "type": "TTS"
+  },
+  {
     "id": "granite-speech-4.1-2b",
     "name": "Granite Speech 4.1 2B",
     "developer": "IBM Granite Team",

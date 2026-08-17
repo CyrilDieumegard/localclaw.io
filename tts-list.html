@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 55 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 55 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 57 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 57 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 55 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 57 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1622,10 +1622,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">58</strong> speech records: <strong style="color:#fff;">55 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">60</strong> speech records: <strong style="color:#fff;">57 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>55 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>57 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2676,6 +2676,56 @@
                 supportedFormats: ["pytorch", "onnx", "mlx"],
                 voices: "Voice cloning + long-text chunked generation",
                 context: "0.1B params, 20 languages, ONNX CPU version runs smoothly on MacBook Air M4",
+                license: "Apache 2.0"
+            },
+            {
+                id: "moss-tts",
+                name: "MOSS-TTS",
+                developer: "OpenMOSS / MOSI.AI",
+                family: "moss",
+                description: "Canonical OpenMOSS full speech generation family with 8B and 1.7B checkpoints for multilingual zero-shot voice cloning, emotion control and long-text generation. Heavier than Nano, but materially better for production-quality local voice work.",
+                languages: ["zh", "en", "de", "es", "fr", "ja", "it", "hu", "ko", "ru", "fa", "ar", "pl", "pt", "cs", "da", "sv", "el", "tr"],
+                languageCount: 20,
+                features: ["cloning", "streaming", "multilingual", "emotion", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 16.0,
+                sizeCategory: "large",
+                quality: 9.2,
+                speed: 6.8,
+                latency: "medium",
+                releaseDate: "2026-03",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/OpenMOSS-Team/MOSS-TTS",
+                installCommand: "pip install moss-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot cloning, voice conversion and long-form speech",
+                context: "8B and 1.7B open-weight checkpoints, 20 languages, 24 kHz output",
+                license: "Apache 2.0"
+            },
+            {
+                id: "silma-tts",
+                name: "SILMA TTS",
+                developer: "Silma AI",
+                family: "silma",
+                description: "Lightweight Arabic and English zero-shot TTS built from scratch on the F5-TTS architecture. The 150M parameter release supports voice cloning from a short reference clip and is practical on modest local hardware.",
+                languages: ["ar", "en"],
+                languageCount: 2,
+                features: ["cloning", "multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 0.6,
+                sizeCategory: "small",
+                quality: 8.7,
+                speed: 8.8,
+                latency: "low",
+                releaseDate: "2026-03",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/silma-ai/silma-tts",
+                installCommand: "pip install silma-tts",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot voice cloning from a 5-10 second reference",
+                context: "150M parameters, Arabic/English, F5-style local inference",
                 license: "Apache 2.0"
             },
             {
