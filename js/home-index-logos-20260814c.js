@@ -121,6 +121,7 @@ window.HOME_INDEX_LOGOS = {
     piper: 'rhasspy-avatar',
     qwen: 'qwen',
     sesame: 'sesame-avatar',
+    silma: 'silma-avatar',
     spark: 'spark',
     step: 'stepfun',
     styletts: 'yl4579-avatar',
@@ -135,6 +136,7 @@ window.HOME_INDEX_LOGOS = {
   },
   multimodal: {
     '3DTopia': '3dtopia-avatar',
+    '3DTopia / Nanyang Technological University': '3dtopia-avatar',
     'ACE-Step Team': 'ace-step-avatar',
     'AILab-CVC': 'ailab-cvc-avatar',
     'Alibaba VILab': 'alibaba',

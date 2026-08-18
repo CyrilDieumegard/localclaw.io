@@ -62,6 +62,7 @@ const AVATARS = {
   'sailor-avatar': 'sail',
   'sarvam-avatar': 'sarvamai',
   'sesame-avatar': 'sesame',
+  'silma-avatar': 'silma-ai',
   'supertone-avatar': 'Supertone',
   'stabilityai-avatar': 'stabilityai',
   'swiss-ai-avatar': 'swiss-ai',

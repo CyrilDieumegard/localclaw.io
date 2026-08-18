@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-08-18
 - Local LLM pages: 214 unique routes across 76 families
-- Local speech records: 57 across 52 families (48 TTS, 8 ASR, 1 app)
+- Local speech records: 58 across 52 families (48 TTS, 9 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 49
 - Latest catalogue release month: Aug 10, 2026
 - LLM source states: 173 public GGUF repositories, 37 public model cards without a verified GGUF file and 4 gated model cards
@@ -24,7 +24,7 @@
 
 - [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 57 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 58 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
@@ -36,7 +36,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 320 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 321 local homepage entries
 
 ## RAM Decision Paths
 
@@ -60,11 +60,11 @@
 ## Current Audio Score Leaders
 
 - [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — Audio 9.6/10; ASR; CC-BY-4.0.
+- [Parakeet TDT 0.6B v3](https://localclaw.io/tts/parakeet-tdt-0.6b-v3) — Audio 9.6/10; ASR; CC-BY-4.0.
 - [Kyutai STT 2.6B English](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
 - [F5-TTS v1 Base](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 - [Kokoro TTS](https://localclaw.io/tts/kokoro) — Audio 9.4/10; TTS; Apache 2.0.
 - [Qwen3-ASR](https://localclaw.io/tts/qwen3-asr) — Audio 9.3/10; ASR; Apache 2.0.
-- [F5-TTS](https://localclaw.io/tts/f5-tts) — Audio 9.3/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 
 ## Data Notes
 

@@ -54,6 +54,7 @@ window.HOME_INDEX_AVATAR_FORMATS = {
   "sailor-avatar": "webp",
   "sarvam-avatar": "webp",
   "sesame-avatar": "webp",
+  "silma-avatar": "webp",
   "supertone-avatar": "webp",
   "stabilityai-avatar": "webp",
   "swiss-ai-avatar": "webp",

@@ -552,6 +552,17 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "ASR"
   },
   {
+    "id": "parakeet-tdt-0.6b-v3",
+    "name": "Parakeet TDT 0.6B v3",
+    "developer": "NVIDIA",
+    "family": "parakeet",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2025-08",
+    "quality": 9.5,
+    "speed": 9.7,
+    "type": "ASR"
+  },
+  {
     "id": "canary-1b-v2",
     "name": "Canary 1B v2",
     "developer": "NVIDIA",
