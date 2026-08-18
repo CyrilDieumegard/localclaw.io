@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 15 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Ling-3.0-tiny</title>
+      <link>https://localclaw.io/models/ling-3.0-tiny</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ling-3.0-tiny</guid>
+      <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
+      <category>ling</category>
+      <description>Official InclusionAI MIT hybrid-reasoning MoE with 131K context, 1.3B active parameters and a validated GGUF path through stock llama.cpp builds from the 2026-08-17 bailingmoe3 merge. 7.9B (1.3B active, MoE) · 8 GB minimum RAM · Q4_K_M · ling.</description>
+    </item>
     <item>
       <title>Muse Glimmer 30B</title>
       <link>https://localclaw.io/models/muse-glimmer-30b</link>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
       <category>deepreinforce</category>
       <description>DeepReinforce Ornith 1.0 mid-size GGUF release for agentic coding. The Q4_K_M build is listed around 21.2GB, making it a realistic 32GB+ local model compared with the 397B server-grade version. 35B MoE · 32 GB minimum RAM · Q4_K_M · deepreinforce.</description>
-    </item>
-    <item>
-      <title>MiniCPM5 1B</title>
-      <link>https://localclaw.io/models/minicpm5-1b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/minicpm5-1b</guid>
-      <pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
-      <category>minicpm</category>
-      <description>OpenBMB compact on-device LLM with Apache 2.0 licensing, 128K context, tool-calling focus and official GGUF plus MLX artifacts for laptops and edge devices. 1B · 4 GB minimum RAM · Q4_K_M · minicpm.</description>
     </item>
   </channel>
 </rss>

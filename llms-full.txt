@@ -1,10 +1,10 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-08-15 from the LocalClaw repository catalogue. This file lists all 319 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-08-18 from the LocalClaw repository catalogue. This file lists all 320 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
-## Local LLMs (213)
+## Local LLMs (214)
 
 - 001 [DeepSeek V4 Flash 0731 (284B MoE)](https://localclaw.io/models/deepseek-v4-flash-0731) — family: deepseek-flash; LocalClaw: 9.3/10; parameters: 284B (13B active); minimum RAM: 256 GB; licence: MIT; released: Jul 31, 2026.
 - 002 [Kimi K2.5 (1T MoE)](https://localclaw.io/models/kimi-k2.5-32b) — family: kimi; LocalClaw: 9.2/10; parameters: 1T (32B active, MoE); minimum RAM: 1024 GB; licence: Modified MIT; released: Jan 2026.
@@ -117,108 +117,109 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 109 [Mistral Small 3.2 (24B)](https://localclaw.io/models/mistral-small3.2-24b) — family: mistral; LocalClaw: 7.6/10; parameters: 24B; minimum RAM: 20 GB; licence: See upstream model page; released: Jun 2025.
 - 110 [Llama 3.3 (70B)](https://localclaw.io/models/llama3.3-70b) — family: llama; LocalClaw: 7.5/10; parameters: 70B; minimum RAM: 48 GB; licence: Llama 3.3 Community License; released: Dec 2024.
 - 111 [DBRX (132B MoE)](https://localclaw.io/models/dbrx-132b) — family: dbrx; LocalClaw: 7.5/10; parameters: 132B (36B active); minimum RAM: 128 GB; licence: See upstream model page; released: Mar 2024.
-- 112 [DeepSeek R1 Distill (8B)](https://localclaw.io/models/deepseek-r1-8b) — family: deepseek; LocalClaw: 7.5/10; parameters: 8B; minimum RAM: 8 GB; licence: MIT; released: Jan 2025.
-- 113 [Gemma 3 (12B)](https://localclaw.io/models/gemma3-12b) — family: gemma; LocalClaw: 7.5/10; parameters: 12B; minimum RAM: 16 GB; licence: Gemma License; released: Mar 2025.
-- 114 [Mixtral (8x7B)](https://localclaw.io/models/mixtral-8x7b) — family: mixtral; LocalClaw: 7.4/10; parameters: 8x7B (46.7B); minimum RAM: 32 GB; licence: Apache 2.0; released: Jan 2024.
-- 115 [Llama-3.1-Nemotron-Nano (4B)](https://localclaw.io/models/llama3.1-nemotron-nano-4b) — family: nemotron-llama-nano; LocalClaw: 7.4/10; parameters: 4B; minimum RAM: 6 GB; licence: Apache 2.0; released: Mar 2025.
-- 116 [Qwen 3 VL (8B)](https://localclaw.io/models/qwen3-vl-8b) — family: qwen; LocalClaw: 7.4/10; parameters: 8B; minimum RAM: 12 GB; licence: See upstream model page; released: Nov 2025.
-- 117 [Ornith 1.0 9B GGUF](https://localclaw.io/models/ornith-1.0-9b-gguf) — family: deepreinforce; LocalClaw: 7.4/10; parameters: 9B; minimum RAM: 8 GB; licence: MIT; released: Jun 2026.
-- 118 [Cogito (8B)](https://localclaw.io/models/cogito-8b) — family: cogito; LocalClaw: 7.4/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Apr 2025.
-- 119 [EXAONE Deep (7.8B)](https://localclaw.io/models/exaone-deep-7.8b) — family: exaone; LocalClaw: 7.4/10; parameters: 7.8B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2025.
-- 120 [Qwen 2.5 (7B)](https://localclaw.io/models/qwen2.5-7b) — family: qwen; LocalClaw: 7.4/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Sep 2024.
-- 121 [Mistral Nemo (12B)](https://localclaw.io/models/mistral-nemo-12b) — family: mistral; LocalClaw: 7.4/10; parameters: 12B; minimum RAM: 12 GB; licence: Apache 2.0; released: Jul 2024.
-- 122 [DiffusionGemma 26B-A4B Instruct](https://localclaw.io/models/diffusiongemma-26b-a4b-it) — family: gemma; LocalClaw: 7.3/10; parameters: 26B (4B active, diffusion MoE); minimum RAM: 32 GB; licence: Apache 2.0; released: Jun 2026.
-- 123 [Mistral Small 3.1 (24B)](https://localclaw.io/models/mistral-small3.1-24b) — family: mistral; LocalClaw: 7.3/10; parameters: 24B; minimum RAM: 20 GB; licence: See upstream model page; released: Mar 2025.
-- 124 [Mistral Small (24B)](https://localclaw.io/models/mistral-small-24b) — family: mistral; LocalClaw: 7.3/10; parameters: 24B; minimum RAM: 24 GB; licence: Apache 2.0; released: Jan 2025.
-- 125 [DeepSeek R1 Distill (32B)](https://localclaw.io/models/deepseek-r1-32b) — family: deepseek; LocalClaw: 7.3/10; parameters: 32B; minimum RAM: 32 GB; licence: MIT; released: Jan 2025.
-- 126 [LFM2.5-2.6B](https://localclaw.io/models/lfm2-5-2-6b) — family: lfm; LocalClaw: 7.3/10; parameters: 2.7B; minimum RAM: 8 GB; licence: LFM 1.0; released: Jul 28, 2026.
-- 127 [Granite 4.1 (3B)](https://localclaw.io/models/granite4.1-3b) — family: granite; LocalClaw: 7.3/10; parameters: 3B; minimum RAM: 4 GB; licence: Apache 2.0; released: Apr 29, 2026.
-- 128 [GLM 4.7 Flash](https://localclaw.io/models/glm4.7-flash) — family: glm; LocalClaw: 7.3/10; parameters: 14B; minimum RAM: 16 GB; licence: Apache 2.0; released: Dec 2025.
-- 129 [Codestral (22B)](https://localclaw.io/models/codestral-22b) — family: mistral; LocalClaw: 7.2/10; parameters: 22B; minimum RAM: 16 GB; licence: MNPL (Non-Production License); released: May 2024.
-- 130 [OLMo 2 (32B)](https://localclaw.io/models/olmo2-32b) — family: olmo; LocalClaw: 7.2/10; parameters: 32B; minimum RAM: 24 GB; licence: Apache 2.0; released: Mar 2025.
-- 131 [Aya Expanse (32B)](https://localclaw.io/models/aya-expanse-32b) — family: cohere; LocalClaw: 7.2/10; parameters: 32B; minimum RAM: 24 GB; licence: See upstream model page; released: Oct 2024.
-- 132 [Yi 1.5 (34B)](https://localclaw.io/models/yi-34b) — family: yi; LocalClaw: 7.2/10; parameters: 34B; minimum RAM: 24 GB; licence: See upstream model page; released: May 2024.
-- 133 [Command R (35B)](https://localclaw.io/models/command-r-35b) — family: cohere; LocalClaw: 7.2/10; parameters: 35B; minimum RAM: 24 GB; licence: CC-BY-NC 4.0; released: Mar 2024.
-- 134 [Nemotron 3 Nano (4B)](https://localclaw.io/models/nemotron3-nano-4b) — family: nemotron-nano; LocalClaw: 7.2/10; parameters: 4B; minimum RAM: 6 GB; licence: NVIDIA Open Model License; released: Feb 2025.
-- 135 [Llama 3.1 (70B)](https://localclaw.io/models/llama3.1-70b) — family: llama; LocalClaw: 7.2/10; parameters: 70B; minimum RAM: 48 GB; licence: Llama 3.1 Community License; released: Jul 2024.
-- 136 [Qwen 3.5 (9B)](https://localclaw.io/models/qwen3.5-9b) — family: qwen; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Mar 2026.
-- 137 [Ministral 3 8B Instruct](https://localclaw.io/models/ministral-3-8b-instruct) — family: mistral; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Dec 2025.
-- 138 [Step 3.5 Flash](https://localclaw.io/models/step3.5-flash) — family: step; LocalClaw: 7.1/10; parameters: 196.81B (11B active, MoE); minimum RAM: 192 GB; licence: See upstream model page; released: Nov 2025.
-- 139 [Granite 3.3 (8B Instruct)](https://localclaw.io/models/granite3.3-8b) — family: granite; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Oct 2025.
-- 140 [OpenThinker (7B)](https://localclaw.io/models/openthinker-7b) — family: openthinker; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2025.
-- 141 [DeepSeek R1 Distill (7B)](https://localclaw.io/models/deepseek-r1-7b) — family: deepseek; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: MIT; released: Jan 2025.
-- 142 [Llama 3.3 (8B)](https://localclaw.io/models/llama3.3-8b) — family: llama; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3.3 Community License; released: Jan 2025.
-- 143 [Marco-o1 (7B)](https://localclaw.io/models/marco-o1-7b) — family: marco; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
-- 144 [Hermes 3 (8B)](https://localclaw.io/models/hermes3-8b) — family: hermes; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Aug 2024.
-- 145 [Llama 3.1 (8B)](https://localclaw.io/models/llama3.1-8b) — family: llama; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3.1 Community License; released: Jul 2024.
-- 146 [Gemma 2 (9B)](https://localclaw.io/models/gemma2-9b) — family: gemma; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 8 GB; licence: Gemma License; released: Jun 2024.
-- 147 [GLM-4 (9B)](https://localclaw.io/models/glm4-9b) — family: glm; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 12 GB; licence: See upstream model page; released: Jun 2024.
-- 148 [Solar Pro (22B)](https://localclaw.io/models/solar-pro-22b) — family: solar; LocalClaw: 7.1/10; parameters: 22B; minimum RAM: 16 GB; licence: See upstream model page; released: Sep 2024.
-- 149 [Phi-3 Medium (14B)](https://localclaw.io/models/phi3-14b) — family: phi; LocalClaw: 7.1/10; parameters: 14B; minimum RAM: 12 GB; licence: See upstream model page; released: Apr 2024.
-- 150 [CodeLlama 34B](https://localclaw.io/models/codellama-34b) — family: codellama; LocalClaw: 7.1/10; parameters: 34B; minimum RAM: 32 GB; licence: See upstream model page; released: Jan 2024.
-- 151 [DeepSeek Coder (33B)](https://localclaw.io/models/deepseek-coder-33b) — family: deepseek; LocalClaw: 7.1/10; parameters: 33B; minimum RAM: 24 GB; licence: See upstream model page; released: Jan 2024.
-- 152 [Qwen 2.5 Coder (7B)](https://localclaw.io/models/qwen2.5-coder-7b) — family: qwen-coder; LocalClaw: 7.0/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Nov 2024.
-- 153 [Qwen 3 (4B)](https://localclaw.io/models/qwen3-4b) — family: qwen; LocalClaw: 6.9/10; parameters: 4B; minimum RAM: 4 GB; licence: Apache 2.0; released: Apr 2025.
-- 154 [DANTE-Mosaic-3.5B](https://localclaw.io/models/dante-mosaic-3.5b) — family: dante; LocalClaw: 6.9/10; parameters: 3.08B; minimum RAM: 8 GB; licence: Apache 2.0; released: May 2026.
-- 155 [Gemma 4 E4B](https://localclaw.io/models/gemma4-e4b) — family: gemma; LocalClaw: 6.9/10; parameters: E4B; minimum RAM: 8 GB; licence: Apache 2.0; released: Mar 2026.
-- 156 [Apertus 8B Instruct](https://localclaw.io/models/apertus-8b-instruct) — family: apertus; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 16 GB; licence: Apache 2.0; released: Sep 2025.
-- 157 [Dolphin 3 (8B)](https://localclaw.io/models/dolphin3-8b) — family: dolphin; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Feb 2025.
-- 158 [EXAONE 3.5 (7.8B)](https://localclaw.io/models/exaone3.5-7.8b) — family: exaone; LocalClaw: 6.9/10; parameters: 7.8B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
-- 159 [Falcon 3 (7B)](https://localclaw.io/models/falcon3-7b) — family: falcon; LocalClaw: 6.9/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
-- 160 [Tulu 3 (8B)](https://localclaw.io/models/tulu3-8b) — family: tulu; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
-- 161 [InternLM 2.5 (7B)](https://localclaw.io/models/internlm2-7b) — family: internlm; LocalClaw: 6.9/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
-- 162 [Llama 3 (8B)](https://localclaw.io/models/llama3-8b) — family: llama; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3 Community License; released: Apr 2024.
-- 163 [OpenCoder (8B)](https://localclaw.io/models/opencoder-8b) — family: opencoder; LocalClaw: 6.8/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
-- 164 [DeepSeek R1 Distill (14B)](https://localclaw.io/models/deepseek-r1-14b) — family: deepseek; LocalClaw: 6.7/10; parameters: 14B; minimum RAM: 16 GB; licence: MIT; released: Jan 2025.
-- 165 [Phi-4 Mini Reasoning (3.8B)](https://localclaw.io/models/phi4-mini-reasoning) — family: phi; LocalClaw: 6.7/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Apr 2025.
-- 166 [Phi-4 Mini (3.8B)](https://localclaw.io/models/phi4-mini) — family: phi; LocalClaw: 6.7/10; parameters: 3.8B; minimum RAM: 4 GB; licence: MIT; released: Feb 2025.
-- 167 [Llama3 ChatQA (8B)](https://localclaw.io/models/llama3-chatqa-8b) — family: llama; LocalClaw: 6.7/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: May 2024.
-- 168 [OLMo 2 (7B)](https://localclaw.io/models/olmo2-7b) — family: olmo; LocalClaw: 6.7/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Jan 2025.
-- 169 [OpenChat 3.5 (7B)](https://localclaw.io/models/openchat-7b) — family: openchat; LocalClaw: 6.7/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jan 2024.
-- 170 [Yi Coder (9B)](https://localclaw.io/models/yi-coder-9b) — family: yi; LocalClaw: 6.6/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Sep 2024.
-- 171 [CodeGeeX4 (9B)](https://localclaw.io/models/codegeex4-9b) — family: codegeex; LocalClaw: 6.6/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
-- 172 [QwQ (32B)](https://localclaw.io/models/qwq-32b) — family: qwen; LocalClaw: 6.6/10; parameters: 32B; minimum RAM: 24 GB; licence: Apache 2.0; released: Nov 2024.
-- 173 [MiniCPM5 1B](https://localclaw.io/models/minicpm5-1b) — family: minicpm; LocalClaw: 6.6/10; parameters: 1B; minimum RAM: 4 GB; licence: Apache 2.0; released: May 2026.
-- 174 [InternVL3 (8B)](https://localclaw.io/models/internvl3-8b) — family: internvl; LocalClaw: 6.5/10; parameters: 8B; minimum RAM: 8 GB; licence: MIT; released: Apr 2025.
-- 175 [Qwen 2.5 VL (7B)](https://localclaw.io/models/qwen2.5vl-7b) — family: qwen; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jan 2025.
-- 176 [Mathstral (7B)](https://localclaw.io/models/mathstral-7b) — family: mistral; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
-- 177 [CodeGemma (7B)](https://localclaw.io/models/codegemma-7b) — family: gemma; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Apr 2024.
-- 178 [SQLCoder (15B)](https://localclaw.io/models/sqlcoder-15b) — family: sqlcoder; LocalClaw: 6.5/10; parameters: 15B; minimum RAM: 12 GB; licence: See upstream model page; released: Jan 2024.
-- 179 [Sailor 2 (8B)](https://localclaw.io/models/sailor2-8b) — family: sailor; LocalClaw: 6.4/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
-- 180 [Aya (8B)](https://localclaw.io/models/aya-8b) — family: aya; LocalClaw: 6.4/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: May 2024.
-- 181 [Zephyr (7B)](https://localclaw.io/models/zephyr-7b) — family: zephyr; LocalClaw: 6.4/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2023.
-- 182 [Qwen 3.5 (4B)](https://localclaw.io/models/qwen3.5-4b) — family: qwen; LocalClaw: 6.4/10; parameters: 4B; minimum RAM: 6 GB; licence: See upstream model page; released: Mar 2026.
-- 183 [Ministral 3 3B Instruct](https://localclaw.io/models/ministral-3-3b-instruct) — family: mistral; LocalClaw: 6.4/10; parameters: 3B; minimum RAM: 4 GB; licence: Apache 2.0; released: Dec 2025.
-- 184 [Phi-3.5 (3.8B)](https://localclaw.io/models/phi3.5-3.8b) — family: phi; LocalClaw: 6.4/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Aug 2024.
-- 185 [Phi-3 (3.8B)](https://localclaw.io/models/phi3-3.8b) — family: phi; LocalClaw: 6.4/10; parameters: 3.8B; minimum RAM: 6 GB; licence: MIT; released: Apr 2024.
-- 186 [Llama 3.2 Vision (11B)](https://localclaw.io/models/llama3.2-vision-11b) — family: llama; LocalClaw: 6.4/10; parameters: 11B; minimum RAM: 12 GB; licence: Llama 3.2 Community License; released: Sep 2024.
-- 187 [Granite 3.3 (2B Instruct)](https://localclaw.io/models/granite3.3-2b) — family: granite; LocalClaw: 6.3/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Oct 2025.
-- 188 [StarCoder 2 (15B)](https://localclaw.io/models/starcoder2-15b) — family: starcoder; LocalClaw: 6.2/10; parameters: 15B; minimum RAM: 12 GB; licence: See upstream model page; released: Feb 2024.
-- 189 [Gemma 4 E2B](https://localclaw.io/models/gemma4-e2b) — family: gemma; LocalClaw: 6.2/10; parameters: E2B; minimum RAM: 6 GB; licence: Apache 2.0; released: Mar 2026.
-- 190 [Gemma 3n (4B)](https://localclaw.io/models/gemma3n-4b) — family: gemma; LocalClaw: 6.2/10; parameters: 4B; minimum RAM: 6 GB; licence: Gemma License; released: Jun 2025.
-- 191 [Gemma 3 (4B)](https://localclaw.io/models/gemma3-4b) — family: gemma; LocalClaw: 6.2/10; parameters: 4B; minimum RAM: 8 GB; licence: Gemma License; released: Mar 2025.
-- 192 [DeepScaleR (1.5B)](https://localclaw.io/models/deepscaler-1.5b) — family: deepscaler; LocalClaw: 6.2/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Feb 2025.
-- 193 [MiniCPM-V (8B)](https://localclaw.io/models/minicpm-v-8b) — family: minicpm; LocalClaw: 6.0/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Aug 2024.
-- 194 [LLaVA-Llama3 (8B)](https://localclaw.io/models/llava-llama3-8b) — family: llava; LocalClaw: 6.0/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Apr 2024.
-- 195 [Mistral 7B v0.3](https://localclaw.io/models/mistral-7b-v0.3) — family: mistral; LocalClaw: 6.0/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: May 2024.
-- 196 [Nemotron Mini (4B)](https://localclaw.io/models/nemotron-mini-4b) — family: nemotron; LocalClaw: 5.9/10; parameters: 4B; minimum RAM: 6 GB; licence: See upstream model page; released: Aug 2024.
-- 197 [SmallThinker (3B)](https://localclaw.io/models/smallthinker-3b) — family: smallthinker; LocalClaw: 5.8/10; parameters: 3B; minimum RAM: 4 GB; licence: See upstream model page; released: Jan 2025.
-- 198 [Llama 3.2 (3B)](https://localclaw.io/models/llama3.2-3b) — family: llama; LocalClaw: 5.6/10; parameters: 3B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
-- 199 [LLaVA 1.6 (13B)](https://localclaw.io/models/llava-13b) — family: llava; LocalClaw: 5.5/10; parameters: 13B; minimum RAM: 12 GB; licence: Apache 2.0; released: Feb 2024.
-- 200 [Qwen 3.5 (2B)](https://localclaw.io/models/qwen3.5-2b) — family: qwen; LocalClaw: 5.5/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Mar 2026.
-- 201 [Granite 3.2 Vision (2B)](https://localclaw.io/models/granite3.2-vision-2b) — family: granite; LocalClaw: 5.2/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Feb 2025.
-- 202 [LLaVA 1.6 (7B)](https://localclaw.io/models/llava-1.6-7b) — family: llava; LocalClaw: 5.2/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2024.
-- 203 [Bespoke MiniCheck (3.8B)](https://localclaw.io/models/bespoke-minicheck) — family: bespoke; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Oct 2024.
-- 204 [Llama Guard 3 (8B)](https://localclaw.io/models/llama-guard3-8b) — family: llama; LocalClaw: 5.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Sep 2024.
-- 205 [NuExtract (3.8B)](https://localclaw.io/models/nuextract-3.8b) — family: nuextract; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Jun 2024.
-- 206 [LLaVA-Phi3 (3.8B)](https://localclaw.io/models/llava-phi3-3.8b) — family: llava; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: May 2024.
-- 207 [Reader LM (1.5B)](https://localclaw.io/models/reader-lm-1.5b) — family: reader-lm; LocalClaw: 4.7/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Sep 2024.
-- 208 [Qwen 3.5 (0.8B)](https://localclaw.io/models/qwen3.5-0.8b) — family: qwen; LocalClaw: 4.6/10; parameters: 0.8B; minimum RAM: 2 GB; licence: See upstream model page; released: Mar 2026.
-- 209 [Gemma 3 (1B)](https://localclaw.io/models/gemma3-1b) — family: gemma; LocalClaw: 4.4/10; parameters: 1B; minimum RAM: 4 GB; licence: Gemma License; released: Mar 2025.
-- 210 [SmolLM 2 (1.7B)](https://localclaw.io/models/smollm2-1.7b) — family: smollm; LocalClaw: 4.4/10; parameters: 1.7B; minimum RAM: 4 GB; licence: See upstream model page; released: Nov 2024.
-- 211 [Moondream 2](https://localclaw.io/models/moondream2) — family: moondream; LocalClaw: 4.1/10; parameters: 1.9B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jul 2024.
-- 212 [Llama 3.2 (1B)](https://localclaw.io/models/llama3.2-1b) — family: llama; LocalClaw: 4.0/10; parameters: 1B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
-- 213 [TinyLlama (1.1B)](https://localclaw.io/models/tinyllama-1.1b) — family: tinyllama; LocalClaw: 3.5/10; parameters: 1.1B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jan 2024.
+- 112 [Ling-3.0-tiny](https://localclaw.io/models/ling-3.0-tiny) — family: ling; LocalClaw: 7.5/10; parameters: 7.9B (1.3B active, MoE); minimum RAM: 8 GB; licence: MIT; released: Aug 10, 2026.
+- 113 [DeepSeek R1 Distill (8B)](https://localclaw.io/models/deepseek-r1-8b) — family: deepseek; LocalClaw: 7.5/10; parameters: 8B; minimum RAM: 8 GB; licence: MIT; released: Jan 2025.
+- 114 [Gemma 3 (12B)](https://localclaw.io/models/gemma3-12b) — family: gemma; LocalClaw: 7.5/10; parameters: 12B; minimum RAM: 16 GB; licence: Gemma License; released: Mar 2025.
+- 115 [Mixtral (8x7B)](https://localclaw.io/models/mixtral-8x7b) — family: mixtral; LocalClaw: 7.4/10; parameters: 8x7B (46.7B); minimum RAM: 32 GB; licence: Apache 2.0; released: Jan 2024.
+- 116 [Llama-3.1-Nemotron-Nano (4B)](https://localclaw.io/models/llama3.1-nemotron-nano-4b) — family: nemotron-llama-nano; LocalClaw: 7.4/10; parameters: 4B; minimum RAM: 6 GB; licence: Apache 2.0; released: Mar 2025.
+- 117 [Qwen 3 VL (8B)](https://localclaw.io/models/qwen3-vl-8b) — family: qwen; LocalClaw: 7.4/10; parameters: 8B; minimum RAM: 12 GB; licence: See upstream model page; released: Nov 2025.
+- 118 [Ornith 1.0 9B GGUF](https://localclaw.io/models/ornith-1.0-9b-gguf) — family: deepreinforce; LocalClaw: 7.4/10; parameters: 9B; minimum RAM: 8 GB; licence: MIT; released: Jun 2026.
+- 119 [Cogito (8B)](https://localclaw.io/models/cogito-8b) — family: cogito; LocalClaw: 7.4/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Apr 2025.
+- 120 [EXAONE Deep (7.8B)](https://localclaw.io/models/exaone-deep-7.8b) — family: exaone; LocalClaw: 7.4/10; parameters: 7.8B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2025.
+- 121 [Qwen 2.5 (7B)](https://localclaw.io/models/qwen2.5-7b) — family: qwen; LocalClaw: 7.4/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Sep 2024.
+- 122 [Mistral Nemo (12B)](https://localclaw.io/models/mistral-nemo-12b) — family: mistral; LocalClaw: 7.4/10; parameters: 12B; minimum RAM: 12 GB; licence: Apache 2.0; released: Jul 2024.
+- 123 [DiffusionGemma 26B-A4B Instruct](https://localclaw.io/models/diffusiongemma-26b-a4b-it) — family: gemma; LocalClaw: 7.3/10; parameters: 26B (4B active, diffusion MoE); minimum RAM: 32 GB; licence: Apache 2.0; released: Jun 2026.
+- 124 [Mistral Small 3.1 (24B)](https://localclaw.io/models/mistral-small3.1-24b) — family: mistral; LocalClaw: 7.3/10; parameters: 24B; minimum RAM: 20 GB; licence: See upstream model page; released: Mar 2025.
+- 125 [Mistral Small (24B)](https://localclaw.io/models/mistral-small-24b) — family: mistral; LocalClaw: 7.3/10; parameters: 24B; minimum RAM: 24 GB; licence: Apache 2.0; released: Jan 2025.
+- 126 [DeepSeek R1 Distill (32B)](https://localclaw.io/models/deepseek-r1-32b) — family: deepseek; LocalClaw: 7.3/10; parameters: 32B; minimum RAM: 32 GB; licence: MIT; released: Jan 2025.
+- 127 [LFM2.5-2.6B](https://localclaw.io/models/lfm2-5-2-6b) — family: lfm; LocalClaw: 7.3/10; parameters: 2.7B; minimum RAM: 8 GB; licence: LFM 1.0; released: Jul 28, 2026.
+- 128 [Granite 4.1 (3B)](https://localclaw.io/models/granite4.1-3b) — family: granite; LocalClaw: 7.3/10; parameters: 3B; minimum RAM: 4 GB; licence: Apache 2.0; released: Apr 29, 2026.
+- 129 [GLM 4.7 Flash](https://localclaw.io/models/glm4.7-flash) — family: glm; LocalClaw: 7.3/10; parameters: 14B; minimum RAM: 16 GB; licence: Apache 2.0; released: Dec 2025.
+- 130 [Codestral (22B)](https://localclaw.io/models/codestral-22b) — family: mistral; LocalClaw: 7.2/10; parameters: 22B; minimum RAM: 16 GB; licence: MNPL (Non-Production License); released: May 2024.
+- 131 [OLMo 2 (32B)](https://localclaw.io/models/olmo2-32b) — family: olmo; LocalClaw: 7.2/10; parameters: 32B; minimum RAM: 24 GB; licence: Apache 2.0; released: Mar 2025.
+- 132 [Aya Expanse (32B)](https://localclaw.io/models/aya-expanse-32b) — family: cohere; LocalClaw: 7.2/10; parameters: 32B; minimum RAM: 24 GB; licence: See upstream model page; released: Oct 2024.
+- 133 [Yi 1.5 (34B)](https://localclaw.io/models/yi-34b) — family: yi; LocalClaw: 7.2/10; parameters: 34B; minimum RAM: 24 GB; licence: See upstream model page; released: May 2024.
+- 134 [Command R (35B)](https://localclaw.io/models/command-r-35b) — family: cohere; LocalClaw: 7.2/10; parameters: 35B; minimum RAM: 24 GB; licence: CC-BY-NC 4.0; released: Mar 2024.
+- 135 [Nemotron 3 Nano (4B)](https://localclaw.io/models/nemotron3-nano-4b) — family: nemotron-nano; LocalClaw: 7.2/10; parameters: 4B; minimum RAM: 6 GB; licence: NVIDIA Open Model License; released: Feb 2025.
+- 136 [Llama 3.1 (70B)](https://localclaw.io/models/llama3.1-70b) — family: llama; LocalClaw: 7.2/10; parameters: 70B; minimum RAM: 48 GB; licence: Llama 3.1 Community License; released: Jul 2024.
+- 137 [Qwen 3.5 (9B)](https://localclaw.io/models/qwen3.5-9b) — family: qwen; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Mar 2026.
+- 138 [Ministral 3 8B Instruct](https://localclaw.io/models/ministral-3-8b-instruct) — family: mistral; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Dec 2025.
+- 139 [Step 3.5 Flash](https://localclaw.io/models/step3.5-flash) — family: step; LocalClaw: 7.1/10; parameters: 196.81B (11B active, MoE); minimum RAM: 192 GB; licence: See upstream model page; released: Nov 2025.
+- 140 [Granite 3.3 (8B Instruct)](https://localclaw.io/models/granite3.3-8b) — family: granite; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Oct 2025.
+- 141 [OpenThinker (7B)](https://localclaw.io/models/openthinker-7b) — family: openthinker; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2025.
+- 142 [DeepSeek R1 Distill (7B)](https://localclaw.io/models/deepseek-r1-7b) — family: deepseek; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: MIT; released: Jan 2025.
+- 143 [Llama 3.3 (8B)](https://localclaw.io/models/llama3.3-8b) — family: llama; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3.3 Community License; released: Jan 2025.
+- 144 [Marco-o1 (7B)](https://localclaw.io/models/marco-o1-7b) — family: marco; LocalClaw: 7.1/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
+- 145 [Hermes 3 (8B)](https://localclaw.io/models/hermes3-8b) — family: hermes; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Aug 2024.
+- 146 [Llama 3.1 (8B)](https://localclaw.io/models/llama3.1-8b) — family: llama; LocalClaw: 7.1/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3.1 Community License; released: Jul 2024.
+- 147 [Gemma 2 (9B)](https://localclaw.io/models/gemma2-9b) — family: gemma; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 8 GB; licence: Gemma License; released: Jun 2024.
+- 148 [GLM-4 (9B)](https://localclaw.io/models/glm4-9b) — family: glm; LocalClaw: 7.1/10; parameters: 9B; minimum RAM: 12 GB; licence: See upstream model page; released: Jun 2024.
+- 149 [Solar Pro (22B)](https://localclaw.io/models/solar-pro-22b) — family: solar; LocalClaw: 7.1/10; parameters: 22B; minimum RAM: 16 GB; licence: See upstream model page; released: Sep 2024.
+- 150 [Phi-3 Medium (14B)](https://localclaw.io/models/phi3-14b) — family: phi; LocalClaw: 7.1/10; parameters: 14B; minimum RAM: 12 GB; licence: See upstream model page; released: Apr 2024.
+- 151 [CodeLlama 34B](https://localclaw.io/models/codellama-34b) — family: codellama; LocalClaw: 7.1/10; parameters: 34B; minimum RAM: 32 GB; licence: See upstream model page; released: Jan 2024.
+- 152 [DeepSeek Coder (33B)](https://localclaw.io/models/deepseek-coder-33b) — family: deepseek; LocalClaw: 7.1/10; parameters: 33B; minimum RAM: 24 GB; licence: See upstream model page; released: Jan 2024.
+- 153 [Qwen 2.5 Coder (7B)](https://localclaw.io/models/qwen2.5-coder-7b) — family: qwen-coder; LocalClaw: 7.0/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Nov 2024.
+- 154 [Qwen 3 (4B)](https://localclaw.io/models/qwen3-4b) — family: qwen; LocalClaw: 6.9/10; parameters: 4B; minimum RAM: 4 GB; licence: Apache 2.0; released: Apr 2025.
+- 155 [DANTE-Mosaic-3.5B](https://localclaw.io/models/dante-mosaic-3.5b) — family: dante; LocalClaw: 6.9/10; parameters: 3.08B; minimum RAM: 8 GB; licence: Apache 2.0; released: May 2026.
+- 156 [Gemma 4 E4B](https://localclaw.io/models/gemma4-e4b) — family: gemma; LocalClaw: 6.9/10; parameters: E4B; minimum RAM: 8 GB; licence: Apache 2.0; released: Mar 2026.
+- 157 [Apertus 8B Instruct](https://localclaw.io/models/apertus-8b-instruct) — family: apertus; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 16 GB; licence: Apache 2.0; released: Sep 2025.
+- 158 [Dolphin 3 (8B)](https://localclaw.io/models/dolphin3-8b) — family: dolphin; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Feb 2025.
+- 159 [EXAONE 3.5 (7.8B)](https://localclaw.io/models/exaone3.5-7.8b) — family: exaone; LocalClaw: 6.9/10; parameters: 7.8B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
+- 160 [Falcon 3 (7B)](https://localclaw.io/models/falcon3-7b) — family: falcon; LocalClaw: 6.9/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
+- 161 [Tulu 3 (8B)](https://localclaw.io/models/tulu3-8b) — family: tulu; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
+- 162 [InternLM 2.5 (7B)](https://localclaw.io/models/internlm2-7b) — family: internlm; LocalClaw: 6.9/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
+- 163 [Llama 3 (8B)](https://localclaw.io/models/llama3-8b) — family: llama; LocalClaw: 6.9/10; parameters: 8B; minimum RAM: 8 GB; licence: Llama 3 Community License; released: Apr 2024.
+- 164 [OpenCoder (8B)](https://localclaw.io/models/opencoder-8b) — family: opencoder; LocalClaw: 6.8/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2024.
+- 165 [DeepSeek R1 Distill (14B)](https://localclaw.io/models/deepseek-r1-14b) — family: deepseek; LocalClaw: 6.7/10; parameters: 14B; minimum RAM: 16 GB; licence: MIT; released: Jan 2025.
+- 166 [Phi-4 Mini Reasoning (3.8B)](https://localclaw.io/models/phi4-mini-reasoning) — family: phi; LocalClaw: 6.7/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Apr 2025.
+- 167 [Phi-4 Mini (3.8B)](https://localclaw.io/models/phi4-mini) — family: phi; LocalClaw: 6.7/10; parameters: 3.8B; minimum RAM: 4 GB; licence: MIT; released: Feb 2025.
+- 168 [Llama3 ChatQA (8B)](https://localclaw.io/models/llama3-chatqa-8b) — family: llama; LocalClaw: 6.7/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: May 2024.
+- 169 [OLMo 2 (7B)](https://localclaw.io/models/olmo2-7b) — family: olmo; LocalClaw: 6.7/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: Jan 2025.
+- 170 [OpenChat 3.5 (7B)](https://localclaw.io/models/openchat-7b) — family: openchat; LocalClaw: 6.7/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jan 2024.
+- 171 [Yi Coder (9B)](https://localclaw.io/models/yi-coder-9b) — family: yi; LocalClaw: 6.6/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Sep 2024.
+- 172 [CodeGeeX4 (9B)](https://localclaw.io/models/codegeex4-9b) — family: codegeex; LocalClaw: 6.6/10; parameters: 9B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
+- 173 [QwQ (32B)](https://localclaw.io/models/qwq-32b) — family: qwen; LocalClaw: 6.6/10; parameters: 32B; minimum RAM: 24 GB; licence: Apache 2.0; released: Nov 2024.
+- 174 [MiniCPM5 1B](https://localclaw.io/models/minicpm5-1b) — family: minicpm; LocalClaw: 6.6/10; parameters: 1B; minimum RAM: 4 GB; licence: Apache 2.0; released: May 2026.
+- 175 [InternVL3 (8B)](https://localclaw.io/models/internvl3-8b) — family: internvl; LocalClaw: 6.5/10; parameters: 8B; minimum RAM: 8 GB; licence: MIT; released: Apr 2025.
+- 176 [Qwen 2.5 VL (7B)](https://localclaw.io/models/qwen2.5vl-7b) — family: qwen; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jan 2025.
+- 177 [Mathstral (7B)](https://localclaw.io/models/mathstral-7b) — family: mistral; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Jul 2024.
+- 178 [CodeGemma (7B)](https://localclaw.io/models/codegemma-7b) — family: gemma; LocalClaw: 6.5/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Apr 2024.
+- 179 [SQLCoder (15B)](https://localclaw.io/models/sqlcoder-15b) — family: sqlcoder; LocalClaw: 6.5/10; parameters: 15B; minimum RAM: 12 GB; licence: See upstream model page; released: Jan 2024.
+- 180 [Sailor 2 (8B)](https://localclaw.io/models/sailor2-8b) — family: sailor; LocalClaw: 6.4/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Dec 2024.
+- 181 [Aya (8B)](https://localclaw.io/models/aya-8b) — family: aya; LocalClaw: 6.4/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: May 2024.
+- 182 [Zephyr (7B)](https://localclaw.io/models/zephyr-7b) — family: zephyr; LocalClaw: 6.4/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Nov 2023.
+- 183 [Qwen 3.5 (4B)](https://localclaw.io/models/qwen3.5-4b) — family: qwen; LocalClaw: 6.4/10; parameters: 4B; minimum RAM: 6 GB; licence: See upstream model page; released: Mar 2026.
+- 184 [Ministral 3 3B Instruct](https://localclaw.io/models/ministral-3-3b-instruct) — family: mistral; LocalClaw: 6.4/10; parameters: 3B; minimum RAM: 4 GB; licence: Apache 2.0; released: Dec 2025.
+- 185 [Phi-3.5 (3.8B)](https://localclaw.io/models/phi3.5-3.8b) — family: phi; LocalClaw: 6.4/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Aug 2024.
+- 186 [Phi-3 (3.8B)](https://localclaw.io/models/phi3-3.8b) — family: phi; LocalClaw: 6.4/10; parameters: 3.8B; minimum RAM: 6 GB; licence: MIT; released: Apr 2024.
+- 187 [Llama 3.2 Vision (11B)](https://localclaw.io/models/llama3.2-vision-11b) — family: llama; LocalClaw: 6.4/10; parameters: 11B; minimum RAM: 12 GB; licence: Llama 3.2 Community License; released: Sep 2024.
+- 188 [Granite 3.3 (2B Instruct)](https://localclaw.io/models/granite3.3-2b) — family: granite; LocalClaw: 6.3/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Oct 2025.
+- 189 [StarCoder 2 (15B)](https://localclaw.io/models/starcoder2-15b) — family: starcoder; LocalClaw: 6.2/10; parameters: 15B; minimum RAM: 12 GB; licence: See upstream model page; released: Feb 2024.
+- 190 [Gemma 4 E2B](https://localclaw.io/models/gemma4-e2b) — family: gemma; LocalClaw: 6.2/10; parameters: E2B; minimum RAM: 6 GB; licence: Apache 2.0; released: Mar 2026.
+- 191 [Gemma 3n (4B)](https://localclaw.io/models/gemma3n-4b) — family: gemma; LocalClaw: 6.2/10; parameters: 4B; minimum RAM: 6 GB; licence: Gemma License; released: Jun 2025.
+- 192 [Gemma 3 (4B)](https://localclaw.io/models/gemma3-4b) — family: gemma; LocalClaw: 6.2/10; parameters: 4B; minimum RAM: 8 GB; licence: Gemma License; released: Mar 2025.
+- 193 [DeepScaleR (1.5B)](https://localclaw.io/models/deepscaler-1.5b) — family: deepscaler; LocalClaw: 6.2/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Feb 2025.
+- 194 [MiniCPM-V (8B)](https://localclaw.io/models/minicpm-v-8b) — family: minicpm; LocalClaw: 6.0/10; parameters: 8B; minimum RAM: 8 GB; licence: Apache 2.0; released: Aug 2024.
+- 195 [LLaVA-Llama3 (8B)](https://localclaw.io/models/llava-llama3-8b) — family: llava; LocalClaw: 6.0/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Apr 2024.
+- 196 [Mistral 7B v0.3](https://localclaw.io/models/mistral-7b-v0.3) — family: mistral; LocalClaw: 6.0/10; parameters: 7B; minimum RAM: 8 GB; licence: Apache 2.0; released: May 2024.
+- 197 [Nemotron Mini (4B)](https://localclaw.io/models/nemotron-mini-4b) — family: nemotron; LocalClaw: 5.9/10; parameters: 4B; minimum RAM: 6 GB; licence: See upstream model page; released: Aug 2024.
+- 198 [SmallThinker (3B)](https://localclaw.io/models/smallthinker-3b) — family: smallthinker; LocalClaw: 5.8/10; parameters: 3B; minimum RAM: 4 GB; licence: See upstream model page; released: Jan 2025.
+- 199 [Llama 3.2 (3B)](https://localclaw.io/models/llama3.2-3b) — family: llama; LocalClaw: 5.6/10; parameters: 3B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
+- 200 [LLaVA 1.6 (13B)](https://localclaw.io/models/llava-13b) — family: llava; LocalClaw: 5.5/10; parameters: 13B; minimum RAM: 12 GB; licence: Apache 2.0; released: Feb 2024.
+- 201 [Qwen 3.5 (2B)](https://localclaw.io/models/qwen3.5-2b) — family: qwen; LocalClaw: 5.5/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Mar 2026.
+- 202 [Granite 3.2 Vision (2B)](https://localclaw.io/models/granite3.2-vision-2b) — family: granite; LocalClaw: 5.2/10; parameters: 2B; minimum RAM: 4 GB; licence: See upstream model page; released: Feb 2025.
+- 203 [LLaVA 1.6 (7B)](https://localclaw.io/models/llava-1.6-7b) — family: llava; LocalClaw: 5.2/10; parameters: 7B; minimum RAM: 8 GB; licence: See upstream model page; released: Feb 2024.
+- 204 [Bespoke MiniCheck (3.8B)](https://localclaw.io/models/bespoke-minicheck) — family: bespoke; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Oct 2024.
+- 205 [Llama Guard 3 (8B)](https://localclaw.io/models/llama-guard3-8b) — family: llama; LocalClaw: 5.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Sep 2024.
+- 206 [NuExtract (3.8B)](https://localclaw.io/models/nuextract-3.8b) — family: nuextract; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Jun 2024.
+- 207 [LLaVA-Phi3 (3.8B)](https://localclaw.io/models/llava-phi3-3.8b) — family: llava; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: May 2024.
+- 208 [Reader LM (1.5B)](https://localclaw.io/models/reader-lm-1.5b) — family: reader-lm; LocalClaw: 4.7/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Sep 2024.
+- 209 [Qwen 3.5 (0.8B)](https://localclaw.io/models/qwen3.5-0.8b) — family: qwen; LocalClaw: 4.6/10; parameters: 0.8B; minimum RAM: 2 GB; licence: See upstream model page; released: Mar 2026.
+- 210 [Gemma 3 (1B)](https://localclaw.io/models/gemma3-1b) — family: gemma; LocalClaw: 4.4/10; parameters: 1B; minimum RAM: 4 GB; licence: Gemma License; released: Mar 2025.
+- 211 [SmolLM 2 (1.7B)](https://localclaw.io/models/smollm2-1.7b) — family: smollm; LocalClaw: 4.4/10; parameters: 1.7B; minimum RAM: 4 GB; licence: See upstream model page; released: Nov 2024.
+- 212 [Moondream 2](https://localclaw.io/models/moondream2) — family: moondream; LocalClaw: 4.1/10; parameters: 1.9B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jul 2024.
+- 213 [Llama 3.2 (1B)](https://localclaw.io/models/llama3.2-1b) — family: llama; LocalClaw: 4.0/10; parameters: 1B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
+- 214 [TinyLlama (1.1B)](https://localclaw.io/models/tinyllama-1.1b) — family: tinyllama; LocalClaw: 3.5/10; parameters: 1.1B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jan 2024.
 
 ## Local Speech Models (57)
 
