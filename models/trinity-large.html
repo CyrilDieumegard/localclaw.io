@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trinity Large Preview (70B MoE) local AI | LocalClaw</title>
-  <meta name="description" content="Trinity Large Preview (70B MoE): 70B (MoE, ~400B total) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <title>Trinity Large Preview (398B MoE) local AI | LocalClaw</title>
+  <meta name="description" content="Trinity Large Preview (398B MoE): 398B total (13B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/models/trinity-large">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://localclaw.io/models/trinity-large">
-  <meta property="og:title" content="Trinity Large Preview (70B MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="Trinity Large Preview (70B MoE): 70B (MoE, ~400B total) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <meta property="og:title" content="Trinity Large Preview (398B MoE) local AI model | LocalClaw">
+  <meta property="og:description" content="Trinity Large Preview (398B MoE): 398B total (13B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Trinity Large Preview (70B MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Trinity Large Preview (70B MoE): 70B (MoE, ~400B total) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.">
+  <meta name="twitter:title" content="Trinity Large Preview (398B MoE) local AI model | LocalClaw">
+  <meta name="twitter:description" content="Trinity Large Preview (398B MoE): 398B total (13B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Trinity Large Preview (70B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/trinity-large","description":"Trinity Large Preview (70B MoE): 70B (MoE, ~400B total) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM.","softwareVersion":"2025-12","memoryRequirements":"48 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Arcee AI","url":"https://www.arcee.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Trinity Large Preview (70B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"Trinity Large Preview (70B MoE) can run locally with at least 48 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Trinity Large Preview (70B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"Trinity Large Preview (70B MoE) is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Trinity Large Preview (70B MoE)","item":"https://localclaw.io/models/trinity-large"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Trinity Large Preview (398B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/trinity-large","description":"Trinity Large Preview (398B MoE): 398B total (13B active, MoE) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and.","softwareVersion":"2026-02","memoryRequirements":"320 GB RAM minimum","license":"https://www.openmdw.ai/license","creator":{"@type":"Organization","name":"Arcee AI","url":"https://www.arcee.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Trinity Large Preview (398B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"Trinity Large Preview (398B MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is Trinity Large Preview (398B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"Trinity Large Preview (398B MoE) is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Trinity Large Preview (398B MoE)","item":"https://localclaw.io/models/trinity-large"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,16 +48,16 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Trinity Large Preview (70B MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Trinity Large Preview (398B MoE)</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight MoE</div>
-        <h1 class="title">Trinity Large Preview <span>(70B MoE)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Arcee AI&#39;s massive MoE open model. ~400B total parameters, 70B active per forward pass. Ranks near the top of global usage leaderboards. Exceptional versatility across reasoning, coding and chat. Free and open-source. Apache 2.0.</p>
+        <h1 class="title">Trinity Large Preview <span>(398B MoE)</span></h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Arcee AI&#39;s server-grade sparse MoE. The official model card lists about 398B total and 13B active parameters; the official Q4_K_M GGUF is about 241.6 GB. OpenMDW 1.1 licensed.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">48 GB catalogue minimum</span><span class="chip">48 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
+        <div class="chips"><span class="chip hot">320 GB catalogue minimum</span><span class="chip">320 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
         <div class="cta">
-          <a class="btn" href="/pricing">Run with LocalClaw</a>
+          <a class="btn" href="https://huggingface.co/arcee-ai/Trinity-Large-Preview-GGUF" target="_blank" rel="noopener">Open verified repository</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
         </div>
       </section>
@@ -72,34 +72,34 @@
         <div data-community-rating data-model-id="trinity-large" data-rating-mode="full"></div>
         <div class="panel-grid">
           <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">trinity</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2025-12</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-02</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">70B (MoE, ~400B total)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">48 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">45 GB</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">398B total (13B active, MoE)</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">320 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">241.6 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
 <section class="personal-fit" hidden data-localclaw-model-context data-model-id="trinity-large" aria-live="polite"></section>
     <section class="section">
-      <h2>Can Trinity Large Preview (70B MoE) run locally?</h2>
-      <p>Trinity Large Preview (70B MoE) has a catalogue minimum of 48 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>trinity-large-preview</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/arcee-ai/Trinity-Large-Preview-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-18): arcee-ai/Trinity-Large-Preview-GGUF</a><a href="https://www.arcee.ai/blog" target="_blank" rel="noopener">Upstream release</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">quality</span><span class="tag">general</span></div>
+      <h2>Can Trinity Large Preview (398B MoE) run locally?</h2>
+      <p>Trinity Large Preview (398B MoE) has a catalogue minimum of 320 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Treat <code>trinity-large-preview</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
+      <div class="source-links"><a href="https://huggingface.co/arcee-ai/Trinity-Large-Preview" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/arcee-ai/Trinity-Large-Preview-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-18): arcee-ai/Trinity-Large-Preview-GGUF</a><a href="https://www.arcee.ai/blog" target="_blank" rel="noopener">Upstream release</a><a href="https://www.openmdw.ai/license" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">power</span><span class="tag">quality</span><span class="tag">general</span><span class="tag">server-grade</span><span class="tag">moe</span></div>
     </section>
     <section class="section">
-      <h2>Install path</h2>
+      <h2>Deployment path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 48 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search trinity-large-preview in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 320 GB class multi-GPU memory.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use trinity-large-preview only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: trinity</li><li>Parameters: 70B (MoE, ~400B total)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 48 GB</li><li>Catalogue model size: 45 GB</li><li>Tags: chat, code, reasoning, power, quality, general</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: trinity</li><li>Parameters: 398B total (13B active, MoE)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 320 GB</li><li>Catalogue model size: 241.6 GB</li><li>Tags: chat, code, reasoning, power, quality, general, server-grade, moe</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
@@ -116,29 +116,29 @@
       <h2>Technical notes</h2>
       <div class="meta-grid">
         <div class="meta"><div class="k">Developer</div><div class="v">Arcee AI</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">OpenMDW 1.1</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">131,072 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Mixture of Experts (MoE), 70B</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Sparse Mixture of Experts, about 398B total and 13B active per token</div></div>
       </div>
     </section>
 <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m4-max-64gb"><small>Workstation fit</small>Mac Studio M4 Max 64GB</a><a href="/computers"><small>CUDA workstation class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/64gb"><small>Large local models</small>64GB RAM guide</a>
+        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/deepseek-v3.2">DeepSeek V3.2 (37B/671B MoE) <span>37B (671B MoE)</span></a><a href="/models/qwen3-32b">Qwen 3 (32B) <span>32B</span></a><a href="/models/hermes4-70b">Hermes 4 (70B) <span>70B</span></a><a href="/models/nemotron3-70b">Llama-3.1-Nemotron (70B) <span>70B</span></a><a href="/models/nemotron3-49b">Llama-3.3-Nemotron-Super (49B) <span>49B</span></a><a href="/models/gemma4-31b">Gemma 4 31B <span>31B</span></a><a href="/models/glm4-32b">GLM-4 (32B) <span>32B</span></a><a href="/models/ornith-1.0-35b-gguf">Ornith 1.0 35B GGUF <span>35B MoE</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/glm-4.6-355b">GLM 4.6 (355B MoE) <span>355B (32B active)</span></a><a href="/models/deepseek-v3.2">DeepSeek V3.2 (37B/685B MoE) <span>685B total (37B active, MoE)</span></a><a href="/models/deepseek-v4-flash">DeepSeek V4 Flash (284B MoE) <span>284B (13B active)</span></a><a href="/models/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731 (284B MoE) <span>284B (13B active)</span></a><a href="/models/glm4.7">GLM 4.7 <span>355B (32B active, MoE)</span></a><a href="/models/glm-5.2">GLM-5.2 (744B MoE) <span>744B (40B active)</span></a><a href="/models/qwen3-235b-a22b">Qwen 3 MoE (235B/22B active) <span>235B (22B active)</span></a><a href="/models/hermes4-405b">Hermes 4 (405B) <span>405B</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/64gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"trinity-large","name":"Trinity Large Preview (70B MoE)","family":"trinity","params":"70B (MoE, ~400B total)","size_gb":45,"min_ram":48,"tags":["chat","code","reasoning","power","quality","general"],"description":"Arcee AI's massive MoE open model. ~400B total parameters, 70B active per forward pass. Ranks near the top of global usage leaderboards. Exceptional versatility across reasoning, coding and chat. Free and open-source. Apache 2.0.","search_term":"trinity-large-preview","recommended_quant":"Q4_K_M","hf_repo":"arcee-ai/Trinity-Large-Preview-GGUF","benchmarks":{"speed":3,"quality":10,"coding":10,"reasoning":10},"released":"2025-12"};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"trinity-large","name":"Trinity Large Preview (398B MoE)","family":"trinity","params":"398B total (13B active, MoE)","size_gb":241.6,"min_ram":320,"tags":["chat","code","reasoning","power","quality","general","server-grade","moe"],"description":"Arcee AI's server-grade sparse MoE. The official model card lists about 398B total and 13B active parameters; the official Q4_K_M GGUF is about 241.6 GB. OpenMDW 1.1 licensed.","search_term":"trinity-large-preview","recommended_quant":"Q4_K_M","hf_repo":"arcee-ai/Trinity-Large-Preview-GGUF","source_url":"https://huggingface.co/arcee-ai/Trinity-Large-Preview","benchmarks":{"speed":3,"quality":10,"coding":10,"reasoning":10},"released":"2026-02"};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

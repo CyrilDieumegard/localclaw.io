@@ -365,20 +365,20 @@
               </tr>
 <tr>
                 <td>06</td>
-                <td><a href="/models/deepseek-v3.2"><strong>DeepSeek V3.2 (37B/671B MoE)</strong><span>deepseek-v3</span></a></td>
+                <td><a href="/models/trinity-large"><strong>Trinity Large Preview (398B MoE)</strong><span>trinity</span></a></td>
                 <td>9.0/10</td>
-                <td>37B (671B MoE)</td>
-                <td>48 GB</td>
-                <td>MIT</td>
-                <td>Dec 2025</td>
+                <td>398B total (13B active, MoE)</td>
+                <td>320 GB</td>
+                <td>OpenMDW 1.1</td>
+                <td>Feb 2026</td>
               </tr>
 <tr>
                 <td>07</td>
-                <td><a href="/models/trinity-large"><strong>Trinity Large Preview (70B MoE)</strong><span>trinity</span></a></td>
+                <td><a href="/models/deepseek-v3.2"><strong>DeepSeek V3.2 (37B/685B MoE)</strong><span>deepseek-v3</span></a></td>
                 <td>9.0/10</td>
-                <td>70B (MoE, ~400B total)</td>
-                <td>48 GB</td>
-                <td>Apache 2.0</td>
+                <td>685B total (37B active, MoE)</td>
+                <td>448 GB</td>
+                <td>MIT</td>
                 <td>Dec 2025</td>
               </tr>
 <tr>
@@ -395,7 +395,7 @@
                 <td><a href="/models/qwen3-235b-a22b"><strong>Qwen 3 MoE (235B/22B active)</strong><span>qwen-moe</span></a></td>
                 <td>9.0/10</td>
                 <td>235B (22B active)</td>
-                <td>96 GB</td>
+                <td>192 GB</td>
                 <td>Apache 2.0</td>
                 <td>Apr 2025</td>
               </tr>
@@ -2359,7 +2359,7 @@
 <article>
               <span class="lc-index-eyebrow">64 GB RAM</span>
               <h3>Highest catalogue scores that fit</h3>
-              <ol><li><a href="/models/qwen3-32b">Qwen 3 (32B)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/qwen3-coder-next">Qwen3-Coder-Next</a><span>9.1/10 · min 64 GB</span></li><li><a href="/models/deepseek-v3.2">DeepSeek V3.2 (37B/671B MoE)</a><span>9.0/10 · min 48 GB</span></li></ol>
+              <ol><li><a href="/models/qwen3-32b">Qwen 3 (32B)</a><span>9.2/10 · min 32 GB</span></li><li><a href="/models/qwen3-coder-next">Qwen3-Coder-Next</a><span>9.1/10 · min 64 GB</span></li><li><a href="/models/qwen3-next-80b-a3b">Qwen 3 Next (80B/3B MoE)</a><span>8.9/10 · min 64 GB</span></li></ol>
               <a href="/ram/64gb">Open the 64 GB guide →</a>
             </article></div>
           </section>
@@ -2392,7 +2392,7 @@
 <details><summary>Are community stars mixed into the LocalClaw score?</summary><p>No. Community stars are the independent 1-5 average from signed-in LocalClaw members, always shown with the number of votes. Community confidence uses only stars and vote count for ordering; EARLY means fewer than five votes. It never changes the LocalClaw score.</p></details>
 <details><summary>Does an Artificial Analysis result prove that a model runs locally?</summary><p>No. Artificial Analysis provides independent performance context for covered models. LocalClaw separately verifies the downloadable model, local runtime path, RAM or VRAM floor and licence. A model missing from an external leaderboard is treated as not covered, not as a poor performer.</p></details>
 <details><summary>How should I choose a local model for 8, 16, 32 or 64 GB RAM?</summary><p>Use the machine RAM selector or a RAM guide. A model is considered compatible when its catalogue minimum-RAM value is at or below the selected memory; context length, runtime overhead and other applications can require additional headroom.</p></details>
-<details><summary>Does the homepage include cloud-only or API-only models?</summary><p>No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains 173 records with a public GGUF repository, plus 37 public and 4 gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded.</p></details>
+<details><summary>Does the homepage include cloud-only or API-only models?</summary><p>No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains 174 records with a public GGUF repository, plus 36 public and 4 gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded.</p></details>
 <details><summary>What speech models are covered?</summary><p>The local speech index contains 58 records: 48 TTS models, 9 ASR models and 1 local speech application. Each entry keeps its Audio score separate from community stars.</p></details>
 <details><summary>How fresh is the LocalClaw catalogue?</summary><p>This homepage snapshot was generated from the repository catalogue updated August 18, 2026. Release dates, RAM requirements, licences and links come from the maintained LocalClaw records and linked model pages.</p></details></div>
           </section>
@@ -2423,8 +2423,8 @@
     <!-- ============================================================
          SCRIPTS (order matters: data first, then app)
          ============================================================ -->
-    <script src="js/data.js?v=20260818b"></script>
-    <script src="js/model-details.js?v=20260818b"></script>
+    <script src="js/data.js?v=20260818c"></script>
+    <script src="js/model-details.js?v=20260818c"></script>
     <script src="js/home-index-speech-20260814c.js?v=20260814d"></script>
     <script src="js/home-index-avatar-formats-20260814a.js?v=20260816e"></script>
     <script src="js/home-index-logos-20260814c.js?v=20260818b"></script>
@@ -2556,14 +2556,14 @@
             {
               "@type": "ListItem",
               "position": 6,
-              "name": "DeepSeek V3.2 (37B/671B MoE)",
-              "url": "https://localclaw.io/models/deepseek-v3.2"
+              "name": "Trinity Large Preview (398B MoE)",
+              "url": "https://localclaw.io/models/trinity-large"
             },
             {
               "@type": "ListItem",
               "position": 7,
-              "name": "Trinity Large Preview (70B MoE)",
-              "url": "https://localclaw.io/models/trinity-large"
+              "name": "DeepSeek V3.2 (37B/685B MoE)",
+              "url": "https://localclaw.io/models/deepseek-v3.2"
             },
             {
               "@type": "ListItem",
@@ -3152,7 +3152,7 @@
               "name": "Does the homepage include cloud-only or API-only models?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains 173 records with a public GGUF repository, plus 37 public and 4 gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded."
+                "text": "No hosted-only or API-only records appear in the ranked homepage lists. The LLM list contains 174 records with a public GGUF repository, plus 36 public and 4 gated model-card records without a verified GGUF file; those pages do not claim a one-click desktop install. The 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 route are excluded."
               }
             },
             {

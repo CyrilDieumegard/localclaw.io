@@ -18,6 +18,7 @@
     "home-seo:check": "node scripts/generate-home-seo.js --check",
     "public-surface:check": "node scripts/check-public-surface.js",
     "content-truth:check": "node scripts/check-content-truth.js",
+    "computers:check": "node scripts/check-computers-model-fit.js",
     "sponsor:check": "node scripts/check-sponsor-workspace.js && node scripts/check-sponsor-admin.js && node scripts/check-datafast-attribution.mjs",
     "sponsor-admin:check": "node scripts/check-sponsor-admin.js",
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",

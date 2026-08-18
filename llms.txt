@@ -7,7 +7,7 @@
 - Local speech records: 58 across 52 families (48 TTS, 9 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 53
 - Latest catalogue release month: Aug 10, 2026
-- LLM source states: 173 public GGUF repositories, 37 public model cards without a verified GGUF file and 4 gated model cards
+- LLM source states: 174 public GGUF repositories, 36 public model cards without a verified GGUF file and 4 gated model cards
 - Scope: hosted-only LLMs, 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
 
 ## Ranking Rules
@@ -53,8 +53,8 @@
 - [Qwen 3 (32B)](https://localclaw.io/models/qwen3-32b) — LocalClaw 9.2/10; minimum 32 GB RAM; 32B; released Apr 2025.
 - [Qwen3-Coder-Next](https://localclaw.io/models/qwen3-coder-next) — LocalClaw 9.1/10; minimum 64 GB RAM; 80B (3B active, MoE); released Feb 2026.
 - [MiniMax M3 (428B/23B active)](https://localclaw.io/models/minimax-m3) — LocalClaw 9.0/10; minimum 2048 GB RAM; 428B (23B active); released Jun 2026.
-- [DeepSeek V3.2 (37B/671B MoE)](https://localclaw.io/models/deepseek-v3.2) — LocalClaw 9.0/10; minimum 48 GB RAM; 37B (671B MoE); released Dec 2025.
-- [Trinity Large Preview (70B MoE)](https://localclaw.io/models/trinity-large) — LocalClaw 9.0/10; minimum 48 GB RAM; 70B (MoE, ~400B total); released Dec 2025.
+- [Trinity Large Preview (398B MoE)](https://localclaw.io/models/trinity-large) — LocalClaw 9.0/10; minimum 320 GB RAM; 398B total (13B active, MoE); released Feb 2026.
+- [DeepSeek V3.2 (37B/685B MoE)](https://localclaw.io/models/deepseek-v3.2) — LocalClaw 9.0/10; minimum 448 GB RAM; 685B total (37B active, MoE); released Dec 2025.
 - [Kimi K2 Instruct (1T MoE)](https://localclaw.io/models/kimi-k2-instruct) — LocalClaw 9.0/10; minimum 1024 GB RAM; 1T (32B active, 384 experts); released Jul 2025.
 
 ## Current Audio Score Leaders

@@ -460,7 +460,7 @@ for (const marker of [
   '24 GB RAM · K-Quant 17GB Q4_K_M',
   '32 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260818b',
+  'js/data.js?v=20260818c',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -558,7 +558,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
   }
 }
 if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260818b') || !index.includes('js/app-20260816a.js?v=20260818b')) {
+if (!index.includes('js/data.js?v=20260818c') || !index.includes('js/app-20260816a.js?v=20260818b')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -619,7 +619,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 173, publicModelCard: 37, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 174, publicModelCard: 36, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);
