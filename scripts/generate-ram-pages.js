@@ -19,12 +19,15 @@ const EDITORIAL_ORDER = [
   'muse-glimmer-30b',
   'qwen3.5-35b-a3b',
   'gpt-oss-20b',
+  'gemma4-12b',
   'apriel-nemotron-15b-thinker',
+  'nemotron-nano-9b-v2',
+  'nemotron3-nano-4b',
+  'gemma4-e4b',
   'bonsai-27b',
   'lfm2.5-8b-a1b',
   'lfm2-5-2-6b',
   'qwen3.5-9b',
-  'gemma4-e4b',
   'qwen3.5-4b',
   'dante-mosaic-3.5b'
 ];
