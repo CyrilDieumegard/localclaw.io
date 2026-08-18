@@ -55,12 +55,48 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
     }
   }
 
+  const structuredData = [];
   for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
-      JSON.parse(match[1]);
+      structuredData.push(JSON.parse(match[1]));
     } catch (error) {
       errors.push(`${relative}: invalid JSON-LD (${error.message})`);
     }
+  }
+
+  const structuredItems = [];
+  const collectStructuredItems = (value) => {
+    if (!value || typeof value !== 'object') return;
+    if (Array.isArray(value)) {
+      value.forEach(collectStructuredItems);
+      return;
+    }
+    structuredItems.push(value);
+    if (value['@graph']) collectStructuredItems(value['@graph']);
+  };
+  structuredData.forEach(collectStructuredItems);
+  for (const item of structuredItems.filter(value => value['@type'] === 'VideoObject')) {
+    for (const field of ['name', 'thumbnailUrl', 'uploadDate']) {
+      if (!item[field]) errors.push(`${relative}: VideoObject missing ${field}`);
+    }
+    if (!item.embedUrl && !item.contentUrl) errors.push(`${relative}: VideoObject missing embedUrl or contentUrl`);
+  }
+
+  for (const match of html.matchAll(/<video\b([^>]*)>/gi)) {
+    const attributes = match[1];
+    const poster = attributes.match(/\bposter=["']([^"']+)["']/i)?.[1];
+    if (!poster) {
+      errors.push(`${relative}: video missing poster`);
+      continue;
+    }
+    if (poster.startsWith('/')) {
+      const posterPath = path.join(ROOT, decodeURIComponent(poster.split(/[?#]/, 1)[0]));
+      if (!fs.existsSync(posterPath)) errors.push(`${relative}: missing video poster ${poster}`);
+    }
+  }
+
+  if (relative.startsWith('video/') && /data-media-category=["']video["']/i.test(html)) {
+    errors.push(`${relative}: video example must be rendered as explicit image or video HTML`);
   }
 
   for (const match of html.matchAll(/href=["']([^"']+\.html(?:[?#][^"']*)?)["']/gi)) {

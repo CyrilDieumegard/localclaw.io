@@ -49,6 +49,7 @@
       media.controls = true;
       media.preload = 'metadata';
       media.playsInline = true;
+      media.poster = item.poster || entry.poster || '';
     } else {
       media = document.createElement('img');
       media.loading = 'lazy';

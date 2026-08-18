@@ -59,6 +59,7 @@ function loadTtsModels() {
 }
 
 const multimodal = loadScript('js/local-ai-catalog.js', 'LOCAL_AI_CATALOG', '');
+const externalMedia = loadScript('js/external-media-catalog.js', 'LOCAL_AI_EXTERNAL_MEDIA', '');
 const appData = loadScript('js/data.js', 'APP_DATA');
 const ttsModels = loadTtsModels();
 
@@ -101,6 +102,25 @@ function footer() {
   return `<footer class="lc-ai-footer"><div class="lc-ai-shell lc-ai-footer-inner"><span>© 2026 LocalClaw · The Local AI Index</span><div class="lc-ai-footer-links"><a href="/#local-ai-index">All local AI</a><a href="/computers">Computers</a><a href="/ram-gpu-for-local-ai">RAM/GPU</a><a href="/blog/">Blog</a><a href="/software">Software</a><a href="/privacy">Privacy</a></div></div></footer>`;
 }
 
+function externalMediaEntry(model) {
+  return externalMedia[model.category] && externalMedia[model.category][model.id]
+    ? externalMedia[model.category][model.id]
+    : null;
+}
+
+function renderStaticVideoExample(entry) {
+  const items = array(entry.items).length ? entry.items : [entry];
+  const media = items.map((item) => {
+    if (item.kind === 'video') {
+      const poster = item.poster || entry.poster || '';
+      return `<video class="lc-external-media-object" controls preload="metadata" playsinline${poster ? ` poster="${esc(poster)}"` : ''}><source src="${esc(item.url)}" type="video/mp4">Your browser cannot play this external video. <a href="${esc(item.url)}">Open the video</a>.</video>`;
+    }
+    return `<img class="lc-external-media-object" src="${esc(item.url)}" alt="${esc(item.alt || entry.alt || 'Official model example')}" loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+  }).join('');
+  const galleryClass = items.length > 1 ? ' lc-external-media-gallery' : '';
+  return `<div class="lc-external-media lc-external-media-${esc(items[0].kind || entry.kind)}${galleryClass}" data-media-ready="true"><div class="lc-external-media-stage">${media}</div><div class="lc-external-media-meta"><span>Streamed from the official source</span><a href="${esc(entry.sourceUrl)}" target="_blank" rel="noopener nofollow">${esc(entry.sourceLabel)}</a></div></div>`;
+}
+
 function filters(includeCategory = false) {
   return `<section class="lc-ai-toolbar" aria-label="Catalogue filters">
     <div class="lc-ai-filters">
@@ -121,6 +141,9 @@ function machinePanel() {
 function landingPage(key, config) {
   const count = multimodal.filter((model) => model.category === key).length;
   const hasVisualExamples = ['image', 'video', '3d'].includes(key);
+  const externalMediaScripts = !hasVisualExamples ? '' : key === 'video'
+    ? '<script src="/js/external-media-catalog.js?v=20260818a"></script><script src="/js/external-media.js?v=20260818a"></script>'
+    : '<script src="/js/external-media-catalog.js?v=20260816g"></script><script src="/js/external-media.js?v=20260816d"></script>';
   const schema = {
     '@context': 'https://schema.org', '@type': 'CollectionPage', name: config.title,
     url: `${BASE}${config.route}`, description: config.description,
@@ -140,12 +163,20 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${hasVisualExamples ? '<script src="/js/external-media-catalog.js?v=20260816g"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/local-ai-catalog.js?v=20260816g"></script><script src="/js/local-ai-catalog-app.js?v=20260816f"></script><script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
+${externalMediaScripts}<script src="/js/local-ai-catalog.js?v=20260816g"></script><script src="/js/local-ai-catalog-app.js?v=20260816f"></script><script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
 }
 
 function detailPage(model) {
   const config = categoryConfig[model.category];
-  const hasVisualExample = ['image', 'video', '3d'].includes(model.category);
+  const mediaEntry = externalMediaEntry(model);
+  const hasVisualExample = model.category === 'video' ? Boolean(mediaEntry) : ['image', '3d'].includes(model.category);
+  const staticVideoExample = model.category === 'video' && mediaEntry ? renderStaticVideoExample(mediaEntry) : '';
+  const previewImage = model.category === 'video' && mediaEntry
+    ? ((mediaEntry.kind === 'video' && mediaEntry.poster) || (mediaEntry.kind === 'image' && mediaEntry.url))
+    : '';
+  const previewCopy = model.category !== 'video' || (mediaEntry && mediaEntry.kind === 'video')
+    ? 'Play the official source preview directly below. The media stays on the official publisher server and is never hosted by LocalClaw.'
+    : 'View the official source preview directly below. The media stays on the official publisher server and is never hosted by LocalClaw.';
   const url = `${BASE}/${config.directory}/${model.id}`;
   const schema = {
     '@context': 'https://schema.org', '@graph': [
@@ -174,14 +205,14 @@ function detailPage(model) {
 
   return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(model.name)} local ${esc(config.label.toLowerCase())} AI guide | LocalClaw</title><meta name="description" content="${esc(`${model.name}: local ${config.label.toLowerCase()} model hardware, RAM, VRAM, runtime, output, license and installation guidance.`)}"><meta name="robots" content="index, follow"><link rel="canonical" href="${url}">
-  <meta property="og:type" content="article"><meta property="og:url" content="${url}"><meta property="og:title" content="${esc(model.name)} local ${esc(config.label)} guide"><meta property="og:description" content="${esc(model.summary)}"><link rel="icon" href="/images/crab-logo.png">
+  <meta property="og:type" content="article"><meta property="og:url" content="${url}"><meta property="og:title" content="${esc(model.name)} local ${esc(config.label)} guide"><meta property="og:description" content="${esc(model.summary)}">${previewImage ? `<meta property="og:image" content="${esc(previewImage.startsWith('/') ? `${BASE}${previewImage}` : previewImage)}">` : ''}<link rel="icon" href="/images/crab-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260816c"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">${hasVisualExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816c">' : ''}${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page">${siteNavigation(config.nav)}<main class="lc-ai-main"><div class="lc-ai-shell">
   <header class="lc-ai-detail-head"><p class="lc-ai-kicker"><a href="${config.route}">${esc(config.label)} catalogue</a> · Verified local path</p><h1 class="lc-ai-title">${esc(model.name)} <span>local guide</span></h1><p class="lc-ai-copy">${esc(model.summary)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="${esc(model.install_url)}" target="_blank" rel="noopener">Open installation source</a><a class="lc-ai-button" href="${config.route}">Compare ${esc(config.plural)}</a></div></header>
-  <div class="lc-ai-detail-grid"><div>${hasVisualExample ? `<section class="lc-ai-detail-panel"><h2>${model.category === 'image' ? 'Official examples' : 'Official example'}</h2><p>${model.category === 'image' ? 'Browse several official outputs directly below. Each image stays on the official publisher server and is never hosted by LocalClaw.' : 'Play the official source preview directly below. The media stays on the official publisher server and is never hosted by LocalClaw.'}</p><div class="lc-external-media" data-external-media data-media-category="${esc(model.category)}" data-media-id="${esc(model.id)}"></div></section>` : ''}<section class="lc-ai-detail-panel"><h2>What it does</h2><div class="lc-ai-task-list">${model.tasks.map((task) => `<span class="lc-ai-task">${esc(prettyTerm(task))}</span>`).join('')}</div><p>${esc(model.hardware_note)}</p><div class="lc-ai-source-note">Hardware figures are practical entry floors, not performance guarantees. Resolution, duration, precision, offloading and runtime versions can materially change memory use.</div></section>
+  <div class="lc-ai-detail-grid"><div>${hasVisualExample ? `<section class="lc-ai-detail-panel"><h2>${model.category === 'image' ? 'Official examples' : 'Official example'}</h2><p>${model.category === 'image' ? 'Browse several official outputs directly below. Each image stays on the official publisher server and is never hosted by LocalClaw.' : esc(previewCopy)}</p>${staticVideoExample || `<div class="lc-external-media" data-external-media data-media-category="${esc(model.category)}" data-media-id="${esc(model.id)}"></div>`}</section>` : ''}<section class="lc-ai-detail-panel"><h2>What it does</h2><div class="lc-ai-task-list">${model.tasks.map((task) => `<span class="lc-ai-task">${esc(prettyTerm(task))}</span>`).join('')}</div><p>${esc(model.hardware_note)}</p><div class="lc-ai-source-note">Hardware figures are practical entry floors, not performance guarantees. Resolution, duration, precision, offloading and runtime versions can materially change memory use.</div></section>
   <section class="lc-ai-detail-panel"><h2>Strengths</h2><ul>${list(model.strengths)}</ul></section><section class="lc-ai-detail-panel"><h2>Limits to know</h2><ul>${list(model.caveats)}</ul></section></div>
   <aside><div class="lc-ai-detail-rating" data-community-rating data-model-id="${esc(ratingModelId(model))}" data-rating-mode="full" data-rating-label="${esc(ratingLabel(model))}" data-rating-subject="${esc(ratingSubject(model))}"></div><section class="lc-ai-detail-panel"><h2>Local requirements</h2><div class="lc-ai-detail-specs">${specs}</div></section><section class="lc-ai-detail-panel"><h2>Primary evidence</h2><p>LocalClaw links to the official project or model repository used to verify the downloadable local path.</p><a class="lc-ai-button" href="${esc(model.source_url)}" target="_blank" rel="noopener">Official source</a></section></aside></div>
-</div></main>${footer()}${hasVisualExample ? '<script src="/js/external-media-catalog.js?v=20260816g"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
+</div></main>${footer()}${hasVisualExample && model.category !== 'video' ? '<script src="/js/external-media-catalog.js?v=20260816g"></script><script src="/js/external-media.js?v=20260816d"></script>' : ''}<script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
 }
 
 for (const [key, config] of Object.entries(categoryConfig)) {

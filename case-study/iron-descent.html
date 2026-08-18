@@ -14,13 +14,13 @@
     <meta property="og:image" content="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="720">
-    <meta property="og:video" content="https://www.youtube.com/embed/nt8XNV-bXM0">
+    <meta property="og:video" content="https://www.youtube-nocookie.com/embed/nt8XNV-bXM0">
     <meta property="og:video:type" content="text/html">
     <meta name="twitter:card" content="player">
     <meta name="twitter:title" content="Kimi K3 Built a Playable 3D FPS in LocalClaw">
     <meta name="twitter:description" content="See the real workspace, then play Iron Descent and inspect its public source code.">
     <meta name="twitter:image" content="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg">
-    <meta name="twitter:player" content="https://www.youtube.com/embed/nt8XNV-bXM0">
+    <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/nt8XNV-bXM0">
     <meta name="twitter:player:width" content="1280">
     <meta name="twitter:player:height" content="720">
     <meta name="theme-color" content="#050505">
@@ -29,7 +29,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css?v=20260719a">
-    <script src="/js/video-player.js?v=20260719b" defer></script>
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="/js/clarity.js" defer></script>
     <style>
@@ -84,6 +83,7 @@
         h1 { max-width: 1020px; margin: 18px 0 0; font-size: clamp(46px, 7vw, 86px); line-height: .98; text-transform: uppercase; }
         .lead { max-width: 810px; margin: 24px 0 0; color: #d4d4d8; font-size: clamp(18px, 2vw, 22px); }
         .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .hero .lc-case-video-shell { margin-top: 30px; }
         .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 12px 18px; border: 1px solid var(--primary); border-radius: 7px; background: var(--primary); color: #fff; font-weight: 700; }
         .button:hover { background: #fff; border-color: #fff; color: #050505; }
         .button.secondary { background: transparent; border-color: var(--border); color: #fff; }
@@ -147,8 +147,7 @@
         "thumbnailUrl": "https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg",
         "uploadDate": "2026-07-19T13:33:09-07:00",
         "duration": "PT45S",
-        "contentUrl": "https://youtu.be/nt8XNV-bXM0",
-        "embedUrl": "https://www.youtube.com/embed/nt8XNV-bXM0",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/nt8XNV-bXM0",
         "about": {
             "@type": "VideoGame",
             "name": "Iron Descent",
@@ -181,6 +180,17 @@
             <p class="eyebrow">Real LocalClaw case study</p>
             <h1>Kimi K3 built a playable 3D FPS inside LocalClaw</h1>
             <p class="lead">Iron Descent went from a product brief to an interactive game through the LocalClaw Developer workspace. The model, project activity, files, preview and finished result stayed visible in one place.</p>
+            <div id="watch" class="lc-case-video-shell" aria-label="Iron Descent demo video">
+                <iframe class="lc-case-video-frame" src="https://www.youtube-nocookie.com/embed/nt8XNV-bXM0" title="Kimi K3 built a playable 3D FPS inside LocalClaw" width="1280" height="720" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-note">
+                <span>45 seconds · real workspace · real gameplay</span>
+                <div class="video-links">
+                    <a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="case_study_video">Play the finished build ↗</a>
+                    <a href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_source" data-fast-goal-source="case_study_video">Source code ↗</a>
+                    <a href="https://youtu.be/nt8XNV-bXM0" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+                </div>
+            </div>
             <div class="hero-actions">
                 <a class="button" href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="case_study_hero">Play Iron Descent ↗</a>
                 <a class="button secondary" href="#watch">Watch the 45-second demo</a>
@@ -193,25 +203,6 @@
                 <div class="proof-item"><dt>Result</dt><dd>Playable 3D FPS</dd></div>
             </dl>
         </header>
-
-        <section id="watch" class="video-section wrap" aria-label="Iron Descent demo video">
-            <div class="lc-case-video-shell" data-lc-video-shell>
-                <button type="button" class="lc-case-video-poster" data-lc-youtube-id="nt8XNV-bXM0" data-lc-video-title="Kimi K3 built a playable 3D FPS inside LocalClaw" aria-label="Play the LocalClaw Iron Descent demo">
-                    <img src="https://i.ytimg.com/vi/nt8XNV-bXM0/maxresdefault.jpg" alt="LocalClaw Developer showing AI activity beside a live preview of Iron Descent" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high">
-                    <span class="lc-case-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-                    <span class="lc-case-video-label">Real app capture</span>
-                </button>
-                <noscript><a href="https://youtu.be/nt8XNV-bXM0">Watch the demo on YouTube</a></noscript>
-            </div>
-            <div class="video-note">
-                <span>45 seconds · real workspace · real gameplay</span>
-                <div class="video-links">
-                    <a href="https://cyrildieumegard.github.io/iron-descent/" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_play" data-fast-goal-source="case_study_video">Play the finished build ↗</a>
-                    <a href="https://github.com/CyrilDieumegard/iron-descent" target="_blank" rel="noopener noreferrer" data-fast-goal="iron_descent_source" data-fast-goal-source="case_study_video">Source code ↗</a>
-                    <a href="https://youtu.be/nt8XNV-bXM0" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
-                </div>
-            </div>
-        </section>
 
         <section class="section wrap">
             <div class="section-heading">
