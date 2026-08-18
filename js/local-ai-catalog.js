@@ -250,6 +250,28 @@
       caveats: ['Workstation-class hardware', 'CUDA compilation and specialist dependencies']
     },
     {
+      id: 'pixal3d', name: 'Pixal3D', category: '3d', developer: 'Tencent ARC / Tsinghua University',
+      summary: 'Pixel-aligned single-image 3D generation for high-fidelity GLB assets with detailed geometry and PBR textures.',
+      tasks: ['image-to-3d', 'mesh-generation', 'pbr-texturing'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'Gradio'], output: ['GLB', 'PBR materials'],
+      local_status: 'local', license: 'MIT', released: '2026-05',
+      source_url: 'https://github.com/TencentARC/Pixal3D', install_url: 'https://github.com/TencentARC/Pixal3D',
+      hardware_note: 'The official local path builds on TRELLIS.2 and offers a low-VRAM mode at 1024 resolution. Because the upstream base requires a 24 GB NVIDIA GPU, 64 GB RAM and 24 GB VRAM are the conservative workstation floor.',
+      strengths: ['MIT licensed checkpoints', 'Official CLI and Gradio workflows', 'GLB export with PBR textures'],
+      caveats: ['Requires the TRELLIS.2 environment first', 'Low-VRAM mode lowers the default generation resolution']
+    },
+    {
+      id: 'direct3d-s2', name: 'Direct3D-S2', category: '3d', developer: 'DreamTechAI / Neural4D',
+      summary: 'Sparse-volume image-to-3D generation that reconstructs high-resolution meshes and exports OBJ files.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'sdf-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'Gradio'], output: ['OBJ', 'Mesh'],
+      local_status: 'local', license: 'MIT', released: '2025-05',
+      source_url: 'https://github.com/DreamTechAI/Direct3D-S2', install_url: 'https://github.com/DreamTechAI/Direct3D-S2',
+      hardware_note: 'The official README states that 512 resolution needs at least 10 GB VRAM and 1024 resolution needs around 24 GB VRAM. The 24 GB tier is the practical floor for the intended high-quality local workflow.',
+      strengths: ['MIT licensed checkpoints', 'Official Python package and Gradio demo', '512 and 1024 SDF resolution modes'],
+      caveats: ['CUDA, torchsparse and specialist sparse-attention dependencies', '512 resolution is documented as an intermediate lower-quality mode']
+    },
+    {
       id: 'triposr', name: 'TripoSR', category: '3d', developer: 'Stability AI / Tripo AI',
       summary: 'Fast single-image 3D reconstruction designed for accessible local inference.',
       tasks: ['image-to-3d', 'mesh-reconstruction'], platforms: ['windows', 'linux'],

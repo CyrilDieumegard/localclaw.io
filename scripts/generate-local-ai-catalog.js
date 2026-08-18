@@ -163,7 +163,7 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${externalMediaScripts}<script src="/js/local-ai-catalog.js?v=20260818b"></script><script src="/js/local-ai-catalog-app.js?v=20260816f"></script><script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
+${externalMediaScripts}<script src="/js/local-ai-catalog.js?v=20260818c"></script><script src="/js/local-ai-catalog-app.js?v=20260816f"></script><script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
 }
 
 function detailPage(model) {
