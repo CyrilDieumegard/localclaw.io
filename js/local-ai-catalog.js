@@ -25,6 +25,29 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'avtr-1', name: 'AVTR-1', category: 'video', developer: 'Avaturn',
+      summary: 'Audio-driven talking-head model for local live dialogue, lip sync, active listening and offline MP4 avatar rendering.',
+      tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'talking-head'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['TensorRT', 'ONNX', 'PyTorch'], output: ['MP4', 'real-time stream'],
+      local_status: 'local', license: 'AVTR-1 Community License', released: '2026-05',
+      source_url: 'https://github.com/avaturn-live/avtr-1', install_url: 'https://github.com/avaturn-live/avtr-1',
+      hardware_note: 'The official repository targets Linux, CUDA 12.x, TensorRT 10.x and NVIDIA Ampere-or-newer GPUs. Published latency figures include RTX 4060 Ti, RTX 3070, RTX 3060 Ti and RTX 4060 cards, so 16 GB RAM and 8 GB VRAM are a conservative local entry floor.',
+      strengths: ['Official self-hosted inference code', 'Offline and interactive demo modes', 'Real-time speech-driven avatar generation'],
+      caveats: ['Gated Hugging Face weight access', 'NVIDIA TensorRT stack only', 'Specialized for avatars rather than general scene generation']
+    },
+    {
+      id: 'alice-t2v-14b', name: 'Alice T2V 14B MoE', category: 'video', developer: 'Mirage AI',
+      summary: 'Apache-licensed text-to-video MoE model that generates five-second 480p and 720p clips with official Diffusers-compatible code.',
+      tasks: ['text-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['Diffusers', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-02',
+      source_url: 'https://huggingface.co/gomirageai/Alice-T2V-14B-MoE', install_url: 'https://huggingface.co/gomirageai/Alice-T2V-14B-MoE',
+      hardware_note: 'The repository ships safetensors weights, high-noise and low-noise experts, a Mirage VAE and installable Python model code. Active parameters are about 14B per step, so 64 GB RAM and 24 GB NVIDIA VRAM are treated as the practical workstation floor.',
+      strengths: ['Apache 2.0 model card', 'Official installable Python package', '480p and 720p five-second generation'],
+      caveats: ['Large downloads and no lightweight desktop wrapper', 'Low public adoption signal so far', 'Workstation-class GPU recommended']
+    },
+    {
       id: 'hunyuanvideo-1.5', name: 'HunyuanVideo 1.5', category: 'video', developer: 'Tencent Hunyuan',
       summary: 'Open-weight text-to-video and image-to-video generation with a lower local memory floor than the original release.',
       tasks: ['text-to-video', 'image-to-video', 'video-super-resolution'],

@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "d742fae76a513d419d312af225ce73d2ae87262206e360e73e04cbb9c862db6d",
+    "hash": "51bddc708120e43195220ef4ee56cf67e43613f59d8890c12035c4b2cfbaa248",
     "lastmod": "2026-08-18"
   },
   "software.html": {
@@ -16,7 +16,7 @@
     "lastmod": "2026-08-17"
   },
   "llm-list.html": {
-    "hash": "fe6304eb7985f79a1170b912582b29f253d38e5d3ea574829b55e73e708945b5",
+    "hash": "fcc16856bc92828f6c9eef09b11487bc5cf2a7e86e1065176a85577eb1118a8c",
     "lastmod": "2026-08-18"
   },
   "tts-list.html": {
@@ -24,23 +24,23 @@
     "lastmod": "2026-08-18"
   },
   "image-models.html": {
-    "hash": "e529b54c1927afbc5f817405a4faab9927db6e3afb3a015c16c7350f4eb71d18",
+    "hash": "c8790ba73c3fe2997f1560240cadf24803eb438c22d4d4454c10166d44ff2f3b",
     "lastmod": "2026-08-18"
   },
   "video-models.html": {
-    "hash": "3776b63a516002e2b1cd26ed3d95074dc202d1afe5948566a2fac118bc069e65",
+    "hash": "c4d77bf0a2dcc2fb7653fa73f18f8dc806623bd3d547b40f333a1c01acc420be",
     "lastmod": "2026-08-18"
   },
   "3d-models.html": {
-    "hash": "b9f291c5a21c806201511e779af8242ad2458f82efc13fe17724937af5f26559",
+    "hash": "d1b64362f8e6677e1815e7427eb5bdfc0761914d69cf328fbbfa502fb79a91fb",
     "lastmod": "2026-08-18"
   },
   "music-models.html": {
-    "hash": "740cbcd0af2d68eb9f8491b4da836f6970f71a3355a8625afdbce849c2833f48",
+    "hash": "90e373e9209238feffb7d45d2985d2775b9288d7b5f1a98fa58baed80cab1aba",
     "lastmod": "2026-08-18"
   },
   "vision-models.html": {
-    "hash": "4bb2a37dd92d01de836f30f964e7690565c81750f4aee1be796714526838baee",
+    "hash": "329dab240b078434e4964c7279c678da917267e412301b738546a3e8196b8146",
     "lastmod": "2026-08-18"
   },
   "computers.html": {
@@ -52,7 +52,7 @@
     "lastmod": "2026-08-17"
   },
   "new.html": {
-    "hash": "b8676c4a5a51b9d68f854a94b9a7769126f9020a2e9b4da1f1f3ba8d2259486e",
+    "hash": "98d6f0446ec44523cb7080299c8fec672c09c70692a93b4434ca00f307de27b0",
     "lastmod": "2026-08-18"
   },
   "case-study/iron-descent.html": {
@@ -1239,8 +1239,16 @@
     "hash": "8f70fbb6120f428e80dfdb2e82dcfc5e2b2c1ab5507d2cef6f312dc6b3a8b987",
     "lastmod": "2026-08-17"
   },
+  "video/alice-t2v-14b.html": {
+    "hash": "79770263cc89e95767a9a98b52ddf19a1ea1171a2ec6b302b41e568842eca4e3",
+    "lastmod": "2026-08-18"
+  },
   "video/animatediff-sd15.html": {
     "hash": "1aceb963c0b5db0675cae2d42015cd0123b548a7bab957962e7dd9027169efbe",
+    "lastmod": "2026-08-18"
+  },
+  "video/avtr-1.html": {
+    "hash": "e3bb68a411a3a13c8e5b42499295dc6b296a245eaf4486bee355259ec7933fd3",
     "lastmod": "2026-08-18"
   },
   "video/cogvideox-2b.html": {
