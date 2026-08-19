@@ -79,7 +79,7 @@ for (const id of excluded) {
   if (!hardwareGenerator.includes(`'${id}'`)) failures.push(`Excluded model ${id} is not guarded in the hardware generator`);
 }
 
-if (!computers.includes('js/data.js?v=20260819a')) failures.push('computers.html uses a stale js/data.js cache key');
+if (!computers.includes('js/data.js?v=20260819b')) failures.push('computers.html uses a stale js/data.js cache key');
 if (!computers.includes('Active MoE parameters affect compute speed, not model download size')) {
   failures.push('computers.html is missing the MoE memory explanation');
 }
