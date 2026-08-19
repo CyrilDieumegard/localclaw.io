@@ -387,6 +387,17 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "TTS"
   },
   {
+    "id": "magpie-tts-multilingual-357m",
+    "name": "MagpieTTS Multilingual 357M",
+    "developer": "NVIDIA",
+    "family": "magpie",
+    "license": "NVIDIA Open Model License",
+    "releaseDate": "2026-07",
+    "quality": 9,
+    "speed": 8.6,
+    "type": "TTS"
+  },
+  {
     "id": "supertonic-3",
     "name": "Supertonic 3",
     "developer": "Supertone",
@@ -549,6 +560,17 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-05",
     "quality": 9.4,
     "speed": 10,
+    "type": "ASR"
+  },
+  {
+    "id": "voxtral-mini-4b-realtime-2602",
+    "name": "Voxtral Mini 4B Realtime 2602",
+    "developer": "Mistral AI",
+    "family": "voxtral",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-02",
+    "quality": 9.2,
+    "speed": 9.4,
     "type": "ASR"
   },
   {
