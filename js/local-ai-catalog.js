@@ -285,6 +285,17 @@
       caveats: ['Requires the TRELLIS.2 environment first', 'Low-VRAM mode lowers the default generation resolution']
     },
     {
+      id: 'hi3dgen', name: 'Hi3DGen', category: '3d', developer: 'ByteDance / Stable-X',
+      summary: 'Normal-bridged single-image 3D geometry generation that exports high-fidelity meshes through a local Gradio app.',
+      tasks: ['image-to-3d', 'mesh-generation', 'normal-generation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'Gradio'], output: ['GLB', 'OBJ', 'PLY', 'STL'],
+      local_status: 'local', license: 'MIT', released: '2025-03',
+      source_url: 'https://github.com/ByteDance/Hi3DGen', install_url: 'https://github.com/ByteDance/Hi3DGen',
+      hardware_note: 'The official app loads public Stable-X trellis-normal-v0-1 safetensors, runs CUDA PyTorch with spconv and xformers, preprocesses images at 1024 resolution, and exports around 40 MB mesh files. A 24 GB NVIDIA GPU with 64 GB RAM is a conservative workstation floor.',
+      strengths: ['MIT licensed code and checkpoints', 'Public Hugging Face safetensors', 'Local GLB preview plus OBJ, PLY and STL export'],
+      caveats: ['CUDA-first research stack', 'No texture pipeline in the current local app', 'Multiple-image mode is still marked as coming soon']
+    },
+    {
       id: 'direct3d-s2', name: 'Direct3D-S2', category: '3d', developer: 'DreamTechAI / Neural4D',
       summary: 'Sparse-volume image-to-3D generation that reconstructs high-resolution meshes and exports OBJ files.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'sdf-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
