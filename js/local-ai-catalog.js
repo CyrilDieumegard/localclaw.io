@@ -81,6 +81,30 @@
       caveats: ['CUDA-first official setup', 'Long clips remain compute intensive']
     },
     {
+      id: 'wan2.2-s2v-14b', name: 'Wan 2.2 S2V 14B', category: 'video', developer: 'Wan Team / Alibaba',
+      summary: 'Official speech-to-video Wan model for audio-driven cinematic character video from reference image, audio and optional pose input.',
+      tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'pose-to-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'Diffusers', 'ComfyUI'], output: ['MP4'], local_status: 'local',
+      license: 'Apache 2.0', released: '2025-08',
+      source_url: 'https://github.com/Wan-Video/Wan2.2', install_url: 'https://huggingface.co/Wan-AI/Wan2.2-S2V-14B',
+      hardware_note: 'The official single-GPU S2V command uses offloading and dtype conversion but still states an 80 GB NVIDIA VRAM floor. Multi-GPU FSDP and DeepSpeed Ulysses are documented for larger workstation or server setups.',
+      strengths: ['Official Wan speech-to-video weights', 'Audio sync with reference image and optional pose video', 'Diffusers and ComfyUI integration'],
+      caveats: ['80 GB VRAM puts it above normal consumer GPUs', 'CUDA-first setup with large downloads and slower offloaded runs']
+    },
+    {
+      id: 'wan2.2-animate-14b', name: 'Wan 2.2 Animate 14B', category: 'video', developer: 'Wan Team / Alibaba',
+      summary: 'Official Wan character animation and replacement model for motion transfer from a driving video to a reference character image.',
+      tasks: ['video-to-video', 'character-animation', 'motion-transfer', 'video-replacement'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'Diffusers', 'ComfyUI'], output: ['MP4'], local_status: 'local',
+      license: 'Apache 2.0', released: '2025-09',
+      source_url: 'https://github.com/Wan-Video/Wan2.2', install_url: 'https://huggingface.co/Wan-AI/Wan2.2-Animate-14B',
+      hardware_note: 'Official inference uses the Wan2.2 animate task with preprocessing checkpoints, PyTorch, CUDA and optional FSDP/Ulysses multi-GPU execution. The 14B family efficiency table and single-GPU guidance support an 80 GB NVIDIA VRAM floor.',
+      strengths: ['Official character animation and replacement weights', 'Motion and expression replication from source video', 'Diffusers, ComfyUI and preprocessing checkpoint support'],
+      caveats: ['Requires preprocessing assets before inference', 'Workstation-class NVIDIA hardware is the practical floor']
+    },
+    {
       id: 'mochi-1', name: 'Mochi 1', category: 'video', developer: 'Genmo',
       summary: 'Open text-to-video foundation model with Diffusers and ComfyUI workflows.',
       tasks: ['text-to-video'], platforms: ['linux', 'windows'], accelerators: ['nvidia'],
