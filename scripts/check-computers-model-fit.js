@@ -17,7 +17,7 @@ const curatedMatch = computers.match(/const CURATED_PICKS = (\{[\s\S]*?\n\s*\});
 if (!curatedMatch) throw new Error('Unable to parse CURATED_PICKS from computers.html');
 
 const curated = vm.runInNewContext(`(${curatedMatch[1]})`);
-const hardwareCuratedMatch = hardwareGenerator.match(/const curated=(\{[^\n]+\});/);
+const hardwareCuratedMatch = hardwareGenerator.match(/const\s+curated\s*=\s*(\{[\s\S]*?\n\s*\});/);
 if (!hardwareCuratedMatch) throw new Error('Unable to parse curated hardware picks');
 const hardwareCurated = vm.runInNewContext(`(${hardwareCuratedMatch[1]})`);
 const excluded = new Set(['qwen3.6-6.7b', 'qwen3-coder-8b', 'glm4.6-air', 'llama4-scout']);
@@ -79,7 +79,7 @@ for (const id of excluded) {
   if (!hardwareGenerator.includes(`'${id}'`)) failures.push(`Excluded model ${id} is not guarded in the hardware generator`);
 }
 
-if (!computers.includes('js/data.js?v=20260818c')) failures.push('computers.html uses a stale js/data.js cache key');
+if (!computers.includes('js/data.js?v=20260819a')) failures.push('computers.html uses a stale js/data.js cache key');
 if (!computers.includes('Active MoE parameters affect compute speed, not model download size')) {
   failures.push('computers.html is missing the MoE memory explanation');
 }

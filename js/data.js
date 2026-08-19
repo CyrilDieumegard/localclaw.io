@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 18, 2026 - Added Ling-3.0-tiny - 224 LLM total
+// Updated August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
+// Previous: August 18, 2026 - Added Ling-3.0-tiny - 224 LLM total
 // Previous: August 15, 2026 - Added Qwen3.8-27B - 223 LLM total
 // Previous: August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
 // Previous: August 8, 2026 — Added Qwen3-Coder-Next — 217 LLM total
@@ -164,6 +165,23 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/LiquidAI/LFM2.5-2.6B',
             benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 7 },
             released: '2026-07-28',
+            isNew: true
+        },
+        {
+            id: 'lfm2-5-vl-3b',
+            name: 'LFM2.5-VL-3B',
+            family: 'lfm',
+            params: '3B multimodal',
+            size_gb: 2.3,
+            min_ram: 8,
+            tags: ['chat', 'vision', 'speed', 'edge', 'multimodal', 'general'],
+            description: 'Liquid AI edge vision-language model with LFM2.5-2.6B backbone, SigLIP2 NaFlex vision encoder, 32K context, LFM 1.0 open weights and official GGUF plus llama.cpp and MLX runtime paths for local image chat and OCR.',
+            search_term: 'lfm2.5-vl-3b',
+            recommended_quant: 'Q4_K_M + mmproj',
+            hf_repo: 'LiquidAI/LFM2.5-VL-3B-GGUF',
+            source_url: 'https://huggingface.co/LiquidAI/LFM2.5-VL-3B',
+            benchmarks: { speed: 9, quality: 7, coding: 4, reasoning: 6 },
+            released: '2026-08-11',
             isNew: true
         },
         {
@@ -3696,8 +3714,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-18T06:18:20.000Z",
-        catalogueHash: "e5bcd093faeb94f4211c462be3154aab5b4ab36258af06d7faca67f8e1700029",
+        checkedAt: "2026-08-19T06:25:00.000Z",
+        catalogueHash: "c0bc347171d795c4ed16cc68d50a506b277862593522dd08be2a77e8be0b65e3",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3708,6 +3726,7 @@ const APP_DATA = {
             "qwen3-4b": "lmstudio-community/Qwen3-4B-GGUF",
             "llama3.2-3b": "lmstudio-community/Llama-3.2-3B-Instruct-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
+            "lfm2-5-vl-3b": "LiquidAI/LFM2.5-VL-3B-GGUF",
             "ling-3.0-tiny": "bloomer010/Ling-3.0-tiny-GGUF",
             "glm4.7-flash": "unsloth/GLM-4.7-Flash-GGUF",
             "gpt-oss-120b": "ggml-org/gpt-oss-120b-GGUF",

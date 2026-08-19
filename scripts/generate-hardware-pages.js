@@ -54,12 +54,12 @@ const macs = [
 const curated = {
   8: ['lfm2-5-2-6b', 'qwen3.5-9b', 'gemma4-e4b', 'qwen3.5-4b', 'dante-mosaic-3.5b'],
   16: ['gpt-oss-20b', 'apriel-nemotron-15b-thinker', 'qwen3.5-9b', 'gemma4-e4b', 'nemotron-nano-9b-v2'],
-  24: ['muse-glimmer-30b', 'qwen3.5-35b-a3b', 'qwen3-coder-30b', 'gpt-oss-20b', 'mistral-small-3.2-24b'],
+  24: ['muse-glimmer-30b', 'gemma4-12b', 'qwen3-coder-30b', 'gpt-oss-20b', 'mistral-small-3.2-24b'],
   32: ['qwen3.8-27b', 'qwen3.6-27b', 'muse-glimmer-30b', 'qwen3.5-35b-a3b', 'qwen3-coder-30b'],
   48: ['qwen3.8-27b', 'qwen3.5-35b-a3b', 'nemotron3-49b', 'qwen3.6-27b', 'muse-glimmer-30b'],
   64: ['qwen3-next-80b-a3b', 'qwen3.8-27b', 'nemotron3-70b', 'qwen3.5-35b-a3b', 'muse-glimmer-30b'],
   128: ['qwen3.5-122b-a10b', 'gpt-oss-120b', 'qwen3-next-80b-a3b', 'mistral-large-123b', 'command-a-111b'],
-  256: ['deepseek-v4-flash-0731', 'minimax-m2-230b', 'qwen3.5-397b-a17b', 'qwen3-235b-a22b', 'qwen3.5-122b-a10b'],
+  256: ['deepseek-v4-flash-0731', 'minimax-m2-230b', 'qwen3-235b-a22b', 'qwen3.5-122b-a10b', 'command-a-111b'],
   512: ['deepseek-v3.2-exp', 'qwen3.5-397b-a17b', 'trinity-large', 'deepseek-v3.1', 'deepseek-v4-flash-0731']
 };
 

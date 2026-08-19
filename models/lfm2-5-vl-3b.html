@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LFM2.5-8B-A1B local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="LFM2.5-8B-A1B: 8.3B (1.5B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>LFM2.5-VL-3B local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="LFM2.5-VL-3B: 3B multimodal local AI model guide with RAM requirements, Q4_K_M + mmproj quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/lfm2.5-8b-a1b">
+  <link rel="canonical" href="https://localclaw.io/models/lfm2-5-vl-3b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/lfm2.5-8b-a1b">
-  <meta property="og:title" content="LFM2.5-8B-A1B local AI model | LocalClaw">
-  <meta property="og:description" content="LFM2.5-8B-A1B: 8.3B (1.5B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/lfm2-5-vl-3b">
+  <meta property="og:title" content="LFM2.5-VL-3B local AI model | LocalClaw">
+  <meta property="og:description" content="LFM2.5-VL-3B: 3B multimodal local AI model guide with RAM requirements, Q4_K_M + mmproj quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LFM2.5-8B-A1B local AI model | LocalClaw">
-  <meta name="twitter:description" content="LFM2.5-8B-A1B: 8.3B (1.5B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="LFM2.5-VL-3B local AI model | LocalClaw">
+  <meta name="twitter:description" content="LFM2.5-VL-3B: 3B multimodal local AI model guide with RAM requirements, Q4_K_M + mmproj quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"LFM2.5-8B-A1B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/lfm2.5-8b-a1b","description":"LFM2.5-8B-A1B: 8.3B (1.5B active) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-06","memoryRequirements":"8 GB RAM minimum","license":"https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/main/LICENSE","creator":{"@type":"Organization","name":"Liquid AI","url":"https://www.liquid.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can LFM2.5-8B-A1B run locally?","acceptedAnswer":{"@type":"Answer","text":"LFM2.5-8B-A1B can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is LFM2.5-8B-A1B best for?","acceptedAnswer":{"@type":"Answer","text":"LFM2.5-8B-A1B is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"LFM2.5-8B-A1B","item":"https://localclaw.io/models/lfm2.5-8b-a1b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"LFM2.5-VL-3B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/lfm2-5-vl-3b","description":"LFM2.5-VL-3B: 3B multimodal local AI model guide with RAM requirements, Q4_K_M + mmproj quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-08-11","memoryRequirements":"8 GB RAM minimum","license":"https://huggingface.co/LiquidAI/LFM2.5-VL-3B/blob/main/LICENSE","creator":{"@type":"Organization","name":"Liquid AI","url":"https://www.liquid.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can LFM2.5-VL-3B run locally?","acceptedAnswer":{"@type":"Answer","text":"LFM2.5-VL-3B can run locally with at least 8 GB RAM. LocalClaw recommends Q4_K_M + mmproj quantization."}},{"@type":"Question","name":"What is LFM2.5-VL-3B best for?","acceptedAnswer":{"@type":"Answer","text":"LFM2.5-VL-3B is tagged in the LocalClaw catalogue for Vision tasks. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"LFM2.5-VL-3B","item":"https://localclaw.io/models/lfm2-5-vl-3b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -48,14 +48,14 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>LFM2.5-8B-A1B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>LFM2.5-VL-3B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">LFM2.5-8B-A1B</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0.</p>
+        <h1 class="title">LFM2.5-VL-3B</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Liquid AI edge vision-language model with LFM2.5-2.6B backbone, SigLIP2 NaFlex vision encoder, 32K context, LFM 1.0 open weights and official GGUF plus llama.cpp and MLX runtime paths for local image chat and OCR.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">8 GB catalogue minimum</span><span class="chip">8 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
+        <div class="chips"><span class="chip hot">8 GB catalogue minimum</span><span class="chip">8 GB RAM</span><span class="chip">Q4_K_M + mmproj</span><span class="chip">Vision tasks</span></div>
         <div class="cta">
           <a class="btn" href="/pricing">Run with LocalClaw</a>
           <a class="btn secondary" href="/llm-list">Compare all models</a>
@@ -65,50 +65,50 @@
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">8.1<small>/10</small></div>
+            <div class="score">6.3<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="lfm2.5-8b-a1b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="lfm2-5-vl-3b" data-rating-mode="full"></div>
         <div class="panel-grid">
           <div class="mini"><div class="k">Family</div><div class="v" style="color:#38bdf8">lfm</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-06</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-08-11</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">8.3B (1.5B active)</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">3B multimodal</div></div>
       <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">5.2 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">2.3 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M + mmproj</div></div>
     </section>
-<section class="personal-fit" hidden data-localclaw-model-context data-model-id="lfm2.5-8b-a1b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="lfm2-5-vl-3b" aria-live="polite"></section>
     <section class="section">
-      <h2>Can LFM2.5-8B-A1B run locally?</h2>
-      <p>LFM2.5-8B-A1B has a catalogue minimum of 8 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>lfm2.5-8b-a1b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/LiquidAI/LFM2.5-8B-A1B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-18): LiquidAI/LFM2.5-8B-A1B-GGUF</a><a href="https://www.liquid.ai/blog/lfm2-5-8b-a1b" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/LiquidAI/LFM2.5-8B-A1B" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/LiquidAI/LFM2.5-8B-A1B/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">speed</span><span class="tag">standard</span><span class="tag">general</span></div>
+      <h2>Can LFM2.5-VL-3B run locally?</h2>
+      <p>LFM2.5-VL-3B has a catalogue minimum of 8 GB RAM with Q4_K_M + mmproj. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use <code>lfm2.5-vl-3b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
+      <div class="source-links"><a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-18): LiquidAI/LFM2.5-VL-3B-GGUF</a><a href="https://www.liquid.ai/blog/lfm2-5-vl-3b" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/LiquidAI/LFM2.5-VL-3B/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">vision</span><span class="tag">speed</span><span class="tag">edge</span><span class="tag">multimodal</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search lfm2.5-8b-a1b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the Q4_K_M + mmproj quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search lfm2.5-vl-3b in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: lfm</li><li>Parameters: 8.3B (1.5B active)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 8 GB</li><li>Catalogue model size: 5.2 GB</li><li>Tags: chat, code, reasoning, speed, standard, general</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: lfm</li><li>Parameters: 3B multimodal</li><li>Recommended quantization: Q4_K_M + mmproj</li><li>Catalogue minimum RAM: 8 GB</li><li>Catalogue model size: 2.3 GB</li><li>Tags: chat, vision, speed, edge, multimodal, general</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>speed</li><li>standard</li><li>general</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>vision</li><li>speed</li><li>edge</li><li>multimodal</li><li>general</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:40%"></div></div><strong>4</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div>
         </div>
       </div>
     </section>
@@ -117,8 +117,8 @@
       <div class="meta-grid">
         <div class="meta"><div class="k">Developer</div><div class="v">Liquid AI</div></div>
         <div class="meta"><div class="k">License</div><div class="v">LFM 1.0</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">128,000 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Hybrid Liquid Foundation Model with 8.3B total parameters and 1.5B active parameters. The model mixes double-gated LIV convolution layers with grouped-query attention.</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">32,768 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">LFM2.5 vision-language model with the LFM2.5-2.6B language backbone and a SigLIP2 NaFlex 400M vision encoder. Liquid AI lists native-resolution image processing, 32K context and official GGUF, ONNX and MLX export paths.</div></div>
       </div>
     </section>
 <section class="section">
@@ -128,7 +128,7 @@
         <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/lfm2-5-vl-3b">LFM2.5-VL-3B <span>3B multimodal</span></a><a href="/models/granite3.3-8b">Granite 3.3 (8B Instruct) <span>8B</span></a><a href="/models/granite4.1-8b">Granite 4.1 (8B) <span>8B</span></a><a href="/models/ling-3.0-tiny">Ling-3.0-tiny <span>7.9B (1.3B active, MoE)</span></a><a href="/models/ornith-1.0-9b-gguf">Ornith 1.0 9B GGUF <span>9B</span></a><a href="/models/qwen3-8b">Qwen 3 (8B) <span>8B</span></a><a href="/models/nemotron-nano-9b-v2">Nemotron Nano 9B v2 <span>9B</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/lfm2.5-8b-a1b">LFM2.5-8B-A1B <span>8.3B (1.5B active)</span></a><a href="/models/gemma4-e2b">Gemma 4 E2B <span>E2B</span></a><a href="/models/bonsai-27b">Bonsai 27B <span>27.3B (ternary / 1-bit)</span></a><a href="/models/gemma4-e4b">Gemma 4 E4B <span>E4B</span></a><a href="/models/ministral-3-3b-instruct">Ministral 3 3B Instruct <span>3B</span></a><a href="/models/gemma4-12b">Gemma 4 12B <span>12B</span></a><a href="/models/gemma3-4b">Gemma 3 (4B) <span>4B</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
@@ -138,7 +138,7 @@
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"lfm2.5-8b-a1b","name":"LFM2.5-8B-A1B","family":"lfm","params":"8.3B (1.5B active)","size_gb":5.2,"min_ram":8,"tags":["chat","code","reasoning","speed","standard","general"],"description":"Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0.","search_term":"lfm2.5-8b-a1b","recommended_quant":"Q4_K_M","hf_repo":"LiquidAI/LFM2.5-8B-A1B-GGUF","benchmarks":{"speed":9,"quality":8,"coding":8,"reasoning":8},"released":"2026-06","isNew":true};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"lfm2-5-vl-3b","name":"LFM2.5-VL-3B","family":"lfm","params":"3B multimodal","size_gb":2.3,"min_ram":8,"tags":["chat","vision","speed","edge","multimodal","general"],"description":"Liquid AI edge vision-language model with LFM2.5-2.6B backbone, SigLIP2 NaFlex vision encoder, 32K context, LFM 1.0 open weights and official GGUF plus llama.cpp and MLX runtime paths for local image chat and OCR.","search_term":"lfm2.5-vl-3b","recommended_quant":"Q4_K_M + mmproj","hf_repo":"LiquidAI/LFM2.5-VL-3B-GGUF","source_url":"https://huggingface.co/LiquidAI/LFM2.5-VL-3B","benchmarks":{"speed":9,"quality":7,"coding":4,"reasoning":6},"released":"2026-08-11","isNew":true};</script>
   <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>

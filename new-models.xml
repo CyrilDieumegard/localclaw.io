@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 18 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>LFM2.5-VL-3B</title>
+      <link>https://localclaw.io/models/lfm2-5-vl-3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm2-5-vl-3b</guid>
+      <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI edge vision-language model with LFM2.5-2.6B backbone, SigLIP2 NaFlex vision encoder, 32K context, LFM 1.0 open weights and official GGUF plus llama.cpp and MLX runtime paths for local image chat and OCR. 3B multimodal · 8 GB minimum RAM · Q4_K_M + mmproj · lfm.</description>
+    </item>
     <item>
       <title>Ling-3.0-tiny</title>
       <link>https://localclaw.io/models/ling-3.0-tiny</link>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
       <category>deepreinforce</category>
       <description>Compact Ornith 1.0 GGUF variant from DeepReinforce for agentic coding experiments on consumer hardware. MIT licensed and much more practical than the frontier 397B release. 9B · 8 GB minimum RAM · Q4_K_M · deepreinforce.</description>
-    </item>
-    <item>
-      <title>Ornith 1.0 35B GGUF</title>
-      <link>https://localclaw.io/models/ornith-1.0-35b-gguf</link>
-      <guid isPermaLink="true">https://localclaw.io/models/ornith-1.0-35b-gguf</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>deepreinforce</category>
-      <description>DeepReinforce Ornith 1.0 mid-size GGUF release for agentic coding. The Q4_K_M build is listed around 21.2GB, making it a realistic 32GB+ local model compared with the 397B server-grade version. 35B MoE · 32 GB minimum RAM · Q4_K_M · deepreinforce.</description>
     </item>
   </channel>
 </rss>
