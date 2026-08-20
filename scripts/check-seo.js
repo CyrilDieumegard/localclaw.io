@@ -119,7 +119,7 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
 }
 
 for (const [route, owner] of internalTargets) {
-  if (/^\/(?:api|cdn-cgi|css|downloads|images|js)\//.test(route)) continue;
+  if (/^\/(?:api|cdn-cgi|css|downloads|go|images|js)\//.test(route)) continue;
   const decoded = decodeURIComponent(route);
   const direct = path.join(ROOT, decoded);
   const candidates = decoded === '/'
