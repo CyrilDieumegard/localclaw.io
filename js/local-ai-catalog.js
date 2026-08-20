@@ -229,6 +229,29 @@
     },
 
     {
+      id: 'depth-anything-3-base', name: 'Depth Anything 3 Base', category: '3d', developer: 'ByteDance Seed',
+      summary: 'Compact any-view visual geometry model for depth, camera pose and 3D reconstruction exports.',
+      tasks: ['mesh-reconstruction', 'depth-estimation', 'pose-estimation', 'gaussian-splatting'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['PyTorch', 'CLI', 'Gradio'], output: ['GLB', 'PLY', 'NPZ', '3D Gaussian'],
+      local_status: 'local', license: 'Apache 2.0', released: '2025-11',
+      source_url: 'https://github.com/ByteDance-Seed/Depth-Anything-3', install_url: 'https://huggingface.co/depth-anything/DA3-BASE',
+      hardware_note: 'The Base checkpoint is 0.12B parameters and uses the local Depth Anything 3 Python API or CLI. The project documents streaming inference under 12 GB GPU memory for long sequences, so 8 GB VRAM is a practical floor for smaller image sets and 16 GB RAM is a conservative entry tier.',
+      strengths: ['Apache 2.0 checkpoint', 'Depth and pose from arbitrary views', 'GLB, PLY and Gaussian export options'],
+      caveats: ['The higher-quality Giant and Nested checkpoints are non-commercial', 'Gaussian head and full app install require extra dependencies such as gsplat']
+    },
+    {
+      id: 'step1x-3d', name: 'Step1X-3D', category: '3d', developer: 'StepFun',
+      summary: 'Two-stage image-to-3D pipeline for high-fidelity watertight geometry and textured GLB assets.',
+      tasks: ['image-to-3d', 'mesh-generation', 'texturing'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 32, runtime: ['PyTorch', 'Gradio'], output: ['GLB', 'Textured mesh'],
+      local_status: 'local', license: 'Apache 2.0', released: '2025-05',
+      source_url: 'https://github.com/stepfun-ai/Step1X-3D', install_url: 'https://huggingface.co/stepfun-ai/Step1X-3D',
+      hardware_note: 'The official inference table reports 27 GB GPU memory for geometry plus texture and 29 GB for the label-conditioned geometry path. A 32 GB NVIDIA GPU and 64 GB system RAM are the conservative local floor.',
+      strengths: ['Apache 2.0 code and weights', 'Official geometry and texture checkpoints', 'Exports untextured and textured GLB meshes'],
+      caveats: ['CUDA 12.4 research stack with PyTorch3D, Kaolin and custom rasterizers', 'ComfyUI support is still listed as planned rather than released']
+    },
+    {
       id: 'stable-fast-3d', name: 'Stable Fast 3D', category: '3d', developer: 'Stability AI',
       summary: 'Single-image reconstruction into a textured GLB mesh with UV unwrapping and material prediction.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'texturing'],
