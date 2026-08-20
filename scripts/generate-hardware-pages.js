@@ -8,7 +8,6 @@ const modelRanking = require('../js/model-ranking');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
 const UPDATED = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date());
-const AMAZON_TAG = 'localclaw-20';
 const tracking = `<!-- TRACKING: DataFast Analytics --><script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script><!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) --><script src="/js/clarity.js" defer></script>${siteNavAssets()}`;
 
 function loadModels() {
@@ -40,9 +39,9 @@ const macs = [
   { id: 'macbook-pro-m4-16gb', name: 'MacBook Pro M4 16GB', family: 'MacBook Pro', chip: 'M4', ram: 16, storage: '512GB SSD', badge: 'Balanced Pro', appleUrl: 'https://www.apple.com/macbook-pro/', intent: 'quiet sustained local inference' },
   { id: 'macbook-pro-m4-pro-24gb', name: 'MacBook Pro M4 Pro 24GB', family: 'MacBook Pro', chip: 'M4 Pro', ram: 24, storage: '512GB SSD', badge: 'Creator Sweet Spot', appleUrl: 'https://www.apple.com/macbook-pro/', intent: 'coding and reasoning models on the go' },
   { id: 'macbook-pro-m4-max-36gb', name: 'MacBook Pro M4 Max 36GB', family: 'MacBook Pro', chip: 'M4 Max', ram: 36, storage: '1TB SSD', badge: 'Mobile Workstation', appleUrl: 'https://www.apple.com/macbook-pro/', intent: 'larger local coding and reasoning models' },
-  { id: 'mac-mini-m4-16gb', name: 'Mac mini M4 16GB', family: 'Mac mini', chip: 'M4', ram: 16, storage: '256GB SSD', badge: 'Best Starter Mac', amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+16GB+256GB&tag=localclaw-20', intent: 'best-value local AI desktop' },
-  { id: 'mac-mini-m4-pro-24gb', name: 'Mac mini M4 Pro 24GB', family: 'Mac mini', chip: 'M4 Pro', ram: 24, storage: '512GB SSD', badge: 'Desktop Sweet Spot', amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+24GB+512GB&tag=localclaw-20', intent: 'compact local AI workstation' },
-  { id: 'mac-mini-m4-pro-48gb', name: 'Mac mini M4 Pro 48GB', family: 'Mac mini', chip: 'M4 Pro', ram: 48, storage: '512GB SSD', badge: 'Power User', amazonUrl: 'https://www.amazon.com/s?k=Apple+Mac+mini+M4+Pro+48GB+512GB&tag=localclaw-20', intent: 'serious local LLM desktop' },
+  { id: 'mac-mini-m4-16gb', name: 'Mac mini M4 16GB', family: 'Mac mini', chip: 'M4', ram: 16, storage: '256GB SSD', badge: 'Best Starter Mac', amazonQuery: 'Apple Mac mini M4 16GB 256GB', intent: 'best-value local AI desktop' },
+  { id: 'mac-mini-m4-pro-24gb', name: 'Mac mini M4 Pro 24GB', family: 'Mac mini', chip: 'M4 Pro', ram: 24, storage: '512GB SSD', badge: 'Desktop Sweet Spot', amazonQuery: 'Apple Mac mini M4 Pro 24GB 512GB', intent: 'compact local AI workstation' },
+  { id: 'mac-mini-m4-pro-48gb', name: 'Mac mini M4 Pro 48GB', family: 'Mac mini', chip: 'M4 Pro', ram: 48, storage: '512GB SSD', badge: 'Power User', amazonQuery: 'Apple Mac mini M4 Pro 48GB 512GB', intent: 'serious local LLM desktop' },
   { id: 'mac-studio-m4-max-64gb', name: 'Mac Studio M4 Max 64GB', family: 'Mac Studio', chip: 'M4 Max', ram: 64, storage: '1TB SSD', badge: 'Workstation', appleUrl: 'https://www.apple.com/mac-studio/', intent: 'high-end local LLM workstation' },
   { id: 'mac-studio-m4-max-128gb', name: 'Mac Studio M4 Max 128GB', family: 'Mac Studio', chip: 'M4 Max', ram: 128, storage: '2TB SSD', badge: 'Max Power', appleUrl: 'https://www.apple.com/mac-studio/', intent: 'large local models without datacenter hardware' },
   { id: 'mac-studio-m3-ultra-128gb', name: 'Mac Studio M3 Ultra 128GB', family: 'Mac Studio', chip: 'M3 Ultra', ram: 128, storage: '1TB SSD', badge: 'Large-Model Mac', appleUrl: 'https://www.apple.com/mac-studio/', intent: 'large model local inference' },
@@ -66,10 +65,8 @@ function fit(mac, model) {
 }
 
 function buy(mac) {
-  if (mac.amazonUrl) return mac.amazonUrl;
-  if (mac.asin) return `https://www.amazon.com/dp/${mac.asin}?tag=${AMAZON_TAG}`;
-  const query = encodeURIComponent(`Apple ${mac.name} ${mac.storage}`);
-  return `https://www.amazon.com/s?k=${query}&tag=${AMAZON_TAG}`;
+  const query = mac.amazonQuery || `Apple ${mac.name} ${mac.storage}`;
+  return `/go/amazon?q=${encodeURIComponent(query)}`;
 }
 
 function ramGuide(mac) {
