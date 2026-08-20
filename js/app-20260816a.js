@@ -119,12 +119,12 @@ const App = {
                 ? (answers.ram === 'unknown' ? 8 : Number.parseInt(answers.ram, 10) || 8)
                 : (answers.parsedRam || 16);
         const rawPlatform = String(answers.os || answers.parsedOS || 'linux').toLowerCase();
-        const platform = rawPlatform === 'mac' || rawPlatform === 'macos'
+        const platform = rawPlatform === 'mac' || rawPlatform === 'macos' || rawPlatform === 'mac-intel'
             ? 'macos'
             : rawPlatform === 'win' || rawPlatform === 'windows'
                 ? 'windows'
                 : 'linux';
-        const isApple = platform === 'macos' || answers.gpu === 'apple';
+        const isApple = answers.gpu === 'apple' || (this.state.activeFlow === 'guided' && rawPlatform === 'mac');
         const hasNvidia = String(answers.gpu || '').startsWith('nvidia') || (!isApple && Number.parseInt(answers.vram, 10) > 0);
         const accelerator = isApple ? 'apple-silicon' : hasNvidia ? 'nvidia' : answers.gpu === 'amd' ? 'amd' : 'cpu';
         const usage = answers.usage === 'code' ? 'coding' : answers.usage === 'mix' ? 'general' : (answers.usage || 'general');
@@ -144,16 +144,68 @@ const App = {
         };
     },
 
+    buildCurrentPlanPayload() {
+        const machine = this.buildCurrentMachineProfile();
+        const recommendations = (this.state.recommendations || []).slice(0, 4);
+        return {
+            version: 1,
+            createdAt: new Date().toISOString(),
+            machine,
+            topModelId: String(recommendations[0]?.id || ''),
+            modelIds: recommendations.map((model) => String(model.id || '')).filter(Boolean),
+            context: String(this.state.answers?.context || '8k'),
+            source: String(this.state.flowSource || 'model_finder')
+        };
+    },
+
+    planUseCaseLabel(value) {
+        return ({
+            chat: 'private chat',
+            coding: 'local coding',
+            code: 'local coding',
+            reasoning: 'reasoning',
+            vision: 'image understanding',
+            creative: 'creative work',
+            general: 'everyday local AI'
+        })[String(value || '').toLowerCase()] || 'everyday local AI';
+    },
+
+    planPriorityLabel(value) {
+        return ({
+            speed: 'Speed first',
+            quality: 'Quality first',
+            memory: 'Lowest memory',
+            balanced: 'Balanced'
+        })[String(value || '').toLowerCase()] || 'Balanced';
+    },
+
+    trackPlanAction(action, modelId) {
+        const machine = this.buildCurrentMachineProfile();
+        this.trackGoal('plan_action_clicked', {
+            source: 'recommender_results',
+            action: String(action || 'open'),
+            model_id: String(modelId || ''),
+            use_case: String(machine.useCase || 'general'),
+            ram_bucket: `${machine.ramGb || 0}gb`
+        });
+    },
+
     saveCurrentMachine() {
         try {
-            localStorage.setItem('localclaw_pending_machine', JSON.stringify(this.buildCurrentMachineProfile()));
+            const plan = this.buildCurrentPlanPayload();
+            localStorage.setItem('localclaw_pending_plan', JSON.stringify(plan));
+            localStorage.setItem('localclaw_pending_machine', JSON.stringify(plan.machine));
             const context = {
                 source: 'recommender_results',
-                flow: String(this.state.activeFlow || '')
+                flow: String(this.state.activeFlow || ''),
+                use_case: String(plan.machine.useCase || 'general'),
+                top_model: String(plan.topModelId || ''),
+                ram_bucket: `${plan.machine.ramGb || 0}gb`
             };
+            this.trackGoal('plan_save_started', context);
             this.trackGoal('machine_save_started', context);
             this.trackGoal('account_open', context);
-            window.location.assign('/account?add=finder');
+            window.location.assign('/account?add=plan');
         } catch {
             this.trackGoal('recommender_error', {
                 source: 'recommender_results',
@@ -237,7 +289,9 @@ const App = {
 
         const machine = {
             name: 'Finder profile',
-            platform: answers.os || answers.parsedOS || (isAppleSilicon ? 'macos' : 'other'),
+            platform: ['mac', 'macos', 'mac-intel'].includes(String(answers.os || answers.parsedOS || '').toLowerCase())
+                ? 'macos'
+                : (answers.os || answers.parsedOS || (isAppleSilicon ? 'macos' : 'other')),
             accelerator: isAppleSilicon ? 'apple-silicon' : String(answers.gpu || '').startsWith('nvidia') ? 'nvidia' : 'cpu',
             ramGb: ramLimit,
             vramGb: vramGB || null,
@@ -306,9 +360,13 @@ const App = {
             top_model: String(finalRecs[0]?.id || ''),
             count: String(finalRecs.length),
             ram: String(ramLimit || ''),
-            platform: recommendationPlatform
+            platform: recommendationPlatform,
+            source: String(this.state.flowSource || 'model_finder'),
+            use_case: String(machine.useCase || 'general'),
+            priority: String(machine.priority || 'balanced')
         };
         this.trackGoal('recommender_complete', completionProperties);
+        this.trackGoal('plan_result_viewed', completionProperties);
         if (isMacRecommendation) {
             this.trackGoal('recommender_macos_complete', completionProperties);
             this.trackGoal('post_recommendation_offer_view', {
@@ -496,7 +554,7 @@ const App = {
         }
 
         // Detect GPU
-        if (lower.includes('apple m1') || lower.includes('apple m2') || lower.includes('apple m3') || lower.includes('apple m4')) {
+        if (lower.includes('apple m1') || lower.includes('apple m2') || lower.includes('apple m3') || lower.includes('apple m4') || lower.includes('apple m5')) {
             gpu = 'apple';
         } else if (lower.includes('nvidia') || lower.includes('geforce') || lower.includes('rtx') || lower.includes('gtx')) {
             // Try to detect VRAM
@@ -507,7 +565,8 @@ const App = {
             gpu = 'amd';
         }
 
-        if (os === 'mac') gpu = 'apple'; // Safe assumption for macOS
+        if (os === 'mac' && /apple m[1-9]/.test(lower)) gpu = 'apple';
+        if (os === 'mac' && /intel/.test(lower)) gpu = 'unknown';
 
         this.state.answers = {
             os,
@@ -1464,10 +1523,10 @@ const App = {
                         </p>
                         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 lg:justify-start">
                             <a href="/pricing" data-lc-path="app" data-fast-goal="pricing_cta_click" data-fast-goal-source="home_hero" class="w-full sm:w-auto px-8 py-4 bg-claw-primary hover:bg-white active:translate-y-0.5 hover:text-black text-white font-mono font-bold text-base transition-all shadow-[4px_4px_0px_0px_rgba(234,88,12,0.28)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] hover:-translate-y-0.5 uppercase tracking-tight text-center">Get LocalClaw · $49</a>
-                            <a href="#model-finder" data-lc-path="finder" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided', 'home_hero')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Find my free model match →</a>
+                            <a href="#model-finder" data-lc-path="finder" data-fast-goal-source="home_hero" onclick="event.preventDefault(); App.startFlow('guided', 'home_hero')" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-muted hover:text-claw-primary transition-colors">Build my free Local AI Plan →</a>
                             <a href="#built-with-localclaw" data-fast-goal="case_study_open" data-fast-goal-source="home_hero" class="text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-claw-primary transition-colors">Watch the game demo ↓</a>
                         </div>
-                        <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Installer $49 or free model finder. No signup. No prompts collected.</p>
+                        <p id="lc-platform-note" class="mt-4 text-xs sm:text-[13px] text-claw-muted font-mono">Three questions, one practical plan. No signup before the result. No prompts collected.</p>
                         <a href="/changelog/localclaw-installer-v1.0.175" class="mt-2 inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white transition-colors">
                             <span class="h-1.5 w-1.5 rounded-full bg-[#22c55e]"></span>
                             LocalClaw 1.0.175 · Developer workspace upgraded
@@ -1553,7 +1612,7 @@ const App = {
                             <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Benchmarks are useful. Fit is what makes local AI work.</h2>
                             <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">LocalClaw ranks models by practical local fit: your memory headroom, context target, use case, quantization and install path. Every recommendation explains why it was picked.</p>
                         </div>
-                        <a href="#model-finder" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); App.startFlow('guided', 'home_fit_engine')" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Run the fit check →</a>
+                        <a href="#model-finder" data-fast-goal-source="home_fit_engine" onclick="event.preventDefault(); App.startFlow('guided', 'home_fit_engine')" class="w-full sm:w-auto rounded-lg border border-claw-primary/35 bg-claw-primary/10 px-4 py-3 text-center text-xs font-mono font-bold uppercase tracking-wider text-claw-primary transition-colors hover:bg-claw-primary hover:text-white">Build my plan →</a>
                     </div>
                     <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                         ${rankingSignals.map(([num, title, desc, example]) => `
@@ -2085,6 +2144,16 @@ const App = {
         const selectedModel = this.state.recommendations[this.state.selectedModelIndex] || this.state.recommendations[0];
         if (!selectedModel) return;
 
+        const plan = this.buildCurrentPlanPayload();
+        const machine = plan.machine;
+        const useCaseLabel = this.planUseCaseLabel(machine.useCase);
+        const priorityLabel = this.planPriorityLabel(machine.priority);
+        const contextLabel = String(plan.context || '8k').toUpperCase();
+        const platformLabel = machine.platform === 'macos' ? 'macOS' : machine.platform === 'windows' ? 'Windows' : 'Linux';
+        const memoryLabel = machine.accelerator === 'apple-silicon'
+            ? `${machine.ramGb} GB unified memory`
+            : `${machine.ramGb} GB RAM${machine.vramGb ? ` · ${machine.vramGb} GB VRAM` : ''}`;
+
         const recCards = this.state.recommendations.map((model, idx) => {
             const isCompared = this.state.compareList.includes(model.id);
             const isSelected = idx === this.state.selectedModelIndex;
@@ -2172,15 +2241,35 @@ const App = {
         }).join('');
 
         container.innerHTML = `
-            <div class="mb-6 flex flex-col gap-4 rounded-xl border border-claw-primary/25 bg-claw-primary/[0.045] p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <div class="text-sm font-bold text-white">Keep these matches up to date</div>
-                    <div class="mt-1 text-xs font-mono text-claw-muted">Save this machine for free, reopen its compatible models and see new fits as the catalogue changes.</div>
+            <section class="mb-7 overflow-hidden rounded-2xl border border-claw-primary/35 bg-[radial-gradient(circle_at_top_left,rgba(255,69,58,0.16),transparent_42%)] bg-black/70 shadow-2xl shadow-black/30" aria-labelledby="local-ai-plan-title">
+                <div class="grid gap-6 p-5 sm:p-7 lg:grid-cols-3 lg:items-center">
+                    <div class="lg:col-span-2">
+                        <div class="mb-3 flex flex-wrap items-center gap-2">
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">My Local AI Plan</span>
+                            <span class="text-[11px] font-mono text-emerald-400">Ready now · no signup required</span>
+                        </div>
+                        <h2 id="local-ai-plan-title" class="max-w-3xl text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
+                            ${selectedModel.name} is your best current fit for ${useCaseLabel}.
+                        </h2>
+                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-claw-muted">Use <strong class="text-white">${selectedModel.recommended_quant}</strong> in LM Studio. LocalClaw matched it to your hardware, goal and optimization preference, then kept three practical alternatives below.</p>
+                        <dl class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Machine</dt><dd class="mt-1 text-xs font-bold text-white">${platformLabel} · ${memoryLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Goal</dt><dd class="mt-1 text-xs font-bold text-white">${useCaseLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Optimize</dt><dd class="mt-1 text-xs font-bold text-white">${priorityLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Context</dt><dd class="mt-1 text-xs font-bold text-white">${contextLabel}</dd></div>
+                        </dl>
+                    </div>
+                    <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
+                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white">Save the plan free. New compatible releases and better matches will appear automatically.</p>
+                        <button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
+                            Keep this plan updated
+                        </button>
+                        <a href="/models/${selectedModel.id}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
+                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">One Google sign-in only when you save. No prompts or local files collected.</p>
+                    </div>
                 </div>
-                <button onclick="App.saveCurrentMachine()" class="shrink-0 rounded-lg border border-claw-primary bg-claw-primary px-4 py-2.5 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
-                    Save machine and matches
-                </button>
-            </div>
+            </section>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
                 <!-- Left: Instructions (dynamic based on selected model) -->
@@ -2335,7 +2424,7 @@ const App = {
 
                 <div class="text-center mt-12">
                     <button onclick="App.reset()" class="px-6 py-3 bg-claw-primary hover:bg-red-500 text-white rounded-xl font-bold transition-all">
-                        Find My Model →
+                        Build My Local AI Plan →
                     </button>
                 </div>
             </div>

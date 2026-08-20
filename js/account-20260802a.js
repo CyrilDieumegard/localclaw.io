@@ -2,6 +2,7 @@
     'use strict';
 
     const PENDING_MACHINE_KEY = 'localclaw_pending_machine';
+    const PENDING_PLAN_KEY = 'localclaw_pending_plan';
     const MAC_PRESETS = [
         { id: 'macbook-neo-a18-pro-2026', year: 2026, name: 'MacBook Neo A18 Pro', chip: 'A18 Pro', ram: [8], defaultRam: 8 },
         { id: 'macbook-air-13-m5-2026', year: 2026, name: 'MacBook Air 13-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
@@ -82,6 +83,7 @@
     async function init() {
         cacheElements();
         bindEvents();
+        prepareAuthGateForPendingPlan();
         trackAccountGoal('account_page_loaded', {
             source: 'account_page',
             return_view: analytics?.returnView() || 'machines'
@@ -274,7 +276,7 @@
             document.dispatchEvent(new CustomEvent('localclaw:account-ready', {
                 detail: { session: state.session }
             }));
-            openPendingMachineIfNeeded();
+            await resumePendingPlanIfNeeded();
         } catch {
             trackAccountGoal('auth_error', {
                 provider: 'google', error_stage: 'session_check', error_code: 'network_error', http_status: 0, online: navigator.onLine !== false
@@ -592,6 +594,7 @@
 
         const bestCount = result.compatible.filter((model) => model.compatibilityTier === 'best').length;
         const newFitCount = result.compatible.filter((model) => newIds.has(model.id)).length;
+        const primaryModel = result.compatible[0] || null;
         const emptyCopy = state.viewMode === 'saved'
             ? ['No saved models for this machine', 'Use the star on any recommendation to build a focused shortlist.']
             : state.viewMode === 'new'
@@ -599,6 +602,7 @@
                 : ['No compatible models found', 'Try increasing available memory or changing this hardware profile.'];
 
         elements.recommendationPanel.innerHTML = `
+            ${primaryModel ? renderPlanOverview(machine, primaryModel, newFitCount) : ''}
             <header class="lc-recommendation-head">
                 <div>
                     <p class="lc-kicker">Selected hardware</p>
@@ -620,7 +624,7 @@
             <div class="lc-model-toolbar" role="tablist" aria-label="Model views">
                 <button class="lc-view-tab${state.viewMode === 'compatible' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'compatible'}" data-model-view="compatible">Compatible</button>
                 <button class="lc-view-tab${state.viewMode === 'saved' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'saved'}" data-model-view="saved">Saved <span>${machineFavorites.length}</span></button>
-                <button class="lc-view-tab${state.viewMode === 'new' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'new'}" data-model-view="new">New fits <span>${newFitCount}</span></button>
+                <button class="lc-view-tab${state.viewMode === 'new' ? ' is-active' : ''}" type="button" role="tab" aria-selected="${state.viewMode === 'new'}" data-model-view="new">Plan updates <span>${newFitCount}</span></button>
                 ${state.newModelIds.length ? '<button class="lc-mark-seen" type="button" data-mark-seen>Mark catalogue seen</button>' : ''}
             </div>
 
@@ -687,6 +691,14 @@
             state.upgradeModelId = event.target.value;
             renderSelectedMachine();
         });
+        elements.recommendationPanel.querySelector('[data-plan-primary-model]')?.addEventListener('click', (event) => {
+            trackAccountGoal('plan_action_clicked', {
+                source: 'account_plan',
+                action: 'open_primary_model',
+                model_id: event.currentTarget.dataset.planPrimaryModel,
+                ...machineAnalytics(machine)
+            });
+        });
 
         const recommendationKey = `${machine.id}:${state.viewMode}`;
         if (!state.recommendationViewKeys.has(recommendationKey)) {
@@ -700,6 +712,44 @@
                 ...machineAnalytics(machine)
             });
         }
+        if (state.viewMode === 'new') {
+            trackAccountGoal('plan_update_viewed', {
+                source: 'account_plan',
+                update_count: newFitCount,
+                plan_state: newFitCount ? 'changed' : 'current',
+                ...machineAnalytics(machine)
+            }, { onceKey: `plan_update_viewed:${machine.id}:${newFitCount}` });
+        }
+    }
+
+    function renderPlanOverview(machine, primaryModel, updateCount) {
+        const useCase = useCaseLabel(machine.useCase).toLowerCase();
+        const priority = priorityLabel(machine.priority);
+        const stateLabel = updateCount
+            ? `${updateCount} new compatible ${updateCount === 1 ? 'model' : 'models'}`
+            : 'Plan current';
+        const stateClass = updateCount ? ' has-updates' : '';
+        return `
+            <section class="lc-plan-overview" aria-labelledby="account-plan-title">
+                <div class="lc-plan-overview__main">
+                    <div class="lc-plan-overview__status${stateClass}"><span aria-hidden="true"></span>${escapeHtml(stateLabel)}</div>
+                    <p class="lc-kicker">My Local AI Plan</p>
+                    <h2 id="account-plan-title">${escapeHtml(primaryModel.name)} is your best current fit for ${escapeHtml(useCase)}.</h2>
+                    <p>This plan follows <strong>${escapeHtml(machine.name)}</strong>, your ${escapeHtml(priority.toLowerCase())} preference and the current LocalClaw catalogue.</p>
+                    <div class="lc-plan-overview__signals">
+                        <span>${escapeHtml(primaryModel.recommended_quant || 'Recommended quant')}</span>
+                        <span>${escapeHtml(primaryModel.runtimeNote || 'Local runtime')}</span>
+                        <span>${escapeHtml(formatNumber(primaryModel.compatibilityScore))}/100 personal fit</span>
+                    </div>
+                </div>
+                <div class="lc-plan-overview__action">
+                    <span>Next action</span>
+                    <strong>Run the recommended setup</strong>
+                    <a class="lc-button lc-button-primary lc-button-full" href="/models/${encodeURIComponent(primaryModel.id)}" data-plan-primary-model="${escapeAttribute(primaryModel.id)}">Open ${escapeHtml(primaryModel.name)}</a>
+                    <small>Plan updates appear here when a stronger compatible model enters the catalogue.</small>
+                </div>
+            </section>
+        `;
     }
 
     function renderModelCard(model, machine, favorite, isCompared, canCompare) {
@@ -1440,7 +1490,16 @@
                 is_first_machine: isFirstMachine,
                 ...machineAnalytics(machine)
             });
+            if (!id && machine.source === 'finder') {
+                trackAccountGoal('plan_saved', {
+                    source: 'account_plan_fallback',
+                    save_mode: 'reviewed',
+                    is_first_machine: isFirstMachine,
+                    ...machineAnalytics(machine)
+                });
+            }
             closeMachineDialog();
+            localStorage.removeItem(PENDING_PLAN_KEY);
             localStorage.removeItem(PENDING_MACHINE_KEY);
             await loadWorkspace(data.machine?.id || id);
             showToast(id ? 'Machine updated.' : 'Machine added.');
@@ -1485,16 +1544,156 @@
         showToast('Machine deleted.');
     }
 
-    function openPendingMachineIfNeeded() {
-        const raw = localStorage.getItem(PENDING_MACHINE_KEY);
-        if (!raw) return;
+    function prepareAuthGateForPendingPlan() {
+        const pending = readPendingPlan();
+        if (!pending) return;
+        const title = document.querySelector('#auth-gate .lc-auth-panel h2');
+        const copy = document.querySelector('#auth-gate .lc-auth-panel > p');
+        if (title) title.textContent = 'Save this Local AI Plan';
+        if (copy) copy.textContent = 'Your recommendation is ready. Continue with Google once and LocalClaw will save the plan automatically.';
+        if (elements.googleSignIn) {
+            const label = [...elements.googleSignIn.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+            if (label) label.textContent = ' Save my plan with Google';
+        }
+    }
 
+    function readPendingPlan() {
+        const rawPlan = localStorage.getItem(PENDING_PLAN_KEY);
+        const rawMachine = localStorage.getItem(PENDING_MACHINE_KEY);
+        if (!rawPlan && !rawMachine) return null;
         try {
-            const pending = JSON.parse(raw);
-            openMachineDialog({ ...pending, id: '' });
-            showToast('Review this hardware profile, then save it.');
+            const parsed = rawPlan ? JSON.parse(rawPlan) : { version: 0, machine: JSON.parse(rawMachine) };
+            const machine = parsed?.machine;
+            if (!isValidPendingMachine(machine)) throw new Error('invalid_pending_machine');
+            return {
+                version: Number(parsed.version || 0),
+                machine: {
+                    name: String(machine.name || '').slice(0, 60),
+                    platform: String(machine.platform || ''),
+                    accelerator: String(machine.accelerator || ''),
+                    cpuModel: String(machine.cpuModel || '').slice(0, 80),
+                    gpuModel: String(machine.gpuModel || '').slice(0, 80),
+                    ramGb: Number(machine.ramGb),
+                    vramGb: machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb),
+                    useCase: String(machine.useCase || 'general'),
+                    priority: String(machine.priority || 'balanced'),
+                    isPrimary: state.machines.length === 0,
+                    source: 'finder'
+                },
+                topModelId: String(parsed.topModelId || ''),
+                source: String(parsed.source || 'model_finder')
+            };
         } catch {
+            localStorage.removeItem(PENDING_PLAN_KEY);
             localStorage.removeItem(PENDING_MACHINE_KEY);
+            return null;
+        }
+    }
+
+    function isValidPendingMachine(machine) {
+        if (!machine || typeof machine !== 'object') return false;
+        if (!String(machine.name || '').trim()) return false;
+        if (!['macos', 'windows', 'linux'].includes(String(machine.platform || ''))) return false;
+        if (!['apple-silicon', 'nvidia', 'amd', 'cpu'].includes(String(machine.accelerator || ''))) return false;
+        if (!['general', 'chat', 'coding', 'reasoning', 'vision', 'creative'].includes(String(machine.useCase || ''))) return false;
+        if (!['balanced', 'quality', 'speed', 'memory'].includes(String(machine.priority || ''))) return false;
+        const ram = Number(machine.ramGb);
+        const vram = machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb);
+        if (!Number.isFinite(ram) || ram < 4 || ram > 2048) return false;
+        if (vram !== null && (!Number.isFinite(vram) || vram < 0 || vram > 256)) return false;
+        if (machine.accelerator === 'nvidia' && vram === null) return false;
+        return true;
+    }
+
+    function samePlanMachine(left, right) {
+        const comparable = (machine) => [
+            machine.platform,
+            machine.accelerator,
+            Number(machine.ramGb),
+            machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb),
+            machine.useCase,
+            machine.priority
+        ];
+        return JSON.stringify(comparable(left)) === JSON.stringify(comparable(right));
+    }
+
+    function clearPendingPlan() {
+        localStorage.removeItem(PENDING_PLAN_KEY);
+        localStorage.removeItem(PENDING_MACHINE_KEY);
+    }
+
+    async function resumePendingPlanIfNeeded() {
+        const pending = readPendingPlan();
+        if (!pending || state.saving) return;
+
+        const existing = state.machines.find((machine) => samePlanMachine(machine, pending.machine));
+        if (existing) {
+            clearPendingPlan();
+            state.selectedMachineId = existing.id;
+            state.viewMode = 'compatible';
+            renderMachineList();
+            renderSelectedMachine();
+            trackAccountGoal('plan_saved', {
+                source: 'account_plan_handoff',
+                save_mode: 'existing',
+                top_model: pending.topModelId,
+                ...machineAnalytics(existing)
+            });
+            showToast('Plan ready. Your matching machine was already saved.');
+            return;
+        }
+
+        state.saving = true;
+        let response = null;
+        let data = null;
+        try {
+            response = await fetch('/api/machines', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify(pending.machine)
+            });
+            data = await readJson(response);
+            if (!response.ok || !data?.machine?.id) {
+                throw new Error(data?.message || 'automatic_plan_save_failed');
+            }
+
+            clearPendingPlan();
+            trackAccountGoal('machine_create_succeeded', {
+                source: 'account_plan_handoff',
+                machine_action: 'create',
+                is_first_machine: state.machines.length === 0,
+                ...machineAnalytics(pending.machine)
+            });
+            trackAccountGoal('plan_saved', {
+                source: 'account_plan_handoff',
+                save_mode: 'automatic',
+                top_model: pending.topModelId,
+                is_first_machine: state.machines.length === 0,
+                ...machineAnalytics(pending.machine)
+            });
+            await loadWorkspace(data.machine.id);
+            state.viewMode = 'compatible';
+            renderMachineList();
+            renderSelectedMachine();
+            showToast('Plan saved. We will keep these matches current.');
+        } catch (error) {
+            const errorCode = analytics?.errorCode(data?.error, 'automatic_plan_save_failed') || 'automatic_plan_save_failed';
+            trackAccountGoal('plan_save_failed', {
+                source: 'account_plan_handoff',
+                error_stage: 'automatic_save',
+                error_code: errorCode,
+                http_status: Number(response?.status || 0),
+                online: navigator.onLine !== false,
+                ...machineAnalytics(pending.machine)
+            });
+            openMachineDialog({ ...pending.machine, id: '' });
+            elements.formError.textContent = error?.message === 'automatic_plan_save_failed'
+                ? 'Automatic save was unavailable. Review the details and save once.'
+                : String(error?.message || 'Review the details and save once.');
+            showToast('One quick review is needed before saving this plan.', 'error');
+        } finally {
+            state.saving = false;
         }
     }
 
@@ -1566,8 +1765,28 @@
         if (machine.cpuModel) parts.push(machine.cpuModel);
         if (machine.gpuModel) parts.push(machine.gpuModel);
         if (machine.vramGb) parts.push(`${machine.vramGb} GB VRAM`);
-        parts.push(`${machine.useCase} · ${machine.priority}`);
+        parts.push(`${useCaseLabel(machine.useCase)} · ${priorityLabel(machine.priority)}`);
         return parts.join(' · ');
+    }
+
+    function useCaseLabel(value) {
+        return ({
+            general: 'Everyday local AI',
+            chat: 'Private chat',
+            coding: 'Local coding',
+            reasoning: 'Reasoning',
+            vision: 'Image understanding',
+            creative: 'Creative work'
+        })[String(value || '').toLowerCase()] || 'Everyday local AI';
+    }
+
+    function priorityLabel(value) {
+        return ({
+            balanced: 'Balanced',
+            quality: 'Quality first',
+            speed: 'Speed first',
+            memory: 'Lowest memory'
+        })[String(value || '').toLowerCase()] || 'Balanced';
     }
 
     function platformLabel(platform) {

@@ -303,8 +303,8 @@
         const contextualIsMacApp = /\/pricing(?:\.html)?$/.test(contextualPath);
         const finderTarget = {
             href: `/?from=article&intent=${encodeURIComponent(intent)}#model-finder`,
-            label: 'Check what fits my hardware',
-            target: 'model_finder'
+            label: 'Build my Local AI Plan',
+            target: 'local_ai_plan'
         };
         const primary = intent === 'speech' || intent === 'app' ? contextualTarget : finderTarget;
         const secondary = intent === 'speech'
@@ -320,13 +320,13 @@
         box.setAttribute('aria-label', 'Continue with LocalClaw');
         box.innerHTML = `
             <p class="${ARTICLE_CTA_CLASS}__eyebrow">${pathConfig ? pathConfig.eyebrow : 'Make this guide practical'}</p>
-            <h2>${pathConfig ? pathConfig.title : 'Turn the article into a local setup'}</h2>
-            <p class="${ARTICLE_CTA_CLASS}__copy">${pathConfig ? pathConfig.copy : 'Compare the exact model, then use the path that fits this computer. No signup and no hardware data is collected.'}</p>
+            <h2>${pathConfig ? pathConfig.title : 'Turn this article into a plan for your machine'}</h2>
+            <p class="${ARTICLE_CTA_CLASS}__copy">${pathConfig ? pathConfig.copy : 'Answer three questions to get one recommended model, the right quantization and a practical setup path. No signup before the result.'}</p>
             <div class="${ARTICLE_CTA_CLASS}__actions">
                 <a class="${ARTICLE_CTA_CLASS}__button" href="${primary.href}" data-fast-goal="article_to_tool" data-fast-goal-source="${window.location.pathname}" data-fast-goal-target="${primary.target || 'catalogue'}" data-fast-goal-intent="${intent}" data-fast-goal-platform="${platform}">${primary.label} →</a>
                 <a class="${ARTICLE_CTA_CLASS}__button" href="${secondary.href}" data-fast-goal="article_to_tool" data-fast-goal-source="${window.location.pathname}" data-fast-goal-target="${secondary.target}" data-fast-goal-intent="${intent}" data-fast-goal-platform="${platform}">${secondary.label} →</a>
             </div>
-            <p class="${ARTICLE_CTA_CLASS}__trust">Free hardware check · no signup · no hardware data collected. LocalClaw for macOS is a separate $49 one-time purchase.</p>
+            <p class="${ARTICLE_CTA_CLASS}__trust">Three questions · free result · no signup before value · no prompts or local files collected.</p>
         `;
 
         const firstHeading = article.querySelector('h2');

@@ -72,6 +72,10 @@ const requiredEvents = [
   'account_recommendation_viewed',
   'account_compare_open',
   'account_model_open',
+  'plan_saved',
+  'plan_save_failed',
+  'plan_update_viewed',
+  'plan_action_clicked',
   'model_saved',
   'model_status_updated',
   'test_log_saved',
@@ -86,8 +90,8 @@ for (const forbidden of ['email:', 'user_id:', 'machine_id:', 'machine_name:', '
   assert(!trackingBlocks.includes(forbidden), `Sensitive tracking property found: ${forbidden}`);
 }
 
-const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260820a');
-const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260820a');
+const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260820b');
+const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260820b');
 assert(helperIndex >= 0 && accountIndex > helperIndex, 'Account analytics helper must load before the account client');
 
 console.log(`Account analytics checks passed: ${requiredEvents.length} funnel events, safe-property allowlist and once-only deduplication.`);

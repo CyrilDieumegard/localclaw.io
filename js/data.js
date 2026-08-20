@@ -4100,7 +4100,8 @@ const APP_DATA = {
                 question: 'What\'s your daily driver?',
                 subtitle: 'Pick your operating system',
                 options: [
-                    { value: 'mac', label: 'macOS', icon: ICONS.apple, desc: 'Mac / MacBook' },
+                    { value: 'mac', label: 'Mac (M1-M5)', icon: ICONS.apple, desc: 'Apple Silicon' },
+                    { value: 'mac-intel', label: 'Intel Mac', icon: ICONS.apple, desc: 'Older Intel hardware' },
                     { value: 'win', label: 'Windows', icon: ICONS.windows, desc: 'PC / Laptop' },
                     { value: 'linux', label: 'Linux', icon: ICONS.linux, desc: 'Terminal life' }
                 ]
@@ -4126,33 +4127,6 @@ const APP_DATA = {
                     { value: 'reasoning', label: 'Reasoning', icon: ICONS.reasoning, desc: 'Math, logic & analysis' },
                     { value: 'vision', label: 'Vision', icon: ICONS.vision, desc: 'Image understanding' },
                     { value: 'mix', label: 'Everything', icon: ICONS.mix, desc: 'Jack of all trades' }
-                ]
-            },
-            {
-                id: 'vram',
-                question: 'GPU VRAM (optional)',
-                subtitle: 'Helps us avoid models too large for your GPU. Skip if unsure.',
-                options: [
-                    { value: '', label: 'Skip', icon: ICONS.skip, desc: 'Use RAM-only estimation' },
-                    { value: '6', label: '6 GB', icon: ICONS.gpu, desc: 'GTX 1060 / RTX 2060' },
-                    { value: '8', label: '8 GB', icon: ICONS.gpu, desc: 'RTX 3060 Ti / 4060' },
-                    { value: '12', label: '12 GB', icon: ICONS.gpu, desc: 'RTX 3060 / 4070' },
-                    { value: '16', label: '16 GB', icon: ICONS.gpu, desc: 'RTX 4080 / A4000' },
-                    { value: '24', label: '24 GB', icon: ICONS.gpu, desc: 'RTX 3090 / 4090' },
-                    { value: '48', label: '48 GB', icon: ICONS.gpu, desc: 'RTX A6000 / dual GPU' },
-                    { value: '96', label: '96 GB', icon: ICONS.gpu, desc: 'A100 / multi-GPU' }
-                ]
-            },
-            {
-                id: 'context',
-                question: 'Context window target (optional)',
-                subtitle: 'Longer context uses much more memory (KV cache). Skip if unsure.',
-                options: [
-                    { value: '', label: 'Skip', icon: ICONS.skip, desc: 'Default (model standard)' },
-                    { value: '4k', label: '4K tokens', icon: ICONS.doc_short, desc: 'Short chats · Low memory' },
-                    { value: '8k', label: '8K tokens', icon: ICONS.doc_medium, desc: 'Standard conversations' },
-                    { value: '16k', label: '16K tokens', icon: ICONS.doc_long, desc: 'Long docs · More RAM needed' },
-                    { value: '32k', label: '32K+ tokens', icon: ICONS.doc_huge, desc: 'Very long context · Heavy RAM' }
                 ]
             }
         ],

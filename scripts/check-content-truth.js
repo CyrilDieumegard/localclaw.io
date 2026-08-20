@@ -60,7 +60,7 @@ const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 if (uniqueLocalModels.length !== 223) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 223 preserved routes`);
 if (indexableLocalModels.length !== 217) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 217`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
-if (multimodalModels.length !== 56) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 56`);
+if (multimodalModels.length !== 58) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 58`);
 
 const localModelsById = new Map(uniqueLocalModels.map(model => [model.id, model]));
 const correctedModelFacts = {
@@ -464,7 +464,7 @@ for (const marker of [
   '48 GB RAM · Q4_K_M · 262K context',
   '8 GB RAM · Q4_K_M + mmproj · 32K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260820b',
+  'js/data.js?v=20260820c',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -563,8 +563,10 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
     errors.push(`${name} Fresh cards are stale or mis-sorted: ${ids.join(', ')}`);
   }
 }
-if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260820b') || !index.includes('js/app-20260816a.js?v=20260820a')) {
+const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
+const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
+if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
+if (!index.includes('js/data.js?v=20260820c') || !index.includes('js/app-20260816a.js?v=20260820c')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
