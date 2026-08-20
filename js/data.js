@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
+// Updated August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
+// Previous: August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
 // Previous: August 18, 2026 - Added Ling-3.0-tiny - 224 LLM total
 // Previous: August 15, 2026 - Added Qwen3.8-27B - 223 LLM total
 // Previous: August 9, 2026 — Added DeepSeek V4 Flash 0731 — 218 LLM total
@@ -150,6 +151,40 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'ornith-1-5-9b',
+            name: 'Ornith-1.5-9B',
+            family: 'ornith',
+            params: '9B',
+            size_gb: 5.63,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'long-context', 'general'],
+            description: 'Official MIT reasoning model from Ornith AI with a 262K native context window, tool-calling focus, and official Q4_K_M GGUF, MLX and Ollama/llama.cpp paths for local coding-agent experiments on 16GB+ machines.',
+            search_term: 'ornith-1.5-9b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ornith-ai/Ornith-1.5-9B-GGUF',
+            source_url: 'https://huggingface.co/ornith-ai/Ornith-1.5-9B',
+            benchmarks: { speed: 7, quality: 8, coding: 9, reasoning: 8 },
+            released: '2026-08-18',
+            isNew: true
+        },
+        {
+            id: 'ornith-1-5-35b-a3b',
+            name: 'Ornith-1.5-35B-A3B',
+            family: 'ornith',
+            params: '35B (3B active, MoE)',
+            size_gb: 21.72,
+            min_ram: 48,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'long-context', 'power', 'general'],
+            description: 'Official MIT 35B MoE reasoning model from Ornith AI with about 3B active parameters, 262K context, strong agentic-coding positioning and official Q4_K_M GGUF plus MLX/Ollama/llama.cpp local paths for larger workstations.',
+            search_term: 'ornith-1.5-35b-a3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ornith-ai/Ornith-1.5-35B-A3B-GGUF',
+            source_url: 'https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B',
+            benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-08-18',
+            isNew: true
+        },
         {
             id: 'lfm2-5-2-6b',
             name: 'LFM2.5-2.6B',
@@ -3725,6 +3760,8 @@ const APP_DATA = {
             "phi4-14b": "microsoft/phi-4-gguf",
             "qwen3-4b": "lmstudio-community/Qwen3-4B-GGUF",
             "llama3.2-3b": "lmstudio-community/Llama-3.2-3B-Instruct-GGUF",
+            "ornith-1-5-9b": "ornith-ai/Ornith-1.5-9B-GGUF",
+            "ornith-1-5-35b-a3b": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
             "lfm2-5-vl-3b": "LiquidAI/LFM2.5-VL-3B-GGUF",
             "ling-3.0-tiny": "bloomer010/Ling-3.0-tiny-GGUF",

@@ -76,7 +76,7 @@ for (const marker of [
 for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260816l', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260819b', 'js/local-ai-catalog.js?v=20260818c', 'js/home-index-20260814g.js?v=20260816i']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260816l', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260820a', 'js/local-ai-catalog.js?v=20260818c', 'js/home-index-20260814g.js?v=20260816i']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
