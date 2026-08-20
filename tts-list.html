@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 57 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 57 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 62 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 62 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 57 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 62 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1622,10 +1622,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">60</strong> speech records: <strong style="color:#fff;">57 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">65</strong> speech records: <strong style="color:#fff;">62 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>57 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>62 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2802,6 +2802,58 @@
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "N/A (ASR: outputs text)",
                 context: "0.6B / 1.7B ASR models, 52 languages and dialects, streaming + offline inference",
+                license: "Apache 2.0"
+            },
+            {
+                id: "moss-transcribe-diarize",
+                name: "MOSS-Transcribe-Diarize 0.9B",
+                developer: "OpenMOSS / MOSI.AI",
+                family: "moss",
+                isAsr: true,
+                description: "End-to-end audio understanding model for long-form multi-speaker transcription, diarization, timestamps and acoustic event awareness. Runs in one pass on recordings up to 90 minutes with hotword prompting and official Transformers, SGLang, vLLM and subtitle web app paths.",
+                languages: ["multilingual"],
+                languageCount: 50,
+                features: ["multilingual", "controllable", "long-form"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.8,
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 8.4,
+                latency: "medium",
+                releaseDate: "2026-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize",
+                installCommand: "git clone https://github.com/OpenMOSS/MOSS-Transcribe-Diarize && pip install -e .",
+                supportedFormats: ["transformers", "safetensors", "vllm", "sglang"],
+                voices: "N/A (ASR + diarization: outputs speaker-aware text)",
+                context: "0.9B model, 1.8GB safetensors, 50+ languages, 90-minute single-pass transcription",
+                license: "Apache 2.0"
+            },
+            {
+                id: "ark-asr-3b",
+                name: "ARK-ASR-3B",
+                developer: "Audio8 / AutoArk",
+                family: "ark-asr",
+                isAsr: true,
+                description: "3B-scale multilingual ASR model built from a Whisper-style audio encoder, MLP adapter and Qwen decoder. Official code supports local Transformers inference and vLLM serving, with open Apache 2.0 safetensors for 19 languages.",
+                languages: ["zh", "en", "de", "ja", "fr", "ko", "es", "pl", "it", "ro", "hu", "cs", "nl", "fi", "hr", "sk", "sl", "et", "lt"],
+                languageCount: 19,
+                features: ["multilingual", "low-latency"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 8.1,
+                sizeCategory: "large",
+                quality: 9.3,
+                speed: 8.7,
+                latency: "low",
+                releaseDate: "2026-06",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Audio8/ARK-ASR-3B",
+                installCommand: "git clone https://github.com/AutoArk/open-audio-opd && pip install -e .",
+                supportedFormats: ["transformers", "safetensors", "vllm", "onnx", "mlx"],
+                voices: "N/A (ASR: outputs text)",
+                context: "3B decoder-scale ASR, 8.1GB safetensors, 16 kHz audio, official Transformers and vLLM scripts",
                 license: "Apache 2.0"
             },
             // ==================== v2.6 — APRIL 2026 ADDITIONS ====================

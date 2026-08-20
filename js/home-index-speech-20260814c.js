@@ -464,6 +464,28 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "ASR"
   },
   {
+    "id": "moss-transcribe-diarize",
+    "name": "MOSS-Transcribe-Diarize 0.9B",
+    "developer": "OpenMOSS / MOSI.AI",
+    "family": "moss",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-07",
+    "quality": 9.4,
+    "speed": 8.4,
+    "type": "ASR"
+  },
+  {
+    "id": "ark-asr-3b",
+    "name": "ARK-ASR-3B",
+    "developer": "Audio8 / AutoArk",
+    "family": "ark-asr",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-06",
+    "quality": 9.3,
+    "speed": 8.7,
+    "type": "ASR"
+  },
+  {
     "id": "higgs-audio-v2",
     "name": "Higgs Audio v2",
     "developer": "Boson AI",

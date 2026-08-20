@@ -7,6 +7,10 @@ const ROOT = path.resolve(__dirname, '..');
 const errors = [];
 const read = relative => fs.readFileSync(path.join(ROOT, relative), 'utf8');
 const dataSource = read('js/data.js');
+const catalogueUpdateMatch = dataSource.match(/^\/\/ Updated ([A-Za-z]+ \d{1,2}, \d{4})/m);
+const catalogueUpdatedIso = catalogueUpdateMatch
+  ? new Date(`${catalogueUpdateMatch[1]} 12:00:00 UTC`).toISOString().slice(0, 10)
+  : '';
 const dataContext = {};
 vm.createContext(dataContext);
 vm.runInContext(`${dataSource};this.DATA=APP_DATA;`, dataContext);
@@ -53,10 +57,10 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 221) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 221 preserved routes`);
-if (indexableLocalModels.length !== 215) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 215`);
+if (uniqueLocalModels.length !== 223) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 223 preserved routes`);
+if (indexableLocalModels.length !== 217) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 217`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
-if (multimodalModels.length !== 55) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 55`);
+if (multimodalModels.length !== 56) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 56`);
 
 const localModelsById = new Map(uniqueLocalModels.map(model => [model.id, model]));
 const correctedModelFacts = {
@@ -337,7 +341,7 @@ for (const model of allSpeechRecords) {
   }
   if (!html.includes('<strong>Catalogue summary:</strong>')) errors.push(`${model.id} does not label its speech description as catalogue metadata`);
 }
-if (allSpeechRecords.length !== 63) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 63 preserved routes`);
+if (allSpeechRecords.length !== 65) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 65 preserved routes`);
 
 const multimodalRatingIds = new Set();
 for (const model of multimodalModels) {
@@ -373,13 +377,13 @@ if (!read('js/local-ai-catalog-app.js').includes('data-community-rating') || !re
 if (!read('functions/_lib/model-ratings.js').includes('MAX_RATINGS_PER_ACCOUNT = 1000')) {
   errors.push('Account rating limit must cover the complete LocalClaw catalogue');
 }
-if (localSpeechRecords.length !== 60) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 60`);
+if (localSpeechRecords.length !== 62) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 62`);
 if (remoteSpeechRecords.length !== 2) errors.push(`Remote speech source count is ${remoteSpeechRecords.length}, expected 2 online/API references`);
 if (unverifiedSpeechRecords.length !== 1 || unverifiedSpeechRecords[0]?.id !== 'xtts-v3') {
   errors.push(`Unverified speech classification must contain only xtts-v3, found ${unverifiedSpeechRecords.map(model => model.id).join(', ') || 'none'}`);
 }
-if (speechModels.length !== 60 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
-  errors.push('Homepage speech export must contain exactly the 60 verified-local source records');
+if (speechModels.length !== 62 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
+  errors.push('Homepage speech export must contain exactly the 62 verified-local source records');
 }
 for (const forbiddenId of ['edge-tts', 'octave-2', 'xtts-v3']) {
   if (localSpeechIds.has(forbiddenId)) errors.push(`Non-local speech record leaked onto homepage export: ${forbiddenId}`);
@@ -431,8 +435,8 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 223) errors.push('models/ must contain 222 model pages plus one index');
-if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 64) errors.push('tts/ must contain 63 speech pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 225) errors.push('models/ must contain 224 model pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 66) errors.push('tts/ must contain 65 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
   for (const file of fs.readdirSync(path.join(ROOT, directory)).filter(name => name.endsWith('.html'))) {
@@ -453,14 +457,14 @@ for (const file of fs.readdirSync(path.join(ROOT, 'use-case')).filter(name => na
 
 const newPage = read('new.html');
 for (const marker of [
+  'href="/models/ornith-1-5-9b"',
+  'href="/models/ornith-1-5-35b-a3b"',
   'href="/models/lfm2-5-vl-3b"',
-  'href="/models/ling-3.0-tiny"',
-  'href="/models/muse-glimmer-30b"',
+  '16 GB RAM · Q4_K_M · 262K context',
+  '48 GB RAM · Q4_K_M · 262K context',
   '8 GB RAM · Q4_K_M + mmproj · 32K context',
-  '8 GB RAM · Q4_K_M · 131K context',
-  '24 GB RAM · K-Quant 17GB Q4_K_M',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260819b',
+  'js/data.js?v=20260820b',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -475,7 +479,7 @@ for (const staleMarker of ['218-page LocalClaw index', '218 local pages', '56 lo
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b', 'qwen3.8-27b', 'deepseek-v4-flash-0731', 'lfm2-5-2-6b'];
+const expectedLatestIds = ['ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b', 'qwen3.8-27b'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -485,11 +489,12 @@ for (const model of latestModels.slice(0, 3)) {
   }
 }
 for (const [modelId, released] of Object.entries({
+  'ornith-1-5-9b': '2026-08-18',
+  'ornith-1-5-35b-a3b': '2026-08-18',
   'lfm2-5-vl-3b': '2026-08-11',
   'ling-3.0-tiny': '2026-08-10',
   'muse-glimmer-30b': '2026-08-09',
-  'qwen3.8-27b': '2026-08-05',
-  'lfm2-5-2-6b': '2026-07-28'
+  'qwen3.8-27b': '2026-08-05'
 })) {
   if (localModelsById.get(modelId)?.released !== released) {
     errors.push(`${modelId}.released must retain its exact YYYY-MM-DD publication date`);
@@ -511,7 +516,7 @@ if (newJsonLd) {
   const breadcrumb = graph.find(node => node && node['@type'] === 'BreadcrumbList');
   const itemList = graph.find(node => node && node['@type'] === 'ItemList');
   if (!collection || collection.url !== 'https://localclaw.io/new'
-    || collection.dateModified !== hfVerificationDate
+    || collection.dateModified !== catalogueUpdatedIso
     || !String(collection.description || '').includes(`${indexableLocalModels.length} indexable local LLM pages`)
     || !String(collection.description || '').includes(`${speechModels.length} local speech records`)) {
     errors.push('/new CollectionPage schema is missing current canonical, freshness or catalogue counts');
@@ -540,7 +545,7 @@ if ((newPage.match(/LocalClawNewModels\.releaseTimestamp\(dateStr\)/g) || []).le
   errors.push('/new date formatting, age and NEW badge helpers must all use the shared release parser');
 }
 if (newPage.includes("new Date(dateStr + '-")) errors.push('/new renderer still corrupts complete release dates by appending a day');
-const fallbackOrder = ['lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b'].map(id => newPage.indexOf(`href="/models/${id}"`));
+const fallbackOrder = ['ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'lfm2-5-vl-3b'].map(id => newPage.indexOf(`href="/models/${id}"`));
 if (fallbackOrder.some(index => index < 0) || !(fallbackOrder[0] < fallbackOrder[1] && fallbackOrder[1] < fallbackOrder[2])) {
   errors.push('/new static fallback order does not match the canonical freshness sort');
 }
@@ -559,12 +564,11 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
   }
 }
 if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260819b') || !index.includes('js/app-20260816a.js?v=20260819b')) {
+if (!index.includes('js/data.js?v=20260820b') || !index.includes('js/app-20260816a.js?v=20260819b')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
-const updateMatch = dataSource.match(/^\/\/ Updated ([A-Za-z]+ \d{1,2}, \d{4})/m);
-const expectedBuildDate = updateMatch ? new Date(`${updateMatch[1]} 12:00:00 UTC`).toUTCString() : '';
+const expectedBuildDate = catalogueUpdateMatch ? new Date(`${catalogueUpdateMatch[1]} 12:00:00 UTC`).toUTCString() : '';
 const feed = read('new-models.xml');
 if (!expectedBuildDate || !feed.includes(`<lastBuildDate>${expectedBuildDate}</lastBuildDate>`)) {
   errors.push(`new-models.xml lastBuildDate does not match the catalogue update date (${expectedBuildDate || 'unknown'})`);
@@ -620,7 +624,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 175, publicModelCard: 36, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 177, publicModelCard: 36, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);
