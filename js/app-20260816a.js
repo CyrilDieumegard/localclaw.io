@@ -11,6 +11,8 @@ const App = {
         compareList: [],      // model ids for comparison
         history: [],          // navigation history for back button
         selectedModelIndex: 0, // index of the selected model in recommendations
+        flowSource: 'model_finder',
+        trackedStepViews: {},
     },
 
     init() {
@@ -30,6 +32,13 @@ const App = {
         if (typeof window.localClawPostHogCapture === 'function') {
             window.localClawPostHogCapture(name, data);
         }
+    },
+
+    finderStepGoal(flow, index, state) {
+        const safeFlow = ['guided', 'quick', 'pro'].includes(flow) ? flow : 'other';
+        const safeIndex = Math.max(1, Math.min(9, Number(index) || 1));
+        const safeState = state === 'done' ? 'done' : 'view';
+        return `recommender_${safeFlow}_step_${safeIndex}_${safeState}`;
     },
 
     // ========================================================================
@@ -60,6 +69,8 @@ const App = {
         this.state.activeFlow = flowId;
         this.state.currentStepIndex = 0;
         this.state.answers = {};
+        this.state.flowSource = source;
+        this.state.trackedStepViews = {};
         this.trackGoal('recommender_start', {flow: flowId, source});
 
         if (flowId === 'pro') {
@@ -80,6 +91,8 @@ const App = {
             compareList: [],
             history: [],
             selectedModelIndex: 0,
+            flowSource: 'model_finder',
+            trackedStepViews: {},
             _contextNote: false,
         };
         this.render();
@@ -97,11 +110,76 @@ const App = {
         this.render();
     },
 
+    buildCurrentMachineProfile() {
+        const answers = this.state.answers || {};
+        const levelRam = { light: 8, standard: 16, power: 32, beast: 64 };
+        const ramGb = this.state.activeFlow === 'guided'
+            ? (levelRam[answers.level] || 8)
+            : this.state.activeFlow === 'quick'
+                ? (answers.ram === 'unknown' ? 8 : Number.parseInt(answers.ram, 10) || 8)
+                : (answers.parsedRam || 16);
+        const rawPlatform = String(answers.os || answers.parsedOS || 'linux').toLowerCase();
+        const platform = rawPlatform === 'mac' || rawPlatform === 'macos'
+            ? 'macos'
+            : rawPlatform === 'win' || rawPlatform === 'windows'
+                ? 'windows'
+                : 'linux';
+        const isApple = platform === 'macos' || answers.gpu === 'apple';
+        const hasNvidia = String(answers.gpu || '').startsWith('nvidia') || (!isApple && Number.parseInt(answers.vram, 10) > 0);
+        const accelerator = isApple ? 'apple-silicon' : hasNvidia ? 'nvidia' : answers.gpu === 'amd' ? 'amd' : 'cpu';
+        const usage = answers.usage === 'code' ? 'coding' : answers.usage === 'mix' ? 'general' : (answers.usage || 'general');
+
+        return {
+            name: `${platform === 'macos' ? 'Mac' : platform === 'windows' ? 'Windows PC' : 'Linux PC'} · ${ramGb} GB`,
+            platform,
+            accelerator,
+            cpuModel: '',
+            gpuModel: '',
+            ramGb,
+            vramGb: accelerator === 'nvidia' ? (Number.parseInt(answers.vram, 10) || null) : null,
+            useCase: usage,
+            priority: answers.priority || 'balanced',
+            isPrimary: false,
+            source: 'finder'
+        };
+    },
+
+    saveCurrentMachine() {
+        try {
+            localStorage.setItem('localclaw_pending_machine', JSON.stringify(this.buildCurrentMachineProfile()));
+            const context = {
+                source: 'recommender_results',
+                flow: String(this.state.activeFlow || '')
+            };
+            this.trackGoal('machine_save_started', context);
+            this.trackGoal('account_open', context);
+            window.location.assign('/account?add=finder');
+        } catch {
+            this.trackGoal('recommender_error', {
+                source: 'recommender_results',
+                flow: String(this.state.activeFlow || ''),
+                stage: 'account_handoff',
+                code: 'local_storage_unavailable'
+            });
+            this.showToast('Could not prepare this hardware profile', 'error');
+        }
+    },
+
     handleOptionSelect(key, value) {
         this.pushState();
-        this.state.answers[key] = value;
-
         const flowSteps = APP_DATA.flows[this.state.activeFlow];
+        const currentStep = flowSteps?.[this.state.currentStepIndex];
+        this.trackGoal('recommender_step_complete', {
+            flow: String(this.state.activeFlow || ''),
+            step: String(currentStep?.id || key || ''),
+            index: String(this.state.currentStepIndex + 1),
+            total: String(flowSteps?.length || 0),
+            source: String(this.state.flowSource || 'model_finder')
+        });
+        this.trackGoal(this.finderStepGoal(this.state.activeFlow, this.state.currentStepIndex + 1, 'done'), {
+            source: String(this.state.flowSource || 'model_finder')
+        });
+        this.state.answers[key] = value;
 
         if (this.state.currentStepIndex < flowSteps.length - 1) {
             this.state.currentStepIndex++;
@@ -147,6 +225,12 @@ const App = {
         };
         const sharedRanking = window.LocalClawModelRanking;
         if (!sharedRanking) {
+            this.trackGoal('recommender_error', {
+                flow: String(this.state.activeFlow || ''),
+                stage: 'ranking',
+                code: 'engine_missing',
+                source: String(this.state.flowSource || 'model_finder')
+            });
             this.showToast('The recommendation engine did not load. Please reload the page.', 'error');
             return;
         }
@@ -161,11 +245,23 @@ const App = {
             priority,
             context: contextTarget
         };
-        const ranked = sharedRanking.rankModels(machine, {}, APP_DATA.models, {
-            includeTight: true,
-            diversifyFamilies: true,
-            limit: 4
-        });
+        let ranked;
+        try {
+            ranked = sharedRanking.rankModels(machine, {}, APP_DATA.models, {
+                includeTight: true,
+                diversifyFamilies: true,
+                limit: 4
+            });
+        } catch {
+            this.trackGoal('recommender_error', {
+                flow: String(this.state.activeFlow || ''),
+                stage: 'ranking',
+                code: 'ranking_failed',
+                source: String(this.state.flowSource || 'model_finder')
+            });
+            this.showToast('The recommendation could not be calculated. Please try again.', 'error');
+            return;
+        }
         const finalRecs = ranked.compatible.map(model => ({
             ...model,
             score: model.recommendationScore
@@ -173,7 +269,18 @@ const App = {
 
         // Fallback
         if (finalRecs.length === 0) {
-            finalRecs.push(APP_DATA.models.find(m => m.id === 'phi4-mini'));
+            const fallback = APP_DATA.models.find(m => m.id === 'phi4-mini');
+            if (!fallback) {
+                this.trackGoal('recommender_error', {
+                    flow: String(this.state.activeFlow || ''),
+                    stage: 'results',
+                    code: 'no_candidates',
+                    source: String(this.state.flowSource || 'model_finder')
+                });
+                this.showToast('No compatible model could be loaded. Please try again.', 'error');
+                return;
+            }
+            finalRecs.push(fallback);
         }
 
         // Keep the existing detailed explanation UI while the shared engine owns ranking.
@@ -354,6 +461,12 @@ const App = {
 
     parseProInput(text) {
         if (!text || text.trim().length < 5) {
+            this.trackGoal('recommender_error', {
+                flow: 'pro',
+                stage: 'pro_input',
+                code: 'input_missing',
+                source: String(this.state.flowSource || 'model_finder')
+            });
             this.showToast('Please paste your terminal output first', 'error');
             return;
         }
@@ -402,6 +515,16 @@ const App = {
             gpu,
             usage: 'chat'
         };
+        this.trackGoal('recommender_step_complete', {
+            flow: 'pro',
+            step: 'pro_input',
+            index: '1',
+            total: '1',
+            source: String(this.state.flowSource || 'model_finder')
+        });
+        this.trackGoal(this.finderStepGoal('pro', 1, 'done'), {
+            source: String(this.state.flowSource || 'model_finder')
+        });
 
         this.showToast(`Detected: ${os.toUpperCase()} · ${ram} GB RAM · GPU: ${gpu}`, 'success');
         setTimeout(() => this.calculateResults(), 800);
@@ -1759,6 +1882,20 @@ const App = {
         const total = APP_DATA.flows[this.state.activeFlow].length;
         const progress = this.getProgressPercent();
         const isMac = this.state.answers.os === 'mac';
+        const stepViewKey = `${this.state.activeFlow}:${this.state.currentStepIndex}`;
+        if (!this.state.trackedStepViews[stepViewKey]) {
+            this.state.trackedStepViews[stepViewKey] = true;
+            this.trackGoal('recommender_step_view', {
+                flow: String(this.state.activeFlow || ''),
+                step: String(step?.id || ''),
+                index: String(this.state.currentStepIndex + 1),
+                total: String(total),
+                source: String(this.state.flowSource || 'model_finder')
+            });
+            this.trackGoal(this.finderStepGoal(this.state.activeFlow, this.state.currentStepIndex + 1, 'view'), {
+                source: String(this.state.flowSource || 'model_finder')
+            });
+        }
 
         let optionsHtml = step.options.map((opt, i) => {
             // Dynamic desc based on OS for the 'level' step
@@ -1808,6 +1945,19 @@ const App = {
     // ========================================================================
 
     renderProInput(container) {
+        if (!this.state.trackedStepViews.pro_input) {
+            this.state.trackedStepViews.pro_input = true;
+            this.trackGoal('recommender_step_view', {
+                flow: 'pro',
+                step: 'pro_input',
+                index: '1',
+                total: '1',
+                source: String(this.state.flowSource || 'model_finder')
+            });
+            this.trackGoal(this.finderStepGoal('pro', 1, 'view'), {
+                source: String(this.state.flowSource || 'model_finder')
+            });
+        }
         container.innerHTML = `
             <div class="max-w-2xl mx-auto">
                 <div class="flex items-center justify-between mb-8">
@@ -2022,6 +2172,15 @@ const App = {
         }).join('');
 
         container.innerHTML = `
+            <div class="mb-6 flex flex-col gap-4 rounded-xl border border-claw-primary/25 bg-claw-primary/[0.045] p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <div class="text-sm font-bold text-white">Keep these matches up to date</div>
+                    <div class="mt-1 text-xs font-mono text-claw-muted">Save this machine for free, reopen its compatible models and see new fits as the catalogue changes.</div>
+                </div>
+                <button onclick="App.saveCurrentMachine()" class="shrink-0 rounded-lg border border-claw-primary bg-claw-primary px-4 py-2.5 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
+                    Save machine and matches
+                </button>
+            </div>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
                 <!-- Left: Instructions (dynamic based on selected model) -->

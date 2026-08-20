@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>Account | LocalClaw</title>
-    <meta name="description" content="Manage your LocalClaw machines, ratings, homepage sponsorship campaigns and Stripe billing from one private workspace.">
+    <meta name="description" content="Save your hardware profiles, see compatible local AI models and keep private model notes in your LocalClaw account.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
-    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260803b">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20260820a">
     <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20260814d">
     <link rel="stylesheet" href="/css/account-sponsor-admin-20260814a.css?v=20260814a">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
@@ -44,19 +44,28 @@
 
     <main class="lc-shell lc-main">
         <section id="auth-gate" class="lc-auth-gate" aria-labelledby="account-title">
-            <div>
+            <div class="lc-account-intro">
                 <p class="lc-kicker">Your private LocalClaw workspace</p>
-                <h1 id="account-title" class="lc-page-title">Machines, ratings and sponsorship.</h1>
-                <p class="lc-page-copy">Use one account to manage your hardware profiles, community ratings and homepage sponsorship campaigns. Pilot accounts can reserve a fixed placement and complete payment securely through Stripe.</p>
+                <h1 id="account-title" class="lc-page-title">Your machines. Your compatible models. Saved.</h1>
+                <p class="lc-page-copy">Save your hardware once, reopen the models that fit it and see new compatible releases as the catalogue changes.</p>
             </div>
             <div class="lc-auth-panel">
-                <h2>Open your account</h2>
-                <p>Use your Google account to access your private LocalClaw workspace.</p>
+                <h2>Save your LocalClaw setup</h2>
+                <p>Saving machines and models is free. Continue with Google to open your private workspace.</p>
                 <button id="google-sign-in" class="lc-button lc-button-primary lc-button-full" type="button">
                     <span class="lc-google-mark" aria-hidden="true">G</span>
                     Continue with Google
                 </button>
+                <p class="lc-auth-trust">Google provides your name, email and profile image. LocalClaw does not collect prompts, local files, serial numbers or operating-system identifiers. <a href="/privacy">Privacy details</a></p>
                 <p id="auth-error" class="lc-form-error" role="alert"></p>
+            </div>
+            <div class="lc-account-details">
+                <ul class="lc-account-benefits" aria-label="Account benefits">
+                    <li><strong>Hardware profiles</strong><span>Keep each Mac, PC or workstation in one private workspace.</span></li>
+                    <li><strong>Compatible-model lists</strong><span>Return to ranked recommendations without repeating the finder.</span></li>
+                    <li><strong>Private progress</strong><span>Save models, installation status and test notes that are never published.</span></li>
+                </ul>
+                <p class="lc-sponsor-separation">Looking to advertise? Sponsorship is a separate workspace after sign-in and never changes editorial rankings.</p>
             </div>
         </section>
 

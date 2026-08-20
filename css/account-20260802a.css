@@ -151,15 +151,65 @@ a {
     line-height: 1.7;
 }
 
+.lc-account-benefits {
+    display: grid;
+    gap: 12px;
+    max-width: 760px;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lc-account-benefits li {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+    gap: 18px;
+    padding: 14px 16px;
+    border: 1px solid var(--lc-border-soft);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.018);
+}
+
+.lc-account-benefits strong {
+    font-family: var(--lc-display);
+    font-size: 14px;
+}
+
+.lc-account-benefits span,
+.lc-sponsor-separation,
+.lc-auth-trust {
+    color: var(--lc-muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.lc-sponsor-separation {
+    max-width: 720px;
+    margin: 18px 0 0;
+}
+
 .lc-auth-gate {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
     gap: 42px;
-    align-items: center;
+    align-items: start;
     min-height: 560px;
 }
 
+.lc-account-intro {
+    grid-column: 1;
+    align-self: end;
+}
+
+.lc-account-details {
+    grid-column: 1;
+    align-self: start;
+}
+
 .lc-auth-panel {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
     padding: 32px;
     border: 1px solid var(--lc-border);
     border-radius: 8px;
@@ -179,6 +229,17 @@ a {
     margin: 14px 0 24px;
     color: var(--lc-muted);
     line-height: 1.6;
+}
+
+.lc-auth-panel .lc-auth-trust {
+    margin: 16px 0 0;
+    font-size: 11px;
+}
+
+.lc-auth-trust a {
+    color: var(--lc-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .lc-button {
@@ -927,6 +988,13 @@ a:focus-visible {
         padding-top: 20px;
     }
 
+    .lc-account-intro,
+    .lc-auth-panel,
+    .lc-account-details {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
     .lc-auth-panel {
         max-width: 620px;
     }
@@ -964,6 +1032,11 @@ a:focus-visible {
 
     .lc-page-title {
         font-size: 40px;
+    }
+
+    .lc-account-benefits li {
+        grid-template-columns: 1fr;
+        gap: 5px;
     }
 
     .lc-auth-panel {
