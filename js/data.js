@@ -164,6 +164,7 @@ const APP_DATA = {
             recommended_quant: 'Q4_K_M',
             hf_repo: 'ornith-ai/Ornith-1.5-9B-GGUF',
             source_url: 'https://huggingface.co/ornith-ai/Ornith-1.5-9B',
+            ollama_model: 'ornith-1.5:9b',
             benchmarks: { speed: 7, quality: 8, coding: 9, reasoning: 8 },
             released: '2026-08-18',
             isNew: true
@@ -181,6 +182,7 @@ const APP_DATA = {
             recommended_quant: 'Q4_K_M',
             hf_repo: 'ornith-ai/Ornith-1.5-35B-A3B-GGUF',
             source_url: 'https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B',
+            ollama_model: 'hf.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
             released: '2026-08-18',
             isNew: true

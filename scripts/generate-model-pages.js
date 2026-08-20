@@ -198,6 +198,127 @@ function requiresCustomRuntime(m) {
   return !m.hosted_only && Boolean(m.custom_runtime);
 }
 
+function runtimeGoalAttrs(platform, m) {
+  return `data-fast-goal="model_runtime_${esc(platform)}" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}" data-fast-goal-quant="${esc(m.recommended_quant || '')}"`;
+}
+
+function runOptionLink({platform, label, note, href, m, external = true, tone = ''}) {
+  return `<a class="run-option ${tone}" href="${esc(href)}"${external ? ' target="_blank" rel="noopener"' : ''} ${runtimeGoalAttrs(platform, m)}><span class="run-option-mark" aria-hidden="true">${esc(label.slice(0, 2))}</span><span><strong>${esc(label)}</strong><small>${esc(note)}</small></span><span class="run-option-arrow" aria-hidden="true">${external ? '&#8599;' : '&#8594;'}</span></a>`;
+}
+
+function runOptionCommand({platform, label, note, command, m, tone = ''}) {
+  return `<button class="run-option ${tone}" type="button" data-copy-command="${esc(command)}" ${runtimeGoalAttrs(platform, m)}><span class="run-option-mark" aria-hidden="true">${esc(label.slice(0, 2))}</span><span><strong>${esc(label)}</strong><small>${esc(note)}</small></span><span class="run-option-copy" aria-hidden="true">Copy</span></button>`;
+}
+
+function runOptionsMarkup(m, hfState) {
+  const cards = [];
+  const hfUrl = m.hf_repo ? `https://huggingface.co/${m.hf_repo}` : '';
+  const publicGguf = hfState === 'publicGguf';
+  const desktopReady = publicGguf && !m.hosted_only && !isServerServingModel(m) && !requiresCustomRuntime(m);
+
+  if (desktopReady) {
+    cards.push(runOptionCommand({
+      platform: 'lmstudio',
+      label: 'LM Studio',
+      note: `Copy download command, then choose ${m.recommended_quant}`,
+      command: `lms get ${hfUrl}`,
+      m,
+      tone: 'featured'
+    }));
+    if (m.ollama_model) {
+      cards.push(runOptionCommand({
+        platform: 'ollama',
+        label: 'Ollama',
+        note: 'Copy the verified upstream run command',
+        command: `ollama run ${m.ollama_model}`,
+        m
+      }));
+    } else if (/^https:\/\/ollama\.com\/library\//.test(m.runtime_url || '')) {
+      cards.push(runOptionLink({
+        platform: 'ollama',
+        label: 'Ollama',
+        note: 'Open the verified Ollama library page',
+        href: m.runtime_url,
+        m
+      }));
+    }
+    cards.push(runOptionCommand({
+      platform: 'llamacpp',
+      label: 'llama.cpp',
+      note: `Copy the ${m.recommended_quant} launch command`,
+      command: `llama-cli -hf ${m.hf_repo}:${m.recommended_quant}`,
+      m
+    }));
+    cards.push(runOptionLink({
+      platform: 'huggingface',
+      label: 'Hugging Face',
+      note: 'Inspect files and download another quant',
+      href: hfUrl,
+      m
+    }));
+    cards.push(runOptionLink({
+      platform: 'localclaw',
+      label: 'LocalClaw',
+      note: 'Optional: connect it to your local AI workspace',
+      href: '/pricing.html',
+      m,
+      external: false,
+      tone: 'localclaw'
+    }));
+  } else if (requiresCustomRuntime(m)) {
+    cards.push(runOptionLink({
+      platform: 'official',
+      label: 'Official runtime',
+      note: m.custom_runtime,
+      href: m.runtime_url,
+      m,
+      tone: 'featured'
+    }));
+    if (publicGguf && hfUrl) {
+      cards.push(runOptionLink({
+        platform: 'huggingface',
+        label: 'Hugging Face',
+        note: 'Inspect the verified artefacts',
+        href: hfUrl,
+        m
+      }));
+    }
+    cards.push(runOptionLink({
+      platform: 'localclaw',
+      label: 'LocalClaw',
+      note: 'Optional: connect the endpoint after setup',
+      href: '/pricing.html',
+      m,
+      external: false,
+      tone: 'localclaw'
+    }));
+  } else if (hfUrl) {
+    cards.push(runOptionLink({
+      platform: 'huggingface',
+      label: hfState === 'gated' ? 'Gated model card' : 'Hugging Face',
+      note: publicGguf ? 'Open the verified repository' : 'Check access and current artefacts',
+      href: hfUrl,
+      m,
+      tone: 'featured'
+    }));
+  } else if (m.source_url) {
+    cards.push(runOptionLink({
+      platform: 'official',
+      label: 'Model source',
+      note: 'Open the upstream model page',
+      href: m.source_url,
+      m,
+      tone: 'featured'
+    }));
+  }
+
+  return `<div class="run-picker" data-model-run-options>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose how to run it</span><p>${desktopReady ? 'Use your preferred runtime. LocalClaw is optional.' : requiresCustomRuntime(m) ? 'This model needs its documented runtime. No desktop compatibility is implied.' : 'Only verified paths are shown for this model.'}</p></div><a href="/llm-list.html" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}">Compare models</a></div>
+          <div class="run-grid">${cards.join('')}</div>
+          <p class="run-copy-status" role="status" aria-live="polite"></p>
+        </div>`;
+}
+
 function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
   const state = hfRepoState(m);
@@ -396,21 +517,7 @@ function modelPage(m, d, allModels) {
   const verifiedDeveloper = hasModelDetailSource ? d.developer : '';
   const verifiedLicense = d.license_url ? d.license : '';
   const verifiedTechnicalDetails = Boolean(d.official_blog || d.paper_url);
-  const primaryActionHref = sourceOnly
-    ? `https://huggingface.co/${m.hf_repo}`
-    : requiresCustomRuntime(m)
-      ? m.runtime_url
-      : isServerServingModel(m)
-        ? `https://huggingface.co/${m.hf_repo}`
-        : '/pricing.html';
-  const primaryActionLabel = sourceOnly
-    ? `Open ${hfState === 'gated' ? 'gated' : 'public'} model card`
-    : requiresCustomRuntime(m)
-      ? 'Open official runtime'
-      : isServerServingModel(m)
-        ? 'Open verified repository'
-        : 'Run with LocalClaw';
-  const primaryActionExternal = sourceOnly || requiresCustomRuntime(m) || isServerServingModel(m);
+  const runOptions = runOptionsMarkup(m, hfState);
   const schemaMainEntity = sourceOnly
     ? {
         '@type': 'WebPage',
@@ -559,6 +666,9 @@ function modelPage(m, d, allModels) {
   <style>
     .personal-fit{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 20px;padding:20px 22px;border:1px solid rgba(52,211,153,.32);border-radius:18px;background:linear-gradient(100deg,rgba(16,185,129,.11),rgba(13,13,13,.96) 46%);box-shadow:0 18px 50px rgba(0,0,0,.28)}.personal-fit[hidden]{display:none!important}.personal-fit[data-fit="limited"]{border-color:rgba(96,165,250,.34);background:linear-gradient(100deg,rgba(59,130,246,.1),rgba(13,13,13,.96) 46%)}.personal-fit[data-fit="too-large"]{border-color:rgba(255,69,58,.38);background:linear-gradient(100deg,rgba(255,69,58,.1),rgba(13,13,13,.96) 46%)}.personal-fit-kicker{margin:0 0 5px!important;color:#6ee7b7!important;font:900 10px ui-monospace,monospace!important;letter-spacing:.12em;text-transform:uppercase}.personal-fit[data-fit="too-large"] .personal-fit-kicker{color:var(--primary)!important}.personal-fit h2{margin:0 0 5px;font-size:21px}.personal-fit p{margin:0;color:var(--muted);font-size:13px}.personal-fit-actions{display:flex;align-items:center;gap:9px;flex-shrink:0}.personal-fit-actions button,.personal-fit-actions a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:#111;color:#fff;padding:0 13px;font:900 10px ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}.personal-fit-actions button{border-color:rgba(255,69,58,.48);color:var(--primary)}.personal-fit-actions button:disabled{cursor:wait;opacity:.65}@media(max-width:700px){.personal-fit{align-items:stretch;flex-direction:column}.personal-fit-actions{align-items:stretch;flex-direction:column}.personal-fit-actions button,.personal-fit-actions a{width:100%}}
   </style>
+  <style>
+    .run-picker{position:relative;margin-top:26px;padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(5,5,5,.72);box-shadow:0 18px 45px rgba(0,0,0,.24)}.run-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:13px}.run-picker-label{display:block;color:#fff;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.run-picker-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.run-picker-head>a{flex-shrink:0;color:#d4d4d8;font:850 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.2)}.run-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.run-option{width:100%;min-width:0;display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:left;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#111;color:#fff;padding:11px;box-shadow:none;cursor:pointer;font:inherit}.run-option:hover,.run-option:focus-visible{border-color:rgba(255,255,255,.32);background:#171717;transform:translateY(-1px);outline:none}.run-option.featured{border-color:rgba(255,69,58,.5);background:linear-gradient(135deg,rgba(255,69,58,.14),#111 55%)}.run-option.localclaw{border-style:dashed}.run-option-mark{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.15);border-radius:9px;background:#080808;color:var(--primary);font:950 10px ui-monospace,monospace;text-transform:uppercase}.run-option strong{display:block;color:#fff;font-size:13px;line-height:1.2}.run-option small{display:block;margin-top:3px;color:var(--muted);font-size:10px;line-height:1.3}.run-option-copy,.run-option-arrow{color:#a1a1aa;font:850 9px ui-monospace,monospace;text-transform:uppercase}.run-option.is-copied{border-color:rgba(52,211,153,.55)}.run-option.is-copied .run-option-copy{color:#6ee7b7}.run-copy-status{min-height:16px;margin:9px 0 -3px!important;color:#6ee7b7!important;font:750 10px ui-monospace,monospace;word-break:break-word}@media(max-width:700px){.run-picker-head{align-items:stretch;flex-direction:column}.run-picker-head>a{align-self:flex-start}.run-grid{grid-template-columns:1fr}.run-option{min-height:58px}}
+  </style>
 </head>
 <body>
   ${siteNavigation('llm')}
@@ -571,10 +681,7 @@ function modelPage(m, d, allModels) {
         <p class="desc"><strong>Catalogue summary:</strong> ${esc(m.description)}</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
         <div class="chips">${heroChips}</div>
-        <div class="cta">
-          <a class="btn" href="${esc(primaryActionHref)}"${primaryActionExternal ? ' target="_blank" rel="noopener"' : ''}>${primaryActionLabel}</a>
-          <a class="btn secondary" href="/llm-list.html">Compare all models</a>
-        </div>
+        ${runOptions}
       </section>
       <aside class="hero-panel">
         <div class="score-card">
@@ -633,6 +740,7 @@ ${nextStepsSection}
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>
+  <script src="/js/model-run-options-20260820a.js?v=20260820a"></script>
 </body>
 </html>`;
 }
