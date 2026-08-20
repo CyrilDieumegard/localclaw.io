@@ -70,16 +70,22 @@
         viewMode: 'compatible',
         compareModelIds: [],
         upgradeModelId: null,
-        saving: false
+        saving: false,
+        recommendationViewKeys: new Set()
     };
 
     const elements = {};
+    const analytics = window.LocalClawAccountAnalytics;
 
     document.addEventListener('DOMContentLoaded', init);
 
     async function init() {
         cacheElements();
         bindEvents();
+        trackAccountGoal('account_page_loaded', {
+            source: 'account_page',
+            return_view: analytics?.returnView() || 'machines'
+        });
         if (isSponsorVisualPreview()) {
             state.session = {
                 user: {
@@ -96,6 +102,29 @@
             return;
         }
         await loadSession();
+    }
+
+    function trackAccountGoal(name, properties = {}, options = {}) {
+        return analytics?.track(name, properties, options) || false;
+    }
+
+    function machineAnalytics(machine = {}) {
+        return {
+            platform: String(machine.platform || 'unknown'),
+            accelerator: String(machine.accelerator || 'unknown'),
+            ram_bucket: analytics?.ramBucket(machine.ramGb) || 'unknown',
+            use_case: String(machine.useCase || 'general'),
+            priority: String(machine.priority || 'balanced')
+        };
+    }
+
+    function trackApiError(stage, response, data, fallback = 'request_failed') {
+        trackAccountGoal('account_api_error', {
+            error_stage: stage,
+            error_code: analytics?.errorCode(data?.error, fallback) || fallback,
+            http_status: Number(response?.status || 0),
+            online: navigator.onLine !== false
+        });
     }
 
     function isSponsorVisualPreview() {
@@ -192,11 +221,17 @@
             });
 
             if (response.status === 503) {
+                trackAccountGoal('auth_error', {
+                    provider: 'google', error_stage: 'session_check', error_code: 'account_unavailable', http_status: 503, online: navigator.onLine !== false
+                });
                 showSignedOut('Accounts are being configured. Please try again shortly.');
                 return;
             }
 
             if (!response.ok) {
+                trackAccountGoal('auth_error', {
+                    provider: 'google', error_stage: 'session_check', error_code: 'session_check_failed', http_status: response.status, online: navigator.onLine !== false
+                });
                 showSignedOut('Unable to check your account right now.');
                 return;
             }
@@ -208,14 +243,42 @@
             }
 
             state.session = session;
+            const accountAge = analytics?.accountAgeBucket(session.user) || 'unknown';
+            trackAccountGoal('auth_success', {
+                provider: 'google',
+                account_age: accountAge,
+                return_view: analytics?.returnView() || 'machines'
+            }, { onceKey: 'auth_success' });
+            if (accountAge === 'new') {
+                trackAccountGoal('account_created', {
+                    provider: 'google',
+                    account_age: accountAge,
+                    return_view: analytics?.returnView() || 'machines'
+                }, { onceKey: 'account_created' });
+            }
             showDashboard();
             renderProfile();
-            await loadWorkspace();
+            let workspaceReady = false;
+            try {
+                workspaceReady = await loadWorkspace();
+            } catch {
+                trackAccountGoal('account_api_error', {
+                    error_stage: 'workspace_load',
+                    error_code: 'network_error',
+                    http_status: 0,
+                    online: navigator.onLine !== false
+                });
+                showToast('Unable to load your workspace right now.', 'error');
+            }
+            if (!workspaceReady) return;
             document.dispatchEvent(new CustomEvent('localclaw:account-ready', {
                 detail: { session: state.session }
             }));
             openPendingMachineIfNeeded();
         } catch {
+            trackAccountGoal('auth_error', {
+                provider: 'google', error_stage: 'session_check', error_code: 'network_error', http_status: 0, online: navigator.onLine !== false
+            });
             showSignedOut('Unable to reach the account service.');
         } finally {
             setPageLoading(false);
@@ -226,6 +289,11 @@
         elements.authError.textContent = '';
         elements.googleSignIn.disabled = true;
         elements.googleSignIn.classList.add('lc-loading');
+        trackAccountGoal('auth_started', {
+            provider: 'google',
+            return_view: analytics?.returnView() || 'machines'
+        });
+        let failureTracked = false;
 
         try {
             const currentUrl = new URL(window.location.href);
@@ -258,11 +326,24 @@
             const data = await readJson(response);
 
             if (!response.ok || !data?.url) {
+                trackAccountGoal('auth_error', {
+                    provider: 'google',
+                    error_stage: 'oauth_start',
+                    error_code: analytics?.errorCode(data?.error, 'oauth_start_failed') || 'oauth_start_failed',
+                    http_status: response.status,
+                    online: navigator.onLine !== false
+                });
+                failureTracked = true;
                 throw new Error(data?.message || 'Google sign-in is unavailable.');
             }
 
             window.location.assign(data.url);
         } catch (error) {
+            if (!failureTracked) {
+                trackAccountGoal('auth_error', {
+                    provider: 'google', error_stage: 'oauth_start', error_code: 'network_error', http_status: 0, online: navigator.onLine !== false
+                });
+            }
             elements.authError.textContent = error.message || 'Google sign-in failed.';
             elements.googleSignIn.disabled = false;
             elements.googleSignIn.classList.remove('lc-loading');
@@ -271,6 +352,7 @@
 
     async function signOut() {
         elements.signOut.disabled = true;
+        trackAccountGoal('account_sign_out', { source: 'account_page' });
         try {
             await fetch('/api/auth/sign-out', {
                 method: 'POST',
@@ -309,13 +391,17 @@
         ]);
 
         if (machineResponse.status === 401) {
+            trackAccountGoal('auth_error', {
+                provider: 'google', error_stage: 'workspace_load', error_code: 'session_expired', http_status: 401, online: navigator.onLine !== false
+            });
             showSignedOut();
-            return;
+            return false;
         }
 
         if (!machineResponse.ok) {
+            trackApiError('machines_load', machineResponse, machineData, 'machines_load_failed');
             showToast(machineData?.message || 'Could not load your machines.', 'error');
-            return;
+            return false;
         }
 
         state.machines = Array.isArray(machineData?.machines) ? machineData.machines : [];
@@ -324,13 +410,25 @@
         cachePrimaryMachine();
 
         if (!favoriteResponse.ok && favoriteResponse.status !== 401) {
+            trackApiError('favorites_load', favoriteResponse, favoriteData, 'favorites_load_failed');
             showToast('Saved models are temporarily unavailable.', 'error');
         }
 
+        if (!catalogResponse.ok && catalogResponse.status !== 401) {
+            trackApiError('catalog_state_load', catalogResponse, catalogData, 'catalog_state_load_failed');
+        }
+
         await syncCatalogState(catalogResponse.ok ? catalogData : null);
+        trackAccountGoal('workspace_loaded', {
+            source: 'account_page',
+            machine_count: state.machines.length,
+            favorite_count: state.favorites.length,
+            return_view: analytics?.returnView() || 'machines'
+        }, { onceKey: 'workspace_loaded' });
         renderMachineList();
         renderSelectedMachine();
         renderVoiceRatings();
+        return true;
     }
 
     async function syncCatalogState(catalogData) {
@@ -576,10 +674,32 @@
         elements.recommendationPanel.querySelectorAll('[data-open-test]').forEach((button) => {
             button.addEventListener('click', () => openTestDialog(button.dataset.openTest, machine));
         });
+        elements.recommendationPanel.querySelectorAll('[data-account-model-open]').forEach((link) => {
+            link.addEventListener('click', () => {
+                trackAccountGoal('account_model_open', {
+                    source: 'account_recommendations',
+                    view: state.viewMode,
+                    model_id: link.dataset.accountModelOpen
+                });
+            });
+        });
         elements.recommendationPanel.querySelector('[data-upgrade-model]')?.addEventListener('change', (event) => {
             state.upgradeModelId = event.target.value;
             renderSelectedMachine();
         });
+
+        const recommendationKey = `${machine.id}:${state.viewMode}`;
+        if (!state.recommendationViewKeys.has(recommendationKey)) {
+            state.recommendationViewKeys.add(recommendationKey);
+            trackAccountGoal('account_recommendation_viewed', {
+                source: 'account_workspace',
+                view: state.viewMode,
+                shown_count: models.length,
+                best_match_count: bestCount,
+                saved_count: machineFavorites.length,
+                ...machineAnalytics(machine)
+            });
+        }
     }
 
     function renderModelCard(model, machine, favorite, isCompared, canCompare) {
@@ -617,7 +737,7 @@
                     <span>${escapeHtml(model.runtimeNote)}</span>
                     <span class="lc-model-actions">
                         ${canCompare ? `<button class="lc-compare-button${isCompared ? ' is-selected' : ''}" type="button" data-compare-model="${escapeAttribute(model.id)}" aria-pressed="${isCompared ? 'true' : 'false'}">${isCompared ? 'Selected' : 'Compare'}</button>` : ''}
-                        <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}">View model →</a>
+                        <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}" data-account-model-open="${escapeAttribute(model.id)}">View model →</a>
                     </span>
                 </footer>
             </article>
@@ -658,6 +778,12 @@
             showToast('Select at least two compatible models.', 'error');
             return;
         }
+
+        trackAccountGoal('account_compare_open', {
+            source: 'account_recommendations',
+            shown_count: models.length,
+            ...machineAnalytics(machine)
+        });
 
         const bestScore = Math.max(...models.map((model) => Number(model.compatibilityScore) || 0));
         const rows = [
@@ -784,10 +910,19 @@
             });
             const data = await readJson(response);
             if (!response.ok || !data?.favorite) {
+                trackApiError('test_log_save', response, data, 'test_log_save_failed');
                 throw new Error(data?.message || 'Could not save this test log.');
             }
 
             state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machineId && favorite.modelId === modelId))];
+            const testMachine = state.machines.find((machine) => machine.id === machineId);
+            trackAccountGoal('test_log_saved', {
+                source: 'account_recommendations',
+                model_id: modelId,
+                status: payload.status,
+                verdict: payload.testVerdict,
+                ...(testMachine ? machineAnalytics(testMachine) : {})
+            });
             closeTestDialog();
             renderSelectedMachine();
             showToast(payload.testVerdict === 'untested' ? 'Private test log saved.' : 'Test saved. You can now share a community rating.');
@@ -940,15 +1075,25 @@
         const data = await readJson(response);
 
         if (!response.ok) {
+            trackApiError(current ? 'model_remove' : 'model_save', response, data, current ? 'model_remove_failed' : 'model_save_failed');
             showToast(data?.message || 'Could not update this saved model.', 'error');
             return;
         }
 
         if (current) {
             state.favorites = state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId));
+            trackAccountGoal('model_removed', {
+                source: 'account_recommendations', model_id: modelId, ...machineAnalytics(machine)
+            });
             showToast('Removed from saved models.');
         } else if (data?.favorite) {
             state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId))];
+            trackAccountGoal('model_saved', {
+                source: 'account_recommendations',
+                model_id: modelId,
+                quantization: String(model.recommended_quant || ''),
+                ...machineAnalytics(machine)
+            });
             showToast(`Saved for ${machine.name}.`);
         }
 
@@ -972,12 +1117,16 @@
         const data = await readJson(response);
 
         if (!response.ok || !data?.favorite) {
+            trackApiError('model_status_update', response, data, 'model_status_update_failed');
             showToast(data?.message || 'Could not update model status.', 'error');
             renderSelectedMachine();
             return;
         }
 
         state.favorites = [data.favorite, ...state.favorites.filter((favorite) => !(favorite.machineId === machine.id && favorite.modelId === modelId))];
+        trackAccountGoal('model_status_updated', {
+            source: 'account_recommendations', model_id: modelId, status, ...machineAnalytics(machine)
+        });
         showToast('Saved model status updated.');
         renderSelectedMachine();
     }
@@ -1035,6 +1184,11 @@
     }
 
     function openMachineDialog(machine) {
+        trackAccountGoal(machine?.id ? 'machine_update_started' : 'machine_create_started', {
+            source: 'account_workspace',
+            machine_action: machine?.id ? 'update' : 'create',
+            ...(machine?.id ? machineAnalytics(machine) : {})
+        });
         elements.form.reset();
         elements.formError.textContent = '';
         document.getElementById('machine-id').value = machine?.id || '';
@@ -1225,6 +1379,8 @@
 
         const formData = new FormData(elements.form);
         const id = String(formData.get('id') || '');
+        const action = id ? 'update' : 'create';
+        const isFirstMachine = !id && state.machines.length === 0;
         const machine = {
             name: String(formData.get('name') || ''),
             platform: String(formData.get('platform') || ''),
@@ -1242,9 +1398,12 @@
         state.saving = true;
         elements.form.classList.add('lc-loading');
         elements.formError.textContent = '';
+        let response = null;
+        let data = null;
+        let failureTracked = false;
 
         try {
-            const response = await fetch(id ? `/api/machines/${encodeURIComponent(id)}` : '/api/machines', {
+            response = await fetch(id ? `/api/machines/${encodeURIComponent(id)}` : '/api/machines', {
                 method: id ? 'PATCH' : 'POST',
                 credentials: 'same-origin',
                 headers: {
@@ -1253,20 +1412,51 @@
                 },
                 body: JSON.stringify(machine)
             });
-            const data = await readJson(response);
+            data = await readJson(response);
 
             if (!response.ok) {
+                const failureEvent = id ? 'machine_update_failed' : 'machine_create_failed';
+                const errorCode = analytics?.errorCode(data?.error, 'machine_save_failed') || 'machine_save_failed';
+                trackAccountGoal(failureEvent, {
+                    source: 'account_workspace',
+                    machine_action: action,
+                    error_stage: 'machine_save',
+                    error_code: errorCode,
+                    http_status: response.status,
+                    online: navigator.onLine !== false,
+                    ...machineAnalytics(machine)
+                });
+                trackApiError('machine_save', response, data, 'machine_save_failed');
+                failureTracked = true;
                 const fieldMessage = Array.isArray(data?.fields) && data.fields.length
                     ? `Check: ${data.fields.join(', ')}.`
                     : '';
                 throw new Error(data?.message || fieldMessage || 'Could not save this machine.');
             }
 
+            trackAccountGoal(id ? 'machine_update_succeeded' : 'machine_create_succeeded', {
+                source: 'account_workspace',
+                machine_action: action,
+                is_first_machine: isFirstMachine,
+                ...machineAnalytics(machine)
+            });
             closeMachineDialog();
             localStorage.removeItem(PENDING_MACHINE_KEY);
             await loadWorkspace(data.machine?.id || id);
             showToast(id ? 'Machine updated.' : 'Machine added.');
         } catch (error) {
+            if (!failureTracked) {
+                trackAccountGoal(id ? 'machine_update_failed' : 'machine_create_failed', {
+                    source: 'account_workspace',
+                    machine_action: action,
+                    error_stage: 'machine_save',
+                    error_code: 'network_error',
+                    http_status: Number(response?.status || 0),
+                    online: navigator.onLine !== false,
+                    ...machineAnalytics(machine)
+                });
+                trackApiError('machine_save', response, data, 'network_error');
+            }
             elements.formError.textContent = error.message || 'Could not save this machine.';
         } finally {
             state.saving = false;
@@ -1312,7 +1502,17 @@
         state.session = null;
         elements.dashboard.hidden = true;
         elements.authGate.hidden = false;
-        elements.authError.textContent = message || authErrorFromUrl();
+        const callbackError = authErrorFromUrl();
+        if (callbackError) {
+            trackAccountGoal('auth_error', {
+                provider: 'google',
+                error_stage: 'oauth_callback',
+                error_code: 'oauth_callback_failed',
+                http_status: 0,
+                online: navigator.onLine !== false
+            }, { onceKey: 'oauth_callback_failed' });
+        }
+        elements.authError.textContent = message || callbackError;
     }
 
     function showDashboard() {

@@ -20,6 +20,7 @@
     "content-truth:check": "node scripts/check-content-truth.js",
     "computers:check": "node scripts/check-computers-model-fit.js",
     "recommendations:check": "node scripts/check-recommendations.js",
+    "account-analytics:check": "node scripts/check-account-analytics.js",
     "sponsor:check": "node scripts/check-sponsor-workspace.js && node scripts/check-sponsor-admin.js && node scripts/check-datafast-attribution.mjs",
     "sponsor-admin:check": "node scripts/check-sponsor-admin.js",
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
