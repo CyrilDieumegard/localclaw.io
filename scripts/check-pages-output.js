@@ -12,6 +12,15 @@ function digest(file) {
 
 function validatePagesOutput() {
   const errors = [];
+  const routesPath = path.join(ROOT, '_routes.json');
+  try {
+    const routes = JSON.parse(fs.readFileSync(routesPath, 'utf8'));
+    const rules = [...(routes.include || []), ...(routes.exclude || [])];
+    if (rules.length > 100) errors.push(`_routes.json exceeds Cloudflare's 100 rule limit: ${rules.length}`);
+    if (new Set(rules).size !== rules.length) errors.push('_routes.json contains duplicate rules');
+  } catch (error) {
+    errors.push(`Invalid _routes.json: ${error.message}`);
+  }
   if (!fs.existsSync(OUTPUT) || !fs.statSync(OUTPUT).isDirectory()) {
     errors.push(`Missing Pages output directory: ${OUTPUT_DIRECTORY}`);
   } else {
