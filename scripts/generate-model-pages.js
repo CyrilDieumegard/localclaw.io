@@ -202,120 +202,94 @@ function runtimeGoalAttrs(platform, m) {
   return `data-fast-goal="model_runtime_${esc(platform)}" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}" data-fast-goal-quant="${esc(m.recommended_quant || '')}"`;
 }
 
-function runOptionLink({platform, label, note, href, m, external = true, tone = ''}) {
-  return `<a class="run-option ${tone}" href="${esc(href)}"${external ? ' target="_blank" rel="noopener"' : ''} ${runtimeGoalAttrs(platform, m)}><span class="run-option-mark" aria-hidden="true">${esc(label.slice(0, 2))}</span><span><strong>${esc(label)}</strong><small>${esc(note)}</small></span><span class="run-option-arrow" aria-hidden="true">${external ? '&#8599;' : '&#8594;'}</span></a>`;
+const runtimeLogos = {
+  lmstudio: 'https://lmstudio.ai/assets/marketing/logo-192x192.png',
+  ollama: 'https://ollama.com/public/ollama.png',
+  huggingface: '/images/model-logos/huggingface-avatar.webp',
+  llamacpp: 'https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg',
+  localclaw: '/images/crab-logo.png'
+};
+
+function runOptionLogo(platform) {
+  return `<span class="run-option-logo" aria-hidden="true"><img src="${esc(runtimeLogos[platform])}" alt="" width="42" height="42" loading="lazy"></span>`;
 }
 
-function runOptionCommand({platform, label, note, command, m, tone = ''}) {
-  return `<button class="run-option ${tone}" type="button" data-copy-command="${esc(command)}" ${runtimeGoalAttrs(platform, m)}><span class="run-option-mark" aria-hidden="true">${esc(label.slice(0, 2))}</span><span><strong>${esc(label)}</strong><small>${esc(note)}</small></span><span class="run-option-copy" aria-hidden="true">Copy</span></button>`;
+function runOptionLink({platform, label, note, href, m, external = true, appLink = false, tone = ''}) {
+  const target = external && !appLink ? ' target="_blank" rel="noopener"' : '';
+  return `<a class="run-option ${tone}" data-runtime="${esc(platform)}" href="${esc(href)}"${target} ${runtimeGoalAttrs(platform, m)}>${runOptionLogo(platform)}<span><strong>${esc(label)}</strong><small>${esc(note)}</small></span><span class="run-option-arrow" aria-hidden="true">${appLink ? 'Open' : external ? '&#8599;' : '&#8594;'}</span></a>`;
+}
+
+function runOptionUnavailable({platform, label}) {
+  return `<div class="run-option unavailable" aria-disabled="true" data-runtime="${esc(platform)}">${runOptionLogo(platform)}<span><strong>${esc(label)}</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div>`;
+}
+
+function verifiedOllamaHref(m) {
+  if (/^https:\/\/ollama\.com\/library\//.test(m.runtime_url || '')) return m.runtime_url;
+  if (m.ollama_model && !/^hf\.co\//.test(m.ollama_model)) {
+    return `https://ollama.com/library/${encodeURIComponent(m.ollama_model.split(':')[0])}`;
+  }
+  return '';
 }
 
 function runOptionsMarkup(m, hfState) {
-  const cards = [];
   const hfUrl = m.hf_repo ? `https://huggingface.co/${m.hf_repo}` : '';
   const publicGguf = hfState === 'publicGguf';
   const desktopReady = publicGguf && !m.hosted_only && !isServerServingModel(m) && !requiresCustomRuntime(m);
-
-  if (desktopReady) {
-    cards.push(runOptionCommand({
+  const ollamaHref = verifiedOllamaHref(m);
+  const cards = [
+    desktopReady ? runOptionLink({
       platform: 'lmstudio',
-      label: 'LM Studio',
-      note: `Copy download command, then choose ${m.recommended_quant}`,
-      command: `lms get ${hfUrl}`,
+      label: 'Open in LM Studio',
+      note: `Opens the app on this model's download screen`,
+      href: `lmstudio://open_from_hf?model=${m.hf_repo}`,
       m,
+      external: false,
+      appLink: true,
       tone: 'featured'
-    }));
-    if (m.ollama_model) {
-      cards.push(runOptionCommand({
-        platform: 'ollama',
-        label: 'Ollama',
-        note: 'Copy the verified upstream run command',
-        command: `ollama run ${m.ollama_model}`,
-        m
-      }));
-    } else if (/^https:\/\/ollama\.com\/library\//.test(m.runtime_url || '')) {
-      cards.push(runOptionLink({
-        platform: 'ollama',
-        label: 'Ollama',
-        note: 'Open the verified Ollama library page',
-        href: m.runtime_url,
-        m
-      }));
-    }
-    cards.push(runOptionCommand({
+    }) : runOptionUnavailable({platform: 'lmstudio', label: 'LM Studio'}),
+    ollamaHref ? runOptionLink({
+      platform: 'ollama',
+      label: 'Open Ollama page',
+      note: 'Opens the verified Ollama model page',
+      href: ollamaHref,
+      m
+    }) : runOptionUnavailable({platform: 'ollama', label: 'Ollama'}),
+    hfUrl && hfState !== 'unavailable' ? runOptionLink({
+      platform: 'huggingface',
+      label: 'Open on Hugging Face',
+      note: publicGguf ? 'Files, licence and available downloads' : 'Model card, licence and access details',
+      href: hfUrl,
+      m
+    }) : runOptionUnavailable({platform: 'huggingface', label: 'Hugging Face'}),
+    desktopReady ? runOptionLink({
       platform: 'llamacpp',
-      label: 'llama.cpp',
-      note: `Copy the ${m.recommended_quant} launch command`,
-      command: `llama-cli -hf ${m.hf_repo}:${m.recommended_quant}`,
-      m
-    }));
-    cards.push(runOptionLink({
-      platform: 'huggingface',
-      label: 'Hugging Face',
-      note: 'Inspect files and download another quant',
+      label: 'Open llama.cpp setup',
+      note: 'Advanced option: opens the model files',
       href: hfUrl,
       m
-    }));
-    cards.push(runOptionLink({
+    }) : runOptionUnavailable({platform: 'llamacpp', label: 'llama.cpp'}),
+    runOptionLink({
       platform: 'localclaw',
-      label: 'LocalClaw',
-      note: 'Optional: connect it to your local AI workspace',
+      label: 'Use with LocalClaw',
+      note: 'Optional workspace after the model is installed',
       href: '/pricing.html',
       m,
       external: false,
       tone: 'localclaw'
-    }));
-  } else if (requiresCustomRuntime(m)) {
-    cards.push(runOptionLink({
-      platform: 'official',
-      label: 'Official runtime',
-      note: m.custom_runtime,
-      href: m.runtime_url,
-      m,
-      tone: 'featured'
-    }));
-    if (publicGguf && hfUrl) {
-      cards.push(runOptionLink({
-        platform: 'huggingface',
-        label: 'Hugging Face',
-        note: 'Inspect the verified artefacts',
-        href: hfUrl,
-        m
-      }));
-    }
-    cards.push(runOptionLink({
-      platform: 'localclaw',
-      label: 'LocalClaw',
-      note: 'Optional: connect the endpoint after setup',
-      href: '/pricing.html',
-      m,
-      external: false,
-      tone: 'localclaw'
-    }));
-  } else if (hfUrl) {
-    cards.push(runOptionLink({
-      platform: 'huggingface',
-      label: hfState === 'gated' ? 'Gated model card' : 'Hugging Face',
-      note: publicGguf ? 'Open the verified repository' : 'Check access and current artefacts',
-      href: hfUrl,
-      m,
-      tone: 'featured'
-    }));
-  } else if (m.source_url) {
-    cards.push(runOptionLink({
-      platform: 'official',
-      label: 'Model source',
-      note: 'Open the upstream model page',
-      href: m.source_url,
-      m,
-      tone: 'featured'
-    }));
-  }
+    })
+  ];
+  const customRuntime = requiresCustomRuntime(m) && m.runtime_url
+    ? `<a class="run-required" href="${esc(m.runtime_url)}" target="_blank" rel="noopener" ${runtimeGoalAttrs('official', m)}><span><strong>This model needs its official runtime</strong><small>${esc(m.custom_runtime)}</small></span><span aria-hidden="true">Open setup &#8599;</span></a>`
+    : '';
+  const availabilityNote = desktopReady
+    ? 'Pick the app you already use. No terminal and no command to copy.'
+    : requiresCustomRuntime(m)
+      ? 'This model needs a special runtime. Unsupported apps are clearly marked.'
+      : 'Only verified options can be opened. Unsupported apps are clearly marked.';
 
   return `<div class="run-picker" data-model-run-options>
-          <div class="run-picker-head"><div><span class="run-picker-label">Choose how to run it</span><p>${desktopReady ? 'Use your preferred runtime. LocalClaw is optional.' : requiresCustomRuntime(m) ? 'This model needs its documented runtime. No desktop compatibility is implied.' : 'Only verified paths are shown for this model.'}</p></div><a href="/llm-list.html" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}">Compare models</a></div>
-          <div class="run-grid">${cards.join('')}</div>
-          <p class="run-copy-status" role="status" aria-live="polite"></p>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>${availabilityNote}</p></div><a href="/llm-list.html" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}">Compare models</a></div>
+          <div class="run-grid">${cards.join('')}</div>${customRuntime}
         </div>`;
 }
 
@@ -667,7 +641,7 @@ function modelPage(m, d, allModels) {
     .personal-fit{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 20px;padding:20px 22px;border:1px solid rgba(52,211,153,.32);border-radius:18px;background:linear-gradient(100deg,rgba(16,185,129,.11),rgba(13,13,13,.96) 46%);box-shadow:0 18px 50px rgba(0,0,0,.28)}.personal-fit[hidden]{display:none!important}.personal-fit[data-fit="limited"]{border-color:rgba(96,165,250,.34);background:linear-gradient(100deg,rgba(59,130,246,.1),rgba(13,13,13,.96) 46%)}.personal-fit[data-fit="too-large"]{border-color:rgba(255,69,58,.38);background:linear-gradient(100deg,rgba(255,69,58,.1),rgba(13,13,13,.96) 46%)}.personal-fit-kicker{margin:0 0 5px!important;color:#6ee7b7!important;font:900 10px ui-monospace,monospace!important;letter-spacing:.12em;text-transform:uppercase}.personal-fit[data-fit="too-large"] .personal-fit-kicker{color:var(--primary)!important}.personal-fit h2{margin:0 0 5px;font-size:21px}.personal-fit p{margin:0;color:var(--muted);font-size:13px}.personal-fit-actions{display:flex;align-items:center;gap:9px;flex-shrink:0}.personal-fit-actions button,.personal-fit-actions a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:#111;color:#fff;padding:0 13px;font:900 10px ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}.personal-fit-actions button{border-color:rgba(255,69,58,.48);color:var(--primary)}.personal-fit-actions button:disabled{cursor:wait;opacity:.65}@media(max-width:700px){.personal-fit{align-items:stretch;flex-direction:column}.personal-fit-actions{align-items:stretch;flex-direction:column}.personal-fit-actions button,.personal-fit-actions a{width:100%}}
   </style>
   <style>
-    .run-picker{position:relative;margin-top:26px;padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(5,5,5,.72);box-shadow:0 18px 45px rgba(0,0,0,.24)}.run-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:13px}.run-picker-label{display:block;color:#fff;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.run-picker-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.run-picker-head>a{flex-shrink:0;color:#d4d4d8;font:850 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.2)}.run-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.run-option{width:100%;min-width:0;display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:left;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#111;color:#fff;padding:11px;box-shadow:none;cursor:pointer;font:inherit}.run-option:hover,.run-option:focus-visible{border-color:rgba(255,255,255,.32);background:#171717;transform:translateY(-1px);outline:none}.run-option.featured{border-color:rgba(255,69,58,.5);background:linear-gradient(135deg,rgba(255,69,58,.14),#111 55%)}.run-option.localclaw{border-style:dashed}.run-option-mark{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.15);border-radius:9px;background:#080808;color:var(--primary);font:950 10px ui-monospace,monospace;text-transform:uppercase}.run-option strong{display:block;color:#fff;font-size:13px;line-height:1.2}.run-option small{display:block;margin-top:3px;color:var(--muted);font-size:10px;line-height:1.3}.run-option-copy,.run-option-arrow{color:#a1a1aa;font:850 9px ui-monospace,monospace;text-transform:uppercase}.run-option.is-copied{border-color:rgba(52,211,153,.55)}.run-option.is-copied .run-option-copy{color:#6ee7b7}.run-copy-status{min-height:16px;margin:9px 0 -3px!important;color:#6ee7b7!important;font:750 10px ui-monospace,monospace;word-break:break-word}@media(max-width:700px){.run-picker-head{align-items:stretch;flex-direction:column}.run-picker-head>a{align-self:flex-start}.run-grid{grid-template-columns:1fr}.run-option{min-height:58px}}
+    .run-picker{position:relative;margin-top:26px;padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(5,5,5,.72);box-shadow:0 18px 45px rgba(0,0,0,.24)}.run-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:13px}.run-picker-label{display:block;color:#fff;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.run-picker-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.run-picker-head>a{flex-shrink:0;color:#d4d4d8;font:850 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.2)}.run-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.run-option{width:100%;min-width:0;min-height:66px;display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;text-align:left;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:#111;color:#fff;padding:11px;box-shadow:none;font:inherit}.run-option[href]{cursor:pointer}.run-option[href]:hover,.run-option[href]:focus-visible{border-color:rgba(255,255,255,.32);background:#171717;transform:translateY(-1px);outline:none}.run-option.featured{border-color:rgba(255,69,58,.5);background:linear-gradient(135deg,rgba(255,69,58,.14),#111 55%)}.run-option.localclaw{border-style:dashed}.run-option-logo{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:#f4f4f5;overflow:hidden}.run-option-logo img{width:34px;height:34px;object-fit:contain}.run-option[data-runtime="ollama"] .run-option-logo img{width:25px;height:31px}.run-option strong{display:block;color:#fff;font-size:13px;line-height:1.2}.run-option small{display:block;margin-top:4px;color:var(--muted);font-size:10px;line-height:1.3}.run-option-arrow,.run-option-state{color:#a1a1aa;font:850 9px ui-monospace,monospace;text-transform:uppercase}.run-option.unavailable{opacity:.48;background:#0b0b0b}.run-option.unavailable .run-option-logo{filter:grayscale(1)}.run-option.unavailable .run-option-state{color:#71717a}.run-required{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(245,158,11,.34);border-radius:12px;background:rgba(245,158,11,.07);color:#fff;padding:12px}.run-required strong,.run-required small{display:block}.run-required small{margin-top:3px;color:var(--muted);font-size:10px}.run-required>span:last-child{flex-shrink:0;color:#fbbf24;font:850 9px ui-monospace,monospace;text-transform:uppercase}@media(max-width:700px){.run-picker-head{align-items:stretch;flex-direction:column}.run-picker-head>a{align-self:flex-start}.run-grid{grid-template-columns:1fr}.run-option{min-height:64px}.run-option-state{max-width:68px;text-align:right}.run-required{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
@@ -740,7 +714,6 @@ ${nextStepsSection}
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>
-  <script src="/js/model-run-options-20260820a.js?v=20260820b"></script>
 </body>
 </html>`;
 }

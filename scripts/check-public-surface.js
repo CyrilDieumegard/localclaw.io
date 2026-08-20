@@ -72,6 +72,24 @@ if (homepage.includes('cdn.tailwindcss.com')) errors.push('Homepage still compil
 if (!homepage.includes('css/home-tailwind-20260814a.css?v=20260814a')) errors.push('Homepage local Tailwind asset is missing');
 if (!fs.existsSync(path.join(ROOT, 'css/home-tailwind-20260814a.css'))) errors.push('Generated homepage Tailwind CSS file is missing');
 
+const modelPages = fs.readdirSync(path.join(ROOT, 'models'))
+  .filter(file => file.endsWith('.html') && file !== 'index.html');
+const expectedRuntimes = ['lmstudio', 'ollama', 'huggingface', 'llamacpp', 'localclaw'];
+for (const file of modelPages) {
+  const html = fs.readFileSync(path.join(ROOT, 'models', file), 'utf8');
+  if (/name="robots" content="noindex/.test(html)) continue;
+  const cardCount = (html.match(/<(?:a|div) class="run-option\b/g) || []).length;
+  const logoCount = (html.match(/class="run-option-logo"/g) || []).length;
+  if (cardCount !== expectedRuntimes.length) errors.push(`${file} must expose exactly ${expectedRuntimes.length} runtime choices; found ${cardCount}`);
+  if (logoCount !== expectedRuntimes.length) errors.push(`${file} must show a logo for every runtime choice; found ${logoCount}`);
+  for (const runtime of expectedRuntimes) {
+    if (!html.includes(`data-runtime="${runtime}"`)) errors.push(`${file} is missing the ${runtime} runtime choice`);
+  }
+  for (const forbidden of ['data-copy-command', 'run-copy-status', 'model-run-options-20260820a.js']) {
+    if (html.includes(forbidden)) errors.push(`${file} still contains command-copy UI: ${forbidden}`);
+  }
+}
+
 if (errors.length) {
   console.error(`Public surface validation failed with ${errors.length} issue(s):`);
   for (const error of errors) console.error(`- ${error}`);
