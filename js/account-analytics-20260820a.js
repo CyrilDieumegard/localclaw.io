@@ -22,6 +22,10 @@
         'plan_save_failed',
         'plan_update_viewed',
         'plan_action_clicked',
+        'existing_machine_match_shown',
+        'existing_machine_reused',
+        'duplicate_machine_avoided',
+        'new_machine_requested',
         'model_saved',
         'model_removed',
         'model_status_updated',
@@ -59,6 +63,9 @@
         'status',
         'verdict',
         'is_first_machine',
+        'match_source',
+        'match_count',
+        'preferences_updated',
         'return_view'
     ]);
 

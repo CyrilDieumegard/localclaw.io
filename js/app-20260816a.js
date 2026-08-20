@@ -14,6 +14,7 @@ const App = {
         flowSource: 'model_finder',
         trackedStepViews: {},
         planHandoffStarted: false,
+        existingMachineMatchTracked: false,
     },
 
     init() {
@@ -95,6 +96,7 @@ const App = {
             flowSource: 'model_finder',
             trackedStepViews: {},
             planHandoffStarted: false,
+            existingMachineMatchTracked: false,
             _contextNote: false,
         };
         this.render();
@@ -149,15 +151,49 @@ const App = {
     buildCurrentPlanPayload() {
         const machine = this.buildCurrentMachineProfile();
         const recommendations = (this.state.recommendations || []).slice(0, 4);
+        const savedMachine = this.findCachedHardwareMatch(machine);
         return {
             version: 1,
             createdAt: new Date().toISOString(),
             machine,
+            preferredMachineId: String(savedMachine?.id || ''),
             topModelId: String(recommendations[0]?.id || ''),
             modelIds: recommendations.map((model) => String(model.id || '')).filter(Boolean),
             context: String(this.state.answers?.context || '8k'),
             source: String(this.state.flowSource || 'model_finder')
         };
+    },
+
+    findCachedHardwareMatch(profile) {
+        try {
+            const saved = JSON.parse(localStorage.getItem('localclaw_saved_machines') || '[]');
+            const candidates = Array.isArray(saved) && saved.length
+                ? saved
+                : [JSON.parse(localStorage.getItem('localclaw_primary_machine') || 'null')].filter(Boolean);
+            const matches = candidates.filter((machine) => machine?.id && machine?.name && this.sameHardwareProfile(machine, profile));
+            return matches.length === 1 ? matches[0] : null;
+        } catch {
+            return null;
+        }
+    },
+
+    sameHardwareProfile(left, right) {
+        const vram = (machine) => machine?.vramGb === null || machine?.vramGb === '' || machine?.vramGb === undefined
+            ? null
+            : Number(machine.vramGb);
+        return String(left?.platform || '') === String(right?.platform || '')
+            && String(left?.accelerator || '') === String(right?.accelerator || '')
+            && Number(left?.ramGb) === Number(right?.ramGb)
+            && vram(left) === vram(right);
+    },
+
+    escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     },
 
     planUseCaseLabel(value) {
@@ -2157,6 +2193,18 @@ const App = {
 
         const plan = this.buildCurrentPlanPayload();
         const machine = plan.machine;
+        const savedMachine = this.findCachedHardwareMatch(machine);
+        if (savedMachine && !this.state.existingMachineMatchTracked) {
+            this.state.existingMachineMatchTracked = true;
+            this.trackGoal('existing_machine_match_shown', {
+                source: 'recommender_results',
+                match_source: 'browser_cache',
+                platform: machine.platform,
+                accelerator: machine.accelerator,
+                ram_bucket: `${machine.ramGb || 0}gb`
+            });
+        }
+        const savedMachineName = savedMachine ? this.escapeHtml(savedMachine.name) : '';
         const useCaseLabel = this.planUseCaseLabel(machine.useCase);
         const priorityLabel = this.planPriorityLabel(machine.priority);
         const contextLabel = String(plan.context || '8k').toUpperCase();
@@ -2272,12 +2320,14 @@ const App = {
                     </div>
                     <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
                         <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
-                        <p class="mt-2 text-sm leading-relaxed text-white">Save the plan free. New compatible releases and better matches will appear automatically.</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white">${savedMachine
+                            ? `<strong>${savedMachineName}</strong> already matches this hardware. LocalClaw will update its plan without creating a duplicate.`
+                            : 'Save the plan free. New compatible releases and better matches will appear automatically.'}</p>
                         <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
-                            Keep this plan updated
+                            ${savedMachine ? `Use ${savedMachineName}` : 'Keep this plan updated'}
                         </button>
                         <a href="/models/${selectedModel.id}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
-                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">One Google sign-in only when you save. No prompts or local files collected.</p>
+                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'Saved machine recognized on this browser. LocalClaw verifies it again in your account.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
                     </div>
                 </div>
             </section>

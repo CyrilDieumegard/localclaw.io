@@ -43,7 +43,10 @@ const sanitized = analytics.sanitize({
   notes: 'private note',
   model_id: 'qwen3-8b',
   status: 'saved',
-  error_code: 'invalid_machine'
+  error_code: 'invalid_machine',
+  match_source: 'unique_hardware',
+  match_count: 1,
+  preferences_updated: true
 });
 assert.deepStrictEqual(JSON.parse(JSON.stringify(sanitized)), {
   source: 'account_page',
@@ -51,7 +54,10 @@ assert.deepStrictEqual(JSON.parse(JSON.stringify(sanitized)), {
   ram_bucket: '9_to_16',
   model_id: 'qwen3-8b',
   status: 'saved',
-  error_code: 'invalid_machine'
+  error_code: 'invalid_machine',
+  match_source: 'unique_hardware',
+  match_count: 1,
+  preferences_updated: true
 });
 
 assert(analytics.track('auth_started', { provider: 'google' }, { onceKey: 'auth-start' }));
@@ -76,6 +82,10 @@ const requiredEvents = [
   'plan_save_failed',
   'plan_update_viewed',
   'plan_action_clicked',
+  'existing_machine_match_shown',
+  'existing_machine_reused',
+  'duplicate_machine_avoided',
+  'new_machine_requested',
   'model_saved',
   'model_status_updated',
   'test_log_saved',
@@ -90,8 +100,8 @@ for (const forbidden of ['email:', 'user_id:', 'machine_id:', 'machine_name:', '
   assert(!trackingBlocks.includes(forbidden), `Sensitive tracking property found: ${forbidden}`);
 }
 
-const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260820b');
-const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260820c');
+const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260820c');
+const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260820d');
 assert(helperIndex >= 0 && accountIndex > helperIndex, 'Account analytics helper must load before the account client');
 
 console.log(`Account analytics checks passed: ${requiredEvents.length} funnel events, safe-property allowlist and once-only deduplication.`);

@@ -72,6 +72,7 @@
         compareModelIds: [],
         upgradeModelId: null,
         saving: false,
+        pendingPlanSelection: null,
         recommendationViewKeys: new Set()
     };
 
@@ -163,6 +164,13 @@
         elements.accelerator = document.getElementById('machine-accelerator');
         elements.vramField = document.getElementById('vram-field');
         elements.vramInput = document.getElementById('machine-vram');
+        elements.machineMatchDialog = document.getElementById('machine-match-dialog');
+        elements.machineMatchTitle = document.getElementById('machine-match-dialog-title');
+        elements.machineMatchCopy = document.getElementById('machine-match-dialog-copy');
+        elements.machineMatchList = document.getElementById('machine-match-list');
+        elements.closeMachineMatchDialog = document.getElementById('close-machine-match-dialog');
+        elements.cancelMachineMatch = document.getElementById('cancel-machine-match');
+        elements.createMachineFromPlan = document.getElementById('create-machine-from-plan');
         elements.compareDialog = document.getElementById('compare-dialog');
         elements.compareDialogBody = document.getElementById('compare-dialog-body');
         elements.closeCompareDialog = document.getElementById('close-compare-dialog');
@@ -197,6 +205,13 @@
         elements.presetMemory.addEventListener('change', applySelectedPreset);
         elements.accelerator.addEventListener('change', updateVramField);
         elements.form.addEventListener('submit', saveMachine);
+        elements.closeMachineMatchDialog.addEventListener('click', closeMachineMatchDialog);
+        elements.cancelMachineMatch.addEventListener('click', closeMachineMatchDialog);
+        elements.createMachineFromPlan.addEventListener('click', createSelectedPendingPlanMachine);
+        elements.machineMatchList.addEventListener('click', choosePendingPlanMachine);
+        elements.machineMatchDialog.addEventListener('click', (event) => {
+            if (event.target === elements.machineMatchDialog) closeMachineMatchDialog();
+        });
         elements.closeCompareDialog.addEventListener('click', closeCompareDialog);
         elements.compareDialog.addEventListener('click', (event) => {
             if (event.target === elements.compareDialog) closeCompareDialog();
@@ -462,8 +477,21 @@
     function cachePrimaryMachine() {
         const primary = state.machines.find((machine) => machine.isPrimary) || state.machines[0] || null;
         try {
-            if (primary) localStorage.setItem('localclaw_primary_machine', JSON.stringify(primary));
-            else localStorage.removeItem('localclaw_primary_machine');
+            if (primary) {
+                localStorage.setItem('localclaw_primary_machine', JSON.stringify(primary));
+                localStorage.setItem('localclaw_saved_machines', JSON.stringify(state.machines.map((machine) => ({
+                    id: machine.id,
+                    name: machine.name,
+                    platform: machine.platform,
+                    accelerator: machine.accelerator,
+                    ramGb: machine.ramGb,
+                    vramGb: machine.vramGb,
+                    isPrimary: machine.isPrimary === true
+                }))));
+            } else {
+                localStorage.removeItem('localclaw_primary_machine');
+                localStorage.removeItem('localclaw_saved_machines');
+            }
         } catch {}
     }
 
@@ -1580,6 +1608,7 @@
                     isPrimary: state.machines.length === 0,
                     source: 'finder'
                 },
+                preferredMachineId: String(parsed.preferredMachineId || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80),
                 topModelId: String(parsed.topModelId || ''),
                 source: String(parsed.source || 'model_finder')
             };
@@ -1617,6 +1646,181 @@
         return JSON.stringify(comparable(left)) === JSON.stringify(comparable(right));
     }
 
+    function sameHardwareProfile(left, right) {
+        const vram = (machine) => machine?.vramGb === null || machine?.vramGb === '' || machine?.vramGb === undefined
+            ? null
+            : Number(machine.vramGb);
+        return String(left?.platform || '') === String(right?.platform || '')
+            && String(left?.accelerator || '') === String(right?.accelerator || '')
+            && Number(left?.ramGb) === Number(right?.ramGb)
+            && vram(left) === vram(right);
+    }
+
+    function resolvePendingPlanMachine(machines, pending) {
+        const hardwareMatches = machines.filter((machine) => sameHardwareProfile(machine, pending.machine));
+        const preferred = pending.preferredMachineId
+            ? hardwareMatches.find((machine) => machine.id === pending.preferredMachineId)
+            : null;
+        const exactMatches = hardwareMatches.filter((machine) => samePlanMachine(machine, pending.machine));
+
+        if (preferred) return { mode: 'reuse', machine: preferred, matches: hardwareMatches, matchSource: 'preferred_machine' };
+        if (exactMatches.length === 1) return { mode: 'reuse', machine: exactMatches[0], matches: hardwareMatches, matchSource: 'exact_plan' };
+        if (hardwareMatches.length === 1) return { mode: 'reuse', machine: hardwareMatches[0], matches: hardwareMatches, matchSource: 'unique_hardware' };
+        if (hardwareMatches.length > 1) return { mode: 'choose', machine: null, matches: hardwareMatches, matchSource: 'multiple_hardware' };
+        return { mode: 'create', machine: null, matches: [], matchSource: 'no_hardware_match' };
+    }
+
+    function trackMachineMatchShown(pending, matches, matchSource) {
+        const machine = matches[0] || pending.machine;
+        trackAccountGoal('existing_machine_match_shown', {
+            source: 'account_plan_handoff',
+            match_source: matchSource,
+            match_count: matches.length,
+            top_model: pending.topModelId,
+            ...machineAnalytics(machine)
+        }, { onceKey: `existing_machine_match_shown:${pending.topModelId}:${machine.platform}:${machine.ramGb}` });
+    }
+
+    function openMachineMatchDialog(pending, matches) {
+        state.pendingPlanSelection = { pending, matches };
+        elements.machineMatchTitle.textContent = matches.length > 1
+            ? 'Which saved machine should use this plan?'
+            : 'Reuse this saved machine?';
+        elements.machineMatchCopy.textContent = matches.length > 1
+            ? 'LocalClaw found more than one hardware match. Choose one to update its recommendations without creating a duplicate.'
+            : 'This hardware already exists in your account. Reuse it to keep one clean machine profile and one current plan.';
+        elements.machineMatchList.innerHTML = matches.map((machine) => `
+            <button class="lc-machine-match" type="button" data-machine-match-id="${escapeAttribute(machine.id)}">
+                <span class="lc-machine-match__icon" aria-hidden="true">${machineIcon(machine)}</span>
+                <span class="lc-machine-match__copy">
+                    <strong>${escapeHtml(machine.name)}</strong>
+                    <small>${escapeHtml(machineSpec(machine))}</small>
+                </span>
+                <span class="lc-machine-match__action">Use this machine</span>
+            </button>
+        `).join('');
+        elements.machineMatchDialog.showModal();
+        window.setTimeout(() => elements.machineMatchList.querySelector('button')?.focus(), 30);
+    }
+
+    function closeMachineMatchDialog() {
+        if (elements.machineMatchDialog.open) elements.machineMatchDialog.close();
+    }
+
+    async function choosePendingPlanMachine(event) {
+        const button = event.target.closest('[data-machine-match-id]');
+        if (!button || state.saving || !state.pendingPlanSelection) return;
+        const machine = state.pendingPlanSelection.matches.find((item) => item.id === button.dataset.machineMatchId);
+        if (!machine) return;
+        await reusePendingPlanMachine(machine, state.pendingPlanSelection.pending, 'user_choice');
+    }
+
+    async function createSelectedPendingPlanMachine() {
+        if (state.saving || !state.pendingPlanSelection) return;
+        const pending = state.pendingPlanSelection.pending;
+        closeMachineMatchDialog();
+        state.pendingPlanSelection = null;
+        trackAccountGoal('new_machine_requested', {
+            source: 'account_plan_handoff',
+            match_source: 'user_requested_new',
+            top_model: pending.topModelId,
+            ...machineAnalytics(pending.machine)
+        });
+        await createPendingPlanMachine(pending);
+    }
+
+    async function reusePendingPlanMachine(machine, pending, matchSource) {
+        if (state.saving) return;
+        state.saving = true;
+        const preferencesUpdated = machine.useCase !== pending.machine.useCase || machine.priority !== pending.machine.priority;
+        let response = null;
+        let data = null;
+        let selectedMachine = machine;
+
+        try {
+            if (preferencesUpdated) {
+                trackAccountGoal('machine_update_started', {
+                    source: 'account_plan_reuse',
+                    machine_action: 'update_preferences',
+                    ...machineAnalytics(machine)
+                });
+                response = await fetch(`/api/machines/${encodeURIComponent(machine.id)}`, {
+                    method: 'PATCH',
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        useCase: pending.machine.useCase,
+                        priority: pending.machine.priority
+                    })
+                });
+                data = await readJson(response);
+                if (!response.ok || !data?.machine?.id) throw new Error(data?.message || 'machine_reuse_failed');
+                selectedMachine = data.machine;
+                trackAccountGoal('machine_update_succeeded', {
+                    source: 'account_plan_reuse',
+                    machine_action: 'update_preferences',
+                    ...machineAnalytics(selectedMachine)
+                });
+            }
+
+            closeMachineMatchDialog();
+            state.pendingPlanSelection = null;
+            clearPendingPlan();
+            state.selectedMachineId = selectedMachine.id;
+            state.viewMode = 'compatible';
+            trackAccountGoal('existing_machine_reused', {
+                source: 'account_plan_handoff',
+                match_source: matchSource,
+                preferences_updated: preferencesUpdated,
+                top_model: pending.topModelId,
+                ...machineAnalytics(selectedMachine)
+            });
+            trackAccountGoal('duplicate_machine_avoided', {
+                source: 'account_plan_handoff',
+                match_source: matchSource,
+                top_model: pending.topModelId,
+                ...machineAnalytics(selectedMachine)
+            });
+            trackAccountGoal('plan_saved', {
+                source: 'account_plan_handoff',
+                save_mode: 'existing_reused',
+                top_model: pending.topModelId,
+                ...machineAnalytics(selectedMachine)
+            });
+            if (preferencesUpdated) await loadWorkspace(selectedMachine.id);
+            else {
+                renderMachineList();
+                renderSelectedMachine();
+                cachePrimaryMachine();
+            }
+            showToast(`Plan linked to ${selectedMachine.name}. No duplicate machine created.`);
+        } catch (error) {
+            if (preferencesUpdated) {
+                trackAccountGoal('machine_update_failed', {
+                    source: 'account_plan_reuse',
+                    machine_action: 'update_preferences',
+                    error_stage: 'existing_machine_reuse',
+                    error_code: analytics?.errorCode(data?.error, 'machine_reuse_failed') || 'machine_reuse_failed',
+                    http_status: Number(response?.status || 0),
+                    online: navigator.onLine !== false,
+                    ...machineAnalytics(machine)
+                });
+            }
+            trackAccountGoal('plan_save_failed', {
+                source: 'account_plan_handoff',
+                error_stage: 'existing_machine_reuse',
+                error_code: analytics?.errorCode(data?.error, 'machine_reuse_failed') || 'machine_reuse_failed',
+                http_status: Number(response?.status || 0),
+                online: navigator.onLine !== false,
+                ...machineAnalytics(machine)
+            });
+            openMachineMatchDialog(pending, [machine]);
+            showToast(error?.message || 'Could not reuse this machine. Choose it again or save a new profile.', 'error');
+        } finally {
+            state.saving = false;
+        }
+    }
+
     function clearPendingPlan() {
         localStorage.removeItem(PENDING_PLAN_KEY);
         localStorage.removeItem(PENDING_MACHINE_KEY);
@@ -1626,23 +1830,26 @@
         const pending = readPendingPlan();
         if (!pending || state.saving) return;
 
-        const existing = state.machines.find((machine) => samePlanMachine(machine, pending.machine));
-        if (existing) {
-            clearPendingPlan();
-            state.selectedMachineId = existing.id;
-            state.viewMode = 'compatible';
-            renderMachineList();
-            renderSelectedMachine();
-            trackAccountGoal('plan_saved', {
-                source: 'account_plan_handoff',
-                save_mode: 'existing',
-                top_model: pending.topModelId,
-                ...machineAnalytics(existing)
-            });
-            showToast('Plan ready. Your matching machine was already saved.');
+        const resolution = resolvePendingPlanMachine(state.machines, pending);
+        if (resolution.matches.length) {
+            trackMachineMatchShown(pending, resolution.matches, resolution.matchSource);
+            if (resolution.mode === 'reuse') {
+                return reusePendingPlanMachine(resolution.machine, pending, resolution.matchSource);
+            }
+            openMachineMatchDialog(pending, resolution.matches);
             return;
         }
 
+        trackAccountGoal('new_machine_requested', {
+            source: 'account_plan_handoff',
+            match_source: resolution.matchSource,
+            top_model: pending.topModelId,
+            ...machineAnalytics(pending.machine)
+        });
+        await createPendingPlanMachine(pending);
+    }
+
+    async function createPendingPlanMachine(pending) {
         state.saving = true;
         let response = null;
         let data = null;
@@ -1819,4 +2026,9 @@
     function escapeAttribute(value) {
         return escapeHtml(value).replace(/`/g, '&#096;');
     }
+
+    window.LocalClawPlanMachineMatcher = Object.freeze({
+        resolvePendingPlanMachine,
+        sameHardwareProfile
+    });
 })();
