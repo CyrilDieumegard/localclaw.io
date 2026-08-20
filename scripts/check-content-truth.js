@@ -564,7 +564,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
   }
 }
 if (currentApp !== versionedApp) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260820b') || !index.includes('js/app-20260816a.js?v=20260819b')) {
+if (!index.includes('js/data.js?v=20260820b') || !index.includes('js/app-20260816a.js?v=20260820a')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 

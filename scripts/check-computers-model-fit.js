@@ -1,58 +1,27 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const ranking = require('../js/model-ranking');
 
 const ROOT = path.resolve(__dirname, '..');
 const computers = fs.readFileSync(path.join(ROOT, 'computers.html'), 'utf8');
 const hardwareGenerator = fs.readFileSync(path.join(ROOT, 'scripts/generate-hardware-pages.js'), 'utf8');
 const dataSource = fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8');
 const context = {};
-
 vm.createContext(context);
 vm.runInContext(`${dataSource}\nglobalThis.__APP_DATA__ = APP_DATA;`, context);
 
-const models = new Map(context.__APP_DATA__.models.map(model => [model.id, model]));
-const curatedMatch = computers.match(/const CURATED_PICKS = (\{[\s\S]*?\n\s*\});/);
-
-if (!curatedMatch) throw new Error('Unable to parse CURATED_PICKS from computers.html');
-
-const curated = vm.runInNewContext(`(${curatedMatch[1]})`);
-const hardwareCuratedMatch = hardwareGenerator.match(/const\s+curated\s*=\s*(\{[\s\S]*?\n\s*\});/);
-if (!hardwareCuratedMatch) throw new Error('Unable to parse curated hardware picks');
-const hardwareCurated = vm.runInNewContext(`(${hardwareCuratedMatch[1]})`);
-const excluded = new Set(['qwen3.6-6.7b', 'qwen3-coder-8b', 'glm4.6-air', 'llama4-scout']);
+const models = context.__APP_DATA__.models;
+const byId = new Map(models.map(model => [model.id, model]));
 const failures = [];
+const profiles = [8, 16, 24, 32, 48, 64, 128, 256, 512];
 
-for (const [tierText, ids] of Object.entries(curated)) {
-  const tier = Number(tierText);
-  for (const id of ids) {
-    const model = models.get(id);
-    if (!model) {
-      failures.push(`${tier}GB pick ${id} is missing from APP_DATA.models`);
-      continue;
-    }
-    if (excluded.has(id)) failures.push(`${tier}GB pick ${id} is explicitly excluded`);
-    if (Number(model.min_ram || 0) > tier) {
-      failures.push(`${tier}GB pick ${id} requires ${model.min_ram}GB RAM`);
-    }
-    if (Number(model.size_gb || 0) > tier * 0.75) {
-      failures.push(`${tier}GB pick ${id} has a ${model.size_gb}GB artifact, above the ${tier * 0.75}GB fit ceiling`);
-    }
-  }
-}
-
-for (const [tierText, ids] of Object.entries(hardwareCurated)) {
-  const tier = Number(tierText);
-  for (const id of ids) {
-    const model = models.get(id);
-    if (!model) {
-      failures.push(`Hardware ${tier}GB pick ${id} is missing from APP_DATA.models`);
-      continue;
-    }
-    if (excluded.has(id)) failures.push(`Hardware ${tier}GB pick ${id} is explicitly excluded`);
-    if (Number(model.min_ram || 0) > tier || Number(model.size_gb || 0) > tier * 0.78) {
-      failures.push(`Hardware ${tier}GB pick ${id} does not fit its generated guide tier`);
-    }
+for (const ramGb of profiles) {
+  const result = ranking.rankModels({ ramGb, platform: 'mac', accelerator: 'apple-silicon', useCase: 'general', priority: 'balanced', context: '8k' }, {}, models, { includeTight: true, limit: 12 });
+  if (!result.compatible.length) failures.push(`${ramGb}GB profile has no compatible model`);
+  for (const model of result.compatible) {
+    if (!ranking.isLocallyEligible(model)) failures.push(`${ramGb}GB includes ineligible ${model.id}`);
+    if (model.fitState === 'too-large') failures.push(`${ramGb}GB includes oversized ${model.id}`);
   }
 }
 
@@ -64,7 +33,7 @@ const criticalFacts = {
 };
 
 for (const [id, expected] of Object.entries(criticalFacts)) {
-  const model = models.get(id);
+  const model = byId.get(id);
   if (!model) {
     failures.push(`Critical model ${id} is missing`);
     continue;
@@ -74,15 +43,11 @@ for (const [id, expected] of Object.entries(criticalFacts)) {
   }
 }
 
-for (const id of excluded) {
-  if (!computers.includes(`'${id}'`)) failures.push(`Excluded model ${id} is not guarded in computers.html`);
-  if (!hardwareGenerator.includes(`'${id}'`)) failures.push(`Excluded model ${id} is not guarded in the hardware generator`);
+for (const marker of ['js/data.js?v=20260819b', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
+  if (!computers.includes(marker)) failures.push(`computers.html missing ${marker}`);
 }
-
-if (!computers.includes('js/data.js?v=20260819b')) failures.push('computers.html uses a stale js/data.js cache key');
-if (!computers.includes('Active MoE parameters affect compute speed, not model download size')) {
-  failures.push('computers.html is missing the MoE memory explanation');
-}
+if (!hardwareGenerator.includes("require('../js/model-ranking')")) failures.push('Hardware generator does not use the shared engine');
+if (!computers.includes('Active MoE parameters affect compute speed, not model download size')) failures.push('Computers page is missing the MoE memory explanation');
 
 if (failures.length) {
   console.error(`Computers model-fit check failed (${failures.length}):`);
@@ -90,4 +55,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Computers model-fit check passed: ${Object.values(curated).flat().length} curated entries across ${Object.keys(curated).length} RAM tiers.`);
+console.log(`Computers model-fit check passed for ${profiles.length} RAM profiles with the shared recommendation engine.`);

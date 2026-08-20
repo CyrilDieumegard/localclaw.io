@@ -112,12 +112,11 @@ const App = {
     },
 
     // ========================================================================
-    // RECOMMENDATION ENGINE v2 - Smarter scoring
+    // SHARED RECOMMENDATION ENGINE
     // ========================================================================
 
     calculateResults() {
         const answers = this.state.answers;
-        let candidates = [...APP_DATA.models];
         let ramLimit = 8;
 
         // --- Determine RAM ---
@@ -130,28 +129,15 @@ const App = {
             ramLimit = answers.parsedRam || 16;
         }
 
-        // --- GPU Bonus Factor ---
-        let gpuBonus = 0;
         const isAppleSilicon = (answers.gpu === 'apple') || (this.state.activeFlow === 'guided' && answers.os === 'mac');
-        if (isAppleSilicon) gpuBonus = 0.15; // Unified memory = more efficient
-        if (answers.gpu === 'nvidia_high') gpuBonus = 0.1;
-        if (answers.gpu === 'nvidia_low') gpuBonus = 0.05;
-
-        const effectiveRam = ramLimit * (1 + gpuBonus);
-
-        // --- VRAM (new optional input) ---
         const vramRaw = answers.vram || '';
-        const vramGB = vramRaw ? parseInt(vramRaw) : 0; // 0 = not specified
-
-        // --- Context target (new optional input) ---
-        const contextTarget = answers.context || ''; // '', '4k', '8k', '16k', '32k'
+        const vramGB = vramRaw ? parseInt(vramRaw) : 0;
+        const contextTarget = answers.context || '8k';
         const highContext = (contextTarget === '16k' || contextTarget === '32k');
-
-        // KV cache overhead estimation (GB) based on context target and model size
+        const usage = answers.usage || 'chat';
+        const priority = answers.priority || 'balanced';
+        const effectiveRam = ramLimit;
         const kvCacheOverhead = (modelSizeGb) => {
-            if (!contextTarget) return 0;
-            // Rough heuristic: KV cache ≈ proportional to (params × context_length)
-            // Base: 8k context adds ~0 extra (default). 16k ≈ +15-25% of model size, 32k ≈ +30-50%
             const paramScale = Math.max(modelSizeGb / 5, 0.5); // normalize around 5GB model
             if (contextTarget === '4k') return 0;
             if (contextTarget === '8k') return 0.3 * paramScale;
@@ -159,170 +145,38 @@ const App = {
             if (contextTarget === '32k') return 1.8 * paramScale;
             return 0;
         };
+        const sharedRanking = window.LocalClawModelRanking;
+        if (!sharedRanking) {
+            this.showToast('The recommendation engine did not load. Please reload the page.', 'error');
+            return;
+        }
 
-        // --- Filter by RAM (leave ~2-3 GB for OS) ---
-        candidates = candidates.filter(m => !m.hosted_only);
-        candidates = candidates.filter(m => {
-            const overhead = kvCacheOverhead(m.size_gb);
-            return (m.size_gb + overhead) < (effectiveRam - 2.5);
+        const machine = {
+            name: 'Finder profile',
+            platform: answers.os || answers.parsedOS || (isAppleSilicon ? 'macos' : 'other'),
+            accelerator: isAppleSilicon ? 'apple-silicon' : String(answers.gpu || '').startsWith('nvidia') ? 'nvidia' : 'cpu',
+            ramGb: ramLimit,
+            vramGb: vramGB || null,
+            useCase: usage,
+            priority,
+            context: contextTarget
+        };
+        const ranked = sharedRanking.rankModels(machine, {}, APP_DATA.models, {
+            includeTight: true,
+            diversifyFamilies: true,
+            limit: 4
         });
-
-        // --- VRAM-based filter: if VRAM specified and low, hard-exclude models that can't fit ---
-        if (vramGB > 0 && vramGB <= 8) {
-            candidates = candidates.filter(m => {
-                // Model must fit in VRAM OR be small enough to CPU-offload gracefully
-                return m.size_gb <= (vramGB + 2); // allow small overflow for partial offload
-            });
-        }
-
-        // --- Usage ---
-        const usage = answers.usage || 'chat';
-        const priority = answers.priority || 'balanced';
-
-        // --- Scoring ---
-        candidates = candidates.map(m => {
-            let score = 0;
-
-            // Usage Match (primary factor)
-            if (usage === 'mix') {
-                if (m.tags.includes('general')) score += 15;
-                else if (m.tags.includes('chat')) score += 8;
-                // Penalize hyper-specialized models for "Everything"
-                const specialOnly = m.tags.filter(t => ['vision', 'code'].includes(t));
-                if (specialOnly.length > 0 && !m.tags.includes('general') && !m.tags.includes('chat')) score -= 5;
-            } else if (usage === 'reasoning') {
-                if (m.tags.includes('reasoning')) score += 20;
-                else if (m.tags.includes('general')) score += 5;
-                // Benchmarks
-                score += (m.benchmarks?.reasoning || 5) * 1.5;
-            } else {
-                if (m.tags.includes(usage)) score += 15;
-                if (m.tags.includes('general') && usage !== 'vision') score += 5;
-                // Use benchmark scores
-                if (usage === 'code') score += (m.benchmarks?.coding || 5) * 1.2;
-                if (usage === 'chat') score += (m.benchmarks?.quality || 5) * 1.0;
-                if (usage === 'vision') score += m.tags.includes('vision') ? 20 : -10;
-            }
-
-            // Quality benchmark bonus
-            score += (m.benchmarks?.quality || 5) * 0.5;
-
-            // Priority adjustments
-            if (priority === 'speed') {
-                score += (m.benchmarks?.speed || 5) * 2;
-                if (m.tags.includes('light')) score += 5;
-            } else if (priority === 'quality') {
-                score += (m.benchmarks?.quality || 5) * 2;
-                if (m.tags.includes('quality')) score += 5;
-                if (m.tags.includes('light') && ramLimit >= 16) score -= 5;
-            } else {
-                // Balanced: slight preference for quality but don't kill speed
-                score += (m.benchmarks?.quality || 5) * 1.0;
-                score += (m.benchmarks?.speed || 5) * 0.5;
-            }
-
-            // Recency bonus (newer models get a slight edge)
-            if (m.released) {
-                const relDate = new Date(m.released);
-                const now = new Date('2026-06-04');
-                const monthsAgo = (now - relDate) / (1000 * 60 * 60 * 24 * 30);
-                if (monthsAgo < 6) score += 3;
-                if (monthsAgo < 3) score += 2;
-            }
-
-            // Size efficiency: prefer models that USE available RAM well (not too small for big systems)
-            if (ramLimit >= 32 && m.size_gb < 3 && priority !== 'speed') score -= 5;
-            if (ramLimit >= 16 && m.size_gb < 2 && priority !== 'speed') score -= 3;
-
-            // RAM utilization bonus: models that use 25-70% of available RAM score well
-            const utilization = m.size_gb / effectiveRam;
-            if (utilization > 0.25 && utilization < 0.7) score += 3;
-
-            // Gemma 4 sweet spot: on 16 GB Apple Silicon, E4B is the logical default.
-            // E2B is great for tiny machines, but Mac mini 16 GB should surface the stronger 4B-class model.
-            if (isAppleSilicon && ramLimit >= 16 && m.id === 'gemma4-e4b') score += 5;
-            if (isAppleSilicon && ramLimit >= 16 && m.id === 'gemma4-e2b' && priority !== 'speed') score -= 2;
-
-            // --- Apple Silicon speed bonus ---
-            // On Apple Metal, tokens/sec scales strongly with model size.
-            // A 4B model is ~2.5x faster than a 9B on M-series chips.
-            // If speed is important OR RAM is 16GB, reward smaller fast models.
-            if (isAppleSilicon) {
-                const speedScore = m.benchmarks?.speed || 5;
-                if (m.size_gb <= 4 && speedScore >= 9) {
-                    // Tiny fast models (≤4GB) get a strong Apple Metal bonus
-                    if (priority === 'speed') score += 12;
-                    else if (priority === 'balanced') score += 6;
-                } else if (m.size_gb <= 6 && speedScore >= 8) {
-                    // Small fast models (≤6GB)
-                    if (priority === 'speed') score += 7;
-                    else if (priority === 'balanced') score += 3;
-                } else if (m.size_gb > 8 && ramLimit <= 16) {
-                    // On 16GB RAM, models >8GB will be SLOW due to memory pressure
-                    // Hybrid thinking models (qwen3.5 etc) make it worse
-                    const isHeavyForRam = (m.size_gb / ramLimit) > 0.5;
-                    if (isHeavyForRam) score -= 8;
-                }
-            }
-
-            // --- NEW: VRAM penalty — if user specified VRAM, penalize models that don't fit in GPU ---
-            if (vramGB > 0) {
-                if (m.size_gb > vramGB) {
-                    // Model won't fit entirely in VRAM → partial offload penalty
-                    const overflowRatio = (m.size_gb - vramGB) / m.size_gb;
-                    score -= overflowRatio * 12; // significant penalty for CPU spillover
-                } else {
-                    // Model fits in VRAM → bonus
-                    score += 3;
-                }
-            }
-
-            // --- NEW: High context penalty for heavy models ---
-            if (highContext) {
-                const overhead = kvCacheOverhead(m.size_gb);
-                const totalNeeded = m.size_gb + overhead;
-                const headroom = effectiveRam - totalNeeded - 2.5;
-                if (headroom < 2) {
-                    score -= 8; // very tight with KV cache
-                } else if (headroom < 4) {
-                    score -= 4; // somewhat tight
-                }
-                // Prefer smaller/faster models when asking for high context
-                if (m.tags.includes('light')) score += 3;
-            }
-
-            return { ...m, score: Math.round(score * 10) / 10 };
-        });
-
-        // --- Sort & Deduplicate by family ---
-        candidates.sort((a, b) => b.score - a.score);
-
-        const finalRecs = [];
-        const seenFamilies = new Set();
-
-        for (const m of candidates) {
-            if (!seenFamilies.has(m.family)) {
-                finalRecs.push(m);
-                seenFamilies.add(m.family);
-            }
-            if (finalRecs.length >= 4) break;
-        }
-
-        // Mac mini 16 GB sanity rule: Gemma 4 E4B should always be visible if it fits.
-        // This prevents newer Gemma 4 from being hidden by family dedupe or use-case scoring edge cases.
-        const gemma4E4B = candidates.find(m => m.id === 'gemma4-e4b');
-        const hasGemma4E4B = finalRecs.some(m => m.id === 'gemma4-e4b');
-        if (isAppleSilicon && ramLimit === 16 && gemma4E4B && !hasGemma4E4B) {
-            if (finalRecs.length < 4) finalRecs.push(gemma4E4B);
-            else finalRecs[finalRecs.length - 1] = gemma4E4B;
-        }
+        const finalRecs = ranked.compatible.map(model => ({
+            ...model,
+            score: model.recommendationScore
+        }));
 
         // Fallback
         if (finalRecs.length === 0) {
             finalRecs.push(APP_DATA.models.find(m => m.id === 'phi4-mini'));
         }
 
-        // --- NEW: Compute "Why this pick" + risk badge per recommendation ---
+        // Keep the existing detailed explanation UI while the shared engine owns ranking.
         finalRecs.forEach(m => {
             m._why = this._buildWhyThisPick(m, ramLimit, vramGB, contextTarget, effectiveRam, kvCacheOverhead);
             m._risk = this._computeRiskBadge(m, effectiveRam, vramGB, contextTarget, kvCacheOverhead);

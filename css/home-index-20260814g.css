@@ -687,12 +687,11 @@ html { scroll-behavior: smooth; }
     .lc-index-hero__copy { padding: 6px 10px 20px; }
     .lc-index-section-head { align-items: start; flex-direction: column; }
     .lc-index-table th, .lc-index-table td { padding-left: 6px; padding-right: 6px; }
-    .lc-index-table th:nth-child(6), .lc-index-table td:nth-child(6),
+    .lc-index-table th:nth-child(1), .lc-index-table td:nth-child(1),
+    .lc-index-table th:nth-child(4), .lc-index-table td:nth-child(4),
     .lc-index-table th:nth-child(8), .lc-index-table td:nth-child(8) { display: none; }
-    .lc-index-rank { width: 38px; }
-    .lc-index-model-col { width: 42%; }
+    .lc-index-model-col { width: 48%; }
     .lc-index-score-col { width: 58px; }
-    .lc-index-community-col { width: 76px; }
     .lc-index-action-col { width: 54px; }
     .lc-index-action-cell { gap: 4px; }
     .lc-index-compare-toggle { min-width: 30px; width: 30px; overflow: hidden; padding-left: 0; padding-right: 0; font-size: 0; }

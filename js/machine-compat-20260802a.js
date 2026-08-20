@@ -1,6 +1,25 @@
 (function () {
     'use strict';
 
+    const sharedRanking = window.LocalClawModelRanking;
+    if (sharedRanking) {
+        window.LocalClawCompatibility = {
+            rankModels(machine, models) {
+                const result = sharedRanking.rankModels(machine, {}, models, {
+                    includeTight: true
+                });
+                return {
+                    machine: result.machine,
+                    compatible: result.allCompatible,
+                    incompatibleCount: result.incompatibleCount,
+                    totalLocalModels: result.totalLocalModels
+                };
+            },
+            normalizeMachine: sharedRanking.normalizeMachine
+        };
+        return;
+    }
+
     const USE_CASE_BENCHMARK = {
         chat: 'quality',
         coding: 'coding',

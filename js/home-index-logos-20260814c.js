@@ -83,6 +83,7 @@ window.HOME_INDEX_LOGOS = {
   },
   speech: {
     app: 'github',
+    'ark-asr': 'github',
     bark: 'suno',
     canary: 'nvidia',
     chatterbox: 'resemble-avatar',

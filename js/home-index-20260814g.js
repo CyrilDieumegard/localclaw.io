@@ -142,7 +142,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return amount ? finite(amount[1]) * ({T: 1e12, B: 1e9, M: 1e6, K: 1e3}[amount[2].toUpperCase()] || 1) : 0;
         };
         const defaultSortDirection = (sortKey) => ['catalogue', 'name', 'family', 'ram', 'license'].includes(sortKey) ? 'asc' : 'desc';
-        let activeSortKey = 'community';
+        let activeSortKey = 'score';
         let activeSortDirection = defaultSortDirection(activeSortKey);
         const llmTieBreak = (a, b) => {
             const aRatings = a.benchmarks || {};
@@ -184,15 +184,17 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const scoreMarkup = (value, title, modifier = '') => `<span class="lc-index-score ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>${scoreLabel(value)}</strong><small>/10</small></span>`;
         const machineFit = (model) => {
             if (!machineRam) return {key: 'unset', label: 'Set RAM'};
-            const minimum = finite(model && model.min_ram, Infinity);
-            if (minimum > machineRam) return {key: 'too-large', label: 'Too large'};
-            if (minimum > machineRam * 0.75) return {key: 'tight', label: 'Tight'};
-            return {key: 'fits', label: 'Fits'};
+            const sharedRanking = window.LocalClawModelRanking;
+            if (!sharedRanking) return {key: 'too-large', label: 'Unavailable'};
+            const result = sharedRanking.calculateHardwareFit({ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'}, model);
+            if (!result.compatible) return {key: 'too-large', label: 'Too large'};
+            if (result.fitState === 'tight') return {key: 'tight', label: 'Tight'};
+            return {key: 'fits', label: result.fitState === 'comfortable' ? 'Comfortable' : 'Good fit'};
         };
         const fitMarkup = (model) => {
             const fit = machineFit(model);
             if (fit.key === 'unset') return '';
-            const title = `${fit.label} for a ${machineRam} GB machine using the catalogue minimum-RAM field. Actual context and runtime overhead can require more memory.`;
+            const title = `${fit.label} for a ${machineRam} GB machine using the shared LocalClaw memory-fit rules with system and 8k-context headroom.`;
             return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
         };
         const sponsorAudienceSnapshot = Object.freeze({
@@ -381,9 +383,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
                             <label><span class="sr-only">Choose machine memory</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">My machine · set RAM</option><option value="8">My machine · 8 GB</option><option value="16">My machine · 16 GB</option><option value="32">My machine · 32 GB</option><option value="64">My machine · 64 GB</option><option value="128">My machine · 128 GB</option><option value="256">My machine · 256 GB</option><option value="512">My machine · 512 GB</option></select></label>
-                            <label><span class="sr-only">Filter by machine fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Fits my machine</option><option value="fits">Comfortable fits</option><option value="tight">Tight fits</option><option value="too-large">Too large</option></select></label>
+                            <label><span class="sr-only">Filter by machine fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Comfortable + tight</option><option value="fits">Comfortable only</option><option value="tight">Tight only</option><option value="too-large">Too large</option></select></label>
                             <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">LocalClaw score</option><option value="quality">Quality — highest</option><option value="coding">Coding — highest</option><option value="reasoning">Reasoning — highest</option><option value="speed">Speed — highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
+                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">

@@ -3,10 +3,11 @@ const path = require('path');
 const vm = require('vm');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
+const modelRanking = require('../js/model-ranking');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
-const UPDATED = 'August 18, 2026';
+const UPDATED = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date());
 const AMAZON_TAG = 'localclaw-20';
 const tracking = `<!-- TRACKING: DataFast Analytics --><script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script><!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) --><script src="/js/clarity.js" defer></script>${siteNavAssets()}`;
 
@@ -49,43 +50,19 @@ const macs = [
   { id: 'mac-studio-m3-ultra-512gb', name: 'Mac Studio M3 Ultra 512GB', family: 'Mac Studio', chip: 'M3 Ultra', ram: 512, storage: '4TB SSD', badge: 'Maximum Memory', appleUrl: 'https://www.apple.com/mac-studio/', intent: 'server-scale local AI on Apple silicon' }
 ];
 
-// These IDs are editorial anchors from the current catalogue. The hard local,
-// RAM, and file-size filters below still apply before anything can be shown.
-const curated = {
-  8: ['lfm2-5-2-6b', 'qwen3.5-9b', 'gemma4-e4b', 'qwen3.5-4b', 'dante-mosaic-3.5b'],
-  16: ['gpt-oss-20b', 'apriel-nemotron-15b-thinker', 'qwen3.5-9b', 'gemma4-e4b', 'nemotron-nano-9b-v2'],
-  24: ['muse-glimmer-30b', 'gemma4-12b', 'qwen3-coder-30b', 'gpt-oss-20b', 'mistral-small-3.2-24b'],
-  32: ['qwen3.8-27b', 'qwen3.6-27b', 'muse-glimmer-30b', 'qwen3.5-35b-a3b', 'qwen3-coder-30b'],
-  48: ['qwen3.8-27b', 'qwen3.5-35b-a3b', 'nemotron3-49b', 'qwen3.6-27b', 'muse-glimmer-30b'],
-  64: ['qwen3-next-80b-a3b', 'qwen3.8-27b', 'nemotron3-70b', 'qwen3.5-35b-a3b', 'muse-glimmer-30b'],
-  128: ['qwen3.5-122b-a10b', 'gpt-oss-120b', 'qwen3-next-80b-a3b', 'mistral-large-123b', 'command-a-111b'],
-  256: ['deepseek-v4-flash-0731', 'minimax-m2-230b', 'qwen3-235b-a22b', 'qwen3.5-122b-a10b', 'command-a-111b'],
-  512: ['deepseek-v3.2-exp', 'qwen3.5-397b-a17b', 'trinity-large', 'deepseek-v3.1', 'deepseek-v4-flash-0731']
-};
-
-const computerExcluded = new Set(['qwen3.6-6.7b', 'qwen3-coder-8b', 'glm4.6-air', 'llama4-scout']);
-const tiers = [8, 16, 24, 32, 48, 64, 128, 256, 512];
-const tier = ram => tiers.filter(value => value <= ram).pop() || 8;
-
 function compatible(models, mac) {
-  const picks = curated[tier(mac.ram)] || [];
-  return models
-    .filter(model => !model.hosted_only && !computerExcluded.has(model.id) && (model.min_ram || 4) <= mac.ram && (model.size_gb || 4) <= mac.ram * 0.78)
-    .sort((a, b) => {
-      const ai = picks.indexOf(a.id);
-      const bi = picks.indexOf(b.id);
-      if (ai !== -1 && bi !== -1) return ai - bi;
-      if (ai !== -1) return -1;
-      if (bi !== -1) return 1;
-      const score = model => (model.benchmarks?.quality || 0) * 2 + (model.benchmarks?.reasoning || 0) + (model.benchmarks?.coding || 0) + (model.benchmarks?.speed || 0) * 0.5 + (model.isNew ? 3 : 0);
-      return score(b) - score(a);
-    });
+  return modelRanking.rankModels({
+    ramGb: mac.ram,
+    platform: 'mac',
+    accelerator: 'apple-silicon',
+    useCase: 'general',
+    priority: 'balanced',
+    context: '8k'
+  }, {}, models, { includeTight: true }).allCompatible;
 }
 
 function fit(mac, model) {
-  if (model.min_ram <= mac.ram * 0.5) return 'Comfortable fit';
-  if (model.min_ram <= mac.ram * 0.75) return 'Good fit';
-  return 'Tight fit';
+  return model.compatibilityLabel || modelRanking.tierLabel('limited', modelRanking.calculateHardwareFit({ ramGb: mac.ram, platform: 'mac', accelerator: 'apple-silicon' }, model).fitState);
 }
 
 function buy(mac) {
@@ -120,7 +97,7 @@ function page(mac, models) {
   const desc = `Current local AI models for ${mac.name}: realistic RAM fit, quantization, model size and LM Studio guidance.`;
   const schema = { '@context': 'https://schema.org', '@type': 'TechArticle', headline: title, url, description: desc, dateModified: '2026-08-18', image: `${BASE}${media.image}`, about: [mac.name, 'local LLM', 'Apple silicon'] };
   const isAmazon = true;
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="${url}"><meta property="og:type" content="article"><meta property="og:url" content="${url}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${BASE}${media.image}"><link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}<style>${style}</style></head><body>${nav()}<main class="wrap"><header class="hero"><div><h1 class="title">Best local LLMs for ${esc(mac.name)}</h1><p class="desc">${esc(mac.name)} has <strong>${mac.ram}GB of unified memory</strong> and is suited to ${esc(mac.intent)}. These recommendations are generated from the current LocalClaw catalogue and filtered for realistic memory headroom.</p><p class="updated">Recommendations updated ${UPDATED}</p><div class="cta"><a class="btn" href="${esc(buy(mac))}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="${isAmazon ? 'amazon_click' : 'hardware_store_click'}" data-fast-goal-source="hardware_guide" data-fast-goal-product="${esc(mac.id)}">${isAmazon ? 'View current offers' : 'View at Apple'}</a><a class="btn secondary" href="/?from=hardware_guide&amp;machine=${esc(mac.id)}#model-finder" data-fast-goal="hardware_finder_click" data-fast-goal-source="hardware_${esc(mac.id)}" data-fast-goal-target="model_finder">Find models for this Mac</a><a class="btn secondary" href="/ram/${guide}gb" data-fast-goal="guide_open" data-fast-goal-source="hardware_${esc(mac.id)}" data-fast-goal-target="ram_${guide}gb">See ${guide}GB RAM guide</a></div></div><figure class="hero-media"><img src="${media.image}" alt="${esc(media.alt)}" width="1600" height="900" loading="eager" fetchpriority="high"><figcaption>${esc(mac.family)} · ${esc(mac.chip)} · ${mac.ram}GB unified memory</figcaption></figure></header><section class="stats" aria-label="Hardware and model summary"><div class="stat"><div class="k">Chip</div><div class="v">${esc(mac.chip)}</div></div><div class="stat"><div class="k">Unified memory</div><div class="v">${mac.ram}GB</div></div><div class="stat"><div class="k">Compatible catalogue models</div><div class="v">${list.length}</div></div><div class="stat"><div class="k">Editorial first pick</div><div class="v" style="font-size:18px">${esc(best?.name || 'N/A')}</div></div></section><section class="section"><h2>Quick answer</h2><p class="section-copy">Start with <strong>${esc(best?.name || 'a model under the RAM limit')}</strong> on this Mac. A comfortable or good fit leaves useful memory for macOS and your local runtime. A tight fit can still work, but close other apps, reduce context length when needed, and prefer the listed quantization.</p><p class="meta">${esc(mac.family)} · ${esc(mac.chip)} · ${mac.ram}GB unified memory · ${esc(mac.storage)} · ${esc(mac.badge)}</p></section><section class="section" id="rankings"><h2>Top compatible local LLMs</h2><div class="grid">${top.map((model, index) => modelCard(mac, model, index)).join('')}</div></section><section class="section method"><div><h2>How this order works</h2><p class="section-copy">The page first applies hard limits for local availability, minimum RAM and quantized model size with 22% memory headroom. It then uses a maintained editorial shortlist for this memory tier, followed by LocalClaw catalogue quality, reasoning, coding and speed fields. This is practical guidance, not a standardized hardware benchmark.</p></div><a class="btn secondary" href="/models">Browse the full model index</a></section><section class="section"><h2>Buying note</h2><p class="section-copy">This guide is about local AI fit, not live pricing. Prices and availability change. An Amazon link may be an affiliate link that supports LocalClaw at no extra cost.</p></section></main></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="${url}"><meta property="og:type" content="article"><meta property="og:url" content="${url}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${BASE}${media.image}"><link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g"><script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}<style>${style}</style></head><body>${nav()}<main class="wrap"><header class="hero"><div><h1 class="title">Best local LLMs for ${esc(mac.name)}</h1><p class="desc">${esc(mac.name)} has <strong>${mac.ram}GB of unified memory</strong> and is suited to ${esc(mac.intent)}. These recommendations are generated from the current LocalClaw catalogue and filtered for realistic memory headroom.</p><p class="updated">Recommendations updated ${UPDATED}</p><div class="cta"><a class="btn" href="${esc(buy(mac))}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="${isAmazon ? 'amazon_click' : 'hardware_store_click'}" data-fast-goal-source="hardware_guide" data-fast-goal-product="${esc(mac.id)}">${isAmazon ? 'View current offers' : 'View at Apple'}</a><a class="btn secondary" href="/?from=hardware_guide&amp;machine=${esc(mac.id)}#model-finder" data-fast-goal="hardware_finder_click" data-fast-goal-source="hardware_${esc(mac.id)}" data-fast-goal-target="model_finder">Find models for this Mac</a><a class="btn secondary" href="/ram/${guide}gb" data-fast-goal="guide_open" data-fast-goal-source="hardware_${esc(mac.id)}" data-fast-goal-target="ram_${guide}gb">See ${guide}GB RAM guide</a></div></div><figure class="hero-media"><img src="${media.image}" alt="${esc(media.alt)}" width="1600" height="900" loading="eager" fetchpriority="high"><figcaption>${esc(mac.family)} · ${esc(mac.chip)} · ${mac.ram}GB unified memory</figcaption></figure></header><section class="stats" aria-label="Hardware and model summary"><div class="stat"><div class="k">Chip</div><div class="v">${esc(mac.chip)}</div></div><div class="stat"><div class="k">Unified memory</div><div class="v">${mac.ram}GB</div></div><div class="stat"><div class="k">Compatible catalogue models</div><div class="v">${list.length}</div></div><div class="stat"><div class="k">Best match</div><div class="v" style="font-size:18px">${esc(best?.name || 'N/A')}</div></div></section><section class="section"><h2>Quick answer</h2><p class="section-copy">Start with <strong>${esc(best?.name || 'a model under the RAM limit')}</strong> on this Mac. A comfortable or good fit leaves useful memory for macOS and your local runtime. A tight fit can still work, but close other apps, reduce context length when needed, and prefer the listed quantization.</p><p class="meta">${esc(mac.family)} · ${esc(mac.chip)} · ${mac.ram}GB unified memory · ${esc(mac.storage)} · ${esc(mac.badge)}</p></section><section class="section" id="rankings"><h2>Top compatible local LLMs</h2><div class="grid">${top.map((model, index) => modelCard(mac, model, index)).join('')}</div></section><section class="section method"><div><h2>How this order works</h2><p class="section-copy">The shared LocalClaw engine first rejects hosted-only, excluded and oversized records. It reserves system and 8k-context headroom, labels comfortable, good and tight fits, then ranks the remaining models by hardware fit, use case, catalogue capability ratings, runtime and freshness. Community stars are never included. This is practical guidance, not a standardized hardware benchmark.</p></div><a class="btn secondary" href="/models">Browse the full model index</a></section><section class="section"><h2>Buying note</h2><p class="section-copy">This guide is about local AI fit, not live pricing. Prices and availability change. An Amazon link may be an affiliate link that supports LocalClaw at no extra cost.</p></section></main></body></html>`;
 }
 
 function redirectPage(to, label) {

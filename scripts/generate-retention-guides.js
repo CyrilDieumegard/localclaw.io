@@ -3,6 +3,7 @@ const path = require('path');
 const vm = require('vm');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
+const modelRanking = require('../js/model-ranking');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -47,20 +48,8 @@ function nav(active = '') {
   return siteNavigation(active);
 }
 
-function scoreModel(m, mode) {
-  const b = m.benchmarks || {};
-  const weights = {
-    general: { quality: 2.8, reasoning: 1.2, coding: 0.7, speed: 0.7 },
-    coding: { coding: 3, reasoning: 1.4, quality: 1, speed: 0.4 },
-    ram16: { quality: 2.1, reasoning: 1, coding: 0.8, speed: 1.1 },
-    macmini: { quality: 2.1, reasoning: 1, coding: 0.9, speed: 1.2 }
-  }[mode] || {};
-  let s = Object.entries(weights).reduce((sum, [key, weight]) => sum + (Number(b[key]) || 0) * weight, 0);
-  if (m.isNew) s += 3;
-  if (mode === 'coding' && (m.tags || []).includes('code')) s += 8;
-  if ((mode === 'ram16' || mode === 'macmini') && m.min_ram <= 16) s += 8;
-  if ((mode === 'ram16' || mode === 'macmini') && m.min_ram > 16) s -= 20;
-  return s;
+function rankedModels(models, machine, options = {}) {
+  return modelRanking.rankModels(machine, {}, models, { includeTight: true, ...options }).allCompatible;
 }
 
 function modelCard(m, i) {
@@ -121,7 +110,7 @@ const guideData = [
     accent: 'Mac mini M4',
     description: 'Practical local AI picks for Mac mini M4 and M4 Pro machines, focused on unified memory, LM Studio fit and real desktop workflows.',
     active: 'llm',
-    cards: models.filter(m => m.min_ram <= 24).sort((a, b) => scoreModel(b, 'macmini') - scoreModel(a, 'macmini')),
+    cards: rankedModels(models, { ramGb: 24, platform: 'mac', accelerator: 'apple-silicon', useCase: 'general', priority: 'balanced', context: '8k' }),
     metrics: [['Hardware', 'M4 / M4 Pro'], ['RAM tiers', '16-48GB'], ['Best fit', 'Q4/Q5'], ['Mode', 'Desktop']],
     quick: 'For a Mac mini M4 with 16GB, start with compact 8B-14B class models and keep enough memory headroom for macOS and LM Studio. For M4 Pro 24GB or 48GB, larger 24B-32B class models become more comfortable.',
     links: [['Hardware', 'Mac mini M4 guide', '/hardware/mac-mini-m4-16gb.html'], ['RAM', '16GB model guide', '/ram/16gb.html'], ['Compare', 'All local LLMs', '/llm-list.html'], ['App', 'Get LocalClaw', '/pricing.html']],
@@ -133,7 +122,7 @@ const guideData = [
     accent: '16GB RAM',
     description: 'The cleanest starting points for local LLMs on 16GB machines: compact chat, coding and reasoning models that avoid painful memory pressure.',
     active: 'llm',
-    cards: models.filter(m => m.min_ram <= 16).sort((a, b) => scoreModel(b, 'ram16') - scoreModel(a, 'ram16')),
+    cards: rankedModels(models, { ramGb: 16, platform: 'other', accelerator: 'cpu', useCase: 'general', priority: 'balanced', context: '8k' }),
     metrics: [['RAM', '16GB'], ['Target', 'Laptop safe'], ['Quant', 'Q4/Q5'], ['Use', 'Chat + code']],
     quick: 'On 16GB RAM, the best experience usually comes from 4B-14B models in Q4_K_M or Q5_K_M. Bigger models can look tempting, but memory pressure quickly hurts latency.',
     links: [['RAM', 'Full 16GB guide', '/ram/16gb.html'], ['Hardware', 'Mac mini M4', '/hardware/mac-mini-m4-16gb.html'], ['Compare', 'All local LLMs', '/llm-list.html'], ['App', 'Get LocalClaw', '/pricing.html']],
@@ -145,7 +134,7 @@ const guideData = [
     accent: 'coding',
     description: 'Local coding model picks for repository work, debugging, agents and private software engineering with LM Studio or a local runtime.',
     active: 'llm',
-    cards: models.filter(m => (m.tags || []).includes('code')).sort((a, b) => scoreModel(b, 'coding') - scoreModel(a, 'coding')),
+    cards: rankedModels(models, { ramGb: 64, platform: 'other', accelerator: 'cpu', useCase: 'coding', priority: 'quality', context: '16k' }, { filter: m => (m.tags || []).includes('code') }),
     metrics: [['Signal', 'Coding'], ['Also weighs', 'Reasoning'], ['Privacy', 'Local'], ['Workflow', 'Agents']],
     quick: 'For coding, prioritize coding score, reasoning score and runtime fit. A slightly smaller model that stays responsive is usually better than a larger model that starves memory.',
     links: [['Use case', 'Coding guide', '/use-case/coding.html'], ['Models', 'Qwen Coder family', '/llm-list.html'], ['Hardware', 'Computers for AI', '/computers.html'], ['App', 'Get LocalClaw', '/pricing.html']],
