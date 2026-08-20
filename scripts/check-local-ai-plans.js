@@ -27,6 +27,8 @@ for (const marker of [
   "'plan_action_clicked'",
   "localStorage.setItem('localclaw_pending_plan'",
   'Keep this plan updated',
+  'data-plan-save-button',
+  "window.setTimeout(() => window.location.assign('/account?add=plan'), 180)",
   'Ready now · no signup required',
   "rawPlatform === 'mac-intel'",
   "lower.includes('apple m5')",
@@ -42,6 +44,7 @@ for (const marker of [
   "'plan_save_failed'",
   "'plan_update_viewed'",
   'Automatic save was unavailable. Review the details and save once.',
+  "source: 'account_plan_handoff'",
   'My Local AI Plan'
 ]) {
   assert(account.includes(marker), `Missing account plan marker: ${marker}`);
@@ -54,12 +57,12 @@ assert(resumeStart >= 0 && resumeEnd > resumeStart, 'Pending plan resume functio
 assert(resumeSource.indexOf('samePlanMachine(machine, pending.machine)') < resumeSource.indexOf("fetch('/api/machines'"), 'Duplicate protection must run before automatic creation');
 assert(account.includes("source: 'finder'"), 'Finder plans must retain their source');
 assert(accountHtml.includes('My Local AI Plans'), 'Account does not expose the plans workspace');
-assert(accountHtml.includes('/js/account-20260802a.js?v=20260820b'), 'Account plan script cache key is stale');
+assert(accountHtml.includes('/js/account-20260802a.js?v=20260820c'), 'Account plan script cache key is stale');
 assert(accountHtml.includes('/js/account-analytics-20260820a.js?v=20260820b'), 'Account plan analytics cache key is stale');
 assert(accountHtml.includes('/css/account-20260802a.css?v=20260820b'), 'Account plan CSS cache key is stale');
 assert(accountCss.includes('.lc-plan-overview'), 'Account plan overview styles are missing');
 assert(index.includes('js/data.js?v=20260820c'), 'Homepage flow data cache key is stale');
-assert(index.includes('js/app-20260816a.js?v=20260820c'), 'Homepage plan app cache key is stale');
+assert(index.includes('js/app-20260816a.js?v=20260820d'), 'Homepage plan app cache key is stale');
 assert(index.includes('js/growth-paths-20260727a.js?v=20260820a'), 'Homepage growth path cache key is stale');
 assert(growth.includes('Build my Local AI Plan'), 'Article acquisition CTA is not plan-led');
 assert(growth.includes('no signup before value'), 'Article CTA must explain the no-signup result');

@@ -1647,6 +1647,12 @@
         let response = null;
         let data = null;
         try {
+            trackAccountGoal('machine_create_started', {
+                source: 'account_plan_handoff',
+                machine_action: 'create',
+                is_first_machine: state.machines.length === 0,
+                ...machineAnalytics(pending.machine)
+            });
             response = await fetch('/api/machines', {
                 method: 'POST',
                 credentials: 'same-origin',

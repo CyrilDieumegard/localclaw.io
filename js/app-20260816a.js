@@ -13,6 +13,7 @@ const App = {
         selectedModelIndex: 0, // index of the selected model in recommendations
         flowSource: 'model_finder',
         trackedStepViews: {},
+        planHandoffStarted: false,
     },
 
     init() {
@@ -93,6 +94,7 @@ const App = {
             selectedModelIndex: 0,
             flowSource: 'model_finder',
             trackedStepViews: {},
+            planHandoffStarted: false,
             _contextNote: false,
         };
         this.render();
@@ -191,6 +193,7 @@ const App = {
     },
 
     saveCurrentMachine() {
+        if (this.state.planHandoffStarted) return;
         try {
             const plan = this.buildCurrentPlanPayload();
             localStorage.setItem('localclaw_pending_plan', JSON.stringify(plan));
@@ -205,8 +208,16 @@ const App = {
             this.trackGoal('plan_save_started', context);
             this.trackGoal('machine_save_started', context);
             this.trackGoal('account_open', context);
-            window.location.assign('/account?add=plan');
+            this.state.planHandoffStarted = true;
+            const button = document.querySelector('[data-plan-save-button]');
+            if (button) {
+                button.disabled = true;
+                button.setAttribute('aria-busy', 'true');
+                button.textContent = 'Saving plan…';
+            }
+            window.setTimeout(() => window.location.assign('/account?add=plan'), 180);
         } catch {
+            this.state.planHandoffStarted = false;
             this.trackGoal('recommender_error', {
                 source: 'recommender_results',
                 flow: String(this.state.activeFlow || ''),
@@ -2262,7 +2273,7 @@ const App = {
                     <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
                         <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
                         <p class="mt-2 text-sm leading-relaxed text-white">Save the plan free. New compatible releases and better matches will appear automatically.</p>
-                        <button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
+                        <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
                             Keep this plan updated
                         </button>
                         <a href="/models/${selectedModel.id}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
