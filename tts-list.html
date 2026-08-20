@@ -894,27 +894,23 @@
         .bench-fill-speed { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
         .bench-val { font-size: 10px; font-family: monospace; font-weight: 800; width: 24px; text-align: right; color: rgba(244,244,245,0.78); }
 
-        /* Install command */
+        /* Friendly installation path */
         .install-cmd {
-            display: flex; align-items: center; gap: 8px;
+            display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px;
             padding: 9px 11px; border-radius: 10px;
             background: rgba(0,0,0,0.46);
             border: 1px solid rgba(255,255,255,0.065);
             margin: 14px 0 0;
             cursor: pointer;
             transition: border-color 0.2s;
+            color: #fff; text-decoration: none;
         }
         .install-cmd:hover { border-color: rgba(139,92,246,0.3); }
-        .install-cmd code {
-            font-size: 11px; color: var(--tts-accent);
-            flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-        }
-        .install-cmd .copy-icon {
-            font-size: 11px; color: var(--muted);
-            transition: color 0.2s;
-        }
-        .install-cmd:hover .copy-icon { color: var(--tts-accent); }
-        .install-cmd .copied { color: #34D399 !important; }
+        .install-cmd-logo { width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:#f4f4f5; overflow:hidden; }
+        .install-cmd-logo img { width:27px; height:27px; object-fit:contain; }
+        .install-cmd strong { display:block; font-size:12px; }
+        .install-cmd small { display:block; margin-top:2px; color:var(--muted); font-size:9px; }
+        .install-cmd-arrow { color:var(--tts-accent); font-size:14px; }
 
         /* Footer */
         .card-footer {
@@ -3419,16 +3415,6 @@
             requestAnimationFrame(step);
         }
 
-        // Copy to clipboard
-        function copyInstall(btn, cmd) {
-            navigator.clipboard.writeText(cmd).then(() => {
-                const icon = btn.querySelector('.copy-icon');
-                icon.textContent = '✓';
-                icon.classList.add('copied');
-                setTimeout(() => { icon.textContent = '⎘'; icon.classList.remove('copied'); }, 1500);
-            });
-        }
-
         // Compare functionality
         function toggleCompare(id) {
             const model = TTS_MODELS.find(item => item.id === id);
@@ -3533,6 +3519,7 @@
             
             grid.innerHTML = models.map((model, i) => {
                 const isUnverified = model.delivery === 'unverified';
+                const isRemote = model.delivery === 'online' || model.delivery === 'api';
                 const langDisplay = model.languages.slice(0, 5).map(l => 
                     `<span class="lang-tag">${l.toUpperCase()}</span>`
                 ).join('');
@@ -3638,11 +3625,15 @@
                 const audioPreviewMarkup = window.LOCAL_AI_EXTERNAL_MEDIA?.voice?.[model.id]
                     ? `<div class="lc-external-media lc-external-media-compact" data-external-media data-media-category="voice" data-media-id="${model.id}"></div>`
                     : '';
+                const installLogo = /^https:\/\/github\.com\//.test(model.hfLink || '')
+                    ? 'https://github.githubassets.com/favicons/favicon.svg'
+                    : '/images/model-logos/huggingface-avatar.webp';
                 const installMarkup = isUnverified ? '' : `
-                    <div class="install-cmd" onclick="copyInstall(this, '${model.installCommand}')">
-                        <code>$ ${model.installCommand}</code>
-                        <span class="copy-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>
-                    </div>`;
+                    <a class="install-cmd" href="/tts/${model.id}" data-fast-goal="tts_install_options_open" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">
+                        <span class="install-cmd-logo" aria-hidden="true"><img src="${installLogo}" alt="" width="34" height="34" loading="lazy"></span>
+                        <span><strong>${isRemote ? 'Choose access' : 'Choose an app'}</strong><small>No terminal command</small></span>
+                        <span class="install-cmd-arrow" aria-hidden="true">→</span>
+                    </a>`;
                 const upstreamMarkup = model.hfLink
                     ? `<a href="${model.hfLink}" target="_blank" rel="noopener nofollow" class="card-link card-link-secondary" data-fast-goal="upstream_click" data-fast-goal-source="tts_grid" data-fast-goal-model="${model.id}">↗ Upstream source</a>`
                     : '<span class="card-link card-link-secondary" aria-disabled="true">No verified upstream source</span>';

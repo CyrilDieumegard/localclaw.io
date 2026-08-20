@@ -90,6 +90,36 @@ for (const file of modelPages) {
   }
 }
 
+for (const directory of ['image', 'video', '3d', 'music', 'vision']) {
+  for (const file of fs.readdirSync(path.join(ROOT, directory)).filter(name => name.endsWith('.html'))) {
+    const html = fs.readFileSync(path.join(ROOT, directory, file), 'utf8');
+    const cardCount = (html.match(/class="install-choice-card\b/g) || []).length;
+    const logoCount = (html.match(/class="install-choice-logo"/g) || []).length;
+    if (!html.includes('data-install-choice')) errors.push(`${directory}/${file} is missing the app chooser`);
+    if (cardCount < 2 || logoCount !== cardCount) errors.push(`${directory}/${file} must expose at least two logo-backed setup choices; found ${cardCount} cards and ${logoCount} logos`);
+    if (!html.includes('data-fast-goal="model_install_')) errors.push(`${directory}/${file} is missing install-choice analytics`);
+    if (html.includes('Open installation source')) errors.push(`${directory}/${file} still exposes the old generic installation button`);
+  }
+}
+
+const speechDetailPages = fs.readdirSync(path.join(ROOT, 'tts')).filter(name => name.endsWith('.html') && name !== 'index.html');
+const speechWithChooser = speechDetailPages.filter(file => fs.readFileSync(path.join(ROOT, 'tts', file), 'utf8').includes('data-install-choice'));
+if (speechWithChooser.length !== 62) errors.push(`Expected 62 local speech pages with app choosers; found ${speechWithChooser.length}`);
+for (const file of speechWithChooser) {
+  const html = fs.readFileSync(path.join(ROOT, 'tts', file), 'utf8');
+  const cardCount = (html.match(/class="install-choice-card\b/g) || []).length;
+  const logoCount = (html.match(/class="install-choice-logo"/g) || []).length;
+  if (cardCount < 2 || logoCount !== cardCount) errors.push(`tts/${file} must expose at least two logo-backed setup choices; found ${cardCount} cards and ${logoCount} logos`);
+  for (const forbidden of ['class="command"', '<code>pip install', '<code>git clone']) {
+    if (html.includes(forbidden)) errors.push(`tts/${file} still exposes terminal-first setup: ${forbidden}`);
+  }
+}
+const ttsList = fs.readFileSync(path.join(ROOT, 'tts-list.html'), 'utf8');
+for (const forbidden of ['function copyInstall(', 'onclick="copyInstall', '<code>$ ${model.installCommand}</code>']) {
+  if (ttsList.includes(forbidden)) errors.push(`tts-list.html still exposes command-copy UI: ${forbidden}`);
+}
+if (!ttsList.includes('data-fast-goal="tts_install_options_open"')) errors.push('tts-list.html is missing install-options analytics');
+
 if (errors.length) {
   console.error(`Public surface validation failed with ${errors.length} issue(s):`);
   for (const error of errors) console.error(`- ${error}`);

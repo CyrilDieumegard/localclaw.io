@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
+const { installChoiceStyles, speechInstallPicker } = require('./install-choice-ui');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -118,23 +119,23 @@ function hardwareTier(model) {
 
 function localSentence(model) {
   const name = esc(model.name);
-  const command = model.installCommand ? `Start with <code>${esc(model.installCommand)}</code>.` : 'Use the upstream install notes before deployment.';
+  const setup = 'Use the verified setup options on this page; no terminal command is required to choose the right path.';
   if (model.id === 'edge-tts') {
-    return `${name} does not run speech inference locally. The Python package calls Microsoft Edge's online speech service, so an internet connection and the upstream service are required. ${command}`;
+    return `${name} does not run speech inference locally. The Python package calls Microsoft Edge's online speech service, so an internet connection and the upstream service are required. ${setup}`;
   }
   if (model.id === 'octave-2') {
-    return `${name} does not currently have a verified local checkpoint or runtime in the LocalClaw catalogue. The listed Python package is a client for Hume AI's vendor-hosted API. ${command}`;
+    return `${name} does not currently have a verified local checkpoint or runtime in the LocalClaw catalogue. The listed Python package is a client for Hume AI's vendor-hosted API. ${setup}`;
   }
   if (isUnverifiedSpeechRecord(model)) {
     return `${name} does not have an exact public checkpoint or upstream release verified by LocalClaw. This route is preserved for transparency and is not installation guidance; similarly named releases must not be substituted. `;
   }
   if (model.isAsr) {
-    return `${name} can run locally for offline speech-to-text. ${command}`;
+    return `${name} can run locally for offline speech-to-text. ${setup}`;
   }
   if (model.isOrchestrator) {
-    return `${name} is a local app layer that coordinates installed speech backends. ${command}`;
+    return `${name} is a local app layer that coordinates installed speech backends. ${setup}`;
   }
-  return `${name} can generate speech locally for private voice workflows. ${command}`;
+  return `${name} can generate speech locally for private voice workflows. ${setup}`;
 }
 
 function bestForSentence(model) {
@@ -296,7 +297,7 @@ function style(color) {
 }
 
 function nav() {
-  return siteNavigation('tts');
+  return siteNavigation('voice');
 }
 
 function page(model, all) {
@@ -321,7 +322,6 @@ function page(model, all) {
   const hardware = pillMarkup(model.hardware);
   const formats = pillMarkup(model.supportedFormats);
   const sourceLink = model.hfLink ? `<a href="${esc(model.hfLink)}" target="_blank" rel="noopener nofollow">Upstream source</a>` : '';
-  const command = esc(model.installCommand || (isUnverified ? 'No verified installation command' : 'Check upstream installation instructions'));
   const audioScore = audioCatalogueScore(model);
   const sourceAction = model.hfLink
     ? `<a class="btn secondary" href="${esc(model.hfLink)}" target="_blank" rel="noopener nofollow">Open upstream source</a>`
@@ -337,6 +337,7 @@ function page(model, all) {
   const statusChips = isUnverified
     ? '<span class="chip hot">Excluded from local index</span><span class="chip">No verified checkpoint</span><span class="chip">No verified release</span>'
     : `<span class="chip hot">${esc(hardwareTier(model))}</span><span class="chip">${esc(modelTask(model))}</span><span class="chip">${fmtNum(model.languageCount || (model.languages || []).length)} languages</span><span class="chip">${esc(model.license || 'License varies')}</span>`;
+  const installPicker = isLocal && !isUnverified ? speechInstallPicker(model) : '';
   const specsSection = isUnverified ? '' : `
     <section class="specs" aria-label="Model specs">
       <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
@@ -356,7 +357,7 @@ function page(model, all) {
       <h2>Can ${esc(model.name)} run locally?</h2>
       <p>${localSentence(model)}</p>
       <p>${commercialNote(model)}</p>
-      <div class="source-links"><code>${command}</code>${sourceLink}</div>
+      <div class="source-links">${sourceLink}</div>
       <div style="margin-top:18px">${features}</div>
     </section>`;
   const profileSection = isUnverified ? '' : `
@@ -397,10 +398,9 @@ function page(model, all) {
       <h2>${isLocal ? 'Install locally' : 'Access the online service'}</h2>
       <div class="install-steps">
         <div class="step"><div class="step-num">01</div><strong>${isLocal ? 'Check runtime' : 'Check service terms'}</strong><span>${isLocal ? `Confirm the backend supports ${esc(niceList(model.supportedFormats || ['the upstream format']))} on your machine.` : 'Review the upstream service, privacy and usage terms before sending any text.'}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>${isLocal ? 'Install model' : 'Install client'}</strong><span>${isLocal ? 'Use the upstream command or repository instructions.' : 'Install the client package; this does not download a local inference model.'}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>${isLocal ? 'Open recommended setup' : 'Install client'}</strong><span>${isLocal ? 'Use the app and model links above. LocalClaw does not expose a terminal command.' : 'Install the client package; this does not download a local inference model.'}</span></div>
         <div class="step"><div class="step-num">03</div><strong>${isLocal ? 'Test locally' : 'Test online'}</strong><span>${isLocal ? 'Run a short private audio prompt before moving into production workflows.' : 'Confirm network delivery, data handling, latency and vendor availability.'}</span></div>
       </div>
-      <pre class="command">${command}</pre>
     </section>`;
   const shippingSection = isUnverified ? '' : `
     <section class="section cols">
@@ -436,7 +436,7 @@ function page(model, all) {
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816b">' : ''}
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
-  <style>${style(color)}</style>
+  <style>${style(color)}${installChoiceStyles}</style>
 </head>
 <body>
   ${nav()}
@@ -449,10 +449,7 @@ function page(model, all) {
         <p class="desc"><strong>Catalogue summary:</strong> ${esc(model.description)}</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
         <div class="chips">${statusChips}</div>
-        <div class="cta">
-          <a class="btn" href="/tts-list.html">Compare TTS models</a>
-          ${sourceAction}
-        </div>
+        ${installPicker || `<div class="cta"><a class="btn" href="/tts-list.html">Compare TTS models</a>${sourceAction}</div>`}
       </section>
       <aside class="hero-panel">
         <div class="score-card">
