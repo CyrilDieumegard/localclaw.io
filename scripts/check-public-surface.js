@@ -74,7 +74,7 @@ if (!fs.existsSync(path.join(ROOT, 'css/home-tailwind-20260814a.css'))) errors.p
 
 const modelPages = fs.readdirSync(path.join(ROOT, 'models'))
   .filter(file => file.endsWith('.html') && file !== 'index.html');
-const expectedRuntimes = ['lmstudio', 'ollama', 'huggingface', 'llamacpp', 'localclaw'];
+const expectedRuntimes = ['lmstudio', 'unsloth', 'ollama', 'huggingface', 'llamacpp', 'localclaw'];
 for (const file of modelPages) {
   const html = fs.readFileSync(path.join(ROOT, 'models', file), 'utf8');
   if (/name="robots" content="noindex/.test(html)) continue;
@@ -84,6 +84,10 @@ for (const file of modelPages) {
   if (logoCount !== expectedRuntimes.length) errors.push(`${file} must show a logo for every runtime choice; found ${logoCount}`);
   for (const runtime of expectedRuntimes) {
     if (!html.includes(`data-runtime="${runtime}"`)) errors.push(`${file} is missing the ${runtime} runtime choice`);
+  }
+  const unslothOption = (html.match(/<(?:a|div) class="run-option[^"]*"[^>]*data-runtime="unsloth"[^>]*>/) || [])[0] || '';
+  if (unslothOption.startsWith('<a') && !unslothOption.includes('href="unsloth://open_from_hf?model=')) {
+    errors.push(`${file} exposes Unsloth without a valid deep link`);
   }
   for (const forbidden of ['data-copy-command', 'run-copy-status', 'model-run-options-20260820a.js']) {
     if (html.includes(forbidden)) errors.push(`${file} still contains command-copy UI: ${forbidden}`);
@@ -98,6 +102,7 @@ for (const directory of ['image', 'video', '3d', 'music', 'vision']) {
     if (!html.includes('data-install-choice')) errors.push(`${directory}/${file} is missing the app chooser`);
     if (cardCount < 2 || logoCount !== cardCount) errors.push(`${directory}/${file} must expose at least two logo-backed setup choices; found ${cardCount} cards and ${logoCount} logos`);
     if (!html.includes('data-fast-goal="model_install_')) errors.push(`${directory}/${file} is missing install-choice analytics`);
+    if (html.includes('model_install_unsloth') && !html.includes('unsloth://open_from_hf?model=')) errors.push(`${directory}/${file} exposes Unsloth without a valid deep link`);
     if (html.includes('Open installation source')) errors.push(`${directory}/${file} still exposes the old generic installation button`);
   }
 }
@@ -113,6 +118,7 @@ for (const file of speechWithChooser) {
   for (const forbidden of ['class="command"', '<code>pip install', '<code>git clone']) {
     if (html.includes(forbidden)) errors.push(`tts/${file} still exposes terminal-first setup: ${forbidden}`);
   }
+  if (html.includes('model_install_unsloth') && !html.includes('unsloth://open_from_hf?model=')) errors.push(`tts/${file} exposes Unsloth without a valid deep link`);
 }
 const ttsList = fs.readFileSync(path.join(ROOT, 'tts-list.html'), 'utf8');
 for (const forbidden of ['function copyInstall(', 'onclick="copyInstall', '<code>$ ${model.installCommand}</code>']) {

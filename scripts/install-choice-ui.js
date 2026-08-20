@@ -7,7 +7,8 @@ const LOGOS = {
   localclaw: '/images/crab-logo.png',
   mlx: 'https://avatars.githubusercontent.com/u/102832242?v=4',
   python: 'https://www.python.org/static/favicon.ico',
-  pytorch: 'https://avatars.githubusercontent.com/u/21003710?v=4'
+  pytorch: 'https://avatars.githubusercontent.com/u/21003710?v=4',
+  unsloth: 'https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png'
 };
 
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, character => ({
@@ -21,8 +22,50 @@ function goalAttributes(goal, model, category) {
   return `data-fast-goal="model_install_${escapeHtml(goal)}" data-fast-goal-source="${category === 'voice' ? 'voice_detail' : 'multimodal_detail'}" data-fast-goal-category="${escapeHtml(category)}" data-fast-goal-model="${escapeHtml(model.id)}"`;
 }
 
-function installCard({platform, label, note, href, model, category, featured = false, external = true}) {
-  return `<a class="install-choice-card${featured ? ' featured' : ''}" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener"' : ''} ${goalAttributes(platform, model, category)}><span class="install-choice-logo" aria-hidden="true"><img src="${escapeHtml(LOGOS[platform] || LOGOS.github)}" alt="" width="42" height="42" loading="lazy"></span><span><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></span><span class="install-choice-arrow" aria-hidden="true">${external ? '&#8599;' : '&#8594;'}</span></a>`;
+function installCard({platform, label, note, href, model, category, featured = false, external = true, appLink = false}) {
+  return `<a class="install-choice-card${featured ? ' featured' : ''}" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener"' : ''} ${goalAttributes(platform, model, category)}><span class="install-choice-logo" aria-hidden="true"><img src="${escapeHtml(LOGOS[platform] || LOGOS.github)}" alt="" width="42" height="42" loading="lazy"></span><span><strong>${escapeHtml(label)}</strong><small>${escapeHtml(note)}</small></span><span class="install-choice-arrow" aria-hidden="true">${appLink ? 'Open' : external ? '&#8599;' : '&#8594;'}</span></a>`;
+}
+
+function huggingFaceTarget(model) {
+  const candidates = [model.install_url, model.source_url, model.hfLink];
+  for (const candidate of candidates) {
+    if (!/^https:\/\/huggingface\.co\//.test(candidate || '')) continue;
+    let url;
+    try {
+      url = new URL(candidate);
+    } catch {
+      continue;
+    }
+    const parts = url.pathname.split('/').filter(Boolean);
+    if (parts.length < 2 || ['datasets', 'docs', 'spaces'].includes(parts[0].toLowerCase())) continue;
+    const [owner, repo] = parts;
+    if (!/^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$/.test(owner) || !/^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$/.test(repo)) continue;
+    if (owner.includes('--') || owner.includes('..') || repo.includes('--') || repo.includes('..') || repo.endsWith('.git')) continue;
+    const result = {repo: `${owner}/${repo}`};
+    if (['blob', 'resolve'].includes(parts[2]) && parts.length > 4) {
+      const file = parts.slice(4).join('/');
+      if (/\.gguf$/i.test(file)) result.file = file;
+    }
+    return result;
+  }
+  return null;
+}
+
+function unslothDeepLink(model) {
+  const target = huggingFaceTarget(model);
+  if (!target) return '';
+  const params = new URLSearchParams({model: target.repo});
+  if (target.file) params.set('file', target.file);
+  return `unsloth://open_from_hf?${params.toString()}`;
+}
+
+function supportsUnsloth(model) {
+  if (!unslothDeepLink(model)) return false;
+  if (['image', 'video', 'music'].includes(model.category)) return true;
+  if (model.category !== 'vision') return false;
+  const unsupportedVisionTasks = /object-detection|segmentation|depth-estimation|pose-estimation/;
+  return includesRuntime(model, /Transformers|MLX-VLM|llama\.cpp/i)
+    && !(model.tasks || []).some(task => unsupportedVisionTasks.test(String(task)));
 }
 
 function recommendedRuntime(model) {
@@ -80,6 +123,19 @@ function multimodalInstallPicker(model, config) {
     featured: true
   }));
 
+  if (supportsUnsloth(model)) {
+    cards.push(installCard({
+      platform: 'unsloth',
+      label: 'Open in Unsloth',
+      note: 'Launches Unsloth Desktop on this model',
+      href: unslothDeepLink(model),
+      model,
+      category: model.category,
+      external: false,
+      appLink: true
+    }));
+  }
+
   if (includesRuntime(model, /ComfyUI/i) && primaryPlatform !== 'comfyui') {
     cards.push(installCard({platform: 'comfyui', label: 'Get ComfyUI Desktop', note: 'Official desktop app for this compatible model', href: 'https://www.comfy.org/download', model, category: model.category}));
   }
@@ -123,6 +179,8 @@ function speechInstallPicker(model) {
     category,
     featured: true
   })];
+  const unslothHref = unslothDeepLink(model);
+  if (!isGithub && unslothHref) cards.push(installCard({platform: 'unsloth', label: 'Open in Unsloth', note: 'Launches Unsloth Desktop on this model', href: unslothHref, model, category, external: false, appLink: true}));
   const pkg = packageName(model.installCommand);
   if (pkg) cards.push(installCard({platform: 'python', label: 'Open Python package', note: 'Verified package page without exposing a command', href: `https://pypi.org/project/${encodeURIComponent(pkg)}/`, model, category}));
   const gitUrl = githubUrl(model.installCommand);

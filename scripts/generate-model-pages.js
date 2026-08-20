@@ -204,6 +204,7 @@ function runtimeGoalAttrs(platform, m) {
 
 const runtimeLogos = {
   lmstudio: 'https://lmstudio.ai/assets/marketing/logo-192x192.png',
+  unsloth: 'https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png',
   ollama: 'https://ollama.com/public/ollama.png',
   huggingface: '/images/model-logos/huggingface-avatar.webp',
   llamacpp: 'https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg',
@@ -235,6 +236,7 @@ function runOptionsMarkup(m, hfState) {
   const hfUrl = m.hf_repo ? `https://huggingface.co/${m.hf_repo}` : '';
   const publicGguf = hfState === 'publicGguf';
   const desktopReady = publicGguf && !m.hosted_only && !isServerServingModel(m) && !requiresCustomRuntime(m);
+  const unslothReady = publicGguf && !m.hosted_only && !requiresCustomRuntime(m);
   const ollamaHref = verifiedOllamaHref(m);
   const cards = [
     desktopReady ? runOptionLink({
@@ -247,6 +249,15 @@ function runOptionsMarkup(m, hfState) {
       appLink: true,
       tone: 'featured'
     }) : runOptionUnavailable({platform: 'lmstudio', label: 'LM Studio'}),
+    unslothReady ? runOptionLink({
+      platform: 'unsloth',
+      label: 'Open in Unsloth',
+      note: `Launches Unsloth Desktop on this model's download page`,
+      href: `unsloth://open_from_hf?model=${encodeURIComponent(m.hf_repo)}`,
+      m,
+      external: false,
+      appLink: true
+    }) : runOptionUnavailable({platform: 'unsloth', label: 'Unsloth'}),
     ollamaHref ? runOptionLink({
       platform: 'ollama',
       label: 'Open Ollama page',
