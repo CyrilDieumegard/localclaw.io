@@ -25,6 +25,18 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'sana-video-2.0-5b', name: 'SANA-Video 2.0 5B', category: 'video', developer: 'NVLabs / Efficient-Large-Model',
+      summary: 'Apache-licensed 5B text-to-video and text-image-to-video checkpoint for eight-second 720p generation.',
+      tasks: ['text-to-video', 'image-to-video', 'animation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 32, runtime: ['PyTorch', 'SANA CLI'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/NVlabs/Sana/tree/release/sana-video-2.0',
+      install_url: 'https://huggingface.co/Efficient-Large-Model/SANA-Video_2.0_5B_720p',
+      hardware_note: 'The public 5B checkpoint is a 16.6 GB BF16 inference artifact plus Gemma 2 2B text conditioning and LTX 2.3 VAE dependencies. Treat a 32 GB NVIDIA GPU and 64 GB system RAM as the practical 720p workstation floor until lower-memory Diffusers or ComfyUI paths land.',
+      strengths: ['Apache 2.0 checkpoint', 'Official release branch and exact inference command', '720p, 193-frame text and image-conditioned output'],
+      caveats: ['No official Diffusers-format 5B export yet', 'Large dependency stack and BF16 CUDA workstation target']
+    },
+    {
       id: 'avtr-1', name: 'AVTR-1', category: 'video', developer: 'Avaturn',
       summary: 'Audio-driven talking-head model for local live dialogue, lip sync, active listening and offline MP4 avatar rendering.',
       tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'talking-head'],

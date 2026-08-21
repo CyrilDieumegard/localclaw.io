@@ -164,6 +164,7 @@ window.HOME_INDEX_LOGOS = {
     'Microsoft': 'microsoft',
     'Microsoft Research': 'microsoft',
     'Moondream': 'moondream-avatar',
+    'NVLabs / Efficient-Large-Model': 'nvidia',
     'OpenAI': 'openai',
     'PaddlePaddle': 'paddlepaddle-avatar',
     'Peking University / VAST AI Research': 'github',
