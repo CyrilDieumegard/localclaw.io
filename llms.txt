@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-08-20
 - Local LLM pages: 217 unique routes across 77 families
-- Local speech records: 62 across 55 families (49 TTS, 12 ASR, 1 app)
+- Local speech records: 64 across 57 families (50 TTS, 13 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 58
 - Latest catalogue release month: Aug 18, 2026
 - LLM source states: 177 public GGUF repositories, 36 public model cards without a verified GGUF file and 4 gated model cards
@@ -24,7 +24,7 @@
 
 - [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 62 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 64 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
@@ -36,7 +36,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 337 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 339 local homepage entries
 
 ## RAM Decision Paths
 
@@ -64,7 +64,7 @@
 - [Kyutai STT 2.6B English](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
 - [F5-TTS v1 Base](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 - [Kokoro TTS](https://localclaw.io/tts/kokoro) — Audio 9.4/10; TTS; Apache 2.0.
-- [Qwen3-ASR](https://localclaw.io/tts/qwen3-asr) — Audio 9.3/10; ASR; Apache 2.0.
+- [Nemotron 3.5 ASR Streaming 0.6B](https://localclaw.io/tts/nemotron-3.5-asr-streaming-0.6b) — Audio 9.4/10; ASR; OpenMDW 1.1.
 
 ## Data Notes
 

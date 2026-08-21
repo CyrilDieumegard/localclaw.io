@@ -20,7 +20,7 @@ const localSpeechRecords = allSpeechRecords.filter((model) => !model.delivery);
 const remoteSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'online' || model.delivery === 'api');
 const unverifiedSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'unverified');
 
-if (allSpeechRecords.length !== 65 || localSpeechRecords.length !== 62 || remoteSpeechRecords.length !== 2 || unverifiedSpeechRecords.length !== 1) {
+if (allSpeechRecords.length !== 67 || localSpeechRecords.length !== 64 || remoteSpeechRecords.length !== 2 || unverifiedSpeechRecords.length !== 1) {
   throw new Error(`Unexpected speech classification: ${allSpeechRecords.length} total, ${localSpeechRecords.length} local, ${remoteSpeechRecords.length} remote, ${unverifiedSpeechRecords.length} unverified`);
 }
 

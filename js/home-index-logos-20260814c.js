@@ -82,6 +82,7 @@ window.HOME_INDEX_LOGOS = {
     zephyr: 'huggingfaceh4-avatar'
   },
   speech: {
+    audio8: 'github',
     app: 'github',
     'ark-asr': 'github',
     bark: 'suno',
@@ -115,6 +116,7 @@ window.HOME_INDEX_LOGOS = {
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',
+    nemotron: 'nvidia',
     neutts: 'neuphonic-avatar',
     openvoice: 'myshell',
     orpheus: 'canopylabs-avatar',

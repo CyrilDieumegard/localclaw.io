@@ -376,6 +376,17 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "ASR"
   },
   {
+    "id": "audio8-tts-preview-0.6b",
+    "name": "Audio8 TTS Preview 0.6B",
+    "developer": "Audio8",
+    "family": "audio8",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-07",
+    "quality": 9.3,
+    "speed": 8.9,
+    "type": "TTS"
+  },
+  {
     "id": "voxcpm2",
     "name": "VoxCPM2",
     "developer": "OpenBMB",
@@ -461,6 +472,17 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-01",
     "quality": 9.5,
     "speed": 9,
+    "type": "ASR"
+  },
+  {
+    "id": "nemotron-3.5-asr-streaming-0.6b",
+    "name": "Nemotron 3.5 ASR Streaming 0.6B",
+    "developer": "NVIDIA",
+    "family": "nemotron",
+    "license": "OpenMDW 1.1",
+    "releaseDate": "2026-06",
+    "quality": 9.4,
+    "speed": 9.3,
     "type": "ASR"
   },
   {
