@@ -81,8 +81,8 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
       if (!item[field]) errors.push(`${relative}: VideoObject missing ${field}`);
     }
     if (!item.embedUrl && !item.contentUrl) errors.push(`${relative}: VideoObject missing embedUrl or contentUrl`);
-    if (item.uploadDate && !/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(item.uploadDate)) {
-      errors.push(`${relative}: VideoObject uploadDate is not ISO 8601`);
+    if (item.uploadDate && !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/.test(item.uploadDate)) {
+      errors.push(`${relative}: VideoObject uploadDate must include an ISO 8601 time and timezone`);
     }
     const thumbnails = Array.isArray(item.thumbnailUrl) ? item.thumbnailUrl : [item.thumbnailUrl];
     for (const thumbnail of thumbnails.filter(Boolean)) {
