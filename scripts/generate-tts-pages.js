@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
-const { installChoiceStyles, speechInstallPicker } = require('./install-choice-ui');
+const { installChoiceStyles, runtimeLaunchAssistStyles, speechInstallPicker } = require('./install-choice-ui');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -338,6 +338,7 @@ function page(model, all) {
     ? '<span class="chip hot">Excluded from local index</span><span class="chip">No verified checkpoint</span><span class="chip">No verified release</span>'
     : `<span class="chip hot">${esc(hardwareTier(model))}</span><span class="chip">${esc(modelTask(model))}</span><span class="chip">${fmtNum(model.languageCount || (model.languages || []).length)} languages</span><span class="chip">${esc(model.license || 'License varies')}</span>`;
   const installPicker = isLocal && !isUnverified ? speechInstallPicker(model) : '';
+  const installPickerStyles = installPicker.includes('runtime-launch-assist-20260821a.js') ? runtimeLaunchAssistStyles : '';
   const specsSection = isUnverified ? '' : `
     <section class="specs" aria-label="Model specs">
       <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
@@ -436,7 +437,7 @@ function page(model, all) {
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
   ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816b">' : ''}
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
-  <style>${style(color)}${installChoiceStyles}</style>
+  <style>${style(color)}${installChoiceStyles}${installPickerStyles}</style>
 </head>
 <body>
   ${nav()}

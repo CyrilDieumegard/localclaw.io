@@ -62,6 +62,18 @@ for (const legacyRoute of ['/local-ai-index.html', '/local-ai-index']) {
     errors.push(`_redirects must send ${legacyRoute} to the homepage index anchor`);
   }
 }
+for (const line of redirects.split(/\r?\n/)) {
+  const match = line.trim().match(/^(\/\S+)\s+(\/\S+\.html)\s+200(?:\s|$)/);
+  if (match && `${match[1]}.html` === match[2]) {
+    errors.push(`_redirects creates a Pages pretty-URL loop: ${match[1]} -> ${match[2]} (200)`);
+  }
+}
+
+const runtimeAssistAsset = '/js/runtime-launch-assist-20260821a.js?v=20260821a';
+const runtimeAssistSource = fs.readFileSync(path.join(ROOT, 'js/runtime-launch-assist-20260821a.js'), 'utf8');
+for (const marker of ['model_runtime_launch_requested', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'https://lmstudio.ai/download', 'https://unsloth.ai/']) {
+  if (!runtimeAssistSource.includes(marker)) errors.push(`Runtime launch assistant is missing marker: ${marker}`);
+}
 
 const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');
 if (/localclaw\.io\/[A-Za-z0-9/_-]+\.html\b/.test(llms)) errors.push('llms.txt contains non-canonical .html URLs');
@@ -89,6 +101,10 @@ for (const file of modelPages) {
   if (unslothOption.startsWith('<a') && !unslothOption.includes('href="unsloth://open_from_hf?model=')) {
     errors.push(`${file} exposes Unsloth without a valid deep link`);
   }
+  if (/(?:lmstudio|unsloth):\/\/open_from_hf/.test(html)) {
+    if (!html.includes(runtimeAssistAsset)) errors.push(`${file} is missing the runtime launch assistant`);
+    if (!html.includes('class="runtime-launch-disclosure"')) errors.push(`${file} is missing the desktop-app fallback disclosure`);
+  }
   for (const forbidden of ['data-copy-command', 'run-copy-status', 'model-run-options-20260820a.js']) {
     if (html.includes(forbidden)) errors.push(`${file} still contains command-copy UI: ${forbidden}`);
   }
@@ -103,6 +119,7 @@ for (const directory of ['image', 'video', '3d', 'music', 'vision']) {
     if (cardCount < 2 || logoCount !== cardCount) errors.push(`${directory}/${file} must expose at least two logo-backed setup choices; found ${cardCount} cards and ${logoCount} logos`);
     if (!html.includes('data-fast-goal="model_install_')) errors.push(`${directory}/${file} is missing install-choice analytics`);
     if (html.includes('model_install_unsloth') && !html.includes('unsloth://open_from_hf?model=')) errors.push(`${directory}/${file} exposes Unsloth without a valid deep link`);
+    if (html.includes('unsloth://open_from_hf?model=') && !html.includes(runtimeAssistAsset)) errors.push(`${directory}/${file} is missing the runtime launch assistant`);
     if (html.includes('Open installation source')) errors.push(`${directory}/${file} still exposes the old generic installation button`);
   }
 }
@@ -119,6 +136,7 @@ for (const file of speechWithChooser) {
     if (html.includes(forbidden)) errors.push(`tts/${file} still exposes terminal-first setup: ${forbidden}`);
   }
   if (html.includes('model_install_unsloth') && !html.includes('unsloth://open_from_hf?model=')) errors.push(`tts/${file} exposes Unsloth without a valid deep link`);
+  if (html.includes('unsloth://open_from_hf?model=') && !html.includes(runtimeAssistAsset)) errors.push(`tts/${file} is missing the runtime launch assistant`);
 }
 const ttsList = fs.readFileSync(path.join(ROOT, 'tts-list.html'), 'utf8');
 for (const forbidden of ['function copyInstall(', 'onclick="copyInstall', '<code>$ ${model.installCommand}</code>']) {

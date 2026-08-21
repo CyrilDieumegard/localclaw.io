@@ -3,6 +3,7 @@ const path = require('path');
 const vm = require('vm');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
+const { runtimeLaunchAssistAsset, runtimeLaunchAssistStyles } = require('./install-choice-ui');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -297,10 +298,13 @@ function runOptionsMarkup(m, hfState) {
     : requiresCustomRuntime(m)
       ? 'This model needs a special runtime. Unsupported apps are clearly marked.'
       : 'Only verified options can be opened. Unsupported apps are clearly marked.';
+  const runtimeDisclosure = cards.some(card => /href="(?:lmstudio|unsloth):\/\//.test(card))
+    ? '\n          <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>'
+    : '';
 
   return `<div class="run-picker" data-model-run-options>
           <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>${availabilityNote}</p></div><a href="/llm-list.html" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="${esc(m.id)}">Compare models</a></div>
-          <div class="run-grid">${cards.join('')}</div>${customRuntime}
+          <div class="run-grid">${cards.join('')}</div>${customRuntime}${runtimeDisclosure}
         </div>`;
 }
 
@@ -503,6 +507,7 @@ function modelPage(m, d, allModels) {
   const verifiedLicense = d.license_url ? d.license : '';
   const verifiedTechnicalDetails = Boolean(d.official_blog || d.paper_url);
   const runOptions = runOptionsMarkup(m, hfState);
+  const hasRuntimeLaunchAssist = /href="(?:lmstudio|unsloth):\/\//.test(runOptions);
   const schemaMainEntity = sourceOnly
     ? {
         '@type': 'WebPage',
@@ -653,6 +658,7 @@ function modelPage(m, d, allModels) {
   </style>
   <style>
     .run-picker{position:relative;margin-top:26px;padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(5,5,5,.72);box-shadow:0 18px 45px rgba(0,0,0,.24)}.run-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:13px}.run-picker-label{display:block;color:#fff;font:950 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.run-picker-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.run-picker-head>a{flex-shrink:0;color:#d4d4d8;font:850 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.2)}.run-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.run-option{width:100%;min-width:0;min-height:66px;display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;text-align:left;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:#111;color:#fff;padding:11px;box-shadow:none;font:inherit}.run-option[href]{cursor:pointer}.run-option[href]:hover,.run-option[href]:focus-visible{border-color:rgba(255,255,255,.32);background:#171717;transform:translateY(-1px);outline:none}.run-option.featured{border-color:rgba(255,69,58,.5);background:linear-gradient(135deg,rgba(255,69,58,.14),#111 55%)}.run-option.localclaw{border-style:dashed}.run-option-logo{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:#f4f4f5;overflow:hidden}.run-option-logo img{width:34px;height:34px;object-fit:contain}.run-option[data-runtime="ollama"] .run-option-logo img{width:25px;height:31px}.run-option strong{display:block;color:#fff;font-size:13px;line-height:1.2}.run-option small{display:block;margin-top:4px;color:var(--muted);font-size:10px;line-height:1.3}.run-option-arrow,.run-option-state{color:#a1a1aa;font:850 9px ui-monospace,monospace;text-transform:uppercase}.run-option.unavailable{opacity:.48;background:#0b0b0b}.run-option.unavailable .run-option-logo{filter:grayscale(1)}.run-option.unavailable .run-option-state{color:#71717a}.run-required{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(245,158,11,.34);border-radius:12px;background:rgba(245,158,11,.07);color:#fff;padding:12px}.run-required strong,.run-required small{display:block}.run-required small{margin-top:3px;color:var(--muted);font-size:10px}.run-required>span:last-child{flex-shrink:0;color:#fbbf24;font:850 9px ui-monospace,monospace;text-transform:uppercase}@media(max-width:700px){.run-picker-head{align-items:stretch;flex-direction:column}.run-picker-head>a{align-self:flex-start}.run-grid{grid-template-columns:1fr}.run-option{min-height:64px}.run-option-state{max-width:68px;text-align:right}.run-required{align-items:flex-start;flex-direction:column}}
+${hasRuntimeLaunchAssist ? runtimeLaunchAssistStyles : ''}
   </style>
 </head>
 <body>
@@ -721,7 +727,7 @@ ${similar ? `    <section class="section"><h2>Related catalogue entries</h2><p c
 ${nextStepsSection}
   </main>
   <script>window.LOCALCLAW_MODEL=${JSON.stringify(m).replace(/</g, '\\u003c')};</script>
-  <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
+${hasRuntimeLaunchAssist ? `  ${runtimeLaunchAssistAsset}\n` : ''}  <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>

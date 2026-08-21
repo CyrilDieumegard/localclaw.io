@@ -11,6 +11,13 @@ const LOGOS = {
   unsloth: 'https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png'
 };
 
+const runtimeLaunchAssistAsset = '<script src="/js/runtime-launch-assist-20260821a.js?v=20260821a" defer></script>';
+
+const runtimeLaunchAssistStyles = `
+.runtime-launch-disclosure{margin:11px 0 0!important;color:#a1a1aa!important;font-size:10px!important;line-height:1.45}
+.runtime-launch-assist{margin-top:12px;padding:14px;border:1px solid rgba(96,165,250,.38);border-radius:13px;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(10,10,10,.96) 62%);color:#fff}.runtime-launch-assist[hidden]{display:none!important}.runtime-launch-assist[data-state="confirmed"]{border-color:rgba(52,211,153,.4);background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(10,10,10,.96) 62%)}.runtime-launch-assist-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.runtime-launch-assist-kicker{display:block;color:#93c5fd;font:900 9px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}.runtime-launch-assist[data-state="confirmed"] .runtime-launch-assist-kicker{color:#6ee7b7}.runtime-launch-assist strong{display:block;margin-top:4px;font-size:13px}.runtime-launch-assist p{margin:6px 0 0!important;color:#d4d4d8!important;font-size:11px!important;line-height:1.45}.runtime-launch-assist-close{border:0;background:transparent;color:#a1a1aa;cursor:pointer;font-size:18px;line-height:1;padding:1px 3px}.runtime-launch-assist-close:hover,.runtime-launch-assist-close:focus-visible{color:#fff;outline:1px solid rgba(255,255,255,.5);outline-offset:3px}.runtime-launch-assist-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.runtime-launch-assist-actions button,.runtime-launch-assist-actions a{min-height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:#151515;color:#fff;padding:8px 11px;font:850 10px ui-monospace,monospace;text-decoration:none;cursor:pointer}.runtime-launch-assist-actions button:first-child{border-color:rgba(52,211,153,.42);background:rgba(16,185,129,.12)}.runtime-launch-assist-actions button:disabled{cursor:default;color:#a7f3d0;border-color:rgba(52,211,153,.42);background:rgba(16,185,129,.18)}.runtime-launch-assist-actions button:not(:disabled):hover,.runtime-launch-assist-actions button:not(:disabled):focus-visible,.runtime-launch-assist-actions a:hover,.runtime-launch-assist-actions a:focus-visible{border-color:rgba(255,255,255,.42);background:#202020;outline:none}@media(max-width:560px){.runtime-launch-assist-actions{display:grid;grid-template-columns:1fr}.runtime-launch-assist-actions button,.runtime-launch-assist-actions a{width:100%}}
+`;
+
 const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 }[character]));
@@ -104,10 +111,13 @@ function advancedRuntime(model) {
 }
 
 function pickerMarkup({model, category, cards, compareHref, compareLabel}) {
+  const hasDesktopAppLink = cards.some(card => /href="(?:lmstudio|unsloth):\/\//.test(card));
+  const runtimeLaunchAssist = hasDesktopAppLink
+    ? `\n    <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>\n  </section>${runtimeLaunchAssistAsset}`
+    : '\n  </section>';
   return `<section class="install-choice" data-install-choice data-install-category="${escapeHtml(category)}">
     <div class="install-choice-head"><div><span>Choose an app</span><p>Start with Recommended. No terminal commands are shown.</p></div><a href="${escapeHtml(compareHref)}">${escapeHtml(compareLabel)}</a></div>
-    <div class="install-choice-grid">${cards.join('')}</div>
-  </section>`;
+    <div class="install-choice-grid">${cards.join('')}</div>${runtimeLaunchAssist}`;
 }
 
 function multimodalInstallPicker(model, config) {
@@ -197,4 +207,10 @@ const installChoiceStyles = `
 @media(max-width:700px){.install-choice-head{align-items:stretch;flex-direction:column}.install-choice-head>a{align-self:flex-start}.install-choice-grid{grid-template-columns:1fr}.install-choice-card{min-height:64px}}
 `;
 
-module.exports = { installChoiceStyles, multimodalInstallPicker, speechInstallPicker };
+module.exports = {
+  installChoiceStyles,
+  multimodalInstallPicker,
+  runtimeLaunchAssistAsset,
+  runtimeLaunchAssistStyles,
+  speechInstallPicker
+};
