@@ -264,6 +264,29 @@
       caveats: ['CUDA 12.4 research stack with PyTorch3D, Kaolin and custom rasterizers', 'ComfyUI support is still listed as planned rather than released']
     },
     {
+      id: 'triposplat', name: 'TripoSplat', category: '3d', developer: 'VAST AI Research',
+      summary: 'Single-image 3D Gaussian generation with controllable splat count and official ComfyUI workflow support.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'asset-generation'], platforms: ['macos', 'windows', 'linux'],
+      accelerators: ['apple-silicon', 'nvidia', 'cpu'], min_ram_gb: 32, min_vram_gb: 8,
+      runtime: ['PyTorch', 'ComfyUI', 'Gradio'], output: ['PLY', 'SPLAT', '3D Gaussian'],
+      local_status: 'local', license: 'MIT', released: '2026-05',
+      source_url: 'https://github.com/VAST-AI-Research/TripoSplat', install_url: 'https://huggingface.co/VAST-AI/TripoSplat',
+      hardware_note: 'The official inference repository is a small PyTorch stack, downloads safetensors weights from Hugging Face and states that it runs on any platform. Because it does not publish a precise memory table, 32 GB RAM and 8 GB accelerator memory are treated as a conservative practical floor for local generation.',
+      strengths: ['MIT licensed code and weights', 'Official Hugging Face weights and ComfyUI workflow', 'Exports PLY and SPLAT files for standard Gaussian viewers'],
+      caveats: ['No official VRAM table yet', 'Outputs Gaussian splats rather than textured mesh assets']
+    },
+    {
+      id: 'skintokens-tokenrig', name: 'SkinTokens / TokenRig', category: '3d', developer: 'VAST AI Research',
+      summary: 'Autoregressive rigging model that turns an input mesh into a skeleton hierarchy and skinning weights for animation.',
+      tasks: ['rigging', 'skinning', 'mesh-to-rig', 'character-animation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 14, runtime: ['PyTorch', 'CLI', 'Gradio'], output: ['GLB', 'Rigged mesh', 'Skeleton', 'Skin weights'],
+      local_status: 'local', license: 'MIT', released: '2026-02',
+      source_url: 'https://github.com/VAST-AI-Research/SkinTokens', install_url: 'https://huggingface.co/VAST-AI/SkinTokens',
+      hardware_note: 'The official repository requires Python 3.11, CUDA 12.1 or newer and an NVIDIA GPU with at least 14 GB memory. The checkpoint bundle is about 1.6 GB and the local CLI exports rigged GLB results.',
+      strengths: ['MIT licensed code and checkpoints', 'Automatic skeleton and dense skin-weight generation', 'Local CLI and Gradio demo paths'],
+      caveats: ['Requires an existing input mesh', 'CUDA and flash-attn setup make this a workstation workflow']
+    },
+    {
       id: 'stable-fast-3d', name: 'Stable Fast 3D', category: '3d', developer: 'Stability AI',
       summary: 'Single-image reconstruction into a textured GLB mesh with UV unwrapping and material prediction.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'texturing'],
