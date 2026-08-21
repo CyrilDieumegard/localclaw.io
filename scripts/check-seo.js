@@ -75,15 +75,32 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
     if (value['@graph']) collectStructuredItems(value['@graph']);
   };
   structuredData.forEach(collectStructuredItems);
-  for (const item of structuredItems.filter(value => value['@type'] === 'VideoObject')) {
-    for (const field of ['name', 'thumbnailUrl', 'uploadDate']) {
+  const videoObjects = structuredItems.filter(value => value['@type'] === 'VideoObject');
+  for (const item of videoObjects) {
+    for (const field of ['name', 'description', 'thumbnailUrl', 'uploadDate']) {
       if (!item[field]) errors.push(`${relative}: VideoObject missing ${field}`);
     }
     if (!item.embedUrl && !item.contentUrl) errors.push(`${relative}: VideoObject missing embedUrl or contentUrl`);
+    if (item.uploadDate && !/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(item.uploadDate)) {
+      errors.push(`${relative}: VideoObject uploadDate is not ISO 8601`);
+    }
+    const thumbnails = Array.isArray(item.thumbnailUrl) ? item.thumbnailUrl : [item.thumbnailUrl];
+    for (const thumbnail of thumbnails.filter(Boolean)) {
+      if (!/^https:\/\//.test(thumbnail)) errors.push(`${relative}: VideoObject thumbnailUrl must be absolute HTTPS`);
+      if (thumbnail.startsWith(`${BASE}/`)) {
+        const thumbnailPath = path.join(ROOT, decodeURIComponent(new URL(thumbnail).pathname));
+        if (!fs.existsSync(thumbnailPath)) errors.push(`${relative}: missing VideoObject thumbnail ${thumbnail}`);
+      }
+    }
   }
 
-  for (const match of html.matchAll(/<video\b([^>]*)>/gi)) {
+  const videos = [...html.matchAll(/<video\b([^>]*)>([\s\S]*?)<\/video>/gi)];
+  if (relative.startsWith('video/') && videos.length !== videoObjects.length) {
+    errors.push(`${relative}: expected one VideoObject per rendered video (${videos.length} videos, ${videoObjects.length} VideoObjects)`);
+  }
+  for (const [index, match] of videos.entries()) {
     const attributes = match[1];
+    const body = match[2];
     const poster = attributes.match(/\bposter=["']([^"']+)["']/i)?.[1];
     if (!poster) {
       errors.push(`${relative}: video missing poster`);
@@ -92,6 +109,14 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
     if (poster.startsWith('/')) {
       const posterPath = path.join(ROOT, decodeURIComponent(poster.split(/[?#]/, 1)[0]));
       if (!fs.existsSync(posterPath)) errors.push(`${relative}: missing video poster ${poster}`);
+    }
+    if (relative.startsWith('video/')) {
+      const item = videoObjects[index];
+      const source = body.match(/<source\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1];
+      const absolutePoster = poster && poster.startsWith('/') ? `${BASE}${poster}` : poster;
+      const thumbnails = item ? (Array.isArray(item.thumbnailUrl) ? item.thumbnailUrl : [item.thumbnailUrl]) : [];
+      if (item && source && item.contentUrl !== source) errors.push(`${relative}: VideoObject contentUrl does not match video source`);
+      if (item && absolutePoster && !thumbnails.includes(absolutePoster)) errors.push(`${relative}: VideoObject thumbnailUrl does not match video poster`);
     }
   }
 

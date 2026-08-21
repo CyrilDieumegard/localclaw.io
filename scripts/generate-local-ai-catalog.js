@@ -196,6 +196,21 @@ function detailPage(model) {
       }
     ]
   };
+  if (model.category === 'video' && mediaEntry && mediaEntry.kind === 'video') {
+    const thumbnailUrl = mediaEntry.poster && mediaEntry.poster.startsWith('/')
+      ? `${BASE}${mediaEntry.poster}`
+      : mediaEntry.poster;
+    schema['@graph'].push({
+      '@type': 'VideoObject',
+      name: `${model.name} official video example`,
+      description: mediaEntry.alt || `Official ${model.name} video example`,
+      thumbnailUrl,
+      uploadDate: mediaEntry.uploadDate,
+      contentUrl: mediaEntry.url,
+      isPartOf: { '@type': 'WebPage', name: `${model.name} local guide`, url },
+      publisher: { '@type': 'Organization', name: model.developer }
+    });
+  }
   const list = (items) => array(items).map((item) => `<li>${esc(item)}</li>`).join('');
   const specs = [
     ['Category', config.label], ['Developer', model.developer], ['Local status', model.local_status],
