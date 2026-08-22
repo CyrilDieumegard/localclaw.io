@@ -432,7 +432,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
                             <label class="lc-index-control-label"><span>Catalogue RAM</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">Any RAM</option><option value="8">8 GB RAM</option><option value="16">16 GB RAM</option><option value="32">32 GB RAM</option><option value="64">64 GB RAM</option><option value="128">128 GB RAM</option><option value="256">256 GB RAM</option><option value="512">512 GB RAM</option></select></label>
-                            <label class="lc-index-control-label"><span>LLM fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Comfortable + tight</option><option value="fits">Comfortable only</option><option value="tight">Tight only</option><option value="too-large">Too large</option></select></label>
+                            <label class="lc-index-control-label"><span>LLM availability</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">Full catalogue</option><option value="fits">Green fits only</option></select></label>
                             <label class="lc-index-control-label"><span>Model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
                             <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
@@ -944,7 +944,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
             });
             if (machineFiltersEnabled && activeMachine) {
-                machineStatus.innerHTML = `<strong>${escapeHtml(activeMachine.name)}</strong> filters all seven directories. Voice uses explicit hardware-path tags only; its records do not publish consistent RAM, VRAM and OS floors.`;
+                machineStatus.innerHTML = `<strong>${escapeHtml(activeMachine.name)}</strong> filters all seven directories. LLM shows green fits only; tight models are excluded. Voice uses explicit hardware-path tags only.`;
                 machineCatalogueToggle.textContent = 'Show full catalogues';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'false');
             } else {
@@ -960,7 +960,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             ensureMachineOption(machine.ramGb, `${machine.ramGb} GB ${machine.accelerator === 'apple-silicon' ? 'unified' : 'RAM'}`);
             machineRamSelect.value = String(machine.ramGb);
             fitFilter.disabled = false;
-            fitFilter.value = 'compatible';
+            fitFilter.value = 'fits';
 
             const speechPath = machine.accelerator === 'apple-silicon'
                 ? 'apple'
