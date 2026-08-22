@@ -1,6 +1,6 @@
 /**
  * LocalClaw theme lock
- * The public site is intentionally dark-only.
+ * The public site uses the accessible light catalogue theme by default.
  */
 
 (function () {
@@ -8,20 +8,21 @@
 
     const THEME_KEY = 'localclaw-theme';
 
-    function forceDarkTheme() {
+    function forceLightTheme() {
         const html = document.documentElement;
 
-        html.classList.remove('light');
-        html.classList.add('dark');
+        html.classList.remove('dark');
+        html.classList.add('light');
+        html.style.colorScheme = 'light';
 
         if (document.body) {
-            document.body.classList.remove('bg-gray-50');
-            document.body.classList.add('bg-black');
+            document.body.classList.remove('bg-black');
+            document.body.classList.add('bg-gray-50');
         }
 
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', '#050505');
+            metaThemeColor.setAttribute('content', '#faf9f6');
         }
 
         try {
@@ -38,16 +39,16 @@
     }
 
     function init() {
-        forceDarkTheme();
+        forceLightTheme();
         removeThemeControls();
     }
 
     window.toggleLocalClawTheme = function () {
-        forceDarkTheme();
+        forceLightTheme();
         removeThemeControls();
     };
 
-    forceDarkTheme();
+    forceLightTheme();
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);

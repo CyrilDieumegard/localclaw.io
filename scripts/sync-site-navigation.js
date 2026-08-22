@@ -5,6 +5,7 @@ const { NAV_VERSION, siteNavigation, siteNavAssets } = require('./site-navigatio
 const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
 const excludedDirectories = new Set(['.git', '.pages-dist', '.wrangler', 'node_modules', '_check']);
+const protectedFiles = new Set(['sponsor-terms.html']);
 
 const navigationContract = siteNavigation();
 for (const marker of [
@@ -57,7 +58,7 @@ function addAssets(html) {
 }
 
 function synchronize(html, relativePath) {
-  if (relativePath === 'google7a49ecaded8c2575.html') return html;
+  if (relativePath === 'google7a49ecaded8c2575.html' || protectedFiles.has(relativePath.replace(/\\/g, '/'))) return html;
 
   const active = activeSection(relativePath);
   const navigation = siteNavigation(active, relativePath === 'index.html' ? { accountLabel: 'Sign in' } : {});

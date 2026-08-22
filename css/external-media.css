@@ -57,3 +57,35 @@
   .lc-external-media-gallery-item:first-child:nth-last-child(3) { grid-column: auto; }
   .lc-external-media-gallery-item .lc-external-media-object { min-height: 0; }
 }
+
+html.light .lc-external-media {
+  border-color: #d7dce4;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, .06);
+}
+html.light .lc-external-media-audio .lc-external-media-stage {
+  background: #f7f5f1;
+}
+html.light .lc-external-media-audio .lc-external-media-object {
+  background: #f7f5f1;
+  color-scheme: light;
+}
+html.light .lc-external-media-gallery-grid {
+  background: #d7dce4;
+}
+html.light .lc-external-media-gallery-item figcaption {
+  color: #334155;
+  background: #f7f5f1;
+}
+html.light .lc-external-media-meta {
+  color: #64748b;
+  background: #fff;
+}
+html.light .lc-external-media-meta a,
+html.light .lc-external-media-error a {
+  color: #c92f28;
+}
+html.light .lc-external-media-error {
+  color: #334155;
+  background: #fff;
+}

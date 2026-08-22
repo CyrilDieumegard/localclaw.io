@@ -782,8 +782,19 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-compare-actions button { flex: 1; }
 }
 
+@media (max-width: 780px) {
+    html.light .lc-index-hero { padding-bottom: 108px; }
+    html.light .lc-index-hero__mascot img {
+        left: 50%;
+        right: auto;
+        top: auto;
+        bottom: 12px;
+        width: 96px;
+        transform: translateX(-50%);
+    }
+}
+
 html.light .lc-index-hero,
-html.light .lc-index-facts,
 html.light .lc-index-universe,
 html.light .lc-home-machines,
 html.light .lc-home-machine-card,
@@ -792,6 +803,40 @@ html.light .lc-index-control,
 html.light .lc-index-tts-row,
 html.light .lc-index-multimodal-card,
 html.light .lc-index-multimodal-controls { background: rgba(255,255,255,0.94); border-color: rgba(15,23,42,0.12); }
+html.light .lc-index-facts { background: transparent; border-color: transparent; }
+html.light .lc-index-fact {
+    border-color: #d7dce4;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(15,23,42,0.045);
+}
+html.light .lc-index-universe nav a {
+    border-color: #d7dce4;
+    background: #f7f5f1;
+    color: #111827;
+}
+html.light .lc-index-universe nav a:hover,
+html.light .lc-index-universe nav a:focus-visible {
+    border-color: rgba(201,47,40,0.42);
+    background: #fff;
+}
+html.light .lc-index-hero__mascot img {
+    opacity: 1;
+    filter: saturate(1) drop-shadow(0 12px 22px rgba(122, 52, 34, 0.16));
+}
+html.light .lc-home-machine-card__visual {
+    border-color: #d7dce4;
+    background: #f7f5f1;
+}
+html.light .lc-home-machine-card:hover { border-color: rgba(201,47,40,0.42); color: #111827; }
+html.light .lc-home-machine-card.is-active {
+    border-color: rgba(201,47,40,0.58);
+    background: #fff1ef;
+    color: #111827;
+}
+html.light .lc-home-machine-card__copy span { color: #64748b; }
+html.light .lc-home-machine-card__copy .lc-home-machine-card__hardware { color: #475569; }
+html.light .lc-home-machine-card__selected { border-color: rgba(201,47,40,0.32); background: #fff1ef; color: #b4231d; }
+html.light .lc-home-machine-card__primary { border-color: rgba(22,101,52,0.22); background: #dcfce7; color: #166534; }
 html.light .lc-index-hero h1,
 html.light .lc-index-universe h2,
 html.light .lc-home-machines__head strong,
@@ -985,3 +1030,64 @@ html.light .lc-index-guide__benchmark-grid > a { background: #f7f5f1; }
 html.light .lc-index-fallback__stats strong { color: #111827; }
 html.light .lc-index-multimodal-card__rating { border-color: rgba(194,65,12,0.25); background: rgba(255,138,76,0.08); }
 html.light .lc-index-community--multimodal strong { color: #111827; }
+html.light .lc-index-kicker,
+html.light .lc-index-eyebrow,
+html.light .lc-index-hero__guide-link,
+html.light .lc-home-machines__head a,
+html.light .lc-index-method-pill,
+html.light .lc-index-row-link,
+html.light .lc-index-compare-detail,
+html.light .lc-index-tts-type,
+html.light .lc-index-more,
+html.light .lc-index-multimodal-card__link { color: #b4231d; }
+html.light .lc-index-universe > header > a,
+html.light .lc-home-index .lc-global-nav__link--account,
+html.light .lc-index-compare-actions button:last-child {
+    border-color: #c92f28;
+    background: #c92f28;
+    color: #fff;
+}
+html.light .lc-home-machine-context { border-top-color: #e5e7eb; }
+html.light .lc-home-machine-context p,
+html.light .lc-home-machine-status__state { color: #64748b; }
+html.light .lc-home-machine-context p strong { color: #111827; }
+html.light .lc-home-machine-context button { border-color: #cbd5e1; color: #334155; background: #fff; }
+html.light .lc-index-fallback__hero > p:last-of-type,
+html.light .lc-index-fallback__section > div:first-child > p,
+html.light .lc-index-fallback td,
+html.light .lc-index-fallback__speech small,
+html.light .lc-index-fallback__multi-category small,
+html.light .lc-index-fallback__enhance,
+html.light .lc-index-guide__head > p,
+html.light .lc-index-guide__section-title p,
+html.light .lc-index-guide__method-grid p,
+html.light .lc-index-guide__benchmark-grid small,
+html.light .lc-index-guide__benchmark-note,
+html.light .lc-index-guide__faq p { color: #475569; }
+html.light .lc-index-fallback__nav a,
+html.light .lc-index-fallback__speech li,
+html.light .lc-index-fallback__multi-category > div > a,
+html.light .lc-index-guide__ram-grid article,
+html.light .lc-index-guide__faq details,
+html.light .lc-index-guide__paths a {
+    border-color: #d7dce4;
+    background: #f7f5f1;
+}
+html.light .lc-index-fallback td a span,
+html.light .lc-index-fallback__speech li > span,
+html.light .lc-index-guide__ram-grid li span { color: #64748b; }
+html.light .lc-index-guide__ram-grid li { border-bottom-color: #e5e7eb; }
+html.light .lc-index-guide__ram-grid li a,
+html.light .lc-index-fallback__enhance strong,
+html.light .lc-index-guide__benchmark-note strong { color: #111827; }
+html.light .lc-index-fallback__nav a,
+html.light .lc-index-guide__paths a { color: #334155; }
+html.light .lc-index-fallback__multi-category > header > a,
+html.light .lc-index-fallback__multi-category span,
+html.light .lc-index-guide__head time,
+html.light .lc-index-guide__ram-grid article > a,
+html.light .lc-index-guide__method-grid article > a,
+html.light .lc-index-guide__benchmark-grid span,
+html.light .lc-index-guide__benchmark-grid b { color: #b4231d; }
+html.light .lc-index-guide__head,
+html.light .lc-index-guide__paths { border-color: #d7dce4; }

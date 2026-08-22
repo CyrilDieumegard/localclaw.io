@@ -1,12 +1,41 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { normalizeDirectory } = require('./normalize-public-urls');
+const { normalizeDirectory: normalizePublicUrls } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
 const modelRanking = require('../js/model-ranking');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
 const tracking=`<!-- TRACKING: DataFast Analytics --><script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script><!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) --><script src="/js/clarity.js" defer></script>${siteNavAssets()}`;
+const lightStyle=`
+:root{color-scheme:light;--bg:#faf9f6;--surface:#fff;--soft:#f7f5f1;--border:#d7dce4;--primary:#c92f28;--text:#111827;--muted:#64748b}
+body{background:radial-gradient(circle at 18% 4%,rgba(201,47,40,.06),transparent 30rem),var(--bg);color:var(--text)}
+.site-nav{border-color:var(--border);background:rgba(255,255,255,.94);backdrop-filter:blur(16px)}
+.logo{color:var(--text)}.logo-box{box-shadow:0 8px 22px rgba(201,47,40,.18)}
+.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--text)}.nav-links .pricing{color:var(--primary)}
+.desc,.model p,.section p,.section li{color:#475569}
+.btn{background:var(--primary);color:#fff}.btn:hover{background:#a92520}
+.btn.secondary{background:#fff;color:var(--text);border-color:var(--border)}
+.stat,.card,.index-list a{background:var(--surface);border-color:var(--border);color:var(--text);box-shadow:0 10px 28px rgba(15,23,42,.04)}
+.model h3 a{color:var(--text)!important}
+.pill{border-color:var(--border);background:var(--soft);color:#475569}
+`;
+
+function applyLightTheme(html){
+  return html
+    .replace('<html lang="en">','<html class="light" lang="en">')
+    .replace('<head><meta charset="UTF-8">','<head><meta charset="UTF-8"><meta name="color-scheme" content="light"><meta name="theme-color" content="#faf9f6">')
+    .replace('</head>',`<style>${lightStyle}</style></head>`);
+}
+
+function normalizeDirectory(directory){
+  for(const entry of fs.readdirSync(directory,{withFileTypes:true})){
+    const entryPath=path.join(directory,entry.name);
+    if(entry.isDirectory()) normalizeDirectory(entryPath);
+    else if(entry.name.endsWith('.html')) fs.writeFileSync(entryPath,applyLightTheme(fs.readFileSync(entryPath,'utf8')));
+  }
+  normalizePublicUrls(directory);
+}
 function loadModels(){const ctx={};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(ROOT,'js/data.js'),'utf8')+';this.APP_DATA=APP_DATA;',ctx);return Array.from(new Map(ctx.APP_DATA.models.map(model=>[model.id,model])).values());}
 const esc=(s='')=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const cases=[

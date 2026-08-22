@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260817a';
+const NAV_VERSION = '20260822a';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],

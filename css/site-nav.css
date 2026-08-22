@@ -3,10 +3,13 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  background: #000;
-  color: #fff;
+  border-top: 2px solid #ff453a;
+  border-bottom: 1px solid #dedbd4;
+  background: rgba(255, 255, 255, 0.97);
+  color: #111827;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.03);
+  backdrop-filter: blur(16px);
 }
 
 .lc-global-nav *,
@@ -35,7 +38,7 @@
   flex: 0 0 auto;
   align-items: center;
   gap: 12px;
-  color: #fff;
+  color: #111827;
   font-family: "Space Grotesk", Inter, system-ui, sans-serif;
   font-size: 24px;
   font-weight: 800;
@@ -52,7 +55,7 @@
   height: 32px;
   border-radius: 8px;
   background: linear-gradient(135deg, #ff453a, #ea580c);
-  box-shadow: 0 0 15px rgba(255, 69, 58, 0.4);
+  box-shadow: 0 5px 16px rgba(201, 47, 40, 0.16);
 }
 
 .lc-global-nav__logo img {
@@ -64,7 +67,7 @@
 
 .lc-global-nav__brand-accent,
 .lc-global-nav [aria-current="page"] {
-  color: #ff453a;
+  color: #c92f28;
 }
 
 .lc-global-nav__links {
@@ -77,7 +80,7 @@
 
 .lc-global-nav__link {
   flex: 0 0 auto;
-  color: #a1a1aa;
+  color: #545b66;
   font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
   font-weight: 500;
@@ -90,7 +93,7 @@
 
 .lc-global-nav__link:hover,
 .lc-global-nav__link:focus-visible {
-  color: #fff;
+  color: #111827;
 }
 
 .lc-global-nav__link--account {
@@ -98,16 +101,18 @@
   display: inline-flex;
   align-items: center;
   padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid #c92f28;
   border-radius: 6px;
   color: #fff;
+  background: #c92f28;
 }
 
 .lc-global-nav__link--account:hover,
 .lc-global-nav__link--account:focus-visible,
 .lc-global-nav__link--account[aria-current="page"] {
-  border-color: rgba(255, 69, 58, 0.55);
-  color: #ff453a;
+  border-color: #a9231e;
+  background: #a9231e;
+  color: #fff;
 }
 
 .lc-global-nav__menu-button {
@@ -117,10 +122,10 @@
   width: 42px;
   height: 42px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid #cfcac2;
   border-radius: 4px;
-  background: #0d0d0d;
-  color: #fff;
+  background: #fff;
+  color: #111827;
   cursor: pointer;
 }
 
@@ -130,8 +135,8 @@
 }
 
 .lc-global-nav__mobile {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #090909;
+  border-top: 1px solid #e2ded7;
+  background: #fff;
 }
 
 .lc-global-nav__mobile[hidden] {
@@ -152,13 +157,139 @@
   align-items: center;
   min-height: 44px;
   padding: 0 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid #eeeae4;
 }
 
 .lc-global-nav__mobile .lc-global-nav__link--account {
   margin-top: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid #c92f28;
 }
+
+.lc-global-nav__link:focus-visible,
+.lc-global-nav__menu-button:focus-visible {
+  outline: 2px solid #c92f28;
+  outline-offset: 3px;
+}
+
+html.light {
+  color-scheme: light;
+  background: #faf9f6;
+  --bg: #faf9f6;
+  --panel: #ffffff;
+  --card: #ffffff;
+  --card2: #f7f5f1;
+  --surface: #ffffff;
+  --surface2: #f7f5f1;
+  --surface3: #ece8e1;
+  --border: #d7dce4;
+  --border2: #aeb7c4;
+  --text: #111827;
+  --muted: #64748b;
+  --muted2: #6b7280;
+  --soft: #334155;
+}
+
+html.light body:not(.lc-account-page) {
+  background-color: #faf9f6 !important;
+  color: #111827;
+}
+
+html.light body:not(.lc-account-page)::before {
+  background-image:
+    linear-gradient(rgba(201, 47, 40, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 47, 40, 0.055) 1px, transparent 1px) !important;
+}
+
+html.light body:not(.lc-account-page) :where(h1, h2, h3, h4) { color: #111827; }
+html.light body:not(.lc-account-page) :where(.desc, .lead, .section-copy, .score-caption, .card p, .section p, .section li, .list li) { color: #475569 !important; }
+html.light body:not(.lc-account-page) :where(.muted, .meta, .updated, .runtime-launch-disclosure) { color: #64748b !important; }
+
+html.light body:not(.lc-account-page) :where(
+  .hero-copy, .hero-panel, .section, .spec-card, .model-card, .score-card,
+  .mini, .step, .meta-grid .meta, .run-picker, .run-option, .run-required,
+  .runtime-launch-assist, .personal-fit, .status, .fact, .panel, .metric,
+  .card, .stat, .hero-media, .index-list a, .next-grid a, .next a,
+  .similar a, .hardware-fit a, .source-links a, .source-links code
+) {
+  border-color: #d7dce4 !important;
+  background: #fff !important;
+  color: #111827 !important;
+  box-shadow: 0 14px 34px rgba(17, 24, 39, 0.055) !important;
+}
+
+html.light body:not(.lc-account-page) :where(.hero-copy, .panel, .status-head) {
+  background:
+    radial-gradient(circle at 0 0, rgba(255, 69, 58, 0.09), transparent 44%),
+    #fff !important;
+}
+
+html.light body:not(.lc-account-page) :where(.btn.secondary, .lc-ai-button, .personal-fit-actions button, .personal-fit-actions a, .runtime-launch-assist-actions button, .runtime-launch-assist-actions a) {
+  border-color: #cbd5e1 !important;
+  background: #fff !important;
+  color: #111827 !important;
+}
+
+html.light body:not(.lc-account-page) :where(.btn:not(.secondary), .lc-ai-button-primary) {
+  border-color: #c92f28 !important;
+  background: #c92f28 !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+html.light body:not(.lc-account-page) :where(.chip, .tag, .pill, code) {
+  border-color: #d7dce4 !important;
+  background: #f7f5f1 !important;
+  color: #334155 !important;
+}
+
+html.light body:not(.lc-account-page) :where(.track, .bench-bar, .metric-track) { background: #e5e7eb !important; }
+html.light body:not(.lc-account-page) :where(.breadcrumb a, .meta .v, .similar a, .next a, .next-grid a, .hardware-fit a, .source-links a) { color: #111827 !important; }
+
+html.light body:not(.lc-account-page) :where(input, select, textarea) {
+  border-color: #aeb7c4;
+  background-color: #fff;
+  color: #111827;
+}
+
+html.light body:not(.lc-account-page) :where(input, select, textarea):focus-visible {
+  border-color: #c92f28;
+  outline: 2px solid rgba(201, 47, 40, 0.22);
+  outline-offset: 1px;
+}
+
+html.light .article-shell,
+html.light .signal-card,
+html.light .metric-card {
+  border-color: #d7dce4 !important;
+  background: #fff !important;
+  color: #111827 !important;
+  box-shadow: 0 14px 38px rgba(17, 24, 39, 0.06) !important;
+}
+
+html.light .metric-card {
+  background:
+    radial-gradient(circle at top left, rgba(255, 69, 58, 0.08), transparent 48%),
+    #fff !important;
+}
+
+html.light .prose-custom :where(h2, h3, strong),
+html.light .article-shell :where(.text-white, thead, th),
+html.light .article-shell [class~="text-white"] {
+  color: #111827 !important;
+}
+
+html.light .prose-custom :where(p, li),
+html.light .article-shell tbody {
+  color: #475569 !important;
+}
+
+html.light .prose-custom a { color: #c92f28 !important; }
+html.light .prose-custom a:hover { color: #8f1f1b !important; }
+html.light .article-shell :where(th, td) { border-bottom-color: #e5e7eb !important; }
+html.light .article-shell [class~="bg-white/5"] { background: #f7f5f1 !important; }
+html.light .article-shell [class~="border-white/10"],
+html.light .article-shell [class~="border-white/15"] { border-color: #d7dce4 !important; }
+html.light #blog-mobile-menu { background: rgba(250, 249, 246, 0.98) !important; }
 
 @media (max-width: 1120px) {
   .lc-global-nav__inner {

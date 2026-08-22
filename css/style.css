@@ -1124,3 +1124,133 @@ body::before {
         transition: none;
     }
 }
+
+/* Shared light theme for legacy cards, release notes and setup UI. */
+html.light {
+    color-scheme: light;
+    background: #faf9f6;
+}
+
+html.light .claw-card {
+    background: #ffffff;
+    border-color: #d7dce4;
+    box-shadow: 4px 4px 0 rgba(148, 163, 184, 0.28);
+}
+
+html.light .claw-card:hover {
+    background: #ffffff;
+    border-color: #c92f28;
+    box-shadow: 6px 6px 0 rgba(201, 47, 40, 0.18);
+}
+
+html.light ::-webkit-scrollbar-track {
+    background: #f7f5f1;
+    border-left-color: #d7dce4;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-color: #f7f5f1;
+}
+
+html.light * {
+    scrollbar-color: #cbd5e1 #f7f5f1;
+}
+
+html.light table tr:hover td {
+    background: rgba(15, 23, 42, 0.025);
+}
+
+html.light .skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #ffffff 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+}
+
+html.light .ocs-card-inner,
+html.light .ocs-modal,
+html.light .ocs-modal-config-item,
+html.light .ocs-tier {
+    background: #ffffff;
+    border-color: #d7dce4;
+    color: #111827;
+}
+
+html.light .ocs-title,
+html.light .ocs-desc strong,
+html.light .ocs-price,
+html.light .ocs-modal-title,
+html.light .ocs-modal-config-value,
+html.light .ocs-tier-name,
+html.light .ocs-tier-price {
+    color: #111827;
+}
+
+html.light .ocs-desc,
+html.light .ocs-price-note,
+html.light .ocs-features,
+html.light .ocs-modal-subtitle,
+html.light .ocs-modal-config-label,
+html.light .ocs-tier-features li,
+html.light .ocs-modal-disclaimer {
+    color: #64748b;
+}
+
+html.light .ocs-email-input {
+    background: #ffffff;
+    border-color: #d7dce4;
+    color: #111827;
+}
+
+html.light .ocs-modal-close {
+    color: #64748b;
+}
+
+html.light .ocs-modal-close:hover,
+html.light .ocs-tier:hover {
+    color: #111827;
+    background: #f7f5f1;
+    border-color: #cbd5e1;
+}
+
+html.light .ocs-overlay {
+    background: rgba(15, 23, 42, 0.38);
+}
+
+html.light .ocs-delivery-hero {
+    border-bottom-color: #d7dce4;
+}
+
+/* Release-note templates share these compact content classes. */
+html.light body {
+    background: #faf9f6;
+    color: #111827;
+}
+
+html.light .nav {
+    border-color: #d7dce4;
+    background: #ffffff;
+}
+
+html.light .lede,
+html.light .item p,
+html.light .install p {
+    color: #64748b;
+}
+
+html.light .meta span,
+html.light .button {
+    border-color: #d7dce4;
+    color: #111827;
+}
+
+html.light .item,
+html.light .install {
+    border-color: #d7dce4;
+    background: #ffffff;
+}
+
+html.light .button-primary {
+    border-color: #c92f28;
+    background: #c92f28;
+    color: #ffffff;
+}

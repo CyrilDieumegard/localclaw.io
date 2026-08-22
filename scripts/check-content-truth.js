@@ -352,7 +352,7 @@ for (const model of multimodalModels) {
   if (multimodalRatingIds.has(ratingId)) errors.push(`Duplicate multimodal rating ID: ${ratingId}`);
   multimodalRatingIds.add(ratingId);
   for (const marker of [
-    'css/community-ratings-20260802a.css?v=20260803a',
+    'css/community-ratings-20260802a.css?v=20260822a',
     'js/community-ratings-20260802a.js?v=20260803a',
     `data-model-id="${ratingId}"`,
     'data-rating-mode="full"',
@@ -364,7 +364,7 @@ for (const model of multimodalModels) {
 for (const category of ['image', 'video', '3d', 'music', 'vision']) {
   const landing = read(`${category}-models.html`);
   for (const marker of [
-    'css/community-ratings-20260802a.css?v=20260803a',
+    'css/community-ratings-20260802a.css?v=20260822a',
     'js/community-ratings-20260802a.js?v=20260803a',
     'js/local-ai-catalog-app.js?v=20260816f'
   ]) {

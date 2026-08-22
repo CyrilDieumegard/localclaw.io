@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,24 +23,25 @@
     <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/nt8XNV-bXM0">
     <meta name="twitter:player:width" content="1280">
     <meta name="twitter:player:height" content="720">
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#faf9f6">
+    <meta name="color-scheme" content="light">
     <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css?v=20260719a">
+    <link rel="stylesheet" href="/css/style.css?v=20260822a">
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="/js/clarity.js" defer></script>
     <style>
         :root {
-            --bg: #050505;
-            --surface: #101011;
-            --surface-2: #171718;
-            --border: #2a2a2d;
-            --primary: #ff453a;
-            --text: #f4f4f5;
-            --muted: #a1a1aa;
-            --success: #22c55e;
+            --bg: #faf9f6;
+            --surface: #ffffff;
+            --surface-2: #f7f5f1;
+            --border: #d7dce4;
+            --primary: #c92f28;
+            --text: #111827;
+            --muted: #64748b;
+            --success: #166534;
         }
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -123,6 +124,16 @@
         .cta-inner p { max-width: 650px; margin: 12px 0 0; color: var(--muted); }
         footer { padding: 28px 0 44px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
         .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        html.light .lead,
+        html.light .fact-list span { color:#475569; }
+        html.light .button { color:#fff; }
+        html.light .button:hover { background:#a8241f; border-color:#a8241f; color:#fff; }
+        html.light .button.secondary { background:#fff; border-color:var(--border); color:var(--text); }
+        html.light .button.secondary:hover { border-color:#94a3b8; }
+        html.light .proof-bar { background:var(--border); }
+        html.light .proof-item,
+        html.light .cta-inner { background:#fff; box-shadow:0 16px 48px rgba(15,23,42,.06); }
+        html.light .video-note a { color:var(--text); }
         @media (max-width: 820px) {
             .nav-links a:not(.buy) { display: none; }
             .hero { padding-top: 50px; }
@@ -156,7 +167,7 @@
         }
     }
     </script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body>
     <nav class="lc-global-nav" aria-label="Main navigation">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,8 +20,8 @@
     <meta name="twitter:description" content="Native Apple-notarized macOS app for OpenClaw setup, local models, agents and updates. $49 one-time.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
-    <meta name="theme-color" content="#050505">
-    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#faf9f6">
+    <meta name="color-scheme" content="light">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
 
@@ -45,37 +45,37 @@
                     },
                     colors: {
                         claw: {
-                            bg: '#050505',
-                            surface: '#09090b',
-                            border: '#27272a',
-                            primary: '#ff453a',
-                            accent: '#ff6d64',
-                            text: '#f4f4f5',
-                            muted: '#a1a1aa'
+                            bg: '#faf9f6',
+                            surface: '#ffffff',
+                            border: '#d7dce4',
+                            primary: '#c92f28',
+                            accent: '#c92f28',
+                            text: '#111827',
+                            muted: '#64748b'
                         }
                     }
                 }
             }
         }
     </script>
-    <link rel="stylesheet" href="css/style.css?v=20260211g">
+    <link rel="stylesheet" href="css/style.css?v=20260822a">
 
     <style>
         :root {
-            --claw-bg: #050505;
-            --claw-surface: #0a0a0a;
-            --claw-card: #101010;
-            --claw-border: rgba(255, 255, 255, 0.1);
-            --claw-orange: #ff453a;
-            --claw-orange-soft: #ff6d64;
-            --claw-muted: #a1a1aa;
+            --claw-bg: #faf9f6;
+            --claw-surface: #f7f5f1;
+            --claw-card: #ffffff;
+            --claw-border: #d7dce4;
+            --claw-orange: #c92f28;
+            --claw-orange-soft: #c92f28;
+            --claw-muted: #64748b;
         }
 
         html,
         body {
             overflow-x: hidden;
             background: var(--claw-bg);
-            color: #fff;
+            color: #111827;
         }
 
         body {
@@ -664,6 +664,83 @@
             line-height: 1;
         }
 
+        html.light .page-glow {
+            background:
+                radial-gradient(circle at 72% 18%, rgba(201, 47, 40, 0.08), transparent 34%),
+                radial-gradient(circle at 18% 42%, rgba(201, 47, 40, 0.05), transparent 30%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.18), #faf9f6 78%);
+        }
+
+        html.light .cta-secondary,
+        html.light .purchase-flow div,
+        html.light .product-window,
+        html.light .carousel-control,
+        html.light .quick-spec,
+        html.light .price-panel,
+        html.light .card,
+        html.light .screenshot-panel,
+        html.light details.info-detail,
+        html.light .final-cta {
+            background:#fff;
+            border-color:#d7dce4;
+            color:#111827;
+        }
+
+        html.light .cta-secondary:hover {
+            border-color:#94a3b8;
+            background:#f7f5f1;
+            color:#111827;
+        }
+
+        html.light .microcopy,
+        html.light .returning-customer-link,
+        html.light .recommendation-context,
+        html.light .purchase-flow div,
+        html.light .trust-strip span,
+        html.light .trust-strip a,
+        html.light .feature-line {
+            color:#475569;
+        }
+
+        html.light .returning-customer-link { border-color:#cbd5e1; }
+        html.light .returning-customer-link:hover,
+        html.light .trust-strip a:hover { color:#111827; }
+        html.light .recommendation-context strong,
+        html.light .carousel-copy strong,
+        html.light details.info-detail summary { color:#111827; }
+
+        html.light .product-window {
+            background:linear-gradient(145deg, rgba(201,47,40,.07), #fff 36%);
+            box-shadow:0 0 46px rgba(201,47,40,.08), 0 30px 80px rgba(15,23,42,.1);
+        }
+
+        html.light .product-titlebar {
+            border-color:#d7dce4;
+            background:#f7f5f1;
+        }
+
+        html.light .carousel-frame {
+            border-color:#d7dce4;
+            background:#0b1220;
+        }
+
+        html.light .carousel-control.is-active,
+        html.light .carousel-control:hover {
+            color:#c92f28;
+            background:rgba(201,47,40,.08);
+        }
+
+        html.light .price-panel,
+        html.light .card-hot,
+        html.light .final-cta {
+            background:linear-gradient(145deg, rgba(201,47,40,.06), #fff 48%);
+        }
+
+        html.light .mini-shot {
+            border-color:#d7dce4;
+            background:#0b1220;
+        }
+
         @media (max-width: 980px) {
             .hero-grid,
             .split-panel,
@@ -750,7 +827,7 @@
     <script id="datafast-queue">window.datafast=window.datafast||function(){window.datafast.q=window.datafast.q||[];window.datafast.q.push(arguments);};</script>
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="js/clarity.js?v=20260721a" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>

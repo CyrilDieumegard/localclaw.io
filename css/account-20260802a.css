@@ -2005,3 +2005,201 @@ a:focus-visible {
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
+
+/* Light-first account workspace, scoped away from commercial modules. */
+html.light {
+    color-scheme: light;
+    background: #faf9f6;
+}
+
+html.light .lc-account-light-scope {
+    --lc-bg: #faf9f6;
+    --lc-panel: #ffffff;
+    --lc-surface: #f7f5f1;
+    --lc-surface-2: #ffffff;
+    --lc-border: #d7dce4;
+    --lc-border-soft: #e5e7eb;
+    --lc-text: #111827;
+    --lc-muted: #64748b;
+    --lc-accent: #c92f28;
+    --lc-accent-dark: #a8241f;
+    --lc-primary: #c92f28;
+    --lc-green: #166534;
+    --lc-blue: #2563eb;
+    color: var(--lc-text);
+}
+
+html.light body.lc-account-page {
+    background-color: #faf9f6;
+    background-image:
+        linear-gradient(rgba(201, 47, 40, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 47, 40, 0.035) 1px, transparent 1px);
+}
+
+html.light .lc-site-header {
+    background: rgba(255, 255, 255, 0.94);
+}
+
+html.light .lc-account-benefits li,
+html.light .lc-auth-panel,
+html.light .lc-summary-cell,
+html.light .lc-model-card,
+html.light .lc-empty-state,
+html.light .lc-model-empty,
+html.light .lc-test-summary,
+html.light .lc-upgrade-result > div,
+html.light .lc-legal {
+    background: #ffffff;
+    border-color: var(--lc-border);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
+}
+
+html.light .lc-auth-panel {
+    background: linear-gradient(145deg, rgba(201, 47, 40, 0.06), transparent 45%), #ffffff;
+}
+
+html.light .lc-account-light-scope .lc-button:hover {
+    border-color: #94a3b8;
+    background: #ffffff;
+}
+
+html.light .lc-account-light-scope .lc-button-primary,
+html.light .lc-account-light-scope .lc-button-primary:hover {
+    border-color: var(--lc-accent);
+    background: var(--lc-accent);
+    color: #ffffff;
+}
+
+html.light .lc-workspace {
+    background: #ffffff;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.09);
+}
+
+html.light .lc-machine-sidebar {
+    background: #f7f5f1;
+}
+
+html.light .lc-machine-icon,
+html.light .lc-machine-match__icon,
+html.light .lc-plan-overview__signals span,
+html.light .lc-plan-overview__action,
+html.light .lc-spec-pill,
+html.light .lc-view-tab,
+html.light .lc-mark-seen,
+html.light .lc-favorite-button,
+html.light .lc-saved-controls select,
+html.light .lc-test-button,
+html.light .lc-compare-button,
+html.light .lc-upgrade-heading select,
+html.light .lc-upgrade-planner,
+html.light .lc-comparison-table th,
+html.light .lc-comparison-table td {
+    background: #ffffff;
+    border-color: var(--lc-border);
+    color: var(--lc-text);
+}
+
+html.light .lc-machine-item:hover,
+html.light .lc-machine-item.is-active,
+html.light .lc-machine-match:hover,
+html.light .lc-machine-match:focus-visible,
+html.light .lc-view-tab:hover,
+html.light .lc-view-tab:focus-visible,
+html.light .lc-view-tab.is-active,
+html.light .lc-compare-button.is-selected {
+    background: rgba(201, 47, 40, 0.06);
+    border-color: rgba(201, 47, 40, 0.55);
+}
+
+html.light .lc-plan-overview {
+    background:
+        radial-gradient(circle at 8% 0%, rgba(201, 47, 40, 0.1), transparent 44%),
+        #ffffff;
+    box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+}
+
+html.light .lc-plan-overview__status {
+    color: #166534;
+    background: #dcfce7;
+}
+
+html.light .lc-plan-overview__status.has-updates {
+    border-color: rgba(201, 47, 40, 0.34);
+    color: #a8241f;
+    background: rgba(201, 47, 40, 0.07);
+}
+
+html.light .lc-account-light-scope .lc-plan-overview__signals span,
+html.light .lc-account-light-scope .lc-plan-overview__action small,
+html.light .lc-account-light-scope .lc-field label,
+html.light .lc-account-light-scope .lc-check-label,
+html.light .lc-account-light-scope .lc-machine-picker-status,
+html.light .lc-account-light-scope .lc-machine-picker-status.is-ready,
+html.light .lc-account-light-scope .lc-form-section-divider,
+html.light .lc-account-light-scope .lc-test-summary p,
+html.light .lc-account-light-scope .lc-comparison-table tbody th,
+html.light .lc-account-light-scope .lc-upgrade-result span,
+html.light .lc-account-light-scope .lc-upgrade-copy,
+html.light .lc-legal p,
+html.light .lc-legal li {
+    color: var(--lc-muted);
+}
+
+html.light .lc-account-light-scope.lc-dialog {
+    border-color: var(--lc-border);
+    background: #ffffff;
+    box-shadow: 0 30px 100px rgba(15, 23, 42, 0.18), 0 0 50px rgba(201, 47, 40, 0.05);
+}
+
+html.light .lc-account-light-scope.lc-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.34);
+}
+
+html.light .lc-account-light-scope .lc-machine-picker {
+    background: linear-gradient(135deg, rgba(201, 47, 40, 0.06), #ffffff 42%);
+}
+
+html.light .lc-account-light-scope .lc-field input,
+html.light .lc-account-light-scope .lc-field select,
+html.light .lc-account-light-scope .lc-field textarea,
+html.light .lc-account-light-scope .lc-check-label,
+html.light .lc-account-light-scope .lc-icon-button,
+html.light .lc-account-light-scope .lc-machine-match,
+html.light .lc-account-light-scope .lc-machine-item,
+html.light .lc-account-light-scope .lc-button {
+    background: #ffffff;
+    border-color: var(--lc-border);
+    color: var(--lc-text);
+}
+
+html.light .lc-compare-tray {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(201, 47, 40, 0.4);
+    box-shadow: 0 18px 52px rgba(15, 23, 42, 0.14);
+}
+
+html.light .lc-comparison-table {
+    background: var(--lc-border);
+}
+
+html.light .lc-comparison-table thead th,
+html.light .lc-comparison-table tbody th {
+    background: #f7f5f1;
+}
+
+html.light .lc-upgrade-planner {
+    background: linear-gradient(135deg, rgba(201, 47, 40, 0.05), transparent 42%), #ffffff;
+}
+
+html.light .lc-account-light-scope .lc-button.lc-button-primary,
+html.light .lc-account-light-scope .lc-button.lc-button-primary:hover {
+    border-color: var(--lc-accent);
+    background: var(--lc-accent);
+    color: #ffffff;
+}
+
+html.light .lc-account-light-scope .lc-button.lc-button-danger {
+    border-color: rgba(201, 47, 40, 0.34);
+    background: rgba(201, 47, 40, 0.06);
+    color: #a8241f;
+}

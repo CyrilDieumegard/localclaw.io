@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,8 +23,8 @@
     <meta name="twitter:description" content="A native macOS dashboard for OpenClaw setup, health, models, agents, channels and scheduled work.">
     <meta name="twitter:image" content="https://localclaw.io/images/pricing-carousel/home.jpg?v=20260602">
 
-    <meta name="theme-color" content="#050505">
-    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#faf9f6">
+    <meta name="color-scheme" content="light">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,14 +38,14 @@
             darkMode: 'class',
             theme: { extend: {
                 fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], display: ['Space Grotesk', 'Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
-                colors: { claw: { bg: '#050505', surface: '#09090b', border: '#27272a', primary: '#ff453a', accent: '#ff6d64', text: '#f4f4f5', muted: '#a1a1aa' } }
+                colors: { claw: { bg: '#faf9f6', surface: '#ffffff', border: '#d7dce4', primary: '#c92f28', accent: '#c92f28', text: '#111827', muted: '#64748b' } }
             }}
         };
     </script>
-    <link rel="stylesheet" href="/css/style.css?v=20260719a">
+    <link rel="stylesheet" href="/css/style.css?v=20260822a">
     <style>
-        :root { --orange:#ff453a; --muted:#a1a1aa; --line:rgba(255,255,255,.1); }
-        html, body { overflow-x:hidden; background:#050505; color:#fff; }
+        :root { --orange:#c92f28; --muted:#64748b; --line:#d7dce4; }
+        html, body { overflow-x:hidden; background:#faf9f6; color:#111827; }
         body { min-height:100vh; }
         .software-shell { width:min(1180px, calc(100% - 32px)); margin-inline:auto; }
         .software-glow { position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 70% 16%,rgba(255,69,58,.12),transparent 34%),linear-gradient(180deg,rgba(5,5,5,.1),#050505 76%); }
@@ -110,6 +110,27 @@
         .final-cta h2 { font:700 clamp(2.2rem,6vw,4.8rem)/.95 'Space Grotesk',sans-serif; text-transform:uppercase; }
         .final-cta p { max-width:660px; margin:18px auto 0; color:var(--muted); line-height:1.7; }
         .final-cta .software-actions { justify-content:center; }
+        html.light .software-glow { background:radial-gradient(circle at 70% 16%,rgba(201,47,40,.08),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.12),#faf9f6 76%); }
+        html.light .software-button.secondary { border-color:#d7dce4; color:#111827; background:#fff; }
+        html.light .software-button.secondary:hover { border-color:#94a3b8; background:#f7f5f1; color:#111827; }
+        html.light .software-trust span,
+        html.light .capability,
+        html.light .proof-copy,
+        html.light .proof-stats div,
+        html.light .compare-panel { background:#fff; border-color:#d7dce4; }
+        html.light .product-window { background:#fff; box-shadow:0 30px 90px rgba(15,23,42,.12),0 0 60px rgba(201,47,40,.07); }
+        html.light .product-titlebar { background:#f7f5f1; }
+        html.light .carousel-button,
+        html.light .proof-media { background:#0b1220; }
+        html.light .carousel-arrow,
+        html.light .carousel-tab { background:#fff; border-color:#d7dce4; color:#111827; }
+        html.light .carousel-tab[aria-current="true"] { background:rgba(201,47,40,.08); color:#c92f28; }
+        html.light .proof-stats div { background:#f7f5f1; }
+        html.light .compare-panel.is-localclaw { background:rgba(201,47,40,.06); border-color:rgba(201,47,40,.34); }
+        html.light .final-cta { background:linear-gradient(180deg,#fff,#f7f5f1); }
+        html.light [class*="text-white"] { color:#111827 !important; }
+        html.light [class*="border-white/"] { border-color:#d7dce4 !important; }
+        html.light [class*="bg-black"] { background-color:#f7f5f1 !important; }
         @media (max-width:900px) { .capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.proof-grid{grid-template-columns:1fr}.proof-media img{min-height:0}.compare-grid{grid-template-columns:1fr} }
         @media (max-width:640px) { .software-shell{width:min(100% - 24px,1180px)}.software-hero{padding-top:44px}.software-title{font-size:clamp(2.7rem,15vw,4.1rem)}.software-actions{flex-direction:column}.software-button{width:100%}.product-titlebar{grid-template-columns:1fr auto}.product-titlebar>span:nth-child(2){display:none}.carousel-info{grid-template-columns:1fr}.carousel-nav{justify-content:space-between}.capability-grid{grid-template-columns:1fr}.software-section{padding:52px 0}.product-mode{font-size:9px} }
     </style>
@@ -119,7 +140,7 @@
     </script>
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="/js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text font-sans antialiased">
     <div class="software-glow" aria-hidden="true"></div>
@@ -222,10 +243,14 @@
             trackSoftwareEvent('software_carousel_slide', { slide: heading, index: softwareScreenIndex + 1 });
         };
         softwareScreens.forEach((screen, index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'carousel-tab'; button.textContent = index + 1; button.setAttribute('aria-label', `Show ${screen[2]}`); button.setAttribute('aria-current', index === 0 ? 'true' : 'false'); button.addEventListener('click', () => renderSoftwareScreen(index)); tabs.appendChild(button); });
-        document.getElementById('software-carousel-prev').addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex - 1));
-        document.getElementById('software-carousel-next').addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex + 1));
-        document.getElementById('software-carousel-frame').addEventListener('click', () => window.open(softwareScreens[softwareScreenIndex][0], '_blank', 'noopener'));
-        document.getElementById('software-menu-button').addEventListener('click', (event) => { const menu = document.getElementById('software-mobile-menu'); const open = menu.classList.toggle('hidden') === false; event.currentTarget.setAttribute('aria-expanded', String(open)); });
+        document.getElementById('software-carousel-prev')?.addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex - 1));
+        document.getElementById('software-carousel-next')?.addEventListener('click', () => renderSoftwareScreen(softwareScreenIndex + 1));
+        document.getElementById('software-carousel-frame')?.addEventListener('click', () => window.open(softwareScreens[softwareScreenIndex][0], '_blank', 'noopener'));
+        const legacyMenuButton = document.getElementById('software-menu-button');
+        const legacyMobileMenu = document.getElementById('software-mobile-menu');
+        if (legacyMenuButton && legacyMobileMenu) {
+            legacyMenuButton.addEventListener('click', (event) => { const open = legacyMobileMenu.classList.toggle('hidden') === false; event.currentTarget.setAttribute('aria-expanded', String(open)); });
+        }
     </script>
 
     <script type="application/ld+json">

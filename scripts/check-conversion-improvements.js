@@ -42,7 +42,7 @@ for (const copy of [
   assert(account.includes(copy), `Missing account conversion copy: ${copy}`);
 }
 
-assert(account.includes('/css/account-20260802a.css?v=20260820c'), 'Account CSS cache key is stale');
+assert(account.includes('/css/account-20260802a.css?v=20260822a'), 'Account CSS cache key is stale');
 assert(index.includes('js/app-20260816a.js?v=20260820e'), 'Homepage app cache key is stale');
 assert(accountCss.includes('.lc-account-benefits'), 'Account benefit-list styles are missing');
 assert(accountCss.includes('.lc-auth-trust'), 'Account privacy reassurance styles are missing');

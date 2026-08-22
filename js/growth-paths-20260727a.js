@@ -204,6 +204,49 @@
                 transform: translateY(-2px);
                 border-color: #ff6a1e;
             }
+            html.light [data-lc-path].lc-path-recommended {
+                border-color: #c92f28 !important;
+                background: #c92f28 !important;
+                color: #fff !important;
+                box-shadow: 4px 4px 0 rgba(201, 47, 40, .18) !important;
+            }
+            html.light [data-lc-path].lc-path-recommended:hover {
+                border-color: #a9231e !important;
+                background: #a9231e !important;
+                color: #fff !important;
+            }
+            html.light [data-lc-path].lc-path-secondary {
+                border-color: #cbd5e1 !important;
+                color: #334155 !important;
+            }
+            html.light [data-lc-path].lc-path-secondary:hover {
+                border-color: #94a3b8 !important;
+                color: #111827 !important;
+            }
+            html.light .lc-platform-note strong { color: #111827; }
+            html.light .${ARTICLE_CTA_CLASS} {
+                border-color: #d7dce4;
+                background: linear-gradient(145deg, rgba(201, 47, 40, .055), #fff 48%);
+                box-shadow: 0 16px 44px rgba(15, 23, 42, .07);
+                color: #111827;
+            }
+            html.light .${ARTICLE_CTA_CLASS}__eyebrow { color: #b4231d; }
+            html.light .${ARTICLE_CTA_CLASS} h2 { color: #111827; }
+            html.light .${ARTICLE_CTA_CLASS}__copy { color: #475569; }
+            html.light .${ARTICLE_CTA_CLASS}__button {
+                border-color: #cbd5e1;
+                background: #fff;
+                color: #111827 !important;
+            }
+            html.light .${ARTICLE_CTA_CLASS}__button:first-child {
+                border-color: #c92f28;
+                background: #c92f28;
+                color: #fff !important;
+            }
+            html.light .${ARTICLE_CTA_CLASS}__button + .${ARTICLE_CTA_CLASS}__button {
+                color: #b4231d !important;
+            }
+            html.light .${ARTICLE_CTA_CLASS}__trust { color: #64748b; }
             @media (max-width: 640px) {
                 [data-lc-path] { width: 100%; }
                 .${ARTICLE_CTA_CLASS}__actions { flex-direction: column; }

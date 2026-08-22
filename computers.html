@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="Compare current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#faf9f6">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260215">
+    <link rel="stylesheet" href="css/style.css?v=20260822a">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -114,6 +114,7 @@
             --surface3: #e2e8f0;
             --border: #e2e8f0;
             --border2: #cbd5e1;
+            --primary: #c92f28;
             --text: #1e293b;
             --muted: #64748b;
             --muted2: #94a3b8;
@@ -222,6 +223,19 @@
         html.light .card:hover {
             border-color: var(--primary) !important;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.light .buying-tier.recommended {
+            background: linear-gradient(135deg, rgba(201, 47, 40, 0.08), #ffffff) !important;
+            border-color: rgba(201, 47, 40, 0.38) !important;
+        }
+
+        html.light .buying-tier.recommended strong {
+            color: #111827 !important;
+        }
+
+        html.light .buying-tier.recommended span:not(.buying-tier-label) {
+            color: #64748b !important;
         }
         
         html.light .card-head {
@@ -912,7 +926,7 @@
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>

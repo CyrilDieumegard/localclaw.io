@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,7 +66,7 @@
     }
     </script>
 
-    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    <meta name="theme-color" content="#faf9f6" id="theme-color-meta">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
 
@@ -86,22 +86,22 @@
                     },
                     colors: {
                         claw: {
-                            bg: '#050505',
-                            surface: '#0F0F11',
-                            border: '#27272A',
-                            primary: '#FF453A',
-                            accent: '#FF6D64',
-                            text: '#FFFFFF',
-                            muted: '#A1A1AA'
+                            bg: '#FAF9F6',
+                            surface: '#FFFFFF',
+                            border: '#D7DCE4',
+                            primary: '#C92F28',
+                            accent: '#C92F28',
+                            text: '#111827',
+                            muted: '#64748B'
                         }
                     }
                 }
             }
         }
     </script>
-    <link rel="stylesheet" href="css/style.css?v=20260212">
+    <link rel="stylesheet" href="css/style.css?v=20260822a">
     <style>
-        body { background: #050505; color: #FFFFFF; }
+        body { background: #faf9f6; color: #111827; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -109,7 +109,7 @@
         .card-appear { animation: fadeInUp 0.5s ease-out both; }
 
         /* Benchmark mini-bar */
-        .bench-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.05); overflow: hidden; }
+        .bench-bar { height: 4px; border-radius: 2px; background: #e5e7eb; overflow: hidden; }
         .bench-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease-out; }
 
         /* New badge pulse */
@@ -122,7 +122,7 @@
         /* Timeline dot */
         .timeline-dot {
             width: 12px; height: 12px; border-radius: 50%;
-            border: 2px solid #FF453A; background: #050505;
+            border: 2px solid #C92F28; background: #faf9f6;
             position: relative; z-index: 2; flex-shrink: 0;
         }
         .timeline-dot.first { background: #FF453A; box-shadow: 0 0 12px rgba(255,69,58,0.5); }
@@ -131,13 +131,26 @@
             width: 2px; background: linear-gradient(to bottom, rgba(255,69,58,0.4), rgba(255,69,58,0.05));
         }
 
+        html.light #bg-circuit { opacity:.38; }
+        html.light body > .fixed.inset-0 > .absolute {
+            background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(255,255,255,.2) 62%, rgba(250,249,246,.9) 100%) !important;
+        }
+        html.light [class*="text-white"] { color:#111827 !important; }
+        html.light [class*="bg-white/"] { background-color:#fff !important; }
+        html.light [class*="border-white/"] { border-color:#d7dce4 !important; }
+        html.light [class*="bg-black"] { background-color:#f7f5f1 !important; }
+        html.light #mobile-menu { background:rgba(15,23,42,.32) !important; }
+        html.light #mobile-menu > div,
+        html.light #model-list > section,
+        html.light noscript p { background:#fff !important; border-color:#d7dce4 !important; }
+
     </style>
 
     <!-- TRACKING -->
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>

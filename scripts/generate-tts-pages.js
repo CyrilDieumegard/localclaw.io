@@ -296,6 +296,16 @@ function style(color) {
   `;
 }
 
+const ttsLightStyles = `
+  :root{--bg:#faf9f6;--panel:#fff;--card:#fff;--card2:#f7f5f1;--border:#d7dce4;--border2:#b9c1cd;--primary:#c92f28;--orange:#c2410c;--text:#111827;--muted:#64748b;--soft:#334155;--green:#166534;--blue:#1d4ed8;color-scheme:light}
+  html{background:#faf9f6;color-scheme:light}body{background:radial-gradient(circle at 18% 10%,rgba(201,47,40,.07),transparent 26rem),radial-gradient(circle at 78% 18%,color-mix(in srgb,var(--model-color) 7%,transparent),transparent 24rem),linear-gradient(180deg,#fff,#faf9f6 42%,#faf9f6);color:#111827}body:before{background-image:linear-gradient(rgba(15,23,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.045) 1px,transparent 1px);mask-image:linear-gradient(to bottom,rgba(0,0,0,.45),transparent 85%)}
+  .site-nav{border-color:#d7dce4;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(15,23,42,.05)}.logo{color:#111827}.nav-links a{color:#64748b}.nav-links a:hover,.nav-links .active{color:#c92f28}.mobile-links{border-color:#d7dce4;background:#fff}.mobile-links a{color:#334155}.hamb{color:#334155}
+  .breadcrumb{color:#64748b}.breadcrumb a{color:#334155}.breadcrumb a:hover{color:#c92f28}
+  .hero-copy,.hero-panel,.section,.spec-card{border-color:#d7dce4;background:#fff;box-shadow:0 18px 48px rgba(15,23,42,.07)}.hero-copy:before{background:radial-gradient(circle at 0 0,rgba(201,47,40,.1),transparent 42%)}.desc,.section p,.list li{color:#334155}.chip{border-color:#d7dce4;background:#f7f5f1;color:#334155}.chip.hot{border-color:rgba(201,47,40,.34);background:#fff0ed;color:#c92f28}
+  .btn{border-color:#c92f28;background:#c92f28;color:#fff;box-shadow:5px 5px 0 rgba(127,29,29,.16)}.btn.secondary{border-color:#d7dce4;background:#fff;color:#111827;box-shadow:none}.btn:focus-visible{outline:3px solid rgba(201,47,40,.28);outline-offset:3px}
+  .score-card{background:radial-gradient(circle at 0 0,color-mix(in srgb,var(--model-color) 9%,transparent),transparent 45%),#f7f5f1}.score-label{color:#64748b}.score-caption{color:#334155}.mini,.detail,.step,.similar-card,.next a{border-color:#d7dce4;background:#f7f5f1;color:#111827}.mini .v,.detail .v,.similar-card,.next a{color:#111827}.mini .v[style]{color:#111827!important}.similar-family{color:#6d28d9}.track{background:#e2e8f0}.tag{border-color:#d7dce4;background:#f7f5f1;color:#334155}.source-links a,.source-links code,code{border-color:#d7dce4;background:#f7f5f1;color:#111827}.source-links a:focus-visible,.similar-card:focus-visible,.next a:focus-visible{outline:3px solid rgba(201,47,40,.25);outline-offset:2px}.command{border-color:#334155;background:#111827;color:#f8fafc;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+`;
+
 function nav() {
   return siteNavigation('voice');
 }
@@ -416,10 +426,12 @@ function page(model, all) {
     </section>` : '';
 
   return `<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}">
   <meta name="robots" content="${isUnverified ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large'}">
@@ -434,10 +446,10 @@ function page(model, all) {
   <meta name="twitter:description" content="${esc(desc)}">
   <meta name="twitter:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
-  <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260803a">
-  ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260816b">' : ''}
+  <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
+  ${hasAudioExample ? '<link rel="stylesheet" href="/css/external-media.css?v=20260822a">' : ''}
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
-  <style>${style(color)}${installChoiceStyles}${installPickerStyles}</style>
+  <style>${style(color)}${installChoiceStyles}${installPickerStyles}${ttsLightStyles}</style>
 </head>
 <body>
   ${nav()}
@@ -516,10 +528,12 @@ function indexPage(models) {
   };
 
   return `<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light">
   <title>Local TTS model pages | LocalClaw</title>
   <meta name="description" content="${esc(desc)}">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -531,7 +545,7 @@ function indexPage(models) {
   <meta property="og:image" content="${BASE}/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>${tracking}
-  <style>${style('#ff453a')}</style>
+  <style>${style('#ff453a')}${ttsLightStyles}</style>
 </head>
 <body>
   ${nav()}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#faf9f6">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260802a">
+    <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -115,6 +115,8 @@
             --bg: #faf9f6;
             --surface: #ffffff;
             --border: #e2e8f0;
+            --primary: #c92f28;
+            --accent: #a8241f;
             --text: #1e293b;
             --muted: #64748b;
         }
@@ -878,6 +880,44 @@
         html.light .stat-total-val {
             color: #1e293b !important;
         }
+
+        /* Catalogue hero and controls */
+        html.light .catalog-hero {
+            border-color: #d7dce4 !important;
+            background:
+                radial-gradient(circle at 16% 18%, rgba(201,47,40,0.08), transparent 34%),
+                #ffffff !important;
+            box-shadow: 0 16px 42px rgba(15,23,42,0.07) !important;
+        }
+
+        html.light .catalog-kicker,
+        html.light .catalog-title span {
+            color: #c92f28 !important;
+        }
+
+        html.light .catalog-title {
+            color: #111827 !important;
+        }
+
+        html.light .catalog-copy {
+            color: #475569 !important;
+        }
+
+        html.light .catalog-pill {
+            border-color: #d7dce4 !important;
+            background: #f7f5f1 !important;
+            color: #475569 !important;
+        }
+
+        html.light .catalog-pill strong {
+            color: #111827 !important;
+        }
+
+        html.light .topbar {
+            border-color: #d7dce4 !important;
+            background: rgba(255,255,255,0.96) !important;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.05) !important;
+        }
         
         /* Cards - fix dark backgrounds */
         html.light .card {
@@ -888,6 +928,78 @@
         html.light .card:hover {
             border-color: var(--primary) !important;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.light .family-pill {
+            color: #475569 !important;
+        }
+
+        html.light .new-badge {
+            border: 1px solid rgba(22,101,52,0.24) !important;
+            background: #dcfce7 !important;
+            color: #166534 !important;
+        }
+
+        html.light .param-pill {
+            border-color: #d7dce4 !important;
+            background: #f7f5f1 !important;
+            color: #475569 !important;
+        }
+
+        html.light .model-title {
+            color: #111827 !important;
+        }
+
+        html.light .model-title:hover,
+        html.light .model-title:focus-visible {
+            color: #a8241f !important;
+        }
+
+        html.light .model-desc {
+            color: #475569 !important;
+        }
+
+        html.light .model-tag {
+            border: 1px solid #d7dce4 !important;
+            background: #f7f5f1 !important;
+            color: #475569 !important;
+        }
+
+        html.light .model-decision {
+            border-color: #d7dce4 !important;
+            background: #f7f5f1 !important;
+        }
+
+        html.light .model-score {
+            border-color: #d7dce4 !important;
+            background: linear-gradient(180deg, color-mix(in srgb, var(--family-color) 8%, #fff), #fff) !important;
+        }
+
+        html.light .model-score span,
+        html.light .model-score small,
+        html.light .metric-label,
+        html.light .spec-label {
+            color: #64748b !important;
+        }
+
+        html.light .model-score strong,
+        html.light .metric-value,
+        html.light .spec-value,
+        html.light .model-details-link {
+            color: #111827 !important;
+        }
+
+        html.light .metric-track {
+            background: #e2e8f0 !important;
+        }
+
+        html.light .spec-item {
+            border-color: #d7dce4 !important;
+            background: #ffffff !important;
+        }
+
+        html.light .model-actions {
+            border-top-color: #e2e8f0 !important;
         }
         
         html.light .card-name {
@@ -985,7 +1097,7 @@
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260817a"><script src="/js/site-nav.js?v=20260817a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
 </head>
 <body>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
@@ -1413,6 +1525,53 @@
         .machine-fit-pill[data-tier="limited"] { border-color: rgba(96,165,250,0.32); background: rgba(59,130,246,0.08); color: #93c5fd; }
         .card-link-save { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: #8f8f97; cursor: pointer; font-size: 17px; }
         .card-link-save.is-saved { border-color: rgba(255,69,58,0.4); background: rgba(255,69,58,0.1); color: var(--primary); }
+        html.light .machine-context-bar {
+            border-color: rgba(201,47,40,0.34);
+            background: linear-gradient(90deg,rgba(201,47,40,0.07),#fff 42%);
+            box-shadow: 0 12px 34px rgba(15,23,42,0.07);
+        }
+        html.light .machine-context-label { color: #c92f28; }
+        html.light .machine-context-copy strong { color: #111827; }
+        html.light .machine-context-copy > span:last-child { color: #64748b; }
+        html.light .machine-context-count { color: #166534; }
+        html.light .machine-filter-toggle,
+        html.light .machine-context-actions a {
+            border-color: #d7dce4;
+            background: #fff;
+            color: #334155;
+        }
+        html.light .machine-filter-toggle.is-active {
+            border-color: rgba(201,47,40,0.46);
+            background: #fff1ef;
+            color: #a8241f;
+        }
+        html.light .machine-context-actions a:hover,
+        html.light .machine-context-actions a:focus-visible,
+        html.light .machine-filter-toggle:hover,
+        html.light .machine-filter-toggle:focus-visible {
+            border-color: rgba(201,47,40,0.5);
+            color: #a8241f;
+        }
+        html.light .machine-fit-pill {
+            border-color: rgba(22,101,52,0.28);
+            background: #dcfce7;
+            color: #166534;
+        }
+        html.light .machine-fit-pill[data-tier="limited"] {
+            border-color: rgba(29,78,216,0.28);
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        html.light .card-link-save {
+            border-color: #d7dce4;
+            background: #f7f5f1;
+            color: #64748b;
+        }
+        html.light .card-link-save.is-saved {
+            border-color: rgba(201,47,40,0.4);
+            background: #fff1ef;
+            color: #c92f28;
+        }
         @media (max-width: 760px) {
             .machine-context-bar { align-items: stretch; flex-direction: column; }
             .machine-context-actions { flex-wrap: wrap; }

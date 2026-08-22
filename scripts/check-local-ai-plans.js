@@ -106,12 +106,12 @@ assert(accountHtml.includes('My Local AI Plans'), 'Account does not expose the p
 assert(accountHtml.includes('machine-match-dialog'), 'Multiple saved hardware matches need an explicit low-friction choice');
 assert(accountHtml.includes('/js/account-20260802a.js?v=20260820d'), 'Account plan script cache key is stale');
 assert(accountHtml.includes('/js/account-analytics-20260820a.js?v=20260820c'), 'Account plan analytics cache key is stale');
-assert(accountHtml.includes('/css/account-20260802a.css?v=20260820c'), 'Account plan CSS cache key is stale');
+assert(accountHtml.includes('/css/account-20260802a.css?v=20260822a'), 'Account plan CSS cache key is stale');
 assert(accountCss.includes('.lc-plan-overview'), 'Account plan overview styles are missing');
 assert(accountCss.includes('.lc-machine-match'), 'Existing-machine choice styles are missing');
 assert(index.includes('js/data.js?v=20260822b'), 'Homepage flow data cache key is stale');
 assert(index.includes('js/app-20260816a.js?v=20260820e'), 'Homepage plan app cache key is stale');
-assert(index.includes('js/growth-paths-20260727a.js?v=20260820a'), 'Homepage growth path cache key is stale');
+assert(index.includes('js/growth-paths-20260727a.js?v=20260822a'), 'Homepage growth path cache key is stale');
 assert(growth.includes('Build my Local AI Plan'), 'Article acquisition CTA is not plan-led');
 assert(growth.includes('no signup before value'), 'Article CTA must explain the no-signup result');
 

@@ -1,6 +1,18 @@
 (function () {
   'use strict';
 
+  function activateLightTheme() {
+    var root = document.documentElement;
+    root.classList.remove('dark');
+    root.classList.add('light');
+    root.style.colorScheme = 'light';
+
+    var themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', '#faf9f6');
+  }
+
+  activateLightTheme();
+
   function currentSection(pathname) {
     var path = String(pathname || '/').replace(/\.html$/, '');
     if (path === '/' || path === '/index') return 'index';
