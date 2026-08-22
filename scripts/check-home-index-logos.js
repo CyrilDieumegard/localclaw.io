@@ -22,6 +22,7 @@ const missing = [];
 const homepageHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const homepageJs = fs.readFileSync(path.join(ROOT, 'js/home-index-20260814g.js'), 'utf8');
 const homepageCss = fs.readFileSync(path.join(ROOT, 'css/home-index-20260814g.css'), 'utf8');
+const backgroundJs = fs.readFileSync(path.join(ROOT, 'js/bg-circuit.js'), 'utf8');
 
 for (const family of new Set(models.map((model) => model.family))) {
   if (!logos.llm[family]) missing.push(`LLM family mapping: ${family}`);
@@ -85,13 +86,16 @@ for (const marker of [
 if ((homepageJs.match(/class="lc-index-control-label"><span>Search<\/span>/g) || []).length !== 3) {
   missing.push('Homepage search controls must share the visible filter-label alignment');
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', '.lc-home-machine-card__visual img', 'img[src$="-card-v2.png"]', 'img[src^="images/hardware/mac-"]', '.lc-home-machine-card__selected', '.lc-home-machine-status__state', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }']) {
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', '.lc-home-machine-card__visual img', 'img[src$="-card-v2.png"]', 'img[src^="images/hardware/mac-"]', '.lc-home-machine-card__selected', '.lc-home-machine-status__state', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }', '.lc-index-table th.lc-index-action-col']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
 if (!homepageCss.includes('.lc-sponsor-rail {\n    position: sticky;\n    top: 128px;')) missing.push('Sponsor rails must preserve their initial 48px gap below the 80px sticky navigation');
-if (homepageJs.includes('lc-index-hero__mascot')) missing.push('Homepage hero mascot should remain removed');
-for (const marker of ['css/home-index-20260814g.css?v=20260822o', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822h']) {
+if (homepageJs.includes('lc-index-hero__mascot') || homepageCss.includes('lc-index-hero__mascot')) missing.push('Homepage hero mascot should remain removed');
+for (const marker of ['css/home-index-20260814g.css?v=20260822p', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822i']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
+}
+for (const marker of ["matchMedia('(prefers-reduced-motion: reduce)')", "document.addEventListener('visibilitychange'", 'cancelAnimationFrame(animationFrame)']) {
+  if (!backgroundJs.includes(marker)) missing.push(`Homepage background animation guard: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
 if (confidenceScore(4.5, 2) <= confidenceScore(5, 1)) {

@@ -12,6 +12,8 @@
     const NODE_CHANCE = 0.4;
     const PULSE_INTERVAL = 40;
     let frame = 0;
+    let animationFrame = null;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     
     // Color configuration based on theme
     function getThemeColors() {
@@ -93,10 +95,11 @@
     }
 
     function loop() {
+        animationFrame = null;
         ctx.clearRect(0, 0, W, H);
         frame++;
 
-        if (frame % PULSE_INTERVAL === 0) {
+        if (!reduceMotion.matches && frame % PULSE_INTERVAL === 0) {
             const count = 2 + Math.floor(Math.random() * 3);
             for (let i = 0; i < count; i++) spawnPulse();
         }
@@ -204,21 +207,55 @@
             }
         });
 
-        requestAnimationFrame(loop);
+        if (!reduceMotion.matches && !document.hidden) {
+            animationFrame = requestAnimationFrame(loop);
+        }
     }
 
-    window.addEventListener('resize', resize);
+    function stopAnimation() {
+        if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+    }
+
+    function startAnimation() {
+        if (document.hidden || animationFrame !== null) return;
+        if (reduceMotion.matches) {
+            loop();
+            return;
+        }
+        animationFrame = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+        startAnimation();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAnimation();
+        else startAnimation();
+    });
+    const handleMotionPreference = () => {
+        stopAnimation();
+        pulses = [];
+        nodes.forEach((node) => {
+            node.glow = 0;
+            node.glowTarget = 0;
+        });
+        startAnimation();
+    };
+    if (typeof reduceMotion.addEventListener === 'function') reduceMotion.addEventListener('change', handleMotionPreference);
+    else reduceMotion.addListener(handleMotionPreference);
     
     // Listen for theme changes
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === 'class') {
-                // Force redraw with new colors on next frame
+                if (reduceMotion.matches) startAnimation();
             }
         });
     });
     observer.observe(document.documentElement, { attributes: true });
     
     resize();
-    loop();
+    startAnimation();
 })();

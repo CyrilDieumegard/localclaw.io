@@ -420,9 +420,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <div class="lc-home-machine-context"><p id="lc-home-machine-status" aria-live="polite"></p><button id="lc-home-machine-catalogue" type="button" aria-pressed="false">Show full catalogues</button></div>
                         </div>
                         <nav aria-label="Local AI categories">
-                            <a href="#llm-index"><strong>LLM</strong><span><b data-family-result-count="llm">${localModels.length}</b> local pages</span></a>
-                            <a href="#tts-index"><strong>Voice</strong><span><b data-family-result-count="voice">${speechModels.length}</b> local records</span></a>
-                            ${multimodalCategories.map((category) => `<a href="#${category.anchor}"><strong>${category.label}</strong><span><b data-family-result-count="${category.key}">${(multimodalByCategory.get(category.key) || []).length}</b> local models</span></a>`).join('')}
+                            <a href="#llm-index"><strong>LLM</strong><span><b data-family-result-count="llm">${localModels.length}</b> <span data-family-result-label="llm">local ${localModels.length === 1 ? 'page' : 'pages'}</span></span></a>
+                            <a href="#tts-index"><strong>Voice</strong><span><b data-family-result-count="voice">${speechModels.length}</b> <span data-family-result-label="voice">local ${speechModels.length === 1 ? 'record' : 'records'}</span></span></a>
+                            ${multimodalCategories.map((category) => {
+                                const categoryTotal = (multimodalByCategory.get(category.key) || []).length;
+                                return `<a href="#${category.anchor}"><strong>${category.label}</strong><span><b data-family-result-count="${category.key}">${categoryTotal}</b> <span data-family-result-label="${category.key}">local ${categoryTotal === 1 ? 'model' : 'models'}</span></span></a>`;
+                            }).join('')}
                         </nav>
                     </section>
 
@@ -691,6 +694,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 button.disabled = comparedModelIds.size >= 3 && !selected;
             });
         };
+        const setFamilyResultCount = (key, value, singular, plural) => {
+            const countTarget = document.querySelector(`[data-family-result-count="${key}"]`);
+            const labelTarget = document.querySelector(`[data-family-result-label="${key}"]`);
+            if (countTarget) countTarget.textContent = value;
+            if (labelTarget) labelTarget.textContent = `local ${value === 1 ? singular : plural}`;
+        };
         const updateIndex = () => {
             const query = search.value.trim().toLowerCase();
             const selectedFamily = family.value;
@@ -707,7 +716,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }).sort(compareModels(activeSortKey, activeSortDirection));
             rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
-            document.querySelector('[data-family-result-count="llm"]').textContent = filtered.length;
+            setFamilyResultCount('llm', filtered.length, 'page', 'pages');
             renderCompareTray();
         };
         let llmSearchGoalTimer = 0;
@@ -828,7 +837,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }).sort(compareSpeech(speechSort.value));
             speechRows.innerHTML = filtered.length ? renderSpeechRows(filtered) : '<p class="lc-index-tts-empty">No local speech model matches these filters.</p>';
             speechCount.textContent = filtered.length;
-            document.querySelector('[data-family-result-count="voice"]').textContent = filtered.length;
+            setFamilyResultCount('voice', filtered.length, 'record', 'records');
         };
         let speechSearchGoalTimer = 0;
         let lastTrackedSpeechSearch = '';
@@ -912,7 +921,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const categoryCards = Array.from(section.querySelectorAll('[data-multimodal-card]'));
                 const categoryVisible = categoryCards.filter((card) => !card.hidden).length;
                 section.querySelector(`[data-multimodal-count="${category.key}"]`).textContent = categoryVisible;
-                document.querySelector(`[data-family-result-count="${category.key}"]`).textContent = categoryVisible;
+                setFamilyResultCount(category.key, categoryVisible, 'model', 'models');
                 section.querySelector('.lc-index-multimodal-grid').hidden = categoryVisible === 0;
                 section.querySelector('.lc-index-multimodal-empty').hidden = categoryVisible !== 0;
             });
@@ -938,16 +947,35 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             machineList.innerHTML = savedMachines.map((machine, index) => {
                 const selected = activeMachine && machine.id === activeMachine.id;
                 const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
-                return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" data-saved-machine="${index}">
+                return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" tabindex="${selected ? '0' : '-1'}" data-saved-machine="${index}">
                     <span class="lc-home-machine-card__visual" aria-hidden="true"><img src="${machineImagePath(machine)}" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
                     <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span class="lc-home-machine-card__hardware" title="${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}">${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}</span></span>
                     <span class="lc-home-machine-card__signals">${selected ? '<span class="lc-home-machine-card__selected">Selected</span>' : ''}${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}</span>
                 </button>`;
             }).join('');
+            const selectSavedMachine = (index, shouldFocus) => {
+                const machine = savedMachines[index];
+                if (!machine) return;
+                applySavedMachine(machine, true);
+                if (shouldFocus) {
+                    const selectedButton = machineList.querySelector(`[data-saved-machine="${index}"]`);
+                    if (selectedButton) selectedButton.focus({preventScroll: true});
+                }
+            };
             machineList.querySelectorAll('[data-saved-machine]').forEach((button) => {
                 button.addEventListener('click', () => {
-                    const machine = savedMachines[Number(button.dataset.savedMachine)];
-                    if (machine) applySavedMachine(machine, true);
+                    selectSavedMachine(Number(button.dataset.savedMachine), true);
+                });
+                button.addEventListener('keydown', (event) => {
+                    const currentIndex = Number(button.dataset.savedMachine);
+                    let nextIndex = currentIndex;
+                    if (event.key === 'Home') nextIndex = 0;
+                    else if (event.key === 'End') nextIndex = savedMachines.length - 1;
+                    else if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % savedMachines.length;
+                    else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + savedMachines.length) % savedMachines.length;
+                    else return;
+                    event.preventDefault();
+                    selectSavedMachine(nextIndex, true);
                 });
             });
             if (machineFiltersEnabled && activeMachine) {

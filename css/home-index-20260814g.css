@@ -61,16 +61,6 @@ html { scroll-behavior: smooth; }
 .lc-index-hero__guide-link { display: inline-flex; margin-top: 13px; color: #ff6d64; font: 700 8px/1.3 "JetBrains Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; }
 .lc-index-hero__guide-link:hover { color: #fff; }
 
-.lc-index-hero__mascot img {
-    position: absolute;
-    right: 2px;
-    top: 2px;
-    width: 180px;
-    height: auto;
-    opacity: 0.18;
-    filter: saturate(0.82) drop-shadow(0 0 25px rgba(255,69,58,0.28));
-}
-
 .lc-index-facts {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -719,7 +709,6 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-hero { min-height: 0; }
     .lc-index-hero__copy { padding: 8px 16px 22px; }
     .lc-index-hero h1 { white-space: normal; }
-    .lc-index-hero__mascot img { right: -56px; top: 46px; width: 135px; opacity: 0.08; }
     .lc-index-facts { grid-template-columns: 1fr; }
     .lc-index-fact { padding: 14px 15px; }
     .lc-index-fact__number { font-size: 26px; }
@@ -762,6 +751,7 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-model-col { width: 48%; }
     .lc-index-score-col { width: 58px; }
     .lc-index-action-col { width: 54px; }
+    .lc-index-table th.lc-index-action-col { padding-right: 2px; padding-left: 2px; font-size: 7px; letter-spacing: 0; }
     .lc-index-action-cell { gap: 4px; }
     .lc-index-compare-toggle { min-width: 30px; width: 30px; overflow: hidden; padding-left: 0; padding-right: 0; font-size: 0; }
     .lc-index-compare-toggle::before { content: "+"; font-size: 13px; }
@@ -781,18 +771,6 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-compare-actions { grid-column: auto; grid-row: auto; }
     .lc-index-compare-actions { justify-content: stretch; }
     .lc-index-compare-actions button { flex: 1; }
-}
-
-@media (max-width: 780px) {
-    html.light .lc-index-hero { padding-bottom: 108px; }
-    html.light .lc-index-hero__mascot img {
-        left: 50%;
-        right: auto;
-        top: auto;
-        bottom: 12px;
-        width: 96px;
-        transform: translateX(-50%);
-    }
 }
 
 html.light .lc-index-hero,
@@ -819,10 +797,6 @@ html.light .lc-index-universe nav a:hover,
 html.light .lc-index-universe nav a:focus-visible {
     border-color: rgba(201,47,40,0.42);
     background: #fff;
-}
-html.light .lc-index-hero__mascot img {
-    opacity: 1;
-    filter: saturate(1) drop-shadow(0 12px 22px rgba(122, 52, 34, 0.16));
 }
 html.light .lc-home-machine-card__visual {
     border-color: #d7dce4;
@@ -1132,20 +1106,6 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
     margin-right: 0;
     margin-left: 0;
 }
-.lc-index-hero__mascot {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: flex-start;
-    padding: 14px 18px 20px 64px;
-}
-.lc-index-hero__mascot img {
-    position: static;
-    width: 190px;
-    opacity: 1;
-    transform: none;
-    filter: saturate(1) drop-shadow(0 12px 17px rgba(122,52,34,0.18));
-}
 .lc-index-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-self: start;
@@ -1224,11 +1184,6 @@ html.light .lc-index-hero {
 html.light .lc-index-hero__copy {
     max-width: none;
     padding-bottom: 8px;
-}
-html.light .lc-index-hero__mascot img {
-    position: static;
-    width: 190px;
-    transform: none;
 }
 html.light .lc-index-hero__copy > p:not(.lc-index-kicker) {
     color: #475569;
@@ -1383,9 +1338,6 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-hero__copy,
     html.light .lc-index-hero__copy { max-width: 720px; margin: 0 auto; padding-bottom: 6px; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }
-    .lc-index-hero__mascot { justify-content: center; padding: 10px 0 18px; }
-    .lc-index-hero__mascot img,
-    html.light .lc-index-hero__mascot img { position: static; width: 116px; transform: none; }
     .lc-index-facts { grid-template-columns: minmax(0, 1fr); }
     .lc-index-fact { min-height: 0; }
     .lc-home-machine-card { min-height: 96px; grid-template-columns: 60px minmax(0, 1fr); }
@@ -1403,7 +1355,4 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-hero__copy,
     html.light .lc-index-hero__copy { max-width: 760px; margin: 0 auto; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }
-    .lc-index-hero__mascot { justify-content: center; padding: 12px 0 20px; }
-    .lc-index-hero__mascot img,
-    html.light .lc-index-hero__mascot img { position: static; width: 140px; transform: none; }
 }
