@@ -345,10 +345,11 @@ html { scroll-behavior: smooth; }
 .lc-sponsor-offer-disclaimer { margin-top: 12px; color: #85858f; font: 500 8.5px/1.65 "JetBrains Mono", monospace; }
 .lc-sponsor-offer-disclaimer a { color: #aaaab2; text-decoration: underline; text-underline-offset: 2px; }
 
-.lc-index-directory { min-width: 0; }
+.lc-index-directory { min-width: 0; container-type: inline-size; }
 
 .lc-index-section-head {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
     justify-content: space-between;
     gap: 20px;
@@ -357,21 +358,29 @@ html { scroll-behavior: smooth; }
 
 .lc-index-section-head h2 { margin-top: 5px; color: #fff; font: 700 clamp(1.55rem, 2.6vw, 2.15rem)/1 "Space Grotesk", sans-serif; text-transform: uppercase; }
 .lc-index-section-head p { max-width: 570px; color: #8e8e98; font: 500 11px/1.55 "JetBrains Mono", monospace; }
-.lc-index-section-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
+.lc-index-section-meta { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
 .lc-index-section-meta p strong { color: #fff; font-size: 13px; font-variant-numeric: tabular-nums; }
 .lc-index-method-pill { display: inline-flex; padding: 6px 9px; border: 1px solid rgba(255,69,58,0.3); border-radius: 999px; background: rgba(255,69,58,0.06); color: #ff6d64; font: 700 8px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 .lc-index-method-pill--community { border-color: rgba(255,138,76,0.34); background: rgba(255,138,76,0.08); color: #ff9a5c; }
 
 .lc-index-controls {
     display: grid;
-    grid-template-columns: minmax(205px, 1fr) repeat(4, minmax(118px, 0.42fr));
+    grid-template-columns: minmax(260px, 1.35fr) repeat(4, minmax(145px, 0.65fr));
     gap: 9px;
     margin-bottom: 12px;
 }
 
 .lc-index-tts-controls { grid-template-columns: minmax(180px, 1fr) repeat(3, minmax(130px, 0.34fr)); }
 
-.lc-index-control-label { display: grid; gap: 5px; }
+@container (max-width: 960px) {
+    .lc-index-section-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .lc-index-section-meta { justify-content: flex-start; }
+    .lc-index-controls,
+    .lc-index-tts-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lc-index-controls label:first-child { grid-column: 1 / -1; }
+}
+
+.lc-index-control-label { display: grid; min-width: 0; gap: 5px; }
 .lc-index-control-label > span { padding-left: 2px; color: #707079; font: 700 7px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 
 .lc-index-control {
@@ -385,6 +394,8 @@ html { scroll-behavior: smooth; }
     color: #fff;
     font: 600 11px/1 "JetBrains Mono", monospace;
 }
+
+select.lc-index-control { padding-right: 36px; }
 
 .lc-index-control:focus { border-color: rgba(255,69,58,0.75); box-shadow: 0 0 0 3px rgba(255,69,58,0.1); }
 .lc-index-control:disabled { cursor: not-allowed; opacity: 0.62; }
@@ -713,6 +724,7 @@ html { scroll-behavior: smooth; }
     .lc-home-machine-context button { width: 100%; }
     .lc-index-universe nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lc-index-universe nav span { white-space: normal; }
+    .lc-index-section-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
     .lc-index-section-meta { justify-content: flex-start; }
     .lc-index-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lc-index-controls label:first-child { grid-column: 1 / -1; }
@@ -728,7 +740,8 @@ html { scroll-behavior: smooth; }
 
 @media (max-width: 480px) {
     .lc-index-hero__copy { padding: 6px 10px 20px; }
-    .lc-index-section-head { align-items: start; flex-direction: column; }
+    .lc-index-controls { grid-template-columns: minmax(0, 1fr); }
+    .lc-index-controls label:first-child { grid-column: auto; }
     .lc-index-table th, .lc-index-table td { padding-left: 6px; padding-right: 6px; }
     .lc-index-table th:nth-child(1), .lc-index-table td:nth-child(1),
     .lc-index-table th:nth-child(4), .lc-index-table td:nth-child(4),

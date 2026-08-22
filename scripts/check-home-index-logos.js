@@ -79,10 +79,13 @@ for (const marker of [
 ]) {
   if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail']) {
+if ((homepageJs.match(/class="lc-index-control-label"><span>Search<\/span>/g) || []).length !== 3) {
+  missing.push('Homepage search controls must share the visible filter-label alignment');
+}
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260822b', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822c']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260822c', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822d']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);
