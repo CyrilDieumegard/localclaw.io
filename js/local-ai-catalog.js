@@ -313,6 +313,28 @@
       caveats: ['Requires an existing input mesh', 'CUDA and flash-attn setup make this a workstation workflow']
     },
     {
+      id: 'cubepart', name: 'CubePart', category: '3d', developer: 'Roblox Foundation AI',
+      summary: 'Open-vocabulary part-controllable 3D generator that decomposes an input mesh into named editable parts.',
+      tasks: ['mesh-generation', 'part-based-generation', 'asset-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'Gradio', 'CLI'],
+      output: ['GLB', 'Part meshes'], local_status: 'local', license: 'OpenRAIL research-only license', released: '2026-05',
+      source_url: 'https://github.com/Roblox/cube/tree/main/cubepart', install_url: 'https://huggingface.co/Roblox/cubepart',
+      hardware_note: 'The official local workflow downloads about 9.9 GB of safetensors weights, encodes an input GLB mesh and exports one GLB per requested part. Roblox does not publish a small-GPU table, so 24 GB NVIDIA VRAM and 64 GB RAM are the conservative workstation floor.',
+      strengths: ['Official Roblox checkpoints', 'Open-ended part schema', 'Exports separate GLB meshes for game-engine workflows'],
+      caveats: ['Research-only OpenRAIL terms', 'Requires a clean input mesh and part schema', 'CUDA workstation inference is the safe local path']
+    },
+    {
+      id: 'cube3d-v0.5', name: 'Cube 3D v0.5', category: '3d', developer: 'Roblox Foundation AI',
+      summary: 'Text-to-shape generator for OBJ assets with bounding-box conditioning and local safetensors checkpoints.',
+      tasks: ['text-to-3d', 'mesh-generation', 'asset-generation'], platforms: ['macos', 'windows', 'linux'],
+      accelerators: ['apple-silicon', 'nvidia'], min_ram_gb: 32, min_vram_gb: 16, runtime: ['PyTorch', 'CLI'],
+      output: ['OBJ', 'Turntable GIF'], local_status: 'local', license: 'OpenRAIL research-only license', released: '2025-07',
+      source_url: 'https://github.com/Roblox/cube', install_url: 'https://huggingface.co/Roblox/cube3d-v0.5',
+      hardware_note: 'The official CLI exports OBJ files from downloaded shape_gpt and shape_tokenizer safetensors. Roblox recommends 24 GB VRAM for the CUDA fast path and 16 GB otherwise, with Apple Silicon MPS also tested.',
+      strengths: ['Official text-to-OBJ CLI', 'Bounding-box conditioning', 'NVIDIA, Windows and Apple Silicon paths documented'],
+      caveats: ['Research-only OpenRAIL terms', 'Texture generation is still listed as upcoming', 'Fast inference is CUDA-only and needs more VRAM']
+    },
+    {
       id: 'stable-fast-3d', name: 'Stable Fast 3D', category: '3d', developer: 'Stability AI',
       summary: 'Single-image reconstruction into a textured GLB mesh with UV unwrapping and material prediction.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'texturing'],
