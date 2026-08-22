@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 20 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Ornith-1.5-9B</title>
@@ -71,6 +71,14 @@
       <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
       <category>lfm</category>
       <description>Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines. 2.7B · 8 GB minimum RAM · Q4_K_M · lfm.</description>
+    </item>
+    <item>
+      <title>KAT-Coder V2.5 Dev</title>
+      <link>https://localclaw.io/models/kat-coder-v2-5-dev</link>
+      <guid isPermaLink="true">https://localclaw.io/models/kat-coder-v2-5-dev</guid>
+      <pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>
+      <category>kat-coder</category>
+      <description>Kwaipilot open-weight Apache 2.0 coding-agent MoE built from Qwen3.6-35B-A3B. Text-only release with 262K context, 35B total / 3B active parameters and established GGUF paths from bartowski and LocalAI/APEX for LM Studio, llama.cpp and LocalAI testing on 48GB+ machines. 35B (3B active, MoE) · 48 GB minimum RAM · Q4_K_M · kat-coder.</description>
     </item>
     <item>
       <title>Nanbeige4.2 3B</title>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
       <category>gemma</category>
       <description>Official Google Apache 2.0 diffusion-language Gemma model with image-text chat support. Strong local relevance thanks to active Unsloth GGUF quantizations for workstation-class machines. 26B (4B active, diffusion MoE) · 32 GB minimum RAM · Q4_K_M · gemma.</description>
-    </item>
-    <item>
-      <title>Gemma 4 12B</title>
-      <link>https://localclaw.io/models/gemma4-12b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/gemma4-12b</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>gemma</category>
-      <description>Google DeepMind 12B unified multimodal model. Text, image, audio and video inputs, 256K context, Apache 2.0, and a strong local sweet spot for 16-32 GB machines. 12B · 16 GB minimum RAM · Q4_K_M · gemma.</description>
     </item>
   </channel>
 </rss>

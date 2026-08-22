@@ -33,6 +33,7 @@ window.HOME_INDEX_LOGOS = {
     internlm: 'internlm',
     internscience: 'internscience-avatar',
     internvl: 'opengvlab-avatar',
+    'kat-coder': 'qwen',
     kimi: 'kimi-inverted',
     laguna: 'poolside',
     lfm: 'liquid',

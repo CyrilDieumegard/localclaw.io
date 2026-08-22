@@ -2077,6 +2077,44 @@ var MODEL_DETAILS = {
         paper_url: 'https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF',
     },
 
+    // ==================== KAT-CODER V2.5 DEV (July 2026 — NEW) ====================
+    'kat-coder-v2-5-dev': {
+        developer: 'Kwaipilot',
+        developer_url: 'https://huggingface.co/Kwaipilot',
+        context_window: 262144,
+        license: 'Apache 2.0',
+        license_url: 'https://huggingface.co/Kwaipilot/KAT-Coder-V2.5-Dev/blob/main/LICENSE',
+        architecture: 'Qwen3.6-35B-A3B-based sparse MoE coding model with 35B total parameters, about 3B active parameters, 40 layers, 256 routed experts plus one shared expert, 8 active experts per token, 16 attention heads and 2 KV heads. The open release is text-only; the vision components are not included.',
+        training_data: 'Kwaipilot describes post-training on top of Qwen3.6-35B-A3B with 127K SFT examples followed by reinforcement learning focused on agentic coding, terminal tasks, tool-call stability and repetition reduction. Full training corpus details are not disclosed.',
+        languages: ['English', 'Chinese', 'Code', 'Tool-use traces'],
+        strengths: [
+            'Official Apache 2.0 open-weight release from Kwaipilot',
+            'Strong coding-agent positioning with source-reported SWE-bench, Terminal-Bench and KAT-Code-Bench results',
+            '262K context window for repository-scale and terminal-agent workflows',
+            'Established bartowski GGUF repo includes Q4_K_M at about 21.39GB plus Q5/Q6/Q8 and smaller IQ variants',
+            'LocalAI/APEX GGUF release adds a second well-established local path for MoE-aware quantized runs',
+            'Text-only release avoids missing vision-projector confusion in local coding-agent workflows',
+        ],
+        weaknesses: [
+            'Workstation-class memory target: Q4_K_M is about 21.39GB before KV cache, context growth and runtime overhead',
+            'Official quickstart emphasizes vLLM and SGLang serving; llama.cpp/LM Studio support depends on current GGUF builds',
+            'Agent benchmark numbers are source-reported and should be validated against the exact local tool harness',
+            'Not a base pretrained model; it is a post-trained coding-agent model built from Qwen3.6-35B-A3B',
+            'No vision or multimodal weights are shipped despite config-level image-token references',
+        ],
+        use_cases: [
+            'Local coding-agent experiments',
+            'Repository debugging and refactoring',
+            'Terminal automation with private code',
+            'Tool-call behavior testing',
+            'Qwen3.6 MoE comparison on 48GB+ workstations',
+        ],
+        similar_models: ['qwen3.6-35b-a3b', 'north-mini-code-1.0', 'qwen-agentworld-35b-a3b', 'laguna-xs-2.1', 'qwen3-coder-next'],
+        fun_fact: 'Kwaipilot reports that the open release ships only language-model weights, so local users should treat it as a text-only coding model even though the underlying config may mention image tokens.',
+        official_blog: 'https://huggingface.co/Kwaipilot/KAT-Coder-V2.5-Dev',
+        paper_url: 'https://huggingface.co/papers/2607.05471',
+    },
+
     // ==================== DEEPSEEK V4 FLASH 0731 (July 2026 — NEW) ====================
     'deepseek-v4-flash-0731': {
         developer: 'DeepSeek AI',

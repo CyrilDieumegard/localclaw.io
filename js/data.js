@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
+// Updated August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
+// Previous: August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
 // Previous: August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
 // Previous: August 18, 2026 - Added Ling-3.0-tiny - 224 LLM total
 // Previous: August 15, 2026 - Added Qwen3.8-27B - 223 LLM total
@@ -202,6 +203,24 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/LiquidAI/LFM2.5-2.6B',
             benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 7 },
             released: '2026-07-28',
+            isNew: true
+        },
+        {
+            id: 'kat-coder-v2-5-dev',
+            name: 'KAT-Coder V2.5 Dev',
+            family: 'kat-coder',
+            params: '35B (3B active, MoE)',
+            size_gb: 21.39,
+            min_ram: 48,
+            tags: ['code', 'reasoning', 'agentic', 'long-context', 'tool-calling', 'power'],
+            description: 'Kwaipilot open-weight Apache 2.0 coding-agent MoE built from Qwen3.6-35B-A3B. Text-only release with 262K context, 35B total / 3B active parameters and established GGUF paths from bartowski and LocalAI/APEX for LM Studio, llama.cpp and LocalAI testing on 48GB+ machines.',
+            search_term: 'kat-coder-v2.5-dev',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF',
+            source_url: 'https://huggingface.co/Kwaipilot/KAT-Coder-V2.5-Dev',
+            runtime_url: 'https://huggingface.co/mudler/KAT-Coder-V2.5-Dev-APEX-GGUF',
+            benchmarks: { speed: 6, quality: 8, coding: 10, reasoning: 8 },
+            released: '2026-07-23',
             isNew: true
         },
         {
@@ -3752,7 +3771,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-08-19T06:25:00.000Z",
-        catalogueHash: "9c9d92b9cb7bf44ae10bc1f0d27e88e3f4ab52aa08062bc9af56fa3fc55fffdc",
+        catalogueHash: "1136a6e2571e7db752efc3c8c2f8e0e6ecd6fd423a3a3b5994174a0436eb0ab9",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3765,6 +3784,7 @@ const APP_DATA = {
             "ornith-1-5-9b": "ornith-ai/Ornith-1.5-9B-GGUF",
             "ornith-1-5-35b-a3b": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
+            "kat-coder-v2-5-dev": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
             "lfm2-5-vl-3b": "LiquidAI/LFM2.5-VL-3B-GGUF",
             "ling-3.0-tiny": "bloomer010/Ling-3.0-tiny-GGUF",
             "glm4.7-flash": "unsloth/GLM-4.7-Flash-GGUF",
@@ -3944,6 +3964,7 @@ const APP_DATA = {
             "kimi-k2.7-code": "moonshotai/Kimi-K2.7-Code",
             "qwen3.5-397b-a17b": "Qwen/Qwen3.5-397B-A17B",
             "qwen3.6-27b": "Qwen/Qwen3.6-27B",
+            "kat-coder-v2-5-dev": "Kwaipilot/KAT-Coder-V2.5-Dev",
             "gemma4-26b-a4b": "google/gemma-4-26B-A4B-it",
             "gemma4-31b": "google/gemma-4-31B-it",
             "internvl3-8b": "OpenGVLab/InternVL3-8B-Instruct",

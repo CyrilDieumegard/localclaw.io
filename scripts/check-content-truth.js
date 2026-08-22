@@ -57,8 +57,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 223) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 223 preserved routes`);
-if (indexableLocalModels.length !== 217) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 217`);
+if (uniqueLocalModels.length !== 224) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 224 preserved routes`);
+if (indexableLocalModels.length !== 218) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 218`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 61) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 61`);
 
@@ -435,7 +435,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 225) errors.push('models/ must contain 224 model pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 226) errors.push('models/ must contain 225 model pages plus one index');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 68) errors.push('tts/ must contain 67 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -464,7 +464,7 @@ for (const marker of [
   '48 GB RAM · Q4_K_M · 262K context',
   '8 GB RAM · Q4_K_M + mmproj · 32K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260820c',
+  'js/data.js?v=20260822a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -566,7 +566,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260820c') || !index.includes('js/app-20260816a.js?v=20260820e')) {
+if (!index.includes('js/data.js?v=20260822a') || !index.includes('js/app-20260816a.js?v=20260820e')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -626,7 +626,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 177, publicModelCard: 36, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 178, publicModelCard: 37, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);
