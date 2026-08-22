@@ -23,8 +23,10 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260820a', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260822a', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
+requireText(homepage, "fitFilter.value = 'compatible'", 'Signed-in machines must default the homepage to compatible models');
+requireText(homepage, "link.textContent = 'My Machines'", 'Signed-in homepage navigation must expose My Machines');
 for (const sortKey of ['name', 'score', 'community', 'params', 'ram', 'license', 'fresh']) {
   requireText(homepage, `data-sort-key="${sortKey}"`, `Homepage table is missing the ${sortKey} sortable header`);
 }

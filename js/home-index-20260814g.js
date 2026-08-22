@@ -362,7 +362,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </section>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="lc-index-universe-title">Every kind of AI your machine can run</h2></div><a href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_index" data-fast-goal-target="home-directory">Match my machine ↓</a></header>
+                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
                         <nav aria-label="Local AI categories">
                             <a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a>
                             <a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>
@@ -884,6 +884,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 if (!response.ok) return;
                 const data = await response.json();
                 const machines = Array.isArray(data && data.machines) ? data.machines : [];
+                document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'My Machines'; });
                 const primary = machines.find((item) => item && item.isPrimary) || machines[0];
                 const accountRam = normalizeMachineRam(primary && primary.ramGb);
                 if (!accountRam) return;
@@ -891,6 +892,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 ensureMachineOption(accountRam, `${primary.name || 'Primary machine'} · ${accountRam} GB`);
                 machineRamSelect.value = String(accountRam);
                 fitFilter.disabled = false;
+                fitFilter.value = 'compatible';
                 try {
                     window.localStorage.setItem('localclaw_home_machine_ram', String(accountRam));
                 } catch (error) {

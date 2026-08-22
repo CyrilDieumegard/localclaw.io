@@ -60,7 +60,7 @@ function synchronize(html, relativePath) {
   if (relativePath === 'google7a49ecaded8c2575.html') return html;
 
   const active = activeSection(relativePath);
-  const navigation = siteNavigation(active, relativePath === 'index.html' ? { accountLabel: 'Account' } : {});
+  const navigation = siteNavigation(active, relativePath === 'index.html' ? { accountLabel: 'Sign in' } : {});
 
   const accountHeader = html.match(/<header class="lc-site-header">[\s\S]*?<\/header>/i);
   if (accountHeader) return addAssets(html.replace(accountHeader[0], navigation));

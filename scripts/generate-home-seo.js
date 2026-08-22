@@ -205,7 +205,7 @@ function renderFallback() {
           </header>
 
           <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
-            <header><div><span class="lc-index-eyebrow">The Local AI Index</span><h2 id="fallback-local-ai-universe-title">Every kind of AI your machine can run</h2></div><a href="#llm-index">Match my machine ↓</a></header>
+            <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="fallback-local-ai-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account">Set up my machine →</a></header>
             <nav aria-label="Local AI categories"><a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>${multimodalCategories.map(category => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${multimodalModels.filter(model => model.category === category.key).length} local models</span></a>`).join('')}</nav>
           </section>
 
