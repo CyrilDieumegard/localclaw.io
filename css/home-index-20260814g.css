@@ -133,13 +133,14 @@ html { scroll-behavior: smooth; }
 .lc-home-machines__head span { color: #7e7e88; font: 500 8px/1.4 "JetBrains Mono", monospace; }
 .lc-home-machines__head a { color: #ff6d64; font: 700 8px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
 .lc-home-machine-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 7px; }
-.lc-home-machine-card { position: relative; display: grid; min-width: 0; min-height: 92px; grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 18px; column-gap: 10px; row-gap: 5px; align-items: center; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #0d0d0f; color: #8d8d97; text-align: left; transition: 140ms ease; }
+.lc-home-machine-card { position: relative; display: grid; min-width: 0; min-height: 106px; grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 18px; column-gap: 12px; row-gap: 5px; align-items: center; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #0d0d0f; color: #8d8d97; text-align: left; transition: 140ms ease; }
 .lc-home-machine-card:hover { border-color: rgba(255,69,58,0.42); color: #fff; }
 .lc-home-machine-card:focus-visible { outline: 2px solid #ff6d64; outline-offset: 2px; }
 .lc-home-machine-card.is-active { border-color: rgba(255,69,58,0.58); background: rgba(255,69,58,0.09); box-shadow: inset 3px 0 0 #ff453a; color: #fff; }
 .lc-home-machine-card.is-catalogue-view { border-style: dashed; box-shadow: none; }
-.lc-home-machine-card__visual { display: block; width: 52px; height: 52px; grid-row: 1 / span 2; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-radius: 7px; background: #080809; }
+.lc-home-machine-card__visual { display: block; width: 72px; height: 72px; grid-row: 1 / span 2; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; background: #f7f4f1; }
 .lc-home-machine-card__visual img { width: 100%; height: 100%; object-fit: cover; }
+.lc-home-machine-card__visual img[src^="images/computers/mac-"] { object-fit: cover; transform: scale(1.42); }
 .lc-home-machine-card__visual img[src^="images/hardware/mac-"] { width: 84%; height: 84%; margin: 8%; border-radius: 4px; }
 .lc-home-machine-card__copy { display: grid; min-width: 0; gap: 3px; }
 .lc-home-machine-card__copy strong,
@@ -1106,6 +1107,7 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
 .lc-index-hero {
     min-height: 0;
     padding-bottom: 188px;
+    overflow: visible;
     border-bottom: 0;
     text-align: left;
 }
@@ -1129,14 +1131,14 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
     margin-left: 0;
 }
 .lc-index-hero__mascot img {
-    left: 18px;
+    left: 42%;
     right: auto;
     top: auto;
-    bottom: 0;
-    width: 220px;
+    bottom: 8px;
+    width: 208px;
     opacity: 1;
-    transform: none;
-    filter: saturate(1) drop-shadow(0 13px 22px rgba(122,52,34,0.2));
+    transform: translateX(-50%);
+    filter: saturate(1) drop-shadow(0 14px 24px rgba(122,52,34,0.24));
 }
 .lc-index-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1218,12 +1220,12 @@ html.light .lc-index-hero__copy {
     padding-bottom: 8px;
 }
 html.light .lc-index-hero__mascot img {
-    left: 18px;
+    left: 42%;
     right: auto;
     top: auto;
-    bottom: 0;
-    width: 220px;
-    transform: none;
+    bottom: 8px;
+    width: 208px;
+    transform: translateX(-50%);
 }
 html.light .lc-index-hero__copy > p:not(.lc-index-kicker) {
     color: #475569;
@@ -1382,6 +1384,8 @@ html.light .lc-index-compare-toggle:focus-visible {
     html.light .lc-index-hero__mascot img { left: 50%; bottom: 6px; width: 88px; transform: translateX(-50%); }
     .lc-index-facts { grid-template-columns: minmax(0, 1fr); }
     .lc-index-fact { min-height: 0; }
+    .lc-home-machine-card { min-height: 96px; grid-template-columns: 60px minmax(0, 1fr); }
+    .lc-home-machine-card__visual { width: 60px; height: 60px; }
     html.light .lc-sponsor-offer-inline { align-items: flex-start; flex-direction: column; gap: 10px; }
 }
 

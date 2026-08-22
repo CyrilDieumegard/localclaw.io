@@ -61,6 +61,43 @@ final result: passed
 
 ---
 
+# Homepage mascot and saved-machine imagery design QA
+
+- Source visual truth: the three browser annotations on `https://localclaw.io/?v=8e226da-final` at a 1234 × 989 CSS viewport, identifying the clipped mascot glow and the unreadable Mac Studio / Mac mini thumbnails. The pre-fix production capture is `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/51-production-light-desktop-8e226da.png`.
+- Browser-rendered implementation, Light desktop: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/52-local-light-desktop-machine-visuals.png`.
+- Browser-rendered implementation, Light mobile: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/53-local-light-mobile-machine-visuals.png`.
+- Browser-rendered implementation, Dark desktop: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/54-local-dark-desktop-machine-visuals.png`.
+- Full-view before/after comparison: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/55-before-after-machine-visuals.png`.
+- Viewports and density: desktop 1234 × 989 CSS px and mobile 390 × 844 CSS px at device scale factor 1. Chrome's content capture measured 1223 × 980 and 379 × 835 pixels after browser chrome; no density conversion was applied. The older production reference was normalized into a 1234 × 989 comparison cell without changing its aspect ratio.
+- State: authenticated-machine fixture kept strictly inside the ignored `.pages-dist` local build; two saved Apple Silicon machines, Mac Studio selected, Light and Dark themes.
+
+**Findings**
+
+- No actionable P0/P1/P2 difference remains.
+- Fonts and typography: no type token or copy changed; hierarchy, wrapping and compact metadata remain consistent with the selected Option 2 design.
+- Spacing and layout rhythm: the mascot now sits at 42% of the hero column, below the guide link, with balanced visual space on both sides. Its hero container allows visible overflow, so the drop shadow is no longer clipped. Machine visuals grow from 52 to 72 px on desktop and 60 px on mobile while preserving the two-card grid and zero horizontal overflow.
+- Colors and visual tokens: LocalClaw coral, cream, ink and dark tokens are unchanged. The machine-image well uses the existing warm neutral product-image background in both themes so the silver hardware stays legible.
+- Image quality and asset fidelity: the cards now use the existing canonical Mac Studio and Mac mini product images rather than the dark 16:9 hero photos. A centered crop and 1.42 scale expose the enclosure, ports and vent geometry at thumbnail size, making the two machines visibly distinct. No generated placeholder, CSS drawing, emoji or substitute icon was introduced.
+- Copy and content: machine names, hardware metadata, selected state, family counts and all sponsor copy are unchanged.
+- Console: no LocalClaw application error was found. Logged errors came only from unrelated browser extensions; localhost API 404s for sponsor placement and community ratings are expected in the static QA server and did not affect the tested imagery.
+
+**Comparison history**
+
+- Iteration 1: blocked — moving to the light product photos improved contrast, but the device bodies remained too small inside a 64 px contain-fitted well.
+- Fix: increased the visual well to 72 px, changed the Mac images to a centered cover crop at 1.42 scale, and added a 60 px mobile override.
+- Iteration 2 evidence: `52-local-light-desktop-machine-visuals.png` shows both front faces and their distinguishing port/vent arrangements; `54-local-dark-desktop-machine-visuals.png` shows the same clarity in Dark. The crab shadow remains visible around the complete opaque asset in both themes.
+
+**Primary interactions tested**
+
+- Responsive Light rendering at the annotated desktop viewport.
+- Responsive Light rendering at 390 × 844 with zero horizontal overflow.
+- Light-to-Dark theme change and closed-menu Dark rendering.
+- Two fixture-backed saved-machine cards, selected and primary states.
+
+final result: passed
+
+---
+
 # Option 2 light/dark redesign design QA
 
 - Selected visual target: `/Users/redsun/.codex/generated_images/01a028dc-74e7-7882-9a50-bbc50d12a678/exec-cb63b4a6-7191-4339-9042-08f46a839f5e.png`.
