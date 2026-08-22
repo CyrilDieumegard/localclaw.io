@@ -133,24 +133,30 @@ html { scroll-behavior: smooth; }
 .lc-home-machines__head span { color: #7e7e88; font: 500 8px/1.4 "JetBrains Mono", monospace; }
 .lc-home-machines__head a { color: #ff6d64; font: 700 8px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
 .lc-home-machine-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 7px; }
-.lc-home-machine-card { position: relative; display: grid; min-width: 0; grid-template-columns: 32px minmax(0, 1fr); gap: 9px; align-items: center; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #0d0d0f; color: #8d8d97; text-align: left; transition: 140ms ease; }
+.lc-home-machine-card { position: relative; display: grid; min-width: 0; min-height: 92px; grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 18px; column-gap: 10px; row-gap: 5px; align-items: center; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #0d0d0f; color: #8d8d97; text-align: left; transition: 140ms ease; }
 .lc-home-machine-card:hover { border-color: rgba(255,69,58,0.42); color: #fff; }
 .lc-home-machine-card:focus-visible { outline: 2px solid #ff6d64; outline-offset: 2px; }
 .lc-home-machine-card.is-active { border-color: rgba(255,69,58,0.58); background: rgba(255,69,58,0.09); box-shadow: inset 3px 0 0 #ff453a; color: #fff; }
 .lc-home-machine-card.is-catalogue-view { border-style: dashed; box-shadow: none; }
-.lc-home-machine-card__icon { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; background: #080809; color: #ff6d64; font: 750 12px/1 "Space Grotesk", sans-serif; }
-.lc-home-machine-card__copy { display: grid; min-width: 0; gap: 2px; padding-right: 34px; }
+.lc-home-machine-card__visual { display: block; width: 52px; height: 52px; grid-row: 1 / span 2; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-radius: 7px; background: #080809; }
+.lc-home-machine-card__visual img { width: 100%; height: 100%; object-fit: cover; }
+.lc-home-machine-card__copy { display: grid; min-width: 0; gap: 3px; }
 .lc-home-machine-card__copy strong,
-.lc-home-machine-card__copy span,
-.lc-home-machine-card__copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-home-machine-card__copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lc-home-machine-card__copy strong { color: inherit; font: 700 10.5px/1.25 "Space Grotesk", sans-serif; }
 .lc-home-machine-card__copy span { color: #85858f; font: 550 7.5px/1.35 "JetBrains Mono", monospace; }
-.lc-home-machine-card__copy small { color: #666670; font: 500 7px/1.35 "JetBrains Mono", monospace; }
-.lc-home-machine-card__primary { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 4px; color: #66d98a; font: 700 6.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-home-machine-card__copy .lc-home-machine-card__hardware { color: #a0a0aa; }
+.lc-home-machine-card__signals { display: flex; min-width: 0; min-height: 18px; align-self: end; align-items: center; flex-direction: row; gap: 4px; }
+.lc-home-machine-card__selected,
+.lc-home-machine-card__primary { display: inline-flex; min-height: 18px; align-items: center; gap: 4px; padding: 0 6px; border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; font: 700 6.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; white-space: nowrap; }
+.lc-home-machine-card__selected { border-color: rgba(255,109,100,0.35); color: #ff8179; background: rgba(255,69,58,0.08); }
+.lc-home-machine-card__primary { color: #66d98a; background: rgba(34,197,94,0.06); }
 .lc-home-machine-card__primary i { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 9px rgba(34,197,94,0.54); }
 .lc-home-machine-context { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
-.lc-home-machine-context p { color: #8c8c96; font: 500 8px/1.5 "JetBrains Mono", monospace; }
+.lc-home-machine-context p { display: grid; gap: 3px; color: #8c8c96; font: 500 8px/1.5 "JetBrains Mono", monospace; }
 .lc-home-machine-context p strong { color: #fff; }
+.lc-home-machine-status__state { display: inline-flex; align-items: center; gap: 5px; color: #bdbdc5; }
+.lc-home-machine-status__state i { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.45); }
 .lc-home-machine-context button { flex: 0 0 auto; min-height: 32px; padding: 0 10px; border: 1px solid rgba(255,255,255,0.14); border-radius: 7px; color: #c7c7ce; font: 700 7.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
 .lc-home-machine-context button:hover { border-color: rgba(255,69,58,0.5); color: #fff; }
 .lc-home-index .lc-global-nav__link--account { border-color: #ff453a; background: #ff453a; color: #fff; }
@@ -740,6 +746,11 @@ select.lc-index-control { padding-right: 36px; }
 
 @media (max-width: 480px) {
     .lc-index-hero__copy { padding: 6px 10px 20px; }
+    .lc-home-machine-card { min-height: 90px; grid-template-columns: 48px minmax(0, 1fr); column-gap: 8px; row-gap: 4px; }
+    .lc-home-machine-card__visual { width: 48px; height: 48px; }
+    .lc-home-machine-card__signals { gap: 3px; }
+    .lc-home-machine-card__selected,
+    .lc-home-machine-card__primary { min-height: 17px; padding: 0 5px; font-size: 6px; }
     .lc-index-controls { grid-template-columns: minmax(0, 1fr); }
     .lc-index-controls label:first-child { grid-column: auto; }
     .lc-index-table th, .lc-index-table td { padding-left: 6px; padding-right: 6px; }

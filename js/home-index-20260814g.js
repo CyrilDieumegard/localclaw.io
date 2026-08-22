@@ -65,7 +65,15 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const acceleratorLabel = (value) => ({
             'apple-silicon': 'Apple Silicon', nvidia: 'NVIDIA', amd: 'AMD', cpu: 'CPU'
         }[value] || 'CPU');
-        const machineIcon = (machine) => ({'apple-silicon': 'A', nvidia: 'N', amd: 'R', cpu: 'C'}[machine.accelerator] || 'C');
+        const machineImagePath = (machine) => {
+            const hardwareName = [machine.name, machine.cpuModel, machine.gpuModel].filter(Boolean).join(' ').toLowerCase();
+            if (hardwareName.includes('macstudio') || hardwareName.includes('mac studio')) return 'images/hardware/mac-studio-dark.jpg';
+            if (hardwareName.includes('macmini') || hardwareName.includes('mac mini')) return 'images/hardware/mac-mini-dark.jpg';
+            if (hardwareName.includes('macbook air')) return 'images/hardware/macbook-air-dark.jpg';
+            if (hardwareName.includes('macbook')) return 'images/hardware/macbook-pro-dark.jpg';
+            if (machine.accelerator === 'apple-silicon' || machine.platform === 'macos') return 'images/computers/local-ai-compact-workstation.jpg';
+            return 'images/computers/local-ai-tower.jpg';
+        };
         const machineMemoryLabel = (machine) => machine.accelerator === 'apple-silicon'
             ? `${machine.ramGb} GB unified`
             : `${machine.ramGb} GB RAM${machine.vramGb ? ` · ${machine.vramGb} GB VRAM` : ''}`;
@@ -932,9 +940,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const selected = activeMachine && machine.id === activeMachine.id;
                 const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
                 return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" data-saved-machine="${index}">
-                    <span class="lc-home-machine-card__icon" aria-hidden="true">${machineIcon(machine)}</span>
-                    <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span>${escapeHtml(machineMemoryLabel(machine))}</span>${hardwareDetail ? `<small>${escapeHtml(hardwareDetail)}</small>` : ''}</span>
-                    ${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}
+                    <span class="lc-home-machine-card__visual" aria-hidden="true"><img src="${machineImagePath(machine)}" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
+                    <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span class="lc-home-machine-card__hardware" title="${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}">${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}</span></span>
+                    <span class="lc-home-machine-card__signals">${selected ? '<span class="lc-home-machine-card__selected">Selected</span>' : ''}${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}</span>
                 </button>`;
             }).join('');
             machineList.querySelectorAll('[data-saved-machine]').forEach((button) => {
@@ -944,11 +952,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
             });
             if (machineFiltersEnabled && activeMachine) {
-                machineStatus.innerHTML = `<strong>${escapeHtml(activeMachine.name)}</strong> filters all seven directories. LLM shows green fits only; tight models are excluded. Voice uses explicit hardware-path tags only.`;
+                machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><i></i><strong>${escapeHtml(activeMachine.name)}</strong> selected</span><span>All 7 directories updated · Green LLMs only · Tight excluded · Voice uses verified hardware tags</span>`;
                 machineCatalogueToggle.textContent = 'Show full catalogues';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'false');
             } else {
-                machineStatus.textContent = 'Full or custom catalogue filters are visible. Choose a saved-machine card to reapply its real hardware across every directory.';
+                machineStatus.innerHTML = '<span class="lc-home-machine-status__state"><strong>Full catalogues visible</strong></span><span>Your saved machine remains selected. Choose its card to reapply hardware filters.</span>';
                 machineCatalogueToggle.textContent = 'Apply selected machine';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'true');
             }
