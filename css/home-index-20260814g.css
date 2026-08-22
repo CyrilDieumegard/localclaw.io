@@ -1105,6 +1105,8 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
     min-width: 0;
 }
 .lc-index-hero {
+    display: flex;
+    align-items: center;
     min-height: 0;
     padding-bottom: 0;
     overflow: visible;
@@ -1152,7 +1154,7 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
 }
 .lc-index-fact {
     display: flex;
-    min-height: 196px;
+    min-height: 160px;
     flex-direction: column;
     justify-content: center;
     padding: 20px;
@@ -1377,7 +1379,7 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-facts,
     .lc-index-directory > :not(.lc-index-hero):not(.lc-index-facts) { grid-column: 1; }
     .lc-index-hero,
-    html.light .lc-index-hero { padding-bottom: 0; text-align: center; }
+    html.light .lc-index-hero { display: block; padding-bottom: 0; text-align: center; }
     .lc-index-hero__copy,
     html.light .lc-index-hero__copy { max-width: 720px; margin: 0 auto; padding-bottom: 6px; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }
@@ -1397,7 +1399,7 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-facts,
     .lc-index-directory > :not(.lc-index-hero):not(.lc-index-facts) { grid-column: 1; }
     .lc-index-hero,
-    html.light .lc-index-hero { padding-bottom: 0; text-align: center; }
+    html.light .lc-index-hero { display: block; padding-bottom: 0; text-align: center; }
     .lc-index-hero__copy,
     html.light .lc-index-hero__copy { max-width: 760px; margin: 0 auto; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }

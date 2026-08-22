@@ -61,6 +61,43 @@ final result: passed
 
 ---
 
+# Compact no-mascot hero QA
+
+- Source visual truth: browser annotation on `https://localclaw.io/?v=50a5789-final` identifying the 170 px empty region below the hero copy after mascot removal.
+- Before screenshot: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/72-local-no-mascot-preview.png`.
+- Browser implementation: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/76-local-compact-hero.png`.
+- Responsive implementation: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/77-local-compact-hero-mobile.png`.
+- Focused comparison: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/78-hero-gap-before-after.png`.
+- Viewport and density: desktop measured at a 1223 × 989 CSS viewport for the source geometry and 1154 × 933 for the local capture due the in-app panel width; focused hero regions were normalized to 1154 × 450 pixels. Device scale factor 1. Mobile was tested at 390 × 844.
+- State: Light theme, anonymous local preview; mascot remains absent.
+
+**Findings**
+
+- No actionable P0/P1/P2 issue remains.
+- Fonts and typography: title, description and guide-link type styles remain unchanged; no new wrapping or truncation was introduced.
+- Spacing and layout rhythm: the four fact cards shrink from a 404 px block to 344 px. The 246 px hero copy is vertically centered in the shared 358 px row, producing balanced 56 px top and bottom space instead of a 170 px empty tail. The workspace moves 60 px upward.
+- Colors and tokens: unchanged.
+- Image quality and assets: no new image or placeholder was introduced; the removed mascot remains absent.
+- Copy and content: no copy, catalogue count, result or sponsor content changed.
+- Responsive behavior: below 960 px the hero returns to normal block flow; at 390 × 844 there is zero horizontal overflow.
+- Console: no application error was found during the local browser pass.
+
+**Comparison history**
+
+- Iteration 1: removing the mascot left the left grid item stretched to the 404 px fact-card height, creating 170 px of empty space below the copy.
+- Fix: reduced desktop fact-card minimum height to 160 px and vertically centered the hero copy in the shared row; mobile/tablet retain block flow.
+- Final evidence: `78-hero-gap-before-after.png` shows the empty tail replaced by balanced spacing, with the workspace beginning directly after the compact row.
+
+**Primary interactions tested**
+
+- Desktop hero and fact-card grid.
+- Mobile responsive hero at 390 × 844.
+- Zero horizontal overflow and no mascot markup.
+
+final result: passed
+
+---
+
 # Homepage mascot removal and sponsor-rail gap QA
 
 - Source visual truth: browser annotation on `https://localclaw.io/?v=8440e02-final` identifying the hero mascot as irrelevant in that location, plus the request that the sponsor-to-navigation gap remain unchanged during scrolling.
