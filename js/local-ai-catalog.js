@@ -49,6 +49,19 @@
       caveats: ['Gated Hugging Face weight access', 'NVIDIA TensorRT stack only', 'Specialized for avatars rather than general scene generation']
     },
     {
+      id: 'longcat-video-avatar-1.5', name: 'LongCat-Video-Avatar 1.5', category: 'video', developer: 'Meituan LongCat',
+      summary: 'MIT-licensed audio-driven avatar video model for speech-conditioned single-person and multi-person animation.',
+      tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'video-continuation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 48,
+      runtime: ['PyTorch', 'Diffusers', 'Transformers'], output: ['MP4', 'audio-driven video'],
+      local_status: 'local', license: 'MIT', released: '2026-05',
+      source_url: 'https://github.com/meituan-longcat/LongCat-Video',
+      install_url: 'https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.5',
+      hardware_note: 'The official v1.5 recipes use PyTorch 2.6, CUDA 12.4, FlashAttention, ffmpeg, Whisper-large-v3 audio encoding, distillation mode and INT8 DiT loading. The published commands use two NVIDIA workers with context parallelism, so treat a 2x24 GB NVIDIA workstation, 48 GB aggregate VRAM and 64 GB system RAM as the practical local floor.',
+      strengths: ['Audio-text and audio-image video generation', 'Single and multi-person animation recipes', 'MIT weights with official download commands'],
+      caveats: ['CUDA workstation setup only', 'Requires the LongCat-Video codebase and avatar-specific requirements', 'Specialized for avatar/human video rather than arbitrary scene generation']
+    },
+    {
       id: 'alice-t2v-14b', name: 'Alice T2V 14B MoE', category: 'video', developer: 'Mirage AI',
       summary: 'Apache-licensed text-to-video MoE model that generates five-second 480p and 720p clips with official Diffusers-compatible code.',
       tasks: ['text-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
@@ -115,6 +128,19 @@
       hardware_note: 'Official inference uses the Wan2.2 animate task with preprocessing checkpoints, PyTorch, CUDA and optional FSDP/Ulysses multi-GPU execution. The 14B family efficiency table and single-GPU guidance support an 80 GB NVIDIA VRAM floor.',
       strengths: ['Official character animation and replacement weights', 'Motion and expression replication from source video', 'Diffusers, ComfyUI and preprocessing checkpoint support'],
       caveats: ['Requires preprocessing assets before inference', 'Workstation-class NVIDIA hardware is the practical floor']
+    },
+    {
+      id: 'longcat-video', name: 'LongCat-Video', category: 'video', developer: 'Meituan LongCat',
+      summary: 'MIT-licensed 13.6B foundation video model for text-to-video, image-to-video and long video continuation.',
+      tasks: ['text-to-video', 'image-to-video', 'video-continuation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 32,
+      runtime: ['PyTorch', 'Diffusers'], output: ['MP4'],
+      local_status: 'local', license: 'MIT', released: '2025-10',
+      source_url: 'https://github.com/meituan-longcat/LongCat-Video',
+      install_url: 'https://huggingface.co/meituan-longcat/LongCat-Video',
+      hardware_note: 'The official setup uses Python 3.10, PyTorch 2.6 CUDA 12.4, FlashAttention 2, Diffusers 0.35 and torchrun demos for single-GPU or multi-GPU inference. No exact minimum VRAM is published, so LocalClaw treats 32 GB NVIDIA VRAM and 64 GB RAM as the conservative 720p local workstation floor.',
+      strengths: ['Text, image and continuation tasks in one model', '720p 30 fps long-video focus', 'MIT license with official safetensors'],
+      caveats: ['Linux/CUDA workflow for experienced users', 'Large multi-shard checkpoint', 'No official desktop wrapper']
     },
     {
       id: 'mochi-1', name: 'Mochi 1', category: 'video', developer: 'Genmo',
