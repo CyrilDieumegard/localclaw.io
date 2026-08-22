@@ -67,8 +67,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         }[value] || 'CPU');
         const machineImagePath = (machine) => {
             const hardwareName = [machine.name, machine.cpuModel, machine.gpuModel].filter(Boolean).join(' ').toLowerCase();
-            if (hardwareName.includes('macstudio') || hardwareName.includes('mac studio')) return 'images/computers/mac-studio.jpg';
-            if (hardwareName.includes('macmini') || hardwareName.includes('mac mini')) return 'images/computers/mac-mini.jpg';
+            if (hardwareName.includes('macstudio') || hardwareName.includes('mac studio')) return 'images/hardware/mac-studio-card-v2.png';
+            if (hardwareName.includes('macmini') || hardwareName.includes('mac mini')) return 'images/hardware/mac-mini-card-v2.png';
             if (hardwareName.includes('macbook air')) return 'images/hardware/macbook-air-dark.jpg';
             if (hardwareName.includes('macbook')) return 'images/hardware/macbook-pro-dark.jpg';
             if (machine.accelerator === 'apple-silicon' || machine.platform === 'macos') return 'images/computers/local-ai-compact-workstation.jpg';

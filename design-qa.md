@@ -61,6 +61,46 @@ final result: passed
 
 ---
 
+# Homepage mascot and machine-thumbnail revision preview QA
+
+- Source visual truth: `/var/folders/pk/cjcmrw3532gf0xg3bhqmr6qh0000gn/T/codex-clipboard-54391d04-d33a-4157-ab9f-d6ba2a9ff7f6.png` plus the previously selected Option 2 direction at `/Users/redsun/.codex/generated_images/01a028dc-74e7-7882-9a50-bbc50d12a678/exec-cb63b4a6-7191-4339-9042-08f46a839f5e.png`.
+- Browser implementation, Light desktop: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/64-local-preview-light-crab-machines-v3.png`.
+- Focused saved-machine evidence: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/60-local-preview-light-machines-v2.png`.
+- Responsive evidence: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/61-local-preview-mobile-hero-v2.png` and `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/62-local-preview-mobile-machines-v2.png`.
+- Normalized full-view comparison: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/65-source-vs-preview-crab-machines-v3.png`.
+- Viewport and density: source 2872 × 1692 pixels was normalized to its 1436 × 846 CSS-pixel viewport; browser implementation was captured at 1436 × 846 with device scale factor 1. Mobile was captured at 390 × 844.
+- State: local-only fixture with the same two saved Apple Silicon machines, Mac Studio selected, Light theme. The fixture exists only in ignored `.pages-dist` output and is not part of production source.
+
+**Findings**
+
+- No actionable P0/P1/P2 issue remains in the local preview.
+- Fonts and typography: unchanged from the approved Option 2 design; no additional wrapping or truncation was introduced.
+- Spacing and layout rhythm: the mascot is now in normal document flow, left-aligned beneath the guide link like the selected Option 2 reference instead of floating in the horizontal center. The large diffuse glow was removed, so the section has a clean edge and the mascot shadow cannot be clipped. Workspace and signal-grid alignment remain stable.
+- Colors and tokens: LocalClaw coral, cream, ink and dark surfaces are unchanged. No sponsor styling, data or behavior changed.
+- Image quality and fidelity: the previous 16:9 product photographs created unrecognizable hard crops. They are replaced in the preview by two dedicated 1024 × 1024 product thumbnails with complete enclosures, visible ports/vents, neutral backgrounds and generous edge breathing room. The thumbnails remain distinct and readable at the actual 70 px rendered card size in both columns.
+- Copy and content: no copy, model compatibility, machine metadata, catalogue result or sponsor content changed.
+- Responsive behavior: desktop and 390 × 844 mobile have zero horizontal overflow; both cards render and the mobile hero keeps the mascot centered.
+- Console: no application error was found in the in-app browser. Static-preview API fallbacks are expected and do not affect the visual target.
+
+**Comparison history**
+
+- Iteration 1: blocked — the live version used aggressively zoomed front crops, making the Mac Studio and Mac mini look like anonymous silver rectangles; the centered mascot and broad glow also drifted from the chosen Option 2 composition.
+- Fix: created dedicated square product assets, removed the image zoom, moved the mascot into normal flow, removed the broad radial glow and restored the left alignment from the selected visual direction.
+- Iteration 2: P2 — the first local preview centered the mascot, preserving too much of the rejected composition.
+- Fix: left-aligned the 190 px mascot beneath the guide link and retained centered positioning only at tablet/mobile breakpoints.
+- Final evidence: `65-source-vs-preview-crab-machines-v3.png` shows the corrected desktop composition; `60-local-preview-light-machines-v2.png` shows both complete devices at card scale; mobile captures prove no overflow.
+
+**Primary interactions tested**
+
+- Light/Dark theme rendering.
+- Desktop and mobile responsive layout.
+- Two saved-machine cards with selected and primary states.
+- Cache-keyed local CSS/JavaScript and local-only machine fixture.
+
+final result: passed
+
+---
+
 # Homepage mascot and saved-machine imagery design QA
 
 - Source visual truth: the three browser annotations on `https://localclaw.io/?v=8e226da-final` at a 1234 × 989 CSS viewport, identifying the clipped mascot glow and the unreadable Mac Studio / Mac mini thumbnails. The pre-fix production capture is `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/51-production-light-desktop-8e226da.png`.
