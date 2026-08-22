@@ -61,6 +61,44 @@ final result: passed
 
 ---
 
+# Homepage mascot removal and sponsor-rail gap QA
+
+- Source visual truth: browser annotation on `https://localclaw.io/?v=8440e02-final` identifying the hero mascot as irrelevant in that location, plus the request that the sponsor-to-navigation gap remain unchanged during scrolling.
+- Before screenshot: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/64-local-preview-light-crab-machines-v3.png`.
+- Browser implementation: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/72-local-no-mascot-preview.png`.
+- Full-view comparison: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/73-mascot-removal-before-after.png`.
+- Sponsor geometry evidence: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/70-local-no-mascot-fixed-gap-top.png` and `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/71-local-no-mascot-fixed-gap-scrolled.png`.
+- Viewports and density: hero comparison 1436 × 846 CSS viewport, captured at 1344 × 792 due in-app browser chrome, device scale factor 1. Sponsor geometry was measured at a 1499 px content width so both rails were visible.
+- State: Light theme, homepage. Sponsor slots remained unchanged; only their sticky offset changed.
+
+**Findings**
+
+- No actionable P0/P1/P2 issue remains.
+- Fonts and typography: unchanged; removing the mascot does not alter title, description, guide-link or fact-card wrapping.
+- Spacing and layout rhythm: the irrelevant hero illustration and its preload are removed. The editorial copy and facts retain the two-column hierarchy, while the workspace moves up to the natural height of the fact grid. The sponsor rails measure a 48.00 px gap below the sticky navigation both at `scrollY=0` and after scrolling to `scrollY=474`.
+- Colors and tokens: no palette, sponsor surface, border, price or state token changed.
+- Image quality and assets: the large mascot is no longer loaded on the homepage. The small official crab logo remains in the navigation and is now the preloaded above-the-fold brand asset.
+- Copy and content: no text, catalogue count, compatibility result, sponsor placement, sponsor price or sponsor behavior changed.
+- Responsive behavior: rails remain hidden at the existing narrow breakpoint; the homepage has zero horizontal overflow and no mascot markup at desktop or mobile sizes.
+- Console: no application error was found during the local browser pass.
+
+**Comparison history**
+
+- Iteration 1: the mascot remained visually disconnected from the index content and the rail used an 82 px sticky offset, reducing its initial gap after scrolling.
+- Fix: removed the hero mascot and its preload, then measured the actual desktop layout. The initial rail gap was 48 px, so the sticky rail offset was set to 128 px relative to the 80 px sticky navigation.
+- Final browser evidence: `73-mascot-removal-before-after.png` shows the cleaner hero; geometry measurements report `railTop=128`, `navBottom=80`, `gap=48` before and after scroll.
+
+**Primary interactions tested**
+
+- Homepage at top and after a 650 px wheel scroll.
+- Wide desktop sponsor-rail breakpoint.
+- Navigation sticky state.
+- Hero rendering without mascot markup.
+
+final result: passed
+
+---
+
 # Homepage mascot and machine-thumbnail revision preview QA
 
 - Source visual truth: `/var/folders/pk/cjcmrw3532gf0xg3bhqmr6qh0000gn/T/codex-clipboard-54391d04-d33a-4157-ab9f-d6ba2a9ff7f6.png` plus the previously selected Option 2 direction at `/Users/redsun/.codex/generated_images/01a028dc-74e7-7882-9a50-bbc50d12a678/exec-cb63b4a6-7191-4339-9042-08f46a839f5e.png`.

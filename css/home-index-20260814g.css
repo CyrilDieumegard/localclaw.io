@@ -182,7 +182,7 @@ html { scroll-behavior: smooth; }
 
 .lc-sponsor-rail {
     position: sticky;
-    top: 82px;
+    top: 128px;
     display: grid;
     gap: 28px;
 }

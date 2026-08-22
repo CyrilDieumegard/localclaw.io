@@ -88,7 +88,9 @@ if ((homepageJs.match(/class="lc-index-control-label"><span>Search<\/span>/g) ||
 for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', '.lc-home-machine-card__visual img', 'img[src$="-card-v2.png"]', 'img[src^="images/hardware/mac-"]', '.lc-home-machine-card__selected', '.lc-home-machine-status__state', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260822m', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822g']) {
+if (!homepageCss.includes('.lc-sponsor-rail {\n    position: sticky;\n    top: 128px;')) missing.push('Sponsor rails must preserve their initial 48px gap below the 80px sticky navigation');
+if (homepageJs.includes('lc-index-hero__mascot')) missing.push('Homepage hero mascot should remain removed');
+for (const marker of ['css/home-index-20260814g.css?v=20260822n', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822h']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);

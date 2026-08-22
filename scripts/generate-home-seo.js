@@ -412,7 +412,7 @@ function generateIndexHtml() {
     .replace(/<meta name="twitter:description" content="[^"]*">/, '<meta name="twitter:description" content="One hardware-aware homepage for every category of local AI.">')
     .replace(/<meta property="og:image:alt" content="[^"]*">/, '<meta property="og:image:alt" content="LocalClaw: The Local AI Index for every kind of local model">')
     .replace(/<meta name="twitter:image:alt" content="[^"]*">/, '<meta name="twitter:image:alt" content="LocalClaw — The Local Model Index">')
-    .replace(/<link rel="preload" as="image" href="images\/crab-logo\.png" fetchpriority="high">/, '<link rel="preload" as="image" href="images/localclaw-mascot-hero.webp?v=20260601" fetchpriority="high">');
+    .replace(/<link rel="preload" as="image" href="images\/(?:crab-logo\.png|localclaw-mascot-hero\.webp\?v=20260601)" fetchpriority="high">/, '<link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">');
 
   if (!html.includes('href="https://localclaw.io/llms.txt"')) {
     html = html.replace(

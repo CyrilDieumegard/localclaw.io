@@ -403,7 +403,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <p>One maintained directory for local language, voice, image, video, 3D, music and vision models, with machine requirements and source-backed local paths.</p>
                             <a class="lc-index-hero__guide-link" href="#home-index-guide">How rankings work · RAM quick answers ↓</a>
                         </div>
-                        <div class="lc-index-hero__mascot" aria-hidden="true"><img src="/images/localclaw-mascot-hero.webp?v=20260601" width="719" height="600" alt="" loading="eager" decoding="async" fetchpriority="high"></div>
                     </header>
 
                     <section class="lc-index-facts" aria-label="Index information">
