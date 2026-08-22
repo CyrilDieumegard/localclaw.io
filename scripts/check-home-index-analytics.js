@@ -23,11 +23,11 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260823a', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260823b', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
 requireText(homepage, "fitFilter.value = 'fits'", 'Signed-in machines must default the homepage to green fits only');
 requireText(homepage, 'Green fits only', 'Homepage machine filtering must clearly label the strict green-fit view');
-requireText(homepage, "finite(model && model.size_gb) <= 0", 'Homepage green-fit filtering must not claim compatibility when model size metadata is missing');
+requireText(homepage, '!sharedRanking.isLocallyEligible(model)', 'Homepage green-fit filtering must use the shared LLM eligibility rules');
 requireText(homepage, 'Green LLM fits only', 'Homepage saved-machine status must match the strict green-fit filter wording');
 if (/Comfortable \+ tight|Tight only/.test(homepage)) {
   errors.push('Homepage machine availability must not offer tight-fit models');

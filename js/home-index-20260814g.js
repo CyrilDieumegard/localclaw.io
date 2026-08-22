@@ -243,7 +243,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (!machineRam) return {key: 'unset', label: 'Set RAM'};
             const sharedRanking = window.LocalClawModelRanking;
             if (!sharedRanking) return {key: 'too-large', label: 'Unavailable'};
-            if (finite(model && model.size_gb) <= 0 || String(model && model.recommended_quant || '').toUpperCase() === 'API') {
+            if (!sharedRanking.isLocallyEligible(model)) {
                 return {key: 'too-large', label: 'Unavailable'};
             }
             const machine = machineFiltersEnabled && activeMachine
