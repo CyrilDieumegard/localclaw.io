@@ -14,9 +14,21 @@ for (const marker of [
   '>Computers</a>',
   'href="/ram-gpu-for-local-ai"',
   'data-nav-key="ram-gpu"',
-  '>RAM/GPU</a>'
+  '>RAM/GPU</a>',
+  'data-theme-option="light"',
+  'data-theme-option="dark"',
+  'lc-theme-switcher--mobile'
 ]) {
   if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
+}
+
+const assetContract = siteNavAssets();
+for (const marker of [
+  `/js/theme-toggle.js?v=${NAV_VERSION}`,
+  `/css/site-nav.css?v=${NAV_VERSION}`,
+  `/js/site-nav.js?v=${NAV_VERSION}`
+]) {
+  if (!assetContract.includes(marker)) throw new Error(`Required navigation asset missing: ${marker}`);
 }
 
 function htmlFiles(directory, files = []) {
@@ -49,10 +61,21 @@ function activeSection(relativePath) {
 }
 
 function addAssets(html) {
+  html = html.replace(
+    /<meta name="color-scheme" content="light">/g,
+    '<meta name="color-scheme" content="light dark">'
+  );
   if (html.includes('/css/site-nav.css') || html.includes('href="css/site-nav.css')) {
-    return html
+    const versioned = html
       .replace(/(href="\/?css\/site-nav\.css)(?:\?v=[^"]*)?("\s*\/?>)/g, `$1?v=${NAV_VERSION}$2`)
       .replace(/(src="\/?js\/site-nav\.js)(?:\?v=[^"]*)?("[^>]*>)/g, `$1?v=${NAV_VERSION}$2`);
+    if (/src="\/?js\/theme-toggle\.js(?:\?v=[^"]*)?"/.test(versioned)) {
+      return versioned.replace(
+        /(src="\/?js\/theme-toggle\.js)(?:\?v=[^"]*)?("[^>]*>)/g,
+        `$1?v=${NAV_VERSION}$2`
+      );
+    }
+    return versioned.replace('</head>', `  <script src="/js/theme-toggle.js?v=${NAV_VERSION}"></script>\n</head>`);
   }
   return html.replace('</head>', `  ${siteNavAssets()}\n</head>`);
 }
@@ -77,6 +100,10 @@ function synchronize(html, relativePath) {
     return addAssets(html.replace(firstNav[0], navigation));
   }
 
+  if (relativePath.startsWith('changelog/')) {
+    return addAssets(html.replace(/<body([^>]*)>/i, `<body$1>${navigation}`));
+  }
+
   if (relativePath === 'models/index.html') {
     const indexed = html
       .replace(
@@ -96,6 +123,13 @@ for (const file of htmlFiles(ROOT)) {
   const relativePath = path.relative(ROOT, file);
   const before = fs.readFileSync(file, 'utf8');
   const after = synchronize(before, relativePath);
+  const normalizedPath = relativePath.replace(/\\/g, '/');
+  if (normalizedPath.startsWith('changelog/') && (
+    !after.includes('class="lc-global-nav"')
+    || !after.includes(`/js/theme-toggle.js?v=${NAV_VERSION}`)
+  )) {
+    throw new Error(`Changelog theme/navigation contract missing: ${normalizedPath}`);
+  }
   if (after === before) continue;
   changed.push(relativePath);
   if (!checkOnly) fs.writeFileSync(file, after);

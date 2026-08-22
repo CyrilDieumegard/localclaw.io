@@ -1,15 +1,13 @@
 .lc-global-nav {
+  box-sizing: border-box;
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
-  border-top: 2px solid #ff453a;
-  border-bottom: 1px solid #dedbd4;
-  background: rgba(255, 255, 255, 0.97);
+  padding: 12px 16px 0;
+  background: transparent;
   color: #111827;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.03);
-  backdrop-filter: blur(16px);
 }
 
 .lc-global-nav *,
@@ -26,11 +24,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: min(1280px, 100%);
-  min-height: 80px;
+  width: min(1360px, 100%);
+  min-height: 68px;
   margin: 0 auto;
-  padding: 0 24px;
-  gap: 24px;
+  padding: 0 18px;
+  gap: 18px;
+  border: 1px solid rgba(207, 202, 194, 0.94);
+  border-top-color: rgba(255, 69, 58, 0.72);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 36px rgba(17, 24, 39, 0.1);
+  backdrop-filter: blur(18px);
 }
 
 .lc-global-nav__brand {
@@ -74,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: clamp(14px, 1.7vw, 24px);
+  gap: clamp(9px, 1.15vw, 16px);
   min-width: 0;
 }
 
@@ -82,7 +86,7 @@
   flex: 0 0 auto;
   color: #545b66;
   font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.06em;
@@ -129,14 +133,74 @@
   cursor: pointer;
 }
 
+.lc-theme-switcher {
+  display: inline-grid;
+  flex: 0 0 auto;
+  grid-template-columns: repeat(2, 34px);
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid #d6d1c9;
+  border-radius: 999px;
+  background: #ece8e1;
+}
+
+.lc-theme-switcher__option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.lc-theme-switcher__option svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.8;
+}
+
+.lc-theme-switcher__option span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lc-theme-switcher__option:hover {
+  color: #111827;
+}
+
+.lc-theme-switcher__option[aria-pressed="true"] {
+  background: #c92f28;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(201, 47, 40, 0.24);
+}
+
 .lc-global-nav__menu-button svg {
   width: 20px;
   height: 20px;
 }
 
 .lc-global-nav__mobile {
-  border-top: 1px solid #e2ded7;
-  background: #fff;
+  width: min(1360px, 100%);
+  margin: 8px auto 0;
+  border: 1px solid #dedbd4;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.12);
+  backdrop-filter: blur(18px);
 }
 
 .lc-global-nav__mobile[hidden] {
@@ -150,6 +214,34 @@
   margin: 0 auto;
   padding: 12px 16px 18px;
   overflow-y: auto;
+}
+
+.lc-theme-switcher--mobile {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 12px;
+}
+
+.lc-theme-switcher--mobile .lc-theme-switcher__option {
+  width: 100%;
+  gap: 8px;
+  border-radius: 9px;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lc-theme-switcher--mobile .lc-theme-switcher__option span {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
 
 .lc-global-nav__mobile .lc-global-nav__link {
@@ -166,9 +258,93 @@
 }
 
 .lc-global-nav__link:focus-visible,
-.lc-global-nav__menu-button:focus-visible {
+.lc-global-nav__menu-button:focus-visible,
+.lc-theme-switcher__option:focus-visible {
   outline: 2px solid #c92f28;
   outline-offset: 3px;
+}
+
+html.dark {
+  color-scheme: dark;
+  background: #050505;
+  --bg: #050505;
+  --panel: #0d0d0d;
+  --card: #111111;
+  --card2: #171717;
+  --surface: #0f0f11;
+  --surface2: #171717;
+  --surface3: #202024;
+  --border: #27272a;
+  --border2: #3f3f46;
+  --text: #ffffff;
+  --muted: #a1a1aa;
+  --muted2: #8d8d96;
+  --soft: #d4d4d8;
+}
+
+html.dark .lc-global-nav {
+  color: #fff;
+}
+
+html.dark .lc-global-nav__inner {
+  border-color: rgba(63, 63, 70, 0.94);
+  border-top-color: rgba(255, 69, 58, 0.82);
+  background: rgba(5, 5, 5, 0.92);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42);
+}
+
+html.dark .lc-global-nav__brand,
+html.dark .lc-global-nav__link:hover,
+html.dark .lc-global-nav__link:focus-visible {
+  color: #fff;
+}
+
+html.dark .lc-global-nav__link {
+  color: #a1a1aa;
+}
+
+html.dark .lc-global-nav__brand-accent,
+html.dark .lc-global-nav [aria-current="page"] {
+  color: #ff6961;
+}
+
+html.dark .lc-global-nav__link--account,
+html.dark .lc-global-nav__link--account[aria-current="page"] {
+  color: #fff;
+}
+
+html.dark .lc-global-nav__menu-button {
+  border-color: #3f3f46;
+  background: #111;
+  color: #fff;
+}
+
+html.dark .lc-global-nav__mobile {
+  border-color: #27272a;
+  background: rgba(9, 9, 11, 0.98);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .lc-global-nav__mobile .lc-global-nav__link {
+  border-bottom-color: #27272a;
+}
+
+html.dark .lc-theme-switcher {
+  border-color: #3f3f46;
+  background: #18181b;
+}
+
+html.dark .lc-theme-switcher__option {
+  color: #a1a1aa;
+}
+
+html.dark .lc-theme-switcher__option:hover {
+  color: #fff;
+}
+
+html.dark .lc-theme-switcher__option[aria-pressed="true"] {
+  background: #ff453a;
+  color: #fff;
 }
 
 html.light {
@@ -206,8 +382,7 @@ html.light body:not(.lc-account-page) :where(.muted, .meta, .updated, .runtime-l
 
 html.light body:not(.lc-account-page) :where(
   .hero-copy, .hero-panel, .section, .spec-card, .model-card, .score-card,
-  .mini, .step, .meta-grid .meta, .run-picker, .run-option, .run-required,
-  .runtime-launch-assist, .personal-fit, .status, .fact, .panel, .metric,
+  .mini, .step, .meta-grid .meta, .fact, .panel, .metric,
   .card, .stat, .hero-media, .index-list a, .next-grid a, .next a,
   .similar a, .hardware-fit a, .source-links a, .source-links code
 ) {
@@ -223,7 +398,7 @@ html.light body:not(.lc-account-page) :where(.hero-copy, .panel, .status-head) {
     #fff !important;
 }
 
-html.light body:not(.lc-account-page) :where(.btn.secondary, .lc-ai-button, .personal-fit-actions button, .personal-fit-actions a, .runtime-launch-assist-actions button, .runtime-launch-assist-actions a) {
+html.light body:not(.lc-account-page) :where(.btn.secondary, .lc-ai-button) {
   border-color: #cbd5e1 !important;
   background: #fff !important;
   color: #111827 !important;
@@ -236,7 +411,7 @@ html.light body:not(.lc-account-page) :where(.btn:not(.secondary), .lc-ai-button
   box-shadow: none !important;
 }
 
-html.light body:not(.lc-account-page) :where(.chip, .tag, .pill, code) {
+html.light body:not(.lc-account-page) :where(.tag, .pill, code) {
   border-color: #d7dce4 !important;
   background: #f7f5f1 !important;
   color: #334155 !important;
@@ -291,10 +466,15 @@ html.light .article-shell [class~="border-white/10"],
 html.light .article-shell [class~="border-white/15"] { border-color: #d7dce4 !important; }
 html.light #blog-mobile-menu { background: rgba(250, 249, 246, 0.98) !important; }
 
-@media (max-width: 1120px) {
+@media (max-width: 1240px) {
+  .lc-global-nav {
+    padding: 8px 10px 0;
+  }
+
   .lc-global-nav__inner {
     min-height: 64px;
     padding: 0 16px;
+    border-radius: 15px;
   }
 
   .lc-global-nav__brand {
@@ -305,13 +485,18 @@ html.light #blog-mobile-menu { background: rgba(250, 249, 246, 0.98) !important;
     display: none;
   }
 
+  .lc-global-nav__inner > .lc-theme-switcher {
+    display: none;
+  }
+
   .lc-global-nav__menu-button {
     display: inline-flex;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lc-global-nav__link {
+  .lc-global-nav__link,
+  .lc-theme-switcher__option {
     transition: none;
   }
 }

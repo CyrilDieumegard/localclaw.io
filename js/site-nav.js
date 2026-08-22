@@ -1,23 +1,11 @@
 (function () {
   'use strict';
 
-  function activateLightTheme() {
-    var root = document.documentElement;
-    root.classList.remove('dark');
-    root.classList.add('light');
-    root.style.colorScheme = 'light';
-
-    var themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.setAttribute('content', '#faf9f6');
-  }
-
-  activateLightTheme();
-
   function currentSection(pathname) {
     var path = String(pathname || '/').replace(/\.html$/, '');
     if (path === '/' || path === '/index') return 'index';
-    if (path === '/llm-list' || path === '/llm-detail' || path.indexOf('/models/') === 0) return 'llm';
-    if (path === '/tts-list' || path.indexOf('/tts/') === 0) return 'voice';
+    if (path === '/llm-list' || path === '/llm-detail' || path.indexOf('/models/') === 0 || path.indexOf('/use-case/') === 0 || path.indexOf('/guides/best-local-llms') === 0) return 'llm';
+    if (path === '/tts-list' || path.indexOf('/tts/') === 0 || path.indexOf('/guides/best-local-tts') === 0) return 'voice';
     if (path === '/image-models' || path.indexOf('/image/') === 0) return 'image';
     if (path === '/video-models' || path.indexOf('/video/') === 0) return 'video';
     if (path === '/3d-models' || path.indexOf('/3d/') === 0) return '3d';
@@ -34,6 +22,7 @@
 
   function setOpen(button, menu, open) {
     button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     menu.hidden = !open;
   }
 
@@ -61,11 +50,14 @@
     });
 
     document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') setOpen(button, menu, false);
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        setOpen(button, menu, false);
+        button.focus();
+      }
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 1120) setOpen(button, menu, false);
+      if (window.innerWidth > 1240) setOpen(button, menu, false);
     });
   }
 

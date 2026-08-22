@@ -120,7 +120,8 @@
         html.light #mobile-menu > div { background: #ffffff !important; border-bottom-color: #e5e7eb !important; }
         html.light #mobile-menu a { color: #374151 !important; }</style>
     <script src="../js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822c"><script src="/js/site-nav.js?v=20260822c" defer></script>
+  <script src="/js/theme-toggle.js?v=20260822c"></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col">
     <div id="reading-progress"></div>
@@ -132,12 +133,34 @@
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
   </div>
 </nav>
 

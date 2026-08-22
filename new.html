@@ -67,6 +67,7 @@
     </script>
 
     <meta name="theme-color" content="#faf9f6" id="theme-color-meta">
+    <meta name="color-scheme" content="light dark">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="images/favicon.png?v=20260211g">
 
@@ -86,13 +87,13 @@
                     },
                     colors: {
                         claw: {
-                            bg: '#FAF9F6',
-                            surface: '#FFFFFF',
-                            border: '#D7DCE4',
-                            primary: '#C92F28',
-                            accent: '#C92F28',
-                            text: '#111827',
-                            muted: '#64748B'
+                            bg: '#050505',
+                            surface: '#0F0F11',
+                            border: '#27272A',
+                            primary: '#FF453A',
+                            accent: '#FF6D64',
+                            text: '#FFFFFF',
+                            muted: '#A1A1AA'
                         }
                     }
                 }
@@ -101,7 +102,8 @@
     </script>
     <link rel="stylesheet" href="css/style.css?v=20260822a">
     <style>
-        body { background: #faf9f6; color: #111827; }
+        :root { color-scheme: dark; }
+        body { background: #050505; color: #fff; }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -109,7 +111,7 @@
         .card-appear { animation: fadeInUp 0.5s ease-out both; }
 
         /* Benchmark mini-bar */
-        .bench-bar { height: 4px; border-radius: 2px; background: #e5e7eb; overflow: hidden; }
+        .bench-bar { height: 4px; border-radius: 2px; background: #27272a; overflow: hidden; }
         .bench-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease-out; }
 
         /* New badge pulse */
@@ -122,7 +124,7 @@
         /* Timeline dot */
         .timeline-dot {
             width: 12px; height: 12px; border-radius: 50%;
-            border: 2px solid #C92F28; background: #faf9f6;
+            border: 2px solid #FF453A; background: #050505;
             position: relative; z-index: 2; flex-shrink: 0;
         }
         .timeline-dot.first { background: #FF453A; box-shadow: 0 0 12px rgba(255,69,58,0.5); }
@@ -131,6 +133,20 @@
             width: 2px; background: linear-gradient(to bottom, rgba(255,69,58,0.4), rgba(255,69,58,0.05));
         }
 
+        html.light { color-scheme: light; }
+        html.light body { background:#faf9f6; color:#111827; }
+        html.light .bg-claw-bg { background-color:#faf9f6 !important; }
+        html.light [class*="bg-claw-surface"] { background-color:#fff !important; }
+        html.light .text-claw-text { color:#111827 !important; }
+        html.light [class*="text-claw-muted"] { color:#64748b !important; }
+        html.light .text-claw-primary { color:#c92f28 !important; }
+        html.light .bg-claw-primary { background-color:#c92f28 !important; }
+        html.light [class*="bg-claw-primary/"] { background-color:rgba(201,47,40,.08) !important; }
+        html.light [class*="border-claw-primary/"] { border-color:rgba(201,47,40,.3) !important; }
+        html.light [class*="border-claw-border"] { border-color:#d7dce4 !important; }
+        html.light .bench-bar { background:#e5e7eb; }
+        html.light .timeline-dot { border-color:#c92f28; background:#faf9f6; }
+        html.light .timeline-dot.first { background:#ff453a; }
         html.light #bg-circuit { opacity:.38; }
         html.light body > .fixed.inset-0 > .absolute {
             background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(255,255,255,.2) 62%, rgba(250,249,246,.9) 100%) !important;
@@ -139,6 +155,8 @@
         html.light [class*="bg-white/"] { background-color:#fff !important; }
         html.light [class*="border-white/"] { border-color:#d7dce4 !important; }
         html.light [class*="bg-black"] { background-color:#f7f5f1 !important; }
+        html.light .bg-claw-primary.text-white,
+        html.light [class*="from-claw-primary"][class*="text-white"] { color:#fff !important; }
         html.light #mobile-menu { background:rgba(15,23,42,.32) !important; }
         html.light #mobile-menu > div,
         html.light #model-list > section,
@@ -150,7 +168,8 @@
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260822c"><script src="/js/site-nav.js?v=20260822c" defer></script>
+  <script src="/js/theme-toggle.js?v=20260822c"></script>
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
@@ -165,12 +184,34 @@
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new" aria-current="page">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new" aria-current="page">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new" aria-current="page">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
   </div>
 </nav>
 

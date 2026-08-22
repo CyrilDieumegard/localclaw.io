@@ -1254,3 +1254,177 @@ html.light .button-primary {
     background: #c92f28;
     color: #ffffff;
 }
+
+/* Light presentation for the editorial deep-dive template. Dark stays canonical. */
+html.light body.lc-blog-article-theme {
+    background:
+        radial-gradient(circle at 14% 7%, rgba(201, 47, 40, 0.08), transparent 30%),
+        radial-gradient(circle at 84% 17%, rgba(249, 115, 22, 0.05), transparent 32%),
+        #faf9f6;
+    color: #111827;
+}
+
+html.light .lc-blog-article-theme .article-shell {
+    background: rgba(255, 255, 255, 0.94);
+    border-color: #d7dce4;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.09);
+}
+
+html.light .lc-blog-article-theme .signal-card,
+html.light .lc-blog-article-theme .memory-tier {
+    background: #ffffff;
+    border-color: #d7dce4;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+html.light .lc-blog-article-theme .metric-card {
+    background:
+        radial-gradient(circle at top left, rgba(201, 47, 40, 0.08), transparent 52%),
+        #f8f7f4;
+    border-color: #d7dce4;
+}
+
+html.light .lc-blog-article-theme .prose-custom h2,
+html.light .lc-blog-article-theme .prose-custom h3,
+html.light .lc-blog-article-theme .text-white,
+html.light .lc-blog-article-theme .text-claw-text,
+html.light .lc-blog-article-theme .compare-table th {
+    color: #111827;
+}
+
+html.light .lc-blog-article-theme .prose-custom p,
+html.light .lc-blog-article-theme .prose-custom li,
+html.light .lc-blog-article-theme .text-claw-muted,
+html.light .lc-blog-article-theme .compare-table td {
+    color: #526072;
+}
+
+html.light .lc-blog-article-theme .prose-custom a {
+    color: #b52a24;
+}
+
+html.light .lc-blog-article-theme .prose-custom a:hover,
+html.light .lc-blog-article-theme .hover\:text-white:hover,
+html.light .lc-blog-article-theme .hover\:text-claw-primary:hover,
+html.light .lc-blog-article-theme .group:hover .group-hover\:text-claw-primary {
+    color: #8f211c;
+}
+
+html.light .lc-blog-article-theme .text-claw-primary {
+    color: #c92f28;
+}
+
+html.light .lc-blog-article-theme .bg-claw-bg,
+html.light .lc-blog-article-theme .bg-claw-surface,
+html.light .lc-blog-article-theme .bg-claw-bg\/50,
+html.light .lc-blog-article-theme .bg-white\/5 {
+    background-color: #f8f7f4;
+}
+
+html.light .lc-blog-article-theme .bg-claw-bg\/95 {
+    background-color: rgba(250, 249, 246, 0.97);
+}
+
+html.light .lc-blog-article-theme .hover\:bg-white\/5:hover,
+html.light .lc-blog-article-theme .hover\:bg-white:hover {
+    background-color: #f1efea;
+}
+
+html.light .lc-blog-article-theme .border-white\/10,
+html.light .lc-blog-article-theme .border-white\/15,
+html.light .lc-blog-article-theme .border-claw-border\/30,
+html.light .lc-blog-article-theme .border-claw-border\/40,
+html.light .lc-blog-article-theme .border-claw-border\/50,
+html.light .lc-blog-article-theme th,
+html.light .lc-blog-article-theme td,
+html.light .lc-blog-article-theme .hardware-table th,
+html.light .lc-blog-article-theme .hardware-table td {
+    border-color: #d7dce4;
+}
+
+html.light .lc-blog-article-theme .border-claw-primary\/25,
+html.light .lc-blog-article-theme .border-claw-primary\/30,
+html.light .lc-blog-article-theme .border-claw-primary\/40,
+html.light .lc-blog-article-theme .border-claw-primary\/50,
+html.light .lc-blog-article-theme .hover\:border-claw-primary\/30:hover,
+html.light .lc-blog-article-theme .hover\:border-claw-primary\/40:hover,
+html.light .lc-blog-article-theme .hover\:border-claw-primary\/50:hover {
+    border-color: #e8aaa5;
+}
+
+html.light .lc-blog-article-theme .verdict-no,
+html.light .lc-blog-article-theme .answer-chip {
+    background: #fff4f2;
+    border-color: #efaca7;
+}
+
+html.light .lc-blog-article-theme .verdict-yes {
+    background: #f0fdf4;
+    border-color: #86d6a2;
+}
+
+html.light .lc-blog-article-theme .verdict,
+html.light .lc-blog-article-theme .arena-card {
+    background: linear-gradient(135deg, #f5f3ff, #fff7ed);
+    border-color: #c4b5fd;
+    box-shadow: 0 16px 44px rgba(76, 29, 149, 0.08);
+    color: #111827;
+}
+
+html.light .lc-blog-article-theme .verdict-card {
+    background: linear-gradient(135deg, #eff6ff, #fff4f2);
+    border-color: #a8b8f8;
+}
+
+html.light .lc-blog-article-theme .compare-table {
+    background: #ffffff;
+    border-color: #d7dce4;
+}
+
+html.light .lc-blog-article-theme .compare-table th {
+    background: #f7f5f1;
+}
+
+html.light .lc-blog-article-theme code,
+html.light .lc-blog-article-theme .code-block {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1f2937;
+}
+
+html.light .lc-blog-article-theme .benchmark-track,
+html.light .lc-blog-article-theme .score-bar {
+    background: #dce3ec;
+}
+
+html.light .lc-blog-article-theme .text-blue-200,
+html.light .lc-blog-article-theme .text-blue-300,
+html.light .lc-blog-article-theme .text-blue-400 {
+    color: #1d4ed8;
+}
+
+html.light .lc-blog-article-theme .text-purple-200,
+html.light .lc-blog-article-theme .text-purple-300,
+html.light .lc-blog-article-theme .text-purple-400,
+html.light .lc-blog-article-theme .text-violet-300,
+html.light .lc-blog-article-theme .text-voice-purple {
+    color: #6d28d9;
+}
+
+html.light .lc-blog-article-theme .text-green-300,
+html.light .lc-blog-article-theme .text-emerald-400 {
+    color: #047857;
+}
+
+html.light .lc-blog-article-theme .text-orange-300,
+html.light .lc-blog-article-theme .text-amber-400 {
+    color: #a84b08;
+}
+
+html.light .lc-blog-article-theme .text-red-300 {
+    color: #b91c1c;
+}
+
+html.light .lc-blog-article-theme .text-pink-300 {
+    color: #be185d;
+}

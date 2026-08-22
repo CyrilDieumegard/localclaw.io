@@ -58,3 +58,46 @@
 - [x] Verify desktop, mobile, interactions and console.
 
 final result: passed
+
+---
+
+# Option 2 light/dark redesign design QA
+
+- Selected visual target: `/Users/redsun/.codex/generated_images/01a028dc-74e7-7882-9a50-bbc50d12a678/exec-cb63b4a6-7191-4339-9042-08f46a839f5e.png`.
+- Browser implementation, light: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/36-option2-light-readable-1482x1054.png`.
+- Browser implementation, dark: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/37-option2-dark-readable-1482x1054.png`.
+- Same-state side-by-side comparison: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/38-option2-reference-vs-build.png` (selected target left, browser build right).
+- Exact mobile captures: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/48-option2-mobile-light-390x844.png` and `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/49-option2-mobile-dark-390x844.png`.
+- Cross-page contact sheet: `/Users/redsun/Documents/Codex/2026-08-22/realtime-voice-chat/outputs/43-theme-route-contact-sheet.png` (LLM, Image, Software, Pricing, Blog and Account; Light then Dark for each pair).
+- Reference pixels: 1487 × 1058. Browser comparison pixels: 1482 × 1054. The four-pixel scaling difference was normalized only in the QA contact image; the implementation capture itself was not stretched during review.
+
+**Visual findings**
+
+- No actionable P0/P1/P2 difference remains.
+- The floating rounded navigation, two-part Light/Dark control, left editorial hero, two-by-two signal grid, three-card sponsor rails and machine workspace match the selected direction.
+- The official LocalClaw coral, ink, cream, white and green-primary tokens remain intact. Unsloth influenced spacing and hierarchy only; no Unsloth color or brand asset was copied.
+- The official crab is opaque, isolated below the hero copy and never sits behind the heading or description. The saved-machine cards retain the real Mac and generic custom-PC assets with visible internal breathing room.
+- Sponsor rails use warm cream/coral surfaces and high-contrast ink in Light; Dark uses raised charcoal surfaces with brighter copy. Prices, labels and campaign copy were not changed.
+- Dense labels initially measured 7–10 px and were visibly weak in both themes. The final pass raises catalogue notes, controls, machine metadata, sponsor copy and table text to a 10–13 px floor while preserving the compact editorial character.
+- LLM, Voice and multimodal filters use the same full-width search row followed by aligned two-column controls. Browser geometry confirms equal 44 px control heights and matching row baselines.
+
+**Responsive and interaction evidence**
+
+- Desktop Light/Dark: no horizontal overflow; theme-color, active toggle and page class update together.
+- Mobile 390 × 844: no horizontal overflow; the navigation menu exposes labeled Light/Dark choices; the crab remains below the copy; facts stack cleanly.
+- Saved machines: three fixture-backed real cards render on mobile; selecting Mac mini changes `aria-checked`, RAM to 16 GB unified, LLM availability to Green fits only, Voice to Apple-tagged, multimodal platform/accelerator to macOS/Apple Silicon, disables split VRAM, and updates all seven family counts immediately.
+- Catalogue escape hatch: Show full catalogues restores 218 LLM, 66 Voice, 5 Image and 23 Video records while preserving the selected machine.
+- Compare flow: two LLMs select, tray reaches 2/3, modal opens and the close control is visible in Light and Dark.
+- Sponsor flow: an empty rail position opens the audience/offer dialog; its content and close control are readable in Light and Dark; selection context remains in the CTA.
+- Software: next advances the real carousel from 1/14 Dashboard overview to 2/14 Guided installation and synchronizes the active tab and image.
+- Route matrix: LLM, Voice, Image, representative model details, Computers, RAM/GPU, Pricing, New, Software, Blog and Account all switch between coherent Light/Dark surfaces with zero layout overflow.
+
+**Iteration history**
+
+- Iteration 1: the selected layout matched structurally, but sponsor and catalogue metadata remained too small and Dark sponsor rails were too muted.
+- Fix: raised the typography floor, strengthened Dark muted colors, and used raised sponsor surfaces without altering sponsor data or behavior.
+- Iteration 2: full-view reference/build comparison, exact mobile captures and route contact sheet show the corrected hierarchy and contrast. No further visual defect was found.
+- Final code review: restored semantic Light states for featured runtime choices, warning chips and machine-fit panels; guaranteed Light markup before JavaScript; added the missing 1.0.191 changelog navigation/theme; synchronized active guide navigation; and returned focus to the mobile menu button after Escape.
+- Final browser retest: semantic states remain distinct in Light and Dark, the changelog is coherent in both themes, use-case guides keep LLM active, and Escape closes the mobile menu with focus restored.
+
+final result: passed

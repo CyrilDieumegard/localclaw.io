@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#faf9f6"><meta name="color-scheme" content="light">
+<!DOCTYPE html><html class="light" lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wan 2.2 Animate 14B local video AI guide | LocalClaw</title><meta name="description" content="Wan 2.2 Animate 14B: local video model hardware, RAM, VRAM, runtime, output, license and installation guidance."><meta name="robots" content="index, follow"><link rel="canonical" href="https://localclaw.io/video/wan2.2-animate-14b">
   <meta property="og:type" content="article"><meta property="og:url" content="https://localclaw.io/video/wan2.2-animate-14b"><meta property="og:title" content="Wan 2.2 Animate 14B local Video guide"><meta property="og:description" content="Official Wan character animation and replacement model for motion transfer from a driving video to a reference character image."><link rel="icon" href="/images/crab-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script><link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260822a"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a"><!-- TRACKING: DataFast Analytics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"><script src="/js/theme-toggle.js?v=20260822c"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260822c"><script src="/js/site-nav.js?v=20260822c" defer></script><link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260822b"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a"><!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script><style>
 .install-choice{margin-top:26px;padding:18px;border:1px solid #d7dce4;border-radius:18px;background:#fff;box-shadow:0 16px 40px rgba(15,23,42,.07)}
@@ -19,12 +19,34 @@
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video" aria-current="page">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video" aria-current="page">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video" aria-current="page">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
   </div>
 </nav><main class="lc-ai-main"><div class="lc-ai-shell">
   <header class="lc-ai-detail-head"><p class="lc-ai-kicker"><a href="/video-models">Video catalogue</a> · Verified local path</p><h1 class="lc-ai-title">Wan 2.2 Animate 14B <span>local guide</span></h1><p class="lc-ai-copy">Official Wan character animation and replacement model for motion transfer from a driving video to a reference character image.</p><section class="install-choice" data-install-choice data-install-category="video">

@@ -24,7 +24,7 @@
     <meta name="twitter:image" content="https://localclaw.io/images/pricing-carousel/home.jpg?v=20260602">
 
     <meta name="theme-color" content="#faf9f6">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
     <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,13 +44,13 @@
     </script>
     <link rel="stylesheet" href="/css/style.css?v=20260822a">
     <style>
-        :root { --orange:#c92f28; --muted:#64748b; --line:#d7dce4; }
-        html, body { overflow-x:hidden; background:#faf9f6; color:#111827; }
+        :root { color-scheme:dark; --orange:#ff6961; --muted:#a1a1aa; --line:#27272a; --page:#050505; --surface:#0d0d0e; --surface-soft:#151515; --text:#f5f5f7; }
+        html, body { overflow-x:hidden; background:var(--page); color:var(--text); }
         body { min-height:100vh; }
         .software-shell { width:min(1180px, calc(100% - 32px)); margin-inline:auto; }
         .software-glow { position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(circle at 70% 16%,rgba(255,69,58,.12),transparent 34%),linear-gradient(180deg,rgba(5,5,5,.1),#050505 76%); }
         .software-hero { padding:68px 0 44px; }
-        .software-kicker { display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,69,58,.4); background:rgba(255,69,58,.08); color:#ff6d64; border-radius:999px; padding:7px 12px; font:700 11px 'JetBrains Mono',monospace; letter-spacing:.14em; text-transform:uppercase; }
+        .software-kicker { display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,69,58,.4); background:rgba(255,69,58,.08); color:var(--orange); border-radius:999px; padding:7px 12px; font:700 11px 'JetBrains Mono',monospace; letter-spacing:.14em; text-transform:uppercase; }
         .software-kicker::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 12px rgba(255,69,58,.8); }
         .software-title { max-width:920px; margin-top:24px; font-size:clamp(3rem,8vw,6.7rem); line-height:.9; letter-spacing:-.045em; text-transform:uppercase; }
         .software-copy { max-width:780px; margin-top:24px; color:var(--muted); font:500 clamp(15px,2vw,18px)/1.7 'JetBrains Mono',monospace; }
@@ -60,6 +60,10 @@
         .software-button.primary:hover { background:#fff; color:#000; transform:translateY(-2px); box-shadow:4px 4px 0 rgba(255,255,255,.35); }
         .software-button.secondary { border:1px solid rgba(255,255,255,.18); color:#fff; }
         .software-button.secondary:hover { border-color:#fff; background:#fff; color:#000; }
+        .software-button:focus-visible,
+        .carousel-arrow:focus-visible,
+        .carousel-tab:focus-visible,
+        .carousel-button:focus-visible { outline:2px solid var(--orange); outline-offset:3px; }
         .software-trust { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
         .software-trust span { border:1px solid var(--line); background:rgba(255,255,255,.025); border-radius:999px; padding:7px 10px; color:var(--muted); font:600 10px 'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
         .product-window { margin-top:38px; overflow:hidden; border:1px solid rgba(255,69,58,.28); border-radius:16px; background:#0a0a0b; box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 80px rgba(255,69,58,.1); }
@@ -110,6 +114,14 @@
         .final-cta h2 { font:700 clamp(2.2rem,6vw,4.8rem)/.95 'Space Grotesk',sans-serif; text-transform:uppercase; }
         .final-cta p { max-width:660px; margin:18px auto 0; color:var(--muted); line-height:1.7; }
         .final-cta .software-actions { justify-content:center; }
+        .software-footer { position:relative; z-index:10; padding:36px 0; border-top:1px solid var(--line); background:#050505; color:var(--muted); }
+        .software-footer__inner { display:flex; flex-direction:column; align-items:center; justify-content:space-between; gap:16px; text-align:center; font:500 12px 'JetBrains Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+        .software-footer__links { display:flex; gap:20px; }
+        .software-footer a { color:inherit; transition:color .2s ease; }
+        .software-footer a:hover,
+        .software-footer a:focus-visible { color:#fff; }
+        html.light { color-scheme:light; --orange:#c92f28; --muted:#64748b; --line:#d7dce4; --page:#faf9f6; --surface:#fff; --surface-soft:#f7f5f1; --text:#111827; }
+        html.light body { background:#faf9f6; color:#111827; }
         html.light .software-glow { background:radial-gradient(circle at 70% 16%,rgba(201,47,40,.08),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.12),#faf9f6 76%); }
         html.light .software-button.secondary { border-color:#d7dce4; color:#111827; background:#fff; }
         html.light .software-button.secondary:hover { border-color:#94a3b8; background:#f7f5f1; color:#111827; }
@@ -128,10 +140,14 @@
         html.light .proof-stats div { background:#f7f5f1; }
         html.light .compare-panel.is-localclaw { background:rgba(201,47,40,.06); border-color:rgba(201,47,40,.34); }
         html.light .final-cta { background:linear-gradient(180deg,#fff,#f7f5f1); }
-        html.light [class*="text-white"] { color:#111827 !important; }
-        html.light [class*="border-white/"] { border-color:#d7dce4 !important; }
-        html.light [class*="bg-black"] { background-color:#f7f5f1 !important; }
+        html.light .software-footer { background:#f7f5f1; }
+        html.light .software-footer a:hover,
+        html.light .software-footer a:focus-visible { color:#c92f28; }
+        .software-title { color:var(--text) !important; }
+        .text-claw-primary { color:var(--orange) !important; }
+        .product-titlebar .text-claw-muted { color:var(--muted) !important; }
         @media (max-width:900px) { .capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.proof-grid{grid-template-columns:1fr}.proof-media img{min-height:0}.compare-grid{grid-template-columns:1fr} }
+        @media (min-width:640px) { .software-footer__inner{flex-direction:row;text-align:left} }
         @media (max-width:640px) { .software-shell{width:min(100% - 24px,1180px)}.software-hero{padding-top:44px}.software-title{font-size:clamp(2.7rem,15vw,4.1rem)}.software-actions{flex-direction:column}.software-button{width:100%}.product-titlebar{grid-template-columns:1fr auto}.product-titlebar>span:nth-child(2){display:none}.carousel-info{grid-template-columns:1fr}.carousel-nav{justify-content:space-between}.capability-grid{grid-template-columns:1fr}.software-section{padding:52px 0}.product-mode{font-size:9px} }
     </style>
 
@@ -140,9 +156,9 @@
     </script>
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <script src="/js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260822a"><script src="/js/site-nav.js?v=20260822a" defer></script>
+  <script src="/js/theme-toggle.js?v=20260822c"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260822c"><script src="/js/site-nav.js?v=20260822c" defer></script>
 </head>
-<body class="bg-claw-bg text-claw-text font-sans antialiased">
+<body class="font-sans antialiased">
     <div class="software-glow" aria-hidden="true"></div>
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
 
@@ -153,19 +169,41 @@
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
-    <div class="lc-global-nav__mobile-inner"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a></div>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
   </div>
 </nav>
 
     <main class="relative z-10">
         <header class="software-shell software-hero">
             <div class="software-kicker">Optional native macOS software</div>
-            <h1 class="software-title font-display font-extrabold text-white">Control <span class="text-claw-primary">OpenClaw</span> from one native app</h1>
+            <h1 class="software-title font-display font-extrabold">Control <span class="text-claw-primary">OpenClaw</span> from one native app</h1>
             <p class="software-copy">Install, inspect and operate your OpenClaw stack from a visual macOS control center. Models, health, chat, agents, channels and scheduled work stay in one place.</p>
             <div class="software-actions"><a href="#dashboard" class="software-button primary">Explore the dashboard</a><a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="software_hero" class="software-button secondary">Pricing and download</a></div>
             <div class="software-trust"><span>Apple-notarized DMG</span><span>macOS 13+</span><span>Local, cloud and OAuth models</span><span>$49 one-time lifetime access</span></div>
@@ -205,7 +243,7 @@
         <section class="final-cta" aria-labelledby="software-cta-title"><div class="software-shell"><h2 id="software-cta-title">Ready to run OpenClaw from your Mac?</h2><p>See the current beta offer, system requirements, purchase flow and latest Apple-notarized download.</p><div class="software-actions"><a href="/pricing" data-fast-goal="pricing_cta_click" data-fast-goal-source="software_final" class="software-button primary">See pricing and download</a><a href="/" class="software-button secondary">Use the free model finder</a></div></div></section>
     </main>
 
-    <footer class="relative z-10 border-t border-white/10 bg-black py-9"><div class="software-shell flex flex-col items-center justify-between gap-4 text-center text-xs font-mono uppercase tracking-wider text-claw-muted sm:flex-row sm:text-left"><span>&copy; 2026 LocalClaw</span><div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/software" class="hover:text-white">Software</a><a href="/account" class="hover:text-white">My Machines</a></div></div></footer>
+    <footer class="software-footer"><div class="software-shell software-footer__inner"><span>&copy; 2026 LocalClaw</span><div class="software-footer__links"><a href="/privacy">Privacy</a><a href="/software">Software</a><a href="/account">My Machines</a></div></div></footer>
 
     <script src="/js/bg-circuit.js" defer></script>
     <script>

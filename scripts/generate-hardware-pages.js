@@ -26,11 +26,23 @@ body{background:radial-gradient(circle at 18% 4%,rgba(201,47,40,.06),transparent
 .model h3 a,.model-data strong{color:var(--text)!important}
 `;
 
+function scopeLightCss(css) {
+  return css.replace(/(^|})(\s*)([^@{}][^{}]*)\{/g, (match, boundary, whitespace, selectors) => {
+    const scoped = selectors.split(',').map(rawSelector => {
+      const selector = rawSelector.trim();
+      if (selector === ':root' || selector === 'html') return 'html.light';
+      if (selector.startsWith('html.light')) return selector;
+      return `html.light ${selector}`;
+    }).join(',');
+    return `${boundary}${whitespace}${scoped}{`;
+  });
+}
+
 function applyLightTheme(html) {
   return html
     .replace('<html lang="en">', '<html class="light" lang="en">')
-    .replace('<head><meta charset="UTF-8">', '<head><meta charset="UTF-8"><meta name="color-scheme" content="light"><meta name="theme-color" content="#faf9f6">')
-    .replace('</head>', `<style>${lightStyle}</style></head>`);
+    .replace('<head><meta charset="UTF-8">', '<head><meta charset="UTF-8"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#faf9f6">')
+    .replace('</head>', `<style>${scopeLightCss(lightStyle)}</style></head>`);
 }
 
 function normalizeDirectory(directory) {
