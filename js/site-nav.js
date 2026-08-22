@@ -28,6 +28,7 @@
 
   function initializeNavigation(nav) {
     var section = currentSection(window.location.pathname);
+    var modelSections = ['llm', 'voice', 'image', 'video', '3d', 'music', 'vision'];
     nav.querySelectorAll('[data-nav-key]').forEach(function (link) {
       if (link.getAttribute('data-nav-key') === section) {
         link.setAttribute('aria-current', 'page');
@@ -35,6 +36,27 @@
         link.removeAttribute('aria-current');
       }
     });
+    var models = nav.querySelector('[data-nav-models]');
+    var modelsSummary = nav.querySelector('[data-nav-group="models"]');
+    if (modelsSummary) {
+      if (modelSections.indexOf(section) >= 0) modelsSummary.setAttribute('data-current', 'true');
+      else modelsSummary.removeAttribute('data-current');
+      modelsSummary.removeAttribute('aria-current');
+    }
+    if (models) {
+      models.addEventListener('click', function (event) {
+        if (event.target.closest('.lc-global-nav__models-panel a')) models.open = false;
+      });
+      document.addEventListener('click', function (event) {
+        if (models.open && !models.contains(event.target)) models.open = false;
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && models.open) {
+          models.open = false;
+          if (modelsSummary) modelsSummary.focus();
+        }
+      });
+    }
 
     var button = nav.querySelector('[data-nav-toggle]');
     var menu = nav.querySelector('[data-nav-mobile]');
@@ -57,7 +79,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 1240) setOpen(button, menu, false);
+      if (window.innerWidth > 980) setOpen(button, menu, false);
     });
   }
 

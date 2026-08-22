@@ -779,7 +779,7 @@ ${similar ? `    <section class="section"><h2>Related catalogue entries</h2><p c
 ${nextStepsSection}
   </main>
   <script>window.LOCALCLAW_MODEL=${JSON.stringify(m).replace(/</g, '\\u003c')};</script>
-${hasRuntimeLaunchAssist ? `  ${runtimeLaunchAssistAsset}\n` : ''}  <script src="/js/machine-compat-20260802a.js?v=20260802b"></script>
+${hasRuntimeLaunchAssist ? `  ${runtimeLaunchAssistAsset}\n` : ''}  <script src="/js/machine-compat-20260802a.js?v=20260823a"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/model-account-context-20260802b.js?v=20260802b"></script>
   <script src="/js/community-ratings-20260802a.js?v=20260802b"></script>

@@ -45,6 +45,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         let savedMachines = [];
         let activeMachine = null;
         let machineFiltersEnabled = false;
+        const LLM_PAGE_SIZE = 40;
+        const SPEECH_PAGE_SIZE = 24;
+        const MULTIMODAL_PAGE_SIZE = 6;
+        let llmVisibleLimit = LLM_PAGE_SIZE;
+        let speechVisibleLimit = SPEECH_PAGE_SIZE;
 
         const normalizeSavedMachine = (machine) => ({
             id: String(machine && machine.id || ''),
@@ -65,14 +70,20 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const acceleratorLabel = (value) => ({
             'apple-silicon': 'Apple Silicon', nvidia: 'NVIDIA', amd: 'AMD', cpu: 'CPU'
         }[value] || 'CPU');
-        const machineImagePath = (machine) => {
+        const machineImagePaths = (machine) => {
             const hardwareName = [machine.name, machine.cpuModel, machine.gpuModel].filter(Boolean).join(' ').toLowerCase();
-            if (hardwareName.includes('macstudio') || hardwareName.includes('mac studio')) return 'images/hardware/mac-studio-card-v2.png';
-            if (hardwareName.includes('macmini') || hardwareName.includes('mac mini')) return 'images/hardware/mac-mini-card-v2.png';
-            if (hardwareName.includes('macbook air')) return 'images/hardware/macbook-air-dark.jpg';
-            if (hardwareName.includes('macbook')) return 'images/hardware/macbook-pro-dark.jpg';
-            if (machine.accelerator === 'apple-silicon' || machine.platform === 'macos') return 'images/computers/local-ai-compact-workstation.jpg';
-            return 'images/computers/local-ai-tower.jpg';
+            if (hardwareName.includes('macstudio') || hardwareName.includes('mac studio')) return {
+                light: 'images/hardware/mac-studio-card-v2.png', dark: 'images/hardware/mac-studio-dark.jpg'
+            };
+            if (hardwareName.includes('macmini') || hardwareName.includes('mac mini')) return {
+                light: 'images/hardware/mac-mini-card-v2.png', dark: 'images/hardware/mac-mini-dark.jpg'
+            };
+            if (hardwareName.includes('macbook air')) return {light: 'images/hardware/macbook-air-dark.jpg', dark: 'images/hardware/macbook-air-dark.jpg'};
+            if (hardwareName.includes('macbook')) return {light: 'images/hardware/macbook-pro-dark.jpg', dark: 'images/hardware/macbook-pro-dark.jpg'};
+            if (machine.accelerator === 'apple-silicon' || machine.platform === 'macos') return {
+                light: 'images/computers/local-ai-compact-workstation.jpg', dark: 'images/computers/local-ai-compact-workstation.jpg'
+            };
+            return {light: 'images/computers/local-ai-tower.jpg', dark: 'images/computers/local-ai-tower.jpg'};
         };
         const machineMemoryLabel = (machine) => machine.accelerator === 'apple-silicon'
             ? `${machine.ramGb} GB unified`
@@ -104,6 +115,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             category.key,
             multimodalModels.filter((model) => model.category === category.key)
         ]));
+        const multimodalVisibleLimits = new Map(multimodalCategories.map((category) => [category.key, MULTIMODAL_PAGE_SIZE]));
         const logoRegistry = window.HOME_INDEX_LOGOS || {llm: {}, speech: {}, multimodal: {}, labels: {}};
 
         const familyDetails = (model) => {
@@ -231,6 +243,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (!machineRam) return {key: 'unset', label: 'Set RAM'};
             const sharedRanking = window.LocalClawModelRanking;
             if (!sharedRanking) return {key: 'too-large', label: 'Unavailable'};
+            if (finite(model && model.size_gb) <= 0 || String(model && model.recommended_quant || '').toUpperCase() === 'API') {
+                return {key: 'too-large', label: 'Unavailable'};
+            }
             const machine = machineFiltersEnabled && activeMachine
                 ? {...activeMachine, context: '8k'}
                 : {ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'};
@@ -321,7 +336,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             document.querySelectorAll('[data-sponsor-campaign]').forEach((slot) => observer.observe(slot));
         };
 
-        const renderModelRows = (models) => models.map((model, index) => {
+        const renderModelRows = (models, offset = 0) => models.map((model, index) => {
             const ratings = model.benchmarks || {};
             const overall = llmScore(model);
             const scoreTitle = `LocalClaw catalogue score ${scoreLabel(overall)} out of 10. Quality ${finite(ratings.quality)}; coding ${finite(ratings.coding)}; reasoning ${finite(ratings.reasoning)}; speed ${finite(ratings.speed)}.`;
@@ -329,7 +344,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const compareLimitReached = comparedModelIds.size >= 3 && !isCompared;
             return `
                 <tr>
-                    <td class="lc-index-rank">${String(index + 1).padStart(3, '0')}</td>
+                    <td class="lc-index-rank">${String(offset + index + 1).padStart(3, '0')}</td>
                     <td>
                         <a class="lc-index-model-link" href="/models/${encodeURIComponent(model.id)}" data-fast-goal="model_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
                             ${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}
@@ -346,12 +361,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 </tr>`;
         }).join('');
 
-        const renderSpeechRows = (models) => models.map((model, index) => {
+        const renderSpeechRows = (models, offset = 0) => models.map((model, index) => {
             const overall = speechScore(model);
             const scoreTitle = `LocalClaw audio score ${scoreLabel(overall)} out of 10. Quality ${finite(model.quality)}; speed ${finite(model.speed)}.`;
             const hardware = (model.hardware || []).map(prettyTerm).join(' · ');
             return `<a class="lc-index-tts-row" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
-                <span class="lc-index-tts-rank">${String(index + 1).padStart(2, '0')}</span>
+                <span class="lc-index-tts-rank">${String(offset + index + 1).padStart(2, '0')}</span>
                 ${logoMarkup('speech', model.family, model.developer)}
                 <span class="lc-index-tts-copy"><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span><span class="lc-index-tts-signals">QUALITY ${scoreLabel(model.quality)} · SPEED ${scoreLabel(model.speed)}${hardware ? ` · ${escapeHtml(hardware.toUpperCase())}` : ''}</span></span>
                 <span class="lc-index-tts-score-group">${communityMarkup(speechCommunityId(model), 'lc-index-community--speech')}${scoreMarkup(overall, scoreTitle, 'lc-index-score--speech')}<span class="lc-index-tts-type">${escapeHtml(model.type)}</span></span>
@@ -380,8 +395,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const models = multimodalByCategory.get(category.key) || [];
             return `<section id="${category.anchor}" class="lc-index-multimodal-category" data-multimodal-category="${category.key}" aria-labelledby="${category.anchor}-title">
                 <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directory ${category.number}</span><h2 id="${category.anchor}-title">Local ${category.label}</h2></div><div class="lc-index-section-meta"><p><strong data-multimodal-count="${category.key}">${models.length}</strong> of ${models.length} verified local records</p></div></div>
-                <div class="lc-index-multimodal-grid">${renderMultimodalCards(models)}</div>
+                <div id="${category.anchor}-grid" class="lc-index-multimodal-grid">${renderMultimodalCards(models.slice(0, MULTIMODAL_PAGE_SIZE))}</div>
                 <p class="lc-index-multimodal-empty" hidden>No ${escapeHtml(category.label.toLowerCase())} model matches these hardware filters.</p>
+                <button class="lc-index-load-more" type="button" data-multimodal-more="${category.key}" aria-controls="${category.anchor}-grid">Show more ${escapeHtml(category.label.toLowerCase())} models</button>
                 <a class="lc-index-more" href="${category.catalogue}">Open the dedicated ${escapeHtml(category.label)} catalogue →</a>
             </section>`;
         }).join('');
@@ -401,6 +417,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <p class="lc-index-kicker">// LocalClaw · local models only</p>
                             <h1>The Local <span>Model Index</span></h1>
                             <p>One maintained directory for local language, voice, image, video, 3D, music and vision models, with machine requirements and source-backed local paths.</p>
+                            <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></div>
                             <a class="lc-index-hero__guide-link" href="#home-index-guide">How rankings work · RAM quick answers ↓</a>
                         </div>
                     </header>
@@ -415,7 +432,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
                         <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>
-                            <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div><a href="/account">Manage machines →</a></div>
+                            <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div></div>
                             <div id="lc-home-machine-list" class="lc-home-machine-list" role="radiogroup" aria-label="Choose a saved machine"></div>
                             <div class="lc-home-machine-context"><p id="lc-home-machine-status" aria-live="polite"></p><button id="lc-home-machine-catalogue" type="button" aria-pressed="false">Show full catalogues</button></div>
                         </div>
@@ -438,6 +455,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 01</span><h2 id="llm-index-title">Local LLMs</h2></div>
                             <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> ranked entries · independent signals</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">LocalClaw · /10</span></div>
+                            <p id="lc-index-result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
                         </div>
                         <div class="lc-index-controls">
                             <label class="lc-index-control-label"><span>Search</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
@@ -449,9 +467,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
                                 <thead><tr><th class="lc-index-rank" scope="col">Rank</th><th class="lc-index-model-col" scope="col" data-sort-key="name" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="name" data-sort-label="model name">Model / family<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-score-col" scope="col" data-sort-key="score" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="score" data-sort-label="LocalClaw score">LocalClaw<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-community-col" scope="col" data-sort-key="community" aria-sort="descending"><button class="lc-index-sort-button" type="button" data-sort-key="community" data-sort-label="community confidence">Community<span class="lc-index-sort-indicator" aria-hidden="true">↓</span></button></th><th scope="col" data-sort-key="params" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="params" data-sort-label="parameter count">Params<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="ram" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="ram" data-sort-label="minimum RAM">Min RAM<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="license" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="license" data-sort-label="licence">Licence<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="fresh" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="fresh" data-sort-label="release date">Released<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-action-col" scope="col">Compare</th></tr></thead>
-                                <tbody id="lc-index-model-rows">${renderModelRows(rankedModels)}</tbody>
+                                <tbody id="lc-index-model-rows">${renderModelRows(rankedModels.slice(0, LLM_PAGE_SIZE))}</tbody>
                             </table>
                         </div>
+                        <button id="lc-index-model-more" class="lc-index-load-more" type="button" aria-controls="lc-index-model-rows">Show more LLMs</button>
                         <aside id="lc-index-compare-tray" class="lc-index-compare-tray" aria-live="polite" hidden><div><strong><span id="lc-index-compare-count">0</span>/3 selected</strong><span id="lc-index-compare-status">Select at least two LLMs.</span></div><div id="lc-index-compare-chips" class="lc-index-compare-chips"></div><div class="lc-index-compare-actions"><button id="lc-index-compare-clear" type="button">Clear</button><button id="lc-index-compare-open" type="button" disabled>Compare models</button></div></aside>
                         <p class="lc-index-method-note"><strong>Two independent rankings.</strong> Community ★ shows the raw 1–5 star average. “Community confidence” orders rated models with a transparent Bayesian prior of 3.5/5 over five votes, so one vote cannot dominate; EARLY marks fewer than five votes. Unrated ties may use LocalClaw order, but community ratings never change or blend into the separate LocalClaw /10 editorial catalogue rubric (38% quality + 24% coding + 24% reasoning + 14% speed). It is not a standardized third-party benchmark.</p>
                     </section>
@@ -460,6 +479,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 02</span><h2 id="tts-index-title">Local speech / TTS</h2></div>
                             <div class="lc-index-section-meta"><p><strong id="lc-index-tts-result-count">${speechModels.length}</strong> ranked speech records · local only</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">Audio · /10</span></div>
+                            <p id="lc-index-tts-result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
                         </div>
                         <div class="lc-index-controls lc-index-tts-controls">
                             <label class="lc-index-control-label"><span>Search</span><input id="lc-index-tts-search" class="lc-index-control" type="search" placeholder="Search speech model or maker…" autocomplete="off"></label>
@@ -468,12 +488,14 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
                         </div>
                         <p id="lc-index-tts-machine-note" class="lc-index-machine-note" hidden></p>
-                        <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels)}</div>
+                        <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels.slice(0, SPEECH_PAGE_SIZE))}</div>
+                        <button id="lc-index-tts-more" class="lc-index-load-more" type="button" aria-controls="lc-index-tts-list">Show more speech models</button>
                         <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community confidence uses only the raw star average and number of signed-in member votes; EARLY marks fewer than five votes. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
                     </section>
                     <section id="multimodal-index" class="lc-index-multimodal" aria-labelledby="multimodal-index-title">
                         <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directories 03–07</span><h2 id="multimodal-index-title">Image, video, 3D, music and vision</h2></div><div class="lc-index-section-meta"><p><strong id="lc-index-multimodal-result-count">${multimodalModels.length}</strong> of ${multimodalModels.length} verified local records</p><span class="lc-index-method-pill">Hardware-aware</span></div></div>
+                        <p id="lc-index-multimodal-result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
                         <div class="lc-index-controls lc-index-multimodal-controls">
                             <label class="lc-index-control-label"><span>Search</span><input id="lc-index-multimodal-search" class="lc-index-control" type="search" placeholder="Search every other AI model…" autocomplete="off"></label>
                             <label class="lc-index-control-label"><span>System</span><select id="lc-index-multimodal-platform" class="lc-index-control"><option value="all">Any system</option><option value="macos">macOS</option><option value="windows">Windows</option><option value="linux">Linux</option></select></label>
@@ -606,6 +628,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const sort = document.getElementById('lc-index-sort');
         const rows = document.getElementById('lc-index-model-rows');
         const count = document.getElementById('lc-index-result-count');
+        const modelMore = document.getElementById('lc-index-model-more');
+        const resultStatus = document.getElementById('lc-index-result-status');
+        let llmResultsInitialized = false;
         const compareTray = document.getElementById('lc-index-compare-tray');
         const compareCount = document.getElementById('lc-index-compare-count');
         const compareStatus = document.getElementById('lc-index-compare-status');
@@ -700,7 +725,29 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (countTarget) countTarget.textContent = value;
             if (labelTarget) labelTarget.textContent = `local ${value === 1 ? singular : plural}`;
         };
-        const updateIndex = () => {
+        const announceResultCount = (element, value, label, displayed = value) => {
+            if (element) element.textContent = `${value} local ${label}${value === 1 ? '' : 's'} match. ${displayed} currently displayed.`;
+        };
+        const updateMoreButton = (button, total, shown, label) => {
+            const remaining = Math.max(0, total - shown);
+            button.hidden = remaining === 0;
+            if (remaining) button.textContent = `Show ${Math.min(remaining, label === 'LLMs' ? LLM_PAGE_SIZE : SPEECH_PAGE_SIZE)} more ${label} · ${remaining} remaining`;
+        };
+        const reducedMotionQuery = typeof window.matchMedia === 'function'
+            ? window.matchMedia('(prefers-reduced-motion: reduce)')
+            : null;
+        if (reducedMotionQuery && !window.__localClawReducedMotionScrollBound) {
+            window.__localClawReducedMotionScrollBound = true;
+            document.addEventListener('click', (event) => {
+                if (!reducedMotionQuery.matches || !(event.target instanceof Element)) return;
+                if (!event.target.closest('#scroll-to-top')) return;
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                window.scrollTo({top: 0, behavior: 'auto'});
+            }, true);
+        }
+        const updateIndex = (resetLimit = true) => {
+            if (resetLimit) llmVisibleLimit = LLM_PAGE_SIZE;
             const query = search.value.trim().toLowerCase();
             const selectedFamily = family.value;
             const selectedFit = fitFilter.value;
@@ -714,11 +761,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     && matchesFit
                     && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(activeSortKey, activeSortDirection));
-            rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
+            const displayed = filtered.slice(0, llmVisibleLimit);
+            rows.innerHTML = displayed.length ? renderModelRows(displayed) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
             setFamilyResultCount('llm', filtered.length, 'page', 'pages');
+            updateMoreButton(modelMore, filtered.length, displayed.length, 'LLMs');
+            if (llmResultsInitialized) announceResultCount(resultStatus, filtered.length, 'LLM', displayed.length);
+            llmResultsInitialized = true;
             renderCompareTray();
         };
+        modelMore.addEventListener('click', () => {
+            llmVisibleLimit += LLM_PAGE_SIZE;
+            updateIndex(false);
+        });
         let llmSearchGoalTimer = 0;
         let lastTrackedLlmSearch = '';
         search.addEventListener('input', () => {
@@ -824,8 +879,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const speechSort = document.getElementById('lc-index-tts-sort');
         const speechRows = document.getElementById('lc-index-tts-list');
         const speechCount = document.getElementById('lc-index-tts-result-count');
+        const speechMore = document.getElementById('lc-index-tts-more');
+        const speechResultStatus = document.getElementById('lc-index-tts-result-status');
+        let speechResultsInitialized = false;
         const speechMachineNote = document.getElementById('lc-index-tts-machine-note');
-        const updateSpeechIndex = () => {
+        const updateSpeechIndex = (resetLimit = true) => {
+            if (resetLimit) speechVisibleLimit = SPEECH_PAGE_SIZE;
             const query = speechSearch.value.trim().toLowerCase();
             const type = speechType.value;
             const hardware = speechHardware.value;
@@ -835,10 +894,18 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     && (type === 'all' || model.type === type)
                     && (hardware === 'all' || (model.hardware || []).includes(hardware));
             }).sort(compareSpeech(speechSort.value));
-            speechRows.innerHTML = filtered.length ? renderSpeechRows(filtered) : '<p class="lc-index-tts-empty">No local speech model matches these filters.</p>';
+            const displayed = filtered.slice(0, speechVisibleLimit);
+            speechRows.innerHTML = displayed.length ? renderSpeechRows(displayed) : '<p class="lc-index-tts-empty">No local speech model matches these filters.</p>';
             speechCount.textContent = filtered.length;
             setFamilyResultCount('voice', filtered.length, 'record', 'records');
+            updateMoreButton(speechMore, filtered.length, displayed.length, 'speech models');
+            if (speechResultsInitialized) announceResultCount(speechResultStatus, filtered.length, 'speech record', displayed.length);
+            speechResultsInitialized = true;
         };
+        speechMore.addEventListener('click', () => {
+            speechVisibleLimit += SPEECH_PAGE_SIZE;
+            updateSpeechIndex(false);
+        });
         let speechSearchGoalTimer = 0;
         let lastTrackedSpeechSearch = '';
         speechSearch.addEventListener('input', () => {
@@ -876,26 +943,28 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const multimodalRam = document.getElementById('lc-index-multimodal-ram');
         const multimodalVram = document.getElementById('lc-index-multimodal-vram');
         const multimodalCount = document.getElementById('lc-index-multimodal-result-count');
+        const multimodalResultStatus = document.getElementById('lc-index-multimodal-result-status');
         const multimodalMachineNote = document.getElementById('lc-index-multimodal-machine-note');
-        const multimodalCards = Array.from(document.querySelectorAll('[data-multimodal-card]'));
+        let multimodalResultsInitialized = false;
         const updateMultimodalRatings = () => {
             document.querySelectorAll('[data-multimodal-community-id]').forEach((container) => {
                 container.innerHTML = communityMarkup(container.dataset.multimodalCommunityId, 'lc-index-community--multimodal');
             });
         };
-        const updateMultimodalIndex = () => {
+        const updateMultimodalIndex = (resetLimits = true) => {
+            if (resetLimits) multimodalCategories.forEach((category) => multimodalVisibleLimits.set(category.key, MULTIMODAL_PAGE_SIZE));
             const query = multimodalSearch.value.trim().toLowerCase();
             const platform = multimodalPlatform.value;
             const accelerator = multimodalAccelerator.value;
             const ram = finite(multimodalRam.value);
             const vram = finite(multimodalVram.value);
-            const fitsActiveMachine = (card) => {
+            const fitsActiveMachine = (model) => {
                 if (!machineFiltersEnabled || !activeMachine) return true;
-                const platforms = card.dataset.platforms.split(' ');
-                const accelerators = card.dataset.accelerators.split(' ');
-                const memoryFits = finite(card.dataset.ram) <= activeMachine.ramGb;
+                const platforms = model.platforms || [];
+                const accelerators = model.accelerators || [];
+                const memoryFits = finite(model.min_ram_gb) <= activeMachine.ramGb;
                 const needsSeparateVram = activeMachine.accelerator === 'nvidia' || activeMachine.accelerator === 'amd';
-                const requiredVram = finite(card.dataset.vram);
+                const requiredVram = finite(model.min_vram_gb);
                 const vramFits = !needsSeparateVram
                     || requiredVram === 0
                     || (activeMachine.vramGb !== null && requiredVram <= activeMachine.vramGb);
@@ -905,28 +974,48 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     && vramFits;
             };
             let visibleTotal = 0;
-            multimodalCards.forEach((card) => {
-                const matchesControls = machineFiltersEnabled
-                    ? fitsActiveMachine(card)
-                    : (platform === 'all' || card.dataset.platforms.split(' ').includes(platform))
-                        && (accelerator === 'all' || card.dataset.accelerators.split(' ').includes(accelerator))
-                        && (!ram || finite(card.dataset.ram) <= ram)
-                        && (!vram || finite(card.dataset.vram) <= vram);
-                const visible = (!query || card.dataset.search.includes(query)) && matchesControls;
-                card.hidden = !visible;
-                if (visible) visibleTotal += 1;
-            });
+            let renderedTotal = 0;
             multimodalCategories.forEach((category) => {
                 const section = document.querySelector(`[data-multimodal-category="${category.key}"]`);
-                const categoryCards = Array.from(section.querySelectorAll('[data-multimodal-card]'));
-                const categoryVisible = categoryCards.filter((card) => !card.hidden).length;
-                section.querySelector(`[data-multimodal-count="${category.key}"]`).textContent = categoryVisible;
-                setFamilyResultCount(category.key, categoryVisible, 'model', 'models');
-                section.querySelector('.lc-index-multimodal-grid').hidden = categoryVisible === 0;
-                section.querySelector('.lc-index-multimodal-empty').hidden = categoryVisible !== 0;
+                const models = multimodalByCategory.get(category.key) || [];
+                const filtered = models.filter((model) => {
+                    const matchesControls = machineFiltersEnabled
+                        ? fitsActiveMachine(model)
+                        : (platform === 'all' || (model.platforms || []).includes(platform))
+                            && (accelerator === 'all' || (model.accelerators || []).includes(accelerator))
+                            && (!ram || finite(model.min_ram_gb) <= ram)
+                            && (!vram || finite(model.min_vram_gb) <= vram);
+                    const searchText = [model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase();
+                    return (!query || searchText.includes(query)) && matchesControls;
+                });
+                const limit = multimodalVisibleLimits.get(category.key) || MULTIMODAL_PAGE_SIZE;
+                const displayed = filtered.slice(0, limit);
+                const grid = section.querySelector('.lc-index-multimodal-grid');
+                const empty = section.querySelector('.lc-index-multimodal-empty');
+                const more = section.querySelector('[data-multimodal-more]');
+                grid.innerHTML = renderMultimodalCards(displayed);
+                grid.hidden = displayed.length === 0;
+                empty.hidden = filtered.length !== 0;
+                section.querySelector(`[data-multimodal-count="${category.key}"]`).textContent = filtered.length;
+                setFamilyResultCount(category.key, filtered.length, 'model', 'models');
+                const remaining = Math.max(0, filtered.length - displayed.length);
+                more.hidden = remaining === 0;
+                if (remaining) more.textContent = `Show ${Math.min(MULTIMODAL_PAGE_SIZE, remaining)} more ${category.label.toLowerCase()} models · ${remaining} remaining`;
+                visibleTotal += filtered.length;
+                renderedTotal += displayed.length;
             });
+            updateMultimodalRatings();
             multimodalCount.textContent = visibleTotal;
+            if (multimodalResultsInitialized) announceResultCount(multimodalResultStatus, visibleTotal, 'multimodal record', renderedTotal);
+            multimodalResultsInitialized = true;
         };
+        document.querySelectorAll('[data-multimodal-more]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const key = button.dataset.multimodalMore;
+                multimodalVisibleLimits.set(key, (multimodalVisibleLimits.get(key) || MULTIMODAL_PAGE_SIZE) + MULTIMODAL_PAGE_SIZE);
+                updateMultimodalIndex(false);
+            });
+        });
         const ensureNumericOption = (select, value, label) => {
             const normalized = String(Math.max(0, finite(value)));
             let option = Array.from(select.options).find((item) => item.value === normalized);
@@ -947,8 +1036,13 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             machineList.innerHTML = savedMachines.map((machine, index) => {
                 const selected = activeMachine && machine.id === activeMachine.id;
                 const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
+                const machineImages = machineImagePaths(machine);
+                const darkImage = machineImages.dark !== machineImages.light
+                    ? `<img class="lc-home-machine-card__image lc-home-machine-card__image--dark" src="${machineImages.dark}" alt="" width="160" height="90" loading="lazy" decoding="async">`
+                    : '';
+                const lightImageClass = darkImage ? ' lc-home-machine-card__image--theme-light' : '';
                 return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" tabindex="${selected ? '0' : '-1'}" data-saved-machine="${index}">
-                    <span class="lc-home-machine-card__visual" aria-hidden="true"><img src="${machineImagePath(machine)}" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
+                    <span class="lc-home-machine-card__visual" aria-hidden="true"><img class="lc-home-machine-card__image lc-home-machine-card__image--light${lightImageClass}" src="${machineImages.light}" alt="" width="104" height="104" loading="lazy" decoding="async">${darkImage}</span>
                     <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span class="lc-home-machine-card__hardware" title="${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}">${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}</span></span>
                     <span class="lc-home-machine-card__signals">${selected ? '<span class="lc-home-machine-card__selected">Selected</span>' : ''}${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}</span>
                 </button>`;
@@ -979,7 +1073,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
             });
             if (machineFiltersEnabled && activeMachine) {
-                machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><i></i><strong>${escapeHtml(activeMachine.name)}</strong> selected</span><span>All 7 directories updated · Green LLMs only · Tight excluded · Voice uses verified hardware tags</span>`;
+                machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><i></i><strong>${escapeHtml(activeMachine.name)}</strong> selected</span><span>All 7 directories updated · Green LLM fits only · Voice uses verified hardware paths</span>`;
                 machineCatalogueToggle.textContent = 'Show full catalogues';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'false');
             } else {
@@ -1156,9 +1250,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 savedMachines = (Array.isArray(data && data.machines) ? data.machines : [])
                     .map(normalizeSavedMachine)
                     .filter((machine) => machine.id && machine.ramGb);
-                document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'My Machines'; });
+                document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'Account'; });
                 const machineCta = document.getElementById('lc-home-machine-cta');
-                if (machineCta) machineCta.textContent = savedMachines.length ? 'Manage my machines →' : 'Add my machine →';
+                if (machineCta) machineCta.textContent = savedMachines.length ? 'Manage machines →' : 'Add machine →';
                 const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
                 if (primary) applySavedMachine(primary, false);
             } catch (error) {

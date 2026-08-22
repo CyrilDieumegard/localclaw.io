@@ -107,6 +107,9 @@ const rankedSpeech = [...speechModels].sort((a, b) => speechScore(b) - speechSco
   || finite(b.quality) - finite(a.quality)
   || String(a.name).localeCompare(String(b.name), 'en', { sensitivity: 'base' }));
 const totalLocalAiRecords = localModels.length + speechModels.length + multimodalModels.length;
+const FALLBACK_LLM_SAMPLE_SIZE = 24;
+const FALLBACK_SPEECH_SAMPLE_SIZE = 12;
+const FALLBACK_MULTIMODAL_SAMPLE_SIZE = 4;
 
 function verifiedLicense(model) {
   return modelDetails[model.id] && modelDetails[model.id].license
@@ -184,8 +187,9 @@ function renderSpeechList(models) {
 function renderMultimodalFallback() {
   return multimodalCategories.map(category => {
     const models = multimodalModels.filter(model => model.category === category.key);
-    const cards = models.map(model => `<a href="/${category.directory}/${encodeURIComponent(model.id)}"><strong>${escapeHtml(model.name)}</strong><span>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</span><small>${escapeHtml(model.summary)}</small></a>`).join('');
-    return `<section id="${category.anchor}" class="lc-index-fallback__multi-category" aria-labelledby="fallback-${category.key}-title"><header><div><span class="lc-index-eyebrow">${models.length} verified records</span><h3 id="fallback-${category.key}-title">Local ${category.label}</h3></div><a href="${category.catalogue}">Dedicated catalogue →</a></header><div>${cards}</div></section>`;
+    const sample = models.slice(0, FALLBACK_MULTIMODAL_SAMPLE_SIZE);
+    const cards = sample.map(model => `<a href="/${category.directory}/${encodeURIComponent(model.id)}"><strong>${escapeHtml(model.name)}</strong><span>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</span><small>${escapeHtml(model.summary)}</small></a>`).join('');
+    return `<section id="${category.anchor}" class="lc-index-fallback__multi-category" aria-labelledby="fallback-${category.key}-title"><header><div><span class="lc-index-eyebrow">${sample.length} of ${models.length} verified records</span><h3 id="fallback-${category.key}-title">Local ${category.label}</h3></div><a href="${category.catalogue}">Browse the full ${category.label.toLowerCase()} catalogue →</a></header><div>${cards}</div></section>`;
   }).join('\n');
 }
 
@@ -210,27 +214,27 @@ function renderFallback() {
           </section>
 
           <section id="llm-index" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
-            <div><span class="lc-index-eyebrow">Complete crawlable catalogue</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>All ${localModels.length} current local records, ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal.</p></div>
+            <div><span class="lc-index-eyebrow">Representative crawlable snapshot</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>Top ${Math.min(FALLBACK_LLM_SAMPLE_SIZE, rankedModels.length)} of ${localModels.length} current local records, ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal; open the full catalogue for every record.</p></div>
             <div class="lc-index-fallback__table-wrap"><table><thead><tr><th>Rank</th><th>Model / family</th><th>LocalClaw</th><th>Parameters</th><th>Min RAM</th><th>Licence</th><th>Released</th></tr></thead><tbody>
-${renderModelTableRows(rankedModels)}
+${renderModelTableRows(rankedModels.slice(0, FALLBACK_LLM_SAMPLE_SIZE))}
             </tbody></table></div>
-            <a class="lc-index-more" href="/llm-list">Browse all LLM catalogue records →</a>
+            <a class="lc-index-more" href="/llm-list">Browse the full LLM catalogue →</a>
           </section>
 
           <section id="tts-index" class="lc-index-fallback__section" aria-labelledby="speech-snapshot-title">
-            <div><span class="lc-index-eyebrow">Complete crawlable catalogue</span><h2 id="speech-snapshot-title">Local speech score leaders</h2><p>All ${speechModels.length} records, ordered by the homepage Audio score: 68% quality and 32% speed. Community stars remain independent.</p></div>
+            <div><span class="lc-index-eyebrow">Representative crawlable snapshot</span><h2 id="speech-snapshot-title">Local speech score leaders</h2><p>Top ${Math.min(FALLBACK_SPEECH_SAMPLE_SIZE, rankedSpeech.length)} of ${speechModels.length} records, ordered by the homepage Audio score: 68% quality and 32% speed. Community stars remain independent; open the full catalogue for every record.</p></div>
             <ol class="lc-index-fallback__speech">
-${renderSpeechList(rankedSpeech)}
+${renderSpeechList(rankedSpeech.slice(0, FALLBACK_SPEECH_SAMPLE_SIZE))}
             </ol>
-            <a class="lc-index-more" href="/tts-list">Browse the complete speech catalogue →</a>
+            <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
           </section>
 
           <section id="multimodal-index" class="lc-index-fallback__section lc-index-fallback__multimodal" aria-labelledby="multimodal-snapshot-title">
-            <div><span class="lc-index-eyebrow">Complete local catalogue</span><h2 id="multimodal-snapshot-title">Image, video, 3D, music and vision</h2><p>Every verified record is listed on the homepage. JavaScript adds search plus system, compute, RAM and VRAM filters.</p></div>
+            <div><span class="lc-index-eyebrow">Representative crawlable snapshot</span><h2 id="multimodal-snapshot-title">Image, video, 3D, music and vision</h2><p>Up to ${FALLBACK_MULTIMODAL_SAMPLE_SIZE} verified records per family are shown here. JavaScript adds the complete interactive index with search plus system, compute, RAM and VRAM filters; each dedicated catalogue contains every record.</p></div>
             ${renderMultimodalFallback()}
           </section>
 
-          <p class="lc-index-fallback__enhance"><strong>Progressive enhancement:</strong> JavaScript adds live community vote counts, machine-fit filtering, search, sorting and comparison across all ${totalLocalAiRecords} local records. This verified snapshot remains useful if those enhancements are unavailable.</p>
+          <p class="lc-index-fallback__enhance"><strong>Progressive enhancement:</strong> JavaScript adds the complete interactive index with live community vote counts, machine-fit filtering, search, sorting and comparison across ${totalLocalAiRecords} local records. This verified sample remains useful if those enhancements are unavailable.</p>
         </div>`;
 }
 

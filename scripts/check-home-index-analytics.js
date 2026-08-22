@@ -23,15 +23,23 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260822i', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260823a', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
 requireText(homepage, "fitFilter.value = 'fits'", 'Signed-in machines must default the homepage to green fits only');
 requireText(homepage, 'Green fits only', 'Homepage machine filtering must clearly label the strict green-fit view');
+requireText(homepage, "finite(model && model.size_gb) <= 0", 'Homepage green-fit filtering must not claim compatibility when model size metadata is missing');
+requireText(homepage, 'Green LLM fits only', 'Homepage saved-machine status must match the strict green-fit filter wording');
 if (/Comfortable \+ tight|Tight only/.test(homepage)) {
   errors.push('Homepage machine availability must not offer tight-fit models');
 }
-requireText(homepage, "link.textContent = 'My Machines'", 'Signed-in homepage navigation must expose My Machines');
-requireText(homepage, "machineCta.textContent = savedMachines.length ? 'Manage my machines →' : 'Add my machine →'", 'Signed-in homepage CTA must match the saved-machine state');
+requireText(homepage, "link.textContent = 'Account'", 'Signed-in homepage navigation must expose the consistent Account label');
+requireText(homepage, "machineCta.textContent = savedMachines.length ? 'Manage machines →' : 'Add machine →'", 'Signed-in homepage CTA must match the saved-machine state');
+requireText(homepage, 'const LLM_PAGE_SIZE = 40', 'Homepage LLMs must render progressively');
+requireText(homepage, 'const SPEECH_PAGE_SIZE = 24', 'Homepage speech records must render progressively');
+requireText(homepage, 'const MULTIMODAL_PAGE_SIZE = 6', 'Homepage multimodal cards must render progressively');
+requireText(homepage, 'id="lc-index-model-more"', 'Homepage LLM progressive-render control is missing');
+requireText(homepage, 'id="lc-index-tts-more"', 'Homepage speech progressive-render control is missing');
+requireText(homepage, 'data-multimodal-more=', 'Homepage multimodal progressive-render controls are missing');
 requireText(homepage, "trackHomeGoal('home_machine_select'", 'Saved-machine selection needs a dedicated privacy-safe goal');
 requireText(homepage, 'machine_count: savedMachines.length', 'Machine selection telemetry must be aggregate-only');
 requireText(homepage, 'ram_bucket: ramBucket(machine.ramGb)', 'Machine selection telemetry must bucket RAM');

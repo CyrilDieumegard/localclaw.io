@@ -5,7 +5,7 @@ const { NAV_VERSION, siteNavigation, siteNavAssets } = require('./site-navigatio
 const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
 const excludedDirectories = new Set(['.git', '.pages-dist', '.wrangler', 'node_modules', '_check']);
-const protectedFiles = new Set(['sponsor-terms.html']);
+const protectedFiles = new Set(['pricing.html', 'sponsor-terms.html', 'success.html']);
 
 const navigationContract = siteNavigation();
 for (const marker of [
@@ -15,6 +15,8 @@ for (const marker of [
   'href="/ram-gpu-for-local-ai"',
   'data-nav-key="ram-gpu"',
   '>RAM/GPU</a>',
+  'data-nav-group="models"',
+  'class="lc-global-nav__models-panel"',
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile'

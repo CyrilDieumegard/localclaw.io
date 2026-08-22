@@ -11,6 +11,7 @@ const accountHtml = read('account.html');
 const accountCss = read('css/account-20260802a.css');
 const growth = read('js/growth-paths-20260727a.js');
 const index = read('index.html');
+const machineCompatibility = read('js/machine-compat-20260802a.js');
 
 const dataContext = {};
 vm.createContext(dataContext);
@@ -109,6 +110,10 @@ assert(accountHtml.includes('/js/account-analytics-20260820a.js?v=20260820c'), '
 assert(accountHtml.includes('/css/account-20260802a.css?v=20260822a'), 'Account plan CSS cache key is stale');
 assert(accountCss.includes('.lc-plan-overview'), 'Account plan overview styles are missing');
 assert(accountCss.includes('.lc-machine-match'), 'Existing-machine choice styles are missing');
+assert(machineCompatibility.includes('includeTight: false'), 'Account plans must exclude tight-fit LLMs');
+assert(account.includes('indexableLocalModels()'), 'Account recommendations must use the same indexable local LLM scope as the homepage');
+assert(account.includes('APP_DATA.hfRepoVerification?.unavailable'), 'Account recommendations must exclude exact-repository-unavailable LLM tombstones');
+assert(accountHtml.includes('/js/machine-compat-20260802a.js?v=20260823a'), 'Account machine compatibility cache key is stale');
 assert(index.includes('js/data.js?v=20260822b'), 'Homepage flow data cache key is stale');
 assert(index.includes('js/app-20260816a.js?v=20260820e'), 'Homepage plan app cache key is stale');
 assert(index.includes('js/growth-paths-20260727a.js?v=20260822a'), 'Homepage growth path cache key is stale');

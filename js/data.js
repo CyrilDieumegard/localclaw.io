@@ -2443,10 +2443,11 @@ const APP_DATA = {
             size_gb: 20,
             min_ram: 32,
             tags: ['chat', 'code', 'reasoning', 'power', 'quality', 'general'],
-            description: 'Near GPT-4 intelligence locally. Thinking mode demolishes hard problems. The local AI dream.',
+            description: 'Qwen 3 dense 32B open-weight model with hybrid thinking and non-thinking modes, strong reasoning and coding support, and a practical Q4_K_M GGUF path for 32GB-class local machines.',
             search_term: 'qwen3-32b',
             recommended_quant: 'Q4_K_M',
             hf_repo: 'lmstudio-community/Qwen3-32B-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen3-32B',
             benchmarks: { speed: 4, quality: 10, coding: 10, reasoning: 10 },
             released: '2025-04'
         },

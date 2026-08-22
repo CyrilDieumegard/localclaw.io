@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260822c';
+const NAV_VERSION = '20260823a';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
@@ -15,6 +15,8 @@ const items = [
   ['new', '/new', 'New'],
   ['account', '/account', 'Account']
 ];
+
+const modelKeys = new Set(['llm', 'voice', 'image', 'video', '3d', 'music', 'vision']);
 
 function link([key, href, label], active) {
   const account = key === 'account' ? ' lc-global-nav__link--account' : '';
@@ -40,13 +42,23 @@ function siteNavigation(active = '', options = {}) {
   const navigationItems = items.map(item => item[0] === 'account' && options.accountLabel
     ? [item[0], item[1], options.accountLabel]
     : item);
+  const modelItems = navigationItems.filter(item => modelKeys.has(item[0]));
+  const desktopItems = navigationItems.filter(item => !modelKeys.has(item[0]));
+  const modelsCurrent = modelKeys.has(active) ? ' data-current="true"' : '';
+  const desktopNavigation = desktopItems.map((item, index) => {
+    if (index !== 1) return link(item, active);
+    return `<details class="lc-global-nav__models" data-nav-models>
+      <summary class="lc-global-nav__link lc-global-nav__models-summary" data-nav-group="models"${modelsCurrent}>Models</summary>
+      <div class="lc-global-nav__models-panel" aria-label="Model directories">${modelItems.map(modelItem => link(modelItem, active)).join('')}</div>
+    </details>${link(item, active)}`;
+  }).join('');
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links">${navigationItems.map(item => link(item, active)).join('')}</div>
+    <div class="lc-global-nav__links">${desktopNavigation}</div>
     ${themeSwitcher('desktop')}
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>

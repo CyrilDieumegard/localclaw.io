@@ -60,6 +60,11 @@ html { scroll-behavior: smooth; }
 
 .lc-index-hero__guide-link { display: inline-flex; margin-top: 13px; color: #ff6d64; font: 700 8px/1.3 "JetBrains Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; }
 .lc-index-hero__guide-link:hover { color: #fff; }
+.lc-index-hero__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.lc-index-hero__actions a { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; border: 1px solid rgba(255,255,255,0.16); border-radius: 7px; color: #d4d4d8; font: 700 10px/1.2 "JetBrains Mono", monospace; letter-spacing: 0.04em; text-transform: uppercase; }
+.lc-index-hero__actions a:hover,
+.lc-index-hero__actions a:focus-visible { border-color: #ff6d64; color: #fff; }
+.lc-index-hero__actions a.is-primary { border-color: #ff453a; background: #ff453a; color: #fff; }
 
 .lc-index-facts {
     display: grid;
@@ -132,6 +137,10 @@ html { scroll-behavior: smooth; }
 .lc-home-machine-card__visual img { width: 100%; height: 100%; object-fit: cover; }
 .lc-home-machine-card__visual img[src^="images/hardware/mac-"] { width: 84%; height: 84%; margin: 8%; border-radius: 4px; }
 .lc-home-machine-card__visual img[src$="-card-v2.png"] { width: 100%; height: 100%; margin: 0; border-radius: 6px; object-fit: cover; transform: none; }
+.lc-home-machine-card__image--dark { display: none; }
+html.dark .lc-home-machine-card__visual { background: #111113; }
+html.dark .lc-home-machine-card__image--theme-light { display: none; }
+html.dark .lc-home-machine-card__image--dark { display: block; width: 100%; height: 100%; margin: 0; border-radius: 6px; object-fit: cover; object-position: center; }
 .lc-home-machine-card__copy { display: grid; min-width: 0; gap: 3px; }
 .lc-home-machine-card__copy strong,
 .lc-home-machine-card__copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -469,6 +478,7 @@ select.lc-index-control { padding-right: 36px; }
 .lc-index-row-link { color: #ff6d64; font-size: 16px; }
 .lc-index-compare-toggle {
     min-width: 58px;
+    min-height: 24px;
     padding: 6px 7px;
     border: 1px solid rgba(255,255,255,0.13);
     border-radius: 7px;
@@ -634,6 +644,10 @@ select.lc-index-control { padding-right: 36px; }
 .lc-index-tts-type { color: #ff6d64; font: 700 8px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 .lc-index-tts-empty { grid-column: 1 / -1; padding: 42px 20px; border: 1px solid var(--index-border); border-radius: 10px; color: #8e8e98; text-align: center; font: 500 10px/1.5 "JetBrains Mono", monospace; }
 .lc-index-more { display: inline-flex; margin-top: 14px; color: #ff6d64; font: 700 11px/1.5 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-index-load-more { min-height: 40px; display: block; margin: 14px auto 0; padding: 0 16px; border: 1px solid rgba(255,255,255,0.16); border-radius: 7px; background: rgba(255,255,255,0.025); color: #d4d4d8; font: 700 10px/1.2 "JetBrains Mono", monospace; letter-spacing: 0.035em; text-transform: uppercase; }
+.lc-index-load-more:hover,
+.lc-index-load-more:focus-visible { border-color: #ff6d64; background: rgba(255,69,58,0.08); color: #fff; }
+.lc-index-load-more[hidden] { display: none; }
 
 #local-ai-index,
 #llm-index,
@@ -1014,7 +1028,11 @@ html.light .lc-index-row-link,
 html.light .lc-index-compare-detail,
 html.light .lc-index-tts-type,
 html.light .lc-index-more,
+html.light .lc-index-load-more,
 html.light .lc-index-multimodal-card__link { color: #b4231d; }
+html.light .lc-index-load-more { border-color: #cbd5e1; background: #fff; color: #334155; }
+html.light .lc-index-load-more:hover,
+html.light .lc-index-load-more:focus-visible { border-color: #c92f28; background: #fff1ef; color: #8f1f1b; }
 html.light .lc-index-universe > header > a,
 html.light .lc-home-index .lc-global-nav__link--account,
 html.light .lc-index-compare-actions button:last-child {
@@ -1129,10 +1147,15 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
 .lc-index-fact__label--detail { font-size: 10.5px; }
 .lc-index-universe__copy { font-size: 12px; }
 .lc-home-machines__head span { font-size: 11px; }
-.lc-home-machine-card__copy span { font-size: 10px; }
-.lc-home-machine-context p { font-size: 10.5px; }
-.lc-index-universe nav span { font-size: 10px; }
-.lc-index-control-label > span { font-size: 10px; line-height: 1.25; }
+.lc-home-machines__head strong { font-size: 12px; }
+.lc-home-machine-card__copy strong { font-size: 12.5px; }
+.lc-home-machine-card__copy span { font-size: 11.5px; }
+.lc-home-machine-card__selected,
+.lc-home-machine-card__primary { min-height: 20px; font-size: 8px; }
+.lc-home-machine-context p { font-size: 12px; }
+.lc-home-machine-context button { font-size: 9.5px; }
+.lc-index-universe nav span { font-size: 11.5px; }
+.lc-index-control-label > span { font-size: 11px; line-height: 1.25; }
 .lc-index-machine-note { font-size: 11px; }
 .lc-index-tts-signals { font-size: 10px; }
 .lc-index-multimodal-card > p { font-size: 12px; }
@@ -1140,6 +1163,7 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
 .lc-index-multimodal-card dd { font-size: 11px; }
 .lc-index-table th { font-size: 10.5px; }
 .lc-index-table td { font-size: 12px; }
+.lc-index-compare-toggle { font-size: 9.5px; }
 .lc-sponsor-slot__label { font-size: 11px; }
 .lc-sponsor-slot p { font-size: 11px; }
 .lc-sponsor-slot__size { font-size: 10.5px; }
@@ -1172,6 +1196,18 @@ html.dark .lc-home-machine-card__copy span,
 html.dark .lc-index-table td,
 html.dark .lc-index-table th { color: #b9b9c2; }
 html.dark .lc-index-control-label > span { color: #c6c6ce; }
+html.dark .lc-index-multimodal-card dt { color: #b9b9c2; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #scroll-to-top,
+    #scroll-to-top svg { transition: none !important; }
+    #scroll-to-top,
+    #scroll-to-top.visible,
+    #scroll-to-top:hover,
+    #scroll-to-top:active,
+    #scroll-to-top:hover svg { transform: none !important; }
+}
 
 /* Light-mode legibility and layout hardening. */
 html.light .lc-index-hero {
@@ -1190,6 +1226,10 @@ html.light .lc-index-hero__copy > p:not(.lc-index-kicker) {
     font-size: 13px;
 }
 html.light .lc-index-hero__guide-link { font-size: 11px; }
+html.light .lc-index-hero__actions a { border-color: #cbd5e1; background: #fff; color: #334155; }
+html.light .lc-index-hero__actions a:hover,
+html.light .lc-index-hero__actions a:focus-visible { border-color: #c92f28; background: #fff1ef; color: #8f1f1b; }
+html.light .lc-index-hero__actions a.is-primary { border-color: #c92f28; background: #c92f28; color: #fff; }
 html.light .lc-index-hero__guide-link:hover,
 html.light .lc-index-hero__guide-link:focus-visible,
 html.light .lc-index-fallback__nav a:hover,
@@ -1220,9 +1260,9 @@ html.light .lc-index-fact p { font-size: 12px; }
 html.light .lc-index-fact__label--detail { color: #334155; font-size: 10.5px; }
 html.light .lc-index-universe__copy { font-size: 12px; }
 html.light .lc-home-machines__head span { font-size: 11px; }
-html.light .lc-home-machine-card__copy span { font-size: 10px; }
-html.light .lc-home-machine-context p { font-size: 10.5px; }
-html.light .lc-index-universe nav span { font-size: 10px; }
+html.light .lc-home-machine-card__copy span { font-size: 11.5px; }
+html.light .lc-home-machine-context p { font-size: 12px; }
+html.light .lc-index-universe nav span { font-size: 11.5px; }
 html.light .lc-index-control-label > span { color: #475569; font-size: 10px; }
 html.light .lc-index-machine-note { font-size: 11px; }
 html.light .lc-index-tts-signals { font-size: 10px; }
@@ -1338,8 +1378,14 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-hero__copy,
     html.light .lc-index-hero__copy { max-width: 720px; margin: 0 auto; padding-bottom: 6px; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }
-    .lc-index-facts { grid-template-columns: minmax(0, 1fr); }
-    .lc-index-fact { min-height: 0; }
+    .lc-index-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .lc-index-fact { min-height: 122px; padding: 14px; }
+    .lc-index-fact__number { font-size: clamp(1.7rem, 8vw, 2.25rem); }
+    .lc-index-fact__label { font-size: 10px; }
+    .lc-index-fact p { font-size: 10.5px; }
+    .lc-index-hero__actions { justify-content: center; }
+    .lc-index-hero__actions a { min-height: 44px; flex: 1 1 150px; }
+    .lc-index-load-more { width: 100%; min-height: 44px; }
     .lc-home-machine-card { min-height: 96px; grid-template-columns: 60px minmax(0, 1fr); }
     .lc-home-machine-card__visual { width: 60px; height: 60px; }
     html.light .lc-sponsor-offer-inline { align-items: flex-start; flex-direction: column; gap: 10px; }

@@ -3,6 +3,15 @@
 
     const PENDING_MACHINE_KEY = 'localclaw_pending_machine';
     const PENDING_PLAN_KEY = 'localclaw_pending_plan';
+    const MACHINE_FAMILIES = [
+        { key: 'llm', label: 'LLM', catalogue: '/llm-list' },
+        { key: 'voice', label: 'Voice', catalogue: '/tts-list' },
+        { key: 'image', label: 'Image', catalogue: '/image-models' },
+        { key: 'video', label: 'Video', catalogue: '/video-models' },
+        { key: '3d', label: '3D', catalogue: '/3d-models' },
+        { key: 'music', label: 'Music', catalogue: '/music-models' },
+        { key: 'vision', label: 'Vision', catalogue: '/vision-models' }
+    ];
     const MAC_PRESETS = [
         { id: 'macbook-neo-a18-pro-2026', year: 2026, name: 'MacBook Neo A18 Pro', chip: 'A18 Pro', ram: [8], defaultRam: 8 },
         { id: 'macbook-air-13-m5-2026', year: 2026, name: 'MacBook Air 13-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
@@ -603,7 +612,7 @@
             return;
         }
 
-        const result = window.LocalClawCompatibility.rankModels(machine, APP_DATA.models);
+        const result = window.LocalClawCompatibility.rankModels(machine, indexableLocalModels());
         const compatibleById = new Map(result.compatible.map((model) => [model.id, model]));
         const machineFavorites = state.favorites.filter((favorite) => favorite.machineId === machine.id);
         const favoriteById = new Map(machineFavorites.map((favorite) => [favorite.modelId, favorite]));
@@ -631,6 +640,7 @@
 
         elements.recommendationPanel.innerHTML = `
             ${primaryModel ? renderPlanOverview(machine, primaryModel, newFitCount) : ''}
+            ${renderMachineFamilySummary(machine, result.compatible)}
             <header class="lc-recommendation-head">
                 <div>
                     <p class="lc-kicker">Selected hardware</p>
@@ -777,6 +787,197 @@
                     <small>Plan updates appear here when a stronger compatible model enters the catalogue.</small>
                 </div>
             </section>
+        `;
+    }
+
+    function renderMachineFamilySummary(machine, compatibleLlmModels) {
+        const families = machineFamilySummaries(machine, compatibleLlmModels);
+        return `
+            <section class="lc-machine-families" aria-labelledby="machine-families-title">
+                <header class="lc-machine-families__head">
+                    <div>
+                        <p class="lc-kicker">All local AI paths</p>
+                        <h2 id="machine-families-title">What ${escapeHtml(machine.name)} can run</h2>
+                    </div>
+                    <p>Counts use the same local catalogue metadata as the dedicated directories. Voice is shown only as an explicit hardware tag, not a RAM or VRAM fit.</p>
+                </header>
+                <div class="lc-machine-families__grid">
+                    ${families.map(renderMachineFamilyCard).join('')}
+                </div>
+            </section>
+        `;
+    }
+
+    function machineFamilySummaries(machine, compatibleLlmModels) {
+        const llmModels = Array.isArray(compatibleLlmModels) ? compatibleLlmModels : [];
+        const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
+        const localAiModels = Array.isArray(window.LOCAL_AI_CATALOG)
+            ? window.LOCAL_AI_CATALOG.filter((model) => model?.local_status === 'local')
+            : [];
+
+        return MACHINE_FAMILIES.map((family) => {
+            if (family.key === 'llm') {
+                return {
+                    ...family,
+                    state: llmModels.length ? 'ready' : 'none',
+                    stateLabel: llmModels.length ? 'Ready' : 'No verified fit',
+                    count: llmModels.length,
+                    countLabel: 'compatible local models',
+                    model: llmModels[0] || null,
+                    modelLabel: 'Current best match',
+                    note: llmModels.length
+                        ? 'Ranked by the shared LocalClaw compatibility engine.'
+                        : 'No local LLM satisfies the saved hardware profile.'
+                };
+            }
+
+            if (family.key === 'voice') return voiceFamilySummary(family, machine, speechModels);
+
+            const models = localAiModels.filter((model) => model.category === family.key);
+            const compatible = models.filter((model) => multimodalModelFitsMachine(model, machine));
+            const lowestFloor = compatible.slice().sort(compareMultimodalFloor)[0] || null;
+            return {
+                ...family,
+                state: compatible.length ? 'ready' : 'none',
+                stateLabel: compatible.length ? 'Ready' : 'No verified fit',
+                count: compatible.length,
+                countLabel: 'verified local fits',
+                model: lowestFloor,
+                modelLabel: 'Lowest verified floor',
+                note: compatible.length
+                    ? multimodalFitNote(machine)
+                    : multimodalConstraintNote(models, machine)
+            };
+        });
+    }
+
+    function voiceFamilySummary(family, machine, speechModels) {
+        const hardwareTag = voiceHardwareTag(machine);
+        if (!hardwareTag) {
+            return {
+                ...family,
+                state: 'constraint',
+                stateLabel: 'Constraints known',
+                count: 0,
+                countLabel: 'explicit hardware tags',
+                model: null,
+                modelLabel: '',
+                note: 'The canonical Voice metadata has no AMD hardware tag, so no Voice compatibility is claimed.'
+            };
+        }
+
+        const tagged = speechModels
+            .filter((model) => Array.isArray(model?.hardware) && model.hardware.includes(hardwareTag))
+            .sort(compareCanonicalSpeechScore);
+        return {
+            ...family,
+            state: tagged.length ? 'tagged' : 'none',
+            stateLabel: tagged.length ? 'Hardware tagged' : 'No verified tag',
+            count: tagged.length,
+            countLabel: 'explicit hardware tags',
+            model: tagged[0] || null,
+            modelLabel: tagged.length ? 'Top audio score' : '',
+            note: tagged.length
+                ? voiceConstraintNote(machine, hardwareTag)
+                : `No Voice record is explicitly tagged for this ${hardwareTag.toUpperCase()} path.`
+        };
+    }
+
+    function voiceHardwareTag(machine) {
+        if (machine.accelerator === 'apple-silicon') return 'apple';
+        if (machine.accelerator === 'cpu') return 'cpu';
+        if (machine.accelerator === 'nvidia') return 'gpu';
+        return '';
+    }
+
+    function finiteNumber(value, fallback = 0) {
+        const number = Number(value);
+        return Number.isFinite(number) ? number : fallback;
+    }
+
+    function compareCanonicalSpeechScore(left, right) {
+        const score = (model) => Math.min(10, (finiteNumber(model?.quality, 0) * 0.68) + (finiteNumber(model?.speed, 0) * 0.32));
+        return score(right) - score(left)
+            || finiteNumber(right?.quality, 0) - finiteNumber(left?.quality, 0)
+            || finiteNumber(right?.speed, 0) - finiteNumber(left?.speed, 0)
+            || String(left?.name || '').localeCompare(String(right?.name || ''), 'en');
+    }
+
+    function multimodalModelFitsMachine(model, machine) {
+        const platforms = Array.isArray(model?.platforms) ? model.platforms : [];
+        const accelerators = Array.isArray(model?.accelerators) ? model.accelerators : [];
+        const ramFits = finiteNumber(model?.min_ram_gb, 0) <= finiteNumber(machine?.ramGb, 0);
+        const needsSeparateVram = machine?.accelerator === 'nvidia' || machine?.accelerator === 'amd';
+        const requiredVram = finiteNumber(model?.min_vram_gb, 0);
+        const vramFits = !needsSeparateVram
+            || requiredVram === 0
+            || (machine?.vramGb !== null && machine?.vramGb !== '' && finiteNumber(machine?.vramGb, -1) >= requiredVram);
+        return platforms.includes(machine?.platform)
+            && accelerators.includes(machine?.accelerator)
+            && ramFits
+            && vramFits;
+    }
+
+    function compareMultimodalFloor(left, right) {
+        return finiteNumber(left?.min_ram_gb, 0) - finiteNumber(right?.min_ram_gb, 0)
+            || finiteNumber(left?.min_vram_gb, 0) - finiteNumber(right?.min_vram_gb, 0)
+            || String(left?.name || '').localeCompare(String(right?.name || ''), 'en');
+    }
+
+    function multimodalFitNote(machine) {
+        if (machine.accelerator === 'apple-silicon' || machine.accelerator === 'cpu') {
+            return 'Verified by OS, compute path and unified/system RAM; separate VRAM is not used for this machine.';
+        }
+        if (machine.vramGb === null || machine.vramGb === '') {
+            return 'No separate-VRAM fit can be verified without a saved VRAM value.';
+        }
+        return 'Verified by OS, compute path, system RAM and separate VRAM.';
+    }
+
+    function multimodalConstraintNote(models, machine) {
+        if (!models.length) return 'No verified local catalogue records are available in this family yet.';
+        const platformMatches = models.filter((model) => (model.platforms || []).includes(machine.platform));
+        if (!platformMatches.length) return 'No verified local record supports this operating system.';
+        const computeMatches = platformMatches.filter((model) => (model.accelerators || []).includes(machine.accelerator));
+        if (!computeMatches.length) return 'No verified local record supports this compute path.';
+        if ((machine.accelerator === 'nvidia' || machine.accelerator === 'amd') && (machine.vramGb === null || machine.vramGb === '')) {
+            return 'A separate VRAM value is required before this GPU path can be verified.';
+        }
+        return 'Available records exceed the saved RAM or VRAM floor.';
+    }
+
+    function voiceConstraintNote(machine, hardwareTag) {
+        if (machine.accelerator === 'nvidia') {
+            return 'Generic GPU tag only: CUDA support and VRAM floors are not consistently published. Verify each guide.';
+        }
+        return `Explicit ${hardwareTag.toUpperCase()} tag only: canonical Voice records do not consistently publish RAM or VRAM floors.`;
+    }
+
+    function renderMachineFamilyCard(family) {
+        let modelMarkup = '';
+        if (family.model) {
+            const modelPath = family.key === 'llm'
+                ? `/models/${encodeURIComponent(family.model.id)}`
+                : family.key === 'voice'
+                    ? `/tts/${encodeURIComponent(family.model.id)}`
+                    : `/${family.key === '3d' ? '3d' : family.key}/${encodeURIComponent(family.model.id)}`;
+            modelMarkup = `
+                <span class="lc-machine-family__model-label">${escapeHtml(family.modelLabel)}</span>
+                <a class="lc-machine-family__model" href="${modelPath}">${escapeHtml(family.model.name)}</a>
+            `;
+        }
+        return `
+            <article class="lc-machine-family" data-state="${escapeAttribute(family.state)}">
+                <div class="lc-machine-family__top">
+                    <h3>${escapeHtml(family.label)}</h3>
+                    <span class="lc-machine-family__state">${escapeHtml(family.stateLabel)}</span>
+                </div>
+                <strong class="lc-machine-family__count">${formatNumber(family.count)}</strong>
+                <span class="lc-machine-family__count-label">${escapeHtml(family.countLabel || (family.count === 1 ? 'verified record' : 'verified records'))}</span>
+                ${modelMarkup}
+                <p>${escapeHtml(family.note)}</p>
+                <a class="lc-machine-family__catalogue" href="${family.catalogue}">Open ${escapeHtml(family.label)} catalogue →</a>
+            </article>
         `;
     }
 
@@ -1239,13 +1440,23 @@
     }
 
     function currentLocalModelIds() {
-        return [...new Set(APP_DATA.models.filter((model) => !model.hosted_only && Number(model.size_gb) > 0).map((model) => model.id))];
+        return [...new Set(indexableLocalModels().map((model) => model.id))];
+    }
+
+    function indexableLocalModels() {
+        const unavailable = new Set(Object.keys(APP_DATA.hfRepoVerification?.unavailable || {}));
+        return APP_DATA.models.filter((model) => (
+            model?.id
+            && !model.hosted_only
+            && Number(model.size_gb) > 0
+            && !unavailable.has(model.id)
+        ));
     }
 
     function countNewFitsForMachine(machine) {
         if (!state.newModelIds.length || !machine) return 0;
         const newIds = new Set(state.newModelIds);
-        return window.LocalClawCompatibility.rankModels(machine, APP_DATA.models).compatible.filter((model) => newIds.has(model.id)).length;
+        return window.LocalClawCompatibility.rankModels(machine, indexableLocalModels()).compatible.filter((model) => newIds.has(model.id)).length;
     }
 
     function getFavorite(machineId, modelId) {

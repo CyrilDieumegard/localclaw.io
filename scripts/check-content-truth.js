@@ -111,8 +111,26 @@ const fallbackLlmSection = (index.match(/<section id="llm-index"[\s\S]*?<\/secti
 const fallbackSpeechSection = (index.match(/<section id="tts-index"[\s\S]*?<\/section>/) || [''])[0];
 const fallbackLlmLinks = (fallbackLlmSection.match(/href="\/models\//g) || []).length;
 const fallbackSpeechLinks = (fallbackSpeechSection.match(/href="\/tts\//g) || []).length;
-if (fallbackLlmLinks !== indexableLocalModels.length) errors.push(`Homepage crawlable LLM catalogue has ${fallbackLlmLinks} links, expected ${indexableLocalModels.length}`);
-if (fallbackSpeechLinks !== speechModels.length) errors.push(`Homepage crawlable speech catalogue has ${fallbackSpeechLinks} links, expected ${speechModels.length}`);
+const fallbackLlmSampleSize = 24;
+const fallbackSpeechSampleSize = 12;
+const fallbackMultimodalSampleSize = 4;
+if (fallbackLlmLinks !== Math.min(fallbackLlmSampleSize, indexableLocalModels.length)) errors.push(`Homepage crawlable LLM snapshot has ${fallbackLlmLinks} links, expected ${Math.min(fallbackLlmSampleSize, indexableLocalModels.length)}`);
+if (fallbackSpeechLinks !== Math.min(fallbackSpeechSampleSize, speechModels.length)) errors.push(`Homepage crawlable speech snapshot has ${fallbackSpeechLinks} links, expected ${Math.min(fallbackSpeechSampleSize, speechModels.length)}`);
+for (const [anchor, directory, catalogue] of [
+  ['image-index', 'image', '/image-models'],
+  ['video-index', 'video', '/video-models'],
+  ['three-d-index', '3d', '/3d-models'],
+  ['music-index', 'music', '/music-models'],
+  ['vision-index', 'vision', '/vision-models']
+]) {
+  const section = (index.match(new RegExp(`<section id="${anchor}"[\\s\\S]*?<\\/section>`)) || [''])[0];
+  const links = (section.match(new RegExp(`href="\\/${directory}\\/`, 'g')) || []).length;
+  const expected = Math.min(fallbackMultimodalSampleSize, multimodalModels.filter(model => model.category === directory).length);
+  if (links !== expected) errors.push(`Homepage crawlable ${directory} snapshot has ${links} links, expected ${expected}`);
+  if (!section.includes(`href="${catalogue}"`)) errors.push(`Homepage crawlable ${directory} snapshot is missing its dedicated catalogue link`);
+}
+if (!fallbackLlmSection.includes('Representative crawlable snapshot') || !fallbackSpeechSection.includes('Representative crawlable snapshot')) errors.push('Homepage fallback must clearly identify its LLM and speech content as a representative snapshot');
+if (fallbackLlmSection.includes(`All ${indexableLocalModels.length} current local records`) || fallbackSpeechSection.includes(`All ${speechModels.length} records`)) errors.push('Homepage fallback must not claim to list every catalogue record');
 for (const marker of [
   `Local LLM pages: ${indexableLocalModels.length}`,
   `Local speech records: ${speechModels.length}`,

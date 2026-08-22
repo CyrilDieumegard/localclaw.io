@@ -6,7 +6,7 @@
         window.LocalClawCompatibility = {
             rankModels(machine, models) {
                 const result = sharedRanking.rankModels(machine, {}, models, {
-                    includeTight: true
+                    includeTight: false
                 });
                 return {
                     machine: result.machine,
