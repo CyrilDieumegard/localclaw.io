@@ -53,6 +53,8 @@ for (const model of speechModels) {
   for (const metric of ['quality', 'speed']) {
     if (!Number.isFinite(Number(model[metric]))) missing.push(`Missing speech score input: ${model.id}.${metric}`);
   }
+  if (!Array.isArray(model.hardware) || !model.hardware.length) missing.push(`Missing speech hardware path: ${model.id}`);
+  if (!Number.isFinite(Number(model.sizeGB))) missing.push(`Missing speech size metadata: ${model.id}`);
 }
 for (const forbiddenId of ['edge-tts', 'octave-2', 'xtts-v3']) {
   if (speechModels.some((model) => model.id === forbiddenId)) missing.push(`Non-local speech record leaked onto homepage: ${forbiddenId}`);
@@ -62,6 +64,10 @@ for (const marker of [
   'data-compare-id',
   'localclaw_home_machine_ram',
   "fetch('/api/machines'",
+  'lc-home-machine-card',
+  "trackHomeGoal('home_machine_select'",
+  "machine.accelerator === 'apple-silicon' || machine.accelerator === 'cpu'",
+  'the canonical speech records do not identify AMD support',
   "logoMarkup('multimodal', model.developer, model.developer)",
   'multimodalCommunityId',
   'updateMultimodalRatings',
@@ -73,10 +79,10 @@ for (const marker of [
 ]) {
   if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail']) {
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
-for (const marker of ['css/home-index-20260814g.css?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260820a', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822a']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260822b', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260822b']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 const confidenceScore = (average, count) => ((average * count) + (3.5 * 5)) / (count + 5);

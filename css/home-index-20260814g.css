@@ -124,6 +124,35 @@ html { scroll-behavior: smooth; }
 .lc-index-universe__copy { max-width: 580px; margin-top: 8px; color: #92929c; font: 500 9px/1.55 "JetBrains Mono", monospace; }
 .lc-index-universe > header > a { min-height: 38px; display: inline-flex; align-items: center; padding: 0 14px; border: 1px solid #ff453a; border-radius: 7px; background: #ff453a; color: #fff; font: 700 9px/1.3 "JetBrains Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
 .lc-index-universe > header > a:hover { border-color: #fff; background: #fff; color: #000; }
+
+.lc-home-machines { margin: 14px 0; padding: 13px; border: 1px solid rgba(255,69,58,0.24); border-radius: 10px; background: rgba(0,0,0,0.28); }
+.lc-home-machines[hidden] { display: none; }
+.lc-home-machines__head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+.lc-home-machines__head > div { display: grid; gap: 4px; }
+.lc-home-machines__head strong { color: #fff; font: 700 11px/1.2 "Space Grotesk", sans-serif; text-transform: uppercase; }
+.lc-home-machines__head span { color: #7e7e88; font: 500 8px/1.4 "JetBrains Mono", monospace; }
+.lc-home-machines__head a { color: #ff6d64; font: 700 8px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-home-machine-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 7px; }
+.lc-home-machine-card { position: relative; display: grid; min-width: 0; grid-template-columns: 32px minmax(0, 1fr); gap: 9px; align-items: center; padding: 10px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #0d0d0f; color: #8d8d97; text-align: left; transition: 140ms ease; }
+.lc-home-machine-card:hover { border-color: rgba(255,69,58,0.42); color: #fff; }
+.lc-home-machine-card:focus-visible { outline: 2px solid #ff6d64; outline-offset: 2px; }
+.lc-home-machine-card.is-active { border-color: rgba(255,69,58,0.58); background: rgba(255,69,58,0.09); box-shadow: inset 3px 0 0 #ff453a; color: #fff; }
+.lc-home-machine-card.is-catalogue-view { border-style: dashed; box-shadow: none; }
+.lc-home-machine-card__icon { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; background: #080809; color: #ff6d64; font: 750 12px/1 "Space Grotesk", sans-serif; }
+.lc-home-machine-card__copy { display: grid; min-width: 0; gap: 2px; padding-right: 34px; }
+.lc-home-machine-card__copy strong,
+.lc-home-machine-card__copy span,
+.lc-home-machine-card__copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-home-machine-card__copy strong { color: inherit; font: 700 10.5px/1.25 "Space Grotesk", sans-serif; }
+.lc-home-machine-card__copy span { color: #85858f; font: 550 7.5px/1.35 "JetBrains Mono", monospace; }
+.lc-home-machine-card__copy small { color: #666670; font: 500 7px/1.35 "JetBrains Mono", monospace; }
+.lc-home-machine-card__primary { position: absolute; top: 8px; right: 8px; display: inline-flex; align-items: center; gap: 4px; color: #66d98a; font: 700 6.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-home-machine-card__primary i { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 9px rgba(34,197,94,0.54); }
+.lc-home-machine-context { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+.lc-home-machine-context p { color: #8c8c96; font: 500 8px/1.5 "JetBrains Mono", monospace; }
+.lc-home-machine-context p strong { color: #fff; }
+.lc-home-machine-context button { flex: 0 0 auto; min-height: 32px; padding: 0 10px; border: 1px solid rgba(255,255,255,0.14); border-radius: 7px; color: #c7c7ce; font: 700 7.5px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+.lc-home-machine-context button:hover { border-color: rgba(255,69,58,0.5); color: #fff; }
 .lc-home-index .lc-global-nav__link--account { border-color: #ff453a; background: #ff453a; color: #fff; }
 .lc-home-index .lc-global-nav__link--account:hover,
 .lc-home-index .lc-global-nav__link--account:focus-visible,
@@ -133,6 +162,7 @@ html { scroll-behavior: smooth; }
 .lc-index-universe nav a:hover { border-color: rgba(255,69,58,0.42); background: rgba(255,69,58,0.05); }
 .lc-index-universe nav strong { display: block; color: #fff; font: 700 12px/1.2 "Space Grotesk", sans-serif; }
 .lc-index-universe nav span { display: block; margin-top: 4px; overflow: hidden; color: #72727d; font: 500 7px/1.35 "JetBrains Mono", monospace; text-overflow: ellipsis; white-space: nowrap; }
+.lc-index-universe nav b { color: inherit; font: inherit; }
 
 .lc-index-grid {
     display: grid;
@@ -339,7 +369,10 @@ html { scroll-behavior: smooth; }
     margin-bottom: 12px;
 }
 
-.lc-index-tts-controls { grid-template-columns: minmax(180px, 1fr) repeat(2, minmax(150px, 0.38fr)); }
+.lc-index-tts-controls { grid-template-columns: minmax(180px, 1fr) repeat(3, minmax(130px, 0.34fr)); }
+
+.lc-index-control-label { display: grid; gap: 5px; }
+.lc-index-control-label > span { padding-left: 2px; color: #707079; font: 700 7px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 
 .lc-index-control {
     width: 100%;
@@ -354,6 +387,8 @@ html { scroll-behavior: smooth; }
 }
 
 .lc-index-control:focus { border-color: rgba(255,69,58,0.75); box-shadow: 0 0 0 3px rgba(255,69,58,0.1); }
+.lc-index-control:disabled { cursor: not-allowed; opacity: 0.62; }
+.lc-index-machine-note { margin: -2px 0 12px; padding: 9px 11px; border-left: 2px solid rgba(255,69,58,0.58); background: rgba(255,69,58,0.045); color: #85858f; font: 500 8px/1.55 "JetBrains Mono", monospace; }
 
 .lc-index-table-wrap { overflow: hidden; border: 1px solid var(--index-border); border-radius: 14px; background: rgba(7,7,8,0.91); }
 .lc-index-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
@@ -673,6 +708,9 @@ html { scroll-behavior: smooth; }
     .lc-index-fact__value--stacked .lc-index-fact__number { font-size: 29px; }
     .lc-index-fact__value--stacked .lc-index-fact__number--date { font-size: 24px; }
     .lc-index-universe > header { align-items: flex-start; flex-direction: column; }
+    .lc-home-machines__head,
+    .lc-home-machine-context { align-items: flex-start; flex-direction: column; }
+    .lc-home-machine-context button { width: 100%; }
     .lc-index-universe nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .lc-index-universe nav span { white-space: normal; }
     .lc-index-section-meta { justify-content: flex-start; }
@@ -722,6 +760,8 @@ html { scroll-behavior: smooth; }
 html.light .lc-index-hero,
 html.light .lc-index-facts,
 html.light .lc-index-universe,
+html.light .lc-home-machines,
+html.light .lc-home-machine-card,
 html.light .lc-index-table-wrap,
 html.light .lc-index-control,
 html.light .lc-index-tts-row,
@@ -729,6 +769,8 @@ html.light .lc-index-multimodal-card,
 html.light .lc-index-multimodal-controls { background: rgba(255,255,255,0.94); border-color: rgba(15,23,42,0.12); }
 html.light .lc-index-hero h1,
 html.light .lc-index-universe h2,
+html.light .lc-home-machines__head strong,
+html.light .lc-home-machine-card__copy strong,
 html.light .lc-index-universe nav strong,
 html.light .lc-index-section-head h2,
 html.light .lc-index-model-link,

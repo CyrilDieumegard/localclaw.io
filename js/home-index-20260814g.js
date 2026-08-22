@@ -42,6 +42,43 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 return 0;
             }
         })();
+        let savedMachines = [];
+        let activeMachine = null;
+        let machineFiltersEnabled = false;
+
+        const normalizeSavedMachine = (machine) => ({
+            id: String(machine && machine.id || ''),
+            name: String(machine && machine.name || 'My machine'),
+            platform: String(machine && machine.platform || 'other').toLowerCase(),
+            accelerator: String(machine && machine.accelerator || 'cpu').toLowerCase(),
+            cpuModel: String(machine && machine.cpuModel || ''),
+            gpuModel: String(machine && machine.gpuModel || ''),
+            ramGb: normalizeMachineRam(machine && machine.ramGb),
+            vramGb: machine && machine.vramGb !== null && machine.vramGb !== '' && Number.isFinite(Number(machine.vramGb))
+                ? Math.max(0, Number(machine.vramGb))
+                : null,
+            useCase: String(machine && machine.useCase || 'general'),
+            priority: String(machine && machine.priority || 'balanced'),
+            isPrimary: machine && machine.isPrimary === true
+        });
+        const platformLabel = (value) => ({macos: 'macOS', windows: 'Windows', linux: 'Linux'}[value] || 'Other OS');
+        const acceleratorLabel = (value) => ({
+            'apple-silicon': 'Apple Silicon', nvidia: 'NVIDIA', amd: 'AMD', cpu: 'CPU'
+        }[value] || 'CPU');
+        const machineIcon = (machine) => ({'apple-silicon': 'A', nvidia: 'N', amd: 'R', cpu: 'C'}[machine.accelerator] || 'C');
+        const machineMemoryLabel = (machine) => machine.accelerator === 'apple-silicon'
+            ? `${machine.ramGb} GB unified`
+            : `${machine.ramGb} GB RAM${machine.vramGb ? ` · ${machine.vramGb} GB VRAM` : ''}`;
+        const ramBucket = (value) => {
+            const ram = normalizeMachineRam(value);
+            if (!ram) return 'unknown';
+            if (ram <= 8) return '4-8';
+            if (ram <= 16) return '9-16';
+            if (ram <= 32) return '17-32';
+            if (ram <= 64) return '33-64';
+            if (ram <= 128) return '65-128';
+            return '129-plus';
+        };
 
         const speechModels = Array.isArray(window.HOME_INDEX_SPEECH_MODELS) ? window.HOME_INDEX_SPEECH_MODELS : [];
         const speechCatalogueOrder = new Map(speechModels.map((model, index) => [model.id, index]));
@@ -186,7 +223,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (!machineRam) return {key: 'unset', label: 'Set RAM'};
             const sharedRanking = window.LocalClawModelRanking;
             if (!sharedRanking) return {key: 'too-large', label: 'Unavailable'};
-            const result = sharedRanking.calculateHardwareFit({ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'}, model);
+            const machine = machineFiltersEnabled && activeMachine
+                ? {...activeMachine, context: '8k'}
+                : {ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'};
+            const result = sharedRanking.calculateHardwareFit(machine, model);
             if (!result.compatible) return {key: 'too-large', label: 'Too large'};
             if (result.fitState === 'tight') return {key: 'tight', label: 'Tight'};
             return {key: 'fits', label: result.fitState === 'comfortable' ? 'Comfortable' : 'Good fit'};
@@ -194,7 +234,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const fitMarkup = (model) => {
             const fit = machineFit(model);
             if (fit.key === 'unset') return '';
-            const title = `${fit.label} for a ${machineRam} GB machine using the shared LocalClaw memory-fit rules with system and 8k-context headroom.`;
+            const memoryKind = activeMachine && machineFiltersEnabled && activeMachine.accelerator === 'apple-silicon'
+                ? 'unified memory'
+                : 'RAM';
+            const title = `${fit.label} for ${machineRam} GB ${memoryKind} using the shared LocalClaw memory-fit rules with system and 8k-context headroom.`;
             return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
         };
         const sponsorAudienceSnapshot = Object.freeze({
@@ -298,10 +341,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const renderSpeechRows = (models) => models.map((model, index) => {
             const overall = speechScore(model);
             const scoreTitle = `LocalClaw audio score ${scoreLabel(overall)} out of 10. Quality ${finite(model.quality)}; speed ${finite(model.speed)}.`;
+            const hardware = (model.hardware || []).map(prettyTerm).join(' · ');
             return `<a class="lc-index-tts-row" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
                 <span class="lc-index-tts-rank">${String(index + 1).padStart(2, '0')}</span>
                 ${logoMarkup('speech', model.family, model.developer)}
-                <span class="lc-index-tts-copy"><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span><span class="lc-index-tts-signals">QUALITY ${scoreLabel(model.quality)} · SPEED ${scoreLabel(model.speed)}</span></span>
+                <span class="lc-index-tts-copy"><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span><span class="lc-index-tts-signals">QUALITY ${scoreLabel(model.quality)} · SPEED ${scoreLabel(model.speed)}${hardware ? ` · ${escapeHtml(hardware.toUpperCase())}` : ''}</span></span>
                 <span class="lc-index-tts-score-group">${communityMarkup(speechCommunityId(model), 'lc-index-community--speech')}${scoreMarkup(overall, scoreTitle, 'lc-index-score--speech')}<span class="lc-index-tts-type">${escapeHtml(model.type)}</span></span>
             </a>`;
         }).join('');
@@ -362,11 +406,16 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </section>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
+                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
+                        <div id="lc-home-machines" class="lc-home-machines" hidden>
+                            <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div><a href="/account">Manage machines →</a></div>
+                            <div id="lc-home-machine-list" class="lc-home-machine-list" role="radiogroup" aria-label="Choose a saved machine"></div>
+                            <div class="lc-home-machine-context"><p id="lc-home-machine-status" aria-live="polite"></p><button id="lc-home-machine-catalogue" type="button" aria-pressed="false">Show full catalogues</button></div>
+                        </div>
                         <nav aria-label="Local AI categories">
-                            <a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a>
-                            <a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>
-                            ${multimodalCategories.map((category) => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${(multimodalByCategory.get(category.key) || []).length} local models</span></a>`).join('')}
+                            <a href="#llm-index"><strong>LLM</strong><span><b data-family-result-count="llm">${localModels.length}</b> local pages</span></a>
+                            <a href="#tts-index"><strong>Voice</strong><span><b data-family-result-count="voice">${speechModels.length}</b> local records</span></a>
+                            ${multimodalCategories.map((category) => `<a href="#${category.anchor}"><strong>${category.label}</strong><span><b data-family-result-count="${category.key}">${(multimodalByCategory.get(category.key) || []).length}</b> local models</span></a>`).join('')}
                         </nav>
                     </section>
 
@@ -382,10 +431,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </div>
                         <div class="lc-index-controls">
                             <label><span class="sr-only">Search models</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
-                            <label><span class="sr-only">Choose machine memory</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">My machine · set RAM</option><option value="8">My machine · 8 GB</option><option value="16">My machine · 16 GB</option><option value="32">My machine · 32 GB</option><option value="64">My machine · 64 GB</option><option value="128">My machine · 128 GB</option><option value="256">My machine · 256 GB</option><option value="512">My machine · 512 GB</option></select></label>
-                            <label><span class="sr-only">Filter by machine fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Comfortable + tight</option><option value="fits">Comfortable only</option><option value="tight">Tight only</option><option value="too-large">Too large</option></select></label>
-                            <label><span class="sr-only">Filter by model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Sort models</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
+                            <label class="lc-index-control-label"><span>Catalogue RAM</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">Any RAM</option><option value="8">8 GB RAM</option><option value="16">16 GB RAM</option><option value="32">32 GB RAM</option><option value="64">64 GB RAM</option><option value="128">128 GB RAM</option><option value="256">256 GB RAM</option><option value="512">512 GB RAM</option></select></label>
+                            <label class="lc-index-control-label"><span>LLM fit</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">All fit states</option><option value="compatible">Comfortable + tight</option><option value="fits">Comfortable only</option><option value="tight">Tight only</option><option value="too-large">Too large</option></select></label>
+                            <label class="lc-index-control-label"><span>Model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
+                            <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
                         <div class="lc-index-table-wrap">
                             <table class="lc-index-table">
@@ -404,9 +453,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </div>
                         <div class="lc-index-controls lc-index-tts-controls">
                             <label><span class="sr-only">Search speech models</span><input id="lc-index-tts-search" class="lc-index-control" type="search" placeholder="Search speech model or maker…" autocomplete="off"></label>
-                            <label><span class="sr-only">Filter speech model type</span><select id="lc-index-tts-type" class="lc-index-control"><option value="all">All speech types</option><option value="TTS">TTS only</option><option value="ASR">ASR only</option><option value="APP">Apps only</option></select></label>
-                            <label><span class="sr-only">Sort speech models</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
+                            <label class="lc-index-control-label"><span>Hardware path</span><select id="lc-index-tts-hardware" class="lc-index-control"><option value="all">All hardware paths</option><option value="apple">Apple-tagged</option><option value="cpu">CPU-tagged</option><option value="gpu">GPU-tagged</option></select></label>
+                            <label class="lc-index-control-label"><span>Speech type</span><select id="lc-index-tts-type" class="lc-index-control"><option value="all">All speech types</option><option value="TTS">TTS only</option><option value="ASR">ASR only</option><option value="APP">Apps only</option></select></label>
+                            <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
                         </div>
+                        <p id="lc-index-tts-machine-note" class="lc-index-machine-note" hidden></p>
                         <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels)}</div>
                         <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community confidence uses only the raw star average and number of signed-in member votes; EARLY marks fewer than five votes. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
@@ -415,11 +466,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directories 03–07</span><h2 id="multimodal-index-title">Image, video, 3D, music and vision</h2></div><div class="lc-index-section-meta"><p><strong id="lc-index-multimodal-result-count">${multimodalModels.length}</strong> of ${multimodalModels.length} verified local records</p><span class="lc-index-method-pill">Hardware-aware</span></div></div>
                         <div class="lc-index-controls lc-index-multimodal-controls">
                             <label><span class="sr-only">Search image, video, 3D, music and vision models</span><input id="lc-index-multimodal-search" class="lc-index-control" type="search" placeholder="Search every other AI model…" autocomplete="off"></label>
-                            <label><span class="sr-only">Filter by operating system</span><select id="lc-index-multimodal-platform" class="lc-index-control"><option value="all">Any system</option><option value="macos">macOS</option><option value="windows">Windows</option><option value="linux">Linux</option></select></label>
-                            <label><span class="sr-only">Filter by compute</span><select id="lc-index-multimodal-accelerator" class="lc-index-control"><option value="all">Any compute</option><option value="apple-silicon">Apple Silicon</option><option value="nvidia">NVIDIA</option><option value="amd">AMD</option><option value="cpu">CPU</option></select></label>
-                            <label><span class="sr-only">Filter by available RAM</span><select id="lc-index-multimodal-ram" class="lc-index-control"><option value="0">Any RAM</option>${[8, 16, 24, 32, 48, 64, 96, 128, 192, 256].map((value) => `<option value="${value}">${value} GB RAM</option>`).join('')}</select></label>
-                            <label><span class="sr-only">Filter by available VRAM</span><select id="lc-index-multimodal-vram" class="lc-index-control"><option value="0">Any VRAM</option>${[4, 6, 8, 12, 16, 24, 32, 48, 64, 80].map((value) => `<option value="${value}">${value} GB VRAM</option>`).join('')}</select></label>
+                            <label class="lc-index-control-label"><span>System</span><select id="lc-index-multimodal-platform" class="lc-index-control"><option value="all">Any system</option><option value="macos">macOS</option><option value="windows">Windows</option><option value="linux">Linux</option></select></label>
+                            <label class="lc-index-control-label"><span>Compute</span><select id="lc-index-multimodal-accelerator" class="lc-index-control"><option value="all">Any compute</option><option value="apple-silicon">Apple Silicon</option><option value="nvidia">NVIDIA</option><option value="amd">AMD</option><option value="cpu">CPU</option></select></label>
+                            <label class="lc-index-control-label"><span>RAM</span><select id="lc-index-multimodal-ram" class="lc-index-control"><option value="0">Any RAM</option>${[8, 16, 24, 32, 48, 64, 96, 128, 192, 256].map((value) => `<option value="${value}">${value} GB RAM</option>`).join('')}</select></label>
+                            <label class="lc-index-control-label"><span>VRAM</span><select id="lc-index-multimodal-vram" class="lc-index-control"><option value="0">Any VRAM</option>${[4, 6, 8, 12, 16, 24, 32, 48, 64, 80].map((value) => `<option value="${value}">${value} GB VRAM</option>`).join('')}</select></label>
                         </div>
+                        <p id="lc-index-multimodal-machine-note" class="lc-index-machine-note" hidden></p>
                         ${renderMultimodalSections()}
                     </section>
                     <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><div id="lc-index-compare-content" class="lc-index-compare-content"></div></dialog>
@@ -553,6 +605,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const compareDialog = document.getElementById('lc-index-compare-dialog');
         const compareContent = document.getElementById('lc-index-compare-content');
         const compareClose = document.getElementById('lc-index-compare-close');
+        const machinesPanel = document.getElementById('lc-home-machines');
+        const machineList = document.getElementById('lc-home-machine-list');
+        const machineStatus = document.getElementById('lc-home-machine-status');
+        const machineCatalogueToggle = document.getElementById('lc-home-machine-catalogue');
         const sortHeaders = Array.from(document.querySelectorAll('.lc-index-table thead th[data-sort-key]'));
         const syncSortControls = () => {
             sort.value = activeSortKey;
@@ -581,7 +637,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 option.value = value;
                 machineRamSelect.appendChild(option);
             }
-            option.textContent = label || `My machine · ${value} GB`;
+            option.textContent = label || `${value} GB RAM`;
         };
         if (machineRam) {
             ensureMachineOption(machineRam);
@@ -644,6 +700,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }).sort(compareModels(activeSortKey, activeSortDirection));
             rows.innerHTML = filtered.length ? renderModelRows(filtered) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
             count.textContent = filtered.length;
+            document.querySelector('[data-family-result-count="llm"]').textContent = filtered.length;
             renderCompareTray();
         };
         let llmSearchGoalTimer = 0;
@@ -664,6 +721,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }, 400);
         });
         machineRamSelect.addEventListener('change', () => {
+            beginCustomCatalogueView();
             machineRam = normalizeMachineRam(machineRamSelect.value);
             fitFilter.disabled = !machineRam;
             if (!machineRam) fitFilter.value = 'all';
@@ -745,19 +803,25 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         });
 
         const speechSearch = document.getElementById('lc-index-tts-search');
+        const speechHardware = document.getElementById('lc-index-tts-hardware');
         const speechType = document.getElementById('lc-index-tts-type');
         const speechSort = document.getElementById('lc-index-tts-sort');
         const speechRows = document.getElementById('lc-index-tts-list');
         const speechCount = document.getElementById('lc-index-tts-result-count');
+        const speechMachineNote = document.getElementById('lc-index-tts-machine-note');
         const updateSpeechIndex = () => {
             const query = speechSearch.value.trim().toLowerCase();
             const type = speechType.value;
+            const hardware = speechHardware.value;
             const filtered = speechModels.filter((model) => {
                 const haystack = `${model.name} ${model.family} ${model.developer} ${model.license || ''}`.toLowerCase();
-                return haystack.includes(query) && (type === 'all' || model.type === type);
+                return haystack.includes(query)
+                    && (type === 'all' || model.type === type)
+                    && (hardware === 'all' || (model.hardware || []).includes(hardware));
             }).sort(compareSpeech(speechSort.value));
             speechRows.innerHTML = filtered.length ? renderSpeechRows(filtered) : '<p class="lc-index-tts-empty">No local speech model matches these filters.</p>';
             speechCount.textContent = filtered.length;
+            document.querySelector('[data-family-result-count="voice"]').textContent = filtered.length;
         };
         let speechSearchGoalTimer = 0;
         let lastTrackedSpeechSearch = '';
@@ -780,6 +844,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             updateSpeechIndex();
             trackHomeGoal('home_index_filter', {target: 'speech', group: 'type', value: speechType.value, shown: speechCount.textContent});
         });
+        speechHardware.addEventListener('change', () => {
+            beginCustomCatalogueView();
+            updateSpeechIndex();
+            trackHomeGoal('home_index_filter', {target: 'speech', group: 'hardware', value: speechHardware.value, shown: speechCount.textContent});
+        });
         speechSort.addEventListener('change', () => {
             updateSpeechIndex();
             trackHomeGoal('home_index_sort', {target: 'speech', sort: speechSort.value, shown: speechCount.textContent});
@@ -791,6 +860,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const multimodalRam = document.getElementById('lc-index-multimodal-ram');
         const multimodalVram = document.getElementById('lc-index-multimodal-vram');
         const multimodalCount = document.getElementById('lc-index-multimodal-result-count');
+        const multimodalMachineNote = document.getElementById('lc-index-multimodal-machine-note');
         const multimodalCards = Array.from(document.querySelectorAll('[data-multimodal-card]'));
         const updateMultimodalRatings = () => {
             document.querySelectorAll('[data-multimodal-community-id]').forEach((container) => {
@@ -803,13 +873,30 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const accelerator = multimodalAccelerator.value;
             const ram = finite(multimodalRam.value);
             const vram = finite(multimodalVram.value);
+            const fitsActiveMachine = (card) => {
+                if (!machineFiltersEnabled || !activeMachine) return true;
+                const platforms = card.dataset.platforms.split(' ');
+                const accelerators = card.dataset.accelerators.split(' ');
+                const memoryFits = finite(card.dataset.ram) <= activeMachine.ramGb;
+                const needsSeparateVram = activeMachine.accelerator === 'nvidia' || activeMachine.accelerator === 'amd';
+                const requiredVram = finite(card.dataset.vram);
+                const vramFits = !needsSeparateVram
+                    || requiredVram === 0
+                    || (activeMachine.vramGb !== null && requiredVram <= activeMachine.vramGb);
+                return platforms.includes(activeMachine.platform)
+                    && accelerators.includes(activeMachine.accelerator)
+                    && memoryFits
+                    && vramFits;
+            };
             let visibleTotal = 0;
             multimodalCards.forEach((card) => {
-                const visible = (!query || card.dataset.search.includes(query))
-                    && (platform === 'all' || card.dataset.platforms.split(' ').includes(platform))
-                    && (accelerator === 'all' || card.dataset.accelerators.split(' ').includes(accelerator))
-                    && (!ram || finite(card.dataset.ram) <= ram)
-                    && (!vram || finite(card.dataset.vram) <= vram);
+                const matchesControls = machineFiltersEnabled
+                    ? fitsActiveMachine(card)
+                    : (platform === 'all' || card.dataset.platforms.split(' ').includes(platform))
+                        && (accelerator === 'all' || card.dataset.accelerators.split(' ').includes(accelerator))
+                        && (!ram || finite(card.dataset.ram) <= ram)
+                        && (!vram || finite(card.dataset.vram) <= vram);
+                const visible = (!query || card.dataset.search.includes(query)) && matchesControls;
                 card.hidden = !visible;
                 if (visible) visibleTotal += 1;
             });
@@ -818,11 +905,158 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const categoryCards = Array.from(section.querySelectorAll('[data-multimodal-card]'));
                 const categoryVisible = categoryCards.filter((card) => !card.hidden).length;
                 section.querySelector(`[data-multimodal-count="${category.key}"]`).textContent = categoryVisible;
+                document.querySelector(`[data-family-result-count="${category.key}"]`).textContent = categoryVisible;
                 section.querySelector('.lc-index-multimodal-grid').hidden = categoryVisible === 0;
                 section.querySelector('.lc-index-multimodal-empty').hidden = categoryVisible !== 0;
             });
             multimodalCount.textContent = visibleTotal;
         };
+        const ensureNumericOption = (select, value, label) => {
+            const normalized = String(Math.max(0, finite(value)));
+            let option = Array.from(select.options).find((item) => item.value === normalized);
+            if (!option) {
+                option = document.createElement('option');
+                option.value = normalized;
+                select.appendChild(option);
+            }
+            option.textContent = label;
+            return normalized;
+        };
+        const renderMachineWorkspace = () => {
+            if (!savedMachines.length) {
+                machinesPanel.hidden = true;
+                return;
+            }
+            machinesPanel.hidden = false;
+            machineList.innerHTML = savedMachines.map((machine, index) => {
+                const selected = activeMachine && machine.id === activeMachine.id;
+                const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
+                return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" data-saved-machine="${index}">
+                    <span class="lc-home-machine-card__icon" aria-hidden="true">${machineIcon(machine)}</span>
+                    <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span>${escapeHtml(machineMemoryLabel(machine))}</span>${hardwareDetail ? `<small>${escapeHtml(hardwareDetail)}</small>` : ''}</span>
+                    ${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}
+                </button>`;
+            }).join('');
+            machineList.querySelectorAll('[data-saved-machine]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const machine = savedMachines[Number(button.dataset.savedMachine)];
+                    if (machine) applySavedMachine(machine, true);
+                });
+            });
+            if (machineFiltersEnabled && activeMachine) {
+                machineStatus.innerHTML = `<strong>${escapeHtml(activeMachine.name)}</strong> filters all seven directories. Voice uses explicit hardware-path tags only; its records do not publish consistent RAM, VRAM and OS floors.`;
+                machineCatalogueToggle.textContent = 'Show full catalogues';
+                machineCatalogueToggle.setAttribute('aria-pressed', 'false');
+            } else {
+                machineStatus.textContent = 'Full or custom catalogue filters are visible. Choose a saved-machine card to reapply its real hardware across every directory.';
+                machineCatalogueToggle.textContent = 'Apply selected machine';
+                machineCatalogueToggle.setAttribute('aria-pressed', 'true');
+            }
+        };
+        const applySavedMachine = (machine, shouldTrack = false) => {
+            activeMachine = machine;
+            machineFiltersEnabled = true;
+            machineRam = machine.ramGb;
+            ensureMachineOption(machine.ramGb, `${machine.ramGb} GB ${machine.accelerator === 'apple-silicon' ? 'unified' : 'RAM'}`);
+            machineRamSelect.value = String(machine.ramGb);
+            fitFilter.disabled = false;
+            fitFilter.value = 'compatible';
+
+            const speechPath = machine.accelerator === 'apple-silicon'
+                ? 'apple'
+                : machine.accelerator === 'cpu'
+                    ? 'cpu'
+                    : machine.accelerator === 'nvidia'
+                        ? 'gpu'
+                        : 'all';
+            speechHardware.value = speechPath;
+            speechMachineNote.hidden = false;
+            if (machine.accelerator === 'amd') {
+                speechMachineNote.textContent = 'Voice remains unfiltered: the canonical speech records do not identify AMD support or consistent memory floors, so no AMD compatibility is claimed.';
+            } else if (machine.accelerator === 'nvidia') {
+                speechMachineNote.textContent = 'Voice shows records with a generic GPU path. The speech catalogue does not consistently distinguish GPU vendors or VRAM floors; verify CUDA support on each model page.';
+            } else {
+                speechMachineNote.textContent = `Voice shows records explicitly tagged for ${machine.accelerator === 'apple-silicon' ? 'Apple' : 'CPU'} hardware. RAM and VRAM fit is not claimed because those floors are not consistently published.`;
+            }
+
+            multimodalPlatform.value = Array.from(multimodalPlatform.options).some((item) => item.value === machine.platform) ? machine.platform : 'all';
+            multimodalAccelerator.value = Array.from(multimodalAccelerator.options).some((item) => item.value === machine.accelerator) ? machine.accelerator : 'all';
+            multimodalRam.value = ensureNumericOption(multimodalRam, machine.ramGb, `${machine.ramGb} GB ${machine.accelerator === 'apple-silicon' ? 'unified' : 'RAM'}`);
+            const noSeparateVram = machine.accelerator === 'apple-silicon' || machine.accelerator === 'cpu';
+            const vramFallback = multimodalVram.options[0];
+            if (noSeparateVram) {
+                multimodalVram.value = '0';
+                multimodalVram.disabled = true;
+                vramFallback.textContent = machine.accelerator === 'apple-silicon' ? 'Unified memory · no VRAM split' : 'CPU path · no VRAM';
+            } else if (machine.vramGb !== null) {
+                multimodalVram.disabled = false;
+                vramFallback.textContent = 'Any VRAM';
+                multimodalVram.value = ensureNumericOption(multimodalVram, machine.vramGb, `${machine.vramGb} GB VRAM`);
+            } else {
+                multimodalVram.value = '0';
+                multimodalVram.disabled = true;
+                vramFallback.textContent = 'VRAM not saved';
+            }
+            multimodalMachineNote.hidden = false;
+            multimodalMachineNote.textContent = noSeparateVram
+                ? 'Matched by operating system, compute path and unified/system RAM. Separate VRAM is intentionally ignored for this machine.'
+                : machine.vramGb === null
+                    ? 'Matched conservatively: models that require separate VRAM are excluded because this machine has no saved VRAM value.'
+                    : 'Matched by operating system, compute path, system RAM and separate VRAM.';
+
+            try {
+                window.localStorage.setItem('localclaw_home_machine_ram', String(machine.ramGb));
+            } catch (error) {
+                // The account-backed selection still works without local storage.
+            }
+            renderMachineWorkspace();
+            updateIndex();
+            updateSpeechIndex();
+            updateMultimodalIndex();
+            if (shouldTrack) {
+                trackHomeGoal('home_machine_select', {
+                    machine_count: savedMachines.length,
+                    platform: machine.platform,
+                    accelerator: machine.accelerator,
+                    ram_bucket: ramBucket(machine.ramGb),
+                    has_dedicated_vram: machine.vramGb !== null,
+                    primary: machine.isPrimary === true
+                });
+            }
+        };
+        const beginCustomCatalogueView = () => {
+            if (!machineFiltersEnabled) return;
+            machineFiltersEnabled = false;
+            multimodalVram.disabled = false;
+            if (multimodalVram.options[0].value === '0') multimodalVram.options[0].textContent = 'Any VRAM';
+            speechMachineNote.hidden = true;
+            multimodalMachineNote.hidden = true;
+            renderMachineWorkspace();
+        };
+        const showFullCatalogues = () => {
+            machineFiltersEnabled = false;
+            machineRam = 0;
+            machineRamSelect.value = '0';
+            fitFilter.value = 'all';
+            fitFilter.disabled = true;
+            speechHardware.value = 'all';
+            speechMachineNote.hidden = true;
+            multimodalPlatform.value = 'all';
+            multimodalAccelerator.value = 'all';
+            multimodalRam.value = '0';
+            multimodalVram.disabled = false;
+            multimodalVram.options[0].textContent = 'Any VRAM';
+            multimodalVram.value = '0';
+            multimodalMachineNote.hidden = true;
+            renderMachineWorkspace();
+            updateIndex();
+            updateSpeechIndex();
+            updateMultimodalIndex();
+        };
+        machineCatalogueToggle.addEventListener('click', () => {
+            if (machineFiltersEnabled) showFullCatalogues();
+            else if (activeMachine) applySavedMachine(activeMachine, false);
+        });
         let multimodalSearchGoalTimer = 0;
         let lastTrackedMultimodalSearch = '';
         multimodalSearch.addEventListener('input', () => {
@@ -842,6 +1076,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         });
         [multimodalPlatform, multimodalAccelerator, multimodalRam, multimodalVram].forEach((control) => {
             control.addEventListener('change', () => {
+                beginCustomCatalogueView();
                 updateMultimodalIndex();
                 trackHomeGoal('home_index_filter', {
                     target: 'multimodal', group: control.id.replace('lc-index-multimodal-', ''), value: control.value, shown: multimodalCount.textContent
@@ -875,7 +1110,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             updateSpeechIndex();
             updateMultimodalRatings();
         };
-        const loadPrimaryMachine = async () => {
+        const loadSavedMachines = async () => {
             try {
                 const response = await fetch('/api/machines', {
                     credentials: 'same-origin',
@@ -883,22 +1118,14 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
                 if (!response.ok) return;
                 const data = await response.json();
-                const machines = Array.isArray(data && data.machines) ? data.machines : [];
+                savedMachines = (Array.isArray(data && data.machines) ? data.machines : [])
+                    .map(normalizeSavedMachine)
+                    .filter((machine) => machine.id && machine.ramGb);
                 document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'My Machines'; });
-                const primary = machines.find((item) => item && item.isPrimary) || machines[0];
-                const accountRam = normalizeMachineRam(primary && primary.ramGb);
-                if (!accountRam) return;
-                machineRam = accountRam;
-                ensureMachineOption(accountRam, `${primary.name || 'Primary machine'} · ${accountRam} GB`);
-                machineRamSelect.value = String(accountRam);
-                fitFilter.disabled = false;
-                fitFilter.value = 'compatible';
-                try {
-                    window.localStorage.setItem('localclaw_home_machine_ram', String(accountRam));
-                } catch (error) {
-                    // The account-backed selection still works without local storage.
-                }
-                updateIndex();
+                const machineCta = document.getElementById('lc-home-machine-cta');
+                if (machineCta) machineCta.textContent = savedMachines.length ? 'Manage my machines →' : 'Add my machine →';
+                const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
+                if (primary) applySavedMachine(primary, false);
             } catch (error) {
                 // Anonymous visitors and unavailable account APIs keep the local quick selector.
             }
@@ -906,7 +1133,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         syncSortControls();
         renderCompareTray();
         loadCommunityRatings();
-        loadPrimaryMachine();
+        loadSavedMachines();
         const seoFallback = document.getElementById('seo-fallback');
         if (seoFallback) seoFallback.remove();
         if (window.location.hash) {

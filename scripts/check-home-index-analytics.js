@@ -23,10 +23,18 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260822a', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260822b', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
 requireText(homepage, "fitFilter.value = 'compatible'", 'Signed-in machines must default the homepage to compatible models');
 requireText(homepage, "link.textContent = 'My Machines'", 'Signed-in homepage navigation must expose My Machines');
+requireText(homepage, "machineCta.textContent = savedMachines.length ? 'Manage my machines →' : 'Add my machine →'", 'Signed-in homepage CTA must match the saved-machine state');
+requireText(homepage, "trackHomeGoal('home_machine_select'", 'Saved-machine selection needs a dedicated privacy-safe goal');
+requireText(homepage, 'machine_count: savedMachines.length', 'Machine selection telemetry must be aggregate-only');
+requireText(homepage, 'ram_bucket: ramBucket(machine.ramGb)', 'Machine selection telemetry must bucket RAM');
+const machineSelectionGoal = homepage.match(/trackHomeGoal\('home_machine_select',[\s\S]*?\n\s*}\);/);
+if (!machineSelectionGoal || /machine_(?:id|name)|\bid\s*:|\bname\s*:/.test(machineSelectionGoal[0])) {
+  errors.push('Machine selection telemetry must not include a machine name or identifier');
+}
 for (const sortKey of ['name', 'score', 'community', 'params', 'ram', 'license', 'fresh']) {
   requireText(homepage, `data-sort-key="${sortKey}"`, `Homepage table is missing the ${sortKey} sortable header`);
 }

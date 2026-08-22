@@ -33,7 +33,9 @@ const speechModels = localSpeechRecords.map((model) => ({
   releaseDate: model.releaseDate,
   quality: model.quality,
   speed: model.speed,
-  type: model.isAsr ? 'ASR' : model.isOrchestrator ? 'APP' : 'TTS'
+  type: model.isAsr ? 'ASR' : model.isOrchestrator ? 'APP' : 'TTS',
+  hardware: Array.isArray(model.hardware) ? model.hardware : [],
+  sizeGB: Number.isFinite(Number(model.sizeGB)) ? Number(model.sizeGB) : null
 }));
 
 const output = `// Generated from the canonical TTS_MODELS array in tts-list.html.\n` +

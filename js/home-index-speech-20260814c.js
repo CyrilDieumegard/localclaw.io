@@ -10,7 +10,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-01-22",
     "quality": 9.5,
     "speed": 8.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 4.52
   },
   {
     "id": "melotts",
@@ -21,7 +25,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-03",
     "quality": 9,
     "speed": 9,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.5
   },
   {
     "id": "piper",
@@ -32,7 +42,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2023-06",
     "quality": 7.5,
     "speed": 10,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "edge",
+      "apple"
+    ],
+    "sizeGB": 0.1
   },
   {
     "id": "coqui-tts",
@@ -43,7 +59,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2023-09",
     "quality": 9.2,
     "speed": 6,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.8
   },
   {
     "id": "bark",
@@ -54,7 +75,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2023-04",
     "quality": 8.5,
     "speed": 4,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4.2
   },
   {
     "id": "mms",
@@ -65,7 +91,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2023-05",
     "quality": 7,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 1.2
   },
   {
     "id": "parler-tts",
@@ -76,7 +108,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-02",
     "quality": 8.8,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.5
   },
   {
     "id": "fish-speech",
@@ -87,7 +124,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-06",
     "quality": 9,
     "speed": 8.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3
   },
   {
     "id": "styletts2",
@@ -98,7 +140,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-01",
     "quality": 9.3,
     "speed": 6.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 1.8
   },
   {
     "id": "f5-tts",
@@ -109,7 +155,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-10",
     "quality": 9.4,
     "speed": 9,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.5
   },
   {
     "id": "chattts",
@@ -120,7 +171,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-05",
     "quality": 8.8,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 3.2
   },
   {
     "id": "tortoise-tts",
@@ -131,7 +186,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2022-05",
     "quality": 9.1,
     "speed": 3,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 4.5
   },
   {
     "id": "metavoice",
@@ -142,7 +201,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-03",
     "quality": 8.9,
     "speed": 6,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 3.8
   },
   {
     "id": "espeak-ng",
@@ -153,7 +216,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2010-01",
     "quality": 5.5,
     "speed": 10,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "edge"
+    ],
+    "sizeGB": 0.01
   },
   {
     "id": "kokoro",
@@ -164,7 +232,14 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-01",
     "quality": 9.2,
     "speed": 9.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.33
   },
   {
     "id": "orpheus-tts",
@@ -175,7 +250,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-03",
     "quality": 9.6,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3.5
   },
   {
     "id": "chatterbox",
@@ -186,7 +266,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-05",
     "quality": 9.4,
     "speed": 8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.2
   },
   {
     "id": "dia-tts",
@@ -197,7 +282,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-04",
     "quality": 9.3,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3
   },
   {
     "id": "outetts",
@@ -208,7 +298,14 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-01",
     "quality": 8.7,
     "speed": 8.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.9
   },
   {
     "id": "cosyvoice2",
@@ -219,7 +316,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-12",
     "quality": 9.3,
     "speed": 8.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.4
   },
   {
     "id": "spark-tts",
@@ -230,7 +332,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-03",
     "quality": 9,
     "speed": 8.2,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3
   },
   {
     "id": "voicebox",
@@ -241,7 +348,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-02",
     "quality": 9,
     "speed": 9.5,
-    "type": "APP"
+    "type": "APP",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 0.05
   },
   {
     "id": "sesame-csm",
@@ -252,7 +365,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-03",
     "quality": 9.5,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3.5
   },
   {
     "id": "gpt-sovits",
@@ -263,7 +381,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-01",
     "quality": 9.1,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2
   },
   {
     "id": "emotivoice",
@@ -274,7 +397,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2023-11",
     "quality": 8.5,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "cpu"
+    ],
+    "sizeGB": 1.5
   },
   {
     "id": "mars5",
@@ -285,7 +413,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-06",
     "quality": 9,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.5
   },
   {
     "id": "maskgct",
@@ -296,7 +429,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-10",
     "quality": 9.4,
     "speed": 9,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.8
   },
   {
     "id": "indic-tts",
@@ -307,7 +445,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-02",
     "quality": 8,
     "speed": 8.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu"
+    ],
+    "sizeGB": 0.8
   },
   {
     "id": "tada",
@@ -318,7 +461,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-02",
     "quality": 9.1,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2
   },
   {
     "id": "kitten-tts",
@@ -329,7 +477,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-02-24",
     "quality": 7.5,
     "speed": 10,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "edge"
+    ],
+    "sizeGB": 0.025
   },
   {
     "id": "vibevoice-realtime-0.5b",
@@ -340,7 +493,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-12",
     "quality": 9.1,
     "speed": 9.2,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.1
   },
   {
     "id": "vibevoice-1.5b",
@@ -351,7 +509,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-08",
     "quality": 9.4,
     "speed": 6.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 5.8
   },
   {
     "id": "vibevoice-asr",
@@ -362,7 +525,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-01",
     "quality": 9.3,
     "speed": 7.5,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 14
   },
   {
     "id": "cohere-transcribe-03-2026",
@@ -373,7 +541,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-03",
     "quality": 9,
     "speed": 8,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4
   },
   {
     "id": "audio8-tts-preview-0.6b",
@@ -384,7 +557,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-07",
     "quality": 9.3,
     "speed": 8.9,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.6
   },
   {
     "id": "raon-opentts-1b",
@@ -395,7 +574,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-05",
     "quality": 9.3,
     "speed": 7.7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.2
   },
   {
     "id": "ax-k2-raon-speech-21b-a3b",
@@ -406,7 +590,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-07",
     "quality": 9.4,
     "speed": 6.4,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 42.4
   },
   {
     "id": "voxcpm2",
@@ -417,7 +605,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-05",
     "quality": 9.4,
     "speed": 8.3,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4.2
   },
   {
     "id": "magpie-tts-multilingual-357m",
@@ -428,7 +621,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-07",
     "quality": 9,
     "speed": 8.6,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "cpu",
+      "apple"
+    ],
+    "sizeGB": 1.5
   },
   {
     "id": "supertonic-3",
@@ -439,7 +638,14 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-05",
     "quality": 8.8,
     "speed": 9.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.2
   },
   {
     "id": "moss-tts-nano",
@@ -450,7 +656,14 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-04",
     "quality": 8.5,
     "speed": 9.7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.1
   },
   {
     "id": "moss-tts",
@@ -461,7 +674,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-03",
     "quality": 9.2,
     "speed": 6.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 16
   },
   {
     "id": "silma-tts",
@@ -472,7 +690,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-03",
     "quality": 8.7,
     "speed": 8.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 0.6
   },
   {
     "id": "granite-speech-4.1-2b",
@@ -483,7 +707,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-04",
     "quality": 9.2,
     "speed": 8,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4
   },
   {
     "id": "qwen3-asr",
@@ -494,7 +723,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-01",
     "quality": 9.5,
     "speed": 9,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3.4
   },
   {
     "id": "nemotron-3.5-asr-streaming-0.6b",
@@ -505,7 +739,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-06",
     "quality": 9.4,
     "speed": 9.3,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 0.75
   },
   {
     "id": "moss-transcribe-diarize",
@@ -516,7 +756,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-07",
     "quality": 9.4,
     "speed": 8.4,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.8
   },
   {
     "id": "ark-asr-3b",
@@ -527,7 +772,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-06",
     "quality": 9.3,
     "speed": 8.7,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 8.1
   },
   {
     "id": "higgs-audio-v2",
@@ -538,7 +788,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-07",
     "quality": 9.7,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 5.5
   },
   {
     "id": "miso-tts",
@@ -549,7 +804,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-05",
     "quality": 9.4,
     "speed": 5.8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 16
   },
   {
     "id": "wavtts",
@@ -560,7 +820,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-06",
     "quality": 9.1,
     "speed": 5.2,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 10.8
   },
   {
     "id": "dots-tts-mf",
@@ -571,7 +835,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-06",
     "quality": 9.4,
     "speed": 8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4.2
   },
   {
     "id": "zonos",
@@ -582,7 +851,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-02",
     "quality": 9.5,
     "speed": 8.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3.2
   },
   {
     "id": "index-tts-2",
@@ -593,7 +867,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-09",
     "quality": 9.4,
     "speed": 8,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.4
   },
   {
     "id": "openvoice-v2",
@@ -604,7 +883,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-05",
     "quality": 8.9,
     "speed": 9,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 0.6
   },
   {
     "id": "whisper-v3-turbo",
@@ -615,7 +900,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-10",
     "quality": 9.1,
     "speed": 9.5,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.6
   },
   {
     "id": "parakeet-tdt-0.6b-v2",
@@ -626,7 +917,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-05",
     "quality": 9.4,
     "speed": 10,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "cpu",
+      "apple"
+    ],
+    "sizeGB": 1.1
   },
   {
     "id": "voxtral-mini-4b-realtime-2602",
@@ -637,7 +934,11 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2026-02",
     "quality": 9.2,
     "speed": 9.4,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 8.9
   },
   {
     "id": "parakeet-tdt-0.6b-v3",
@@ -648,7 +949,13 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-08",
     "quality": 9.5,
     "speed": 9.7,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "cpu",
+      "apple"
+    ],
+    "sizeGB": 2.34
   },
   {
     "id": "canary-1b-v2",
@@ -659,7 +966,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-07",
     "quality": 9.3,
     "speed": 9,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2
   },
   {
     "id": "moshi",
@@ -670,7 +982,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2024-09",
     "quality": 9,
     "speed": 9.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 7.5
   },
   {
     "id": "neutts-air",
@@ -681,7 +998,14 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-10",
     "quality": 9,
     "speed": 9.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.75
   },
   {
     "id": "step-audio-2-mini",
@@ -692,7 +1016,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-08",
     "quality": 9.3,
     "speed": 7.5,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4.8
   },
   {
     "id": "llasa-3b",
@@ -703,7 +1032,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-01",
     "quality": 9.2,
     "speed": 7,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 6.2
   },
   {
     "id": "f5-tts-v1.1",
@@ -714,7 +1048,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-03-12",
     "quality": 9.5,
     "speed": 9.2,
-    "type": "TTS"
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.35
   },
   {
     "id": "kyutai-stt-2.6b",
@@ -725,6 +1064,12 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "releaseDate": "2025-06",
     "quality": 9.4,
     "speed": 9.5,
-    "type": "ASR"
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "cpu",
+      "apple"
+    ],
+    "sizeGB": 5.62
   }
 ];
