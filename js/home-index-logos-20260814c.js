@@ -126,6 +126,7 @@ window.HOME_INDEX_LOGOS = {
     parler: 'parler-avatar',
     piper: 'rhasspy-avatar',
     qwen: 'qwen',
+    raon: 'github',
     sesame: 'sesame-avatar',
     silma: 'silma-avatar',
     spark: 'spark',

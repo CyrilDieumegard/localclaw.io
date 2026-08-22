@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 64 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 64 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 66 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 66 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 64 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 66 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1618,10 +1618,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">67</strong> speech records: <strong style="color:#fff;">64 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">69</strong> speech records: <strong style="color:#fff;">66 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>64 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>66 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2623,6 +2623,57 @@
                 voices: "Zero-shot voice cloning with reference audio and transcript",
                 context: "601M params plus bundled codec; PyTorch checkpoint and official ONNX INT4 CPU runtime",
                 license: "Apache 2.0"
+            },
+            {
+                id: "raon-opentts-1b",
+                name: "Raon-OpenTTS-1B",
+                developer: "KRAFTON AI",
+                family: "raon",
+                description: "Open-weight and open-data English zero-shot TTS model based on the F5-TTS diffusion transformer architecture. The 1.048B parameter checkpoint supports voice cloning from reference audio, ships official PyTorch weights and code, and uses a 16 kHz HiFi-GAN vocoder path documented by KRAFTON.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "controllable", "low-latency"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.2,
+                sizeCategory: "medium",
+                quality: 9.3,
+                speed: 7.7,
+                latency: "medium",
+                releaseDate: "2026-05",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/KRAFTON/Raon-OpenTTS-1B",
+                installCommand: "git clone https://github.com/krafton-ai/Raon-OpenTTS",
+                supportedFormats: ["pytorch"],
+                voices: "Zero-shot voice cloning from reference audio and transcript",
+                context: "1.048B params, 510K-hour English open-data training core, F5-TTS DiT architecture",
+                license: "CC-BY-NC-4.0"
+            },
+            {
+                id: "ax-k2-raon-speech-21b-a3b",
+                name: "A.X K2 Raon-Speech 21B-A3B",
+                developer: "KRAFTON AI",
+                family: "raon",
+                isAsr: true,
+                description: "Bilingual English/Korean speech-language model for local STT, TTS, SpeechQA, SpokenQA and turn-based multimodal chat. The MoE checkpoint has 21.2B total parameters with about 3.5B active, includes KRAFTON's AuT speech encoder and Mimi-style codec, and loads through official Transformers remote-code pipeline examples.",
+                languages: ["en", "ko"],
+                languageCount: 2,
+                features: ["cloning", "multilingual", "dialogue", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 42.4,
+                sizeCategory: "xl",
+                quality: 9.4,
+                speed: 6.4,
+                latency: "medium",
+                releaseDate: "2026-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/KRAFTON/A.X-K2-Raon-Speech-21B-A3B",
+                installCommand: "git clone https://github.com/krafton-ai/Raon-Speech",
+                supportedFormats: ["transformers", "safetensors"],
+                voices: "Direct TTS, optional speaker reference conditioning and TTS continuation",
+                context: "21.2B total / 3.5B active MoE, ~42.4GB BF16 weights; 80GB GPU or suitable multi-GPU setup recommended",
+                license: "CC-BY-NC-4.0"
             },
             {
                 id: "voxcpm2",

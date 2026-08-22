@@ -387,6 +387,28 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "type": "TTS"
   },
   {
+    "id": "raon-opentts-1b",
+    "name": "Raon-OpenTTS-1B",
+    "developer": "KRAFTON AI",
+    "family": "raon",
+    "license": "CC-BY-NC-4.0",
+    "releaseDate": "2026-05",
+    "quality": 9.3,
+    "speed": 7.7,
+    "type": "TTS"
+  },
+  {
+    "id": "ax-k2-raon-speech-21b-a3b",
+    "name": "A.X K2 Raon-Speech 21B-A3B",
+    "developer": "KRAFTON AI",
+    "family": "raon",
+    "license": "CC-BY-NC-4.0",
+    "releaseDate": "2026-07",
+    "quality": 9.4,
+    "speed": 6.4,
+    "type": "ASR"
+  },
+  {
     "id": "voxcpm2",
     "name": "VoxCPM2",
     "developer": "OpenBMB",

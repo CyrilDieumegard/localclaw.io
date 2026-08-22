@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "32acb7cc6c557ff2fbfe905c35bf164467d9252d8df25ff4eaa98ca486c6d4f2",
+    "hash": "aa7eab7644119dc633fd44bebdb81187029e918508a0424d4d979d3cf91f671f",
     "lastmod": "2026-08-22"
   },
   "software.html": {
@@ -16,31 +16,31 @@
     "lastmod": "2026-08-21"
   },
   "llm-list.html": {
-    "hash": "549aac50c5a42ba4695f3ab94f667d0c00c7c430a6a117fd29c56db0da495e95",
+    "hash": "bc4a2e4efd7b3a97405d61b5c3511663aed2936fd1a51c320f3f05429469790e",
     "lastmod": "2026-08-22"
   },
   "tts-list.html": {
-    "hash": "a6582dad71420db90b2b183855ab9a372c0a7a44ba0c5f4e13f3f0326d2b48eb",
-    "lastmod": "2026-08-21"
+    "hash": "dacc3fbcef4e709e0a6f1c0ccd5a7a5c34e58916d6815800de9e5385e69b3ba6",
+    "lastmod": "2026-08-22"
   },
   "image-models.html": {
-    "hash": "a373aee2da38f0a6398db462165e2e5eeacb984c42e66bd21f3880e42934c704",
+    "hash": "3f3609d34c64c79a8e8baa804602afc05526ddd11e9160ccc7e8ae9f516c78b8",
     "lastmod": "2026-08-22"
   },
   "video-models.html": {
-    "hash": "bc2780c5af942bf1c645cff0cd2d41dcd0cf9af661c38ee7aab5c7337b6f734f",
+    "hash": "8ec9f1d6ace31be1ac372eef6ff947dbdcc01d1f70c5fdff9bbcaec69fd0fb29",
     "lastmod": "2026-08-22"
   },
   "3d-models.html": {
-    "hash": "e1924c8a3612ca7cde73bed5906ba117c40da26b3a61f172d2b185566a9adf38",
+    "hash": "25eb74c9cf293fe12ca2d6b17bc3146ebc9a38d762f032e8252316164654d9a7",
     "lastmod": "2026-08-22"
   },
   "music-models.html": {
-    "hash": "83fd677660bf0a4cb4d57217c772a3b12686306895601eb46c96928d3530d275",
+    "hash": "b3c527cb94918448f07feb5944160d49f2ca9ba9f761aab5107c3a1162794e0e",
     "lastmod": "2026-08-22"
   },
   "vision-models.html": {
-    "hash": "bfcac9746f5338fcb64a5a8c8573c9b028f01cbaaa8b19570a5d66bb6ada1a05",
+    "hash": "e958f4c3d2f267f6c49149ea0c78b5336f022c16ab715074ca4ac0627f5530c0",
     "lastmod": "2026-08-22"
   },
   "computers.html": {
@@ -52,7 +52,7 @@
     "lastmod": "2026-08-21"
   },
   "new.html": {
-    "hash": "e2f35fe6e8528bdc1aab4adfc430988fdf333b3def5f2175dbb6a2fbe328fdc1",
+    "hash": "d2de0db88fa95a9f3bbbb1216e8245192c84f6e27e7ad1468d28644812437766",
     "lastmod": "2026-08-22"
   },
   "case-study/iron-descent.html": {
@@ -1003,6 +1003,10 @@
     "hash": "27515c0f48fdcc66adceb0809fb1616f5b875914223ee910f79c2953850230b3",
     "lastmod": "2026-08-22"
   },
+  "tts/ax-k2-raon-speech-21b-a3b.html": {
+    "hash": "521c6884c23ea8d0be26902cd932268fe86ecf835ffd844d361b14d1d31a6800",
+    "lastmod": "2026-08-22"
+  },
   "tts/bark.html": {
     "hash": "bba53b836b7e0c7faf86e5bea8e735be5c00acc706d1e14843fb23dd8b38da16",
     "lastmod": "2026-08-22"
@@ -1080,8 +1084,8 @@
     "lastmod": "2026-08-22"
   },
   "tts/index.html": {
-    "hash": "eb2793dc97d884b3278e9d9bd7758bba5c85797866ec653986fb039f7d5392bb",
-    "lastmod": "2026-08-21"
+    "hash": "cc8c138a5461ce4791ee771b3063288d46f48a05f152ad4b5dc8b408376ad317",
+    "lastmod": "2026-08-22"
   },
   "tts/indic-tts.html": {
     "hash": "159a6cfaa7efd66e88eb73c97c4e1389df3ed0742130a5ae6baa08c58a9e986e",
@@ -1136,7 +1140,7 @@
     "lastmod": "2026-08-22"
   },
   "tts/moss-transcribe-diarize.html": {
-    "hash": "c214ae61e8615fee661ab33027b917b0f83e7124006b943518a46bbc3d40bd8b",
+    "hash": "8ac1c8cdb06e68449107b26d717ebb27f27030cfb4ede7adf910436e9740b4a0",
     "lastmod": "2026-08-22"
   },
   "tts/moss-tts-nano.html": {
@@ -1195,6 +1199,10 @@
     "hash": "eeb480b18fb52d57a0bca63dd57a657cf6d78d69e934c463772ca635ff07f9dd",
     "lastmod": "2026-08-21"
   },
+  "tts/raon-opentts-1b.html": {
+    "hash": "86bfc0fc9cd8f684ecba5657db21c85065886ff85071c22b101013ae64928e81",
+    "lastmod": "2026-08-22"
+  },
   "tts/sesame-csm.html": {
     "hash": "70a089f0bfcae6c015a4fa6e375eefedf94ab596d021c61a00aa0d828c35be81",
     "lastmod": "2026-08-22"
@@ -1212,7 +1220,7 @@
     "lastmod": "2026-08-22"
   },
   "tts/styletts2.html": {
-    "hash": "cf9d467abca0c9e555bb1c232c9b350fc2b65893862d4d1b2cd2d8db0a803c9b",
+    "hash": "6094367bb2ff03c72edabfd87d5f98aee68057da4f70b531006376bb6a482182",
     "lastmod": "2026-08-22"
   },
   "tts/supertonic-3.html": {
@@ -1772,7 +1780,7 @@
     "lastmod": "2026-08-20"
   },
   "guides/best-local-tts-for-voice-cloning.html": {
-    "hash": "8b959d5f656627a13bb08273a4e525d64aef46c0acc65698f3015a0bc3ad6cc3",
+    "hash": "2d9a7593d48b4b7b4200bc47c0a970ea505b4d7e5dfc62b3ef679008fffa6c99",
     "lastmod": "2026-08-22"
   },
   "guides/index.html": {
