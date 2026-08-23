@@ -137,10 +137,7 @@ html { scroll-behavior: smooth; }
 .lc-home-machine-card__visual img { width: 100%; height: 100%; object-fit: cover; }
 .lc-home-machine-card__visual img[src^="images/hardware/mac-"] { width: 84%; height: 84%; margin: 8%; border-radius: 4px; }
 .lc-home-machine-card__visual img[src$="-card-v2.png"] { width: 100%; height: 100%; margin: 0; border-radius: 6px; object-fit: cover; transform: none; }
-.lc-home-machine-card__image--dark { display: none; }
 html.dark .lc-home-machine-card__visual { background: #111113; }
-html.dark .lc-home-machine-card__image--theme-light { display: none; }
-html.dark .lc-home-machine-card__image--dark { display: block; width: 100%; height: 100%; margin: 0; border-radius: 6px; object-fit: cover; object-position: center; }
 .lc-home-machine-card__copy { display: grid; min-width: 0; gap: 3px; }
 .lc-home-machine-card__copy strong,
 .lc-home-machine-card__copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

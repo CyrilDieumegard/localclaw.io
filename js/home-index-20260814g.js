@@ -1037,12 +1037,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const selected = activeMachine && machine.id === activeMachine.id;
                 const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
                 const machineImages = machineImagePaths(machine);
-                const darkImage = machineImages.dark !== machineImages.light
-                    ? `<img class="lc-home-machine-card__image lc-home-machine-card__image--dark" src="${machineImages.dark}" alt="" width="160" height="90" loading="lazy" decoding="async">`
-                    : '';
-                const lightImageClass = darkImage ? ' lc-home-machine-card__image--theme-light' : '';
                 return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" tabindex="${selected ? '0' : '-1'}" data-saved-machine="${index}">
-                    <span class="lc-home-machine-card__visual" aria-hidden="true"><img class="lc-home-machine-card__image lc-home-machine-card__image--light${lightImageClass}" src="${machineImages.light}" alt="" width="104" height="104" loading="lazy" decoding="async">${darkImage}</span>
+                    <span class="lc-home-machine-card__visual" aria-hidden="true"><img class="lc-home-machine-card__image" src="${machineImages.light}" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
                     <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span class="lc-home-machine-card__hardware" title="${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}">${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}</span></span>
                     <span class="lc-home-machine-card__signals">${selected ? '<span class="lc-home-machine-card__selected">Selected</span>' : ''}${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}</span>
                 </button>`;
