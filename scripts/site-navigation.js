@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260823b';
+const NAV_VERSION = '20260823c';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
@@ -42,7 +42,8 @@ function siteNavigation(active = '', options = {}) {
   const navigationItems = items.map(item => item[0] === 'account' && options.accountLabel
     ? [item[0], item[1], options.accountLabel]
     : item);
-  const desktopItems = navigationItems.filter(item => !modelKeys.has(item[0]));
+  const desktopItems = navigationItems.filter(item => !modelKeys.has(item[0]) && item[0] !== 'account');
+  const desktopAccount = navigationItems.find(item => item[0] === 'account');
   const desktopNavigation = desktopItems.map(item => link(item, active)).join('');
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
@@ -51,7 +52,10 @@ function siteNavigation(active = '', options = {}) {
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links">${desktopNavigation}</div>
-    ${themeSwitcher('desktop')}
+    <div class="lc-global-nav__actions">
+      ${themeSwitcher('desktop')}
+      ${desktopAccount ? link(desktopAccount, active) : ''}
+    </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>

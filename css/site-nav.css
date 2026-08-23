@@ -83,6 +83,13 @@
   min-width: 0;
 }
 
+.lc-global-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
 .lc-global-nav__link {
   flex: 0 0 auto;
   color: #545b66;
@@ -559,7 +566,7 @@ html.light #blog-mobile-menu { background: rgba(250, 249, 246, 0.98) !important;
     display: none;
   }
 
-  .lc-global-nav__inner > .lc-theme-switcher {
+  .lc-global-nav__actions {
     display: none;
   }
 

@@ -17,9 +17,15 @@ for (const marker of [
   '>RAM/GPU</a>',
   'data-theme-option="light"',
   'data-theme-option="dark"',
-  'lc-theme-switcher--mobile'
+  'lc-theme-switcher--mobile',
+  'lc-global-nav__actions'
 ]) {
   if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
+}
+
+const desktopActions = navigationContract.match(/<div class="lc-global-nav__actions">([\s\S]*?)<\/div>\s*<button class="lc-global-nav__menu-button"/);
+if (!desktopActions || !desktopActions[1].includes('data-theme-switcher') || !desktopActions[1].includes('data-nav-key="account"')) {
+  throw new Error('Desktop Account action must follow the theme switcher in the right-side action group.');
 }
 
 const assetContract = siteNavAssets();
@@ -88,6 +94,9 @@ function synchronize(html, relativePath) {
 
   const accountHeader = html.match(/<header class="lc-site-header">[\s\S]*?<\/header>/i);
   if (accountHeader) return addAssets(html.replace(accountHeader[0], navigation));
+
+  const buyerIntentHeader = html.match(/<header class="bi-nav">[\s\S]*?<\/header>/i);
+  if (buyerIntentHeader) return addAssets(html.replace(buyerIntentHeader[0], navigation));
 
   if (relativePath.startsWith('changelog/')) {
     const legacyHeader = html.match(/<header class="(?:nav|site-nav)">[\s\S]*?<\/header>/i);
