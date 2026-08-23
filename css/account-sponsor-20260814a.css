@@ -710,3 +710,125 @@ body[data-account-preview="sponsorship"] #sign-out {
 @media (prefers-reduced-motion: reduce) {
     .lc-sponsor-spinner { animation-duration: 1.8s; }
 }
+
+/* Light account workspace: commercial panels follow the same paper surface as Plans. */
+html.light .lc-account-tabs {
+    border-color: #d7dce4;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 14px 38px rgba(15, 23, 42, 0.07);
+}
+
+html.light .lc-account-tab { color: #64748b; }
+
+html.light .lc-account-tab:hover,
+html.light .lc-account-tab:focus-visible {
+    color: #111827;
+    background: #f7f5f1;
+}
+
+html.light .lc-account-tab.is-active {
+    border-color: #d7dce4;
+    color: #111827;
+    background: linear-gradient(120deg, rgba(201, 47, 40, 0.07), #ffffff 62%);
+    box-shadow: inset 3px 0 0 #c92f28;
+}
+
+html.light .lc-account-tab em {
+    border-color: rgba(201, 47, 40, 0.28);
+    color: #a8241f;
+    background: rgba(201, 47, 40, 0.05);
+}
+
+html.light .lc-sponsor-hero,
+html.light .lc-sponsor-section,
+html.light .lc-sponsor-billing,
+html.light .lc-sponsor-summary {
+    border-color: #d7dce4;
+    background: #ffffff;
+    box-shadow: 0 18px 52px rgba(15, 23, 42, 0.08);
+}
+
+html.light .lc-sponsor-hero {
+    background:
+        radial-gradient(circle at 86% 40%, rgba(201, 47, 40, 0.1), transparent 34%),
+        linear-gradient(120deg, rgba(201, 47, 40, 0.055), transparent 46%),
+        #ffffff;
+}
+
+html.light .lc-sponsor-hero h2,
+html.light .lc-sponsor-section h3,
+html.light .lc-sponsor-billing h3,
+html.light .lc-sponsor-mode strong,
+html.light .lc-sponsor-summary strong,
+html.light .lc-sponsor-empty strong,
+html.light .lc-sponsor-campaign h4,
+html.light .lc-sponsor-campaign__metrics strong,
+html.light .lc-sponsor-checkbox strong,
+html.light .lc-sponsor-creative-preview strong,
+html.light .lc-sponsor-booking-summary strong { color: #111827; }
+
+html.light .lc-sponsor-hero > div > p:last-child,
+html.light .lc-sponsor-section__head p:not(.lc-kicker),
+html.light .lc-sponsor-billing p:not(.lc-kicker),
+html.light .lc-sponsor-summary small,
+html.light .lc-sponsor-mode small,
+html.light .lc-sponsor-empty,
+html.light .lc-sponsor-campaign p,
+html.light .lc-sponsor-campaign__schedule small,
+html.light .lc-sponsor-checkbox small,
+html.light .lc-sponsor-booking-summary p,
+html.light #sponsor-logo-file { color: #64748b; }
+
+html.light .lc-sponsor-mode,
+html.light .lc-sponsor-campaign,
+html.light .lc-sponsor-empty,
+html.light .lc-sponsor-creative-preview,
+html.light .lc-sponsor-checkbox,
+html.light #sponsor-logo-file {
+    border-color: #d7dce4;
+    background: #f7f5f1;
+}
+
+html.light .lc-sponsor-mode { background: rgba(255, 255, 255, 0.86); }
+html.light .lc-sponsor-summary article { border-color: #e5e7eb; }
+
+html.light .lc-sponsor-lock,
+html.light .lc-sponsor-status {
+    border-color: #d7dce4;
+    color: #64748b;
+    background: #f7f5f1;
+}
+
+html.light .lc-sponsor-inventory-grid article {
+    border-color: #cbd5e1;
+    color: #64748b;
+    background:
+        linear-gradient(rgba(201, 47, 40, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 47, 40, 0.025) 1px, transparent 1px),
+        #fbfaf8;
+}
+
+html.light .lc-sponsor-inventory-grid article[data-state="open"] { border-color: rgba(22, 101, 52, 0.34); }
+html.light .lc-sponsor-inventory-grid article[data-state="open"] small { color: #166534; }
+html.light .lc-sponsor-inventory-grid article[data-state="bounded"] small { color: #9a6700; }
+
+html.light .lc-sponsor-inventory-grid strong,
+html.light .lc-sponsor-campaign__schedule strong { color: #334155; }
+
+html.light .lc-sponsor-campaign__metrics div { border-color: #e5e7eb; }
+
+html.light .lc-sponsor-billing {
+    border-color: rgba(201, 47, 40, 0.24);
+    background: linear-gradient(110deg, rgba(201, 47, 40, 0.055), transparent 44%), #ffffff;
+}
+
+html.light .lc-sponsor-billing > span {
+    border-color: rgba(22, 101, 52, 0.28);
+    color: #166534;
+    background: #f0fdf4;
+}
+
+html.light .lc-sponsor-spinner {
+    border-color: #d7dce4 !important;
+    border-top-color: #c92f28 !important;
+}

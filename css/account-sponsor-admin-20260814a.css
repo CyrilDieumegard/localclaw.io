@@ -519,3 +519,66 @@ body {
     .lc-sponsor-admin-day i,
     .lc-sponsor-admin-day b { transition: none; }
 }
+
+/* Light account workspace: owner operations remain dense without becoming a dark island. */
+html.light .lc-sponsor-admin-hero,
+html.light .lc-sponsor-admin-section,
+html.light .lc-sponsor-admin-summary,
+html.light .lc-sponsor-admin-campaign,
+html.light .lc-sponsor-admin-audit,
+html.light .lc-sponsor-admin-timeline {
+    border-color: #d7dce4;
+    background: #ffffff;
+    box-shadow: 0 18px 52px rgba(15, 23, 42, 0.08);
+}
+
+html.light .lc-sponsor-admin-hero {
+    background:
+        radial-gradient(circle at 88% 32%, rgba(201, 47, 40, 0.1), transparent 32%),
+        linear-gradient(112deg, rgba(201, 47, 40, 0.05), transparent 46%),
+        #ffffff;
+}
+
+html.light .lc-sponsor-admin-hero h2,
+html.light .lc-sponsor-admin-section h3,
+html.light .lc-sponsor-admin-summary strong,
+html.light .lc-sponsor-admin-campaign h4,
+html.light .lc-sponsor-admin-metrics strong,
+html.light .lc-sponsor-admin-audit strong { color: #111827; }
+
+html.light .lc-sponsor-admin-hero > div > p:last-child,
+html.light .lc-sponsor-admin-badge small,
+html.light .lc-sponsor-admin-summary small,
+html.light .lc-sponsor-admin-campaign p,
+html.light .lc-sponsor-admin-owner small,
+html.light .lc-sponsor-admin-audit p,
+html.light .lc-sponsor-admin-audit time { color: #64748b; }
+
+html.light .lc-sponsor-admin-badge,
+html.light .lc-sponsor-admin-mark,
+html.light .lc-sponsor-admin-state,
+html.light .lc-sponsor-admin-stripe,
+html.light .lc-sponsor-admin-target,
+html.light .lc-sponsor-admin-period,
+html.light .lc-sponsor-admin-filters input,
+html.light .lc-sponsor-admin-filters select {
+    border-color: #d7dce4;
+    color: #334155;
+    background: #f7f5f1;
+}
+
+html.light .lc-sponsor-admin-summary article,
+html.light .lc-sponsor-admin-metrics,
+html.light .lc-sponsor-admin-metrics div,
+html.light .lc-sponsor-admin-campaign > header,
+html.light .lc-sponsor-admin-campaign > footer,
+html.light .lc-sponsor-admin-audit > article { border-color: #e5e7eb; }
+
+html.light .lc-sponsor-admin-chart,
+html.light .lc-sponsor-admin-day,
+html.light .lc-sponsor-admin-chart-legend {
+    border-color: #e5e7eb;
+    background: #fbfaf8;
+}
+
+html.light .lc-sponsor-admin-day i { background: #e5e7eb; }
