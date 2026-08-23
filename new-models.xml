@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Ornith-1.5-9B</title>
@@ -23,6 +23,14 @@
       <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
       <category>ornith</category>
       <description>Official MIT 35B MoE reasoning model from Ornith AI with about 3B active parameters, 262K context, strong agentic-coding positioning and official Q4_K_M GGUF plus MLX/Ollama/llama.cpp local paths for larger workstations. 35B (3B active, MoE) · 48 GB minimum RAM · Q4_K_M · ornith.</description>
+    </item>
+    <item>
+      <title>LLM-jp-4 33B Thinking</title>
+      <link>https://localclaw.io/models/llm-jp-4-33b-thinking</link>
+      <guid isPermaLink="true">https://localclaw.io/models/llm-jp-4-33b-thinking</guid>
+      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
+      <category>llm-jp</category>
+      <description>Official Apache 2.0 LLM-jp reasoning model with English/Japanese support, 65K GGUF context metadata and an official Q4_K_M GGUF path for local llama.cpp and LM Studio testing on 64GB+ workstations. 33B · 64 GB minimum RAM · Q4_K_M · llm-jp.</description>
     </item>
     <item>
       <title>LFM2.5-VL-3B</title>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
       <category>internscience</category>
       <description>InternScience Apache 2.0 agentic VLM. 35B-A3B MoE, 262K context, strong long-horizon search/tool-use benchmarks and official Q4_K_M GGUF artifacts for local workstations. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · internscience.</description>
-    </item>
-    <item>
-      <title>DiffusionGemma 26B-A4B Instruct</title>
-      <link>https://localclaw.io/models/diffusiongemma-26b-a4b-it</link>
-      <guid isPermaLink="true">https://localclaw.io/models/diffusiongemma-26b-a4b-it</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>gemma</category>
-      <description>Official Google Apache 2.0 diffusion-language Gemma model with image-text chat support. Strong local relevance thanks to active Unsloth GGUF quantizations for workstation-class machines. 26B (4B active, diffusion MoE) · 32 GB minimum RAM · Q4_K_M · gemma.</description>
     </item>
   </channel>
 </rss>

@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>Sarvam 30B local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Sarvam 30B: 32B (2.4B active, MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>LLM-jp-4 33B Thinking local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="LLM-jp-4 33B Thinking: 33B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/sarvam-30b">
+  <link rel="canonical" href="https://localclaw.io/models/llm-jp-4-33b-thinking">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/sarvam-30b">
-  <meta property="og:title" content="Sarvam 30B local AI model | LocalClaw">
-  <meta property="og:description" content="Sarvam 30B: 32B (2.4B active, MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/llm-jp-4-33b-thinking">
+  <meta property="og:title" content="LLM-jp-4 33B Thinking local AI model | LocalClaw">
+  <meta property="og:description" content="LLM-jp-4 33B Thinking: 33B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sarvam 30B local AI model | LocalClaw">
-  <meta name="twitter:description" content="Sarvam 30B: 32B (2.4B active, MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="LLM-jp-4 33B Thinking local AI model | LocalClaw">
+  <meta name="twitter:description" content="LLM-jp-4 33B Thinking: 33B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Sarvam 30B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/sarvam-30b","description":"Sarvam 30B: 32B (2.4B active, MoE) local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-03","memoryRequirements":"32 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"Sarvam AI","url":"https://www.sarvam.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Sarvam 30B run locally?","acceptedAnswer":{"@type":"Answer","text":"Sarvam 30B can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Sarvam 30B best for?","acceptedAnswer":{"@type":"Answer","text":"Sarvam 30B is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Sarvam 30B","item":"https://localclaw.io/models/sarvam-30b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"LLM-jp-4 33B Thinking","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/llm-jp-4-33b-thinking","description":"LLM-jp-4 33B Thinking: 33B local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-08-14","memoryRequirements":"64 GB RAM minimum","license":"https://huggingface.co/llm-jp/llm-jp-4-33b-thinking/blob/main/LICENSE","creator":{"@type":"Organization","name":"LLM-jp","url":"https://huggingface.co/llm-jp"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can LLM-jp-4 33B Thinking run locally?","acceptedAnswer":{"@type":"Answer","text":"LLM-jp-4 33B Thinking can run locally with at least 64 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is LLM-jp-4 33B Thinking best for?","acceptedAnswer":{"@type":"Answer","text":"LLM-jp-4 33B Thinking is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"LLM-jp-4 33B Thinking","item":"https://localclaw.io/models/llm-jp-4-33b-thinking"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -94,17 +94,17 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Sarvam 30B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>LLM-jp-4 33B Thinking</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight MoE</div>
-        <h1 class="title">Sarvam 30B</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability.</p>
+        <div class="eyebrow">Open-weight local LLM</div>
+        <h1 class="title">LLM-jp-4 33B Thinking</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Official Apache 2.0 LLM-jp reasoning model with English/Japanese support, 65K GGUF context metadata and an official Q4_K_M GGUF path for local llama.cpp and LM Studio testing on 64GB+ workstations.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">32 GB catalogue minimum</span><span class="chip">32 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
+        <div class="chips"><span class="chip hot">64 GB catalogue minimum</span><span class="chip">64 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
         <div class="run-picker" data-model-run-options>
-          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Pick the app you already use. No terminal and no command to copy.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b">Compare models</a></div>
-          <div class="run-grid"><a class="run-option featured" data-runtime="lmstudio" href="lmstudio://open_from_hf?model=sarvamai/sarvam-30b-gguf" data-fast-goal="model_runtime_lmstudio" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in LM Studio</strong><small>Opens the app on this model&#39;s download screen</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=sarvamai%2Fsarvam-30b-gguf" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/sarvamai/sarvam-30b-gguf" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option " data-runtime="llamacpp" href="https://huggingface.co/sarvamai/sarvam-30b-gguf" target="_blank" rel="noopener" data-fast-goal="model_runtime_llamacpp" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open llama.cpp setup</strong><small>Advanced option: opens the model files</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="sarvam-30b" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Pick the app you already use. No terminal and no command to copy.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking">Compare models</a></div>
+          <div class="run-grid"><a class="run-option featured" data-runtime="lmstudio" href="lmstudio://open_from_hf?model=llm-jp/llm-jp-4-33b-thinking-gguf" data-fast-goal="model_runtime_lmstudio" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in LM Studio</strong><small>Opens the app on this model&#39;s download screen</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=llm-jp%2Fllm-jp-4-33b-thinking-gguf" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking-gguf" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option " data-runtime="llamacpp" href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking-gguf" target="_blank" rel="noopener" data-fast-goal="model_runtime_llamacpp" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open llama.cpp setup</strong><small>Advanced option: opens the model files</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="llm-jp-4-33b-thinking" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
           <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>
         </div>
       </section>
@@ -112,80 +112,80 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">7.6<small>/10</small></div>
+            <div class="score">7.8<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="sarvam-30b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="llm-jp-4-33b-thinking" data-rating-mode="full"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">sarvam</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-03</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">llm-jp</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-08-14</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">32B (2.4B active, MoE)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">32 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">18 GB</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">33B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">64 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">19.82 GB</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-<section class="personal-fit" hidden data-localclaw-model-context data-model-id="sarvam-30b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="llm-jp-4-33b-thinking" aria-live="polite"></section>
     <section class="section">
-      <h2>Can Sarvam 30B run locally?</h2>
-      <p>Sarvam 30B has a catalogue minimum of 32 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>sarvam-30b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/sarvamai/sarvam-30b" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/sarvamai/sarvam-30b-gguf" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-19): sarvamai/sarvam-30b-gguf</a><a href="https://www.sarvam.ai/blogs/sarvam-30b-105b" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/sarvamai/sarvam-30b" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">multilingual</span><span class="tag">power</span></div>
+      <h2>Can LLM-jp-4 33B Thinking run locally?</h2>
+      <p>LLM-jp-4 33B Thinking has a catalogue minimum of 64 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use <code>llm-jp-4-33b-thinking</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
+      <div class="source-links"><a href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking-gguf" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-08-19): llm-jp/llm-jp-4-33b-thinking-gguf</a><a href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking-gguf" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/llm-jp/llm-jp-4-33b-thinking/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">long-context</span><span class="tag">multilingual</span><span class="tag">power</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 32 GB RAM. Start with the Q4_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search sarvam-30b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 64 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search llm-jp-4-33b-thinking in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: sarvam</li><li>Parameters: 32B (2.4B active, MoE)</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 32 GB</li><li>Catalogue model size: 18 GB</li><li>Tags: chat, code, reasoning, multilingual, power</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: llm-jp</li><li>Parameters: 33B</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 64 GB</li><li>Catalogue model size: 19.82 GB</li><li>Tags: chat, code, reasoning, long-context, multilingual, power</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>multilingual</li><li>power</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>long-context</li><li>multilingual</li><li>power</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">Sarvam AI</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">LLM-jp</div></div>
         <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
         <div class="meta"><div class="k">Context window</div><div class="v">65,536 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Mixture-of-Experts model with about 32B total parameters, 128 experts, top-6 routing and about 2.4B non-embedding active parameters.</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Dense 33B Llama-compatible causal language model from LLM-jp-4 with BF16 safetensors and official GGUF artifacts. The GGUF metadata reports a 65,536-token context window and Llama architecture support.</div></div>
       </div>
     </section>
 <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-mini-m4-pro-48gb"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb"><small>Power-user picks</small>32GB RAM guide</a>
+        <a href="/hardware/mac-studio-m4-max-64gb"><small>Workstation fit</small>Mac Studio M4 Max 64GB</a><a href="/computers"><small>CUDA workstation class</small>NVIDIA GB10 / DGX Spark</a><a href="/ram/64gb"><small>Large local models</small>64GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/llm-jp-4-33b-thinking">LLM-jp-4 33B Thinking <span>33B</span></a><a href="/models/agents-a1">Agents-A1 <span>35B (3B active, MoE)</span></a><a href="/models/olmo3-32b-think">OLMo 3 32B Think <span>32B</span></a><a href="/models/phi3.5-moe-instruct">Phi-3.5 MoE Instruct <span>42B (6.6B active, MoE)</span></a><a href="/models/qwen3-32b">Qwen 3 (32B) <span>32B</span></a><a href="/models/qwen3.5-27b">Qwen 3.5 (27B) <span>27B</span></a><a href="/models/qwen3.6-27b">Qwen 3.6 (27B) <span>27B</span></a><a href="/models/qwen3.6-35b-a3b">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/mistral-small-4-119b">Mistral Small 4 (119B-A6.5B) <span>119B (6.5B active, MoE)</span></a><a href="/models/longcat-flash-lite">LongCat-Flash-Lite <span>68.5B (3-4.5B active, MoE)</span></a><a href="/models/qwen3-coder-next">Qwen3-Coder-Next <span>80B (3B active, MoE)</span></a><a href="/models/kimi-linear-48b-a3b-instruct">Kimi Linear 48B-A3B Instruct <span>48B (3B active, MoE)</span></a><a href="/models/ornith-1-5-35b-a3b">Ornith-1.5-35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/laguna-xs-2.1">Laguna XS 2.1 <span>33B (3B active, MoE)</span></a><a href="/models/qwen3.6-35b-a3b">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/qwen3.8-27b">Qwen3.8-27B <span>27B</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/32gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/64gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"sarvam-30b","name":"Sarvam 30B","family":"sarvam","params":"32B (2.4B active, MoE)","size_gb":18,"min_ram":32,"tags":["chat","code","reasoning","multilingual","power"],"description":"Sarvam AI open-weight MoE model trained for Indian languages, coding, reasoning, tool use and practical local deployment. Apache 2.0 with official GGUF availability.","search_term":"sarvam-30b","recommended_quant":"Q4_K_M","hf_repo":"sarvamai/sarvam-30b-gguf","source_url":"https://huggingface.co/sarvamai/sarvam-30b","benchmarks":{"speed":5,"quality":8,"coding":8,"reasoning":8},"released":"2026-03","isNew":true};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"llm-jp-4-33b-thinking","name":"LLM-jp-4 33B Thinking","family":"llm-jp","params":"33B","size_gb":19.82,"min_ram":64,"tags":["chat","code","reasoning","long-context","multilingual","power"],"description":"Official Apache 2.0 LLM-jp reasoning model with English/Japanese support, 65K GGUF context metadata and an official Q4_K_M GGUF path for local llama.cpp and LM Studio testing on 64GB+ workstations.","search_term":"llm-jp-4-33b-thinking","recommended_quant":"Q4_K_M","hf_repo":"llm-jp/llm-jp-4-33b-thinking-gguf","source_url":"https://huggingface.co/llm-jp/llm-jp-4-33b-thinking","benchmarks":{"speed":5,"quality":8,"coding":8,"reasoning":9},"released":"2026-08-14","isNew":true};</script>
   <script src="/js/runtime-launch-assist-20260821a.js?v=20260821a" defer></script>
   <script src="/js/machine-compat-20260802a.js?v=20260823a"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>

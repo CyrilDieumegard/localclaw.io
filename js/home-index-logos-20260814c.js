@@ -39,6 +39,7 @@ window.HOME_INDEX_LOGOS = {
     lfm: 'liquid',
     ling: 'inclusionai-avatar',
     llama: 'meta',
+    'llm-jp': 'huggingface-avatar',
     llava: 'llava',
     longcat: 'longcat',
     marco: 'alibaba',

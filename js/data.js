@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
+// Updated August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
+// Previous: August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
 // Previous: August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
 // Previous: August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
 // Previous: August 18, 2026 - Added Ling-3.0-tiny - 224 LLM total
@@ -221,6 +222,23 @@ const APP_DATA = {
             runtime_url: 'https://huggingface.co/mudler/KAT-Coder-V2.5-Dev-APEX-GGUF',
             benchmarks: { speed: 6, quality: 8, coding: 10, reasoning: 8 },
             released: '2026-07-23',
+            isNew: true
+        },
+        {
+            id: 'llm-jp-4-33b-thinking',
+            name: 'LLM-jp-4 33B Thinking',
+            family: 'llm-jp',
+            params: '33B',
+            size_gb: 19.82,
+            min_ram: 64,
+            tags: ['chat', 'code', 'reasoning', 'long-context', 'multilingual', 'power'],
+            description: 'Official Apache 2.0 LLM-jp reasoning model with English/Japanese support, 65K GGUF context metadata and an official Q4_K_M GGUF path for local llama.cpp and LM Studio testing on 64GB+ workstations.',
+            search_term: 'llm-jp-4-33b-thinking',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'llm-jp/llm-jp-4-33b-thinking-gguf',
+            source_url: 'https://huggingface.co/llm-jp/llm-jp-4-33b-thinking',
+            benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
+            released: '2026-08-14',
             isNew: true
         },
         {
@@ -3772,7 +3790,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-08-19T06:25:00.000Z",
-        catalogueHash: "1136a6e2571e7db752efc3c8c2f8e0e6ecd6fd423a3a3b5994174a0436eb0ab9",
+        catalogueHash: "a05a14dce9d549bc00603d1319fcd4849895b8846cdcae474c49eb786c68385b",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3786,6 +3804,7 @@ const APP_DATA = {
             "ornith-1-5-35b-a3b": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
             "kat-coder-v2-5-dev": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
+            "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking-gguf",
             "lfm2-5-vl-3b": "LiquidAI/LFM2.5-VL-3B-GGUF",
             "ling-3.0-tiny": "bloomer010/Ling-3.0-tiny-GGUF",
             "glm4.7-flash": "unsloth/GLM-4.7-Flash-GGUF",
@@ -3966,6 +3985,7 @@ const APP_DATA = {
             "qwen3.5-397b-a17b": "Qwen/Qwen3.5-397B-A17B",
             "qwen3.6-27b": "Qwen/Qwen3.6-27B",
             "kat-coder-v2-5-dev": "Kwaipilot/KAT-Coder-V2.5-Dev",
+            "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking",
             "gemma4-26b-a4b": "google/gemma-4-26B-A4B-it",
             "gemma4-31b": "google/gemma-4-31B-it",
             "internvl3-8b": "OpenGVLab/InternVL3-8B-Instruct",
