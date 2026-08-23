@@ -328,6 +328,30 @@
       caveats: ['No official VRAM table yet', 'Outputs Gaussian splats rather than textured mesh assets']
     },
     {
+      id: 'g3splat', name: 'G3Splat', category: '3d', developer: 'University of Adelaide',
+      summary: 'Pose-free feed-forward Gaussian splatting model for geometry reconstruction, relative pose estimation and novel-view synthesis.',
+      tasks: ['gaussian-splatting', 'mesh-reconstruction', 'pose-estimation', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA rasterizers', 'CLI'], output: ['3D Gaussian', '2D Gaussian', 'Depth maps', 'Mesh evaluation'],
+      local_status: 'local', license: 'MIT', released: '2025-12',
+      source_url: 'https://github.com/m80hz/g3splat', install_url: 'https://huggingface.co/g3splat/g3splat',
+      hardware_note: 'The official implementation is tested with Python 3.10, PyTorch 2.1.2 and CUDA 11.8/12.1, with compiled Gaussian and surfel rasterizers. The released MASt3R checkpoints target 256px RealEstate10K inference; because no small-GPU table is published, 32 GB RAM and 16 GB NVIDIA VRAM are the conservative local floor.',
+      strengths: ['MIT licensed checkpoints', 'Pose-free inference from image sets', '3DGS and 2DGS checkpoint variants'],
+      caveats: ['Scene reconstruction rather than single-object textured asset generation', 'CUDA research stack with custom rasterizers', 'VGGT-backbone release is still pending']
+    },
+    {
+      id: 'globalsplat', name: 'GlobalSplat', category: '3d', developer: 'Hebrew University of Jerusalem / Westlake University',
+      summary: 'Feed-forward Gaussian splatting model that fuses multi-view inputs into compact global scene tokens before decoding 3D Gaussians.',
+      tasks: ['gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 8,
+      runtime: ['PyTorch', 'Lightning', 'gsplat'], output: ['3D Gaussian', 'PLY-compatible Gaussian assets'],
+      local_status: 'local', license: 'PolyForm Noncommercial 1.0.0', released: '2026-04',
+      source_url: 'https://github.com/R-Itk/globalsplat', install_url: 'https://huggingface.co/Roni-It/globalsplat',
+      hardware_note: 'The official release provides RealEstate10K 2K, 16K and 32K checkpoints and reports 1.79 GB peak memory for the 16K feed-forward model. LocalClaw still treats an 8 GB NVIDIA GPU and 32 GB system RAM as the practical floor because the install script builds gsplat against CUDA 12.x and the full evaluation stack needs dataset and rendering headroom.',
+      strengths: ['Official released checkpoints', 'Compact 2K to 32K Gaussian budgets', 'Fast feed-forward scene reconstruction'],
+      caveats: ['Noncommercial source-available license', 'Multi-view scene workflow rather than object-to-GLB generation', 'CUDA and gsplat build required']
+    },
+    {
       id: 'skintokens-tokenrig', name: 'SkinTokens / TokenRig', category: '3d', developer: 'VAST AI Research',
       summary: 'Autoregressive rigging model that turns an input mesh into a skeleton hierarchy and skinning weights for animation.',
       tasks: ['rigging', 'skinning', 'mesh-to-rig', 'character-animation'], platforms: ['linux'], accelerators: ['nvidia'],
