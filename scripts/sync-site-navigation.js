@@ -15,8 +15,6 @@ for (const marker of [
   'href="/ram-gpu-for-local-ai"',
   'data-nav-key="ram-gpu"',
   '>RAM/GPU</a>',
-  'data-nav-group="models"',
-  'class="lc-global-nav__models-panel"',
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile'

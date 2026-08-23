@@ -47,7 +47,7 @@ for (const marker of ['js/data.js?v=20260819b', 'js/model-ranking.js?v=20260820a
   if (!computers.includes(marker)) failures.push(`computers.html missing ${marker}`);
 }
 if (!hardwareGenerator.includes("require('../js/model-ranking')")) failures.push('Hardware generator does not use the shared engine');
-if (!computers.includes('Active MoE parameters affect compute speed, not model download size')) failures.push('Computers page is missing the MoE memory explanation');
+if (computers.includes('Memory is compared honestly:')) failures.push('Computers page still includes the removed memory explainer paragraph');
 
 if (failures.length) {
   console.error(`Computers model-fit check failed (${failures.length}):`);

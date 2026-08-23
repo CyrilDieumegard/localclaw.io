@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260823a';
+const NAV_VERSION = '20260823b';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
@@ -42,16 +42,8 @@ function siteNavigation(active = '', options = {}) {
   const navigationItems = items.map(item => item[0] === 'account' && options.accountLabel
     ? [item[0], item[1], options.accountLabel]
     : item);
-  const modelItems = navigationItems.filter(item => modelKeys.has(item[0]));
   const desktopItems = navigationItems.filter(item => !modelKeys.has(item[0]));
-  const modelsCurrent = modelKeys.has(active) ? ' data-current="true"' : '';
-  const desktopNavigation = desktopItems.map((item, index) => {
-    if (index !== 1) return link(item, active);
-    return `<details class="lc-global-nav__models" data-nav-models>
-      <summary class="lc-global-nav__link lc-global-nav__models-summary" data-nav-group="models"${modelsCurrent}>Models</summary>
-      <div class="lc-global-nav__models-panel" aria-label="Model directories">${modelItems.map(modelItem => link(modelItem, active)).join('')}</div>
-    </details>${link(item, active)}`;
-  }).join('');
+  const desktopNavigation = desktopItems.map(item => link(item, active)).join('');
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
