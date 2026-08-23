@@ -37,6 +37,32 @@
       caveats: ['No official Diffusers-format 5B export yet', 'Large dependency stack and BF16 CUDA workstation target']
     },
     {
+      id: 'lance-3b-video', name: 'Lance 3B Video', category: 'video', developer: 'ByteDance Research',
+      summary: 'Apache-licensed unified multimodal model for local video generation, video editing and image-to-video workflows.',
+      tasks: ['text-to-video', 'image-to-video', 'video-editing', 'video-understanding'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 40,
+      runtime: ['PyTorch', 'Gradio', 'Lance CLI'], output: ['MP4', 'images'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-05',
+      source_url: 'https://github.com/bytedance/Lance',
+      install_url: 'https://huggingface.co/bytedance-research/Lance',
+      hardware_note: 'The official repository requires CUDA 12.4+ and a GPU with at least 40 GB VRAM for inference. LocalClaw treats 64 GB system RAM plus a 40 GB NVIDIA workstation GPU as the conservative practical floor for 480p video generation or editing.',
+      strengths: ['One model family covers T2V, I2V and video editing', 'Apache 2.0 safetensors weights', 'Official shell and Gradio inference paths'],
+      caveats: ['Research artifact rather than a polished desktop product', 'Requires CUDA, FlashAttention and workstation-class NVIDIA VRAM', '480p video generation is the documented local target']
+    },
+    {
+      id: 'skyreels-v3', name: 'SkyReels V3', category: 'video', developer: 'Skywork AI',
+      summary: 'Open-weight multimodal video model family for reference-to-video, video extension and audio-driven talking avatars.',
+      tasks: ['reference-to-video', 'video-to-video', 'video-extension', 'speech-to-video', 'talking-head'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'Diffusers', 'SkyReels CLI'], output: ['MP4'],
+      local_status: 'local', license: 'Skywork Community License', released: '2026-01',
+      source_url: 'https://github.com/SkyworkAI/SkyReels-V3',
+      install_url: 'https://huggingface.co/Skywork/SkyReels-V3-V2V-14B',
+      hardware_note: 'The official quickstart targets Python 3.12+, CUDA 12.8+ and single-GPU or multi-GPU PyTorch inference. The documented low-VRAM mode enables FP8 weight-only quantization and block offload for GPUs under 24 GB, so 24 GB NVIDIA VRAM and 64 GB RAM are the conservative LocalClaw floor.',
+      strengths: ['Official V3 inference code and downloadable weights', 'Reference, extension and talking-avatar tasks', 'Low-VRAM offload mode for workstation GPUs'],
+      caveats: ['Different V3 tasks use separate 14B and 19B checkpoints', 'Skywork community terms require compliance review for production use', 'Linux/CUDA setup with large model downloads']
+    },
+    {
       id: 'avtr-1', name: 'AVTR-1', category: 'video', developer: 'Avaturn',
       summary: 'Audio-driven talking-head model for local live dialogue, lip sync, active listening and offline MP4 avatar rendering.',
       tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'talking-head'],
