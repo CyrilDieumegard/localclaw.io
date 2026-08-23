@@ -17,6 +17,36 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.52
   },
   {
+    "id": "confucius4-tts",
+    "name": "Confucius4-TTS",
+    "developer": "NetEase Youdao",
+    "family": "confucius",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08-14",
+    "quality": 9.4,
+    "speed": 8.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 3.06
+  },
+  {
+    "id": "index-tts-2.5",
+    "name": "IndexTTS 2.5",
+    "developer": "Bilibili",
+    "family": "indextts",
+    "license": "bilibili Model Use License",
+    "releaseDate": "2026-08-12",
+    "quality": 9.5,
+    "speed": 8.4,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 5.49
+  },
+  {
     "id": "melotts",
     "name": "MeloTTS",
     "developer": "MYShell",

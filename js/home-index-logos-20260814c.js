@@ -92,6 +92,7 @@ window.HOME_INDEX_LOGOS = {
     chatterbox: 'resemble-avatar',
     chattts: '2noise-avatar',
     cohere: 'cohere',
+    confucius: 'github',
     coqui: 'coqui',
     cosyvoice: 'funaudiollm-avatar',
     dia: 'nari-labs-avatar',

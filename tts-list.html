@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 66 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 66 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 68 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 68 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 66 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 68 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">69</strong> speech records: <strong style="color:#fff;">66 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">71</strong> speech records: <strong style="color:#fff;">68 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>66 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>68 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1953,6 +1953,58 @@
                 voices: "Multiple speakers + voice cloning",
                 context: "Emotion tags, speed control",
                 license: "Apache-2.0"
+            },
+            {
+                id: "confucius4-tts",
+                name: "Confucius4-TTS",
+                developer: "NetEase Youdao",
+                family: "confucius",
+                description: "Apache-licensed multilingual zero-shot TTS engine from NetEase Youdao. It preserves speaker identity across 14 languages, supports cross-lingual voice transfer, and does not require a reference transcript for cloning.",
+                languages: ["zh", "en", "ja", "ko", "de", "fr", "id", "vi", "th", "es", "pt", "it", "ru", "ms"],
+                languageCount: 14,
+                features: ["cloning", "multilingual", "emotion", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 3.06,
+                sizeLabel: "3.06 GB",
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 8.2,
+                latency: "low",
+                releaseDate: "2026-08-14",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/netease-youdao/Confucius4-TTS",
+                installCommand: "git clone https://github.com/netease-youdao/Confucius4-TTS",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Transcript-free zero-shot cloning",
+                context: "Speech encoder + LLM architecture, CUDA 12.6 local inference path",
+                license: "Apache 2.0"
+            },
+            {
+                id: "index-tts-2.5",
+                name: "IndexTTS 2.5",
+                developer: "Bilibili",
+                family: "indextts",
+                description: "IndexTeam's 2.5 release adds Japanese, Spanish and Arabic to IndexTTS while keeping single-reference zero-shot cloning. It separates timbre and emotion control, adds speaking-speed control, and ships an official local web UI path.",
+                languages: ["zh", "en", "ja", "es", "ar"],
+                languageCount: 5,
+                features: ["cloning", "emotion", "multilingual", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 5.49,
+                sizeLabel: "5.49 GB",
+                sizeCategory: "large",
+                quality: 9.5,
+                speed: 8.4,
+                latency: "low",
+                releaseDate: "2026-08-12",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/IndexTeam/IndexTTS-2.5",
+                installCommand: "git clone https://github.com/index-tts/index-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Single-reference zero-shot cloning",
+                context: "0.8B GPT backbone, flow-matching decoder, 6GB NVIDIA VRAM floor",
+                license: "bilibili Model Use License"
             },
             {
                 id: "melotts",

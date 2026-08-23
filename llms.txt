@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-08-23
 - Local LLM pages: 219 unique routes across 79 families
-- Local speech records: 66 across 58 families (51 TTS, 14 ASR, 1 app)
+- Local speech records: 68 across 59 families (53 TTS, 14 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 65
 - Latest catalogue release month: Aug 18, 2026
 - LLM source states: 179 public GGUF repositories, 38 public model cards without a verified GGUF file and 4 gated model cards
@@ -24,7 +24,7 @@
 
 - [The Local Model Index](https://localclaw.io/) — interactive local-only homepage directory
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 66 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 68 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
@@ -36,7 +36,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 350 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 352 local homepage entries
 
 ## RAM Decision Paths
 
