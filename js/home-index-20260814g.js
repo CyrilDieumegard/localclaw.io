@@ -16,8 +16,30 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const COMMUNITY_PRIOR_WEIGHT = 5;
         const COMMUNITY_CONFIDENCE_VOTES = 5;
         const comparedModelIds = new Set();
+        const funnelContext = (() => {
+            const landingPage = window.location.pathname || '/';
+            const entrySource = (() => {
+                try {
+                    return document.referrer ? new URL(document.referrer).hostname.slice(0, 64) : 'direct';
+                } catch (error) {
+                    return 'direct';
+                }
+            })();
+            try {
+                if (!window.sessionStorage.getItem('localclaw_funnel_landing_page')) {
+                    window.sessionStorage.setItem('localclaw_funnel_landing_page', landingPage);
+                    window.sessionStorage.setItem('localclaw_funnel_entry_source', entrySource);
+                }
+            } catch (error) {}
+            const width = window.innerWidth;
+            return {
+                device_type: width <= 767 ? 'mobile' : width <= 1100 ? 'tablet' : 'desktop',
+                landing_page: landingPage,
+                entry_source: entrySource
+            };
+        })();
         const trackHomeGoal = (name, properties = {}) => {
-            const payload = {source: 'home_index', ...properties};
+            const payload = {source: 'home_index', ...funnelContext, ...properties};
             if (typeof App.trackGoal === 'function') {
                 App.trackGoal(name, payload);
                 return;
@@ -29,6 +51,16 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 window.localClawPostHogCapture(name, payload);
             }
         };
+        if (!window.__localClawFunnelAccountOpenBound) {
+            window.__localClawFunnelAccountOpenBound = true;
+            document.addEventListener('click', (event) => {
+                const link = event.target.closest('a[href="/account"], a[href^="/account?"]');
+                if (!link || new URL(link.href, window.location.href).searchParams.get('view') === 'sponsorship') return;
+                trackHomeGoal('funnel_account_open', {
+                    source: link.dataset.fastGoalSource || 'home_navigation'
+                });
+            });
+        }
         const normalizeMachineRam = (value) => {
             const parsed = Number.parseInt(value, 10);
             return Number.isFinite(parsed) && parsed >= 4 && parsed <= 2048 ? parsed : 0;
@@ -414,20 +446,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <div class="lc-index-directory">
                     <header class="lc-index-hero">
                         <div class="lc-index-hero__copy">
-                            <p class="lc-index-kicker">// LocalClaw · local models only</p>
-                            <h1>The Local <span>Model Index</span></h1>
-                            <p>One maintained directory for local language, voice, image, video, 3D, music and vision models, with machine requirements and source-backed local paths.</p>
+                            <h1><span><b>Local</b>Claw</span><small>The Local Model Index</small></h1>
+                            <p>Find local AI models that actually run on your Mac, PC or NVIDIA GPU.</p>
                             <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></div>
-                            <a class="lc-index-hero__guide-link" href="#home-index-guide">How rankings work · RAM quick answers ↓</a>
                         </div>
                     </header>
-
-                    <section class="lc-index-facts" aria-label="Index information">
-                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Catalogue</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${localModels.length}</span><span class="lc-index-fact__label">local LLM pages</span></strong><p>Hosted-only records excluded.</p></article>
-                        <article class="lc-index-fact"><span class="lc-index-eyebrow">Families</span><strong class="lc-index-fact__value"><span class="lc-index-fact__number">${familyCount}</span><span class="lc-index-fact__label">model families</span></strong><p>Duplicate route IDs collapsed.</p></article>
-                        <article class="lc-index-fact lc-index-fact--stacked"><span class="lc-index-eyebrow">More local AI</span><strong class="lc-index-fact__value lc-index-fact__value--stacked"><span class="lc-index-fact__number">${multimodalModels.length}</span><span class="lc-index-fact__label lc-index-fact__label--detail">Image · Video · 3D · Music · Vision</span></strong><p>Every verified entry appears below.</p></article>
-                        <article class="lc-index-fact lc-index-fact--stacked"><span class="lc-index-eyebrow">Freshness</span><strong class="lc-index-fact__value lc-index-fact__value--stacked"><span class="lc-index-fact__number lc-index-fact__number--date">${escapeHtml(releaseMonth)}</span><span class="lc-index-fact__label lc-index-fact__label--detail">Latest verified release</span></strong><p>From repository release metadata.</p></article>
-                    </section>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
                         <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>

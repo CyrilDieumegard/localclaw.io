@@ -66,7 +66,10 @@
         'match_source',
         'match_count',
         'preferences_updated',
-        'return_view'
+        'return_view',
+        'device_type',
+        'landing_page',
+        'entry_source'
     ]);
 
     function track(name, properties = {}, options = {}) {
@@ -74,7 +77,7 @@
         const onceKey = cleanOnceKey(options.onceKey);
         if (onceKey && wasTracked(onceKey)) return false;
 
-        const safeProperties = sanitize(properties);
+        const safeProperties = sanitize({...funnelContext(), ...properties});
         try {
             root.datafast(name, safeProperties);
             if (onceKey) markTracked(onceKey);
@@ -139,6 +142,18 @@
         return view === 'sponsorship' ? 'sponsorship' : 'machines';
     }
 
+    function funnelContext() {
+        let landingPage = String(root.location && root.location.pathname || '/account').slice(0, 64);
+        let entrySource = 'direct';
+        try {
+            landingPage = root.sessionStorage.getItem('localclaw_funnel_landing_page') || landingPage;
+            entrySource = root.sessionStorage.getItem('localclaw_funnel_entry_source') || entrySource;
+        } catch {}
+        const width = Number(root.innerWidth || 0);
+        const deviceType = width && width <= 767 ? 'mobile' : width && width <= 1100 ? 'tablet' : 'desktop';
+        return {device_type: deviceType, landing_page: landingPage, entry_source: entrySource};
+    }
+
     function cleanOnceKey(value) {
         return String(value || '').replace(/[^a-zA-Z0-9:_-]+/g, '').slice(0, 96);
     }
@@ -160,6 +175,7 @@
     root.LocalClawAccountAnalytics = Object.freeze({
         accountAgeBucket,
         errorCode,
+        funnelContext,
         ramBucket,
         returnView,
         sanitize,

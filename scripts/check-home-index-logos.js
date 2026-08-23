@@ -78,8 +78,7 @@ for (const marker of [
   'data-multimodal-community-id',
   '<a class="lc-index-multimodal-card" href="${multimodalPath(model)}"',
   '<span class="lc-index-multimodal-card__link">Open local guide →</span>',
-  'lc-index-fact__value--stacked',
-  'Latest verified release'
+  'Find local AI models that actually run on your Mac, PC or NVIDIA GPU.'
 ]) {
   if (!homepageJs.includes(marker)) missing.push(`Homepage feature marker: ${marker}`);
 }
@@ -91,8 +90,10 @@ for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-ho
 }
 if (!homepageCss.includes('.lc-sponsor-rail {\n    position: sticky;\n    top: 128px;')) missing.push('Sponsor rails must preserve their initial 48px gap below the 80px sticky navigation');
 if (homepageJs.includes('lc-index-hero__mascot') || homepageCss.includes('lc-index-hero__mascot')) missing.push('Homepage hero mascot should remain removed');
+if (homepageJs.includes('<section class="lc-index-facts"')) missing.push('Homepage hero metric cards should remain removed');
+if (homepageJs.includes('lc-index-hero__guide-link')) missing.push('Homepage hero tertiary guide link should remain removed');
 if (homepageJs.includes('lc-home-machine-card__image--dark') || homepageCss.includes('lc-home-machine-card__image--dark')) missing.push('Saved-machine cards must reuse the light-mode image in dark mode');
-for (const marker of ['css/home-index-20260814g.css?v=20260823b', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260823c']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260823c', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog.js?v=20260821b', 'js/home-index-20260814g.js?v=20260823e']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 for (const marker of ["matchMedia('(prefers-reduced-motion: reduce)')", "document.addEventListener('visibilitychange'", 'cancelAnimationFrame(animationFrame)']) {

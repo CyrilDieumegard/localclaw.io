@@ -14,6 +14,7 @@ html { scroll-behavior: smooth; }
     overflow: hidden;
     border-bottom: 1px solid var(--index-border);
     text-align: center;
+    margin-bottom: 44px;
 }
 
 .lc-index-hero::after {
@@ -1084,9 +1085,7 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
 
 /* Option 2: editorial hero and signal grid inspired by spacious product sites. */
 .lc-index-directory {
-    display: grid;
-    grid-template-columns: minmax(0, 1.28fr) minmax(310px, 0.92fr);
-    column-gap: 24px;
+    display: block;
     row-gap: 24px;
 }
 .lc-index-directory > :not(.lc-index-hero):not(.lc-index-facts) {
@@ -1100,27 +1099,48 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
     padding-bottom: 0;
     overflow: visible;
     border-bottom: 0;
-    text-align: left;
+    text-align: center;
 }
 .lc-index-hero::after {
     display: none;
 }
 .lc-index-hero__copy {
-    max-width: none;
-    margin: 0;
-    padding: 12px 18px 8px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 54px 18px 58px;
 }
 .lc-index-hero h1 {
-    font-size: clamp(3rem, 4vw, 4rem);
-    letter-spacing: -0.055em;
+    font-family: "Inter", "Space Grotesk", sans-serif;
+    font-size: clamp(3.6rem, 7.3vw, 7.4rem);
+    font-weight: 800;
+    letter-spacing: -0.075em;
     white-space: normal;
+    line-height: .94;
+    text-transform: none;
 }
-.lc-index-hero h1 span { display: block; }
+.lc-index-hero h1 span { display: block; color: #ff453a; }
+.lc-index-hero h1 span b { color: #f5f5f7; font: inherit; }
+.lc-index-hero h1 small {
+    display: block;
+    margin-top: 10px;
+    color: #f5f5f7;
+    font-size: .4em;
+    font-weight: 750;
+    line-height: 1.05;
+    letter-spacing: -0.055em;
+}
 .lc-index-hero__copy > p:not(.lc-index-kicker) {
-    max-width: 520px;
-    margin-right: 0;
-    margin-left: 0;
+    max-width: 780px;
+    margin: 30px auto 0;
+    color: #b4b4bd;
+    font-family: "Inter", "Space Grotesk", sans-serif;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
 }
+.lc-index-hero__actions { justify-content: center; margin-top: 28px; }
+.lc-index-hero__actions a { min-height: 48px; padding: 0 20px; }
 .lc-index-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-self: start;
@@ -1220,8 +1240,14 @@ html.light .lc-index-hero__copy {
 }
 html.light .lc-index-hero__copy > p:not(.lc-index-kicker) {
     color: #475569;
-    font-size: 13px;
+    max-width: 780px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.35;
 }
+html.light .lc-index-hero h1 small { color: #111827; }
+html.light .lc-index-hero h1 span b { color: #111827; }
 html.light .lc-index-hero__guide-link { font-size: 11px; }
 html.light .lc-index-hero__actions a { border-color: #cbd5e1; background: #fff; color: #334155; }
 html.light .lc-index-hero__actions a:hover,
@@ -1371,9 +1397,13 @@ html.light .lc-index-compare-toggle:focus-visible {
     .lc-index-facts,
     .lc-index-directory > :not(.lc-index-hero):not(.lc-index-facts) { grid-column: 1; }
     .lc-index-hero,
-    html.light .lc-index-hero { display: block; padding-bottom: 0; text-align: center; }
+    html.light .lc-index-hero { display: block; margin-bottom: 32px; padding-bottom: 0; text-align: center; }
     .lc-index-hero__copy,
-    html.light .lc-index-hero__copy { max-width: 720px; margin: 0 auto; padding-bottom: 6px; }
+    html.light .lc-index-hero__copy { max-width: 720px; margin: 0 auto; padding: 34px 10px 38px; }
+    .lc-index-hero h1 { font-size: clamp(3rem, 14vw, 4.2rem); line-height: .94; }
+    .lc-index-hero h1 small { margin-top: 8px; font-size: .45em; }
+    .lc-index-hero__copy > p:not(.lc-index-kicker) { font-size: 1.18rem; line-height: 1.4; }
+    html.light .lc-index-hero__copy > p:not(.lc-index-kicker) { font-size: 1.18rem; line-height: 1.4; }
     .lc-index-hero__copy > p:not(.lc-index-kicker) { margin-right: auto; margin-left: auto; }
     .lc-index-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
     .lc-index-fact { min-height: 122px; padding: 14px; }

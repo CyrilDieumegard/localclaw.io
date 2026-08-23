@@ -1424,15 +1424,13 @@ a:focus-visible {
     }
 
     .lc-machine-list {
-        display: flex;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        scroll-snap-type: x mandatory;
+        display: grid;
+        overflow-x: visible;
+        padding-bottom: 0;
     }
 
     .lc-machine-item {
-        min-width: 100%;
-        scroll-snap-align: start;
+        min-width: 0;
     }
 
     .lc-sidebar-footer {

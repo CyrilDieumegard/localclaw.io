@@ -196,16 +196,9 @@ function renderMultimodalFallback() {
 function renderFallback() {
   return `        <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="${updatedIso}">
           <header class="lc-index-fallback__hero">
-            <p class="lc-index-kicker">// LocalClaw · local models only</p>
-            <h1>The Local <span>Model Index</span></h1>
-            <p>A hardware-aware directory for local language, voice, image, video, 3D, music and vision models, with independent scores, minimum RAM and verified local paths.</p>
-            <div class="lc-index-fallback__stats" aria-label="Current LocalClaw index statistics">
-              <span><strong>${localModels.length}</strong> local LLM pages</span>
-              <span><strong>${llmFamilyCount}</strong> LLM families</span>
-              <span><strong>${speechModels.length}</strong> local speech records</span>
-              <span><strong>${multimodalModels.length}</strong> image, video, 3D, music and vision records</span>
-            </div>
-            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#llm-index">LLM</a><a href="#tts-index">Voice</a><a href="#multimodal-index">Every other AI</a><a href="#index-methodology">Methodology</a><a href="/new">Newest models</a></nav>
+            <h1><span><b>Local</b>Claw</span><small>The Local Model Index</small></h1>
+            <p>Find local AI models that actually run on your Mac, PC or NVIDIA GPU.</p>
+            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></nav>
           </header>
 
           <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">

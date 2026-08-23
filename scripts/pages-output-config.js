@@ -37,6 +37,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'sitemap-tts.xml',
   'sitemap.xml',
   'software.html',
+  'sponsor.html',
   'sponsor-terms.html',
   'success.html',
   'tts-list.html'

@@ -92,8 +92,8 @@ for (const [modelId, expected] of Object.entries(correctedModelFacts)) {
 }
 
 for (const marker of [
-  `${indexableLocalModels.length} local LLM pages`,
-  `${speechModels.length} local speech records`
+  `${indexableLocalModels.length} local pages`,
+  `${speechModels.length} local records`
 ]) {
   if (!indexText.includes(marker)) errors.push(`Homepage missing visible truth marker: ${marker}`);
 }

@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "05c948a78a1f58021a6bf739f2623ce3d19a053028a3ae43b6d704fd8ca62e4a",
+    "hash": "406822e0c14c625937ba1b830c49a81ad2cc987467041d6cd18e0d82a46dd165",
     "lastmod": "2026-08-23"
   },
   "software.html": {
@@ -16,7 +16,7 @@
     "lastmod": "2026-08-23"
   },
   "llm-list.html": {
-    "hash": "702fc10b2fec6ca2af4a76f11746837cfae34c3898ce20622ce52337ca5d1dde",
+    "hash": "10ff74c3fbda22c9835103faa31e957f137508d12820c69d94305593538b2d9b",
     "lastmod": "2026-08-23"
   },
   "tts-list.html": {
@@ -44,11 +44,15 @@
     "lastmod": "2026-08-23"
   },
   "computers.html": {
-    "hash": "81eda1e5879bf1668e659efb5663bd0abf204a0de214ada7017b6d1aea3d3209",
+    "hash": "ef3c10a82633c616b6b780a056333bee9d56033325b51d945dce3cce85307a59",
     "lastmod": "2026-08-23"
   },
   "ram-gpu-for-local-ai.html": {
-    "hash": "bbd8a81ba6ebf437ae51038cd4531fbd081a20d6b6692211c87c44a981109ba0",
+    "hash": "9446108e596ad78caf4c0f2240df1a92627085982897baa6bf5575eb0d81a76f",
+    "lastmod": "2026-08-23"
+  },
+  "sponsor.html": {
+    "hash": "01ef19c2f23d8f87f9f0bfdeae813fb1f80f16670dc8a27abc52b2e6aa04b3ba",
     "lastmod": "2026-08-23"
   },
   "new.html": {
@@ -1829,6 +1833,18 @@
   },
   "guides/index.html": {
     "hash": "15bc7f1f9a0c0426c94f8f3731669371f2902c5da662123c3dc85e641b6cf8e4",
+    "lastmod": "2026-08-23"
+  },
+  "guides/mac-mini-m4-16gb-local-ai.html": {
+    "hash": "c608aa758a75d2e532ca2e3b7ef06c5734663bc6a05ebffb8ee7cb72e0537186",
+    "lastmod": "2026-08-23"
+  },
+  "guides/rtx-5060-ti-16gb-local-llm.html": {
+    "hash": "b594ef8a9667d154ed20ee4ff36488d10b327ebe54e75b92d44df2840762b380",
+    "lastmod": "2026-08-23"
+  },
+  "guides/rtx-5070-ti-16gb-local-ai.html": {
+    "hash": "f719472b7eaf13355c2e2f67d7e6b39ba39cf38a66c49a764d0278318860812c",
     "lastmod": "2026-08-23"
   }
 }

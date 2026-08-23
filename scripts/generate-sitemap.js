@@ -100,6 +100,7 @@ const groups = {
     page('vision-models.html', 'weekly', '0.9', ['js/local-ai-catalog.js']),
     page('computers.html', 'monthly', '0.8'),
     page('ram-gpu-for-local-ai.html', 'monthly', '0.85'),
+    page('sponsor.html', 'monthly', '0.75'),
     page('new.html', 'weekly', '0.9', ['js/data.js', 'new-models.xml']),
     ...htmlFiles('case-study').map(file => page(file, 'monthly', '0.9')),
     ...htmlFiles('changelog').map(file => page(file, 'monthly', '0.78'))

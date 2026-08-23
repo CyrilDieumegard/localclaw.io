@@ -22,6 +22,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=20260211g">
   <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+  <link rel="stylesheet" href="/css/buyer-path-20260823a.css?v=20260823a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -351,6 +352,18 @@
         </div>
         <p class="notice"><strong>Affiliate note:</strong> Amazon links use LocalClaw's affiliate tag. Prices and stock change constantly, so this page links to live Amazon searches instead of hardcoding prices.</p>
       </aside>
+    </section>
+
+    <section class="lc-buyer" data-buyer-path aria-labelledby="buyer-tool-ram-title">
+      <div class="lc-buyer__shell">
+        <div class="lc-buyer__head"><div><div class="lc-buyer__kicker">// 60-second buyer path</div><h2 id="buyer-tool-ram-title">Upgrade or replace?</h2><p>Answer three questions. LocalClaw gives one primary route and two honest alternatives—without pretending RAM and VRAM are interchangeable.</p></div></div>
+        <div class="lc-buyer__steps">
+          <fieldset><legend>1 · Your path</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="path" value="upgrade" checked><span>Upgrade this machine</span></label><label class="lc-buyer__choice"><input type="radio" name="path" value="buy"><span>Buy a complete machine</span></label></div></fieldset>
+          <fieldset><legend>2 · Main use</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="use" value="chat" checked><span>Chat &amp; RAG</span></label><label class="lc-buyer__choice"><input type="radio" name="use" value="code"><span>Code &amp; agents</span></label><label class="lc-buyer__choice"><input type="radio" name="use" value="create"><span>Image &amp; multimodal</span></label></div></fieldset>
+          <fieldset><legend>3 · Spending style</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="budget" value="starter" checked><span>Best value</span></label><label class="lc-buyer__choice"><input type="radio" name="budget" value="headroom"><span>More headroom</span></label></div></fieldset>
+        </div>
+        <div class="lc-buyer__result" data-buyer-result hidden><div class="lc-buyer__result-head"><strong>Your shortlist</strong><span>Fit first. Live price and stock are checked on the destination.</span></div><div class="lc-buyer__cards" data-buyer-cards></div></div>
+      </div>
     </section>
 
     <section class="section" aria-labelledby="ram-vs-vram">
@@ -751,8 +764,9 @@
     </section>
 
     <footer class="footer">
-      <p>LocalClaw may earn from qualifying Amazon purchases. Always verify compatibility, seller reputation, return policy and current price before buying.</p>
+      <p>LocalClaw may earn from qualifying Amazon purchases. Always verify compatibility, seller reputation, return policy and current price before buying. <a href="/sponsor" data-fast-goal="sponsor_offer_open" data-fast-goal-source="ram_gpu_footer">Sponsor LocalClaw</a>.</p>
     </footer>
   </main>
+  <script src="/js/buyer-path-20260823a.js?v=20260823a" defer></script>
 </body>
 </html>

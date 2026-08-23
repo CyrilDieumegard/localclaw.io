@@ -692,7 +692,12 @@ body[data-account-preview="sponsorship"] #sign-out {
 }
 
 @media (max-width: 520px) {
-    .lc-account-tabs { grid-template-columns: 1fr; }
+    .lc-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lc-account-tabs:has(#sponsor-admin-tab:not([hidden])) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .lc-account-tab { min-height: 48px; justify-items: center; padding: 8px 5px; text-align: center; }
+    .lc-account-tab span { font-size: 11px; }
+    .lc-account-tab small,
+    .lc-account-tab em { display: none; }
     .lc-sponsor-summary { grid-template-columns: 1fr; }
     .lc-sponsor-summary article,
     .lc-sponsor-summary article:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--lc-border); }

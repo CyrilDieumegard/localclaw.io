@@ -474,7 +474,8 @@ body {
 }
 
 @media (max-width: 760px) {
-    .lc-account-tabs { grid-template-columns: 1fr; }
+    .lc-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lc-account-tabs:has(#sponsor-admin-tab:not([hidden])) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .lc-sponsor-admin-hero { grid-template-columns: 1fr; min-height: 0; padding: 24px; }
     .lc-sponsor-admin-badge { max-width: 350px; }
     .lc-sponsor-admin-summary { grid-template-columns: 1fr 1fr; }

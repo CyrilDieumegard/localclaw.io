@@ -12,7 +12,8 @@ const storage = new Map();
 const context = {
   window: {
     datafast: (...args) => calls.push(args),
-    location: { search: '?view=machines' },
+    innerWidth: 390,
+    location: { search: '?view=machines', pathname: '/account' },
     sessionStorage: {
       getItem: key => storage.get(key) || null,
       setItem: (key, value) => storage.set(key, value)
@@ -64,6 +65,17 @@ assert(analytics.track('auth_started', { provider: 'google' }, { onceKey: 'auth-
 assert(!analytics.track('auth_started', { provider: 'google' }, { onceKey: 'auth-start' }));
 assert(!analytics.track('not_allowed', { provider: 'google' }));
 assert.strictEqual(calls.length, 1, 'Goal allowlist or once-only deduplication failed');
+assert.deepStrictEqual(JSON.parse(JSON.stringify(analytics.funnelContext())), {
+  device_type: 'mobile',
+  landing_page: '/account',
+  entry_source: 'direct'
+});
+assert.deepStrictEqual(JSON.parse(JSON.stringify(calls[0][1])), {
+  device_type: 'mobile',
+  landing_page: '/account',
+  entry_source: 'direct',
+  provider: 'google'
+});
 
 const requiredEvents = [
   'account_page_loaded',
@@ -100,7 +112,7 @@ for (const forbidden of ['email:', 'user_id:', 'machine_id:', 'machine_name:', '
   assert(!trackingBlocks.includes(forbidden), `Sensitive tracking property found: ${forbidden}`);
 }
 
-const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260820c');
+const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260823a');
 const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260820d');
 assert(helperIndex >= 0 && accountIndex > helperIndex, 'Account analytics helper must load before the account client');
 

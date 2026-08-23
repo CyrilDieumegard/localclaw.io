@@ -33,6 +33,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=20260822a">
     <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">
+    <link rel="stylesheet" href="/css/buyer-path-20260823a.css?v=20260823a">
     <style>
         .lc-icon { display:inline-block;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0; }
         .lc-icon-sm { width:0.875em;height:0.875em; }
@@ -934,6 +935,18 @@
         <p>Compare current Apple Silicon, AMD Ryzen AI Max, NVIDIA GeForce RTX, and GB10 computers. LocalClaw prioritizes usable AI memory, runtime support, and real form factor, not marketing TOPS.</p>
     </section>
 
+    <section class="lc-buyer" data-buyer-path aria-labelledby="buyer-tool-computers-title">
+      <div class="lc-buyer__shell">
+        <div class="lc-buyer__head"><div><div class="lc-buyer__kicker">// Personal buyer path</div><h2 id="buyer-tool-computers-title">Find your practical starting point</h2><p>Choose your situation and workload. The result stays grounded in memory fit, runtime support and the hardware already compared below.</p></div></div>
+        <div class="lc-buyer__steps">
+          <fieldset><legend>1 · Your path</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="path" value="buy" checked><span>Buy a complete machine</span></label><label class="lc-buyer__choice"><input type="radio" name="path" value="upgrade"><span>Upgrade my current PC</span></label></div></fieldset>
+          <fieldset><legend>2 · Main use</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="use" value="chat" checked><span>Chat &amp; RAG</span></label><label class="lc-buyer__choice"><input type="radio" name="use" value="code"><span>Code &amp; agents</span></label><label class="lc-buyer__choice"><input type="radio" name="use" value="create"><span>Image &amp; multimodal</span></label></div></fieldset>
+          <fieldset><legend>3 · Spending style</legend><div class="lc-buyer__choices"><label class="lc-buyer__choice"><input type="radio" name="budget" value="starter" checked><span>Best value</span></label><label class="lc-buyer__choice"><input type="radio" name="budget" value="headroom"><span>More headroom</span></label></div></fieldset>
+        </div>
+        <div class="lc-buyer__result" data-buyer-result hidden><div class="lc-buyer__result-head"><strong>Your shortlist</strong><span>One primary route, two credible alternatives.</span></div><div class="lc-buyer__cards" data-buyer-cards></div></div>
+      </div>
+    </section>
+
     <section style="max-width:1200px;margin:0 auto 24px;padding:0 20px;">
         <a href="/ram-gpu-for-local-ai" data-fast-goal="internal_click" data-fast-goal-source="computers_component_banner" data-fast-goal-target="ram-gpu" style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;border:1px solid rgba(255,69,58,.26);background:linear-gradient(135deg,rgba(255,69,58,.12),rgba(255,153,0,.045));border-radius:18px;padding:18px 20px;color:inherit;text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.24);">
             <span>
@@ -971,7 +984,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <p>Amazon prices and availability can change. Marketplace and affiliate attribution depend on your region ·
-        <a href="https://www.buymeacoffee.com/ymichaelson" target="_blank">Buy me a coffee</a></p>
+        <a href="https://www.buymeacoffee.com/ymichaelson" target="_blank">Buy me a coffee</a> · <a href="/sponsor" data-fast-goal="sponsor_offer_open" data-fast-goal-source="computers_footer">Sponsor LocalClaw</a></p>
     </footer>
 
     <script src="js/data.js?v=20260819b"></script>
@@ -1577,5 +1590,6 @@
         })();
     </script>
 
+    <script src="/js/buyer-path-20260823a.js?v=20260823a" defer></script>
 </body>
 </html>
