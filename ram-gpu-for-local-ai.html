@@ -118,7 +118,7 @@
     }
     *{box-sizing:border-box}
     html{background:var(--bg);scroll-behavior:smooth}
-    body{margin:0;background:radial-gradient(circle at 18% 10%,rgba(255,69,58,.12),transparent 28rem),radial-gradient(circle at 80% 28%,rgba(96,165,250,.08),transparent 24rem),#050505;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+    body{margin:0;background:#050505;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
     body:before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:82px 82px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 90%)}
     a{color:inherit;text-decoration:none}
     ::selection{background:rgba(255,69,58,.32);color:#fff}
@@ -209,6 +209,16 @@
     summary{cursor:pointer;font-weight:900;color:#fff}
     details p{color:var(--muted);margin:10px 0 0}
     .footer{border-top:1px solid rgba(255,255,255,.1);margin-top:38px;padding-top:24px;color:var(--muted);font-size:13px}
+    /* Restrained page palette: neutral structure, LocalClaw red, Amazon orange. */
+    .panel,.quick,.trust div,.card,.product-media,.spec,.ghost,.cell,.mini,details{border-color:rgba(255,255,255,.11);background:#0d0d0f;box-shadow:none}
+    .panel,.card{background:#0d0d0f}
+    .hero-copy:before,.card:before{display:none}
+    .quick-row,.tag{border-color:rgba(255,255,255,.11);background:#141416}
+    .cell.head{background:#141416}
+    .warning,.checklist{border-color:rgba(255,255,255,.12);background:#0d0d0f}
+    .warning li,.checklist li{color:#c9c9d1}
+    .notice{border-color:rgba(255,153,0,.32);background:#111113}
+    .card:hover{border-color:rgba(255,69,58,.36);box-shadow:0 14px 36px rgba(0,0,0,.28)}
     html.light {
       color-scheme:light;
       --bg:#faf9f6;
@@ -225,7 +235,7 @@
       --muted:#64748b;
       --muted2:#94a3b8;
     }
-    html.light body{background:radial-gradient(circle at 18% 10%,rgba(201,47,40,.08),transparent 28rem),radial-gradient(circle at 80% 28%,rgba(37,99,235,.05),transparent 24rem),#faf9f6}
+    html.light body{background:#faf9f6}
     html.light body:before{background-image:linear-gradient(rgba(15,23,42,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.045) 1px,transparent 1px)}
     html.light ::selection{background:rgba(201,47,40,.24);color:#111827}
     html.light .panel,
@@ -239,8 +249,8 @@
     html.light .mini,
     html.light details{background:#fff;border-color:#d7dce4;box-shadow:0 16px 48px rgba(15,23,42,.055)}
     html.light .panel,
-    html.light .card{background:linear-gradient(180deg,#fff,#fdfcf9)}
-    html.light .quick{background:radial-gradient(circle at 0 0,rgba(201,47,40,.08),transparent 42%),#fff}
+    html.light .card,
+    html.light .quick{background:#fff}
     html.light .quick-row,
     html.light .tag{background:#f7f5f1;border-color:#d7dce4}
     html.light .lead,
@@ -261,8 +271,11 @@
     html.light .cell b,
     html.light .cell.head,
     html.light summary{color:#111827}
-    html.light .cell.head{background:rgba(201,47,40,.06)}
-    html.light .card:hover{box-shadow:0 18px 55px rgba(15,23,42,.09),0 0 24px rgba(201,47,40,.06)}
+    html.light .cell.head{background:#f7f5f1}
+    html.light .warning,
+    html.light .checklist{border-color:#d7dce4;background:#fff;box-shadow:none}
+    html.light .notice{border-color:rgba(234,88,12,.3);background:#fffaf3;box-shadow:none}
+    html.light .card:hover{box-shadow:0 14px 32px rgba(15,23,42,.08)}
     html.light body > main.wrap > section.section{border-color:transparent!important;background:transparent!important;box-shadow:none!important}
     @media(max-width:980px){.hero,.grid,.grid.two,.matrix,.compare{grid-template-columns:1fr}.matrix-row{display:grid;grid-template-columns:1fr}.cell,.cell:first-child,.cell:last-child{border-radius:14px}.nav-links{display:none}.wrap{padding:28px 16px 60px}.hero-copy{padding:26px}.trust{grid-template-columns:1fr}}
     @media(max-width:560px){.hero-actions .btn,.buy a{width:100%}.quick-row{grid-template-columns:1fr}.nav-inner{height:66px}.logo-text{font-size:22px}}
