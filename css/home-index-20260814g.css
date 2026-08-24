@@ -1243,7 +1243,6 @@ html.light .lc-index-hero__copy > p:not(.lc-index-kicker) {
     max-width: 780px;
     margin-right: auto;
     margin-left: auto;
-    font-size: clamp(1.25rem, 2vw, 1.75rem);
     line-height: 1.35;
 }
 html.light .lc-index-hero h1 small { color: #111827; }
