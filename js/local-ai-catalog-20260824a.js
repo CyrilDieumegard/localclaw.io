@@ -378,6 +378,30 @@
       caveats: ['Noncommercial source-available license', 'Multi-view scene workflow rather than object-to-GLB generation', 'CUDA and gsplat build required']
     },
     {
+      id: 'scenegen', name: 'SceneGen', category: '3d', developer: 'Shanghai Jiao Tong University',
+      summary: 'Feed-forward single-image 3D scene generator that segments objects and exports a downloadable GLB scene.',
+      tasks: ['image-to-3d', 'scene-generation', 'mesh-generation', 'asset-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Gradio', 'CLI'], output: ['GLB', '3D scene'],
+      local_status: 'local', license: 'MIT', released: '2025-08',
+      source_url: 'https://github.com/Mengmouxu/SceneGen', install_url: 'https://huggingface.co/haoningwu/SceneGen',
+      hardware_note: 'The official repository requires Python 3.8+, CUDA 12.1 for compiled submodules and an NVIDIA GPU with at least 16 GB memory. The interactive Gradio path also uses SAM2 and VGGT checkpoints before exporting GLB scenes, so 32 GB system RAM is the conservative local floor.',
+      strengths: ['MIT licensed code and checkpoints', 'Single-image or multi-image scene workflow', 'Interactive local Gradio app with GLB download'],
+      caveats: ['Segmentation quality controls the generated scene layout', 'Research stack with xformers, flash-attn, Kaolin, nvdiffrast and other compiled dependencies']
+    },
+    {
+      id: 'anchorsplat', name: 'AnchorSplat', category: '3d', developer: 'CASIA / GigaAI / Tsinghua University',
+      summary: 'Feed-forward Gaussian-splat detail synthesis model that refines low-quality 3DGS PLY assets without source images.',
+      tasks: ['gaussian-splatting', 'asset-enhancement', 'super-resolution', 'scene-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Pointcept', 'CLI'], output: ['PLY', 'Enhanced 3D Gaussian'],
+      local_status: 'local', license: 'MIT', released: '2026-07',
+      source_url: 'https://github.com/zhude233/AnchorSplat', install_url: 'https://huggingface.co/de233/AnchorSplat-20x',
+      hardware_note: 'The official local path installs PyTorch 2.1.2 with CUDA 11.8, Pointcept, spconv and PyG dependencies, then runs inference on Inria-style, LGM-style or Trellis-style Gaussian PLY files. No VRAM table is published, so 32 GB RAM and 16 GB NVIDIA VRAM are a conservative floor for external PLY refinement.',
+      strengths: ['MIT licensed checkpoint', '20x detail synthesis for Gaussian PLY inputs', 'Preserves the input coordinate frame for pipeline use'],
+      caveats: ['Requires an existing 3D Gaussian PLY input', 'Specialized enhancement model rather than text or image-to-asset generation']
+    },
+    {
       id: 'skintokens-tokenrig', name: 'SkinTokens / TokenRig', category: '3d', developer: 'VAST AI Research',
       summary: 'Autoregressive rigging model that turns an input mesh into a skeleton hierarchy and skinning weights for animation.',
       tasks: ['rigging', 'skinning', 'mesh-to-rig', 'character-animation'], platforms: ['linux'], accelerators: ['nvidia'],
