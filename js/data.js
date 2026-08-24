@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
+// Updated August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
+// Previous: August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
 // Previous: August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
 // Previous: August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
 // Previous: August 19, 2026 - Added LFM2.5-VL-3B - 225 LLM total
@@ -187,6 +188,24 @@ const APP_DATA = {
             ollama_model: 'hf.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF',
             benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
             released: '2026-08-18',
+            isNew: true
+        },
+        {
+            id: 'nemotron-3-5-lightning-30b-a3b',
+            name: 'Nemotron 3.5 Lightning 30B-A3B',
+            family: 'nemotron',
+            params: '30B (3B active, MoE)',
+            size_gb: 18.9,
+            min_ram: 48,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'tool-calling', 'long-context', 'power', 'general'],
+            description: 'NVIDIA OpenMDW-1.1 hybrid Mamba/MoE/attention model for local agentic inference. The official GGUF path from ggml-org includes a 18.9GB Q4_0 build plus Ollama, llama.cpp and LM Studio recipes, with local contexts scaling from 4K to 256K+ depending on VRAM.',
+            search_term: 'nvidia-nemotron-3.5-lightning-30b-a3b',
+            recommended_quant: 'Q4_0',
+            hf_repo: 'ggml-org/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF',
+            source_url: 'https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4',
+            ollama_model: 'nemotron-3.5-lightning',
+            benchmarks: { speed: 7, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-08-11',
             isNew: true
         },
         {
@@ -3790,7 +3809,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-08-19T06:25:00.000Z",
-        catalogueHash: "a05a14dce9d549bc00603d1319fcd4849895b8846cdcae474c49eb786c68385b",
+        catalogueHash: "de97e6594e977c983f4e23d5205fd3618232eec6fbae79f651de6c3e82b54dab",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3802,6 +3821,7 @@ const APP_DATA = {
             "llama3.2-3b": "lmstudio-community/Llama-3.2-3B-Instruct-GGUF",
             "ornith-1-5-9b": "ornith-ai/Ornith-1.5-9B-GGUF",
             "ornith-1-5-35b-a3b": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
+            "nemotron-3-5-lightning-30b-a3b": "ggml-org/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
             "kat-coder-v2-5-dev": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
             "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking-gguf",
@@ -3984,6 +4004,7 @@ const APP_DATA = {
             "kimi-k2.7-code": "moonshotai/Kimi-K2.7-Code",
             "qwen3.5-397b-a17b": "Qwen/Qwen3.5-397B-A17B",
             "qwen3.6-27b": "Qwen/Qwen3.6-27B",
+            "nemotron-3-5-lightning-30b-a3b": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
             "kat-coder-v2-5-dev": "Kwaipilot/KAT-Coder-V2.5-Dev",
             "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking",
             "gemma4-26b-a4b": "google/gemma-4-26B-A4B-it",

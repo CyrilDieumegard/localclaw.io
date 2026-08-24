@@ -2,12 +2,12 @@
 
 > A maintained, hardware-aware homepage for choosing local language, voice, image, video, 3D, music and vision models.
 
-- Verified snapshot: 2026-08-23
-- Local LLM pages: 219 unique routes across 79 families
+- Verified snapshot: 2026-08-24
+- Local LLM pages: 220 unique routes across 79 families
 - Local speech records: 68 across 59 families (53 TTS, 14 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 69
 - Latest catalogue release month: Aug 18, 2026
-- LLM source states: 179 public GGUF repositories, 38 public model cards without a verified GGUF file and 4 gated model cards
+- LLM source states: 180 public GGUF repositories, 39 public model cards without a verified GGUF file and 4 gated model cards
 - Scope: hosted-only LLMs, 6 exact-repository-unavailable LLM routes, online Edge TTS, API-only OCTAVE 2 and unverified XTTS v3 are excluded from the ranked homepage index
 
 ## Ranking Rules
@@ -36,7 +36,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 356 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 357 local homepage entries
 
 ## RAM Decision Paths
 
