@@ -163,6 +163,7 @@ window.HOME_INDEX_LOGOS = {
     'Hebrew University of Jerusalem / Westlake University': 'github',
     'HKUST / M-A-P': 'github',
     'Hugging Face': 'huggingface-avatar',
+    'JD Open Source': 'github',
     'Lightricks': 'lightricks-avatar',
     'Meta AI': 'meta',
     'Meituan LongCat': 'longcat',
