@@ -14,7 +14,7 @@ vm.runInContext(`${dataSource}\nglobalThis.__APP_DATA__ = APP_DATA;`, context);
 const models = context.__APP_DATA__.models;
 const byId = new Map(models.map(model => [model.id, model]));
 const failures = [];
-const profiles = [8, 16, 24, 32, 48, 64, 128, 256, 512];
+const profiles = [8, 16, 24, 32, 36, 48, 64, 96, 128, 256, 512];
 
 for (const ramGb of profiles) {
   const result = ranking.rankModels({ ramGb, platform: 'mac', accelerator: 'apple-silicon', useCase: 'general', priority: 'balanced', context: '8k' }, {}, models, { includeTight: true, limit: 12 });
@@ -43,14 +43,17 @@ for (const [id, expected] of Object.entries(criticalFacts)) {
   }
 }
 
-for (const marker of ['js/data.js?v=20260819b', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
+for (const marker of ['js/data.js?v=20260825a', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
   if (!computers.includes(marker)) failures.push(`computers.html missing ${marker}`);
 }
 for (const marker of ["id: 'mac_mini_m6_16'", "id: 'mac_mini_m6_24'", "id: 'mac_mini_m6_32'", "id: 'mac_mini_m5_pro_24'", "id: 'mac_mini_m5_pro_64'", 'Available September 22, 2026']) {
   if (!computers.includes(marker)) failures.push(`computers.html missing new Mac mini marker ${marker}`);
 }
-for (const marker of ["id: 'mac-mini-m6-16gb'", "id: 'mac-mini-m6-24gb'", "id: 'mac-mini-m6-32gb'", "id: 'mac-mini-m5-pro-24gb'", "id: 'mac-mini-m5-pro-64gb'", 'LocalClaw has not hands-on validated runtime speed']) {
-  if (!hardwareGenerator.includes(marker)) failures.push(`Hardware generator missing new Mac mini marker ${marker}`);
+for (const marker of ["id: 'mac_studio_m5_max_36'", "id: 'mac_studio_m5_max_64'", "id: 'mac_studio_m5_max_128'", "id: 'mac_studio_m5_ultra_96'", "id: 'mac_studio_m5_ultra_256'", "id: 'mac_studio_m5_ultra_512'", '/hardware/new-macs-local-ai']) {
+  if (!computers.includes(marker)) failures.push(`computers.html missing new Mac Studio or guide marker ${marker}`);
+}
+for (const marker of ["id: 'mac-mini-m6-16gb'", "id: 'mac-mini-m6-24gb'", "id: 'mac-mini-m6-32gb'", "id: 'mac-mini-m5-pro-24gb'", "id: 'mac-mini-m5-pro-64gb'", "id: 'mac-studio-m5-max-36gb'", "id: 'mac-studio-m5-max-64gb'", "id: 'mac-studio-m5-ultra-512gb'", 'LocalClaw has not hands-on validated runtime speed', 'FAQPage', 'Apple-confirmed specifications used here', 'sourceSpecsUrl', 'new-macs-local-ai.html']) {
+  if (!hardwareGenerator.includes(marker)) failures.push(`Hardware generator missing new Mac SEO/GEO marker ${marker}`);
 }
 if (!hardwareGenerator.includes("require('../js/model-ranking')")) failures.push('Hardware generator does not use the shared engine');
 if (computers.includes('Memory is compared honestly:')) failures.push('Computers page still includes the removed memory explainer paragraph');

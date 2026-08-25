@@ -118,7 +118,11 @@ const groups = {
   blog: unique(htmlFiles('blog').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', file.endsWith('/index.html') ? '0.9' : '0.8'))),
   guides: unique([
     ...htmlFiles('ram').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
-    ...htmlFiles('hardware').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
+    ...htmlFiles('hardware').map(file => {
+      if (file.endsWith('/index.html')) return page(file, 'weekly', '0.9');
+      if (file.endsWith('/new-macs-local-ai.html')) return page(file, 'weekly', '0.95');
+      return page(file, 'monthly', '0.85');
+    }),
     ...htmlFiles('use-case').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
     ...htmlFiles('guides').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.88'))
   ])

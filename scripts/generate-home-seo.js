@@ -198,7 +198,7 @@ function renderFallback() {
           <header class="lc-index-fallback__hero">
             <h1><span><b>Local</b>Claw</span><small>The Local Model Index</small></h1>
             <p>Find local AI models that actually run on your Mac, PC or NVIDIA GPU.</p>
-            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></nav>
+            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
           </header>
 
           <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
@@ -493,6 +493,23 @@ function compactLlmsText() {
 - [Live community rating aggregates](${BASE_URL}/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
 - [Full AI-readable model index](${BASE_URL}/llms-full.txt) - all ${totalLocalAiRecords} local homepage entries
+
+## New Mac Local AI Guides
+
+- [New Macs for local AI](${BASE_URL}/hardware/new-macs-local-ai) — source-backed comparison of Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, and current M5 MacBooks
+- [Mac mini M6 16GB](${BASE_URL}/hardware/mac-mini-m6-16gb)
+- [Mac mini M6 24GB](${BASE_URL}/hardware/mac-mini-m6-24gb)
+- [Mac mini M6 32GB](${BASE_URL}/hardware/mac-mini-m6-32gb)
+- [Mac mini M5 Pro 24GB](${BASE_URL}/hardware/mac-mini-m5-pro-24gb)
+- [Mac mini M5 Pro 64GB](${BASE_URL}/hardware/mac-mini-m5-pro-64gb)
+- [Mac Studio M5 Max 36GB](${BASE_URL}/hardware/mac-studio-m5-max-36gb)
+- [Mac Studio M5 Max 64GB](${BASE_URL}/hardware/mac-studio-m5-max-64gb)
+- [Mac Studio M5 Max 128GB](${BASE_URL}/hardware/mac-studio-m5-max-128gb)
+- [Mac Studio M5 Ultra 96GB](${BASE_URL}/hardware/mac-studio-m5-ultra-96gb)
+- [Mac Studio M5 Ultra 256GB](${BASE_URL}/hardware/mac-studio-m5-ultra-256gb)
+- [Mac Studio M5 Ultra 512GB](${BASE_URL}/hardware/mac-studio-m5-ultra-512gb)
+
+Apple lists the new desktop models for pre-order with availability beginning September 22, 2026. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
 
 ## RAM Decision Paths
 

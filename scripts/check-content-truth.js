@@ -135,7 +135,11 @@ for (const marker of [
   `Local LLM pages: ${indexableLocalModels.length}`,
   `Local speech records: ${speechModels.length}`,
   'Community ratings never change or blend',
-  '/llms-full.txt'
+  '/llms-full.txt',
+  '/hardware/new-macs-local-ai',
+  '/hardware/mac-mini-m6-24gb',
+  '/hardware/mac-studio-m5-ultra-512gb',
+  'not hands-on speed benchmarking'
 ]) {
   if (!llms.includes(marker)) errors.push(`llms.txt missing truth marker: ${marker}`);
 }
@@ -482,7 +486,7 @@ for (const marker of [
   '48 GB RAM · Q4_K_M · 262K context',
   '64 GB RAM · Q4_K_M · 65K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260824b',
+  'js/data.js?v=20260825a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} indexable local LLM pages`,
   `${uniqueLocalModels.length} preserved route URLs`,
@@ -586,7 +590,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260824b') || !index.includes('js/app-20260816a.js?v=20260824b')) {
+if (!index.includes('js/data.js?v=20260825a') || !index.includes('js/app-20260816a.js?v=20260824b')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 

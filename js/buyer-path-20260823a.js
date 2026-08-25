@@ -35,11 +35,11 @@
   };
   const headroomProfiles={
     'buy|chat':[
-      ['Best long-term value','Mac Studio · 64GB','More unified memory for larger contexts, RAG and several local services without moving to the extreme tier.','/hardware/mac-studio-m4-max-64gb','See exact fit'],
+      ['Best long-term value','Mac Studio M5 Max · 64GB','Available September 22. More unified memory for larger contexts, RAG and several local services without moving to the extreme tier.','/hardware/mac-studio-m5-max-64gb','See pre-order fit'],
       ['CUDA workstation','RTX 5090 · 32GB','The largest current consumer NVIDIA VRAM tier for buyers who also want strong CUDA speed.','/go/amazon?q=RTX+5090+32GB','Check Amazon'],
       ['Maximum memory','Ryzen AI Max · 128GB','A unified-memory route for large quantized workloads when CUDA is not mandatory.','/computers','Compare computers']],
     'buy|code':[
-      ['Best long-term value','Mac Studio · 64GB','A balanced local coding and agent workstation with room for tools, contexts and concurrent services.','/hardware/mac-studio-m4-max-64gb','See exact fit'],
+      ['Best long-term value','Mac Studio M5 Max · 64GB','Available September 22. A balanced local coding and agent workstation with room for tools, contexts and concurrent services.','/hardware/mac-studio-m5-max-64gb','See pre-order fit'],
       ['CUDA route','RTX 5090 · 32GB','Stronger acceleration and more consumer VRAM for larger coding models.','/go/amazon?q=RTX+5090+32GB','Check Amazon'],
       ['More unified memory','Ryzen AI Max · 128GB','Large shared memory for agent stacks and model experimentation without a separate VRAM pool.','/computers','Compare computers']],
     'buy|create':[

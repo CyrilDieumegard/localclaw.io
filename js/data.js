@@ -4165,7 +4165,7 @@ const APP_DATA = {
                 question: 'What\'s your daily driver?',
                 subtitle: 'Pick your operating system',
                 options: [
-                    { value: 'mac', label: 'Mac (M1-M5)', icon: ICONS.apple, desc: 'Apple Silicon' },
+                    { value: 'mac', label: 'Mac (M1-M6)', icon: ICONS.apple, desc: 'Apple Silicon' },
                     { value: 'mac-intel', label: 'Intel Mac', icon: ICONS.apple, desc: 'Older Intel hardware' },
                     { value: 'win', label: 'Windows', icon: ICONS.windows, desc: 'PC / Laptop' },
                     { value: 'linux', label: 'Linux', icon: ICONS.linux, desc: 'Terminal life' }
@@ -4223,7 +4223,7 @@ const APP_DATA = {
                 question: 'Dedicated GPU?',
                 options: [
                     { value: 'none', label: 'None / Integrated' },
-                    { value: 'apple', label: 'Apple Silicon (M1-M4)' },
+                    { value: 'apple', label: 'Apple Silicon (M1-M6)' },
                     { value: 'nvidia_low', label: 'NVIDIA (6-8 GB VRAM)' },
                     { value: 'nvidia_high', label: 'NVIDIA (12+ GB VRAM)' },
                     { value: 'amd', label: 'AMD GPU' },
@@ -4296,7 +4296,7 @@ const APP_DATA = {
         },
         {
             q: 'Apple Silicon vs NVIDIA GPU?',
-            a: 'Apple Silicon (M1-M4) uses unified memory, meaning your entire RAM is available for the model. This is incredibly efficient. NVIDIA GPUs are faster for inference but limited by VRAM (typically 8-24 GB). Both are great choices.'
+            a: 'Apple Silicon (M1-M6) uses unified memory, so the CPU and GPU share one memory pool. Local AI still needs headroom for macOS, the runtime and context. NVIDIA GPUs can be faster for supported inference workloads but are constrained by dedicated VRAM. Both can be strong choices.'
         },
         {
             q: 'Can I run multiple models at once?',

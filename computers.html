@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw</title>
-    <meta name="description" content="Compare the new Mac mini M6 and M5 Pro, MacBook M5, Ryzen AI Max, GeForce RTX, Mac Studio, and GB10 computers for local AI by usable memory and model fit.">
+    <meta name="description" content="Compare Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, MacBook M5, Ryzen AI Max, GeForce RTX and GB10 computers for local AI.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/computers">
+    <link rel="alternate" type="text/plain" href="https://localclaw.io/llms.txt" title="LocalClaw AI-readable index">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/computers">
     <meta property="og:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
-    <meta property="og:description" content="Compare the new Mac mini M6 and M5 Pro with current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
+    <meta property="og:description" content="Compare Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, and current AMD and NVIDIA computers for local AI.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -20,8 +21,25 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
-    <meta name="twitter:description" content="Compare the new Mac mini M6 and M5 Pro with current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
+    <meta name="twitter:description" content="Compare Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, and current AMD and NVIDIA computers for local AI.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Best Computers for Local AI",
+      "url": "https://localclaw.io/computers",
+      "description": "Memory-first comparison of current Apple, AMD and NVIDIA computers for local AI.",
+      "dateModified": "2026-08-25",
+      "isPartOf": {"@type": "WebSite", "name": "LocalClaw", "url": "https://localclaw.io/"},
+      "hasPart": {
+        "@type": "CollectionPage",
+        "name": "New Macs for local AI",
+        "url": "https://localclaw.io/hardware/new-macs-local-ai"
+      },
+      "about": ["local AI computers", "Mac mini M6", "Mac Studio M5 Max", "Mac Studio M5 Ultra", "unified memory"]
+    }
+    </script>
 
     <meta name="theme-color" content="#faf9f6">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
@@ -786,7 +804,7 @@
         .view-all a:hover { gap: 8px; }
 
         /* Action button */
-        .card-action { padding: 0 18px 18px; margin-top: auto; }
+        .card-action { display:grid; gap:8px; padding: 0 18px 18px; margin-top: auto; }
         .act-btn {
             display: flex; align-items: center; justify-content: center;
             gap: 6px; width: 100%; padding: 10px 14px;
@@ -803,6 +821,10 @@
             color: #fff;
         }
         .act-btn.apple-store:hover { box-shadow: 0 6px 18px rgba(10,132,255,.3); transform: translateY(-1px); }
+        .act-btn.guide {
+            background: #fff; color: #111; border: 1px solid rgba(255,255,255,.18);
+        }
+        .act-btn.guide:hover { box-shadow: 0 6px 18px rgba(15,23,42,.16); transform: translateY(-1px); }
 
         /* ===== LEGEND ===== */
         .legend-section {
@@ -942,9 +964,20 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge"> Updated August 25, 2026 · Mac mini M6 + M5 Pro</div>
+        <div class="hero-badge"> Updated August 25, 2026 · Mac mini M6 + Mac Studio M5</div>
         <h1 class="fd">Best Computers For<br><span>Local AI</span></h1>
         <p>Compare current Apple Silicon, AMD Ryzen AI Max, NVIDIA GeForce RTX, and GB10 computers. LocalClaw prioritizes usable AI memory, runtime support, and real form factor, not marketing TOPS.</p>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto 24px;padding:0 20px;">
+        <a href="/hardware/new-macs-local-ai" data-fast-goal="internal_click" data-fast-goal-source="computers_new_mac_banner" data-fast-goal-target="new_macs_local_ai" style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;border:1px solid rgba(255,69,58,.28);background:linear-gradient(135deg,rgba(255,69,58,.12),rgba(10,132,255,.06));border-radius:18px;padding:18px 20px;color:inherit;text-decoration:none;box-shadow:0 18px 50px rgba(15,23,42,.08);">
+            <span>
+                <span style="display:block;color:var(--primary);font:900 11px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;">New Mac local AI guide</span>
+                <strong style="display:block;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:22px;line-height:1.1;">M6, M5 Pro, M5 Max and M5 Ultra compared by unified memory.</strong>
+                <span style="display:block;color:var(--muted);font-size:14px;margin-top:6px;">Apple-confirmed specifications, exact model-fit pages and clear pre-order status. No unreleased-hardware benchmark claims.</span>
+            </span>
+            <span style="display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14);background:#111;color:#fff;font:900 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em;border-radius:12px;padding:12px 14px;white-space:nowrap;">Compare new Macs →</span>
+        </a>
     </section>
 
     <section class="lc-buyer" data-buyer-path aria-labelledby="buyer-tool-computers-title">
@@ -999,7 +1032,7 @@
         <a href="https://www.buymeacoffee.com/ymichaelson" target="_blank">Buy me a coffee</a> · <a href="/sponsor" data-fast-goal="sponsor_offer_open" data-fast-goal-source="computers_footer">Sponsor LocalClaw</a></p>
     </footer>
 
-    <script src="js/data.js?v=20260819b"></script>
+    <script src="js/data.js?v=20260825a"></script>
     <script src="js/model-ranking.js?v=20260820a"></script>
     <script>
     (function() {
@@ -1099,7 +1132,8 @@
                 chip: 'M6', ram: 16, storage: '256GB SSD',
                 price: '$899',
                 asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-mini-m6-16gb'
             },
             {
                 id: 'mac_mini_m6_24', section: 'apple-desktops', type: 'apple',
@@ -1108,7 +1142,8 @@
                 chip: 'M6', ram: 24, storage: '512GB SSD',
                 price: '$1,299',
                 asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-mini-m6-24gb'
             },
             {
                 id: 'mac_mini_m6_32', section: 'apple-desktops', type: 'apple',
@@ -1117,7 +1152,8 @@
                 chip: 'M6', ram: 32, storage: '512GB SSD',
                 price: 'Check pre-order price',
                 asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-mini-m6-32gb'
             },
             {
                 id: 'mac_mini_m5_pro_24', section: 'apple-desktops', type: 'apple',
@@ -1126,7 +1162,8 @@
                 chip: 'M5 Pro', ram: 24, storage: '512GB SSD',
                 price: '$1,699',
                 asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-mini-m5-pro-24gb'
             },
             {
                 id: 'mac_mini_m5_pro_64', section: 'apple-desktops', type: 'apple',
@@ -1135,7 +1172,68 @@
                 chip: 'M5 Pro', ram: 64, storage: '1TB SSD',
                 price: 'Check pre-order price',
                 asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-mini-m5-pro-64gb'
+            },
+            {
+                id: 'mac_studio_m5_max_36', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Max',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Max product photo', imageFit: 'cover',
+                chip: 'M5 Max', ram: 36, storage: '512GB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-max-36gb'
+            },
+            {
+                id: 'mac_studio_m5_max_64', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Max',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Max product photo', imageFit: 'cover',
+                chip: 'M5 Max', ram: 64, storage: '1TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-max-64gb'
+            },
+            {
+                id: 'mac_studio_m5_max_128', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Max',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Max product photo', imageFit: 'cover',
+                chip: 'M5 Max', ram: 128, storage: '2TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-max-128gb'
+            },
+            {
+                id: 'mac_studio_m5_ultra_96', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Ultra product photo', imageFit: 'cover',
+                chip: 'M5 Ultra', ram: 96, storage: '1TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-ultra-96gb'
+            },
+            {
+                id: 'mac_studio_m5_ultra_256', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Ultra product photo', imageFit: 'cover',
+                chip: 'M5 Ultra', ram: 256, storage: '2TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-ultra-256gb'
+            },
+            {
+                id: 'mac_studio_m5_ultra_512', section: 'apple-desktops', type: 'apple',
+                name: 'Mac Studio M5 Ultra',
+                image: 'images/computers/mac-studio.jpg', imageAlt: 'Apple Mac Studio with M5 Ultra product photo', imageFit: 'cover',
+                chip: 'M5 Ultra', ram: 512, storage: '4TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-studio/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true,
+                guideUrl: '/hardware/mac-studio-m5-ultra-512gb'
             },
             {
                 id: 'mac_mini_16', section: 'apple-desktops', type: 'apple',
@@ -1336,8 +1434,8 @@
             {
                 id: 'apple-desktops',
                 kicker: 'Apple desktops',
-                title: 'Mac mini M6, M5 Pro & Mac Studio',
-                copy: 'The new Mac mini M6 and M5 Pro are available to pre-order now and arrive September 22. Compatibility below is based on Apple-confirmed unified memory, not hands-on benchmarks.'
+                title: 'Mac mini M6, M5 Pro & Mac Studio M5',
+                copy: 'Mac mini M6 and M5 Pro plus Mac Studio M5 Max and M5 Ultra are available to pre-order and arrive September 22. Compatibility below is based on Apple-confirmed unified memory, not hands-on benchmarks.'
             },
             {
                 id: 'amd-desktops',
@@ -1483,6 +1581,9 @@
             const actionBtn = amazonUrl
                 ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} View on Amazon</a>`
                 : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store" data-fast-goal="apple_store_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.apple} ${appleActionLabel}</a>`;
+            const guideBtn = comp.guideUrl
+                ? `<a href="${esc(comp.guideUrl)}" class="act-btn guide" data-fast-goal="guide_open" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}">See local AI fit guide</a>`
+                : '';
             const priceLabel = /^check/i.test(comp.price) ? esc(comp.price) : `from ${esc(comp.price)}`;
 
             return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">
@@ -1513,7 +1614,7 @@
                     </div>
                     ${more ? `<div class="view-all"><a href="/llm-list" data-fast-goal="catalogue_click" data-fast-goal-source="computers_card" data-fast-goal-target="llm" data-fast-goal-machine="${esc(comp.id)}">View all ${models.length} compatible models ${SVG.arrowR}</a></div>` : ''}
                 </div>
-                <div class="card-action">${actionBtn}</div>
+                <div class="card-action">${guideBtn}${actionBtn}</div>
             </div>`;
         }
 
@@ -1649,6 +1750,6 @@
         })();
     </script>
 
-    <script src="/js/buyer-path-20260823a.js?v=20260825a" defer></script>
+    <script src="/js/buyer-path-20260823a.js?v=20260825b" defer></script>
 </body>
 </html>
