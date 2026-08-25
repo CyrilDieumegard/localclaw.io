@@ -617,7 +617,7 @@ if (read('sitemap-tts.xml').includes('/tts/xtts-v3')) errors.push('sitemap-tts.x
 if (read('guides/best-local-tts-for-voice-cloning.html').includes('/tts/xtts-v3')) errors.push('Local TTS guide must exclude the unverified XTTS v3 route');
 
 const manifest = JSON.parse(read('downloads/localclaw-installer-latest.json'));
-for (const file of ['download.html', 'software.html', 'pricing.html']) {
+for (const file of ['download.html', 'pricing.html']) {
   if (!read(file).includes(manifest.latestVersion)) errors.push(`${file} does not show manifest version ${manifest.latestVersion}`);
 }
 if (!manifest.dmgUrl.includes(`localclaw-${manifest.latestVersion}.dmg`)) errors.push('Installer manifest DMG URL does not match latestVersion');

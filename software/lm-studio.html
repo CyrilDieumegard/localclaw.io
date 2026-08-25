@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LM Studio local AI software: compatibility and setup | LocalClaw</title>
+  <meta name="description" content="LM Studio compatibility guide for macOS, Windows and Linux: GGUF and MLX runtimes, local APIs, hardware requirements and OpenClaw use.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://localclaw.io/software/lm-studio">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://localclaw.io/software/lm-studio">
+  <meta property="og:title" content="LM Studio compatibility and local AI setup | LocalClaw">
+  <meta property="og:description" content="Platforms, runtimes, memory guidance, local APIs and OpenClaw use for LM Studio.">
+  <meta property="og:image" content="https://localclaw.io/images/software/lm-studio-bionic.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/images/favicon.png?v=20260211g">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=20260822a">
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260823c">
+  <link rel="stylesheet" href="/css/software-index.css?v=20260825f">
+  <script src="/js/clarity.js" defer></script>
+  <script src="/js/theme-toggle.js?v=20260823c"></script>
+  <script src="/js/site-nav.js?v=20260823c" defer></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"LM Studio","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/software/lm-studio","downloadUrl":"https://lmstudio.ai/download","image":"https://localclaw.io/images/software/lm-studio-bionic.webp"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io/"},{"@type":"ListItem","position":2,"name":"Software","item":"https://localclaw.io/software"},{"@type":"ListItem","position":3,"name":"LM Studio","item":"https://localclaw.io/software/lm-studio"}]}]}
+  </script>
+</head>
+<body>
+  <canvas id="bg-circuit" class="sw-background" aria-hidden="true"></canvas>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+    </div>
+  </div>
+</nav>
+
+  <main class="sw-main">
+    <section class="sw-shell sw-detail-hero">
+      <div><p class="sw-breadcrumb"><a href="/software">Software</a> / LM Studio</p><span class="sw-kicker">Desktop local AI software</span><h1 class="sw-title sw-detail-title">Run local models<br>with <span>LM Studio</span></h1><p class="sw-lede">Discover, download and run open models from a desktop interface, then expose them through local OpenAI- and Anthropic-compatible APIs.</p><div class="sw-chips"><span class="sw-chip">macOS 14+</span><span class="sw-chip">Windows x64 / ARM</span><span class="sw-chip">Linux x64 / ARM64</span><span class="sw-chip">GGUF</span><span class="sw-chip">MLX on Apple Silicon</span></div><div class="sw-actions"><a class="sw-button sw-button--primary" href="https://lmstudio.ai/download" target="_blank" rel="noopener">Get LM Studio</a><a class="sw-button" href="/software">Compare software</a></div></div>
+      <div class="sw-detail-frame"><img src="/images/software/lm-studio-bionic.webp" width="1920" height="1080" alt="LM Studio Bionic desktop interface" fetchpriority="high"></div>
+    </section>
+
+    <section class="sw-shell sw-section" aria-labelledby="lm-summary-title"><div class="sw-section-head"><div><h2 id="lm-summary-title">Is LM Studio right for you?</h2><p>LocalClaw's practical summary, based on the current official documentation.</p></div></div><div class="sw-detail-grid"><div class="sw-stat"><small>Interface</small><strong>Visual</strong></div><div class="sw-stat"><small>Runs locally</small><strong>Yes</strong></div><div class="sw-stat"><small>Recommended memory</small><strong>16 GB+</strong></div></div></section>
+
+    <section class="sw-shell sw-section" aria-labelledby="lm-compat-title"><div class="sw-section-head"><div><h2 id="lm-compat-title">Will it run on my computer?</h2><p>Model size and context still determine the real RAM and VRAM requirement.</p></div></div><div class="sw-compat"><div class="sw-compat-row"><span>Apple Silicon</span><strong>Excellent fit</strong><span>macOS 14+, M1 through M4; MLX and llama.cpp runtimes</span></div><div class="sw-compat-row"><span>Windows x64 / ARM</span><strong>Supported</strong><span>AVX2 required on x64; 16 GB RAM and 4 GB dedicated VRAM recommended</span></div><div class="sw-compat-row"><span>Linux x64 / ARM64</span><strong>Supported</strong><span>AppImage; Ubuntu 20.04+ documented</span></div><div class="sw-compat-row"><span>Intel Mac</span><strong class="sw-warning">Not currently supported</strong><span>Use another runtime or supported machine</span></div></div></section>
+
+    <section class="sw-shell sw-section" aria-labelledby="lm-features-title"><div class="sw-section-head"><div><h2 id="lm-features-title">What LM Studio provides</h2></div></div><div class="sw-directory"><div class="sw-directory-row"><div><h3>Model discovery and downloads</h3><p>Search Hugging Face models and manage local files from the app.</p></div><span>Desktop GUI</span><span>GGUF · MLX</span><span class="sw-status">Local</span><span>01</span></div><div class="sw-directory-row"><div><h3>Local model server</h3><p>OpenAI-compatible Responses, Chat Completions, Completions and Embeddings endpoints.</p></div><span>REST APIs</span><span>localhost:1234</span><span class="sw-status">Available</span><span>02</span></div><div class="sw-directory-row"><div><h3>Tool use and MCP</h3><p>Tool calling support depends on the selected model and its chat template.</p></div><span>Agent workflows</span><span>Model-dependent</span><span class="sw-status">Supported</span><span>03</span></div></div></section>
+
+    <section class="sw-shell sw-section"><div class="sw-note"><div><h2>Using OpenClaw?</h2><p>LM Studio can serve the local model. LocalClaw adds native installation, health checks and OpenClaw controls around the complete stack.</p></div><a class="sw-button" href="/pricing">Explore LocalClaw</a></div></section>
+  </main>
+
+  <footer class="sw-footer"><div class="sw-shell sw-footer__inner"><span>Sources: official LM Studio documentation · checked 25 August 2026</span><div><a href="/software">Software</a><a href="/pricing">Pricing</a><a href="/privacy">Privacy</a></div></div></footer>
+  <script src="/js/bg-circuit.js" defer></script>
+</body>
+</html>

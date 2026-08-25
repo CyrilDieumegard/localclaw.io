@@ -35,6 +35,7 @@
 /hardware               /hardware/       301
 /use-case              /use-case/      301
 /tts                   /tts/           301
+/software/localclaw    /pricing        301
 
 # Keep wildcard rules last so exact legacy redirects are evaluated first.
 /blog/blog/*             /blog/:splat   301

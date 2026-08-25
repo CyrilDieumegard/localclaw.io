@@ -58,6 +58,7 @@ const PUBLIC_DIRECTORIES = Object.freeze([
   'models',
   'music',
   'ram',
+  'software',
   'tts',
   'use-case',
   'video',

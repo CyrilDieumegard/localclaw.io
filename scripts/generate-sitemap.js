@@ -102,6 +102,7 @@ const groups = {
     page('ram-gpu-for-local-ai.html', 'monthly', '0.85'),
     page('sponsor.html', 'monthly', '0.75'),
     page('new.html', 'weekly', '0.9', ['js/data.js', 'new-models.xml']),
+    ...htmlFiles('software').map(file => page(file, 'monthly', '0.85')),
     ...htmlFiles('case-study').map(file => page(file, 'monthly', '0.9')),
     ...htmlFiles('changelog').map(file => page(file, 'monthly', '0.78'))
   ]),

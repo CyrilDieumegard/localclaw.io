@@ -476,6 +476,9 @@ function compactLlmsText() {
 ## Core Pages
 
 - [The Local Model Index](${BASE_URL}/) — interactive local-only homepage directory
+- [Software directory](${BASE_URL}/software) — machine-aware comparison of local AI desktop apps, model servers, inference engines and complete stacks
+- [LM Studio](${BASE_URL}/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
+- [LocalClaw pricing](${BASE_URL}/pricing) — dedicated LocalClaw product, purchase and download page
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
 - [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
 - [Image catalogue](${BASE_URL}/image-models) - local generation and editing models
