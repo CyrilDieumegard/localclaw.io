@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw</title>
-    <meta name="description" content="Compare MacBook M5, Ryzen AI Max 128GB, GeForce RTX, Mac Studio, and GB10 computers for local AI by usable memory, model fit, and Amazon options.">
+    <meta name="description" content="Compare the new Mac mini M6 and M5 Pro, MacBook M5, Ryzen AI Max, GeForce RTX, Mac Studio, and GB10 computers for local AI by usable memory and model fit.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/computers">
 
@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/computers">
     <meta property="og:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
-    <meta property="og:description" content="Compare current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
+    <meta property="og:description" content="Compare the new Mac mini M6 and M5 Pro with current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Best Computers for Local AI — Mac, AMD & NVIDIA | LocalClaw">
-    <meta name="twitter:description" content="Compare current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
+    <meta name="twitter:description" content="Compare the new Mac mini M6 and M5 Pro with current Apple Silicon, Ryzen AI Max, GeForce RTX, and NVIDIA GB10 computers for local AI.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <meta name="theme-color" content="#faf9f6">
@@ -679,6 +679,15 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 13px; font-weight: 700; color: #34D399;
         }
+        .availability-note {
+            margin: -2px 0 9px;
+            color: var(--green);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+        }
         .ram-badge {
             display: inline-flex; align-items: center; gap: 4px;
             padding: 2px 8px; border-radius: 5px;
@@ -933,7 +942,7 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge"> Updated August 2026 · Apple + AMD + NVIDIA</div>
+        <div class="hero-badge"> Updated August 25, 2026 · Mac mini M6 + M5 Pro</div>
         <h1 class="fd">Best Computers For<br><span>Local AI</span></h1>
         <p>Compare current Apple Silicon, AMD Ryzen AI Max, NVIDIA GeForce RTX, and GB10 computers. LocalClaw prioritizes usable AI memory, runtime support, and real form factor, not marketing TOPS.</p>
     </section>
@@ -1082,6 +1091,51 @@
                 price: 'Check current price',
                 asin: null, amazonQuery: 'MSI Titan 18 HX AI RTX 5090 24GB', appleUrl: null,
                 badge: 'Maximum Laptop CUDA'
+            },
+            {
+                id: 'mac_mini_m6_16', section: 'apple-desktops', type: 'apple',
+                name: 'Mac mini M6',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini with M6 product photo', imageFit: 'cover',
+                chip: 'M6', ram: 16, storage: '256GB SSD',
+                price: '$899',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+            },
+            {
+                id: 'mac_mini_m6_24', section: 'apple-desktops', type: 'apple',
+                name: 'Mac mini M6',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini with M6 product photo', imageFit: 'cover',
+                chip: 'M6', ram: 24, storage: '512GB SSD',
+                price: '$1,299',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+            },
+            {
+                id: 'mac_mini_m6_32', section: 'apple-desktops', type: 'apple',
+                name: 'Mac mini M6',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini with M6 product photo', imageFit: 'cover',
+                chip: 'M6', ram: 32, storage: '512GB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+            },
+            {
+                id: 'mac_mini_m5_pro_24', section: 'apple-desktops', type: 'apple',
+                name: 'Mac mini M5 Pro',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini with M5 Pro product photo', imageFit: 'cover',
+                chip: 'M5 Pro', ram: 24, storage: '512GB SSD',
+                price: '$1,699',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
+            },
+            {
+                id: 'mac_mini_m5_pro_64', section: 'apple-desktops', type: 'apple',
+                name: 'Mac mini M5 Pro',
+                image: 'images/computers/mac-mini.jpg', imageAlt: 'Apple Mac mini with M5 Pro product photo', imageFit: 'cover',
+                chip: 'M5 Pro', ram: 64, storage: '1TB SSD',
+                price: 'Check pre-order price',
+                asin: null, amazonQuery: null, appleUrl: 'https://www.apple.com/mac-mini/',
+                badge: 'Pre-order · Sep 22', availability: 'Available September 22, 2026', preorder: true
             },
             {
                 id: 'mac_mini_16', section: 'apple-desktops', type: 'apple',
@@ -1282,8 +1336,8 @@
             {
                 id: 'apple-desktops',
                 kicker: 'Apple desktops',
-                title: 'Mac mini & Mac Studio',
-                copy: 'Quiet desktop Macs from the affordable M4 mini to the 512GB M3 Ultra Studio for very large local models.'
+                title: 'Mac mini M6, M5 Pro & Mac Studio',
+                copy: 'The new Mac mini M6 and M5 Pro are available to pre-order now and arrive September 22. Compatibility below is based on Apple-confirmed unified memory, not hands-on benchmarks.'
             },
             {
                 id: 'amd-desktops',
@@ -1425,9 +1479,10 @@
             const amazonUrl = comp.amazonQuery
                 ? `/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}`
                 : (comp.asin ? `/go/amazon?q=${encodeURIComponent(`${comp.name} ${comp.chip}`)}` : null);
+            const appleActionLabel = comp.preorder ? 'Pre-order on Apple.com' : 'View on Apple.com';
             const actionBtn = amazonUrl
                 ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} View on Amazon</a>`
-                : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store" data-fast-goal="apple_store_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.apple} View on Apple.com</a>`;
+                : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store" data-fast-goal="apple_store_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.apple} ${appleActionLabel}</a>`;
             const priceLabel = /^check/i.test(comp.price) ? esc(comp.price) : `from ${esc(comp.price)}`;
 
             return `<div class="card" data-type="${comp.type}" style="animation-delay:${idx * 60}ms">
@@ -1442,6 +1497,7 @@
                         <span class="spec-chip">${SVG.chip} ${esc(comp.chip)}</span>
                         <span class="spec-chip">${SVG.disk} ${esc(comp.storage)}</span>
                     </div>
+                    ${comp.availability ? `<div class="availability-note">${esc(comp.availability)}</div>` : ''}
                     <div class="price-row">
                         <span class="price">${priceLabel}</span>
                         <span class="ram-badge">${SVG.ram} ${esc(comp.memoryLabel || `${comp.ram}GB`)}</span>
@@ -1593,6 +1649,6 @@
         })();
     </script>
 
-    <script src="/js/buyer-path-20260823a.js?v=20260823a" defer></script>
+    <script src="/js/buyer-path-20260823a.js?v=20260825a" defer></script>
 </body>
 </html>

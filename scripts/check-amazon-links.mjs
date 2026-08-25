@@ -17,6 +17,10 @@ const hardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
   [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
+const appleHardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
+  [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="hardware_store_click"/g)]
+    .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
+);
 const errors = [];
 
 if (links.length !== 18) errors.push(`Expected 18 RAM/GPU Amazon buttons; found ${links.length}`);
@@ -40,6 +44,10 @@ for (const { file, href } of hardwareLinks) {
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
 }
+if (appleHardwareLinks.length !== 5) errors.push(`Expected 5 pre-order Apple hardware-guide buttons; found ${appleHardwareLinks.length}`);
+for (const { file, href } of appleHardwareLinks) {
+  if (href !== "https://www.apple.com/mac-mini/") errors.push(`${file} has an unexpected pre-order destination: ${href}`);
+}
 for (const { file, html: page } of hardwarePages) {
   if (/href="https:\/\/(?:www\.)?amazon\./i.test(page)) errors.push(`${file} still contains a direct Amazon button URL`);
 }
@@ -58,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Amazon link validation passed: ${links.length} RAM/GPU, ${computerQueries.length} Computers and ${hardwareLinks.length} hardware-guide searches, with regional routing and US affiliate attribution.`);
+console.log(`Amazon link validation passed: ${links.length} RAM/GPU, ${computerQueries.length} Computers, ${hardwareLinks.length} hardware-guide searches and ${appleHardwareLinks.length} Apple pre-order links.`);

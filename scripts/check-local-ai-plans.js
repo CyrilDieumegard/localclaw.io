@@ -105,7 +105,9 @@ assert(resumeSource.indexOf('preferredMachineId') < resumeSource.indexOf('create
 assert(account.includes("source: 'finder'"), 'Finder plans must retain their source');
 assert(accountHtml.includes('My Local AI Plans'), 'Account does not expose the plans workspace');
 assert(accountHtml.includes('machine-match-dialog'), 'Multiple saved hardware matches need an explicit low-friction choice');
-assert(accountHtml.includes('/js/account-20260802a.js?v=20260820d'), 'Account plan script cache key is stale');
+assert(accountHtml.includes('/js/account-20260802a.js?v=20260825a'), 'Account plan script cache key is stale');
+assert(account.includes("id: 'mac-mini-m6-2026'"), 'Account presets are missing Mac mini M6');
+assert(account.includes("id: 'mac-mini-m5-pro-2026'"), 'Account presets are missing Mac mini M5 Pro');
 assert(accountHtml.includes('/js/account-analytics-20260820a.js?v=20260823a'), 'Account plan analytics cache key is stale');
 assert(accountHtml.includes('/css/account-20260802a.css?v=20260823a'), 'Account plan CSS cache key is stale');
 assert(accountCss.includes('.lc-plan-overview'), 'Account plan overview styles are missing');

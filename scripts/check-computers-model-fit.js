@@ -46,6 +46,12 @@ for (const [id, expected] of Object.entries(criticalFacts)) {
 for (const marker of ['js/data.js?v=20260819b', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
   if (!computers.includes(marker)) failures.push(`computers.html missing ${marker}`);
 }
+for (const marker of ["id: 'mac_mini_m6_16'", "id: 'mac_mini_m6_24'", "id: 'mac_mini_m6_32'", "id: 'mac_mini_m5_pro_24'", "id: 'mac_mini_m5_pro_64'", 'Available September 22, 2026']) {
+  if (!computers.includes(marker)) failures.push(`computers.html missing new Mac mini marker ${marker}`);
+}
+for (const marker of ["id: 'mac-mini-m6-16gb'", "id: 'mac-mini-m6-24gb'", "id: 'mac-mini-m6-32gb'", "id: 'mac-mini-m5-pro-24gb'", "id: 'mac-mini-m5-pro-64gb'", 'LocalClaw has not hands-on validated runtime speed']) {
+  if (!hardwareGenerator.includes(marker)) failures.push(`Hardware generator missing new Mac mini marker ${marker}`);
+}
 if (!hardwareGenerator.includes("require('../js/model-ranking')")) failures.push('Hardware generator does not use the shared engine');
 if (computers.includes('Memory is compared honestly:')) failures.push('Computers page still includes the removed memory explainer paragraph');
 

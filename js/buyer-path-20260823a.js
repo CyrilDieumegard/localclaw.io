@@ -3,12 +3,12 @@
   if(!roots.length)return;
   const profiles={
     'buy|chat|starter':[
-      ['Best starting point','Mac mini M4 · 24GB','Quiet, compact and enough unified memory for small local chat and coding models.','/hardware/mac-mini-m4-24gb','See exact fit'],
+      ['New pre-order','Mac mini M6 · 24GB','Available September 22. A balanced compact Mac for small local chat, coding and RAG models.','/hardware/mac-mini-m6-24gb','See pre-order fit'],
       ['CUDA alternative','RTX 5060 Ti · 16GB','A practical new NVIDIA floor when faster CUDA inference matters.','/go/amazon?q=RTX+5060+Ti+16GB','Check Amazon'],
       ['More headroom','Desktop · 64GB RAM','A better base for RAG, browsers and several local tools at once.','/ram-gpu-for-local-ai#ram-picks','Compare RAM']
     ],
     'buy|code|starter':[
-      ['Best starting point','Mac mini M4 Pro · 24GB','A compact coding workstation with more compute and enough memory for practical assistants.','/hardware/mac-mini-m4-pro-24gb','See exact fit'],
+      ['New pre-order','Mac mini M5 Pro · 24GB','Available September 22. A compact coding workstation with more compute and enough memory for practical assistants.','/hardware/mac-mini-m5-pro-24gb','See pre-order fit'],
       ['CUDA alternative','RTX 5060 Ti · 16GB','Useful for 7B, 9B and some 14B-class coding models with GPU acceleration.','/go/amazon?q=RTX+5060+Ti+16GB','Check Amazon'],
       ['Longer-term','64GB local AI desktop','More room for IDEs, agents, RAG and concurrent services.','/computers','Compare computers']
     ],

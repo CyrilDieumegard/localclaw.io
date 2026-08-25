@@ -13,6 +13,8 @@
         { key: 'vision', label: 'Vision', catalogue: '/vision-models' }
     ];
     const MAC_PRESETS = [
+        { id: 'mac-mini-m6-2026', year: 2026, name: 'Mac mini M6', chip: 'Apple M6', ram: [16, 24, 32], defaultRam: 16 },
+        { id: 'mac-mini-m5-pro-2026', year: 2026, name: 'Mac mini M5 Pro', chip: 'Apple M5 Pro', ram: [24, 48, 64], defaultRam: 24 },
         { id: 'macbook-neo-a18-pro-2026', year: 2026, name: 'MacBook Neo A18 Pro', chip: 'A18 Pro', ram: [8], defaultRam: 8 },
         { id: 'macbook-air-13-m5-2026', year: 2026, name: 'MacBook Air 13-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
         { id: 'macbook-air-15-m5-2026', year: 2026, name: 'MacBook Air 15-inch M5', chip: 'Apple M5', ram: [16, 24, 32], defaultRam: 16 },
