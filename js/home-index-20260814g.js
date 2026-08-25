@@ -640,7 +640,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         });
         sponsorOfferDialog?.addEventListener('cancel', (event) => { event.preventDefault(); closeSponsorOffer(); });
         sponsorOfferDialog?.addEventListener('close', restoreSponsorOfferFocus);
-        sponsorOfferDialog?.addEventListener('click', (event) => { if (event.target === sponsorOfferDialog) closeSponsorOffer(); });
 
         hydrateSponsorRails();
 

@@ -73,7 +73,6 @@
         elements.cancelEdit?.addEventListener('click', closeCampaignDialog);
         elements.form?.addEventListener('submit', (event) => saveCampaign(event, 'save'));
         elements.startCheckout?.addEventListener('click', (event) => saveCampaign(event, 'checkout'));
-        elements.dialog?.addEventListener('click', (event) => { if (event.target === elements.dialog) closeCampaignDialog(); });
         ['sponsor-advertiser-name', 'sponsor-tagline'].forEach((id) => document.getElementById(id)?.addEventListener('input', renderCreativePreview));
         [elements.planKey, elements.startMode, elements.startDate, elements.placementKey, elements.autoRenew].forEach((element) => {
             element?.addEventListener('change', renderBookingSummary);

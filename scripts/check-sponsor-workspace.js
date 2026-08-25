@@ -67,6 +67,8 @@ requireText(files.home, "sponsorOfferDialog?.addEventListener('close', restoreSp
 requireText(files.home, "if (event.key !== 'Escape') return;", 'Homepage sponsor modal must handle Escape before the browser drops focus to the page body');
 requireText(files.home, 'container.removeEventListener(\'click\', container.__lcSponsorOfferClickHandler)', 'Homepage sponsor modal must replace stale delegated handlers after a rerender');
 requireText(files.home, 'if (!sponsorOfferDialog?.isConnected) return;', 'Homepage sponsor modal must ignore detached dialog instances');
+if (files.home.includes('if (event.target === sponsorOfferDialog) closeSponsorOffer();')) errors.push('Homepage sponsor offer must stay open when the backdrop is clicked');
+if (files.client.includes('if (event.target === elements.dialog) closeCampaignDialog();')) errors.push('Sponsor campaign form must stay open when the backdrop is clicked');
 requireText(files.client, 'openPendingSponsorIntent()', 'Sponsor account must continue a homepage campaign intent after authentication');
 requireText(files.client, "source: 'homepage_offer_modal'", 'Sponsor account must measure homepage offer continuation');
 requireText(files.client, 'firstAvailablePlacementKey(requestedPlan)', 'Generic sponsor intents must select a currently available placement');
