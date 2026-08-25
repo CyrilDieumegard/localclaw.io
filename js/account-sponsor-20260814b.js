@@ -10,6 +10,7 @@
         saving: false,
         visualPreview: false,
         selectedLogoFile: null,
+        selectedLogoMediaType: null,
         previewObjectUrl: null,
         checkoutReturnHandled: false,
         pendingIntentHandled: false
@@ -226,6 +227,7 @@
         elements.form.reset();
         clearPreviewObjectUrl();
         state.selectedLogoFile = null;
+        state.selectedLogoMediaType = null;
         elements.formError.textContent = '';
         elements.form.elements.campaignId.value = campaign?.id || '';
         elements.form.elements.campaignName.value = campaign?.campaignName || '';
@@ -279,15 +281,35 @@
         clearPreviewObjectUrl();
         const file = elements.logoFile?.files?.[0] || null;
         state.selectedLogoFile = file;
+        state.selectedLogoMediaType = null;
+        elements.formError.textContent = '';
         if (!file) return renderCreativePreview();
-        if (!new Set(['image/png', 'image/webp']).has(file.type) || file.size > 512 * 1024) {
-            elements.formError.textContent = 'Choose a genuine PNG or WebP logo no larger than 512 KB.';
+        const mediaType = logoMediaType(file);
+        if (file.size > 512 * 1024) {
+            elements.formError.textContent = `This logo is ${formatFileSize(file.size)}. Choose a PNG or WebP no larger than 512 KB.`;
             elements.logoFile.value = '';
             state.selectedLogoFile = null;
             return;
         }
-        state.previewObjectUrl = URL.createObjectURL(file);
-        renderCreativePreview(state.previewObjectUrl);
+        if (!mediaType) {
+            elements.formError.textContent = 'This file type is not supported. Choose a genuine PNG or WebP logo.';
+            elements.logoFile.value = '';
+            state.selectedLogoFile = null;
+            return;
+        }
+        state.selectedLogoMediaType = mediaType;
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            if (state.selectedLogoFile !== file || typeof reader.result !== 'string') return;
+            state.previewObjectUrl = reader.result;
+            renderCreativePreview(state.previewObjectUrl);
+        });
+        reader.addEventListener('error', () => {
+            if (state.selectedLogoFile !== file) return;
+            elements.formError.textContent = 'The selected logo could not be previewed. Choose another PNG or WebP file.';
+            renderCreativePreviewFallback();
+        });
+        reader.readAsDataURL(file);
     }
 
     function renderCreativePreview(explicitLogoUrl) {
@@ -406,8 +428,10 @@
     }
 
     async function uploadLogo(campaignId, file) {
+        const mediaType = state.selectedLogoFile === file ? state.selectedLogoMediaType : logoMediaType(file);
+        if (!mediaType) throw new Error('Choose a genuine PNG or WebP logo.');
         const response = await fetch(`/api/sponsor/campaigns/${encodeURIComponent(campaignId)}/logo`, {
-            method: 'PUT', credentials: 'same-origin', headers: { Accept: 'application/json', 'Content-Type': file.type }, body: file
+            method: 'PUT', credentials: 'same-origin', headers: { Accept: 'application/json', 'Content-Type': mediaType }, body: file
         });
         let data = null;
         try { data = await response.json(); } catch {}
@@ -593,11 +617,21 @@
     }
 
     function initials(value) { return String(value || 'LC').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word.charAt(0).toUpperCase()).join('') || 'LC'; }
+    function logoMediaType(file) {
+        const declared = String(file?.type || '').toLowerCase();
+        if (declared === 'image/png') return 'image/png';
+        if (declared === 'image/webp' || declared === 'image/x-webp') return 'image/webp';
+        const name = String(file?.name || '').toLowerCase();
+        if (!declared && name.endsWith('.png')) return 'image/png';
+        if (!declared && name.endsWith('.webp')) return 'image/webp';
+        return '';
+    }
+    function formatFileSize(bytes) { return `${Math.ceil(Number(bytes || 0) / 1024)} KB`; }
     function formatDateTime(value) { const date = value instanceof Date ? value : new Date(value); return Number.isFinite(date.getTime()) ? new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(date) : '—'; }
     function formatNumber(value) { return new Intl.NumberFormat('en').format(Number(value || 0)); }
     function formatMoney(cents, currency) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: String(currency || 'usd').toUpperCase(), maximumFractionDigits: 0 }).format(Number(cents || 0) / 100); }
     function delay(ms) { return new Promise((resolve) => window.setTimeout(resolve, ms)); }
-    function clearPreviewObjectUrl() { if (state.previewObjectUrl) URL.revokeObjectURL(state.previewObjectUrl); state.previewObjectUrl = null; }
+    function clearPreviewObjectUrl() { state.previewObjectUrl = null; }
     function showToast(message, kind = 'success') { if (!elements.toast) return; elements.toast.textContent = message; elements.toast.dataset.kind = kind; elements.toast.hidden = false; window.clearTimeout(showToast.timer); showToast.timer = window.setTimeout(() => { elements.toast.hidden = true; }, 5200); }
     function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]); }
     function escapeAttribute(value) { return escapeHtml(value).replace(/`/g, '&#96;'); }

@@ -170,6 +170,10 @@ requireText(files.styles, '.lc-sponsor-creative-preview > [hidden]', 'Creative p
 requireText(files.styles, 'display: none !important;', 'Creative preview hidden media must override component display rules');
 requireText(files.client, "elements.previewLogo?.addEventListener('error', renderCreativePreviewFallback)", 'Creative preview needs an image-error fallback');
 requireText(files.client, 'elements.previewLogo.removeAttribute(\'src\')', 'Creative preview fallback must remove a failed image source');
+requireText(files.client, 'reader.readAsDataURL(file)', 'Creative preview must use a CSP-compatible local data URL');
+requireText(files.client, "declared === 'image/x-webp'", 'WebP selection must normalize the legacy browser MIME type');
+requireText(files.client, "name.endsWith('.webp')", 'WebP selection must tolerate a missing browser MIME type');
+requireText(files.account, 'account-sponsor-20260814b.js?v=20260825c', 'Account sponsor client cache buster is stale');
 
 requireText(files.routes, '"/api/stripe/*"', 'Stripe webhook route is missing from Pages Functions routes');
 requireText(files.routes, '"/sponsor/*"', 'Public sponsor click/logo routes are missing');
