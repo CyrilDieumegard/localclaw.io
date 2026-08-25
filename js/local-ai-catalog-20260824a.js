@@ -25,6 +25,32 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'cosmos3-edge', name: 'Cosmos3 Edge', category: 'video', developer: 'NVIDIA',
+      summary: 'Compact OpenMDW-licensed omnimodal world model for local image-to-video and action-conditioned video generation.',
+      tasks: ['image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['Cosmos Framework', 'vLLM-Omni', 'PyTorch'], output: ['MP4', 'JSON actions'],
+      local_status: 'local', license: 'OpenMDW 1.1', released: '2026-07',
+      source_url: 'https://github.com/NVIDIA/Cosmos',
+      install_url: 'https://huggingface.co/nvidia/Cosmos3-Edge',
+      hardware_note: 'The official model card positions Cosmos3 Edge as a 4B edge/on-device model and publishes single-GPU vLLM-Omni and PyTorch image-to-video benchmarks on H100, RTX PRO 6000 Blackwell, DGX Spark and Jetson Thor systems. Treat 16 GB NVIDIA VRAM and 32 GB RAM as the conservative local entry floor for 480p image-to-video tests.',
+      strengths: ['Official NVIDIA Cosmos 3 release', 'Compact 4B model with single-GPU examples', 'Image-to-video and action-conditioned world-model workflows'],
+      caveats: ['Linux and NVIDIA stack only', 'No video-to-video transfer support on Edge', 'Requires Hugging Face authentication and Cosmos guardrail access for standard generator paths']
+    },
+    {
+      id: 'cosmos3-nano', name: 'Cosmos3 Nano', category: 'video', developer: 'NVIDIA',
+      summary: 'OpenMDW-licensed 16B omnimodal world model for text, image, video, sound and action-conditioned generation.',
+      tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'audio-video-generation', 'action-conditioned-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['Diffusers', 'vLLM-Omni', 'SGLang', 'PyTorch'], output: ['MP4', 'AAC audio', 'JSON actions'],
+      local_status: 'local', license: 'OpenMDW 1.1', released: '2026-05',
+      source_url: 'https://github.com/NVIDIA/Cosmos',
+      install_url: 'https://huggingface.co/nvidia/Cosmos3-Nano',
+      hardware_note: 'The official Cosmos 3 documentation lists Linux, BF16, NVIDIA Ampere/Hopper/Blackwell support and Diffusers, vLLM-Omni, SGLang and PyTorch generator paths. NVIDIA positions Nano for workstation-class hardware such as RTX PRO 6000, H100 and B200, so LocalClaw uses 80 GB VRAM and 128 GB RAM as the conservative floor.',
+      strengths: ['Text-to-video, image-to-video, video-to-video and video-with-sound modes', 'Official Diffusers and OpenAI-compatible local serving paths', 'Unified omnimodal world-model family with action outputs'],
+      caveats: ['Workstation-class NVIDIA hardware is the practical floor', 'Generator paths require Cosmos guardrails unless explicitly disabled', 'Physical-AI domain model, not a general entertainment video editor']
+    },
+    {
       id: 'sana-video-2.0-5b', name: 'SANA-Video 2.0 5B', category: 'video', developer: 'NVLabs / Efficient-Large-Model',
       summary: 'Apache-licensed 5B text-to-video and text-image-to-video checkpoint for eight-second 720p generation.',
       tasks: ['text-to-video', 'image-to-video', 'animation'], platforms: ['linux'], accelerators: ['nvidia'],
