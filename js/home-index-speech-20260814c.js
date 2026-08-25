@@ -810,6 +810,36 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 8.1
   },
   {
+    "id": "higgs-tts-3-4b",
+    "name": "Higgs TTS 3 4B",
+    "developer": "Boson AI",
+    "family": "higgs",
+    "license": "Boson Higgs TTS 3 Research and Non-Commercial License",
+    "releaseDate": "2026-07",
+    "quality": 9.7,
+    "speed": 8,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 9.32
+  },
+  {
+    "id": "higgs-audio-v3-8b-stt-v2",
+    "name": "Higgs Audio v3 8B STT v2",
+    "developer": "Boson AI",
+    "family": "higgs",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-05",
+    "quality": 9.1,
+    "speed": 7.2,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 17.82
+  },
+  {
     "id": "higgs-audio-v2",
     "name": "Higgs Audio v2",
     "developer": "Boson AI",

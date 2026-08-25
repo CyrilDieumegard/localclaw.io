@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 68 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 68 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 70 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 70 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 68 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 70 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">71</strong> speech records: <strong style="color:#fff;">68 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">73</strong> speech records: <strong style="color:#fff;">70 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>68 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>70 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3216,6 +3216,57 @@
                 supportedFormats: ["transformers", "safetensors", "vllm", "onnx", "mlx"],
                 voices: "N/A (ASR: outputs text)",
                 context: "3B decoder-scale ASR, 8.1GB safetensors, 16 kHz audio, official Transformers and vLLM scripts",
+                license: "Apache 2.0"
+            },
+            {
+                id: "higgs-tts-3-4b",
+                name: "Higgs TTS 3 4B",
+                developer: "Boson AI",
+                family: "higgs",
+                description: "Boson AI's newer conversational TTS checkpoint for local voice agents. It supports multilingual expressive speech, zero-shot voice cloning, inline emotion, style, prosody and sound-effect control, plus local serving through SGLang-Omni or vLLM-Omni.",
+                languages: ["multilingual"],
+                languageCount: 102,
+                features: ["cloning", "streaming", "multilingual", "emotion", "controllable", "dialogue"],
+                hardware: ["gpu"],
+                sizeGB: 9.32,
+                sizeCategory: "large",
+                quality: 9.7,
+                speed: 8.0,
+                latency: "low",
+                releaseDate: "2026-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/bosonai/higgs-tts-3-4b",
+                installCommand: "hf download bosonai/higgs-tts-3-4b",
+                supportedFormats: ["transformers", "safetensors", "vllm", "sglang"],
+                voices: "Zero-shot voice cloning from reference audio and transcript",
+                context: "4.65B BF16 params, 9.32GB safetensors storage, 24 kHz output, 8,192 token context",
+                license: "Boson Higgs TTS 3 Research and Non-Commercial License"
+            },
+            {
+                id: "higgs-audio-v3-8b-stt-v2",
+                name: "Higgs Audio v3 8B STT v2",
+                developer: "Boson AI",
+                family: "higgs",
+                isAsr: true,
+                description: "Official Boson English speech-to-text checkpoint that combines a Whisper-Large-v3 encoder with a Qwen3-8B decoder. It is heavier than compact ASR models, but gives LocalClaw a canonical open-weight Higgs STT path through Transformers remote-code inference.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["low-latency"],
+                hardware: ["gpu"],
+                sizeGB: 17.82,
+                sizeCategory: "large",
+                quality: 9.1,
+                speed: 7.2,
+                latency: "medium",
+                releaseDate: "2026-05",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/bosonai/higgs-audio-v3-8b-stt-v2",
+                installCommand: "hf download bosonai/higgs-audio-v3-8b-stt-v2",
+                supportedFormats: ["transformers", "safetensors"],
+                voices: "N/A (ASR: outputs text)",
+                context: "8.91B BF16 params, 17.82GB safetensors storage, English ASR benchmarks reported on LibriSpeech, AMI, Earnings-22 and VoxPopuli",
                 license: "Apache 2.0"
             },
             // ==================== v2.6 — APRIL 2026 ADDITIONS ====================
