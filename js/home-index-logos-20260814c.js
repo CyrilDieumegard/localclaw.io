@@ -168,6 +168,7 @@ window.HOME_INDEX_LOGOS = {
     'Lightricks': 'lightricks-avatar',
     'Meta AI': 'meta',
     'Meituan LongCat': 'longcat',
+    'Meta AI / HKUST': 'meta',
     'Mirage AI': 'github',
     'MiniMax': 'minimax',
     'Microsoft': 'microsoft',
@@ -196,6 +197,7 @@ window.HOME_INDEX_LOGOS = {
     'XLong Research': 'github',
     'DreamTechAI / Neural4D': 'github',
     'Zhipu AI / THUDM': 'zhipu',
+    'Zhejiang University / PLUS-WAVE': 'github',
     'Zimeng Xiong / Tencent Hunyuan': 'tencent',
     'lllyasviel': 'lllyasviel-avatar'
   },

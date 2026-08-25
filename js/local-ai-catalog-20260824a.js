@@ -428,6 +428,30 @@
       caveats: ['Requires an existing 3D Gaussian PLY input', 'Specialized enhancement model rather than text or image-to-asset generation']
     },
     {
+      id: 'infinisplat', name: 'InfiniSplat', category: '3d', developer: 'Zhejiang University / PLUS-WAVE',
+      summary: 'Single-image Gaussian scene reconstruction model with RGB-only and RGB-depth inference checkpoints.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA', 'gsplat'], output: ['PLY', 'MP4 preview', 'Interactive HTML'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/zju3dv/InfiniSplat', install_url: 'https://huggingface.co/PLUS-WAVE/InfiniSplat',
+      hardware_note: 'The official install path targets Python 3.10, PyTorch 2.9 with CUDA 12.8 and xformers, then downloads RGB and LiDAR checkpoints from Hugging Face. PLY export is always enabled, with gsplat and PlayCanvas splat-transform as optional render/export helpers. Because no exact VRAM table is published, 32 GB RAM and 16 GB NVIDIA VRAM are the conservative LocalClaw floor.',
+      strengths: ['Apache 2.0 code and checkpoints', 'RGB-only and RGB-depth Gaussian reconstruction modes', 'Always exports Gaussian PLY with optional MP4 and HTML viewers'],
+      caveats: ['Linux/CUDA research stack', 'Scene reconstruction output is Gaussian splats rather than textured game meshes', 'Depth-guided mode expects aligned depth inputs']
+    },
+    {
+      id: 'meshflow', name: 'MeshFlow', category: '3d', developer: 'Meta AI / HKUST',
+      summary: 'Flow-based artistic mesh generator that converts input meshes or point clouds into fast generated GLB assets.',
+      tasks: ['mesh-generation', 'mesh-reconstruction', 'point-cloud-to-mesh', 'image-conditioned-3d'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Gradio', 'MeshFlowPipeline'], output: ['GLB', 'PLY', 'Generated mesh'],
+      local_status: 'local', license: 'FAIR Noncommercial Research License', released: '2026-06',
+      source_url: 'https://github.com/facebookresearch/meshflow', install_url: 'https://huggingface.co/facebook/meshflow',
+      hardware_note: 'The official repository runs local CUDA fp16 inference from a config.yaml plus model.pth bundle, with CLI and Gradio paths. Mesh/point-cloud-only inference does not require DINOv3; optional reference-image conditioning requires separately approved DINOv3 weights. LocalClaw treats 32 GB RAM and 16 GB NVIDIA VRAM as a conservative floor for 4096-vertex local generation.',
+      strengths: ['Official Meta checkpoint bundle', 'Local CLI and Gradio workflows', 'Exports generated GLB meshes'],
+      caveats: ['Noncommercial research license', 'Requires an existing mesh or point-cloud condition', 'Optional image conditioning depends on separate DINOv3 access']
+    },
+    {
       id: 'skintokens-tokenrig', name: 'SkinTokens / TokenRig', category: '3d', developer: 'VAST AI Research',
       summary: 'Autoregressive rigging model that turns an input mesh into a skeleton hierarchy and skinning weights for animation.',
       tasks: ['rigging', 'skinning', 'mesh-to-rig', 'character-animation'], platforms: ['linux'], accelerators: ['nvidia'],
