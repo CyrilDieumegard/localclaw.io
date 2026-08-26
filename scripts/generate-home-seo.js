@@ -135,8 +135,8 @@ const ramTiers = [8, 16, 32, 64].map(ram => ({ ram, models: tierPicks(ram) }));
 
 const faqs = [
   {
-    question: 'What is The Local Model Index?',
-    answer: `It is LocalClaw's hardware-aware homepage directory of ${totalLocalAiRecords} local records: ${localModels.length} indexable LLM pages, ${speechModels.length} speech records and ${multimodalModels.length} image, video, 3D, music and vision models. Hosted-only and exact-repository-unavailable LLM records are excluded, and duplicate route IDs are collapsed.`
+    question: 'What is the Local AI Compatibility Guide?',
+    answer: `It is LocalClaw's hardware-aware guide combining ${totalLocalAiRecords} local AI records with computer, RAM/GPU and software guidance. The catalogue includes ${localModels.length} indexable LLM pages, ${speechModels.length} speech records and ${multimodalModels.length} image, video, 3D, music and vision models.`
   },
   {
     question: 'How is the LocalClaw score calculated?',
@@ -196,13 +196,13 @@ function renderMultimodalFallback() {
 function renderFallback() {
   return `        <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="${updatedIso}">
           <header class="lc-index-fallback__hero">
-            <h1><span><b>Local</b>Claw</span><small>The Local Model Index</small></h1>
-            <p>Find local AI models that actually run on your Mac, PC or NVIDIA GPU.</p>
+            <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
+            <p>Find the models, software and hardware that fit your machine.</p>
             <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
           </header>
 
           <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
-            <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="fallback-local-ai-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account">Set up my machine →</a></header>
+            <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="fallback-local-ai-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account">My Machines →</a></header>
             <nav aria-label="Local AI categories"><a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>${multimodalCategories.map(category => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${multimodalModels.filter(model => model.category === category.key).length} local models</span></a>`).join('')}</nav>
           </section>
 
@@ -317,7 +317,7 @@ function structuredDataMarkup() {
         '@id': `${BASE_URL}/#website`,
         url: `${BASE_URL}/`,
         name: 'LocalClaw',
-        alternateName: 'The Local Model Index',
+        alternateName: 'The Local AI Compatibility Guide',
         inLanguage: 'en',
         publisher: { '@id': `${BASE_URL}/#organization` }
       },
@@ -402,13 +402,15 @@ function generateIndexHtml() {
   let html = fs.readFileSync(INDEX_PATH, 'utf8');
 
   html = html
-    .replace(/<title>[\s\S]*?<\/title>/, '<title>LocalClaw: The Local AI Index for your machine</title>')
-    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="Explore ${totalLocalAiRecords} local LLM, voice, image, video, 3D, music and vision records with hardware guidance and verified local paths.">`)
+    .replace(/<title>[\s\S]*?<\/title>/, '<title>LocalClaw: Local AI Compatibility Guide for Your Machine</title>')
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="Find the local AI models, software and hardware that fit your machine, with ${totalLocalAiRecords} verified local records and practical compatibility guidance.">`)
     .replace(/\n\s*<meta name="keywords"[^>]*>/, '')
-    .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="Find local language, voice, image, video, 3D, music and vision models matched to your machine.">')
-    .replace(/<meta name="twitter:description" content="[^"]*">/, '<meta name="twitter:description" content="One hardware-aware homepage for every category of local AI.">')
-    .replace(/<meta property="og:image:alt" content="[^"]*">/, '<meta property="og:image:alt" content="LocalClaw: The Local AI Index for every kind of local model">')
-    .replace(/<meta name="twitter:image:alt" content="[^"]*">/, '<meta name="twitter:image:alt" content="LocalClaw — The Local Model Index">')
+    .replace(/<meta property="og:title" content="[^"]*">/, '<meta property="og:title" content="Local AI Compatibility Guide — LocalClaw">')
+    .replace(/<meta property="og:description" content="[^"]*">/, '<meta property="og:description" content="Find the local AI models, software and hardware that fit your machine.">')
+    .replace(/<meta name="twitter:title" content="[^"]*">/, '<meta name="twitter:title" content="Local AI Compatibility Guide — LocalClaw">')
+    .replace(/<meta name="twitter:description" content="[^"]*">/, '<meta name="twitter:description" content="Models, software and hardware matched to your local AI machine.">')
+    .replace(/<meta property="og:image:alt" content="[^"]*">/, '<meta property="og:image:alt" content="LocalClaw: The Local AI Compatibility Guide">')
+    .replace(/<meta name="twitter:image:alt" content="[^"]*">/, '<meta name="twitter:image:alt" content="LocalClaw — The Local AI Compatibility Guide">')
     .replace(/<link rel="preload" as="image" href="images\/(?:crab-logo\.png|localclaw-mascot-hero\.webp\?v=20260601)" fetchpriority="high">/, '<link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">');
 
   if (!html.includes('href="https://localclaw.io/llms.txt"')) {
@@ -475,7 +477,7 @@ function compactLlmsText() {
 
 ## Core Pages
 
-- [The Local Model Index](${BASE_URL}/) — interactive local-only homepage directory
+- [Local AI Compatibility Guide](${BASE_URL}/) — hardware-aware guide to local AI models, software and computers
 - [Software directory](${BASE_URL}/software) — machine-aware comparison of local AI desktop apps, model servers, inference engines and complete stacks
 - [LM Studio](${BASE_URL}/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
 - [LocalClaw pricing](${BASE_URL}/pricing) — dedicated LocalClaw product, purchase and download page

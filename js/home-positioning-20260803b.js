@@ -84,7 +84,7 @@ if (typeof App !== 'undefined') {
                         <h2 id="workspace-value-title" class="max-w-3xl text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Stop rebuilding the same shortlist for every computer</h2>
                         <p class="mt-3 max-w-3xl text-sm text-claw-muted font-mono leading-relaxed">Save your Macs, PCs and NVIDIA workstations once. LocalClaw gives each machine its own compatible models, saved picks and test history.</p>
                     </div>
-                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">Open My Machines →</a>
+                    <a href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace" class="text-sm font-mono font-bold uppercase tracking-wider text-claw-primary hover:text-white">My Machines →</a>
                 </div>
                 <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                     <article class="rounded-xl border border-white/10 bg-white/[0.025] p-5"><span class="font-mono text-xs font-bold text-claw-primary">01</span><h3 class="mt-4 text-lg font-display font-bold text-white">Hardware profiles</h3><p class="mt-2 text-sm leading-relaxed text-claw-muted">Keep RAM, VRAM, OS, accelerator and workload together.</p></article>

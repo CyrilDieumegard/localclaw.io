@@ -446,14 +446,14 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <div class="lc-index-directory">
                     <header class="lc-index-hero">
                         <div class="lc-index-hero__copy">
-                            <h1><span><b>Local</b>Claw</span><small>The Local Model Index</small></h1>
-                            <p>Find local AI models that actually run on your Mac, PC or NVIDIA GPU.</p>
+                            <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
+                            <p>Find the models, software and hardware that fit your machine.</p>
                             <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></div>
                         </div>
                     </header>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
+                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>
                             <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div></div>
                             <div id="lc-home-machine-list" class="lc-home-machine-list" role="radiogroup" aria-label="Choose a saved machine"></div>
@@ -1322,7 +1322,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     .filter((machine) => machine.id && machine.ramGb);
                 document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'Account'; });
                 const machineCta = document.getElementById('lc-home-machine-cta');
-                if (machineCta) machineCta.textContent = savedMachines.length ? 'Manage machines →' : 'Add machine →';
+                if (machineCta) machineCta.textContent = savedMachines.length ? 'My Machines →' : 'Add my machine →';
                 if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'You are signed in. Add your first Mac, PC or NVIDIA workstation to unlock compatible models and new-release updates.';
                 const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
                 if (primary) applySavedMachine(primary, false);

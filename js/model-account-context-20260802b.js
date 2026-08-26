@@ -36,7 +36,7 @@
             </div>
             <div class="personal-fit-actions">
                 <button type="button" data-context-favorite>${favorite ? '★ Saved' : '☆ Save for this machine'}</button>
-                <a href="/account">Open My Machines</a>
+                <a href="/account">My Machines</a>
             </div>
         `;
 

@@ -136,7 +136,7 @@ function filters(includeCategory = false) {
 }
 
 function machinePanel() {
-  return `<aside class="lc-ai-machine-panel"><div><p class="lc-ai-kicker">Machine-aware</p><h2>Your hardware changes the answer.</h2><p>Use your saved primary machine or choose RAM, VRAM and compute below. Compatible local models rise to the top.</p></div><div id="lc-ai-machine-status" class="lc-ai-machine-status">Choose your machine specifications to calculate local fit.</div><a class="lc-ai-button" href="/account">Manage My Machines</a></aside>`;
+  return `<aside class="lc-ai-machine-panel"><div><p class="lc-ai-kicker">Machine-aware</p><h2>Your hardware changes the answer.</h2><p>Use your saved primary machine or choose RAM, VRAM and compute below. Compatible local models rise to the top.</p></div><div id="lc-ai-machine-status" class="lc-ai-machine-status">Choose your machine specifications to calculate local fit.</div><a class="lc-ai-button" href="/account">My Machines</a></aside>`;
 }
 
 function landingPage(key, config) {

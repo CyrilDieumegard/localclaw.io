@@ -5,7 +5,7 @@ const { NAV_VERSION, siteNavigation, siteNavAssets } = require('./site-navigatio
 const ROOT = path.resolve(__dirname, '..');
 const checkOnly = process.argv.includes('--check');
 const excludedDirectories = new Set(['.git', '.pages-dist', '.wrangler', 'node_modules', '_check']);
-const protectedFiles = new Set(['pricing.html', 'sponsor-terms.html', 'success.html']);
+const protectedFiles = new Set();
 
 const navigationContract = siteNavigation();
 for (const marker of [
@@ -18,7 +18,8 @@ for (const marker of [
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile',
-  'lc-global-nav__actions'
+  'lc-global-nav__actions',
+  '>My Machines</a>'
 ]) {
   if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
 }
@@ -90,7 +91,7 @@ function synchronize(html, relativePath) {
   if (relativePath === 'google7a49ecaded8c2575.html' || protectedFiles.has(relativePath.replace(/\\/g, '/'))) return html;
 
   const active = activeSection(relativePath);
-  const navigation = siteNavigation(active, relativePath === 'index.html' ? { accountLabel: 'Sign in' } : {});
+  const navigation = siteNavigation(active);
 
   const accountHeader = html.match(/<header class="lc-site-header">[\s\S]*?<\/header>/i);
   if (accountHeader) return addAssets(html.replace(accountHeader[0], navigation));

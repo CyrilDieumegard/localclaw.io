@@ -1,19 +1,12 @@
-const NAV_VERSION = '20260823c';
+const NAV_VERSION = '20260826a';
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
-  ['llm', '/llm-list', 'LLM'],
-  ['voice', '/tts-list', 'Voice'],
-  ['image', '/image-models', 'Image'],
-  ['video', '/video-models', 'Video'],
-  ['3d', '/3d-models', '3D'],
-  ['music', '/music-models', 'Music'],
-  ['vision', '/vision-models', 'Vision'],
   ['computers', '/computers', 'Computers'],
   ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU'],
   ['software', '/software', 'Software'],
   ['new', '/new', 'New'],
-  ['account', '/account', 'Account']
+  ['account', '/account', 'My Machines']
 ];
 
 const modelKeys = new Set(['llm', 'voice', 'image', 'video', '3d', 'music', 'vision']);
@@ -39,12 +32,13 @@ function themeSwitcher(context) {
 }
 
 function siteNavigation(active = '', options = {}) {
+  const effectiveActive = modelKeys.has(active) ? 'index' : active;
   const navigationItems = items.map(item => item[0] === 'account' && options.accountLabel
     ? [item[0], item[1], options.accountLabel]
     : item);
-  const desktopItems = navigationItems.filter(item => !modelKeys.has(item[0]) && item[0] !== 'account');
+  const desktopItems = navigationItems.filter(item => item[0] !== 'account');
   const desktopAccount = navigationItems.find(item => item[0] === 'account');
-  const desktopNavigation = desktopItems.map(item => link(item, active)).join('');
+  const desktopNavigation = desktopItems.map(item => link(item, effectiveActive)).join('');
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
@@ -54,7 +48,7 @@ function siteNavigation(active = '', options = {}) {
     <div class="lc-global-nav__links">${desktopNavigation}</div>
     <div class="lc-global-nav__actions">
       ${themeSwitcher('desktop')}
-      ${desktopAccount ? link(desktopAccount, active) : ''}
+      ${desktopAccount ? link(desktopAccount, effectiveActive) : ''}
     </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -63,7 +57,7 @@ function siteNavigation(active = '', options = {}) {
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
     <div class="lc-global-nav__mobile-inner">
       ${themeSwitcher('mobile')}
-      ${navigationItems.map(item => link(item, active)).join('')}
+      ${navigationItems.map(item => link(item, effectiveActive)).join('')}
     </div>
   </div>
 </nav>`;

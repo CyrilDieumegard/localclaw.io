@@ -1,7 +1,7 @@
 <!DOCTYPE html><html class="light" lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stable Video Diffusion XT 1.1 local video AI guide | LocalClaw</title><meta name="description" content="Stable Video Diffusion XT 1.1: local video model hardware, RAM, VRAM, runtime, output, license and installation guidance."><meta name="robots" content="index, follow"><link rel="canonical" href="https://localclaw.io/video/stable-video-diffusion-xt-1.1">
   <meta property="og:type" content="article"><meta property="og:url" content="https://localclaw.io/video/stable-video-diffusion-xt-1.1"><meta property="og:title" content="Stable Video Diffusion XT 1.1 local Video guide"><meta property="og:description" content="Mature local image-to-video model for short 25-frame clips with a large community runtime ecosystem."><meta property="og:image" content="https://raw.githubusercontent.com/Stability-AI/generative-models/main/assets/sv3d.gif"><link rel="icon" href="/images/crab-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"><script src="/js/theme-toggle.js?v=20260823c"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260823c"><script src="/js/site-nav.js?v=20260823c" defer></script><link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260822b"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a"><link rel="stylesheet" href="/css/external-media.css?v=20260822a"><!-- TRACKING: DataFast Analytics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"><script src="/js/theme-toggle.js?v=20260826a"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260826a"><script src="/js/site-nav.js?v=20260826a" defer></script><link rel="stylesheet" href="/css/local-ai-catalog.css?v=20260822b"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a"><link rel="stylesheet" href="/css/external-media.css?v=20260822a"><!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script><style>
 .install-choice{margin-top:26px;padding:18px;border:1px solid #d7dce4;border-radius:18px;background:#fff;box-shadow:0 16px 40px rgba(15,23,42,.07)}
@@ -18,7 +18,7 @@
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">AI Index</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
     <div class="lc-global-nav__actions">
       <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
       <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
@@ -30,7 +30,7 @@
         <span>Dark</span>
       </button>
     </div>
-      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
     </div>
     <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -48,7 +48,7 @@
         <span>Dark</span>
       </button>
     </div>
-      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/llm-list" class="lc-global-nav__link" data-nav-key="llm">LLM</a><a href="/tts-list" class="lc-global-nav__link" data-nav-key="voice">Voice</a><a href="/image-models" class="lc-global-nav__link" data-nav-key="image">Image</a><a href="/video-models" class="lc-global-nav__link" data-nav-key="video" aria-current="page">Video</a><a href="/3d-models" class="lc-global-nav__link" data-nav-key="3d">3D</a><a href="/music-models" class="lc-global-nav__link" data-nav-key="music">Music</a><a href="/vision-models" class="lc-global-nav__link" data-nav-key="vision">Vision</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">Account</a>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">AI Index</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
     </div>
   </div>
 </nav><main class="lc-ai-main"><div class="lc-ai-shell">
