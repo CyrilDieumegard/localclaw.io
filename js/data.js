@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
+// Updated August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
+// Previous: August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
 // Previous: August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
 // Previous: August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
 // Previous: August 20, 2026 - Added Ornith-1.5 9B + 35B-A3B - 227 LLM total
@@ -154,6 +155,42 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'granite4.2-8b',
+            name: 'Granite 4.2 (8B)',
+            family: 'granite',
+            params: '8.8B',
+            size_gb: 5.2,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'standard', 'general'],
+            description: 'IBM Granite 4.2 8B instruct model with Apache 2.0 weights, 128K context, thinking-mode chat template, tool calling and practical GGUF plus MLX paths for everyday local machines.',
+            search_term: 'granite-4.2-8b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'bartowski/granite-4.2-8b-GGUF',
+            source_url: 'https://huggingface.co/ibm-granite/granite-4.2-8b',
+            runtime_url: 'https://huggingface.co/lmstudio-community/granite-4.2-8b-MLX-4bit',
+            benchmarks: { speed: 8, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-08-26',
+            isNew: true
+        },
+        {
+            id: 'granite4.2-30b',
+            name: 'Granite 4.2 (30B)',
+            family: 'granite',
+            params: '29.3B',
+            size_gb: 18.0,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'power', 'general'],
+            description: 'IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts.',
+            search_term: 'granite-4.2-30b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'bartowski/granite-4.2-30b-GGUF',
+            source_url: 'https://huggingface.co/ibm-granite/granite-4.2-30b',
+            runtime_url: 'https://huggingface.co/lmstudio-community/granite-4.2-30b-MLX-4bit',
+            benchmarks: { speed: 4, quality: 9, coding: 8, reasoning: 9 },
+            released: '2026-08-26',
+            isNew: true
+        },
         {
             id: 'ornith-1-5-9b',
             name: 'Ornith-1.5-9B',
@@ -571,6 +608,7 @@ const APP_DATA = {
             released: '2026-04',
             isNew: true
         },
+
         {
             id: 'mistral-small-4-119b',
             name: 'Mistral Small 4 (119B-A6.5B)',
@@ -2518,6 +2556,7 @@ const APP_DATA = {
             benchmarks: { speed: 3, quality: 8, coding: 7, reasoning: 9 },
             released: '2025-01'
         },
+
         {
             id: 'llama3.3-70b',
             name: 'Llama 3.3 (70B)',
@@ -3840,6 +3879,8 @@ const APP_DATA = {
             "laguna-xs-2.1": "poolside/Laguna-XS-2.1-GGUF",
             "lfm2.5-8b-a1b": "LiquidAI/LFM2.5-8B-A1B-GGUF",
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
+            "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
+            "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
             "granite4.1-3b": "ibm-granite/granite-4.1-3b-GGUF",
             "mistral-small-4-119b": "lmstudio-community/Mistral-Small-4-119B-2603-GGUF",
             "sarvam-30b": "sarvamai/sarvam-30b-gguf",

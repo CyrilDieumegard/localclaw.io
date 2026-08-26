@@ -6,8 +6,24 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 24 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Granite 4.2 (8B)</title>
+      <link>https://localclaw.io/models/granite4.2-8b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-8b</guid>
+      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
+      <category>granite</category>
+      <description>IBM Granite 4.2 8B instruct model with Apache 2.0 weights, 128K context, thinking-mode chat template, tool calling and practical GGUF plus MLX paths for everyday local machines. 8.8B · 8 GB minimum RAM · Q4_K_M · granite.</description>
+    </item>
+    <item>
+      <title>Granite 4.2 (30B)</title>
+      <link>https://localclaw.io/models/granite4.2-30b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-30b</guid>
+      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
+      <category>granite</category>
+      <description>IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts. 29.3B · 32 GB minimum RAM · Q4_K_M · granite.</description>
+    </item>
     <item>
       <title>Ornith-1.5-9B</title>
       <link>https://localclaw.io/models/ornith-1-5-9b</link>
@@ -151,22 +167,6 @@
       <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
       <category>lfm</category>
       <description>Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0. 8.3B (1.5B active) · 8 GB minimum RAM · Q4_K_M · lfm.</description>
-    </item>
-    <item>
-      <title>Qwen AgentWorld 35B-A3B</title>
-      <link>https://localclaw.io/models/qwen-agentworld-35b-a3b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen-agentworld-35b-a3b</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Official Qwen language world model for simulating agent environments across terminal, web, OS, Android, search, SWE and tool-calling domains. Apache 2.0 with active GGUF and MLX quantizations. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>North Mini Code 1.0</title>
-      <link>https://localclaw.io/models/north-mini-code-1.0</link>
-      <guid isPermaLink="true">https://localclaw.io/models/north-mini-code-1.0</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>cohere</category>
-      <description>Cohere Labs Apache 2.0 coding and agent model. 30B total / 3B active MoE, 256K context, terminal-task training and mature GGUF quantizations for local workstation use. 30B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · cohere.</description>
     </item>
   </channel>
 </rss>
