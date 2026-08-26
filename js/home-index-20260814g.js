@@ -389,7 +389,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <td><span class="lc-index-ram-value">${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</span>${fitMarkup(model)}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
                     <td>${escapeHtml(releaseLabel(model.released))}</td>
-                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
+                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${escapeHtml(model.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
                 </tr>`;
         }).join('');
 
@@ -453,7 +453,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     </header>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
+                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">Set up my machine →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>
                             <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div></div>
                             <div id="lc-home-machine-list" class="lc-home-machine-list" role="radiogroup" aria-label="Choose a saved machine"></div>
@@ -480,6 +480,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> ranked entries · independent signals</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">LocalClaw · /10</span></div>
                             <p id="lc-index-result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
                         </div>
+                        <section id="lc-index-quick-picks" class="lc-index-quick-picks" aria-labelledby="lc-index-quick-picks-title">
+                            <div class="lc-index-quick-picks__head"><div><span class="lc-index-eyebrow">Three clear starting points</span><h3 id="lc-index-quick-picks-title">Top picks from the catalogue</h3></div><p id="lc-index-quick-picks-copy">A short list before the full directory.</p></div>
+                            <div id="lc-index-quick-pick-cards" class="lc-index-quick-pick-cards"></div>
+                        </section>
                         <div class="lc-index-controls">
                             <label class="lc-index-control-label"><span>Search</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
                             <label class="lc-index-control-label"><span>Catalogue RAM</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">Any RAM</option><option value="8">8 GB RAM</option><option value="16">16 GB RAM</option><option value="32">32 GB RAM</option><option value="64">64 GB RAM</option><option value="128">128 GB RAM</option><option value="256">256 GB RAM</option><option value="512">512 GB RAM</option></select></label>
@@ -652,6 +656,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const count = document.getElementById('lc-index-result-count');
         const modelMore = document.getElementById('lc-index-model-more');
         const resultStatus = document.getElementById('lc-index-result-status');
+        const quickPicks = document.getElementById('lc-index-quick-picks');
+        const quickPicksTitle = document.getElementById('lc-index-quick-picks-title');
+        const quickPicksCopy = document.getElementById('lc-index-quick-picks-copy');
+        const quickPickCards = document.getElementById('lc-index-quick-pick-cards');
         let llmResultsInitialized = false;
         const compareTray = document.getElementById('lc-index-compare-tray');
         const compareCount = document.getElementById('lc-index-compare-count');
@@ -665,6 +673,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const machinesPanel = document.getElementById('lc-home-machines');
         const machineList = document.getElementById('lc-home-machine-list');
         const machineStatus = document.getElementById('lc-home-machine-status');
+        const machineIntroCopy = document.getElementById('lc-home-machine-copy');
         const machineCatalogueToggle = document.getElementById('lc-home-machine-catalogue');
         const sortHeaders = Array.from(document.querySelectorAll('.lc-index-table thead th[data-sort-key]'));
         const syncSortControls = () => {
@@ -735,11 +744,46 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             compareOpen.disabled = models.length < 2;
             rows.querySelectorAll('[data-compare-id]').forEach((button) => {
                 const selected = comparedModelIds.has(button.dataset.compareId);
+                const model = localModels.find((item) => item.id === button.dataset.compareId);
                 button.classList.toggle('is-selected', selected);
                 button.setAttribute('aria-pressed', String(selected));
+                if (model) button.setAttribute('aria-label', `${selected ? 'Remove' : 'Add'} ${model.name} ${selected ? 'from' : 'to'} comparison`);
                 button.textContent = selected ? 'Added' : 'Compare';
                 button.disabled = comparedModelIds.size >= 3 && !selected;
             });
+        };
+        const renderQuickPicks = (models) => {
+            if (!machineRam) {
+                quickPicks.hidden = true;
+                return;
+            }
+            const candidates = models.slice();
+            const used = new Set();
+            const pickUnique = (comparator) => candidates.slice().sort(comparator).find((model) => !used.has(model.id));
+            const metricComparator = (metric) => (a, b) => finite(b.benchmarks && b.benchmarks[metric]) - finite(a.benchmarks && a.benchmarks[metric])
+                || llmScore(b) - llmScore(a)
+                || finite(a.min_ram, Infinity) - finite(b.min_ram, Infinity)
+                || nameCompare(a, b);
+            const specs = [
+                {key: 'overall', label: 'Best overall', model: pickUnique(compareModels('score', 'desc')), reason: (model) => `${scoreLabel(llmScore(model))}/10 overall · ${finite(model.min_ram)} GB minimum`},
+                {key: 'coding', label: 'Best for coding', model: null, reason: (model) => `Coding ${scoreLabel(model.benchmarks && model.benchmarks.coding)}/10 · Speed ${scoreLabel(model.benchmarks && model.benchmarks.speed)}/10`},
+                {key: 'speed', label: 'Fastest', model: null, reason: (model) => `Speed ${scoreLabel(model.benchmarks && model.benchmarks.speed)}/10 · ${scoreLabel(llmScore(model))}/10 overall`}
+            ];
+            if (specs[0].model) used.add(specs[0].model.id);
+            specs[1].model = pickUnique(metricComparator('coding'));
+            if (specs[1].model) used.add(specs[1].model.id);
+            specs[2].model = pickUnique(metricComparator('speed'));
+            const picks = specs.filter((item) => item.model);
+            quickPicks.hidden = picks.length === 0;
+            if (!picks.length) return;
+            const machineLabel = machineFiltersEnabled && activeMachine ? activeMachine.name : `${machineRam} GB`;
+            quickPicksTitle.textContent = `Top picks for ${machineLabel}`;
+            quickPicksCopy.textContent = machineFiltersEnabled && activeMachine
+                ? 'Three compatible starting points, using the same green-fit rules as the directory.'
+                : 'Three practical starting points before the full directory.';
+            quickPickCards.innerHTML = picks.map((item) => `<a class="lc-index-quick-pick" href="/models/${encodeURIComponent(item.model.id)}" data-quick-pick-id="${escapeHtml(item.model.id)}" data-quick-pick-type="${item.key}">
+                <span>${item.label}</span><strong>${escapeHtml(item.model.name)}</strong><small>${escapeHtml(item.reason(item.model))}</small><b>Open model →</b>
+            </a>`).join('');
         };
         const setFamilyResultCount = (key, value, singular, plural) => {
             const countTarget = document.querySelector(`[data-family-result-count="${key}"]`);
@@ -785,6 +829,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }).sort(compareModels(activeSortKey, activeSortDirection));
             const displayed = filtered.slice(0, llmVisibleLimit);
             rows.innerHTML = displayed.length ? renderModelRows(displayed) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
+            renderQuickPicks(filtered);
             count.textContent = filtered.length;
             setFamilyResultCount('llm', filtered.length, 'page', 'pages');
             updateMoreButton(modelMore, filtered.length, displayed.length, 'LLMs');
@@ -870,6 +915,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (added) {
                 trackHomeGoal('home_index_compare_add', {target: 'llm', model: modelId, shown: comparedModelIds.size});
             }
+        });
+        quickPickCards.addEventListener('click', (event) => {
+            const link = event.target.closest('[data-quick-pick-id]');
+            if (!link) return;
+            trackHomeGoal('home_quick_pick_open', {target: 'llm', pick: link.dataset.quickPickType, model: link.dataset.quickPickId});
         });
         compareChips.addEventListener('click', (event) => {
             const button = event.target.closest('[data-compare-remove]');
@@ -1091,10 +1141,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
             });
             if (machineFiltersEnabled && activeMachine) {
+                machineIntroCopy.textContent = `${activeMachine.name} is selected. Browse the models that fit it, or choose another saved machine.`;
                 machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><i></i><strong>${escapeHtml(activeMachine.name)}</strong> selected</span><span>All 7 directories updated · Green LLM fits only · Voice uses verified hardware paths</span>`;
                 machineCatalogueToggle.textContent = 'Show full catalogues';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'false');
             } else {
+                machineIntroCopy.textContent = 'Your saved machines are ready. Select one to see compatible models across every directory.';
                 machineStatus.innerHTML = '<span class="lc-home-machine-status__state"><strong>Full catalogues visible</strong></span><span>Your saved machine remains selected. Choose its card to reapply hardware filters.</span>';
                 machineCatalogueToggle.textContent = 'Apply selected machine';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'true');
@@ -1271,6 +1323,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'Account'; });
                 const machineCta = document.getElementById('lc-home-machine-cta');
                 if (machineCta) machineCta.textContent = savedMachines.length ? 'Manage machines →' : 'Add machine →';
+                if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'You are signed in. Add your first Mac, PC or NVIDIA workstation to unlock compatible models and new-release updates.';
                 const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
                 if (primary) applySavedMachine(primary, false);
             } catch (error) {

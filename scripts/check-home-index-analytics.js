@@ -15,6 +15,7 @@ requireText(homepage, "trackHomeGoal('home_index_filter'", 'Homepage filter inte
 requireText(homepage, "trackHomeGoal('home_index_sort'", 'Homepage sort interactions are not tracked');
 requireText(homepage, "trackHomeGoal('home_index_compare_add'", 'Homepage comparison selections are not tracked');
 requireText(homepage, "trackHomeGoal('home_index_compare_open'", 'Homepage comparison opens are not tracked');
+requireText(homepage, "trackHomeGoal('home_quick_pick_open'", 'Homepage quick-pick opens are not tracked');
 requireText(homepage, "target: 'llm'", 'Homepage LLM interactions must identify their catalogue');
 requireText(homepage, "target: 'speech'", 'Homepage speech interactions must identify their catalogue');
 requireText(homepage, "target: 'multimodal'", 'Homepage multimodal interactions must identify their catalogue');
@@ -23,7 +24,7 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260826b', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260826c', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, "trackHomeGoal('funnel_account_open'", 'Homepage account funnel entry tracking is missing');
 requireText(homepage, 'localclaw_funnel_landing_page', 'Homepage funnel landing-page context is missing');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
@@ -36,6 +37,10 @@ if (/Comfortable \+ tight|Tight only/.test(homepage)) {
 }
 requireText(homepage, "link.textContent = 'Account'", 'Signed-in homepage navigation must expose the consistent Account label');
 requireText(homepage, "machineCta.textContent = savedMachines.length ? 'Manage machines →' : 'Add machine →'", 'Signed-in homepage CTA must match the saved-machine state');
+requireText(homepage, 'is selected. Browse the models that fit it', 'Signed-in homepage copy must acknowledge the selected saved machine');
+requireText(homepage, 'id="lc-index-quick-picks"', 'Homepage must provide three guided LLM starting points');
+requireText(homepage, 'Best for coding', 'Homepage quick picks must include a coding recommendation');
+requireText(homepage, 'Fastest', 'Homepage quick picks must include a speed recommendation');
 requireText(homepage, 'const LLM_PAGE_SIZE = 40', 'Homepage LLMs must render progressively');
 requireText(homepage, 'const SPEECH_PAGE_SIZE = 24', 'Homepage speech records must render progressively');
 requireText(homepage, 'const MULTIMODAL_PAGE_SIZE = 6', 'Homepage multimodal cards must render progressively');

@@ -43,7 +43,7 @@ for (const [id, expected] of Object.entries(criticalFacts)) {
   }
 }
 
-for (const marker of ['js/data.js?v=20260825a', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
+for (const marker of ['js/data.js?v=20260826b', 'js/model-ranking.js?v=20260820a', 'LocalClawModelRanking.rankModels']) {
   if (!computers.includes(marker)) failures.push(`computers.html missing ${marker}`);
 }
 for (const marker of ["id: 'mac_mini_m6_16'", "id: 'mac_mini_m6_24'", "id: 'mac_mini_m6_32'", "id: 'mac_mini_m5_pro_24'", "id: 'mac_mini_m5_pro_64'", 'Available September 22, 2026']) {
