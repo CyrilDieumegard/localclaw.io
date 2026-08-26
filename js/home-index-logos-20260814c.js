@@ -161,6 +161,7 @@ window.HOME_INDEX_LOGOS = {
     'Doubiiu / CUHK': 'doubiiu-avatar',
     'DreamTechAI / Neural4D': 'github',
     'DreamGaussian Team': 'github',
+    'ERNIE Team / Baidu': 'github',
     'Genmo': 'genmo-avatar',
     'Hebrew University of Jerusalem / Westlake University': 'github',
     'HKUST / M-A-P': 'github',

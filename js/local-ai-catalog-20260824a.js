@@ -63,6 +63,18 @@
       caveats: ['No official Diffusers-format 5B export yet', 'Large dependency stack and BF16 CUDA workstation target']
     },
     {
+      id: 'nava', name: 'NAVA', category: 'video', developer: 'ERNIE Team / Baidu',
+      summary: 'Apache-licensed native audio-video generation model for synchronized clips with scene audio, speech and image-conditioned continuation.',
+      tasks: ['text-to-audio-video', 'text-to-video', 'image-to-video', 'speech-video', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 18,
+      runtime: ['PyTorch', 'ComfyUI', 'Gradio'], output: ['MP4', 'stereo audio'],
+      local_status: 'local', license: 'Apache 2.0 with upstream component license obligations', released: '2026-05',
+      source_url: 'https://github.com/ernie-research/NAVA', install_url: 'https://huggingface.co/baidu/NAVA',
+      hardware_note: 'Official BF16 inference targets 48 GB+ GPUs or 8-GPU sequence parallelism for fast 720p clips. The official FP8 and ComfyUI paths are the practical local entry options at about 18 GB NVIDIA VRAM with offloading.',
+      strengths: ['Joint audio and video generation', 'Text and image-conditioned workflows', 'Official FP8 weights and ComfyUI node'],
+      caveats: ['Linux, CUDA and Flash Attention focused', 'Consent-sensitive voice and likeness use', 'Best performance still needs multi-GPU workstation hardware']
+    },
+    {
       id: 'joyai-video-edit', name: 'JoyAI-Video-Edit', category: 'video', developer: 'JD Open Source',
       summary: 'Apache-licensed real-time, instruction-guided video editing model for live or uploaded video streams.',
       tasks: ['video-to-video', 'video-editing', 'reference-guided-editing', 'streaming-video'],
