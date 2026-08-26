@@ -24,7 +24,7 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260826d', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260826e', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, "trackHomeGoal('funnel_account_open'", 'Homepage account funnel entry tracking is missing');
 requireText(homepage, 'localclaw_funnel_landing_page', 'Homepage funnel landing-page context is missing');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
@@ -35,7 +35,7 @@ requireText(homepage, 'Green LLM fits only', 'Homepage saved-machine status must
 if (/Comfortable \+ tight|Tight only/.test(homepage)) {
   errors.push('Homepage machine availability must not offer tight-fit models');
 }
-requireText(homepage, "link.textContent = 'Account'", 'Signed-in homepage navigation must expose the consistent Account label');
+requireText(homepage, "link.textContent = 'My Machines'", 'Signed-in homepage navigation must preserve the shared My Machines label');
 requireText(homepage, "machineCta.textContent = savedMachines.length ? 'My Machines →' : 'Add my machine →'", 'Homepage machine CTA must use the shared machine vocabulary');
 requireText(homepage, 'is selected. Browse the models that fit it', 'Signed-in homepage copy must acknowledge the selected saved machine');
 requireText(homepage, 'id="lc-index-quick-picks"', 'Homepage must provide three guided LLM starting points');

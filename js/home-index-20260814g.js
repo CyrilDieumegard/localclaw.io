@@ -1320,7 +1320,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 savedMachines = (Array.isArray(data && data.machines) ? data.machines : [])
                     .map(normalizeSavedMachine)
                     .filter((machine) => machine.id && machine.ramGb);
-                document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'Account'; });
+                document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'My Machines'; });
                 const machineCta = document.getElementById('lc-home-machine-cta');
                 if (machineCta) machineCta.textContent = savedMachines.length ? 'My Machines →' : 'Add my machine →';
                 if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'You are signed in. Add your first Mac, PC or NVIDIA workstation to unlock compatible models and new-release updates.';
