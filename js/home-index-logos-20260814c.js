@@ -88,6 +88,7 @@ window.HOME_INDEX_LOGOS = {
     app: 'github',
     'ark-asr': 'github',
     bark: 'suno',
+    breeze: 'huggingface-avatar',
     canary: 'nvidia',
     chatterbox: 'resemble-avatar',
     chattts: '2noise-avatar',

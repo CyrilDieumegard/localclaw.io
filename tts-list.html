@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 70 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 70 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 71 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 71 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 70 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 71 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">73</strong> speech records: <strong style="color:#fff;">70 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">74</strong> speech records: <strong style="color:#fff;">71 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>70 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>71 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1979,6 +1979,33 @@
                 voices: "Transcript-free zero-shot cloning",
                 context: "Speech encoder + LLM architecture, CUDA 12.6 local inference path",
                 license: "Apache 2.0"
+            },
+            {
+                id: "breeze-tts-2",
+                name: "Breeze TTS 2",
+                developer: "BreezeBlue",
+                family: "breeze",
+                description: "BreezeBlue's open-weight 3B speech generation model for real-time bilingual English and Chinese TTS. It supports reference-audio voice cloning, text-only voice design, voice direction, inline vocal events and a local PyTorch streaming API, with a 12 GB CUDA GPU floor for eager inference.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["cloning", "streaming", "realtime", "emotion", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 7.7,
+                sizeLabel: "3B params; ~7.7 GiB eager VRAM",
+                sizeCategory: "large",
+                quality: 9.6,
+                speed: 8.4,
+                latency: "ultra-low",
+                releaseDate: "2026-08-25",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/BreezeBlue/Breeze-TTS-2",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/breezeblue-ai/breeze-tts",
+                supportedFormats: ["transformers", "pytorch", "safetensors"],
+                voices: "Voice cloning, design and direction",
+                context: "3B F32/BF16 checkpoint, PyTorch CLI/API, 24 kHz streaming PCM, 12 GB GPU minimum for eager inference",
+                license: "BreezeBlue Research and Non-Commercial License"
             },
             {
                 id: "index-tts-2.5",

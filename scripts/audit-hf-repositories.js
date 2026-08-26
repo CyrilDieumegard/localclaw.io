@@ -70,8 +70,9 @@ async function main() {
   const verification = appData.hfRepoVerification || {};
   const entries = expectedEntries(verification);
   const uniqueLocalIds = new Set((appData.models || []).filter(model => !model.hosted_only).map(model => model.id));
-  if (entries.length !== uniqueLocalIds.size) {
-    throw new Error(`Snapshot coverage mismatch: ${entries.length} entries for ${uniqueLocalIds.size} unique local model IDs.`);
+  const uniqueEntryIds = new Set(entries.map(entry => entry.id));
+  if (uniqueEntryIds.size !== uniqueLocalIds.size) {
+    throw new Error(`Snapshot coverage mismatch: ${uniqueEntryIds.size} classified IDs for ${uniqueLocalIds.size} unique local model IDs (${entries.length} repository entries).`);
   }
 
   const results = await mapLimited(entries, CONCURRENCY, inspect);

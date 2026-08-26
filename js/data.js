@@ -3808,7 +3808,7 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-19T06:25:00.000Z",
+        checkedAt: "2026-08-26T00:00:00.000Z",
         catalogueHash: "de97e6594e977c983f4e23d5205fd3618232eec6fbae79f651de6c3e82b54dab",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {

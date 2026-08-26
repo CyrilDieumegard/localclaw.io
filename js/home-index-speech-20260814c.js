@@ -32,6 +32,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 3.06
   },
   {
+    "id": "breeze-tts-2",
+    "name": "Breeze TTS 2",
+    "developer": "BreezeBlue",
+    "family": "breeze",
+    "license": "BreezeBlue Research and Non-Commercial License",
+    "releaseDate": "2026-08-25",
+    "quality": 9.6,
+    "speed": 8.4,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 7.7
+  },
+  {
     "id": "index-tts-2.5",
     "name": "IndexTTS 2.5",
     "developer": "Bilibili",
