@@ -464,6 +464,30 @@
       caveats: ['Noncommercial research license', 'Requires an existing mesh or point-cloud condition', 'Optional image conditioning depends on separate DINOv3 access']
     },
     {
+      id: 'anigen', name: 'AniGen', category: '3d', developer: 'VAST AI Research',
+      summary: 'Image-to-3D system that generates a mesh, skeleton and skinning weights as an animation-ready GLB asset.',
+      tasks: ['image-to-3d', 'rigging', 'skinning', 'character-animation', 'mesh-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 18,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'], output: ['GLB', 'Rigged mesh', 'Skeleton', 'Skin weights'],
+      local_status: 'local', license: 'MIT code and weights; non-commercial third-party component notice', released: '2026-04',
+      source_url: 'https://github.com/VAST-AI-Research/AniGen', install_url: 'https://huggingface.co/VAST-AI/AniGen',
+      hardware_note: 'The official repository is Linux/CUDA only, tested on NVIDIA A800 and RTX 3090 GPUs, and states that at least 18 GB GPU memory is necessary. The example pipeline downloads the required Hugging Face checkpoints, then writes mesh.glb, skeleton.glb and the processed condition image.',
+      strengths: ['Generates mesh, skeleton and skinning together', 'Official Hugging Face checkpoint bundle', 'Local CLI and Gradio workflows'],
+      caveats: ['Linux/CUDA workstation setup only', 'Third-party CUBVH notice includes non-commercial research restrictions', 'Animation quality depends heavily on input silhouette and category']
+    },
+    {
+      id: 'sat3dgen', name: 'Sat3DGen', category: '3d', developer: 'Wuhan University / HKUST',
+      summary: 'Satellite-image-to-3D scene generator that exports textured street-level OBJ meshes and walkthrough renders.',
+      tasks: ['image-to-3d', 'scene-generation', 'mesh-generation', 'texturing', 'dsm-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 8,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'], output: ['OBJ', 'Textured mesh', 'MP4', 'DSM'],
+      local_status: 'local', license: 'MIT', released: '2025-04',
+      source_url: 'https://github.com/qianmingduowan/Sat3DGen', install_url: 'https://huggingface.co/qian43/Sat3DGen',
+      hardware_note: 'The official release includes training, inference, checkpoint evaluation and a Gradio app. Inference loads the 1.5 GB Hugging Face checkpoint automatically, assumes a CUDA environment for the released scripts, and saves mesh.obj plus orbit and walkthrough MP4 outputs under results/demo.',
+      strengths: ['MIT licensed code and model card', 'Single satellite image to textured scene mesh', 'Official local CLI and Gradio paths'],
+      caveats: ['Specialized for zoom-level-20 satellite inputs', 'Research workflow rather than a general object asset generator', 'Training uses gated DINOv3 weights, but inference bundles the needed backbone in the released checkpoint']
+    },
+    {
       id: 'skintokens-tokenrig', name: 'SkinTokens / TokenRig', category: '3d', developer: 'VAST AI Research',
       summary: 'Autoregressive rigging model that turns an input mesh into a skeleton hierarchy and skinning weights for animation.',
       tasks: ['rigging', 'skinning', 'mesh-to-rig', 'character-animation'], platforms: ['linux'], accelerators: ['nvidia'],

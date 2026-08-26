@@ -60,7 +60,7 @@ const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 if (uniqueLocalModels.length !== 228) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 228 preserved routes`);
 if (indexableLocalModels.length !== 222) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 222`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
-if (multimodalModels.length !== 78) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 78`);
+if (multimodalModels.length !== 80) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 80`);
 
 const localModelsById = new Map(uniqueLocalModels.map(model => [model.id, model]));
 const correctedModelFacts = {

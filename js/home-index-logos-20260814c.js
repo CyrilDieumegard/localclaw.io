@@ -194,6 +194,7 @@ window.HOME_INDEX_LOGOS = {
     'Tsinghua University': 'github',
     'University of Adelaide': 'github',
     'VAST AI Research': 'github',
+    'Wuhan University / HKUST': 'github',
     'Wan Team / Alibaba': 'alibaba',
     'Wan Team / Wan2GP': 'alibaba',
     'XLong Research': 'github',
