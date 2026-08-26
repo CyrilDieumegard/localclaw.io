@@ -24,7 +24,7 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260826f', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260826g', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, "trackHomeGoal('funnel_account_open'", 'Homepage account funnel entry tracking is missing');
 requireText(homepage, 'localclaw_funnel_landing_page', 'Homepage funnel landing-page context is missing');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
@@ -32,6 +32,8 @@ requireText(homepage, "fitFilter.value = 'fits'", 'Signed-in machines must defau
 requireText(homepage, 'Green fits only', 'Homepage machine filtering must clearly label the strict green-fit view');
 requireText(homepage, '!sharedRanking.isLocallyEligible(model)', 'Homepage green-fit filtering must use the shared LLM eligibility rules');
 requireText(homepage, 'Green LLM fits only', 'Homepage saved-machine status must match the strict green-fit filter wording');
+requireText(homepage, "key === 'voice' ? 'hardware' : 'compatible'", 'Saved-machine family counts must distinguish compatible results from full local catalogues');
+requireText(homepage, "machineFiltersEnabled ? 'matching' : 'local'", 'Result announcements must distinguish machine matches from full local catalogues');
 if (/Comfortable \+ tight|Tight only/.test(homepage)) {
   errors.push('Homepage machine availability must not offer tight-fit models');
 }

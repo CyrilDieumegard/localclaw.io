@@ -93,7 +93,7 @@ if (homepageJs.includes('lc-index-hero__mascot') || homepageCss.includes('lc-ind
 if (homepageJs.includes('<section class="lc-index-facts"')) missing.push('Homepage hero metric cards should remain removed');
 if (homepageJs.includes('lc-index-hero__guide-link')) missing.push('Homepage hero tertiary guide link should remain removed');
 if (homepageJs.includes('lc-home-machine-card__image--dark') || homepageCss.includes('lc-home-machine-card__image--dark')) missing.push('Saved-machine cards must reuse the light-mode image in dark mode');
-for (const marker of ['css/home-index-20260814g.css?v=20260826c', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog-20260824a.js?v=20260826b', 'js/home-index-20260814g.js?v=20260826f']) {
+for (const marker of ['css/home-index-20260814g.css?v=20260826c', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20260822b', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20260822a', 'js/local-ai-catalog-20260824a.js?v=20260826b', 'js/home-index-20260814g.js?v=20260826g']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 for (const marker of ["matchMedia('(prefers-reduced-motion: reduce)')", "document.addEventListener('visibilitychange'", 'cancelAnimationFrame(animationFrame)']) {

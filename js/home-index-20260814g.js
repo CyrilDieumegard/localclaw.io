@@ -789,10 +789,18 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const countTarget = document.querySelector(`[data-family-result-count="${key}"]`);
             const labelTarget = document.querySelector(`[data-family-result-label="${key}"]`);
             if (countTarget) countTarget.textContent = value;
-            if (labelTarget) labelTarget.textContent = `local ${value === 1 ? singular : plural}`;
+            if (labelTarget) {
+                const qualifier = machineFiltersEnabled
+                    ? key === 'voice' ? 'hardware' : 'compatible'
+                    : 'local';
+                const resultSingular = machineFiltersEnabled && key === 'voice' ? 'match' : singular;
+                const resultPlural = machineFiltersEnabled && key === 'voice' ? 'matches' : plural;
+                labelTarget.textContent = `${qualifier} ${value === 1 ? resultSingular : resultPlural}`;
+            }
         };
         const announceResultCount = (element, value, label, displayed = value) => {
-            if (element) element.textContent = `${value} local ${label}${value === 1 ? '' : 's'} match. ${displayed} currently displayed.`;
+            const qualifier = machineFiltersEnabled ? 'matching' : 'local';
+            if (element) element.textContent = `${value} ${qualifier} ${label}${value === 1 ? '' : 's'}. ${displayed} currently displayed.`;
         };
         const updateMoreButton = (button, total, shown, label) => {
             const remaining = Math.max(0, total - shown);

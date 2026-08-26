@@ -488,15 +488,23 @@ for (const marker of [
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
   'js/data.js?v=20260826b',
   'js/new-model-sort-20260814a.js?v=20260814a',
-  `${indexableLocalModels.length} indexable local LLM pages`,
-  `${uniqueLocalModels.length} preserved route URLs`,
-  `${unavailableLlmIds.size} transparent noindex tombstones`,
-  `${speechModels.length} local speech records`,
-  'Two online/API entries and one unverified reference are excluded.'
+  `${indexableLocalModels.length} verified local LLMs`,
+  `${speechModels.length} local voice tools`,
+  'Fresh additions are ordered by verified publication date.',
+  'Browse local text-to-speech, speech-to-text and audio workflows.'
 ]) {
   if (!newPage.includes(marker)) errors.push(`/new missing or stale marker: ${marker}`);
 }
-for (const staleMarker of ['218-page LocalClaw index', '218 local pages', '56 local speech records']) {
+for (const staleMarker of [
+  '218-page LocalClaw index',
+  '218 local pages',
+  '56 local speech records',
+  'indexable local LLM pages',
+  'preserved route URLs',
+  'noindex tombstones',
+  'local speech records',
+  'unverified reference'
+]) {
   if (newPage.includes(staleMarker)) errors.push(`/new still exposes stale index copy: ${staleMarker}`);
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
@@ -543,8 +551,8 @@ if (newJsonLd) {
   const itemList = graph.find(node => node && node['@type'] === 'ItemList');
   if (!collection || collection.url !== 'https://localclaw.io/new'
     || collection.dateModified !== catalogueUpdatedIso
-    || !String(collection.description || '').includes(`${indexableLocalModels.length} indexable local LLM pages`)
-    || !String(collection.description || '').includes(`${speechModels.length} local speech records`)) {
+    || !String(collection.description || '').includes(`${indexableLocalModels.length} verified local LLMs`)
+    || !String(collection.description || '').includes(`${speechModels.length} local voice tools`)) {
     errors.push('/new CollectionPage schema is missing current canonical, freshness or catalogue counts');
   }
   const breadcrumbItems = breadcrumb && Array.isArray(breadcrumb.itemListElement) ? breadcrumb.itemListElement : [];
@@ -625,6 +633,10 @@ if (read('guides/best-local-tts-for-voice-cloning.html').includes('/tts/xtts-v3'
 const manifest = JSON.parse(read('downloads/localclaw-installer-latest.json'));
 for (const file of ['download.html', 'pricing.html']) {
   if (!read(file).includes(manifest.latestVersion)) errors.push(`${file} does not show manifest version ${manifest.latestVersion}`);
+}
+const pricingPage = read('pricing.html');
+for (const marker of ['href="/privacy"', 'href="/account"', 'href="mailto:helplocalclaw@gmail.com"']) {
+  if (!pricingPage.includes(marker)) errors.push(`pricing.html footer is missing trust/navigation link: ${marker}`);
 }
 if (!manifest.dmgUrl.includes(`localclaw-${manifest.latestVersion}.dmg`)) errors.push('Installer manifest DMG URL does not match latestVersion');
 const dmgHash = crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'downloads/localclaw.dmg'))).digest('hex');
