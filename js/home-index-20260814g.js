@@ -448,7 +448,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div class="lc-index-hero__copy">
                             <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
                             <p>Find the models, software and hardware that fit your machine.</p>
-                            <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse the full index</a></div>
+                            <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a></div>
                         </div>
                     </header>
 
