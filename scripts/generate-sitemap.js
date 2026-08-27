@@ -89,6 +89,7 @@ const groups = {
   core: unique([
     page('index.html', 'weekly', '1.0', ['js/data.js', 'js/home-index-speech-20260814c.js']),
     page('software.html', 'monthly', '0.9'),
+    page('charts.html', 'weekly', '0.9', ['charts-data.json']),
     page('pricing.html', 'monthly', '0.8'),
     page('download.html', 'monthly', '0.8'),
     page('llm-list.html', 'weekly', '0.9', ['js/data.js']),

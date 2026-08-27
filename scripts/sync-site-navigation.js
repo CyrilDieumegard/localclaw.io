@@ -15,6 +15,9 @@ for (const marker of [
   'href="/ram-gpu-for-local-ai"',
   'data-nav-key="ram-gpu"',
   '>RAM/GPU</a>',
+  'href="/charts"',
+  'data-nav-key="charts"',
+  '>Charts</a>',
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile',
@@ -61,6 +64,7 @@ function activeSection(relativePath) {
   if (clean === 'new') return 'new';
   if (clean === 'computers' || clean.startsWith('hardware/')) return 'computers';
   if (clean === 'ram-gpu-for-local-ai' || clean.startsWith('ram/')) return 'ram-gpu';
+  if (clean === 'charts') return 'charts';
   if (clean === 'blog/index' || clean.startsWith('blog/') || clean.startsWith('case-study/')) return 'blog';
   if (clean === 'software' || clean === 'pricing' || clean === 'download' || clean.startsWith('changelog/')) return 'software';
   if (clean === 'account' || clean.startsWith('account/')) return 'account';

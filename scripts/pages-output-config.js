@@ -10,6 +10,8 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   '404.html',
   'account.html',
   'computers.html',
+  'charts-data.json',
+  'charts.html',
   'download.html',
   'favicon.ico',
   'google7a49ecaded8c2575.html',
