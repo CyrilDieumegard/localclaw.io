@@ -478,6 +478,18 @@
       caveats: ['Linux/CUDA research stack', 'Scene reconstruction output is Gaussian splats rather than textured game meshes', 'Depth-guided mode expects aligned depth inputs']
     },
     {
+      id: 'infinidepth', name: 'InfiniDepth', category: '3d', developer: 'Zhejiang University / Shenzhen University',
+      summary: 'Apache-licensed single-image depth and 3D Gaussian reconstruction model with RGB-only and RGB-depth local inference paths.',
+      tasks: ['image-to-3d', 'depth-estimation', 'gaussian-splatting', 'novel-view-synthesis', 'point-cloud-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'], output: ['PLY', '3D Gaussian', 'Point cloud', 'MP4 preview', 'Depth map'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-03',
+      source_url: 'https://github.com/zju3dv/InfiniDepth', install_url: 'https://huggingface.co/lc700x/InfiniDepth-Large',
+      hardware_note: 'The official release provides manual install instructions, local Gradio, RGB-only depth and Gaussian scripts, RGB-depth sensor scripts and multi-view point-cloud export. No exact VRAM table is published, so 32 GB RAM and 12 GB NVIDIA VRAM are the conservative LocalClaw floor for the CUDA inference stack and checkpoint set.',
+      strengths: ['Apache 2.0 Hugging Face checkpoint', 'Exports Gaussian PLY and orbit video from a single RGB image', 'Also supports depth-map and sequence point-cloud workflows'],
+      caveats: ['Reconstruction-oriented rather than object-to-game-mesh generation', 'Best results need camera intrinsics or depth input for metric workflows', 'Linux/CUDA research setup with multiple checkpoints']
+    },
+    {
       id: 'meshflow', name: 'MeshFlow', category: '3d', developer: 'Meta AI / HKUST',
       summary: 'Flow-based artistic mesh generator that converts input meshes or point clouds into fast generated GLB assets.',
       tasks: ['mesh-generation', 'mesh-reconstruction', 'point-cloud-to-mesh', 'image-conditioned-3d'],
@@ -488,6 +500,18 @@
       hardware_note: 'The official repository runs local CUDA fp16 inference from a config.yaml plus model.pth bundle, with CLI and Gradio paths. Mesh/point-cloud-only inference does not require DINOv3; optional reference-image conditioning requires separately approved DINOv3 weights. LocalClaw treats 32 GB RAM and 16 GB NVIDIA VRAM as a conservative floor for 4096-vertex local generation.',
       strengths: ['Official Meta checkpoint bundle', 'Local CLI and Gradio workflows', 'Exports generated GLB meshes'],
       caveats: ['Noncommercial research license', 'Requires an existing mesh or point-cloud condition', 'Optional image conditioning depends on separate DINOv3 access']
+    },
+    {
+      id: 'shaper', name: 'ShapeR', category: '3d', developer: 'Meta AI',
+      summary: 'Meta casual-capture reconstruction model that converts preprocessed multi-view object captures into metric GLB meshes.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'scene-reconstruction', 'casual-capture-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'CLI'], output: ['GLB', 'Reconstructed mesh', 'JPG visualization'],
+      local_status: 'local', license: 'CC-BY-NC 4.0 weights; third-party component notices apply', released: '2026-01',
+      source_url: 'https://github.com/facebookresearch/ShapeR', install_url: 'https://huggingface.co/facebook/ShapeR',
+      hardware_note: 'The official inference script loads preprocessed pickle samples with sparse SLAM points, images, poses and captions, then exports a GLB mesh. The repository does not publish a consumer VRAM table; LocalClaw treats 64 GB RAM and 24 GB NVIDIA VRAM as the conservative floor because the pipeline combines multi-view feature extraction, sparse 3D tensors and VAE/flow decoding.',
+      strengths: ['Official Meta repository and Hugging Face model card', 'Metric mesh reconstruction from casual-capture object data', 'Direct GLB mesh output with cleanup and visualization options'],
+      caveats: ['Noncommercial license', 'Requires Aria MPS-style preprocessing rather than a simple single-image upload', 'Research workflow for captures and scenes, not a polished asset generator']
     },
     {
       id: 'anigen', name: 'AniGen', category: '3d', developer: 'VAST AI Research',

@@ -204,6 +204,7 @@ window.HOME_INDEX_LOGOS = {
     'DreamTechAI / Neural4D': 'github',
     'Zhipu AI / THUDM': 'zhipu',
     'Zhejiang University / PLUS-WAVE': 'github',
+    'Zhejiang University / Shenzhen University': 'github',
     'Zimeng Xiong / Tencent Hunyuan': 'tencent',
     'lllyasviel': 'lllyasviel-avatar'
   },
