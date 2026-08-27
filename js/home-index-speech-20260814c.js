@@ -47,6 +47,37 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 7.7
   },
   {
+    "id": "firered-audio",
+    "name": "FireRedAudio",
+    "developer": "FireRed Team",
+    "family": "firered",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08-21",
+    "quality": 9.5,
+    "speed": 6.6,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 29.7
+  },
+  {
+    "id": "zonos2",
+    "name": "ZONOS2",
+    "developer": "Zyphra",
+    "family": "zonos",
+    "license": "MIT / Apache-2.0 metadata",
+    "releaseDate": "2026-08-25",
+    "quality": 9.6,
+    "speed": 8.5,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "cpu"
+    ],
+    "sizeGB": 15.4
+  },
+  {
     "id": "index-tts-2.5",
     "name": "IndexTTS 2.5",
     "developer": "Bilibili",

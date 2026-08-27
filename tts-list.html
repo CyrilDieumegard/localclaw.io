@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 71 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 71 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 73 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 73 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 71 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 73 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">74</strong> speech records: <strong style="color:#fff;">71 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">76</strong> speech records: <strong style="color:#fff;">73 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>71 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>73 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2006,6 +2006,61 @@
                 voices: "Voice cloning, design and direction",
                 context: "3B F32/BF16 checkpoint, PyTorch CLI/API, 24 kHz streaming PCM, 12 GB GPU minimum for eager inference",
                 license: "BreezeBlue Research and Non-Commercial License"
+            },
+            {
+                id: "firered-audio",
+                name: "FireRedAudio",
+                developer: "FireRed Team",
+                family: "firered",
+                isAsr: true,
+                description: "Apache-licensed 9B general-purpose audio-language model that can listen, understand, reason, speak and edit. The official PyTorch release covers ASR, long-audio understanding, zero-shot TTS, instruct TTS, voice design and semantic/acoustic speech editing with downloadable Hugging Face weights.",
+                languages: ["zh", "en"],
+                languageCount: 2,
+                features: ["cloning", "multilingual", "controllable", "emotion", "long-form"],
+                hardware: ["gpu"],
+                sizeGB: 29.7,
+                sizeLabel: "29.7 GB HF repo; CUDA GPU required",
+                sizeCategory: "xl",
+                quality: 9.5,
+                speed: 6.6,
+                latency: "medium",
+                releaseDate: "2026-08-21",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/FireRedTeam/FireRedAudio",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/FireRedTeam/FireRedAudio",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot voice cloning, voice design and speech editing",
+                context: "9B shared backbone, 29.7GB HF weights plus RedAE decoder, Python 3.10, CUDA toolkit and ffmpeg; generation tasks are Chinese/English only while ASR covers broader benchmarks",
+                license: "Apache 2.0"
+            },
+            {
+                id: "zonos2",
+                name: "ZONOS2",
+                developer: "Zyphra",
+                family: "zonos",
+                description: "Zyphra's second-generation open-weight multilingual TTS MoE with high-fidelity voice cloning, streaming server output, offline Python inference and emotion controls. The canonical HF checkpoint ships a 15.3GB model file and the official runtime targets local Linux CUDA through Mini-SGLang, with a separate ggml path noted for CPU and cross-platform support.",
+                languages: ["en", "zh", "ja", "ko", "ru", "it", "pt", "fr", "es", "vi", "de", "he", "nl", "sv", "hi", "ta", "te", "th", "no", "bn", "tl", "ar", "da", "id", "pl", "uk", "ro", "fi", "hu", "lt", "et", "sk", "hr", "lv"],
+                languageCount: 34,
+                features: ["cloning", "streaming", "realtime", "multilingual", "emotion", "controllable"],
+                hardware: ["gpu", "cpu"],
+                sizeGB: 15.4,
+                sizeLabel: "15.4 GB HF repo; Linux CUDA recommended",
+                sizeCategory: "xl",
+                quality: 9.6,
+                speed: 8.5,
+                latency: "low",
+                releaseDate: "2026-08-25",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Zyphra/ZONOS2",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/Zyphra/ZONOS2",
+                supportedFormats: ["pytorch", "ggml"],
+                voices: "Reference-audio voice cloning plus speaker embeddings",
+                context: "MoE TTS, 15.3GB model.pth, Mini-SGLang streaming server, offline Python API, emotion sliders and OpenAI-compatible local endpoint",
+                license: "MIT / Apache-2.0 metadata"
             },
             {
                 id: "index-tts-2.5",
