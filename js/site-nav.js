@@ -12,6 +12,7 @@
     if (path === '/music-models' || path.indexOf('/music/') === 0) return 'music';
     if (path === '/vision-models' || path.indexOf('/vision/') === 0) return 'vision';
     if (path === '/new') return 'new';
+    if (path === '/charts') return 'charts';
     if (path === '/computers' || path.indexOf('/hardware/') === 0) return 'computers';
     if (path === '/ram-gpu-for-local-ai' || path.indexOf('/ram/') === 0) return 'ram-gpu';
     if (path === '/blog' || path.indexOf('/blog/') === 0 || path.indexOf('/case-study/') === 0) return 'blog';

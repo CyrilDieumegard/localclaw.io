@@ -1,0 +1,91 @@
+{
+  "name": "LocalClaw Open-Weight AI Charts Snapshot",
+  "url": "https://localclaw.io/charts",
+  "dateModified": "2026-08-27",
+  "license": "Source data retains the terms of each cited publisher. LocalClaw commentary is provided for reference.",
+  "charts": [
+    {
+      "id": "notable-models-by-country",
+      "title": "Notable AI models released in 2025",
+      "unit": "models",
+      "scope": "Notable models released in 2025",
+      "values": [
+        { "label": "United States", "value": 59 },
+        { "label": "China", "value": 35 }
+      ],
+      "source": {
+        "publisher": "Stanford Institute for Human-Centered Artificial Intelligence",
+        "title": "The 2026 AI Index Report: Research and Development",
+        "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/research-and-development"
+      }
+    },
+    {
+      "id": "open-model-downloads-by-origin",
+      "title": "Hugging Face downloads by model origin over the past year",
+      "unit": "percent",
+      "scope": "Hugging Face activity, not global market share",
+      "values": [
+        { "label": "China", "value": 41 },
+        { "label": "Rest of world", "value": 59 }
+      ],
+      "source": {
+        "publisher": "Hugging Face",
+        "title": "State of Open Source on Hugging Face: Spring 2026",
+        "url": "https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026"
+      }
+    },
+    {
+      "id": "downloads-by-parameter-count",
+      "title": "All-time Hugging Face downloads by declared parameter count",
+      "unit": "percent",
+      "scope": "Models with a declared parameter count",
+      "values": [
+        { "label": "Under 1B", "value": 83 },
+        { "label": "1B to 100B", "value": 16 },
+        { "label": "Above 100B", "value": 1 }
+      ],
+      "source": {
+        "publisher": "Hugging Face",
+        "title": "State of Open Models: Summer 2026 Observations",
+        "url": "https://huggingface.co/blog/state-of-open-models-summer-2026"
+      }
+    },
+    {
+      "id": "repository-growth-by-format",
+      "title": "Hugging Face repository growth, January to July 2026",
+      "unit": "percent growth",
+      "scope": "Repositories declaring the named library or format",
+      "values": [
+        { "label": "GGUF", "value": 464 },
+        { "label": "MLX", "value": 148 },
+        { "label": "Hub overall", "value": 21.5 },
+        { "label": "Transformers / PEFT", "value": 16 }
+      ],
+      "source": {
+        "publisher": "Hugging Face",
+        "title": "State of Open Models: Summer 2026 Observations",
+        "url": "https://huggingface.co/blog/state-of-open-models-summer-2026"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "label": "Qwen derivatives on Hugging Face",
+      "value": 151448,
+      "asOf": "2026-08-14",
+      "source": "https://huggingface.co/blog/state-of-open-models-summer-2026"
+    },
+    {
+      "label": "Top closed-versus-open model performance gap",
+      "value": 3.3,
+      "unit": "percent",
+      "asOf": "2026-03",
+      "source": "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance"
+    }
+  ],
+  "methodology": {
+    "downloads": "Hugging Face downloads show activity inside the Hub ecosystem. They are not unique users, revenue or global market share.",
+    "country": "Country refers to the originating organization as classified by the cited source, not where inference runs. Distributed or unclear origins limit geographic attribution.",
+    "openWeights": "Open-weight means model weights are downloadable. It does not by itself guarantee open training data, open code or unrestricted commercial use."
+  }
+}
