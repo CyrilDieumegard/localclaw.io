@@ -3,7 +3,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(ROOT, 'charts.html'), 'utf8');
-const css = fs.readFileSync(path.join(ROOT, 'css/charts.css'), 'utf8');
+const css = fs.readFileSync(path.join(ROOT, 'css/charts-20260827g.css'), 'utf8');
 const js = fs.readFileSync(path.join(ROOT, 'js/charts-20260827a.js'), 'utf8');
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'charts-data.json'), 'utf8'));
 const errors = [];
@@ -22,6 +22,7 @@ requireText(html, 'Open-weight means the model weights are downloadable.', 'Open
 requireText(html, 'Open weights now carry 57.6% of production tokens', 'Top adoption chart headline is missing');
 requireText(html, '<strong>61.6%</strong> peak', 'Top adoption chart peak is missing');
 requireText(html, 'https://vercel.com/ai-gateway/leaderboards/models', 'Primary Vercel source is missing');
+requireText(html, '/css/charts-20260827g.css', 'Versioned charts stylesheet is not embedded');
 requireText(html, '/js/charts-20260827a.js?v=20260827b', 'Current charts interaction script is not embedded');
 requireText(html, 'data-adoption-tooltip', 'Instant adoption tooltip markup is missing');
 requireText(html, 'data-tooltip-delta', 'Tooltip day-over-day detail is missing');
