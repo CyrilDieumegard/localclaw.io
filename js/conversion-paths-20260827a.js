@@ -115,31 +115,38 @@
         const fitGoal = params.get('fitGoal');
         const fitSearch = params.get('fitSearch');
         if (fitRam || fitGoal || fitSearch) {
-            window.requestAnimationFrame(() => {
+            let deepLinkAttempts = 0;
+            const applyDeepLinkFilters = () => {
                 const ramControl = document.getElementById('lc-index-machine-ram');
                 const fitControl = document.getElementById('lc-index-fit-filter');
                 const sortControl = document.getElementById('lc-index-sort');
                 const searchControl = document.getElementById('lc-index-search');
-                if (fitRam && ramControl) {
+                if (fitRam && ramControl && ramControl.value !== fitRam) {
                     ramControl.value = fitRam;
                     ramControl.dispatchEvent(new Event('change', {bubbles: true}));
-                    if (fitControl) {
-                        fitControl.disabled = false;
-                        fitControl.value = 'fits';
-                        fitControl.dispatchEvent(new Event('change', {bubbles: true}));
-                    }
+                }
+                if (fitRam && fitControl && fitControl.value !== 'fits') {
+                    fitControl.disabled = false;
+                    fitControl.value = 'fits';
+                    fitControl.dispatchEvent(new Event('change', {bubbles: true}));
                 }
                 if (fitGoal && sortControl) {
                     const sortByGoal = {code: 'coding', coding: 'coding', reasoning: 'reasoning', speed: 'speed', chat: 'quality', quality: 'quality'};
-                    sortControl.value = sortByGoal[fitGoal] || 'score';
-                    sortControl.dispatchEvent(new Event('change', {bubbles: true}));
+                    const goalSort = sortByGoal[fitGoal] || 'score';
+                    if (sortControl.value !== goalSort) {
+                        sortControl.value = goalSort;
+                        sortControl.dispatchEvent(new Event('change', {bubbles: true}));
+                    }
                 }
-                if (fitSearch && searchControl) {
+                if (fitSearch && searchControl && searchControl.value !== fitSearch) {
                     searchControl.value = fitSearch;
                     searchControl.dispatchEvent(new Event('input', {bubbles: true}));
                 }
-                document.getElementById('llm-index')?.scrollIntoView({block: 'start'});
-            });
+                if (deepLinkAttempts === 0) document.getElementById('llm-index')?.scrollIntoView({block: 'start'});
+                deepLinkAttempts += 1;
+                if (deepLinkAttempts < 12) window.setTimeout(applyDeepLinkFilters, 250);
+            };
+            window.requestAnimationFrame(applyDeepLinkFilters);
         }
     };
 
