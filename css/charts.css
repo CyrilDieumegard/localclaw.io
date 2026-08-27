@@ -7,7 +7,7 @@
   --charts-grid: rgba(255, 255, 255, 0.09);
   --charts-text: #f5f5f7;
   --charts-muted: #a1a1aa;
-  --charts-accent: #ff6961;
+  --charts-accent: #c92f28;
   --charts-neutral: #3b3b3e;
   --charts-light: #a6a6aa;
   --charts-shadow: rgba(0, 0, 0, 0.48);
@@ -32,6 +32,8 @@ html.light {
 html { scroll-behavior: smooth; }
 body { margin: 0; overflow-x: hidden; background: var(--charts-page); color: var(--charts-text); font-family: Inter, system-ui, sans-serif; }
 a { color: inherit; }
+html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
+.lc-global-nav [data-nav-key="charts"][aria-current="page"] { color: var(--charts-accent); }
 .charts-background { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; opacity: .42; }
 .charts-main, .charts-footer { position: relative; z-index: 1; }
 .charts-shell { width: min(1390px, calc(100% - 64px)); margin-inline: auto; }
