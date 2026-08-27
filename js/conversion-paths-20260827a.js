@@ -144,7 +144,7 @@
                 }
                 if (deepLinkAttempts === 0) document.getElementById('llm-index')?.scrollIntoView({block: 'start'});
                 deepLinkAttempts += 1;
-                if (deepLinkAttempts < 12) window.setTimeout(applyDeepLinkFilters, 250);
+                if (deepLinkAttempts < 40) window.setTimeout(applyDeepLinkFilters, 250);
             };
             window.requestAnimationFrame(applyDeepLinkFilters);
         }
