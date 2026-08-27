@@ -67,12 +67,23 @@ html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
 .charts-hero-chart { min-width: 0; margin: 0; padding: 34px 0; }
 .charts-hero-chart figcaption h2, .charts-figure figcaption h3 { margin: 0; font: 800 25px/1.12 'Space Grotesk', sans-serif; letter-spacing: -.02em; text-transform: uppercase; }
 .charts-hero-chart figcaption p, .charts-figure figcaption p { margin: 14px 0 0; color: var(--charts-muted); font: 500 13px/1.65 'JetBrains Mono', monospace; }
-.charts-adoption-plot { position: relative; height: 260px; margin-top: 28px; overflow: hidden; border: 1px solid var(--charts-line); background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(25% - 1px), var(--charts-grid) calc(25% - 1px), var(--charts-grid) 25%); box-shadow: 0 18px 46px var(--charts-shadow); }
+.charts-adoption-plot { position: relative; height: 260px; margin-top: 28px; overflow: hidden; border: 1px solid var(--charts-line); background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(25% - 1px), var(--charts-grid) calc(25% - 1px), var(--charts-grid) 25%); box-shadow: 0 18px 46px var(--charts-shadow); cursor: crosshair; outline: none; }
+.charts-adoption-plot:focus-visible { border-color: var(--charts-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--charts-accent) 28%, transparent), 0 18px 46px var(--charts-shadow); }
 .charts-adoption-bars { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(90, minmax(1px, 1fr)); gap: 2px; }
 .charts-adoption-day { display: block; min-width: 1px; height: 100%; background: linear-gradient(to bottom, var(--charts-accent) 0 var(--open), var(--charts-neutral) var(--open) 100%); transform: scaleY(.08); transform-origin: bottom; transition: transform 760ms cubic-bezier(.16, 1, .3, 1); }
 .charts-adoption.is-visible .charts-adoption-day { transform: scaleY(1); }
+.charts-adoption-day.is-active { filter: brightness(1.2); box-shadow: 0 0 0 1px var(--charts-text); }
 .charts-adoption-majority { position: absolute; top: 50%; right: 0; left: 0; z-index: 2; border-top: 1px dashed color-mix(in srgb, var(--charts-text) 62%, transparent); pointer-events: none; }
 .charts-adoption-majority span { position: absolute; top: -18px; right: 8px; padding: 2px 5px; background: var(--charts-page); color: var(--charts-muted); font: 500 9px 'JetBrains Mono', monospace; text-transform: uppercase; }
+.charts-adoption-tooltip { position: absolute; z-index: 5; width: 224px; padding: 13px 14px; border: 1px solid var(--charts-accent); border-radius: 4px; background: color-mix(in srgb, var(--charts-panel) 96%, transparent); box-shadow: 0 14px 34px var(--charts-shadow); color: var(--charts-text); pointer-events: none; opacity: 1; transform: translateY(0); transition: opacity 70ms linear, transform 70ms linear, visibility 0s; }
+.charts-adoption-tooltip[aria-hidden="true"] { visibility: hidden; opacity: 0; transform: translateY(3px); transition: opacity 55ms linear, transform 55ms linear, visibility 0s 55ms; }
+.charts-adoption-tooltip time { display: block; margin-bottom: 10px; color: var(--charts-text); font: 700 11px 'JetBrains Mono', monospace; text-transform: uppercase; }
+.charts-adoption-tooltip > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 25px; font: 600 10px 'JetBrains Mono', monospace; }
+.charts-adoption-tooltip > div span { display: inline-flex; align-items: center; gap: 8px; }
+.charts-adoption-tooltip .charts-swatch { width: 11px; height: 11px; }
+.charts-adoption-tooltip > div strong { color: var(--charts-text); font: 700 13px 'JetBrains Mono', monospace; }
+.charts-adoption-tooltip > div:first-of-type strong { color: var(--charts-accent); }
+.charts-adoption-tooltip p { margin: 9px 0 0; padding-top: 9px; border-top: 1px solid var(--charts-line); color: var(--charts-muted); font: 500 9px/1.4 'JetBrains Mono', monospace; text-transform: uppercase; }
 .charts-adoption-axis { display: flex; justify-content: space-between; padding-top: 10px; color: var(--charts-muted); font: 500 10px 'JetBrains Mono', monospace; }
 .charts-adoption-meta { display: flex; align-items: flex-end; justify-content: space-between; gap: 22px; }
 .charts-adoption-meta .charts-legend { gap: 24px; margin-top: 22px; }
@@ -201,6 +212,7 @@ html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
   .charts-hero-chart figcaption h2 { font-size: 21px; }
   .charts-adoption-plot { height: 210px; margin-top: 22px; }
   .charts-adoption-bars { gap: 1px; }
+  .charts-adoption-tooltip { width: min(214px, calc(100% - 16px)); padding: 11px 12px; }
   .charts-adoption-meta { align-items: flex-start; flex-direction: column; gap: 16px; }
   .charts-adoption-meta .charts-legend { gap: 14px; margin-top: 18px; }
   .charts-adoption-meta > p { margin: 0; }
@@ -241,7 +253,7 @@ html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .charts-button, .charts-bar-row i, .charts-adoption-day { transition: none; }
+  .charts-button, .charts-bar-row i, .charts-adoption-day, .charts-adoption-tooltip { transition: none; }
   .charts-bar-row i { transform: scaleX(1); }
   .charts-adoption-day { transform: scaleY(1); }
 }
