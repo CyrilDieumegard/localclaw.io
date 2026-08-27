@@ -28,14 +28,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css?v=20260822a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260827a">
-  <link rel="stylesheet" href="/css/charts-20260827g.css">
+  <link rel="stylesheet" href="/css/charts-20260827h.css">
 
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
   <script src="/js/theme-toggle.js?v=20260827a"></script>
   <script src="/js/site-nav.js?v=20260827a" defer></script>
-  <script src="/js/charts-20260827a.js?v=20260827b" defer></script>
+  <script src="/js/charts-20260827c.js" defer></script>
 
   <script type="application/ld+json">
   {
@@ -276,9 +276,9 @@
         <div class="charts-pair">
           <figure class="charts-figure" data-chart="notable-models-by-country" aria-labelledby="country-chart-title" aria-describedby="country-chart-note">
             <figcaption><h3 id="country-chart-title"><span>2.</span> The U.S. still produces more notable models</h3><p>In 2025, U.S.-based institutions produced 59 notable models, compared with 35 from China.</p></figcaption>
-            <div class="charts-bars charts-bars--country" aria-hidden="true">
-              <div class="charts-bar-row"><span>United States</span><div><i style="--value: 73.75%"></i><strong>59</strong></div></div>
-              <div class="charts-bar-row"><span>China</span><div><i style="--value: 43.75%"></i><strong>35</strong></div></div>
+            <div class="charts-bars charts-bars--country" aria-label="Notable models released by country">
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="United States" data-detail-value="59 notable models" data-detail-note="24 more than China"><span>United States</span><div><i style="--value: 73.75%"></i><strong>59</strong></div></div>
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="China" data-detail-value="35 notable models" data-detail-note="24 fewer than the United States"><span>China</span><div><i style="--value: 43.75%"></i><strong>35</strong></div></div>
               <div class="charts-bar-axis"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span></div>
             </div>
             <p class="charts-scope" id="country-chart-note">Notable models released in 2025 <span aria-hidden="true">•</span> Stanford AI Index 2026</p>
@@ -288,7 +288,7 @@
 
           <figure class="charts-figure" data-chart="open-model-downloads-by-origin" aria-labelledby="download-chart-title" aria-describedby="download-chart-note">
             <figcaption><h3 id="download-chart-title"><span>3.</span> China leads the open download layer</h3><p>Chinese-origin models represented 41% of Hugging Face downloads over the past year.</p></figcaption>
-            <div class="charts-split charts-split--section" aria-hidden="true"><div class="charts-split__china" style="--share: 41%"><strong>41%</strong></div><div class="charts-split__rest"><strong>59%</strong></div></div>
+            <div class="charts-split charts-split--section" aria-label="Hugging Face downloads by model origin"><div class="charts-split__china" style="--share: 41%" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="China" data-detail-value="41% of downloads" data-detail-note="Chinese-origin open models"><strong>41%</strong></div><div class="charts-split__rest" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="Rest of world" data-detail-value="59% of downloads" data-detail-note="All other model origins"><strong>59%</strong></div></div>
             <div class="charts-axis" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
             <div class="charts-legend" aria-hidden="true"><span><i class="charts-swatch charts-swatch--accent"></i>China 41%</span><span><i class="charts-swatch"></i>Rest of world 59%</span></div>
             <p class="charts-scope" id="download-chart-note">Hugging Face downloads <span aria-hidden="true">•</span> Unclear country origins are a known limitation</p>
@@ -306,9 +306,13 @@
         <div class="charts-pair">
           <figure class="charts-figure" data-chart="downloads-by-parameter-count" aria-labelledby="size-chart-title" aria-describedby="size-chart-note">
             <figcaption><h3 id="size-chart-title"><span>4.</span> Small models dominate real downloads</h3><p>Among Hugging Face models that declare a parameter count, models under 1B represent 83% of all-time downloads.</p></figcaption>
-            <div class="charts-donut-wrap" aria-hidden="true">
-              <div class="charts-donut"></div>
-              <div class="charts-donut-legend"><span><i class="charts-swatch charts-swatch--accent"></i>Under 1B <strong>83%</strong></span><span><i class="charts-swatch"></i>1B–100B <strong>16%</strong></span><span><i class="charts-swatch charts-swatch--light"></i>Above 100B <strong>1%</strong></span></div>
+            <div class="charts-donut-wrap" data-donut-chart data-active="0">
+              <div class="charts-donut" tabindex="0" role="img" aria-label="Interactive share of downloads by model size. Use the arrow keys or select a category."><div class="charts-donut-center" aria-live="polite"><strong data-donut-value>83%</strong><span data-donut-label>Under 1B</span></div></div>
+              <div class="charts-donut-legend" aria-label="Select a model size">
+                <button type="button" data-donut-segment="0" aria-pressed="true"><i class="charts-swatch charts-swatch--accent"></i><span>Under 1B</span><strong>83%</strong></button>
+                <button type="button" data-donut-segment="1" aria-pressed="false"><i class="charts-swatch"></i><span>1B–100B</span><strong>16%</strong></button>
+                <button type="button" data-donut-segment="2" aria-pressed="false"><i class="charts-swatch charts-swatch--light"></i><span>Above 100B</span><strong>1%</strong></button>
+              </div>
             </div>
             <p class="charts-scope" id="size-chart-note">Hugging Face downloads <span aria-hidden="true">•</span> Declared parameter counts only</p>
             <a class="charts-source" href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noopener" data-chart-source="downloads-by-parameter-count" data-source="hugging-face">View source <span aria-hidden="true">↗</span></a>
@@ -317,11 +321,11 @@
 
           <figure class="charts-figure" data-chart="repository-growth-by-format" aria-labelledby="format-chart-title" aria-describedby="format-chart-note">
             <figcaption><h3 id="format-chart-title"><span>5.</span> Local inference formats are growing faster</h3><p>During the first seven months of 2026, repositories declaring GGUF grew far faster than the Hub overall.</p></figcaption>
-            <div class="charts-bars charts-bars--growth" aria-hidden="true">
-              <div class="charts-bar-row"><span>GGUF</span><div><i style="--value: 92.8%"></i><strong>+464%</strong></div></div>
-              <div class="charts-bar-row"><span>MLX</span><div><i style="--value: 29.6%"></i><strong>+148%</strong></div></div>
-              <div class="charts-bar-row"><span>Hub overall</span><div><i style="--value: 4.3%"></i><strong>+21.5%</strong></div></div>
-              <div class="charts-bar-row"><span>Transformers / PEFT</span><div><i style="--value: 3.2%"></i><strong>+16%</strong></div></div>
+            <div class="charts-bars charts-bars--growth" aria-label="Repository growth from January to July 2026">
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="GGUF" data-detail-value="+464% repositories" data-detail-note="21.6× the Hub overall growth rate"><span>GGUF</span><div><i style="--value: 92.8%"></i><strong>+464%</strong></div></div>
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="MLX" data-detail-value="+148% repositories" data-detail-note="6.9× the Hub overall growth rate"><span>MLX</span><div><i style="--value: 29.6%"></i><strong>+148%</strong></div></div>
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="Hub overall" data-detail-value="+21.5% repositories" data-detail-note="Hub-wide baseline"><span>Hub overall</span><div><i style="--value: 4.3%"></i><strong>+21.5%</strong></div></div>
+              <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="Transformers / PEFT" data-detail-value="+16% repositories" data-detail-note="0.7× the Hub overall growth rate"><span>Transformers / PEFT</span><div><i style="--value: 3.2%"></i><strong>+16%</strong></div></div>
               <div class="charts-bar-axis"><span>0%</span><span>100%</span><span>200%</span><span>300%</span><span>400%</span><span>500%</span></div>
             </div>
             <p class="charts-scope" id="format-chart-note">Repository growth, Jan–Jul 2026 <span aria-hidden="true">•</span> Hugging Face</p>

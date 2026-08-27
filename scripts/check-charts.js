@@ -3,8 +3,8 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(ROOT, 'charts.html'), 'utf8');
-const css = fs.readFileSync(path.join(ROOT, 'css/charts-20260827g.css'), 'utf8');
-const js = fs.readFileSync(path.join(ROOT, 'js/charts-20260827a.js'), 'utf8');
+const css = fs.readFileSync(path.join(ROOT, 'css/charts-20260827h.css'), 'utf8');
+const js = fs.readFileSync(path.join(ROOT, 'js/charts-20260827c.js'), 'utf8');
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'charts-data.json'), 'utf8'));
 const errors = [];
 
@@ -22,18 +22,26 @@ requireText(html, 'Open-weight means the model weights are downloadable.', 'Open
 requireText(html, 'Open weights now carry 57.6% of production tokens', 'Top adoption chart headline is missing');
 requireText(html, '<strong>61.6%</strong> peak', 'Top adoption chart peak is missing');
 requireText(html, 'https://vercel.com/ai-gateway/leaderboards/models', 'Primary Vercel source is missing');
-requireText(html, '/css/charts-20260827g.css', 'Versioned charts stylesheet is not embedded');
-requireText(html, '/js/charts-20260827a.js?v=20260827b', 'Current charts interaction script is not embedded');
+requireText(html, '/css/charts-20260827h.css', 'Versioned charts stylesheet is not embedded');
+requireText(html, '/js/charts-20260827c.js', 'Current charts interaction script is not embedded');
 requireText(html, 'data-adoption-tooltip', 'Instant adoption tooltip markup is missing');
 requireText(html, 'data-tooltip-delta', 'Tooltip day-over-day detail is missing');
+requireText(html, 'data-donut-chart', 'Interactive donut chart markup is missing');
+requireText(html, 'data-donut-segment="2"', 'Interactive donut segments are incomplete');
+requireText(html, 'data-detail-title="United States"', 'Country detail interaction is missing');
+requireText(html, 'data-detail-title="GGUF"', 'Format detail interaction is missing');
 requireText(js, "track('charts_page_loaded'", 'Charts page-load tracking is missing');
 requireText(js, "track('chart_view'", 'Chart view tracking is missing');
 requireText(js, "plot.addEventListener('pointermove'", 'Instant pointer tooltip interaction is missing');
 requireText(js, "track('chart_detail_view'", 'Chart detail tracking is missing');
+requireText(js, 'function setupChartDetailTooltips()', 'Interactive bar and split details are missing');
+requireText(js, 'function setupDonutChart()', 'Interactive donut behavior is missing');
 requireText(css, '@media (max-width: 720px)', 'Mobile chart layout is missing');
 requireText(css, '@media (prefers-reduced-motion: reduce)', 'Reduced-motion treatment is missing');
 requireText(css, '--charts-accent: #ff453a', 'Theme-switch red-orange accent is missing');
 requireText(css, '.charts-adoption-tooltip', 'Tooltip styling is missing');
+requireText(css, '.charts-bar-row strong { position: absolute; top: 50%; left: 14px;', 'Chart values are not inset from the bar edge');
+requireText(css, '.charts-detail-tooltip', 'Interactive chart detail styling is missing');
 
 const adoption = data.charts && data.charts[0];
 if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
