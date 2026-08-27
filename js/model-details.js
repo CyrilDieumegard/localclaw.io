@@ -2764,6 +2764,42 @@ var MODEL_DETAILS = {
         paper_url: 'https://huggingface.co/ibm-granite/granite-4.1-8b',
     },
 
+    'granite4.2-3b': {
+        developer: 'IBM Granite Team',
+        developer_url: 'https://www.ibm.com/granite',
+        context_window: 131072,
+        license: 'Apache 2.0',
+        license_url: 'https://www.apache.org/licenses/LICENSE-2.0',
+        architecture: '3B parameter GraniteForCausalLM dense decoder-only reasoning model, post-trained from the Granite 4.1 3B base line with thinking-mode chat and tool-calling support.',
+        training_data: 'IBM does not publish a full Granite 4.2 corpus inventory on the model card. The release is positioned as the compact Granite 4.2 reasoning, coding, multilingual dialogue and tool-use model.',
+        languages: ['English', 'German', 'Spanish', 'French', 'Japanese', 'Portuguese', 'Arabic', 'Czech', 'Italian', 'Korean', 'Dutch', 'Chinese'],
+        strengths: [
+            'Official Apache 2.0 open-weight release from IBM Granite',
+            'Compact 3B dense model with 128K native context',
+            'Thinking-mode chat template with low-effort and non-thinking modes',
+            'Official IBM GGUF files including Q4_K_M for llama.cpp-compatible apps',
+            'LM Studio-compatible community MLX artifacts for Apple Silicon',
+            'Strong fit for lightweight local reasoning, coding and tool-use experiments',
+        ],
+        weaknesses: [
+            'New release, so independent local benchmarks are still early',
+            '3B-class quality ceiling is lower than Granite 8B and 30B on difficult work',
+            'Long 128K contexts still need more memory than short-chat runs',
+        ],
+        use_cases: [
+            'Laptop local assistant',
+            'Lightweight coding help',
+            'Tool-calling experiments',
+            'Private document triage',
+            'Multilingual chat',
+            'Low-latency reasoning tasks',
+        ],
+        similar_models: ['granite4.1-3b', 'granite4.2-8b', 'qwen3-4b', 'phi4-mini'],
+        fun_fact: 'Granite 4.2 3B is the smallest model in IBM\'s Granite 4.2 language release, but it keeps the same 128K native sequence length family target.',
+        official_blog: 'https://huggingface.co/ibm-granite/granite-4.2-3b',
+        paper_url: 'https://huggingface.co/ibm-granite/granite-4.2-3b-GGUF',
+    },
+
     'granite4.2-8b': {
         developer: 'IBM Granite Team',
         developer_url: 'https://www.ibm.com/granite',

@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
+// Updated August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
+// Previous: August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
 // Previous: August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
 // Previous: August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
 // Previous: August 22, 2026 - Added KAT-Coder V2.5 Dev - 228 LLM total
@@ -155,6 +156,24 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'granite4.2-3b',
+            name: 'Granite 4.2 (3B)',
+            family: 'granite',
+            params: '3B',
+            size_gb: 2.32,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'light', 'general'],
+            description: 'IBM Granite 4.2 3B is the compact Apache 2.0 Granite reasoning model with 128K native context, thinking-mode chat, tool calling and official GGUF artifacts for laptop-class local inference.',
+            search_term: 'granite-4.2-3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ibm-granite/granite-4.2-3b-GGUF',
+            source_url: 'https://huggingface.co/ibm-granite/granite-4.2-3b',
+            runtime_url: 'https://huggingface.co/lmstudio-community/granite-4.2-3b-MLX-4bit',
+            benchmarks: { speed: 9, quality: 7, coding: 7, reasoning: 8 },
+            released: '2026-08-25',
+            isNew: true
+        },
         {
             id: 'granite4.2-8b',
             name: 'Granite 4.2 (8B)',
@@ -3847,8 +3866,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-26T00:00:00.000Z",
-        catalogueHash: "54f237b8910ee23b981e961251d0e68e4413f3c1fc1d5145da97644e484e6dee",
+        checkedAt: "2026-08-27T00:00:00.000Z",
+        catalogueHash: "6909e1dfa0a33755c621f5aa43acba2a237d9ecb588cd881287f4933dc9fb87b",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3879,6 +3898,7 @@ const APP_DATA = {
             "laguna-xs-2.1": "poolside/Laguna-XS-2.1-GGUF",
             "lfm2.5-8b-a1b": "LiquidAI/LFM2.5-8B-A1B-GGUF",
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
+            "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
             "granite4.1-3b": "ibm-granite/granite-4.1-3b-GGUF",

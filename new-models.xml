@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Granite 4.2 (8B)</title>
@@ -23,6 +23,14 @@
       <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts. 29.3B · 32 GB minimum RAM · Q4_K_M · granite.</description>
+    </item>
+    <item>
+      <title>Granite 4.2 (3B)</title>
+      <link>https://localclaw.io/models/granite4.2-3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-3b</guid>
+      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
+      <category>granite</category>
+      <description>IBM Granite 4.2 3B is the compact Apache 2.0 Granite reasoning model with 128K native context, thinking-mode chat, tool calling and official GGUF artifacts for laptop-class local inference. 3B · 8 GB minimum RAM · Q4_K_M · granite.</description>
     </item>
     <item>
       <title>Ornith-1.5-9B</title>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
       <category>laguna</category>
       <description>Poolside agentic coding MoE with 262K context, 33B total / 3B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability for 36GB-class local machines. 33B (3B active, MoE) · 36 GB minimum RAM · Q4_K_M · laguna.</description>
-    </item>
-    <item>
-      <title>LFM2.5-8B-A1B</title>
-      <link>https://localclaw.io/models/lfm2.5-8b-a1b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/lfm2.5-8b-a1b</guid>
-      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
-      <category>lfm</category>
-      <description>Liquid AI hybrid model built for on-device assistants. 8.3B total / 1.5B active, 128K context, tool use, GGUF, ONNX, MLX, llama.cpp and LM Studio support. Open-weight under LFM 1.0. 8.3B (1.5B active) · 8 GB minimum RAM · Q4_K_M · lfm.</description>
     </item>
   </channel>
 </rss>
