@@ -25,6 +25,32 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'bernini-r-1.3b', name: 'Bernini-R 1.3B', category: 'video', developer: 'ByteDance',
+      summary: 'Compact Apache-licensed Bernini renderer checkpoint for local video editing, style transfer and reference-guided edits.',
+      tasks: ['video-to-video', 'video-editing', 'reference-guided-editing', 'text-to-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['Diffusers', 'PyTorch', 'Bernini scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-06',
+      source_url: 'https://github.com/bytedance/Bernini',
+      install_url: 'https://huggingface.co/ByteDance/Bernini-R-1.3B-Diffusers',
+      hardware_note: 'The official Bernini environment targets Linux, Python 3.11, PyTorch with CUDA 12.x and NVIDIA GPUs. H100 is the reference device, while the 1.3B renderer is the practical local entry point; LocalClaw uses 24 GB NVIDIA VRAM and 64 GB RAM as a conservative floor for single-GPU tests.',
+      strengths: ['Official ByteDance weights and inference code', 'Self-contained Diffusers-format 1.3B renderer', 'Video-to-video and reference-guided editing workflows'],
+      caveats: ['H100 is the documented reference GPU', 'Renderer-only release is weaker than the full 7+14B Bernini planner on complex edits', 'Requires CUDA and a research Python setup']
+    },
+    {
+      id: 'kiwi-edit-5b', name: 'Kiwi-Edit 5B', category: 'video', developer: 'ShowLab',
+      summary: 'Instruction and reference-guided video editing model for natural-language object, style, background and subject edits.',
+      tasks: ['video-to-video', 'video-editing', 'instruction-guided-editing', 'reference-guided-editing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 32,
+      runtime: ['Diffusers', 'PyTorch', 'Kiwi-Edit scripts'], output: ['MP4'],
+      local_status: 'local', license: 'MIT', released: '2026-03',
+      source_url: 'https://github.com/showlab/Kiwi-Edit',
+      install_url: 'https://huggingface.co/linyq/kiwi-edit-5b-instruct-reference-diffusers',
+      hardware_note: 'The official repository targets Python 3.10, PyTorch 2.7, CUDA 12.8 and FlashAttention. The 5B BF16 Diffusers checkpoints build on Wan2.2 TI2V 5B and Qwen2.5-VL 3B, so LocalClaw treats 32 GB NVIDIA VRAM and 64 GB RAM as the conservative local floor.',
+      strengths: ['Unified instruction and reference-image video editing', 'Official Diffusers checkpoints and demo script', 'MIT-licensed code release'],
+      caveats: ['Linux/CUDA research stack', 'Weights depend on Wan and Qwen component licenses', 'Not a general text-only video generator']
+    },
+    {
       id: 'cosmos3-edge', name: 'Cosmos3 Edge', category: 'video', developer: 'NVIDIA',
       summary: 'Compact OpenMDW-licensed omnimodal world model for local image-to-video and action-conditioned video generation.',
       tasks: ['image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
