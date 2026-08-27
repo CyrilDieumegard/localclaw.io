@@ -22,12 +22,17 @@ requireText(html, 'Open-weight means the model weights are downloadable.', 'Open
 requireText(html, 'Open weights now carry 57.6% of production tokens', 'Top adoption chart headline is missing');
 requireText(html, '<strong>61.6%</strong> peak', 'Top adoption chart peak is missing');
 requireText(html, 'https://vercel.com/ai-gateway/leaderboards/models', 'Primary Vercel source is missing');
-requireText(html, '/js/charts-20260827a.js', 'Charts analytics script is not embedded');
+requireText(html, '/js/charts-20260827a.js?v=20260827b', 'Current charts interaction script is not embedded');
+requireText(html, 'data-adoption-tooltip', 'Instant adoption tooltip markup is missing');
+requireText(html, 'data-tooltip-delta', 'Tooltip day-over-day detail is missing');
 requireText(js, "track('charts_page_loaded'", 'Charts page-load tracking is missing');
 requireText(js, "track('chart_view'", 'Chart view tracking is missing');
+requireText(js, "plot.addEventListener('pointermove'", 'Instant pointer tooltip interaction is missing');
+requireText(js, "track('chart_detail_view'", 'Chart detail tracking is missing');
 requireText(css, '@media (max-width: 720px)', 'Mobile chart layout is missing');
 requireText(css, '@media (prefers-reduced-motion: reduce)', 'Reduced-motion treatment is missing');
 requireText(css, '--charts-accent: #ff453a', 'Theme-switch red-orange accent is missing');
+requireText(css, '.charts-adoption-tooltip', 'Tooltip styling is missing');
 
 const adoption = data.charts && data.charts[0];
 if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
@@ -42,6 +47,9 @@ if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
 
 const renderedAdoptionDays = (html.match(/class="charts-adoption-day"/g) || []).length;
 if (renderedAdoptionDays !== 90) errors.push(`Expected 90 rendered adoption bars, found ${renderedAdoptionDays}`);
+if (/class="charts-adoption-day"[^>]*\stitle=/.test(html)) errors.push('Native delayed title tooltips must not remain on adoption bars');
+const detailedAdoptionDays = (html.match(/class="charts-adoption-day"[^>]*data-date="[^"]+"[^>]*data-open="[^"]+"[^>]*data-closed="[^"]+"/g) || []).length;
+if (detailedAdoptionDays !== 90) errors.push(`Expected 90 detailed adoption bars, found ${detailedAdoptionDays}`);
 
 const expected = new Map([
   ['notable-models-by-country', [['United States', 59], ['China', 35]]],
