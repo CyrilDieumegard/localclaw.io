@@ -2,8 +2,486 @@
   "name": "LocalClaw Open-Weight AI Charts Snapshot",
   "url": "https://localclaw.io/charts",
   "dateModified": "2026-08-27",
-  "license": "Source data retains the terms of each cited publisher. LocalClaw commentary is provided for reference.",
+  "license": "Source data retains the terms of each cited publisher. Vercel leaderboard data is adapted under CC BY 4.0. LocalClaw commentary is provided for reference.",
   "charts": [
+    {
+      "id": "open-weight-token-share-over-time",
+      "title": "Open-weight share of Vercel AI Gateway token volume",
+      "unit": "percent",
+      "scope": "Daily share of tokens routed through Vercel AI Gateway, not global AI usage",
+      "dateRange": {
+        "from": "2026-05-29",
+        "to": "2026-08-26"
+      },
+      "latest": {
+        "date": "2026-08-26",
+        "openWeights": 57.6,
+        "closedWeights": 42.4
+      },
+      "peak": {
+        "date": "2026-08-22",
+        "openWeights": 61.6
+      },
+      "series": [
+        {
+          "date": "2026-05-29",
+          "openWeights": 32.6293,
+          "closedWeights": 67.3707
+        },
+        {
+          "date": "2026-05-30",
+          "openWeights": 33.695,
+          "closedWeights": 66.305
+        },
+        {
+          "date": "2026-05-31",
+          "openWeights": 34.4298,
+          "closedWeights": 65.5702
+        },
+        {
+          "date": "2026-06-01",
+          "openWeights": 26.794,
+          "closedWeights": 73.206
+        },
+        {
+          "date": "2026-06-02",
+          "openWeights": 28.8242,
+          "closedWeights": 71.1758
+        },
+        {
+          "date": "2026-06-03",
+          "openWeights": 29.9057,
+          "closedWeights": 70.0943
+        },
+        {
+          "date": "2026-06-04",
+          "openWeights": 32.1449,
+          "closedWeights": 67.8551
+        },
+        {
+          "date": "2026-06-05",
+          "openWeights": 32.5295,
+          "closedWeights": 67.4705
+        },
+        {
+          "date": "2026-06-06",
+          "openWeights": 43.8508,
+          "closedWeights": 56.1492
+        },
+        {
+          "date": "2026-06-07",
+          "openWeights": 42.3424,
+          "closedWeights": 57.6576
+        },
+        {
+          "date": "2026-06-08",
+          "openWeights": 35.0654,
+          "closedWeights": 64.9346
+        },
+        {
+          "date": "2026-06-09",
+          "openWeights": 36.2672,
+          "closedWeights": 63.7328
+        },
+        {
+          "date": "2026-06-10",
+          "openWeights": 33.2182,
+          "closedWeights": 66.7818
+        },
+        {
+          "date": "2026-06-11",
+          "openWeights": 34.2589,
+          "closedWeights": 65.7411
+        },
+        {
+          "date": "2026-06-12",
+          "openWeights": 36.2039,
+          "closedWeights": 63.7961
+        },
+        {
+          "date": "2026-06-13",
+          "openWeights": 44.5123,
+          "closedWeights": 55.4877
+        },
+        {
+          "date": "2026-06-14",
+          "openWeights": 41.5271,
+          "closedWeights": 58.4729
+        },
+        {
+          "date": "2026-06-15",
+          "openWeights": 33.5793,
+          "closedWeights": 66.4207
+        },
+        {
+          "date": "2026-06-16",
+          "openWeights": 38.1828,
+          "closedWeights": 61.8172
+        },
+        {
+          "date": "2026-06-17",
+          "openWeights": 38.3666,
+          "closedWeights": 61.6334
+        },
+        {
+          "date": "2026-06-18",
+          "openWeights": 29.7748,
+          "closedWeights": 70.2252
+        },
+        {
+          "date": "2026-06-19",
+          "openWeights": 26.8028,
+          "closedWeights": 73.1972
+        },
+        {
+          "date": "2026-06-20",
+          "openWeights": 29.9626,
+          "closedWeights": 70.0374
+        },
+        {
+          "date": "2026-06-21",
+          "openWeights": 29.8628,
+          "closedWeights": 70.1372
+        },
+        {
+          "date": "2026-06-22",
+          "openWeights": 30.8141,
+          "closedWeights": 69.1859
+        },
+        {
+          "date": "2026-06-23",
+          "openWeights": 30.8455,
+          "closedWeights": 69.1545
+        },
+        {
+          "date": "2026-06-24",
+          "openWeights": 28.421,
+          "closedWeights": 71.579
+        },
+        {
+          "date": "2026-06-25",
+          "openWeights": 30.2247,
+          "closedWeights": 69.7753
+        },
+        {
+          "date": "2026-06-26",
+          "openWeights": 33.0432,
+          "closedWeights": 66.9568
+        },
+        {
+          "date": "2026-06-27",
+          "openWeights": 38.2654,
+          "closedWeights": 61.7346
+        },
+        {
+          "date": "2026-06-28",
+          "openWeights": 35.6384,
+          "closedWeights": 64.3616
+        },
+        {
+          "date": "2026-06-29",
+          "openWeights": 34.8685,
+          "closedWeights": 65.1315
+        },
+        {
+          "date": "2026-06-30",
+          "openWeights": 34.101,
+          "closedWeights": 65.899
+        },
+        {
+          "date": "2026-07-01",
+          "openWeights": 27.5033,
+          "closedWeights": 72.4967
+        },
+        {
+          "date": "2026-07-02",
+          "openWeights": 31.3177,
+          "closedWeights": 68.6823
+        },
+        {
+          "date": "2026-07-03",
+          "openWeights": 41.3701,
+          "closedWeights": 58.6299
+        },
+        {
+          "date": "2026-07-04",
+          "openWeights": 43.0218,
+          "closedWeights": 56.9782
+        },
+        {
+          "date": "2026-07-05",
+          "openWeights": 46.6138,
+          "closedWeights": 53.3862
+        },
+        {
+          "date": "2026-07-06",
+          "openWeights": 44.6377,
+          "closedWeights": 55.3623
+        },
+        {
+          "date": "2026-07-07",
+          "openWeights": 46.7208,
+          "closedWeights": 53.2792
+        },
+        {
+          "date": "2026-07-08",
+          "openWeights": 44.1602,
+          "closedWeights": 55.8398
+        },
+        {
+          "date": "2026-07-09",
+          "openWeights": 46.2606,
+          "closedWeights": 53.7394
+        },
+        {
+          "date": "2026-07-10",
+          "openWeights": 46.5156,
+          "closedWeights": 53.4844
+        },
+        {
+          "date": "2026-07-11",
+          "openWeights": 50.702,
+          "closedWeights": 49.298
+        },
+        {
+          "date": "2026-07-12",
+          "openWeights": 49.8202,
+          "closedWeights": 50.1798
+        },
+        {
+          "date": "2026-07-13",
+          "openWeights": 46.3874,
+          "closedWeights": 53.6126
+        },
+        {
+          "date": "2026-07-14",
+          "openWeights": 49.016,
+          "closedWeights": 50.984
+        },
+        {
+          "date": "2026-07-15",
+          "openWeights": 45.7072,
+          "closedWeights": 54.2928
+        },
+        {
+          "date": "2026-07-16",
+          "openWeights": 44.452,
+          "closedWeights": 55.548
+        },
+        {
+          "date": "2026-07-17",
+          "openWeights": 42.6066,
+          "closedWeights": 57.3934
+        },
+        {
+          "date": "2026-07-18",
+          "openWeights": 46.2912,
+          "closedWeights": 53.7088
+        },
+        {
+          "date": "2026-07-19",
+          "openWeights": 49.6028,
+          "closedWeights": 50.3972
+        },
+        {
+          "date": "2026-07-20",
+          "openWeights": 49.0658,
+          "closedWeights": 50.9342
+        },
+        {
+          "date": "2026-07-21",
+          "openWeights": 51.0197,
+          "closedWeights": 48.9803
+        },
+        {
+          "date": "2026-07-22",
+          "openWeights": 40.5655,
+          "closedWeights": 59.4345
+        },
+        {
+          "date": "2026-07-23",
+          "openWeights": 42.1778,
+          "closedWeights": 57.8222
+        },
+        {
+          "date": "2026-07-24",
+          "openWeights": 49.0421,
+          "closedWeights": 50.9579
+        },
+        {
+          "date": "2026-07-25",
+          "openWeights": 49.2758,
+          "closedWeights": 50.7242
+        },
+        {
+          "date": "2026-07-26",
+          "openWeights": 54.1227,
+          "closedWeights": 45.8773
+        },
+        {
+          "date": "2026-07-27",
+          "openWeights": 48.3315,
+          "closedWeights": 51.6685
+        },
+        {
+          "date": "2026-07-28",
+          "openWeights": 47.5678,
+          "closedWeights": 52.4322
+        },
+        {
+          "date": "2026-07-29",
+          "openWeights": 45.3852,
+          "closedWeights": 54.6148
+        },
+        {
+          "date": "2026-07-30",
+          "openWeights": 50.0469,
+          "closedWeights": 49.9531
+        },
+        {
+          "date": "2026-07-31",
+          "openWeights": 45.7998,
+          "closedWeights": 54.2002
+        },
+        {
+          "date": "2026-08-01",
+          "openWeights": 52.7942,
+          "closedWeights": 47.2058
+        },
+        {
+          "date": "2026-08-02",
+          "openWeights": 53.4971,
+          "closedWeights": 46.5029
+        },
+        {
+          "date": "2026-08-03",
+          "openWeights": 48.9923,
+          "closedWeights": 51.0077
+        },
+        {
+          "date": "2026-08-04",
+          "openWeights": 47.9918,
+          "closedWeights": 52.0082
+        },
+        {
+          "date": "2026-08-05",
+          "openWeights": 48.5876,
+          "closedWeights": 51.4124
+        },
+        {
+          "date": "2026-08-06",
+          "openWeights": 54.0704,
+          "closedWeights": 45.9296
+        },
+        {
+          "date": "2026-08-07",
+          "openWeights": 56.665,
+          "closedWeights": 43.335
+        },
+        {
+          "date": "2026-08-08",
+          "openWeights": 61.4317,
+          "closedWeights": 38.5683
+        },
+        {
+          "date": "2026-08-09",
+          "openWeights": 60.1841,
+          "closedWeights": 39.8159
+        },
+        {
+          "date": "2026-08-10",
+          "openWeights": 54.0086,
+          "closedWeights": 45.9914
+        },
+        {
+          "date": "2026-08-11",
+          "openWeights": 53.6472,
+          "closedWeights": 46.3528
+        },
+        {
+          "date": "2026-08-12",
+          "openWeights": 50.547,
+          "closedWeights": 49.453
+        },
+        {
+          "date": "2026-08-13",
+          "openWeights": 52.6813,
+          "closedWeights": 47.3187
+        },
+        {
+          "date": "2026-08-14",
+          "openWeights": 52.3495,
+          "closedWeights": 47.6505
+        },
+        {
+          "date": "2026-08-15",
+          "openWeights": 50.8393,
+          "closedWeights": 49.1607
+        },
+        {
+          "date": "2026-08-16",
+          "openWeights": 55.7585,
+          "closedWeights": 44.2415
+        },
+        {
+          "date": "2026-08-17",
+          "openWeights": 52.4854,
+          "closedWeights": 47.5146
+        },
+        {
+          "date": "2026-08-18",
+          "openWeights": 52.6947,
+          "closedWeights": 47.3053
+        },
+        {
+          "date": "2026-08-19",
+          "openWeights": 57.0076,
+          "closedWeights": 42.9924
+        },
+        {
+          "date": "2026-08-20",
+          "openWeights": 57.3268,
+          "closedWeights": 42.6732
+        },
+        {
+          "date": "2026-08-21",
+          "openWeights": 56.9571,
+          "closedWeights": 43.0429
+        },
+        {
+          "date": "2026-08-22",
+          "openWeights": 61.62,
+          "closedWeights": 38.38
+        },
+        {
+          "date": "2026-08-23",
+          "openWeights": 60.6989,
+          "closedWeights": 39.3011
+        },
+        {
+          "date": "2026-08-24",
+          "openWeights": 50.1328,
+          "closedWeights": 49.8672
+        },
+        {
+          "date": "2026-08-25",
+          "openWeights": 52.5382,
+          "closedWeights": 47.4618
+        },
+        {
+          "date": "2026-08-26",
+          "openWeights": 57.5514,
+          "closedWeights": 42.4486
+        }
+      ],
+      "source": {
+        "publisher": "Vercel",
+        "title": "AI Gateway Models Leaderboard: Open vs. Closed Token Volume",
+        "url": "https://vercel.com/ai-gateway/leaderboards/models",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
     {
       "id": "notable-models-by-country",
       "title": "Notable AI models released in 2025",
@@ -84,6 +562,7 @@
     }
   ],
   "methodology": {
+    "tokenShare": "Vercel AI Gateway token shares show daily production traffic routed through that gateway. They are not global AI usage or market share.",
     "downloads": "Hugging Face downloads show activity inside the Hub ecosystem. They are not unique users, revenue or global market share.",
     "country": "Country refers to the originating organization as classified by the cited source, not where inference runs. Distributed or unclear origins limit geographic attribution.",
     "openWeights": "Open-weight means model weights are downloadable. It does not by itself guarantee open training data, open code or unrestricted commercial use."

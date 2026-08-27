@@ -17,12 +17,31 @@ requireText(html, '<link rel="canonical" href="https://localclaw.io/charts">', '
 requireText(html, 'data-nav-key="charts" aria-current="page"', 'Charts navigation is not active');
 requireText(html, 'https://localclaw.io/charts-data.json', 'Machine-readable dataset is not linked');
 requireText(html, 'Downloads show activity inside one ecosystem.', 'Methodology boundary is missing');
+requireText(html, 'Vercel token shares reflect production traffic routed through AI Gateway', 'Vercel production-traffic boundary is missing');
 requireText(html, 'Open-weight means the model weights are downloadable.', 'Open-weight definition is missing');
+requireText(html, 'Open weights now carry 57.6% of production tokens', 'Top adoption chart headline is missing');
+requireText(html, '<strong>61.6%</strong> peak', 'Top adoption chart peak is missing');
+requireText(html, 'https://vercel.com/ai-gateway/leaderboards/models', 'Primary Vercel source is missing');
 requireText(html, '/js/charts-20260827a.js', 'Charts analytics script is not embedded');
 requireText(js, "track('charts_page_loaded'", 'Charts page-load tracking is missing');
 requireText(js, "track('chart_view'", 'Chart view tracking is missing');
 requireText(css, '@media (max-width: 720px)', 'Mobile chart layout is missing');
 requireText(css, '@media (prefers-reduced-motion: reduce)', 'Reduced-motion treatment is missing');
+requireText(css, '--charts-accent: #ff453a', 'Theme-switch red-orange accent is missing');
+
+const adoption = data.charts && data.charts[0];
+if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
+  errors.push('Vercel adoption chart is not chart number one');
+} else {
+  if (!Array.isArray(adoption.series) || adoption.series.length !== 90) errors.push('Vercel adoption series must contain 90 daily values');
+  if (adoption.series?.[0]?.date !== '2026-05-29' || adoption.series?.[0]?.openWeights !== 32.6293) errors.push('Unexpected first Vercel adoption value');
+  if (adoption.series?.[89]?.date !== '2026-08-26' || adoption.series?.[89]?.openWeights !== 57.5514) errors.push('Unexpected latest Vercel adoption value');
+  if (adoption.peak?.date !== '2026-08-22' || adoption.peak?.openWeights !== 61.6) errors.push('Unexpected Vercel adoption peak');
+  if (adoption.source?.license !== 'CC BY 4.0') errors.push('Vercel open-data license is missing');
+}
+
+const renderedAdoptionDays = (html.match(/class="charts-adoption-day"/g) || []).length;
+if (renderedAdoptionDays !== 90) errors.push(`Expected 90 rendered adoption bars, found ${renderedAdoptionDays}`);
 
 const expected = new Map([
   ['notable-models-by-country', [['United States', 59], ['China', 35]]],
@@ -49,4 +68,4 @@ if (errors.length) {
   console.error(`Charts validation failed with ${errors.length} issue(s):\n${errors.map(item => `- ${item}`).join('\n')}`);
   process.exit(1);
 }
-console.log('Charts validation passed: 4 sourced charts, 2 evidence callouts and methodology boundaries verified.');
+console.log('Charts validation passed: 5 sourced charts, 90-day adoption series, 2 evidence callouts and methodology boundaries verified.');
