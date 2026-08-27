@@ -7,7 +7,7 @@
   --charts-grid: rgba(255, 255, 255, 0.09);
   --charts-text: #f5f5f7;
   --charts-muted: #a1a1aa;
-  --charts-accent: #c92f28;
+  --charts-accent: #ff453a;
   --charts-neutral: #3b3b3e;
   --charts-light: #a6a6aa;
   --charts-shadow: rgba(0, 0, 0, 0.48);
@@ -22,7 +22,7 @@ html.light {
   --charts-grid: rgba(15, 23, 42, 0.1);
   --charts-text: #111827;
   --charts-muted: #5f6b7c;
-  --charts-accent: #c92f28;
+  --charts-accent: #ff453a;
   --charts-neutral: #c8ccd2;
   --charts-light: #e5e7eb;
   --charts-shadow: rgba(15, 23, 42, 0.09);
