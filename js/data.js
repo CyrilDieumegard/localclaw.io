@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
+// Updated August 28, 2026 - Added DFM-Mimir - 234 LLM total
+// Previous: August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
 // Previous: August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
 // Previous: August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
 // Previous: August 23, 2026 - Added LLM-jp-4 33B Thinking - 229 LLM total
@@ -156,6 +157,24 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'dfm-mimir',
+            name: 'DFM-Mimir',
+            family: 'dfm',
+            params: '1.8B',
+            size_gb: 1.8,
+            min_ram: 4,
+            tags: ['chat', 'reasoning', 'light', 'multilingual', 'general'],
+            description: 'DFM-Mimir is a Danish and English 1B-class HRM language model trained from scratch by Danish Foundation Models, with Apache 2.0 weights, permissible-data positioning and GGUF artifacts for lightweight local inference.',
+            search_term: 'DFM-Mimir',
+            recommended_quant: 'Q8_0',
+            hf_repo: 'noctrex/DFM-Mimir',
+            source_url: 'https://huggingface.co/danish-foundation-models/DFM-Mimir',
+            runtime_url: 'https://huggingface.co/noctrex/DFM-Mimir',
+            benchmarks: { speed: 10, quality: 6, coding: 5, reasoning: 6 },
+            released: '2026-08-14',
+            isNew: true
+        },
         {
             id: 'granite4.2-3b',
             name: 'Granite 4.2 (3B)',
@@ -3866,11 +3885,12 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-27T00:00:00.000Z",
-        catalogueHash: "6909e1dfa0a33755c621f5aa43acba2a237d9ecb588cd881287f4933dc9fb87b",
+        checkedAt: "2026-08-28T00:00:00.000Z",
+        catalogueHash: "85c527a3fad12f43b01908dc055fadf457a19fe4215043420c64cef12d0947ef",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
+            "dfm-mimir": "noctrex/DFM-Mimir",
             "gemma4-e4b": "unsloth/gemma-4-E4B-it-GGUF",
             "gemma3-1b": "lmstudio-community/gemma-3-1b-it-GGUF",
             "phi4-mini": "lmstudio-community/Phi-4-mini-instruct-GGUF",

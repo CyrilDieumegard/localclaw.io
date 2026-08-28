@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Granite 4.2 (8B)</title>
@@ -47,6 +47,14 @@
       <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
       <category>ornith</category>
       <description>Official MIT 35B MoE reasoning model from Ornith AI with about 3B active parameters, 262K context, strong agentic-coding positioning and official Q4_K_M GGUF plus MLX/Ollama/llama.cpp local paths for larger workstations. 35B (3B active, MoE) · 48 GB minimum RAM · Q4_K_M · ornith.</description>
+    </item>
+    <item>
+      <title>DFM-Mimir</title>
+      <link>https://localclaw.io/models/dfm-mimir</link>
+      <guid isPermaLink="true">https://localclaw.io/models/dfm-mimir</guid>
+      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
+      <category>dfm</category>
+      <description>DFM-Mimir is a Danish and English 1B-class HRM language model trained from scratch by Danish Foundation Models, with Apache 2.0 weights, permissible-data positioning and GGUF artifacts for lightweight local inference. 1.8B · 4 GB minimum RAM · Q8_0 · dfm.</description>
     </item>
     <item>
       <title>LLM-jp-4 33B Thinking</title>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
       <category>bonsai</category>
       <description>PrismML low-bit model derived from Qwen 3.6 27B. Official Apache 2.0 ternary (7.2GB deployed) and 1-bit (3.9GB) builds retain multimodal, reasoning and agentic capabilities through custom GGUF and MLX runtimes. 27.3B (ternary / 1-bit) · 16 GB minimum RAM · Ternary Q2_0_g128 · bonsai.</description>
-    </item>
-    <item>
-      <title>Laguna XS 2.1</title>
-      <link>https://localclaw.io/models/laguna-xs-2.1</link>
-      <guid isPermaLink="true">https://localclaw.io/models/laguna-xs-2.1</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <category>laguna</category>
-      <description>Poolside agentic coding MoE with 262K context, 33B total / 3B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability for 36GB-class local machines. 33B (3B active, MoE) · 36 GB minimum RAM · Q4_K_M · laguna.</description>
     </item>
   </channel>
 </rss>

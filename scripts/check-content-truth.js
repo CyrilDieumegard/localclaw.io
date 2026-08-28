@@ -57,8 +57,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 229) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 229 preserved routes`);
-if (indexableLocalModels.length !== 223) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 223`);
+if (uniqueLocalModels.length !== 230) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 230 preserved routes`);
+if (indexableLocalModels.length !== 224) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 224`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 84) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 84`);
 
@@ -457,7 +457,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 231) errors.push('models/ must contain 231 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 232) errors.push('models/ must contain 232 HTML files');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 77) errors.push('tts/ must contain 76 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -486,7 +486,7 @@ for (const marker of [
   '32 GB RAM · Q4_K_M · 128K context',
   '8 GB RAM · Q4_K_M · 128K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260827c',
+  'js/data.js?v=20260828a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -509,7 +509,7 @@ for (const staleMarker of [
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b', 'lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b', 'qwen3.8-27b', 'deepseek-v4-flash-0731'];
+const expectedLatestIds = ['granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'dfm-mimir', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b', 'lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b', 'qwen3.8-27b'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -524,6 +524,7 @@ for (const [modelId, released] of Object.entries({
   'granite4.2-3b': '2026-08-25',
   'ornith-1-5-9b': '2026-08-18',
   'ornith-1-5-35b-a3b': '2026-08-18',
+  'dfm-mimir': '2026-08-14',
   'llm-jp-4-33b-thinking': '2026-08-14',
   'nemotron-3-5-lightning-30b-a3b': '2026-08-11',
   'lfm2-5-vl-3b': '2026-08-11',
@@ -601,7 +602,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260827c') || !index.includes('js/app-20260816a.js?v=20260827c')) {
+if (!index.includes('js/data.js?v=20260828a') || !index.includes('js/app-20260816a.js?v=20260828a')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -665,7 +666,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 183, publicModelCard: 39, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 184, publicModelCard: 39, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);

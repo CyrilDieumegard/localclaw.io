@@ -2764,6 +2764,43 @@ var MODEL_DETAILS = {
         paper_url: 'https://huggingface.co/ibm-granite/granite-4.1-8b',
     },
 
+    'dfm-mimir': {
+        developer: 'Danish Foundation Models',
+        developer_url: 'https://www.foundationmodels.dk/',
+        context_window: 4096,
+        license: 'Apache 2.0',
+        license_url: 'https://huggingface.co/danish-foundation-models/DFM-Mimir/blob/main/LICENSE',
+        architecture: '1B-class HRM-Text causal language model trained from scratch, with roughly 1.79B BF16 parameters and a 4K context window.',
+        training_data: 'The model card and paper describe training on 161 datasets, about 70.5B tokens per epoch, with an emphasis on permissible and openly licensed Danish and English data.',
+        languages: ['Danish', 'English'],
+        strengths: [
+            'Official Apache 2.0 release from the Danish Foundation Models initiative',
+            'Trained from scratch rather than a cosmetic fork or role-play fine-tune',
+            'Strong small-model Danish benchmark positioning with useful English, math and code results',
+            'Tiny local footprint compared with mainstream 4B to 8B assistants',
+            'GGUF artifacts are available for llama.cpp-compatible local apps',
+            'Good fit for Danish-language private workflows on lightweight machines',
+        ],
+        weaknesses: [
+            '4K context is short next to current 128K local models',
+            'Danish and English only; other languages are out of scope',
+            'The public GGUF path is community-maintained and currently limited to F16, BF16 and Q8 files',
+            'Not specifically safety-aligned, according to the upstream limitations',
+        ],
+        use_cases: [
+            'Danish local assistant',
+            'English lightweight chat',
+            'Permissible-data research',
+            'Small-model benchmarking',
+            'Private short-document tasks',
+            'Education and public-sector Danish workflows',
+        ],
+        similar_models: ['gemma3-1b', 'llama3.2-1b', 'smollm2-1.7b', 'qwen3.5-0.8b'],
+        fun_fact: 'DFM-Mimir is intentionally small, but its release focuses on making Danish-language AI infrastructure open and reproducible instead of simply scaling parameter count.',
+        official_blog: 'https://www.foundationmodels.dk/news/2026/08/14/mimir-1-release-note.html',
+        paper_url: 'https://arxiv.org/abs/2608.13517',
+    },
+
     'granite4.2-3b': {
         developer: 'IBM Granite Team',
         developer_url: 'https://www.ibm.com/granite',
