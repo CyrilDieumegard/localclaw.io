@@ -538,6 +538,30 @@
       caveats: ['Noncommercial license', 'Requires Aria MPS-style preprocessing rather than a simple single-image upload', 'Research workflow for captures and scenes, not a polished asset generator']
     },
     {
+      id: 'map-anything-apache', name: 'MapAnything Apache', category: '3d', developer: 'Meta AI / Carnegie Mellon University',
+      summary: 'Apache-licensed universal feed-forward metric 3D reconstruction model for images, calibration, poses and depth inputs.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'depth-estimation', 'camera-pose-estimation', 'gaussian-splatting'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Gradio', 'Rerun', 'COLMAP'], output: ['GLB', 'PLY', 'COLMAP', 'Depth maps', 'Camera poses'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-01',
+      source_url: 'https://github.com/facebookresearch/map-anything', install_url: 'https://huggingface.co/facebook/map-anything-apache',
+      hardware_note: 'The official repository loads the Apache checkpoint from Hugging Face, runs local image-only and multimodal inference, and can export dense reconstructions as GLB plus COLMAP folders with points.ply for downstream gsplat training. No fixed consumer VRAM floor is published, so 32 GB RAM and 16 GB NVIDIA VRAM are a conservative floor for small local image sets.',
+      strengths: ['Apache 2.0 checkpoint variant', 'One model covers many metric reconstruction tasks', 'Exports GLB, COLMAP and PLY assets for local 3D and Gaussian workflows'],
+      caveats: ['Linux/CUDA research stack', 'Large image collections can create very large GLB/PLY files', 'The Apache checkpoint is the cleaner license path, while the default checkpoint is CC-BY-NC']
+    },
+    {
+      id: 'legoace', name: 'LegoACE', category: '3d', developer: 'VAST AI Research',
+      summary: 'Autoregressive transformer that generates LEGO-style assemblies from text or multi-view image conditions.',
+      tasks: ['text-to-3d', 'image-to-3d', 'assembly-generation', 'mesh-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'Transformers', 'Blender'], output: ['LDR', 'GLB', 'Normal maps'],
+      local_status: 'local', license: 'MIT', released: '2025-12',
+      source_url: 'https://github.com/VAST-AI-Research/LegoACE', install_url: 'https://huggingface.co/VAST-AI/LegoACE',
+      hardware_note: 'The official repository installs a local PyTorch package, loads text and multi-view checkpoints from Hugging Face subfolders, writes LDR instruction files, and converts them to GLB meshes through Blender and ImportLDraw. No memory table is published, so 32 GB RAM and 12 GB NVIDIA VRAM are a conservative floor for local sampling plus conversion.',
+      strengths: ['MIT code and weights', 'Text and multi-view image conditioned generation', 'Concrete LDR and GLB outputs for editable assemblies'],
+      caveats: ['Specialized to a 28-brick LEGO-style vocabulary', 'Generated assemblies may be structurally unstable', 'Tokenizer dictionary files come from the dataset setup, not just the weight repository']
+    },
+    {
       id: 'anigen', name: 'AniGen', category: '3d', developer: 'VAST AI Research',
       summary: 'Image-to-3D system that generates a mesh, skeleton and skinning weights as an animation-ready GLB asset.',
       tasks: ['image-to-3d', 'rigging', 'skinning', 'character-animation', 'mesh-generation'],

@@ -175,6 +175,7 @@ window.HOME_INDEX_LOGOS = {
     'Lightricks': 'lightricks-avatar',
     'Meta AI': 'meta',
     'Meituan LongCat': 'longcat',
+    'Meta AI / Carnegie Mellon University': 'meta',
     'Meta AI / HKUST': 'meta',
     'Mirage AI': 'github',
     'MiniMax': 'minimax',
