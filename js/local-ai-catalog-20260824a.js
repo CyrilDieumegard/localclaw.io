@@ -89,6 +89,30 @@
       caveats: ['No official Diffusers-format 5B export yet', 'Large dependency stack and BF16 CUDA workstation target']
     },
     {
+      id: 'kandinsky-5-lite', name: 'Kandinsky 5.0 Lite', category: 'video', developer: 'Kandinsky Lab',
+      summary: 'MIT-licensed 2B video model family for local text-to-video and image-to-video generation with distilled Diffusers checkpoints.',
+      tasks: ['text-to-video', 'image-to-video', 'animation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 12, runtime: ['PyTorch', 'Diffusers', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'MIT', released: '2025-09',
+      source_url: 'https://github.com/kandinskylab/kandinsky-5',
+      install_url: 'https://huggingface.co/kandinskylab/Kandinsky-5.0-T2V-Lite-distilled16steps-5s',
+      hardware_note: 'The official repository documents offloading, Qwen encoder quantization, selectable attention engines and 12 GB GPU operation for optimized 5-second Lite generation. Treat 32 GB RAM and 12 GB NVIDIA VRAM as the conservative local entry floor; Pro and 10-second variants need substantially more headroom.',
+      strengths: ['2B Lite family with official T2V and I2V checkpoints', 'MIT license and downloadable Hugging Face weights', 'Diffusers examples plus native PyTorch scripts'],
+      caveats: ['Linux/CUDA research setup is the clearest practical path', 'Pro checkpoints were benchmarked on 80 GB H100 hardware', 'Russian and English prompt coverage is emphasized over broad multilingual testing']
+    },
+    {
+      id: 'motif-video-2b', name: 'Motif-Video 2B', category: 'video', developer: 'Motif Technologies',
+      summary: 'Apache-licensed 2B diffusion transformer for text-to-video and image-to-video generation through Diffusers or official ComfyUI nodes.',
+      tasks: ['text-to-video', 'image-to-video', 'animation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['Diffusers', 'ComfyUI', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-04',
+      source_url: 'https://github.com/MotifTechnologies/ComfyUI-MotifVideo2B',
+      install_url: 'https://huggingface.co/Motif-Technologies/Motif-Video-2B',
+      hardware_note: 'The official ComfyUI integration reports about 29 GB peak VRAM on the full 1280x736, 121-frame workflow and the Diffusers docs recommend CPU offload below 30 GB VRAM. Treat an RTX 4090-class 24 GB NVIDIA GPU plus 64 GB RAM as the practical offloaded workstation floor.',
+      strengths: ['Official Apache 2.0 safetensors on Hugging Face', 'Text-to-video and image-to-video Diffusers pipelines', 'ComfyUI workflows with automatic model-download manifests'],
+      caveats: ['High-VRAM mode is much faster than staged ComfyUI loading', 'No polished desktop wrapper yet', 'Default 121-frame workflow is slow on consumer cards']
+    },
+    {
       id: 'nava', name: 'NAVA', category: 'video', developer: 'ERNIE Team / Baidu',
       summary: 'Apache-licensed native audio-video generation model for synchronized clips with scene audio, speech and image-conditioned continuation.',
       tasks: ['text-to-audio-video', 'text-to-video', 'image-to-video', 'speech-video', 'animation'],
