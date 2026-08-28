@@ -21,6 +21,7 @@ window.HOME_INDEX_LOGOS = {
     deepseek: 'deepseek',
     'deepseek-flash': 'deepseek',
     'deepseek-v3': 'deepseek',
+    dfm: 'github',
     dolphin: 'dolphin',
     exaone: 'lg',
     falcon: 'falcon-avatar',
@@ -84,6 +85,7 @@ window.HOME_INDEX_LOGOS = {
     zephyr: 'huggingfaceh4-avatar'
   },
   speech: {
+    audar: 'huggingface-avatar',
     audio8: 'github',
     app: 'github',
     'ark-asr': 'github',

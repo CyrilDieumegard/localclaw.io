@@ -78,6 +78,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 15.4
   },
   {
+    "id": "audar-asr-v1-turbo",
+    "name": "Audar-ASR-V1-Turbo",
+    "developer": "Audar AI Labs",
+    "family": "audar",
+    "license": "AudarAI Community License v1.0",
+    "releaseDate": "2026-08",
+    "quality": 9.4,
+    "speed": 8.6,
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "cpu",
+      "edge"
+    ],
+    "sizeGB": 4.7
+  },
+  {
     "id": "index-tts-2.5",
     "name": "IndexTTS 2.5",
     "developer": "Bilibili",

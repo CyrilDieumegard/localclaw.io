@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 73 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 73 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 74 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 74 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 73 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 74 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">76</strong> speech records: <strong style="color:#fff;">73 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">77</strong> speech records: <strong style="color:#fff;">74 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>73 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>74 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2061,6 +2061,34 @@
                 voices: "Reference-audio voice cloning plus speaker embeddings",
                 context: "MoE TTS, 15.3GB model.pth, Mini-SGLang streaming server, offline Python API, emotion sliders and OpenAI-compatible local endpoint",
                 license: "MIT / Apache-2.0 metadata"
+            },
+            {
+                id: "audar-asr-v1-turbo",
+                name: "Audar-ASR-V1-Turbo",
+                developer: "Audar AI Labs",
+                family: "audar",
+                isAsr: true,
+                description: "Arabic-first multilingual generative ASR model for dialect-aware local transcription. The official release ships full BF16 safetensors plus GGUF and vLLM builds, with benchmark-parity PyTorch/qwen-asr usage, llama.cpp support and real-time streaming notes.",
+                languages: ["ar", "en", "multilingual"],
+                languageCount: 30,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["gpu", "cpu", "edge"],
+                sizeGB: 4.7,
+                sizeLabel: "2.35B params; 4.7 GB BF16 or 1.28 GB Q4 GGUF",
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 8.6,
+                latency: "low",
+                releaseDate: "2026-08",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/audarai/Audar-ASR-V1-Turbo",
+                sourceStatus: "verified-code",
+                installCommand: "pip install qwen-asr torch",
+                supportedFormats: ["pytorch", "safetensors", "gguf", "vllm"],
+                voices: "N/A (ASR: Arabic-first transcription)",
+                context: "2.35B BF16 Qwen3-ASR adaptation, 30 s 16 kHz audio window, Arabic MSA/dialects plus English and 28 more languages; vLLM W4A16 fits 12 GB GPUs",
+                license: "AudarAI Community License v1.0"
             },
             {
                 id: "index-tts-2.5",

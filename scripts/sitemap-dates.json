@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "94f4b95a09cbce80d708251fe9822d06fc9de4c33a7c0037859f359022f10493",
+    "hash": "8620811361f6c912a6a633f44d665c708ca5ffd5a90192a4a771798b197c5e94",
     "lastmod": "2026-08-28"
   },
   "software.html": {
@@ -20,32 +20,32 @@
     "lastmod": "2026-08-27"
   },
   "llm-list.html": {
-    "hash": "01ed429f64c66ac2d302b3af8ec55647fdb26d32c1e051abca31797a5ebb509a",
+    "hash": "4f73a440861e151285055c8866011e5a99c8129302ee9fa73a39d68827c6186e",
     "lastmod": "2026-08-28"
   },
   "tts-list.html": {
-    "hash": "3dbfb25d3f5017351092b440c7dce74c787489941762836d2a39439e77522d39",
-    "lastmod": "2026-08-27"
+    "hash": "f5226a9c8363e673ccd54439ab425d2baf873dff8df721a68845151ca5aaa207",
+    "lastmod": "2026-08-28"
   },
   "image-models.html": {
-    "hash": "77eeb8345625a09626c9ad19916f1b46e99d449e8dbf874646fa5c67f18baa45",
-    "lastmod": "2026-08-27"
+    "hash": "f5f9b9cbc1bc86820df69341b2b24f55287b91d7b2ea497dfd9c005817992f2c",
+    "lastmod": "2026-08-28"
   },
   "video-models.html": {
-    "hash": "ac5806dfc6e78a65fd221a6708e6693f7e15df0cda49263e6c2d454a665bb9a4",
-    "lastmod": "2026-08-27"
+    "hash": "efb99b7e91c5bf73a7c88923a3a2ae2924635d49a4241cade5eed2a481a92c2f",
+    "lastmod": "2026-08-28"
   },
   "3d-models.html": {
-    "hash": "50b4498ffed4a56f832589ec671b07171ba1c58756cbf30a1aaae684881124e9",
-    "lastmod": "2026-08-27"
+    "hash": "4b0baddb71a259461c94cd4a037dd92528c391167f852faec82c8b6a586b0c3d",
+    "lastmod": "2026-08-28"
   },
   "music-models.html": {
-    "hash": "83af53c58d1ad326c04aa55a5144c0fe5fa1eda9ab2d8921fe6b217dbec2ad82",
-    "lastmod": "2026-08-27"
+    "hash": "2d172240f4cc4e394302996e57e403169ed695f65b7aaf7ebc35afa82e23abc5",
+    "lastmod": "2026-08-28"
   },
   "vision-models.html": {
-    "hash": "3f386fa51d208ddfc992ceff5cfc3c859c7e330183a4db65757679d585cde401",
-    "lastmod": "2026-08-27"
+    "hash": "8141b4def226b86bf66b198a0e48d261e354157918c8fd8cf8942f99f0013355",
+    "lastmod": "2026-08-28"
   },
   "computers.html": {
     "hash": "2939a67c8ee9576852a20952b9185694cb84b3433ab5dd2e1af1075319b4a0ee",
@@ -60,7 +60,7 @@
     "lastmod": "2026-08-27"
   },
   "new.html": {
-    "hash": "05772968242b09b75b0046b406390fa774cd13e8c9619185efe7aa143eec70c9",
+    "hash": "ed82b132b5fff73af3b4be0bd2e55927aeb61b7d7b5ceff194ae82363c00b57d",
     "lastmod": "2026-08-28"
   },
   "software/lm-studio.html": {
@@ -1032,8 +1032,12 @@
     "lastmod": "2026-08-28"
   },
   "tts/ark-asr-3b.html": {
-    "hash": "4ea5df184e3991bf636daa10e5f1122342d3f5b8b6bb9033260203ce03a2bc63",
-    "lastmod": "2026-08-27"
+    "hash": "cd9fc832d15049a2a9ebd066736ba55c8bae58500fb2c3d3610f9c4973dc7b5e",
+    "lastmod": "2026-08-28"
+  },
+  "tts/audar-asr-v1-turbo.html": {
+    "hash": "6fc84fdf07daba24e90b938e39d1ff96f62c1ca3f11042db0f2abedc75a5e5be",
+    "lastmod": "2026-08-28"
   },
   "tts/audio8-tts-preview-0.6b.html": {
     "hash": "cf0cc823fca5e4fbc8733b42f03dfe073c5b3a9a8d18f2f655589317e13146d6",
@@ -1052,8 +1056,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/canary-1b-v2.html": {
-    "hash": "5e2f09e815976e4df2b134aa7f03b3921d5fcc8ea2c845b5e6a22603a860795d",
-    "lastmod": "2026-08-27"
+    "hash": "7e630be108309d7e2a1cd91280da7a204ba023f0c1d9fc6bf48474cf11f40752",
+    "lastmod": "2026-08-28"
   },
   "tts/chatterbox.html": {
     "hash": "5adb58b041e5705318e1a25780867e6e5b2e5bb2f815f57974f84160e50ce7f3",
@@ -1064,8 +1068,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/cohere-transcribe-03-2026.html": {
-    "hash": "d351d2c7a2b031163b53892c95b53c0f03a505e16287d4976c7f6865917ae385",
-    "lastmod": "2026-08-27"
+    "hash": "f357f45d1093b43452c0fbf47b321bef159604c14547c8851ab69f309e284c9e",
+    "lastmod": "2026-08-28"
   },
   "tts/confucius4-tts.html": {
     "hash": "614e389bdd08ffe3a9e6213349f1785bed34e8c02eb4efdff03be709702afef8",
@@ -1120,8 +1124,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/granite-speech-4.1-2b.html": {
-    "hash": "1d6ab2d84259318363efc60f4fe2eec7ea058e762469cb931a44a99d0260697a",
-    "lastmod": "2026-08-27"
+    "hash": "dfc994a13d80e1dcc161bddd1f1971503c1534c5927d55de924f238ac89a2fa6",
+    "lastmod": "2026-08-28"
   },
   "tts/higgs-audio-v2.html": {
     "hash": "142d47c6cdd5df859003beb4c1144ddfb87958aed2c3f4a791b9f1e72b0ab589",
@@ -1144,8 +1148,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/index.html": {
-    "hash": "2cdfc934adcb02208a7bad28f30e25fd8fdd12cfab34d64af0f102b09b627848",
-    "lastmod": "2026-08-27"
+    "hash": "06b128f28533223ada483c5b96aa333e498422a67d70066c25d53d85ac4cfb7a",
+    "lastmod": "2026-08-28"
   },
   "tts/indic-tts.html": {
     "hash": "a2921d444bbbfb397977f30cb7765b59e3c6fb890b5d081bef1e6d11dd1eac00",
@@ -1160,8 +1164,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/kyutai-stt-2.6b.html": {
-    "hash": "3efc4160da7f61470d1a2f1080288dc4457399dfd64beef85862e4081d9740fb",
-    "lastmod": "2026-08-27"
+    "hash": "e3a7a32e2812c4264852685e994270b5100f9d4bffb9b8dc4fe6ce191be56653",
+    "lastmod": "2026-08-28"
   },
   "tts/llasa-3b.html": {
     "hash": "926db40f36e12c3eab3b7b1980179e9ea4f41b70fb3c697aecfefd106357c648",
@@ -1212,8 +1216,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/nemotron-3.5-asr-streaming-0.6b.html": {
-    "hash": "e3608b9a75bec3b62ebdddf5cd7804475d0df70ce65db5ce43cb5f0f9fd11313",
-    "lastmod": "2026-08-27"
+    "hash": "031457d6de4d904af14c305fac120c2402c99f25c9b9c5af146611daccb6be90",
+    "lastmod": "2026-08-28"
   },
   "tts/neutts-air.html": {
     "hash": "8086dd5b1b1e3d5070efb61dcb97919931a9f72af0731d6d49669a45cd02f5d0",
@@ -1236,12 +1240,12 @@
     "lastmod": "2026-08-27"
   },
   "tts/parakeet-tdt-0.6b-v2.html": {
-    "hash": "e9727d6fe5d07792b6e2578a7b852bc9e28930485f8e6b6f6b5999cee1f880ea",
-    "lastmod": "2026-08-27"
+    "hash": "ef2a6ef8d9f5b8fa1bf92469b08d0ebe45bfb1377a1c8b66178810d3a7223323",
+    "lastmod": "2026-08-28"
   },
   "tts/parakeet-tdt-0.6b-v3.html": {
-    "hash": "9a3c2d2fe53b747101505af11e9e314ca708e367fe8e502a65d48ddaca4d8b26",
-    "lastmod": "2026-08-27"
+    "hash": "2c4bc1ef64ab698ae1253568adced025823600af946d612a1d9db20bb6a7c5fd",
+    "lastmod": "2026-08-28"
   },
   "tts/parler-tts.html": {
     "hash": "65ce2fc2e33c7b762a921fde3272da160080fcc8ebd693d2994eefc92cc4352f",
@@ -1252,8 +1256,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/qwen3-asr.html": {
-    "hash": "0e34c8208087be3ec20feb7947e2ac11b68ae1a03828d218eed91cb0d2595476",
-    "lastmod": "2026-08-27"
+    "hash": "f4128dc03d5a109c746fe853db2a3c87d3374d82b8096871c0ae93c292254606",
+    "lastmod": "2026-08-28"
   },
   "tts/qwen3-tts.html": {
     "hash": "97581482b25f1f30a07a3f07ef9cb47d09722611f6c0e628f2462722f3302e75",
@@ -1316,16 +1320,16 @@
     "lastmod": "2026-08-27"
   },
   "tts/voxtral-mini-4b-realtime-2602.html": {
-    "hash": "28a7743ad5d29e79b354f78841c42e416b8ec6474f242d0ee8c263dcf5611f81",
-    "lastmod": "2026-08-27"
+    "hash": "e6edc050f8edaab105f57c1b7eef7388874a1bb35748165654bc81b6cf8ed3e5",
+    "lastmod": "2026-08-28"
   },
   "tts/wavtts.html": {
     "hash": "66cfb2145352abf975050e49f9c1d9ac6dd11d6b1be88a284acb91129cb5b282",
     "lastmod": "2026-08-27"
   },
   "tts/whisper-v3-turbo.html": {
-    "hash": "48128a2862fe554c1330ebc32d8439dd6e761a3ac8cf59cd617fed863bd18070",
-    "lastmod": "2026-08-27"
+    "hash": "c5026404dc10000c1dc736832b11328f2057bb5712b19e4b1353165c0d1f9426",
+    "lastmod": "2026-08-28"
   },
   "tts/zonos.html": {
     "hash": "05cced630f28ece0f39a4e28e3260d46838651241ec2c1107a4357b07c90aca0",
@@ -1984,7 +1988,7 @@
     "lastmod": "2026-08-28"
   },
   "guides/best-local-tts-for-voice-cloning.html": {
-    "hash": "ebc8ffa64530b4b1fbc3a9fa60bdcc783e9c40cf42ecae2607b85d0d566ee2c2",
+    "hash": "6aceb583fa1c48769e99390e8b2ab0976020fc8ceef955fb39b15f5890e670a8",
     "lastmod": "2026-08-28"
   },
   "guides/index.html": {
