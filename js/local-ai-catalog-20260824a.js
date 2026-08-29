@@ -25,6 +25,32 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'lingbot-video-dense-1.3b', name: 'LingBot-Video Dense 1.3B', category: 'video', developer: 'Robbyant / Ant Group',
+      summary: 'Apache-licensed dense LingBot video checkpoint for local text-to-video and text-image-to-video generation.',
+      tasks: ['text-to-video', 'image-to-video', 'text-image-to-video', 'world-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'Diffusers', 'DiffSynth-Studio'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-07',
+      source_url: 'https://github.com/Robbyant/lingbot-video',
+      install_url: 'https://huggingface.co/robbyant/lingbot-video-dense-1.3b',
+      hardware_note: 'The official repository provides single-GPU Diffusers scripts for Dense T2V and TI2V. DiffSynth-Studio adds VRAM-managed inference and reports a 6 GB minimum path, but LocalClaw records 12 GB NVIDIA VRAM and 32 GB RAM as the conservative floor for 480p, 81-frame local generation with the Qwen text encoder.',
+      strengths: ['Official Dense 1.3B weights and inference code', 'Text-to-video and text-image-to-video modes', 'Low-VRAM third-party DiffSynth path'],
+      caveats: ['Linux/CUDA research setup', 'MoE/refiner workflows need substantially more memory', 'Prompt rewriting depends on a separate Qwen VLM component']
+    },
+    {
+      id: 'causal-forcing-plus-framewise', name: 'Causal Forcing++ Framewise', category: 'video', developer: 'THU-ML / Tsinghua University',
+      summary: 'Apache-licensed few-step autoregressive video diffusion checkpoint for low-latency local text-to-video and image-to-video.',
+      tasks: ['text-to-video', 'image-to-video', 'animation', 'streaming-video'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-05',
+      source_url: 'https://github.com/thu-ml/Causal-Forcing',
+      install_url: 'https://huggingface.co/zhuhz22/Causal-Forcing',
+      hardware_note: 'The official project publishes Hugging Face checkpoints, PyTorch CLI inference and framewise T2V/I2V configs built on Wan 2.1. The authors report real-time streaming generation on a single RTX 4090, and ComfyUI publishes a 5.68 GB Apache-licensed repackaged framewise workflow; LocalClaw uses 12 GB NVIDIA VRAM and 32 GB RAM as a conservative local floor for 480p/5-second tests.',
+      strengths: ['Official THU-ML code and checkpoints', 'Few-step framewise T2V and I2V', 'ComfyUI repackaged workflow available'],
+      caveats: ['Short native clips are capped around 81 frames without long-video extensions', 'Requires Wan 2.1 components and CUDA dependencies', 'Research checkpoint rather than a polished editor']
+    },
+    {
       id: 'bernini-r-1.3b', name: 'Bernini-R 1.3B', category: 'video', developer: 'ByteDance',
       summary: 'Compact Apache-licensed Bernini renderer checkpoint for local video editing, style transfer and reference-guided edits.',
       tasks: ['video-to-video', 'video-editing', 'reference-guided-editing', 'text-to-video'],
