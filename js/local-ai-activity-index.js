@@ -3,8 +3,10 @@ import * as THREE from './vendor/three.module.min.js';
 const DATA_URL = '/data/local-ai-activity-index.json?v=20260829g';
 const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
-const ADMIN1_URL = '/data/ne_10m_admin_1_china_russia.geojson?v=20260829g';
+const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
+const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?v=20260829h';
 const PUBLISH_THRESHOLD = 5;
+const ADMIN1_CACHE_LIMIT = 4;
 const GLOBE_RADIUS = 3.65;
 const MOBILE_BREAKPOINT = 760;
 const DESKTOP_TEXTURE_WIDTH = 4096;
@@ -50,30 +52,20 @@ const aliases = new Map([
   ['Réunion', ['Reunion', 'Réunion']]
 ]);
 
-const countryDetailConfigs = new Map([
+const countryDetailOverrides = new Map([
   ['China', {
-    countryName: 'China',
-    alpha2: 'CN',
-    adm0A3: 'CHN',
     viewLabel: 'Province-level view',
     liveLabel: 'Province-level exploration',
     regionLabel: 'province-level region',
     regionsLabel: 'province-level regions',
-    title: 'See local AI interest <em>across China’s province-level regions.</em>',
-    desktopZoom: 7.25,
-    mobileZoom: 9.2
+    titleEmphasis: 'across China’s province-level regions.'
   }],
   ['Russia', {
-    countryName: 'Russia',
-    alpha2: 'RU',
-    adm0A3: 'RUS',
     viewLabel: 'Federal-subject view',
     liveLabel: 'Federal-subject exploration',
     regionLabel: 'federal subject',
     regionsLabel: 'federal subjects',
-    title: 'See local AI interest <em>across Russia’s federal subjects.</em>',
-    desktopZoom: 8.05,
-    mobileZoom: 10.2
+    titleEmphasis: 'across Russia’s federal subjects.'
   }]
 ]);
 
@@ -160,13 +152,21 @@ const state = {
   data: null,
   world: null,
   usBoundaries: null,
+  admin1Manifest: null,
+  admin1Activity: null,
   admin1Boundaries: null,
+  admin1ActivityByA3: new Map(),
+  admin1Cache: new Map(),
+  admin1LoadToken: 0,
+  admin1Loading: false,
   usData: null,
   countries: [],
+  worldCountries: [],
   usRegions: [],
   countryByName: new Map(),
   usRegionByName: new Map(),
   countryFeatures: new Map(),
+  countryByFeature: new Map(),
   stateFeatures: new Map(),
   centers: new Map(),
   usCenters: new Map(),
@@ -198,18 +198,22 @@ const state = {
   selectedStateLine: null,
   detailCountry: null,
   detailConfig: null,
+  detailManifest: null,
+  detailActivity: null,
+  detailDataStatus: 'not_collected',
   detailFeatures: [],
   detailRegions: [],
   detailRankedRegions: [],
   detailTotals: {
-    signals: 0,
-    regions: 0,
-    observedSignals: 0,
-    observedRegions: 0,
-    countrySignals: 0,
+    signals: null,
+    regions: null,
+    observedSignals: null,
+    observedRegions: null,
+    countrySignals: null,
     publishThreshold: PUBLISH_THRESHOLD,
     clusters: 0,
-    unassignedClusters: 0
+    unassignedClusters: 0,
+    unresolvedRows: 0
   },
   detailGroup: null,
   detailHeatTexture: null,
@@ -372,6 +376,30 @@ function featureNames(feature) {
     .map(value => String(value));
 }
 
+function admin0A3ForFeature(feature) {
+  const properties = feature?.properties || {};
+  return [properties.ADM0_A3, properties.ISO_A3_EH, properties.ISO_A3, properties.WB_A3]
+    .map(value => String(value || '').trim().toUpperCase())
+    .find(value => value && value !== '-99') || '';
+}
+
+function alpha2ForFeature(feature) {
+  const properties = feature?.properties || {};
+  return [properties.ISO_A2_EH, properties.ISO_A2, properties.WB_A2]
+    .map(value => String(value || '').trim().toUpperCase())
+    .find(value => value && value !== '-99') || '';
+}
+
+function manifestEntryForCountry(country) {
+  const adm0A3 = country?.adm0A3 || admin0A3ForFeature(country?.feature || featureForCountry(country?.name));
+  return state.admin1Manifest?.countries?.[adm0A3] || null;
+}
+
+function activityRecordForCountry(country) {
+  const adm0A3 = country?.adm0A3 || admin0A3ForFeature(country?.feature || featureForCountry(country?.name));
+  return state.admin1ActivityByA3.get(adm0A3) || null;
+}
+
 function featureForCountry(countryName) {
   if (state.countryFeatures.has(countryName)) return state.countryFeatures.get(countryName);
   const expected = aliases.get(countryName) || [countryName];
@@ -379,6 +407,35 @@ function featureForCountry(countryName) {
     const names = featureNames(feature);
     return expected.some(name => names.includes(name));
   }) || null;
+}
+
+function buildWorldCountryEntities() {
+  const publishedByFeature = new Map(state.countries
+    .map(country => [featureForCountry(country.name), country])
+    .filter(([feature]) => Boolean(feature)));
+  const countries = [];
+  state.countryByFeature = new Map();
+  for (const feature of state.world?.features || []) {
+    const adm0A3 = admin0A3ForFeature(feature);
+    const manifest = state.admin1Manifest?.countries?.[adm0A3];
+    if (!manifest) continue;
+    const published = publishedByFeature.get(feature) || null;
+    const names = featureNames(feature);
+    const entity = published || {
+      rank: null,
+      name: manifest.name || names[0] || adm0A3,
+      signals: null
+    };
+    entity.kind = 'country';
+    entity.feature = feature;
+    entity.adm0A3 = adm0A3;
+    entity.countryCode = alpha2ForFeature(feature);
+    entity.manifest = manifest;
+    entity.published = Boolean(published);
+    countries.push(entity);
+    state.countryByFeature.set(feature, entity);
+  }
+  state.worldCountries = countries;
 }
 
 function featureForCountryCode(countryCode) {
@@ -512,7 +569,7 @@ function featureCenter(feature) {
 
 function centerForCountry(country) {
   const hubs = countryHubs[country.name];
-  const feature = featureForCountry(country.name);
+  const feature = country.feature || featureForCountry(country.name);
   const interior = featureCenter(feature);
   if (interior) return interior;
   return hubs?.[0] || null;
@@ -541,6 +598,168 @@ function regionForCode(regionCode) {
   return state.usRegions.find(region => String(region.code || '').toUpperCase() === expected) || null;
 }
 
+function featureBounds(feature) {
+  const bounds = {
+    minLon: Infinity,
+    minLat: Infinity,
+    maxLon: -Infinity,
+    maxLat: -Infinity,
+    unboundedLongitude: false
+  };
+  const visit = value => {
+    if (!Array.isArray(value)) return;
+    if (value.length >= 2 && Number.isFinite(value[0]) && Number.isFinite(value[1])) {
+      bounds.minLon = Math.min(bounds.minLon, value[0]);
+      bounds.minLat = Math.min(bounds.minLat, value[1]);
+      bounds.maxLon = Math.max(bounds.maxLon, value[0]);
+      bounds.maxLat = Math.max(bounds.maxLat, value[1]);
+      return;
+    }
+    value.forEach(visit);
+  };
+  visit(feature?.geometry?.coordinates);
+  if (!Number.isFinite(bounds.minLon)) return null;
+  bounds.unboundedLongitude = bounds.maxLon - bounds.minLon > 180;
+  return bounds;
+}
+
+function pointInBounds(lat, lon, bounds) {
+  if (!bounds || lat < bounds.minLat || lat > bounds.maxLat) return false;
+  return bounds.unboundedLongitude || (lon >= bounds.minLon && lon <= bounds.maxLon);
+}
+
+function admin1ZoomForBbox(bbox, mobile = isMobileViewport()) {
+  if (!Array.isArray(bbox) || bbox.length !== 4 || !bbox.every(Number.isFinite)) {
+    return mobile ? 9 : 7;
+  }
+  const [minLon, minLat, maxLon, maxLat] = bbox;
+  const middleLatitude = THREE.MathUtils.degToRad((minLat + maxLat) / 2);
+  const longitudeSpan = THREE.MathUtils.degToRad(
+    Math.min(180, Math.max(0.05, maxLon - minLon)) * Math.max(0.2, Math.cos(middleLatitude))
+  );
+  const latitudeSpan = THREE.MathUtils.degToRad(Math.min(170, Math.max(0.05, maxLat - minLat)));
+  const width = Math.max(1, stage.clientWidth || window.innerWidth);
+  const height = Math.max(1, stage.clientHeight || window.innerHeight);
+  const aspect = width / height;
+  const verticalFov = THREE.MathUtils.degToRad(mobile ? 42 : 34);
+  const verticalTangent = Math.tan(verticalFov / 2);
+  const horizontalTangent = verticalTangent * aspect;
+  const targetFill = mobile ? 0.74 : 0.68;
+  const distanceForSpan = (span, tangent) => {
+    const halfSpan = THREE.MathUtils.clamp(span / 2, 0.0005, Math.PI * 0.47);
+    return GLOBE_RADIUS * Math.cos(halfSpan)
+      + (GLOBE_RADIUS * Math.sin(halfSpan)) / Math.max(0.04, tangent * targetFill);
+  };
+  const fittedDistance = Math.max(
+    distanceForSpan(latitudeSpan, verticalTangent),
+    distanceForSpan(longitudeSpan, horizontalTangent)
+  );
+  // Keep the camera safely outside the globe while allowing small countries to
+  // become the subject of the regional view instead of remaining map-sized dots.
+  return THREE.MathUtils.clamp(fittedDistance, GLOBE_RADIUS + 0.28, mobile ? 11.2 : 10.8);
+}
+
+function detailConfigForCountry(country) {
+  const manifest = manifestEntryForCountry(country);
+  if (!manifest) return null;
+  const activity = activityRecordForCountry(country);
+  const override = countryDetailOverrides.get(country.name) || {};
+  const dominantType = manifest.types?.[0]?.type;
+  const genericLabel = dominantType && manifest.types.length === 1
+    ? String(dominantType).toLowerCase()
+    : 'administrative region';
+  const regionLabel = override.regionLabel || genericLabel;
+  const regionsLabel = override.regionsLabel || pluralizeRegionLabel(regionLabel);
+  return {
+    countryName: country.name,
+    alpha2: activity?.countryCode || country.countryCode || alpha2ForFeature(country.feature),
+    adm0A3: country.adm0A3,
+    viewLabel: override.viewLabel || 'Administrative view',
+    liveLabel: override.liveLabel || 'Regional exploration',
+    regionLabel,
+    regionsLabel,
+    titleEmphasis: override.titleEmphasis || `across ${country.name}’s administrative regions.`,
+    desktopZoom: admin1ZoomForBbox(manifest.bbox, false),
+    mobileZoom: admin1ZoomForBbox(manifest.bbox, true),
+    manifest,
+    activity
+  };
+}
+
+function pluralizeRegionLabel(label) {
+  if (label.endsWith('s')) return label;
+  if (/[^aeiou]y$/i.test(label)) return `${label.slice(0, -1)}ies`;
+  if (/(?:ch|sh|x|z)$/i.test(label)) return `${label}es`;
+  return `${label}s`;
+}
+
+function admin1DataStatus(activity) {
+  const status = String(activity?.publicationStatus || '').trim();
+  if (['unavailable', 'none_above_threshold', 'boundary_unresolved'].includes(status)) return status;
+  if (status === 'published') return 'published';
+  return 'not_collected';
+}
+
+function admin1StatusMessage(status = state.detailDataStatus) {
+  const threshold = state.detailTotals.publishThreshold || PUBLISH_THRESHOLD;
+  if (status === 'unavailable') {
+    return 'The provider regional breakdown was unavailable for this snapshot. Administrative boundaries are shown without regional totals.';
+  }
+  if (status === 'none_above_threshold') {
+    return `A regional breakdown was collected, but no row reaches the ${threshold}-signal publication threshold.`;
+  }
+  if (status === 'boundary_unresolved') {
+    return 'A regional breakdown was collected, but it could not be mapped safely to these boundaries. No regional total is shown.';
+  }
+  if (status === 'not_collected') {
+    return 'No country-filtered regional snapshot was collected. Administrative boundaries are shown without regional totals.';
+  }
+  return `Published regional totals independently meet the ${threshold}-signal privacy threshold.`;
+}
+
+function admin1EntityStatusMessage(entity) {
+  if (state.detailDataStatus === 'published' && !entity?.published) {
+    return 'No regional total is published for this administrative boundary.';
+  }
+  return admin1StatusMessage();
+}
+
+function setAdmin1Busy(busy, country = null) {
+  state.admin1Loading = Boolean(busy);
+  if (busy) {
+    stage.setAttribute('aria-busy', 'true');
+    stage.dataset.admin1Loading = country?.adm0A3 || '';
+    regionPanel?.setAttribute('aria-busy', 'true');
+  } else {
+    stage.removeAttribute('aria-busy');
+    delete stage.dataset.admin1Loading;
+    regionPanel?.removeAttribute('aria-busy');
+  }
+}
+
+async function loadAdmin1Shard(manifest) {
+  const key = manifest?.code;
+  if (!key || !manifest.path) throw new Error('Administrative boundary manifest entry is incomplete.');
+  if (state.admin1Cache.has(key)) {
+    const cached = state.admin1Cache.get(key);
+    state.admin1Cache.delete(key);
+    state.admin1Cache.set(key, cached);
+    return cached;
+  }
+  const separator = manifest.path.includes('?') ? '&' : '?';
+  const response = await fetch(`${manifest.path}${separator}v=${String(manifest.sha256 || state.admin1Manifest?.generatedAt || '').slice(0, 16)}`);
+  if (!response.ok) throw new Error(`Administrative boundaries could not be loaded (${response.status}).`);
+  const shard = await response.json();
+  if (shard?.type !== 'FeatureCollection' || !Array.isArray(shard.features) || shard.adm0A3 !== key) {
+    throw new Error('Administrative boundary shard is invalid.');
+  }
+  state.admin1Cache.set(key, shard);
+  while (state.admin1Cache.size > ADMIN1_CACHE_LIMIT) {
+    state.admin1Cache.delete(state.admin1Cache.keys().next().value);
+  }
+  return shard;
+}
+
 function isAdmin1Scope() {
   return state.scope === 'admin1' && Boolean(state.detailCountry && state.detailConfig);
 }
@@ -548,12 +767,7 @@ function isAdmin1Scope() {
 function admin1CountryMatches(feature, config) {
   const properties = feature?.properties || {};
   const adm0A3 = String(properties.adm0_a3 ?? properties.ADM0_A3 ?? properties.sov_a3 ?? properties.SOV_A3 ?? '').toUpperCase();
-  const iso31662 = String(properties.iso_3166_2 ?? properties.ISO_3166_2 ?? '').toUpperCase();
-  const admin = String(properties.admin ?? properties.ADMIN ?? properties.geonunit ?? properties.GEONUNIT ?? '').toLowerCase();
-  const expectedNames = config.adm0A3 === 'CHN' ? ['china', "people's republic of china"] : ['russia', 'russian federation'];
-  const countryMatches = adm0A3 === config.adm0A3 || expectedNames.includes(admin);
-  if (config.adm0A3 === 'RUS') return countryMatches && iso31662.startsWith('RU-');
-  return countryMatches;
+  return adm0A3 === config.adm0A3;
 }
 
 function admin1FeatureName(feature, index = 0) {
@@ -602,6 +816,18 @@ function admin1FeatureCodes(feature) {
   ].filter(Boolean).map(value => String(value).trim().toUpperCase());
 }
 
+function combinedAdmin1Feature(features, name) {
+  if (features.length === 1) return features[0];
+  return {
+    type: 'Feature',
+    properties: { name, name_en: name, composite: true },
+    geometry: {
+      type: 'MultiPolygon',
+      coordinates: features.flatMap(feature => polygonsForGeometry(feature.geometry))
+    }
+  };
+}
+
 function buildAdmin1Aggregation(country, config) {
   const sourceFeatures = Array.isArray(state.admin1Boundaries?.features) ? state.admin1Boundaries.features : [];
   const features = sourceFeatures.filter(feature => admin1CountryMatches(feature, config));
@@ -612,90 +838,111 @@ function buildAdmin1Aggregation(country, config) {
     country: country.name,
     countryCode: config.alpha2,
     feature,
+    bounds: featureBounds(feature),
     center: featureCenter(feature),
-    signals: 0,
+    signals: null,
     clusters: [],
     rank: null,
+    published: false,
+    activityEntity: null,
     qualityFlag: false,
     qualityFlags: [],
     qualityNote: '',
     codes: admin1FeatureCodes(feature)
   }));
-  const subnational = state.data.subnational?.[config.countryName] || null;
-  const sourceRegions = Array.isArray(subnational?.regions) ? subnational.regions : [];
-  const publishThreshold = Number(subnational?.publishThreshold) || PUBLISH_THRESHOLD;
-  for (const sourceRegion of sourceRegions) {
-    const sourceCode = String(sourceRegion.code || '').trim().toUpperCase();
-    const sourceName = normalizeAdmin1Key(sourceRegion.name);
-    let region = sourceCode
-      ? regions.find(candidate => candidate.codes.includes(sourceCode))
-      : null;
-    if (!region && sourceName) {
-      const nameMatches = regions.filter(candidate => normalizeAdmin1Key(candidate.name) === sourceName);
-      if (nameMatches.length === 1) region = nameMatches[0];
-    }
-    if (!region) {
-      region = {
-        kind: 'admin1',
-        name: String(sourceRegion.name || sourceRegion.code || 'Published region'),
-        type: '',
-        country: country.name,
-        countryCode: config.alpha2,
-        feature: null,
-        center: null,
-        signals: 0,
-        clusters: [],
-        rank: null,
-        qualityFlag: false,
-        qualityFlags: [],
-        qualityNote: '',
-        codes: sourceCode ? [sourceCode] : []
-      };
-      regions.push(region);
-    }
-    region.signals = Number(sourceRegion.signals) || 0;
-    region.qualityFlag = Boolean(sourceRegion.qualityFlag);
-    region.qualityFlags = Array.isArray(sourceRegion.qualityFlags) ? sourceRegion.qualityFlags : [];
-    region.qualityNote = String(sourceRegion.qualityNote || '');
-    region.code = sourceRegion.code || region.codes[0] || '';
+  const activity = config.activity || null;
+  const sourceRegions = Array.isArray(activity?.regions) ? activity.regions : [];
+  const publishThreshold = Number(state.admin1Activity?.publishThreshold) || PUBLISH_THRESHOLD;
+  const regionByFeature = new Map(regions.map(region => [region.feature, region]));
+  const featureById = new Map();
+  for (const feature of features) {
+    for (const code of admin1FeatureCodes(feature)) featureById.set(code, feature);
   }
+  const ranked = [];
+  let unresolvedRows = 0;
+  for (const sourceRegion of sourceRegions) {
+    const boundaryIds = [...new Set((sourceRegion.boundaryFeatureIds || [])
+      .map(value => String(value || '').trim().toUpperCase())
+      .filter(Boolean))];
+    const mappedFeatures = [...new Set(boundaryIds.map(id => featureById.get(id)).filter(Boolean))];
+    if (!mappedFeatures.length || mappedFeatures.length !== boundaryIds.length) {
+      unresolvedRows += 1;
+      continue;
+    }
+    const signals = Number(sourceRegion.signals);
+    if (!Number.isFinite(signals) || signals < publishThreshold) continue;
+    const name = String(sourceRegion.canonicalName || sourceRegion.sourceName || 'Published region').trim();
+    const feature = combinedAdmin1Feature(mappedFeatures, name);
+    const entity = {
+      kind: 'admin1',
+      name,
+      sourceName: String(sourceRegion.sourceName || ''),
+      type: mappedFeatures.length > 1 ? config.regionLabel : admin1FeatureType(mappedFeatures[0]),
+      country: country.name,
+      countryCode: config.alpha2,
+      feature,
+      features: mappedFeatures,
+      bounds: featureBounds(feature),
+      center: featureCenter(feature),
+      signals,
+      clusters: [],
+      rank: Number(sourceRegion.rank) || null,
+      published: true,
+      boundaryMatch: String(sourceRegion.boundaryMatch || ''),
+      boundaryFeatureIds: boundaryIds,
+      qualityFlag: Boolean(sourceRegion.qualityFlag),
+      qualityFlags: Array.isArray(sourceRegion.qualityFlags) ? sourceRegion.qualityFlags : [],
+      qualityNote: String(sourceRegion.qualityNote || '')
+    };
+    ranked.push(entity);
+    for (const mappedFeature of mappedFeatures) {
+      const baseRegion = regionByFeature.get(mappedFeature);
+      if (baseRegion) baseRegion.activityEntity = entity;
+    }
+  }
+  ranked.sort((a, b) => (a.rank || Infinity) - (b.rank || Infinity) || b.signals - a.signals || a.name.localeCompare(b.name));
+  ranked.forEach((region, index) => { region.rank = index + 1; });
+
+  let dataStatus = admin1DataStatus(activity);
+  if (unresolvedRows > 0 && ranked.length === 0) dataStatus = 'boundary_unresolved';
   const assignments = new Map();
   let unassignedClusters = 0;
   const clusters = state.cityClusters.filter(cluster => cluster.countryCode === config.alpha2);
   for (const cluster of clusters) {
-    const region = regions.find(candidate => candidate.feature && pointInFeature(cluster.lat, cluster.lon, candidate.feature));
-    if (!region) {
+    const baseRegion = regions.find(candidate => pointInBounds(cluster.lat, cluster.lon, candidate.bounds)
+      && pointInFeature(cluster.lat, cluster.lon, candidate.feature));
+    if (!baseRegion) {
       unassignedClusters += 1;
       continue;
     }
-    region.clusters.push(cluster);
-    assignments.set(cluster, region);
+    const assignedRegion = baseRegion.activityEntity || baseRegion;
+    assignedRegion.clusters.push(cluster);
+    assignments.set(cluster, assignedRegion);
   }
-  const ranked = regions
-    .filter(region => region.signals >= publishThreshold)
-    .sort((a, b) => b.signals - a.signals || a.name.localeCompare(b.name));
-  ranked.forEach((region, index) => { region.rank = index + 1; });
   state.detailFeatures = features;
   state.detailRegions = regions;
   state.detailRankedRegions = ranked;
   state.admin1AssignmentByCluster = assignments;
-  const publishedSignals = Number(subnational?.totals?.publishedSignals);
-  const publishedRegions = Number(subnational?.totals?.publishedRegions);
+  state.detailDataStatus = dataStatus;
+  const published = dataStatus === 'published';
   state.detailTotals = {
-    signals: Number.isFinite(publishedSignals) ? publishedSignals : ranked.reduce((total, region) => total + region.signals, 0),
-    regions: Number.isFinite(publishedRegions) ? publishedRegions : ranked.length,
-    observedSignals: Number(subnational?.totals?.geolocatedSignals ?? subnational?.totals?.observedSignals) || 0,
-    observedRegions: Number(subnational?.totals?.observedRegions ?? subnational?.totals?.regions) || 0,
-    countrySignals: Number(subnational?.totals?.countrySignals) || Number(country.signals) || 0,
+    signals: published && Number.isFinite(Number(activity?.publishedSignals)) ? Number(activity.publishedSignals) : null,
+    regions: published && Number.isFinite(Number(activity?.publishedRegions)) ? Number(activity.publishedRegions) : null,
+    observedSignals: null,
+    observedRegions: null,
+    countrySignals: Number.isFinite(Number(activity?.countrySignals)) ? Number(activity.countrySignals) : null,
     publishThreshold,
     clusters: assignments.size,
-    unassignedClusters
+    unassignedClusters,
+    unresolvedRows
   };
-  return Boolean(features.length && subnational);
+  return features.length > 0;
 }
 
 function admin1RegionAt(lat, lon) {
-  return state.detailRankedRegions.find(region => region.feature && pointInFeature(lat, lon, region.feature)) || null;
+  const region = state.detailRegions.find(candidate => pointInBounds(lat, lon, candidate.bounds)
+    && pointInFeature(lat, lon, candidate.feature));
+  return region?.activityEntity || region || null;
 }
 
 function featureForEntity(entity) {
@@ -713,7 +960,7 @@ function featureForEntity(entity) {
   }
   if (entity.kind === 'admin1') return entity.feature;
   if (state.scope === 'us') return featureForState(entity.name);
-  return featureForCountry(entity.name);
+  return entity.feature || featureForCountry(entity.name);
 }
 
 function geometryRings(geometry) {
@@ -1138,7 +1385,22 @@ function createBeaconAccent(entity, center, parent, scope, color = 0xff4a32) {
   state.clusterHitMeshes.push(hit);
   clusterGroup.add(hit);
 
-  return { cluster: entity, group: clusterGroup, halo, ring, spire, hit, position: surface.clone() };
+  return {
+    cluster: entity,
+    group: clusterGroup,
+    halo,
+    ring,
+    spire,
+    hit,
+    position: surface.clone(),
+    intensity,
+    ringRadius,
+    haloScale,
+    spireHeight,
+    spireBaseRadius: GLOBE_RADIUS + 0.045,
+    spireNormal: surface.clone().normalize(),
+    hitRadius: 0.065 + Math.sqrt(intensity) * 0.035
+  };
 }
 
 function createAggregateHeatLayer(scope, parent) {
@@ -1233,6 +1495,77 @@ function updateClusterVisibility() {
     const visible = clusterVisibleInScope(entry.cluster);
     entry.group.visible = visible;
     if (entry.label && visible === false) entry.label.hidden = true;
+  }
+}
+
+function updateBeaconVisualScale(seconds) {
+  const reducedMotion = prefersReducedMotion.matches;
+  const admin1View = isAdmin1Scope();
+  const viewportHeight = Math.max(stage.clientHeight, 1);
+  const halfFovTangent = Math.tan(THREE.MathUtils.degToRad(state.camera.fov) / 2);
+  const worldPosition = new THREE.Vector3();
+  const cameraPosition = new THREE.Vector3();
+  const globeScale = new THREE.Vector3(1, 1, 1);
+
+  if (admin1View) {
+    state.camera.updateMatrixWorld(true);
+    state.globeGroup.updateMatrixWorld(true);
+    state.globeGroup.getWorldScale(globeScale);
+  }
+
+  for (const entry of state.clusterEntries) {
+    const ringProgress = (seconds * 0.24 + entry.ring.userData.phase) % 1;
+    const haloWave = Math.sin(seconds * 1.75 + entry.halo.userData.phase);
+    entry.ring.material.opacity = reducedMotion
+      ? entry.ring.userData.baseOpacity
+      : entry.ring.userData.baseOpacity * Math.pow(1 - ringProgress, 1.65);
+    entry.halo.material.opacity = reducedMotion
+      ? (state.theme === 'light' ? 0.5 : 0.92)
+      : (state.theme === 'light' ? 0.46 : 0.8) + haloWave * 0.12;
+
+    if (!admin1View || !entry.group.visible) {
+      const ringScale = reducedMotion
+        ? 1
+        : entry.ring.userData.baseScale * (0.84 + ringProgress * 0.86);
+      const haloScale = reducedMotion
+        ? entry.halo.userData.baseScale
+        : entry.halo.userData.baseScale * (1 + haloWave * 0.16);
+      entry.ring.scale.setScalar(ringScale);
+      entry.halo.scale.setScalar(haloScale);
+      entry.spire.scale.setScalar(1);
+      entry.spire.position.copy(entry.spireNormal).multiplyScalar(entry.spireBaseRadius + entry.spireHeight / 2);
+      entry.hit.scale.setScalar(1);
+      continue;
+    }
+
+    worldPosition.copy(entry.position).applyMatrix4(entry.group.matrixWorld);
+    cameraPosition.copy(worldPosition).applyMatrix4(state.camera.matrixWorldInverse);
+    const cameraDepth = Math.max(0.08, -cameraPosition.z);
+    const pixelsPerLocalUnit = viewportHeight * Math.max(globeScale.x, 0.001)
+      / (2 * Math.max(halfFovTangent, 0.001) * cameraDepth);
+    const strength = Math.sqrt(THREE.MathUtils.clamp(entry.intensity, 0, 1));
+    const baseRingPixels = 28 + strength * 5;
+    const ringPulse = reducedMotion
+      ? 1
+      : Math.min(0.92 + ringProgress * 0.7, 45 / baseRingPixels);
+    const ringScale = (baseRingPixels * ringPulse) / (2 * entry.ringRadius * pixelsPerLocalUnit);
+    entry.ring.scale.setScalar(THREE.MathUtils.clamp(ringScale, 0.015, 2.5));
+
+    const haloPixels = Math.min(40, baseRingPixels * 1.18)
+      * (reducedMotion ? 1 : 1 + haloWave * 0.1);
+    const haloScale = haloPixels / pixelsPerLocalUnit;
+    entry.halo.scale.setScalar(THREE.MathUtils.clamp(haloScale, 0.003, 2.5));
+
+    const spirePixels = 14 + strength * 10;
+    const spireScale = spirePixels / (entry.spireHeight * pixelsPerLocalUnit);
+    const clampedSpireScale = THREE.MathUtils.clamp(spireScale, 0.015, 2.5);
+    entry.spire.scale.setScalar(clampedSpireScale);
+    entry.spire.position.copy(entry.spireNormal)
+      .multiplyScalar(entry.spireBaseRadius + entry.spireHeight * clampedSpireScale / 2);
+
+    const hitPixels = isMobileViewport() ? 48 : 44;
+    const hitScale = hitPixels / (2 * entry.hitRadius * pixelsPerLocalUnit);
+    entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitScale, 0.015, 2.5));
   }
 }
 
@@ -1387,18 +1720,22 @@ function clearAdmin1Layer({ resetAggregation = false } = {}) {
   if (resetAggregation) {
     state.detailCountry = null;
     state.detailConfig = null;
+    state.detailManifest = null;
+    state.detailActivity = null;
+    state.detailDataStatus = 'not_collected';
     state.detailFeatures = [];
     state.detailRegions = [];
     state.detailRankedRegions = [];
     state.detailTotals = {
-      signals: 0,
-      regions: 0,
-      observedSignals: 0,
-      observedRegions: 0,
-      countrySignals: 0,
+      signals: null,
+      regions: null,
+      observedSignals: null,
+      observedRegions: null,
+      countrySignals: null,
       publishThreshold: PUBLISH_THRESHOLD,
       clusters: 0,
-      unassignedClusters: 0
+      unassignedClusters: 0,
+      unresolvedRows: 0
     };
     state.admin1AssignmentByCluster = new Map();
   }
@@ -1409,21 +1746,23 @@ function createAdmin1Layer() {
   state.detailGroup = new THREE.Group();
   state.detailGroup.userData.activityScope = 'admin1';
 
-  state.detailHeatTexture = makeActivityTexture('admin1');
-  state.detailHeatMesh = new THREE.Mesh(
-    globeGeometry(GLOBE_RADIUS + 0.022),
-    new THREE.MeshBasicMaterial({
-      map: state.detailHeatTexture,
-      transparent: true,
-      opacity: state.theme === 'light' ? 0.66 : 0.9,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      toneMapped: false
-    })
-  );
-  state.detailHeatMesh.userData = { aggregateHeat: true, activityScope: 'admin1' };
-  state.detailHeatMesh.renderOrder = 3;
-  state.detailGroup.add(state.detailHeatMesh);
+  if (state.detailRankedRegions.length > 0) {
+    state.detailHeatTexture = makeActivityTexture('admin1');
+    state.detailHeatMesh = new THREE.Mesh(
+      globeGeometry(GLOBE_RADIUS + 0.022),
+      new THREE.MeshBasicMaterial({
+        map: state.detailHeatTexture,
+        transparent: true,
+        opacity: state.theme === 'light' ? 0.66 : 0.9,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        toneMapped: false
+      })
+    );
+    state.detailHeatMesh.userData = { aggregateHeat: true, activityScope: 'admin1' };
+    state.detailHeatMesh.renderOrder = 3;
+    state.detailGroup.add(state.detailHeatMesh);
+  }
 
   const positions = [];
   for (const feature of state.detailFeatures) {
@@ -1593,9 +1932,11 @@ function updateWorldMapClarity() {
 }
 
 function zoomLimits(scope = state.scope, mobile = window.innerWidth < 760) {
-  return scope === 'us' || scope === 'admin1'
-    ? { minimum: mobile ? 5.35 : 4.95, maximum: mobile ? 12.2 : 11.8 }
-    : { minimum: mobile ? 5.25 : 4.7, maximum: 13.5 };
+  if (scope === 'admin1') {
+    return { minimum: GLOBE_RADIUS + 0.28, maximum: mobile ? 12.2 : 11.8 };
+  }
+  if (scope === 'us') return { minimum: mobile ? 5.35 : 4.95, maximum: mobile ? 12.2 : 11.8 };
+  return { minimum: mobile ? 5.25 : 4.7, maximum: 13.5 };
 }
 
 function updateZoomLevel() {
@@ -1810,12 +2151,12 @@ function updateTheme(theme) {
 }
 
 function countryAt(lat, lon) {
-  for (const country of state.countries) {
-    const feature = featureForCountry(country.name);
+  for (const country of state.worldCountries) {
+    const feature = country.feature || featureForCountry(country.name);
     if (feature && pointInFeature(lat, lon, feature)) return country;
   }
   const point = latLonToVector(lat, lon, 1);
-  const tinyCountry = state.countries.find(country => !featureForCountry(country.name)
+  const tinyCountry = state.worldCountries.find(country => !country.feature && !featureForCountry(country.name)
     && (countryHubs[country.name] || []).some(location => point.angleTo(latLonToVector(location[0], location[1], 1)) < THREE.MathUtils.degToRad(0.65)));
   return tinyCountry || null;
 }
@@ -1879,13 +2220,13 @@ function showTooltip(entity, event) {
   }
   if (entity.kind === 'admin1') {
     tooltip.hidden = false;
-    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.rank
+    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.published && entity.rank
       ? `#${entity.rank} ${state.detailConfig.regionLabel} rank`
       : (entity.type || state.detailConfig.regionLabel);
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
-    tooltip.querySelector('[data-tooltip-signals]').textContent = entity.rank
+    tooltip.querySelector('[data-tooltip-signals]').textContent = entity.published && Number.isFinite(entity.signals)
       ? `${number(entity.signals)} published regional signals`
-      : `No regional total published · ${state.detailTotals.publishThreshold}+ threshold`;
+      : admin1EntityStatusMessage(entity);
     const rect = stage.getBoundingClientRect();
     const left = Math.min(event.clientX - rect.left, rect.width - 220);
     const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -1895,15 +2236,19 @@ function showTooltip(entity, event) {
   }
   const stateView = state.scope === 'us';
   tooltip.hidden = false;
-  tooltip.querySelector('[data-tooltip-rank]').textContent = `#${entity.rank} ${stateView ? 'U.S. state' : 'world'} rank`;
+  tooltip.querySelector('[data-tooltip-rank]').textContent = Number.isInteger(entity.rank)
+    ? `#${entity.rank} ${stateView ? 'U.S. state' : 'world'} rank`
+    : 'Administrative map';
   tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
-  const detailConfig = !stateView ? countryDetailConfigs.get(entity.name) : null;
-  const action = !stateView && entity.name === 'United States'
+  const detailConfig = !stateView ? detailConfigForCountry(entity) : null;
+  const action = !stateView && entity.adm0A3 === 'USA'
     ? ' · select for state detail'
     : detailConfig
       ? ` · select for ${detailConfig.regionLabel} detail`
       : '';
-  tooltip.querySelector('[data-tooltip-signals]').textContent = `${number(entity.signals)} interest signals${action}`;
+  tooltip.querySelector('[data-tooltip-signals]').textContent = Number.isFinite(entity.signals)
+    ? `${number(entity.signals)} interest signals${action}`
+    : `No country total published${action}`;
   const rect = stage.getBoundingClientRect();
   const left = Math.min(event.clientX - rect.left, rect.width - 220);
   const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -1938,31 +2283,32 @@ function showSpotlight(entity) {
   }
   if (entity.kind === 'admin1') {
     spotlight.hidden = false;
-    spotlight.querySelector('[data-spotlight-rank]').textContent = entity.rank
+    spotlight.querySelector('[data-spotlight-rank]').textContent = entity.published && entity.rank
       ? `${state.detailConfig.viewLabel} rank #${entity.rank}`
       : state.detailConfig.viewLabel;
     spotlight.querySelector('[data-spotlight-label]').textContent = entity.type || state.detailConfig.regionLabel;
     spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
-    if (!entity.rank) {
-      spotlight.querySelector('[data-spotlight-signals]').textContent = `No regional total is published at the ${state.detailTotals.publishThreshold}-signal threshold.`;
+    if (!entity.published || !Number.isFinite(entity.signals)) {
+      spotlight.querySelector('[data-spotlight-signals]').textContent = admin1EntityStatusMessage(entity);
       return;
     }
-    const share = state.detailTotals.countrySignals > 0
-      ? ((entity.signals / state.detailTotals.countrySignals) * 100).toFixed(1)
-      : '0.0';
     spotlight.querySelector('[data-spotlight-signals]').textContent = entity.qualityNote
       ? `${number(entity.signals)} signals · ${entity.qualityNote}`
-      : `${number(entity.signals)} published regional signals · ${share}% of ${state.detailCountry.name} country-level signals`;
+      : `${number(entity.signals)} published regional signals · independently privacy-thresholded`;
     return;
   }
   const stateView = state.scope === 'us';
   const denominator = stateView ? state.usData.totals.countrySignals : state.data.totals.signals;
-  const share = ((entity.signals / denominator) * 100).toFixed(1);
+  const share = Number.isFinite(entity.signals) ? ((entity.signals / denominator) * 100).toFixed(1) : null;
   spotlight.hidden = false;
-  spotlight.querySelector('[data-spotlight-rank]').textContent = `${stateView ? 'U.S. state' : 'World'} rank #${entity.rank}`;
+  spotlight.querySelector('[data-spotlight-rank]').textContent = Number.isInteger(entity.rank)
+    ? `${stateView ? 'U.S. state' : 'World'} rank #${entity.rank}`
+    : 'Administrative map';
   spotlight.querySelector('[data-spotlight-label]').textContent = entity.qualityFlag ? 'Network-location flag' : 'Observed interest';
   spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
-  spotlight.querySelector('[data-spotlight-signals]').textContent = entity.qualityNote
+  spotlight.querySelector('[data-spotlight-signals]').textContent = !Number.isFinite(entity.signals)
+    ? 'No country total is published for this geography. Select it to explore administrative boundaries.'
+    : entity.qualityNote
     ? `${number(entity.signals)} signals · ${entity.qualityNote}`
     : `${number(entity.signals)} signals · ${share}% of observed interest`;
 }
@@ -1978,33 +2324,50 @@ function focusCountrySurface(country) {
   scrollAtlasIntoView();
 }
 
-function enterCountryDetail(country) {
-  const config = countryDetailConfigs.get(country?.name);
+async function enterCountryDetail(country) {
+  const config = detailConfigForCountry(country);
   if (!country || !config) return false;
-  clearAdmin1Layer({ resetAggregation: true });
-  state.detailCountry = country;
-  state.detailConfig = config;
-  if (!buildAdmin1Aggregation(country, config)) {
+  const requestToken = ++state.admin1LoadToken;
+  if (!state.tourAdvancing) stopTour();
+  focusCountrySurface(country);
+  setAdmin1Busy(true, country);
+  showToast(`Loading ${country.name} administrative boundaries…`);
+  try {
+    const shard = await loadAdmin1Shard(config.manifest);
+    if (requestToken !== state.admin1LoadToken) return false;
     clearAdmin1Layer({ resetAggregation: true });
+    state.admin1Boundaries = shard;
+    state.detailCountry = country;
+    state.detailConfig = config;
+    state.detailManifest = config.manifest;
+    state.detailActivity = config.activity;
+    if (!buildAdmin1Aggregation(country, config)) throw new Error('No administrative polygons are available.');
+    createAdmin1Layer();
+    state.scope = 'admin1';
+    state.locked = { kind: 'admin1View', name: `${country.name} regional view` };
+    state.rotationVelocity.set(0, 0);
+    state.lastInteractionAt = performance.now();
+    setStateLineSelection(null);
+    updateSelectionOverlay(null);
+    hideTooltip();
+    spotlight.hidden = true;
+    updateScopeInterface();
+    const center = state.centers.get(country.name);
+    if (center) beginFocusTransition(center, defaultZoom('admin1'));
+    showToast(`${country.name} · ${number(state.detailRegions.length)} administrative subdivisions loaded`);
+    scrollAtlasIntoView();
+    return true;
+  } catch (error) {
+    if (requestToken !== state.admin1LoadToken) return false;
+    console.error(error);
+    clearAdmin1Layer({ resetAggregation: true });
+    state.admin1Boundaries = null;
     focusCountrySurface(country);
     showToast(`${country.name} regional boundaries are temporarily unavailable.`);
     return false;
+  } finally {
+    if (requestToken === state.admin1LoadToken) setAdmin1Busy(false);
   }
-  createAdmin1Layer();
-  if (!state.tourAdvancing) stopTour();
-  state.scope = 'admin1';
-  state.locked = { kind: 'admin1View', name: `${country.name} regional view` };
-  state.rotationVelocity.set(0, 0);
-  state.lastInteractionAt = performance.now();
-  setStateLineSelection(null);
-  updateSelectionOverlay(null);
-  hideTooltip();
-  spotlight.hidden = true;
-  updateScopeInterface();
-  const center = state.centers.get(country.name);
-  if (center) beginFocusTransition(center, defaultZoom('admin1'));
-  scrollAtlasIntoView();
-  return true;
 }
 
 function focusCluster(cluster) {
@@ -2024,12 +2387,12 @@ function focusCluster(cluster) {
 function focusCountry(country) {
   if (!state.tourAdvancing) stopTour();
   if (state.scope !== 'world') exitToWorld();
-  if (country.name === 'United States' && state.usRegions.length) {
+  if (country.adm0A3 === 'USA' && state.usRegions.length) {
     enterUnitedStates();
     return;
   }
-  if (countryDetailConfigs.has(country.name)) {
-    enterCountryDetail(country);
+  if (manifestEntryForCountry(country)) {
+    void enterCountryDetail(country);
     return;
   }
   focusCountrySurface(country);
@@ -2040,7 +2403,9 @@ function focusAdmin1Region(region) {
   if (!state.tourAdvancing) stopTour();
   state.locked = region;
   const center = region.center || state.centers.get(state.detailCountry.name);
-  if (center) beginFocusTransition(center, window.innerWidth < 760 ? 8.9 : 6.9);
+  const bounds = region.bounds;
+  const bbox = bounds ? [bounds.minLon, bounds.minLat, bounds.maxLon, bounds.maxLat] : state.detailManifest?.bbox;
+  if (center) beginFocusTransition(center, admin1ZoomForBbox(bbox, isMobileViewport()));
   state.lastInteractionAt = performance.now();
   updateSelectionOverlay(region);
   showSpotlight(region);
@@ -2067,6 +2432,17 @@ function setStateLineSelection(region) {
   }
 }
 
+function setAtlasTitle(lead, emphasis) {
+  if (!title) return;
+  const emphasized = document.createElement('em');
+  emphasized.textContent = emphasis;
+  title.replaceChildren(document.createTextNode(`${lead} `), emphasized);
+}
+
+function metric(value) {
+  return Number.isFinite(value) ? number(value) : '—';
+}
+
 function updateScopeInterface() {
   const stateView = state.scope === 'us';
   const admin1View = isAdmin1Scope();
@@ -2078,13 +2454,9 @@ function updateScopeInterface() {
   if (state.usGroup) state.usGroup.visible = stateView;
   if (state.detailGroup) state.detailGroup.visible = admin1View;
   updateClusterVisibility();
-  if (title) {
-    title.innerHTML = stateView
-      ? 'See local AI interest <em>state by state.</em>'
-      : admin1View
-        ? state.detailConfig.title
-        : 'See where <em>local AI</em> is taking off.';
-  }
+  if (stateView) setAtlasTitle('See local AI interest', 'state by state.');
+  else if (admin1View) setAtlasTitle('See local AI interest', state.detailConfig.titleEmphasis);
+  else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
     summary.textContent = stateView
       ? 'United States · Approximate network regions · 31 Jul–29 Aug 2026'
@@ -2107,17 +2479,29 @@ function updateScopeInterface() {
     : admin1View
       ? state.detailTotals.regions
       : (state.data.totals.publishedRegions ?? state.data.totals.regions);
-  document.querySelector('[data-scope-signals]').textContent = number(scopeSignals);
-  document.querySelector('[data-scope-regions]').textContent = number(scopeRegions);
+  document.querySelector('[data-scope-signals]').textContent = metric(scopeSignals);
+  document.querySelector('[data-scope-regions]').textContent = admin1View && !Number.isFinite(scopeRegions)
+    ? number(state.detailRegions.length)
+    : metric(scopeRegions);
   document.querySelector('[data-scope-signal-label]').textContent = stateView
     ? 'visible state signals'
     : admin1View
-      ? 'published regional signals'
+      ? state.detailDataStatus === 'published'
+        ? 'published regional signals'
+        : state.detailDataStatus === 'unavailable'
+          ? 'regional data unavailable'
+          : state.detailDataStatus === 'not_collected'
+            ? 'regional data not collected'
+            : state.detailDataStatus === 'boundary_unresolved'
+              ? 'boundary mapping unresolved'
+              : 'no total above threshold'
       : 'published signals';
   document.querySelector('[data-scope-region-label]').textContent = stateView
     ? 'states published'
     : admin1View
-      ? `${state.detailConfig.regionsLabel} published`
+      ? Number.isFinite(state.detailTotals.regions)
+        ? `${state.detailConfig.regionsLabel} published`
+        : `${state.detailConfig.regionsLabel} shown`
       : 'countries published';
   document.querySelector('[data-scope-window]').textContent = regionalView
     ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
@@ -2125,7 +2509,9 @@ function updateScopeInterface() {
   document.querySelector('[data-scope-disclosure]').textContent = stateView
     ? 'State color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.'
     : admin1View
-      ? 'Region color shows a published subnational aggregate. Beacons separately mark published DataFast city clusters at approximate GeoNames network-city centroids; they never represent people, devices, exact IP addresses, or exact visitor locations.'
+      ? state.detailDataStatus === 'published'
+        ? 'Region color shows an independently published subnational aggregate. Neutral boundaries have no published regional total. Beacons are a separate city-cluster breakdown.'
+        : `${admin1StatusMessage()} Beacons are a separate published city-cluster breakdown.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', stateView
     ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Drag to rotate, select the map and scroll or use the visible controls to zoom, select a state, or return to the world view.'
@@ -2144,23 +2530,37 @@ function updateScopeInterface() {
       ? 'United States · State view'
       : `${state.detailCountry.name} · ${state.detailConfig.viewLabel}`;
     if (metricItems[0]) {
-      metricItems[0].querySelector('strong').textContent = number(stateView ? state.usData.totals.publishedSignals : state.detailTotals.signals);
-      metricItems[0].lastChild.textContent = stateView ? ' visible signals' : ' published regional signals';
+      metricItems[0].querySelector('strong').textContent = metric(stateView ? state.usData.totals.publishedSignals : state.detailTotals.signals);
+      metricItems[0].lastChild.textContent = stateView
+        ? ' visible signals'
+        : state.detailDataStatus === 'published'
+          ? ' published regional signals'
+          : ` ${state.detailDataStatus.replaceAll('_', ' ')}`;
     }
     if (metricItems[1]) {
-      metricItems[1].querySelector('strong').textContent = number(stateView ? state.usData.totals.publishedRegions : state.detailTotals.regions);
-      metricItems[1].lastChild.textContent = stateView ? ' states published' : ` ${state.detailConfig.regionsLabel} published`;
+      const panelRegionMetric = stateView
+        ? state.usData.totals.publishedRegions
+        : Number.isFinite(state.detailTotals.regions)
+          ? state.detailTotals.regions
+          : state.detailRegions.length;
+      metricItems[1].querySelector('strong').textContent = metric(panelRegionMetric);
+      metricItems[1].lastChild.textContent = stateView
+        ? ' states published'
+        : Number.isFinite(state.detailTotals.regions)
+          ? ` ${state.detailConfig.regionsLabel} published`
+          : ` ${state.detailConfig.regionsLabel} shown`;
     }
     if (note) {
+      const strong = document.createElement('strong');
       if (stateView) {
-        note.innerHTML = '<strong>Quality flag:</strong> Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.';
-      } else if (state.detailTotals.regions === 0) {
-        const observed = state.detailTotals.observedSignals > 0 && state.detailTotals.observedRegions > 0
-          ? `${number(state.detailTotals.observedSignals)} geolocated signals were observed across ${number(state.detailTotals.observedRegions)} regions, but `
-          : '';
-        note.innerHTML = `<strong>Privacy threshold:</strong> ${observed}none reaches the ${state.detailTotals.publishThreshold}-signal publication threshold; no regional count is shown. Natural Earth administrative boundaries; cartographic display does not imply endorsement.`;
+        strong.textContent = 'Quality flag: ';
+        note.replaceChildren(strong, document.createTextNode('Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.'));
       } else {
-        note.innerHTML = `<strong>Method:</strong> Regional aggregates are published DataFast subnational totals at the ${state.detailTotals.publishThreshold}-signal threshold; beacons are an independent city-cluster subset. Natural Earth administrative boundaries; cartographic display does not imply endorsement.`;
+        strong.textContent = state.detailDataStatus === 'published' ? 'Method: ' : 'Data status: ';
+        const method = state.detailDataStatus === 'published'
+          ? `Regional aggregates independently meet the ${state.detailTotals.publishThreshold}-signal threshold; composite totals are drawn across their mapped boundary features only once. Natural Earth boundaries are cartographic references.`
+          : `${admin1StatusMessage()} Natural Earth boundaries are cartographic references.`;
+        note.replaceChildren(strong, document.createTextNode(method));
       }
     }
     renderStatePanel();
@@ -2172,23 +2572,40 @@ function renderStatePanel() {
   if (!regionList) return;
   regionList.replaceChildren();
   const admin1View = isAdmin1Scope();
-  const regions = admin1View ? state.detailRankedRegions : state.usRegions;
-  if (admin1View && regions.length === 0) {
-    const item = document.createElement('li');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.disabled = true;
-    button.innerHTML = `<span>No ${state.detailConfig.regionLabel} meets the ${state.detailTotals.publishThreshold}-signal threshold</span>`;
-    item.append(button);
-    regionList.append(item);
-    return;
-  }
-  for (const region of regions) {
+  const publishedFeatures = new Set(state.detailRankedRegions
+    .flatMap(region => region.features || []));
+  const rows = admin1View
+    ? [
+        ...state.detailRankedRegions.map(region => ({ region, published: true })),
+        ...state.detailRegions
+          .filter(region => !publishedFeatures.has(region.feature))
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(region => ({ region, published: false }))
+      ]
+    : state.usRegions.map(region => ({ region, published: true }));
+  for (const row of rows) {
+    const { region, published } = row;
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('data-region-name', region.name);
-    button.innerHTML = `<span><b>${String(region.rank).padStart(2, '0')}</b>${region.name}${region.qualityFlag ? '<em>flag</em>' : ''}</span><strong>${number(region.signals)}</strong>`;
+    button.dataset.published = String(published);
+    if (published && region.boundaryMatch) button.dataset.boundaryMatch = region.boundaryMatch;
+    const label = document.createElement('span');
+    const rank = document.createElement('b');
+    rank.textContent = published && Number.isInteger(region.rank) ? String(region.rank).padStart(2, '0') : '—';
+    label.append(rank, document.createTextNode(region.name));
+    if (region.qualityFlag) {
+      const flag = document.createElement('em');
+      flag.textContent = 'flag';
+      label.append(flag);
+    }
+    const value = document.createElement('strong');
+    value.textContent = published && Number.isFinite(region.signals) ? number(region.signals) : '—';
+    button.append(label, value);
+    button.setAttribute('aria-label', published && Number.isFinite(region.signals)
+      ? `${region.name}: ${number(region.signals)} published regional signals`
+      : `${region.name}: no regional total published`);
     button.addEventListener('click', () => admin1View ? focusAdmin1Region(region) : focusRegion(region));
     item.append(button);
     regionList.append(item);
@@ -2197,6 +2614,8 @@ function renderStatePanel() {
 
 function enterUnitedStates(region = null) {
   if (!state.tourAdvancing) stopTour();
+  state.admin1LoadToken += 1;
+  setAdmin1Busy(false);
   clearAdmin1Layer({ resetAggregation: true });
   state.scope = 'us';
   state.locked = region || { name: 'United States state view' };
@@ -2215,6 +2634,8 @@ function enterUnitedStates(region = null) {
 
 function exitToWorld() {
   if (!state.tourAdvancing) stopTour();
+  state.admin1LoadToken += 1;
+  setAdmin1Busy(false);
   const leavingAdmin1 = isAdmin1Scope();
   state.scope = 'world';
   if (leavingAdmin1) clearAdmin1Layer({ resetAggregation: true });
@@ -2572,18 +2993,9 @@ function animate(time) {
     state.globeGroup.rotation.y += (state.targetRotation.y - state.globeGroup.rotation.y) * 0.075;
   }
 
+  updateBeaconVisualScale(seconds);
+
   if (!prefersReducedMotion.matches) {
-    state.pulseSprites.forEach(sprite => {
-      const wave = 1 + Math.sin(seconds * 1.75 + sprite.userData.phase) * 0.16;
-      sprite.scale.setScalar(sprite.userData.baseScale * wave);
-      sprite.material.opacity = (state.theme === 'light' ? 0.46 : 0.8) + Math.sin(seconds * 1.75 + sprite.userData.phase) * 0.12;
-    });
-    state.pulseRings.forEach(ring => {
-      const progress = (seconds * 0.24 + ring.userData.phase) % 1;
-      const scale = ring.userData.baseScale * (0.84 + progress * 0.86);
-      ring.scale.setScalar(scale);
-      ring.material.opacity = ring.userData.baseOpacity * Math.pow(1 - progress, 1.65);
-    });
     if (state.backgroundField) {
       state.backgroundField.rotation.y = seconds * 0.0025;
       state.backgroundField.rotation.x = Math.sin(seconds * 0.08) * 0.012;
@@ -2613,19 +3025,24 @@ function renderDataSummary() {
 
 async function initialize() {
   try {
-    const [dataResponse, worldResponse, statesResponse, admin1Response] = await Promise.all([
+    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse] = await Promise.all([
       fetch(DATA_URL),
       fetch(WORLD_URL),
       fetch(US_STATES_URL),
-      fetch(ADMIN1_URL)
+      fetch(ADMIN1_MANIFEST_URL),
+      fetch(ADMIN1_ACTIVITY_URL)
     ]);
-    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !admin1Response.ok) {
+    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
       throw new Error('Atlas data could not be loaded.');
     }
     state.data = await dataResponse.json();
     state.world = await worldResponse.json();
     state.usBoundaries = await statesResponse.json();
-    state.admin1Boundaries = await admin1Response.json();
+    state.admin1Manifest = await manifestResponse.json();
+    state.admin1Activity = await activityResponse.json();
+    state.admin1ActivityByA3 = new Map(Object.values(state.admin1Activity?.countries || {})
+      .map(record => [String(record.adm0A3 || '').toUpperCase(), record])
+      .filter(([code]) => Boolean(code)));
     state.usData = state.data.subnational?.['United States'];
     if (!state.usData) throw new Error('United States state data is missing.');
     state.countries = state.data.countries.filter(country => country.signals >= PUBLISH_THRESHOLD);
@@ -2634,11 +3051,13 @@ async function initialize() {
     state.countryByName = new Map(state.countries.map(country => [country.name, country]));
     state.usRegionByName = new Map(state.usRegions.map(region => [region.name, region]));
     state.countryFeatures = new Map(state.countries.map(country => [country.name, featureForCountry(country.name)]));
+    buildWorldCountryEntities();
     state.stateFeatures = new Map(state.usBoundaries.features.map(feature => [feature.properties?.NAME, feature]));
-    for (const country of state.countries) {
+    for (const country of state.worldCountries) {
       const center = centerForCountry(country);
       if (center) state.centers.set(country.name, center);
-      const feature = featureForCountry(country.name);
+      const feature = country.feature || featureForCountry(country.name);
+      if (!country.published) continue;
       for (const code of [feature?.properties?.ISO_A2, feature?.properties?.ISO_A2_EH, feature?.properties?.WB_A2]) {
         if (code && code !== '-99') state.countryByCode.set(String(code).toUpperCase(), country);
       }
@@ -2656,6 +3075,7 @@ async function initialize() {
     stage.dataset.usPointsMissingGeometry = String(state.placementStats.us.missingGeometry);
     stage.dataset.cityClusters = String(state.cityClusters.length);
     stage.dataset.cityClustersRendered = String(state.clusterEntries.length);
+    stage.dataset.admin1Countries = String(Object.keys(state.admin1Manifest?.countries || {}).length);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
     renderStatePanel();
     bindInteractions();
