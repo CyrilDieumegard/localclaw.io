@@ -1541,8 +1541,9 @@ function createBeaconAccent(entity, center, parent, scope, color = 0xff4a32) {
   spire.userData = { activityAccent: true, cityCluster: entity, activityScope: scope };
   clusterGroup.add(spire);
 
+  const hitRadius = 0.038 + Math.sqrt(intensity) * 0.018;
   const hit = new THREE.Mesh(
-    new THREE.SphereGeometry(0.065 + Math.sqrt(intensity) * 0.035, 12, 8),
+    new THREE.SphereGeometry(hitRadius, 12, 8),
     new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
   );
   hit.position.copy(surface.clone().normalize().multiplyScalar(GLOBE_RADIUS + 0.075));
@@ -1564,7 +1565,7 @@ function createBeaconAccent(entity, center, parent, scope, color = 0xff4a32) {
     spireHeight,
     spireBaseRadius: GLOBE_RADIUS + 0.045,
     spireNormal: surface.clone().normalize(),
-    hitRadius: 0.065 + Math.sqrt(intensity) * 0.035
+    hitRadius
   };
 }
 
@@ -1728,7 +1729,7 @@ function updateBeaconVisualScale(seconds) {
     entry.spire.position.copy(entry.spireNormal)
       .multiplyScalar(entry.spireBaseRadius + entry.spireHeight * clampedSpireScale / 2);
 
-    const hitPixels = isMobileViewport() ? 48 : 44;
+    const hitPixels = isMobileViewport() ? 32 : 24;
     const hitScale = hitPixels / (2 * entry.hitRadius * pixelsPerLocalUnit);
     entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitScale, 0.015, 2.5));
   }
@@ -2342,13 +2343,23 @@ function stateAt(lat, lon) {
   return null;
 }
 
+function geographyForCluster(cluster) {
+  if (!cluster) return null;
+  if (state.scope === 'us') return regionForCode(cluster.regionCode);
+  if (isAdmin1Scope()) {
+    const assignedRegion = state.admin1AssignmentByCluster.get(cluster);
+    return assignedRegion?.activityEntity || assignedRegion || null;
+  }
+  return countryForCode(cluster.countryCode);
+}
+
 function updatePointer(event) {
   const rect = canvas.getBoundingClientRect();
   state.pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   state.pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 }
 
-function entityAtPointer() {
+function entityAtPointer({ preferGeography = false } = {}) {
   if (!state.globe || !state.camera) return null;
   state.raycaster.setFromCamera(state.pointer, state.camera);
   state.globeGroup.getWorldPosition(state.interactionSphere.center);
@@ -2361,19 +2372,32 @@ function entityAtPointer() {
   const intersection = globeHit
     ? { point: globeHit, distance: state.raycaster.ray.origin.distanceTo(globeHit) }
     : null;
+  let geographicEntity = null;
+  if (intersection) {
+    const local = state.globeGroup.worldToLocal(intersection.point.clone());
+    const { lat, lon } = vectorToLatLon(local);
+    geographicEntity = state.scope === 'us'
+      ? stateAt(lat, lon)
+      : isAdmin1Scope()
+        ? admin1RegionAt(lat, lon)
+        : countryAt(lat, lon);
+  }
   const clusterHits = state.raycaster.intersectObjects(
     state.clusterEntries.filter(entry => entry.group.visible).map(entry => entry.hit),
     false
   );
-  if (clusterHits[0] && (!intersection || clusterHits[0].distance <= intersection.distance + 0.12)) {
-    return clusterHits[0].object.userData.cityCluster || null;
+  const clusterHit = clusterHits[0] && (!intersection || clusterHits[0].distance <= intersection.distance + 0.12)
+    ? clusterHits[0].object.userData.cityCluster || null
+    : null;
+  // Map activation always drills into the geography under the pointer. If a
+  // coastal city centroid lands just outside a simplified boundary, its mapped
+  // country, state or Admin-1 assignment is the geographic fallback. Beacons
+  // remain hoverable and their projected labels are explicit city buttons.
+  if (preferGeography) return geographicEntity || geographyForCluster(clusterHit);
+  if (clusterHit) {
+    return clusterHit;
   }
-  if (!intersection) return null;
-  const local = state.globeGroup.worldToLocal(intersection.point.clone());
-  const { lat, lon } = vectorToLatLon(local);
-  if (state.scope === 'us') return stateAt(lat, lon);
-  if (isAdmin1Scope()) return admin1RegionAt(lat, lon);
-  return countryAt(lat, lon);
+  return geographicEntity;
 }
 
 function showTooltip(entity, event) {
@@ -2687,10 +2711,10 @@ function updateScopeInterface() {
         : `${admin1StatusMessage()} Beacons are a separate published city-cluster breakdown.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', stateView
-    ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Drag to rotate, select the map and scroll or use the visible controls to zoom, select a state, or return to the world view.'
+    ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Select the map to open the state under the pointer; select a visible city label to inspect its cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or return to the world view.'
     : admin1View
-      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. Published regions and city beacons can be selected; neutral boundaries are orientation references only. Use World to return.`
-      : 'Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
+      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. Select the map to open the region under the pointer; select a visible city label to inspect its cluster. Neutral boundaries are orientation references only. Use World to return.`
+      : 'Interactive globe showing anonymous local AI interest signals by country. Select the map to open the country under the pointer; select a visible city label to inspect its cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
 
   if (regionPanel && regionalView) {
     const panelTitle = regionPanel.querySelector('.atlas-region-panel__head span');
@@ -2913,12 +2937,12 @@ function bindInteractions() {
     canvas.focus({ preventScroll: true });
     state.activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     canvas.setPointerCapture(event.pointerId);
+    hideTooltip();
     if (state.activePointers.size > 1) {
       state.pinching = true;
       state.dragging = false;
       state.pinchStartDistance = activePointerDistance();
       state.pinchStartZoom = state.zoom ?? state.camera.position.z;
-      hideTooltip();
       return;
     }
     state.dragging = true;
@@ -2973,7 +2997,9 @@ function bindInteractions() {
     state.dragging = false;
     canvas.releasePointerCapture(event.pointerId);
     if (wasPinching) {
-      if (state.activePointers.size < 2) {
+      // Keep the whole two-finger gesture consumed until the last pointer is
+      // released; otherwise that final release can be mistaken for a tap.
+      if (state.activePointers.size === 0) {
         state.pinching = false;
         state.pinchStartDistance = null;
         state.pinchStartZoom = null;
@@ -2982,7 +3008,7 @@ function bindInteractions() {
     }
     if (moved < 7) {
       updatePointer(event);
-      const entity = entityAtPointer();
+      const entity = entityAtPointer({ preferGeography: true });
       if (entity) {
         if (entity.kind === 'cityCluster') focusCluster(entity);
         else if (state.scope === 'us') focusRegion(entity);

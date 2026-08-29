@@ -817,6 +817,51 @@ if (app !== null) {
   if (!app.includes('function enterCountryDetail(') || !app.includes('function focusAdmin1Region(')) {
     issue('Activity-index JavaScript is missing generic country and Admin-1 drill-down interactions');
   }
+  const pointerPickBody = topLevelFunctionBody(app, 'entityAtPointer');
+  if (!app.includes('function entityAtPointer({ preferGeography = false } = {})')
+    || !pointerPickBody.includes("geographicEntity = state.scope === 'us'")
+    || !pointerPickBody.includes('? stateAt(lat, lon)')
+    || !pointerPickBody.includes('? admin1RegionAt(lat, lon)')
+    || !pointerPickBody.includes(': countryAt(lat, lon)')
+    || !pointerPickBody.includes('if (preferGeography) return geographicEntity || geographyForCluster(clusterHit)')
+    || !pointerPickBody.includes('return geographicEntity;')
+    || pointerPickBody.indexOf('if (preferGeography)') > pointerPickBody.indexOf('if (clusterHit)')) {
+    issue('Atlas map activation must prioritize the country, state or Admin-1 region beneath city beacon hit areas');
+  }
+  const clusterGeographyBody = topLevelFunctionBody(app, 'geographyForCluster');
+  if (!clusterGeographyBody.includes("if (state.scope === 'us') return regionForCode(cluster.regionCode)")
+    || !clusterGeographyBody.includes('state.admin1AssignmentByCluster.get(cluster)')
+    || !clusterGeographyBody.includes('return countryForCode(cluster.countryCode)')) {
+    issue('Coastal city beacons must fall back to their mapped geography when simplified boundaries leave the centroid offshore');
+  }
+  const interactionBody = topLevelFunctionBody(app, 'bindInteractions');
+  if (!interactionBody.includes('entityAtPointer({ preferGeography: true })')
+    || !interactionBody.includes('const entity = entityAtPointer();')) {
+    issue('Atlas clicks must prefer geography while pointer hover retains city-cluster discovery');
+  }
+  if (!interactionBody.includes('if (state.activePointers.size === 0)')
+    || interactionBody.includes('if (state.activePointers.size < 2)')) {
+    issue('Atlas pinch gestures must stay consumed until every touch pointer is released');
+  }
+  const pointerDownStart = interactionBody.indexOf("canvas.addEventListener('pointerdown'");
+  const pointerMoveStart = interactionBody.indexOf("canvas.addEventListener('pointermove'");
+  const pointerDownBody = interactionBody.slice(pointerDownStart, pointerMoveStart);
+  if (pointerDownStart < 0 || pointerMoveStart < 0 || !pointerDownBody.includes('hideTooltip();')) {
+    issue('Atlas pointer activation must clear any stale city tooltip before opening geography detail');
+  }
+  const beaconBody = topLevelFunctionBody(app, 'createBeaconAccent');
+  const beaconScaleBody = topLevelFunctionBody(app, 'updateBeaconVisualScale');
+  const clusterLabelBody = topLevelFunctionBody(app, 'createClusterLabel');
+  if (!beaconBody.includes('const hitRadius = 0.038 + Math.sqrt(intensity) * 0.018;')
+    || !beaconBody.includes('new THREE.SphereGeometry(hitRadius, 12, 8)')
+    || !beaconScaleBody.includes('const hitPixels = isMobileViewport() ? 32 : 24;')
+    || !beaconScaleBody.includes('const hitScale = hitPixels / (2 * entry.hitRadius * pixelsPerLocalUnit)')
+    || !beaconScaleBody.includes('entry.hit.scale.setScalar(')) {
+    issue('City beacon hover targets must remain compact enough for dense small-country and regional maps');
+  }
+  if (!clusterLabelBody.includes("button.addEventListener('click', () => focusCluster(entry.cluster))")) {
+    issue('City clusters must remain explicitly selectable through their accessible projected labels');
+  }
   const admin1LayerBody = topLevelFunctionBody(app, 'createAdmin1Layer');
   if (admin1LayerBody.includes("makeActivityTexture('admin1')")) {
     issue('Admin-1 regional fills must not use a magnified global raster texture');
@@ -913,6 +958,15 @@ if (css !== null) {
   }
   if (!css.includes('.atlas-map-label') || !css.includes('.atlas-label-layer')) {
     issue('Activity-index stylesheet is missing projected city labels or the map legend layer');
+  }
+  const mapLabelRule = css.match(/\.atlas-map-label\s*\{([^}]*)\}/)?.[1] || '';
+  const mapLabelButtonRule = css.match(/\.atlas-map-label__button\s*\{([^}]*)\}/)?.[1] || '';
+  const mapLabelButtonHeight = Number(mapLabelButtonRule.match(/min-height:\s*(\d+)px/)?.[1]);
+  if (!mapLabelRule.includes('pointer-events: none')
+    || !mapLabelButtonRule.includes('pointer-events: auto')
+    || !Number.isFinite(mapLabelButtonHeight)
+    || mapLabelButtonHeight < 24) {
+    issue('Projected city labels must have no dead interception padding and a fully interactive button at least 24px tall');
   }
 }
 if (vendor !== null && vendor.length < 100000) issue('Vendored Three.js module is unexpectedly small');

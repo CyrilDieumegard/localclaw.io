@@ -225,24 +225,10 @@ body.atlas-page::before {
   min-width: 72px;
   margin-top: -31px;
   margin-left: 12px;
-  display: grid;
-  gap: 1px;
-  padding: 5px 8px 5px 9px;
-  border: 1px solid rgba(155, 184, 205, 0.2);
-  border-left-color: rgba(255, 109, 57, 0.72);
-  border-radius: 7px;
-  background: linear-gradient(110deg, rgba(4, 10, 17, 0.88), rgba(7, 13, 20, 0.62));
-  color: rgba(243, 248, 251, 0.88);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 79, 31, 0.07);
-  font-family: "JetBrains Mono", monospace;
-  text-align: left;
-  text-rendering: geometricPrecision;
-  pointer-events: auto;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  backdrop-filter: blur(10px);
+  display: block;
+  pointer-events: none;
   transform-origin: 0 50%;
-  transition: opacity 180ms ease, border-color 180ms ease, filter 180ms ease;
+  transition: opacity 180ms ease;
 }
 
 .atlas-map-label::before {
@@ -271,9 +257,26 @@ body.atlas-page::before {
 
 .atlas-map-label__button {
   all: unset;
+  box-sizing: border-box;
   display: grid;
+  min-width: 72px;
+  min-height: 32px;
   gap: 1px;
+  padding: 5px 8px 5px 9px;
+  border: 1px solid rgba(155, 184, 205, 0.2);
+  border-left-color: rgba(255, 109, 57, 0.72);
+  border-radius: 7px;
+  background: linear-gradient(110deg, rgba(4, 10, 17, 0.88), rgba(7, 13, 20, 0.62));
+  color: rgba(243, 248, 251, 0.88);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 79, 31, 0.07);
+  font-family: "JetBrains Mono", monospace;
+  text-align: left;
+  text-rendering: geometricPrecision;
+  pointer-events: auto;
   cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  backdrop-filter: blur(10px);
+  transition: border-color 180ms ease, filter 180ms ease;
 }
 
 .atlas-map-label small {
@@ -293,13 +296,18 @@ body.atlas-page::before {
 .atlas-map-label:focus-within,
 .atlas-map-label.is-selected {
   z-index: 4;
+}
+
+.atlas-map-label:hover .atlas-map-label__button,
+.atlas-map-label:focus-within .atlas-map-label__button,
+.atlas-map-label.is-selected .atlas-map-label__button {
   outline: none;
   border-color: rgba(255, 204, 165, 0.72);
   color: #fff;
   filter: brightness(1.2);
 }
 
-.atlas-map-label.is-quality-flagged {
+.atlas-map-label.is-quality-flagged .atlas-map-label__button {
   border-left-color: #ffb84d;
 }
 
@@ -1485,7 +1493,7 @@ html.light .atlas-page .atlas-status__disclosure {
 }
 
 html.light .atlas-page .atlas-label-layer__item,
-html.light .atlas-page .atlas-map-label {
+html.light .atlas-page .atlas-map-label__button {
   border-color: rgba(80, 101, 116, 0.22);
   background: rgba(255, 255, 255, 0.82);
   color: #283642;
@@ -1628,6 +1636,12 @@ html.light .atlas-page .atlas-callout a {
     max-width: 112px;
     margin-top: -25px;
     margin-left: 8px;
+  }
+
+  .atlas-map-label__button {
+    min-width: 0;
+    min-height: 32px;
+    max-width: 112px;
     padding: 4px 6px 4px 7px;
   }
 
