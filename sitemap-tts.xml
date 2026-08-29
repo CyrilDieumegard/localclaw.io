@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://localclaw.io/tts/ark-asr-3b</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -140,7 +140,13 @@
   </url>
   <url>
     <loc>https://localclaw.io/tts/granite-speech-4.1-2b</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://localclaw.io/tts/granite-speech-5.0-470m-turboctc</loc>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -152,7 +158,7 @@
   </url>
   <url>
     <loc>https://localclaw.io/tts/higgs-audio-v3-8b-stt-v2</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -176,7 +182,7 @@
   </url>
   <url>
     <loc>https://localclaw.io/tts/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -314,7 +320,7 @@
   </url>
   <url>
     <loc>https://localclaw.io/tts/parakeet-tdt-0.6b-v2</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

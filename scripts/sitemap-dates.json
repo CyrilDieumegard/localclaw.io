@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "e4999e36b2ba0f27448ad9853c6ea89e47c7ea8c4689c1d6f8fa97bbeb662700",
+    "hash": "9af5d8708f7b22caf32154db5e277c06a6445093ae2696eb8f5cfe1958e96d14",
     "lastmod": "2026-08-29"
   },
   "software.html": {
@@ -24,27 +24,27 @@
     "lastmod": "2026-08-28"
   },
   "tts-list.html": {
-    "hash": "0d15af9936327c1773348a004a1d63f6c8f31d137f2ce411fe609a5e1f50e83c",
-    "lastmod": "2026-08-28"
+    "hash": "8db7422ac482f56d98f1b6411910cf4fcd612c701486ff4be1a11c09e49f5b22",
+    "lastmod": "2026-08-29"
   },
   "image-models.html": {
-    "hash": "b3222ad653a5ab0c9c5fe5c76ffb612095b0efe7afba8c6bc571776cfeacba60",
+    "hash": "fb7732064202ce361dfb87d971dde0bcfd8f70998d9352550edab96d1539e82c",
     "lastmod": "2026-08-29"
   },
   "video-models.html": {
-    "hash": "d2baccbdda489517f6fdd32dcacc69462d99c9251bdaf0f43a3c8f3556e2383d",
+    "hash": "ef06867ffd6d57917defa8653f1057a98f0563659e0445ba40d54604b90326f1",
     "lastmod": "2026-08-29"
   },
   "3d-models.html": {
-    "hash": "b0388af49f18fc534e4c697de5e7fc65ed060d1029f66e9fd48a57266914395e",
+    "hash": "4bf8e91a7e52ca5e35a64f72e82f7dca6d44f12d72b1360177e4d770bd753a75",
     "lastmod": "2026-08-29"
   },
   "music-models.html": {
-    "hash": "77f9f1ff9667fd311abd5872f2558fa2a207a4bd6c908d7c4fba8339a4fd11fc",
+    "hash": "e9b21ce77a49d044a4797bab7228a63ac7bc88501d0a2e235d83cc4433544e19",
     "lastmod": "2026-08-29"
   },
   "vision-models.html": {
-    "hash": "bce1ef77b987939a1773369d5eef6e4c0ea7336c9c364c98ab0f1c9e9380e8e5",
+    "hash": "1c50fcde3fd25a3a6980d1f95929137e56a9164c4a22217140fc1b099df660b3",
     "lastmod": "2026-08-29"
   },
   "computers.html": {
@@ -60,8 +60,8 @@
     "lastmod": "2026-08-27"
   },
   "new.html": {
-    "hash": "0602dcbcfe8ab25f551f5b25574132ebcef02555eda539a734332c6431b0a9b5",
-    "lastmod": "2026-08-28"
+    "hash": "c0be1c562ebff95263b3a1fb11165c7bf14b253d866d7d7d9b2d202c4b1d570a",
+    "lastmod": "2026-08-29"
   },
   "software/lm-studio.html": {
     "hash": "f924b3137b27ee652fb3292de2e7cdda9a11548eda934a5246a938b3d4fcfccb",
@@ -1032,8 +1032,8 @@
     "lastmod": "2026-08-28"
   },
   "tts/ark-asr-3b.html": {
-    "hash": "cd9fc832d15049a2a9ebd066736ba55c8bae58500fb2c3d3610f9c4973dc7b5e",
-    "lastmod": "2026-08-28"
+    "hash": "57d9e1551b9db34e0932db913bbb7adbbefbab03003040627f895b6d80080891",
+    "lastmod": "2026-08-29"
   },
   "tts/audar-asr-v1-turbo.html": {
     "hash": "6fc84fdf07daba24e90b938e39d1ff96f62c1ca3f11042db0f2abedc75a5e5be",
@@ -1124,16 +1124,20 @@
     "lastmod": "2026-08-27"
   },
   "tts/granite-speech-4.1-2b.html": {
-    "hash": "dfc994a13d80e1dcc161bddd1f1971503c1534c5927d55de924f238ac89a2fa6",
-    "lastmod": "2026-08-28"
+    "hash": "8e43ebcbc474470b6dc998422639028bebfa096d183d714ae3be5a128dcef8fa",
+    "lastmod": "2026-08-29"
+  },
+  "tts/granite-speech-5.0-470m-turboctc.html": {
+    "hash": "1be7f2af159c66c6a3b15971ccff6f71a256c5673833bfd35dfbe41474d1e81f",
+    "lastmod": "2026-08-29"
   },
   "tts/higgs-audio-v2.html": {
     "hash": "142d47c6cdd5df859003beb4c1144ddfb87958aed2c3f4a791b9f1e72b0ab589",
     "lastmod": "2026-08-27"
   },
   "tts/higgs-audio-v3-8b-stt-v2.html": {
-    "hash": "73cff401d977a555e2c9535537f0a468cf63f2441df9887a47fa29ac33affa69",
-    "lastmod": "2026-08-27"
+    "hash": "dadfa0b2c87effdabe7e5bbd8da3360f30abb91720f1366dab96217cf733bd6c",
+    "lastmod": "2026-08-29"
   },
   "tts/higgs-tts-3-4b.html": {
     "hash": "17586e74f5ccf18fbb23f1ed89dccf68f6a5ed3e01bca4f1c78a8a2a5658df80",
@@ -1148,8 +1152,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/index.html": {
-    "hash": "06b128f28533223ada483c5b96aa333e498422a67d70066c25d53d85ac4cfb7a",
-    "lastmod": "2026-08-28"
+    "hash": "e182dcbe80a3f448f32f2fc3060637617407804150c7d219a6d6e92e93fe0ab8",
+    "lastmod": "2026-08-29"
   },
   "tts/indic-tts.html": {
     "hash": "a2921d444bbbfb397977f30cb7765b59e3c6fb890b5d081bef1e6d11dd1eac00",
@@ -1240,8 +1244,8 @@
     "lastmod": "2026-08-27"
   },
   "tts/parakeet-tdt-0.6b-v2.html": {
-    "hash": "ef2a6ef8d9f5b8fa1bf92469b08d0ebe45bfb1377a1c8b66178810d3a7223323",
-    "lastmod": "2026-08-28"
+    "hash": "98233071565d7eca990a01145ffa49bbf19b851b5d23e19f4d3bece237790dc3",
+    "lastmod": "2026-08-29"
   },
   "tts/parakeet-tdt-0.6b-v3.html": {
     "hash": "2c4bc1ef64ab698ae1253568adced025823600af946d612a1d9db20bb6a7c5fd",

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 74 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 74 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 75 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 75 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 74 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 75 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">77</strong> speech records: <strong style="color:#fff;">74 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">78</strong> speech records: <strong style="color:#fff;">75 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>74 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>75 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3222,6 +3222,34 @@
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "N/A (ASR/AST: outputs text or translation)",
                 context: "2B speech-language model for ASR, AST, punctuation, truecasing and keyword-biased recognition",
+                license: "Apache 2.0"
+            },
+            {
+                id: "granite-speech-5.0-470m-turboctc",
+                name: "Granite Speech 5.0 470M TurboCTC",
+                developer: "IBM Granite",
+                family: "granite-speech",
+                isAsr: true,
+                description: "Compact Apache-licensed English ASR model from IBM Granite for accurate low-latency and high-throughput local transcription. The 470M-parameter CTC release ships safetensors, runs through native Transformers support, and is explicitly positioned for laptops, smartphones and edge deployments.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "edge"],
+                sizeGB: 1.9,
+                sizeLabel: "470M params; BF16/F32 safetensors, ~4 GB+ RAM practical floor",
+                sizeCategory: "medium",
+                quality: 9.3,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2026-08-25",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/ibm-granite/granite-speech-5.0-470m-turboctc",
+                sourceStatus: "verified-model",
+                installCommand: "pip install transformers>=5.16.0 datasets",
+                supportedFormats: ["transformers", "pytorch", "safetensors"],
+                voices: "N/A (ASR: English transcription)",
+                context: "16-block conformer CTC ASR, English only, trained on about 60K hours of public and synthetic audio; IBM reports official OpenASR/FFASR results and 12,600+ RTFx throughput on H200",
                 license: "Apache 2.0"
             },
             {

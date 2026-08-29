@@ -808,6 +808,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4
   },
   {
+    "id": "granite-speech-5.0-470m-turboctc",
+    "name": "Granite Speech 5.0 470M TurboCTC",
+    "developer": "IBM Granite",
+    "family": "granite-speech",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08-25",
+    "quality": 9.3,
+    "speed": 9.8,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 1.9
+  },
+  {
     "id": "qwen3-asr",
     "name": "Qwen3-ASR",
     "developer": "Alibaba Cloud (Qwen Team)",

@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-08-28
 - Local LLM pages: 224 unique routes across 80 families
-- Local speech records: 74 across 62 families (56 TTS, 17 ASR, 1 app)
+- Local speech records: 75 across 62 families (56 TTS, 18 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 92
 - Latest catalogue release month: Aug 26, 2026
 - LLM source states: 184 public GGUF repositories, 39 public model cards without a verified GGUF file and 4 gated model cards
@@ -27,7 +27,7 @@
 - [LM Studio](https://localclaw.io/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
 - [LocalClaw pricing](https://localclaw.io/pricing) — dedicated LocalClaw product, purchase and download page
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 74 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 75 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
@@ -39,7 +39,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 390 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 391 local homepage entries
 
 ## New Mac Local AI Guides
 
@@ -81,10 +81,10 @@ Apple lists the new desktop models for pre-order with availability beginning Sep
 
 - [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — Audio 9.6/10; ASR; CC-BY-4.0.
 - [Parakeet TDT 0.6B v3](https://localclaw.io/tts/parakeet-tdt-0.6b-v3) — Audio 9.6/10; ASR; CC-BY-4.0.
+- [Granite Speech 5.0 470M TurboCTC](https://localclaw.io/tts/granite-speech-5.0-470m-turboctc) — Audio 9.5/10; ASR; Apache 2.0.
 - [Kyutai STT 2.6B English](https://localclaw.io/tts/kyutai-stt-2.6b) — Audio 9.4/10; ASR; CC-BY-4.0.
 - [F5-TTS v1 Base](https://localclaw.io/tts/f5-tts-v1.1) — Audio 9.4/10; TTS; CC-BY-NC-4.0 weights; MIT code.
 - [Kokoro TTS](https://localclaw.io/tts/kokoro) — Audio 9.4/10; TTS; Apache 2.0.
-- [Nemotron 3.5 ASR Streaming 0.6B](https://localclaw.io/tts/nemotron-3.5-asr-streaming-0.6b) — Audio 9.4/10; ASR; OpenMDW 1.1.
 
 ## Data Notes
 
