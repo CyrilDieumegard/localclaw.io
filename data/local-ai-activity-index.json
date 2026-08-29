@@ -16,7 +16,13 @@
   "generatedAt": "2026-08-29T12:00:00+02:00",
   "totals": {
     "signals": 3337,
-    "regions": 113
+    "regions": 113,
+    "observedSignals": 3337,
+    "observedRegions": 113,
+    "publishedSignals": 3243,
+    "publishedRegions": 62,
+    "withheldSignals": 94,
+    "withheldRegions": 51
   },
   "countries": [
     {
@@ -328,262 +334,114 @@
       "rank": 62,
       "name": "Saudi Arabia",
       "signals": 5
-    },
-    {
-      "rank": 63,
-      "name": "Morocco",
-      "signals": 4
-    },
-    {
-      "rank": 64,
-      "name": "Nigeria",
-      "signals": 4
-    },
-    {
-      "rank": 65,
-      "name": "Lithuania",
-      "signals": 4
-    },
-    {
-      "rank": 66,
-      "name": "Puerto Rico",
-      "signals": 3
-    },
-    {
-      "rank": 67,
-      "name": "Moldova",
-      "signals": 3
-    },
-    {
-      "rank": 68,
-      "name": "Qatar",
-      "signals": 3
-    },
-    {
-      "rank": 69,
-      "name": "Slovenia",
-      "signals": 3
-    },
-    {
-      "rank": 70,
-      "name": "Sri Lanka",
-      "signals": 3
-    },
-    {
-      "rank": 71,
-      "name": "Luxembourg",
-      "signals": 3
-    },
-    {
-      "rank": 72,
-      "name": "Iraq",
-      "signals": 3
-    },
-    {
-      "rank": 73,
-      "name": "Serbia",
-      "signals": 3
-    },
-    {
-      "rank": 74,
-      "name": "Jordan",
-      "signals": 2
-    },
-    {
-      "rank": 75,
-      "name": "Tunisia",
-      "signals": 2
-    },
-    {
-      "rank": 76,
-      "name": "Panama",
-      "signals": 2
-    },
-    {
-      "rank": 77,
-      "name": "Algeria",
-      "signals": 2
-    },
-    {
-      "rank": 78,
-      "name": "Andorra",
-      "signals": 2
-    },
-    {
-      "rank": 79,
-      "name": "Senegal",
-      "signals": 2
-    },
-    {
-      "rank": 80,
-      "name": "Georgia",
-      "signals": 2
-    },
-    {
-      "rank": 81,
-      "name": "Venezuela",
-      "signals": 2
-    },
-    {
-      "rank": 82,
-      "name": "Myanmar",
-      "signals": 2
-    },
-    {
-      "rank": 83,
-      "name": "Mongolia",
-      "signals": 2
-    },
-    {
-      "rank": 84,
-      "name": "Antigua and Barbuda",
-      "signals": 2
-    },
-    {
-      "rank": 85,
-      "name": "Albania",
-      "signals": 2
-    },
-    {
-      "rank": 86,
-      "name": "Armenia",
-      "signals": 2
-    },
-    {
-      "rank": 87,
-      "name": "Cyprus",
-      "signals": 2
-    },
-    {
-      "rank": 88,
-      "name": "British Indian Ocean Territory",
-      "signals": 2
-    },
-    {
-      "rank": 89,
-      "name": "Mauritius",
-      "signals": 2
-    },
-    {
-      "rank": 90,
-      "name": "Kenya",
-      "signals": 2
-    },
-    {
-      "rank": 91,
-      "name": "Uruguay",
-      "signals": 2
-    },
-    {
-      "rank": 92,
-      "name": "Costa Rica",
-      "signals": 1
-    },
-    {
-      "rank": 93,
-      "name": "Seychelles",
-      "signals": 1
-    },
-    {
-      "rank": 94,
-      "name": "Ghana",
-      "signals": 1
-    },
-    {
-      "rank": 95,
-      "name": "North Macedonia",
-      "signals": 1
-    },
-    {
-      "rank": 96,
-      "name": "Saint Lucia",
-      "signals": 1
-    },
-    {
-      "rank": 97,
-      "name": "Gabon",
-      "signals": 1
-    },
-    {
-      "rank": 98,
-      "name": "Syrian Arab Republic",
-      "signals": 1
-    },
-    {
-      "rank": 99,
-      "name": "Fiji",
-      "signals": 1
-    },
-    {
-      "rank": 100,
-      "name": "Nicaragua",
-      "signals": 1
-    },
-    {
-      "rank": 101,
-      "name": "Dominican Republic",
-      "signals": 1
-    },
-    {
-      "rank": 102,
-      "name": "Bosnia and Herzegovina",
-      "signals": 1
-    },
-    {
-      "rank": 103,
-      "name": "Malta",
-      "signals": 1
-    },
-    {
-      "rank": 104,
-      "name": "Ethiopia",
-      "signals": 1
-    },
-    {
-      "rank": 105,
-      "name": "Tanzania",
-      "signals": 1
-    },
-    {
-      "rank": 106,
-      "name": "El Salvador",
-      "signals": 1
-    },
-    {
-      "rank": 107,
-      "name": "Honduras",
-      "signals": 1
-    },
-    {
-      "rank": 108,
-      "name": "Trinidad and Tobago",
-      "signals": 1
-    },
-    {
-      "rank": 109,
-      "name": "Réunion",
-      "signals": 1
-    },
-    {
-      "rank": 110,
-      "name": "Madagascar",
-      "signals": 1
-    },
-    {
-      "rank": 111,
-      "name": "Bahrain",
-      "signals": 1
-    },
-    {
-      "rank": 112,
-      "name": "Bolivia",
-      "signals": 1
-    },
-    {
-      "rank": 113,
-      "name": "Guernsey",
-      "signals": 1
     }
+  ],
+  "cityClusterMethodology": {
+    "source": "DataFast city breakdowns filtered by country and, for the United States, region",
+    "metric": "unique visitors",
+    "publishThreshold": 5,
+    "generatedAt": "2026-08-29T12:55:25+02:00",
+    "coordinateSource": "GeoNames cities15000",
+    "coordinateAttribution": "GeoNames geographical database (cities15000)",
+    "coordinateSourceUrl": "https://download.geonames.org/export/dump/cities15000.zip",
+    "coordinateLicense": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+    "coordinateLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "coordinateKind": "city-centroid",
+    "locationKind": "approximate-network-city",
+    "privacyNote": "Only DataFast city aggregates with at least five signals are published; no person, device, IP address, or exact event location is exposed.",
+    "remainderTreatment": "Signals outside published city clusters remain implicit and are represented only by their parent country or published U.S. state polygon total."
+  },
+  "cityClusters": [
+    { "city": "The Dalles", "country": "United States", "countryCode": "US", "region": "Oregon", "regionCode": "OR", "signals": 511, "lat": 45.59456, "lon": -121.17868, "geonameId": 5756304, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city", "qualityFlags": ["network-location-cluster"] },
+    { "city": "San Jose", "country": "United States", "countryCode": "US", "region": "California", "regionCode": "CA", "signals": 65, "lat": 37.33939, "lon": -121.89496, "geonameId": 5392171, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Los Angeles", "country": "United States", "countryCode": "US", "region": "California", "regionCode": "CA", "signals": 27, "lat": 34.05223, "lon": -118.24368, "geonameId": 5368361, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "San Francisco", "country": "United States", "countryCode": "US", "region": "California", "regionCode": "CA", "signals": 12, "lat": 37.77493, "lon": -122.41942, "geonameId": 5391959, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Oakland", "country": "United States", "countryCode": "US", "region": "California", "regionCode": "CA", "signals": 6, "lat": 37.80437, "lon": -122.2708, "geonameId": 5378538, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "New York City", "country": "United States", "countryCode": "US", "region": "New York", "regionCode": "NY", "signals": 36, "lat": 40.71427, "lon": -74.00597, "geonameId": 5128581, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city", "aggregatedFrom": [{ "city": "New York", "signals": 23 }, { "city": "Staten Island", "signals": 13 }] },
+    { "city": "Buffalo", "country": "United States", "countryCode": "US", "region": "New York", "regionCode": "NY", "signals": 12, "lat": 42.88645, "lon": -78.87837, "geonameId": 5110629, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Dallas", "country": "United States", "countryCode": "US", "region": "Texas", "regionCode": "TX", "signals": 10, "lat": 32.78306, "lon": -96.80667, "geonameId": 4684888, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Austin", "country": "United States", "countryCode": "US", "region": "Texas", "regionCode": "TX", "signals": 8, "lat": 30.26715, "lon": -97.74306, "geonameId": 4671654, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Houston", "country": "United States", "countryCode": "US", "region": "Texas", "regionCode": "TX", "signals": 7, "lat": 29.76328, "lon": -95.36327, "geonameId": 4699066, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Plano", "country": "United States", "countryCode": "US", "region": "Texas", "regionCode": "TX", "signals": 5, "lat": 33.01984, "lon": -96.69889, "geonameId": 4719457, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Ashburn", "country": "United States", "countryCode": "US", "region": "Virginia", "regionCode": "VA", "signals": 31, "lat": 39.04372, "lon": -77.48749, "geonameId": 4744870, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Miami", "country": "United States", "countryCode": "US", "region": "Florida", "regionCode": "FL", "signals": 12, "lat": 25.77427, "lon": -80.19366, "geonameId": 4164138, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Orlando", "country": "United States", "countryCode": "US", "region": "Florida", "regionCode": "FL", "signals": 5, "lat": 28.53834, "lon": -81.37924, "geonameId": 4167147, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Seattle", "country": "United States", "countryCode": "US", "region": "Washington", "regionCode": "WA", "signals": 16, "lat": 47.60621, "lon": -122.33207, "geonameId": 5809844, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Chicago", "country": "United States", "countryCode": "US", "region": "Illinois", "regionCode": "IL", "signals": 16, "lat": 41.85003, "lon": -87.65005, "geonameId": 4887398, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Washington", "country": "United States", "countryCode": "US", "region": "District of Columbia", "regionCode": "DC", "signals": 22, "lat": 38.89511, "lon": -77.03637, "geonameId": 4140963, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Atlanta", "country": "United States", "countryCode": "US", "region": "Georgia", "regionCode": "GA", "signals": 12, "lat": 33.749, "lon": -84.38798, "geonameId": 4180439, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Philadelphia", "country": "United States", "countryCode": "US", "region": "Pennsylvania", "regionCode": "PA", "signals": 5, "lat": 39.95238, "lon": -75.16362, "geonameId": 4560349, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Las Vegas", "country": "United States", "countryCode": "US", "region": "Nevada", "regionCode": "NV", "signals": 17, "lat": 36.17497, "lon": -115.13722, "geonameId": 5506956, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Council Bluffs", "country": "United States", "countryCode": "US", "region": "Iowa", "regionCode": "IA", "signals": 12, "lat": 41.26194, "lon": -95.86083, "geonameId": 4852832, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Boston", "country": "United States", "countryCode": "US", "region": "Massachusetts", "regionCode": "MA", "signals": 5, "lat": 42.35843, "lon": -71.05977, "geonameId": 4930956, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Indianapolis", "country": "United States", "countryCode": "US", "region": "Indiana", "regionCode": "IN", "signals": 6, "lat": 39.76838, "lon": -86.15804, "geonameId": 4259418, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city", "sourceLabel": "Indpls" },
+    { "city": "Denver", "country": "United States", "countryCode": "US", "region": "Colorado", "regionCode": "CO", "signals": 5, "lat": 39.73915, "lon": -104.9847, "geonameId": 5419384, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Huntsville", "country": "United States", "countryCode": "US", "region": "Alabama", "regionCode": "AL", "signals": 5, "lat": 34.7304, "lon": -86.58594, "geonameId": 4068590, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Phoenix", "country": "United States", "countryCode": "US", "region": "Arizona", "regionCode": "AZ", "signals": 5, "lat": 33.44838, "lon": -112.07404, "geonameId": 5308655, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Frankfurt", "country": "Germany", "countryCode": "DE", "signals": 30, "lat": 50.11552, "lon": 8.68417, "geonameId": 2925533, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Berlin", "country": "Germany", "countryCode": "DE", "signals": 22, "lat": 52.52437, "lon": 13.41053, "geonameId": 2950159, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Munich", "country": "Germany", "countryCode": "DE", "signals": 18, "lat": 48.13743, "lon": 11.57549, "geonameId": 2867714, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Hamburg", "country": "Germany", "countryCode": "DE", "signals": 10, "lat": 53.55073, "lon": 9.99302, "geonameId": 2911298, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Stuttgart", "country": "Germany", "countryCode": "DE", "signals": 7, "lat": 48.78232, "lon": 9.17702, "geonameId": 2825297, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Mannheim", "country": "Germany", "countryCode": "DE", "signals": 6, "lat": 49.4891, "lon": 8.46694, "geonameId": 2873891, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Cologne", "country": "Germany", "countryCode": "DE", "signals": 5, "lat": 50.93333, "lon": 6.95, "geonameId": 2886242, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Beijing", "country": "China", "countryCode": "CN", "signals": 61, "lat": 39.9075, "lon": 116.39723, "geonameId": 1816670, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Guangzhou", "country": "China", "countryCode": "CN", "signals": 18, "lat": 23.11667, "lon": 113.25, "geonameId": 1809858, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Shanghai", "country": "China", "countryCode": "CN", "signals": 7, "lat": 31.22222, "lon": 121.45806, "geonameId": 1796236, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "London", "country": "United Kingdom", "countryCode": "GB", "signals": 24, "lat": 51.50853, "lon": -0.12574, "geonameId": 2643743, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city", "aggregatedFrom": [{ "city": "London", "signals": 12 }, { "city": "Canary Wharf", "signals": 6 }, { "city": "City of London", "signals": 6 }] },
+    { "city": "Bristol", "country": "United Kingdom", "countryCode": "GB", "signals": 5, "lat": 51.45523, "lon": -2.59665, "geonameId": 2654675, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Manchester", "country": "United Kingdom", "countryCode": "GB", "signals": 5, "lat": 53.48095, "lon": -2.23743, "geonameId": 2643123, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Bengaluru", "country": "India", "countryCode": "IN", "signals": 20, "lat": 12.97194, "lon": 77.59369, "geonameId": 1277333, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Chennai", "country": "India", "countryCode": "IN", "signals": 14, "lat": 13.08784, "lon": 80.27847, "geonameId": 1264527, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Mumbai", "country": "India", "countryCode": "IN", "signals": 10, "lat": 19.07283, "lon": 72.88261, "geonameId": 1275339, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Hyderabad", "country": "India", "countryCode": "IN", "signals": 6, "lat": 17.38405, "lon": 78.45636, "geonameId": 1269843, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Pune", "country": "India", "countryCode": "IN", "signals": 6, "lat": 18.51957, "lon": 73.85535, "geonameId": 1259229, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "New Delhi", "country": "India", "countryCode": "IN", "signals": 6, "lat": 28.65195, "lon": 77.23149, "geonameId": 1273294, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Amsterdam", "country": "Netherlands", "countryCode": "NL", "signals": 28, "lat": 52.37403, "lon": 4.88969, "geonameId": 2759794, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "The Hague", "country": "Netherlands", "countryCode": "NL", "signals": 5, "lat": 52.07667, "lon": 4.29861, "geonameId": 2747373, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Paris", "country": "France", "countryCode": "FR", "signals": 8, "lat": 48.85341, "lon": 2.3488, "geonameId": 2988507, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Toulouse", "country": "France", "countryCode": "FR", "signals": 5, "lat": 43.60426, "lon": 1.44367, "geonameId": 2972315, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Toronto", "country": "Canada", "countryCode": "CA", "signals": 14, "lat": 43.70643, "lon": -79.39864, "geonameId": 6167865, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Vancouver", "country": "Canada", "countryCode": "CA", "signals": 8, "lat": 49.24966, "lon": -123.11934, "geonameId": 6173331, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Montreal", "country": "Canada", "countryCode": "CA", "signals": 7, "lat": 45.50884, "lon": -73.58781, "geonameId": 6077243, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Calgary", "country": "Canada", "countryCode": "CA", "signals": 6, "lat": 51.05011, "lon": -114.08529, "geonameId": 5913490, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Hong Kong", "country": "Hong Kong", "countryCode": "HK", "signals": 35, "lat": 22.27832, "lon": 114.17469, "geonameId": 1819729, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Sydney", "country": "Australia", "countryCode": "AU", "signals": 25, "lat": -33.86785, "lon": 151.20732, "geonameId": 2147714, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Melbourne", "country": "Australia", "countryCode": "AU", "signals": 20, "lat": -37.814, "lon": 144.96332, "geonameId": 2158177, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Brisbane", "country": "Australia", "countryCode": "AU", "signals": 7, "lat": -27.46794, "lon": 153.02809, "geonameId": 2174003, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Zurich", "country": "Switzerland", "countryCode": "CH", "signals": 14, "lat": 47.36667, "lon": 8.55, "geonameId": 2657896, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Geneva", "country": "Switzerland", "countryCode": "CH", "signals": 12, "lat": 46.20222, "lon": 6.14569, "geonameId": 2660646, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city", "aggregatedFrom": [{ "city": "Thônex", "signals": 7 }, { "city": "Geneva", "signals": 5 }] },
+    { "city": "Milan", "country": "Italy", "countryCode": "IT", "signals": 6, "lat": 45.46427, "lon": 9.18951, "geonameId": 3173435, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Barcelona", "country": "Spain", "countryCode": "ES", "signals": 8, "lat": 41.38879, "lon": 2.15899, "geonameId": 3128760, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Madrid", "country": "Spain", "countryCode": "ES", "signals": 5, "lat": 40.4165, "lon": -3.70256, "geonameId": 3117735, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Tokyo", "country": "Japan", "countryCode": "JP", "signals": 16, "lat": 35.6895, "lon": 139.69171, "geonameId": 1850147, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "São Paulo", "country": "Brazil", "countryCode": "BR", "signals": 5, "lat": -23.5475, "lon": -46.63611, "geonameId": 3448439, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Warsaw", "country": "Poland", "countryCode": "PL", "signals": 11, "lat": 52.22977, "lon": 21.01178, "geonameId": 756135, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Stockholm", "country": "Sweden", "countryCode": "SE", "signals": 16, "lat": 59.32938, "lon": 18.06871, "geonameId": 2673730, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Seoul", "country": "South Korea", "countryCode": "KR", "signals": 5, "lat": 37.566, "lon": 126.9784, "geonameId": 1835848, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Helsinki", "country": "Finland", "countryCode": "FI", "signals": 13, "lat": 60.16952, "lon": 24.93545, "geonameId": 658225, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Vienna", "country": "Austria", "countryCode": "AT", "signals": 13, "lat": 48.20849, "lon": 16.37208, "geonameId": 2761369, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Istanbul", "country": "Turkey", "countryCode": "TR", "signals": 10, "lat": 41.01384, "lon": 28.94966, "geonameId": 745044, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Prague", "country": "Czechia", "countryCode": "CZ", "signals": 11, "lat": 50.08804, "lon": 14.42076, "geonameId": 3067696, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Bangkok", "country": "Thailand", "countryCode": "TH", "signals": 11, "lat": 13.75398, "lon": 100.50144, "geonameId": 1609350, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Santiago", "country": "Chile", "countryCode": "CL", "signals": 10, "lat": -33.45694, "lon": -70.64827, "geonameId": 3871336, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Kyiv", "country": "Ukraine", "countryCode": "UA", "signals": 9, "lat": 50.45466, "lon": 30.5238, "geonameId": 703448, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Bucharest", "country": "Romania", "countryCode": "RO", "signals": 8, "lat": 44.43225, "lon": 26.10626, "geonameId": 683506, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Ho Chi Minh City", "country": "Viet Nam", "countryCode": "VN", "signals": 8, "lat": 10.82302, "lon": 106.62965, "geonameId": 1566083, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Hanoi", "country": "Viet Nam", "countryCode": "VN", "signals": 5, "lat": 21.0245, "lon": 105.84117, "geonameId": 1581130, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Baku", "country": "Azerbaijan", "countryCode": "AZ", "signals": 7, "lat": 40.37767, "lon": 49.89201, "geonameId": 587084, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Cape Town", "country": "South Africa", "countryCode": "ZA", "signals": 7, "lat": -33.92584, "lon": 18.42322, "geonameId": 3369157, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Tel Aviv", "country": "Israel", "countryCode": "IL", "signals": 7, "lat": 32.08088, "lon": 34.78057, "geonameId": 293397, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Kuala Lumpur", "country": "Malaysia", "countryCode": "MY", "signals": 6, "lat": 3.1412, "lon": 101.68653, "geonameId": 1735161, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Tashkent", "country": "Uzbekistan", "countryCode": "UZ", "signals": 6, "lat": 41.26465, "lon": 69.21627, "geonameId": 1512569, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Lahore", "country": "Pakistan", "countryCode": "PK", "signals": 6, "lat": 31.558, "lon": 74.35071, "geonameId": 1172451, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Phnom Penh", "country": "Cambodia", "countryCode": "KH", "signals": 5, "lat": 11.56245, "lon": 104.91601, "geonameId": 1821306, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Budapest", "country": "Hungary", "countryCode": "HU", "signals": 5, "lat": 47.49835, "lon": 19.04045, "geonameId": 3054643, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Sofia", "country": "Bulgaria", "countryCode": "BG", "signals": 5, "lat": 42.69751, "lon": 23.32415, "geonameId": 727011, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Antwerp", "country": "Belgium", "countryCode": "BE", "signals": 5, "lat": 51.22047, "lon": 4.40026, "geonameId": 2803138, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Riga", "country": "Latvia", "countryCode": "LV", "signals": 5, "lat": 56.946, "lon": 24.10589, "geonameId": 456172, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Bogotá", "country": "Colombia", "countryCode": "CO", "signals": 5, "lat": 4.60971, "lon": -74.08175, "geonameId": 3688689, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" },
+    { "city": "Taipei", "country": "Taiwan", "countryCode": "TW", "signals": 5, "lat": 25.05306, "lon": 121.52639, "geonameId": 1668341, "coordinateKind": "city-centroid", "locationKind": "approximate-network-city" }
   ],
   "subnational": {
     "United States": {
@@ -602,11 +460,11 @@
       },
       "qualityNotes": [
         "Region and city are approximate network locations derived by the analytics provider, not verified residence.",
-        "Oregon is flagged because 506 of its 516 signals resolve to The Dalles, a concentration that may reflect network or data-center routing rather than local residents.",
+        "Oregon is flagged because 511 of its 516 signals resolve to The Dalles, a concentration that may reflect network or data-center routing rather than local residents.",
         "Only states with at least five signals are published on the globe."
       ],
       "regions": [
-        { "rank": 1, "name": "Oregon", "code": "OR", "signals": 516, "qualityFlag": "network-location-cluster", "qualityNote": "506 of 516 signals resolve to The Dalles; interpret as a network-location cluster, not a resident count." },
+        { "rank": 1, "name": "Oregon", "code": "OR", "signals": 516, "qualityFlag": "network-location-cluster", "qualityNote": "511 of 516 signals resolve to The Dalles; interpret as a network-location cluster, not a resident count." },
         { "rank": 2, "name": "California", "code": "CA", "signals": 171 },
         { "rank": 3, "name": "New York", "code": "NY", "signals": 63 },
         { "rank": 4, "name": "Texas", "code": "TX", "signals": 58 },

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const PAGE_PATH = 'local-ai-activity-index.html';
@@ -15,7 +16,17 @@ const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
 const EXPECTED_TITLE = 'Local AI Activity Index: Global Interest Map | LocalClaw';
 const EXPECTED_H1 = 'See where local AI is taking off.';
 const EXPECTED_SIGNALS = 3337;
-const EXPECTED_REGIONS = 113;
+const EXPECTED_OBSERVED_REGIONS = 113;
+const EXPECTED_PUBLISHED_COUNTRY_SIGNALS = 3243;
+const EXPECTED_PUBLISHED_COUNTRIES = 62;
+const EXPECTED_WITHHELD_COUNTRY_SIGNALS = 94;
+const EXPECTED_WITHHELD_COUNTRIES = 51;
+const EXPECTED_CITY_CLUSTERS = 90;
+const EXPECTED_CITY_CLUSTER_SIGNALS = 1591;
+const EXPECTED_CITY_CLUSTER_GENERATED_AT = '2026-08-29T12:55:25+02:00';
+const EXPECTED_COUNTRY_FINGERPRINT = '5b08c7f06786ddd71080976fd119f13ab7fa3f4736920afc7fb30e0d6a3b3515';
+const EXPECTED_US_STATE_FINGERPRINT = '06b9bd93878f215819abbd6d44eb5759e5034d46eb0f1fb5ba42823159c45be7';
+const EXPECTED_CITY_CLUSTER_FINGERPRINT = '9cd8e98cea83b9d96312aeb9acad538e3ff6c654e8ba098ac8b7c7ddf449044d';
 const EXPECTED_US_PUBLISHED_SIGNALS = 1259;
 const EXPECTED_US_PUBLISHED_REGIONS = 30;
 const errors = [];
@@ -317,17 +328,31 @@ if (data) {
     issue('Dataset claimBoundary must identify interest signals');
   }
   if (data.totals?.signals !== EXPECTED_SIGNALS) issue(`Expected ${EXPECTED_SIGNALS} total signals`);
-  if (data.totals?.regions !== EXPECTED_REGIONS) issue(`Expected ${EXPECTED_REGIONS} total regions`);
+  if (data.totals?.regions !== EXPECTED_OBSERVED_REGIONS) issue(`Expected ${EXPECTED_OBSERVED_REGIONS} observed country regions`);
+  if (data.totals?.observedSignals !== EXPECTED_SIGNALS) issue('Observed country signal metadata must preserve all 3,337 signals');
+  if (data.totals?.observedRegions !== EXPECTED_OBSERVED_REGIONS) issue('Observed country metadata must preserve all 113 regions');
+  if (data.totals?.publishedSignals !== EXPECTED_PUBLISHED_COUNTRY_SIGNALS) issue('Unexpected published country signal total');
+  if (data.totals?.publishedRegions !== EXPECTED_PUBLISHED_COUNTRIES) issue('Unexpected published country count');
+  if (data.totals?.withheldSignals !== EXPECTED_WITHHELD_COUNTRY_SIGNALS) issue('Unexpected withheld country signal total');
+  if (data.totals?.withheldRegions !== EXPECTED_WITHHELD_COUNTRIES) issue('Unexpected withheld country count');
+  if (data.totals?.publishedSignals + data.totals?.withheldSignals !== data.totals?.signals) {
+    issue('Published and withheld country signals must reconcile to the observed total');
+  }
+  if (data.totals?.publishedRegions + data.totals?.withheldRegions !== data.totals?.regions) {
+    issue('Published and withheld country counts must reconcile to the observed total');
+  }
 
   const countries = Array.isArray(data.countries) ? data.countries : [];
-  if (countries.length !== EXPECTED_REGIONS) issue(`Expected ${EXPECTED_REGIONS} country records, found ${countries.length}`);
+  if (countries.length !== EXPECTED_PUBLISHED_COUNTRIES) issue(`Expected ${EXPECTED_PUBLISHED_COUNTRIES} published country records, found ${countries.length}`);
   const signalSum = countries.reduce((sum, country) => sum + Number(country.signals || 0), 0);
-  if (signalSum !== EXPECTED_SIGNALS) issue(`Country signals sum to ${signalSum}, expected ${EXPECTED_SIGNALS}`);
+  if (signalSum !== EXPECTED_PUBLISHED_COUNTRY_SIGNALS) {
+    issue(`Published country signals sum to ${signalSum}, expected ${EXPECTED_PUBLISHED_COUNTRY_SIGNALS}`);
+  }
   if (new Set(countries.map(country => country.name)).size !== countries.length) issue('Country names must be unique');
 
   countries.forEach((country, index) => {
     if (country.rank !== index + 1) issue(`Country ranking is not contiguous at position ${index + 1}`);
-    if (!country.name || !Number.isInteger(country.signals) || country.signals < 1) {
+    if (!country.name || !Number.isInteger(country.signals) || country.signals < 5) {
       issue(`Country record ${index + 1} has an invalid name or signal count`);
     }
     if (index > 0 && countries[index - 1].signals < country.signals) {
@@ -338,6 +363,12 @@ if (data) {
   const actualTop20 = countries.slice(0, 20).map(country => [country.name, country.signals]);
   if (JSON.stringify(actualTop20) !== JSON.stringify(expectedTop20)) {
     issue('Dataset top 20 does not match the approved 29 August 2026 snapshot');
+  }
+  const countryFingerprint = crypto.createHash('sha256')
+    .update(countries.map(country => [country.rank, country.name, country.signals].join('|')).join('\n'))
+    .digest('hex');
+  if (countryFingerprint !== EXPECTED_COUNTRY_FINGERPRINT) {
+    issue('Published country rows do not match the approved thresholded country snapshot');
   }
 
   const usData = data.subnational?.['United States'];
@@ -352,9 +383,156 @@ if (data) {
     if (regions.length !== EXPECTED_US_PUBLISHED_REGIONS) issue(`Expected ${EXPECTED_US_PUBLISHED_REGIONS} published U.S. states, found ${regions.length}`);
     const stateSignalSum = regions.reduce((sum, region) => sum + Number(region.signals || 0), 0);
     if (stateSignalSum !== EXPECTED_US_PUBLISHED_SIGNALS) issue(`Published U.S. state signals sum to ${stateSignalSum}`);
+    const stateFingerprint = crypto.createHash('sha256')
+      .update(regions.map(region => [region.rank, region.name, region.code, region.signals, region.qualityFlag || ''].join('|')).join('\n'))
+      .digest('hex');
+    if (stateFingerprint !== EXPECTED_US_STATE_FINGERPRINT) {
+      issue('Published U.S. state rows do not match the approved state snapshot');
+    }
     if (regions[0]?.name !== 'Oregon' || regions[0]?.qualityFlag !== 'network-location-cluster') {
       issue('Oregon must retain its network-location quality flag');
     }
+  }
+
+  const cityMethodology = data.cityClusterMethodology;
+  if (!cityMethodology || typeof cityMethodology !== 'object') {
+    issue('Dataset is missing cityClusterMethodology');
+  } else {
+    if (!String(cityMethodology.source || '').includes('DataFast')) issue('City methodology must identify DataFast as the aggregate source');
+    if (cityMethodology.metric !== 'unique visitors') issue('City cluster metric must remain unique visitors');
+    if (cityMethodology.publishThreshold !== 5) issue('City cluster publish threshold must be five signals');
+    if (cityMethodology.generatedAt !== EXPECTED_CITY_CLUSTER_GENERATED_AT) {
+      issue(`City clusters must retain generatedAt ${EXPECTED_CITY_CLUSTER_GENERATED_AT}`);
+    }
+    const coordinateAttribution = `${cityMethodology.coordinateSource || ''} ${cityMethodology.coordinateAttribution || ''}`;
+    if (!coordinateAttribution.includes('GeoNames') || !coordinateAttribution.includes('cities15000')) {
+      issue('City coordinates must attribute the GeoNames cities15000 dataset');
+    }
+    if (cityMethodology.coordinateSourceUrl !== 'https://download.geonames.org/export/dump/cities15000.zip') {
+      issue('City methodology must link to the GeoNames cities15000 source archive');
+    }
+    if (!String(cityMethodology.coordinateLicense || '').includes('CC BY 4.0')) {
+      issue('City coordinate metadata must declare the GeoNames CC BY 4.0 license');
+    }
+    if (cityMethodology.coordinateLicenseUrl !== 'https://creativecommons.org/licenses/by/4.0/') {
+      issue('City coordinate metadata must link to the CC BY 4.0 license');
+    }
+    if (cityMethodology.coordinateKind !== 'city-centroid') issue('City methodology coordinateKind must be city-centroid');
+    if (cityMethodology.locationKind !== 'approximate-network-city') {
+      issue('City methodology locationKind must be approximate-network-city');
+    }
+    const remainderTreatment = String(cityMethodology.remainderTreatment || '').toLowerCase();
+    if (!remainderTreatment.includes('implicit') || !remainderTreatment.includes('polygon')) {
+      issue('City methodology must state that non-city remainder is implicit and polygon-only');
+    }
+  }
+
+  const cityClusters = Array.isArray(data.cityClusters) ? data.cityClusters : [];
+  if (cityClusters.length !== EXPECTED_CITY_CLUSTERS) {
+    issue(`Expected ${EXPECTED_CITY_CLUSTERS} published city clusters, found ${cityClusters.length}`);
+  }
+  const citySignalSum = cityClusters.reduce((sum, cluster) => sum + Number(cluster.signals || 0), 0);
+  if (citySignalSum !== EXPECTED_CITY_CLUSTER_SIGNALS) {
+    issue(`Published city clusters sum to ${citySignalSum}, expected ${EXPECTED_CITY_CLUSTER_SIGNALS}`);
+  }
+
+  const cityKeys = new Set();
+  const geonameIds = new Set();
+  const citySignalsByCountry = new Map();
+  const usCitySignalsByRegion = new Map();
+  const countriesByName = new Map(countries.map(country => [country.name, country]));
+  const usRegionsByCode = new Map((usData?.regions || []).map(region => [region.code, region]));
+
+  cityClusters.forEach((cluster, index) => {
+    const label = `${cluster.countryCode || '?'} / ${cluster.regionCode || '-'} / ${cluster.city || `row ${index + 1}`}`;
+    const key = [cluster.countryCode, cluster.regionCode || '', cluster.city].join('|');
+    if (cityKeys.has(key)) issue(`Duplicate city cluster: ${label}`);
+    cityKeys.add(key);
+
+    if (!cluster.city || !cluster.country || !/^[A-Z]{2}$/.test(cluster.countryCode || '')) {
+      issue(`City cluster ${label} has an invalid city, country, or countryCode`);
+    }
+    if (!Number.isInteger(cluster.signals) || cluster.signals < 5) {
+      issue(`City cluster ${label} violates the five-signal privacy threshold`);
+    }
+    if (!Number.isFinite(cluster.lat) || cluster.lat < -90 || cluster.lat > 90) {
+      issue(`City cluster ${label} has an invalid latitude`);
+    }
+    if (!Number.isFinite(cluster.lon) || cluster.lon < -180 || cluster.lon > 180) {
+      issue(`City cluster ${label} has an invalid longitude`);
+    }
+    if (!Number.isInteger(cluster.geonameId) || cluster.geonameId < 1) {
+      issue(`City cluster ${label} has an invalid GeoNames ID`);
+    } else if (geonameIds.has(cluster.geonameId)) {
+      issue(`Duplicate GeoNames ID ${cluster.geonameId} at ${label}`);
+    }
+    geonameIds.add(cluster.geonameId);
+    if (cluster.coordinateKind !== 'city-centroid') issue(`City cluster ${label} must use a city centroid`);
+    if (cluster.locationKind !== 'approximate-network-city') {
+      issue(`City cluster ${label} must disclose an approximate network city`);
+    }
+
+    citySignalsByCountry.set(cluster.country, (citySignalsByCountry.get(cluster.country) || 0) + Number(cluster.signals || 0));
+    if (cluster.countryCode === 'US') {
+      const parentState = usRegionsByCode.get(cluster.regionCode);
+      if (!parentState || parentState.name !== cluster.region) {
+        issue(`U.S. city cluster ${label} does not match a published parent state`);
+      }
+      usCitySignalsByRegion.set(cluster.regionCode, (usCitySignalsByRegion.get(cluster.regionCode) || 0) + Number(cluster.signals || 0));
+    }
+  });
+
+  const cityFingerprintRows = cityClusters
+    .map(cluster => [cluster.countryCode, cluster.regionCode || '', cluster.city, cluster.signals, cluster.lat, cluster.lon, cluster.geonameId].join('|'))
+    .sort();
+  const cityFingerprint = crypto.createHash('sha256').update(cityFingerprintRows.join('\n')).digest('hex');
+  if (cityFingerprint !== EXPECTED_CITY_CLUSTER_FINGERPRINT) {
+    issue('City cluster names, counts, coordinates, or GeoNames IDs do not match the approved snapshot');
+  }
+
+  for (const [countryName, signals] of citySignalsByCountry) {
+    const parentCountry = countriesByName.get(countryName);
+    if (!parentCountry) {
+      issue(`City clusters reference an unpublished or unknown parent country: ${countryName}`);
+    } else if (signals > parentCountry.signals) {
+      issue(`Published city clusters for ${countryName} exceed the parent country total`);
+    }
+  }
+  for (const [regionCode, signals] of usCitySignalsByRegion) {
+    const parentState = usRegionsByCode.get(regionCode);
+    if (parentState && signals > parentState.signals) {
+      issue(`Published city clusters for ${parentState.name} exceed the parent state total`);
+    }
+  }
+
+  const expectedMergedClusters = new Map([
+    ['US|NY|New York City', [['New York', 23], ['Staten Island', 13]]],
+    ['GB||London', [['London', 12], ['Canary Wharf', 6], ['City of London', 6]]],
+    ['CH||Geneva', [['Thônex', 7], ['Geneva', 5]]]
+  ]);
+  const mergedClusters = cityClusters.filter(cluster => Array.isArray(cluster.aggregatedFrom));
+  if (mergedClusters.length !== expectedMergedClusters.size) {
+    issue(`Expected ${expectedMergedClusters.size} disclosed merged city clusters, found ${mergedClusters.length}`);
+  }
+  for (const cluster of mergedClusters) {
+    const key = [cluster.countryCode, cluster.regionCode || '', cluster.city].join('|');
+    const expected = expectedMergedClusters.get(key);
+    const actual = cluster.aggregatedFrom.map(source => [source.city, source.signals]);
+    if (!expected || JSON.stringify(actual) !== JSON.stringify(expected)) {
+      issue(`Unexpected aggregatedFrom disclosure for ${key}`);
+    }
+    const mergedSignalSum = cluster.aggregatedFrom.reduce((sum, source) => sum + Number(source.signals || 0), 0);
+    if (mergedSignalSum !== cluster.signals) issue(`aggregatedFrom signals do not reconcile for ${key}`);
+  }
+  for (const expectedKey of expectedMergedClusters.keys()) {
+    if (!mergedClusters.some(cluster => [cluster.countryCode, cluster.regionCode || '', cluster.city].join('|') === expectedKey)) {
+      issue(`Missing aggregatedFrom disclosure for ${expectedKey}`);
+    }
+  }
+
+  const theDalles = cityClusters.find(cluster => cluster.countryCode === 'US' && cluster.regionCode === 'OR' && cluster.city === 'The Dalles');
+  if (theDalles?.signals !== 511 || !Array.isArray(theDalles?.qualityFlags) || !theDalles.qualityFlags.includes('network-location-cluster')) {
+    issue('The Dalles must remain a 511-signal network-location-cluster quality flag');
   }
 }
 
@@ -374,17 +552,23 @@ if (app !== null) {
   if (!app.includes('function enterUnitedStates(') || !app.includes('function focusRegion(')) {
     issue('Activity-index JavaScript is missing the U.S. state drill-down interactions');
   }
-  for (const helper of ['function pointInFeature(', 'function containedPoint(', 'function countryAt(', 'function stateAt(']) {
-    if (!app.includes(helper)) issue(`Activity-index JavaScript is missing geography guard: ${helper}`);
-  }
-  if (!app.includes('state.placementStats.world.outside') || !app.includes('state.placementStats.us.outside')) {
-    issue('Activity-index JavaScript is missing zero-outside-point diagnostics');
-  }
   if (!app.includes('function zoomLimits(') || !app.includes('data-atlas-zoom') || !app.includes('pinchStartDistance')) {
     issue('Activity-index JavaScript is missing discoverable wheel, pinch or button zoom support');
   }
   if (!app.includes('function toggleTour(') || !app.includes('function createBeaconAccent(')) {
     issue('Activity-index JavaScript is missing the guided tour or data-driven visual accents');
+  }
+  if (app.includes('function createParticles(') || app.includes('new THREE.InstancedMesh(')) {
+    issue('Activity-index JavaScript must not recreate synthetic activity point clouds');
+  }
+  if (!app.includes("entity?.kind !== 'cityCluster'") || !app.includes('pointNearFeature(cluster.lat, cluster.lon')) {
+    issue('Activity accents must be restricted to validated published city clusters');
+  }
+  if (app.includes('setFromPoints([surface, tip])')) {
+    issue('Activity-index JavaScript must not recreate decorative radial beacon lines');
+  }
+  if (!app.includes('const maximumVisible = window.innerWidth < 760 ? 56 : state.cityClusters.length')) {
+    issue('Desktop Atlas must render every validated published city cluster');
   }
   const featureNamesBody = app.match(/function featureNames\([^)]*\)\s*{([\s\S]*?)\n}/)?.[1] || '';
   if (featureNamesBody.includes('SOVEREIGNT')) issue('Country matching must not fall through to sovereign territories');
@@ -396,6 +580,9 @@ if (css !== null) {
   if (!css.includes('.atlas-region-panel')) issue('Activity-index stylesheet is missing the U.S. state panel');
   if (!css.includes('.atlas-navigation__rail') || !css.includes('.atlas-navigation__tour')) {
     issue('Activity-index stylesheet is missing the zoom and guided-tour HUD');
+  }
+  if (!css.includes('.atlas-map-label') || !css.includes('.atlas-label-layer')) {
+    issue('Activity-index stylesheet is missing projected city labels or the map legend layer');
   }
 }
 if (vendor !== null && vendor.length < 100000) issue('Vendored Three.js module is unexpectedly small');
@@ -436,4 +623,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: canonical page, honest interest boundary, 3,337 global signals, 30 published U.S. states, official boundaries, structured data, controls, assets and sitemap verified.');
+console.log('Local AI Activity Index validation passed: 3,337 observed signals, 62 privacy-thresholded countries, 30 published U.S. states, 90 exact GeoNames city clusters (1,591 signals), structured data, controls, assets and sitemap verified.');

@@ -13,15 +13,15 @@
   <meta property="og:url" content="https://localclaw.io/local-ai-activity-index">
   <meta property="og:site_name" content="LocalClaw">
   <meta property="og:title" content="The world map of local AI activity">
-  <meta property="og:description" content="Explore 3,337 anonymous interest signals across 113 countries and drill into U.S. states. Beta data, transparent methodology, no claim of verified installs.">
-  <meta property="og:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829a">
+  <meta property="og:description" content="Explore 3,243 privacy-thresholded interest signals across 62 published countries and drill into U.S. states. Beta data, transparent methodology, no claim of verified installs.">
+  <meta property="og:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829e">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A dark interactive globe with orange local AI interest signals across countries">
+  <meta property="og:image:alt" content="A dark interactive globe where orange color shows country aggregates and beacons show published city clusters">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The world map of local AI activity">
   <meta name="twitter:description" content="Explore the Local AI Activity Index by country and U.S. state. Beta data from anonymous interest signals, with transparent limitations.">
-  <meta name="twitter:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829a">
+  <meta name="twitter:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829e">
 
   <script type="application/ld+json">
   {
@@ -68,7 +68,7 @@
         "@type": "Dataset",
         "@id": "https://localclaw.io/local-ai-activity-index#dataset",
         "name": "Local AI Activity Index — interest signals, 31 July to 29 August 2026",
-        "description": "Country-level counts of anonymous LocalClaw website interest signals plus a privacy-thresholded U.S. state breakdown. This beta dataset does not measure verified local AI installations, model launches, inference events, residence, or the total population of local AI users.",
+        "description": "Privacy-thresholded country and U.S. state counts of anonymous LocalClaw website interest signals, plus published DataFast city clusters with at least five signals. Beacon centroids use approximate network-city locations from GeoNames. This beta dataset does not measure verified local AI installations, model launches, inference events, residence, or the total population of local AI users.",
         "identifier": "localclaw-laai-interest-2026-08-29",
         "version": "1.1-beta",
         "url": "https://localclaw.io/local-ai-activity-index",
@@ -78,11 +78,11 @@
         "spatialCoverage": "Worldwide",
         "temporalCoverage": "2026-07-31/2026-08-29",
         "dateModified": "2026-08-29",
-        "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast; see the methodology and limitations on the canonical page.",
+        "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast. Country, U.S. state, and city-cluster rows must reach five signals before public JSON publication. City-cluster beacons use approximate GeoNames network-city centroids; they never represent individual people, devices, exact IP addresses, or exact visitor locations. See the methodology and limitations on the canonical page.",
         "variableMeasured": {
           "@type": "PropertyValue",
           "name": "Anonymous LocalClaw interest signals by country and U.S. state",
-          "description": "Unique website visitors aggregated to country level and, for the United States, privacy-thresholded network-region level; not verified local AI use or residence."
+          "description": "Unique website visitors aggregated to privacy-thresholded country and U.S. state totals. Published city clusters are aggregate DataFast rows of at least five signals, positioned at approximate GeoNames network-city centroids; not verified local AI use or residence."
         },
         "distribution": {
           "@type": "DataDownload",
@@ -148,8 +148,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829a" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829c">
+  <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829e">
 
   <script>
     try {
@@ -210,16 +210,26 @@
   <main class="atlas-main">
     <section class="atlas-stage" data-atlas-stage aria-labelledby="atlas-title">
       <div class="atlas-viewport">
-        <img class="atlas-poster" src="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829a" width="1449" height="966" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
-        <canvas id="atlas-globe" tabindex="0" role="img" aria-label="Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, select the map and scroll to zoom, or use the visible zoom controls." aria-describedby="atlas-description atlas-controls-description"></canvas>
+        <img class="atlas-poster" src="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" width="1448" height="966" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+        <canvas id="atlas-globe" tabindex="0" role="img" aria-label="Interactive globe where regional color shows aggregate country or United States state interest. Each beacon marks a published DataFast city cluster with at least five signals at an approximate GeoNames network-city centroid. Beacons never represent individual people, devices, exact IP addresses, or exact visitor locations. Drag to rotate, select the map and scroll to zoom, or use the visible zoom controls." aria-describedby="atlas-description atlas-map-meaning atlas-controls-description"></canvas>
+        <ul class="atlas-label-layer" id="atlas-map-meaning" aria-label="Map legend">
+          <li class="atlas-label-layer__item">
+            <span class="atlas-label-layer__mark atlas-label-layer__mark--fill" aria-hidden="true"></span>
+            <span class="atlas-label-layer__copy"><strong>Color</strong><small>Country or state aggregate</small></span>
+          </li>
+          <li class="atlas-label-layer__item">
+            <span class="atlas-label-layer__mark atlas-label-layer__mark--beacon" aria-hidden="true"></span>
+            <span class="atlas-label-layer__copy"><strong>Beacon</strong><small>Published DataFast city cluster · 5+ signals</small></span>
+          </li>
+        </ul>
         <div class="atlas-vignette" aria-hidden="true"></div>
       </div>
 
       <header class="atlas-copy">
         <p class="atlas-kicker">LocalClaw Atlas · Beta</p>
         <h1 id="atlas-title" data-atlas-title>See where <em>local AI</em> is taking off.</h1>
-        <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>Anonymous interest signals · Last 30 days · Updated 29 August 2026</p>
-        <span class="atlas-live" data-atlas-live>Live exploration</span>
+        <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>Anonymous interest aggregates · 62 countries published at 5+ signals · Last 30 days · Updated 29 August 2026</p>
+        <span class="atlas-live" data-atlas-live>Aggregate view</span>
       </header>
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
@@ -250,7 +260,7 @@
           <span><strong data-us-visible-regions>30</strong> states published</span>
         </div>
         <ol class="atlas-region-panel__list" data-atlas-region-list></ol>
-        <p class="atlas-region-panel__note"><strong>Quality flag:</strong> Oregon is dominated by a The Dalles network-location cluster. These are approximate network regions, not verified residence.</p>
+        <p class="atlas-region-panel__note"><strong>Quality flag:</strong> Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.</p>
       </aside>
 
       <div class="atlas-tooltip" data-atlas-tooltip hidden>
@@ -272,10 +282,10 @@
       <p class="atlas-fallback-note" data-atlas-fallback-note hidden></p>
 
       <footer class="atlas-status" aria-label="Current data snapshot">
-        <span class="atlas-status__item"><strong data-scope-signals>3,337</strong>&nbsp;<span data-scope-signal-label>signals</span></span>
-        <span class="atlas-status__item"><strong data-scope-regions>113</strong>&nbsp;<span data-scope-region-label>regions observed</span></span>
+        <span class="atlas-status__item"><strong data-scope-signals>3,243</strong>&nbsp;<span data-scope-signal-label>published signals</span></span>
+        <span class="atlas-status__item"><strong data-scope-regions>62</strong>&nbsp;<span data-scope-region-label>countries published</span></span>
         <span class="atlas-status__item atlas-status__item--accent" data-scope-window>30-day window</span>
-        <span class="atlas-status__disclosure" data-scope-disclosure>Dots stay inside each country; exact positions are illustrative, not verified installations or model runs.</span>
+        <span class="atlas-status__disclosure" data-scope-disclosure>Color shows the published country or state aggregate. A beacon marks a DataFast city cluster with at least five signals at an approximate GeoNames network-city centroid; all remaining signals stay only in the regional fill. Beacons never represent individual people, devices, or exact IP addresses, and they are not verified installations or model runs.</span>
       </footer>
     </section>
 
@@ -307,7 +317,7 @@
         <section class="atlas-section" id="us-state-ranking" aria-labelledby="us-state-ranking-title">
           <p class="atlas-section__eyebrow">United States drill-down · New</p>
           <h2 id="us-state-ranking-title">From country scale to state-level detail.</h2>
-          <p class="atlas-section__lead">Select the United States on the globe—or choose a state below—to reveal official U.S. Census state boundaries and the DataFast region breakdown. Thirty states meet the public five-signal threshold; 44 states or equivalents were observed in the source.</p>
+          <p class="atlas-section__lead">Select the United States on the globe—or choose a state below—to reveal official U.S. Census state boundaries and the DataFast region breakdown. Thirty states meet the public five-signal threshold; 44 states or equivalents were observed in the source. State color shows the aggregate, while a beacon appears only for a published DataFast city cluster with at least five signals.</p>
           <div class="atlas-state-summary">
             <article class="atlas-stat">
               <span>Published states</span>
@@ -322,7 +332,7 @@
             <article class="atlas-stat atlas-stat--flagged">
               <span>Data-quality flag</span>
               <strong>Oregon</strong>
-              <small>506 signals resolve to The Dalles</small>
+              <small>511 signals resolve to The Dalles</small>
             </article>
           </div>
           <div class="atlas-ranking-wrap">
@@ -352,7 +362,7 @@
             </table>
           </div>
           <div class="atlas-callout atlas-callout--quality">
-            <p><strong>Do not read this as residence:</strong> region and city are approximate network locations. Oregon is kept visible but explicitly flagged because 506 of its 516 signals resolve to The Dalles; that concentration may reflect network or data-center routing.</p>
+            <p><strong>Do not read this as residence:</strong> region and city are approximate network locations. Oregon is kept visible but explicitly flagged because 511 of its 516 signals resolve to The Dalles; that concentration may reflect network or data-center routing. Its beacon uses the approximate GeoNames network-city centroid, never an individual visitor location.</p>
             <button type="button" data-atlas-us-open>Explore all 30 states</button>
           </div>
         </section>
@@ -360,7 +370,7 @@
         <section class="atlas-section" aria-labelledby="ranking-title">
           <p class="atlas-section__eyebrow">Country ranking</p>
           <h2 id="ranking-title">Where interest in local AI is concentrated.</h2>
-          <p class="atlas-section__lead">The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Countries with fewer than five signals are withheld from the visualization to avoid over-reading tiny samples.</p>
+          <p class="atlas-section__lead">The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Country rows below five signals are withheld before public JSON publication to avoid over-reading tiny samples. Within a published country, signals outside a five-or-more-signal DataFast city cluster remain visible only through the country color.</p>
           <div class="atlas-ranking-wrap">
             <table class="atlas-ranking">
               <caption class="atlas-skip">Top 20 countries by observed LocalClaw interest signals, 31 July to 29 August 2026</caption>
@@ -414,15 +424,15 @@
             </article>
             <article class="atlas-method-card">
               <h3>How are locations ranked?</h3>
-              <p>Countries and published U.S. states are ordered by raw observed signals. Dots are deterministic visual samples constrained to the correct country or state polygon; they are not exact visitor coordinates. The ranking is not normalized for population, internet access, or LocalClaw market reach.</p>
+              <p>Countries and published U.S. states are ordered by raw observed signals, and their color represents that regional aggregate. A beacon appears only for a published DataFast city cluster with at least five signals, at an approximate network-city centroid from GeoNames. Signals outside a published city cluster remain only in the regional fill. The ranking is not normalized for population, internet access, or LocalClaw market reach.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How is privacy handled?</h3>
-              <p>The public artifact contains aggregated totals only. Countries and U.S. states below five signals are withheld from the globe, and no person-level data is published.</p>
+              <p>The five-signal threshold is applied to country, U.S. state, and city-cluster rows before the public JSON is published. Public outputs contain aggregate rows only: never individual people, devices, exact IP addresses, or exact visitor coordinates.</p>
             </article>
           </div>
           <div class="atlas-callout">
-            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. U.S. boundaries come from the U.S. Census Bureau 2024 Cartographic Boundary Files. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
+            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. U.S. boundaries come from the U.S. Census Bureau 2024 Cartographic Boundary Files. Published beacon centroids use approximate network-city locations from <a href="https://www.geonames.org/" rel="external noopener">GeoNames</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
             <a href="/data/local-ai-activity-index.json" download>Download JSON</a>
           </div>
         </section>
@@ -449,7 +459,7 @@
             </article>
             <article class="atlas-method-card">
               <h3>Can I explore individual states?</h3>
-              <p>Yes. Select the United States, then choose any published state. State boundaries are official, while signal locations remain approximate network geolocation rather than verified residence.</p>
+              <p>Yes. Select the United States, then choose any published state. State color represents the aggregate. Beacons represent only published DataFast city clusters of at least five signals at approximate GeoNames network-city centroids, never verified residence or individual locations.</p>
             </article>
           </div>
         </section>
@@ -458,6 +468,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829c"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260829e"></script>
 </body>
 </html>
