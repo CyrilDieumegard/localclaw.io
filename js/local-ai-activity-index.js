@@ -747,9 +747,9 @@ function createWorldBoundaries() {
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geometry.computeBoundingSphere();
   const material = new THREE.LineBasicMaterial({
-    color: state.theme === 'light' ? 0x4d6473 : 0xa8bfd0,
+    color: state.theme === 'light' ? 0x405666 : 0xc0d2df,
     transparent: true,
-    opacity: state.theme === 'light' ? 0.32 : 0.34,
+    opacity: worldBoundaryOpacity(),
     depthWrite: false,
     depthTest: true,
     toneMapped: false
@@ -875,18 +875,14 @@ function makeWorldTexture() {
       context.fillStyle = matched
         ? `rgba(${Math.round(87 + intensity * 22)}, ${Math.round(98 + intensity * 2)}, ${Math.round(105 - intensity * 8)}, 0.98)`
         : 'rgba(116, 128, 135, 0.84)';
-      context.strokeStyle = matched ? 'rgba(128, 64, 48, 0.38)' : 'rgba(51, 72, 84, 0.28)';
     } else {
       context.fillStyle = matched
         ? `rgba(${Math.round(18 + intensity * 12)}, ${Math.round(25 + intensity * 4)}, ${Math.round(33 + intensity * 2)}, 0.99)`
         : 'rgba(14, 20, 27, 0.98)';
-      context.strokeStyle = matched ? 'rgba(174, 196, 214, 0.25)' : 'rgba(108, 136, 158, 0.13)';
     }
-    context.lineWidth = matched ? 1.45 : 0.8;
-    context.shadowBlur = 0;
-    context.shadowColor = 'transparent';
-    drawFeature(context, feature, textureCanvas.width, textureCanvas.height);
-    context.shadowBlur = 0;
+    // Country edges stay vector-only. Raster strokes turn into wide blurry bands
+    // when a small country is magnified from the global equirectangular texture.
+    drawFeature(context, feature, textureCanvas.width, textureCanvas.height, { stroke: false });
   }
 
   const random = randomFactory(40829);
@@ -913,8 +909,6 @@ function makeActivityTexture(scope = 'world') {
       ? state.detailRankedRegions
       : state.countries;
   const maximum = entities[0]?.signals || 1;
-  context.lineCap = 'round';
-  context.lineJoin = 'round';
 
   context.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
   for (const entity of entities) {
@@ -928,20 +922,12 @@ function makeActivityTexture(scope = 'world') {
     const heat = Math.pow(intensity, 1.35);
     if (light) {
       context.fillStyle = `rgba(${Math.round(205 + heat * 42)}, ${Math.round(82 + heat * 55)}, ${Math.round(48 - heat * 18)}, ${0.18 + heat * 0.48})`;
-      context.strokeStyle = `rgba(173, 54, 33, ${0.18 + heat * 0.38})`;
     } else {
       context.fillStyle = `rgba(${Math.round(88 + heat * 167)}, ${Math.round(22 + heat * 76)}, ${Math.round(13 + heat * 34)}, ${0.18 + heat * 0.56})`;
-      context.strokeStyle = `rgba(255, ${Math.round(74 + heat * 74)}, ${Math.round(36 + heat * 58)}, ${0.2 + heat * 0.5})`;
     }
-    context.lineWidth = 1.5 + heat * 1.5;
-    context.shadowBlur = 0;
-    context.shadowColor = 'transparent';
-    drawFeature(context, feature, textureCanvas.width, textureCanvas.height);
-    context.strokeStyle = light
-      ? `rgba(198, 62, 35, ${0.36 + heat * 0.34})`
-      : `rgba(255, ${Math.round(126 + heat * 76)}, ${Math.round(78 + heat * 82)}, ${0.38 + heat * 0.42})`;
-    context.lineWidth = 0.85 + heat * 0.75;
-    drawFeature(context, feature, textureCanvas.width, textureCanvas.height, { fill: false });
+    // Heat is an area signal, never a border. The dedicated 3D line layers keep
+    // country, state and Admin-1 boundaries crisp at every zoom level.
+    drawFeature(context, feature, textureCanvas.width, textureCanvas.height, { stroke: false });
   }
 
   return configureAtlasTexture(new THREE.CanvasTexture(textureCanvas));
@@ -1580,6 +1566,32 @@ function defaultZoom(scope = state.scope, mobile = window.innerWidth < 760) {
   return mobile ? 11.6 : 9.25;
 }
 
+function worldZoomClarity() {
+  const overviewZoom = defaultZoom('world', isMobileViewport());
+  const cameraZoom = state.camera?.position.z || state.zoom || overviewZoom;
+  const ratio = overviewZoom / Math.max(cameraZoom, 0.1);
+  return THREE.MathUtils.clamp((ratio - 1.05) / 0.78, 0, 1);
+}
+
+function worldBoundaryOpacity() {
+  const clarity = worldZoomClarity();
+  const overview = state.theme === 'light' ? 0.46 : 0.5;
+  const closeUp = state.theme === 'light' ? 0.78 : 0.84;
+  return THREE.MathUtils.lerp(overview, closeUp, clarity);
+}
+
+function updateWorldMapClarity() {
+  const clarity = worldZoomClarity();
+  if (state.worldBoundaryLine) {
+    state.worldBoundaryLine.material.opacity = worldBoundaryOpacity();
+  }
+  if (state.worldHeatMesh) {
+    const overview = state.theme === 'light' ? 0.66 : 0.9;
+    const closeUp = state.theme === 'light' ? 0.56 : 0.7;
+    state.worldHeatMesh.material.opacity = THREE.MathUtils.lerp(overview, closeUp, clarity);
+  }
+}
+
 function zoomLimits(scope = state.scope, mobile = window.innerWidth < 760) {
   return scope === 'us' || scope === 'admin1'
     ? { minimum: mobile ? 5.35 : 4.95, maximum: mobile ? 12.2 : 11.8 }
@@ -1769,8 +1781,8 @@ function updateTheme(theme) {
       object.userData.baseOpacity = state.theme === 'light' ? 0.28 : 0.58;
     }
     if (object.userData.worldBoundary) {
-      object.material.color.set(state.theme === 'light' ? 0x4d6473 : 0xa8bfd0);
-      object.material.opacity = state.theme === 'light' ? 0.32 : 0.34;
+      object.material.color.set(state.theme === 'light' ? 0x405666 : 0xc0d2df);
+      object.material.opacity = worldBoundaryOpacity();
     }
     if (object.userData.admin1Boundary) {
       object.material.color.set(state.theme === 'light' ? 0x516979 : 0xb5cad9);
@@ -1791,6 +1803,7 @@ function updateTheme(theme) {
   state.pulseSprites.forEach(sprite => {
     sprite.material.opacity = state.theme === 'light' ? 0.5 : 0.92;
   });
+  updateWorldMapClarity();
   const selectedEntity = state.locked && (state.locked.name || state.locked.kind === 'cityCluster') ? state.locked : null;
   updateSelectionOverlay(selectedEntity);
   if (state.scope === 'us' && state.locked?.code) setStateLineSelection(state.locked);
@@ -2578,6 +2591,7 @@ function animate(time) {
   }
 
   updateProjectedLabels(time);
+  updateWorldMapClarity();
   state.renderer.render(state.scene, state.camera);
 }
 

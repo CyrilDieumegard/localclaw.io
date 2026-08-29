@@ -754,6 +754,21 @@ if (app !== null) {
       issue(`${label[0].toUpperCase() + label.slice(1)} texture must preserve a 2:1 equirectangular canvas`);
     }
   }
+  const worldTextureBody = topLevelFunctionBody(app, 'makeWorldTexture');
+  const activityTextureBody = topLevelFunctionBody(app, 'makeActivityTexture');
+  const fillOnlyDraw = 'drawFeature(context, feature, textureCanvas.width, textureCanvas.height, { stroke: false });';
+  if (!worldTextureBody.includes(fillOnlyDraw)) {
+    issue('World texture polygons must remain fill-only so country borders stay vector-sharp at close zoom');
+  }
+  if (!activityTextureBody.includes(fillOnlyDraw) || activityTextureBody.includes('{ fill: false }')) {
+    issue('Activity heat textures must remain fill-only so raster strokes cannot blur country or region borders');
+  }
+  const worldBoundariesBody = topLevelFunctionBody(app, 'createWorldBoundaries');
+  if (!worldBoundariesBody.includes('new THREE.LineSegments(')
+    || !worldBoundariesBody.includes('depthTest: true')
+    || !worldBoundariesBody.includes('toneMapped: false')) {
+    issue('World country borders must remain a depth-tested, tone-map-free vector LineSegments layer');
+  }
   const featureNamesBody = app.match(/function featureNames\([^)]*\)\s*{([\s\S]*?)\n}/)?.[1] || '';
   if (featureNamesBody.includes('SOVEREIGNT')) issue('Country matching must not fall through to sovereign territories');
 }
