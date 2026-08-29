@@ -1648,6 +1648,40 @@ if (sitemapGenerator !== null) {
   }
 }
 
+const redirects = readFile('_redirects', 'Cloudflare redirects');
+if (html !== null) {
+  for (const marker of [
+    'data-atlas-share-open',
+    'data-atlas-share-overlay',
+    'data-atlas-share-copy',
+    'data-atlas-share-download',
+    'LOCALCLAW.IO/ATLAS'
+  ]) {
+    if (!html.includes(marker)) issue(`Atlas Share Mode markup is missing ${marker}`);
+  }
+}
+if (app !== null) {
+  for (const marker of [
+    'function currentShareUrl()',
+    'function buildShareImage()',
+    'function applyRequestedView()',
+    "atlas_share_mode_open",
+    "atlas_share_link_copy",
+    "atlas_share_image_download",
+    'preserveDrawingBuffer: true'
+  ]) {
+    if (!app.includes(marker)) issue(`Atlas Share Mode behavior is missing ${marker}`);
+  }
+}
+if (css !== null) {
+  for (const marker of ['.atlas-share-trigger', '.atlas-share-overlay', '.atlas-share-card', '.atlas-share-toolbar', '.atlas-is-sharing']) {
+    if (!css.includes(marker)) issue(`Atlas Share Mode styling is missing ${marker}`);
+  }
+}
+if (redirects !== null && !/^\/atlas\s+\/local-ai-activity-index\s+301$/m.test(redirects)) {
+  issue('Atlas Share Mode short URL must redirect /atlas to the canonical Atlas route');
+}
+
 if (errors.length) {
   console.error(`Local AI Activity Index validation failed with ${errors.length} issue(s):`);
   for (const error of errors) console.error(`- ${error}`);

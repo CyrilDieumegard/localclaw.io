@@ -37,5 +37,8 @@
 /tts                   /tts/           301
 /software/localclaw    /pricing        301
 
+# Short, memorable URL printed on Atlas share images.
+/atlas                 /local-ai-activity-index  301
+
 # Keep wildcard rules last so exact legacy redirects are evaluated first.
 /blog/blog/*             /blog/:splat   301

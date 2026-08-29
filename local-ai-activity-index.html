@@ -182,7 +182,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829o">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260830c">
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
@@ -256,7 +256,13 @@
         <p class="atlas-kicker">LocalClaw Atlas · Beta</p>
         <h1 id="atlas-title" data-atlas-title>See where <em>local AI</em> is taking off.</h1>
         <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>Anonymous interest aggregates · 62 countries published at 5+ signals · Last 30 days · Updated 29 August 2026</p>
-        <span class="atlas-live" data-atlas-live>Aggregate view</span>
+        <div class="atlas-copy__actions">
+          <span class="atlas-live" data-atlas-live>Aggregate view</span>
+          <button class="atlas-share-trigger" type="button" data-atlas-share-open>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 10.6 6.8-4.1M8.6 13.4l6.8 4.1"></path></svg>
+            <span>Share this view</span>
+          </button>
+        </div>
       </header>
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
@@ -272,6 +278,10 @@
         <button class="atlas-period" type="button" data-atlas-period="180d" aria-pressed="false">6M</button>
         <button class="atlas-period" type="button" data-atlas-period="365d" aria-pressed="false" disabled title="A complete 12-month history will be available on 8 February 2027">12M<span>Feb 2027</span></button>
       </div>
+
+      <button class="atlas-share-trigger atlas-share-trigger--floating" type="button" data-atlas-share-open aria-label="Share this Atlas view">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 10.6 6.8-4.1M8.6 13.4l6.8 4.1"></path></svg>
+      </button>
 
       <div class="atlas-navigation" aria-label="Globe navigation">
         <span class="atlas-navigation__hint" aria-hidden="true">Drag to rotate <b>·</b> Scroll to zoom</span>
@@ -297,6 +307,35 @@
         <ol class="atlas-region-panel__list" data-atlas-region-list></ol>
         <p class="atlas-region-panel__note"><strong>Quality flag:</strong> Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.</p>
       </aside>
+
+      <section class="atlas-share-overlay" data-atlas-share-overlay hidden aria-labelledby="atlas-share-title">
+        <div class="atlas-share-card">
+          <div class="atlas-share-card__brand">
+            <span class="atlas-share-card__logo"><img src="/images/crab-logo.png" width="34" height="34" alt="" aria-hidden="true"></span>
+            <strong>LOCAL<span>CLAW</span></strong>
+            <small>ATLAS</small>
+          </div>
+          <div class="atlas-share-card__copy">
+            <p data-atlas-share-eyebrow>LOCAL AI INTEREST · 30-DAY VIEW</p>
+            <h2 id="atlas-share-title" data-atlas-share-title>See where local AI is taking off.</h2>
+            <p data-atlas-share-summary>Anonymous LocalClaw interest signals across the world.</p>
+          </div>
+          <div class="atlas-share-card__metrics" aria-label="Current share snapshot">
+            <span><strong data-atlas-share-primary>3,243</strong><small data-atlas-share-primary-label>Published signals</small></span>
+            <span><strong data-atlas-share-secondary>62</strong><small data-atlas-share-secondary-label>Countries published</small></span>
+          </div>
+          <div class="atlas-share-card__footer">
+            <span><b></b> Interest signals, not installations or model runs.</span>
+            <strong>LOCALCLAW.IO/ATLAS</strong>
+          </div>
+        </div>
+        <div class="atlas-share-toolbar" role="group" aria-label="Share view actions">
+          <button type="button" data-atlas-share-copy>Copy link</button>
+          <button type="button" class="atlas-share-toolbar__primary" data-atlas-share-download>Download PNG</button>
+          <button type="button" data-atlas-share-native hidden>Share</button>
+          <button type="button" class="atlas-share-toolbar__close" data-atlas-share-close aria-label="Exit share mode">Exit <span aria-hidden="true">×</span></button>
+        </div>
+      </section>
 
       <div class="atlas-tooltip" data-atlas-tooltip hidden>
         <span class="atlas-tooltip__rank" data-tooltip-rank></span>
@@ -505,6 +544,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829s"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260830b"></script>
 </body>
 </html>

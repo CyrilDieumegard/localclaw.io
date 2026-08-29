@@ -14,7 +14,13 @@ const PERIOD_CONFIG = Object.freeze({
     admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a'
   }
 });
-const requestedPeriod = new URLSearchParams(window.location.search).get('range');
+const requestParams = new URLSearchParams(window.location.search);
+const requestedPeriod = requestParams.get('range');
+const requestedView = Object.freeze({
+  country: requestParams.get('country') || '',
+  region: requestParams.get('region') || '',
+  area: requestParams.get('area') || ''
+});
 const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
 const DATA_URL = PERIOD_CONFIG[ACTIVE_PERIOD].dataUrl;
 const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
@@ -49,6 +55,17 @@ const zoomLevel = document.querySelector('[data-atlas-zoom-level]');
 const tourButton = document.querySelector('[data-atlas-tour]');
 const tourLabel = document.querySelector('[data-atlas-tour-label]');
 const labelLayer = document.querySelector('.atlas-label-layer');
+const shareOverlay = document.querySelector('[data-atlas-share-overlay]');
+const shareTitle = document.querySelector('[data-atlas-share-title]');
+const shareSummary = document.querySelector('[data-atlas-share-summary]');
+const shareEyebrow = document.querySelector('[data-atlas-share-eyebrow]');
+const sharePrimary = document.querySelector('[data-atlas-share-primary]');
+const sharePrimaryLabel = document.querySelector('[data-atlas-share-primary-label]');
+const shareSecondary = document.querySelector('[data-atlas-share-secondary]');
+const shareSecondaryLabel = document.querySelector('[data-atlas-share-secondary-label]');
+const shareCopyButton = document.querySelector('[data-atlas-share-copy]');
+const shareDownloadButton = document.querySelector('[data-atlas-share-download]');
+const shareNativeButton = document.querySelector('[data-atlas-share-native]');
 
 if (!stage || !canvas) {
   throw new Error('Local AI Activity Index stage is missing.');
@@ -300,6 +317,7 @@ const state = {
   inViewport: true,
   contextLost: false,
   initialized: false,
+  shareMode: false,
   placementStats: {
     world: { points: 0, outside: 0, missingGeometry: 0 },
     us: { points: 0, outside: 0, missingGeometry: 0 }
@@ -334,6 +352,451 @@ function periodDateRange() {
   if (!start || !end) return '';
   const sameYear = start.slice(0, 4) === end.slice(0, 4);
   return `${formattedDate(start, !sameYear)}–${formattedDate(end, true)}`;
+}
+
+function sharePeriodLabel() {
+  if (ACTIVE_PERIOD === '180d') return '6-MONTH VIEW';
+  if (ACTIVE_PERIOD === '90d') return '3-MONTH VIEW';
+  return '30-DAY VIEW';
+}
+
+function atlasTrack(eventName, properties = {}) {
+  if (typeof window.datafast !== 'function') return;
+  try {
+    window.datafast(eventName, {
+      period: ACTIVE_PERIOD,
+      scope: state.scope,
+      ...properties
+    });
+  } catch (_) {}
+}
+
+function shareSnapshot() {
+  const dateRange = periodDateRange();
+  const locked = state.locked;
+  const worldCountry = state.scope === 'world'
+    ? locked?.kind === 'cityCluster'
+      ? countryForCode(locked.countryCode)
+      : locked?.adm0A3
+        ? locked
+        : null
+    : null;
+
+  if (state.scope === 'us') {
+    const region = locked?.code ? locked : null;
+    if (region) {
+      return {
+        scope: 'state',
+        entity: region.name,
+        title: `${region.name} in the U.S. local AI map.`,
+        summary: Number.isFinite(region.signals)
+          ? `${number(region.signals)} published state-level interest signals · ${dateRange}.`
+          : `State boundaries are visible even when no state-level total is published · ${dateRange}.`,
+        primary: metric(region.signals),
+        primaryLabel: 'Published state signals',
+        secondary: Number.isInteger(region.rank) ? `#${region.rank}` : '—',
+        secondaryLabel: 'U.S. state rank'
+      };
+    }
+    return {
+      scope: 'country',
+      entity: 'United States',
+      title: 'Local AI interest, state by state.',
+      summary: `${number(state.usData.totals.publishedRegions)} states publish an independent total · ${dateRange}.`,
+      primary: number(state.usData.totals.publishedSignals),
+      primaryLabel: 'Published state signals',
+      secondary: number(state.usData.totals.publishedRegions),
+      secondaryLabel: 'States published'
+    };
+  }
+
+  if (isAdmin2Scope()) {
+    const area = locked?.kind === 'admin2' ? locked : null;
+    return {
+      scope: 'area',
+      entity: area?.label || area?.name || state.admin2Config.parentName,
+      title: area
+        ? `${area.label || area.name}, inside ${state.admin2Config.parentName}.`
+        : `${state.admin2Config.parentName}, mapped in finer detail.`,
+      summary: `${number(state.admin2Regions.length)} ${state.admin2Config.childrenLabel} shown as neutral cartographic references · ${dateRange}.`,
+      primary: metric(state.admin2Config.parentSignals),
+      primaryLabel: state.admin2Config.parentSignalLabel,
+      secondary: number(state.admin2Regions.length),
+      secondaryLabel: `${state.admin2Config.childrenLabel} shown`
+    };
+  }
+
+  if (isAdmin1Scope()) {
+    const region = locked?.kind === 'admin1' ? locked : null;
+    if (region) {
+      return {
+        scope: 'region',
+        entity: region.name,
+        title: `${region.name} in ${state.detailCountry.name}’s local AI map.`,
+        summary: Number.isFinite(region.signals)
+          ? `${number(region.signals)} independently published regional interest signals · ${dateRange}.`
+          : `Administrative boundary shown without a published regional total · ${dateRange}.`,
+        primary: metric(region.signals),
+        primaryLabel: 'Published regional signals',
+        secondary: Number.isInteger(region.rank) ? `#${region.rank}` : '—',
+        secondaryLabel: `${state.detailConfig.regionLabel} rank`
+      };
+    }
+    return {
+      scope: 'country',
+      entity: state.detailCountry.name,
+      title: `Local AI interest across ${state.detailCountry.name}.`,
+      summary: `${metric(state.detailTotals.regions)} ${state.detailConfig.regionsLabel} publish an independent total · ${dateRange}.`,
+      primary: metric(state.detailTotals.signals),
+      primaryLabel: 'Published regional signals',
+      secondary: metric(state.detailTotals.regions),
+      secondaryLabel: `${state.detailConfig.regionsLabel} published`
+    };
+  }
+
+  if (worldCountry) {
+    return {
+      scope: 'country',
+      entity: worldCountry.name,
+      title: `${worldCountry.name} in the global local AI index.`,
+      summary: `${number(worldCountry.signals)} published interest signals · ${dateRange}.`,
+      primary: number(worldCountry.signals),
+      primaryLabel: 'Published signals',
+      secondary: Number.isInteger(worldCountry.rank) ? `#${worldCountry.rank}` : '—',
+      secondaryLabel: 'World rank'
+    };
+  }
+
+  return {
+    scope: 'world',
+    entity: 'World',
+    title: 'See where local AI is taking off.',
+    summary: `${number(state.data.totals.publishedRegions)} countries publish at least five anonymous interest signals · ${dateRange}.`,
+    primary: number(state.data.totals.publishedSignals ?? state.data.totals.signals),
+    primaryLabel: 'Published signals',
+    secondary: number(state.data.totals.publishedRegions ?? state.data.totals.regions),
+    secondaryLabel: 'Countries published'
+  };
+}
+
+function currentShareUrl() {
+  const url = new URL('/local-ai-activity-index', window.location.origin);
+  if (ACTIVE_PERIOD !== '30d') url.searchParams.set('range', ACTIVE_PERIOD);
+  const locked = state.locked;
+  if (state.scope === 'us') {
+    url.searchParams.set('country', 'United States');
+    if (locked?.code) url.searchParams.set('region', locked.name);
+  } else if (isAdmin2Scope()) {
+    url.searchParams.set('country', state.admin2Config.countryName);
+    url.searchParams.set('region', state.admin2Config.parentName);
+    if (locked?.kind === 'admin2') url.searchParams.set('area', locked.name);
+  } else if (isAdmin1Scope()) {
+    url.searchParams.set('country', state.detailCountry.name);
+    if (locked?.kind === 'admin1') url.searchParams.set('region', locked.name);
+  } else if (locked?.kind === 'cityCluster') {
+    const country = countryForCode(locked.countryCode);
+    if (country) url.searchParams.set('country', country.name);
+  } else if (locked?.adm0A3) {
+    url.searchParams.set('country', locked.name);
+  }
+  return url.toString();
+}
+
+function updateSharePresentation() {
+  const snapshot = shareSnapshot();
+  if (shareEyebrow) shareEyebrow.textContent = `LOCAL AI INTEREST · ${sharePeriodLabel()}`;
+  if (shareTitle) shareTitle.textContent = snapshot.title;
+  if (shareSummary) shareSummary.textContent = snapshot.summary;
+  if (sharePrimary) sharePrimary.textContent = snapshot.primary;
+  if (sharePrimaryLabel) sharePrimaryLabel.textContent = snapshot.primaryLabel;
+  if (shareSecondary) shareSecondary.textContent = snapshot.secondary;
+  if (shareSecondaryLabel) shareSecondaryLabel.textContent = snapshot.secondaryLabel;
+  return snapshot;
+}
+
+function setShareMode(active) {
+  if (!shareOverlay || state.shareMode === active) return;
+  state.shareMode = active;
+  if (active) {
+    stopTour();
+    finishReveal();
+    updateSharePresentation();
+    shareOverlay.hidden = false;
+    stage.classList.add('atlas-is-sharing');
+    document.body.classList.add('atlas-share-active');
+    resize();
+    atlasTrack('atlas_share_mode_open', { entity: shareSnapshot().entity });
+    window.requestAnimationFrame(() => shareDownloadButton?.focus({ preventScroll: true }));
+  } else {
+    shareOverlay.hidden = true;
+    stage.classList.remove('atlas-is-sharing');
+    document.body.classList.remove('atlas-share-active');
+    resize();
+    document.querySelector('[data-atlas-share-open]')?.focus({ preventScroll: true });
+  }
+}
+
+async function copyShareLink() {
+  const url = currentShareUrl();
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch (_) {
+    const input = document.createElement('textarea');
+    input.value = url;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.opacity = '0';
+    document.body.append(input);
+    input.select();
+    document.execCommand('copy');
+    input.remove();
+  }
+  atlasTrack('atlas_share_link_copy', { entity: shareSnapshot().entity });
+  if (shareCopyButton) {
+    const original = shareCopyButton.textContent;
+    shareCopyButton.textContent = 'Link copied';
+    window.setTimeout(() => { shareCopyButton.textContent = original; }, 1800);
+  }
+}
+
+function roundedRectPath(context, x, y, width, height, radius) {
+  const safeRadius = Math.min(radius, width / 2, height / 2);
+  context.beginPath();
+  context.moveTo(x + safeRadius, y);
+  context.arcTo(x + width, y, x + width, y + height, safeRadius);
+  context.arcTo(x + width, y + height, x, y + height, safeRadius);
+  context.arcTo(x, y + height, x, y, safeRadius);
+  context.arcTo(x, y, x + width, y, safeRadius);
+  context.closePath();
+}
+
+function drawImageCover(context, source, width, height) {
+  const sourceWidth = source.width || width;
+  const sourceHeight = source.height || height;
+  const scale = Math.max(width / sourceWidth, height / sourceHeight);
+  const drawWidth = sourceWidth * scale;
+  const drawHeight = sourceHeight * scale;
+  context.drawImage(source, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
+}
+
+function wrapCanvasText(context, text, maxWidth, maxLines = Infinity) {
+  const words = String(text || '').split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = '';
+  for (const word of words) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (line && context.measureText(candidate).width > maxWidth) {
+      lines.push(line);
+      line = word;
+      if (lines.length === maxLines) break;
+    } else {
+      line = candidate;
+    }
+  }
+  if (lines.length < maxLines && line) lines.push(line);
+  if (lines.length === maxLines && words.length && context.measureText(lines.at(-1)).width > maxWidth) {
+    let last = lines.at(-1);
+    while (last.length > 1 && context.measureText(`${last}…`).width > maxWidth) last = last.slice(0, -1);
+    lines[lines.length - 1] = `${last}…`;
+  }
+  return lines;
+}
+
+function loadShareLogo() {
+  return new Promise(resolve => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => resolve(null);
+    image.src = '/images/crab-logo.png';
+  });
+}
+
+async function buildShareImage() {
+  const snapshot = updateSharePresentation();
+  await document.fonts?.ready;
+  if (state.renderer && state.scene && state.camera) state.renderer.render(state.scene, state.camera);
+
+  const width = 1600;
+  const height = 900;
+  const exportCanvas = document.createElement('canvas');
+  exportCanvas.width = width;
+  exportCanvas.height = height;
+  const context = exportCanvas.getContext('2d');
+  context.fillStyle = '#020407';
+  context.fillRect(0, 0, width, height);
+  try {
+    drawImageCover(context, canvas, width, height);
+  } catch (_) {}
+
+  const leftShade = context.createLinearGradient(0, 0, 980, 0);
+  leftShade.addColorStop(0, 'rgba(2,4,7,0.98)');
+  leftShade.addColorStop(0.42, 'rgba(2,4,7,0.82)');
+  leftShade.addColorStop(0.78, 'rgba(2,4,7,0.14)');
+  leftShade.addColorStop(1, 'rgba(2,4,7,0)');
+  context.fillStyle = leftShade;
+  context.fillRect(0, 0, width, height);
+
+  const bottomShade = context.createLinearGradient(0, height, 0, 520);
+  bottomShade.addColorStop(0, 'rgba(2,4,7,0.88)');
+  bottomShade.addColorStop(1, 'rgba(2,4,7,0)');
+  context.fillStyle = bottomShade;
+  context.fillRect(0, 500, width, 400);
+
+  const vignette = context.createRadialGradient(940, 420, 120, 940, 420, 970);
+  vignette.addColorStop(0, 'rgba(0,0,0,0)');
+  vignette.addColorStop(1, 'rgba(0,0,0,0.42)');
+  context.fillStyle = vignette;
+  context.fillRect(0, 0, width, height);
+
+  const accent = context.createLinearGradient(0, 76, 0, 825);
+  accent.addColorStop(0, 'rgba(255,69,58,0)');
+  accent.addColorStop(0.18, '#ff453a');
+  accent.addColorStop(0.82, '#ff6a2a');
+  accent.addColorStop(1, 'rgba(255,106,42,0)');
+  context.fillStyle = accent;
+  context.shadowColor = 'rgba(255,69,58,0.7)';
+  context.shadowBlur = 20;
+  context.fillRect(72, 62, 3, 776);
+  context.shadowBlur = 0;
+
+  const logo = await loadShareLogo();
+  roundedRectPath(context, 94, 70, 52, 52, 14);
+  const logoGradient = context.createLinearGradient(94, 70, 146, 122);
+  logoGradient.addColorStop(0, '#ff6a22');
+  logoGradient.addColorStop(1, '#f43b31');
+  context.fillStyle = logoGradient;
+  context.fill();
+  if (logo) context.drawImage(logo, 101, 77, 38, 38);
+
+  context.textBaseline = 'alphabetic';
+  context.fillStyle = '#ffffff';
+  context.font = '700 29px "Space Grotesk", Inter, sans-serif';
+  context.fillText('LOCAL', 162, 106);
+  const localWidth = context.measureText('LOCAL').width;
+  context.fillStyle = '#ff5147';
+  context.fillText('CLAW', 162 + localWidth, 106);
+  const brandWidth = context.measureText('CLAW').width;
+  context.fillStyle = 'rgba(255,255,255,0.25)';
+  context.fillRect(180 + localWidth + brandWidth, 84, 1, 25);
+  context.fillStyle = 'rgba(255,255,255,0.48)';
+  context.font = '700 12px "JetBrains Mono", monospace';
+  context.letterSpacing = '2px';
+  context.fillText('ATLAS', 197 + localWidth + brandWidth, 104);
+
+  context.fillStyle = '#ff5b50';
+  context.font = '700 14px "JetBrains Mono", monospace';
+  context.fillText(`LOCAL AI INTEREST  ·  ${sharePeriodLabel()}`, 96, 216);
+
+  const titleSize = snapshot.title.length > 58 ? 61 : snapshot.title.length > 40 ? 68 : 76;
+  context.fillStyle = '#ffffff';
+  context.font = `650 ${titleSize}px "Space Grotesk", Inter, sans-serif`;
+  const titleLines = wrapCanvasText(context, snapshot.title, 680, 4);
+  let titleY = 300;
+  for (const line of titleLines) {
+    context.fillText(line, 94, titleY);
+    titleY += titleSize * 0.98;
+  }
+
+  context.fillStyle = 'rgba(230,239,245,0.7)';
+  context.font = '500 20px Inter, system-ui, sans-serif';
+  const summaryLines = wrapCanvasText(context, snapshot.summary, 620, 3);
+  let summaryY = titleY + 18;
+  for (const line of summaryLines) {
+    context.fillText(line, 96, summaryY);
+    summaryY += 31;
+  }
+
+  const metricY = Math.min(674, Math.max(570, summaryY + 26));
+  const metrics = [
+    { value: snapshot.primary, label: snapshot.primaryLabel, x: 94, width: 260 },
+    { value: snapshot.secondary, label: snapshot.secondaryLabel, x: 370, width: 260 }
+  ];
+  for (const item of metrics) {
+    roundedRectPath(context, item.x, metricY, item.width, 110, 15);
+    context.fillStyle = 'rgba(3,8,14,0.8)';
+    context.fill();
+    context.strokeStyle = 'rgba(152,182,204,0.2)';
+    context.lineWidth = 1;
+    context.stroke();
+    context.fillStyle = 'rgba(255,92,66,0.75)';
+    context.fillRect(item.x + 1, metricY, item.width - 2, 2);
+    context.fillStyle = '#ffffff';
+    context.font = '650 42px "Space Grotesk", Inter, sans-serif';
+    context.fillText(String(item.value), item.x + 20, metricY + 53);
+    context.fillStyle = 'rgba(210,225,236,0.54)';
+    context.font = '700 11px "JetBrains Mono", monospace';
+    context.fillText(String(item.label).toUpperCase().slice(0, 34), item.x + 20, metricY + 82);
+  }
+
+  context.fillStyle = '#ff453a';
+  context.shadowColor = 'rgba(255,69,58,0.8)';
+  context.shadowBlur = 12;
+  context.beginPath();
+  context.arc(98, 824, 4, 0, Math.PI * 2);
+  context.fill();
+  context.shadowBlur = 0;
+  context.fillStyle = 'rgba(218,231,239,0.52)';
+  context.font = '700 11px "JetBrains Mono", monospace';
+  context.fillText('INTEREST SIGNALS, NOT INSTALLATIONS OR MODEL RUNS.', 114, 828);
+  context.textAlign = 'right';
+  context.fillStyle = 'rgba(255,255,255,0.82)';
+  context.font = '700 14px "JetBrains Mono", monospace';
+  context.fillText('LOCALCLAW.IO/ATLAS', 1510, 828);
+  context.textAlign = 'left';
+
+  return new Promise((resolve, reject) => {
+    exportCanvas.toBlob(blob => blob ? resolve({ blob, snapshot }) : reject(new Error('Share image could not be created.')), 'image/png');
+  });
+}
+
+function shareFilename(snapshot) {
+  const slug = String(snapshot.entity || 'world')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'world';
+  return `localclaw-atlas-${slug}-${ACTIVE_PERIOD}.png`;
+}
+
+async function downloadShareImage() {
+  if (!shareDownloadButton || shareDownloadButton.disabled) return;
+  const original = shareDownloadButton.textContent;
+  shareDownloadButton.disabled = true;
+  shareDownloadButton.textContent = 'Rendering…';
+  try {
+    const { blob, snapshot } = await buildShareImage();
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = shareFilename(snapshot);
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(link.href), 2000);
+    atlasTrack('atlas_share_image_download', { entity: snapshot.entity });
+    shareDownloadButton.textContent = 'PNG downloaded';
+  } catch (error) {
+    console.error(error);
+    shareDownloadButton.textContent = 'Try again';
+  } finally {
+    shareDownloadButton.disabled = false;
+    window.setTimeout(() => { shareDownloadButton.textContent = original; }, 1800);
+  }
+}
+
+async function nativeShareView() {
+  if (typeof navigator.share !== 'function') return;
+  const snapshot = shareSnapshot();
+  try {
+    await navigator.share({
+      title: `${snapshot.entity} · LocalClaw Atlas`,
+      text: snapshot.title,
+      url: currentShareUrl()
+    });
+    atlasTrack('atlas_share_native', { entity: snapshot.entity });
+  } catch (error) {
+    if (error?.name !== 'AbortError') console.error(error);
+  }
 }
 
 function updatePeriodControls() {
@@ -2330,6 +2793,7 @@ function setupScene() {
     canvas,
     antialias: !isMobileViewport(),
     alpha: true,
+    preserveDrawingBuffer: true,
     powerPreference: 'high-performance'
   });
   state.pixelRatio = atlasPixelRatio();
@@ -3088,6 +3552,63 @@ function exitAdmin2() {
   else focusAdmin1Region(parent);
 }
 
+function findEntityByName(entities, value) {
+  const normalize = candidate => String(candidate || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('en')
+    .replace(/[^a-z0-9]+/g, '');
+  const expected = normalize(value);
+  if (!expected) return null;
+  return entities.find(entity => [entity.name, entity.sourceName, entity.label, entity.code]
+    .some(candidate => normalize(candidate) === expected)) || null;
+}
+
+async function applyRequestedView() {
+  if (!requestedView.country) return;
+  const country = findEntityByName(state.countries, requestedView.country);
+  if (!country) return;
+
+  if (country.adm0A3 === 'USA') {
+    enterUnitedStates();
+    const region = findEntityByName(state.usAllRegions, requestedView.region);
+    if (!region) return;
+    if (requestedView.area && admin2ConfigForParent(region, 'us')) {
+      const entered = await enterAdmin2Detail(region, 'us');
+      if (entered) {
+        const area = findEntityByName(state.admin2Regions, requestedView.area);
+        if (area) focusAdmin2Region(area);
+      }
+    } else {
+      focusRegion(region);
+    }
+    return;
+  }
+
+  if (!manifestEntryForCountry(country)) {
+    focusCountrySurface(country);
+    return;
+  }
+
+  const entered = await enterCountryDetail(country);
+  if (!entered || !requestedView.region) return;
+  const matchedBoundary = findEntityByName(state.detailRegions, requestedView.region);
+  const region = findEntityByName(state.detailRankedRegions, requestedView.region)
+    || matchedBoundary?.activityEntity
+    || matchedBoundary;
+  if (!region) return;
+  if (requestedView.area && admin2ConfigForParent(region, 'admin1')) {
+    const enteredArea = await enterAdmin2Detail(region, 'admin1');
+    if (enteredArea) {
+      const area = findEntityByName(state.admin2Regions, requestedView.area);
+      if (area) focusAdmin2Region(area);
+    }
+  } else {
+    focusAdmin1Region(region);
+  }
+}
+
 function setStateLineSelection(region) {
   if (state.selectedStateLine) {
     state.selectedStateLine.traverse(object => {
@@ -3516,6 +4037,25 @@ function activePointerDistance() {
 }
 
 function bindInteractions() {
+  document.querySelectorAll('[data-atlas-share-open]').forEach(button => {
+    button.addEventListener('click', () => setShareMode(true));
+  });
+  document.querySelectorAll('[data-atlas-share-close]').forEach(button => {
+    button.addEventListener('click', () => setShareMode(false));
+  });
+  if (shareCopyButton) shareCopyButton.addEventListener('click', copyShareLink);
+  if (shareDownloadButton) shareDownloadButton.addEventListener('click', downloadShareImage);
+  if (shareNativeButton) {
+    shareNativeButton.hidden = typeof navigator.share !== 'function';
+    shareNativeButton.addEventListener('click', nativeShareView);
+  }
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && state.shareMode) {
+      event.preventDefault();
+      setShareMode(false);
+    }
+  });
+
   canvas.addEventListener('pointerdown', event => {
     stopTour();
     cancelFocusTransition();
@@ -3779,7 +4319,7 @@ function animate(time) {
     if (state.zoom !== null) {
       state.camera.position.z += (state.zoom - state.camera.position.z) * (prefersReducedMotion.matches ? 1 : 0.12);
     }
-    if (!prefersReducedMotion.matches && idle && !state.dragging && !state.locked) {
+    if (!prefersReducedMotion.matches && idle && !state.dragging && !state.locked && !state.shareMode) {
       state.targetRotation.y += 0.00042;
     }
 
@@ -3999,6 +4539,7 @@ async function initialize() {
     renderDataSummary();
     bindInteractions();
     state.initialized = true;
+    await applyRequestedView();
     state.renderer.setAnimationLoop(animate);
     requestAnimationFrame(() => stage.classList.add('atlas-ready'));
   } catch (error) {
