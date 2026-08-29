@@ -773,7 +773,9 @@ if (app !== null) {
   if (!/import\s+\*\s+as\s+THREE\s+from\s+["']\.\/vendor\/three\.module\.min\.js["']/.test(app)) {
     issue('Activity-index JavaScript must import the vendored Three.js module');
   }
-  if (!app.includes("const DATA_URL = '/data/local-ai-activity-index.json?")) {
+  if (!app.includes("dataUrl: '/data/local-ai-activity-index.json?")
+    || !app.includes("dataUrl: '/data/local-ai-activity-index-90d.json?")
+    || !app.includes("dataUrl: '/data/local-ai-activity-index-180d.json?")) {
     issue('Activity-index JavaScript does not load the versioned JSON dataset');
   }
   if (!app.includes("const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?")) {
@@ -785,7 +787,9 @@ if (app !== null) {
   if (!app.includes("const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?")) {
     issue('Activity-index JavaScript must load the versioned worldwide Admin-1 manifest');
   }
-  if (!app.includes("const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?")) {
+  if (!app.includes("admin1Url: '/data/local-ai-admin1-activity.json?")
+    || !app.includes("admin1Url: '/data/local-ai-admin1-activity-90d.json?")
+    || !app.includes("admin1Url: '/data/local-ai-admin1-activity-180d.json?")) {
     issue('Activity-index JavaScript must load the versioned worldwide regional activity dataset');
   }
   if (!app.includes("const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?")) {
@@ -815,8 +819,8 @@ if (app !== null) {
   if (app.includes('setFromPoints([surface, tip])')) {
     issue('Activity-index JavaScript must not recreate decorative radial beacon lines');
   }
-  if (!app.includes('const maximumVisible = window.innerWidth < 760 ? 56 : state.cityClusters.length')) {
-    issue('Desktop Atlas must render every validated published city cluster');
+  if (!app.includes('periodDays() > 30 ? 144 : state.cityClusters.length')) {
+    issue('Desktop Atlas must preserve every 30-day city cluster while capping longer-period clutter');
   }
   if (!app.includes('function buildWorldCountryEntities(')
     || !app.includes('function manifestEntryForCountry(')

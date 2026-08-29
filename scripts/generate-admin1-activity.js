@@ -3,14 +3,17 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const rawPath = process.argv[2] || process.env.LOCALCLAW_DATAFAST_REGIONS_SOURCE;
+const basePath = process.argv[3] || path.join(ROOT, 'data', 'local-ai-activity-index.json');
+const requestedOutputPath = process.argv[4] || path.join(ROOT, 'data', 'local-ai-admin1-activity.json');
 const threshold = 5;
 
 if (!rawPath) {
   throw new Error('Usage: node scripts/generate-admin1-activity.js /absolute/path/to/private-datafast-regions.json');
 }
 
-const base = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'local-ai-activity-index.json'), 'utf8'));
+const base = JSON.parse(fs.readFileSync(path.resolve(basePath), 'utf8'));
 const raw = JSON.parse(fs.readFileSync(path.resolve(rawPath), 'utf8'));
+const allowUnresolvedPeriodRows = Boolean(raw.breakdowns);
 const world = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'ne_50m_admin_0_countries.geojson'), 'utf8'));
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'admin1', 'manifest.json'), 'utf8'));
 
@@ -51,6 +54,9 @@ const aliases = new Map(Object.entries({
 
 const composites = new Map(Object.entries({
   'United Kingdom|England': { field: 'geonunit', values: ['England'], expectedFeatureCount: 152 },
+  'United Kingdom|Scotland': { field: 'geonunit', values: ['Scotland'], expectedFeatureCount: 32 },
+  'United Kingdom|Wales': { field: 'geonunit', values: ['Wales'], expectedFeatureCount: 22 },
+  'United Kingdom|Northern Ireland': { field: 'geonunit', values: ['Northern Ireland'], expectedFeatureCount: 26 },
   'France|Île-de-France': { field: 'iso_3166_2', values: ['FR-75', 'FR-77', 'FR-78', 'FR-91', 'FR-92', 'FR-93', 'FR-94', 'FR-95'], expectedFeatureCount: 8 },
   'France|Occitanie': { field: 'iso_3166_2', values: ['FR-09', 'FR-11', 'FR-12', 'FR-30', 'FR-31', 'FR-32', 'FR-34', 'FR-46', 'FR-48', 'FR-65', 'FR-66', 'FR-81', 'FR-82'], expectedFeatureCount: 13 },
   'France|Auvergne-Rhône-Alpes': { field: 'iso_3166_2', values: ['FR-01', 'FR-03', 'FR-07', 'FR-15', 'FR-26', 'FR-38', 'FR-42', 'FR-43', 'FR-63', 'FR-69', 'FR-73', 'FR-74'], expectedFeatureCount: 12 },
@@ -145,6 +151,7 @@ function mapPublishedRegion(countryName, adm0A3, row) {
   const expectedName = normalize(row.region);
   const matches = features.filter(feature => namesForFeature(feature).includes(expectedName));
   if (matches.length !== 1) {
+    if (allowUnresolvedPeriodRows) return { status: 'blocked' };
     throw new Error(`${key} matched ${matches.length} boundaries`);
   }
   return {
@@ -196,7 +203,10 @@ for (const country of base.countries) {
     countries[country.name] = legacyCountry(country.name, country, feature);
     continue;
   }
-  const payload = raw.countries?.[country.name];
+  const periodBreakdown = raw.breakdowns?.[country.name]?.regions;
+  const payload = Array.isArray(periodBreakdown)
+    ? { status: 'success', data: periodBreakdown }
+    : raw.countries?.[country.name];
   if (!payload || payload.status !== 'success' || !Array.isArray(payload.data)) {
     countries[country.name] = {
       countryCode: alpha2(feature),
@@ -263,6 +273,6 @@ const output = {
   countries
 };
 
-const outputPath = path.join(ROOT, 'data', 'local-ai-admin1-activity.json');
+const outputPath = path.resolve(requestedOutputPath);
 fs.writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(`Generated public Admin-1 activity for ${Object.keys(countries).length} countries (${audit.exact} exact, ${audit.alias} aliases, ${audit.composite} composites, ${audit.blocked} blocked).`);

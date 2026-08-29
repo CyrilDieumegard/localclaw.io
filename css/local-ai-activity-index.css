@@ -457,9 +457,87 @@ body.atlas-page::before {
   transition: opacity 420ms ease, transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.atlas-periods {
+  position: absolute;
+  top: clamp(82px, 10.4vh, 112px);
+  right: clamp(24px, 4.8vw, 78px);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 32px;
+  padding: 3px;
+  border: 1px solid rgba(139, 171, 196, 0.14);
+  border-radius: 9px;
+  background: rgba(3, 8, 14, 0.7);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
+  font-family: "JetBrains Mono", monospace;
+  backdrop-filter: blur(18px);
+  transition: opacity 220ms ease, transform 260ms ease;
+}
+
+.atlas-periods__label {
+  padding: 0 8px;
+  color: rgba(190, 208, 221, 0.38);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.atlas-period {
+  position: relative;
+  min-width: 39px;
+  min-height: 26px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(224, 234, 241, 0.58);
+  font: 700 8px/1 "JetBrains Mono", monospace;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.atlas-period:hover,
+.atlas-period:focus-visible {
+  outline: none;
+  background: rgba(255, 69, 58, 0.1);
+  color: #fff;
+}
+
+.atlas-period[aria-pressed="true"] {
+  background: rgba(255, 69, 58, 0.94);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(255, 69, 58, 0.22);
+}
+
+.atlas-period:disabled {
+  min-width: 58px;
+  color: rgba(190, 208, 221, 0.28);
+  cursor: not-allowed;
+}
+
+.atlas-period:disabled span {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  color: rgba(255, 69, 58, 0.62);
+  font-size: 4.5px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.atlas-period-loading .atlas-periods {
+  opacity: 0.56;
+  transform: translateY(2px);
+  pointer-events: none;
+}
+
 .atlas-navigation {
   position: absolute;
-  top: clamp(90px, 11.2vh, 116px);
+  top: clamp(128px, 15.5vh, 158px);
   right: clamp(24px, 4.8vw, 78px);
   z-index: 6;
   display: flex;
@@ -470,6 +548,7 @@ body.atlas-page::before {
 }
 
 .atlas-is-revealing .atlas-controls,
+.atlas-is-revealing .atlas-periods,
 .atlas-is-revealing .atlas-navigation {
   opacity: 0;
   transform: translate3d(14px, 0, 0);
@@ -1476,6 +1555,7 @@ html.light .atlas-page .atlas-live {
 }
 
 html.light .atlas-page .atlas-controls,
+html.light .atlas-page .atlas-periods,
 html.light .atlas-page .atlas-spotlight,
 html.light .atlas-page .atlas-tooltip,
 html.light .atlas-page .atlas-toast,
@@ -1486,6 +1566,7 @@ html.light .atlas-page .atlas-region-panel {
 }
 
 html.light .atlas-page .atlas-control,
+html.light .atlas-page .atlas-period,
 html.light .atlas-page .atlas-tooltip small,
 html.light .atlas-page .atlas-spotlight p,
 html.light .atlas-page .atlas-region-panel__head,
@@ -1495,6 +1576,8 @@ html.light .atlas-page .atlas-region-panel__note {
 
 html.light .atlas-page .atlas-control:hover,
 html.light .atlas-page .atlas-control:focus-visible,
+html.light .atlas-page .atlas-period:hover,
+html.light .atlas-page .atlas-period:focus-visible,
 html.light .atlas-page .atlas-tooltip strong,
 html.light .atlas-page .atlas-spotlight h2,
 html.light .atlas-page .atlas-region-panel__metrics strong,
@@ -1635,6 +1718,11 @@ html.light .atlas-page .atlas-callout {
   background: rgba(201, 47, 40, 0.055);
 }
 
+html.light .atlas-page .atlas-period[aria-pressed="true"] {
+  background: #c92f28;
+  color: #fff;
+}
+
 html.light .atlas-page .atlas-callout a {
   color: #8f1f1b;
 }
@@ -1643,7 +1731,8 @@ html.light .atlas-page .atlas-callout a {
   :root { --atlas-nav-height: 80px; }
   .atlas-copy { top: 30px; }
   .atlas-controls { top: 30px; }
-  .atlas-navigation { top: 84px; }
+  .atlas-periods { top: 78px; }
+  .atlas-navigation { top: 120px; }
   .atlas-status__disclosure { display: none; }
 }
 
@@ -1733,6 +1822,22 @@ html.light .atlas-page .atlas-callout a {
     right: 50%;
     bottom: 74px;
     transform: translateX(50%);
+  }
+
+  .atlas-periods {
+    top: auto;
+    right: 50%;
+    bottom: 119px;
+    transform: translateX(50%);
+  }
+
+  .atlas-periods__label {
+    display: none;
+  }
+
+  .atlas-period {
+    min-width: 41px;
+    min-height: 28px;
   }
 
   .atlas-navigation {
@@ -1896,6 +2001,12 @@ html.light .atlas-page .atlas-callout a {
     display: none;
   }
 
+  .atlas-scope-us .atlas-periods,
+  .atlas-scope-admin1 .atlas-periods,
+  .atlas-scope-admin2 .atlas-periods {
+    display: none;
+  }
+
   .atlas-region-panel {
     top: auto;
     right: 16px;
@@ -1938,6 +2049,8 @@ html.light .atlas-page .atlas-callout a {
   .atlas-copy__summary { margin-top: 10px; }
   .atlas-live { margin-top: 10px; }
   .atlas-controls { top: 24px; }
+  .atlas-periods { top: 70px; }
+  .atlas-navigation { top: 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1959,6 +2072,7 @@ html.light .atlas-page .atlas-callout a {
   }
   .atlas-copy,
   .atlas-controls,
+  .atlas-periods,
   .atlas-status,
   .atlas-content {
     position: relative;

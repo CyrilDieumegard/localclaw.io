@@ -1,0 +1,4653 @@
+{
+  "schemaVersion": 2,
+  "indexName": "Local AI Activity Index",
+  "view": "interest",
+  "status": "beta",
+  "source": "Aggregated anonymous LocalClaw website traffic measured by DataFast",
+  "sourceUrl": "https://localclaw.io/local-ai-activity-index#methodology",
+  "metric": "unique visitors",
+  "claimBoundary": "Interest signals only; not verified installations, model launches, or inference events.",
+  "timezone": "Europe/Zurich",
+  "period": {
+    "start": "2026-03-03",
+    "end": "2026-08-29",
+    "label": "Last 6 months",
+    "key": "180d",
+    "days": 180
+  },
+  "generatedAt": "2026-08-29T20:42:53.003Z",
+  "totals": {
+    "signals": 12634,
+    "regions": 148,
+    "observedSignals": 12634,
+    "observedRegions": 148,
+    "publishedSignals": 12525,
+    "publishedRegions": 97,
+    "withheldSignals": 109,
+    "withheldRegions": 51
+  },
+  "countries": [
+    {
+      "name": "United States",
+      "signals": 4141,
+      "rank": 1
+    },
+    {
+      "name": "China",
+      "signals": 1762,
+      "rank": 2
+    },
+    {
+      "name": "Germany",
+      "signals": 653,
+      "rank": 3
+    },
+    {
+      "name": "United Kingdom",
+      "signals": 456,
+      "rank": 4
+    },
+    {
+      "name": "India",
+      "signals": 369,
+      "rank": 5
+    },
+    {
+      "name": "Netherlands",
+      "signals": 314,
+      "rank": 6
+    },
+    {
+      "name": "France",
+      "signals": 309,
+      "rank": 7
+    },
+    {
+      "name": "Canada",
+      "signals": 280,
+      "rank": 8
+    },
+    {
+      "name": "Hong Kong",
+      "signals": 234,
+      "rank": 9
+    },
+    {
+      "name": "Australia",
+      "signals": 217,
+      "rank": 10
+    },
+    {
+      "name": "Brazil",
+      "signals": 216,
+      "rank": 11
+    },
+    {
+      "name": "Switzerland",
+      "signals": 215,
+      "rank": 12
+    },
+    {
+      "name": "Viet Nam",
+      "signals": 193,
+      "rank": 13
+    },
+    {
+      "name": "Spain",
+      "signals": 180,
+      "rank": 14
+    },
+    {
+      "name": "Italy",
+      "signals": 179,
+      "rank": 15
+    },
+    {
+      "name": "Japan",
+      "signals": 173,
+      "rank": 16
+    },
+    {
+      "name": "Sweden",
+      "signals": 139,
+      "rank": 17
+    },
+    {
+      "name": "Poland",
+      "signals": 135,
+      "rank": 18
+    },
+    {
+      "name": "Russia",
+      "signals": 101,
+      "rank": 19
+    },
+    {
+      "name": "Austria",
+      "signals": 95,
+      "rank": 20
+    },
+    {
+      "name": "South Korea",
+      "signals": 90,
+      "rank": 21
+    },
+    {
+      "name": "Indonesia",
+      "signals": 87,
+      "rank": 22
+    },
+    {
+      "name": "Belgium",
+      "signals": 85,
+      "rank": 23
+    },
+    {
+      "name": "Turkey",
+      "signals": 80,
+      "rank": 24
+    },
+    {
+      "name": "Finland",
+      "signals": 74,
+      "rank": 25
+    },
+    {
+      "name": "Czechia",
+      "signals": 68,
+      "rank": 26
+    },
+    {
+      "name": "Norway",
+      "signals": 66,
+      "rank": 27
+    },
+    {
+      "name": "Thailand",
+      "signals": 65,
+      "rank": 28
+    },
+    {
+      "name": "Denmark",
+      "signals": 63,
+      "rank": 29
+    },
+    {
+      "name": "Pakistan",
+      "signals": 62,
+      "rank": 30
+    },
+    {
+      "name": "Portugal",
+      "signals": 61,
+      "rank": 31
+    },
+    {
+      "name": "South Africa",
+      "signals": 61,
+      "rank": 32
+    },
+    {
+      "name": "Taiwan",
+      "signals": 60,
+      "rank": 33
+    },
+    {
+      "name": "Ukraine",
+      "signals": 60,
+      "rank": 34
+    },
+    {
+      "name": "Mexico",
+      "signals": 58,
+      "rank": 35
+    },
+    {
+      "name": "Romania",
+      "signals": 58,
+      "rank": 36
+    },
+    {
+      "name": "Bangladesh",
+      "signals": 50,
+      "rank": 37
+    },
+    {
+      "name": "Argentina",
+      "signals": 48,
+      "rank": 38
+    },
+    {
+      "name": "Ireland",
+      "signals": 48,
+      "rank": 39
+    },
+    {
+      "name": "Israel",
+      "signals": 46,
+      "rank": 40
+    },
+    {
+      "name": "Philippines",
+      "signals": 46,
+      "rank": 41
+    },
+    {
+      "name": "Malaysia",
+      "signals": 41,
+      "rank": 42
+    },
+    {
+      "name": "United Arab Emirates",
+      "signals": 41,
+      "rank": 43
+    },
+    {
+      "name": "Colombia",
+      "signals": 38,
+      "rank": 44
+    },
+    {
+      "name": "Hungary",
+      "signals": 36,
+      "rank": 45
+    },
+    {
+      "name": "Morocco",
+      "signals": 31,
+      "rank": 46
+    },
+    {
+      "name": "New Zealand",
+      "signals": 28,
+      "rank": 47
+    },
+    {
+      "name": "Bulgaria",
+      "signals": 27,
+      "rank": 48
+    },
+    {
+      "name": "Chile",
+      "signals": 27,
+      "rank": 49
+    },
+    {
+      "name": "Saudi Arabia",
+      "signals": 26,
+      "rank": 50
+    },
+    {
+      "name": "Slovakia",
+      "signals": 25,
+      "rank": 51
+    },
+    {
+      "name": "Greece",
+      "signals": 24,
+      "rank": 52
+    },
+    {
+      "name": "Iraq",
+      "signals": 23,
+      "rank": 53
+    },
+    {
+      "name": "Kazakhstan",
+      "signals": 23,
+      "rank": 54
+    },
+    {
+      "name": "Egypt",
+      "signals": 22,
+      "rank": 55
+    },
+    {
+      "name": "Croatia",
+      "signals": 20,
+      "rank": 56
+    },
+    {
+      "name": "Azerbaijan",
+      "signals": 19,
+      "rank": 57
+    },
+    {
+      "name": "Nepal",
+      "signals": 17,
+      "rank": 58
+    },
+    {
+      "name": "Kenya",
+      "signals": 16,
+      "rank": 59
+    },
+    {
+      "name": "Latvia",
+      "signals": 16,
+      "rank": 60
+    },
+    {
+      "name": "Uzbekistan",
+      "signals": 16,
+      "rank": 61
+    },
+    {
+      "name": "Estonia",
+      "signals": 15,
+      "rank": 62
+    },
+    {
+      "name": "Venezuela",
+      "signals": 15,
+      "rank": 63
+    },
+    {
+      "name": "Jordan",
+      "signals": 14,
+      "rank": 64
+    },
+    {
+      "name": "Algeria",
+      "signals": 13,
+      "rank": 65
+    },
+    {
+      "name": "Ecuador",
+      "signals": 13,
+      "rank": 66
+    },
+    {
+      "name": "Luxembourg",
+      "signals": 12,
+      "rank": 67
+    },
+    {
+      "name": "Peru",
+      "signals": 12,
+      "rank": 68
+    },
+    {
+      "name": "Belarus",
+      "signals": 11,
+      "rank": 69
+    },
+    {
+      "name": "Lithuania",
+      "signals": 11,
+      "rank": 70
+    },
+    {
+      "name": "Nigeria",
+      "signals": 11,
+      "rank": 71
+    },
+    {
+      "name": "Albania",
+      "signals": 10,
+      "rank": 72
+    },
+    {
+      "name": "Moldova",
+      "signals": 10,
+      "rank": 73
+    },
+    {
+      "name": "Serbia",
+      "signals": 10,
+      "rank": 74
+    },
+    {
+      "name": "Tunisia",
+      "signals": 10,
+      "rank": 75
+    },
+    {
+      "name": "Cambodia",
+      "signals": 9,
+      "rank": 76
+    },
+    {
+      "name": "Dominican Republic",
+      "signals": 9,
+      "rank": 77
+    },
+    {
+      "name": "Sri Lanka",
+      "signals": 9,
+      "rank": 78
+    },
+    {
+      "name": "Uruguay",
+      "signals": 9,
+      "rank": 79
+    },
+    {
+      "name": "Slovenia",
+      "signals": 8,
+      "rank": 80
+    },
+    {
+      "name": "Bolivia",
+      "signals": 7,
+      "rank": 81
+    },
+    {
+      "name": "Cyprus",
+      "signals": 7,
+      "rank": 82
+    },
+    {
+      "name": "Honduras",
+      "signals": 7,
+      "rank": 83
+    },
+    {
+      "name": "Panama",
+      "signals": 7,
+      "rank": 84
+    },
+    {
+      "name": "Armenia",
+      "signals": 6,
+      "rank": 85
+    },
+    {
+      "name": "Costa Rica",
+      "signals": 6,
+      "rank": 86
+    },
+    {
+      "name": "Georgia",
+      "signals": 6,
+      "rank": 87
+    },
+    {
+      "name": "Kyrgyzstan",
+      "signals": 6,
+      "rank": 88
+    },
+    {
+      "name": "Oman",
+      "signals": 6,
+      "rank": 89
+    },
+    {
+      "name": "Paraguay",
+      "signals": 6,
+      "rank": 90
+    },
+    {
+      "name": "Puerto Rico",
+      "signals": 6,
+      "rank": 91
+    },
+    {
+      "name": "Qatar",
+      "signals": 6,
+      "rank": 92
+    },
+    {
+      "name": "Iceland",
+      "signals": 5,
+      "rank": 93
+    },
+    {
+      "name": "Iran",
+      "signals": 5,
+      "rank": 94
+    },
+    {
+      "name": "Jamaica",
+      "signals": 5,
+      "rank": 95
+    },
+    {
+      "name": "Myanmar",
+      "signals": 5,
+      "rank": 96
+    },
+    {
+      "name": "Togo",
+      "signals": 5,
+      "rank": 97
+    }
+  ],
+  "subnational": {
+    "United States": {
+      "division": "state",
+      "source": "DataFast region breakdown filtered to United States",
+      "boundarySource": "U.S. Census Bureau 2024 Cartographic Boundary Files, 1:20m",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 4141,
+        "geolocatedSignals": 3949,
+        "observedRegions": 51,
+        "publishedSignals": 3939,
+        "publishedRegions": 46,
+        "withheldSignals": 10,
+        "unassignedSignals": 192
+      },
+      "qualityNotes": [
+        "Region and city are approximate network locations derived by the analytics provider, not verified residence.",
+        "Oregon is flagged because 1002 of its 1076 signals resolve to The Dalles, a concentration that may reflect network or data-center routing rather than local residents.",
+        "Only states with at least five signals are published on the globe."
+      ],
+      "regions": [
+        {
+          "name": "Oregon",
+          "code": "OR",
+          "signals": 1076,
+          "qualityFlag": "network-location-cluster",
+          "qualityNote": "1002 of 1076 signals resolve to The Dalles; interpret as a network-location cluster, not a resident count.",
+          "rank": 1
+        },
+        {
+          "name": "California",
+          "code": "CA",
+          "signals": 599,
+          "rank": 2
+        },
+        {
+          "name": "Virginia",
+          "code": "VA",
+          "signals": 226,
+          "rank": 3
+        },
+        {
+          "name": "Texas",
+          "code": "TX",
+          "signals": 225,
+          "rank": 4
+        },
+        {
+          "name": "New York",
+          "code": "NY",
+          "signals": 221,
+          "rank": 5
+        },
+        {
+          "name": "Florida",
+          "code": "FL",
+          "signals": 147,
+          "rank": 6
+        },
+        {
+          "name": "Washington",
+          "code": "WA",
+          "signals": 128,
+          "rank": 7
+        },
+        {
+          "name": "Illinois",
+          "code": "IL",
+          "signals": 109,
+          "rank": 8
+        },
+        {
+          "name": "Georgia",
+          "code": "GA",
+          "signals": 101,
+          "rank": 9
+        },
+        {
+          "name": "New Jersey",
+          "code": "NJ",
+          "signals": 85,
+          "rank": 10
+        },
+        {
+          "name": "Iowa",
+          "code": "IA",
+          "signals": 77,
+          "rank": 11
+        },
+        {
+          "name": "Pennsylvania",
+          "code": "PA",
+          "signals": 74,
+          "rank": 12
+        },
+        {
+          "name": "Ohio",
+          "code": "OH",
+          "signals": 64,
+          "rank": 13
+        },
+        {
+          "name": "Massachusetts",
+          "code": "MA",
+          "signals": 63,
+          "rank": 14
+        },
+        {
+          "name": "Colorado",
+          "code": "CO",
+          "signals": 61,
+          "rank": 15
+        },
+        {
+          "name": "Arizona",
+          "code": "AZ",
+          "signals": 53,
+          "rank": 16
+        },
+        {
+          "name": "Michigan",
+          "code": "MI",
+          "signals": 47,
+          "rank": 17
+        },
+        {
+          "name": "District of Columbia",
+          "code": "DC",
+          "signals": 46,
+          "rank": 18
+        },
+        {
+          "name": "Tennessee",
+          "code": "TN",
+          "signals": 44,
+          "rank": 19
+        },
+        {
+          "name": "Indiana",
+          "code": "IN",
+          "signals": 42,
+          "rank": 20
+        },
+        {
+          "name": "Utah",
+          "code": "UT",
+          "signals": 42,
+          "rank": 21
+        },
+        {
+          "name": "Nevada",
+          "code": "NV",
+          "signals": 37,
+          "rank": 22
+        },
+        {
+          "name": "North Carolina",
+          "code": "NC",
+          "signals": 37,
+          "rank": 23
+        },
+        {
+          "name": "Minnesota",
+          "code": "MN",
+          "signals": 32,
+          "rank": 24
+        },
+        {
+          "name": "Maryland",
+          "code": "MD",
+          "signals": 31,
+          "rank": 25
+        },
+        {
+          "name": "Alabama",
+          "code": "AL",
+          "signals": 29,
+          "rank": 26
+        },
+        {
+          "name": "Missouri",
+          "code": "MO",
+          "signals": 28,
+          "rank": 27
+        },
+        {
+          "name": "Kentucky",
+          "code": "KY",
+          "signals": 25,
+          "rank": 28
+        },
+        {
+          "name": "South Carolina",
+          "code": "SC",
+          "signals": 24,
+          "rank": 29
+        },
+        {
+          "name": "Wisconsin",
+          "code": "WI",
+          "signals": 23,
+          "rank": 30
+        },
+        {
+          "name": "Connecticut",
+          "code": "CT",
+          "signals": 20,
+          "rank": 31
+        },
+        {
+          "name": "New Mexico",
+          "code": "NM",
+          "signals": 16,
+          "rank": 32
+        },
+        {
+          "name": "Idaho",
+          "code": "ID",
+          "signals": 13,
+          "rank": 33
+        },
+        {
+          "name": "Arkansas",
+          "code": "AR",
+          "signals": 10,
+          "rank": 34
+        },
+        {
+          "name": "Louisiana",
+          "code": "LA",
+          "signals": 9,
+          "rank": 35
+        },
+        {
+          "name": "Oklahoma",
+          "code": "OK",
+          "signals": 9,
+          "rank": 36
+        },
+        {
+          "name": "West Virginia",
+          "code": "WV",
+          "signals": 9,
+          "rank": 37
+        },
+        {
+          "name": "Delaware",
+          "code": "DE",
+          "signals": 8,
+          "rank": 38
+        },
+        {
+          "name": "Kansas",
+          "code": "KS",
+          "signals": 8,
+          "rank": 39
+        },
+        {
+          "name": "Mississippi",
+          "code": "MS",
+          "signals": 7,
+          "rank": 40
+        },
+        {
+          "name": "Hawaii",
+          "code": "HI",
+          "signals": 6,
+          "rank": 41
+        },
+        {
+          "name": "New Hampshire",
+          "code": "NH",
+          "signals": 6,
+          "rank": 42
+        },
+        {
+          "name": "Rhode Island",
+          "code": "RI",
+          "signals": 6,
+          "rank": 43
+        },
+        {
+          "name": "Vermont",
+          "code": "VT",
+          "signals": 6,
+          "rank": 44
+        },
+        {
+          "name": "Maine",
+          "code": "ME",
+          "signals": 5,
+          "rank": 45
+        },
+        {
+          "name": "Nebraska",
+          "code": "NE",
+          "signals": 5,
+          "rank": 46
+        }
+      ]
+    },
+    "China": {
+      "division": "province-level administrative region",
+      "source": "DataFast region breakdown filtered to China",
+      "boundarySource": "Natural Earth Admin-1 states and provinces, 1:10m",
+      "generatedAt": "2026-08-29T20:42:53.003Z",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 1762,
+        "geolocatedSignals": 722,
+        "observedRegions": 27,
+        "publishedSignals": 707,
+        "publishedRegions": 19,
+        "withheldSignals": 15,
+        "unassignedSignals": 1040
+      },
+      "qualityNotes": [
+        "Region is an approximate network location derived by the analytics provider, not verified residence.",
+        "Only province-level administrative regions with at least five signals are published on the globe.",
+        "Administrative boundaries remain visible for orientation even when a region count is withheld."
+      ],
+      "regions": [
+        {
+          "name": "Beijing",
+          "sourceName": "Beijing Shi",
+          "code": "CN-BJ",
+          "signals": 198,
+          "rank": 1
+        },
+        {
+          "name": "Guangdong",
+          "sourceName": "Guangdong Sheng",
+          "code": "CN-GD",
+          "signals": 192,
+          "rank": 2
+        },
+        {
+          "name": "Hunan",
+          "sourceName": "Hunan Sheng",
+          "code": "CN-HN",
+          "signals": 42,
+          "rank": 3
+        },
+        {
+          "name": "Jiangsu",
+          "sourceName": "Jiangsu Sheng",
+          "code": "CN-JS",
+          "signals": 40,
+          "rank": 4
+        },
+        {
+          "name": "Hubei",
+          "sourceName": "Hubei Sheng",
+          "code": "CN-HB",
+          "signals": 35,
+          "rank": 5
+        },
+        {
+          "name": "Shanghai",
+          "sourceName": "Shanghai Shi",
+          "code": "CN-SH",
+          "signals": 31,
+          "rank": 6
+        },
+        {
+          "name": "Zhejiang",
+          "sourceName": "Zhejiang Sheng",
+          "code": "CN-ZJ",
+          "signals": 24,
+          "rank": 7
+        },
+        {
+          "name": "Jiangxi",
+          "sourceName": "Jiangxi Sheng",
+          "code": "CN-JX",
+          "signals": 22,
+          "rank": 8
+        },
+        {
+          "name": "Sichuan",
+          "sourceName": "Sichuan Sheng",
+          "code": "CN-SC",
+          "signals": 18,
+          "rank": 9
+        },
+        {
+          "name": "Anhui",
+          "sourceName": "Anhui Sheng",
+          "code": "CN-AH",
+          "signals": 16,
+          "rank": 10
+        },
+        {
+          "name": "Tianjin",
+          "sourceName": "Tianjin Shi",
+          "code": "CN-TJ",
+          "signals": 16,
+          "rank": 11
+        },
+        {
+          "name": "Shandong",
+          "sourceName": "Shandong Sheng",
+          "code": "CN-SD",
+          "signals": 15,
+          "rank": 12
+        },
+        {
+          "name": "Henan",
+          "sourceName": "Henan Sheng",
+          "code": "CN-HA",
+          "signals": 10,
+          "rank": 13
+        },
+        {
+          "name": "Xinjiang",
+          "sourceName": "Xinjiang Uygur Zizhiqu",
+          "code": "CN-XJ",
+          "signals": 10,
+          "rank": 14
+        },
+        {
+          "name": "Hebei",
+          "sourceName": "Hebei Sheng",
+          "code": "CN-HE",
+          "signals": 9,
+          "rank": 15
+        },
+        {
+          "name": "Yunnan",
+          "sourceName": "Yunnan Sheng",
+          "code": "CN-YN",
+          "signals": 9,
+          "rank": 16
+        },
+        {
+          "name": "Fujian",
+          "sourceName": "Fujian Sheng",
+          "code": "CN-FJ",
+          "signals": 8,
+          "rank": 17
+        },
+        {
+          "name": "Guizhou",
+          "sourceName": "Guizhou Sheng",
+          "code": "CN-GZ",
+          "signals": 7,
+          "rank": 18
+        },
+        {
+          "name": "Shaanxi",
+          "sourceName": "Shaanxi Sheng",
+          "code": "CN-SN",
+          "signals": 5,
+          "rank": 19
+        }
+      ]
+    },
+    "Russia": {
+      "division": "federal subject",
+      "source": "DataFast region breakdown filtered to Russia",
+      "boundarySource": "Natural Earth Admin-1 states and provinces, 1:10m",
+      "generatedAt": "2026-08-29T20:42:53.003Z",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 101,
+        "geolocatedSignals": 82,
+        "observedRegions": 32,
+        "publishedSignals": 39,
+        "publishedRegions": 5,
+        "withheldSignals": 43,
+        "unassignedSignals": 19
+      },
+      "qualityNotes": [
+        "Region is an approximate network location derived by the analytics provider, not verified residence.",
+        "Only federal subjects with at least five signals are published on the globe.",
+        "Administrative boundaries remain visible for orientation even when a region count is withheld."
+      ],
+      "regions": [
+        {
+          "name": "Moscow",
+          "sourceName": "Moskva",
+          "code": "RU-MOS",
+          "signals": 14,
+          "rank": 1
+        },
+        {
+          "name": "Saint Petersburg",
+          "sourceName": "Sankt-Peterburg",
+          "code": "RU-SPE",
+          "signals": 8,
+          "rank": 2
+        },
+        {
+          "name": "Nizhny Novgorod",
+          "sourceName": "Nizhegorodskaya oblast'",
+          "code": "RU-NIZ",
+          "signals": 7,
+          "rank": 3
+        },
+        {
+          "name": "Moscow",
+          "sourceName": "Moskovskaya oblast'",
+          "code": "RU-MOW",
+          "signals": 5,
+          "rank": 4
+        },
+        {
+          "name": "Yaroslavl",
+          "sourceName": "Yaroslavskaya oblast'",
+          "code": "RU-YAR",
+          "signals": 5,
+          "rank": 5
+        }
+      ]
+    }
+  },
+  "cityClusterMethodology": {
+    "source": "DataFast city breakdowns filtered by country",
+    "metric": "unique visitors",
+    "publishThreshold": 5,
+    "generatedAt": "2026-08-29T20:42:53.003Z",
+    "coordinateSource": "GeoNames cities15000",
+    "coordinateAttribution": "GeoNames geographical database (cities15000)",
+    "coordinateSourceUrl": "https://download.geonames.org/export/dump/cities15000.zip",
+    "coordinateLicense": "Creative Commons Attribution 4.0 (CC BY 4.0)",
+    "coordinateLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "coordinateKind": "city-centroid",
+    "locationKind": "approximate-network-city",
+    "privacyNote": "Only DataFast city aggregates with at least five signals are included; no person, device, IP address, or exact event location is exposed.",
+    "mappingNote": "5 thresholded city rows without an unambiguous GeoNames cities15000 match are omitted from the beacon layer, while their signals remain in parent polygon aggregates.",
+    "remainderTreatment": "Signals outside published city clusters remain implicit and are represented only by their parent country or published regional polygon total."
+  },
+  "cityClusters": [
+    {
+      "city": "The Dalles",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Oregon",
+      "regionCode": "OR",
+      "signals": 1002,
+      "lat": 45.59456,
+      "lon": -121.17868,
+      "geonameId": 5756304,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "qualityFlags": [
+        "network-location-cluster"
+      ]
+    },
+    {
+      "city": "Beijing",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 199,
+      "lat": 39.9075,
+      "lon": 116.39723,
+      "geonameId": 1816670,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "New York City",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New York",
+      "regionCode": "NY",
+      "signals": 155,
+      "lat": 40.71427,
+      "lon": -74.00597,
+      "geonameId": 5128581,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "New York",
+          "signals": 107
+        },
+        {
+          "city": "Brooklyn",
+          "signals": 20
+        },
+        {
+          "city": "Staten Island",
+          "signals": 15
+        },
+        {
+          "city": "Queens",
+          "signals": 7
+        },
+        {
+          "city": "The Bronx",
+          "signals": 6
+        }
+      ]
+    },
+    {
+      "city": "Guangzhou",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 151,
+      "lat": 23.11667,
+      "lon": 113.25,
+      "geonameId": 1809858,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "San Jose",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 143,
+      "lat": 37.33939,
+      "lon": -121.89496,
+      "geonameId": 5392171,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hong Kong",
+      "country": "Hong Kong",
+      "countryCode": "HK",
+      "signals": 139,
+      "lat": 22.27832,
+      "lon": 114.17469,
+      "geonameId": 1819729,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Ashburn",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Virginia",
+      "regionCode": "VA",
+      "signals": 130,
+      "lat": 39.04372,
+      "lon": -77.48749,
+      "geonameId": 4744870,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Los Angeles",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 126,
+      "lat": 34.05223,
+      "lon": -118.24368,
+      "geonameId": 5368361,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Frankfurt",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 89,
+      "lat": 50.11552,
+      "lon": 8.68417,
+      "geonameId": 2925533,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Frankfurt am Main",
+          "signals": 89
+        }
+      ]
+    },
+    {
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 88,
+      "lat": 52.37403,
+      "lon": 4.88969,
+      "geonameId": 2759794,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Sydney",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 79,
+      "lat": -33.86785,
+      "lon": 151.20732,
+      "geonameId": 2147714,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "London",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 79,
+      "lat": 51.50853,
+      "lon": -0.12574,
+      "geonameId": 2643743,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "London",
+          "signals": 40
+        },
+        {
+          "city": "City of London",
+          "signals": 20
+        },
+        {
+          "city": "Canary Wharf",
+          "signals": 12
+        },
+        {
+          "city": "Lambeth",
+          "signals": 7
+        }
+      ]
+    },
+    {
+      "city": "Tokyo",
+      "country": "Japan",
+      "countryCode": "JP",
+      "signals": 73,
+      "lat": 35.6895,
+      "lon": 139.69171,
+      "geonameId": 1850147,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Ho Chi Minh City",
+      "country": "Viet Nam",
+      "countryCode": "VN",
+      "signals": 73,
+      "lat": 10.82302,
+      "lon": 106.62965,
+      "geonameId": 1566083,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Berlin",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 69,
+      "lat": 52.52437,
+      "lon": 13.41053,
+      "geonameId": 2950159,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Melbourne",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 66,
+      "lat": -37.814,
+      "lon": 144.96332,
+      "geonameId": 2158177,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Council Bluffs",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Iowa",
+      "regionCode": "IA",
+      "signals": 64,
+      "lat": 41.26194,
+      "lon": -95.86083,
+      "geonameId": 4852832,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Chicago",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Illinois",
+      "regionCode": "IL",
+      "signals": 63,
+      "lat": 41.85003,
+      "lon": -87.65005,
+      "geonameId": 4887398,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Zurich",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "signals": 62,
+      "lat": 47.36667,
+      "lon": 8.55,
+      "geonameId": 2657896,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Paris",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 61,
+      "lat": 48.85341,
+      "lon": 2.3488,
+      "geonameId": 2988507,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Munich",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 57,
+      "lat": 48.13743,
+      "lon": 11.57549,
+      "geonameId": 2867714,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dallas",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Texas",
+      "regionCode": "TX",
+      "signals": 57,
+      "lat": 32.78306,
+      "lon": -96.80667,
+      "geonameId": 4684888,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Stockholm",
+      "country": "Sweden",
+      "countryCode": "SE",
+      "signals": 55,
+      "lat": 59.32938,
+      "lon": 18.06871,
+      "geonameId": 2673730,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Toronto",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 53,
+      "lat": 43.70643,
+      "lon": -79.39864,
+      "geonameId": 6167865,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Atlanta",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Georgia",
+      "regionCode": "GA",
+      "signals": 53,
+      "lat": 33.749,
+      "lon": -84.38798,
+      "geonameId": 4180439,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Seattle",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Washington",
+      "regionCode": "WA",
+      "signals": 53,
+      "lat": 47.60621,
+      "lon": -122.33207,
+      "geonameId": 5809844,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Vienna",
+      "country": "Austria",
+      "countryCode": "AT",
+      "signals": 52,
+      "lat": 48.20849,
+      "lon": 16.37208,
+      "geonameId": 2761369,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hanoi",
+      "country": "Viet Nam",
+      "countryCode": "VN",
+      "signals": 52,
+      "lat": 21.0245,
+      "lon": 105.84117,
+      "geonameId": 1581130,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bengaluru",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 51,
+      "lat": 12.97194,
+      "lon": 77.59369,
+      "geonameId": 1277333,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Warsaw",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 48,
+      "lat": 52.22977,
+      "lon": 21.01178,
+      "geonameId": 756135,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Geneva",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "signals": 46,
+      "lat": 46.20222,
+      "lon": 6.14569,
+      "geonameId": 2660646,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Geneva",
+          "signals": 28
+        },
+        {
+          "city": "Thônex",
+          "signals": 9
+        },
+        {
+          "city": "Grand-Lancy",
+          "signals": 9
+        }
+      ]
+    },
+    {
+      "city": "Washington",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "District of Columbia",
+      "regionCode": "DC",
+      "signals": 46,
+      "lat": 38.89511,
+      "lon": -77.03637,
+      "geonameId": 4140963,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dublin",
+      "country": "Ireland",
+      "countryCode": "IE",
+      "signals": 42,
+      "lat": 53.33306,
+      "lon": -6.24889,
+      "geonameId": 2964574,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Helsinki",
+      "country": "Finland",
+      "countryCode": "FI",
+      "signals": 40,
+      "lat": 60.16952,
+      "lon": 24.93545,
+      "geonameId": 658225,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Prague",
+      "country": "Czechia",
+      "countryCode": "CZ",
+      "signals": 39,
+      "lat": 50.08804,
+      "lon": 14.42076,
+      "geonameId": 3067696,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Madrid",
+      "country": "Spain",
+      "countryCode": "ES",
+      "signals": 39,
+      "lat": 40.4165,
+      "lon": -3.70256,
+      "geonameId": 3117735,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Changsha",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 37,
+      "lat": 28.19874,
+      "lon": 112.97087,
+      "geonameId": 1815577,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Boardman",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Ohio",
+      "regionCode": "OH",
+      "signals": 36,
+      "lat": 41.02423,
+      "lon": -80.66285,
+      "geonameId": 5147784,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Denver",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Colorado",
+      "regionCode": "CO",
+      "signals": 36,
+      "lat": 39.73915,
+      "lon": -104.9847,
+      "geonameId": 5419384,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Montreal",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 35,
+      "lat": 45.50884,
+      "lon": -73.58781,
+      "geonameId": 6077243,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Wuhan",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 35,
+      "lat": 30.58333,
+      "lon": 114.26667,
+      "geonameId": 1791247,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "New Delhi",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 35,
+      "lat": 28.65195,
+      "lon": 77.23149,
+      "geonameId": 1273294,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "New Delhi",
+          "signals": 27
+        },
+        {
+          "city": "Delhi",
+          "signals": 8
+        }
+      ]
+    },
+    {
+      "city": "Mumbai",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 34,
+      "lat": 19.07283,
+      "lon": 72.88261,
+      "geonameId": 1275339,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bangkok",
+      "country": "Thailand",
+      "countryCode": "TH",
+      "signals": 34,
+      "lat": 13.75398,
+      "lon": 100.50144,
+      "geonameId": 1609350,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Chennai",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 33,
+      "lat": 13.08784,
+      "lon": 80.27847,
+      "geonameId": 1264527,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Las Vegas",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Nevada",
+      "regionCode": "NV",
+      "signals": 33,
+      "lat": 36.17497,
+      "lon": -115.13722,
+      "geonameId": 5506956,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "São Paulo",
+      "country": "Brazil",
+      "countryCode": "BR",
+      "signals": 32,
+      "lat": -23.5475,
+      "lon": -46.63611,
+      "geonameId": 3448439,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Vancouver",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 32,
+      "lat": 49.24966,
+      "lon": -123.11934,
+      "geonameId": 6173331,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Pasadena",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 32,
+      "lat": 34.14778,
+      "lon": -118.14452,
+      "geonameId": 5381396,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Shanghai",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 31,
+      "lat": 31.22222,
+      "lon": 121.45806,
+      "geonameId": 1796236,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Istanbul",
+      "country": "Turkey",
+      "countryCode": "TR",
+      "signals": 31,
+      "lat": 41.01384,
+      "lon": 28.94966,
+      "geonameId": 745044,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Phoenix",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Arizona",
+      "regionCode": "AZ",
+      "signals": 31,
+      "lat": 33.44838,
+      "lon": -112.07404,
+      "geonameId": 5308655,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "San Francisco",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 31,
+      "lat": 37.77493,
+      "lon": -122.41942,
+      "geonameId": 5391959,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Brisbane",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 30,
+      "lat": -27.46794,
+      "lon": 153.02809,
+      "geonameId": 2174003,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Manchester",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 30,
+      "lat": 53.48095,
+      "lon": -2.23743,
+      "geonameId": 2643123,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Austin",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Texas",
+      "regionCode": "TX",
+      "signals": 29,
+      "lat": 30.26715,
+      "lon": -97.74306,
+      "geonameId": 4671654,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Houston",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Texas",
+      "regionCode": "TX",
+      "signals": 28,
+      "lat": 29.76328,
+      "lon": -95.36327,
+      "geonameId": 4699066,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Miami",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 27,
+      "lat": 25.77427,
+      "lon": -80.19366,
+      "geonameId": 4164138,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hamburg",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 26,
+      "lat": 53.55073,
+      "lon": 9.99302,
+      "geonameId": 2911298,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Stuttgart",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 26,
+      "lat": 48.78232,
+      "lon": 9.17702,
+      "geonameId": 2825297,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bucharest",
+      "country": "Romania",
+      "countryCode": "RO",
+      "signals": 26,
+      "lat": 44.43225,
+      "lon": 26.10626,
+      "geonameId": 683506,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tel Aviv",
+      "country": "Israel",
+      "countryCode": "IL",
+      "signals": 25,
+      "lat": 32.08088,
+      "lon": 34.78057,
+      "geonameId": 293397,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Milan",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 25,
+      "lat": 45.46427,
+      "lon": 9.18951,
+      "geonameId": 3173435,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lisbon",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "signals": 25,
+      "lat": 38.72509,
+      "lon": -9.1498,
+      "geonameId": 2267057,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Santa Clara",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 24,
+      "lat": 37.35411,
+      "lon": -121.95524,
+      "geonameId": 5393015,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hyderabad",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 23,
+      "lat": 17.38405,
+      "lon": 78.45636,
+      "geonameId": 1269843,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Pune",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 23,
+      "lat": 18.51957,
+      "lon": 73.85535,
+      "geonameId": 1259229,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Oslo",
+      "country": "Norway",
+      "countryCode": "NO",
+      "signals": 22,
+      "lat": 59.91273,
+      "lon": 10.74609,
+      "geonameId": 3143244,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Barcelona",
+      "country": "Spain",
+      "countryCode": "ES",
+      "signals": 22,
+      "lat": 41.38879,
+      "lon": 2.15899,
+      "geonameId": 3128760,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Taipei",
+      "country": "Taiwan",
+      "countryCode": "TW",
+      "signals": 22,
+      "lat": 25.05306,
+      "lon": 121.52639,
+      "geonameId": 1668341,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kyiv",
+      "country": "Ukraine",
+      "countryCode": "UA",
+      "signals": 22,
+      "lat": 50.45466,
+      "lon": 30.5238,
+      "geonameId": 703448,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Santiago",
+      "country": "Chile",
+      "countryCode": "CL",
+      "signals": 21,
+      "lat": -33.45694,
+      "lon": -70.64827,
+      "geonameId": 3871336,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Budapest",
+      "country": "Hungary",
+      "countryCode": "HU",
+      "signals": 21,
+      "lat": 47.49835,
+      "lon": 19.04045,
+      "geonameId": 3054643,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Johannesburg",
+      "country": "South Africa",
+      "countryCode": "ZA",
+      "signals": 21,
+      "lat": -26.20227,
+      "lon": 28.04363,
+      "geonameId": 993800,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Buffalo",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New York",
+      "regionCode": "NY",
+      "signals": 21,
+      "lat": 42.88645,
+      "lon": -78.87837,
+      "geonameId": 5110629,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Antwerp",
+      "country": "Belgium",
+      "countryCode": "BE",
+      "signals": 20,
+      "lat": 51.22047,
+      "lon": 4.40026,
+      "geonameId": 2803138,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Baku",
+      "country": "Azerbaijan",
+      "countryCode": "AZ",
+      "signals": 19,
+      "lat": 40.37767,
+      "lon": 49.89201,
+      "geonameId": 587084,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Shenzhen",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 19,
+      "lat": 22.54554,
+      "lon": 114.0683,
+      "geonameId": 1795565,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kuala Lumpur",
+      "country": "Malaysia",
+      "countryCode": "MY",
+      "signals": 19,
+      "lat": 3.1412,
+      "lon": 101.68653,
+      "geonameId": 1735161,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dubai",
+      "country": "United Arab Emirates",
+      "countryCode": "AE",
+      "signals": 19,
+      "lat": 25.07725,
+      "lon": 55.30927,
+      "geonameId": 292223,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Zagreb",
+      "country": "Croatia",
+      "countryCode": "HR",
+      "signals": 18,
+      "lat": 45.81444,
+      "lon": 15.97798,
+      "geonameId": 3186886,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Riyadh",
+      "country": "Saudi Arabia",
+      "countryCode": "SA",
+      "signals": 18,
+      "lat": 24.68773,
+      "lon": 46.72185,
+      "geonameId": 108410,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Seoul",
+      "country": "South Korea",
+      "countryCode": "KR",
+      "signals": 18,
+      "lat": 37.566,
+      "lon": 126.9784,
+      "geonameId": 1835848,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Boston",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Massachusetts",
+      "regionCode": "MA",
+      "signals": 18,
+      "lat": 42.35843,
+      "lon": -71.05977,
+      "geonameId": 4930956,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Philadelphia",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Pennsylvania",
+      "regionCode": "PA",
+      "signals": 18,
+      "lat": 39.95238,
+      "lon": -75.16362,
+      "geonameId": 4560349,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Sofia",
+      "country": "Bulgaria",
+      "countryCode": "BG",
+      "signals": 17,
+      "lat": 42.69751,
+      "lon": 23.32415,
+      "geonameId": 727011,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Copenhagen",
+      "country": "Denmark",
+      "countryCode": "DK",
+      "signals": 17,
+      "lat": 55.67594,
+      "lon": 12.56553,
+      "geonameId": 2618425,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lahore",
+      "country": "Pakistan",
+      "countryCode": "PK",
+      "signals": 17,
+      "lat": 31.558,
+      "lon": 74.35071,
+      "geonameId": 1172451,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Cape Town",
+      "country": "South Africa",
+      "countryCode": "ZA",
+      "signals": 17,
+      "lat": -33.92584,
+      "lon": 18.42322,
+      "geonameId": 3369157,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Ankara",
+      "country": "Turkey",
+      "countryCode": "TR",
+      "signals": 17,
+      "lat": 39.91987,
+      "lon": 32.85427,
+      "geonameId": 323786,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Perth",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 16,
+      "lat": -31.95224,
+      "lon": 115.8614,
+      "geonameId": 2063523,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Brussels",
+      "country": "Belgium",
+      "countryCode": "BE",
+      "signals": 16,
+      "lat": 50.85045,
+      "lon": 4.34878,
+      "geonameId": 2800866,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Suzhou",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 16,
+      "lat": 31.30408,
+      "lon": 120.59538,
+      "geonameId": 1886760,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Rotterdam",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 16,
+      "lat": 51.9225,
+      "lon": 4.47917,
+      "geonameId": 2747891,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Columbus",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Ohio",
+      "regionCode": "OH",
+      "signals": 16,
+      "lat": 39.96118,
+      "lon": -82.99879,
+      "geonameId": 4509177,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "San Diego",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 16,
+      "lat": 32.71571,
+      "lon": -117.16472,
+      "geonameId": 5391811,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nuremberg",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 15,
+      "lat": 49.45421,
+      "lon": 11.07752,
+      "geonameId": 2861650,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Minneapolis",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Minnesota",
+      "regionCode": "MN",
+      "signals": 15,
+      "lat": 44.97997,
+      "lon": -93.26384,
+      "geonameId": 5037649,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tashkent",
+      "country": "Uzbekistan",
+      "countryCode": "UZ",
+      "signals": 15,
+      "lat": 41.26465,
+      "lon": 69.21627,
+      "geonameId": 1512569,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Chengdu",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 14,
+      "lat": 30.66667,
+      "lon": 104.06667,
+      "geonameId": 1815286,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Amman",
+      "country": "Jordan",
+      "countryCode": "JO",
+      "signals": 14,
+      "lat": 31.95522,
+      "lon": 35.94503,
+      "geonameId": 250441,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bristol",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 14,
+      "lat": 51.45523,
+      "lon": -2.59665,
+      "geonameId": 2654675,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Oakland",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 14,
+      "lat": 37.80437,
+      "lon": -122.2708,
+      "geonameId": 5378538,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Pittsburgh",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Pennsylvania",
+      "regionCode": "PA",
+      "signals": 14,
+      "lat": 40.44062,
+      "lon": -79.99589,
+      "geonameId": 5206379,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Sacramento",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 14,
+      "lat": 38.58157,
+      "lon": -121.4944,
+      "geonameId": 5389489,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "countryCode": "BD",
+      "signals": 13,
+      "lat": 23.7104,
+      "lon": 90.40744,
+      "geonameId": 1185241,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Calgary",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 13,
+      "lat": 51.05011,
+      "lon": -114.08529,
+      "geonameId": 5913490,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dongguan",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 13,
+      "lat": 23.01797,
+      "lon": 113.74866,
+      "geonameId": 1812545,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Düsseldorf",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 13,
+      "lat": 51.22319,
+      "lon": 6.77927,
+      "geonameId": 2934246,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Athens",
+      "country": "Greece",
+      "countryCode": "GR",
+      "signals": 13,
+      "lat": 37.98376,
+      "lon": 23.72784,
+      "geonameId": 264371,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Riga",
+      "country": "Latvia",
+      "countryCode": "LV",
+      "signals": 13,
+      "lat": 56.946,
+      "lon": 24.10589,
+      "geonameId": 456172,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Wrocław",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 13,
+      "lat": 51.10286,
+      "lon": 17.03006,
+      "geonameId": 3081368,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Wroclaw",
+          "signals": 13
+        }
+      ]
+    },
+    {
+      "city": "Moscow",
+      "country": "Russia",
+      "countryCode": "RU",
+      "signals": 13,
+      "lat": 55.75204,
+      "lon": 37.61781,
+      "geonameId": 524901,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Portland",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Oregon",
+      "regionCode": "OR",
+      "signals": 13,
+      "lat": 45.52345,
+      "lon": -122.67621,
+      "geonameId": 5746545,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Adelaide",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 12,
+      "lat": -34.92866,
+      "lon": 138.59863,
+      "geonameId": 2078025,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dresden",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 12,
+      "lat": 51.05089,
+      "lon": 13.73832,
+      "geonameId": 2935022,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Rome",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 12,
+      "lat": 41.89193,
+      "lon": 12.51133,
+      "geonameId": 3169070,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Osaka",
+      "country": "Japan",
+      "countryCode": "JP",
+      "signals": 12,
+      "lat": 34.69379,
+      "lon": 135.50107,
+      "geonameId": 1853909,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nairobi",
+      "country": "Kenya",
+      "countryCode": "KE",
+      "signals": 12,
+      "lat": -1.28333,
+      "lon": 36.81667,
+      "geonameId": 184745,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Naaldwijk",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 12,
+      "lat": 51.99417,
+      "lon": 4.20972,
+      "geonameId": 2750523,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kraków",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 12,
+      "lat": 50.06143,
+      "lon": 19.93658,
+      "geonameId": 3094802,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Indianapolis",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Indiana",
+      "regionCode": "IN",
+      "signals": 12,
+      "lat": 39.76838,
+      "lon": -86.15804,
+      "geonameId": 4259418,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Indpls",
+          "signals": 12
+        }
+      ]
+    },
+    {
+      "city": "Memphis",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Tennessee",
+      "regionCode": "TN",
+      "signals": 12,
+      "lat": 35.14953,
+      "lon": -90.04898,
+      "geonameId": 4641239,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "St. Louis",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Missouri",
+      "regionCode": "MO",
+      "signals": 12,
+      "lat": 38.62727,
+      "lon": -90.19789,
+      "geonameId": 4407066,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Edmonton",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 11,
+      "lat": 53.55014,
+      "lon": -113.46871,
+      "geonameId": 5946768,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tianjin",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 11,
+      "lat": 39.14222,
+      "lon": 117.17667,
+      "geonameId": 1792947,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bogotá",
+      "country": "Colombia",
+      "countryCode": "CO",
+      "signals": 11,
+      "lat": 4.60971,
+      "lon": -74.08175,
+      "geonameId": 3688689,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Cologne",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 11,
+      "lat": 50.93333,
+      "lon": 6.95,
+      "geonameId": 2886242,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kolkata",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 11,
+      "lat": 22.56263,
+      "lon": 88.36304,
+      "geonameId": 1275004,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "The Hague",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 11,
+      "lat": 52.07667,
+      "lon": 4.29861,
+      "geonameId": 2747373,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Utrecht",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 11,
+      "lat": 52.09083,
+      "lon": 5.12222,
+      "geonameId": 2745912,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Salt Lake City",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Utah",
+      "regionCode": "UT",
+      "signals": 11,
+      "lat": 40.76078,
+      "lon": -111.89105,
+      "geonameId": 5780993,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Rio de Janeiro",
+      "country": "Brazil",
+      "countryCode": "BR",
+      "signals": 10,
+      "lat": -22.90642,
+      "lon": -43.18223,
+      "geonameId": 3451190,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Ürümqi",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 10,
+      "lat": 43.80096,
+      "lon": 87.60046,
+      "geonameId": 1529102,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Cali",
+      "country": "Colombia",
+      "countryCode": "CO",
+      "signals": 10,
+      "lat": 3.43054,
+      "lon": -76.5199,
+      "geonameId": 3687925,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Århus",
+      "country": "Denmark",
+      "countryCode": "DK",
+      "signals": 10,
+      "lat": 56.15674,
+      "lon": 10.21076,
+      "geonameId": 2624652,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Aarhus",
+          "signals": 10
+        }
+      ]
+    },
+    {
+      "city": "Tallinn",
+      "country": "Estonia",
+      "countryCode": "EE",
+      "signals": 10,
+      "lat": 59.43696,
+      "lon": 24.75353,
+      "geonameId": 588409,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Toulouse",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 10,
+      "lat": 43.60426,
+      "lon": 1.44367,
+      "geonameId": 2972315,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Jakarta",
+      "country": "Indonesia",
+      "countryCode": "ID",
+      "signals": 10,
+      "lat": -6.21462,
+      "lon": 106.84513,
+      "geonameId": 1642911,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kathmandu",
+      "country": "Nepal",
+      "countryCode": "NP",
+      "signals": 10,
+      "lat": 27.70169,
+      "lon": 85.3206,
+      "geonameId": 1283240,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Auckland",
+      "country": "New Zealand",
+      "countryCode": "NZ",
+      "signals": 10,
+      "lat": -36.84853,
+      "lon": 174.76349,
+      "geonameId": 2193733,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bratislava",
+      "country": "Slovakia",
+      "countryCode": "SK",
+      "signals": 10,
+      "lat": 48.14816,
+      "lon": 17.10674,
+      "geonameId": 3060972,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Gothenburg",
+      "country": "Sweden",
+      "countryCode": "SE",
+      "signals": 10,
+      "lat": 57.70716,
+      "lon": 11.96679,
+      "geonameId": 2711537,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Detroit",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Michigan",
+      "regionCode": "MI",
+      "signals": 10,
+      "lat": 42.33143,
+      "lon": -83.04575,
+      "geonameId": 4990729,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Orlando",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 10,
+      "lat": 28.53834,
+      "lon": -81.37924,
+      "geonameId": 4167147,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Brasília",
+      "country": "Brazil",
+      "countryCode": "BR",
+      "signals": 9,
+      "lat": -15.77972,
+      "lon": -47.92972,
+      "geonameId": 3469058,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Curitiba",
+      "country": "Brazil",
+      "countryCode": "BR",
+      "signals": 9,
+      "lat": -25.42778,
+      "lon": -49.27306,
+      "geonameId": 3464975,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hangzhou",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 9,
+      "lat": 30.29365,
+      "lon": 120.16142,
+      "geonameId": 1808926,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kunming",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 9,
+      "lat": 25.03889,
+      "lon": 102.71833,
+      "geonameId": 1804651,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Essen",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 9,
+      "lat": 51.45657,
+      "lon": 7.01228,
+      "geonameId": 2928810,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Leipzig",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 9,
+      "lat": 51.33962,
+      "lon": 12.37129,
+      "geonameId": 2879139,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Mannheim",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 9,
+      "lat": 49.4891,
+      "lon": 8.46694,
+      "geonameId": 2873891,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Baghdad",
+      "country": "Iraq",
+      "countryCode": "IQ",
+      "signals": 9,
+      "lat": 33.34058,
+      "lon": 44.40088,
+      "geonameId": 98182,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Turin",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 9,
+      "lat": 45.07049,
+      "lon": 7.68682,
+      "geonameId": 3165524,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Chisinau",
+      "country": "Moldova",
+      "countryCode": "MD",
+      "signals": 9,
+      "lat": 47.00902,
+      "lon": 28.85938,
+      "geonameId": 618426,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Haarlem",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 9,
+      "lat": 52.38084,
+      "lon": 4.63683,
+      "geonameId": 2755003,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Islamabad",
+      "country": "Pakistan",
+      "countryCode": "PK",
+      "signals": 9,
+      "lat": 33.72148,
+      "lon": 73.04329,
+      "geonameId": 1176615,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Porto",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "signals": 9,
+      "lat": 41.1485,
+      "lon": -8.61097,
+      "geonameId": 2735943,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Jersey City",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New Jersey",
+      "regionCode": "NJ",
+      "signals": 9,
+      "lat": 40.72816,
+      "lon": -74.07764,
+      "geonameId": 5099836,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Louisville",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Kentucky",
+      "regionCode": "KY",
+      "signals": 9,
+      "lat": 38.25424,
+      "lon": -85.75941,
+      "geonameId": 4299276,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Reston",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Virginia",
+      "regionCode": "VA",
+      "signals": 9,
+      "lat": 38.96872,
+      "lon": -77.3411,
+      "geonameId": 4781530,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Montevideo",
+      "country": "Uruguay",
+      "countryCode": "UY",
+      "signals": 9,
+      "lat": -34.90328,
+      "lon": -56.18816,
+      "geonameId": 3441575,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nanjing",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 8,
+      "lat": 32.06167,
+      "lon": 118.77778,
+      "geonameId": 1799962,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nantong",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 8,
+      "lat": 32.03028,
+      "lon": 120.87472,
+      "geonameId": 1799722,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Cairo",
+      "country": "Egypt",
+      "countryCode": "EG",
+      "signals": 8,
+      "lat": 30.06263,
+      "lon": 31.24967,
+      "geonameId": 360630,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hannover",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 8,
+      "lat": 52.37052,
+      "lon": 9.73322,
+      "geonameId": 2910831,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Hanover",
+          "signals": 8
+        }
+      ]
+    },
+    {
+      "city": "Naples",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 8,
+      "lat": 40.85216,
+      "lon": 14.26811,
+      "geonameId": 3172394,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Casablanca",
+      "country": "Morocco",
+      "countryCode": "MA",
+      "signals": 8,
+      "lat": 33.58831,
+      "lon": -7.61138,
+      "geonameId": 2553604,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Manila",
+      "country": "Philippines",
+      "countryCode": "PH",
+      "signals": 8,
+      "lat": 14.6042,
+      "lon": 120.9822,
+      "geonameId": 1701668,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Poznań",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 8,
+      "lat": 52.40692,
+      "lon": 16.92993,
+      "geonameId": 3088171,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Belgrade",
+      "country": "Serbia",
+      "countryCode": "RS",
+      "signals": 8,
+      "lat": 44.80401,
+      "lon": 20.46513,
+      "geonameId": 792680,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bern",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "signals": 8,
+      "lat": 46.94809,
+      "lon": 7.44744,
+      "geonameId": 2661552,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "countryCode": "AE",
+      "signals": 8,
+      "lat": 24.45118,
+      "lon": 54.39696,
+      "geonameId": 292968,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Reading",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 8,
+      "lat": 51.45625,
+      "lon": -0.97113,
+      "geonameId": 2639577,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Birmingham",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Alabama",
+      "regionCode": "AL",
+      "signals": 8,
+      "lat": 33.52066,
+      "lon": -86.80249,
+      "geonameId": 4049979,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Jacksonville",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 8,
+      "lat": 30.33218,
+      "lon": -81.65565,
+      "geonameId": 4160021,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Newark",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New Jersey",
+      "regionCode": "NJ",
+      "signals": 8,
+      "lat": 40.73566,
+      "lon": -74.17237,
+      "geonameId": 5101798,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tampa",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 8,
+      "lat": 27.94752,
+      "lon": -82.45843,
+      "geonameId": 4174757,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Da Nang",
+      "country": "Viet Nam",
+      "countryCode": "VN",
+      "signals": 8,
+      "lat": 16.06778,
+      "lon": 108.22083,
+      "geonameId": 1583992,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Haiphong",
+      "country": "Viet Nam",
+      "countryCode": "VN",
+      "signals": 8,
+      "lat": 20.86481,
+      "lon": 106.68345,
+      "geonameId": 1581298,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Innsbruck",
+      "country": "Austria",
+      "countryCode": "AT",
+      "signals": 7,
+      "lat": 47.26266,
+      "lon": 11.39454,
+      "geonameId": 2775220,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Minsk",
+      "country": "Belarus",
+      "countryCode": "BY",
+      "signals": 7,
+      "lat": 53.90019,
+      "lon": 27.56653,
+      "geonameId": 625144,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Phnom Penh",
+      "country": "Cambodia",
+      "countryCode": "KH",
+      "signals": 7,
+      "lat": 11.56245,
+      "lon": 104.91601,
+      "geonameId": 1821306,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Halifax",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 7,
+      "lat": 44.64269,
+      "lon": -63.57688,
+      "geonameId": 6324729,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Mississauga",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 7,
+      "lat": 43.5789,
+      "lon": -79.6583,
+      "geonameId": 6075357,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Qingdao",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 7,
+      "lat": 36.06488,
+      "lon": 120.38042,
+      "geonameId": 1797929,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Shaoxing",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 7,
+      "lat": 30.00237,
+      "lon": 120.57864,
+      "geonameId": 1795855,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Quito",
+      "country": "Ecuador",
+      "countryCode": "EC",
+      "signals": 7,
+      "lat": -0.22985,
+      "lon": -78.52495,
+      "geonameId": 3652462,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tampere",
+      "country": "Finland",
+      "countryCode": "FI",
+      "signals": 7,
+      "lat": 61.49911,
+      "lon": 23.78712,
+      "geonameId": 634963,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Marseille",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 7,
+      "lat": 43.29695,
+      "lon": 5.38107,
+      "geonameId": 2995469,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bonn",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 7,
+      "lat": 50.73438,
+      "lon": 7.09549,
+      "geonameId": 2946447,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Ahmedabad",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 7,
+      "lat": 23.02579,
+      "lon": 72.58727,
+      "geonameId": 1279233,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Noida",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 7,
+      "lat": 28.58,
+      "lon": 77.33,
+      "geonameId": 7279746,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Yokohama",
+      "country": "Japan",
+      "countryCode": "JP",
+      "signals": 7,
+      "lat": 35.43333,
+      "lon": 139.65,
+      "geonameId": 1848354,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Luxembourg",
+      "country": "Luxembourg",
+      "countryCode": "LU",
+      "signals": 7,
+      "lat": 49.60982,
+      "lon": 6.13268,
+      "geonameId": 2960316,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Venlo",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 7,
+      "lat": 51.37,
+      "lon": 6.16806,
+      "geonameId": 2745641,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lagos",
+      "country": "Nigeria",
+      "countryCode": "NG",
+      "signals": 7,
+      "lat": 6.45407,
+      "lon": 3.39467,
+      "geonameId": 2332459,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Panama City",
+      "country": "Panama",
+      "countryCode": "PA",
+      "signals": 7,
+      "lat": 8.9936,
+      "lon": -79.51973,
+      "geonameId": 3703443,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nizhniy Novgorod",
+      "country": "Russia",
+      "countryCode": "RU",
+      "signals": 7,
+      "lat": 56.32867,
+      "lon": 44.00205,
+      "geonameId": 520555,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Colombo",
+      "country": "Sri Lanka",
+      "countryCode": "LK",
+      "signals": 7,
+      "lat": 6.93548,
+      "lon": 79.84868,
+      "geonameId": 1248991,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lausanne",
+      "country": "Switzerland",
+      "countryCode": "CH",
+      "signals": 7,
+      "lat": 46.516,
+      "lon": 6.63282,
+      "geonameId": 2659994,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lviv",
+      "country": "Ukraine",
+      "countryCode": "UA",
+      "signals": 7,
+      "lat": 49.83826,
+      "lon": 24.02324,
+      "geonameId": 702550,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Albuquerque",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New Mexico",
+      "regionCode": "NM",
+      "signals": 7,
+      "lat": 35.08449,
+      "lon": -106.65114,
+      "geonameId": 5454711,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Alexandria",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Virginia",
+      "regionCode": "VA",
+      "signals": 7,
+      "lat": 38.80484,
+      "lon": -77.04692,
+      "geonameId": 4744091,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bellevue",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Washington",
+      "regionCode": "WA",
+      "signals": 7,
+      "lat": 47.61038,
+      "lon": -122.20068,
+      "geonameId": 5786882,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Huntsville",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Alabama",
+      "regionCode": "AL",
+      "signals": 7,
+      "lat": 34.7304,
+      "lon": -86.58594,
+      "geonameId": 4068590,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "North Charleston",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "South Carolina",
+      "regionCode": "SC",
+      "signals": 7,
+      "lat": 32.85462,
+      "lon": -79.97481,
+      "geonameId": 4589387,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Plano",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Texas",
+      "regionCode": "TX",
+      "signals": 7,
+      "lat": 33.01984,
+      "lon": -96.69889,
+      "geonameId": 4719457,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Saint Paul",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Minnesota",
+      "regionCode": "MN",
+      "signals": 7,
+      "lat": 44.94441,
+      "lon": -93.09327,
+      "geonameId": 5045360,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Secaucus",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New Jersey",
+      "regionCode": "NJ",
+      "signals": 7,
+      "lat": 40.78955,
+      "lon": -74.05653,
+      "geonameId": 5104504,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tirana",
+      "country": "Albania",
+      "countryCode": "AL",
+      "signals": 6,
+      "lat": 41.32744,
+      "lon": 19.81866,
+      "geonameId": 3183875,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Canberra",
+      "country": "Australia",
+      "countryCode": "AU",
+      "signals": 6,
+      "lat": -35.28346,
+      "lon": 149.12807,
+      "geonameId": 2172517,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hefei",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 6,
+      "lat": 31.86389,
+      "lon": 117.28083,
+      "geonameId": 1808722,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nanchang",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 6,
+      "lat": 28.68396,
+      "lon": 115.85306,
+      "geonameId": 1800163,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Yichun",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 6,
+      "lat": 27.83333,
+      "lon": 114.4,
+      "geonameId": 1786746,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Zhuhai",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 6,
+      "lat": 22.27694,
+      "lon": 113.56778,
+      "geonameId": 1790437,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Augsburg",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 6,
+      "lat": 48.37154,
+      "lon": 10.89851,
+      "geonameId": 2954172,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bochum",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 6,
+      "lat": 51.48165,
+      "lon": 7.21648,
+      "geonameId": 2947416,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Wuppertal",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 6,
+      "lat": 51.25627,
+      "lon": 7.14816,
+      "geonameId": 2805753,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kowloon",
+      "country": "Hong Kong",
+      "countryCode": "HK",
+      "signals": 6,
+      "lat": 22.31667,
+      "lon": 114.18333,
+      "geonameId": 1819609,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Jaipur",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 6,
+      "lat": 26.91962,
+      "lon": 75.78781,
+      "geonameId": 1269515,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Surabaya",
+      "country": "Indonesia",
+      "countryCode": "ID",
+      "signals": 6,
+      "lat": -7.24917,
+      "lon": 112.75083,
+      "geonameId": 1625822,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Padua",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 6,
+      "lat": 45.40797,
+      "lon": 11.88586,
+      "geonameId": 3171728,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nagoya",
+      "country": "Japan",
+      "countryCode": "JP",
+      "signals": 6,
+      "lat": 35.18147,
+      "lon": 136.90641,
+      "geonameId": 1856057,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Astana",
+      "country": "Kazakhstan",
+      "countryCode": "KZ",
+      "signals": 6,
+      "lat": 51.1801,
+      "lon": 71.44598,
+      "geonameId": 1526273,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bishkek",
+      "country": "Kyrgyzstan",
+      "countryCode": "KG",
+      "signals": 6,
+      "lat": 42.87,
+      "lon": 74.59,
+      "geonameId": 1528675,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kaunas",
+      "country": "Lithuania",
+      "countryCode": "LT",
+      "signals": 6,
+      "lat": 54.90156,
+      "lon": 23.90909,
+      "geonameId": 598316,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tijuana",
+      "country": "Mexico",
+      "countryCode": "MX",
+      "signals": 6,
+      "lat": 32.5027,
+      "lon": -117.00371,
+      "geonameId": 3981609,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Amstelveen",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 6,
+      "lat": 52.30083,
+      "lon": 4.86389,
+      "geonameId": 2759798,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Gdańsk",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 6,
+      "lat": 54.35227,
+      "lon": 18.64912,
+      "geonameId": 3099434,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Doha",
+      "country": "Qatar",
+      "countryCode": "QA",
+      "signals": 6,
+      "lat": 25.28545,
+      "lon": 51.53096,
+      "geonameId": 290030,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Saint Petersburg",
+      "country": "Russia",
+      "countryCode": "RU",
+      "signals": 6,
+      "lat": 59.93863,
+      "lon": 30.31413,
+      "geonameId": 498817,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "St Petersburg",
+          "signals": 6
+        }
+      ]
+    },
+    {
+      "city": "Malmö",
+      "country": "Sweden",
+      "countryCode": "SE",
+      "signals": 6,
+      "lat": 55.60587,
+      "lon": 13.00073,
+      "geonameId": 2692969,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Birmingham",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 6,
+      "lat": 52.48142,
+      "lon": -1.89983,
+      "geonameId": 2655603,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Islington",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 6,
+      "lat": 51.53622,
+      "lon": -0.10304,
+      "geonameId": 2646003,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Charlotte",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North Carolina",
+      "regionCode": "NC",
+      "signals": 6,
+      "lat": 35.22709,
+      "lon": -80.84313,
+      "geonameId": 4460243,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Cincinnati",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Ohio",
+      "regionCode": "OH",
+      "signals": 6,
+      "lat": 39.12711,
+      "lon": -84.51439,
+      "geonameId": 4508722,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Eugene",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Oregon",
+      "regionCode": "OR",
+      "signals": 6,
+      "lat": 44.05207,
+      "lon": -123.08675,
+      "geonameId": 5725846,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Long Beach",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 6,
+      "lat": 33.76696,
+      "lon": -118.18923,
+      "geonameId": 5367929,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Provo",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Utah",
+      "regionCode": "UT",
+      "signals": 6,
+      "lat": 40.23384,
+      "lon": -111.65853,
+      "geonameId": 5780026,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Raleigh",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "North Carolina",
+      "regionCode": "NC",
+      "signals": 6,
+      "lat": 35.7721,
+      "lon": -78.63861,
+      "geonameId": 4487042,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Trenton",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "New Jersey",
+      "regionCode": "NJ",
+      "signals": 6,
+      "lat": 40.21705,
+      "lon": -74.74294,
+      "geonameId": 5105496,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Gent",
+      "country": "Belgium",
+      "countryCode": "BE",
+      "signals": 5,
+      "lat": 51.05,
+      "lon": 3.71667,
+      "geonameId": 2797656,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Ghent",
+          "signals": 5
+        }
+      ]
+    },
+    {
+      "city": "Kitchener",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 5,
+      "lat": 43.42537,
+      "lon": -80.5112,
+      "geonameId": 5992996,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "London",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 5,
+      "lat": 42.98339,
+      "lon": -81.23304,
+      "geonameId": 6058560,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Richmond Hill",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 5,
+      "lat": 43.87111,
+      "lon": -79.43725,
+      "geonameId": 6122091,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Victoria",
+      "country": "Canada",
+      "countryCode": "CA",
+      "signals": 5,
+      "lat": 48.4359,
+      "lon": -123.35155,
+      "geonameId": 6174041,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Wenzhou",
+      "country": "China",
+      "countryCode": "CN",
+      "signals": 5,
+      "lat": 27.99942,
+      "lon": 120.66682,
+      "geonameId": 1791388,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Espoo",
+      "country": "Finland",
+      "countryCode": "FI",
+      "signals": 5,
+      "lat": 60.2052,
+      "lon": 24.6522,
+      "geonameId": 660158,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Aix-en-Provence",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 5,
+      "lat": 43.5283,
+      "lon": 5.44973,
+      "geonameId": 3038354,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Nice",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 5,
+      "lat": 43.70313,
+      "lon": 7.26608,
+      "geonameId": 2990440,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Rennes",
+      "country": "France",
+      "countryCode": "FR",
+      "signals": 5,
+      "lat": 48.11109,
+      "lon": -1.67431,
+      "geonameId": 2983990,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tbilisi",
+      "country": "Georgia",
+      "countryCode": "GE",
+      "signals": 5,
+      "lat": 41.69143,
+      "lon": 44.83412,
+      "geonameId": 611717,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Brandenburg an der Havel",
+      "country": "Germany",
+      "countryCode": "DE",
+      "signals": 5,
+      "lat": 52.41667,
+      "lon": 12.55,
+      "geonameId": 2945358,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kwai Chung",
+      "country": "Hong Kong",
+      "countryCode": "HK",
+      "signals": 5,
+      "lat": 22.36828,
+      "lon": 114.13877,
+      "geonameId": 1819595,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Reykjavík",
+      "country": "Iceland",
+      "countryCode": "IS",
+      "signals": 5,
+      "lat": 64.13548,
+      "lon": -21.89541,
+      "geonameId": 3413829,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Chandigarh",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 5,
+      "lat": 30.73629,
+      "lon": 76.7884,
+      "geonameId": 1274746,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Coimbatore",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 5,
+      "lat": 11.00555,
+      "lon": 76.96612,
+      "geonameId": 1273865,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kanpur",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 5,
+      "lat": 26.46523,
+      "lon": 80.34975,
+      "geonameId": 1267995,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Surat",
+      "country": "India",
+      "countryCode": "IN",
+      "signals": 5,
+      "lat": 21.19594,
+      "lon": 72.83023,
+      "geonameId": 1255364,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bogor",
+      "country": "Indonesia",
+      "countryCode": "ID",
+      "signals": 5,
+      "lat": -6.59444,
+      "lon": 106.78917,
+      "geonameId": 1648473,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "South Tangerang",
+      "country": "Indonesia",
+      "countryCode": "ID",
+      "signals": 5,
+      "lat": -6.28862,
+      "lon": 106.71789,
+      "geonameId": 8581443,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tangerang",
+      "country": "Indonesia",
+      "countryCode": "ID",
+      "signals": 5,
+      "lat": -6.17806,
+      "lon": 106.63,
+      "geonameId": 1625084,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bologna",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 5,
+      "lat": 44.49381,
+      "lon": 11.33875,
+      "geonameId": 3181928,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Palermo",
+      "country": "Italy",
+      "countryCode": "IT",
+      "signals": 5,
+      "lat": 38.1166,
+      "lon": 13.3636,
+      "geonameId": 2523920,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Almaty",
+      "country": "Kazakhstan",
+      "countryCode": "KZ",
+      "signals": 5,
+      "lat": 43.25249,
+      "lon": 76.9115,
+      "geonameId": 1526384,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Mexico City",
+      "country": "Mexico",
+      "countryCode": "MX",
+      "signals": 5,
+      "lat": 19.42847,
+      "lon": -99.12766,
+      "geonameId": 3530597,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tangier",
+      "country": "Morocco",
+      "countryCode": "MA",
+      "signals": 5,
+      "lat": 35.76727,
+      "lon": -5.79975,
+      "geonameId": 2530335,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Arnhem",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 5,
+      "lat": 51.98,
+      "lon": 5.91111,
+      "geonameId": 2759661,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Gouda",
+      "country": "Netherlands",
+      "countryCode": "NL",
+      "signals": 5,
+      "lat": 52.01667,
+      "lon": 4.70833,
+      "geonameId": 2755420,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Bergen",
+      "country": "Norway",
+      "countryCode": "NO",
+      "signals": 5,
+      "lat": 60.39299,
+      "lon": 5.32415,
+      "geonameId": 3161732,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Trondheim",
+      "country": "Norway",
+      "countryCode": "NO",
+      "signals": 5,
+      "lat": 63.43049,
+      "lon": 10.39506,
+      "geonameId": 3133880,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Muscat",
+      "country": "Oman",
+      "countryCode": "OM",
+      "signals": 5,
+      "lat": 23.58413,
+      "lon": 58.40778,
+      "geonameId": 287286,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Faisalabad",
+      "country": "Pakistan",
+      "countryCode": "PK",
+      "signals": 5,
+      "lat": 31.41554,
+      "lon": 73.08969,
+      "geonameId": 1179400,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lima",
+      "country": "Peru",
+      "countryCode": "PE",
+      "signals": 5,
+      "lat": -12.04318,
+      "lon": -77.02824,
+      "geonameId": 3936456,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Quezon City",
+      "country": "Philippines",
+      "countryCode": "PH",
+      "signals": 5,
+      "lat": 14.6488,
+      "lon": 121.0509,
+      "geonameId": 1692192,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Łódź",
+      "country": "Poland",
+      "countryCode": "PL",
+      "signals": 5,
+      "lat": 51.77058,
+      "lon": 19.47395,
+      "geonameId": 3093133,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city",
+      "aggregatedFrom": [
+        {
+          "city": "Lodz",
+          "signals": 5
+        }
+      ]
+    },
+    {
+      "city": "Yaroslavl",
+      "country": "Russia",
+      "countryCode": "RU",
+      "signals": 5,
+      "lat": 57.62987,
+      "lon": 39.87368,
+      "geonameId": 468902,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Dammam",
+      "country": "Saudi Arabia",
+      "countryCode": "SA",
+      "signals": 5,
+      "lat": 26.43442,
+      "lon": 50.10326,
+      "geonameId": 110336,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Seongnam-si",
+      "country": "South Korea",
+      "countryCode": "KR",
+      "signals": 5,
+      "lat": 37.43861,
+      "lon": 127.13778,
+      "geonameId": 1897000,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Valladolid",
+      "country": "Spain",
+      "countryCode": "ES",
+      "signals": 5,
+      "lat": 41.65541,
+      "lon": -4.72353,
+      "geonameId": 3106672,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Phuket",
+      "country": "Thailand",
+      "countryCode": "TH",
+      "signals": 5,
+      "lat": 7.89059,
+      "lon": 98.3981,
+      "geonameId": 1151254,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Lomé",
+      "country": "Togo",
+      "countryCode": "TG",
+      "signals": 5,
+      "lat": 6.12874,
+      "lon": 1.22154,
+      "geonameId": 2365267,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Coventry",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 52.40656,
+      "lon": -1.51217,
+      "geonameId": 2652221,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Croydon",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 51.38333,
+      "lon": -0.1,
+      "geonameId": 2651817,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Glasgow",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 55.86515,
+      "lon": -4.25763,
+      "geonameId": 2648579,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Newcastle upon Tyne",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 54.97328,
+      "lon": -1.61396,
+      "geonameId": 2641673,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Preston",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 53.76282,
+      "lon": -2.70452,
+      "geonameId": 2639912,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Southampton",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 50.90395,
+      "lon": -1.40428,
+      "geonameId": 2637487,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Stoke-on-Trent",
+      "country": "United Kingdom",
+      "countryCode": "GB",
+      "signals": 5,
+      "lat": 53.00415,
+      "lon": -2.18538,
+      "geonameId": 2636841,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Auburn",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Washington",
+      "regionCode": "WA",
+      "signals": 5,
+      "lat": 47.30732,
+      "lon": -122.22845,
+      "geonameId": 5785965,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Daly City",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 5,
+      "lat": 37.70577,
+      "lon": -122.46192,
+      "geonameId": 5341430,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Des Moines",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Iowa",
+      "regionCode": "IA",
+      "signals": 5,
+      "lat": 41.60054,
+      "lon": -93.60911,
+      "geonameId": 4853828,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Hialeah",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 5,
+      "lat": 25.8576,
+      "lon": -80.27811,
+      "geonameId": 4158476,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Kent",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Washington",
+      "regionCode": "WA",
+      "signals": 5,
+      "lat": 47.38093,
+      "lon": -122.23484,
+      "geonameId": 5799625,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Mesa",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Arizona",
+      "regionCode": "AZ",
+      "signals": 5,
+      "lat": 33.42227,
+      "lon": -111.82264,
+      "geonameId": 5304391,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Orem",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Utah",
+      "regionCode": "UT",
+      "signals": 5,
+      "lat": 40.2969,
+      "lon": -111.69465,
+      "geonameId": 5779334,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Palm Bay",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Florida",
+      "regionCode": "FL",
+      "signals": 5,
+      "lat": 28.03446,
+      "lon": -80.58866,
+      "geonameId": 4167499,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Richmond",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Virginia",
+      "regionCode": "VA",
+      "signals": 5,
+      "lat": 37.55376,
+      "lon": -77.46026,
+      "geonameId": 4781708,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Spring",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Texas",
+      "regionCode": "TX",
+      "signals": 5,
+      "lat": 30.07994,
+      "lon": -95.41716,
+      "geonameId": 4733624,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Sunnyvale",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "California",
+      "regionCode": "CA",
+      "signals": 5,
+      "lat": 37.36883,
+      "lon": -122.03635,
+      "geonameId": 5400075,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Tucson",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Arizona",
+      "regionCode": "AZ",
+      "signals": 5,
+      "lat": 32.22174,
+      "lon": -110.92648,
+      "geonameId": 5318313,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Virginia Beach",
+      "country": "United States",
+      "countryCode": "US",
+      "region": "Virginia",
+      "regionCode": "VA",
+      "signals": 5,
+      "lat": 36.85293,
+      "lon": -75.97799,
+      "geonameId": 4791259,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    },
+    {
+      "city": "Caracas",
+      "country": "Venezuela",
+      "countryCode": "VE",
+      "signals": 5,
+      "lat": 10.48801,
+      "lon": -66.87919,
+      "geonameId": 3646738,
+      "coordinateKind": "city-centroid",
+      "locationKind": "approximate-network-city"
+    }
+  ]
+}

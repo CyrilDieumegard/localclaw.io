@@ -1,0 +1,2985 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-29T20:39:06.431Z",
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-08-29",
+    "timezone": "Europe/Zurich"
+  },
+  "source": {
+    "provider": "DataFast",
+    "dimension": "region",
+    "method": "Country-filtered regional analytics snapshot",
+    "snapshotNote": "Country and regional dimensions may be captured at different times and are not presented as an additive reconciliation."
+  },
+  "publishThreshold": 5,
+  "privacy": {
+    "rule": "Only regional rows with at least five signals are included.",
+    "withheldDetail": "Counts and identities below the threshold are not included in this public file."
+  },
+  "countries": {
+    "China": {
+      "countryCode": "CN",
+      "adm0A3": "CHN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 1102,
+      "publishedSignals": 424,
+      "publishedRegions": 13,
+      "regions": [
+        {
+          "rank": 1,
+          "sourceName": "Beijing Shi",
+          "canonicalName": "Beijing",
+          "signals": 148,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1155"
+          ]
+        },
+        {
+          "rank": 2,
+          "sourceName": "Guangdong Sheng",
+          "canonicalName": "Guangdong",
+          "signals": 142,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1180"
+          ]
+        },
+        {
+          "rank": 3,
+          "sourceName": "Jiangsu Sheng",
+          "canonicalName": "Jiangsu",
+          "signals": 25,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1818"
+          ]
+        },
+        {
+          "rank": 4,
+          "sourceName": "Hunan Sheng",
+          "canonicalName": "Hunan",
+          "signals": 21,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1808"
+          ]
+        },
+        {
+          "rank": 5,
+          "sourceName": "Hubei Sheng",
+          "canonicalName": "Hubei",
+          "signals": 20,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1807"
+          ]
+        },
+        {
+          "rank": 6,
+          "sourceName": "Shanghai Shi",
+          "canonicalName": "Shanghai",
+          "signals": 17,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1819"
+          ]
+        },
+        {
+          "rank": 7,
+          "sourceName": "Tianjin Shi",
+          "canonicalName": "Tianjin",
+          "signals": 10,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1816"
+          ]
+        },
+        {
+          "rank": 8,
+          "sourceName": "Anhui Sheng",
+          "canonicalName": "Anhui",
+          "signals": 9,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1179"
+          ]
+        },
+        {
+          "rank": 9,
+          "sourceName": "Sichuan Sheng",
+          "canonicalName": "Sichuan",
+          "signals": 9,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1809"
+          ]
+        },
+        {
+          "rank": 10,
+          "sourceName": "Shandong Sheng",
+          "canonicalName": "Shandong",
+          "signals": 7,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1814"
+          ]
+        },
+        {
+          "rank": 11,
+          "sourceName": "Jiangxi Sheng",
+          "canonicalName": "Jiangxi",
+          "signals": 6,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1817"
+          ]
+        },
+        {
+          "rank": 12,
+          "sourceName": "Henan Sheng",
+          "canonicalName": "Henan",
+          "signals": 5,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1812"
+          ]
+        },
+        {
+          "rank": 13,
+          "sourceName": "Xinjiang Uygur Zizhiqu",
+          "canonicalName": "Xinjiang",
+          "signals": 5,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1756"
+          ]
+        }
+      ]
+    },
+    "Germany": {
+      "countryCode": "DE",
+      "adm0A3": "DEU",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 515,
+      "publishedSignals": 477,
+      "publishedRegions": 12,
+      "regions": [
+        {
+          "sourceName": "Bayern",
+          "canonicalName": "Bavaria",
+          "signals": 95,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1591"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Hessen",
+          "canonicalName": "Hesse",
+          "signals": 90,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1574"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Nordrhein-Westfalen",
+          "canonicalName": "North Rhine-Westphalia",
+          "signals": 70,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1572"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Baden-Württemberg",
+          "canonicalName": "Baden-Württemberg",
+          "signals": 68,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1573"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "Berlin",
+          "canonicalName": "Berlin",
+          "signals": 55,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1599"
+          ],
+          "rank": 5
+        },
+        {
+          "sourceName": "Niedersachsen",
+          "canonicalName": "Lower Saxony",
+          "signals": 27,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1576"
+          ],
+          "rank": 6
+        },
+        {
+          "sourceName": "Hamburg",
+          "canonicalName": "Hamburg",
+          "signals": 20,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1578"
+          ],
+          "rank": 7
+        },
+        {
+          "sourceName": "Sachsen",
+          "canonicalName": "Saxony",
+          "signals": 19,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1601"
+          ],
+          "rank": 8
+        },
+        {
+          "sourceName": "Brandenburg",
+          "canonicalName": "Brandenburg",
+          "signals": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-3487"
+          ],
+          "rank": 9
+        },
+        {
+          "sourceName": "Rheinland-Pfalz",
+          "canonicalName": "Rhineland-Palatinate",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1580"
+          ],
+          "rank": 10
+        },
+        {
+          "sourceName": "Thüringen",
+          "canonicalName": "Thuringia",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1577"
+          ],
+          "rank": 11
+        },
+        {
+          "sourceName": "Schleswig-Holstein",
+          "canonicalName": "Schleswig-Holstein",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1579"
+          ],
+          "rank": 12
+        }
+      ]
+    },
+    "United Kingdom": {
+      "countryCode": "GB",
+      "adm0A3": "GBR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 363,
+      "publishedSignals": 351,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "sourceName": "England",
+          "canonicalName": "England",
+          "signals": 325,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "GBR-2028",
+            "GBR-2029",
+            "GBR-2030",
+            "GBR-2031",
+            "GBR-2032",
+            "GBR-2033",
+            "GBR-2034",
+            "GBR-2035",
+            "GBR-2036",
+            "GBR-2038",
+            "GBR-2039",
+            "GBR-2040",
+            "GBR-2042",
+            "GBR-2043",
+            "GBR-2044",
+            "GBR-2045",
+            "GBR-2046",
+            "GBR-2047",
+            "GBR-2048",
+            "GBR-2050",
+            "GBR-2051",
+            "GBR-2052",
+            "GBR-2053",
+            "GBR-2054",
+            "GBR-2055",
+            "GBR-2056",
+            "GBR-2057",
+            "GBR-2058",
+            "GBR-2059",
+            "GBR-2060",
+            "GBR-2061",
+            "GBR-2062",
+            "GBR-2063",
+            "GBR-2064",
+            "GBR-2065",
+            "GBR-2066",
+            "GBR-2067",
+            "GBR-2068",
+            "GBR-2069",
+            "GBR-2070",
+            "GBR-2071",
+            "GBR-2072",
+            "GBR-2073",
+            "GBR-2074",
+            "GBR-2075",
+            "GBR-2076",
+            "GBR-2077",
+            "GBR-2078",
+            "GBR-2079",
+            "GBR-2080",
+            "GBR-2081",
+            "GBR-2108",
+            "GBR-2110",
+            "GBR-2120",
+            "GBR-2121",
+            "GBR-2122",
+            "GBR-2123",
+            "GBR-2124",
+            "GBR-2139",
+            "GBR-2140",
+            "GBR-2141",
+            "GBR-2142",
+            "GBR-2317",
+            "GBR-2318",
+            "GBR-2319",
+            "GBR-2674",
+            "GBR-2675",
+            "GBR-2676",
+            "GBR-2677",
+            "GBR-2678",
+            "GBR-2679",
+            "GBR-2748",
+            "GBR-2749",
+            "GBR-2750",
+            "GBR-2751",
+            "GBR-2752",
+            "GBR-2753",
+            "GBR-2754",
+            "GBR-2755",
+            "GBR-2756",
+            "GBR-2757",
+            "GBR-2758",
+            "GBR-2759",
+            "GBR-2760",
+            "GBR-2761",
+            "GBR-2762",
+            "GBR-2763",
+            "GBR-2764",
+            "GBR-2765",
+            "GBR-2766",
+            "GBR-2767",
+            "GBR-2768",
+            "GBR-2769",
+            "GBR-2770",
+            "GBR-2771",
+            "GBR-2774",
+            "GBR-2775",
+            "GBR-2776",
+            "GBR-2777",
+            "GBR-2778",
+            "GBR-2779",
+            "GBR-3409",
+            "GBR-4809",
+            "GBR-5661",
+            "GBR-5662",
+            "GBR-5663",
+            "GBR-5664",
+            "GBR-5665",
+            "GBR-5666",
+            "GBR-5667",
+            "GBR-5668",
+            "GBR-5669",
+            "GBR-5670",
+            "GBR-5671",
+            "GBR-5672",
+            "GBR-5673",
+            "GBR-5674",
+            "GBR-5675",
+            "GBR-5676",
+            "GBR-5677",
+            "GBR-5678",
+            "GBR-5679",
+            "GBR-5680",
+            "GBR-5681",
+            "GBR-5682",
+            "GBR-5683",
+            "GBR-5684",
+            "GBR-5685",
+            "GBR-5686",
+            "GBR-5687",
+            "GBR-5688",
+            "GBR-5689",
+            "GBR-5690",
+            "GBR-5691",
+            "GBR-5692",
+            "GBR-5693",
+            "GBR-5694",
+            "GBR-5695",
+            "GBR-5696",
+            "GBR-5697",
+            "GBR-5698",
+            "GBR-5699",
+            "GBR-5700",
+            "GBR-5701",
+            "GBR-5702",
+            "GBR-5703",
+            "GBR-5704",
+            "GBR-5705",
+            "GBR-5706",
+            "GBR-5707",
+            "GBR-5708",
+            "GBR-5988"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Scotland",
+          "canonicalName": "Scotland",
+          "signals": 17,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "GBR-2001",
+            "GBR-2002",
+            "GBR-2003",
+            "GBR-2004",
+            "GBR-2005",
+            "GBR-2006",
+            "GBR-2007",
+            "GBR-2008",
+            "GBR-2009",
+            "GBR-2010",
+            "GBR-2011",
+            "GBR-2012",
+            "GBR-2013",
+            "GBR-2014",
+            "GBR-2015",
+            "GBR-2016",
+            "GBR-2017",
+            "GBR-2018",
+            "GBR-2019",
+            "GBR-2020",
+            "GBR-2021",
+            "GBR-2022",
+            "GBR-2023",
+            "GBR-2024",
+            "GBR-2025",
+            "GBR-2026",
+            "GBR-2138",
+            "GBR-2744",
+            "GBR-2745",
+            "GBR-2746",
+            "GBR-2747",
+            "GBR-2772"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Wales",
+          "canonicalName": "Wales",
+          "signals": 9,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "GBR-2104",
+            "GBR-2105",
+            "GBR-2106",
+            "GBR-2111",
+            "GBR-2112",
+            "GBR-2113",
+            "GBR-2114",
+            "GBR-2115",
+            "GBR-2116",
+            "GBR-2117",
+            "GBR-2118",
+            "GBR-2119",
+            "GBR-2125",
+            "GBR-2126",
+            "GBR-2127",
+            "GBR-2128",
+            "GBR-2129",
+            "GBR-2130",
+            "GBR-2131",
+            "GBR-2132",
+            "GBR-2133",
+            "GBR-2134"
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    "India": {
+      "countryCode": "IN",
+      "adm0A3": "IND",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 275,
+      "publishedSignals": 220,
+      "publishedRegions": 12,
+      "regions": [
+        {
+          "sourceName": "Mahārāshtra",
+          "canonicalName": "Maharashtra",
+          "signals": 51,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2447"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Karnātaka",
+          "canonicalName": "Karnataka",
+          "signals": 36,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2446"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Tamil Nādu",
+          "canonicalName": "Tamil Nadu",
+          "signals": 34,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-3263"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Delhi",
+          "canonicalName": "Delhi",
+          "signals": 25,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2428"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "IN-TS",
+          "canonicalName": "Telangana",
+          "signals": 17,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "IND-20011"
+          ],
+          "rank": 5
+        },
+        {
+          "sourceName": "Uttar Pradesh",
+          "canonicalName": "Uttar Pradesh",
+          "signals": 13,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-3253"
+          ],
+          "rank": 6
+        },
+        {
+          "sourceName": "Kerala",
+          "canonicalName": "Kerala",
+          "signals": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2442"
+          ],
+          "rank": 7
+        },
+        {
+          "sourceName": "West Bengal",
+          "canonicalName": "West Bengal",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-3257"
+          ],
+          "rank": 8
+        },
+        {
+          "sourceName": "Rājasthān",
+          "canonicalName": "Rajasthan",
+          "signals": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-3250"
+          ],
+          "rank": 9
+        },
+        {
+          "sourceName": "Andhra Pradesh",
+          "canonicalName": "Andhra Pradesh",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2441"
+          ],
+          "rank": 10
+        },
+        {
+          "sourceName": "Haryāna",
+          "canonicalName": "Haryana",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2430"
+          ],
+          "rank": 11
+        },
+        {
+          "sourceName": "Jammu and Kashmīr",
+          "canonicalName": "Jammu and Kashmir",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2431"
+          ],
+          "rank": 12
+        }
+      ]
+    },
+    "Canada": {
+      "countryCode": "CA",
+      "adm0A3": "CAN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 227,
+      "publishedSignals": 217,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "sourceName": "Ontario",
+          "canonicalName": "Ontario",
+          "signals": 99,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-682"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "British Columbia",
+          "canonicalName": "British Columbia",
+          "signals": 46,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-633"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Quebec",
+          "canonicalName": "Quebec",
+          "signals": 40,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-683"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Alberta",
+          "canonicalName": "Alberta",
+          "signals": 32,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-632"
+          ],
+          "rank": 4
+        }
+      ]
+    },
+    "Netherlands": {
+      "countryCode": "NL",
+      "adm0A3": "NLD",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 202,
+      "publishedSignals": 169,
+      "publishedRegions": 5,
+      "regions": [
+        {
+          "sourceName": "Noord-Holland",
+          "canonicalName": "North Holland",
+          "signals": 75,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-3486"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Zuid-Holland",
+          "canonicalName": "South Holland",
+          "signals": 46,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-3485"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Utrecht",
+          "canonicalName": "Utrecht",
+          "signals": 21,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-3484"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Gelderland",
+          "canonicalName": "Gelderland",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-896"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "Noord-Brabant",
+          "canonicalName": "North Brabant",
+          "signals": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-3483"
+          ],
+          "rank": 5
+        }
+      ]
+    },
+    "France": {
+      "countryCode": "FR",
+      "adm0A3": "FRA",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 201,
+      "publishedSignals": 115,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "sourceName": "Île-de-France",
+          "canonicalName": "Île-de-France",
+          "signals": 83,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "FRA-5289",
+            "FRA-5306",
+            "FRA-5333",
+            "FRA-5342",
+            "FRA-5344",
+            "FRA-5349",
+            "FRA-5350",
+            "FRA-5357"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Occitanie",
+          "canonicalName": "Occitanie",
+          "signals": 19,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "FRA-5269",
+            "FRA-5271",
+            "FRA-5272",
+            "FRA-5293",
+            "FRA-5294",
+            "FRA-5298",
+            "FRA-5305",
+            "FRA-5307",
+            "FRA-5318",
+            "FRA-5320",
+            "FRA-5337",
+            "FRA-5346",
+            "FRA-5347"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Auvergne-Rhône-Alpes",
+          "canonicalName": "Auvergne-Rhône-Alpes",
+          "signals": 13,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "FRA-5262",
+            "FRA-5264",
+            "FRA-5267",
+            "FRA-5276",
+            "FRA-5288",
+            "FRA-5299",
+            "FRA-5302",
+            "FRA-5311",
+            "FRA-5315",
+            "FRA-5335",
+            "FRA-5338",
+            "FRA-5341"
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    "Brazil": {
+      "countryCode": "BR",
+      "adm0A3": "BRA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 182,
+      "publishedSignals": 149,
+      "publishedRegions": 9,
+      "regions": [
+        {
+          "sourceName": "São Paulo",
+          "canonicalName": "São Paulo",
+          "signals": 57,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-1311"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Rio de Janeiro",
+          "canonicalName": "Rio de Janeiro",
+          "signals": 18,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-627"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Paraná",
+          "canonicalName": "Paraná",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-613"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Rio Grande do Sul",
+          "canonicalName": "Rio Grande do Sul",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-612"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "Minas Gerais",
+          "canonicalName": "Minas Gerais",
+          "signals": 13,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-601"
+          ],
+          "rank": 5
+        },
+        {
+          "sourceName": "Santa Catarina",
+          "canonicalName": "Santa Catarina",
+          "signals": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-614"
+          ],
+          "rank": 6
+        },
+        {
+          "sourceName": "Distrito Federal",
+          "canonicalName": "Federal",
+          "signals": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-599"
+          ],
+          "rank": 7
+        },
+        {
+          "sourceName": "Bahia",
+          "canonicalName": "Bahia",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-624"
+          ],
+          "rank": 8
+        },
+        {
+          "sourceName": "Pernambuco",
+          "canonicalName": "Pernambuco",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-1313"
+          ],
+          "rank": 9
+        }
+      ]
+    },
+    "Australia": {
+      "countryCode": "AU",
+      "adm0A3": "AUS",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 163,
+      "publishedSignals": 155,
+      "publishedRegions": 5,
+      "regions": [
+        {
+          "sourceName": "New South Wales",
+          "canonicalName": "New South Wales",
+          "signals": 63,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2654"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Victoria",
+          "canonicalName": "Victoria",
+          "signals": 53,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2656"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Queensland",
+          "canonicalName": "Queensland",
+          "signals": 21,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2657"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Western Australia",
+          "canonicalName": "Western Australia",
+          "signals": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2651"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "South Australia",
+          "canonicalName": "South Australia",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2655"
+          ],
+          "rank": 5
+        }
+      ]
+    },
+    "Hong Kong": {
+      "countryCode": "HK",
+      "adm0A3": "HKG",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 161,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Switzerland": {
+      "countryCode": "CH",
+      "adm0A3": "CHE",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 156,
+      "publishedSignals": 127,
+      "publishedRegions": 5,
+      "regions": [
+        {
+          "sourceName": "Zürich",
+          "canonicalName": "Zürich",
+          "signals": 57,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-176"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Genève",
+          "canonicalName": "Geneva",
+          "signals": 31,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-159"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Vaud",
+          "canonicalName": "Vaud",
+          "signals": 18,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-3422"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Aargau",
+          "canonicalName": "Aargau",
+          "signals": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-162"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "Bern",
+          "canonicalName": "Bern",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-3424"
+          ],
+          "rank": 5
+        }
+      ]
+    },
+    "Viet Nam": {
+      "countryCode": "VN",
+      "adm0A3": "VNM",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 140,
+      "publishedSignals": 95,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "sourceName": "Hồ Chí Minh",
+          "canonicalName": "Ho Chi Minh",
+          "signals": 57,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VNM-501"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Hà Nội",
+          "canonicalName": "Hanoi",
+          "signals": 31,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VNM-462"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Đà Nẵng",
+          "canonicalName": "Da Nang",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VNM-491"
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    "Italy": {
+      "countryCode": "IT",
+      "adm0A3": "ITA",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 138,
+      "publishedSignals": 54,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "sourceName": "Lombardia",
+          "canonicalName": "Lombardia",
+          "signals": 28,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ITA-5443",
+            "ITA-5444",
+            "ITA-5445",
+            "ITA-5446",
+            "ITA-5447",
+            "ITA-5448",
+            "ITA-5449",
+            "ITA-5450",
+            "ITA-5451",
+            "ITA-5452",
+            "ITA-5453",
+            "ITA-5454"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Veneto",
+          "canonicalName": "Veneto",
+          "signals": 14,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ITA-5461",
+            "ITA-5462",
+            "ITA-5463",
+            "ITA-5464",
+            "ITA-5465",
+            "ITA-5466",
+            "ITA-5467"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Emilia-Romagna",
+          "canonicalName": "Emilia-Romagna",
+          "signals": 12,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ITA-5358",
+            "ITA-5359",
+            "ITA-5360",
+            "ITA-5361",
+            "ITA-5362",
+            "ITA-5363",
+            "ITA-5364",
+            "ITA-5365",
+            "ITA-5366"
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    "Spain": {
+      "countryCode": "ES",
+      "adm0A3": "ESP",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 129,
+      "publishedSignals": 87,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "sourceName": "Madrid, Comunidad de",
+          "canonicalName": "Community of Madrid",
+          "signals": 34,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "ESP-5833"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Catalunya",
+          "canonicalName": "Catalunya",
+          "signals": 32,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ESP-5809",
+            "ESP-5820",
+            "ESP-5831",
+            "ESP-5846"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Valenciana, Comunidad",
+          "canonicalName": "Valenciana, Comunidad",
+          "signals": 13,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ESP-5803",
+            "ESP-5814",
+            "ESP-5849"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Castilla y León",
+          "canonicalName": "Castilla y León",
+          "signals": 8,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ESP-5806",
+            "ESP-5810",
+            "ESP-5830",
+            "ESP-5839",
+            "ESP-5841",
+            "ESP-5843",
+            "ESP-5845",
+            "ESP-5850",
+            "ESP-5852"
+          ],
+          "rank": 4
+        }
+      ]
+    },
+    "Japan": {
+      "countryCode": "JP",
+      "adm0A3": "JPN",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 121,
+      "publishedSignals": 86,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "sourceName": "Tôkyô",
+          "canonicalName": "Tokyo",
+          "signals": 57,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "JPN-1860"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Kanagawa",
+          "canonicalName": "Kanagawa Prefecture",
+          "signals": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "JPN-1857"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Ôsaka",
+          "canonicalName": "Ōsaka Prefecture",
+          "signals": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "JPN-1852"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Hyôgo",
+          "canonicalName": "Hyōgo Prefecture",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "JPN-1849"
+          ],
+          "rank": 4
+        }
+      ]
+    },
+    "Poland": {
+      "countryCode": "PL",
+      "adm0A3": "POL",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 114,
+      "publishedSignals": 54,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Mazowieckie",
+          "canonicalName": "Masovian Voivodeship",
+          "signals": 45,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "POL-3148"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Śląskie",
+          "canonicalName": "Silesian Voivodeship",
+          "signals": 9,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "POL-3146"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Sweden": {
+      "countryCode": "SE",
+      "adm0A3": "SWE",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 109,
+      "publishedSignals": 70,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Stockholms län",
+          "canonicalName": "Stockholm",
+          "signals": 53,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "SWE-194"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Västra Götalands län",
+          "canonicalName": "Västra Götaland",
+          "signals": 17,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "SWE-3428"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Austria": {
+      "countryCode": "AT",
+      "adm0A3": "AUT",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 79,
+      "publishedSignals": 65,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "sourceName": "Wien",
+          "canonicalName": "Vienna",
+          "signals": 45,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUT-2331"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Niederösterreich",
+          "canonicalName": "Lower Austria",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUT-2330"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Tirol",
+          "canonicalName": "Tyrol",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUT-2329"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Salzburg",
+          "canonicalName": "Salzburg",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUT-2327"
+          ],
+          "rank": 4
+        }
+      ]
+    },
+    "Russia": {
+      "countryCode": "RU",
+      "adm0A3": "RUS",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 75,
+      "publishedSignals": 25,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "rank": 1,
+          "sourceName": "Moskva",
+          "canonicalName": "Moscow",
+          "signals": 8,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "RUS-2365"
+          ]
+        },
+        {
+          "rank": 2,
+          "sourceName": "Nizhegorodskaya oblast'",
+          "canonicalName": "Nizhny Novgorod",
+          "signals": 6,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "RUS-2357"
+          ]
+        },
+        {
+          "rank": 3,
+          "sourceName": "Sankt-Peterburg",
+          "canonicalName": "Saint Petersburg",
+          "signals": 6,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "RUS-2337"
+          ]
+        },
+        {
+          "rank": 4,
+          "sourceName": "Moskovskaya oblast'",
+          "canonicalName": "Moscow",
+          "signals": 5,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "RUS-2364"
+          ]
+        }
+      ]
+    },
+    "South Korea": {
+      "countryCode": "KR",
+      "adm0A3": "KOR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 73,
+      "publishedSignals": 52,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Seoul",
+          "canonicalName": "Seoul",
+          "signals": 38,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "KOR-2497"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Gyeonggi",
+          "canonicalName": "Gyeonggi",
+          "signals": 14,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "KOR-2498"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Indonesia": {
+      "countryCode": "ID",
+      "adm0A3": "IDN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 70,
+      "publishedSignals": 54,
+      "publishedRegions": 5,
+      "regions": [
+        {
+          "sourceName": "Jakarta Raya",
+          "canonicalName": "Jakarta",
+          "signals": 17,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1227"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Banten",
+          "canonicalName": "Banten",
+          "signals": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1226"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Jawa Barat",
+          "canonicalName": "West Java",
+          "signals": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1223"
+          ],
+          "rank": 3
+        },
+        {
+          "sourceName": "Jawa Timur",
+          "canonicalName": "East Java",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1233"
+          ],
+          "rank": 4
+        },
+        {
+          "sourceName": "Yogyakarta",
+          "canonicalName": "Yogyakarta",
+          "signals": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-540"
+          ],
+          "rank": 5
+        }
+      ]
+    },
+    "Belgium": {
+      "countryCode": "BE",
+      "adm0A3": "BEL",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 65,
+      "publishedSignals": 46,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Vlaams Gewest",
+          "canonicalName": "Vlaams Gewest",
+          "signals": 35,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "BEL-3",
+            "BEL-3475",
+            "BEL-3478",
+            "BEL-3479",
+            "BEL-3480"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Waals Gewest",
+          "canonicalName": "Waals Gewest",
+          "signals": 11,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "BEL-2",
+            "BEL-3476",
+            "BEL-3477",
+            "BEL-3481",
+            "BEL-3482"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Finland": {
+      "countryCode": "FI",
+      "adm0A3": "FIN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 62,
+      "publishedSignals": 49,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Uusimaa",
+          "canonicalName": "Uusimaa",
+          "signals": 42,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "FIN-3193"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Pirkanmaa",
+          "canonicalName": "Pirkanmaa",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "FIN-3186"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Turkey": {
+      "countryCode": "TR",
+      "adm0A3": "TUR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 56,
+      "publishedSignals": 38,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "İstanbul",
+          "canonicalName": "Istanbul",
+          "signals": 23,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "TUR-2265"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Ankara",
+          "canonicalName": "Ankara",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "TUR-3008"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Czechia": {
+      "countryCode": "CZ",
+      "adm0A3": "CZE",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 54,
+      "publishedSignals": 30,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Praha, Hlavní město",
+          "canonicalName": "Prague",
+          "signals": 30,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "CZE-1595"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Denmark": {
+      "countryCode": "DK",
+      "adm0A3": "DNK",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 54,
+      "publishedSignals": 44,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Region Hovedstaden",
+          "canonicalName": "Denmark",
+          "signals": 28,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "DNK-3419"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Region Midjylland",
+          "canonicalName": "Central Denmark",
+          "signals": 16,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "DNK-3416"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Norway": {
+      "countryCode": "NO",
+      "adm0A3": "NOR",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 54,
+      "publishedSignals": 30,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Oslo",
+          "canonicalName": "Oslo",
+          "signals": 18,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NOR-921"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Rogaland",
+          "canonicalName": "Rogaland",
+          "signals": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NOR-914"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Pakistan": {
+      "countryCode": "PK",
+      "adm0A3": "PAK",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 54,
+      "publishedSignals": 34,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Punjab",
+          "canonicalName": "Punjab",
+          "signals": 34,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PAK-1113"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "South Africa": {
+      "countryCode": "ZA",
+      "adm0A3": "ZAF",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 53,
+      "publishedSignals": 45,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Gauteng",
+          "canonicalName": "Gauteng",
+          "signals": 28,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ZAF-1208"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Kapa-Vupeladyambu",
+          "canonicalName": "Northern Cape",
+          "signals": 17,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "ZAF-1188"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Thailand": {
+      "countryCode": "TH",
+      "adm0A3": "THA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 52,
+      "publishedSignals": 26,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Krung Thep Maha Nakhon",
+          "canonicalName": "Bangkok",
+          "signals": 26,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "THA-416"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Mexico": {
+      "countryCode": "MX",
+      "adm0A3": "MEX",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 51,
+      "publishedSignals": 13,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Jalisco",
+          "canonicalName": "Jalisco",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "MEX-2719"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Baja California",
+          "canonicalName": "Baja California",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "MEX-2706"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Portugal": {
+      "countryCode": "PT",
+      "adm0A3": "PRT",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 47,
+      "publishedSignals": 35,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Lisboa",
+          "canonicalName": "Lisbon",
+          "signals": 20,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PRT-746"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Porto",
+          "canonicalName": "Porto",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PRT-754"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Ukraine": {
+      "countryCode": "UA",
+      "adm0A3": "UKR",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 47,
+      "publishedSignals": 19,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Kyiv",
+          "canonicalName": "Kyiv",
+          "signals": 19,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "UKR-4826"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Taiwan": {
+      "countryCode": "TW",
+      "adm0A3": "TWN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 43,
+      "publishedSignals": 18,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Taipei",
+          "canonicalName": "Taipei",
+          "signals": 18,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "TWN-1166"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Romania": {
+      "countryCode": "RO",
+      "adm0A3": "ROU",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 42,
+      "publishedSignals": 20,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "București",
+          "canonicalName": "Bucharest",
+          "signals": 20,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "ROU-128"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Philippines": {
+      "countryCode": "PH",
+      "adm0A3": "PHL",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 41,
+      "publishedSignals": 21,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "National Capital Region",
+          "canonicalName": "National Capital Region",
+          "signals": 21,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "PHL-5542",
+            "PHL-5543",
+            "PHL-5544",
+            "PHL-5545",
+            "PHL-5546",
+            "PHL-5547",
+            "PHL-5549",
+            "PHL-5550",
+            "PHL-5551",
+            "PHL-5552",
+            "PHL-5553",
+            "PHL-5554",
+            "PHL-5555",
+            "PHL-5556",
+            "PHL-5557",
+            "PHL-5558",
+            "PHL-5559"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Argentina": {
+      "countryCode": "AR",
+      "adm0A3": "ARG",
+      "collectionStatus": "collected",
+      "publicationStatus": "partially_published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 40,
+      "publishedSignals": 5,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Córdoba",
+          "canonicalName": "Córdoba",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ARG-1299"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Bangladesh": {
+      "countryCode": "BD",
+      "adm0A3": "BGD",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 40,
+      "publishedSignals": 10,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Dhaka",
+          "canonicalName": "Dhaka",
+          "signals": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BGD-1806"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Israel": {
+      "countryCode": "IL",
+      "adm0A3": "ISR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 35,
+      "publishedSignals": 29,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Tel Aviv",
+          "canonicalName": "Tel Aviv",
+          "signals": 24,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ISR-3057"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "HaMerkaz",
+          "canonicalName": "Central",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ISR-3055"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "Colombia": {
+      "countryCode": "CO",
+      "adm0A3": "COL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 33,
+      "publishedSignals": 24,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "sourceName": "Distrito Capital de Bogotá",
+          "canonicalName": "Bogotá",
+          "signals": 10,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "COL-1399"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Valle del Cauca",
+          "canonicalName": "Valle del Cauca",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "COL-1408"
+          ],
+          "rank": 2
+        },
+        {
+          "sourceName": "Antioquia",
+          "canonicalName": "Antioquia",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "COL-1314"
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    "Hungary": {
+      "countryCode": "HU",
+      "adm0A3": "HUN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 33,
+      "publishedSignals": 20,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Budapest",
+          "canonicalName": "Budapest",
+          "signals": 20,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "HUN-3160"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Ireland": {
+      "countryCode": "IE",
+      "adm0A3": "IRL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 33,
+      "publishedSignals": 28,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Leinster",
+          "canonicalName": "Leinster",
+          "signals": 28,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "IRL-5573",
+            "IRL-5574",
+            "IRL-5575",
+            "IRL-5576",
+            "IRL-712",
+            "IRL-715",
+            "IRL-716",
+            "IRL-717",
+            "IRL-718",
+            "IRL-719",
+            "IRL-721",
+            "IRL-722",
+            "IRL-723",
+            "IRL-731",
+            "IRL-77"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "United Arab Emirates": {
+      "countryCode": "AE",
+      "adm0A3": "ARE",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 33,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Malaysia": {
+      "countryCode": "MY",
+      "adm0A3": "MYS",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 31,
+      "publishedSignals": 24,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "sourceName": "Wilayah Persekutuan Kuala Lumpur",
+          "canonicalName": "Kuala Lumpur",
+          "signals": 17,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "MYS-4831"
+          ],
+          "rank": 1
+        },
+        {
+          "sourceName": "Selangor",
+          "canonicalName": "Selangor",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "MYS-1148"
+          ],
+          "rank": 2
+        }
+      ]
+    },
+    "New Zealand": {
+      "countryCode": "NZ",
+      "adm0A3": "NZL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 26,
+      "publishedSignals": 9,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Auckland",
+          "canonicalName": "Auckland",
+          "signals": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NZL-3398"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Bulgaria": {
+      "countryCode": "BG",
+      "adm0A3": "BGR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 24,
+      "publishedSignals": 16,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Sofia (stolitsa)",
+          "canonicalName": "Sofia",
+          "signals": 16,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "BGR-2243"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Chile": {
+      "countryCode": "CL",
+      "adm0A3": "CHL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 24,
+      "publishedSignals": 20,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Región Metropolitana de Santiago",
+          "canonicalName": "Santiago",
+          "signals": 20,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHL-2698"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Greece": {
+      "countryCode": "GR",
+      "adm0A3": "GRC",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 22,
+      "publishedSignals": 15,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Attikí",
+          "canonicalName": "Attica",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "GRC-2884"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Morocco": {
+      "countryCode": "MA",
+      "adm0A3": "MAR",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 22,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Saudi Arabia": {
+      "countryCode": "SA",
+      "adm0A3": "SAU",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 22,
+      "publishedSignals": 15,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Ar Riyāḑ",
+          "canonicalName": "Riyadh",
+          "signals": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "SAU-1097"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Kazakhstan": {
+      "countryCode": "KZ",
+      "adm0A3": "KAZ",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 21,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Iraq": {
+      "countryCode": "IQ",
+      "adm0A3": "IRQ",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 20,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Baghdād",
+          "canonicalName": "Baghdad",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IRQ-3063"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Slovakia": {
+      "countryCode": "SK",
+      "adm0A3": "SVK",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 19,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Azerbaijan": {
+      "countryCode": "AZ",
+      "adm0A3": "AZE",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 17,
+      "publishedSignals": 17,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Bakı",
+          "canonicalName": "Baku",
+          "signals": 17,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AZE-1689"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Egypt": {
+      "countryCode": "EG",
+      "adm0A3": "EGY",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 16,
+      "publishedSignals": 6,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Al Qāhirah",
+          "canonicalName": "Cairo",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "EGY-1533"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Jordan": {
+      "countryCode": "JO",
+      "adm0A3": "JOR",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 14,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Kenya": {
+      "countryCode": "KE",
+      "adm0A3": "KEN",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 14,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Uzbekistan": {
+      "countryCode": "UZ",
+      "adm0A3": "UZB",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 14,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Venezuela": {
+      "countryCode": "VE",
+      "adm0A3": "VEN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 14,
+      "publishedSignals": 5,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Distrito Capital",
+          "canonicalName": "Capital",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VEN-43"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Ecuador": {
+      "countryCode": "EC",
+      "adm0A3": "ECU",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 12,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Pichincha",
+          "canonicalName": "Pichincha",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ECU-1287"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Nepal": {
+      "countryCode": "NP",
+      "adm0A3": "NPL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 12,
+      "publishedSignals": 8,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Bāgmatī",
+          "canonicalName": "Bagmati Zone",
+          "signals": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NPL-1130"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Algeria": {
+      "countryCode": "DZ",
+      "adm0A3": "DZA",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 11,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Estonia": {
+      "countryCode": "EE",
+      "adm0A3": "EST",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 11,
+      "publishedSignals": 8,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Harjumaa",
+          "canonicalName": "Harju",
+          "signals": 8,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "EST-1654"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Peru": {
+      "countryCode": "PE",
+      "adm0A3": "PER",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 11,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Lithuania": {
+      "countryCode": "LT",
+      "adm0A3": "LTU",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 10,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Nigeria": {
+      "countryCode": "NG",
+      "adm0A3": "NGA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 10,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Lagos",
+          "canonicalName": "Lagos",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NGA-2850"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Albania": {
+      "countryCode": "AL",
+      "adm0A3": "ALB",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 9,
+      "publishedSignals": 6,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Tiranë",
+          "canonicalName": "Tirana",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ALB-1529"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Croatia": {
+      "countryCode": "HR",
+      "adm0A3": "HRV",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 9,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Grad Zagreb",
+          "canonicalName": "Zagreb",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "HRV-1589"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Latvia": {
+      "countryCode": "LV",
+      "adm0A3": "LVA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 9,
+      "publishedSignals": 8,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Rīga",
+          "canonicalName": "Riga",
+          "signals": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "LVA-1094"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Belarus": {
+      "countryCode": "BY",
+      "adm0A3": "BLR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 8,
+      "publishedSignals": 6,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Horad Minsk",
+          "canonicalName": "Minsk",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BLR-4825"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Cambodia": {
+      "countryCode": "KH",
+      "adm0A3": "KHM",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 8,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Phnom Penh",
+          "canonicalName": "Phnom Penh",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "KHM-1789"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Dominican Republic": {
+      "countryCode": "DO",
+      "adm0A3": "DOM",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 8,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Moldova": {
+      "countryCode": "MD",
+      "adm0A3": "MDA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 8,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Chișinău",
+          "canonicalName": "Chișinău",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "MDA-1627"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Serbia": {
+      "countryCode": "RS",
+      "adm0A3": "SRB",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 7,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Sri Lanka": {
+      "countryCode": "LK",
+      "adm0A3": "LKA",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 7,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Tunisia": {
+      "countryCode": "TN",
+      "adm0A3": "TUN",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 7,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Uruguay": {
+      "countryCode": "UY",
+      "adm0A3": "URY",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 7,
+      "publishedSignals": 7,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Montevideo",
+          "canonicalName": "Montevideo",
+          "signals": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "URY-21"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Bolivia": {
+      "countryCode": "BO",
+      "adm0A3": "BOL",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Costa Rica": {
+      "countryCode": "CR",
+      "adm0A3": "CRI",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Cyprus": {
+      "countryCode": "CY",
+      "adm0A3": "CYP",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Georgia": {
+      "countryCode": "GE",
+      "adm0A3": "GEO",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 5,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Tbilisi",
+          "canonicalName": "Tbilisi",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "GEO-3036"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Honduras": {
+      "countryCode": "HN",
+      "adm0A3": "HND",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Luxembourg": {
+      "countryCode": "LU",
+      "adm0A3": "LUX",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Panama": {
+      "countryCode": "PA",
+      "adm0A3": "PAN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 6,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Panamá",
+          "canonicalName": "Panamá",
+          "signals": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PAN-1340"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Slovenia": {
+      "countryCode": "SI",
+      "adm0A3": "SVN",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 6,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Iran": {
+      "countryCode": "IR",
+      "adm0A3": "IRN",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 5,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Puerto Rico": {
+      "countryCode": "PR",
+      "adm0A3": "PRI",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 5,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Qatar": {
+      "countryCode": "QA",
+      "adm0A3": "QAT",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 5,
+      "publishedSignals": 5,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "sourceName": "Ad Dawḩah",
+          "canonicalName": "Doha",
+          "signals": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "QAT-1099"
+          ],
+          "rank": 1
+        }
+      ]
+    },
+    "Togo": {
+      "countryCode": "TG",
+      "adm0A3": "TGO",
+      "collectionStatus": "collected",
+      "publicationStatus": "boundary_unresolved",
+      "snapshotGeneratedAt": "2026-08-29T20:39:06.431Z",
+      "countrySignals": 5,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    }
+  }
+}

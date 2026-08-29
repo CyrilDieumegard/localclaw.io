@@ -1,10 +1,26 @@
 import * as THREE from './vendor/three.module.min.js';
 
-const DATA_URL = '/data/local-ai-activity-index.json?v=20260829g';
+const PERIOD_CONFIG = Object.freeze({
+  '30d': {
+    dataUrl: '/data/local-ai-activity-index.json?v=20260829g',
+    admin1Url: '/data/local-ai-admin1-activity.json?v=20260829h'
+  },
+  '90d': {
+    dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
+    admin1Url: '/data/local-ai-admin1-activity-90d.json?v=20260829a'
+  },
+  '180d': {
+    dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
+    admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a'
+  }
+});
+const requestedPeriod = new URLSearchParams(window.location.search).get('range');
+const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
+const DATA_URL = PERIOD_CONFIG[ACTIVE_PERIOD].dataUrl;
 const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
-const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?v=20260829h';
+const ADMIN1_ACTIVITY_URL = PERIOD_CONFIG[ACTIVE_PERIOD].admin1Url;
 const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829c';
 const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
@@ -293,6 +309,40 @@ const state = {
 
 function number(value) {
   return new Intl.NumberFormat('en-US').format(value);
+}
+
+function periodDays() {
+  return Number(state.data?.period?.days) || (ACTIVE_PERIOD === '180d' ? 180 : ACTIVE_PERIOD === '90d' ? 90 : 30);
+}
+
+function periodLabel() {
+  return state.data?.period?.label || (ACTIVE_PERIOD === '180d' ? 'Last 6 months' : ACTIVE_PERIOD === '90d' ? 'Last 3 months' : 'Last 30 days');
+}
+
+function formattedDate(value, includeYear = false) {
+  const date = new Date(`${value}T12:00:00Z`);
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    ...(includeYear ? { year: 'numeric' } : {})
+  }).format(date);
+}
+
+function periodDateRange() {
+  const start = state.data?.period?.start;
+  const end = state.data?.period?.end;
+  if (!start || !end) return '';
+  const sameYear = start.slice(0, 4) === end.slice(0, 4);
+  return `${formattedDate(start, !sameYear)}–${formattedDate(end, true)}`;
+}
+
+function updatePeriodControls() {
+  document.querySelectorAll('[data-atlas-period]').forEach(button => {
+    const key = button.getAttribute('data-atlas-period');
+    button.setAttribute('aria-pressed', String(key === ACTIVE_PERIOD));
+    if (key === ACTIVE_PERIOD) button.setAttribute('aria-current', 'true');
+    else button.removeAttribute('aria-current');
+  });
 }
 
 function isMobileViewport(width = window.innerWidth) {
@@ -725,7 +775,7 @@ function pluralizeRegionLabel(label) {
 function admin1DataStatus(activity) {
   const status = String(activity?.publicationStatus || '').trim();
   if (['unavailable', 'none_above_threshold', 'boundary_unresolved'].includes(status)) return status;
-  if (status === 'published') return 'published';
+  if (status === 'published' || status === 'partially_published') return 'published';
   return 'not_collected';
 }
 
@@ -1791,7 +1841,7 @@ function createCityClusters() {
   state.clusterGroup = new THREE.Group();
   state.clusterGroup.userData.activityScope = 'clusters';
   state.globeGroup.add(state.clusterGroup);
-  const maximumVisible = window.innerWidth < 760 ? 56 : state.cityClusters.length;
+  const maximumVisible = window.innerWidth < 760 ? 56 : periodDays() > 30 ? 144 : state.cityClusters.length;
   const clusters = state.cityClusters
     .filter(cluster => {
       // Natural Earth 110m absorbs Hong Kong into China and simplifies a few border cities.
@@ -3086,12 +3136,12 @@ function updateScopeInterface() {
   else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
     summary.textContent = stateView
-      ? 'United States · Approximate network regions · 31 Jul–29 Aug 2026'
+      ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
-        ? `${state.detailCountry.name} · Approximate network regions · 31 Jul–29 Aug 2026`
+        ? `${state.detailCountry.name} · Approximate network regions · ${periodDateRange()}`
         : admin2View
           ? `${state.admin2Config.countryName} · ${state.admin2Config.parentName} · Cartographic boundaries · No subdivision-level activity totals`
-        : 'Anonymous interest signals · Last 30 days · Updated 29 August 2026';
+        : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
   }
   if (liveLabel) liveLabel.textContent = stateView
     ? 'State-level exploration'
@@ -3148,7 +3198,7 @@ function updateScopeInterface() {
     ? 'boundary view · no subdivision totals'
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
-    : '30-day window';
+    : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = stateView
     ? 'State color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.'
     : admin1View
@@ -3600,6 +3650,20 @@ function bindInteractions() {
 
   if (tourButton) tourButton.addEventListener('click', toggleTour);
 
+  document.querySelectorAll('[data-atlas-period]').forEach(button => {
+    button.addEventListener('click', () => {
+      const period = button.getAttribute('data-atlas-period');
+      if (button.disabled || period === ACTIVE_PERIOD || !Object.hasOwn(PERIOD_CONFIG, period)) return;
+      document.documentElement.classList.add('atlas-period-loading');
+      button.setAttribute('aria-busy', 'true');
+      const url = new URL(window.location.href);
+      if (period === '30d') url.searchParams.delete('range');
+      else url.searchParams.set('range', period);
+      url.searchParams.delete('v');
+      window.location.assign(url);
+    });
+  });
+
   document.querySelectorAll('[data-atlas-view]').forEach(button => {
     button.addEventListener('click', () => {
       const view = button.getAttribute('data-atlas-view');
@@ -3738,7 +3802,52 @@ function animate(time) {
   state.renderer.render(state.scene, state.camera);
 }
 
+function appendRankingCell(row, value, className = '') {
+  const cell = document.createElement('td');
+  if (className) cell.className = className;
+  cell.textContent = value;
+  row.append(cell);
+  return cell;
+}
+
+function renderRankingRows(selector, rows, denominator, kind, limit) {
+  const body = document.querySelector(selector);
+  if (!body) return;
+  const visibleRows = rows.slice(0, limit);
+  const maximum = visibleRows[0]?.signals || 1;
+  const fragment = document.createDocumentFragment();
+  visibleRows.forEach((entity, index) => {
+    const row = document.createElement('tr');
+    if (entity.qualityFlag) row.className = 'atlas-ranking__flagged';
+    appendRankingCell(row, String(index + 1).padStart(2, '0'), 'atlas-ranking__rank');
+    const nameCell = appendRankingCell(row, '', 'atlas-ranking__country');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute(kind === 'country' ? 'data-country-focus' : 'data-state-focus', entity.name);
+    button.append(document.createTextNode(entity.name));
+    if (entity.qualityFlag) {
+      const flag = document.createElement('span');
+      flag.textContent = 'quality flag';
+      button.append(' ', flag);
+    }
+    nameCell.append(button);
+    appendRankingCell(row, number(entity.signals));
+    appendRankingCell(row, `${((entity.signals / denominator) * 100).toFixed(1)}%`);
+    const barCell = appendRankingCell(row, '', 'atlas-ranking__bar');
+    const track = document.createElement('div');
+    track.className = 'atlas-ranking__track';
+    const fill = document.createElement('span');
+    fill.style.setProperty('--atlas-share', `${((entity.signals / maximum) * 100).toFixed(1)}%`);
+    track.append(fill);
+    barCell.append(track);
+    fragment.append(row);
+  });
+  body.replaceChildren(fragment);
+}
+
 function renderDataSummary() {
+  const leader = state.countries[0];
+  const oregon = state.usRegions.find(region => region.name === 'Oregon');
   document.querySelectorAll('[data-total-signals]').forEach(element => {
     element.textContent = number(state.data.totals.signals);
   });
@@ -3751,6 +3860,47 @@ function renderDataSummary() {
   document.querySelectorAll('[data-us-visible-regions]').forEach(element => {
     element.textContent = number(state.usData.totals.publishedRegions);
   });
+  document.querySelectorAll('[data-period-date-range]').forEach(element => {
+    element.textContent = periodDateRange();
+  });
+  const snapshotLead = document.querySelector('[data-snapshot-lead]');
+  if (snapshotLead && leader) {
+    snapshotLead.textContent = `As of 29 August 2026, ${leader.name} ranks first for observed local AI interest in the LocalClaw dataset, with ${number(leader.signals)} of ${number(state.data.totals.signals)} anonymous signals recorded during the ${periodLabel().toLowerCase()}. This is a directional view of interest, not a census of local AI users.`;
+  }
+  const leadingCountry = document.querySelector('[data-leading-country]');
+  if (leadingCountry && leader) leadingCountry.textContent = leader.name;
+  const leadingDetail = document.querySelector('[data-leading-detail]');
+  if (leadingDetail && leader) leadingDetail.textContent = `${number(leader.signals)} observed signals · ${((leader.signals / state.data.totals.signals) * 100).toFixed(1)}% of the snapshot`;
+  const leaderFaq = document.querySelector('[data-current-leader-faq]');
+  if (leaderFaq && leader) leaderFaq.textContent = `${leader.name} leads this ${periodDays()}-day LocalClaw interest snapshot with ${number(leader.signals)} signals. That result reflects this dataset, not all local AI activity worldwide.`;
+  const observedWindow = document.querySelector('[data-observed-window]');
+  if (observedWindow) observedWindow.textContent = `Anonymous country-level signals · ${periodDateRange()}`;
+  const publishedStates = document.querySelector('[data-us-published-states]');
+  if (publishedStates) publishedStates.textContent = number(state.usData.totals.publishedRegions);
+  const publishedStateSignals = document.querySelector('[data-us-published-signals]');
+  if (publishedStateSignals) publishedStateSignals.textContent = number(state.usData.totals.publishedSignals);
+  const publishedStateDetail = document.querySelector('[data-us-published-signal-detail]');
+  if (publishedStateDetail) publishedStateDetail.textContent = `Of ${number(state.usData.totals.countrySignals)} U.S. country-level signals`;
+  const oregonQuality = document.querySelector('[data-oregon-quality]');
+  if (oregonQuality && oregon) {
+    const dalles = state.cityClusters.find(cluster => cluster.countryCode === 'US' && cluster.city === 'The Dalles');
+    oregonQuality.textContent = `${number(dalles?.signals || 0)} of ${number(oregon.signals)} signals resolve to The Dalles`;
+  }
+  const usCaption = document.querySelector('[data-us-ranking-caption]');
+  if (usCaption) usCaption.textContent = `Top U.S. states by observed LocalClaw network-region signals, ${periodDateRange()}`;
+  const countryCaption = document.querySelector('[data-country-ranking-caption]');
+  if (countryCaption) countryCaption.textContent = `Top 20 countries by observed LocalClaw interest signals, ${periodDateRange()}`;
+  const usOpenLabel = document.querySelector('[data-us-open-label]');
+  if (usOpenLabel) usOpenLabel.textContent = `Explore all ${number(state.usData.totals.publishedRegions)} states`;
+  const methodWindow = document.querySelector('[data-method-window]');
+  if (methodWindow) methodWindow.textContent = `${periodDays()}-day window`;
+  const countryDownload = document.querySelector('[data-country-download]');
+  if (countryDownload) countryDownload.href = PERIOD_CONFIG[ACTIVE_PERIOD].dataUrl.split('?')[0];
+  const admin1Download = document.querySelector('[data-admin1-download]');
+  if (admin1Download) admin1Download.href = PERIOD_CONFIG[ACTIVE_PERIOD].admin1Url.split('?')[0];
+  renderRankingRows('[data-country-ranking-body]', state.countries, state.data.totals.signals, 'country', 20);
+  renderRankingRows('[data-us-ranking-body]', state.usRegions, state.usData.totals.countrySignals, 'state', 10);
+  updatePeriodControls();
   updateScopeInterface();
 }
 
@@ -3842,8 +3992,8 @@ async function initialize() {
     stage.dataset.admin2Subdivisions = String(state.admin2Manifest?.totals?.subdivisions || 0);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
     renderStatePanel();
-    bindInteractions();
     renderDataSummary();
+    bindInteractions();
     state.initialized = true;
     state.renderer.setAnimationLoop(animate);
     requestAnimationFrame(() => stage.classList.add('atlas-ready'));

@@ -20,7 +20,7 @@
     "atlas:activity:generate": "node scripts/generate-admin1-activity.js",
     "atlas:admin1:generate": "node scripts/generate-global-admin1.js",
     "atlas:admin2:generate": "node scripts/generate-admin2-boundaries.js",
-    "atlas:check": "node scripts/check-local-ai-activity-index.js",
+    "atlas:check": "node scripts/check-local-ai-activity-index.js && node scripts/check-atlas-periods.js",
     "tailwind-runtime:sync": "node scripts/sync-local-tailwind.js",
     "tailwind-runtime:check": "node scripts/sync-local-tailwind.js --check",
     "home-seo:generate": "node scripts/generate-home-seo.js",

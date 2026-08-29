@@ -182,7 +182,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829l">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829m">
 
   <script>
     try {
@@ -271,6 +271,14 @@
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
 
+      <div class="atlas-periods" role="group" aria-label="Data period">
+        <span class="atlas-periods__label" aria-hidden="true">Period</span>
+        <button class="atlas-period" type="button" data-atlas-period="30d" aria-pressed="true">30D</button>
+        <button class="atlas-period" type="button" data-atlas-period="90d" aria-pressed="false">3M</button>
+        <button class="atlas-period" type="button" data-atlas-period="180d" aria-pressed="false">6M</button>
+        <button class="atlas-period" type="button" data-atlas-period="365d" aria-pressed="false" disabled title="A complete 12-month history will be available on 8 February 2027">12M<span>Feb 2027</span></button>
+      </div>
+
       <div class="atlas-navigation" aria-label="Globe navigation">
         <span class="atlas-navigation__hint" aria-hidden="true">Drag to rotate <b>·</b> Scroll to zoom</span>
         <button type="button" class="atlas-navigation__tour" data-atlas-tour aria-label="Tour the top 10 most active regions" aria-pressed="false"><span aria-hidden="true"></span><b data-atlas-tour-label>Tour the top 10</b><small aria-hidden="true">Tour</small></button>
@@ -327,17 +335,17 @@
         <section class="atlas-section" aria-labelledby="snapshot-title">
           <p class="atlas-section__eyebrow">Latest global snapshot</p>
           <h2 id="snapshot-title">The clearest picture we can publish today.</h2>
-          <p class="atlas-section__lead">As of 29 August 2026, the United States ranks first for observed local AI interest in the LocalClaw dataset, with 1,309 of 3,337 anonymous signals recorded during the last 30 days. This is a directional view of interest, not a census of local AI users.</p>
+          <p class="atlas-section__lead" data-snapshot-lead>As of 29 August 2026, the United States ranks first for observed local AI interest in the LocalClaw dataset, with 1,309 of 3,337 anonymous signals recorded during the last 30 days. This is a directional view of interest, not a census of local AI users.</p>
           <div class="atlas-snapshot">
             <article class="atlas-stat">
               <span>Leading country</span>
-              <strong>United States</strong>
-              <small>1,309 observed signals · 39.2% of the snapshot</small>
+              <strong data-leading-country>United States</strong>
+              <small data-leading-detail>1,309 observed signals · 39.2% of the snapshot</small>
             </article>
             <article class="atlas-stat">
               <span>Observed interest</span>
               <strong data-total-signals>3,337</strong>
-              <small>Anonymous country-level signals · 31 Jul–29 Aug 2026</small>
+              <small data-observed-window>Anonymous country-level signals · 31 Jul–29 Aug 2026</small>
             </article>
             <article class="atlas-stat">
               <span>Global coverage</span>
@@ -354,23 +362,23 @@
           <div class="atlas-state-summary">
             <article class="atlas-stat">
               <span>Published states</span>
-              <strong>30</strong>
+              <strong data-us-published-states>30</strong>
               <small>Each has at least five signals</small>
             </article>
             <article class="atlas-stat">
               <span>Visible state signals</span>
-              <strong>1,259</strong>
-              <small>Of 1,309 U.S. country-level signals</small>
+              <strong data-us-published-signals>1,259</strong>
+              <small data-us-published-signal-detail>Of 1,309 U.S. country-level signals</small>
             </article>
             <article class="atlas-stat atlas-stat--flagged">
               <span>Data-quality flag</span>
               <strong>Oregon</strong>
-              <small>511 signals resolve to The Dalles</small>
+              <small data-oregon-quality>511 signals resolve to The Dalles</small>
             </article>
           </div>
           <div class="atlas-ranking-wrap">
             <table class="atlas-ranking">
-              <caption class="atlas-skip">Top U.S. states by observed LocalClaw network-region signals, 31 July to 29 August 2026</caption>
+              <caption class="atlas-skip" data-us-ranking-caption>Top U.S. states by observed LocalClaw network-region signals, 31 July to 29 August 2026</caption>
               <thead>
                 <tr>
                   <th scope="col">Rank</th>
@@ -380,7 +388,7 @@
                   <th scope="col" class="atlas-ranking__bar">Relative activity</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-us-ranking-body>
                 <tr class="atlas-ranking__flagged"><td class="atlas-ranking__rank">01</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Oregon">Oregon <span>quality flag</span></button></td><td>516</td><td>39.4%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:100%"></span></div></td></tr>
                 <tr><td class="atlas-ranking__rank">02</td><td class="atlas-ranking__country"><button type="button" data-state-focus="California">California</button></td><td>171</td><td>13.1%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:33.1%"></span></div></td></tr>
                 <tr><td class="atlas-ranking__rank">03</td><td class="atlas-ranking__country"><button type="button" data-state-focus="New York">New York</button></td><td>63</td><td>4.8%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:12.2%"></span></div></td></tr>
@@ -396,7 +404,7 @@
           </div>
           <div class="atlas-callout atlas-callout--quality">
             <p><strong>Do not read this as residence:</strong> region and city are approximate network locations. Oregon is kept visible but explicitly flagged because 511 of its 516 signals resolve to The Dalles; that concentration may reflect network or data-center routing. Its beacon uses the approximate GeoNames network-city centroid, never an individual visitor location.</p>
-            <button type="button" data-atlas-us-open>Explore all 30 states</button>
+            <button type="button" data-atlas-us-open data-us-open-label>Explore all 30 states</button>
           </div>
         </section>
 
@@ -406,7 +414,7 @@
           <p class="atlas-section__lead">The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Country rows below five signals are withheld before public JSON publication to avoid over-reading tiny samples. Within a published country, signals outside a five-or-more-signal DataFast city cluster remain visible only through the country color.</p>
           <div class="atlas-ranking-wrap">
             <table class="atlas-ranking">
-              <caption class="atlas-skip">Top 20 countries by observed LocalClaw interest signals, 31 July to 29 August 2026</caption>
+              <caption class="atlas-skip" data-country-ranking-caption>Top 20 countries by observed LocalClaw interest signals, 31 July to 29 August 2026</caption>
               <thead>
                 <tr>
                   <th scope="col">Rank</th>
@@ -416,7 +424,7 @@
                   <th scope="col" class="atlas-ranking__bar">Relative activity</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-country-ranking-body>
                 <tr><td class="atlas-ranking__rank">01</td><td class="atlas-ranking__country"><button type="button" data-country-focus="United States">United States</button></td><td>1,309</td><td>39.2%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:100%"></span></div></td></tr>
                 <tr><td class="atlas-ranking__rank">02</td><td class="atlas-ranking__country"><button type="button" data-country-focus="Germany">Germany</button></td><td>224</td><td>6.7%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:17.1%"></span></div></td></tr>
                 <tr><td class="atlas-ranking__rank">03</td><td class="atlas-ranking__country"><button type="button" data-country-focus="China">China</button></td><td>209</td><td>6.3%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:16%"></span></div></td></tr>
@@ -449,7 +457,7 @@
           <div class="atlas-method-grid">
             <article class="atlas-method-card">
               <h3>What counts today?</h3>
-              <p>A country-level unique website visitor reported by DataFast during the 30-day window. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, prefecture, or LGA totals.</p>
+              <p>A country-level unique website visitor reported by DataFast during the <span data-method-window>30-day window</span>. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, prefecture, or LGA totals.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What does not count?</h3>
@@ -465,9 +473,9 @@
             </article>
           </div>
           <div class="atlas-callout">
-            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. Global country boundaries use <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/" rel="external noopener">Natural Earth 1:50m</a>; worldwide internal subdivisions use <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/" rel="external noopener">Natural Earth 5.1.1 at 1:10m</a>. Deeper U.S. county boundaries use the official <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html" rel="external noopener">U.S. Census Bureau 2025 Cartographic Boundary File at 1:5m</a>. China prefecture-level divisions use the <a href="https://data.humdata.org/dataset/cod-ab-chn" rel="external noopener">OCHA/HDX COD-AB 2020 dataset</a>, licensed under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="license external noopener">CC BY 3.0 IGO</a>; that source explicitly describes its China boundaries as unofficial, with unknown establishment date, and no endorsement is implied. Australian LGA boundaries are based on the official <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files" rel="external noopener">ABS ASGS Edition 3 Local Government Areas 2025</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. ABS states that LGAs are statistical Mesh Block approximations of gazetted boundaries, not official legal boundaries. Natural Earth sometimes mixes administrative levels, so boundaries are cartographic references rather than a claim of identical constitutional status. Boundary display and naming are not a statement on sovereignty. Published beacon centroids use approximate network-city locations from <a href="https://www.geonames.org/" rel="external noopener">GeoNames</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
-            <a href="/data/local-ai-activity-index.json" download>Download country JSON</a>
-            <a href="/data/local-ai-admin1-activity.json" download>Download regional JSON</a>
+            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, <span data-period-date-range>31 Jul–29 Aug 2026</span>, Europe/Zurich. Global country boundaries use <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/" rel="external noopener">Natural Earth 1:50m</a>; worldwide internal subdivisions use <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/" rel="external noopener">Natural Earth 5.1.1 at 1:10m</a>. Deeper U.S. county boundaries use the official <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html" rel="external noopener">U.S. Census Bureau 2025 Cartographic Boundary File at 1:5m</a>. China prefecture-level divisions use the <a href="https://data.humdata.org/dataset/cod-ab-chn" rel="external noopener">OCHA/HDX COD-AB 2020 dataset</a>, licensed under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="license external noopener">CC BY 3.0 IGO</a>; that source explicitly describes its China boundaries as unofficial, with unknown establishment date, and no endorsement is implied. Australian LGA boundaries are based on the official <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files" rel="external noopener">ABS ASGS Edition 3 Local Government Areas 2025</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. ABS states that LGAs are statistical Mesh Block approximations of gazetted boundaries, not official legal boundaries. Natural Earth sometimes mixes administrative levels, so boundaries are cartographic references rather than a claim of identical constitutional status. Boundary display and naming are not a statement on sovereignty. Published beacon centroids use approximate network-city locations from <a href="https://www.geonames.org/" rel="external noopener">GeoNames</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
+            <a href="/data/local-ai-activity-index.json" data-country-download download>Download country JSON</a>
+            <a href="/data/local-ai-admin1-activity.json" data-admin1-download download>Download regional JSON</a>
             <a href="/data/admin2/manifest.json" download>Download deeper-boundary manifest</a>
           </div>
         </section>
@@ -478,7 +486,7 @@
           <div class="atlas-method-grid">
             <article class="atlas-method-card">
               <h3>Which country leads the current snapshot?</h3>
-              <p>The United States leads this 30-day LocalClaw interest snapshot with 1,309 signals. That result reflects this dataset, not all local AI activity worldwide.</p>
+              <p data-current-leader-faq>The United States leads this 30-day LocalClaw interest snapshot with 1,309 signals. That result reflects this dataset, not all local AI activity worldwide.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What does “local AI” mean here?</h3>
@@ -503,6 +511,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829q"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260829r"></script>
 </body>
 </html>
