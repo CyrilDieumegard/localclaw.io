@@ -4,6 +4,7 @@
   function currentSection(pathname) {
     var path = String(pathname || '/').replace(/\.html$/, '');
     if (path === '/' || path === '/index') return 'index';
+    if (path === '/local-ai-activity-index') return 'atlas';
     if (path === '/llm-list' || path === '/llm-detail' || path.indexOf('/models/') === 0 || path.indexOf('/use-case/') === 0 || path.indexOf('/guides/best-local-llms') === 0) return 'llm';
     if (path === '/tts-list' || path.indexOf('/tts/') === 0 || path.indexOf('/guides/best-local-tts') === 0) return 'voice';
     if (path === '/image-models' || path.indexOf('/image/') === 0) return 'image';

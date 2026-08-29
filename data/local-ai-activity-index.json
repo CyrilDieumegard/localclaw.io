@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "indexName": "Local AI Activity Index",
+  "view": "interest",
+  "status": "beta",
+  "source": "Aggregated anonymous LocalClaw website traffic measured by DataFast",
+  "sourceUrl": "https://localclaw.io/local-ai-activity-index#methodology",
+  "metric": "unique visitors",
+  "claimBoundary": "Interest signals only; not verified installations, model launches, or inference events.",
+  "timezone": "Europe/Zurich",
+  "period": {
+    "start": "2026-07-31",
+    "end": "2026-08-29",
+    "label": "Last 30 days"
+  },
+  "generatedAt": "2026-08-29T12:00:00+02:00",
+  "totals": {
+    "signals": 3337,
+    "regions": 113
+  },
+  "countries": [
+    {
+      "rank": 1,
+      "name": "United States",
+      "signals": 1309
+    },
+    {
+      "rank": 2,
+      "name": "Germany",
+      "signals": 224
+    },
+    {
+      "rank": 3,
+      "name": "China",
+      "signals": 209
+    },
+    {
+      "rank": 4,
+      "name": "United Kingdom",
+      "signals": 118
+    },
+    {
+      "rank": 5,
+      "name": "India",
+      "signals": 117
+    },
+    {
+      "rank": 6,
+      "name": "Netherlands",
+      "signals": 85
+    },
+    {
+      "rank": 7,
+      "name": "France",
+      "signals": 66
+    },
+    {
+      "rank": 8,
+      "name": "Canada",
+      "signals": 66
+    },
+    {
+      "rank": 9,
+      "name": "Hong Kong",
+      "signals": 65
+    },
+    {
+      "rank": 10,
+      "name": "Australia",
+      "signals": 62
+    },
+    {
+      "rank": 11,
+      "name": "Switzerland",
+      "signals": 57
+    },
+    {
+      "rank": 12,
+      "name": "Italy",
+      "signals": 57
+    },
+    {
+      "rank": 13,
+      "name": "Spain",
+      "signals": 46
+    },
+    {
+      "rank": 14,
+      "name": "Japan",
+      "signals": 44
+    },
+    {
+      "rank": 15,
+      "name": "Brazil",
+      "signals": 41
+    },
+    {
+      "rank": 16,
+      "name": "Poland",
+      "signals": 40
+    },
+    {
+      "rank": 17,
+      "name": "Sweden",
+      "signals": 38
+    },
+    {
+      "rank": 18,
+      "name": "South Korea",
+      "signals": 30
+    },
+    {
+      "rank": 19,
+      "name": "Finland",
+      "signals": 27
+    },
+    {
+      "rank": 20,
+      "name": "Russia",
+      "signals": 27
+    },
+    {
+      "rank": 21,
+      "name": "Austria",
+      "signals": 25
+    },
+    {
+      "rank": 22,
+      "name": "Turkey",
+      "signals": 24
+    },
+    {
+      "rank": 23,
+      "name": "Indonesia",
+      "signals": 23
+    },
+    {
+      "rank": 24,
+      "name": "Czechia",
+      "signals": 22
+    },
+    {
+      "rank": 25,
+      "name": "Thailand",
+      "signals": 22
+    },
+    {
+      "rank": 26,
+      "name": "Denmark",
+      "signals": 22
+    },
+    {
+      "rank": 27,
+      "name": "Belgium",
+      "signals": 20
+    },
+    {
+      "rank": 28,
+      "name": "Norway",
+      "signals": 19
+    },
+    {
+      "rank": 29,
+      "name": "Ukraine",
+      "signals": 19
+    },
+    {
+      "rank": 30,
+      "name": "Romania",
+      "signals": 18
+    },
+    {
+      "rank": 31,
+      "name": "Portugal",
+      "signals": 18
+    },
+    {
+      "rank": 32,
+      "name": "Ireland",
+      "signals": 17
+    },
+    {
+      "rank": 33,
+      "name": "Malaysia",
+      "signals": 16
+    },
+    {
+      "rank": 34,
+      "name": "Viet Nam",
+      "signals": 15
+    },
+    {
+      "rank": 35,
+      "name": "Taiwan",
+      "signals": 15
+    },
+    {
+      "rank": 36,
+      "name": "Mexico",
+      "signals": 13
+    },
+    {
+      "rank": 37,
+      "name": "South Africa",
+      "signals": 13
+    },
+    {
+      "rank": 38,
+      "name": "New Zealand",
+      "signals": 13
+    },
+    {
+      "rank": 39,
+      "name": "Pakistan",
+      "signals": 13
+    },
+    {
+      "rank": 40,
+      "name": "Chile",
+      "signals": 12
+    },
+    {
+      "rank": 41,
+      "name": "Israel",
+      "signals": 12
+    },
+    {
+      "rank": 42,
+      "name": "Hungary",
+      "signals": 10
+    },
+    {
+      "rank": 43,
+      "name": "Bulgaria",
+      "signals": 10
+    },
+    {
+      "rank": 44,
+      "name": "United Arab Emirates",
+      "signals": 9
+    },
+    {
+      "rank": 45,
+      "name": "Philippines",
+      "signals": 9
+    },
+    {
+      "rank": 46,
+      "name": "Colombia",
+      "signals": 8
+    },
+    {
+      "rank": 47,
+      "name": "Slovakia",
+      "signals": 8
+    },
+    {
+      "rank": 48,
+      "name": "Argentina",
+      "signals": 7
+    },
+    {
+      "rank": 49,
+      "name": "Egypt",
+      "signals": 7
+    },
+    {
+      "rank": 50,
+      "name": "Azerbaijan",
+      "signals": 7
+    },
+    {
+      "rank": 51,
+      "name": "Greece",
+      "signals": 6
+    },
+    {
+      "rank": 52,
+      "name": "Kazakhstan",
+      "signals": 6
+    },
+    {
+      "rank": 53,
+      "name": "Cambodia",
+      "signals": 6
+    },
+    {
+      "rank": 54,
+      "name": "Latvia",
+      "signals": 6
+    },
+    {
+      "rank": 55,
+      "name": "Belarus",
+      "signals": 6
+    },
+    {
+      "rank": 56,
+      "name": "Estonia",
+      "signals": 6
+    },
+    {
+      "rank": 57,
+      "name": "Uzbekistan",
+      "signals": 6
+    },
+    {
+      "rank": 58,
+      "name": "Nepal",
+      "signals": 6
+    },
+    {
+      "rank": 59,
+      "name": "Peru",
+      "signals": 6
+    },
+    {
+      "rank": 60,
+      "name": "Bangladesh",
+      "signals": 5
+    },
+    {
+      "rank": 61,
+      "name": "Croatia",
+      "signals": 5
+    },
+    {
+      "rank": 62,
+      "name": "Saudi Arabia",
+      "signals": 5
+    },
+    {
+      "rank": 63,
+      "name": "Morocco",
+      "signals": 4
+    },
+    {
+      "rank": 64,
+      "name": "Nigeria",
+      "signals": 4
+    },
+    {
+      "rank": 65,
+      "name": "Lithuania",
+      "signals": 4
+    },
+    {
+      "rank": 66,
+      "name": "Puerto Rico",
+      "signals": 3
+    },
+    {
+      "rank": 67,
+      "name": "Moldova",
+      "signals": 3
+    },
+    {
+      "rank": 68,
+      "name": "Qatar",
+      "signals": 3
+    },
+    {
+      "rank": 69,
+      "name": "Slovenia",
+      "signals": 3
+    },
+    {
+      "rank": 70,
+      "name": "Sri Lanka",
+      "signals": 3
+    },
+    {
+      "rank": 71,
+      "name": "Luxembourg",
+      "signals": 3
+    },
+    {
+      "rank": 72,
+      "name": "Iraq",
+      "signals": 3
+    },
+    {
+      "rank": 73,
+      "name": "Serbia",
+      "signals": 3
+    },
+    {
+      "rank": 74,
+      "name": "Jordan",
+      "signals": 2
+    },
+    {
+      "rank": 75,
+      "name": "Tunisia",
+      "signals": 2
+    },
+    {
+      "rank": 76,
+      "name": "Panama",
+      "signals": 2
+    },
+    {
+      "rank": 77,
+      "name": "Algeria",
+      "signals": 2
+    },
+    {
+      "rank": 78,
+      "name": "Andorra",
+      "signals": 2
+    },
+    {
+      "rank": 79,
+      "name": "Senegal",
+      "signals": 2
+    },
+    {
+      "rank": 80,
+      "name": "Georgia",
+      "signals": 2
+    },
+    {
+      "rank": 81,
+      "name": "Venezuela",
+      "signals": 2
+    },
+    {
+      "rank": 82,
+      "name": "Myanmar",
+      "signals": 2
+    },
+    {
+      "rank": 83,
+      "name": "Mongolia",
+      "signals": 2
+    },
+    {
+      "rank": 84,
+      "name": "Antigua and Barbuda",
+      "signals": 2
+    },
+    {
+      "rank": 85,
+      "name": "Albania",
+      "signals": 2
+    },
+    {
+      "rank": 86,
+      "name": "Armenia",
+      "signals": 2
+    },
+    {
+      "rank": 87,
+      "name": "Cyprus",
+      "signals": 2
+    },
+    {
+      "rank": 88,
+      "name": "British Indian Ocean Territory",
+      "signals": 2
+    },
+    {
+      "rank": 89,
+      "name": "Mauritius",
+      "signals": 2
+    },
+    {
+      "rank": 90,
+      "name": "Kenya",
+      "signals": 2
+    },
+    {
+      "rank": 91,
+      "name": "Uruguay",
+      "signals": 2
+    },
+    {
+      "rank": 92,
+      "name": "Costa Rica",
+      "signals": 1
+    },
+    {
+      "rank": 93,
+      "name": "Seychelles",
+      "signals": 1
+    },
+    {
+      "rank": 94,
+      "name": "Ghana",
+      "signals": 1
+    },
+    {
+      "rank": 95,
+      "name": "North Macedonia",
+      "signals": 1
+    },
+    {
+      "rank": 96,
+      "name": "Saint Lucia",
+      "signals": 1
+    },
+    {
+      "rank": 97,
+      "name": "Gabon",
+      "signals": 1
+    },
+    {
+      "rank": 98,
+      "name": "Syrian Arab Republic",
+      "signals": 1
+    },
+    {
+      "rank": 99,
+      "name": "Fiji",
+      "signals": 1
+    },
+    {
+      "rank": 100,
+      "name": "Nicaragua",
+      "signals": 1
+    },
+    {
+      "rank": 101,
+      "name": "Dominican Republic",
+      "signals": 1
+    },
+    {
+      "rank": 102,
+      "name": "Bosnia and Herzegovina",
+      "signals": 1
+    },
+    {
+      "rank": 103,
+      "name": "Malta",
+      "signals": 1
+    },
+    {
+      "rank": 104,
+      "name": "Ethiopia",
+      "signals": 1
+    },
+    {
+      "rank": 105,
+      "name": "Tanzania",
+      "signals": 1
+    },
+    {
+      "rank": 106,
+      "name": "El Salvador",
+      "signals": 1
+    },
+    {
+      "rank": 107,
+      "name": "Honduras",
+      "signals": 1
+    },
+    {
+      "rank": 108,
+      "name": "Trinidad and Tobago",
+      "signals": 1
+    },
+    {
+      "rank": 109,
+      "name": "Réunion",
+      "signals": 1
+    },
+    {
+      "rank": 110,
+      "name": "Madagascar",
+      "signals": 1
+    },
+    {
+      "rank": 111,
+      "name": "Bahrain",
+      "signals": 1
+    },
+    {
+      "rank": 112,
+      "name": "Bolivia",
+      "signals": 1
+    },
+    {
+      "rank": 113,
+      "name": "Guernsey",
+      "signals": 1
+    }
+  ]
+}

@@ -25,6 +25,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'llm-list.html',
   'llms-full.txt',
   'llms.txt',
+  'local-ai-activity-index.html',
   'new-models.xml',
   'new.html',
   'pricing.html',
@@ -51,6 +52,7 @@ const PUBLIC_DIRECTORIES = Object.freeze([
   'case-study',
   'changelog',
   'css',
+  'data',
   'downloads',
   'guides',
   'hardware',
@@ -68,7 +70,7 @@ const PUBLIC_DIRECTORIES = Object.freeze([
 ]);
 
 const PUBLIC_EXTENSIONS = new Set([
-  '.css', '.dmg', '.html', '.ico', '.jpeg', '.jpg', '.js', '.json', '.png', '.svg', '.txt', '.webp', '.xml'
+  '.css', '.dmg', '.geojson', '.html', '.ico', '.jpeg', '.jpg', '.js', '.json', '.png', '.svg', '.txt', '.webp', '.xml'
 ]);
 
 const PRIVATE_PROBES = Object.freeze([

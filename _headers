@@ -16,6 +16,15 @@
 /index.html
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
+/local-ai-activity-index
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/local-ai-activity-index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/data/local-ai-activity-index.json
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
 /llm-list
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 

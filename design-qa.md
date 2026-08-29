@@ -1,3 +1,45 @@
+# LocalClaw Atlas design QA
+
+## Comparison setup
+
+- Reference: `/Users/redsun/.codex/generated_images/01a04c8d-72c7-78b1-8a46-339c6cbc782e/exec-1a8a5485-27eb-4cf2-9a48-d28cafa88bc6.png`
+- Implementation: `output/atlas-dark-desktop-final.png`
+- Combined comparison: `output/design-qa-comparison-final.png`
+- Desktop comparison viewport: 1435 × 957 px for both sides
+- Mobile implementation viewport: 437 × 833 px
+- Theme and state: dark, Interest selected, globe at its initial rotation
+
+## Findings and corrections
+
+- P0 fixed: the Three.js module depended on a missing `three.core.min.js`; the matching r180 core is now vendored.
+- P0 fixed: the GeoJSON extension was absent from the Pages allowlist, which forced the static fallback.
+- P1 fixed: the original fallback was a full mockup with stale values and duplicate UI. It was replaced by a 114 KB globe-only JPEG rendered from the implementation.
+- P1 fixed: invented country-to-country arcs and travelers were removed because the source dataset does not contain traffic flows.
+- P1 fixed: wheel and touch handling no longer trap scrolling in the full-screen canvas.
+- P1 fixed: the globe rotation order now places selected countries at the intended center.
+- P2 fixed: activity points were rebalanced for a dense but legible orange-red glow instead of white clusters.
+- P2 fixed: responsive geometry, particle count, off-screen suspension, WebGL recovery, keyboard focus, and mobile menu behavior were verified.
+- P2 fixed: nested summary counts retain the intended large display typography.
+
+## Visual judgement
+
+The implementation preserves the selected reference's composition: LocalClaw menu only above the fold, oversized spherical globe, black/graphite palette, bright warm activity clusters, top-left message, top-right view controls, and a thin bottom data strip. The globe uses real country geometry and source-backed country totals rather than the reference's illustrative terrain and invented routes. This is an intentional truth-preserving adaptation, not a missing state.
+
+## Verification
+
+- Desktop first screen: passed
+- Mobile first screen and vertical scroll: passed
+- Dark/light theme switch: passed
+- Locked Installed/Active disclosure: passed
+- Country ranking focus interaction: passed
+- Console: no application errors after final reload; DataFast reports its expected localhost-only tracking warning
+- Horizontal overflow: none
+- Static fallback: globe-only, no stale text or controls
+
+final result: passed
+
+---
+
 # Sponsor audience-proof modal design QA
 
 - Source visual truth:

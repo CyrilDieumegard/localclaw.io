@@ -9,6 +9,9 @@ const protectedFiles = new Set();
 
 const navigationContract = siteNavigation();
 for (const marker of [
+  'href="/local-ai-activity-index"',
+  'data-nav-key="atlas"',
+  '>Atlas</a>',
   'href="/computers"',
   'data-nav-key="computers"',
   '>Computers</a>',
@@ -54,6 +57,7 @@ function htmlFiles(directory, files = []) {
 function activeSection(relativePath) {
   const clean = relativePath.replace(/\\/g, '/').replace(/\.html$/, '');
   if (clean === 'index') return 'index';
+  if (clean === 'local-ai-activity-index') return 'atlas';
   if (clean === 'llm-list' || clean === 'llm-detail' || clean.startsWith('models/') || clean.startsWith('use-case/') || clean.startsWith('guides/best-local-llms')) return 'llm';
   if (clean === 'tts-list' || clean.startsWith('tts/') || clean.startsWith('guides/best-local-tts')) return 'voice';
   if (clean === 'image-models' || clean.startsWith('image/')) return 'image';

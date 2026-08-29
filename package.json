@@ -17,6 +17,7 @@
     "site-css:build": "tailwindcss -c scripts/tailwind.site.config.js -i scripts/site-tailwind.css -o css/site-tailwind-20260823a.css --minify",
     "software-css:build": "tailwindcss -c scripts/tailwind.software.config.js -i scripts/site-tailwind.css -o css/software-tailwind-20260823a.css --minify",
     "charts:check": "node scripts/check-charts.js",
+    "atlas:check": "node scripts/check-local-ai-activity-index.js",
     "tailwind-runtime:sync": "node scripts/sync-local-tailwind.js",
     "tailwind-runtime:check": "node scripts/sync-local-tailwind.js --check",
     "home-seo:generate": "node scripts/generate-home-seo.js",
