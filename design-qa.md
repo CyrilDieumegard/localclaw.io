@@ -1,5 +1,24 @@
 # LocalClaw Atlas design QA
 
+## Globe precision, zoom and exploration — 29 August 2026
+
+- Before evidence: `/private/tmp/localclaw-atlas-wow-audit/01-current-state-view.png`.
+- Final desktop evidence: `/private/tmp/localclaw-atlas-wow-audit/11-desktop-world-final.png` and `/private/tmp/localclaw-atlas-wow-audit/12-desktop-us-final.png`.
+- Final mobile controls evidence: `/private/tmp/localclaw-atlas-wow-audit/10-mobile-us-controls.png` at a 390 × 844 px override.
+- Precision defect reproduced before the correction: 794 of 2,019 evaluable world particles (39.3%) fell outside their country and 196 of 739 U.S. particles (26.5%) fell outside their state. Sovereign-name matching also selected overseas territories for the United Kingdom, France and Denmark, while first-ring centering could select islands for large multipart states.
+- Precision correction: every distributed particle is accepted only after a point-in-polygon test against its assigned country or state, including polygon holes and antimeridian handling. Hover now tests the actual visible polygon instead of the nearest broad-radius hub, so open water no longer selects a land region.
+- Browser diagnostics after correction: 1,246 world particles, 0 outside their country; 480 U.S. particles, 0 outside their state. Hong Kong is the only published region without a polygon in the 110 m Natural Earth file; its eight signals use a tiny anchored marker instead of fabricated distributed coordinates.
+- Exploration: visible `+`, `−` and `Reset` controls, selected-canvas wheel zoom, double-click zoom, keyboard zoom/rotation and two-pointer pinch all target the same smoothly eased camera distance.
+- Guided discovery: `Tour the top 10` automatically focuses the most active countries or states, updates the source-bounded spotlight, and stops on manual interaction.
+- Visual depth: the final globe uses two restrained atmospheric layers, sharper land-contained particles, source-ranked beacons and small pulse rings. No invented traffic routes or exact visitor locations were introduced.
+- Responsive QA: desktop world and U.S. state views passed; the mobile U.S. control rail remains fully visible above the state panel with no horizontal overflow.
+- Theme QA: dark and light states both passed; dark was restored for the final preview.
+- Console: no application errors. DataFast's expected localhost-only tracking-disabled warning is the only warning.
+
+final result: passed
+
+---
+
 ## U.S. state drill-down — 29 August 2026
 
 - Desktop state view: passed at the default in-app browser viewport. The globe zooms to the contiguous United States, official 2024 U.S. Census state boundaries remain legible, and the 30-state ranking stays inside the first screen.

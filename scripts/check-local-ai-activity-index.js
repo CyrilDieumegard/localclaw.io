@@ -168,6 +168,12 @@ if (html !== null) {
   }
 
   const buttonTags = [...html.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/gi)].map(match => match[0]);
+  for (const action of ['in', 'out', 'reset']) {
+    if (!buttonTags.some(tag => attribute(tag, 'data-atlas-zoom') === action)) {
+      issue(`Missing visible Atlas zoom control: ${action}`);
+    }
+  }
+  if (!buttonTags.some(tag => /\bdata-atlas-tour\b/i.test(tag))) issue('Missing top-10 guided tour control');
   for (const view of ['installed', 'active']) {
     const control = buttonTags.find(tag => attribute(tag, 'data-atlas-view') === view);
     const label = view[0].toUpperCase() + view.slice(1);
@@ -368,12 +374,29 @@ if (app !== null) {
   if (!app.includes('function enterUnitedStates(') || !app.includes('function focusRegion(')) {
     issue('Activity-index JavaScript is missing the U.S. state drill-down interactions');
   }
+  for (const helper of ['function pointInFeature(', 'function containedPoint(', 'function countryAt(', 'function stateAt(']) {
+    if (!app.includes(helper)) issue(`Activity-index JavaScript is missing geography guard: ${helper}`);
+  }
+  if (!app.includes('state.placementStats.world.outside') || !app.includes('state.placementStats.us.outside')) {
+    issue('Activity-index JavaScript is missing zero-outside-point diagnostics');
+  }
+  if (!app.includes('function zoomLimits(') || !app.includes('data-atlas-zoom') || !app.includes('pinchStartDistance')) {
+    issue('Activity-index JavaScript is missing discoverable wheel, pinch or button zoom support');
+  }
+  if (!app.includes('function toggleTour(') || !app.includes('function createBeaconAccent(')) {
+    issue('Activity-index JavaScript is missing the guided tour or data-driven visual accents');
+  }
+  const featureNamesBody = app.match(/function featureNames\([^)]*\)\s*{([\s\S]*?)\n}/)?.[1] || '';
+  if (featureNamesBody.includes('SOVEREIGNT')) issue('Country matching must not fall through to sovereign territories');
 }
 
 if (css !== null) {
   if (!css.includes('.atlas-page')) issue('Activity-index stylesheet is missing the page scope');
   if (!css.includes('.atlas-stage')) issue('Activity-index stylesheet is missing the full-screen stage styles');
   if (!css.includes('.atlas-region-panel')) issue('Activity-index stylesheet is missing the U.S. state panel');
+  if (!css.includes('.atlas-navigation__rail') || !css.includes('.atlas-navigation__tour')) {
+    issue('Activity-index stylesheet is missing the zoom and guided-tour HUD');
+  }
 }
 if (vendor !== null && vendor.length < 100000) issue('Vendored Three.js module is unexpectedly small');
 if (vendorLicense !== null && !/three\.js|MIT/i.test(vendorLicense)) issue('Three.js vendor license is not recognizable');

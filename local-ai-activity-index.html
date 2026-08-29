@@ -149,7 +149,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829a" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829b">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829c">
 
   <script>
     try {
@@ -211,7 +211,7 @@
     <section class="atlas-stage" data-atlas-stage aria-labelledby="atlas-title">
       <div class="atlas-viewport">
         <img class="atlas-poster" src="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829a" width="1449" height="966" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
-        <canvas id="atlas-globe" tabindex="0" role="img" aria-label="Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, use Control or Command plus scroll to zoom, or use the country ranking below." aria-describedby="atlas-description"></canvas>
+        <canvas id="atlas-globe" tabindex="0" role="img" aria-label="Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, select the map and scroll to zoom, or use the visible zoom controls." aria-describedby="atlas-description atlas-controls-description"></canvas>
         <div class="atlas-vignette" aria-hidden="true"></div>
       </div>
 
@@ -227,6 +227,18 @@
         <button class="atlas-control" type="button" data-atlas-view="installed" data-coming-soon aria-pressed="false" aria-label="Installed view, coming soon">Installed</button>
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
+
+      <div class="atlas-navigation" aria-label="Globe navigation">
+        <span class="atlas-navigation__hint" aria-hidden="true">Drag to rotate <b>·</b> Scroll to zoom</span>
+        <button type="button" class="atlas-navigation__tour" data-atlas-tour aria-label="Tour the top 10 most active regions" aria-pressed="false"><span aria-hidden="true"></span><b data-atlas-tour-label>Tour the top 10</b><small aria-hidden="true">Tour</small></button>
+        <div class="atlas-navigation__rail" role="group" aria-label="Globe zoom controls">
+          <button type="button" data-atlas-zoom="in" aria-label="Zoom in"><span aria-hidden="true">+</span></button>
+          <output data-atlas-zoom-level aria-live="polite" aria-label="Current zoom">1.0×</output>
+          <button type="button" data-atlas-zoom="out" aria-label="Zoom out"><span aria-hidden="true">−</span></button>
+          <button type="button" class="atlas-navigation__reset" data-atlas-zoom="reset">Reset</button>
+        </div>
+      </div>
+      <p class="atlas-visually-hidden" id="atlas-controls-description">Select the globe before using the mouse wheel. Use plus and minus to zoom, Reset to restore the current world or United States view, and arrow keys to rotate.</p>
 
       <aside class="atlas-region-panel" data-atlas-region-panel hidden aria-label="United States state activity">
         <div class="atlas-region-panel__head">
@@ -263,7 +275,7 @@
         <span class="atlas-status__item"><strong data-scope-signals>3,337</strong>&nbsp;<span data-scope-signal-label>signals</span></span>
         <span class="atlas-status__item"><strong data-scope-regions>113</strong>&nbsp;<span data-scope-region-label>regions observed</span></span>
         <span class="atlas-status__item atlas-status__item--accent" data-scope-window>30-day window</span>
-        <span class="atlas-status__disclosure" data-scope-disclosure>Interest signals, not verified installations or model runs.</span>
+        <span class="atlas-status__disclosure" data-scope-disclosure>Dots stay inside each country; exact positions are illustrative, not verified installations or model runs.</span>
       </footer>
     </section>
 
@@ -402,7 +414,7 @@
             </article>
             <article class="atlas-method-card">
               <h3>How are locations ranked?</h3>
-              <p>Countries and published U.S. states are ordered by raw observed signals. This is not normalized for population, internet access, or LocalClaw market reach, so it must not be read as an adoption rate.</p>
+              <p>Countries and published U.S. states are ordered by raw observed signals. Dots are deterministic visual samples constrained to the correct country or state polygon; they are not exact visitor coordinates. The ranking is not normalized for population, internet access, or LocalClaw market reach.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How is privacy handled?</h3>
@@ -446,6 +458,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829b"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260829c"></script>
 </body>
 </html>
