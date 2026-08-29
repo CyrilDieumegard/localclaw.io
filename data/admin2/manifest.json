@@ -1,0 +1,2486 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-29T21:45:00.000Z",
+  "scope": "Lazy parent-sharded cartographic Admin-2 references for the United States and China",
+  "dataNotice": "These boundaries do not contain or imply DataFast county or prefecture totals. Neutral subdivisions do not mean zero activity; published city beacons remain a separate breakdown.",
+  "totals": {
+    "countries": 2,
+    "parents": 82,
+    "subdivisions": 3502,
+    "coordinatePositionCount": 338551,
+    "geometryFingerprint": "c7ad264be4b31236a6f3c0aa69329f6437c00d8dcdc9024b35eb44b97eceae9f",
+    "recordFingerprint": "3264f2adfface9e4f247e5e9508609430a5aac14981e806611fc10c1be813084"
+  },
+  "countries": {
+    "USA": {
+      "code": "USA",
+      "name": "United States",
+      "parentLevel": "state",
+      "childLevel": "county or county-equivalent",
+      "source": {
+        "provider": "U.S. Census Bureau",
+        "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+        "sourceYear": 2025,
+        "sourcePage": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+        "downloadUrl": "https://www2.census.gov/geo/tiger/GENZ2025/kml/cb_2025_us_county_5m.zip",
+        "sourceFileSha256": "70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd",
+        "license": "Public domain",
+        "official": true,
+        "parentLevel": "state",
+        "childLevel": "county or county-equivalent",
+        "childLabel": "county or county-equivalent",
+        "childrenLabel": "counties and county-equivalents",
+        "viewLabel": "County view",
+        "filter": "50 states and District of Columbia only; territories excluded; source KML geometry retained without additional simplification"
+      },
+      "totals": {
+        "parents": 51,
+        "subdivisions": 3144,
+        "coordinatePositionCount": 224323
+      },
+      "parents": {
+        "US-AK": {
+          "parentCode": "US-AK",
+          "parentName": "Alaska",
+          "path": "/data/admin2/usa/us-ak.geojson",
+          "sha256": "7f248b57ec0519aeef4d7fead62681c122c6408470f3928db67d51f496c86575",
+          "bbox": [
+            -179.14734,
+            51.219862,
+            179.77847,
+            71.352561
+          ],
+          "featureCount": 30,
+          "coordinatePositionCount": 14173,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "Borough",
+              "count": 13
+            },
+            {
+              "type": "Census Area",
+              "count": 11
+            },
+            {
+              "type": "City and Borough",
+              "count": 4
+            },
+            {
+              "type": "Municipality",
+              "count": 2
+            }
+          ]
+        },
+        "US-AL": {
+          "parentCode": "US-AL",
+          "parentName": "Alabama",
+          "path": "/data/admin2/usa/us-al.geojson",
+          "sha256": "04b2d19d2e1a154575ff8db455b91bd86d65183e67a526b04419b4972092d9fd",
+          "bbox": [
+            -88.473227,
+            30.221132,
+            -84.889431,
+            35.008028
+          ],
+          "featureCount": 67,
+          "coordinatePositionCount": 4462,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 67
+            }
+          ]
+        },
+        "US-AR": {
+          "parentCode": "US-AR",
+          "parentName": "Arkansas",
+          "path": "/data/admin2/usa/us-ar.geojson",
+          "sha256": "eee0c4920329fb4df118885285dee1e96a07daecec76177800c4533d17837458",
+          "bbox": [
+            -94.617919,
+            33.004291,
+            -89.641572,
+            36.4996
+          ],
+          "featureCount": 75,
+          "coordinatePositionCount": 4650,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 75
+            }
+          ]
+        },
+        "US-AZ": {
+          "parentCode": "US-AZ",
+          "parentName": "Arizona",
+          "path": "/data/admin2/usa/us-az.geojson",
+          "sha256": "72963df8d6e1c647cb9d07ca08b496a8c4736803091ec13f4b6a74bb4f94f5c8",
+          "bbox": [
+            -114.814185,
+            31.332177,
+            -109.045223,
+            37.00426
+          ],
+          "featureCount": 15,
+          "coordinatePositionCount": 2442,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 15
+            }
+          ]
+        },
+        "US-CA": {
+          "parentCode": "US-CA",
+          "parentName": "California",
+          "path": "/data/admin2/usa/us-ca.geojson",
+          "sha256": "63aab1158ac087ece090d08f2644624092a1add2540b760b4286e2a1626023e4",
+          "bbox": [
+            -124.409591,
+            32.534156,
+            -114.134427,
+            42.009518
+          ],
+          "featureCount": 58,
+          "coordinatePositionCount": 8670,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 58
+            }
+          ]
+        },
+        "US-CO": {
+          "parentCode": "US-CO",
+          "parentName": "Colorado",
+          "path": "/data/admin2/usa/us-co.geojson",
+          "sha256": "33c272189e45114d08a5691d021ed37c7ecefc9295b9be5a667983499674fece",
+          "bbox": [
+            -109.060253,
+            36.992426,
+            -102.041524,
+            41.003444
+          ],
+          "featureCount": 64,
+          "coordinatePositionCount": 3987,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 64
+            }
+          ]
+        },
+        "US-CT": {
+          "parentCode": "US-CT",
+          "parentName": "Connecticut",
+          "path": "/data/admin2/usa/us-ct.geojson",
+          "sha256": "9764505154377ad976a7a85bf410c24759ec4315caa46581498e55bad1c2cf6f",
+          "bbox": [
+            -73.727775,
+            40.985171,
+            -71.786994,
+            42.050587
+          ],
+          "featureCount": 9,
+          "coordinatePositionCount": 1020,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "Planning Region",
+              "count": 9
+            }
+          ]
+        },
+        "US-DC": {
+          "parentCode": "US-DC",
+          "parentName": "District of Columbia",
+          "path": "/data/admin2/usa/us-dc.geojson",
+          "sha256": "2683d9c8882e9a0f642ffa0b5c7a6f15e7e555aa48d2d5646d4e451a4c37a758",
+          "bbox": [
+            -77.119759,
+            38.791645,
+            -76.909393,
+            38.995548
+          ],
+          "featureCount": 1,
+          "coordinatePositionCount": 152,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "Federal district",
+              "count": 1
+            }
+          ]
+        },
+        "US-DE": {
+          "parentCode": "US-DE",
+          "parentName": "Delaware",
+          "path": "/data/admin2/usa/us-de.geojson",
+          "sha256": "2fe2b396f8d97d75c429ea799dcfe42fd76ca1c911706d77ebe00f93018a4344",
+          "bbox": [
+            -75.788895,
+            38.451012,
+            -75.048939,
+            39.839185
+          ],
+          "featureCount": 3,
+          "coordinatePositionCount": 399,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 3
+            }
+          ]
+        },
+        "US-FL": {
+          "parentCode": "US-FL",
+          "parentName": "Florida",
+          "path": "/data/admin2/usa/us-fl.geojson",
+          "sha256": "24dcceee4df375952274ac9c688991e8ccc3dbf835eb64fa1532bc61ad6bc9e9",
+          "bbox": [
+            -87.634943,
+            24.521152,
+            -80.031362,
+            31.000886
+          ],
+          "featureCount": 67,
+          "coordinatePositionCount": 5618,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 67
+            }
+          ]
+        },
+        "US-GA": {
+          "parentCode": "US-GA",
+          "parentName": "Georgia",
+          "path": "/data/admin2/usa/us-ga.geojson",
+          "sha256": "7b227ac595b93eb99499c6a34dd0838270a212e4dc6123243a741fbb08b33b8d",
+          "bbox": [
+            -85.605165,
+            30.357836,
+            -80.840549,
+            35.000659
+          ],
+          "featureCount": 159,
+          "coordinatePositionCount": 8569,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 159
+            }
+          ]
+        },
+        "US-HI": {
+          "parentCode": "US-HI",
+          "parentName": "Hawaii",
+          "path": "/data/admin2/usa/us-hi.geojson",
+          "sha256": "617909c02008d642fd04646bff354c6c93e1ed3250c9d9372311289308eee10d",
+          "bbox": [
+            -160.244953,
+            18.913139,
+            -154.808036,
+            22.229639
+          ],
+          "featureCount": 5,
+          "coordinatePositionCount": 884,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 5
+            }
+          ]
+        },
+        "US-IA": {
+          "parentCode": "US-IA",
+          "parentName": "Iowa",
+          "path": "/data/admin2/usa/us-ia.geojson",
+          "sha256": "05993a887901779319e35546b813dd3e68bdef9e7549575f38d0bdb2a3a13a0c",
+          "bbox": [
+            -96.639704,
+            40.378264,
+            -90.140061,
+            43.501196
+          ],
+          "featureCount": 99,
+          "coordinatePositionCount": 3421,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 99
+            }
+          ]
+        },
+        "US-ID": {
+          "parentCode": "US-ID",
+          "parentName": "Idaho",
+          "path": "/data/admin2/usa/us-id.geojson",
+          "sha256": "84ac9f13b7d486abe1305a5b5db12e3aebfc4dc8ef27c4a0c4aa9ac619399077",
+          "bbox": [
+            -117.243027,
+            41.988057,
+            -111.043564,
+            49.001146
+          ],
+          "featureCount": 44,
+          "coordinatePositionCount": 4389,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 44
+            }
+          ]
+        },
+        "US-IL": {
+          "parentCode": "US-IL",
+          "parentName": "Illinois",
+          "path": "/data/admin2/usa/us-il.geojson",
+          "sha256": "f25530e9d0249ea2e19a45eae06c245a11fa93e82794f131de6490b81d30c020",
+          "bbox": [
+            -91.513079,
+            36.970298,
+            -87.496494,
+            42.508481
+          ],
+          "featureCount": 102,
+          "coordinatePositionCount": 4997,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 102
+            }
+          ]
+        },
+        "US-IN": {
+          "parentCode": "US-IN",
+          "parentName": "Indiana",
+          "path": "/data/admin2/usa/us-in.geojson",
+          "sha256": "9b6ad723adc031c59bbd4292578b69bf76b884f06f058bfcfdaa4e8655269a7b",
+          "bbox": [
+            -88.097892,
+            37.771742,
+            -84.784579,
+            41.760592
+          ],
+          "featureCount": 92,
+          "coordinatePositionCount": 3820,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 92
+            }
+          ]
+        },
+        "US-KS": {
+          "parentCode": "US-KS",
+          "parentName": "Kansas",
+          "path": "/data/admin2/usa/us-ks.geojson",
+          "sha256": "5e56ec18a209476e3997d957feae66729d127c82023b11b9b629d91375285dee",
+          "bbox": [
+            -102.051744,
+            36.993083,
+            -94.589933,
+            40.003162
+          ],
+          "featureCount": 105,
+          "coordinatePositionCount": 2525,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 105
+            }
+          ]
+        },
+        "US-KY": {
+          "parentCode": "US-KY",
+          "parentName": "Kentucky",
+          "path": "/data/admin2/usa/us-ky.geojson",
+          "sha256": "c3dc4806cc923e468a11934a8c77f2ae298341f6e11ea7083a8d48d3a5fe1323",
+          "bbox": [
+            -89.571509,
+            36.497129,
+            -81.964971,
+            39.147458
+          ],
+          "featureCount": 120,
+          "coordinatePositionCount": 7365,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 120
+            }
+          ]
+        },
+        "US-LA": {
+          "parentCode": "US-LA",
+          "parentName": "Louisiana",
+          "path": "/data/admin2/usa/us-la.geojson",
+          "sha256": "23ae174e06e74678dfd1ed89d7e9626c2a3da7a11c3cb8ad56565b03f0a6d7e1",
+          "bbox": [
+            -94.043147,
+            28.929709,
+            -88.817017,
+            33.019457
+          ],
+          "featureCount": 64,
+          "coordinatePositionCount": 6160,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "Parish",
+              "count": 64
+            }
+          ]
+        },
+        "US-MA": {
+          "parentCode": "US-MA",
+          "parentName": "Massachusetts",
+          "path": "/data/admin2/usa/us-ma.geojson",
+          "sha256": "8abd053b7a38cbfd52d6891c4e186fcfbb310526f66789f90b0809cb3e91464b",
+          "bbox": [
+            -73.508142,
+            41.237964,
+            -69.928261,
+            42.886589
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 1955,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 14
+            }
+          ]
+        },
+        "US-MD": {
+          "parentCode": "US-MD",
+          "parentName": "Maryland",
+          "path": "/data/admin2/usa/us-md.geojson",
+          "sha256": "2eec2812ce78778504440bf7718d86a9b4df67c522ed1cfa9f54db8e21ded1f5",
+          "bbox": [
+            -79.487651,
+            37.911717,
+            -75.048939,
+            39.723122
+          ],
+          "featureCount": 24,
+          "coordinatePositionCount": 3098,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 23
+            },
+            {
+              "type": "city",
+              "count": 1
+            }
+          ]
+        },
+        "US-ME": {
+          "parentCode": "US-ME",
+          "parentName": "Maine",
+          "path": "/data/admin2/usa/us-me.geojson",
+          "sha256": "65879e2d1b739c0bb3bbe06946bd167986cfc030331bbe2c644786f8c889cc40",
+          "bbox": [
+            -71.083924,
+            43.059825,
+            -66.949895,
+            47.459686
+          ],
+          "featureCount": 16,
+          "coordinatePositionCount": 2819,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 16
+            }
+          ]
+        },
+        "US-MI": {
+          "parentCode": "US-MI",
+          "parentName": "Michigan",
+          "path": "/data/admin2/usa/us-mi.geojson",
+          "sha256": "fd0ac3bc44bdc98ad7765c2ef670b241ae8b8ca7e2d3ae4a872224dd87735226",
+          "bbox": [
+            -90.418136,
+            41.696089,
+            -82.412965,
+            48.190975
+          ],
+          "featureCount": 83,
+          "coordinatePositionCount": 4793,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 83
+            }
+          ]
+        },
+        "US-MN": {
+          "parentCode": "US-MN",
+          "parentName": "Minnesota",
+          "path": "/data/admin2/usa/us-mn.geojson",
+          "sha256": "cfef33ab2e4219c564e343227e7331c02c602e81e7e2babd653ce06fa7749298",
+          "bbox": [
+            -97.239209,
+            43.499356,
+            -89.489226,
+            49.384358
+          ],
+          "featureCount": 87,
+          "coordinatePositionCount": 6045,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 87
+            }
+          ]
+        },
+        "US-MO": {
+          "parentCode": "US-MO",
+          "parentName": "Missouri",
+          "path": "/data/admin2/usa/us-mo.geojson",
+          "sha256": "b6aede8b6dc9e41d7752dbec42b67136ec14540305382d1ecca86b1483b3c65d",
+          "bbox": [
+            -95.774704,
+            35.995683,
+            -89.098843,
+            40.61364
+          ],
+          "featureCount": 115,
+          "coordinatePositionCount": 5513,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 114
+            },
+            {
+              "type": "city",
+              "count": 1
+            }
+          ]
+        },
+        "US-MS": {
+          "parentCode": "US-MS",
+          "parentName": "Mississippi",
+          "path": "/data/admin2/usa/us-ms.geojson",
+          "sha256": "f72b7decb313562a9bfbe4dbe4591487ffed3033f0dc3a4d67c58cde9bb3bfc9",
+          "bbox": [
+            -91.655009,
+            30.173943,
+            -88.097888,
+            34.996052
+          ],
+          "featureCount": 82,
+          "coordinatePositionCount": 4210,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 82
+            }
+          ]
+        },
+        "US-MT": {
+          "parentCode": "US-MT",
+          "parentName": "Montana",
+          "path": "/data/admin2/usa/us-mt.geojson",
+          "sha256": "bda78dd450c589272e82620115105e3eda989e3255e93856f28ae33eca8693dc",
+          "bbox": [
+            -116.049894,
+            44.357991,
+            -104.039138,
+            49.001078
+          ],
+          "featureCount": 56,
+          "coordinatePositionCount": 7092,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 56
+            }
+          ]
+        },
+        "US-NC": {
+          "parentCode": "US-NC",
+          "parentName": "North Carolina",
+          "path": "/data/admin2/usa/us-nc.geojson",
+          "sha256": "b0bd2b4f640c1a9d8d19154584f4389cd60ac5015ada330f4944b653fed418a2",
+          "bbox": [
+            -84.321869,
+            33.844517,
+            -75.458659,
+            36.588117
+          ],
+          "featureCount": 100,
+          "coordinatePositionCount": 7141,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 100
+            }
+          ]
+        },
+        "US-ND": {
+          "parentCode": "US-ND",
+          "parentName": "North Dakota",
+          "path": "/data/admin2/usa/us-nd.geojson",
+          "sha256": "220eed89c5113c46dc2def937f50586e9c87a357e0c4c162fba8913c33df0d84",
+          "bbox": [
+            -104.0489,
+            45.935054,
+            -96.554507,
+            49.000562
+          ],
+          "featureCount": 53,
+          "coordinatePositionCount": 3020,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 53
+            }
+          ]
+        },
+        "US-NE": {
+          "parentCode": "US-NE",
+          "parentName": "Nebraska",
+          "path": "/data/admin2/usa/us-ne.geojson",
+          "sha256": "7c7747f5b023aeb516e33cc05b87b80d7ebfa22dc328d3cc0792398e7d4cc05f",
+          "bbox": [
+            -104.053514,
+            39.999998,
+            -95.30829,
+            43.001708
+          ],
+          "featureCount": 93,
+          "coordinatePositionCount": 2926,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 93
+            }
+          ]
+        },
+        "US-NH": {
+          "parentCode": "US-NH",
+          "parentName": "New Hampshire",
+          "path": "/data/admin2/usa/us-nh.geojson",
+          "sha256": "07ecbc13c9545af352157608ab8da5c5f91bc8241bb572e30f453b553699a05c",
+          "bbox": [
+            -72.557247,
+            42.69699,
+            -70.703799,
+            45.305476
+          ],
+          "featureCount": 10,
+          "coordinatePositionCount": 1860,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 10
+            }
+          ]
+        },
+        "US-NJ": {
+          "parentCode": "US-NJ",
+          "parentName": "New Jersey",
+          "path": "/data/admin2/usa/us-nj.geojson",
+          "sha256": "b442de778149d07f8b26984ec2df91c34c4de633d57446cb2e32feedbae95e80",
+          "bbox": [
+            -75.558286,
+            38.928519,
+            -73.893979,
+            41.357423
+          ],
+          "featureCount": 21,
+          "coordinatePositionCount": 2540,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 21
+            }
+          ]
+        },
+        "US-NM": {
+          "parentCode": "US-NM",
+          "parentName": "New Mexico",
+          "path": "/data/admin2/usa/us-nm.geojson",
+          "sha256": "3382547d8e0ed7ce7539560a2410b135220bd3e458d32a7dc2ffa22205477cb6",
+          "bbox": [
+            -109.050173,
+            31.332301,
+            -103.001964,
+            37.000232
+          ],
+          "featureCount": 33,
+          "coordinatePositionCount": 1721,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 33
+            }
+          ]
+        },
+        "US-NV": {
+          "parentCode": "US-NV",
+          "parentName": "Nevada",
+          "path": "/data/admin2/usa/us-nv.geojson",
+          "sha256": "f86bb478bfa1681ba24290cac25b89b989897cebeba053bbe04560c8fe3eba2b",
+          "bbox": [
+            -120.005746,
+            35.001857,
+            -114.039648,
+            42.002207
+          ],
+          "featureCount": 17,
+          "coordinatePositionCount": 1565,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 16
+            },
+            {
+              "type": "County equivalent",
+              "count": 1
+            }
+          ]
+        },
+        "US-NY": {
+          "parentCode": "US-NY",
+          "parentName": "New York",
+          "path": "/data/admin2/usa/us-ny.geojson",
+          "sha256": "77b17b1dfa0a499c1d9e37feb4fcc50309ed69953b68b8f2e19e15af4216aa55",
+          "bbox": [
+            -79.762152,
+            40.496103,
+            -71.856365,
+            45.01585
+          ],
+          "featureCount": 62,
+          "coordinatePositionCount": 5217,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 62
+            }
+          ]
+        },
+        "US-OH": {
+          "parentCode": "US-OH",
+          "parentName": "Ohio",
+          "path": "/data/admin2/usa/us-oh.geojson",
+          "sha256": "462a364e7aed9be429f3942ac180940c8828a21c97ad709426dd8be3a4cb792f",
+          "bbox": [
+            -84.820159,
+            38.403202,
+            -80.518693,
+            41.977523
+          ],
+          "featureCount": 88,
+          "coordinatePositionCount": 4341,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 88
+            }
+          ]
+        },
+        "US-OK": {
+          "parentCode": "US-OK",
+          "parentName": "Oklahoma",
+          "path": "/data/admin2/usa/us-ok.geojson",
+          "sha256": "422fbb7f6b5149c5ccce8674a53a3bfeb30993cc9faf5122e034df20528ce224",
+          "bbox": [
+            -103.002565,
+            33.616567,
+            -94.431215,
+            37.002206
+          ],
+          "featureCount": 77,
+          "coordinatePositionCount": 4225,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 77
+            }
+          ]
+        },
+        "US-OR": {
+          "parentCode": "US-OR",
+          "parentName": "Oregon",
+          "path": "/data/admin2/usa/us-or.geojson",
+          "sha256": "aa5ffed1fbaf0d3be772f408897fe02c813622b6ee1094ca5d44b9c8342fa449",
+          "bbox": [
+            -124.552441,
+            41.991794,
+            -116.463504,
+            46.271004
+          ],
+          "featureCount": 36,
+          "coordinatePositionCount": 5197,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 36
+            }
+          ]
+        },
+        "US-PA": {
+          "parentCode": "US-PA",
+          "parentName": "Pennsylvania",
+          "path": "/data/admin2/usa/us-pa.geojson",
+          "sha256": "7712c3432c36e53062b883c201faf5aa481d989602cece7cfd88f9d8ec6285ab",
+          "bbox": [
+            -80.519891,
+            39.720062,
+            -74.689516,
+            42.26986
+          ],
+          "featureCount": 67,
+          "coordinatePositionCount": 5125,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 67
+            }
+          ]
+        },
+        "US-RI": {
+          "parentCode": "US-RI",
+          "parentName": "Rhode Island",
+          "path": "/data/admin2/usa/us-ri.geojson",
+          "sha256": "84200d3f1d47e36c29c35850a2ddada8c405a37b678ec5ce7f3a3e7eb09eb9fc",
+          "bbox": [
+            -71.862772,
+            41.146339,
+            -71.12057,
+            42.018798
+          ],
+          "featureCount": 5,
+          "coordinatePositionCount": 528,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 5
+            }
+          ]
+        },
+        "US-SC": {
+          "parentCode": "US-SC",
+          "parentName": "South Carolina",
+          "path": "/data/admin2/usa/us-sc.geojson",
+          "sha256": "605febc6c91553fe6bc15caae9401ef12c7617b55525e3a083b8f59791ac7ba9",
+          "bbox": [
+            -83.353238,
+            32.033884,
+            -78.542422,
+            35.215402
+          ],
+          "featureCount": 46,
+          "coordinatePositionCount": 4443,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 46
+            }
+          ]
+        },
+        "US-SD": {
+          "parentCode": "US-SD",
+          "parentName": "South Dakota",
+          "path": "/data/admin2/usa/us-sd.geojson",
+          "sha256": "2f0a0f6123a35531c574ae64c94c12e8937566922a94ff99bbeb454a6aae4eb2",
+          "bbox": [
+            -104.057698,
+            42.479635,
+            -96.436589,
+            45.94545
+          ],
+          "featureCount": 66,
+          "coordinatePositionCount": 3727,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 66
+            }
+          ]
+        },
+        "US-TN": {
+          "parentCode": "US-TN",
+          "parentName": "Tennessee",
+          "path": "/data/admin2/usa/us-tn.geojson",
+          "sha256": "2eac636d82d8eeab4ff0144f2581c31acdf8e54b11e27b9e345044b1b0930cfd",
+          "bbox": [
+            -90.309712,
+            34.982972,
+            -81.6469,
+            36.678118
+          ],
+          "featureCount": 95,
+          "coordinatePositionCount": 6085,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 95
+            }
+          ]
+        },
+        "US-TX": {
+          "parentCode": "US-TX",
+          "parentName": "Texas",
+          "path": "/data/admin2/usa/us-tx.geojson",
+          "sha256": "8ccfa7373b4fd33fdfc7bad6a655bdd4c4215c1db8c696ffa4dfc3c2044e70ca",
+          "bbox": [
+            -106.645479,
+            25.837377,
+            -93.516407,
+            36.500704
+          ],
+          "featureCount": 254,
+          "coordinatePositionCount": 12110,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 254
+            }
+          ]
+        },
+        "US-UT": {
+          "parentCode": "US-UT",
+          "parentName": "Utah",
+          "path": "/data/admin2/usa/us-ut.geojson",
+          "sha256": "60cfd12473c08a3d1c253f3ab5d3ee08819b020fd83734df6d88a36df905f210",
+          "bbox": [
+            -114.052962,
+            36.997968,
+            -109.041058,
+            42.001567
+          ],
+          "featureCount": 29,
+          "coordinatePositionCount": 3849,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 29
+            }
+          ]
+        },
+        "US-VA": {
+          "parentCode": "US-VA",
+          "parentName": "Virginia",
+          "path": "/data/admin2/usa/us-va.geojson",
+          "sha256": "35fc8e44b4c0e63fb3de7ca468d1de5a508fa79340505a0e5ec1ec3fc65fbe1e",
+          "bbox": [
+            -83.675413,
+            36.540738,
+            -75.242469,
+            39.466012
+          ],
+          "featureCount": 133,
+          "coordinatePositionCount": 8575,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 95
+            },
+            {
+              "type": "city",
+              "count": 38
+            }
+          ]
+        },
+        "US-VT": {
+          "parentCode": "US-VT",
+          "parentName": "Vermont",
+          "path": "/data/admin2/usa/us-vt.geojson",
+          "sha256": "b6611964d38f4dafd60b1c35d3af508522a27492f43aea50292d458a350009bb",
+          "bbox": [
+            -73.43774,
+            42.726853,
+            -71.465039,
+            45.016659
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 1720,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 14
+            }
+          ]
+        },
+        "US-WA": {
+          "parentCode": "US-WA",
+          "parentName": "Washington",
+          "path": "/data/admin2/usa/us-wa.geojson",
+          "sha256": "19851436ce385dcaa2db74f4d35d14530e742f8babaebf206c92fe590a5ff92a",
+          "bbox": [
+            -124.733174,
+            45.543541,
+            -116.915989,
+            49.002494
+          ],
+          "featureCount": 39,
+          "coordinatePositionCount": 4485,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 39
+            }
+          ]
+        },
+        "US-WI": {
+          "parentCode": "US-WI",
+          "parentName": "Wisconsin",
+          "path": "/data/admin2/usa/us-wi.geojson",
+          "sha256": "4ff7b75d12fa0e53ae23b11c8ada36e5ab7c7c84c61e4e1a3312c9875ebc4a3c",
+          "bbox": [
+            -92.888114,
+            42.49192,
+            -86.805415,
+            47.076667
+          ],
+          "featureCount": 72,
+          "coordinatePositionCount": 4083,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 72
+            }
+          ]
+        },
+        "US-WV": {
+          "parentCode": "US-WV",
+          "parentName": "West Virginia",
+          "path": "/data/admin2/usa/us-wv.geojson",
+          "sha256": "ed3cfce80c2d38eea8778b4122fc4bfe7c9a73e6e78366ca14466b710a7a0a45",
+          "bbox": [
+            -82.644739,
+            37.201483,
+            -77.719519,
+            40.638801
+          ],
+          "featureCount": 55,
+          "coordinatePositionCount": 4945,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 55
+            }
+          ]
+        },
+        "US-WY": {
+          "parentCode": "US-WY",
+          "parentName": "Wyoming",
+          "path": "/data/admin2/usa/us-wy.geojson",
+          "sha256": "2f9e843a48920a41577be33806d0864fe51eb97bd9381c608f017e8d9b3da428",
+          "bbox": [
+            -111.056888,
+            40.994746,
+            -104.05216,
+            45.005904
+          ],
+          "featureCount": 23,
+          "coordinatePositionCount": 1667,
+          "childLabel": "county or county-equivalent",
+          "childrenLabel": "counties and county-equivalents",
+          "viewLabel": "County view",
+          "source": "U.S. Census Bureau",
+          "sourceName": "2025 Cartographic Boundary File — Counties, 1:5m",
+          "sourceYear": 2025,
+          "license": "Public domain",
+          "official": true,
+          "types": [
+            {
+              "type": "County",
+              "count": 23
+            }
+          ]
+        }
+      }
+    },
+    "CHN": {
+      "code": "CHN",
+      "name": "China",
+      "parentLevel": "province-level region",
+      "childLevel": "prefecture-level division",
+      "source": {
+        "provider": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+        "sourceName": "China administrative boundaries COD-AB — Admin-2",
+        "sourceYear": 2020,
+        "sourcePage": "https://data.humdata.org/dataset/cod-ab-chn",
+        "sourceFiles": {
+          "shpSha256": "acb0881183eea5db5cf19597367eefd188b948d3d38962b3cc041656dbdb7dcd",
+          "dbfSha256": "6fda17135a6b5651d8321b30f867ca8643ddd2b8024eae15d23f24c7ab27ad33"
+        },
+        "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+        "official": false,
+        "reviewed": "2024-10",
+        "status": "Unofficial boundary reference; establishment date unknown",
+        "parentLevel": "province-level region",
+        "childLevel": "prefecture-level division",
+        "childLabel": "prefecture-level division",
+        "childrenLabel": "prefecture-level divisions",
+        "viewLabel": "Prefecture-level view",
+        "filter": "31 mainland province-level parents matching the existing Atlas China view; Taiwan, Hong Kong and Macao source records excluded; SHP geometry retained without additional simplification"
+      },
+      "totals": {
+        "parents": 31,
+        "subdivisions": 358,
+        "coordinatePositionCount": 114228
+      },
+      "parents": {
+        "CN-AH": {
+          "parentCode": "CN-AH",
+          "parentName": "Anhui",
+          "path": "/data/admin2/chn/cn-ah.geojson",
+          "sha256": "db33092819f3b7d325c6b3cd3fff02e0afec15c31f66f65abe96f62089aa836d",
+          "bbox": [
+            114.84595385700004,
+            29.416350899000065,
+            119.60824717000003,
+            34.62676846900007
+          ],
+          "featureCount": 16,
+          "coordinatePositionCount": 2112,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 16
+            }
+          ]
+        },
+        "CN-BJ": {
+          "parentCode": "CN-BJ",
+          "parentName": "Beijing",
+          "path": "/data/admin2/chn/cn-bj.geojson",
+          "sha256": "939436ff917ec33e41c271a3fc3f399180a8e375c422566b7adc1c95ca26b688",
+          "bbox": [
+            115.40417710800011,
+            39.417053827000075,
+            117.46482569900002,
+            41.05700939700006
+          ],
+          "featureCount": 1,
+          "coordinatePositionCount": 214,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Municipality",
+              "count": 1
+            }
+          ]
+        },
+        "CN-CQ": {
+          "parentCode": "CN-CQ",
+          "parentName": "Chongqing",
+          "path": "/data/admin2/chn/cn-cq.geojson",
+          "sha256": "54debbb9e9424e5c06eecd438660d025250b37b11e6211a396effdaab016bd17",
+          "bbox": [
+            105.30953763100007,
+            28.169630426000026,
+            110.15310568000007,
+            32.20283413100003
+          ],
+          "featureCount": 1,
+          "coordinatePositionCount": 573,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Municipality",
+              "count": 1
+            }
+          ]
+        },
+        "CN-FJ": {
+          "parentCode": "CN-FJ",
+          "parentName": "Fujian",
+          "path": "/data/admin2/chn/cn-fj.geojson",
+          "sha256": "490bc0a389501cbe2f104f09cd287437de9539f46fad5d749b629fb2608d7777",
+          "bbox": [
+            115.8238942370001,
+            23.584676200000047,
+            120.42464672000006,
+            28.302985722000074
+          ],
+          "featureCount": 9,
+          "coordinatePositionCount": 4396,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 9
+            }
+          ]
+        },
+        "CN-GD": {
+          "parentCode": "CN-GD",
+          "parentName": "Guangdong",
+          "path": "/data/admin2/chn/cn-gd.geojson",
+          "sha256": "0f9d84521fbbe60cb5386dc91b1975db690e7a88ba95ae4ea4b26b8ad3875419",
+          "bbox": [
+            109.65558497100005,
+            20.228813477000074,
+            117.17200695200006,
+            25.508794112000032
+          ],
+          "featureCount": 21,
+          "coordinatePositionCount": 5687,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 21
+            }
+          ]
+        },
+        "CN-GS": {
+          "parentCode": "CN-GS",
+          "parentName": "Gansu",
+          "path": "/data/admin2/chn/cn-gs.geojson",
+          "sha256": "a433b17fb605f3478842421ca14960c7bdf5de169be9a71aa51ae1ca41d86d4d",
+          "bbox": [
+            92.78866470800006,
+            32.58700487900006,
+            108.67953176400005,
+            42.793518540000036
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 2811,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 12
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 2
+            }
+          ]
+        },
+        "CN-GX": {
+          "parentCode": "CN-GX",
+          "parentName": "Guangxi",
+          "path": "/data/admin2/chn/cn-gx.geojson",
+          "sha256": "cc464f52c3a87edac80305f9630c6323b09ddf01cc9bafe086897f7adbc99eb5",
+          "bbox": [
+            104.50494003000006,
+            21.401719248000063,
+            112.03070341600005,
+            26.391066115000058
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 3833,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 14
+            }
+          ]
+        },
+        "CN-GZ": {
+          "parentCode": "CN-GZ",
+          "parentName": "Guizhou",
+          "path": "/data/admin2/chn/cn-gz.geojson",
+          "sha256": "ee51ec88a53a6e574c040c69bacac2cc00a54db92bbd20024f425366b34bf79b",
+          "bbox": [
+            103.61242764300005,
+            24.605391361000045,
+            109.52724129000006,
+            29.20588239500006
+          ],
+          "featureCount": 9,
+          "coordinatePositionCount": 1933,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 6
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 3
+            }
+          ]
+        },
+        "CN-HA": {
+          "parentCode": "CN-HA",
+          "parentName": "Henan",
+          "path": "/data/admin2/chn/cn-ha.geojson",
+          "sha256": "de5efbfeacc50c68f41e216179abd187c009bddf5b328c52785c3f36aaf6abe3",
+          "bbox": [
+            110.33163819200007,
+            31.377352770000073,
+            116.6186449270001,
+            36.34328676600006
+          ],
+          "featureCount": 18,
+          "coordinatePositionCount": 2242,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 17
+            },
+            {
+              "type": "Sub-prefecture-level city",
+              "count": 1
+            }
+          ]
+        },
+        "CN-HB": {
+          "parentCode": "CN-HB",
+          "parentName": "Hubei",
+          "path": "/data/admin2/chn/cn-hb.geojson",
+          "sha256": "1e865f24e3b1574f17e35f7d2324dc5cd76499c72b5a514a9d17579506351cd8",
+          "bbox": [
+            108.34495944400004,
+            29.029452866000042,
+            116.09277547500005,
+            33.26488442800007
+          ],
+          "featureCount": 17,
+          "coordinatePositionCount": 2374,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 12
+            },
+            {
+              "type": "Sub-prefecture-level city",
+              "count": 3
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 1
+            },
+            {
+              "type": "Forestry district",
+              "count": 1
+            }
+          ]
+        },
+        "CN-HE": {
+          "parentCode": "CN-HE",
+          "parentName": "Hebei",
+          "path": "/data/admin2/chn/cn-he.geojson",
+          "sha256": "8f594fefe6ebdb72d2114b569fd078e06577952fa095d3c41cbb77f19941ea3b",
+          "bbox": [
+            113.43986781500007,
+            36.03858433600004,
+            119.8066533120001,
+            42.56244057200007
+          ],
+          "featureCount": 11,
+          "coordinatePositionCount": 2017,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 11
+            }
+          ]
+        },
+        "CN-HI": {
+          "parentCode": "CN-HI",
+          "parentName": "Hainan",
+          "path": "/data/admin2/chn/cn-hi.geojson",
+          "sha256": "c63d0d018eaaa2e7b41bf97a2a7677c18d3b406a0a1cd4197519608a78639491",
+          "bbox": [
+            108.61752715800009,
+            18.161319468000045,
+            111.27236175500008,
+            20.156469627000035
+          ],
+          "featureCount": 18,
+          "coordinatePositionCount": 21254,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Autonomous County",
+              "count": 6
+            },
+            {
+              "type": "County",
+              "count": 4
+            },
+            {
+              "type": "County-level City",
+              "count": 4
+            },
+            {
+              "type": "Prefecture-level city",
+              "count": 4
+            }
+          ]
+        },
+        "CN-HL": {
+          "parentCode": "CN-HL",
+          "parentName": "Heilongjiang",
+          "path": "/data/admin2/chn/cn-hl.geojson",
+          "sha256": "95fe550fb3c475981a54c5786dc5ba609f2f942ffa066ef3094d2d6de9608f37",
+          "bbox": [
+            121.20320063100007,
+            43.45236847600006,
+            134.72635225700003,
+            53.53136367800005
+          ],
+          "featureCount": 13,
+          "coordinatePositionCount": 4316,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 12
+            },
+            {
+              "type": "Prefecture",
+              "count": 1
+            }
+          ]
+        },
+        "CN-HN": {
+          "parentCode": "CN-HN",
+          "parentName": "Hunan",
+          "path": "/data/admin2/chn/cn-hn.geojson",
+          "sha256": "383ac6e026cee796a13130cf5194f14c997a677c437f61bde4e70cb546e9d3b9",
+          "bbox": [
+            108.79271460700005,
+            24.651553936000028,
+            114.2467645050001,
+            30.134730988000058
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 2676,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 13
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 1
+            }
+          ]
+        },
+        "CN-JL": {
+          "parentCode": "CN-JL",
+          "parentName": "Jilin",
+          "path": "/data/admin2/chn/cn-jl.geojson",
+          "sha256": "a2ec710cd68cea12d34b1af1fcc0e566bc96da528beeb77cdba058896033a0bb",
+          "bbox": [
+            121.60792359800007,
+            40.84703610100007,
+            131.22876888100006,
+            46.295548763000056
+          ],
+          "featureCount": 9,
+          "coordinatePositionCount": 8810,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 8
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 1
+            }
+          ]
+        },
+        "CN-JS": {
+          "parentCode": "CN-JS",
+          "parentName": "Jiangsu",
+          "path": "/data/admin2/chn/cn-js.geojson",
+          "sha256": "05fbeab648743f0bf272f0b811b2260afd56dc3b3ce3db8d44baa8593d8a6fc2",
+          "bbox": [
+            116.33331800400003,
+            30.760245988000065,
+            121.88371275100008,
+            35.10524571900004
+          ],
+          "featureCount": 13,
+          "coordinatePositionCount": 2220,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 13
+            }
+          ]
+        },
+        "CN-JX": {
+          "parentCode": "CN-JX",
+          "parentName": "Jiangxi",
+          "path": "/data/admin2/chn/cn-jx.geojson",
+          "sha256": "13cedd569457e5acaab68b015b4708082cde75e04ef1263696027e259e8af590",
+          "bbox": [
+            113.54722236600003,
+            24.501300703000027,
+            118.44407686800002,
+            30.064625782000064
+          ],
+          "featureCount": 11,
+          "coordinatePositionCount": 2144,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 11
+            }
+          ]
+        },
+        "CN-LN": {
+          "parentCode": "CN-LN",
+          "parentName": "Liaoning",
+          "path": "/data/admin2/chn/cn-ln.geojson",
+          "sha256": "d165c0320c60534d286257dd8fba5f60a5a91b00bc12111a9745a5cab42b251f",
+          "bbox": [
+            118.76957792000007,
+            38.721270365000066,
+            125.73122666600011,
+            43.484907099000054
+          ],
+          "featureCount": 14,
+          "coordinatePositionCount": 3497,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 14
+            }
+          ]
+        },
+        "CN-NM": {
+          "parentCode": "CN-NM",
+          "parentName": "Inner Mongolia",
+          "path": "/data/admin2/chn/cn-nm.geojson",
+          "sha256": "ba7a38f2f574ef9ef5251d305fec095d3171d2d45f3365ae356e10d8628852cf",
+          "bbox": [
+            97.17141844400004,
+            37.418109378000054,
+            125.98732738300009,
+            53.31739945500004
+          ],
+          "featureCount": 12,
+          "coordinatePositionCount": 4774,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 9
+            },
+            {
+              "type": "League",
+              "count": 3
+            }
+          ]
+        },
+        "CN-NX": {
+          "parentCode": "CN-NX",
+          "parentName": "Ningxia",
+          "path": "/data/admin2/chn/cn-nx.geojson",
+          "sha256": "f95a86492dafa472ad99033f85f70e67155ab67049c74669685f00319ec10990",
+          "bbox": [
+            104.22649195600007,
+            35.22003140900006,
+            107.63373007600006,
+            39.38000075700006
+          ],
+          "featureCount": 5,
+          "coordinatePositionCount": 456,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 5
+            }
+          ]
+        },
+        "CN-QH": {
+          "parentCode": "CN-QH",
+          "parentName": "Qinghai",
+          "path": "/data/admin2/chn/cn-qh.geojson",
+          "sha256": "50bdf45b4dd9689869d442153ab197ba8dc5387eeeadf56637f8a8cfc7b98569",
+          "bbox": [
+            89.41920876000006,
+            31.554164227000058,
+            103.02983155100009,
+            39.33939816900005
+          ],
+          "featureCount": 8,
+          "coordinatePositionCount": 2690,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Autonomous prefecture",
+              "count": 6
+            },
+            {
+              "type": "Prefecture-level city",
+              "count": 2
+            }
+          ]
+        },
+        "CN-SC": {
+          "parentCode": "CN-SC",
+          "parentName": "Sichuan",
+          "path": "/data/admin2/chn/cn-sc.geojson",
+          "sha256": "3d3e62bba75fa5e04ca1e860f576321d6c6c4f2da57f470a3b4c2762e9fcc3a5",
+          "bbox": [
+            97.34330579500005,
+            26.06199252700003,
+            108.52162378100007,
+            34.30108321400007
+          ],
+          "featureCount": 21,
+          "coordinatePositionCount": 4165,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 18
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 3
+            }
+          ]
+        },
+        "CN-SD": {
+          "parentCode": "CN-SD",
+          "parentName": "Shandong",
+          "path": "/data/admin2/chn/cn-sd.geojson",
+          "sha256": "aaed0c0c15898444bae169c0b70646e38ee1f2fa1af18decc1463eb4accf5572",
+          "bbox": [
+            114.77209433600001,
+            34.385968985000034,
+            122.66706649600007,
+            38.204779346000066
+          ],
+          "featureCount": 17,
+          "coordinatePositionCount": 3742,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 17
+            }
+          ]
+        },
+        "CN-SH": {
+          "parentCode": "CN-SH",
+          "parentName": "Shanghai",
+          "path": "/data/admin2/chn/cn-sh.geojson",
+          "sha256": "04e01870b2b1ccc06696ba13d1a5988eaf42385ad4a139a1c03e8107a368c8cc",
+          "bbox": [
+            120.8291450590001,
+            30.691142004000028,
+            121.88009382700011,
+            31.834698213000024
+          ],
+          "featureCount": 1,
+          "coordinatePositionCount": 255,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Municipality",
+              "count": 1
+            }
+          ]
+        },
+        "CN-SN": {
+          "parentCode": "CN-SN",
+          "parentName": "Shaanxi",
+          "path": "/data/admin2/chn/cn-sn.geojson",
+          "sha256": "ea3eb88b045f955e9a5f8e2b5d3a4f5250b80052267cfd71df077f9227d99cd3",
+          "bbox": [
+            105.49621508400008,
+            31.69331531800003,
+            111.25223533100007,
+            39.58060147000003
+          ],
+          "featureCount": 10,
+          "coordinatePositionCount": 1799,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 10
+            }
+          ]
+        },
+        "CN-SX": {
+          "parentCode": "CN-SX",
+          "parentName": "Shanxi",
+          "path": "/data/admin2/chn/cn-sx.geojson",
+          "sha256": "183d6f732c3b2334cc80fbbdd284cd5bd826037c3c648e9535e04ee78028513a",
+          "bbox": [
+            110.23045887300009,
+            34.57348444400003,
+            114.50190356400003,
+            40.759349057000065
+          ],
+          "featureCount": 11,
+          "coordinatePositionCount": 1703,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 11
+            }
+          ]
+        },
+        "CN-TJ": {
+          "parentCode": "CN-TJ",
+          "parentName": "Tianjin",
+          "path": "/data/admin2/chn/cn-tj.geojson",
+          "sha256": "dea387c4e7b46fcacfa79ac3b205713d39485ab57a21cf5666b07c71b0b15de4",
+          "bbox": [
+            116.65788814000007,
+            38.54897577300005,
+            118.02628962500012,
+            40.194066159000045
+          ],
+          "featureCount": 1,
+          "coordinatePositionCount": 246,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Municipality",
+              "count": 1
+            }
+          ]
+        },
+        "CN-XJ": {
+          "parentCode": "CN-XJ",
+          "parentName": "Xinjiang",
+          "path": "/data/admin2/chn/cn-xj.geojson",
+          "sha256": "5a924cf3f55420162657d27aa4b7b2b538b2fd69d6613dc3206f120e661f8371",
+          "bbox": [
+            73.55770000000007,
+            35.20159767500007,
+            96.39555374700006,
+            49.17320718500008
+          ],
+          "featureCount": 15,
+          "coordinatePositionCount": 6691,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture",
+              "count": 5
+            },
+            {
+              "type": "Autonomous prefecture",
+              "count": 4
+            },
+            {
+              "type": "Prefecture-level city",
+              "count": 4
+            },
+            {
+              "type": "Sub-prefecture-level city",
+              "count": 1
+            },
+            {
+              "type": "Sub-province-level prefecture",
+              "count": 1
+            }
+          ]
+        },
+        "CN-XZ": {
+          "parentCode": "CN-XZ",
+          "parentName": "Tibet",
+          "path": "/data/admin2/chn/cn-xz.geojson",
+          "sha256": "99c8ac2bb07af446ef251dce676e6165ee325fb88b9396c857c1437431a21092",
+          "bbox": [
+            78.43807635000007,
+            27.267805751000026,
+            99.15261715500009,
+            36.49015051900005
+          ],
+          "featureCount": 7,
+          "coordinatePositionCount": 6489,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 5
+            },
+            {
+              "type": "Prefecture",
+              "count": 2
+            }
+          ]
+        },
+        "CN-YN": {
+          "parentCode": "CN-YN",
+          "parentName": "Yunnan",
+          "path": "/data/admin2/chn/cn-yn.geojson",
+          "sha256": "9d6abd800be4b6565f07fc71ec5a447172424083b3dfc212352de19040eb4ca0",
+          "bbox": [
+            97.56053530100007,
+            21.146722469000053,
+            106.19189992500009,
+            29.220789610000054
+          ],
+          "featureCount": 16,
+          "coordinatePositionCount": 5057,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Autonomous prefecture",
+              "count": 8
+            },
+            {
+              "type": "Prefecture-level city",
+              "count": 8
+            }
+          ]
+        },
+        "CN-ZJ": {
+          "parentCode": "CN-ZJ",
+          "parentName": "Zhejiang",
+          "path": "/data/admin2/chn/cn-zj.geojson",
+          "sha256": "8ebe06cb3c704404fbea7e100472a25a9c78f6523604f8cdf3a939212aa19cb3",
+          "bbox": [
+            117.99385236900002,
+            27.160588837000034,
+            122.51702642500004,
+            31.19127055900003
+          ],
+          "featureCount": 11,
+          "coordinatePositionCount": 3052,
+          "childLabel": "prefecture-level division",
+          "childrenLabel": "prefecture-level divisions",
+          "viewLabel": "Prefecture-level view",
+          "source": "United Nations Office for the Coordination of Humanitarian Affairs (OCHA) / HDX",
+          "sourceName": "China administrative boundaries COD-AB — Admin-2",
+          "sourceYear": 2020,
+          "license": "Creative Commons Attribution 3.0 IGO (CC BY 3.0 IGO)",
+          "official": false,
+          "types": [
+            {
+              "type": "Prefecture-level city",
+              "count": 11
+            }
+          ]
+        }
+      }
+    }
+  }
+}

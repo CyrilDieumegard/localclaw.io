@@ -5,8 +5,10 @@ const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
 const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?v=20260829h';
+const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829a';
 const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
+const ADMIN2_CACHE_LIMIT = 4;
 const GLOBE_RADIUS = 3.65;
 const MOBILE_BREAKPOINT = 760;
 const DESKTOP_TEXTURE_WIDTH = 4096;
@@ -159,6 +161,11 @@ const state = {
   admin1Cache: new Map(),
   admin1LoadToken: 0,
   admin1Loading: false,
+  admin2Manifest: null,
+  admin2Boundaries: null,
+  admin2Cache: new Map(),
+  admin2LoadToken: 0,
+  admin2Loading: false,
   usData: null,
   countries: [],
   worldCountries: [],
@@ -220,6 +227,15 @@ const state = {
   detailHeatMesh: null,
   detailBoundaryLine: null,
   admin1AssignmentByCluster: new Map(),
+  admin2Parent: null,
+  admin2ParentScope: null,
+  admin2Config: null,
+  admin2Features: [],
+  admin2Regions: [],
+  admin2Group: null,
+  admin2BoundaryLine: null,
+  admin2ParentLine: null,
+  admin2AssignmentByCluster: new Map(),
   cityClusters: [],
   clusterGroup: null,
   clusterEntries: [],
@@ -760,6 +776,134 @@ async function loadAdmin1Shard(manifest) {
   return shard;
 }
 
+function admin2ParentCode(parent, parentScope = state.scope) {
+  if (!parent) return '';
+  if (parentScope === 'us') {
+    const code = String(parent.code || '').trim().toUpperCase();
+    return code ? `US-${code}` : '';
+  }
+  return (parent.codes || [])
+    .map(code => String(code || '').trim().toUpperCase())
+    .find(code => /^CN-[A-Z0-9]{2}$/.test(code)) || '';
+}
+
+function admin2ConfigForParent(parent, parentScope = state.scope) {
+  const adm0A3 = parentScope === 'us' ? 'USA' : state.detailConfig?.adm0A3;
+  if (!['USA', 'CHN'].includes(adm0A3)) return null;
+  const parentCode = admin2ParentCode(parent, parentScope);
+  const countryEntry = state.admin2Manifest?.countries?.[adm0A3];
+  const manifest = countryEntry?.parents?.[parentCode];
+  if (!parentCode || !manifest) return null;
+  const childLabel = manifest.childLabel || countryEntry.childLabel || (adm0A3 === 'USA' ? 'county or equivalent' : 'prefecture-level division');
+  const childrenLabel = manifest.childrenLabel || countryEntry.childrenLabel || (adm0A3 === 'USA' ? 'counties and equivalents' : 'prefecture-level divisions');
+  return {
+    ...manifest,
+    adm0A3,
+    countryName: countryEntry.name || (adm0A3 === 'USA' ? 'United States' : 'China'),
+    parentCode,
+    parentName: manifest.parentName || parent.name,
+    parentType: parentScope === 'us' ? 'state' : (parent.type || state.detailConfig?.regionLabel || 'province-level region'),
+    parentScope,
+    childLabel,
+    childrenLabel,
+    viewLabel: manifest.viewLabel || (adm0A3 === 'USA' ? 'County view' : 'Prefecture-level view'),
+    liveLabel: manifest.liveLabel || (adm0A3 === 'USA' ? 'County-level exploration' : 'Prefecture-level exploration'),
+    parentSignals: Number.isFinite(parent.signals) ? parent.signals : null,
+    parentSignalLabel: parentScope === 'us' ? 'state-level signals' : 'province-level signals',
+    source: countryEntry.source || manifest.source || null
+  };
+}
+
+function setAdmin2Busy(busy, config = null) {
+  state.admin2Loading = Boolean(busy);
+  if (busy) {
+    stage.setAttribute('aria-busy', 'true');
+    stage.dataset.admin2Loading = config?.parentCode || '';
+    regionPanel?.setAttribute('aria-busy', 'true');
+  } else {
+    if (!state.admin1Loading) stage.removeAttribute('aria-busy');
+    delete stage.dataset.admin2Loading;
+    regionPanel?.removeAttribute('aria-busy');
+  }
+}
+
+async function loadAdmin2Shard(config) {
+  const key = `${config?.adm0A3 || ''}:${config?.parentCode || ''}`;
+  if (!config?.path || !config?.parentCode) throw new Error('Detailed boundary manifest entry is incomplete.');
+  if (state.admin2Cache.has(key)) {
+    const cached = state.admin2Cache.get(key);
+    state.admin2Cache.delete(key);
+    state.admin2Cache.set(key, cached);
+    return cached;
+  }
+  const separator = config.path.includes('?') ? '&' : '?';
+  const response = await fetch(`${config.path}${separator}v=${String(config.sha256 || state.admin2Manifest?.generatedAt || '').slice(0, 16)}`);
+  if (!response.ok) throw new Error(`Detailed boundaries could not be loaded (${response.status}).`);
+  const shard = await response.json();
+  if (shard?.type !== 'FeatureCollection'
+    || !Array.isArray(shard.features)
+    || String(shard.parentCode || '').toUpperCase() !== config.parentCode) {
+    throw new Error('Detailed boundary shard is invalid.');
+  }
+  state.admin2Cache.set(key, shard);
+  while (state.admin2Cache.size > ADMIN2_CACHE_LIMIT) {
+    state.admin2Cache.delete(state.admin2Cache.keys().next().value);
+  }
+  return shard;
+}
+
+function isAdmin2Scope() {
+  return state.scope === 'admin2' && Boolean(state.admin2Parent && state.admin2Config);
+}
+
+function buildAdmin2Regions(shard, parent, config) {
+  const features = Array.isArray(shard?.features) ? shard.features : [];
+  const regions = features.map((feature, index) => {
+    const properties = feature.properties || {};
+    const name = String(properties.name || properties.NAME || properties.label || `Subdivision ${index + 1}`).trim();
+    return {
+      kind: 'admin2',
+      name,
+      label: String(properties.label || name).trim(),
+      type: String(properties.type || config.childLabel).trim(),
+      code: String(properties.code || properties.GEOID || properties.id || '').trim(),
+      country: config.countryName,
+      countryCode: config.adm0A3 === 'USA' ? 'US' : 'CN',
+      parentName: config.parentName,
+      parentCode: config.parentCode,
+      feature,
+      bounds: featureBounds(feature),
+      center: featureCenter(feature),
+      signals: null,
+      rank: null,
+      published: false,
+      clusters: []
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name));
+  const assignments = new Map();
+  const clusters = state.cityClusters.filter(cluster => {
+    if (config.adm0A3 === 'USA') return cluster.countryCode === 'US' && cluster.regionCode === parent.code;
+    return cluster.countryCode === 'CN';
+  });
+  for (const cluster of clusters) {
+    const region = regions.find(candidate => pointInBounds(cluster.lat, cluster.lon, candidate.bounds)
+      && pointInFeature(cluster.lat, cluster.lon, candidate.feature));
+    if (!region) continue;
+    region.clusters.push(cluster);
+    assignments.set(cluster, region);
+  }
+  state.admin2Boundaries = shard;
+  state.admin2Features = features;
+  state.admin2Regions = regions;
+  state.admin2AssignmentByCluster = assignments;
+  return regions.length > 0;
+}
+
+function admin2RegionAt(lat, lon) {
+  return state.admin2Regions.find(candidate => pointInBounds(lat, lon, candidate.bounds)
+    && pointInFeature(lat, lon, candidate.feature)) || null;
+}
+
 function isAdmin1Scope() {
   return state.scope === 'admin1' && Boolean(state.detailCountry && state.detailConfig);
 }
@@ -892,7 +1036,8 @@ function buildAdmin1Aggregation(country, config) {
       boundaryFeatureIds: boundaryIds,
       qualityFlag: Boolean(sourceRegion.qualityFlag),
       qualityFlags: Array.isArray(sourceRegion.qualityFlags) ? sourceRegion.qualityFlags : [],
-      qualityNote: String(sourceRegion.qualityNote || '')
+      qualityNote: String(sourceRegion.qualityNote || ''),
+      codes: [...new Set(mappedFeatures.flatMap(admin1FeatureCodes))]
     };
     ranked.push(entity);
     for (const mappedFeature of mappedFeatures) {
@@ -948,6 +1093,11 @@ function admin1RegionAt(lat, lon) {
 function featureForEntity(entity) {
   if (!entity) return null;
   if (entity.kind === 'cityCluster') {
+    if (isAdmin2Scope()) {
+      return state.admin2AssignmentByCluster.get(entity)?.feature
+        || state.admin2Parent?.feature
+        || featureForCountry(state.admin2Config.countryName);
+    }
     if (state.scope === 'us' && String(entity.countryCode || '').toUpperCase() === 'US') {
       return featureForState(regionForCode(entity.regionCode)?.name);
     }
@@ -958,6 +1108,7 @@ function featureForEntity(entity) {
     return featureForCountry(countryForCode(entity.countryCode)?.name)
       || featureForCountryCode(entity.countryCode);
   }
+  if (entity.kind === 'admin2') return entity.feature;
   if (entity.kind === 'admin1') return entity.feature;
   if (state.scope === 'us') return featureForState(entity.name);
   return entity.feature || featureForCountry(entity.name);
@@ -1373,7 +1524,7 @@ function updateSelectionOverlay(entity = null) {
   }
 
   const qualityFlagged = Boolean(entity?.qualityFlag || entity?.qualityFlags?.length);
-  if (isAdmin1Scope()) {
+  if (isAdmin1Scope() || isAdmin2Scope()) {
     // The global selection canvas is intentionally not magnified in Admin-1.
     // The published fill underneath is already vectorial; selection uses its
     // exact vector boundary instead of reintroducing a blurry raster overlay.
@@ -1653,6 +1804,7 @@ function clusterVisibleInScope(cluster) {
   if (state.scope === 'world') return true;
   if (state.scope === 'us') return String(cluster.countryCode || '').toUpperCase() === 'US';
   if (isAdmin1Scope()) return String(cluster.countryCode || '').toUpperCase() === state.detailConfig.alpha2;
+  if (isAdmin2Scope()) return state.admin2AssignmentByCluster.has(cluster);
   return false;
 }
 
@@ -1666,14 +1818,14 @@ function updateClusterVisibility() {
 
 function updateBeaconVisualScale(seconds) {
   const reducedMotion = prefersReducedMotion.matches;
-  const admin1View = isAdmin1Scope();
+  const detailedView = isAdmin1Scope() || isAdmin2Scope();
   const viewportHeight = Math.max(stage.clientHeight, 1);
   const halfFovTangent = Math.tan(THREE.MathUtils.degToRad(state.camera.fov) / 2);
   const worldPosition = new THREE.Vector3();
   const cameraPosition = new THREE.Vector3();
   const globeScale = new THREE.Vector3(1, 1, 1);
 
-  if (admin1View) {
+  if (detailedView) {
     state.camera.updateMatrixWorld(true);
     state.globeGroup.updateMatrixWorld(true);
     state.globeGroup.getWorldScale(globeScale);
@@ -1689,7 +1841,7 @@ function updateBeaconVisualScale(seconds) {
       ? (state.theme === 'light' ? 0.5 : 0.92)
       : (state.theme === 'light' ? 0.46 : 0.8) + haloWave * 0.12;
 
-    if (!admin1View || !entry.group.visible) {
+    if (!detailedView || !entry.group.visible) {
       const ringScale = reducedMotion
         ? 1
         : entry.ring.userData.baseScale * (0.84 + ringProgress * 0.86);
@@ -1769,7 +1921,10 @@ function updateProjectedLabels(time) {
   }
   let contextualCandidates = [];
   if (state.locked?.kind === 'cityCluster') {
-    if (isAdmin1Scope()) {
+    if (isAdmin2Scope()) {
+      const lockedRegion = state.admin2AssignmentByCluster.get(state.locked);
+      contextualCandidates = scopedCandidates.filter(entry => state.admin2AssignmentByCluster.get(entry.cluster) === lockedRegion);
+    } else if (isAdmin1Scope()) {
       const lockedRegion = state.admin1AssignmentByCluster.get(state.locked);
       contextualCandidates = scopedCandidates.filter(entry => state.admin1AssignmentByCluster.get(entry.cluster) === lockedRegion);
     } else {
@@ -1781,6 +1936,8 @@ function updateProjectedLabels(time) {
     contextualCandidates = scopedCandidates.filter(entry => entry.cluster.regionCode === state.locked.code);
   } else if (isAdmin1Scope() && state.locked?.kind === 'admin1') {
     contextualCandidates = scopedCandidates.filter(entry => state.admin1AssignmentByCluster.get(entry.cluster) === state.locked);
+  } else if (isAdmin2Scope() && state.locked?.kind === 'admin2') {
+    contextualCandidates = scopedCandidates.filter(entry => state.admin2AssignmentByCluster.get(entry.cluster) === state.locked);
   } else if (state.scope === 'world' && state.locked?.name) {
     contextualCandidates = scopedCandidates.filter(entry => entry.cluster.country === state.locked.name);
   }
@@ -1972,6 +2129,82 @@ function createAdmin1Layer() {
   state.globeGroup.add(state.detailGroup);
 }
 
+function clearAdmin2Layer({ reset = true } = {}) {
+  if (state.admin2Group) {
+    state.admin2Group.traverse(object => {
+      if (object.geometry) object.geometry.dispose();
+      if (Array.isArray(object.material)) object.material.forEach(material => material.dispose());
+      else if (object.material) object.material.dispose();
+    });
+    state.globeGroup?.remove(state.admin2Group);
+  }
+  state.admin2Group = null;
+  state.admin2BoundaryLine = null;
+  state.admin2ParentLine = null;
+  stage.dataset.admin2Features = '0';
+  stage.dataset.admin2BoundaryPositions = '0';
+  if (!reset) return;
+  state.admin2Boundaries = null;
+  state.admin2Parent = null;
+  state.admin2ParentScope = null;
+  state.admin2Config = null;
+  state.admin2Features = [];
+  state.admin2Regions = [];
+  state.admin2AssignmentByCluster = new Map();
+}
+
+function createAdmin2Layer() {
+  clearAdmin2Layer({ reset: false });
+  state.admin2Group = new THREE.Group();
+  state.admin2Group.userData.activityScope = 'admin2';
+  const positions = [];
+  for (const feature of state.admin2Features) {
+    positions.push(...boundaryPositions(feature, GLOBE_RADIUS + 0.038));
+  }
+  if (positions.length > 0) {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.computeBoundingSphere();
+    const material = new THREE.LineBasicMaterial({
+      color: state.theme === 'light' ? 0x38566c : 0xcce0ed,
+      transparent: true,
+      opacity: state.theme === 'light' ? 0.62 : 0.72,
+      depthWrite: false,
+      depthTest: true,
+      toneMapped: false
+    });
+    state.admin2BoundaryLine = new THREE.LineSegments(geometry, material);
+    state.admin2BoundaryLine.userData = { admin2Boundary: true, activityScope: 'admin2' };
+    state.admin2BoundaryLine.renderOrder = 5;
+    state.admin2Group.add(state.admin2BoundaryLine);
+  }
+  const parentFeature = state.admin2ParentScope === 'us'
+    ? featureForState(state.admin2Parent?.name)
+    : state.admin2Parent?.feature;
+  const parentPositions = boundaryPositions(parentFeature, GLOBE_RADIUS + 0.043);
+  if (parentPositions.length > 0) {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(parentPositions, 3));
+    geometry.computeBoundingSphere();
+    const material = new THREE.LineBasicMaterial({
+      color: 0xffb58a,
+      transparent: true,
+      opacity: 0.95,
+      depthWrite: false,
+      depthTest: true,
+      toneMapped: false
+    });
+    state.admin2ParentLine = new THREE.LineSegments(geometry, material);
+    state.admin2ParentLine.userData = { admin2ParentBoundary: true, activityScope: 'admin2' };
+    state.admin2ParentLine.renderOrder = 5;
+    state.admin2Group.add(state.admin2ParentLine);
+  }
+  state.admin2Group.visible = false;
+  state.globeGroup.add(state.admin2Group);
+  stage.dataset.admin2Features = String(state.admin2Features.length);
+  stage.dataset.admin2BoundaryPositions = String(positions.length / 3);
+}
+
 function createBackgroundField() {
   const random = randomFactory(29082026);
   const positions = [];
@@ -2083,6 +2316,9 @@ function defaultZoom(scope = state.scope, mobile = window.innerWidth < 760) {
   if (scope === 'admin1' && state.detailConfig) {
     return mobile ? state.detailConfig.mobileZoom : state.detailConfig.desktopZoom;
   }
+  if (scope === 'admin2' && state.admin2Config) {
+    return admin1ZoomForBbox(state.admin2Config.bbox, mobile);
+  }
   return mobile ? 11.6 : 9.25;
 }
 
@@ -2113,6 +2349,9 @@ function updateWorldMapClarity() {
 }
 
 function zoomLimits(scope = state.scope, mobile = window.innerWidth < 760) {
+  if (scope === 'admin2') {
+    return { minimum: GLOBE_RADIUS + 0.2, maximum: mobile ? 12.2 : 11.8 };
+  }
   if (scope === 'admin1') {
     return { minimum: GLOBE_RADIUS + 0.28, maximum: mobile ? 12.2 : 11.8 };
   }
@@ -2219,6 +2458,14 @@ function resetCurrentView() {
       state.targetRotation.x = THREE.MathUtils.clamp(THREE.MathUtils.degToRad(center[0] - 22), -1.15, 1.15);
       state.targetRotation.y = closestAngle(-THREE.MathUtils.degToRad(center[1]), state.globeGroup.rotation.y);
     }
+  } else if (isAdmin2Scope()) {
+    state.locked = { kind: 'admin2View', name: `${state.admin2Config.parentName} detailed boundary view` };
+    const center = state.admin2Parent?.center
+      || (state.admin2ParentScope === 'us' ? state.usCenters.get(state.admin2Parent?.name) : null);
+    if (center) {
+      state.targetRotation.x = THREE.MathUtils.clamp(THREE.MathUtils.degToRad(center[0] - 22), -1.15, 1.15);
+      state.targetRotation.y = closestAngle(-THREE.MathUtils.degToRad(center[1]), state.globeGroup.rotation.y);
+    }
   } else {
     state.locked = null;
     state.targetRotation.set(0.38, -0.1);
@@ -2303,6 +2550,10 @@ function updateTheme(theme) {
       object.material.color.set(state.theme === 'light' ? 0x516979 : 0xb5cad9);
       object.material.opacity = state.theme === 'light' ? 0.42 : 0.5;
     }
+    if (object.userData.admin2Boundary) {
+      object.material.color.set(state.theme === 'light' ? 0x38566c : 0xcce0ed);
+      object.material.opacity = state.theme === 'light' ? 0.62 : 0.72;
+    }
     if (object.type === 'Line' && object.parent?.userData.stateName) {
       object.material.color.set(state.theme === 'light' ? 0x627786 : 0x7891a6);
     }
@@ -2345,6 +2596,7 @@ function stateAt(lat, lon) {
 
 function geographyForCluster(cluster) {
   if (!cluster) return null;
+  if (isAdmin2Scope()) return state.admin2AssignmentByCluster.get(cluster) || null;
   if (state.scope === 'us') return regionForCode(cluster.regionCode);
   if (isAdmin1Scope()) {
     const assignedRegion = state.admin1AssignmentByCluster.get(cluster);
@@ -2376,11 +2628,13 @@ function entityAtPointer({ preferGeography = false } = {}) {
   if (intersection) {
     const local = state.globeGroup.worldToLocal(intersection.point.clone());
     const { lat, lon } = vectorToLatLon(local);
-    geographicEntity = state.scope === 'us'
-      ? stateAt(lat, lon)
-      : isAdmin1Scope()
-        ? admin1RegionAt(lat, lon)
-        : countryAt(lat, lon);
+    geographicEntity = isAdmin2Scope()
+      ? admin2RegionAt(lat, lon)
+      : state.scope === 'us'
+        ? stateAt(lat, lon)
+        : isAdmin1Scope()
+          ? admin1RegionAt(lat, lon)
+          : countryAt(lat, lon);
   }
   const clusterHits = state.raycaster.intersectObjects(
     state.clusterEntries.filter(entry => entry.group.visible).map(entry => entry.hit),
@@ -2421,9 +2675,25 @@ function showTooltip(entity, event) {
       ? `#${entity.rank} ${state.detailConfig.regionLabel} rank`
       : (entity.type || state.detailConfig.regionLabel);
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
+    const drillConfig = admin2ConfigForParent(entity, 'admin1');
+    const drillAction = drillConfig && Number(drillConfig.featureCount) > 1
+      ? ` · select for ${drillConfig.childrenLabel}`
+      : '';
     tooltip.querySelector('[data-tooltip-signals]').textContent = entity.published && Number.isFinite(entity.signals)
-      ? `${number(entity.signals)} published regional signals`
-      : admin1EntityStatusMessage(entity);
+      ? `${number(entity.signals)} published regional signals${drillAction}`
+      : `${admin1EntityStatusMessage(entity)}${drillAction}`;
+    const rect = stage.getBoundingClientRect();
+    const left = Math.min(event.clientX - rect.left, rect.width - 220);
+    const top = Math.min(event.clientY - rect.top, rect.height - 140);
+    tooltip.style.left = `${Math.max(4, left)}px`;
+    tooltip.style.top = `${Math.max(4, top)}px`;
+    return;
+  }
+  if (entity.kind === 'admin2') {
+    tooltip.hidden = false;
+    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.type || state.admin2Config.childLabel;
+    tooltip.querySelector('[data-tooltip-country]').textContent = entity.label || entity.name;
+    tooltip.querySelector('[data-tooltip-signals]').textContent = 'No subdivision-level activity total published · select to focus';
     const rect = stage.getBoundingClientRect();
     const left = Math.min(event.clientX - rect.left, rect.width - 220);
     const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -2438,7 +2708,10 @@ function showTooltip(entity, event) {
     : 'Administrative map';
   tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
   const detailConfig = !stateView ? detailConfigForCountry(entity) : null;
-  const action = !stateView && entity.adm0A3 === 'USA'
+  const stateDetailConfig = stateView ? admin2ConfigForParent(entity, 'us') : null;
+  const action = stateDetailConfig && Number(stateDetailConfig.featureCount) > 1
+    ? ` · select for ${stateDetailConfig.childrenLabel}`
+    : !stateView && entity.adm0A3 === 'USA'
     ? ' · select for state detail'
     : detailConfig
       ? ` · select for ${detailConfig.regionLabel} detail`
@@ -2494,6 +2767,17 @@ function showSpotlight(entity) {
       : `${number(entity.signals)} published regional signals · independently privacy-thresholded`;
     return;
   }
+  if (entity.kind === 'admin2') {
+    spotlight.hidden = false;
+    spotlight.querySelector('[data-spotlight-rank]').textContent = 'Boundary view · no activity total';
+    spotlight.querySelector('[data-spotlight-label]').textContent = entity.type || state.admin2Config.childLabel;
+    spotlight.querySelector('[data-spotlight-country]').textContent = entity.label || entity.name;
+    const beaconCount = entity.clusters.length;
+    spotlight.querySelector('[data-spotlight-signals]').textContent = beaconCount
+      ? `${number(beaconCount)} separate published city ${beaconCount === 1 ? 'cluster falls' : 'clusters fall'} inside this cartographic boundary · not a subdivision total`
+      : 'DataFast does not publish activity totals at this level. Neutral does not mean zero.';
+    return;
+  }
   const stateView = state.scope === 'us';
   const denominator = stateView ? state.usData.totals.countrySignals : state.data.totals.signals;
   const share = Number.isFinite(entity.signals) ? ((entity.signals / denominator) * 100).toFixed(1) : null;
@@ -2524,6 +2808,9 @@ function focusCountrySurface(country) {
 async function enterCountryDetail(country) {
   const config = detailConfigForCountry(country);
   if (!country || !config) return false;
+  state.admin2LoadToken += 1;
+  setAdmin2Busy(false);
+  if (isAdmin2Scope()) clearAdmin2Layer();
   const requestToken = ++state.admin1LoadToken;
   if (!state.tourAdvancing) stopTour();
   focusCountrySurface(country);
@@ -2609,6 +2896,101 @@ function focusAdmin1Region(region) {
   scrollAtlasIntoView();
 }
 
+async function enterAdmin2Detail(parent, parentScope = state.scope) {
+  const config = admin2ConfigForParent(parent, parentScope);
+  if (!parent || !config) {
+    showToast('No finer licensed boundary layer is available for this region yet.');
+    return false;
+  }
+  if (Number(config.featureCount) <= 1) {
+    if (parentScope === 'us') focusRegion(parent);
+    else focusAdmin1Region(parent);
+    showToast(`${config.parentName} has no finer ${config.childrenLabel} in the current licensed source.`);
+    return false;
+  }
+  const requestToken = ++state.admin2LoadToken;
+  if (!state.tourAdvancing) stopTour();
+  if (parentScope === 'us') focusRegion(parent);
+  else focusAdmin1Region(parent);
+  setAdmin2Busy(true, config);
+  showToast(`Loading ${config.parentName} ${config.childrenLabel}…`);
+  try {
+    const shard = await loadAdmin2Shard(config);
+    if (requestToken !== state.admin2LoadToken) return false;
+    clearAdmin2Layer();
+    state.admin2Parent = parent;
+    state.admin2ParentScope = parentScope;
+    state.admin2Config = config;
+    if (!buildAdmin2Regions(shard, parent, config)) throw new Error('No detailed polygons are available.');
+    createAdmin2Layer();
+    state.scope = 'admin2';
+    state.locked = { kind: 'admin2View', name: `${config.parentName} detailed boundary view` };
+    state.rotationVelocity.set(0, 0);
+    state.lastInteractionAt = performance.now();
+    setStateLineSelection(null);
+    updateSelectionOverlay(null);
+    hideTooltip();
+    spotlight.hidden = true;
+    updateScopeInterface();
+    const center = parent.center || (parentScope === 'us' ? state.usCenters.get(parent.name) : null);
+    if (center) beginFocusTransition(center, defaultZoom('admin2'));
+    showToast(`${config.parentName} · ${number(state.admin2Regions.length)} ${config.childrenLabel} loaded`);
+    scrollAtlasIntoView();
+    return true;
+  } catch (error) {
+    if (requestToken !== state.admin2LoadToken) return false;
+    console.error(error);
+    clearAdmin2Layer();
+    showToast(`${config.parentName} detailed boundaries are temporarily unavailable.`);
+    return false;
+  } finally {
+    if (requestToken === state.admin2LoadToken) setAdmin2Busy(false);
+  }
+}
+
+function focusAdmin2Region(region) {
+  if (!region || !isAdmin2Scope()) return;
+  if (!state.tourAdvancing) stopTour();
+  state.locked = region;
+  const bbox = region.bounds
+    ? [region.bounds.minLon, region.bounds.minLat, region.bounds.maxLon, region.bounds.maxLat]
+    : state.admin2Config.bbox;
+  if (region.center) beginFocusTransition(region.center, admin1ZoomForBbox(bbox, isMobileViewport()));
+  state.lastInteractionAt = performance.now();
+  updateSelectionOverlay(region);
+  showSpotlight(region);
+  scrollAtlasIntoView();
+}
+
+function activateUsRegion(region) {
+  const config = admin2ConfigForParent(region, 'us');
+  if (config) void enterAdmin2Detail(region, 'us');
+  else focusRegion(region);
+}
+
+function activateAdmin1Region(region) {
+  const config = admin2ConfigForParent(region, 'admin1');
+  if (config) void enterAdmin2Detail(region, 'admin1');
+  else focusAdmin1Region(region);
+}
+
+function exitAdmin2() {
+  if (!isAdmin2Scope()) return;
+  const parent = state.admin2Parent;
+  const parentScope = state.admin2ParentScope;
+  state.admin2LoadToken += 1;
+  setAdmin2Busy(false);
+  state.scope = parentScope;
+  clearAdmin2Layer();
+  state.locked = null;
+  updateSelectionOverlay(null);
+  hideTooltip();
+  spotlight.hidden = true;
+  updateScopeInterface();
+  if (parentScope === 'us') focusRegion(parent);
+  else focusAdmin1Region(parent);
+}
+
 function setStateLineSelection(region) {
   if (state.selectedStateLine) {
     state.selectedStateLine.traverse(object => {
@@ -2643,38 +3025,51 @@ function metric(value) {
 function updateScopeInterface() {
   const stateView = state.scope === 'us';
   const admin1View = isAdmin1Scope();
-  const regionalView = stateView || admin1View;
+  const admin2View = isAdmin2Scope();
+  const regionalView = stateView || admin1View || admin2View;
   stage.classList.toggle('atlas-scope-us', regionalView);
-  stage.classList.toggle('atlas-scope-admin1', admin1View);
+  stage.classList.toggle('atlas-scope-admin1', admin1View || admin2View);
+  stage.classList.toggle('atlas-scope-admin2', admin2View);
   if (regionPanel) regionPanel.hidden = !regionalView;
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
-  if (state.usGroup) state.usGroup.visible = stateView;
-  if (state.detailGroup) state.detailGroup.visible = admin1View;
+  if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
+  if (state.detailGroup) state.detailGroup.visible = admin1View || (admin2View && state.admin2ParentScope === 'admin1');
+  if (state.admin2Group) state.admin2Group.visible = admin2View;
+  if (tourButton) tourButton.hidden = admin2View;
   updateClusterVisibility();
   if (stateView) setAtlasTitle('See local AI interest', 'state by state.');
   else if (admin1View) setAtlasTitle('See local AI interest', state.detailConfig.titleEmphasis);
+  else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
   else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
     summary.textContent = stateView
       ? 'United States · Approximate network regions · 31 Jul–29 Aug 2026'
       : admin1View
         ? `${state.detailCountry.name} · Approximate network regions · 31 Jul–29 Aug 2026`
+        : admin2View
+          ? `${state.admin2Config.countryName} · ${state.admin2Config.parentName} · Cartographic boundaries · No subdivision-level activity totals`
         : 'Anonymous interest signals · Last 30 days · Updated 29 August 2026';
   }
   if (liveLabel) liveLabel.textContent = stateView
     ? 'State-level exploration'
     : admin1View
       ? state.detailConfig.liveLabel
+      : admin2View
+        ? state.admin2Config.liveLabel
       : 'Live exploration';
   const scopeSignals = stateView
     ? state.usData.totals.publishedSignals
     : admin1View
       ? state.detailTotals.signals
+      : admin2View
+        ? state.admin2Config.parentSignals
       : (state.data.totals.publishedSignals ?? state.data.totals.signals);
   const scopeRegions = stateView
     ? state.usData.totals.publishedRegions
     : admin1View
       ? state.detailTotals.regions
+      : admin2View
+        ? state.admin2Regions.length
       : (state.data.totals.publishedRegions ?? state.data.totals.regions);
   document.querySelector('[data-scope-signals]').textContent = metric(scopeSignals);
   document.querySelector('[data-scope-regions]').textContent = admin1View && !Number.isFinite(scopeRegions)
@@ -2692,6 +3087,10 @@ function updateScopeInterface() {
             : state.detailDataStatus === 'boundary_unresolved'
               ? 'boundary mapping unresolved'
               : 'no total above threshold'
+      : admin2View
+        ? Number.isFinite(scopeSignals)
+          ? state.admin2Config.parentSignalLabel
+          : 'parent aggregate not published'
       : 'published signals';
   document.querySelector('[data-scope-region-label]').textContent = stateView
     ? 'states published'
@@ -2699,9 +3098,13 @@ function updateScopeInterface() {
       ? Number.isFinite(state.detailTotals.regions)
         ? `${state.detailConfig.regionsLabel} published`
         : `${state.detailConfig.regionsLabel} shown`
+      : admin2View
+        ? `${state.admin2Config.childrenLabel} shown`
       : 'countries published';
-  document.querySelector('[data-scope-window]').textContent = regionalView
-    ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
+  document.querySelector('[data-scope-window]').textContent = admin2View
+    ? 'boundary view · no subdivision totals'
+    : regionalView
+      ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
     : '30-day window';
   document.querySelector('[data-scope-disclosure]').textContent = stateView
     ? 'State color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.'
@@ -2709,27 +3112,50 @@ function updateScopeInterface() {
       ? state.detailDataStatus === 'published'
         ? 'Region color shows an independently published subnational aggregate. Neutral boundaries have no published regional total. Beacons are a separate city-cluster breakdown.'
         : `${admin1StatusMessage()} Beacons are a separate published city-cluster breakdown.`
+      : admin2View
+        ? `${state.admin2Config.childrenLabel} are neutral cartographic references. DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate published city clusters, not subdivision totals.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', stateView
-    ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Select the map to open the state under the pointer; select a visible city label to inspect its cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or return to the world view.'
+    ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Select a state to open its counties and equivalents; select a visible city label to inspect its separate cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or return to the world view.'
     : admin1View
-      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. Select the map to open the region under the pointer; select a visible city label to inspect its cluster. Neutral boundaries are orientation references only. Use World to return.`
+      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. In China, select a province-level region to open its prefecture-level divisions. Select a visible city label to inspect its separate cluster. Neutral boundaries are orientation references only. Use World to return.`
+      : admin2View
+        ? `Interactive globe showing neutral ${state.admin2Config.childrenLabel} inside ${state.admin2Config.parentName}. Select a boundary to focus it; select a visible city label to inspect its separate published cluster. No activity total is published for these subdivisions. Use Back to return to the parent view.`
       : 'Interactive globe showing anonymous local AI interest signals by country. Select the map to open the country under the pointer; select a visible city label to inspect its cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
 
   if (regionPanel && regionalView) {
     const panelTitle = regionPanel.querySelector('.atlas-region-panel__head span');
+    const backButton = regionPanel.querySelector('[data-atlas-world-reset]');
     const metricItems = regionPanel.querySelectorAll('.atlas-region-panel__metrics span');
     const note = regionPanel.querySelector('.atlas-region-panel__note');
     regionPanel.setAttribute('aria-label', stateView
       ? 'United States state activity'
+      : admin2View
+        ? `${state.admin2Config.parentName} ${state.admin2Config.childrenLabel} boundary explorer`
       : `${state.detailCountry.name} ${state.detailConfig.regionsLabel} activity`);
+    if (backButton) {
+      backButton.textContent = admin2View
+        ? `← ${state.admin2ParentScope === 'us' ? 'United States' : state.admin2Config.countryName}`
+        : '← World';
+      backButton.setAttribute('aria-label', admin2View
+        ? `Return to ${state.admin2ParentScope === 'us' ? 'United States state view' : `${state.admin2Config.countryName} province-level view`}`
+        : 'Return to world view');
+    }
     if (panelTitle) panelTitle.textContent = stateView
       ? 'United States · State view'
+      : admin2View
+        ? `${state.admin2Config.parentName} · ${state.admin2Config.viewLabel}`
       : `${state.detailCountry.name} · ${state.detailConfig.viewLabel}`;
     if (metricItems[0]) {
-      metricItems[0].querySelector('strong').textContent = metric(stateView ? state.usData.totals.publishedSignals : state.detailTotals.signals);
+      metricItems[0].querySelector('strong').textContent = metric(stateView
+        ? state.usData.totals.publishedSignals
+        : admin2View
+          ? state.admin2Config.parentSignals
+          : state.detailTotals.signals);
       metricItems[0].lastChild.textContent = stateView
         ? ' visible signals'
+        : admin2View
+          ? ` ${Number.isFinite(state.admin2Config.parentSignals) ? state.admin2Config.parentSignalLabel : 'parent aggregate not published'}`
         : state.detailDataStatus === 'published'
           ? ' published regional signals'
           : ` ${state.detailDataStatus.replaceAll('_', ' ')}`;
@@ -2737,12 +3163,16 @@ function updateScopeInterface() {
     if (metricItems[1]) {
       const panelRegionMetric = stateView
         ? state.usData.totals.publishedRegions
+        : admin2View
+          ? state.admin2Regions.length
         : Number.isFinite(state.detailTotals.regions)
           ? state.detailTotals.regions
           : state.detailRegions.length;
       metricItems[1].querySelector('strong').textContent = metric(panelRegionMetric);
       metricItems[1].lastChild.textContent = stateView
         ? ' states published'
+        : admin2View
+          ? ` ${state.admin2Config.childrenLabel} shown`
         : Number.isFinite(state.detailTotals.regions)
           ? ` ${state.detailConfig.regionsLabel} published`
           : ` ${state.detailConfig.regionsLabel} shown`;
@@ -2752,6 +3182,10 @@ function updateScopeInterface() {
       if (stateView) {
         strong.textContent = 'Quality flag: ';
         note.replaceChildren(strong, document.createTextNode('Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.'));
+      } else if (admin2View) {
+        const sourceName = state.admin2Config.source?.name || state.admin2Config.sourceName || 'the cited boundary source';
+        strong.textContent = 'Boundary view · no subdivision totals: ';
+        note.replaceChildren(strong, document.createTextNode(`DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate 5+ city aggregates at approximate network-city centroids, not ${state.admin2Config.childLabel} totals or residence. Boundaries: ${sourceName}.`));
       } else {
         strong.textContent = state.detailDataStatus === 'published' ? 'Method: ' : 'Data status: ';
         const method = state.detailDataStatus === 'published'
@@ -2769,9 +3203,12 @@ function renderStatePanel() {
   if (!regionList) return;
   regionList.replaceChildren();
   const admin1View = isAdmin1Scope();
+  const admin2View = isAdmin2Scope();
   const publishedFeatures = new Set(state.detailRankedRegions
     .flatMap(region => region.features || []));
-  const rows = admin1View
+  const rows = admin2View
+    ? state.admin2Regions.map(region => ({ region, published: false }))
+    : admin1View
     ? [
         ...state.detailRankedRegions.map(region => ({ region, published: true })),
         ...state.detailRegions
@@ -2786,24 +3223,42 @@ function renderStatePanel() {
     const button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('data-region-name', region.name);
+    if (region.code) button.setAttribute('data-region-code', region.code);
     button.dataset.published = String(published);
     if (published && region.boundaryMatch) button.dataset.boundaryMatch = region.boundaryMatch;
     const label = document.createElement('span');
     const rank = document.createElement('b');
     rank.textContent = published && Number.isInteger(region.rank) ? String(region.rank).padStart(2, '0') : '—';
-    label.append(rank, document.createTextNode(region.name));
+    label.append(rank, document.createTextNode(admin2View ? (region.label || region.name) : region.name));
     if (region.qualityFlag) {
       const flag = document.createElement('em');
       flag.textContent = 'flag';
       label.append(flag);
     }
+    const drillConfig = !admin2View
+      ? admin2ConfigForParent(region, admin1View ? 'admin1' : 'us')
+      : null;
+    if (drillConfig && Number(drillConfig.featureCount) > 1) {
+      const detail = document.createElement('em');
+      detail.textContent = 'detail';
+      label.append(detail);
+    }
     const value = document.createElement('strong');
     value.textContent = published && Number.isFinite(region.signals) ? number(region.signals) : '—';
     button.append(label, value);
-    button.setAttribute('aria-label', published && Number.isFinite(region.signals)
-      ? `${region.name}: ${number(region.signals)} published regional signals`
-      : `${region.name}: no regional total published`);
-    button.addEventListener('click', () => admin1View ? focusAdmin1Region(region) : focusRegion(region));
+    const accessibleName = admin2View
+      ? `${region.label || region.name}, ${state.admin2Config.parentName}`
+      : region.name;
+    button.setAttribute('aria-label', admin2View
+      ? `${accessibleName}: no subdivision-level activity total published; select to focus the boundary`
+      : published && Number.isFinite(region.signals)
+        ? `${accessibleName}: ${number(region.signals)} published regional signals${drillConfig && Number(drillConfig.featureCount) > 1 ? `; select for ${drillConfig.childrenLabel}` : ''}`
+        : `${accessibleName}: no regional total published${drillConfig && Number(drillConfig.featureCount) > 1 ? `; select for ${drillConfig.childrenLabel}` : ''}`);
+    button.addEventListener('click', () => {
+      if (admin2View) focusAdmin2Region(region);
+      else if (admin1View) activateAdmin1Region(region);
+      else activateUsRegion(region);
+    });
     item.append(button);
     regionList.append(item);
   }
@@ -2811,6 +3266,9 @@ function renderStatePanel() {
 
 function enterUnitedStates(region = null) {
   if (!state.tourAdvancing) stopTour();
+  state.admin2LoadToken += 1;
+  setAdmin2Busy(false);
+  if (isAdmin2Scope()) clearAdmin2Layer();
   state.admin1LoadToken += 1;
   setAdmin1Busy(false);
   clearAdmin1Layer({ resetAggregation: true });
@@ -2825,16 +3283,21 @@ function enterUnitedStates(region = null) {
   setStateLineSelection(null);
   updateSelectionOverlay(null);
   updateScopeInterface();
-  if (region) focusRegion(region);
+  if (region) activateUsRegion(region);
   scrollAtlasIntoView();
 }
 
 function exitToWorld() {
   if (!state.tourAdvancing) stopTour();
+  state.admin2LoadToken += 1;
+  setAdmin2Busy(false);
+  const leavingAdmin2 = isAdmin2Scope();
+  const leavingAdmin2FromAdmin1 = leavingAdmin2 && state.admin2ParentScope === 'admin1';
   state.admin1LoadToken += 1;
   setAdmin1Busy(false);
-  const leavingAdmin1 = isAdmin1Scope();
+  const leavingAdmin1 = isAdmin1Scope() || leavingAdmin2FromAdmin1;
   state.scope = 'world';
+  if (leavingAdmin2) clearAdmin2Layer();
   if (leavingAdmin1) clearAdmin1Layer({ resetAggregation: true });
   state.locked = null;
   state.rotationVelocity.set(0, 0);
@@ -2878,6 +3341,11 @@ function stopTour() {
 }
 
 function advanceTour() {
+  if (isAdmin2Scope()) {
+    stopTour();
+    showToast('This boundary view has no subdivision ranking to tour.');
+    return false;
+  }
   const entities = (state.scope === 'us'
     ? state.usRegions
     : isAdmin1Scope()
@@ -3011,8 +3479,9 @@ function bindInteractions() {
       const entity = entityAtPointer({ preferGeography: true });
       if (entity) {
         if (entity.kind === 'cityCluster') focusCluster(entity);
-        else if (state.scope === 'us') focusRegion(entity);
-        else if (isAdmin1Scope() && entity.kind === 'admin1') focusAdmin1Region(entity);
+        else if (isAdmin2Scope() && entity.kind === 'admin2') focusAdmin2Region(entity);
+        else if (state.scope === 'us') activateUsRegion(entity);
+        else if (isAdmin1Scope() && entity.kind === 'admin1') activateAdmin1Region(entity);
         else focusCountry(entity);
       }
     }
@@ -3093,7 +3562,7 @@ function bindInteractions() {
   });
 
   document.querySelectorAll('[data-atlas-world-reset]').forEach(button => {
-    button.addEventListener('click', exitUnitedStates);
+    button.addEventListener('click', () => isAdmin2Scope() ? exitAdmin2() : exitUnitedStates());
   });
 
   document.querySelectorAll('[data-atlas-us-open]').forEach(button => {
@@ -3224,14 +3693,15 @@ function renderDataSummary() {
 
 async function initialize() {
   try {
-    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse] = await Promise.all([
+    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse, admin2ManifestResponse] = await Promise.all([
       fetch(DATA_URL),
       fetch(WORLD_URL),
       fetch(US_STATES_URL),
       fetch(ADMIN1_MANIFEST_URL),
-      fetch(ADMIN1_ACTIVITY_URL)
+      fetch(ADMIN1_ACTIVITY_URL),
+      fetch(ADMIN2_MANIFEST_URL)
     ]);
-    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
+    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok || !admin2ManifestResponse.ok) {
       throw new Error('Atlas data could not be loaded.');
     }
     state.data = await dataResponse.json();
@@ -3239,6 +3709,7 @@ async function initialize() {
     state.usBoundaries = await statesResponse.json();
     state.admin1Manifest = await manifestResponse.json();
     state.admin1Activity = await activityResponse.json();
+    state.admin2Manifest = await admin2ManifestResponse.json();
     state.admin1ActivityByA3 = new Map(Object.values(state.admin1Activity?.countries || {})
       .map(record => [String(record.adm0A3 || '').toUpperCase(), record])
       .filter(([code]) => Boolean(code)));
@@ -3275,6 +3746,8 @@ async function initialize() {
     stage.dataset.cityClusters = String(state.cityClusters.length);
     stage.dataset.cityClustersRendered = String(state.clusterEntries.length);
     stage.dataset.admin1Countries = String(Object.keys(state.admin1Manifest?.countries || {}).length);
+    stage.dataset.admin2Parents = String(state.admin2Manifest?.totals?.parents || 0);
+    stage.dataset.admin2Subdivisions = String(state.admin2Manifest?.totals?.subdivisions || 0);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
     renderStatePanel();
     bindInteractions();

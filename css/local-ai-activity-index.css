@@ -400,6 +400,10 @@ body.atlas-page::before {
     font-size: clamp(2.35rem, 3vw, 3.75rem);
     line-height: 0.96;
   }
+
+  .atlas-scope-admin2 .atlas-copy h1 {
+    max-width: 680px;
+  }
 }
 
 .atlas-copy__summary {
@@ -836,6 +840,29 @@ body.atlas-page::before {
 
 .atlas-region-panel__note strong {
   color: #ffbd45;
+}
+
+.atlas-scope-admin2 .atlas-region-panel {
+  border-color: rgba(255, 126, 82, 0.32);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.58), 0 0 42px rgba(255, 69, 58, 0.08);
+}
+
+.atlas-scope-admin2 .atlas-region-panel__list button[data-published="false"] {
+  color: rgba(224, 236, 244, 0.72);
+}
+
+.atlas-scope-admin2 .atlas-region-panel__list button[data-published="false"] b,
+.atlas-scope-admin2 .atlas-region-panel__list button[data-published="false"] strong {
+  color: rgba(181, 202, 217, 0.6);
+}
+
+.atlas-scope-admin2 .atlas-region-panel__note {
+  border-top-color: rgba(255, 69, 58, 0.24);
+  background: linear-gradient(90deg, rgba(255, 69, 58, 0.09), rgba(255, 176, 32, 0.04));
+}
+
+.atlas-navigation__tour[hidden] {
+  display: none !important;
 }
 
 .atlas-scope-us .atlas-spotlight {
