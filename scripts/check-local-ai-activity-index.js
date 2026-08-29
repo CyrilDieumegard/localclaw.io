@@ -10,6 +10,7 @@ const STYLE_PATH = 'css/local-ai-activity-index.css';
 const VENDOR_PATH = 'js/vendor/three.module.min.js';
 const VENDOR_LICENSE_PATH = 'js/vendor/THREE-LICENSE.txt';
 const GEOJSON_PATH = 'data/ne_50m_admin_0_countries.geojson';
+const ADMIN1_GEOJSON_PATH = 'data/ne_10m_admin_1_china_russia.geojson';
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
 const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
@@ -29,6 +30,10 @@ const EXPECTED_US_STATE_FINGERPRINT = '06b9bd93878f215819abbd6d44eb5759e5034d46e
 const EXPECTED_CITY_CLUSTER_FINGERPRINT = '9cd8e98cea83b9d96312aeb9acad538e3ff6c654e8ba098ac8b7c7ddf449044d';
 const EXPECTED_US_PUBLISHED_SIGNALS = 1259;
 const EXPECTED_US_PUBLISHED_REGIONS = 30;
+const EXPECTED_ADMIN1_FEATURES = 116;
+const EXPECTED_ADMIN1_COORDINATE_POSITIONS = 187095;
+const EXPECTED_ADMIN1_ARCHIVE_SHA256 = 'efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05';
+const EXPECTED_ADMIN1_GEOMETRY_FINGERPRINT = '91f9f4d792380755d3c628a40f0f95e8c200e852d7f829a058a331e10cac9ffa';
 const errors = [];
 
 const expectedTop20 = [
@@ -65,6 +70,13 @@ const expectedTopStates = [
   ['Illinois', 29],
   ['New Jersey', 27],
   ['District of Columbia', 22]
+];
+
+const expectedChinaRegions = [
+  [1, 'Beijing', 'Beijing Shi', 'CN-BJ', 62],
+  [2, 'Guangdong', 'Guangdong Sheng', 'CN-GD', 22],
+  [3, 'Shanghai', 'Shanghai Shi', 'CN-SH', 7],
+  [4, 'Jiangsu', 'Jiangsu Sheng', 'CN-JS', 6]
 ];
 
 function issue(message) {
@@ -122,6 +134,73 @@ function countCoordinatePositions(value) {
   return value.reduce((sum, child) => sum + countCoordinatePositions(child), 0);
 }
 
+function inspectCoordinatePositions(value, stats = {
+  positions: 0,
+  invalid: 0,
+  minLon: Infinity,
+  minLat: Infinity,
+  maxLon: -Infinity,
+  maxLat: -Infinity
+}) {
+  if (!Array.isArray(value)) return stats;
+  if (value.length >= 2 && typeof value[0] === 'number' && typeof value[1] === 'number') {
+    stats.positions += 1;
+    const [lon, lat] = value;
+    if (!Number.isFinite(lon) || !Number.isFinite(lat) || lon < -180 || lon > 180 || lat < -90 || lat > 90) {
+      stats.invalid += 1;
+      return stats;
+    }
+    stats.minLon = Math.min(stats.minLon, lon);
+    stats.minLat = Math.min(stats.minLat, lat);
+    stats.maxLon = Math.max(stats.maxLon, lon);
+    stats.maxLat = Math.max(stats.maxLat, lat);
+    return stats;
+  }
+  for (const child of value) inspectCoordinatePositions(child, stats);
+  return stats;
+}
+
+function isPlaceholder(value) {
+  return /^(?:|unknown|unnamed|n\/?a|null|none|-99|placeholder|tbd)$/i.test(String(value ?? '').trim());
+}
+
+function validateSubnationalSnapshot(countryName, record, expectedTotals, expectedRegions) {
+  if (!record) {
+    issue(`Dataset is missing the ${countryName} subnational breakdown`);
+    return;
+  }
+  if (!String(record.source || '').includes('DataFast')) {
+    issue(`${countryName} subnational source must identify DataFast`);
+  }
+  if (record.boundarySource !== 'Natural Earth Admin-1 states and provinces, 1:10m') {
+    issue(`${countryName} subnational boundaries must identify Natural Earth Admin-1 at 1:10m`);
+  }
+  if (record.publishThreshold !== 5) issue(`${countryName} subnational publish threshold must be five signals`);
+  for (const [field, expected] of Object.entries(expectedTotals)) {
+    if (record.totals?.[field] !== expected) issue(`${countryName} subnational total ${field} must be ${expected}`);
+  }
+  if (record.totals?.publishedSignals + record.totals?.withheldSignals !== record.totals?.geolocatedSignals) {
+    issue(`${countryName} published and withheld regional signals must reconcile to geolocated signals`);
+  }
+  if (record.totals?.geolocatedSignals + record.totals?.unassignedSignals !== record.totals?.countrySignals) {
+    issue(`${countryName} geolocated and unassigned signals must reconcile to the country total`);
+  }
+  const regions = Array.isArray(record.regions) ? record.regions : [];
+  if (regions.length !== expectedTotals.publishedRegions) {
+    issue(`${countryName} must expose exactly ${expectedTotals.publishedRegions} published regions`);
+  }
+  if (regions.reduce((sum, region) => sum + Number(region.signals || 0), 0) !== expectedTotals.publishedSignals) {
+    issue(`${countryName} published region rows must reconcile to publishedSignals`);
+  }
+  const actualRegions = regions.map(region => [region.rank, region.name, region.sourceName, region.code, region.signals]);
+  if (JSON.stringify(actualRegions) !== JSON.stringify(expectedRegions)) {
+    issue(`${countryName} published regions do not match the approved snapshot`);
+  }
+  if (regions.some(region => !Number.isInteger(region.signals) || region.signals < record.publishThreshold)) {
+    issue(`${countryName} exposes a region below its public privacy threshold`);
+  }
+}
+
 function topLevelFunctionBody(source, name) {
   const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return source.match(new RegExp(`function\\s+${escapedName}\\([^)]*\\)\\s*{([\\s\\S]*?)\\n}`, 'm'))?.[1] || '';
@@ -153,6 +232,7 @@ const css = readFile(STYLE_PATH, 'activity-index stylesheet');
 const vendor = readFile(VENDOR_PATH, 'vendored Three.js module');
 const vendorLicense = readFile(VENDOR_LICENSE_PATH, 'Three.js vendor license');
 const geojsonText = readFile(GEOJSON_PATH, 'country GeoJSON');
+const admin1GeojsonText = readFile(ADMIN1_GEOJSON_PATH, 'China/Russia Admin-1 GeoJSON');
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
 const sitemapCore = readFile('sitemap-core.xml', 'core sitemap');
 const sitemapIndex = readFile('sitemap.xml', 'sitemap index');
@@ -160,6 +240,7 @@ const sitemapGenerator = readFile('scripts/generate-sitemap.js', 'sitemap genera
 
 const data = parseJson(dataText, 'activity-index dataset');
 const geojson = parseJson(geojsonText, 'country GeoJSON');
+const admin1Geojson = parseJson(admin1GeojsonText, 'China/Russia Admin-1 GeoJSON');
 const usGeojson = parseJson(usGeojsonText, 'U.S. state GeoJSON');
 
 if (html !== null) {
@@ -420,6 +501,32 @@ if (data) {
     }
   }
 
+  const chinaData = data.subnational?.China;
+  validateSubnationalSnapshot('China', chinaData, {
+    countrySignals: 209,
+    geolocatedSignals: 105,
+    observedRegions: 10,
+    publishedSignals: 97,
+    publishedRegions: 4,
+    withheldSignals: 8,
+    unassignedSignals: 104
+  }, expectedChinaRegions);
+  if (chinaData?.division !== 'province-level administrative region') {
+    issue('China subnational division must remain province-level administrative region');
+  }
+
+  const russiaData = data.subnational?.Russia;
+  validateSubnationalSnapshot('Russia', russiaData, {
+    countrySignals: 27,
+    geolocatedSignals: 25,
+    observedRegions: 15,
+    publishedSignals: 0,
+    publishedRegions: 0,
+    withheldSignals: 25,
+    unassignedSignals: 2
+  }, []);
+  if (russiaData?.division !== 'federal subject') issue('Russia subnational division must remain federal subject');
+
   const cityMethodology = data.cityClusterMethodology;
   if (!cityMethodology || typeof cityMethodology !== 'object') {
     issue('Dataset is missing cityClusterMethodology');
@@ -575,6 +682,9 @@ if (app !== null) {
   if (app.includes('ne_110m_admin_0_countries')) {
     issue('Activity-index JavaScript must not reference the retired Natural Earth 110m country GeoJSON');
   }
+  if (!app.includes("const ADMIN1_URL = '/data/ne_10m_admin_1_china_russia.geojson?")) {
+    issue('Activity-index JavaScript must load the versioned China/Russia Natural Earth Admin-1 10m GeoJSON');
+  }
   if (!app.includes("const US_STATES_URL = '/data/us-states-2024-20m.geojson?")) {
     issue('Activity-index JavaScript does not load the versioned U.S. state GeoJSON');
   }
@@ -598,6 +708,21 @@ if (app !== null) {
   }
   if (!app.includes('const maximumVisible = window.innerWidth < 760 ? 56 : state.cityClusters.length')) {
     issue('Desktop Atlas must render every validated published city cluster');
+  }
+  const admin1CountryMatchesBody = topLevelFunctionBody(app, 'admin1CountryMatches');
+  if (!admin1CountryMatchesBody.includes("config.adm0A3 === 'RUS'")
+    || !admin1CountryMatchesBody.includes("iso31662.startsWith('RU-')")) {
+    issue('Russia detail view must display only RU-* ISO subdivisions, excluding source-preserved UA-40 and UA-43');
+  }
+  for (const [adm1Code, canonicalCode] of [
+    ['RUS-2399', 'RU-ALT'],
+    ['RUS-2400', 'RU-AL'],
+    ['RUS-2364', 'RU-MOS'],
+    ['RUS-2365', 'RU-MOW']
+  ]) {
+    if (!app.includes(`['${adm1Code}', ['${canonicalCode}']]`)) {
+      issue(`Russia Admin-1 crosswalk must map ${adm1Code} to ${canonicalCode}`);
+    }
   }
   const desktopTextureWidth = Number(app.match(/const\s+DESKTOP_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
   const mobileTextureWidth = Number(app.match(/const\s+MOBILE_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
@@ -672,6 +797,119 @@ if (geojson) {
     issue('Country GeoJSON is missing official Natural Earth feature identifiers or admin fields');
   }
 }
+if (admin1Geojson) {
+  const source = admin1Geojson.source || {};
+  if (admin1Geojson.type !== 'FeatureCollection' || admin1Geojson.name !== 'ne_10m_admin_1_china_russia') {
+    issue('China/Russia Admin-1 data must be the named Natural Earth 10m FeatureCollection');
+  }
+  if (source.provider !== 'Natural Earth'
+    || source.dataset !== 'Admin 1 – States, Provinces'
+    || source.sourceLayer !== 'ne_10m_admin_1_states_provinces'
+    || source.scale !== '1:10m'
+    || source.version !== '5.1.1') {
+    issue('China/Russia Admin-1 provenance must identify Natural Earth Admin 1 version 5.1.1 at 1:10m');
+  }
+  if (source.sourcePage !== 'https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/'
+    || source.downloadUrl !== 'https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_1_states_provinces.zip'
+    || source.archiveSha256 !== EXPECTED_ADMIN1_ARCHIVE_SHA256) {
+    issue('China/Russia Admin-1 source URL or official archive checksum is incorrect');
+  }
+  if (String(source.license || '').toLowerCase() !== 'public domain' || source.attribution !== 'Made with Natural Earth') {
+    issue('China/Russia Admin-1 data must retain the Natural Earth public-domain license and attribution');
+  }
+  if (!String(source.filter || '').includes('no geometry simplification')) {
+    issue('China/Russia Admin-1 metadata must disclose that the 10m geometry is unsimplified');
+  }
+  if (!String(source.presentationRule || '').includes('iso_3166_2 starts with RU-')
+    || !String(source.presentationRule || '').includes('UA-40 and UA-43')) {
+    issue('Russia Admin-1 metadata must disclose the neutral RU-* presentation rule');
+  }
+
+  const admin1Features = Array.isArray(admin1Geojson.features) ? admin1Geojson.features : [];
+  if (admin1Features.length !== EXPECTED_ADMIN1_FEATURES) {
+    issue(`Expected ${EXPECTED_ADMIN1_FEATURES} source-preserved China/Russia Admin-1 features, found ${admin1Features.length}`);
+  }
+  const featuresByCountry = admin1Features.reduce((counts, feature) => {
+    const countryCode = feature.properties?.adm0_a3;
+    counts[countryCode] = (counts[countryCode] || 0) + 1;
+    return counts;
+  }, {});
+  const russiaIsoEligible = admin1Features.filter(feature =>
+    feature.properties?.adm0_a3 === 'RUS'
+    && String(feature.properties?.iso_3166_2 || '').startsWith('RU-')).length;
+  if (featuresByCountry.CHN !== 31 || featuresByCountry.RUS !== 85 || russiaIsoEligible !== 83) {
+    issue(`Admin-1 country counts must remain CHN=31, RUS source=85, RUS RU-eligible=83; found CHN=${featuresByCountry.CHN || 0}, RUS=${featuresByCountry.RUS || 0}, RU-eligible=${russiaIsoEligible}`);
+  }
+  if (admin1Geojson.featureCounts?.total !== EXPECTED_ADMIN1_FEATURES
+    || admin1Geojson.featureCounts?.China !== 31
+    || admin1Geojson.featureCounts?.RussiaSource !== 85
+    || admin1Geojson.featureCounts?.RussiaIsoEligible !== 83) {
+    issue('China/Russia Admin-1 featureCounts metadata does not match the filtered source');
+  }
+
+  const admin1Codes = new Set();
+  const naturalEarthIds = new Set();
+  const requiredProperties = ['adm0_a3', 'admin', 'adm1_code', 'iso_3166_2', 'name', 'name_en', 'name_local', 'name_local_source', 'type', 'type_en', 'ne_id'];
+  for (const [index, feature] of admin1Features.entries()) {
+    const properties = feature.properties || {};
+    const label = properties.adm1_code || `feature ${index + 1}`;
+    if (!['Polygon', 'MultiPolygon'].includes(feature.geometry?.type)) {
+      issue(`Admin-1 ${label} must contain polygon geometry`);
+    }
+    for (const field of requiredProperties) {
+      if (isPlaceholder(properties[field])) issue(`Admin-1 ${label} has a missing or placeholder ${field}`);
+    }
+    if (!['CHN', 'RUS'].includes(properties.adm0_a3)
+      || properties.admin !== (properties.adm0_a3 === 'CHN' ? 'China' : 'Russia')) {
+      issue(`Admin-1 ${label} has an invalid country mapping`);
+    }
+    if (/[+?~]/.test(String(properties.adm1_code || '')) || /[?~]/.test(String(properties.iso_3166_2 || ''))) {
+      issue(`Admin-1 ${label} contains a placeholder administrative code`);
+    }
+    if (!['name_local', 'name_zh', 'name_ru'].includes(properties.name_local_source)
+      || (properties.name_local_source === 'name_zh' && properties.adm0_a3 !== 'CHN')
+      || (properties.name_local_source === 'name_ru' && properties.adm0_a3 !== 'RUS')) {
+      issue(`Admin-1 ${label} has an invalid local-name provenance field`);
+    }
+    if (!Number.isInteger(properties.ne_id) || properties.ne_id < 1) issue(`Admin-1 ${label} has an invalid Natural Earth ID`);
+    if (admin1Codes.has(properties.adm1_code)) issue(`Duplicate Admin-1 code: ${properties.adm1_code}`);
+    if (naturalEarthIds.has(properties.ne_id)) issue(`Duplicate Natural Earth Admin-1 ID: ${properties.ne_id}`);
+    admin1Codes.add(properties.adm1_code);
+    naturalEarthIds.add(properties.ne_id);
+  }
+
+  const admin1CoordinateStats = admin1Features.reduce(
+    (stats, feature) => inspectCoordinatePositions(feature.geometry?.coordinates, stats),
+    { positions: 0, invalid: 0, minLon: Infinity, minLat: Infinity, maxLon: -Infinity, maxLat: -Infinity }
+  );
+  if (admin1CoordinateStats.invalid !== 0) issue(`Admin-1 geometry contains ${admin1CoordinateStats.invalid} invalid coordinate positions`);
+  if (admin1CoordinateStats.positions !== EXPECTED_ADMIN1_COORDINATE_POSITIONS
+    || admin1Geojson.coordinatePositionCount !== EXPECTED_ADMIN1_COORDINATE_POSITIONS) {
+    issue(`Admin-1 geometry must retain exactly ${EXPECTED_ADMIN1_COORDINATE_POSITIONS} unsimplified coordinate positions`);
+  }
+  const computedAdmin1Bbox = [admin1CoordinateStats.minLon, admin1CoordinateStats.minLat, admin1CoordinateStats.maxLon, admin1CoordinateStats.maxLat];
+  if (JSON.stringify(admin1Geojson.bbox) !== JSON.stringify(computedAdmin1Bbox)
+    || JSON.stringify(computedAdmin1Bbox) !== JSON.stringify([-180, 18.169338, 180, 81.85871])) {
+    issue('China/Russia Admin-1 bounding box does not match the approved 10m geometry');
+  }
+  const admin1GeometryFingerprint = crypto.createHash('sha256')
+    .update(admin1Features
+      .map(feature => `${feature.properties?.adm1_code}|${JSON.stringify(feature.geometry)}`)
+      .sort()
+      .join('\n'))
+    .digest('hex');
+  if (admin1GeometryFingerprint !== EXPECTED_ADMIN1_GEOMETRY_FINGERPRINT) {
+    issue('China/Russia Admin-1 coordinates do not match the approved Natural Earth 10m geometry');
+  }
+
+  const boundaryByIsoCode = new Map(admin1Features.map(feature => [feature.properties?.iso_3166_2, feature]));
+  for (const region of data?.subnational?.China?.regions || []) {
+    const boundary = boundaryByIsoCode.get(region.code);
+    if (!boundary || boundary.properties?.name_en !== region.name) {
+      issue(`Published China region ${region.code} does not map exactly to its Natural Earth boundary`);
+    }
+  }
+}
 if (usGeojson) {
   if (usGeojson.type !== 'FeatureCollection' || !Array.isArray(usGeojson.features) || usGeojson.features.length !== 51) {
     issue('U.S. state GeoJSON must contain the 50 states plus District of Columbia');
@@ -703,4 +941,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: Natural Earth 50m boundaries, 4096×2048 desktop textures, 3,337 observed signals, 62 privacy-thresholded countries, 30 published U.S. states, and 90 exact GeoNames city clusters (1,591 signals) verified.');
+console.log('Local AI Activity Index validation passed: Natural Earth 50m countries plus 116 source-preserved China/Russia Admin-1 10m features (83 RU-* display-eligible), 4096×2048 desktop textures, 3,337 observed signals, privacy-thresholded subnational data, and 90 exact GeoNames city clusters verified.');

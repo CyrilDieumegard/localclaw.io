@@ -88,7 +88,7 @@ function unique(items) {
 const groups = {
   core: unique([
     page('index.html', 'weekly', '1.0', ['js/data.js', 'js/home-index-speech-20260814c.js']),
-    page('local-ai-activity-index.html', 'weekly', '0.95', ['data/local-ai-activity-index.json', 'data/us-states-2024-20m.geojson']),
+    page('local-ai-activity-index.html', 'weekly', '0.95', ['data/local-ai-activity-index.json', 'data/us-states-2024-20m.geojson', 'data/ne_50m_admin_0_countries.geojson', 'data/ne_10m_admin_1_china_russia.geojson']),
     page('software.html', 'monthly', '0.9'),
     page('charts.html', 'weekly', '0.9', ['charts-data.json']),
     page('pricing.html', 'monthly', '0.8'),

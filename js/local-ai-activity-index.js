@@ -1,8 +1,9 @@
 import * as THREE from './vendor/three.module.min.js';
 
-const DATA_URL = '/data/local-ai-activity-index.json?v=20260829e';
+const DATA_URL = '/data/local-ai-activity-index.json?v=20260829g';
 const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
+const ADMIN1_URL = '/data/ne_10m_admin_1_china_russia.geojson?v=20260829g';
 const PUBLISH_THRESHOLD = 5;
 const GLOBE_RADIUS = 3.65;
 const MOBILE_BREAKPOINT = 760;
@@ -47,6 +48,47 @@ const aliases = new Map([
   ['Syrian Arab Republic', ['Syria', 'Syrian Arab Republic']],
   ['Moldova', ['Moldova', 'Republic of Moldova']],
   ['Réunion', ['Reunion', 'Réunion']]
+]);
+
+const countryDetailConfigs = new Map([
+  ['China', {
+    countryName: 'China',
+    alpha2: 'CN',
+    adm0A3: 'CHN',
+    viewLabel: 'Province-level view',
+    liveLabel: 'Province-level exploration',
+    regionLabel: 'province-level region',
+    regionsLabel: 'province-level regions',
+    title: 'See local AI interest <em>across China’s province-level regions.</em>',
+    desktopZoom: 7.25,
+    mobileZoom: 9.2
+  }],
+  ['Russia', {
+    countryName: 'Russia',
+    alpha2: 'RU',
+    adm0A3: 'RUS',
+    viewLabel: 'Federal-subject view',
+    liveLabel: 'Federal-subject exploration',
+    regionLabel: 'federal subject',
+    regionsLabel: 'federal subjects',
+    title: 'See local AI interest <em>across Russia’s federal subjects.</em>',
+    desktopZoom: 8.05,
+    mobileZoom: 10.2
+  }]
+]);
+
+const admin1NameOverrides = new Map([
+  ['RUS-2399', 'Altai Krai'],
+  ['RUS-2400', 'Altai Republic'],
+  ['RUS-2364', 'Moscow Oblast'],
+  ['RUS-2365', 'Moscow']
+]);
+
+const admin1CodeOverrides = new Map([
+  ['RUS-2399', ['RU-ALT']],
+  ['RUS-2400', ['RU-AL']],
+  ['RUS-2364', ['RU-MOS']],
+  ['RUS-2365', ['RU-MOW']]
 ]);
 
 const countryHubs = {
@@ -118,6 +160,7 @@ const state = {
   data: null,
   world: null,
   usBoundaries: null,
+  admin1Boundaries: null,
   usData: null,
   countries: [],
   usRegions: [],
@@ -153,6 +196,26 @@ const state = {
   usGroup: null,
   stateLineGroups: new Map(),
   selectedStateLine: null,
+  detailCountry: null,
+  detailConfig: null,
+  detailFeatures: [],
+  detailRegions: [],
+  detailRankedRegions: [],
+  detailTotals: {
+    signals: 0,
+    regions: 0,
+    observedSignals: 0,
+    observedRegions: 0,
+    countrySignals: 0,
+    publishThreshold: PUBLISH_THRESHOLD,
+    clusters: 0,
+    unassignedClusters: 0
+  },
+  detailGroup: null,
+  detailHeatTexture: null,
+  detailHeatMesh: null,
+  detailBoundaryLine: null,
+  admin1AssignmentByCluster: new Map(),
   cityClusters: [],
   clusterGroup: null,
   clusterEntries: [],
@@ -478,16 +541,178 @@ function regionForCode(regionCode) {
   return state.usRegions.find(region => String(region.code || '').toUpperCase() === expected) || null;
 }
 
+function isAdmin1Scope() {
+  return state.scope === 'admin1' && Boolean(state.detailCountry && state.detailConfig);
+}
+
+function admin1CountryMatches(feature, config) {
+  const properties = feature?.properties || {};
+  const adm0A3 = String(properties.adm0_a3 ?? properties.ADM0_A3 ?? properties.sov_a3 ?? properties.SOV_A3 ?? '').toUpperCase();
+  const iso31662 = String(properties.iso_3166_2 ?? properties.ISO_3166_2 ?? '').toUpperCase();
+  const admin = String(properties.admin ?? properties.ADMIN ?? properties.geonunit ?? properties.GEONUNIT ?? '').toLowerCase();
+  const expectedNames = config.adm0A3 === 'CHN' ? ['china', "people's republic of china"] : ['russia', 'russian federation'];
+  const countryMatches = adm0A3 === config.adm0A3 || expectedNames.includes(admin);
+  if (config.adm0A3 === 'RUS') return countryMatches && iso31662.startsWith('RU-');
+  return countryMatches;
+}
+
+function admin1FeatureName(feature, index = 0) {
+  const properties = feature?.properties || {};
+  const override = admin1FeatureCodes(feature).map(code => admin1NameOverrides.get(code)).find(Boolean);
+  if (override) return override;
+  return String(properties.name_en ?? properties.NAME_EN ?? properties.name ?? properties.NAME ?? `Region ${index + 1}`).trim();
+}
+
+function admin1FeatureType(feature) {
+  const properties = feature?.properties || {};
+  const rawType = String(properties.type_en ?? properties.TYPE_EN ?? properties.type ?? properties.TYPE ?? '').trim();
+  const adm0A3 = String(properties.adm0_a3 ?? properties.ADM0_A3 ?? '').toUpperCase();
+  if (adm0A3 !== 'RUS') return rawType;
+  return new Map([
+    ['Region', 'Oblast'],
+    ['Territory', 'Krai'],
+    ['Autonomous Province', 'Autonomous Okrug'],
+    ['Autonomous Region', 'Autonomous Oblast']
+  ]).get(rawType) || rawType;
+}
+
+function normalizeAdmin1Key(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\b(province|provinsi|sheng|shi|autonomous region|autonomous oblast|republic|republic of|oblast|krai|federal city|city)\b/g, '')
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function admin1FeatureCodes(feature) {
+  const properties = feature?.properties || {};
+  const adm1Code = String(properties.adm1_code ?? properties.ADM1_CODE ?? '').trim().toUpperCase();
+  const canonicalOverrides = admin1CodeOverrides.get(adm1Code);
+  if (canonicalOverrides) return [...canonicalOverrides, adm1Code];
+  return [
+    properties.iso_3166_2,
+    properties.ISO_3166_2,
+    properties.adm1_code,
+    properties.ADM1_CODE,
+    properties.code_hasc,
+    properties.CODE_HASC,
+    properties.postal,
+    properties.POSTAL
+  ].filter(Boolean).map(value => String(value).trim().toUpperCase());
+}
+
+function buildAdmin1Aggregation(country, config) {
+  const sourceFeatures = Array.isArray(state.admin1Boundaries?.features) ? state.admin1Boundaries.features : [];
+  const features = sourceFeatures.filter(feature => admin1CountryMatches(feature, config));
+  const regions = features.map((feature, index) => ({
+    kind: 'admin1',
+    name: admin1FeatureName(feature, index),
+    type: admin1FeatureType(feature),
+    country: country.name,
+    countryCode: config.alpha2,
+    feature,
+    center: featureCenter(feature),
+    signals: 0,
+    clusters: [],
+    rank: null,
+    qualityFlag: false,
+    qualityFlags: [],
+    qualityNote: '',
+    codes: admin1FeatureCodes(feature)
+  }));
+  const subnational = state.data.subnational?.[config.countryName] || null;
+  const sourceRegions = Array.isArray(subnational?.regions) ? subnational.regions : [];
+  const publishThreshold = Number(subnational?.publishThreshold) || PUBLISH_THRESHOLD;
+  for (const sourceRegion of sourceRegions) {
+    const sourceCode = String(sourceRegion.code || '').trim().toUpperCase();
+    const sourceName = normalizeAdmin1Key(sourceRegion.name);
+    let region = sourceCode
+      ? regions.find(candidate => candidate.codes.includes(sourceCode))
+      : null;
+    if (!region && sourceName) {
+      const nameMatches = regions.filter(candidate => normalizeAdmin1Key(candidate.name) === sourceName);
+      if (nameMatches.length === 1) region = nameMatches[0];
+    }
+    if (!region) {
+      region = {
+        kind: 'admin1',
+        name: String(sourceRegion.name || sourceRegion.code || 'Published region'),
+        type: '',
+        country: country.name,
+        countryCode: config.alpha2,
+        feature: null,
+        center: null,
+        signals: 0,
+        clusters: [],
+        rank: null,
+        qualityFlag: false,
+        qualityFlags: [],
+        qualityNote: '',
+        codes: sourceCode ? [sourceCode] : []
+      };
+      regions.push(region);
+    }
+    region.signals = Number(sourceRegion.signals) || 0;
+    region.qualityFlag = Boolean(sourceRegion.qualityFlag);
+    region.qualityFlags = Array.isArray(sourceRegion.qualityFlags) ? sourceRegion.qualityFlags : [];
+    region.qualityNote = String(sourceRegion.qualityNote || '');
+    region.code = sourceRegion.code || region.codes[0] || '';
+  }
+  const assignments = new Map();
+  let unassignedClusters = 0;
+  const clusters = state.cityClusters.filter(cluster => cluster.countryCode === config.alpha2);
+  for (const cluster of clusters) {
+    const region = regions.find(candidate => candidate.feature && pointInFeature(cluster.lat, cluster.lon, candidate.feature));
+    if (!region) {
+      unassignedClusters += 1;
+      continue;
+    }
+    region.clusters.push(cluster);
+    assignments.set(cluster, region);
+  }
+  const ranked = regions
+    .filter(region => region.signals >= publishThreshold)
+    .sort((a, b) => b.signals - a.signals || a.name.localeCompare(b.name));
+  ranked.forEach((region, index) => { region.rank = index + 1; });
+  state.detailFeatures = features;
+  state.detailRegions = regions;
+  state.detailRankedRegions = ranked;
+  state.admin1AssignmentByCluster = assignments;
+  const publishedSignals = Number(subnational?.totals?.publishedSignals);
+  const publishedRegions = Number(subnational?.totals?.publishedRegions);
+  state.detailTotals = {
+    signals: Number.isFinite(publishedSignals) ? publishedSignals : ranked.reduce((total, region) => total + region.signals, 0),
+    regions: Number.isFinite(publishedRegions) ? publishedRegions : ranked.length,
+    observedSignals: Number(subnational?.totals?.geolocatedSignals ?? subnational?.totals?.observedSignals) || 0,
+    observedRegions: Number(subnational?.totals?.observedRegions ?? subnational?.totals?.regions) || 0,
+    countrySignals: Number(subnational?.totals?.countrySignals) || Number(country.signals) || 0,
+    publishThreshold,
+    clusters: assignments.size,
+    unassignedClusters
+  };
+  return Boolean(features.length && subnational);
+}
+
+function admin1RegionAt(lat, lon) {
+  return state.detailRankedRegions.find(region => region.feature && pointInFeature(lat, lon, region.feature)) || null;
+}
+
 function featureForEntity(entity) {
   if (!entity) return null;
   if (entity.kind === 'cityCluster') {
     if (state.scope === 'us' && String(entity.countryCode || '').toUpperCase() === 'US') {
       return featureForState(regionForCode(entity.regionCode)?.name);
     }
+    if (isAdmin1Scope()) {
+      return state.admin1AssignmentByCluster.get(entity)?.feature
+        || featureForCountry(state.detailCountry.name);
+    }
     return featureForCountry(countryForCode(entity.countryCode)?.name)
       || featureForCountryCode(entity.countryCode);
   }
-  if (state.scope === 'us' || entity.code) return featureForState(entity.name);
+  if (entity.kind === 'admin1') return entity.feature;
+  if (state.scope === 'us') return featureForState(entity.name);
   return featureForCountry(entity.name);
 }
 
@@ -682,14 +907,22 @@ function makeActivityTexture(scope = 'world') {
   textureCanvas.height = textureCanvas.width / 2;
   const context = textureCanvas.getContext('2d');
   const light = state.theme === 'light';
-  const entities = scope === 'us' ? state.usRegions : state.countries;
+  const entities = scope === 'us'
+    ? state.usRegions
+    : scope === 'admin1'
+      ? state.detailRankedRegions
+      : state.countries;
   const maximum = entities[0]?.signals || 1;
   context.lineCap = 'round';
   context.lineJoin = 'round';
 
   context.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
   for (const entity of entities) {
-    const feature = scope === 'us' ? featureForState(entity.name) : featureForCountry(entity.name);
+    const feature = scope === 'us'
+      ? featureForState(entity.name)
+      : scope === 'admin1'
+        ? entity.feature
+        : featureForCountry(entity.name);
     if (!feature) continue;
     const intensity = Math.log1p(entity.signals) / Math.log1p(maximum);
     const heat = Math.pow(intensity, 1.35);
@@ -1004,7 +1237,9 @@ function createClusterLabel(entry) {
 
 function clusterVisibleInScope(cluster) {
   if (state.scope === 'world') return true;
-  return String(cluster.countryCode || '').toUpperCase() === 'US';
+  if (state.scope === 'us') return String(cluster.countryCode || '').toUpperCase() === 'US';
+  if (isAdmin1Scope()) return String(cluster.countryCode || '').toUpperCase() === state.detailConfig.alpha2;
+  return false;
 }
 
 function updateClusterVisibility() {
@@ -1049,11 +1284,18 @@ function updateProjectedLabels(time) {
   }
   let contextualCandidates = [];
   if (state.locked?.kind === 'cityCluster') {
-    contextualCandidates = scopedCandidates.filter(entry => state.scope === 'us'
-      ? entry.cluster.regionCode === state.locked.regionCode
-      : entry.cluster.countryCode === state.locked.countryCode);
+    if (isAdmin1Scope()) {
+      const lockedRegion = state.admin1AssignmentByCluster.get(state.locked);
+      contextualCandidates = scopedCandidates.filter(entry => state.admin1AssignmentByCluster.get(entry.cluster) === lockedRegion);
+    } else {
+      contextualCandidates = scopedCandidates.filter(entry => state.scope === 'us'
+        ? entry.cluster.regionCode === state.locked.regionCode
+        : entry.cluster.countryCode === state.locked.countryCode);
+    }
   } else if (state.scope === 'us' && state.locked?.code) {
     contextualCandidates = scopedCandidates.filter(entry => entry.cluster.regionCode === state.locked.code);
+  } else if (isAdmin1Scope() && state.locked?.kind === 'admin1') {
+    contextualCandidates = scopedCandidates.filter(entry => state.admin1AssignmentByCluster.get(entry.cluster) === state.locked);
   } else if (state.scope === 'world' && state.locked?.name) {
     contextualCandidates = scopedCandidates.filter(entry => entry.cluster.country === state.locked.name);
   }
@@ -1140,6 +1382,88 @@ function createStateBoundaries() {
 
 function createUSActivity() {
   createAggregateHeatLayer('us', state.usGroup);
+}
+
+function clearAdmin1Layer({ resetAggregation = false } = {}) {
+  if (state.detailGroup) {
+    state.detailGroup.traverse(object => {
+      if (object.geometry) object.geometry.dispose();
+      if (Array.isArray(object.material)) object.material.forEach(material => material.dispose());
+      else if (object.material) object.material.dispose();
+    });
+    state.globeGroup?.remove(state.detailGroup);
+  }
+  state.detailHeatTexture?.dispose();
+  state.detailGroup = null;
+  state.detailHeatTexture = null;
+  state.detailHeatMesh = null;
+  state.detailBoundaryLine = null;
+  if (resetAggregation) {
+    state.detailCountry = null;
+    state.detailConfig = null;
+    state.detailFeatures = [];
+    state.detailRegions = [];
+    state.detailRankedRegions = [];
+    state.detailTotals = {
+      signals: 0,
+      regions: 0,
+      observedSignals: 0,
+      observedRegions: 0,
+      countrySignals: 0,
+      publishThreshold: PUBLISH_THRESHOLD,
+      clusters: 0,
+      unassignedClusters: 0
+    };
+    state.admin1AssignmentByCluster = new Map();
+  }
+}
+
+function createAdmin1Layer() {
+  clearAdmin1Layer();
+  state.detailGroup = new THREE.Group();
+  state.detailGroup.userData.activityScope = 'admin1';
+
+  state.detailHeatTexture = makeActivityTexture('admin1');
+  state.detailHeatMesh = new THREE.Mesh(
+    globeGeometry(GLOBE_RADIUS + 0.022),
+    new THREE.MeshBasicMaterial({
+      map: state.detailHeatTexture,
+      transparent: true,
+      opacity: state.theme === 'light' ? 0.66 : 0.9,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      toneMapped: false
+    })
+  );
+  state.detailHeatMesh.userData = { aggregateHeat: true, activityScope: 'admin1' };
+  state.detailHeatMesh.renderOrder = 3;
+  state.detailGroup.add(state.detailHeatMesh);
+
+  const positions = [];
+  for (const feature of state.detailFeatures) {
+    const featurePositions = boundaryPositions(feature, GLOBE_RADIUS + 0.031);
+    for (const value of featurePositions) positions.push(value);
+  }
+  if (positions.length > 0) {
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.computeBoundingSphere();
+    const material = new THREE.LineBasicMaterial({
+      color: state.theme === 'light' ? 0x516979 : 0xb5cad9,
+      transparent: true,
+      opacity: state.theme === 'light' ? 0.42 : 0.5,
+      depthWrite: false,
+      depthTest: true,
+      toneMapped: false
+    });
+    state.detailBoundaryLine = new THREE.LineSegments(geometry, material);
+    state.detailBoundaryLine.userData = { admin1Boundary: true, activityScope: 'admin1' };
+    state.detailBoundaryLine.renderOrder = 4;
+    state.detailGroup.add(state.detailBoundaryLine);
+  }
+
+  state.detailGroup.visible = false;
+  state.globeGroup.add(state.detailGroup);
 }
 
 function createBackgroundField() {
@@ -1250,11 +1574,14 @@ function setupScene() {
 
 function defaultZoom(scope = state.scope, mobile = window.innerWidth < 760) {
   if (scope === 'us') return mobile ? 11.15 : 7.85;
+  if (scope === 'admin1' && state.detailConfig) {
+    return mobile ? state.detailConfig.mobileZoom : state.detailConfig.desktopZoom;
+  }
   return mobile ? 11.6 : 9.25;
 }
 
 function zoomLimits(scope = state.scope, mobile = window.innerWidth < 760) {
-  return scope === 'us'
+  return scope === 'us' || scope === 'admin1'
     ? { minimum: mobile ? 5.35 : 4.95, maximum: mobile ? 12.2 : 11.8 }
     : { minimum: mobile ? 5.25 : 4.7, maximum: 13.5 };
 }
@@ -1351,6 +1678,13 @@ function resetCurrentView() {
     state.targetRotation.x = THREE.MathUtils.degToRad(31);
     state.targetRotation.y = THREE.MathUtils.degToRad(98);
     setStateLineSelection(null);
+  } else if (isAdmin1Scope()) {
+    state.locked = { kind: 'admin1View', name: `${state.detailCountry.name} regional view` };
+    const center = state.centers.get(state.detailCountry.name);
+    if (center) {
+      state.targetRotation.x = THREE.MathUtils.clamp(THREE.MathUtils.degToRad(center[0] - 22), -1.15, 1.15);
+      state.targetRotation.y = closestAngle(-THREE.MathUtils.degToRad(center[1]), state.globeGroup.rotation.y);
+    }
   } else {
     state.locked = null;
     state.targetRotation.set(0.38, -0.1);
@@ -1414,6 +1748,14 @@ function updateTheme(theme) {
     state.usHeatMesh.material.opacity = state.theme === 'light' ? 0.66 : 0.9;
     state.usHeatMesh.material.needsUpdate = true;
   }
+  if (state.detailHeatMesh) {
+    const nextDetailHeatTexture = makeActivityTexture('admin1');
+    state.detailHeatTexture?.dispose();
+    state.detailHeatTexture = nextDetailHeatTexture;
+    state.detailHeatMesh.material.map = nextDetailHeatTexture;
+    state.detailHeatMesh.material.opacity = state.theme === 'light' ? 0.66 : 0.9;
+    state.detailHeatMesh.material.needsUpdate = true;
+  }
   if (state.selectionMesh) state.selectionMesh.material.opacity = state.theme === 'light' ? 0.48 : 0.62;
   state.renderer.toneMappingExposure = state.theme === 'light' ? 0.94 : 1.06;
   state.scene.traverse(object => {
@@ -1429,6 +1771,10 @@ function updateTheme(theme) {
     if (object.userData.worldBoundary) {
       object.material.color.set(state.theme === 'light' ? 0x4d6473 : 0xa8bfd0);
       object.material.opacity = state.theme === 'light' ? 0.32 : 0.34;
+    }
+    if (object.userData.admin1Boundary) {
+      object.material.color.set(state.theme === 'light' ? 0x516979 : 0xb5cad9);
+      object.material.opacity = state.theme === 'light' ? 0.42 : 0.5;
     }
     if (object.type === 'Line' && object.parent?.userData.stateName) {
       object.material.color.set(state.theme === 'light' ? 0x627786 : 0x7891a6);
@@ -1498,7 +1844,9 @@ function entityAtPointer() {
   if (!intersection) return null;
   const local = state.globeGroup.worldToLocal(intersection.point.clone());
   const { lat, lon } = vectorToLatLon(local);
-  return state.scope === 'us' ? stateAt(lat, lon) : countryAt(lat, lon);
+  if (state.scope === 'us') return stateAt(lat, lon);
+  if (isAdmin1Scope()) return admin1RegionAt(lat, lon);
+  return countryAt(lat, lon);
 }
 
 function showTooltip(entity, event) {
@@ -1516,11 +1864,32 @@ function showTooltip(entity, event) {
     tooltip.style.top = `${Math.max(4, top)}px`;
     return;
   }
+  if (entity.kind === 'admin1') {
+    tooltip.hidden = false;
+    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.rank
+      ? `#${entity.rank} ${state.detailConfig.regionLabel} rank`
+      : (entity.type || state.detailConfig.regionLabel);
+    tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
+    tooltip.querySelector('[data-tooltip-signals]').textContent = entity.rank
+      ? `${number(entity.signals)} published regional signals`
+      : `No regional total published · ${state.detailTotals.publishThreshold}+ threshold`;
+    const rect = stage.getBoundingClientRect();
+    const left = Math.min(event.clientX - rect.left, rect.width - 220);
+    const top = Math.min(event.clientY - rect.top, rect.height - 140);
+    tooltip.style.left = `${Math.max(4, left)}px`;
+    tooltip.style.top = `${Math.max(4, top)}px`;
+    return;
+  }
   const stateView = state.scope === 'us';
   tooltip.hidden = false;
   tooltip.querySelector('[data-tooltip-rank]').textContent = `#${entity.rank} ${stateView ? 'U.S. state' : 'world'} rank`;
   tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
-  const action = !stateView && entity.name === 'United States' ? ' · select for state detail' : '';
+  const detailConfig = !stateView ? countryDetailConfigs.get(entity.name) : null;
+  const action = !stateView && entity.name === 'United States'
+    ? ' · select for state detail'
+    : detailConfig
+      ? ` · select for ${detailConfig.regionLabel} detail`
+      : '';
   tooltip.querySelector('[data-tooltip-signals]').textContent = `${number(entity.signals)} interest signals${action}`;
   const rect = stage.getBoundingClientRect();
   const left = Math.min(event.clientX - rect.left, rect.width - 220);
@@ -1554,6 +1923,25 @@ function showSpotlight(entity) {
     spotlight.querySelector('[data-spotlight-signals]').textContent = `${number(entity.signals)} signals · ${place} · 5+ privacy threshold`;
     return;
   }
+  if (entity.kind === 'admin1') {
+    spotlight.hidden = false;
+    spotlight.querySelector('[data-spotlight-rank]').textContent = entity.rank
+      ? `${state.detailConfig.viewLabel} rank #${entity.rank}`
+      : state.detailConfig.viewLabel;
+    spotlight.querySelector('[data-spotlight-label]').textContent = entity.type || state.detailConfig.regionLabel;
+    spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
+    if (!entity.rank) {
+      spotlight.querySelector('[data-spotlight-signals]').textContent = `No regional total is published at the ${state.detailTotals.publishThreshold}-signal threshold.`;
+      return;
+    }
+    const share = state.detailTotals.countrySignals > 0
+      ? ((entity.signals / state.detailTotals.countrySignals) * 100).toFixed(1)
+      : '0.0';
+    spotlight.querySelector('[data-spotlight-signals]').textContent = entity.qualityNote
+      ? `${number(entity.signals)} signals · ${entity.qualityNote}`
+      : `${number(entity.signals)} published regional signals · ${share}% of ${state.detailCountry.name} country-level signals`;
+    return;
+  }
   const stateView = state.scope === 'us';
   const denominator = stateView ? state.usData.totals.countrySignals : state.data.totals.signals;
   const share = ((entity.signals / denominator) * 100).toFixed(1);
@@ -1577,6 +1965,35 @@ function focusCountrySurface(country) {
   scrollAtlasIntoView();
 }
 
+function enterCountryDetail(country) {
+  const config = countryDetailConfigs.get(country?.name);
+  if (!country || !config) return false;
+  clearAdmin1Layer({ resetAggregation: true });
+  state.detailCountry = country;
+  state.detailConfig = config;
+  if (!buildAdmin1Aggregation(country, config)) {
+    clearAdmin1Layer({ resetAggregation: true });
+    focusCountrySurface(country);
+    showToast(`${country.name} regional boundaries are temporarily unavailable.`);
+    return false;
+  }
+  createAdmin1Layer();
+  if (!state.tourAdvancing) stopTour();
+  state.scope = 'admin1';
+  state.locked = { kind: 'admin1View', name: `${country.name} regional view` };
+  state.rotationVelocity.set(0, 0);
+  state.lastInteractionAt = performance.now();
+  setStateLineSelection(null);
+  updateSelectionOverlay(null);
+  hideTooltip();
+  spotlight.hidden = true;
+  updateScopeInterface();
+  const center = state.centers.get(country.name);
+  if (center) beginFocusTransition(center, defaultZoom('admin1'));
+  scrollAtlasIntoView();
+  return true;
+}
+
 function focusCluster(cluster) {
   if (!cluster) return;
   if (!state.tourAdvancing) stopTour();
@@ -1593,11 +2010,28 @@ function focusCluster(cluster) {
 
 function focusCountry(country) {
   if (!state.tourAdvancing) stopTour();
+  if (state.scope !== 'world') exitToWorld();
   if (country.name === 'United States' && state.usRegions.length) {
     enterUnitedStates();
     return;
   }
+  if (countryDetailConfigs.has(country.name)) {
+    enterCountryDetail(country);
+    return;
+  }
   focusCountrySurface(country);
+}
+
+function focusAdmin1Region(region) {
+  if (!region || !isAdmin1Scope()) return;
+  if (!state.tourAdvancing) stopTour();
+  state.locked = region;
+  const center = region.center || state.centers.get(state.detailCountry.name);
+  if (center) beginFocusTransition(center, window.innerWidth < 760 ? 8.9 : 6.9);
+  state.lastInteractionAt = performance.now();
+  updateSelectionOverlay(region);
+  showSpotlight(region);
+  scrollAtlasIntoView();
 }
 
 function setStateLineSelection(region) {
@@ -1622,50 +2056,127 @@ function setStateLineSelection(region) {
 
 function updateScopeInterface() {
   const stateView = state.scope === 'us';
-  stage.classList.toggle('atlas-scope-us', stateView);
-  if (regionPanel) regionPanel.hidden = !stateView;
-  state.worldActivity.forEach(object => { object.visible = !stateView; });
+  const admin1View = isAdmin1Scope();
+  const regionalView = stateView || admin1View;
+  stage.classList.toggle('atlas-scope-us', regionalView);
+  stage.classList.toggle('atlas-scope-admin1', admin1View);
+  if (regionPanel) regionPanel.hidden = !regionalView;
+  state.worldActivity.forEach(object => { object.visible = !regionalView; });
   if (state.usGroup) state.usGroup.visible = stateView;
+  if (state.detailGroup) state.detailGroup.visible = admin1View;
   updateClusterVisibility();
   if (title) {
     title.innerHTML = stateView
       ? 'See local AI interest <em>state by state.</em>'
-      : 'See where <em>local AI</em> is taking off.';
+      : admin1View
+        ? state.detailConfig.title
+        : 'See where <em>local AI</em> is taking off.';
   }
   if (summary) {
     summary.textContent = stateView
       ? 'United States · Approximate network regions · 31 Jul–29 Aug 2026'
-      : 'Anonymous interest signals · Last 30 days · Updated 29 August 2026';
+      : admin1View
+        ? `${state.detailCountry.name} · Approximate network regions · 31 Jul–29 Aug 2026`
+        : 'Anonymous interest signals · Last 30 days · Updated 29 August 2026';
   }
-  if (liveLabel) liveLabel.textContent = stateView ? 'State-level exploration' : 'Live exploration';
-  document.querySelector('[data-scope-signals]').textContent = number(stateView
+  if (liveLabel) liveLabel.textContent = stateView
+    ? 'State-level exploration'
+    : admin1View
+      ? state.detailConfig.liveLabel
+      : 'Live exploration';
+  const scopeSignals = stateView
     ? state.usData.totals.publishedSignals
-    : (state.data.totals.publishedSignals ?? state.data.totals.signals));
-  document.querySelector('[data-scope-regions]').textContent = number(stateView
+    : admin1View
+      ? state.detailTotals.signals
+      : (state.data.totals.publishedSignals ?? state.data.totals.signals);
+  const scopeRegions = stateView
     ? state.usData.totals.publishedRegions
-    : (state.data.totals.publishedRegions ?? state.data.totals.regions));
-  document.querySelector('[data-scope-signal-label]').textContent = stateView ? 'visible state signals' : 'published signals';
-  document.querySelector('[data-scope-region-label]').textContent = stateView ? 'states published' : 'countries published';
-  document.querySelector('[data-scope-window]').textContent = stateView ? '5-signal threshold' : '30-day window';
+    : admin1View
+      ? state.detailTotals.regions
+      : (state.data.totals.publishedRegions ?? state.data.totals.regions);
+  document.querySelector('[data-scope-signals]').textContent = number(scopeSignals);
+  document.querySelector('[data-scope-regions]').textContent = number(scopeRegions);
+  document.querySelector('[data-scope-signal-label]').textContent = stateView
+    ? 'visible state signals'
+    : admin1View
+      ? 'published regional signals'
+      : 'published signals';
+  document.querySelector('[data-scope-region-label]').textContent = stateView
+    ? 'states published'
+    : admin1View
+      ? `${state.detailConfig.regionsLabel} published`
+      : 'countries published';
+  document.querySelector('[data-scope-window]').textContent = regionalView
+    ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
+    : '30-day window';
   document.querySelector('[data-scope-disclosure]').textContent = stateView
     ? 'State color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.'
-    : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
+    : admin1View
+      ? 'Region color shows a published subnational aggregate. Beacons separately mark published DataFast city clusters at approximate GeoNames network-city centroids; they never represent people, devices, exact IP addresses, or exact visitor locations.'
+      : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', stateView
     ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Drag to rotate, select the map and scroll or use the visible controls to zoom, select a state, or return to the world view.'
-    : 'Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
+    : admin1View
+      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. Published regions and city beacons can be selected; neutral boundaries are orientation references only. Use World to return.`
+      : 'Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
+
+  if (regionPanel && regionalView) {
+    const panelTitle = regionPanel.querySelector('.atlas-region-panel__head span');
+    const metricItems = regionPanel.querySelectorAll('.atlas-region-panel__metrics span');
+    const note = regionPanel.querySelector('.atlas-region-panel__note');
+    regionPanel.setAttribute('aria-label', stateView
+      ? 'United States state activity'
+      : `${state.detailCountry.name} ${state.detailConfig.regionsLabel} activity`);
+    if (panelTitle) panelTitle.textContent = stateView
+      ? 'United States · State view'
+      : `${state.detailCountry.name} · ${state.detailConfig.viewLabel}`;
+    if (metricItems[0]) {
+      metricItems[0].querySelector('strong').textContent = number(stateView ? state.usData.totals.publishedSignals : state.detailTotals.signals);
+      metricItems[0].lastChild.textContent = stateView ? ' visible signals' : ' published regional signals';
+    }
+    if (metricItems[1]) {
+      metricItems[1].querySelector('strong').textContent = number(stateView ? state.usData.totals.publishedRegions : state.detailTotals.regions);
+      metricItems[1].lastChild.textContent = stateView ? ' states published' : ` ${state.detailConfig.regionsLabel} published`;
+    }
+    if (note) {
+      if (stateView) {
+        note.innerHTML = '<strong>Quality flag:</strong> Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.';
+      } else if (state.detailTotals.regions === 0) {
+        const observed = state.detailTotals.observedSignals > 0 && state.detailTotals.observedRegions > 0
+          ? `${number(state.detailTotals.observedSignals)} geolocated signals were observed across ${number(state.detailTotals.observedRegions)} regions, but `
+          : '';
+        note.innerHTML = `<strong>Privacy threshold:</strong> ${observed}none reaches the ${state.detailTotals.publishThreshold}-signal publication threshold; no regional count is shown. Natural Earth administrative boundaries; cartographic display does not imply endorsement.`;
+      } else {
+        note.innerHTML = `<strong>Method:</strong> Regional aggregates are published DataFast subnational totals at the ${state.detailTotals.publishThreshold}-signal threshold; beacons are an independent city-cluster subset. Natural Earth administrative boundaries; cartographic display does not imply endorsement.`;
+      }
+    }
+    renderStatePanel();
+  }
   updateZoomLevel();
 }
 
 function renderStatePanel() {
   if (!regionList) return;
   regionList.replaceChildren();
-  for (const region of state.usRegions) {
+  const admin1View = isAdmin1Scope();
+  const regions = admin1View ? state.detailRankedRegions : state.usRegions;
+  if (admin1View && regions.length === 0) {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.disabled = true;
+    button.innerHTML = `<span>No ${state.detailConfig.regionLabel} meets the ${state.detailTotals.publishThreshold}-signal threshold</span>`;
+    item.append(button);
+    regionList.append(item);
+    return;
+  }
+  for (const region of regions) {
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
     button.setAttribute('data-region-name', region.name);
     button.innerHTML = `<span><b>${String(region.rank).padStart(2, '0')}</b>${region.name}${region.qualityFlag ? '<em>flag</em>' : ''}</span><strong>${number(region.signals)}</strong>`;
-    button.addEventListener('click', () => focusRegion(region));
+    button.addEventListener('click', () => admin1View ? focusAdmin1Region(region) : focusRegion(region));
     item.append(button);
     regionList.append(item);
   }
@@ -1673,6 +2184,7 @@ function renderStatePanel() {
 
 function enterUnitedStates(region = null) {
   if (!state.tourAdvancing) stopTour();
+  clearAdmin1Layer({ resetAggregation: true });
   state.scope = 'us';
   state.locked = region || { name: 'United States state view' };
   state.rotationVelocity.set(0, 0);
@@ -1688,9 +2200,11 @@ function enterUnitedStates(region = null) {
   scrollAtlasIntoView();
 }
 
-function exitUnitedStates() {
+function exitToWorld() {
   if (!state.tourAdvancing) stopTour();
+  const leavingAdmin1 = isAdmin1Scope();
   state.scope = 'world';
+  if (leavingAdmin1) clearAdmin1Layer({ resetAggregation: true });
   state.locked = null;
   state.rotationVelocity.set(0, 0);
   state.targetRotation.set(0.38, -0.1);
@@ -1701,6 +2215,10 @@ function exitUnitedStates() {
   updateSelectionOverlay(null);
   hideTooltip();
   updateScopeInterface();
+}
+
+function exitUnitedStates() {
+  exitToWorld();
 }
 
 function focusRegion(region) {
@@ -1729,15 +2247,28 @@ function stopTour() {
 }
 
 function advanceTour() {
-  const entities = (state.scope === 'us' ? state.usRegions : state.countries).slice(0, 10);
-  if (!entities.length) return;
+  const entities = (state.scope === 'us'
+    ? state.usRegions
+    : isAdmin1Scope()
+      ? state.detailRankedRegions
+      : state.countries).slice(0, 10);
+  if (!entities.length) {
+    if (isAdmin1Scope()) {
+      stopTour();
+      if (tourLabel) tourLabel.textContent = 'No published regional ranking';
+      showToast(`No ${state.detailConfig.regionLabel} reaches the ${state.detailTotals.publishThreshold}-signal publication threshold.`);
+    }
+    return false;
+  }
   const entity = entities[state.tourIndex % entities.length];
   state.tourIndex = (state.tourIndex + 1) % entities.length;
   state.tourAdvancing = true;
   if (state.scope === 'us') focusRegion(entity);
+  else if (isAdmin1Scope()) focusAdmin1Region(entity);
   else focusCountrySurface(entity);
   state.tourAdvancing = false;
   if (tourLabel) tourLabel.textContent = `${String(state.tourIndex || entities.length).padStart(2, '0')}/10 · ${entity.name}`;
+  return true;
 }
 
 function toggleTour() {
@@ -1748,7 +2279,7 @@ function toggleTour() {
   state.tourIndex = 0;
   if (tourButton) tourButton.setAttribute('aria-pressed', 'true');
   stage.classList.add('atlas-is-touring');
-  advanceTour();
+  if (!advanceTour()) return;
   state.tourTimer = window.setInterval(advanceTour, 4200);
 }
 
@@ -1848,6 +2379,7 @@ function bindInteractions() {
       if (entity) {
         if (entity.kind === 'cityCluster') focusCluster(entity);
         else if (state.scope === 'us') focusRegion(entity);
+        else if (isAdmin1Scope() && entity.kind === 'admin1') focusAdmin1Region(entity);
         else focusCountry(entity);
       }
     }
@@ -2067,11 +2599,19 @@ function renderDataSummary() {
 
 async function initialize() {
   try {
-    const [dataResponse, worldResponse, statesResponse] = await Promise.all([fetch(DATA_URL), fetch(WORLD_URL), fetch(US_STATES_URL)]);
-    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok) throw new Error('Atlas data could not be loaded.');
+    const [dataResponse, worldResponse, statesResponse, admin1Response] = await Promise.all([
+      fetch(DATA_URL),
+      fetch(WORLD_URL),
+      fetch(US_STATES_URL),
+      fetch(ADMIN1_URL)
+    ]);
+    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !admin1Response.ok) {
+      throw new Error('Atlas data could not be loaded.');
+    }
     state.data = await dataResponse.json();
     state.world = await worldResponse.json();
     state.usBoundaries = await statesResponse.json();
+    state.admin1Boundaries = await admin1Response.json();
     state.usData = state.data.subnational?.['United States'];
     if (!state.usData) throw new Error('United States state data is missing.');
     state.countries = state.data.countries.filter(country => country.signals >= PUBLISH_THRESHOLD);

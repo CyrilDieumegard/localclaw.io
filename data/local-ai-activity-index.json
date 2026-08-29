@@ -495,6 +495,55 @@
         { "rank": 29, "name": "North Carolina", "code": "NC", "signals": 6 },
         { "rank": 30, "name": "Minnesota", "code": "MN", "signals": 6 }
       ]
+    },
+    "China": {
+      "division": "province-level administrative region",
+      "source": "DataFast region breakdown filtered to China",
+      "boundarySource": "Natural Earth Admin-1 states and provinces, 1:10m",
+      "generatedAt": "2026-08-29T18:29:13+02:00",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 209,
+        "geolocatedSignals": 105,
+        "observedRegions": 10,
+        "publishedSignals": 97,
+        "publishedRegions": 4,
+        "withheldSignals": 8,
+        "unassignedSignals": 104
+      },
+      "qualityNotes": [
+        "Region is an approximate network location derived by the analytics provider, not verified residence.",
+        "Only province-level regions with at least five signals are published on the globe.",
+        "Administrative boundaries remain visible for orientation even when a region count is withheld."
+      ],
+      "regions": [
+        { "rank": 1, "name": "Beijing", "sourceName": "Beijing Shi", "code": "CN-BJ", "signals": 62 },
+        { "rank": 2, "name": "Guangdong", "sourceName": "Guangdong Sheng", "code": "CN-GD", "signals": 22 },
+        { "rank": 3, "name": "Shanghai", "sourceName": "Shanghai Shi", "code": "CN-SH", "signals": 7 },
+        { "rank": 4, "name": "Jiangsu", "sourceName": "Jiangsu Sheng", "code": "CN-JS", "signals": 6 }
+      ]
+    },
+    "Russia": {
+      "division": "federal subject",
+      "source": "DataFast region breakdown filtered to Russia",
+      "boundarySource": "Natural Earth Admin-1 states and provinces, 1:10m",
+      "generatedAt": "2026-08-29T18:29:13+02:00",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 27,
+        "geolocatedSignals": 25,
+        "observedRegions": 15,
+        "publishedSignals": 0,
+        "publishedRegions": 0,
+        "withheldSignals": 25,
+        "unassignedSignals": 2
+      },
+      "qualityNotes": [
+        "Region is an approximate network location derived by the analytics provider, not verified residence.",
+        "No Russian federal subject reaches the five-signal public threshold in this snapshot.",
+        "Administrative boundaries remain visible for orientation, but withheld subjects are not interactive and no individual subject count is shown."
+      ],
+      "regions": []
     }
   }
 }
