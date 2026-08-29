@@ -983,6 +983,162 @@ function boundaryPositions(feature, radius) {
   return positions;
 }
 
+function unwrappedFillRing(ring, referenceLongitude = null) {
+  if (!Array.isArray(ring)) return [];
+  const points = [];
+  let previousLongitude = null;
+  for (const coordinate of ring) {
+    const rawLongitude = Number(coordinate?.[0]);
+    const latitude = Number(coordinate?.[1]);
+    if (!Number.isFinite(rawLongitude) || !Number.isFinite(latitude)) continue;
+    const longitude = previousLongitude === null
+      ? (referenceLongitude === null ? rawLongitude : longitudeNear(rawLongitude, referenceLongitude))
+      : longitudeNear(rawLongitude, previousLongitude);
+    const previous = points[points.length - 1];
+    if (previous && Math.abs(previous.x - longitude) < 1e-10 && Math.abs(previous.y - latitude) < 1e-10) continue;
+    points.push(new THREE.Vector2(longitude, latitude));
+    previousLongitude = longitude;
+  }
+  if (points.length > 1) {
+    const first = points[0];
+    const last = points[points.length - 1];
+    if (Math.abs(first.y - last.y) < 1e-10
+      && Math.abs(longitudeNear(last.x, first.x) - first.x) < 1e-10) points.pop();
+  }
+  if (referenceLongitude !== null && points.length > 0) {
+    const meanLongitude = points.reduce((sum, point) => sum + point.x, 0) / points.length;
+    const shift = Math.round((referenceLongitude - meanLongitude) / 360) * 360;
+    if (shift !== 0) points.forEach(point => { point.x += shift; });
+  }
+  return points.length >= 3 ? points : [];
+}
+
+function appendSphericalFillTriangle(positions, a, b, c, radius, depth = 0) {
+  const maximumChord = 2 * radius * Math.sin(THREE.MathUtils.degToRad(1));
+  const maximumChordSquared = maximumChord * maximumChord;
+  const ab = a.distanceToSquared(b);
+  const bc = b.distanceToSquared(c);
+  const ca = c.distanceToSquared(a);
+  const longest = Math.max(ab, bc, ca);
+  if (depth < 8 && longest > maximumChordSquared) {
+    if (longest === ab) {
+      const midpoint = a.clone().add(b).normalize().multiplyScalar(radius);
+      appendSphericalFillTriangle(positions, a, midpoint, c, radius, depth + 1);
+      appendSphericalFillTriangle(positions, midpoint, b, c, radius, depth + 1);
+      return;
+    }
+    if (longest === bc) {
+      const midpoint = b.clone().add(c).normalize().multiplyScalar(radius);
+      appendSphericalFillTriangle(positions, a, b, midpoint, radius, depth + 1);
+      appendSphericalFillTriangle(positions, a, midpoint, c, radius, depth + 1);
+      return;
+    }
+    const midpoint = c.clone().add(a).normalize().multiplyScalar(radius);
+    appendSphericalFillTriangle(positions, a, b, midpoint, radius, depth + 1);
+    appendSphericalFillTriangle(positions, midpoint, b, c, radius, depth + 1);
+    return;
+  }
+
+  const normal = b.clone().sub(a).cross(c.clone().sub(a));
+  if (normal.lengthSq() < 1e-14) return;
+  const outward = a.clone().add(b).add(c);
+  const vertices = normal.dot(outward) >= 0 ? [a, b, c] : [a, c, b];
+  for (const vertex of vertices) positions.push(vertex.x, vertex.y, vertex.z);
+}
+
+function sphericalFillGeometry(feature, radius) {
+  const positions = [];
+  for (const polygon of polygonsForGeometry(feature?.geometry)) {
+    const contour = unwrappedFillRing(polygon?.[0]);
+    if (contour.length < 3) continue;
+    const referenceLongitude = contour.reduce((sum, point) => sum + point.x, 0) / contour.length;
+    const holes = (polygon || []).slice(1)
+      .map(ring => unwrappedFillRing(ring, referenceLongitude))
+      .filter(ring => ring.length >= 3);
+    const sphericalContour = contour.map(point => latLonToVector(point.y, point.x, 1));
+    const sphericalHoles = holes.map(ring => ring.map(point => latLonToVector(point.y, point.x, 1)));
+    const vertices = [...sphericalContour, ...sphericalHoles.flat()]
+      .map(point => point.clone().multiplyScalar(radius));
+    const validTriangulation = triangles => Array.isArray(triangles)
+      && triangles.length > 0
+      && triangles.every(triangle => Array.isArray(triangle)
+        && triangle.length === 3
+        && triangle.every(index => Number.isInteger(index) && index >= 0 && index < vertices.length));
+    let triangles = [];
+    try {
+      triangles = THREE.ShapeUtils.triangulateShape(
+        contour.map(point => point.clone()),
+        holes.map(ring => ring.map(point => point.clone()))
+      );
+    } catch {
+      triangles = [];
+    }
+    if (!validTriangulation(triangles)) {
+      const tangentCenter = sphericalContour
+        .reduce((sum, point) => sum.add(point), new THREE.Vector3());
+      if (tangentCenter.lengthSq() < 1e-12) tangentCenter.copy(sphericalContour[0]);
+      tangentCenter.normalize();
+      const referenceAxis = Math.abs(tangentCenter.y) < 0.9
+        ? new THREE.Vector3(0, 1, 0)
+        : new THREE.Vector3(0, 0, 1);
+      const tangentEast = new THREE.Vector3().crossVectors(referenceAxis, tangentCenter).normalize();
+      const tangentNorth = new THREE.Vector3().crossVectors(tangentCenter, tangentEast).normalize();
+      const projectToTangent = point => new THREE.Vector2(point.dot(tangentEast), point.dot(tangentNorth));
+      try {
+        triangles = THREE.ShapeUtils.triangulateShape(
+          sphericalContour.map(projectToTangent),
+          sphericalHoles.map(ring => ring.map(projectToTangent))
+        );
+      } catch {
+        triangles = [];
+      }
+    }
+    if (!validTriangulation(triangles)) continue;
+    for (const triangle of triangles) {
+      const points = triangle.map(index => vertices[index]);
+      if (points.length !== 3 || points.some(point => !point)) continue;
+      appendSphericalFillTriangle(
+        positions,
+        points[0],
+        points[1],
+        points[2],
+        radius
+      );
+    }
+  }
+  if (positions.length === 0) return null;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.computeBoundingSphere();
+  return geometry;
+}
+
+function admin1FillAppearance(entity, maximum) {
+  const intensity = Math.log1p(entity.signals) / Math.log1p(Math.max(maximum, 1));
+  const heat = Math.pow(intensity, 1.35);
+  const light = state.theme === 'light';
+  const red = Math.round((light ? 205 : 88) + heat * (light ? 42 : 167));
+  const green = Math.round((light ? 82 : 22) + heat * (light ? 55 : 76));
+  const blue = Math.round((light ? 48 : 13) + heat * (light ? -18 : 34));
+  const sourceOpacity = 0.18 + heat * (light ? 0.48 : 0.56);
+  return {
+    color: (red << 16) | (green << 8) | blue,
+    opacity: sourceOpacity * (light ? 0.66 : 0.9)
+  };
+}
+
+function updateAdmin1FillTheme() {
+  if (!state.detailHeatMesh) return;
+  const maximum = Math.max(1, ...state.detailRankedRegions.map(region => Number(region.signals) || 0));
+  state.detailHeatMesh.traverse(object => {
+    const entity = object.userData.admin1FillEntity;
+    if (!entity || !object.material) return;
+    const appearance = admin1FillAppearance(entity, maximum);
+    object.material.color.setHex(appearance.color);
+    object.material.opacity = appearance.opacity;
+  });
+}
+
 function createWorldBoundaries() {
   const positions = [];
   for (const feature of state.world.features) {
@@ -1217,6 +1373,15 @@ function updateSelectionOverlay(entity = null) {
   }
 
   const qualityFlagged = Boolean(entity?.qualityFlag || entity?.qualityFlags?.length);
+  if (isAdmin1Scope()) {
+    // The global selection canvas is intentionally not magnified in Admin-1.
+    // The published fill underneath is already vectorial; selection uses its
+    // exact vector boundary instead of reintroducing a blurry raster overlay.
+    state.selectionMesh.visible = false;
+    state.selectionTexture.needsUpdate = true;
+    updateSelectionBoundary(feature, qualityFlagged);
+    return;
+  }
   context.lineCap = 'round';
   context.lineJoin = 'round';
   context.fillStyle = qualityFlagged ? 'rgba(255, 170, 50, 0.34)' : 'rgba(255, 94, 39, 0.3)';
@@ -1717,6 +1882,8 @@ function clearAdmin1Layer({ resetAggregation = false } = {}) {
   state.detailHeatTexture = null;
   state.detailHeatMesh = null;
   state.detailBoundaryLine = null;
+  stage.dataset.admin1FillMeshes = '0';
+  stage.dataset.admin1FillTriangles = '0';
   if (resetAggregation) {
     state.detailCountry = null;
     state.detailConfig = null;
@@ -1745,24 +1912,37 @@ function createAdmin1Layer() {
   clearAdmin1Layer();
   state.detailGroup = new THREE.Group();
   state.detailGroup.userData.activityScope = 'admin1';
+  let fillMeshCount = 0;
+  let fillTriangleCount = 0;
 
   if (state.detailRankedRegions.length > 0) {
-    state.detailHeatTexture = makeActivityTexture('admin1');
-    state.detailHeatMesh = new THREE.Mesh(
-      globeGeometry(GLOBE_RADIUS + 0.022),
-      new THREE.MeshBasicMaterial({
-        map: state.detailHeatTexture,
-        transparent: true,
-        opacity: state.theme === 'light' ? 0.66 : 0.9,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        toneMapped: false
-      })
-    );
+    const maximum = Math.max(1, ...state.detailRankedRegions.map(region => Number(region.signals) || 0));
+    state.detailHeatMesh = new THREE.Group();
     state.detailHeatMesh.userData = { aggregateHeat: true, activityScope: 'admin1' };
-    state.detailHeatMesh.renderOrder = 3;
+    for (const entity of state.detailRankedRegions) {
+      const geometry = sphericalFillGeometry(entity.feature, GLOBE_RADIUS + 0.024);
+      if (!geometry) continue;
+      const appearance = admin1FillAppearance(entity, maximum);
+      const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+        color: appearance.color,
+        transparent: true,
+        opacity: appearance.opacity,
+        blending: THREE.NormalBlending,
+        depthWrite: false,
+        depthTest: true,
+        side: THREE.DoubleSide,
+        toneMapped: false
+      }));
+      mesh.userData = { admin1Fill: true, admin1FillEntity: entity, activityScope: 'admin1' };
+      mesh.renderOrder = 3;
+      state.detailHeatMesh.add(mesh);
+      fillMeshCount += 1;
+      fillTriangleCount += geometry.getAttribute('position').count / 3;
+    }
     state.detailGroup.add(state.detailHeatMesh);
   }
+  stage.dataset.admin1FillMeshes = String(fillMeshCount);
+  stage.dataset.admin1FillTriangles = String(fillTriangleCount);
 
   const positions = [];
   for (const feature of state.detailFeatures) {
@@ -2101,14 +2281,7 @@ function updateTheme(theme) {
     state.usHeatMesh.material.opacity = state.theme === 'light' ? 0.66 : 0.9;
     state.usHeatMesh.material.needsUpdate = true;
   }
-  if (state.detailHeatMesh) {
-    const nextDetailHeatTexture = makeActivityTexture('admin1');
-    state.detailHeatTexture?.dispose();
-    state.detailHeatTexture = nextDetailHeatTexture;
-    state.detailHeatMesh.material.map = nextDetailHeatTexture;
-    state.detailHeatMesh.material.opacity = state.theme === 'light' ? 0.66 : 0.9;
-    state.detailHeatMesh.material.needsUpdate = true;
-  }
+  updateAdmin1FillTheme();
   if (state.selectionMesh) state.selectionMesh.material.opacity = state.theme === 'light' ? 0.48 : 0.62;
   state.renderer.toneMappingExposure = state.theme === 'light' ? 0.94 : 1.06;
   state.scene.traverse(object => {

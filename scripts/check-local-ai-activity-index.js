@@ -817,6 +817,29 @@ if (app !== null) {
   if (!app.includes('function enterCountryDetail(') || !app.includes('function focusAdmin1Region(')) {
     issue('Activity-index JavaScript is missing generic country and Admin-1 drill-down interactions');
   }
+  const admin1LayerBody = topLevelFunctionBody(app, 'createAdmin1Layer');
+  if (admin1LayerBody.includes("makeActivityTexture('admin1')")) {
+    issue('Admin-1 regional fills must not use a magnified global raster texture');
+  }
+  if (!admin1LayerBody.includes('sphericalFillGeometry(')
+    || !admin1LayerBody.includes('THREE.NormalBlending')
+    || !admin1LayerBody.includes('admin1FillEntity')
+    || !admin1LayerBody.includes('stage.dataset.admin1FillMeshes')
+    || !admin1LayerBody.includes('stage.dataset.admin1FillTriangles')) {
+    issue('Admin-1 regional fills must remain exact vector meshes with normal blending and runtime QA counters');
+  }
+  const admin1FillGeometryBody = topLevelFunctionBody(app, 'sphericalFillGeometry');
+  if (!admin1FillGeometryBody.includes('unwrappedFillRing(')
+    || !admin1FillGeometryBody.includes('THREE.ShapeUtils.triangulateShape(')
+    || !admin1FillGeometryBody.includes('appendSphericalFillTriangle(')) {
+    issue('Admin-1 vector fills must triangulate unwrapped Polygon and MultiPolygon rings onto the sphere');
+  }
+  const selectionOverlayBody = topLevelFunctionBody(app, 'updateSelectionOverlay');
+  if (!selectionOverlayBody.includes('if (isAdmin1Scope())')
+    || !selectionOverlayBody.includes('state.selectionMesh.visible = false')
+    || !selectionOverlayBody.includes('updateSelectionBoundary(feature, qualityFlagged)')) {
+    issue('Admin-1 selection must use an exact vector boundary without a raster selection halo');
+  }
   const regionPanelBody = topLevelFunctionBody(app, 'renderStatePanel');
   if (!regionPanelBody.includes('.flatMap(region => region.features || [])')
     || !regionPanelBody.includes('!publishedFeatures.has(region.feature)')) {
@@ -1318,4 +1341,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions and exact geometry/record fingerprints, 61 privacy-thresholded regional country records with 94 public rows, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 desktop textures verified.');
+console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions and exact geometry/record fingerprints, 61 privacy-thresholded regional country records with 94 public rows, vector Admin-1 fills with normal blending, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 base textures verified.');
