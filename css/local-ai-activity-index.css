@@ -32,6 +32,10 @@ body.atlas-page::before {
   display: none;
 }
 
+.atlas-page .lc-theme-switcher {
+  display: none;
+}
+
 .atlas-skip {
   position: fixed;
   top: 12px;

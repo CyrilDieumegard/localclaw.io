@@ -6,6 +6,7 @@ const ROOT = path.resolve(__dirname, '..');
 const PAGE_PATH = 'local-ai-activity-index.html';
 const DATA_PATH = 'data/local-ai-activity-index.json';
 const SCRIPT_PATH = 'js/local-ai-activity-index.js';
+const THEME_SCRIPT_PATH = 'js/theme-toggle.js';
 const STYLE_PATH = 'css/local-ai-activity-index.css';
 const VENDOR_PATH = 'js/vendor/three.module.min.js';
 const VENDOR_LICENSE_PATH = 'js/vendor/THREE-LICENSE.txt';
@@ -290,6 +291,7 @@ function hasVersionedReference(tags, attributeName, expectedPath) {
 const html = readFile(PAGE_PATH, 'activity-index page');
 const dataText = readFile(DATA_PATH, 'activity-index dataset');
 const app = readFile(SCRIPT_PATH, 'activity-index JavaScript');
+const themeScript = readFile(THEME_SCRIPT_PATH, 'theme controller JavaScript');
 const css = readFile(STYLE_PATH, 'activity-index stylesheet');
 const vendor = readFile(VENDOR_PATH, 'vendored Three.js module');
 const vendorLicense = readFile(VENDOR_LICENSE_PATH, 'Three.js vendor license');
@@ -310,6 +312,10 @@ const admin2Manifest = parseJson(admin2ManifestText, 'U.S. and China Admin-2 man
 const usGeojson = parseJson(usGeojsonText, 'U.S. state GeoJSON');
 
 if (html !== null) {
+  if (!/<html\b[^>]*data-theme-lock=["']dark["']/i.test(html)
+    || !/<meta\b[^>]*name=["']color-scheme["'][^>]*content=["']dark["']/i.test(html)) {
+    issue('Atlas must declare its page-scoped dark theme lock before first paint');
+  }
   const titleMatches = [...html.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)];
   if (titleMatches.length !== 1) {
     issue(`Expected exactly one title, found ${titleMatches.length}`);
@@ -769,6 +775,15 @@ if (data) {
   }
 }
 
+if (themeScript !== null && (!themeScript.includes("html.getAttribute('data-theme-lock')")
+  || !themeScript.includes('if (persist && !lockedTheme)'))) {
+  issue('Global theme controller must honor a page-scoped lock without changing the saved site preference');
+}
+
+if (css !== null && !css.includes('.atlas-page .lc-theme-switcher')) {
+  issue('Atlas must hide the unavailable theme switcher while its dark theme is locked');
+}
+
 if (app !== null) {
   if (!/import\s+\*\s+as\s+THREE\s+from\s+["']\.\/vendor\/three\.module\.min\.js["']/.test(app)) {
     issue('Activity-index JavaScript must import the vendored Three.js module');
@@ -880,7 +895,9 @@ if (app !== null) {
     || !pointerPickBody.includes('? stateAt(lat, lon)')
     || !pointerPickBody.includes('? admin1RegionAt(lat, lon)')
     || !pointerPickBody.includes(': countryAt(lat, lon)')
-    || !pointerPickBody.includes('if (preferGeography) return geographicEntity || geographyForCluster(clusterHit)')
+    || !pointerPickBody.includes('const frontSurfaceHit = Boolean(intersection')
+    || !pointerPickBody.includes('const clusterHit = frontSurfaceHit && clusterHits[0]')
+    || !pointerPickBody.includes('if (preferGeography) return frontSurfaceHit ? geographicEntity || geographyForCluster(clusterHit) : null')
     || !pointerPickBody.includes('return geographicEntity;')
     || pointerPickBody.indexOf('if (preferGeography)') > pointerPickBody.indexOf('if (clusterHit)')) {
     issue('Atlas map activation must prioritize the country, state, Admin-1 or Admin-2 geography beneath city beacon hit areas');

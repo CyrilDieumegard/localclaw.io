@@ -2714,8 +2714,12 @@ function entityAtPointer({ preferGeography = false } = {}) {
   const intersection = globeHit
     ? { point: globeHit, distance: state.raycaster.ray.origin.distanceTo(globeHit) }
     : null;
+  const frontSurfaceHit = Boolean(intersection && intersection.point.clone()
+    .sub(state.interactionSphere.center)
+    .normalize()
+    .dot(state.raycaster.ray.direction) < 0);
   let geographicEntity = null;
-  if (intersection) {
+  if (frontSurfaceHit) {
     const local = state.globeGroup.worldToLocal(intersection.point.clone());
     const { lat, lon } = vectorToLatLon(local);
     geographicEntity = isAdmin2Scope()
@@ -2730,14 +2734,14 @@ function entityAtPointer({ preferGeography = false } = {}) {
     state.clusterEntries.filter(entry => entry.group.visible).map(entry => entry.hit),
     false
   );
-  const clusterHit = clusterHits[0] && (!intersection || clusterHits[0].distance <= intersection.distance + 0.12)
+  const clusterHit = frontSurfaceHit && clusterHits[0] && clusterHits[0].distance <= intersection.distance + 0.12
     ? clusterHits[0].object.userData.cityCluster || null
     : null;
   // Map activation always drills into the geography under the pointer. If a
   // coastal city centroid lands just outside a simplified boundary, its mapped
   // country, state or Admin-1 assignment is the geographic fallback. Beacons
   // remain hoverable and their projected labels are explicit city buttons.
-  if (preferGeography) return geographicEntity || geographyForCluster(clusterHit);
+  if (preferGeography) return frontSurfaceHit ? geographicEntity || geographyForCluster(clusterHit) : null;
   if (clusterHit) {
     return clusterHit;
   }

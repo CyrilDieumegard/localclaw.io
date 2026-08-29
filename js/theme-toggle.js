@@ -8,6 +8,8 @@
     var DARK_COLOR = '#050505';
 
     function storedTheme() {
+        var lockedTheme = document.documentElement.getAttribute('data-theme-lock');
+        if (lockedTheme === 'dark' || lockedTheme === 'light') return lockedTheme;
         try {
             var value = localStorage.getItem(THEME_KEY);
             return value === 'dark' || value === 'light' ? value : 'light';
@@ -34,8 +36,11 @@
     }
 
     function applyTheme(theme, persist) {
-        var selected = theme === 'dark' ? 'dark' : 'light';
         var html = document.documentElement;
+        var lockedTheme = html.getAttribute('data-theme-lock');
+        var selected = lockedTheme === 'dark' || lockedTheme === 'light'
+            ? lockedTheme
+            : (theme === 'dark' ? 'dark' : 'light');
 
         html.classList.remove(selected === 'dark' ? 'light' : 'dark');
         html.classList.add(selected);
@@ -45,7 +50,7 @@
         updateMeta('color-scheme', selected);
         updateControls(selected);
 
-        if (persist) {
+        if (persist && !lockedTheme) {
             try {
                 localStorage.setItem(THEME_KEY, selected);
             } catch (error) {
