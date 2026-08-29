@@ -45,11 +45,11 @@ const EXPECTED_ADMIN1_RECORD_FINGERPRINT = '381faf9e0bddc4fdf8c74abafdd10ac0d569
 const EXPECTED_ADMIN1_ACTIVITY_COUNTRIES = 61;
 const EXPECTED_ADMIN1_ACTIVITY_REGIONS = 94;
 const EXPECTED_ADMIN1_ACTIVITY_SIGNALS = 1214;
-const EXPECTED_ADMIN2_PARENTS = 82;
-const EXPECTED_ADMIN2_SUBDIVISIONS = 3502;
-const EXPECTED_ADMIN2_COORDINATE_POSITIONS = 338551;
-const EXPECTED_ADMIN2_GEOMETRY_FINGERPRINT = 'c7ad264be4b31236a6f3c0aa69329f6437c00d8dcdc9024b35eb44b97eceae9f';
-const EXPECTED_ADMIN2_RECORD_FINGERPRINT = '3264f2adfface9e4f247e5e9508609430a5aac14981e806611fc10c1be813084';
+const EXPECTED_ADMIN2_PARENTS = 90;
+const EXPECTED_ADMIN2_SUBDIVISIONS = 4047;
+const EXPECTED_ADMIN2_COORDINATE_POSITIONS = 584249;
+const EXPECTED_ADMIN2_GEOMETRY_FINGERPRINT = '19b8c479bcf0589c138f6bec67a02bd54651dbf5baddbdd6070cb470c7298e4e';
+const EXPECTED_ADMIN2_RECORD_FINGERPRINT = 'f6ccf025f72ceb475dfd275b520cd6f4bf169209a423c8c4ffbe2ababdc937a0';
 const EXPECTED_ADMIN1_PUBLICATION_STATUSES = new Map([
   ['published', 46],
   ['none_above_threshold', 14],
@@ -296,7 +296,7 @@ const vendorLicense = readFile(VENDOR_LICENSE_PATH, 'Three.js vendor license');
 const geojsonText = readFile(GEOJSON_PATH, 'country GeoJSON');
 const admin1ManifestText = readFile(ADMIN1_MANIFEST_PATH, 'worldwide Admin-1 manifest');
 const admin1ActivityText = readFile(ADMIN1_ACTIVITY_PATH, 'worldwide Admin-1 activity dataset');
-const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S. and China Admin-2 manifest');
+const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S., China, and Australia deeper-boundary manifest');
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
 const sitemapCore = readFile('sitemap-core.xml', 'core sitemap');
 const sitemapIndex = readFile('sitemap.xml', 'sitemap index');
@@ -362,16 +362,21 @@ if (html !== null) {
     issue('Visible copy must disclose the independent regional source and five-signal omission rule');
   }
   if (!(visibleText.includes('every other subdivision stays neutral')
-    || visibleText.includes('county and prefecture boundaries stay neutral'))) {
+    || visibleText.includes('county, prefecture, and lga boundaries stay neutral'))) {
     issue('Visible copy must say that subdivisions without a published regional value remain neutral');
   }
-  if (!visibleText.includes('3,144') || !visibleText.includes('358')
-    || !visibleText.includes('does not publish county or prefecture totals')) {
-    issue('Visible copy must disclose the deeper U.S./China boundary coverage and absence of Admin-2 activity totals');
+  if (!visibleText.includes('3,144') || !visibleText.includes('358') || !visibleText.includes('545')
+    || !visibleText.includes('does not publish county, prefecture, or lga totals')) {
+    issue('Visible copy must disclose the deeper U.S./China/Australia boundary coverage and absence of detailed activity totals');
   }
   if (!visibleText.includes('explicitly describes its china boundaries as unofficial')
     || !visibleText.includes('cc by 3.0 igo')) {
     issue('Visible copy must disclose the China boundary source status and license');
+  }
+  if (!visibleText.includes('abs asgs edition 3 local government areas 2025')
+    || !visibleText.includes('statistical mesh block approximations')
+    || !visibleText.includes('cc by 4.0')) {
+    issue('Visible copy must disclose the official ABS Australia LGA source, approximation caveat, and license');
   }
 
   const buttonTags = [...html.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/gi)].map(match => match[0]);
@@ -784,7 +789,7 @@ if (app !== null) {
     issue('Activity-index JavaScript must load the versioned worldwide regional activity dataset');
   }
   if (!app.includes("const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?")) {
-    issue('Activity-index JavaScript must load the versioned U.S./China Admin-2 manifest');
+    issue('Activity-index JavaScript must load the versioned deeper-boundary manifest');
   }
   if (app.includes('ne_10m_admin_1_china_russia') || /const\s+ADMIN1_URL\s*=/.test(app)) {
     issue('Activity-index JavaScript must not load the retired China/Russia Admin-1 monolith');
@@ -844,7 +849,7 @@ if (app !== null) {
     || !app.includes('function enterAdmin2Detail(')
     || !app.includes('function focusAdmin2Region(')
     || !app.includes('function exitAdmin2(')) {
-    issue('Activity-index JavaScript is missing the lazy U.S./China Admin-2 drill-down flow');
+    issue('Activity-index JavaScript is missing the lazy deeper-boundary drill-down flow');
   }
   const admin2CacheLimit = Number(app.match(/const\s+ADMIN2_CACHE_LIMIT\s*=\s*(\d+)\s*;/)?.[1]);
   if (!Number.isInteger(admin2CacheLimit) || admin2CacheLimit < 2 || admin2CacheLimit > 12
@@ -1464,7 +1469,7 @@ if (admin2Manifest) {
   }
   const totals = admin2Manifest.totals || {};
   for (const [field, expected] of Object.entries({
-    countries: 2,
+    countries: 3,
     parents: EXPECTED_ADMIN2_PARENTS,
     subdivisions: EXPECTED_ADMIN2_SUBDIVISIONS,
     coordinatePositionCount: EXPECTED_ADMIN2_COORDINATE_POSITIONS
@@ -1473,11 +1478,12 @@ if (admin2Manifest) {
   }
   if (totals.geometryFingerprint !== EXPECTED_ADMIN2_GEOMETRY_FINGERPRINT
     || totals.recordFingerprint !== EXPECTED_ADMIN2_RECORD_FINGERPRINT) {
-    issue('Admin-2 manifest fingerprints do not match the approved U.S./China boundary snapshot');
+    issue('Admin-2 manifest fingerprints do not match the approved U.S./China/Australia boundary snapshot');
   }
   const countries = admin2Manifest.countries || {};
   const usa = countries.USA || {};
   const china = countries.CHN || {};
+  const australia = countries.AUS || {};
   if (usa.source?.provider !== 'U.S. Census Bureau'
     || usa.source?.sourceYear !== 2025
     || usa.source?.official !== true
@@ -1496,9 +1502,21 @@ if (admin2Manifest) {
     || !String(china.source?.status || '').toLowerCase().includes('unofficial')) {
     issue('China Admin-2 provenance must retain the OCHA source hashes, CC BY 3.0 IGO license, and unofficial-source disclosure');
   }
+  if (australia.source?.provider !== 'Australian Bureau of Statistics (ABS)'
+    || australia.source?.sourceYear !== 2025
+    || australia.source?.official !== true
+    || !String(australia.source?.license || '').includes('CC BY 4.0')
+    || australia.source?.sourceFiles?.serviceLayer !== 'ASGS2025/LGA/FeatureServer/1 — LGA_GEN'
+    || australia.source?.sourceFiles?.geojsonSha256 !== '0a6f910d0190b52e38b3c7c90d9a2e1695cac231dcabc4395e6625a2be9aa339'
+    || australia.source?.sourceFiles?.maxAllowableOffsetDegrees !== 0.001
+    || australia.source?.sourceFiles?.geometryPrecisionDecimals !== 6
+    || !String(australia.source?.filter || '').includes('545 spatial LGA')) {
+    issue('Australia deeper-boundary provenance must identify the official ABS 2025 LGA_GEN snapshot, display generalization, CC BY 4.0 license, and spatial-record filter');
+  }
   const countryExpectations = [
     ['USA', usa, 51, 3144, 'usa'],
-    ['CHN', china, 31, 358, 'chn']
+    ['CHN', china, 31, 358, 'chn'],
+    ['AUS', australia, 8, 545, 'aus']
   ];
   const referencedFiles = new Set();
   const codes = new Set();
@@ -1568,7 +1586,7 @@ if (admin2Manifest) {
     || computedCoordinatePositions !== EXPECTED_ADMIN2_COORDINATE_POSITIONS) {
     issue('Computed Admin-2 totals do not match the approved snapshot');
   }
-  const actualAdmin2Files = ['usa', 'chn'].flatMap(directory => {
+  const actualAdmin2Files = ['usa', 'chn', 'aus'].flatMap(directory => {
     const absoluteDirectory = path.join(ROOT, 'data', 'admin2', directory);
     return fs.existsSync(absoluteDirectory)
       ? fs.readdirSync(absoluteDirectory)
@@ -1615,4 +1633,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions, 82 lazy U.S./China deeper-boundary shards with 3,502 neutral subdivisions, exact provenance and fingerprints, 61 privacy-thresholded regional country records with 94 public rows, vector-only Admin-2 detail, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 base textures verified.');
+console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions, 90 lazy U.S./China/Australia deeper-boundary shards with 4,047 neutral subdivisions, exact provenance and fingerprints, 61 privacy-thresholded regional country records with 94 public rows, vector-only detail, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 base textures verified.');

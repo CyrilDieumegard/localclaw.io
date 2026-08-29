@@ -5,7 +5,7 @@ const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
 const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?v=20260829h';
-const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829b';
+const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829c';
 const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
 const ADMIN2_CACHE_LIMIT = 4;
@@ -68,6 +68,13 @@ const countryDetailOverrides = new Map([
     regionLabel: 'federal subject',
     regionsLabel: 'federal subjects',
     titleEmphasis: 'across Russia’s federal subjects.'
+  }],
+  ['Australia', {
+    viewLabel: 'State and territory view',
+    liveLabel: 'State and territory exploration',
+    regionLabel: 'state or territory',
+    regionsLabel: 'states and territories',
+    titleEmphasis: 'across Australia’s states and territories.'
   }]
 ]);
 
@@ -82,7 +89,8 @@ const admin1CodeOverrides = new Map([
   ['RUS-2399', ['RU-ALT']],
   ['RUS-2400', ['RU-AL']],
   ['RUS-2364', ['RU-MOS']],
-  ['RUS-2365', ['RU-MOW']]
+  ['RUS-2365', ['RU-MOW']],
+  ['AUS-1932', ['AU-NSW']]
 ]);
 
 const countryHubs = {
@@ -789,32 +797,33 @@ function admin2ParentCode(parent, parentScope = state.scope) {
   }
   return (parent.codes || [])
     .map(code => String(code || '').trim().toUpperCase())
-    .find(code => /^CN-[A-Z0-9]{2}$/.test(code)) || '';
+    .find(code => /^(?:CN|AU)-[A-Z0-9]{2,3}$/.test(code)) || '';
 }
 
 function admin2ConfigForParent(parent, parentScope = state.scope) {
   const adm0A3 = parentScope === 'us' ? 'USA' : state.detailConfig?.adm0A3;
-  if (!['USA', 'CHN'].includes(adm0A3)) return null;
   const parentCode = admin2ParentCode(parent, parentScope);
   const countryEntry = state.admin2Manifest?.countries?.[adm0A3];
   const manifest = countryEntry?.parents?.[parentCode];
   if (!parentCode || !manifest) return null;
-  const childLabel = manifest.childLabel || countryEntry.childLabel || (adm0A3 === 'USA' ? 'county or equivalent' : 'prefecture-level division');
-  const childrenLabel = manifest.childrenLabel || countryEntry.childrenLabel || (adm0A3 === 'USA' ? 'counties and equivalents' : 'prefecture-level divisions');
+  const childLabel = manifest.childLabel || countryEntry.childLabel || 'administrative subdivision';
+  const childrenLabel = manifest.childrenLabel || countryEntry.childrenLabel || 'administrative subdivisions';
+  const parentType = parentScope === 'us' ? 'state' : (parent.type || state.detailConfig?.regionLabel || 'parent region');
   return {
     ...manifest,
     adm0A3,
-    countryName: countryEntry.name || (adm0A3 === 'USA' ? 'United States' : 'China'),
+    countryName: countryEntry.name || state.detailCountry?.name || 'Country',
     parentCode,
     parentName: manifest.parentName || parent.name,
-    parentType: parentScope === 'us' ? 'state' : (parent.type || state.detailConfig?.regionLabel || 'province-level region'),
+    parentType,
     parentScope,
     childLabel,
     childrenLabel,
-    viewLabel: manifest.viewLabel || (adm0A3 === 'USA' ? 'County view' : 'Prefecture-level view'),
-    liveLabel: manifest.liveLabel || (adm0A3 === 'USA' ? 'County-level exploration' : 'Prefecture-level exploration'),
+    viewLabel: manifest.viewLabel || 'Detailed boundary view',
+    liveLabel: manifest.liveLabel || 'Detailed boundary exploration',
+    parentViewLabel: manifest.parentViewLabel || (parentScope === 'us' ? 'state view' : state.detailConfig?.viewLabel?.toLowerCase() || 'regional view'),
     parentSignals: Number.isFinite(parent.signals) ? parent.signals : null,
-    parentSignalLabel: parentScope === 'us' ? 'state-level signals' : 'province-level signals',
+    parentSignalLabel: manifest.parentSignalLabel || (parentScope === 'us' ? 'state-level signals' : `${parentType}-level signals`),
     source: countryEntry.source || manifest.source || null
   };
 }
@@ -3152,7 +3161,7 @@ function updateScopeInterface() {
   canvas.setAttribute('aria-label', stateView
     ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Select a state to open its counties and equivalents; select a visible city label to inspect its separate cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or return to the world view.'
     : admin1View
-      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. In China, select a province-level region to open its prefecture-level divisions. Select a visible city label to inspect its separate cluster. Neutral boundaries are orientation references only. Use World to return.`
+      ? `Interactive globe showing published LocalClaw interest aggregates by ${state.detailConfig.regionsLabel} in ${state.detailCountry.name}. Where a licensed finer boundary layer is available, select a region again to open it. Select a visible city label to inspect its separate cluster. Neutral boundaries are orientation references only. Use World to return.`
       : admin2View
         ? `Interactive globe showing neutral ${state.admin2Config.childrenLabel} inside ${state.admin2Config.parentName}. Select a boundary to focus it; select a visible city label to inspect its separate published cluster. No activity total is published for these subdivisions. Use Back to return to the parent view.`
       : 'Interactive globe showing anonymous local AI interest signals by country. Select the map to open the country under the pointer; select a visible city label to inspect its cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or use the country ranking below.');
@@ -3172,7 +3181,7 @@ function updateScopeInterface() {
         ? `← ${state.admin2ParentScope === 'us' ? 'United States' : state.admin2Config.countryName}`
         : '← World';
       backButton.setAttribute('aria-label', admin2View
-        ? `Return to ${state.admin2ParentScope === 'us' ? 'United States state view' : `${state.admin2Config.countryName} province-level view`}`
+        ? `Return to ${state.admin2Config.countryName} ${state.admin2Config.parentViewLabel}`
         : 'Return to world view');
     }
     if (panelTitle) panelTitle.textContent = stateView

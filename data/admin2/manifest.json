@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-29T21:45:00.000Z",
-  "scope": "Lazy parent-sharded cartographic Admin-2 references for the United States and China",
-  "dataNotice": "These boundaries do not contain or imply DataFast county or prefecture totals. Neutral subdivisions do not mean zero activity; published city beacons remain a separate breakdown.",
+  "generatedAt": "2026-08-29T20:15:24.000Z",
+  "scope": "Lazy parent-sharded cartographic deeper-boundary references for the United States, China and Australia",
+  "dataNotice": "These boundaries do not contain or imply DataFast county, prefecture or local-government-area totals. Neutral subdivisions do not mean zero activity; published city beacons remain a separate breakdown.",
   "totals": {
-    "countries": 2,
-    "parents": 82,
-    "subdivisions": 3502,
-    "coordinatePositionCount": 338551,
-    "geometryFingerprint": "c7ad264be4b31236a6f3c0aa69329f6437c00d8dcdc9024b35eb44b97eceae9f",
-    "recordFingerprint": "3264f2adfface9e4f247e5e9508609430a5aac14981e806611fc10c1be813084"
+    "countries": 3,
+    "parents": 90,
+    "subdivisions": 4047,
+    "coordinatePositionCount": 584249,
+    "geometryFingerprint": "19b8c479bcf0589c138f6bec67a02bd54651dbf5baddbdd6070cb470c7298e4e",
+    "recordFingerprint": "f6ccf025f72ceb475dfd275b520cd6f4bf169209a423c8c4ffbe2ababdc937a0"
   },
   "countries": {
     "USA": {
@@ -2564,6 +2564,315 @@
             {
               "type": "Prefecture-level city",
               "count": 11
+            }
+          ]
+        }
+      }
+    },
+    "AUS": {
+      "code": "AUS",
+      "name": "Australia",
+      "parentLevel": "state or territory",
+      "childLevel": "local government area or equivalent",
+      "source": {
+        "provider": "Australian Bureau of Statistics (ABS)",
+        "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+        "sourceYear": 2025,
+        "sourcePage": "https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files",
+        "downloadUrl": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2025/LGA/FeatureServer/1/query?where=1%3D1&outFields=LGA_CODE_2025%2CLGA_NAME_2025%2CSTATE_CODE_2021%2CSTATE_NAME_2021&returnGeometry=true&outSR=4326&maxAllowableOffset=0.001&geometryPrecision=6&f=geojson",
+        "sourceFiles": {
+          "serviceLayer": "ASGS2025/LGA/FeatureServer/1 — LGA_GEN",
+          "geojsonSha256": "0a6f910d0190b52e38b3c7c90d9a2e1695cac231dcabc4395e6625a2be9aa339",
+          "maxAllowableOffsetDegrees": 0.001,
+          "geometryPrecisionDecimals": 6
+        },
+        "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+        "official": true,
+        "parentLevel": "state or territory",
+        "childLevel": "local government area or equivalent",
+        "childLabel": "local government area or equivalent",
+        "childrenLabel": "local government areas and equivalents",
+        "viewLabel": "Local government area view",
+        "liveLabel": "Local government area exploration",
+        "parentViewLabel": "state and territory view",
+        "parentSignalLabel": "state or territory-level signals",
+        "filter": "Eight internal states and territories only; 545 spatial LGA and unincorporated-area records retained; 19 non-spatial special-purpose codes, Outside Australia, and Other Territories excluded from this state/territory drill path; official LGA_GEN service geometry requested in WGS84 with a 0.001-degree maximum allowable offset and six-decimal coordinate precision for interactive display"
+      },
+      "totals": {
+        "parents": 8,
+        "subdivisions": 545,
+        "coordinatePositionCount": 245698
+      },
+      "parents": {
+        "AU-ACT": {
+          "parentCode": "AU-ACT",
+          "parentName": "Australian Capital Territory",
+          "path": "/data/admin2/aus/au-act.geojson",
+          "sha256": "954007e59dfc168a8fc04db2ee11e26cbc71cee6ee6d10a7d5380d05d6e0154c",
+          "bbox": [
+            148.762796,
+            -35.920517,
+            149.399293,
+            -35.124403
+          ],
+          "longitudeSpan": 0.636497,
+          "featureCount": 1,
+          "coordinatePositionCount": 380,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Unincorporated area",
+              "count": 1
+            }
+          ]
+        },
+        "AU-NSW": {
+          "parentCode": "AU-NSW",
+          "parentName": "New South Wales",
+          "path": "/data/admin2/aus/au-nsw.geojson",
+          "sha256": "0dde5f3a1fa55fc99ae3d544bd0f7f06e3ea094f323f3e800edc2fa24d63003c",
+          "bbox": [
+            140.999272,
+            -37.504577,
+            159.109193,
+            -28.156879
+          ],
+          "longitudeSpan": 18.109921,
+          "featureCount": 129,
+          "coordinatePositionCount": 61485,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 128
+            },
+            {
+              "type": "Unincorporated area",
+              "count": 1
+            }
+          ]
+        },
+        "AU-NT": {
+          "parentCode": "AU-NT",
+          "parentName": "Northern Territory",
+          "path": "/data/admin2/aus/au-nt.geojson",
+          "sha256": "6ff928d952ded5bcb938572a1dc0152b0100bb15c6181a97cbdc0aabf29f9db5",
+          "bbox": [
+            129.000494,
+            -25.998592,
+            137.999061,
+            -10.906486
+          ],
+          "longitudeSpan": 8.998567,
+          "featureCount": 20,
+          "coordinatePositionCount": 15024,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 19
+            },
+            {
+              "type": "Unincorporated area",
+              "count": 1
+            }
+          ]
+        },
+        "AU-QLD": {
+          "parentCode": "AU-QLD",
+          "parentName": "Queensland",
+          "path": "/data/admin2/aus/au-qld.geojson",
+          "sha256": "476244a70b70b3ac5a4127f4b7b11356841113d20ac0b7d234e35128e8e70461",
+          "bbox": [
+            137.994654,
+            -29.179253,
+            153.552177,
+            -9.142483
+          ],
+          "longitudeSpan": 15.557523,
+          "featureCount": 78,
+          "coordinatePositionCount": 52050,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 78
+            }
+          ]
+        },
+        "AU-SA": {
+          "parentCode": "AU-SA",
+          "parentName": "South Australia",
+          "path": "/data/admin2/aus/au-sa.geojson",
+          "sha256": "93855149aa5c8fb4f2e579266397982254608cdaa5215f15d3e5fe7036191a9a",
+          "bbox": [
+            129.001847,
+            -38.062561,
+            141.002963,
+            -25.996378
+          ],
+          "longitudeSpan": 12.001116,
+          "featureCount": 71,
+          "coordinatePositionCount": 13362,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 70
+            },
+            {
+              "type": "Unincorporated area",
+              "count": 1
+            }
+          ]
+        },
+        "AU-TAS": {
+          "parentCode": "AU-TAS",
+          "parentName": "Tasmania",
+          "path": "/data/admin2/aus/au-tas.geojson",
+          "sha256": "832796435ac2b95a885a7fabca9292beb32b1d1f84b1de22d6754749454d45f0",
+          "bbox": [
+            143.819256,
+            -43.740365,
+            148.498567,
+            -39.203783
+          ],
+          "longitudeSpan": 4.679311,
+          "featureCount": 29,
+          "coordinatePositionCount": 24106,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 29
+            }
+          ]
+        },
+        "AU-VIC": {
+          "parentCode": "AU-VIC",
+          "parentName": "Victoria",
+          "path": "/data/admin2/aus/au-vic.geojson",
+          "sha256": "ae254c95d10061854df7c777492a8bbc80741683e2175c089bdd3c82481c1a32",
+          "bbox": [
+            140.961866,
+            -39.158988,
+            149.976198,
+            -33.980636
+          ],
+          "longitudeSpan": 9.014332,
+          "featureCount": 80,
+          "coordinatePositionCount": 25636,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 79
+            },
+            {
+              "type": "Unincorporated area",
+              "count": 1
+            }
+          ]
+        },
+        "AU-WA": {
+          "parentCode": "AU-WA",
+          "parentName": "Western Australia",
+          "path": "/data/admin2/aus/au-wa.geojson",
+          "sha256": "99f87b6ac7ce1a3264bacfdea126f06eb004d054aff8de052b86d6c667b3ceab",
+          "bbox": [
+            112.921135,
+            -35.191586,
+            129.001928,
+            -13.688712
+          ],
+          "longitudeSpan": 16.080793,
+          "featureCount": 137,
+          "coordinatePositionCount": 53655,
+          "childLabel": "local government area or equivalent",
+          "childrenLabel": "local government areas and equivalents",
+          "viewLabel": "Local government area view",
+          "liveLabel": "Local government area exploration",
+          "parentViewLabel": "state and territory view",
+          "parentSignalLabel": "state or territory-level signals",
+          "source": "Australian Bureau of Statistics (ABS)",
+          "sourceName": "Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020",
+          "sourceYear": 2025,
+          "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+          "official": true,
+          "types": [
+            {
+              "type": "Local government area",
+              "count": 137
             }
           ]
         }

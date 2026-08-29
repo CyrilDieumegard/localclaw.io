@@ -6,25 +6,32 @@ const ROOT = path.resolve(__dirname, '..');
 const OUTPUT_ROOT = path.join(ROOT, 'data', 'admin2');
 const US_OUTPUT = path.join(OUTPUT_ROOT, 'usa');
 const CHINA_OUTPUT = path.join(OUTPUT_ROOT, 'chn');
+const AUSTRALIA_OUTPUT = path.join(OUTPUT_ROOT, 'aus');
 const MANIFEST_PATH = path.join(OUTPUT_ROOT, 'manifest.json');
 const US_STATES_PATH = path.join(ROOT, 'data', 'us-states-2024-20m.geojson');
 const CHINA_ADMIN1_PATH = path.join(ROOT, 'data', 'admin1', 'chn.geojson');
+const AUSTRALIA_ADMIN1_PATH = path.join(ROOT, 'data', 'admin1', 'aus.geojson');
 
 const usKmlPath = process.argv[2] || process.env.LOCALCLAW_ADMIN2_US_KML;
 const chinaShpPath = process.argv[3] || process.env.LOCALCLAW_ADMIN2_CHINA_SHP;
 const chinaDbfPath = process.argv[4] || process.env.LOCALCLAW_ADMIN2_CHINA_DBF;
-const generatedAt = process.env.LOCALCLAW_ADMIN2_GENERATED_AT || '2026-08-29T21:45:00.000Z';
+const australiaGeojsonPath = process.argv[5] || process.env.LOCALCLAW_ADMIN2_AUSTRALIA_GEOJSON;
+const generatedAt = process.env.LOCALCLAW_ADMIN2_GENERATED_AT || '2026-08-29T20:15:24.000Z';
 
 const EXPECTED_US_KML_SHA256 = '70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd';
 const EXPECTED_US_ARCHIVE_SHA256 = '19f80cd87ad2e51146b8a7de496428c950e57f725b4eb74674efcb5059fa4678';
 const EXPECTED_CHINA_SHP_SHA256 = 'acb0881183eea5db5cf19597367eefd188b948d3d38962b3cc041656dbdb7dcd';
 const EXPECTED_CHINA_DBF_SHA256 = '6fda17135a6b5651d8321b30f867ca8643ddd2b8024eae15d23f24c7ab27ad33';
+const EXPECTED_AUSTRALIA_GEOJSON_SHA256 = '0a6f910d0190b52e38b3c7c90d9a2e1695cac231dcabc4395e6625a2be9aa339';
 const EXPECTED_US_SOURCE_FEATURES = 3235;
 const EXPECTED_US_FEATURES = 3144;
 const EXPECTED_US_PARENTS = 51;
 const EXPECTED_CHINA_SOURCE_FEATURES = 361;
 const EXPECTED_CHINA_FEATURES = 358;
 const EXPECTED_CHINA_PARENTS = 31;
+const EXPECTED_AUSTRALIA_SOURCE_FEATURES = 567;
+const EXPECTED_AUSTRALIA_FEATURES = 545;
+const EXPECTED_AUSTRALIA_PARENTS = 8;
 
 const chinaParentCodes = new Map(Object.entries({
   CN011: 'CN-BJ',
@@ -60,11 +67,31 @@ const chinaParentCodes = new Map(Object.entries({
   CN065: 'CN-XJ'
 }));
 const excludedChinaParents = new Set(['CN071', 'CN081', 'CN082']);
+const australiaParentCodes = new Map(Object.entries({
+  1: 'AU-NSW',
+  2: 'AU-VIC',
+  3: 'AU-QLD',
+  4: 'AU-SA',
+  5: 'AU-WA',
+  6: 'AU-TAS',
+  7: 'AU-NT',
+  8: 'AU-ACT'
+}));
+const australiaParentNamesExpected = new Map(Object.entries({
+  'AU-NSW': 'New South Wales',
+  'AU-VIC': 'Victoria',
+  'AU-QLD': 'Queensland',
+  'AU-SA': 'South Australia',
+  'AU-WA': 'Western Australia',
+  'AU-TAS': 'Tasmania',
+  'AU-NT': 'Northern Territory',
+  'AU-ACT': 'Australian Capital Territory'
+}));
 
-if (!usKmlPath || !chinaShpPath || !chinaDbfPath) {
+if (!usKmlPath || !chinaShpPath || !chinaDbfPath || !australiaGeojsonPath) {
   throw new Error([
-    'Usage: node scripts/generate-admin2-boundaries.js <US counties KML> <China Admin-2 SHP> <China Admin-2 DBF>',
-    'Environment alternatives: LOCALCLAW_ADMIN2_US_KML, LOCALCLAW_ADMIN2_CHINA_SHP, LOCALCLAW_ADMIN2_CHINA_DBF'
+    'Usage: node scripts/generate-admin2-boundaries.js <US counties KML> <China Admin-2 SHP> <China Admin-2 DBF> <Australia LGA GeoJSON>',
+    'Environment alternatives: LOCALCLAW_ADMIN2_US_KML, LOCALCLAW_ADMIN2_CHINA_SHP, LOCALCLAW_ADMIN2_CHINA_DBF, LOCALCLAW_ADMIN2_AUSTRALIA_GEOJSON'
   ].join('\n'));
 }
 if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(generatedAt)) {
@@ -425,6 +452,9 @@ function writeCountryShards({ countryCode, countryName, directoryName, features,
       childLabel: metadata.childLabel,
       childrenLabel: metadata.childrenLabel,
       viewLabel: metadata.viewLabel,
+      liveLabel: metadata.liveLabel,
+      parentViewLabel: metadata.parentViewLabel,
+      parentSignalLabel: metadata.parentSignalLabel,
       source: metadata.provider,
       sourceName: metadata.sourceName,
       sourceYear: metadata.sourceYear,
@@ -452,6 +482,11 @@ function writeCountryShards({ countryCode, countryName, directoryName, features,
 const usKmlBuffer = readPinnedSource(usKmlPath, EXPECTED_US_KML_SHA256, 'U.S. Census county KML');
 const chinaShpBuffer = readPinnedSource(chinaShpPath, EXPECTED_CHINA_SHP_SHA256, 'China OCHA Admin-2 SHP');
 const chinaDbfBuffer = readPinnedSource(chinaDbfPath, EXPECTED_CHINA_DBF_SHA256, 'China OCHA Admin-2 DBF');
+const australiaGeojsonBuffer = readPinnedSource(
+  australiaGeojsonPath,
+  EXPECTED_AUSTRALIA_GEOJSON_SHA256,
+  'Australia ABS LGA generalized GeoJSON'
+);
 
 const usStates = JSON.parse(fs.readFileSync(US_STATES_PATH, 'utf8'));
 const usStateByPostal = new Map((usStates.features || []).map(feature => [feature.properties?.STUSPS, feature.properties]));
@@ -551,6 +586,59 @@ if (generatedChinaParents.size !== EXPECTED_CHINA_PARENTS
   throw new Error('Filtered China Admin-2 dataset does not cover all 31 approved mainland parents.');
 }
 
+const australiaSource = JSON.parse(australiaGeojsonBuffer.toString('utf8'));
+const australiaRecords = Array.isArray(australiaSource.features) ? australiaSource.features : [];
+if (australiaSource.type !== 'FeatureCollection' || australiaRecords.length !== EXPECTED_AUSTRALIA_SOURCE_FEATURES) {
+  throw new Error(`Australia source must contain ${EXPECTED_AUSTRALIA_SOURCE_FEATURES} GeoJSON features.`);
+}
+const australiaAdmin1 = JSON.parse(fs.readFileSync(AUSTRALIA_ADMIN1_PATH, 'utf8'));
+const australiaParentNames = new Map();
+for (const feature of australiaAdmin1.features || []) {
+  const code = feature.properties?.iso_3166_2;
+  const name = feature.properties?.name_en || feature.properties?.name;
+  if (australiaParentNamesExpected.get(code) === name) {
+    australiaParentNames.set(code, name);
+  }
+}
+if (australiaParentNames.size !== EXPECTED_AUSTRALIA_PARENTS) {
+  throw new Error('The approved Australia Admin-1 shard must contain all eight states and internal territories.');
+}
+const australiaFeatures = [];
+for (let index = 0; index < australiaRecords.length; index += 1) {
+  const sourceFeature = australiaRecords[index];
+  const record = sourceFeature.properties || {};
+  const parentCode = australiaParentCodes.get(String(record.STATE_CODE_2021 || '').trim());
+  const geometry = sourceFeature.geometry;
+  if (!parentCode || !geometry) continue;
+  const code = String(record.LGA_CODE_2025 || '').trim().toUpperCase();
+  const name = String(record.LGA_NAME_2025 || '').trim();
+  if (!/^\d{5}$/.test(code) || !name) {
+    throw new Error(`Australia LGA record ${index + 1} has incomplete identifiers.`);
+  }
+  australiaFeatures.push({
+    type: 'Feature',
+    properties: {
+      code: `AU-LGA-${code}`,
+      name,
+      label: name,
+      type: /^Unincorp/i.test(name) ? 'Unincorporated area' : 'Local government area',
+      parentCode
+    },
+    geometry
+  });
+}
+if (australiaFeatures.length !== EXPECTED_AUSTRALIA_FEATURES) {
+  throw new Error(`Filtered Australia LGA dataset contains ${australiaFeatures.length} features; expected ${EXPECTED_AUSTRALIA_FEATURES}.`);
+}
+if (new Set(australiaFeatures.map(feature => feature.properties.code)).size !== australiaFeatures.length) {
+  throw new Error('Filtered Australia LGA dataset contains duplicate LGA codes.');
+}
+const generatedAustraliaParents = new Set(australiaFeatures.map(feature => feature.properties.parentCode));
+if (generatedAustraliaParents.size !== EXPECTED_AUSTRALIA_PARENTS
+  || [...australiaParentNames.keys()].some(parentCode => !generatedAustraliaParents.has(parentCode))) {
+  throw new Error('Filtered Australia LGA dataset does not cover all eight approved state and territory parents.');
+}
+
 fs.mkdirSync(OUTPUT_ROOT, { recursive: true });
 const usa = writeCountryShards({
   countryCode: 'USA',
@@ -607,12 +695,46 @@ const chn = writeCountryShards({
     filter: '31 mainland province-level parents matching the existing Atlas China view; Taiwan, Hong Kong and Macao source records excluded; SHP geometry retained without additional simplification'
   }
 });
+const aus = writeCountryShards({
+  countryCode: 'AUS',
+  countryName: 'Australia',
+  directoryName: 'aus',
+  features: australiaFeatures,
+  parentNames: australiaParentNames,
+  metadata: {
+    provider: 'Australian Bureau of Statistics (ABS)',
+    sourceName: 'Australian Statistical Geography Standard Edition 3 — Local Government Areas 2025, GDA2020',
+    sourceYear: 2025,
+    sourcePage: 'https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files',
+    downloadUrl: 'https://geo.abs.gov.au/arcgis/rest/services/ASGS2025/LGA/FeatureServer/1/query?where=1%3D1&outFields=LGA_CODE_2025%2CLGA_NAME_2025%2CSTATE_CODE_2021%2CSTATE_NAME_2021&returnGeometry=true&outSR=4326&maxAllowableOffset=0.001&geometryPrecision=6&f=geojson',
+    sourceFiles: {
+      serviceLayer: 'ASGS2025/LGA/FeatureServer/1 — LGA_GEN',
+      geojsonSha256: EXPECTED_AUSTRALIA_GEOJSON_SHA256,
+      maxAllowableOffsetDegrees: 0.001,
+      geometryPrecisionDecimals: 6
+    },
+    license: 'Creative Commons Attribution 4.0 International (CC BY 4.0)',
+    official: true,
+    parentLevel: 'state or territory',
+    childLevel: 'local government area or equivalent',
+    childLabel: 'local government area or equivalent',
+    childrenLabel: 'local government areas and equivalents',
+    viewLabel: 'Local government area view',
+    liveLabel: 'Local government area exploration',
+    parentViewLabel: 'state and territory view',
+    parentSignalLabel: 'state or territory-level signals',
+    filter: 'Eight internal states and territories only; 545 spatial LGA and unincorporated-area records retained; 19 non-spatial special-purpose codes, Outside Australia, and Other Territories excluded from this state/territory drill path; official LGA_GEN service geometry requested in WGS84 with a 0.001-degree maximum allowable offset and six-decimal coordinate precision for interactive display'
+  }
+});
 
-if (Object.keys(usa.parents).length !== EXPECTED_US_PARENTS || Object.keys(chn.parents).length !== EXPECTED_CHINA_PARENTS) {
+if (Object.keys(usa.parents).length !== EXPECTED_US_PARENTS
+  || Object.keys(chn.parents).length !== EXPECTED_CHINA_PARENTS
+  || Object.keys(aus.parents).length !== EXPECTED_AUSTRALIA_PARENTS) {
   throw new Error('Generated Admin-2 parent counts do not match the approved coverage.');
 }
 
-const allFeatures = [...usFeatures, ...chinaFeatures].sort((left, right) => left.properties.code.localeCompare(right.properties.code));
+const allFeatures = [...usFeatures, ...chinaFeatures, ...australiaFeatures]
+  .sort((left, right) => left.properties.code.localeCompare(right.properties.code));
 const geometryFingerprint = sha256(allFeatures.map(feature => (
   `${feature.properties.parentCode}|${feature.properties.code}|${JSON.stringify(feature.geometry)}`
 )).join('\n'));
@@ -623,22 +745,23 @@ const recordFingerprint = sha256(allFeatures.map(feature => (
 const manifest = {
   schemaVersion: 1,
   generatedAt,
-  scope: 'Lazy parent-sharded cartographic Admin-2 references for the United States and China',
-  dataNotice: 'These boundaries do not contain or imply DataFast county or prefecture totals. Neutral subdivisions do not mean zero activity; published city beacons remain a separate breakdown.',
+  scope: 'Lazy parent-sharded cartographic deeper-boundary references for the United States, China and Australia',
+  dataNotice: 'These boundaries do not contain or imply DataFast county, prefecture or local-government-area totals. Neutral subdivisions do not mean zero activity; published city beacons remain a separate breakdown.',
   totals: {
-    countries: 2,
-    parents: usa.totals.parents + chn.totals.parents,
-    subdivisions: usa.totals.subdivisions + chn.totals.subdivisions,
-    coordinatePositionCount: usa.totals.coordinatePositionCount + chn.totals.coordinatePositionCount,
+    countries: 3,
+    parents: usa.totals.parents + chn.totals.parents + aus.totals.parents,
+    subdivisions: usa.totals.subdivisions + chn.totals.subdivisions + aus.totals.subdivisions,
+    coordinatePositionCount: usa.totals.coordinatePositionCount + chn.totals.coordinatePositionCount + aus.totals.coordinatePositionCount,
     geometryFingerprint,
     recordFingerprint
   },
-  countries: { USA: usa, CHN: chn }
+  countries: { USA: usa, CHN: chn, AUS: aus }
 };
 fs.writeFileSync(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
 
 console.log([
   `Generated Admin-2 manifest with ${manifest.totals.subdivisions} subdivisions across ${manifest.totals.parents} lazy parent shards.`,
   `United States: ${usa.totals.subdivisions} counties/county-equivalents in ${usa.totals.parents} state shards.`,
-  `China: ${chn.totals.subdivisions} prefecture-level references in ${chn.totals.parents} province-level shards.`
+  `China: ${chn.totals.subdivisions} prefecture-level references in ${chn.totals.parents} province-level shards.`,
+  `Australia: ${aus.totals.subdivisions} local-government-area references in ${aus.totals.parents} state/territory shards.`
 ].join('\n'));

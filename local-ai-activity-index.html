@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Local AI Activity Index by Country &amp; Region | LocalClaw</title>
-  <meta name="description" content="Explore local AI interest by country and region, then drill into 3,144 U.S. counties and 358 China prefecture-level divisions. Subdivision boundaries stay neutral when DataFast has no total.">
+  <meta name="description" content="Explore local AI interest by country and region, then drill into 3,144 U.S. counties, 358 China prefecture-level divisions, and 545 Australian local government areas. Deeper boundaries stay neutral when DataFast has no total.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/local-ai-activity-index">
 
@@ -13,14 +13,14 @@
   <meta property="og:url" content="https://localclaw.io/local-ai-activity-index">
   <meta property="og:site_name" content="LocalClaw">
   <meta property="og:title" content="The world map of local AI activity">
-  <meta property="og:description" content="Explore 3,243 privacy-thresholded signals worldwide, then drill from U.S. states to counties and from China provinces to prefecture-level divisions.">
+  <meta property="og:description" content="Explore 3,243 privacy-thresholded signals worldwide, then drill into U.S. counties, China prefecture-level divisions, and Australian local government areas.">
   <meta property="og:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829e">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="A dark interactive globe where orange color shows country aggregates and beacons show published city clusters">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The world map of local AI activity">
-  <meta name="twitter:description" content="Explore local AI interest worldwide, with deeper county and prefecture-level boundary views and transparent data limits.">
+  <meta name="twitter:description" content="Explore local AI interest worldwide, with deeper U.S., China, and Australia boundary views and transparent data limits.">
   <meta name="twitter:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829e">
 
   <script type="application/ld+json">
@@ -33,7 +33,7 @@
         "url": "https://localclaw.io/local-ai-activity-index",
         "name": "Local AI Activity Index",
         "headline": "Where local AI activity is growing around the world",
-        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, with worldwide administrative subdivisions plus deeper county and prefecture-level boundary views for the United States and China. Values appear only where DataFast directly publishes the matching geographic level. The beta does not measure verified installations or model runs.",
+        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, with worldwide administrative subdivisions plus deeper county, prefecture-level, and local-government-area boundary views for the United States, China, and Australia. Values appear only where DataFast directly publishes the matching geographic level. The beta does not measure verified installations or model runs.",
         "datePublished": "2026-08-29",
         "dateModified": "2026-08-29",
         "isPartOf": { "@id": "https://localclaw.io/#website" },
@@ -68,9 +68,9 @@
         "@type": "Dataset",
         "@id": "https://localclaw.io/local-ai-activity-index#dataset",
         "name": "Local AI Activity Index — interest signals, 31 July to 29 August 2026",
-        "description": "Privacy-thresholded country and regional counts of anonymous LocalClaw website interest signals, displayed over 4,558 worldwide administrative subdivisions, with neutral on-demand boundary views for 3,144 U.S. Census counties and equivalents and 358 OCHA/HDX China prefecture-level divisions. The deeper boundaries have no inferred activity totals. Published DataFast city clusters remain a separate breakdown. This beta dataset does not measure verified local AI installations, model launches, inference events, residence, or the total population of local AI users.",
+        "description": "Privacy-thresholded country and regional counts of anonymous LocalClaw website interest signals, displayed over 4,558 worldwide administrative subdivisions, with 4,047 neutral on-demand boundary references: 3,144 U.S. Census counties and equivalents, 358 OCHA/HDX China prefecture-level divisions, and 545 Australian Bureau of Statistics local government areas and equivalents. The deeper boundaries have no inferred activity totals. Published DataFast city clusters remain a separate breakdown. This beta dataset does not measure verified local AI installations, model launches, inference events, residence, or the total population of local AI users.",
         "identifier": "localclaw-laai-interest-2026-08-29",
-        "version": "1.4-beta",
+        "version": "1.5-beta",
         "url": "https://localclaw.io/local-ai-activity-index",
         "creator": { "@id": "https://localclaw.io/#organization" },
         "publisher": { "@id": "https://localclaw.io/#organization" },
@@ -78,11 +78,11 @@
         "spatialCoverage": "Worldwide",
         "temporalCoverage": "2026-07-31/2026-08-29",
         "dateModified": "2026-08-29",
-        "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast. Country, subnational-region, and city-cluster rows must independently reach five signals before public JSON publication. Subnational values come only from their own DataFast region breakdown; city clusters never estimate them. DataFast exposes no county or prefecture dimension, so those deeper boundary views remain neutral and unranked. City-cluster beacons use approximate GeoNames network-city centroids and never represent individual people, devices, exact IP addresses, or exact visitor locations. See the methodology and limitations on the canonical page.",
+        "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast. Country, subnational-region, and city-cluster rows must independently reach five signals before public JSON publication. Subnational values come only from their own DataFast region breakdown; city clusters never estimate them. DataFast exposes no county, prefecture, or local-government-area dimension, so those deeper boundary views remain neutral and unranked. City-cluster beacons use approximate GeoNames network-city centroids and never represent individual people, devices, exact IP addresses, or exact visitor locations. See the methodology and limitations on the canonical page.",
         "variableMeasured": {
           "@type": "PropertyValue",
           "name": "Anonymous LocalClaw interest signals by country and available subnational region",
-          "description": "Unique website visitors aggregated to privacy-thresholded country and available country-filtered regional totals. All mapped administrative subdivisions remain explorable as cartographic references, while only independently published geographic levels receive a value. U.S. county and China prefecture-level boundaries are neutral because no matching DataFast total exists. Published city clusters are a separate DataFast breakdown; not verified local AI use or residence."
+          "description": "Unique website visitors aggregated to privacy-thresholded country and available country-filtered regional totals. All mapped administrative subdivisions remain explorable as cartographic references, while only independently published geographic levels receive a value. U.S. county, China prefecture-level, and Australian local-government-area boundaries are neutral because no matching DataFast total exists. Published city clusters are a separate DataFast breakdown; not verified local AI use or residence."
         },
         "distribution": [
           {
@@ -105,7 +105,7 @@
           },
           {
             "@type": "DataDownload",
-            "name": "U.S. county and China prefecture-level boundary manifest in JSON",
+            "name": "U.S., China, and Australia deeper-boundary manifest in JSON",
             "encodingFormat": "application/json",
             "contentUrl": "https://localclaw.io/data/admin2/manifest.json"
           }
@@ -341,8 +341,8 @@
             </article>
             <article class="atlas-stat">
               <span>Global coverage</span>
-              <strong>4,558 + 3,502</strong>
-              <small>Worldwide regions plus deeper U.S. and China boundaries</small>
+              <strong>4,558 + 4,047</strong>
+              <small>Worldwide regions plus deeper U.S., China, and Australia boundaries</small>
             </article>
           </div>
         </section>
@@ -350,7 +350,7 @@
         <section class="atlas-section" id="us-state-ranking" aria-labelledby="us-state-ranking-title">
           <p class="atlas-section__eyebrow">Worldwide regional drill-down · New</p>
           <h2 id="us-state-ranking-title">From country scale to regional detail.</h2>
-          <p class="atlas-section__lead">Select any mapped country to reveal its administrative subdivisions. The United States now drills from states into 3,144 Census counties and equivalents; China drills from provinces into 358 OCHA prefecture-level divisions and equivalents. A geography is colored and ranked only when DataFast directly publishes that same level at five or more signals. County and prefecture boundaries stay neutral—visible for exploration, never assigned an estimated value.</p>
+          <p class="atlas-section__lead">Select any mapped country to reveal its administrative subdivisions. The United States drills from states into 3,144 Census counties and equivalents; China drills from provinces into 358 OCHA prefecture-level divisions; Australia drills from states and territories into 545 ABS local government areas and equivalents. A geography is colored and ranked only when DataFast directly publishes that same level at five or more signals. County, prefecture, and LGA boundaries stay neutral—visible for exploration, never assigned an estimated value.</p>
           <div class="atlas-state-summary">
             <article class="atlas-stat">
               <span>Published states</span>
@@ -449,7 +449,7 @@
           <div class="atlas-method-grid">
             <article class="atlas-method-card">
               <h3>What counts today?</h3>
-              <p>A country-level unique website visitor reported by DataFast during the 30-day window. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, or prefecture totals.</p>
+              <p>A country-level unique website visitor reported by DataFast during the 30-day window. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, prefecture, or LGA totals.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What does not count?</h3>
@@ -457,7 +457,7 @@
             </article>
             <article class="atlas-method-card">
               <h3>How are locations ranked?</h3>
-              <p>Countries and published regional rows are ordered only from their own DataFast breakdown. No city coordinate, polygon area, population share, or parent remainder is used to estimate a region. DataFast currently has no county or prefecture dimension, so those deeper boundaries are never colored or ranked. A beacon appears only for a separate published DataFast city cluster with at least five signals, at an approximate network-city centroid from GeoNames.</p>
+              <p>Countries and published regional rows are ordered only from their own DataFast breakdown. No city coordinate, polygon area, population share, or parent remainder is used to estimate a region. DataFast currently has no county, prefecture, or local-government-area dimension, so those deeper boundaries are never colored or ranked. A beacon appears only for a separate published DataFast city cluster with at least five signals, at an approximate network-city centroid from GeoNames.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How is privacy handled?</h3>
@@ -465,7 +465,7 @@
             </article>
           </div>
           <div class="atlas-callout">
-            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. Global country boundaries use <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/" rel="external noopener">Natural Earth 1:50m</a>; worldwide internal subdivisions use <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/" rel="external noopener">Natural Earth 5.1.1 at 1:10m</a>. Deeper U.S. county boundaries use the official <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html" rel="external noopener">U.S. Census Bureau 2025 Cartographic Boundary File at 1:5m</a>. China prefecture-level divisions use the <a href="https://data.humdata.org/dataset/cod-ab-chn" rel="external noopener">OCHA/HDX COD-AB 2020 dataset</a>, licensed under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="license external noopener">CC BY 3.0 IGO</a>; that source explicitly describes its China boundaries as unofficial, with unknown establishment date, and no endorsement is implied. Natural Earth sometimes mixes administrative levels, so boundaries are cartographic references rather than a claim of identical constitutional status. Boundary display and naming are not a statement on sovereignty. Published beacon centroids use approximate network-city locations from <a href="https://www.geonames.org/" rel="external noopener">GeoNames</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
+            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. Global country boundaries use <a href="https://www.naturalearthdata.com/downloads/50m-cultural-vectors/" rel="external noopener">Natural Earth 1:50m</a>; worldwide internal subdivisions use <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/" rel="external noopener">Natural Earth 5.1.1 at 1:10m</a>. Deeper U.S. county boundaries use the official <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html" rel="external noopener">U.S. Census Bureau 2025 Cartographic Boundary File at 1:5m</a>. China prefecture-level divisions use the <a href="https://data.humdata.org/dataset/cod-ab-chn" rel="external noopener">OCHA/HDX COD-AB 2020 dataset</a>, licensed under <a href="https://creativecommons.org/licenses/by/3.0/igo/" rel="license external noopener">CC BY 3.0 IGO</a>; that source explicitly describes its China boundaries as unofficial, with unknown establishment date, and no endorsement is implied. Australian LGA boundaries are based on the official <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs/edition-3-july-2021-june-2026/access-and-downloads/digital-boundary-files" rel="external noopener">ABS ASGS Edition 3 Local Government Areas 2025</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. ABS states that LGAs are statistical Mesh Block approximations of gazetted boundaries, not official legal boundaries. Natural Earth sometimes mixes administrative levels, so boundaries are cartographic references rather than a claim of identical constitutional status. Boundary display and naming are not a statement on sovereignty. Published beacon centroids use approximate network-city locations from <a href="https://www.geonames.org/" rel="external noopener">GeoNames</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license external noopener">CC BY 4.0</a>. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
             <a href="/data/local-ai-activity-index.json" download>Download country JSON</a>
             <a href="/data/local-ai-admin1-activity.json" download>Download regional JSON</a>
             <a href="/data/admin2/manifest.json" download>Download deeper-boundary manifest</a>
@@ -494,7 +494,7 @@
             </article>
             <article class="atlas-method-card">
               <h3>Can I explore states, provinces, and federal subjects?</h3>
-              <p>Yes. Select any mapped country directly on the globe. In the United States, select a state again to open counties; in China, select a province-level region to open prefecture-level divisions where the licensed source has real additional features. These deeper boundaries load on demand and remain neutral because DataFast does not publish county or prefecture totals. Beacons remain separate city clusters, never verified residence or individual locations.</p>
+              <p>Yes. Select any mapped country directly on the globe. In the United States, select a state again to open counties; in China, select a province-level region to open prefecture-level divisions; in Australia, select a state or territory to open its local government areas where the official source has real additional features. These deeper boundaries load on demand and remain neutral because DataFast does not publish county, prefecture, or LGA totals. Beacons remain separate city clusters, never verified residence or individual locations.</p>
             </article>
           </div>
         </section>
@@ -503,6 +503,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829p"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260829q"></script>
 </body>
 </html>
