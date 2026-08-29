@@ -834,6 +834,16 @@ if (app !== null) {
     || !admin1FillGeometryBody.includes('appendSphericalFillTriangle(')) {
     issue('Admin-1 vector fills must triangulate unwrapped Polygon and MultiPolygon rings onto the sphere');
   }
+  const primaryLonLatIndex = admin1FillGeometryBody.indexOf('contour.map(point => point.clone())');
+  const fallbackGuardIndex = admin1FillGeometryBody.indexOf('if (!validTriangulation(triangles))');
+  const tangentFallbackIndex = admin1FillGeometryBody.indexOf('const tangentCenter = sphericalContour');
+  if (primaryLonLatIndex < 0
+    || fallbackGuardIndex < 0
+    || tangentFallbackIndex < 0
+    || primaryLonLatIndex > fallbackGuardIndex
+    || tangentFallbackIndex < fallbackGuardIndex) {
+    issue('Admin-1 fills must use unwrapped longitude/latitude as the primary triangulation and tangent projection only as a guarded fallback');
+  }
   const selectionOverlayBody = topLevelFunctionBody(app, 'updateSelectionOverlay');
   if (!selectionOverlayBody.includes('if (isAdmin1Scope())')
     || !selectionOverlayBody.includes('state.selectionMesh.visible = false')
