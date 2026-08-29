@@ -741,7 +741,7 @@ body.atlas-page::before {
 
 .atlas-region-panel {
   position: absolute;
-  top: clamp(96px, 12vh, 132px);
+  top: clamp(126px, 15vh, 154px);
   right: clamp(24px, 4.8vw, 78px);
   bottom: 82px;
   z-index: 6;
@@ -1997,7 +1997,9 @@ html.light .atlas-page .atlas-callout a {
     flex-direction: column;
   }
 
-  .atlas-scope-us .atlas-controls {
+  .atlas-scope-us .atlas-controls,
+  .atlas-scope-admin1 .atlas-controls,
+  .atlas-scope-admin2 .atlas-controls {
     display: none;
   }
 
