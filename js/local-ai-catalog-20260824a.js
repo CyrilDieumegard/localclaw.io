@@ -480,6 +480,30 @@
       caveats: ['Scene reconstruction rather than single-object textured asset generation', 'CUDA research stack with custom rasterizers', 'VGGT-backbone release is still pending']
     },
     {
+      id: 'instant-nurec', name: 'Instant-NuRec', category: '3d', developer: 'NVIDIA',
+      summary: 'Feed-forward driving-log reconstruction model that exports static 3D Gaussian scene PLY assets locally.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 30,
+      runtime: ['PyTorch', 'uv', 'CLI', 'gsplat'], output: ['PLY', '3D Gaussian', 'Sky cubemap', 'PNG preview', 'MP4 preview'],
+      local_status: 'local', license: 'NVIDIA Open Model License', released: '2026-06',
+      source_url: 'https://github.com/NVIDIA/instant-nurec', install_url: 'https://huggingface.co/nvidia/instant-nurec',
+      hardware_note: 'The official model card lists Linux, NVIDIA Ampere/Hopper/Lovelace/Blackwell GPUs, CUDA compute capability 8.0 or newer, at least 30 GB GPU memory and 32 GB system RAM for inference. The native Python repository downloads Hugging Face checkpoints or reads a local .pth override, then writes static Gaussian PLY exports with optional render previews.',
+      strengths: ['Official NVIDIA model and repository', 'Single-GPU local inference validated on RTX 5090-class hardware', 'Exports usable 3DGS PLY bundles without Docker'],
+      caveats: ['Specialized for calibrated autonomous-driving NCoreV4 inputs', 'Demo data access requires accepting gated dataset terms', 'Not a general single-object text-to-3D asset generator']
+    },
+    {
+      id: 'trisplat', name: 'TriSplat', category: '3d', developer: 'Zhejiang University / ETH Zurich / Monash University',
+      summary: 'Feed-forward sparse-view reconstruction model that predicts simulation-ready triangle meshes from unposed images.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'pose-estimation', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA rasterizers', 'CLI'], output: ['PLY', 'OFF', 'Triangle mesh', 'Camera poses', 'JSON summary'],
+      local_status: 'local', license: 'MIT', released: '2026-05',
+      source_url: 'https://github.com/ziplab/TriSplat', install_url: 'https://huggingface.co/lhmd/TriSplat',
+      hardware_note: 'The official repository installs PyTorch 2.1.2 with CUDA 11.8, builds custom CUDA extensions, downloads RE10K and DL3DV checkpoints from Hugging Face, and includes a plain torch custom-image inference script. No consumer VRAM table is published, so 64 GB RAM and 24 GB NVIDIA VRAM are a conservative workstation floor for sparse-view mesh export.',
+      strengths: ['MIT licensed code and released checkpoints', 'Custom image folder inference without known camera poses', 'Exports vertex-colored PLY/OFF triangle meshes for Blender, Open3D, Isaac Sim, Unity and PyBullet'],
+      caveats: ['Research CUDA stack with compiled extensions', 'Scene reconstruction rather than isolated text-to-asset generation', 'Geometry quality depends on sparse-view coverage and input distribution']
+    },
+    {
       id: 'globalsplat', name: 'GlobalSplat', category: '3d', developer: 'Hebrew University of Jerusalem / Westlake University',
       summary: 'Feed-forward Gaussian splatting model that fuses multi-view inputs into compact global scene tokens before decoding 3D Gaussians.',
       tasks: ['gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],

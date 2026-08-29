@@ -209,6 +209,7 @@ window.HOME_INDEX_LOGOS = {
     'Wan Team / Wan2GP': 'alibaba',
     'XLong Research': 'github',
     'DreamTechAI / Neural4D': 'github',
+    'Zhejiang University / ETH Zurich / Monash University': 'github',
     'Zhipu AI / THUDM': 'zhipu',
     'Zhejiang University / PLUS-WAVE': 'github',
     'Zhejiang University / Shenzhen University': 'github',
