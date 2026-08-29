@@ -124,6 +124,7 @@ body.atlas-page::before {
   z-index: 1;
   display: block;
   cursor: grab;
+  image-rendering: auto;
   touch-action: pan-y;
   opacity: 0;
   transition: opacity 900ms ease;
@@ -173,7 +174,9 @@ body.atlas-page::before {
   font-family: "JetBrains Mono", monospace;
   font-size: 7px;
   letter-spacing: 0.055em;
+  text-rendering: geometricPrecision;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
   backdrop-filter: blur(14px);
 }
 
@@ -233,12 +236,13 @@ body.atlas-page::before {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 79, 31, 0.07);
   font-family: "JetBrains Mono", monospace;
   text-align: left;
+  text-rendering: geometricPrecision;
   pointer-events: auto;
   cursor: pointer;
+  -webkit-font-smoothing: antialiased;
   backdrop-filter: blur(10px);
   transform-origin: 0 50%;
   transition: opacity 180ms ease, border-color 180ms ease, filter 180ms ease;
-  will-change: transform;
 }
 
 .atlas-map-label::before {

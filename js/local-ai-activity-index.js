@@ -1,10 +1,16 @@
 import * as THREE from './vendor/three.module.min.js';
 
 const DATA_URL = '/data/local-ai-activity-index.json?v=20260829e';
-const WORLD_URL = '/data/ne_110m_admin_0_countries.geojson?v=20260829a';
+const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const PUBLISH_THRESHOLD = 5;
 const GLOBE_RADIUS = 3.65;
+const MOBILE_BREAKPOINT = 760;
+const DESKTOP_TEXTURE_WIDTH = 4096;
+const MOBILE_TEXTURE_WIDTH = 2048;
+const DESKTOP_DPR_MIN = 2;
+const DESKTOP_DPR_MAX = 2.5;
+const MOBILE_DPR_MAX = 1.75;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const stage = document.querySelector('[data-atlas-stage]');
@@ -127,6 +133,10 @@ const state = {
   globe: null,
   globeGroup: null,
   texture: null,
+  textureWidth: null,
+  pixelRatio: null,
+  glowTexture: null,
+  worldBoundaryLine: null,
   worldHeatTexture: null,
   usHeatTexture: null,
   worldHeatMesh: null,
@@ -135,6 +145,7 @@ const state = {
   selectionContext: null,
   selectionTexture: null,
   selectionMesh: null,
+  selectionBoundaryLine: null,
   pulseSprites: [],
   pulseRings: [],
   backgroundField: null,
@@ -157,6 +168,9 @@ const state = {
   rotationStart: new THREE.Vector2(),
   pointer: new THREE.Vector2(10, 10),
   raycaster: new THREE.Raycaster(),
+  interactionSphere: new THREE.Sphere(),
+  interactionPoint: new THREE.Vector3(),
+  interactionScale: new THREE.Vector3(),
   zoom: null,
   pinchStartZoom: null,
   pinchStartDistance: null,
@@ -186,6 +200,38 @@ const state = {
 
 function number(value) {
   return new Intl.NumberFormat('en-US').format(value);
+}
+
+function isMobileViewport(width = window.innerWidth) {
+  return width < MOBILE_BREAKPOINT;
+}
+
+function atlasTextureWidth() {
+  return isMobileViewport() ? MOBILE_TEXTURE_WIDTH : DESKTOP_TEXTURE_WIDTH;
+}
+
+function atlasPixelRatio(width = stage.clientWidth, height = stage.clientHeight) {
+  const deviceRatio = Math.max(1, Number(window.devicePixelRatio) || 1);
+  if (isMobileViewport(width)) return Math.min(deviceRatio, MOBILE_DPR_MAX);
+  const cssPixels = Math.max(1, width * height);
+  const smartCap = cssPixels > 2300000 ? DESKTOP_DPR_MIN : cssPixels > 1300000 ? 2.25 : DESKTOP_DPR_MAX;
+  return Math.min(Math.max(deviceRatio, DESKTOP_DPR_MIN), smartCap);
+}
+
+function globeGeometry(radius) {
+  const mobile = isMobileViewport();
+  return new THREE.SphereGeometry(radius, mobile ? 128 : 256, mobile ? 80 : 160);
+}
+
+function configureAtlasTexture(texture) {
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.offset.x = 0.25;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
+  texture.anisotropy = Math.min(16, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
+  return texture;
 }
 
 function normalizeCityClusters(value) {
@@ -449,6 +495,74 @@ function geometryRings(geometry) {
   return polygonsForGeometry(geometry).flatMap(polygon => polygon || []);
 }
 
+function boundaryPositions(feature, radius) {
+  const positions = [];
+  for (const ring of geometryRings(feature?.geometry)) {
+    if (!Array.isArray(ring) || ring.length < 2) continue;
+    for (let index = 1; index < ring.length; index += 1) {
+      const [previousLon, previousLat] = ring[index - 1];
+      const [lon, lat] = ring[index];
+      if (![previousLon, previousLat, lon, lat].every(Number.isFinite)) continue;
+      const start = latLonToVector(previousLat, previousLon, radius);
+      const end = latLonToVector(lat, lon, radius);
+      positions.push(start.x, start.y, start.z, end.x, end.y, end.z);
+    }
+  }
+  return positions;
+}
+
+function createWorldBoundaries() {
+  const positions = [];
+  for (const feature of state.world.features) {
+    const featurePositions = boundaryPositions(feature, GLOBE_RADIUS + 0.029);
+    for (const value of featurePositions) positions.push(value);
+  }
+  if (positions.length === 0) return;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.computeBoundingSphere();
+  const material = new THREE.LineBasicMaterial({
+    color: state.theme === 'light' ? 0x4d6473 : 0xa8bfd0,
+    transparent: true,
+    opacity: state.theme === 'light' ? 0.32 : 0.34,
+    depthWrite: false,
+    depthTest: true,
+    toneMapped: false
+  });
+  state.worldBoundaryLine = new THREE.LineSegments(geometry, material);
+  state.worldBoundaryLine.userData = { worldBoundary: true, activityScope: 'world' };
+  state.worldBoundaryLine.renderOrder = 4;
+  state.globeGroup.add(state.worldBoundaryLine);
+  state.worldActivity.push(state.worldBoundaryLine);
+}
+
+function updateSelectionBoundary(feature, qualityFlagged = false) {
+  if (state.selectionBoundaryLine) {
+    state.globeGroup.remove(state.selectionBoundaryLine);
+    state.selectionBoundaryLine.geometry.dispose();
+    state.selectionBoundaryLine.material.dispose();
+    state.selectionBoundaryLine = null;
+  }
+  if (!feature) return;
+  const positions = boundaryPositions(feature, GLOBE_RADIUS + 0.046);
+  if (positions.length === 0) return;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.computeBoundingSphere();
+  const material = new THREE.LineBasicMaterial({
+    color: qualityFlagged ? 0xffe1a4 : 0xffd0ad,
+    transparent: true,
+    opacity: 0.94,
+    depthWrite: false,
+    depthTest: true,
+    toneMapped: false
+  });
+  state.selectionBoundaryLine = new THREE.LineSegments(geometry, material);
+  state.selectionBoundaryLine.userData = { selectionBoundary: true };
+  state.selectionBoundaryLine.renderOrder = 6;
+  state.globeGroup.add(state.selectionBoundaryLine);
+}
+
 function drawRing(context, ring, width, height) {
   if (ring == null || ring.length === 0) return;
   const unwrapped = [];
@@ -472,7 +586,7 @@ function drawRing(context, ring, width, height) {
   }
 }
 
-function drawFeature(context, feature, width, height) {
+function drawFeature(context, feature, width, height, { fill = true, stroke = true } = {}) {
   const geometry = feature.geometry;
   if (!geometry) return;
   const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
@@ -480,16 +594,19 @@ function drawFeature(context, feature, width, height) {
   for (const polygon of polygons) {
     for (const ring of polygon) drawRing(context, ring, width, height);
   }
-  context.fill('evenodd');
-  context.stroke();
+  if (fill) context.fill('evenodd');
+  if (stroke) context.stroke();
 }
 
 function makeWorldTexture() {
   const textureCanvas = document.createElement('canvas');
-  textureCanvas.width = window.innerWidth < 760 ? 1280 : 2048;
+  textureCanvas.width = atlasTextureWidth();
   textureCanvas.height = textureCanvas.width / 2;
-  const context = textureCanvas.getContext('2d');
+  state.textureWidth = textureCanvas.width;
+  const context = textureCanvas.getContext('2d', { alpha: false });
   const light = state.theme === 'light';
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
 
   context.fillStyle = light ? '#dfe4e7' : '#020407';
   context.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
@@ -513,7 +630,7 @@ function makeWorldTexture() {
     context.moveTo(0, y);
     context.lineTo(textureCanvas.width, y);
     context.strokeStyle = light ? 'rgba(44, 67, 82, 0.08)' : 'rgba(119, 151, 177, 0.032)';
-    context.lineWidth = 1;
+    context.lineWidth = textureCanvas.width >= DESKTOP_TEXTURE_WIDTH ? 1.25 : 1;
     context.stroke();
   }
   for (let longitude = -150; longitude <= 150; longitude += 30) {
@@ -540,7 +657,7 @@ function makeWorldTexture() {
         : 'rgba(14, 20, 27, 0.98)';
       context.strokeStyle = matched ? 'rgba(174, 196, 214, 0.25)' : 'rgba(108, 136, 158, 0.13)';
     }
-    context.lineWidth = matched ? 1.15 : 0.65;
+    context.lineWidth = matched ? 1.45 : 0.8;
     context.shadowBlur = 0;
     context.shadowColor = 'transparent';
     drawFeature(context, feature, textureCanvas.width, textureCanvas.height);
@@ -556,22 +673,19 @@ function makeWorldTexture() {
   }
   context.globalCompositeOperation = 'source-over';
 
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.offset.x = 0.25;
-  texture.anisotropy = Math.min(8, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
-  return texture;
+  return configureAtlasTexture(new THREE.CanvasTexture(textureCanvas));
 }
 
 function makeActivityTexture(scope = 'world') {
   const textureCanvas = document.createElement('canvas');
-  textureCanvas.width = window.innerWidth < 760 ? 1280 : 2048;
+  textureCanvas.width = atlasTextureWidth();
   textureCanvas.height = textureCanvas.width / 2;
   const context = textureCanvas.getContext('2d');
   const light = state.theme === 'light';
   const entities = scope === 'us' ? state.usRegions : state.countries;
   const maximum = entities[0]?.signals || 1;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
 
   context.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
   for (const entity of entities) {
@@ -586,34 +700,29 @@ function makeActivityTexture(scope = 'world') {
       context.fillStyle = `rgba(${Math.round(88 + heat * 167)}, ${Math.round(22 + heat * 76)}, ${Math.round(13 + heat * 34)}, ${0.18 + heat * 0.56})`;
       context.strokeStyle = `rgba(255, ${Math.round(74 + heat * 74)}, ${Math.round(36 + heat * 58)}, ${0.2 + heat * 0.5})`;
     }
-    context.lineWidth = 1 + heat * 1.4;
-    context.shadowBlur = light ? 0 : 3 + heat * 7;
-    context.shadowColor = `rgba(255, 72, 32, ${0.12 + heat * 0.28})`;
-    drawFeature(context, feature, textureCanvas.width, textureCanvas.height);
+    context.lineWidth = 1.5 + heat * 1.5;
     context.shadowBlur = 0;
+    context.shadowColor = 'transparent';
+    drawFeature(context, feature, textureCanvas.width, textureCanvas.height);
+    context.strokeStyle = light
+      ? `rgba(198, 62, 35, ${0.36 + heat * 0.34})`
+      : `rgba(255, ${Math.round(126 + heat * 76)}, ${Math.round(78 + heat * 82)}, ${0.38 + heat * 0.42})`;
+    context.lineWidth = 0.85 + heat * 0.75;
+    drawFeature(context, feature, textureCanvas.width, textureCanvas.height, { fill: false });
   }
 
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.offset.x = 0.25;
-  texture.anisotropy = Math.min(8, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
-  return texture;
+  return configureAtlasTexture(new THREE.CanvasTexture(textureCanvas));
 }
 
 function createSelectionOverlay() {
-  const size = window.innerWidth < 760 ? 1280 : 2048;
+  const size = atlasTextureWidth();
   state.selectionCanvas = document.createElement('canvas');
   state.selectionCanvas.width = size;
   state.selectionCanvas.height = size / 2;
   state.selectionContext = state.selectionCanvas.getContext('2d');
-  state.selectionTexture = new THREE.CanvasTexture(state.selectionCanvas);
-  state.selectionTexture.colorSpace = THREE.SRGBColorSpace;
-  state.selectionTexture.wrapS = THREE.RepeatWrapping;
-  state.selectionTexture.offset.x = 0.25;
-  state.selectionTexture.anisotropy = Math.min(8, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
+  state.selectionTexture = configureAtlasTexture(new THREE.CanvasTexture(state.selectionCanvas));
   state.selectionMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(GLOBE_RADIUS + 0.036, window.innerWidth < 760 ? 96 : 160, window.innerWidth < 760 ? 64 : 112),
+    globeGeometry(GLOBE_RADIUS + 0.036),
     new THREE.MeshBasicMaterial({
       map: state.selectionTexture,
       transparent: true,
@@ -637,36 +746,46 @@ function updateSelectionOverlay(entity = null) {
   if (!feature) {
     state.selectionMesh.visible = false;
     state.selectionTexture.needsUpdate = true;
+    updateSelectionBoundary(null);
     return;
   }
 
   const qualityFlagged = Boolean(entity?.qualityFlag || entity?.qualityFlags?.length);
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
   context.fillStyle = qualityFlagged ? 'rgba(255, 170, 50, 0.34)' : 'rgba(255, 94, 39, 0.3)';
-  context.strokeStyle = qualityFlagged ? 'rgba(255, 225, 164, 0.82)' : 'rgba(255, 198, 155, 0.78)';
-  context.lineWidth = window.innerWidth < 760 ? 2.5 : 3;
-  context.shadowBlur = window.innerWidth < 760 ? 8 : 13;
-  context.shadowColor = qualityFlagged ? 'rgba(255, 173, 51, 0.72)' : 'rgba(255, 76, 25, 0.68)';
-  drawFeature(context, feature, width, height);
   context.shadowBlur = 0;
+  context.shadowColor = 'transparent';
+  drawFeature(context, feature, width, height, { stroke: false });
   state.selectionTexture.needsUpdate = true;
   state.selectionMesh.visible = true;
+  updateSelectionBoundary(feature, qualityFlagged);
 }
 
 function glowTexture() {
+  if (state.glowTexture) return state.glowTexture;
   const glowCanvas = document.createElement('canvas');
-  glowCanvas.width = 128;
-  glowCanvas.height = 128;
+  const size = 256;
+  const center = size / 2;
+  glowCanvas.width = size;
+  glowCanvas.height = size;
   const context = glowCanvas.getContext('2d');
-  const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
+  const gradient = context.createRadialGradient(center, center, 0, center, center, center);
   gradient.addColorStop(0, 'rgba(255, 191, 137, 0.96)');
-  gradient.addColorStop(0.12, 'rgba(255, 91, 48, 0.92)');
-  gradient.addColorStop(0.38, 'rgba(255, 46, 24, 0.3)');
+  gradient.addColorStop(0.08, 'rgba(255, 91, 48, 0.94)');
+  gradient.addColorStop(0.24, 'rgba(255, 46, 24, 0.34)');
+  gradient.addColorStop(0.52, 'rgba(255, 30, 12, 0.055)');
   gradient.addColorStop(1, 'rgba(255, 30, 12, 0)');
   context.fillStyle = gradient;
-  context.fillRect(0, 0, 128, 128);
+  context.fillRect(0, 0, size, size);
   const texture = new THREE.CanvasTexture(glowCanvas);
   texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
+  texture.anisotropy = Math.min(8, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
+  state.glowTexture = texture;
+  return state.glowTexture;
 }
 
 function createAtmosphere() {
@@ -740,7 +859,7 @@ function createBeaconAccent(entity, center, parent, scope, color = 0xff4a32) {
     side: THREE.DoubleSide
   });
   const ringRadius = 0.03 + Math.sqrt(intensity) * 0.025;
-  const ring = new THREE.Mesh(new THREE.RingGeometry(ringRadius * 0.78, ringRadius, 40), ringMaterial);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(ringRadius * 0.78, ringRadius, isMobileViewport() ? 32 : 48), ringMaterial);
   ring.position.copy(surface);
   orientToSurface(ring, ring.position);
   ring.userData = {
@@ -776,7 +895,7 @@ function createBeaconAccent(entity, center, parent, scope, color = 0xff4a32) {
 
   const spireHeight = 0.045 + Math.sqrt(intensity) * 0.105;
   const spire = new THREE.Mesh(
-    new THREE.ConeGeometry(0.008 + intensity * 0.009, spireHeight, 10, 1, true),
+    new THREE.ConeGeometry(0.008 + intensity * 0.009, spireHeight, isMobileViewport() ? 12 : 16, 1, true),
     new THREE.MeshBasicMaterial({
       color,
       transparent: true,
@@ -814,7 +933,7 @@ function createAggregateHeatLayer(scope, parent) {
     toneMapped: false
   });
   const mesh = new THREE.Mesh(
-    new THREE.SphereGeometry(GLOBE_RADIUS + (scope === 'us' ? 0.022 : 0.016), window.innerWidth < 760 ? 96 : 160, window.innerWidth < 760 ? 64 : 112),
+    globeGeometry(GLOBE_RADIUS + (scope === 'us' ? 0.022 : 0.016)),
     material
   );
   mesh.userData = { aggregateHeat: true, activityScope: scope };
@@ -980,7 +1099,10 @@ function updateProjectedLabels(time) {
       continue;
     }
     entry.label.hidden = false;
-    entry.label.style.transform = `translate3d(${position.x.toFixed(1)}px, ${position.y.toFixed(1)}px, 0)`;
+    const pixelRatio = state.pixelRatio || window.devicePixelRatio || 1;
+    const x = Math.round(position.x * pixelRatio) / pixelRatio;
+    const y = Math.round(position.y * pixelRatio) / pixelRatio;
+    entry.label.style.transform = `translate(${x}px, ${y}px)`;
     entry.label.classList.toggle('is-selected', entry.cluster === state.locked);
     entry.label.classList.toggle('is-contextual', contextualCandidates.includes(entry));
     entry.label.classList.toggle('is-quality-flagged', Boolean(entry.cluster.qualityFlags?.length));
@@ -1053,11 +1175,12 @@ function createBackgroundField() {
 function setupScene() {
   state.renderer = new THREE.WebGLRenderer({
     canvas,
-    antialias: window.innerWidth > 760,
+    antialias: !isMobileViewport(),
     alpha: true,
     powerPreference: 'high-performance'
   });
-  state.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.35 : 1.65));
+  state.pixelRatio = atlasPixelRatio();
+  state.renderer.setPixelRatio(state.pixelRatio);
   state.renderer.outputColorSpace = THREE.SRGBColorSpace;
   state.renderer.toneMapping = THREE.ACESFilmicToneMapping;
   state.renderer.toneMappingExposure = state.theme === 'light' ? 0.94 : 1.06;
@@ -1102,13 +1225,14 @@ function setupScene() {
     emissive: new THREE.Color(state.theme === 'light' ? 0x202b31 : 0x030811),
     emissiveIntensity: state.theme === 'light' ? 0.015 : 0.22
   });
-  const mobile = window.innerWidth < 760;
-  state.globe = new THREE.Mesh(new THREE.SphereGeometry(GLOBE_RADIUS, mobile ? 96 : 160, mobile ? 64 : 112), material);
+  const mobile = isMobileViewport();
+  state.globe = new THREE.Mesh(globeGeometry(GLOBE_RADIUS), material);
   state.globe.userData.globeSurface = true;
   state.globeGroup.add(state.globe);
 
   createAtmosphere();
   createAggregateHeatLayer('world', state.globeGroup);
+  createWorldBoundaries();
   createStateBoundaries();
   createUSActivity();
   createCityClusters();
@@ -1241,8 +1365,15 @@ function resize() {
   if (!state.renderer || !state.camera) return;
   const width = stage.clientWidth;
   const height = stage.clientHeight;
-  const mobile = width < 760;
+  const mobile = isMobileViewport(width);
+  const nextPixelRatio = atlasPixelRatio(width, height);
+  if (Math.abs((state.pixelRatio || 0) - nextPixelRatio) > 0.01) {
+    state.pixelRatio = nextPixelRatio;
+    state.renderer.setPixelRatio(nextPixelRatio);
+  }
   state.renderer.setSize(width, height, false);
+  stage.dataset.renderDpr = state.pixelRatio.toFixed(2);
+  stage.dataset.textureWidth = String(state.textureWidth || atlasTextureWidth());
   state.camera.aspect = width / Math.max(height, 1);
   state.camera.fov = mobile ? 42 : 34;
   const scopeZoom = defaultZoom(state.scope, mobile);
@@ -1295,6 +1426,10 @@ function updateTheme(theme) {
     if (object.userData.activityAccent) {
       object.userData.baseOpacity = state.theme === 'light' ? 0.28 : 0.58;
     }
+    if (object.userData.worldBoundary) {
+      object.material.color.set(state.theme === 'light' ? 0x4d6473 : 0xa8bfd0);
+      object.material.opacity = state.theme === 'light' ? 0.32 : 0.34;
+    }
     if (object.type === 'Line' && object.parent?.userData.stateName) {
       object.material.color.set(state.theme === 'light' ? 0x627786 : 0x7891a6);
     }
@@ -1343,7 +1478,16 @@ function updatePointer(event) {
 function entityAtPointer() {
   if (!state.globe || !state.camera) return null;
   state.raycaster.setFromCamera(state.pointer, state.camera);
-  const intersection = state.raycaster.intersectObject(state.globe, false)[0];
+  state.globeGroup.getWorldPosition(state.interactionSphere.center);
+  state.globeGroup.getWorldScale(state.interactionScale);
+  state.interactionSphere.radius = GLOBE_RADIUS * state.interactionScale.x;
+  const globeHit = state.raycaster.ray.intersectSphere(
+    state.interactionSphere,
+    state.interactionPoint
+  );
+  const intersection = globeHit
+    ? { point: globeHit, distance: state.raycaster.ray.origin.distanceTo(globeHit) }
+    : null;
   const clusterHits = state.raycaster.intersectObjects(
     state.clusterEntries.filter(entry => entry.group.visible).map(entry => entry.hit),
     false

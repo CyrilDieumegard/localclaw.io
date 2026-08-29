@@ -9,7 +9,7 @@ const SCRIPT_PATH = 'js/local-ai-activity-index.js';
 const STYLE_PATH = 'css/local-ai-activity-index.css';
 const VENDOR_PATH = 'js/vendor/three.module.min.js';
 const VENDOR_LICENSE_PATH = 'js/vendor/THREE-LICENSE.txt';
-const GEOJSON_PATH = 'data/ne_110m_admin_0_countries.geojson';
+const GEOJSON_PATH = 'data/ne_50m_admin_0_countries.geojson';
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
 const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
@@ -114,6 +114,32 @@ function attribute(tag, name) {
 
 function countOccurrences(haystack, needle) {
   return haystack.split(needle).length - 1;
+}
+
+function countCoordinatePositions(value) {
+  if (!Array.isArray(value)) return 0;
+  if (value.length >= 2 && Number.isFinite(value[0]) && Number.isFinite(value[1])) return 1;
+  return value.reduce((sum, child) => sum + countCoordinatePositions(child), 0);
+}
+
+function topLevelFunctionBody(source, name) {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return source.match(new RegExp(`function\\s+${escapedName}\\([^)]*\\)\\s*{([\\s\\S]*?)\\n}`, 'm'))?.[1] || '';
+}
+
+function canvasUsesAtlasTextureWidth(body, canvasExpression) {
+  const escapedCanvas = canvasExpression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`${escapedCanvas}\\.width\\s*=\\s*atlasTextureWidth\\(\\)`).test(body)) return true;
+  const aliases = [...body.matchAll(/(?:const|let)\s+([A-Za-z_$][\w$]*)\s*=\s*atlasTextureWidth\(\)/g)]
+    .map(match => match[1]);
+  return aliases.some(alias => new RegExp(`${escapedCanvas}\\.width\\s*=\\s*${alias}\\b`).test(body));
+}
+
+function canvasUsesTwoToOneTexture(body, canvasExpression) {
+  const escapedCanvas = canvasExpression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`${escapedCanvas}\\.height\\s*=\\s*${escapedCanvas}\\.width\\s*\\/\\s*2\\b`).test(body)) return true;
+  const widthAssignment = body.match(new RegExp(`${escapedCanvas}\\.width\\s*=\\s*([A-Za-z_$][\\w$]*)\\b`));
+  return Boolean(widthAssignment && new RegExp(`${escapedCanvas}\\.height\\s*=\\s*${widthAssignment[1]}\\s*\\/\\s*2\\b`).test(body));
 }
 
 function hasVersionedReference(tags, attributeName, expectedPath) {
@@ -543,8 +569,11 @@ if (app !== null) {
   if (!app.includes("const DATA_URL = '/data/local-ai-activity-index.json?")) {
     issue('Activity-index JavaScript does not load the versioned JSON dataset');
   }
-  if (!app.includes("const WORLD_URL = '/data/ne_110m_admin_0_countries.geojson?")) {
-    issue('Activity-index JavaScript does not load the versioned country GeoJSON');
+  if (!app.includes("const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?")) {
+    issue('Activity-index JavaScript must load the versioned Natural Earth 50m country GeoJSON');
+  }
+  if (app.includes('ne_110m_admin_0_countries')) {
+    issue('Activity-index JavaScript must not reference the retired Natural Earth 110m country GeoJSON');
   }
   if (!app.includes("const US_STATES_URL = '/data/us-states-2024-20m.geojson?")) {
     issue('Activity-index JavaScript does not load the versioned U.S. state GeoJSON');
@@ -570,6 +599,36 @@ if (app !== null) {
   if (!app.includes('const maximumVisible = window.innerWidth < 760 ? 56 : state.cityClusters.length')) {
     issue('Desktop Atlas must render every validated published city cluster');
   }
+  const desktopTextureWidth = Number(app.match(/const\s+DESKTOP_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
+  const mobileTextureWidth = Number(app.match(/const\s+MOBILE_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
+  if (!Number.isFinite(desktopTextureWidth) || desktopTextureWidth < 4096) {
+    issue('Desktop Atlas textures must be at least 4096 pixels wide');
+  }
+  if (!Number.isFinite(mobileTextureWidth) || mobileTextureWidth < 2048) {
+    issue('Mobile Atlas textures must be at least 2048 pixels wide');
+  }
+  const textureWidthBody = topLevelFunctionBody(app, 'atlasTextureWidth');
+  if (!textureWidthBody || !/return\s+[^;\n]+\?\s*MOBILE_TEXTURE_WIDTH\s*:\s*DESKTOP_TEXTURE_WIDTH\s*;/.test(textureWidthBody)) {
+    issue('atlasTextureWidth must select the high-resolution mobile and desktop texture constants');
+  }
+  const textureBuilders = [
+    ['world', 'makeWorldTexture', 'textureCanvas'],
+    ['activity', 'makeActivityTexture', 'textureCanvas'],
+    ['selection', 'createSelectionOverlay', 'state.selectionCanvas']
+  ];
+  for (const [label, functionName, canvasExpression] of textureBuilders) {
+    const body = topLevelFunctionBody(app, functionName);
+    if (!body) {
+      issue(`Activity-index JavaScript is missing the ${label} texture builder: ${functionName}`);
+      continue;
+    }
+    if (!canvasUsesAtlasTextureWidth(body, canvasExpression)) {
+      issue(`${label[0].toUpperCase() + label.slice(1)} texture must use atlasTextureWidth(), preventing a low-resolution desktop fallback`);
+    }
+    if (!canvasUsesTwoToOneTexture(body, canvasExpression)) {
+      issue(`${label[0].toUpperCase() + label.slice(1)} texture must preserve a 2:1 equirectangular canvas`);
+    }
+  }
   const featureNamesBody = app.match(/function featureNames\([^)]*\)\s*{([\s\S]*?)\n}/)?.[1] || '';
   if (featureNamesBody.includes('SOVEREIGNT')) issue('Country matching must not fall through to sovereign territories');
 }
@@ -588,8 +647,29 @@ if (css !== null) {
 if (vendor !== null && vendor.length < 100000) issue('Vendored Three.js module is unexpectedly small');
 if (vendorLicense !== null && !/three\.js|MIT/i.test(vendorLicense)) issue('Three.js vendor license is not recognizable');
 if (geojson) {
-  if (geojson.type !== 'FeatureCollection' || !Array.isArray(geojson.features) || geojson.features.length < 100) {
-    issue('Country GeoJSON must be a non-trivial FeatureCollection');
+  const countryFeatures = Array.isArray(geojson.features) ? geojson.features : [];
+  if (geojson.type !== 'FeatureCollection' || countryFeatures.length < 230) {
+    issue('Natural Earth 50m country GeoJSON must be a detailed FeatureCollection with at least 230 features');
+  }
+  if (geojson.name !== 'ne_50m_admin_0_countries') {
+    issue('Country GeoJSON must identify itself as ne_50m_admin_0_countries');
+  }
+  if (geojson.crs?.properties?.name !== 'urn:ogc:def:crs:OGC:1.3:CRS84') {
+    issue('Natural Earth 50m country GeoJSON must retain its CRS84 coordinate reference');
+  }
+  const countryCoordinatePositions = countryFeatures.reduce(
+    (sum, feature) => sum + countCoordinatePositions(feature.geometry?.coordinates),
+    0
+  );
+  if (countryCoordinatePositions < 75000) {
+    issue(`Natural Earth country geometry contains only ${countryCoordinatePositions} positions; expected unsimplified 50m detail`);
+  }
+  const naturalEarthFeatures = countryFeatures.filter(feature =>
+    Number.isFinite(feature.properties?.NE_ID)
+    && typeof feature.properties?.ADMIN === 'string'
+    && typeof feature.properties?.ADM0_A3 === 'string');
+  if (naturalEarthFeatures.length < 230) {
+    issue('Country GeoJSON is missing official Natural Earth feature identifiers or admin fields');
   }
 }
 if (usGeojson) {
@@ -623,4 +703,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: 3,337 observed signals, 62 privacy-thresholded countries, 30 published U.S. states, 90 exact GeoNames city clusters (1,591 signals), structured data, controls, assets and sitemap verified.');
+console.log('Local AI Activity Index validation passed: Natural Earth 50m boundaries, 4096×2048 desktop textures, 3,337 observed signals, 62 privacy-thresholded countries, 30 published U.S. states, and 90 exact GeoNames city clusters (1,591 signals) verified.');
