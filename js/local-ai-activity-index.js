@@ -2952,6 +2952,7 @@ function focusAdmin2Region(region) {
   if (!region || !isAdmin2Scope()) return;
   if (!state.tourAdvancing) stopTour();
   state.locked = region;
+  syncRegionPanelSelection(region);
   const bbox = region.bounds
     ? [region.bounds.minLon, region.bounds.minLat, region.bounds.maxLon, region.bounds.maxLat]
     : state.admin2Config.bbox;
@@ -3261,6 +3262,20 @@ function renderStatePanel() {
     });
     item.append(button);
     regionList.append(item);
+  }
+}
+
+function syncRegionPanelSelection(region = null) {
+  if (!regionList) return;
+  const selectedCode = String(region?.code || '');
+  const selectedName = String(region?.name || '');
+  for (const button of regionList.querySelectorAll('button[data-region-name]')) {
+    const matches = Boolean(region) && (selectedCode
+      ? button.dataset.regionCode === selectedCode
+      : button.dataset.regionName === selectedName);
+    button.classList.toggle('is-active', matches);
+    if (matches) button.setAttribute('aria-current', 'true');
+    else button.removeAttribute('aria-current');
   }
 }
 

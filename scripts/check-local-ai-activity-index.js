@@ -946,6 +946,12 @@ if (app !== null) {
     || !css.includes('display: none !important;')) {
     issue('The ranked-region tour must stay visually hidden in unranked Admin-2 views');
   }
+  const focusAdmin2Body = topLevelFunctionBody(app, 'focusAdmin2Region');
+  if (!focusAdmin2Body.includes('syncRegionPanelSelection(region)')
+    || !app.includes("button.setAttribute('aria-current', 'true')")
+    || !css.includes('.atlas-scope-admin2 .atlas-region-panel__list button.is-active')) {
+    issue('Admin-2 boundary selection must remain visible and expose aria-current in the long subdivision list');
+  }
   const regionPanelBody = topLevelFunctionBody(app, 'renderStatePanel');
   if (!regionPanelBody.includes('.flatMap(region => region.features || [])')
     || !regionPanelBody.includes('!publishedFeatures.has(region.feature)')) {
