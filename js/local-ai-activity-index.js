@@ -5,7 +5,7 @@ const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
 const ADMIN1_ACTIVITY_URL = '/data/local-ai-admin1-activity.json?v=20260829h';
-const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829a';
+const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829b';
 const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
 const ADMIN2_CACHE_LIMIT = 4;
@@ -164,12 +164,14 @@ const state = {
   admin2Manifest: null,
   admin2Boundaries: null,
   admin2Cache: new Map(),
+  admin2Requests: new Map(),
   admin2LoadToken: 0,
   admin2Loading: false,
   usData: null,
   countries: [],
   worldCountries: [],
   usRegions: [],
+  usAllRegions: [],
   countryByName: new Map(),
   usRegionByName: new Map(),
   countryFeatures: new Map(),
@@ -611,7 +613,7 @@ function centerForState(region) {
 
 function regionForCode(regionCode) {
   const expected = String(regionCode || '').trim().toUpperCase();
-  return state.usRegions.find(region => String(region.code || '').toUpperCase() === expected) || null;
+  return state.usAllRegions.find(region => String(region.code || '').toUpperCase() === expected) || null;
 }
 
 function featureBounds(feature) {
@@ -644,14 +646,17 @@ function pointInBounds(lat, lon, bounds) {
   return bounds.unboundedLongitude || (lon >= bounds.minLon && lon <= bounds.maxLon);
 }
 
-function admin1ZoomForBbox(bbox, mobile = isMobileViewport()) {
+function admin1ZoomForBbox(bbox, mobile = isMobileViewport(), longitudeSpanDegrees = null) {
   if (!Array.isArray(bbox) || bbox.length !== 4 || !bbox.every(Number.isFinite)) {
     return mobile ? 9 : 7;
   }
   const [minLon, minLat, maxLon, maxLat] = bbox;
   const middleLatitude = THREE.MathUtils.degToRad((minLat + maxLat) / 2);
+  const fittedLongitudeSpan = Number.isFinite(longitudeSpanDegrees)
+    ? longitudeSpanDegrees
+    : maxLon - minLon;
   const longitudeSpan = THREE.MathUtils.degToRad(
-    Math.min(180, Math.max(0.05, maxLon - minLon)) * Math.max(0.2, Math.cos(middleLatitude))
+    Math.min(180, Math.max(0.05, fittedLongitudeSpan)) * Math.max(0.2, Math.cos(middleLatitude))
   );
   const latitudeSpan = THREE.MathUtils.degToRad(Math.min(170, Math.max(0.05, maxLat - minLat)));
   const width = Math.max(1, stage.clientWidth || window.innerWidth);
@@ -836,20 +841,29 @@ async function loadAdmin2Shard(config) {
     state.admin2Cache.set(key, cached);
     return cached;
   }
-  const separator = config.path.includes('?') ? '&' : '?';
-  const response = await fetch(`${config.path}${separator}v=${String(config.sha256 || state.admin2Manifest?.generatedAt || '').slice(0, 16)}`);
-  if (!response.ok) throw new Error(`Detailed boundaries could not be loaded (${response.status}).`);
-  const shard = await response.json();
-  if (shard?.type !== 'FeatureCollection'
-    || !Array.isArray(shard.features)
-    || String(shard.parentCode || '').toUpperCase() !== config.parentCode) {
-    throw new Error('Detailed boundary shard is invalid.');
+  if (state.admin2Requests.has(key)) return state.admin2Requests.get(key);
+  const request = (async () => {
+    const separator = config.path.includes('?') ? '&' : '?';
+    const response = await fetch(`${config.path}${separator}v=${String(config.sha256 || state.admin2Manifest?.generatedAt || '').slice(0, 16)}`);
+    if (!response.ok) throw new Error(`Detailed boundaries could not be loaded (${response.status}).`);
+    const shard = await response.json();
+    if (shard?.type !== 'FeatureCollection'
+      || !Array.isArray(shard.features)
+      || String(shard.parentCode || '').toUpperCase() !== config.parentCode) {
+      throw new Error('Detailed boundary shard is invalid.');
+    }
+    state.admin2Cache.set(key, shard);
+    while (state.admin2Cache.size > ADMIN2_CACHE_LIMIT) {
+      state.admin2Cache.delete(state.admin2Cache.keys().next().value);
+    }
+    return shard;
+  })();
+  state.admin2Requests.set(key, request);
+  try {
+    return await request;
+  } finally {
+    if (state.admin2Requests.get(key) === request) state.admin2Requests.delete(key);
   }
-  state.admin2Cache.set(key, shard);
-  while (state.admin2Cache.size > ADMIN2_CACHE_LIMIT) {
-    state.admin2Cache.delete(state.admin2Cache.keys().next().value);
-  }
-  return shard;
 }
 
 function isAdmin2Scope() {
@@ -873,6 +887,7 @@ function buildAdmin2Regions(shard, parent, config) {
       parentCode: config.parentCode,
       feature,
       bounds: featureBounds(feature),
+      longitudeSpan: featureLongitudeSpan(feature),
       center: featureCenter(feature),
       signals: null,
       rank: null,
@@ -1116,6 +1131,22 @@ function featureForEntity(entity) {
 
 function geometryRings(geometry) {
   return polygonsForGeometry(geometry).flatMap(polygon => polygon || []);
+}
+
+function featureLongitudeSpan(feature) {
+  const longitudes = geometryRings(feature?.geometry)
+    .flatMap(ring => ring || [])
+    .map(point => Number(point?.[0]))
+    .filter(Number.isFinite)
+    .map(longitude => ((longitude % 360) + 360) % 360)
+    .sort((left, right) => left - right);
+  if (longitudes.length < 2) return null;
+  let largestGap = 0;
+  for (let index = 1; index < longitudes.length; index += 1) {
+    largestGap = Math.max(largestGap, longitudes[index] - longitudes[index - 1]);
+  }
+  largestGap = Math.max(largestGap, longitudes[0] + 360 - longitudes[longitudes.length - 1]);
+  return 360 - largestGap;
 }
 
 function boundaryPositions(feature, radius) {
@@ -2317,7 +2348,7 @@ function defaultZoom(scope = state.scope, mobile = window.innerWidth < 760) {
     return mobile ? state.detailConfig.mobileZoom : state.detailConfig.desktopZoom;
   }
   if (scope === 'admin2' && state.admin2Config) {
-    return admin1ZoomForBbox(state.admin2Config.bbox, mobile);
+    return admin1ZoomForBbox(state.admin2Config.bbox, mobile, state.admin2Config.longitudeSpan);
   }
   return mobile ? 11.6 : 9.25;
 }
@@ -2587,7 +2618,7 @@ function countryAt(lat, lon) {
 }
 
 function stateAt(lat, lon) {
-  for (const region of state.usRegions) {
+  for (const region of state.usAllRegions) {
     const feature = featureForState(region.name);
     if (feature && pointInFeature(lat, lon, feature)) return region;
   }
@@ -2788,7 +2819,9 @@ function showSpotlight(entity) {
   spotlight.querySelector('[data-spotlight-label]').textContent = entity.qualityFlag ? 'Network-location flag' : 'Observed interest';
   spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
   spotlight.querySelector('[data-spotlight-signals]').textContent = !Number.isFinite(entity.signals)
-    ? 'No country total is published for this geography. Select it to explore administrative boundaries.'
+    ? stateView
+      ? 'No state-level activity total is published for this geography. Select it to explore county boundaries.'
+      : 'No country total is published for this geography. Select it to explore administrative boundaries.'
     : entity.qualityNote
     ? `${number(entity.signals)} signals · ${entity.qualityNote}`
     : `${number(entity.signals)} signals · ${share}% of observed interest`;
@@ -2956,7 +2989,7 @@ function focusAdmin2Region(region) {
   const bbox = region.bounds
     ? [region.bounds.minLon, region.bounds.minLat, region.bounds.maxLon, region.bounds.maxLat]
     : state.admin2Config.bbox;
-  if (region.center) beginFocusTransition(region.center, admin1ZoomForBbox(bbox, isMobileViewport()));
+  if (region.center) beginFocusTransition(region.center, admin1ZoomForBbox(bbox, isMobileViewport(), region.longitudeSpan));
   state.lastInteractionAt = performance.now();
   updateSelectionOverlay(region);
   showSpotlight(region);
@@ -3217,7 +3250,13 @@ function renderStatePanel() {
           .sort((a, b) => a.name.localeCompare(b.name))
           .map(region => ({ region, published: false }))
       ]
-    : state.usRegions.map(region => ({ region, published: true }));
+    : [
+        ...state.usRegions.map(region => ({ region, published: true })),
+        ...state.usAllRegions
+          .filter(region => !region.published)
+          .sort((left, right) => left.name.localeCompare(right.name))
+          .map(region => ({ region, published: false }))
+      ];
   for (const row of rows) {
     const { region, published } = row;
     const item = document.createElement('li');
@@ -3708,15 +3747,24 @@ function renderDataSummary() {
 
 async function initialize() {
   try {
-    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse, admin2ManifestResponse] = await Promise.all([
+    const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)
+      .then(async response => {
+        if (!response.ok) throw new Error(`Deeper boundary manifest could not be loaded (${response.status}).`);
+        return response.json();
+      })
+      .catch(error => {
+        console.warn('Atlas deeper boundary views are unavailable; the world and regional maps remain active.', error);
+        return null;
+      });
+    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse, admin2Manifest] = await Promise.all([
       fetch(DATA_URL),
       fetch(WORLD_URL),
       fetch(US_STATES_URL),
       fetch(ADMIN1_MANIFEST_URL),
       fetch(ADMIN1_ACTIVITY_URL),
-      fetch(ADMIN2_MANIFEST_URL)
+      admin2ManifestPromise
     ]);
-    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok || !admin2ManifestResponse.ok) {
+    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
       throw new Error('Atlas data could not be loaded.');
     }
     state.data = await dataResponse.json();
@@ -3724,7 +3772,7 @@ async function initialize() {
     state.usBoundaries = await statesResponse.json();
     state.admin1Manifest = await manifestResponse.json();
     state.admin1Activity = await activityResponse.json();
-    state.admin2Manifest = await admin2ManifestResponse.json();
+    state.admin2Manifest = admin2Manifest;
     state.admin1ActivityByA3 = new Map(Object.values(state.admin1Activity?.countries || {})
       .map(record => [String(record.adm0A3 || '').toUpperCase(), record])
       .filter(([code]) => Boolean(code)));
@@ -3734,10 +3782,30 @@ async function initialize() {
     state.usRegions = state.usData.regions.filter(region => region.signals >= state.usData.publishThreshold);
     state.cityClusters = normalizeCityClusters(state.data.cityClusters);
     state.countryByName = new Map(state.countries.map(country => [country.name, country]));
-    state.usRegionByName = new Map(state.usRegions.map(region => [region.name, region]));
+    const publishedUsRegionByName = new Map(state.usRegions.map(region => [region.name, region]));
     state.countryFeatures = new Map(state.countries.map(country => [country.name, featureForCountry(country.name)]));
     buildWorldCountryEntities();
     state.stateFeatures = new Map(state.usBoundaries.features.map(feature => [feature.properties?.NAME, feature]));
+    state.usAllRegions = state.usBoundaries.features.map(feature => {
+      const name = String(feature.properties?.NAME || '').trim();
+      const published = publishedUsRegionByName.get(name);
+      if (published) {
+        published.kind = 'state';
+        published.published = true;
+        published.feature = feature;
+        return published;
+      }
+      return {
+        kind: 'state',
+        name,
+        code: String(feature.properties?.STUSPS || '').trim(),
+        signals: null,
+        rank: null,
+        published: false,
+        feature
+      };
+    });
+    state.usRegionByName = new Map(state.usAllRegions.map(region => [region.name, region]));
     for (const country of state.worldCountries) {
       const center = centerForCountry(country);
       if (center) state.centers.set(country.name, center);
@@ -3747,7 +3815,7 @@ async function initialize() {
         if (code && code !== '-99') state.countryByCode.set(String(code).toUpperCase(), country);
       }
     }
-    for (const region of state.usRegions) {
+    for (const region of state.usAllRegions) {
       const center = centerForState(region);
       if (center) state.usCenters.set(region.name, center);
     }

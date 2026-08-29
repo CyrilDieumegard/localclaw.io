@@ -834,6 +834,12 @@ if (app !== null) {
   if (!app.includes('fetch(ADMIN2_MANIFEST_URL)')) {
     issue('Atlas initialization must fetch the deeper-boundary manifest');
   }
+  const initializeBody = topLevelFunctionBody(app, 'initialize');
+  if (!initializeBody.includes('const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)')
+    || !initializeBody.includes('the world and regional maps remain active')
+    || initializeBody.includes('!admin2ManifestResponse.ok')) {
+    issue('Admin-2 must remain an optional enhancement that cannot disable the core world and regional Atlas');
+  }
   if (!app.includes('async function loadAdmin2Shard(')
     || !app.includes('function enterAdmin2Detail(')
     || !app.includes('function focusAdmin2Region(')
@@ -844,6 +850,13 @@ if (app !== null) {
   if (!Number.isInteger(admin2CacheLimit) || admin2CacheLimit < 2 || admin2CacheLimit > 12
     || !app.includes('state.admin2Cache.delete(')) {
     issue('Admin-2 parent shards must use a small bounded in-memory cache');
+  }
+  const loadAdmin2Body = topLevelFunctionBody(app, 'loadAdmin2Shard');
+  if (!app.includes('admin2Requests: new Map()')
+    || !loadAdmin2Body.includes('state.admin2Requests.has(key)')
+    || !loadAdmin2Body.includes('state.admin2Requests.set(key, request)')
+    || !loadAdmin2Body.includes('state.admin2Requests.delete(key)')) {
+    issue('Concurrent requests for the same Admin-2 shard must share one in-flight fetch');
   }
   if (app.includes('countryDetailConfigs')) {
     issue('Worldwide drill-down must not remain gated by the retired hard-coded countryDetailConfigs list');
@@ -952,10 +965,24 @@ if (app !== null) {
     || !css.includes('.atlas-scope-admin2 .atlas-region-panel__list button.is-active')) {
     issue('Admin-2 boundary selection must remain visible and expose aria-current in the long subdivision list');
   }
+  const defaultZoomBody = topLevelFunctionBody(app, 'defaultZoom');
+  if (!app.includes('function featureLongitudeSpan(')
+    || !app.includes('function admin1ZoomForBbox(bbox, mobile = isMobileViewport(), longitudeSpanDegrees = null)')
+    || !app.includes('Number.isFinite(longitudeSpanDegrees)')
+    || !defaultZoomBody.includes('state.admin2Config.longitudeSpan')
+    || !focusAdmin2Body.includes('region.longitudeSpan')) {
+    issue('Admin-2 zoom fitting must use an antimeridian-aware longitude span for Alaska and crossing subdivisions');
+  }
   const regionPanelBody = topLevelFunctionBody(app, 'renderStatePanel');
   if (!regionPanelBody.includes('.flatMap(region => region.features || [])')
     || !regionPanelBody.includes('!publishedFeatures.has(region.feature)')) {
     issue('Composite regional aggregates must suppress their component polygons from the neutral region list');
+  }
+  if (!app.includes('usAllRegions: []')
+    || !app.includes('state.usAllRegions = state.usBoundaries.features.map(')
+    || !regionPanelBody.includes('state.usAllRegions')
+    || !topLevelFunctionBody(app, 'stateAt').includes('state.usAllRegions')) {
+    issue('The U.S. state view must keep all 50 states and District of Columbia selectable for deeper boundary exploration');
   }
   const desktopTextureWidth = Number(app.match(/const\s+DESKTOP_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
   const mobileTextureWidth = Number(app.match(/const\s+MOBILE_TEXTURE_WIDTH\s*=\s*(\d+)\s*;/)?.[1]);
@@ -1455,7 +1482,10 @@ if (admin2Manifest) {
     || usa.source?.sourceYear !== 2025
     || usa.source?.official !== true
     || usa.source?.license !== 'Public domain'
-    || usa.source?.sourceFileSha256 !== '70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd') {
+    || usa.source?.sourceFiles?.archiveName !== 'cb_2025_us_county_5m.zip'
+    || usa.source?.sourceFiles?.archiveSha256 !== '19f80cd87ad2e51146b8a7de496428c950e57f725b4eb74674efcb5059fa4678'
+    || usa.source?.sourceFiles?.extractedMember !== 'cb_2025_us_county_5m.kml'
+    || usa.source?.sourceFiles?.kmlSha256 !== '70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd') {
     issue('U.S. Admin-2 provenance must identify the official Census 2025 1:5m public-domain snapshot');
   }
   if (china.source?.sourceYear !== 2020
@@ -1485,6 +1515,12 @@ if (admin2Manifest) {
     let countryCoordinatePositions = 0;
     for (const [parentCode, entry] of parents) {
       computedParents += 1;
+      if (!Number.isFinite(entry.longitudeSpan) || entry.longitudeSpan <= 0 || entry.longitudeSpan > 180) {
+        issue(`${parentCode} Admin-2 longitude span must be a finite antimeridian-aware value`);
+      }
+      if (parentCode === 'US-AK' && (entry.longitudeSpan < 50 || entry.longitudeSpan > 70)) {
+        issue('US-AK Admin-2 longitude span must fit Alaska across the antimeridian without treating it as world-wide');
+      }
       const relativePath = String(entry.path || '').replace(/^\//, '');
       if (!new RegExp(`^data/admin2/${directory}/[a-z0-9-]+\\.geojson$`).test(relativePath)) {
         issue(`${parentCode} Admin-2 shard path is invalid: ${entry.path}`);

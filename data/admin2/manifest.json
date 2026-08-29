@@ -23,7 +23,12 @@
         "sourceYear": 2025,
         "sourcePage": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
         "downloadUrl": "https://www2.census.gov/geo/tiger/GENZ2025/kml/cb_2025_us_county_5m.zip",
-        "sourceFileSha256": "70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd",
+        "sourceFiles": {
+          "archiveName": "cb_2025_us_county_5m.zip",
+          "archiveSha256": "19f80cd87ad2e51146b8a7de496428c950e57f725b4eb74674efcb5059fa4678",
+          "extractedMember": "cb_2025_us_county_5m.kml",
+          "kmlSha256": "70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd"
+        },
         "license": "Public domain",
         "official": true,
         "parentLevel": "state",
@@ -50,6 +55,7 @@
             179.77847,
             71.352561
           ],
+          "longitudeSpan": 57.564166,
           "featureCount": 30,
           "coordinatePositionCount": 14173,
           "childLabel": "county or county-equivalent",
@@ -90,6 +96,7 @@
             -84.889431,
             35.008028
           ],
+          "longitudeSpan": 3.583796,
           "featureCount": 67,
           "coordinatePositionCount": 4462,
           "childLabel": "county or county-equivalent",
@@ -118,6 +125,7 @@
             -89.641572,
             36.4996
           ],
+          "longitudeSpan": 4.976347,
           "featureCount": 75,
           "coordinatePositionCount": 4650,
           "childLabel": "county or county-equivalent",
@@ -146,6 +154,7 @@
             -109.045223,
             37.00426
           ],
+          "longitudeSpan": 5.768962,
           "featureCount": 15,
           "coordinatePositionCount": 2442,
           "childLabel": "county or county-equivalent",
@@ -174,6 +183,7 @@
             -114.134427,
             42.009518
           ],
+          "longitudeSpan": 10.275164,
           "featureCount": 58,
           "coordinatePositionCount": 8670,
           "childLabel": "county or county-equivalent",
@@ -202,6 +212,7 @@
             -102.041524,
             41.003444
           ],
+          "longitudeSpan": 7.018729,
           "featureCount": 64,
           "coordinatePositionCount": 3987,
           "childLabel": "county or county-equivalent",
@@ -230,6 +241,7 @@
             -71.786994,
             42.050587
           ],
+          "longitudeSpan": 1.940781,
           "featureCount": 9,
           "coordinatePositionCount": 1020,
           "childLabel": "county or county-equivalent",
@@ -258,6 +270,7 @@
             -76.909393,
             38.995548
           ],
+          "longitudeSpan": 0.210366,
           "featureCount": 1,
           "coordinatePositionCount": 152,
           "childLabel": "county or county-equivalent",
@@ -286,6 +299,7 @@
             -75.048939,
             39.839185
           ],
+          "longitudeSpan": 0.739956,
           "featureCount": 3,
           "coordinatePositionCount": 399,
           "childLabel": "county or county-equivalent",
@@ -314,6 +328,7 @@
             -80.031362,
             31.000886
           ],
+          "longitudeSpan": 7.603581,
           "featureCount": 67,
           "coordinatePositionCount": 5618,
           "childLabel": "county or county-equivalent",
@@ -342,6 +357,7 @@
             -80.840549,
             35.000659
           ],
+          "longitudeSpan": 4.764616,
           "featureCount": 159,
           "coordinatePositionCount": 8569,
           "childLabel": "county or county-equivalent",
@@ -370,6 +386,7 @@
             -154.808036,
             22.229639
           ],
+          "longitudeSpan": 5.436917,
           "featureCount": 5,
           "coordinatePositionCount": 884,
           "childLabel": "county or county-equivalent",
@@ -398,6 +415,7 @@
             -90.140061,
             43.501196
           ],
+          "longitudeSpan": 6.499643,
           "featureCount": 99,
           "coordinatePositionCount": 3421,
           "childLabel": "county or county-equivalent",
@@ -426,6 +444,7 @@
             -111.043564,
             49.001146
           ],
+          "longitudeSpan": 6.199463,
           "featureCount": 44,
           "coordinatePositionCount": 4389,
           "childLabel": "county or county-equivalent",
@@ -454,6 +473,7 @@
             -87.496494,
             42.508481
           ],
+          "longitudeSpan": 4.016585,
           "featureCount": 102,
           "coordinatePositionCount": 4997,
           "childLabel": "county or county-equivalent",
@@ -482,6 +502,7 @@
             -84.784579,
             41.760592
           ],
+          "longitudeSpan": 3.313313,
           "featureCount": 92,
           "coordinatePositionCount": 3820,
           "childLabel": "county or county-equivalent",
@@ -510,6 +531,7 @@
             -94.589933,
             40.003162
           ],
+          "longitudeSpan": 7.461811,
           "featureCount": 105,
           "coordinatePositionCount": 2525,
           "childLabel": "county or county-equivalent",
@@ -538,6 +560,7 @@
             -81.964971,
             39.147458
           ],
+          "longitudeSpan": 7.606538,
           "featureCount": 120,
           "coordinatePositionCount": 7365,
           "childLabel": "county or county-equivalent",
@@ -566,6 +589,7 @@
             -88.817017,
             33.019457
           ],
+          "longitudeSpan": 5.22613,
           "featureCount": 64,
           "coordinatePositionCount": 6160,
           "childLabel": "county or county-equivalent",
@@ -594,6 +618,7 @@
             -69.928261,
             42.886589
           ],
+          "longitudeSpan": 3.579881,
           "featureCount": 14,
           "coordinatePositionCount": 1955,
           "childLabel": "county or county-equivalent",
@@ -622,6 +647,7 @@
             -75.048939,
             39.723122
           ],
+          "longitudeSpan": 4.438712,
           "featureCount": 24,
           "coordinatePositionCount": 3098,
           "childLabel": "county or county-equivalent",
@@ -654,6 +680,7 @@
             -66.949895,
             47.459686
           ],
+          "longitudeSpan": 4.134029,
           "featureCount": 16,
           "coordinatePositionCount": 2819,
           "childLabel": "county or county-equivalent",
@@ -682,6 +709,7 @@
             -82.412965,
             48.190975
           ],
+          "longitudeSpan": 8.005171,
           "featureCount": 83,
           "coordinatePositionCount": 4793,
           "childLabel": "county or county-equivalent",
@@ -710,6 +738,7 @@
             -89.489226,
             49.384358
           ],
+          "longitudeSpan": 7.749983,
           "featureCount": 87,
           "coordinatePositionCount": 6045,
           "childLabel": "county or county-equivalent",
@@ -738,6 +767,7 @@
             -89.098843,
             40.61364
           ],
+          "longitudeSpan": 6.675861,
           "featureCount": 115,
           "coordinatePositionCount": 5513,
           "childLabel": "county or county-equivalent",
@@ -770,6 +800,7 @@
             -88.097888,
             34.996052
           ],
+          "longitudeSpan": 3.557121,
           "featureCount": 82,
           "coordinatePositionCount": 4210,
           "childLabel": "county or county-equivalent",
@@ -798,6 +829,7 @@
             -104.039138,
             49.001078
           ],
+          "longitudeSpan": 12.010756,
           "featureCount": 56,
           "coordinatePositionCount": 7092,
           "childLabel": "county or county-equivalent",
@@ -826,6 +858,7 @@
             -75.458659,
             36.588117
           ],
+          "longitudeSpan": 8.86321,
           "featureCount": 100,
           "coordinatePositionCount": 7141,
           "childLabel": "county or county-equivalent",
@@ -854,6 +887,7 @@
             -96.554507,
             49.000562
           ],
+          "longitudeSpan": 7.494393,
           "featureCount": 53,
           "coordinatePositionCount": 3020,
           "childLabel": "county or county-equivalent",
@@ -882,6 +916,7 @@
             -95.30829,
             43.001708
           ],
+          "longitudeSpan": 8.745224,
           "featureCount": 93,
           "coordinatePositionCount": 2926,
           "childLabel": "county or county-equivalent",
@@ -910,6 +945,7 @@
             -70.703799,
             45.305476
           ],
+          "longitudeSpan": 1.853448,
           "featureCount": 10,
           "coordinatePositionCount": 1860,
           "childLabel": "county or county-equivalent",
@@ -938,6 +974,7 @@
             -73.893979,
             41.357423
           ],
+          "longitudeSpan": 1.664307,
           "featureCount": 21,
           "coordinatePositionCount": 2540,
           "childLabel": "county or county-equivalent",
@@ -966,6 +1003,7 @@
             -103.001964,
             37.000232
           ],
+          "longitudeSpan": 6.048209,
           "featureCount": 33,
           "coordinatePositionCount": 1721,
           "childLabel": "county or county-equivalent",
@@ -994,6 +1032,7 @@
             -114.039648,
             42.002207
           ],
+          "longitudeSpan": 5.966098,
           "featureCount": 17,
           "coordinatePositionCount": 1565,
           "childLabel": "county or county-equivalent",
@@ -1026,6 +1065,7 @@
             -71.856365,
             45.01585
           ],
+          "longitudeSpan": 7.905787,
           "featureCount": 62,
           "coordinatePositionCount": 5217,
           "childLabel": "county or county-equivalent",
@@ -1054,6 +1094,7 @@
             -80.518693,
             41.977523
           ],
+          "longitudeSpan": 4.301466,
           "featureCount": 88,
           "coordinatePositionCount": 4341,
           "childLabel": "county or county-equivalent",
@@ -1082,6 +1123,7 @@
             -94.431215,
             37.002206
           ],
+          "longitudeSpan": 8.57135,
           "featureCount": 77,
           "coordinatePositionCount": 4225,
           "childLabel": "county or county-equivalent",
@@ -1110,6 +1152,7 @@
             -116.463504,
             46.271004
           ],
+          "longitudeSpan": 8.088937,
           "featureCount": 36,
           "coordinatePositionCount": 5197,
           "childLabel": "county or county-equivalent",
@@ -1138,6 +1181,7 @@
             -74.689516,
             42.26986
           ],
+          "longitudeSpan": 5.830375,
           "featureCount": 67,
           "coordinatePositionCount": 5125,
           "childLabel": "county or county-equivalent",
@@ -1166,6 +1210,7 @@
             -71.12057,
             42.018798
           ],
+          "longitudeSpan": 0.742202,
           "featureCount": 5,
           "coordinatePositionCount": 528,
           "childLabel": "county or county-equivalent",
@@ -1194,6 +1239,7 @@
             -78.542422,
             35.215402
           ],
+          "longitudeSpan": 4.810816,
           "featureCount": 46,
           "coordinatePositionCount": 4443,
           "childLabel": "county or county-equivalent",
@@ -1222,6 +1268,7 @@
             -96.436589,
             45.94545
           ],
+          "longitudeSpan": 7.621109,
           "featureCount": 66,
           "coordinatePositionCount": 3727,
           "childLabel": "county or county-equivalent",
@@ -1250,6 +1297,7 @@
             -81.6469,
             36.678118
           ],
+          "longitudeSpan": 8.662812,
           "featureCount": 95,
           "coordinatePositionCount": 6085,
           "childLabel": "county or county-equivalent",
@@ -1278,6 +1326,7 @@
             -93.516407,
             36.500704
           ],
+          "longitudeSpan": 13.129072,
           "featureCount": 254,
           "coordinatePositionCount": 12110,
           "childLabel": "county or county-equivalent",
@@ -1306,6 +1355,7 @@
             -109.041058,
             42.001567
           ],
+          "longitudeSpan": 5.011904,
           "featureCount": 29,
           "coordinatePositionCount": 3849,
           "childLabel": "county or county-equivalent",
@@ -1334,6 +1384,7 @@
             -75.242469,
             39.466012
           ],
+          "longitudeSpan": 8.432944,
           "featureCount": 133,
           "coordinatePositionCount": 8575,
           "childLabel": "county or county-equivalent",
@@ -1366,6 +1417,7 @@
             -71.465039,
             45.016659
           ],
+          "longitudeSpan": 1.972701,
           "featureCount": 14,
           "coordinatePositionCount": 1720,
           "childLabel": "county or county-equivalent",
@@ -1394,6 +1446,7 @@
             -116.915989,
             49.002494
           ],
+          "longitudeSpan": 7.817185,
           "featureCount": 39,
           "coordinatePositionCount": 4485,
           "childLabel": "county or county-equivalent",
@@ -1422,6 +1475,7 @@
             -86.805415,
             47.076667
           ],
+          "longitudeSpan": 6.082699,
           "featureCount": 72,
           "coordinatePositionCount": 4083,
           "childLabel": "county or county-equivalent",
@@ -1450,6 +1504,7 @@
             -77.719519,
             40.638801
           ],
+          "longitudeSpan": 4.92522,
           "featureCount": 55,
           "coordinatePositionCount": 4945,
           "childLabel": "county or county-equivalent",
@@ -1478,6 +1533,7 @@
             -104.05216,
             45.005904
           ],
+          "longitudeSpan": 7.004728,
           "featureCount": 23,
           "coordinatePositionCount": 1667,
           "childLabel": "county or county-equivalent",
@@ -1539,6 +1595,7 @@
             119.60824717000003,
             34.62676846900007
           ],
+          "longitudeSpan": 4.762293,
           "featureCount": 16,
           "coordinatePositionCount": 2112,
           "childLabel": "prefecture-level division",
@@ -1567,6 +1624,7 @@
             117.46482569900002,
             41.05700939700006
           ],
+          "longitudeSpan": 2.060649,
           "featureCount": 1,
           "coordinatePositionCount": 214,
           "childLabel": "prefecture-level division",
@@ -1595,6 +1653,7 @@
             110.15310568000007,
             32.20283413100003
           ],
+          "longitudeSpan": 4.843568,
           "featureCount": 1,
           "coordinatePositionCount": 573,
           "childLabel": "prefecture-level division",
@@ -1623,6 +1682,7 @@
             120.42464672000006,
             28.302985722000074
           ],
+          "longitudeSpan": 4.600752,
           "featureCount": 9,
           "coordinatePositionCount": 4396,
           "childLabel": "prefecture-level division",
@@ -1651,6 +1711,7 @@
             117.17200695200006,
             25.508794112000032
           ],
+          "longitudeSpan": 7.516422,
           "featureCount": 21,
           "coordinatePositionCount": 5687,
           "childLabel": "prefecture-level division",
@@ -1679,6 +1740,7 @@
             108.67953176400005,
             42.793518540000036
           ],
+          "longitudeSpan": 15.890867,
           "featureCount": 14,
           "coordinatePositionCount": 2811,
           "childLabel": "prefecture-level division",
@@ -1711,6 +1773,7 @@
             112.03070341600005,
             26.391066115000058
           ],
+          "longitudeSpan": 7.525763,
           "featureCount": 14,
           "coordinatePositionCount": 3833,
           "childLabel": "prefecture-level division",
@@ -1739,6 +1802,7 @@
             109.52724129000006,
             29.20588239500006
           ],
+          "longitudeSpan": 5.914814,
           "featureCount": 9,
           "coordinatePositionCount": 1933,
           "childLabel": "prefecture-level division",
@@ -1771,6 +1835,7 @@
             116.6186449270001,
             36.34328676600006
           ],
+          "longitudeSpan": 6.287007,
           "featureCount": 18,
           "coordinatePositionCount": 2242,
           "childLabel": "prefecture-level division",
@@ -1803,6 +1868,7 @@
             116.09277547500005,
             33.26488442800007
           ],
+          "longitudeSpan": 7.747816,
           "featureCount": 17,
           "coordinatePositionCount": 2374,
           "childLabel": "prefecture-level division",
@@ -1843,6 +1909,7 @@
             119.8066533120001,
             42.56244057200007
           ],
+          "longitudeSpan": 6.366785,
           "featureCount": 11,
           "coordinatePositionCount": 2017,
           "childLabel": "prefecture-level division",
@@ -1871,6 +1938,7 @@
             111.27236175500008,
             20.156469627000035
           ],
+          "longitudeSpan": 2.654835,
           "featureCount": 18,
           "coordinatePositionCount": 21254,
           "childLabel": "prefecture-level division",
@@ -1911,6 +1979,7 @@
             134.72635225700003,
             53.53136367800005
           ],
+          "longitudeSpan": 13.523152,
           "featureCount": 13,
           "coordinatePositionCount": 4316,
           "childLabel": "prefecture-level division",
@@ -1943,6 +2012,7 @@
             114.2467645050001,
             30.134730988000058
           ],
+          "longitudeSpan": 5.45405,
           "featureCount": 14,
           "coordinatePositionCount": 2676,
           "childLabel": "prefecture-level division",
@@ -1975,6 +2045,7 @@
             131.22876888100006,
             46.295548763000056
           ],
+          "longitudeSpan": 9.620845,
           "featureCount": 9,
           "coordinatePositionCount": 8810,
           "childLabel": "prefecture-level division",
@@ -2007,6 +2078,7 @@
             121.88371275100008,
             35.10524571900004
           ],
+          "longitudeSpan": 5.550395,
           "featureCount": 13,
           "coordinatePositionCount": 2220,
           "childLabel": "prefecture-level division",
@@ -2035,6 +2107,7 @@
             118.44407686800002,
             30.064625782000064
           ],
+          "longitudeSpan": 4.896855,
           "featureCount": 11,
           "coordinatePositionCount": 2144,
           "childLabel": "prefecture-level division",
@@ -2063,6 +2136,7 @@
             125.73122666600011,
             43.484907099000054
           ],
+          "longitudeSpan": 6.961649,
           "featureCount": 14,
           "coordinatePositionCount": 3497,
           "childLabel": "prefecture-level division",
@@ -2091,6 +2165,7 @@
             125.98732738300009,
             53.31739945500004
           ],
+          "longitudeSpan": 28.815909,
           "featureCount": 12,
           "coordinatePositionCount": 4774,
           "childLabel": "prefecture-level division",
@@ -2123,6 +2198,7 @@
             107.63373007600006,
             39.38000075700006
           ],
+          "longitudeSpan": 3.407238,
           "featureCount": 5,
           "coordinatePositionCount": 456,
           "childLabel": "prefecture-level division",
@@ -2151,6 +2227,7 @@
             103.02983155100009,
             39.33939816900005
           ],
+          "longitudeSpan": 13.610623,
           "featureCount": 8,
           "coordinatePositionCount": 2690,
           "childLabel": "prefecture-level division",
@@ -2183,6 +2260,7 @@
             108.52162378100007,
             34.30108321400007
           ],
+          "longitudeSpan": 11.178318,
           "featureCount": 21,
           "coordinatePositionCount": 4165,
           "childLabel": "prefecture-level division",
@@ -2215,6 +2293,7 @@
             122.66706649600007,
             38.204779346000066
           ],
+          "longitudeSpan": 7.894972,
           "featureCount": 17,
           "coordinatePositionCount": 3742,
           "childLabel": "prefecture-level division",
@@ -2243,6 +2322,7 @@
             121.88009382700011,
             31.834698213000024
           ],
+          "longitudeSpan": 1.050949,
           "featureCount": 1,
           "coordinatePositionCount": 255,
           "childLabel": "prefecture-level division",
@@ -2271,6 +2351,7 @@
             111.25223533100007,
             39.58060147000003
           ],
+          "longitudeSpan": 5.75602,
           "featureCount": 10,
           "coordinatePositionCount": 1799,
           "childLabel": "prefecture-level division",
@@ -2299,6 +2380,7 @@
             114.50190356400003,
             40.759349057000065
           ],
+          "longitudeSpan": 4.271445,
           "featureCount": 11,
           "coordinatePositionCount": 1703,
           "childLabel": "prefecture-level division",
@@ -2327,6 +2409,7 @@
             118.02628962500012,
             40.194066159000045
           ],
+          "longitudeSpan": 1.368401,
           "featureCount": 1,
           "coordinatePositionCount": 246,
           "childLabel": "prefecture-level division",
@@ -2355,6 +2438,7 @@
             96.39555374700006,
             49.17320718500008
           ],
+          "longitudeSpan": 22.837854,
           "featureCount": 15,
           "coordinatePositionCount": 6691,
           "childLabel": "prefecture-level division",
@@ -2399,6 +2483,7 @@
             99.15261715500009,
             36.49015051900005
           ],
+          "longitudeSpan": 20.714541,
           "featureCount": 7,
           "coordinatePositionCount": 6489,
           "childLabel": "prefecture-level division",
@@ -2431,6 +2516,7 @@
             106.19189992500009,
             29.220789610000054
           ],
+          "longitudeSpan": 8.631365,
           "featureCount": 16,
           "coordinatePositionCount": 5057,
           "childLabel": "prefecture-level division",
@@ -2463,6 +2549,7 @@
             122.51702642500004,
             31.19127055900003
           ],
+          "longitudeSpan": 4.523174,
           "featureCount": 11,
           "coordinatePositionCount": 3052,
           "childLabel": "prefecture-level division",

@@ -16,6 +16,7 @@ const chinaDbfPath = process.argv[4] || process.env.LOCALCLAW_ADMIN2_CHINA_DBF;
 const generatedAt = process.env.LOCALCLAW_ADMIN2_GENERATED_AT || '2026-08-29T21:45:00.000Z';
 
 const EXPECTED_US_KML_SHA256 = '70a64577c9f41bd9281c19458a6c5d39918292ad91e7850057d3ee752f7408dd';
+const EXPECTED_US_ARCHIVE_SHA256 = '19f80cd87ad2e51146b8a7de496428c950e57f725b4eb74674efcb5059fa4678';
 const EXPECTED_CHINA_SHP_SHA256 = 'acb0881183eea5db5cf19597367eefd188b948d3d38962b3cc041656dbdb7dcd';
 const EXPECTED_CHINA_DBF_SHA256 = '6fda17135a6b5651d8321b30f867ca8643ddd2b8024eae15d23f24c7ab27ad33';
 const EXPECTED_US_SOURCE_FEATURES = 3235;
@@ -304,6 +305,20 @@ function featureBounds(feature) {
   return bounds.every(Number.isFinite) ? bounds : null;
 }
 
+function minimalLongitudeSpan(features) {
+  const longitudes = features
+    .flatMap(feature => geometryPositions(feature.geometry))
+    .map(point => ((point[0] % 360) + 360) % 360)
+    .sort((left, right) => left - right);
+  if (longitudes.length < 2) return null;
+  let largestGap = 0;
+  for (let index = 1; index < longitudes.length; index += 1) {
+    largestGap = Math.max(largestGap, longitudes[index] - longitudes[index - 1]);
+  }
+  largestGap = Math.max(largestGap, longitudes[0] + 360 - longitudes[longitudes.length - 1]);
+  return Number((360 - largestGap).toFixed(6));
+}
+
 function mergeBounds(current, next) {
   if (!next) return current;
   if (!current) return [...next];
@@ -385,6 +400,7 @@ function writeCountryShards({ countryCode, countryName, directoryName, features,
       parentPositionCount += geometryPositions(feature.geometry).length;
     }
     const filename = `${parentCode.toLowerCase()}.geojson`;
+    const longitudeSpan = minimalLongitudeSpan(parentFeatures);
     const relativePath = `/data/admin2/${directoryName}/${filename}`;
     const payload = {
       type: 'FeatureCollection',
@@ -403,6 +419,7 @@ function writeCountryShards({ countryCode, countryName, directoryName, features,
       path: relativePath,
       sha256: sha256(content),
       bbox,
+      longitudeSpan,
       featureCount: parentFeatures.length,
       coordinatePositionCount: parentPositionCount,
       childLabel: metadata.childLabel,
@@ -547,7 +564,12 @@ const usa = writeCountryShards({
     sourceYear: 2025,
     sourcePage: 'https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html',
     downloadUrl: 'https://www2.census.gov/geo/tiger/GENZ2025/kml/cb_2025_us_county_5m.zip',
-    sourceFileSha256: EXPECTED_US_KML_SHA256,
+    sourceFiles: {
+      archiveName: 'cb_2025_us_county_5m.zip',
+      archiveSha256: EXPECTED_US_ARCHIVE_SHA256,
+      extractedMember: 'cb_2025_us_county_5m.kml',
+      kmlSha256: EXPECTED_US_KML_SHA256
+    },
     license: 'Public domain',
     official: true,
     parentLevel: 'state',
