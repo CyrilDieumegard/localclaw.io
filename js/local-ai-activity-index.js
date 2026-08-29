@@ -1,7 +1,8 @@
 import * as THREE from './vendor/three.module.min.js';
 
-const DATA_URL = '/data/local-ai-activity-index.json?v=20260829a';
+const DATA_URL = '/data/local-ai-activity-index.json?v=20260829b';
 const WORLD_URL = '/data/ne_110m_admin_0_countries.geojson?v=20260829a';
+const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const PUBLISH_THRESHOLD = 5;
 const GLOBE_RADIUS = 3.65;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -12,6 +13,11 @@ const tooltip = document.querySelector('[data-atlas-tooltip]');
 const spotlight = document.querySelector('[data-atlas-spotlight]');
 const toast = document.querySelector('[data-atlas-toast]');
 const fallbackNote = document.querySelector('[data-atlas-fallback-note]');
+const regionPanel = document.querySelector('[data-atlas-region-panel]');
+const regionList = document.querySelector('[data-atlas-region-list]');
+const title = document.querySelector('[data-atlas-title]');
+const summary = document.querySelector('[data-atlas-summary]');
+const liveLabel = document.querySelector('[data-atlas-live]');
 
 if (!stage || !canvas) {
   throw new Error('Local AI Activity Index stage is missing.');
@@ -101,9 +107,14 @@ const countryHubs = {
 const state = {
   data: null,
   world: null,
+  usBoundaries: null,
+  usData: null,
   countries: [],
+  usRegions: [],
   countryByName: new Map(),
+  usRegionByName: new Map(),
   centers: new Map(),
+  usCenters: new Map(),
   scene: null,
   camera: null,
   renderer: null,
@@ -111,6 +122,11 @@ const state = {
   globeGroup: null,
   texture: null,
   pulseSprites: [],
+  worldActivity: [],
+  usGroup: null,
+  stateLineGroups: new Map(),
+  selectedStateLine: null,
+  scope: 'world',
   targetRotation: new THREE.Vector2(0.38, -0.1),
   rotationVelocity: new THREE.Vector2(0, 0),
   dragging: false,
@@ -214,6 +230,20 @@ function centerForCountry(country) {
   const hubs = countryHubs[country.name];
   if (hubs?.length) return hubs[0];
   return featureCenter(featureForCountry(country.name));
+}
+
+function featureForState(stateName) {
+  return state.usBoundaries?.features.find(feature => feature.properties?.NAME === stateName) || null;
+}
+
+function centerForState(region) {
+  return featureCenter(featureForState(region.name));
+}
+
+function geometryRings(geometry) {
+  if (!geometry) return [];
+  const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+  return polygons.flatMap(polygon => polygon || []);
 }
 
 function drawRing(context, ring, width, height) {
@@ -425,6 +455,8 @@ function createParticles() {
   mesh.instanceMatrix.needsUpdate = true;
   if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
   mesh.userData.activityParticles = true;
+  mesh.userData.activityScope = 'world';
+  state.worldActivity.push(mesh);
   state.globeGroup.add(mesh);
 
   const glowGeometry = new THREE.BufferGeometry().setFromPoints(points);
@@ -442,6 +474,8 @@ function createParticles() {
   });
   const glows = new THREE.Points(glowGeometry, glowMaterial);
   glows.userData.activityGlows = true;
+  glows.userData.activityScope = 'world';
+  state.worldActivity.push(glows);
   state.globeGroup.add(glows);
 }
 
@@ -465,11 +499,132 @@ function createPulseHubs() {
     sprite.scale.setScalar(baseScale);
     sprite.userData = {
       country,
+      activityScope: 'world',
       baseScale,
       phase: (hashString(country.name) % 628) / 100
     };
     state.pulseSprites.push(sprite);
+    state.worldActivity.push(sprite);
     state.globeGroup.add(sprite);
+  }
+}
+
+function createStateBoundaries() {
+  state.usGroup = new THREE.Group();
+  state.usGroup.visible = false;
+  state.usGroup.userData.activityScope = 'us';
+
+  for (const feature of state.usBoundaries.features) {
+    const name = feature.properties?.NAME;
+    if (!name) continue;
+    const stateGroup = new THREE.Group();
+    stateGroup.userData.stateName = name;
+    for (const ring of geometryRings(feature.geometry)) {
+      if (!Array.isArray(ring) || ring.length < 2) continue;
+      const points = ring.map(([lon, lat]) => latLonToVector(lat, lon, GLOBE_RADIUS + 0.025));
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({
+        color: state.theme === 'light' ? 0x9f322b : 0xff5b43,
+        transparent: true,
+        opacity: state.usRegionByName.has(name) ? 0.72 : 0.2,
+        depthWrite: false
+      });
+      stateGroup.add(new THREE.Line(geometry, material));
+    }
+    state.stateLineGroups.set(name, stateGroup);
+    state.usGroup.add(stateGroup);
+  }
+
+  state.globeGroup.add(state.usGroup);
+}
+
+function createUSActivity() {
+  const points = [];
+  const colors = [];
+  const mobile = window.innerWidth < 760;
+  const maximum = state.usRegions[0]?.signals || 1;
+
+  for (const region of state.usRegions) {
+    const center = state.usCenters.get(region.name);
+    if (!center) continue;
+    const count = mobile
+      ? Math.max(4, Math.min(86, Math.round(Math.sqrt(region.signals) * 3.2)))
+      : Math.max(6, Math.min(150, Math.round(Math.sqrt(region.signals) * 4.8)));
+    const random = randomFactory(hashString(`us-${region.name}`));
+    const spread = Math.max(0.2, Math.min(0.95, 1.7 / Math.sqrt(region.signals)));
+    const intensity = Math.log1p(region.signals) / Math.log1p(maximum);
+    for (let index = 0; index < count; index += 1) {
+      const lat = center[0] + normalRandom(random) * spread;
+      const lonSpread = spread / Math.max(0.4, Math.cos(THREE.MathUtils.degToRad(lat)));
+      const lon = center[1] + normalRandom(random) * lonSpread;
+      const altitude = 0.035 + random() * (0.035 + intensity * 0.045);
+      points.push(latLonToVector(lat, lon, GLOBE_RADIUS + altitude));
+      colors.push(new THREE.Color().setHSL(region.qualityFlag ? 0.105 : 0.018 + random() * 0.025, 1, 0.46 + random() * 0.1));
+    }
+  }
+
+  const particleGeometry = new THREE.IcosahedronGeometry(0.016, mobile ? 0 : 1);
+  const particleMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+    opacity: state.theme === 'light' ? 0.7 : 0.9,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const particles = new THREE.InstancedMesh(particleGeometry, particleMaterial, points.length);
+  const matrix = new THREE.Matrix4();
+  for (let index = 0; index < points.length; index += 1) {
+    matrix.setPosition(points[index]);
+    particles.setMatrixAt(index, matrix);
+    particles.setColorAt(index, colors[index]);
+  }
+  particles.instanceMatrix.needsUpdate = true;
+  if (particles.instanceColor) particles.instanceColor.needsUpdate = true;
+  particles.userData.activityParticles = true;
+  particles.userData.activityScope = 'us';
+  state.usGroup.add(particles);
+
+  const glowGeometry = new THREE.BufferGeometry().setFromPoints(points);
+  glowGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors.flatMap(color => color.toArray()), 3));
+  const glows = new THREE.Points(glowGeometry, new THREE.PointsMaterial({
+    map: glowTexture(),
+    size: mobile ? 0.064 : 0.082,
+    sizeAttenuation: true,
+    vertexColors: true,
+    transparent: true,
+    opacity: state.theme === 'light' ? 0.2 : 0.3,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    alphaTest: 0.01
+  }));
+  glows.userData.activityGlows = true;
+  glows.userData.activityScope = 'us';
+  state.usGroup.add(glows);
+
+  const texture = glowTexture();
+  for (const region of state.usRegions) {
+    const center = state.usCenters.get(region.name);
+    if (!center) continue;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: texture,
+      color: region.qualityFlag ? 0xffb020 : 0xff3f27,
+      transparent: true,
+      opacity: state.theme === 'light' ? 0.46 : 0.82,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      depthTest: true
+    }));
+    sprite.position.copy(latLonToVector(center[0], center[1], GLOBE_RADIUS + 0.07));
+    const baseScale = 0.12 + Math.min(0.23, Math.sqrt(region.signals) * 0.008);
+    sprite.scale.setScalar(baseScale);
+    sprite.userData = {
+      region,
+      activityScope: 'us',
+      baseScale,
+      phase: (hashString(`us-${region.name}`) % 628) / 100
+    };
+    state.pulseSprites.push(sprite);
+    state.usGroup.add(sprite);
   }
 }
 
@@ -562,6 +717,8 @@ function setupScene() {
   createAtmosphere();
   createParticles();
   createPulseHubs();
+  createStateBoundaries();
+  createUSActivity();
   createBackgroundField();
   resize();
 }
@@ -574,7 +731,8 @@ function resize() {
   state.renderer.setSize(width, height, false);
   state.camera.aspect = width / Math.max(height, 1);
   state.camera.fov = mobile ? 42 : 34;
-  if (state.zoom === null || state.mobileLayout !== mobile) state.zoom = mobile ? 10.4 : 9.25;
+  const scopeZoom = state.scope === 'us' ? (mobile ? 8.75 : 7.85) : (mobile ? 10.4 : 9.25);
+  if (state.zoom === null || state.mobileLayout !== mobile) state.zoom = scopeZoom;
   state.mobileLayout = mobile;
   state.camera.position.z = state.zoom;
   state.camera.position.y = mobile ? 0.48 : 0.18;
@@ -602,6 +760,9 @@ function updateTheme(theme) {
     }
     if (object.userData.activityParticles) object.material.opacity = state.theme === 'light' ? 0.62 : 0.82;
     if (object.userData.activityGlows) object.material.opacity = state.theme === 'light' ? 0.16 : 0.24;
+    if (object.type === 'Line' && object.parent?.userData.stateName) {
+      object.material.color.set(state.theme === 'light' ? 0x9f322b : 0xff5b43);
+    }
     if (object.userData.backgroundField) {
       object.material.color.set(state.theme === 'light' ? 0x8c5f53 : 0xff6d4e);
       object.material.opacity = state.theme === 'light' ? 0.08 : 0.2;
@@ -614,6 +775,7 @@ function updateTheme(theme) {
   state.pulseSprites.forEach(sprite => {
     sprite.material.opacity = state.theme === 'light' ? 0.4 : 0.76;
   });
+  if (state.scope === 'us' && state.locked?.code) setStateLineSelection(state.locked);
 }
 
 function countryNearestTo(lat, lon) {
@@ -633,28 +795,46 @@ function countryNearestTo(lat, lon) {
   return smallest < THREE.MathUtils.degToRad(window.innerWidth < 760 ? 10 : 7) ? nearest : null;
 }
 
+function stateNearestTo(lat, lon) {
+  const point = latLonToVector(lat, lon, 1);
+  let nearest = null;
+  let smallest = Infinity;
+  for (const region of state.usRegions) {
+    const center = state.usCenters.get(region.name);
+    if (!center) continue;
+    const angle = point.angleTo(latLonToVector(center[0], center[1], 1));
+    if (angle < smallest) {
+      nearest = region;
+      smallest = angle;
+    }
+  }
+  return smallest < THREE.MathUtils.degToRad(window.innerWidth < 760 ? 7.5 : 5.2) ? nearest : null;
+}
+
 function updatePointer(event) {
   const rect = canvas.getBoundingClientRect();
   state.pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   state.pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 }
 
-function countryAtPointer() {
+function entityAtPointer() {
   if (!state.globe || !state.camera) return null;
   state.raycaster.setFromCamera(state.pointer, state.camera);
   const intersection = state.raycaster.intersectObject(state.globe, false)[0];
   if (!intersection) return null;
   const local = state.globeGroup.worldToLocal(intersection.point.clone());
   const { lat, lon } = vectorToLatLon(local);
-  return countryNearestTo(lat, lon);
+  return state.scope === 'us' ? stateNearestTo(lat, lon) : countryNearestTo(lat, lon);
 }
 
-function showTooltip(country, event) {
-  if (!tooltip || !country || window.innerWidth < 760) return;
+function showTooltip(entity, event) {
+  if (!tooltip || !entity || window.innerWidth < 760) return;
+  const stateView = state.scope === 'us';
   tooltip.hidden = false;
-  tooltip.querySelector('[data-tooltip-rank]').textContent = `#${country.rank} observed interest`;
-  tooltip.querySelector('[data-tooltip-country]').textContent = country.name;
-  tooltip.querySelector('[data-tooltip-signals]').textContent = `${number(country.signals)} interest signals`;
+  tooltip.querySelector('[data-tooltip-rank]').textContent = `#${entity.rank} ${stateView ? 'U.S. state' : 'world'} rank`;
+  tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
+  const action = !stateView && entity.name === 'United States' ? ' · select for state detail' : '';
+  tooltip.querySelector('[data-tooltip-signals]').textContent = `${number(entity.signals)} interest signals${action}`;
   const rect = stage.getBoundingClientRect();
   const left = Math.min(event.clientX - rect.left, rect.width - 220);
   const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -667,16 +847,25 @@ function hideTooltip() {
   state.hovered = null;
 }
 
-function showSpotlight(country) {
-  if (!spotlight || !country) return;
-  const share = ((country.signals / state.data.totals.signals) * 100).toFixed(1);
+function showSpotlight(entity) {
+  if (!spotlight || !entity) return;
+  const stateView = state.scope === 'us';
+  const denominator = stateView ? state.usData.totals.countrySignals : state.data.totals.signals;
+  const share = ((entity.signals / denominator) * 100).toFixed(1);
   spotlight.hidden = false;
-  spotlight.querySelector('[data-spotlight-rank]').textContent = `World rank #${country.rank}`;
-  spotlight.querySelector('[data-spotlight-country]').textContent = country.name;
-  spotlight.querySelector('[data-spotlight-signals]').textContent = `${number(country.signals)} signals · ${share}% of observed interest`;
+  spotlight.querySelector('[data-spotlight-rank]').textContent = `${stateView ? 'U.S. state' : 'World'} rank #${entity.rank}`;
+  spotlight.querySelector('[data-spotlight-label]').textContent = entity.qualityFlag ? 'Network-location flag' : 'Observed interest';
+  spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
+  spotlight.querySelector('[data-spotlight-signals]').textContent = entity.qualityNote
+    ? `${number(entity.signals)} signals · ${entity.qualityNote}`
+    : `${number(entity.signals)} signals · ${share}% of observed interest`;
 }
 
 function focusCountry(country) {
+  if (country.name === 'United States' && state.usRegions.length) {
+    enterUnitedStates();
+    return;
+  }
   const center = state.centers.get(country.name);
   if (!center) return;
   state.locked = country;
@@ -685,6 +874,116 @@ function focusCountry(country) {
   state.lastInteractionAt = performance.now();
   showSpotlight(country);
   stage.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+}
+
+function setStateLineSelection(region) {
+  if (state.selectedStateLine) {
+    state.selectedStateLine.traverse(object => {
+      if (object.type === 'Line') {
+        object.material.color.set(state.theme === 'light' ? 0x9f322b : 0xff5b43);
+        object.material.opacity = 0.72;
+      }
+    });
+  }
+  state.selectedStateLine = region ? state.stateLineGroups.get(region.name) : null;
+  if (state.selectedStateLine) {
+    state.selectedStateLine.traverse(object => {
+      if (object.type === 'Line') {
+        object.material.color.set(0xffc15a);
+        object.material.opacity = 1;
+      }
+    });
+  }
+}
+
+function updateScopeInterface() {
+  const stateView = state.scope === 'us';
+  stage.classList.toggle('atlas-scope-us', stateView);
+  if (regionPanel) regionPanel.hidden = !stateView;
+  state.worldActivity.forEach(object => { object.visible = !stateView; });
+  if (state.usGroup) state.usGroup.visible = stateView;
+  if (title) {
+    title.innerHTML = stateView
+      ? 'See local AI interest <em>state by state.</em>'
+      : 'See where <em>local AI</em> is taking off.';
+  }
+  if (summary) {
+    summary.textContent = stateView
+      ? 'United States · Approximate network regions · 31 Jul–29 Aug 2026'
+      : 'Anonymous interest signals · Last 30 days · Updated 29 August 2026';
+  }
+  if (liveLabel) liveLabel.textContent = stateView ? 'State-level exploration' : 'Live exploration';
+  document.querySelector('[data-scope-signals]').textContent = number(stateView ? state.usData.totals.publishedSignals : state.data.totals.signals);
+  document.querySelector('[data-scope-regions]').textContent = number(stateView ? state.usData.totals.publishedRegions : state.data.totals.regions);
+  document.querySelector('[data-scope-signal-label]').textContent = stateView ? 'visible state signals' : 'signals';
+  document.querySelector('[data-scope-region-label]').textContent = stateView ? 'states published' : 'regions observed';
+  document.querySelector('[data-scope-window]').textContent = stateView ? '5-signal threshold' : '30-day window';
+  document.querySelector('[data-scope-disclosure]').textContent = stateView
+    ? 'Approximate network regions, not verified residence or local AI use.'
+    : 'Interest signals, not verified installations or model runs.';
+  canvas.setAttribute('aria-label', stateView
+    ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Drag to rotate, select a state, or return to the world view.'
+    : 'Interactive globe showing anonymous local AI interest signals by country. Drag to rotate, use Control or Command plus scroll to zoom, or use the country ranking below.');
+}
+
+function renderStatePanel() {
+  if (!regionList) return;
+  regionList.replaceChildren();
+  for (const region of state.usRegions) {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('data-region-name', region.name);
+    button.innerHTML = `<span><b>${String(region.rank).padStart(2, '0')}</b>${region.name}${region.qualityFlag ? '<em>flag</em>' : ''}</span><strong>${number(region.signals)}</strong>`;
+    button.addEventListener('click', () => focusRegion(region));
+    item.append(button);
+    regionList.append(item);
+  }
+}
+
+function enterUnitedStates(region = null) {
+  state.scope = 'us';
+  state.locked = region || { name: 'United States state view' };
+  state.rotationVelocity.set(0, 0);
+  state.targetRotation.x = THREE.MathUtils.degToRad(31);
+  state.targetRotation.y = THREE.MathUtils.degToRad(98);
+  state.zoom = window.innerWidth < 760 ? 8.75 : 7.85;
+  state.camera.position.z = state.zoom;
+  state.lastInteractionAt = performance.now();
+  spotlight.hidden = true;
+  setStateLineSelection(null);
+  updateScopeInterface();
+  if (region) focusRegion(region);
+  stage.scrollIntoView({ behavior: prefersReducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+}
+
+function exitUnitedStates() {
+  state.scope = 'world';
+  state.locked = null;
+  state.rotationVelocity.set(0, 0);
+  state.targetRotation.set(0.38, -0.1);
+  state.zoom = window.innerWidth < 760 ? 10.4 : 9.25;
+  state.camera.position.z = state.zoom;
+  state.lastInteractionAt = performance.now();
+  spotlight.hidden = true;
+  setStateLineSelection(null);
+  hideTooltip();
+  updateScopeInterface();
+}
+
+function focusRegion(region) {
+  if (!region) return;
+  if (state.scope !== 'us') enterUnitedStates();
+  const center = state.usCenters.get(region.name);
+  if (!center) return;
+  state.locked = region;
+  state.targetRotation.x = THREE.MathUtils.degToRad(center[0] - 7);
+  state.targetRotation.y = -THREE.MathUtils.degToRad(center[1]);
+  state.zoom = window.innerWidth < 760 ? 8.5 : 7.7;
+  state.camera.position.z = state.zoom;
+  state.lastInteractionAt = performance.now();
+  setStateLineSelection(region);
+  showSpotlight(region);
 }
 
 function showToast(message) {
@@ -722,11 +1021,11 @@ function bindInteractions() {
       hideTooltip();
       return;
     }
-    const country = countryAtPointer();
-    if (country) {
-      state.hovered = country;
+    const entity = entityAtPointer();
+    if (entity) {
+      state.hovered = entity;
       canvas.style.cursor = 'pointer';
-      showTooltip(country, event);
+      showTooltip(entity, event);
     } else {
       canvas.style.cursor = 'grab';
       hideTooltip();
@@ -739,8 +1038,11 @@ function bindInteractions() {
     canvas.releasePointerCapture(event.pointerId);
     if (moved < 7) {
       updatePointer(event);
-      const country = countryAtPointer();
-      if (country) focusCountry(country);
+      const entity = entityAtPointer();
+      if (entity) {
+        if (state.scope === 'us') focusRegion(entity);
+        else focusCountry(entity);
+      }
     }
   });
 
@@ -755,7 +1057,9 @@ function bindInteractions() {
   canvas.addEventListener('wheel', event => {
     if (!event.ctrlKey && !event.metaKey) return;
     event.preventDefault();
-    state.zoom = THREE.MathUtils.clamp(state.camera.position.z + event.deltaY * 0.003, 7.7, 11.3);
+    const minimum = state.scope === 'us' ? 7.35 : 7.7;
+    const maximum = state.scope === 'us' ? 10.2 : 11.3;
+    state.zoom = THREE.MathUtils.clamp(state.camera.position.z + event.deltaY * 0.003, minimum, maximum);
     state.camera.position.z = state.zoom;
     state.lastInteractionAt = performance.now();
   }, { passive: false });
@@ -766,8 +1070,8 @@ function bindInteractions() {
     else if (event.key === 'ArrowRight') state.targetRotation.y += step;
     else if (event.key === 'ArrowUp') state.targetRotation.x = Math.max(-1.15, state.targetRotation.x - step);
     else if (event.key === 'ArrowDown') state.targetRotation.x = Math.min(1.15, state.targetRotation.x + step);
-    else if (event.key === '+' || event.key === '=') state.zoom = Math.max(7.7, state.camera.position.z - 0.35);
-    else if (event.key === '-') state.zoom = Math.min(11.3, state.camera.position.z + 0.35);
+    else if (event.key === '+' || event.key === '=') state.zoom = Math.max(state.scope === 'us' ? 7.35 : 7.7, state.camera.position.z - 0.35);
+    else if (event.key === '-') state.zoom = Math.min(state.scope === 'us' ? 10.2 : 11.3, state.camera.position.z + 0.35);
     else return;
     state.camera.position.z = state.zoom;
     event.preventDefault();
@@ -789,6 +1093,21 @@ function bindInteractions() {
       const country = state.countryByName.get(button.getAttribute('data-country-focus'));
       if (country) focusCountry(country);
     });
+  });
+
+  document.querySelectorAll('[data-state-focus]').forEach(button => {
+    button.addEventListener('click', () => {
+      const region = state.usRegionByName.get(button.getAttribute('data-state-focus'));
+      if (region) enterUnitedStates(region);
+    });
+  });
+
+  document.querySelectorAll('[data-atlas-world-reset]').forEach(button => {
+    button.addEventListener('click', exitUnitedStates);
+  });
+
+  document.querySelectorAll('[data-atlas-us-open]').forEach(button => {
+    button.addEventListener('click', () => enterUnitedStates());
   });
 
   window.addEventListener('resize', resize, { passive: true });
@@ -855,21 +1174,38 @@ function renderDataSummary() {
   document.querySelectorAll('[data-total-regions]').forEach(element => {
     element.textContent = number(state.data.totals.regions);
   });
+  document.querySelectorAll('[data-us-visible-signals]').forEach(element => {
+    element.textContent = number(state.usData.totals.publishedSignals);
+  });
+  document.querySelectorAll('[data-us-visible-regions]').forEach(element => {
+    element.textContent = number(state.usData.totals.publishedRegions);
+  });
+  updateScopeInterface();
 }
 
 async function initialize() {
   try {
-    const [dataResponse, worldResponse] = await Promise.all([fetch(DATA_URL), fetch(WORLD_URL)]);
-    if (!dataResponse.ok || !worldResponse.ok) throw new Error('Atlas data could not be loaded.');
+    const [dataResponse, worldResponse, statesResponse] = await Promise.all([fetch(DATA_URL), fetch(WORLD_URL), fetch(US_STATES_URL)]);
+    if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok) throw new Error('Atlas data could not be loaded.');
     state.data = await dataResponse.json();
     state.world = await worldResponse.json();
+    state.usBoundaries = await statesResponse.json();
+    state.usData = state.data.subnational?.['United States'];
+    if (!state.usData) throw new Error('United States state data is missing.');
     state.countries = state.data.countries.filter(country => country.signals >= PUBLISH_THRESHOLD);
+    state.usRegions = state.usData.regions.filter(region => region.signals >= state.usData.publishThreshold);
     state.countryByName = new Map(state.countries.map(country => [country.name, country]));
+    state.usRegionByName = new Map(state.usRegions.map(region => [region.name, region]));
     for (const country of state.countries) {
       const center = centerForCountry(country);
       if (center) state.centers.set(country.name, center);
     }
+    for (const region of state.usRegions) {
+      const center = centerForState(region);
+      if (center) state.usCenters.set(region.name, center);
+    }
     setupScene();
+    renderStatePanel();
     bindInteractions();
     renderDataSummary();
     state.initialized = true;

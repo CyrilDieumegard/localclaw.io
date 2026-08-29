@@ -1,5 +1,20 @@
 # LocalClaw Atlas design QA
 
+## U.S. state drill-down — 29 August 2026
+
+- Desktop state view: passed at the default in-app browser viewport. The globe zooms to the contiguous United States, official 2024 U.S. Census state boundaries remain legible, and the 30-state ranking stays inside the first screen.
+- Mobile state view: passed at a 390 × 844 px override (368 × 796 px page viewport after browser chrome). The title, globe, back control, summary metrics and first four ranked states remain visible without horizontal overflow.
+- Entry paths: selecting `United States` in the country ranking and selecting a state in the crawlable state table both open the same interactive state view.
+- State focus: Oregon selection centers the map and opens a source-bounded spotlight with 516 signals and the explicit The Dalles network-location warning.
+- Return path: `World` restores the global title, particles, metrics and controls.
+- Scroll alignment: fixed after QA by adding the sticky navigation height as the stage scroll margin; the title no longer slides behind the menu when state view is opened from a below-fold table.
+- Console: no application errors. DataFast's expected localhost-only tracking-disabled warning is the only warning.
+- Truth boundary: the interface says approximate network regions, preserves the five-signal publication threshold, and does not describe these observations as residents, installations or model runs.
+
+final result: passed
+
+---
+
 ## Comparison setup
 
 - Reference: `/Users/redsun/.codex/generated_images/01a04c8d-72c7-78b1-8a46-339c6cbc782e/exec-1a8a5485-27eb-4cf2-9a48-d28cafa88bc6.png`

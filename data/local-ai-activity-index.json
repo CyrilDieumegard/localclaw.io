@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "indexName": "Local AI Activity Index",
   "view": "interest",
   "status": "beta",
@@ -584,5 +584,59 @@
       "name": "Guernsey",
       "signals": 1
     }
-  ]
+  ],
+  "subnational": {
+    "United States": {
+      "division": "state",
+      "source": "DataFast region breakdown filtered to United States",
+      "boundarySource": "U.S. Census Bureau 2024 Cartographic Boundary Files, 1:20m",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 1309,
+        "geolocatedSignals": 1287,
+        "observedRegions": 44,
+        "publishedSignals": 1259,
+        "publishedRegions": 30,
+        "withheldSignals": 28,
+        "unassignedSignals": 22
+      },
+      "qualityNotes": [
+        "Region and city are approximate network locations derived by the analytics provider, not verified residence.",
+        "Oregon is flagged because 506 of its 516 signals resolve to The Dalles, a concentration that may reflect network or data-center routing rather than local residents.",
+        "Only states with at least five signals are published on the globe."
+      ],
+      "regions": [
+        { "rank": 1, "name": "Oregon", "code": "OR", "signals": 516, "qualityFlag": "network-location-cluster", "qualityNote": "506 of 516 signals resolve to The Dalles; interpret as a network-location cluster, not a resident count." },
+        { "rank": 2, "name": "California", "code": "CA", "signals": 171 },
+        { "rank": 3, "name": "New York", "code": "NY", "signals": 63 },
+        { "rank": 4, "name": "Texas", "code": "TX", "signals": 58 },
+        { "rank": 5, "name": "Virginia", "code": "VA", "signals": 58 },
+        { "rank": 6, "name": "Florida", "code": "FL", "signals": 43 },
+        { "rank": 7, "name": "Washington", "code": "WA", "signals": 43 },
+        { "rank": 8, "name": "Illinois", "code": "IL", "signals": 29 },
+        { "rank": 9, "name": "New Jersey", "code": "NJ", "signals": 27 },
+        { "rank": 10, "name": "District of Columbia", "code": "DC", "signals": 22 },
+        { "rank": 11, "name": "Georgia", "code": "GA", "signals": 20 },
+        { "rank": 12, "name": "Pennsylvania", "code": "PA", "signals": 20 },
+        { "rank": 13, "name": "Nevada", "code": "NV", "signals": 18 },
+        { "rank": 14, "name": "Iowa", "code": "IA", "signals": 15 },
+        { "rank": 15, "name": "Utah", "code": "UT", "signals": 14 },
+        { "rank": 16, "name": "Massachusetts", "code": "MA", "signals": 14 },
+        { "rank": 17, "name": "Indiana", "code": "IN", "signals": 13 },
+        { "rank": 18, "name": "Ohio", "code": "OH", "signals": 13 },
+        { "rank": 19, "name": "Colorado", "code": "CO", "signals": 11 },
+        { "rank": 20, "name": "Alabama", "code": "AL", "signals": 11 },
+        { "rank": 21, "name": "Michigan", "code": "MI", "signals": 11 },
+        { "rank": 22, "name": "Maryland", "code": "MD", "signals": 10 },
+        { "rank": 23, "name": "Missouri", "code": "MO", "signals": 10 },
+        { "rank": 24, "name": "Arizona", "code": "AZ", "signals": 9 },
+        { "rank": 25, "name": "Tennessee", "code": "TN", "signals": 8 },
+        { "rank": 26, "name": "Kentucky", "code": "KY", "signals": 8 },
+        { "rank": 27, "name": "New Mexico", "code": "NM", "signals": 6 },
+        { "rank": 28, "name": "Idaho", "code": "ID", "signals": 6 },
+        { "rank": 29, "name": "North Carolina", "code": "NC", "signals": 6 },
+        { "rank": 30, "name": "Minnesota", "code": "MN", "signals": 6 }
+      ]
+    }
+  }
 }

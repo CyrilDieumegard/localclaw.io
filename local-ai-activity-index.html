@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Local AI Activity Index: Global Interest Map | LocalClaw</title>
-  <meta name="description" content="Explore the Local AI Activity Index: a global map and country ranking built from anonymous interest signals, with transparent methodology and limitations.">
+  <meta name="description" content="Explore the Local AI Activity Index by country and, inside the United States, by state. Anonymous interest signals, official boundaries, and transparent limitations.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/local-ai-activity-index">
 
@@ -13,14 +13,14 @@
   <meta property="og:url" content="https://localclaw.io/local-ai-activity-index">
   <meta property="og:site_name" content="LocalClaw">
   <meta property="og:title" content="The world map of local AI activity">
-  <meta property="og:description" content="Explore 3,337 anonymous interest signals across 113 countries and regions. Beta data, transparent methodology, no claim of verified installs.">
+  <meta property="og:description" content="Explore 3,337 anonymous interest signals across 113 countries and drill into U.S. states. Beta data, transparent methodology, no claim of verified installs.">
   <meta property="og:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829a">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="A dark interactive globe with orange local AI interest signals across countries">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The world map of local AI activity">
-  <meta name="twitter:description" content="Explore the Local AI Activity Index by country. Beta data from anonymous interest signals, with transparent limitations.">
+  <meta name="twitter:description" content="Explore the Local AI Activity Index by country and U.S. state. Beta data from anonymous interest signals, with transparent limitations.">
   <meta name="twitter:image" content="https://localclaw.io/images/og-local-ai-activity-index.jpg?v=20260829a">
 
   <script type="application/ld+json">
@@ -33,7 +33,7 @@
         "url": "https://localclaw.io/local-ai-activity-index",
         "name": "Local AI Activity Index",
         "headline": "Where local AI activity is growing around the world",
-        "description": "A global map and country ranking built from anonymous LocalClaw interest signals. The beta does not measure verified installations or model runs.",
+        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, with a U.S. state drill-down. The beta does not measure verified installations or model runs.",
         "datePublished": "2026-08-29",
         "dateModified": "2026-08-29",
         "isPartOf": { "@id": "https://localclaw.io/#website" },
@@ -68,9 +68,9 @@
         "@type": "Dataset",
         "@id": "https://localclaw.io/local-ai-activity-index#dataset",
         "name": "Local AI Activity Index — interest signals, 31 July to 29 August 2026",
-        "description": "Country-level counts of anonymous LocalClaw website interest signals. This beta dataset does not measure verified local AI installations, model launches, inference events, or the total population of local AI users.",
+        "description": "Country-level counts of anonymous LocalClaw website interest signals plus a privacy-thresholded U.S. state breakdown. This beta dataset does not measure verified local AI installations, model launches, inference events, residence, or the total population of local AI users.",
         "identifier": "localclaw-laai-interest-2026-08-29",
-        "version": "1.0-beta",
+        "version": "1.1-beta",
         "url": "https://localclaw.io/local-ai-activity-index",
         "creator": { "@id": "https://localclaw.io/#organization" },
         "publisher": { "@id": "https://localclaw.io/#organization" },
@@ -81,8 +81,8 @@
         "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast; see the methodology and limitations on the canonical page.",
         "variableMeasured": {
           "@type": "PropertyValue",
-          "name": "Anonymous LocalClaw interest signals by country",
-          "description": "Unique website visitors aggregated to country level, not verified local AI use."
+          "name": "Anonymous LocalClaw interest signals by country and U.S. state",
+          "description": "Unique website visitors aggregated to country level and, for the United States, privacy-thresholded network-region level; not verified local AI use or residence."
         },
         "distribution": {
           "@type": "DataDownload",
@@ -111,6 +111,25 @@
         ]
       },
       {
+        "@type": "ItemList",
+        "@id": "https://localclaw.io/local-ai-activity-index#us-state-ranking",
+        "name": "U.S. states with the most observed LocalClaw interest signals",
+        "numberOfItems": 10,
+        "itemListOrder": "https://schema.org/ItemListOrderDescending",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Oregon — 516 network-location signals; quality flag applied" },
+          { "@type": "ListItem", "position": 2, "name": "California — 171 interest signals" },
+          { "@type": "ListItem", "position": 3, "name": "New York — 63 interest signals" },
+          { "@type": "ListItem", "position": 4, "name": "Texas — 58 interest signals" },
+          { "@type": "ListItem", "position": 5, "name": "Virginia — 58 interest signals" },
+          { "@type": "ListItem", "position": 6, "name": "Florida — 43 interest signals" },
+          { "@type": "ListItem", "position": 7, "name": "Washington — 43 interest signals" },
+          { "@type": "ListItem", "position": 8, "name": "Illinois — 29 interest signals" },
+          { "@type": "ListItem", "position": 9, "name": "New Jersey — 27 interest signals" },
+          { "@type": "ListItem", "position": 10, "name": "District of Columbia — 22 interest signals" }
+        ]
+      },
+      {
         "@type": "BreadcrumbList",
         "@id": "https://localclaw.io/local-ai-activity-index#breadcrumb",
         "itemListElement": [
@@ -130,7 +149,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829a" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829a">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260829b">
 
   <script>
     try {
@@ -198,9 +217,9 @@
 
       <header class="atlas-copy">
         <p class="atlas-kicker">LocalClaw Atlas · Beta</p>
-        <h1 id="atlas-title">See where <em>local AI</em> is taking off.</h1>
-        <p class="atlas-copy__summary" id="atlas-description">Anonymous interest signals · Last 30 days · Updated 29 August 2026</p>
-        <span class="atlas-live">Live exploration</span>
+        <h1 id="atlas-title" data-atlas-title>See where <em>local AI</em> is taking off.</h1>
+        <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>Anonymous interest signals · Last 30 days · Updated 29 August 2026</p>
+        <span class="atlas-live" data-atlas-live>Live exploration</span>
       </header>
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
@@ -208,6 +227,19 @@
         <button class="atlas-control" type="button" data-atlas-view="installed" data-coming-soon aria-pressed="false" aria-label="Installed view, coming soon">Installed</button>
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
+
+      <aside class="atlas-region-panel" data-atlas-region-panel hidden aria-label="United States state activity">
+        <div class="atlas-region-panel__head">
+          <button type="button" class="atlas-region-panel__back" data-atlas-world-reset aria-label="Return to world view">← World</button>
+          <span>United States · State view</span>
+        </div>
+        <div class="atlas-region-panel__metrics">
+          <span><strong data-us-visible-signals>1,259</strong> visible signals</span>
+          <span><strong data-us-visible-regions>30</strong> states published</span>
+        </div>
+        <ol class="atlas-region-panel__list" data-atlas-region-list></ol>
+        <p class="atlas-region-panel__note"><strong>Quality flag:</strong> Oregon is dominated by a The Dalles network-location cluster. These are approximate network regions, not verified residence.</p>
+      </aside>
 
       <div class="atlas-tooltip" data-atlas-tooltip hidden>
         <span class="atlas-tooltip__rank" data-tooltip-rank></span>
@@ -218,7 +250,7 @@
       <aside class="atlas-spotlight" data-atlas-spotlight hidden aria-live="polite">
         <div class="atlas-spotlight__top">
           <span data-spotlight-rank></span>
-          <span>Observed interest</span>
+          <span data-spotlight-label>Observed interest</span>
         </div>
         <h2 data-spotlight-country></h2>
         <p data-spotlight-signals></p>
@@ -228,10 +260,10 @@
       <p class="atlas-fallback-note" data-atlas-fallback-note hidden></p>
 
       <footer class="atlas-status" aria-label="Current data snapshot">
-        <span class="atlas-status__item"><strong data-total-signals>3,337</strong>&nbsp;signals</span>
-        <span class="atlas-status__item"><strong data-total-regions>113</strong>&nbsp;regions observed</span>
-        <span class="atlas-status__item atlas-status__item--accent">30-day window</span>
-        <span class="atlas-status__disclosure">Interest signals, not verified installations or model runs.</span>
+        <span class="atlas-status__item"><strong data-scope-signals>3,337</strong>&nbsp;<span data-scope-signal-label>signals</span></span>
+        <span class="atlas-status__item"><strong data-scope-regions>113</strong>&nbsp;<span data-scope-region-label>regions observed</span></span>
+        <span class="atlas-status__item atlas-status__item--accent" data-scope-window>30-day window</span>
+        <span class="atlas-status__disclosure" data-scope-disclosure>Interest signals, not verified installations or model runs.</span>
       </footer>
     </section>
 
@@ -257,6 +289,59 @@
               <strong data-total-regions>113</strong>
               <small>Countries and regions observed in the source data</small>
             </article>
+          </div>
+        </section>
+
+        <section class="atlas-section" id="us-state-ranking" aria-labelledby="us-state-ranking-title">
+          <p class="atlas-section__eyebrow">United States drill-down · New</p>
+          <h2 id="us-state-ranking-title">From country scale to state-level detail.</h2>
+          <p class="atlas-section__lead">Select the United States on the globe—or choose a state below—to reveal official U.S. Census state boundaries and the DataFast region breakdown. Thirty states meet the public five-signal threshold; 44 states or equivalents were observed in the source.</p>
+          <div class="atlas-state-summary">
+            <article class="atlas-stat">
+              <span>Published states</span>
+              <strong>30</strong>
+              <small>Each has at least five signals</small>
+            </article>
+            <article class="atlas-stat">
+              <span>Visible state signals</span>
+              <strong>1,259</strong>
+              <small>Of 1,309 U.S. country-level signals</small>
+            </article>
+            <article class="atlas-stat atlas-stat--flagged">
+              <span>Data-quality flag</span>
+              <strong>Oregon</strong>
+              <small>506 signals resolve to The Dalles</small>
+            </article>
+          </div>
+          <div class="atlas-ranking-wrap">
+            <table class="atlas-ranking">
+              <caption class="atlas-skip">Top U.S. states by observed LocalClaw network-region signals, 31 July to 29 August 2026</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">State</th>
+                  <th scope="col">Signals</th>
+                  <th scope="col">U.S. share</th>
+                  <th scope="col" class="atlas-ranking__bar">Relative activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="atlas-ranking__flagged"><td class="atlas-ranking__rank">01</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Oregon">Oregon <span>quality flag</span></button></td><td>516</td><td>39.4%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:100%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">02</td><td class="atlas-ranking__country"><button type="button" data-state-focus="California">California</button></td><td>171</td><td>13.1%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:33.1%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">03</td><td class="atlas-ranking__country"><button type="button" data-state-focus="New York">New York</button></td><td>63</td><td>4.8%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:12.2%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">04</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Texas">Texas</button></td><td>58</td><td>4.4%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:11.2%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">05</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Virginia">Virginia</button></td><td>58</td><td>4.4%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:11.2%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">06</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Florida">Florida</button></td><td>43</td><td>3.3%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:8.3%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">07</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Washington">Washington</button></td><td>43</td><td>3.3%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:8.3%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">08</td><td class="atlas-ranking__country"><button type="button" data-state-focus="Illinois">Illinois</button></td><td>29</td><td>2.2%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:5.6%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">09</td><td class="atlas-ranking__country"><button type="button" data-state-focus="New Jersey">New Jersey</button></td><td>27</td><td>2.1%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:5.2%"></span></div></td></tr>
+                <tr><td class="atlas-ranking__rank">10</td><td class="atlas-ranking__country"><button type="button" data-state-focus="District of Columbia">District of Columbia</button></td><td>22</td><td>1.7%</td><td class="atlas-ranking__bar"><div class="atlas-ranking__track"><span style="--atlas-share:4.3%"></span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="atlas-callout atlas-callout--quality">
+            <p><strong>Do not read this as residence:</strong> region and city are approximate network locations. Oregon is kept visible but explicitly flagged because 506 of its 516 signals resolve to The Dalles; that concentration may reflect network or data-center routing.</p>
+            <button type="button" data-atlas-us-open>Explore all 30 states</button>
           </div>
         </section>
 
@@ -305,27 +390,27 @@
         <section class="atlas-section" id="methodology" aria-labelledby="methodology-title">
           <p class="atlas-section__eyebrow">Methodology · Version 1.0 beta</p>
           <h2 id="methodology-title">A useful signal, with a visible boundary.</h2>
-          <p class="atlas-section__lead">LocalClaw Atlas is being built in public. The beta starts with a transparent measure we actually have: anonymous, aggregated interest in LocalClaw by country. Verified installations and active local model runs will only appear after a separate, opt-in telemetry system exists.</p>
+          <p class="atlas-section__lead">LocalClaw Atlas is being built in public. The beta starts with a transparent measure we actually have: anonymous, aggregated interest in LocalClaw by country and a privacy-thresholded U.S. state drill-down. Verified installations and active local model runs will only appear after a separate, opt-in telemetry system exists.</p>
           <div class="atlas-method-grid">
             <article class="atlas-method-card">
               <h3>What counts today?</h3>
-              <p>A country-level unique website visitor reported by DataFast during the 30-day window. The source is aggregated and presented only as an interest signal.</p>
+              <p>A country-level unique website visitor reported by DataFast during the 30-day window. For the United States, the same source also supplies an approximate region or state. Both are interest signals.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What does not count?</h3>
               <p>No installation, model launch, prompt, inference, machine identity, or claim about the total number of local AI users is included in this beta.</p>
             </article>
             <article class="atlas-method-card">
-              <h3>How are countries ranked?</h3>
-              <p>Countries are ordered by raw observed signals. This is not normalized for population, internet access, or LocalClaw market reach, so it must not be read as an adoption rate.</p>
+              <h3>How are locations ranked?</h3>
+              <p>Countries and published U.S. states are ordered by raw observed signals. This is not normalized for population, internet access, or LocalClaw market reach, so it must not be read as an adoption rate.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How is privacy handled?</h3>
-              <p>The public artifact contains country totals only. Countries below five signals are withheld from the globe, and no person-level data is published.</p>
+              <p>The public artifact contains aggregated totals only. Countries and U.S. states below five signals are withheld from the globe, and no person-level data is published.</p>
             </article>
           </div>
           <div class="atlas-callout">
-            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. Source coverage is biased toward people who discover LocalClaw.</p>
+            <p><strong>Source and coverage:</strong> aggregated anonymous LocalClaw website traffic measured by DataFast, 31 July–29 August 2026, Europe/Zurich. U.S. boundaries come from the U.S. Census Bureau 2024 Cartographic Boundary Files. Source coverage is biased toward people and network routes that reach LocalClaw.</p>
             <a href="/data/local-ai-activity-index.json" download>Download JSON</a>
           </div>
         </section>
@@ -350,6 +435,10 @@
               <h3>What comes next?</h3>
               <p>With explicit opt-in telemetry, Atlas can add verified installed and active views, then compare raw activity with a separate per-capita measure.</p>
             </article>
+            <article class="atlas-method-card">
+              <h3>Can I explore individual states?</h3>
+              <p>Yes. Select the United States, then choose any published state. State boundaries are official, while signal locations remain approximate network geolocation rather than verified residence.</p>
+            </article>
           </div>
         </section>
       </div>
@@ -357,6 +446,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260829a"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260829b"></script>
 </body>
 </html>
