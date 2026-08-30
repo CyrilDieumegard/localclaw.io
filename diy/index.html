@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIY Local AI Projects &amp; Hardware Builds | LocalClaw</title>
+  <meta name="description" content="Build practical local AI projects with creator videos, source-reviewed hardware, Amazon parts, step-by-step instructions and troubleshooting.">
+  <meta name="author" content="LocalClaw">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://localclaw.io/diy/">
+  <link rel="alternate" type="text/plain" href="https://localclaw.io/llms.txt" title="LocalClaw AI-readable index">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://localclaw.io/diy/">
+  <meta property="og:site_name" content="LocalClaw">
+  <meta property="og:title" content="DIY Local AI Projects &amp; Hardware Builds | LocalClaw">
+  <meta property="og:description" content="Build practical local AI projects with creator videos, source-reviewed hardware, Amazon parts, step-by-step instructions and troubleshooting.">
+  <meta property="og:image" content="https://localclaw.io/images/diy/needle-2-esp32-s3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="800">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DIY Local AI Projects &amp; Hardware Builds | LocalClaw">
+  <meta name="twitter:description" content="Build practical local AI projects with creator videos, source-reviewed hardware, Amazon parts, step-by-step instructions and troubleshooting.">
+  <meta name="twitter:image" content="https://localclaw.io/images/diy/needle-2-esp32-s3.png">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+  <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=20260822a">
+  <link rel="stylesheet" href="/css/diy-20260830a.css">
+  <script src="/js/theme-toggle.js?v=20260830a"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260830a"><script src="/js/site-nav.js?v=20260830a" defer></script>
+  <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
+  <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+  <script src="/js/clarity.js" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://localclaw.io/diy/#page","name":"Community DIY Builds","url":"https://localclaw.io/diy/","description":"Creator-credited local AI hardware projects with original videos, source-reviewed requirements, step-by-step instructions and purchasing guidance.","dateModified":"2026-08-30","isPartOf":{"@type":"WebSite","name":"LocalClaw","url":"https://localclaw.io/"},"mainEntity":{"@id":"https://localclaw.io/diy/#projects"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io/"},{"@type":"ListItem","position":2,"name":"Community DIY Builds","item":"https://localclaw.io/diy/"}]},{"@type":"ItemList","@id":"https://localclaw.io/diy/#projects","name":"Community local AI DIY projects","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"name":"Run Needle 2 on an ESP32-S3","url":"https://localclaw.io/diy/needle-2-esp32-s3"}]}]}</script>
+</head>
+<body class="diy-body">
+  <div class="diy-grid-bg" aria-hidden="true"></div>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy" aria-current="page">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy" aria-current="page">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+  <main class="diy-main">
+    <header class="diy-shell diy-index-hero">
+      <p class="diy-eyebrow">DIY Directory 01</p>
+      <h1>Community DIY Builds</h1>
+      <p class="diy-index-hero__lede">Build local AI projects from the best creators on the web.</p>
+      <p class="diy-index-hero__proof">Creator credited. Requirements checked. Step-by-step.</p>
+    </header>
+
+    <section class="diy-shell diy-library" aria-labelledby="diy-projects-title">
+      <div class="diy-section-head">
+        <div><p class="diy-section-no">Directory 01</p><h2 id="diy-projects-title">Build something real</h2></div>
+        <p>Every project links back to its creator and original sources. LocalClaw adds a structured build path, exact requirements, regional purchasing links and troubleshooting.</p>
+      </div>
+      <div class="diy-card-grid"><article class="diy-card" data-diy-project="needle-2-esp32-s3">
+    <a class="diy-card__media" href="/diy/needle-2-esp32-s3" aria-label="Open Run Needle 2 on an ESP32-S3 build guide" data-fast-goal="diy_card_open" data-fast-goal-project="needle-2-esp32-s3">
+      <img src="/images/diy/needle-2-esp32-s3.png" width="1200" height="800" alt="ESP32-S3 development board on a dark maker workbench with its RGB LED illuminated" loading="eager" decoding="async">
+      <span class="diy-card__status"><span class="diy-status"><span aria-hidden="true">✓</span>Creator demonstrated</span><span class="diy-status"><span aria-hidden="true">✓</span>LocalClaw source-reviewed</span></span>
+    </a>
+    <div class="diy-card__body">
+      <h2><a href="/diy/needle-2-esp32-s3" data-fast-goal="diy_card_open" data-fast-goal-project="needle-2-esp32-s3">Needle 2 on ESP32-S3</a></h2>
+      <p class="diy-card__creator">By <a href="https://www.youtube.com/@betterstack" target="_blank" rel="noopener">Better Stack</a> · ESP32 implementation by <a href="https://github.com/andrisgauracs" target="_blank" rel="noopener">Andris Gauracs</a></p>
+      <div class="diy-chips"><span class="diy-chip diy-chip--1">Intermediate</span><span class="diy-chip diy-chip--2">Board from about $10</span><span class="diy-chip diy-chip--3">Offline AI</span></div>
+      <p>Run a 14 MB tool-calling model completely offline on a microcontroller, then turn plain-English requests into LED actions.</p>
+      <a class="diy-card__cta" href="/diy/needle-2-esp32-s3" data-fast-goal="diy_card_open" data-fast-goal-project="needle-2-esp32-s3">View build guide <span aria-hidden="true">→</span></a>
+    </div>
+  </article></div>
+      <div class="diy-library-note"><strong>More creator builds will appear here.</strong><span>The directory is data-driven, but LocalClaw will not publish placeholder projects or unreviewed hardware claims.</span></div>
+    </section>
+
+    <section class="diy-shell diy-how" aria-labelledby="diy-how-title">
+      <p class="diy-section-no">How it works</p>
+      <h2 id="diy-how-title" class="sr-only">How Community DIY Builds work</h2>
+      <div class="diy-how__grid">
+        <article><span>01</span><div><h3>Watch the creator</h3><p>See the original build in action and keep the creator's context attached.</p></div></article>
+        <article><span>02</span><div><h3>Buy verified parts</h3><p>Use a source-reviewed parts list with regional Amazon search links.</p></div></article>
+        <article><span>03</span><div><h3>Follow the guide</h3><p>Work through original LocalClaw instructions, checks and troubleshooting.</p></div></article>
+      </div>
+    </section>
+
+    <section class="diy-shell diy-method" aria-labelledby="diy-method-title">
+      <article><p class="diy-section-no">Editorial standard</p><h2 id="diy-method-title">Credit is part of the build</h2><p>LocalClaw embeds the original video, links the creator and source repository, and names the model author. The written guide is independently structured and never represents an affiliate link as the creator's endorsement.</p></article>
+      <aside><h2>Verification labels</h2><dl><div><dt>Creator demonstrated</dt><dd>Shown working by the original project creator.</dd></div><div><dt>Source-reviewed</dt><dd>Requirements and commands checked against primary sources.</dd></div><div><dt>LocalClaw tested</dt><dd>Reserved for a future hands-on reproduction by LocalClaw.</dd></div></dl></aside>
+    </section>
+
+    <p class="diy-shell diy-affiliate">Amazon links may be affiliate links. As an Amazon Associate, LocalClaw earns from qualifying purchases. Prices and availability can change.</p>
+  </main>
+  <footer class="diy-footer"><div class="diy-shell diy-footer__inner"><span>© 2026 LocalClaw · Independent local AI index</span><div><a href="/diy/">DIY Builds</a><a href="/privacy">Privacy</a><a href="/pricing">Pricing</a><a href="/account">My Machines</a></div></div></footer>
+  <script src="/js/diy-20260830a.js" defer></script>
+</body>
+</html>

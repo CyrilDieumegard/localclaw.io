@@ -7,6 +7,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = fs.readFileSync(path.join(ROOT, "ram-gpu-for-local-ai.html"), "utf8");
 const computers = fs.readFileSync(path.join(ROOT, "computers.html"), "utf8");
 const hardwareDir = path.join(ROOT, "hardware");
+const diyDir = path.join(ROOT, "diy");
 const workerRoutes = JSON.parse(fs.readFileSync(path.join(ROOT, "_routes.json"), "utf8"));
 const links = [...html.matchAll(/<a class="amazon-btn" href="([^"]+)"/g)].map(match => match[1]);
 const computerQueries = [...computers.matchAll(/amazonQuery: '([^']+)'/g)].map(match => match[1]);
@@ -19,6 +20,15 @@ const hardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
 );
 const appleHardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
   [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="hardware_store_click"/g)]
+    .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
+);
+const diyPages = fs.existsSync(diyDir)
+  ? fs.readdirSync(diyDir)
+    .filter(file => file.endsWith(".html"))
+    .map(file => ({ file, html: fs.readFileSync(path.join(diyDir, file), "utf8") }))
+  : [];
+const diyLinks = diyPages.flatMap(({ file, html: page }) =>
+  [...page.matchAll(/<a[^>]+href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
 const errors = [];
@@ -44,11 +54,23 @@ for (const { file, href } of hardwareLinks) {
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
 }
-if (appleHardwareLinks.length !== 5) errors.push(`Expected 5 pre-order Apple hardware-guide buttons; found ${appleHardwareLinks.length}`);
+if (appleHardwareLinks.length !== 11) errors.push(`Expected 11 pre-order Apple hardware-guide buttons; found ${appleHardwareLinks.length}`);
 for (const { file, href } of appleHardwareLinks) {
-  if (href !== "https://www.apple.com/mac-mini/") errors.push(`${file} has an unexpected pre-order destination: ${href}`);
+  const expectedAppleUrl = file.startsWith("mac-studio-m5-")
+    ? "https://www.apple.com/mac-studio/"
+    : "https://www.apple.com/mac-mini/";
+  if (href !== expectedAppleUrl) errors.push(`${file} has an unexpected pre-order destination: ${href}`);
 }
 for (const { file, html: page } of hardwarePages) {
+  if (/href="https:\/\/(?:www\.)?amazon\./i.test(page)) errors.push(`${file} still contains a direct Amazon button URL`);
+}
+if (diyLinks.length !== 3) errors.push(`Expected 3 DIY Amazon searches; found ${diyLinks.length}`);
+for (const { file, href } of diyLinks) {
+  if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the regional Amazon resolver: ${href}`);
+  const query = new URL(href, "https://localclaw.io").searchParams.get("q");
+  if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
+}
+for (const { file, html: page } of diyPages) {
   if (/href="https:\/\/(?:www\.)?amazon\./i.test(page)) errors.push(`${file} still contains a direct Amazon button URL`);
 }
 if (!workerRoutes.include.includes("/go/amazon")) errors.push("Cloudflare routes do not include /go/amazon");
@@ -66,4 +88,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Amazon link validation passed: ${links.length} RAM/GPU, ${computerQueries.length} Computers, ${hardwareLinks.length} hardware-guide searches and ${appleHardwareLinks.length} Apple pre-order links.`);
+console.log(`Amazon link validation passed: ${links.length} RAM/GPU, ${computerQueries.length} Computers, ${hardwareLinks.length} hardware-guide, ${diyLinks.length} DIY searches and ${appleHardwareLinks.length} Apple pre-order links.`);

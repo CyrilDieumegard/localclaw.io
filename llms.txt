@@ -34,6 +34,7 @@
 - [Music catalogue](https://localclaw.io/music-models) - local song and sound models
 - [Vision catalogue](https://localclaw.io/vision-models) - local OCR and document models
 - [Newest local models](https://localclaw.io/new) — current releases and RSS feed
+- [Community DIY Builds](https://localclaw.io/diy/) — creator-credited local AI hardware projects with source-reviewed requirements, original videos, purchasing guidance and step-by-step instructions
 - [RAM guides](https://localclaw.io/ram/) — recommendations by memory tier
 - [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
@@ -57,6 +58,12 @@
 - [Mac Studio M5 Ultra 512GB](https://localclaw.io/hardware/mac-studio-m5-ultra-512gb)
 
 Apple lists the new desktop models for pre-order with availability beginning September 22, 2026. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
+
+## Community DIY Builds
+
+- [Needle 2 on ESP32-S3](https://localclaw.io/diy/needle-2-esp32-s3) — source-reviewed guide to running Cactus Compute's 14 MB tool-calling model offline on an ESP32-S3 N16R8; original demonstration by Better Stack and ESP32 implementation by Andris Gauracs
+- DIY status labels distinguish creator demonstrations, LocalClaw source review and any future hands-on LocalClaw testing. Source review is not represented as physical reproduction.
+- Purchasing links use LocalClaw's regional Amazon resolver and may be affiliate links. Original creators are credited separately and are not represented as endorsing LocalClaw or its purchasing links.
 
 ## RAM Decision Paths
 

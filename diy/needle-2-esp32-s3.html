@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Needle 2 on ESP32-S3: Step-by-Step DIY Guide | LocalClaw</title>
+  <meta name="description" content="Build a fully offline 14 MB tool-calling AI on an ESP32-S3 N16R8. Exact hardware, original video, commands, testing and troubleshooting.">
+  <meta name="author" content="LocalClaw">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://localclaw.io/diy/needle-2-esp32-s3">
+  <link rel="alternate" type="text/plain" href="https://localclaw.io/llms.txt" title="LocalClaw AI-readable index">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://localclaw.io/diy/needle-2-esp32-s3">
+  <meta property="og:site_name" content="LocalClaw">
+  <meta property="og:title" content="Run Needle 2 on ESP32-S3: Step-by-Step DIY Guide | LocalClaw">
+  <meta property="og:description" content="Build a fully offline 14 MB tool-calling AI on an ESP32-S3 N16R8. Exact hardware, original video, commands, testing and troubleshooting.">
+  <meta property="og:image" content="https://localclaw.io/images/diy/needle-2-esp32-s3.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="800">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Run Needle 2 on ESP32-S3: Step-by-Step DIY Guide | LocalClaw">
+  <meta name="twitter:description" content="Build a fully offline 14 MB tool-calling AI on an ESP32-S3 N16R8. Exact hardware, original video, commands, testing and troubleshooting.">
+  <meta name="twitter:image" content="https://localclaw.io/images/diy/needle-2-esp32-s3.png">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+  <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=20260822a">
+  <link rel="stylesheet" href="/css/diy-20260830a.css">
+  <script src="/js/theme-toggle.js?v=20260830a"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260830a"><script src="/js/site-nav.js?v=20260830a" defer></script>
+  <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
+  <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+  <script src="/js/clarity.js" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://localclaw.io/diy/needle-2-esp32-s3#article","headline":"Run Needle 2 on an ESP32-S3","description":"Run a 14 MB tool-calling model completely offline on a microcontroller, then turn plain-English requests into LED actions.","url":"https://localclaw.io/diy/needle-2-esp32-s3","mainEntityOfPage":"https://localclaw.io/diy/needle-2-esp32-s3","image":["https://localclaw.io/images/diy/needle-2-esp32-s3.png"],"datePublished":"2026-08-30","dateModified":"2026-08-30","author":{"@type":"Organization","name":"LocalClaw","url":"https://localclaw.io/"},"publisher":{"@type":"Organization","name":"LocalClaw","url":"https://localclaw.io/","logo":{"@type":"ImageObject","url":"https://localclaw.io/images/crab-logo.png"}},"about":["Needle 2","ESP32-S3","offline AI","tool calling","edge AI"],"proficiencyLevel":"Intermediate","isBasedOn":["https://www.youtube.com/watch?v=M24yg6ZM7-I","https://github.com/andrisgauracs/needle-2-esp32","https://www.cactuscompute.com/needle"],"citation":["https://www.youtube.com/watch?v=M24yg6ZM7-I","https://github.com/andrisgauracs/needle-2-esp32","https://www.cactuscompute.com/needle","https://huggingface.co/Cactus-Compute/needle2","https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/"],"mainEntity":{"@id":"https://localclaw.io/diy/needle-2-esp32-s3#howto"},"video":{"@id":"https://localclaw.io/diy/needle-2-esp32-s3#video"}},{"@type":"HowTo","@id":"https://localclaw.io/diy/needle-2-esp32-s3#howto","name":"Run Needle 2 on an ESP32-S3","description":"Run a 14 MB tool-calling model completely offline on a microcontroller, then turn plain-English requests into LED actions.","image":"https://localclaw.io/images/diy/needle-2-esp32-s3.png","totalTime":"PT2H","estimatedCost":{"@type":"MonetaryAmount","currency":"USD","value":"10-25"},"supply":[{"@type":"HowToSupply","name":"ESP32-S3 N16R8 development board"},{"@type":"HowToSupply","name":"USB-C data cable"},{"@type":"HowToSupply","name":"Breadboard and jumper-wire kit"}],"tool":[{"@type":"HowToTool","name":"ESP-IDF 5.5+"},{"@type":"HowToTool","name":"Python 3"},{"@type":"HowToTool","name":"CMake"},{"@type":"HowToTool","name":"Git"}],"step":[{"@type":"HowToStep","position":1,"name":"Confirm the exact board before buying","text":"The reference port targets one N16R8-class ESP32-S3 board. Confirm 16 MB flash, 8 MB octal PSRAM, and an onboard WS2812 LED on GPIO48.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-1"},{"@type":"HowToStep","position":2,"name":"Install the host prerequisites","text":"Install ESP-IDF 5.5 or newer, Python 3, CMake and Git. Complete Espressif's normal toolchain setup before continuing.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-2"},{"@type":"HowToStep","position":3,"name":"Clone the creator's implementation","text":"Work from the Apache-2.0 repository used in the original demonstration.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-3"},{"@type":"HowToStep","position":4,"name":"Create the Python environment","text":"The helper tools use NumPy, Rich, PySerial, Hugging Face Hub and SentencePiece.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-4"},{"@type":"HowToStep","position":5,"name":"Download the Needle 2 model","text":"Fetch the official Cactus Compute .cact binary into a local model directory. The model is downloaded from Hugging Face and is not stored in the ESP32 repository.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-5"},{"@type":"HowToStep","position":6,"name":"Build and rehearse the host engine","text":"Compile the desktop reference engine first. This catches host-side setup problems before the slower microcontroller flash cycle.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-6"},{"@type":"HowToStep","position":7,"name":"Build and flash the ESP32-S3 firmware","text":"Load your ESP-IDF environment, target ESP32-S3, build the firmware, then replace the sample serial port with the port shown on your machine.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-7"},{"@type":"HowToStep","position":8,"name":"Write the model to its flash partition","text":"Return to the repository root and write the model binary at the partition offset used by the reference project.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-8"},{"@type":"HowToStep","position":9,"name":"Run the terminal interface and test an action","text":"Start the serial TUI, wait for the one-time prompt priming, then ask for an LED action in natural language.","url":"https://localclaw.io/diy/needle-2-esp32-s3#step-9"}]},{"@type":"VideoObject","@id":"https://localclaw.io/diy/needle-2-esp32-s3#video","name":"I Can't Believe This AI Model Fits in 14 Megabytes (Needle 2)","description":"Original Better Stack demonstration of Needle 2 running offline on an ESP32-S3.","thumbnailUrl":["https://i.ytimg.com/vi/M24yg6ZM7-I/maxresdefault.jpg"],"uploadDate":"2026-08-17T18:30:10-07:00","duration":"PT9M53S","embedUrl":"https://www.youtube.com/embed/M24yg6ZM7-I","contentUrl":"https://www.youtube.com/watch?v=M24yg6ZM7-I","publisher":{"@type":"Organization","name":"Better Stack","url":"https://www.youtube.com/@betterstack"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io/"},{"@type":"ListItem","position":2,"name":"Community DIY Builds","item":"https://localclaw.io/diy/"},{"@type":"ListItem","position":3,"name":"Needle 2 on ESP32-S3","item":"https://localclaw.io/diy/needle-2-esp32-s3"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Needle 2 run on any ESP32-S3 board?","acceptedAnswer":{"@type":"Answer","text":"No. This port requires an N16R8-class ESP32-S3 with 16 MB flash and 8 MB octal PSRAM. Smaller or quad-PSRAM variants are not compatible with the documented build."}},{"@type":"Question","name":"Is Needle 2 a tiny offline chatbot?","acceptedAnswer":{"@type":"Answer","text":"No. Needle 2 is trained for tool calling, device actions and structured extraction. It selects a declared function and fills its arguments; it is not trained for general conversation or world knowledge."}},{"@type":"Question","name":"Does the demo need Wi-Fi or a cloud API?","acceptedAnswer":{"@type":"Answer","text":"No. Inference and the LED action run locally on the microcontroller. Internet access is needed during setup to download the source dependencies and model binary."}},{"@type":"Question","name":"How fast is Needle 2 on ESP32-S3?","acceptedAnswer":{"@type":"Answer","text":"The documented board reaches about 1.87 tokens per second. Requests take about 25 seconds without reasoning and about 47 seconds with reasoning."}},{"@type":"Question","name":"Can I replace the LED with a servo or another device?","acceptedAnswer":{"@type":"Answer","text":"Yes. The repository documents a three-part customization flow: describe the tool schema, write a device handler and register that handler in the firmware."}}]}]}</script>
+  <meta property="article:published_time" content="2026-08-30">
+  <meta property="article:modified_time" content="2026-08-30">
+</head>
+<body class="diy-body">
+  <div class="diy-grid-bg" aria-hidden="true"></div>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy" aria-current="page">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy" aria-current="page">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+  <main class="diy-main diy-detail">
+    <div class="diy-shell diy-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/diy/">DIY Builds</a><span>/</span><span>Needle 2 on ESP32-S3</span></div>
+
+    <header class="diy-shell diy-detail-hero">
+      <div class="diy-detail-hero__copy">
+        <div class="diy-status-row"><span class="diy-status"><span aria-hidden="true">✓</span>Creator demonstrated</span><span class="diy-status"><span aria-hidden="true">✓</span>LocalClaw source-reviewed</span></div>
+        <h1>Run Needle 2 on an ESP32-S3</h1>
+        <p class="diy-detail-hero__lede">An offline ESP32-S3 demo that maps natural-language requests to schema-valid tool calls and drives the board&#39;s RGB LED.</p>
+        <div class="diy-chips"><span class="diy-chip diy-chip--1">Intermediate</span><span class="diy-chip diy-chip--2">Board from about $10</span><span class="diy-chip diy-chip--3">Offline AI</span></div>
+        <div class="diy-creator-credit"><strong>Original demonstration by <a href="https://www.youtube.com/@betterstack" target="_blank" rel="noopener">Better Stack</a></strong><span>ESP32 implementation and documentation by <a href="https://github.com/andrisgauracs/needle-2-esp32" target="_blank" rel="noopener">Andris Gauracs</a>. Needle 2 by <a href="https://www.cactuscompute.com/needle" target="_blank" rel="noopener">Cactus Compute</a>.</span></div>
+        <div class="diy-actions"><a class="diy-button diy-button--primary" href="#original-video">Watch original video</a><a class="diy-button" href="#parts">See exact parts</a><a class="diy-button diy-button--quiet" href="https://github.com/andrisgauracs/needle-2-esp32" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="github">Open source code ↗</a></div>
+      </div>
+      <figure class="diy-detail-hero__media"><img src="/images/diy/needle-2-esp32-s3.png" width="1200" height="800" alt="ESP32-S3 development board on a dark maker workbench with its RGB LED illuminated" decoding="async"><figcaption>Original LocalClaw editorial artwork · not a creator thumbnail</figcaption></figure>
+    </header>
+
+    <section class="diy-shell diy-facts" aria-label="Build overview">
+      <div><span>Model</span><strong>45M parameters</strong><small>13.7 MB download / about 14 MB</small></div>
+      <div><span>Hardware</span><strong>ESP32-S3 N16R8</strong><small>16 MB flash · 8 MB octal PSRAM</small></div>
+      <div><span>Purpose</span><strong>Offline tool calling</strong><small>Device actions, not general chat</small></div>
+      <div><span>Source status</span><strong>Reviewed 2026-08-30</strong><small>Creator demonstrated · not yet LocalClaw tested</small></div>
+    </section>
+
+    <section class="diy-shell diy-video-section" id="original-video" aria-labelledby="video-title">
+      <div class="diy-section-head"><div><p class="diy-section-no">Original demonstration</p><h2 id="video-title">Watch Better Stack build it</h2></div><p>The original video remains attached to the project. Playback uses YouTube's privacy-enhanced player and starts only after you choose to play it.</p></div>
+      <div class="diy-video" data-diy-video data-video-id="M24yg6ZM7-I" data-video-title="I Can&#39;t Believe This AI Model Fits in 14 Megabytes (Needle 2)">
+        <img src="/images/diy/needle-2-esp32-s3.png" width="1200" height="800" alt="" loading="lazy" decoding="async">
+        <div class="diy-video__shade"></div>
+        <button type="button" class="diy-video__play" aria-label="Play the original Better Stack video"><span aria-hidden="true">▶</span><strong>Play original video</strong><small>Better Stack · 9:53</small></button>
+      </div>
+      <p class="diy-video-credit">Video: <a href="https://www.youtube.com/watch?v=M24yg6ZM7-I" target="_blank" rel="noopener">I Can&#39;t Believe This AI Model Fits in 14 Megabytes (Needle 2)</a> by <a href="https://www.youtube.com/@betterstack" target="_blank" rel="noopener">Better Stack</a>. LocalClaw does not rehost or modify the video.</p>
+      <noscript><p><a href="https://www.youtube.com/watch?v=M24yg6ZM7-I">Watch the original video on YouTube</a>.</p></noscript>
+    </section>
+
+    <section class="diy-shell diy-compat" aria-labelledby="compat-title">
+      <div class="diy-compat__warning"><span aria-hidden="true">!</span><div><p class="diy-section-no">Compatibility gate</p><h2 id="compat-title">N16R8 is not optional</h2><p>A generic ESP32-S3 listing is not enough. The reference implementation requires <strong>16 MB flash</strong> and <strong>8 MB octal PSRAM</strong>. A 2 MB or quad-PSRAM board will not run this documented build.</p></div></div>
+      <dl class="diy-specs"><div><dt>Chip</dt><dd>ESP32-S3, dual-core Xtensa LX7</dd></div><div><dt>Flash</dt><dd>16 MB required; the model alone needs about 13.1 MB</dd></div><div><dt>PSRAM</dt><dd>8 MB octal PSRAM; N16R8-class board required</dd></div><div><dt>LED</dt><dd>Onboard WS2812 RGB LED on GPIO48 for the supplied demo</dd></div><div><dt>Console</dt><dd>UART bridge USB port</dd></div><div><dt>Software</dt><dd>ESP-IDF 5.5+, Python 3, CMake and Git</dd></div></dl>
+      <p class="diy-truth"><strong>Verification boundary:</strong> LocalClaw checked these requirements and commands against the creator's repository at commit <code>61cafad7014a</code> and Cactus Compute's model page. LocalClaw has source-reviewed this guide but has not physically reproduced this build.</p>
+    </section>
+
+    <section class="diy-shell diy-section" id="parts" aria-labelledby="parts-title">
+      <div class="diy-section-head"><div><p class="diy-section-no">Parts list</p><h2 id="parts-title">Buy the compatible hardware</h2></div><p>These buttons open regional Amazon searches through LocalClaw. Confirm the exact specifications on the seller page before ordering.</p></div>
+      <div class="diy-parts"><article class="diy-part"><div class="diy-part__index">01</div><div><span class="diy-part__required">Required</span><h3>ESP32-S3 N16R8 development board</h3><p>Verify the listing explicitly states 16 MB flash and 8 MB octal PSRAM. A generic ESP32-S3 label is not enough.</p></div><a class="diy-button diy-button--amazon" href="/go/amazon?q=ESP32-S3%20DevKitC-1%20N16R8%2016MB%20flash%208MB%20PSRAM" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_click" data-fast-goal-source="diy_parts" data-fast-goal-project="needle-2-esp32-s3" data-fast-goal-product="ESP32-S3 N16R8 development board">Find on Amazon <span aria-hidden="true">↗</span></a></article><article class="diy-part"><div class="diy-part__index">02</div><div><span class="diy-part__required">Required if not included</span><h3>USB-C data cable</h3><p>Use a cable that carries data, not a charge-only cable. The build and serial console both depend on USB data.</p></div><a class="diy-button diy-button--amazon" href="/go/amazon?q=USB%20C%20data%20cable%20ESP32%20development%20board" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_click" data-fast-goal-source="diy_parts" data-fast-goal-project="needle-2-esp32-s3" data-fast-goal-product="USB-C data cable">Find on Amazon <span aria-hidden="true">↗</span></a></article><article class="diy-part"><div class="diy-part__index">03</div><div><span class="diy-part__required">Optional</span><h3>Breadboard and jumper-wire kit</h3><p>The onboard RGB LED is enough for the supplied demo. Add a breadboard and jumpers when adapting the tool call to sensors or servos.</p></div><a class="diy-button diy-button--amazon" href="/go/amazon?q=electronics%20breadboard%20jumper%20wire%20kit%20ESP32" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_click" data-fast-goal-source="diy_parts" data-fast-goal-project="needle-2-esp32-s3" data-fast-goal-product="Breadboard and jumper-wire kit">Find on Amazon <span aria-hidden="true">↗</span></a></article></div>
+      <p class="diy-affiliate diy-affiliate--inline">Affiliate disclosure: As an Amazon Associate, LocalClaw earns from qualifying purchases. The original creators do not endorse these purchasing links, and prices or availability may change.</p>
+    </section>
+
+    <section class="diy-shell diy-section" id="guide" aria-labelledby="guide-title">
+      <div class="diy-section-head"><div><p class="diy-section-no">Step-by-step</p><h2 id="guide-title">Build Needle 2 on ESP32-S3</h2></div><p>Commands are preserved where technical accuracy requires it; the explanations, order and checks are independently organized by LocalClaw from the cited primary sources.</p></div>
+      <div class="diy-steps"><article class="diy-step" id="step-1">
+    <div class="diy-step__number">01</div>
+    <div class="diy-step__content"><h3>Confirm the exact board before buying</h3><p>The reference port targets one N16R8-class ESP32-S3 board. Confirm 16 MB flash, 8 MB octal PSRAM, and an onboard WS2812 LED on GPIO48.</p><ul class="diy-checks"><li>Reject 2 MB PSRAM variants.</li><li>Reject listings that do not identify flash and PSRAM capacity.</li><li>Do not assume every ESP32-S3 DevKit is compatible.</li></ul></div>
+  </article>
+<article class="diy-step" id="step-2">
+    <div class="diy-step__number">02</div>
+    <div class="diy-step__content"><h3>Install the host prerequisites</h3><p>Install ESP-IDF 5.5 or newer, Python 3, CMake and Git. Complete Espressif&#39;s normal toolchain setup before continuing.</p><p class="diy-step__links"><a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/" target="_blank" rel="noopener">ESP-IDF installation guide →</a></p></div>
+  </article>
+<article class="diy-step" id="step-3">
+    <div class="diy-step__number">03</div>
+    <div class="diy-step__content"><h3>Clone the creator&#39;s implementation</h3><p>Work from the Apache-2.0 repository used in the original demonstration.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-3-commands" data-copy-label="Step 3">Copy</button></div><pre id="step-3-commands"><code>git clone https://github.com/andrisgauracs/needle-2-esp32.git
+cd needle-2-esp32</code></pre></div></div>
+  </article>
+<article class="diy-step" id="step-4">
+    <div class="diy-step__number">04</div>
+    <div class="diy-step__content"><h3>Create the Python environment</h3><p>The helper tools use NumPy, Rich, PySerial, Hugging Face Hub and SentencePiece.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-4-commands" data-copy-label="Step 4">Copy</button></div><pre id="step-4-commands"><code>python3 -m venv .venv
+.venv/bin/pip install numpy rich pyserial huggingface_hub sentencepiece</code></pre></div></div>
+  </article>
+<article class="diy-step" id="step-5">
+    <div class="diy-step__number">05</div>
+    <div class="diy-step__content"><h3>Download the Needle 2 model</h3><p>Fetch the official Cactus Compute .cact binary into a local model directory. The model is downloaded from Hugging Face and is not stored in the ESP32 repository.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-5-commands" data-copy-label="Step 5">Copy</button></div><pre id="step-5-commands"><code>mkdir -p model
+.venv/bin/python -c &quot;from huggingface_hub import hf_hub_download; import shutil; shutil.copy(hf_hub_download(&#39;Cactus-Compute/needle2&#39;, &#39;needle2.cact&#39;), &#39;model/needle2.cact&#39;)&quot;</code></pre></div></div>
+  </article>
+<article class="diy-step" id="step-6">
+    <div class="diy-step__number">06</div>
+    <div class="diy-step__content"><h3>Build and rehearse the host engine</h3><p>Compile the desktop reference engine first. This catches host-side setup problems before the slower microcontroller flash cycle.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-6-commands" data-copy-label="Step 6">Copy</button></div><pre id="step-6-commands"><code>cmake -S host -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j8
+.venv/bin/python tools/needle_tui.py --local</code></pre></div></div>
+  </article>
+<article class="diy-step" id="step-7">
+    <div class="diy-step__number">07</div>
+    <div class="diy-step__content"><h3>Build and flash the ESP32-S3 firmware</h3><p>Load your ESP-IDF environment, target ESP32-S3, build the firmware, then replace the sample serial port with the port shown on your machine.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-7-commands" data-copy-label="Step 7">Copy</button></div><pre id="step-7-commands"><code>. /path/to/esp-idf/export.sh
+cd esp32/needle_demo
+idf.py set-target esp32s3
+idf.py build
+idf.py -p /dev/cu.usbmodemXXXX flash</code></pre></div><p class="diy-note"><strong>Note:</strong> On Linux, the serial port is commonly /dev/ttyUSB0 or /dev/ttyACM0. On macOS, list candidates with ls /dev/cu.usb*.</p></div>
+  </article>
+<article class="diy-step" id="step-8">
+    <div class="diy-step__number">08</div>
+    <div class="diy-step__content"><h3>Write the model to its flash partition</h3><p>Return to the repository root and write the model binary at the partition offset used by the reference project.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-8-commands" data-copy-label="Step 8">Copy</button></div><pre id="step-8-commands"><code>cd ../..
+esptool.py --chip esp32s3 -p /dev/cu.usbmodemXXXX -b 921600 write_flash 0x210000 model/needle2.cact</code></pre></div><p class="diy-note"><strong>Note:</strong> The model flash takes roughly three minutes in the creator&#39;s documented setup and only needs repeating when the model changes.</p></div>
+  </article>
+<article class="diy-step" id="step-9">
+    <div class="diy-step__number">09</div>
+    <div class="diy-step__content"><h3>Run the terminal interface and test an action</h3><p>Start the serial TUI, wait for the one-time prompt priming, then ask for an LED action in natural language.</p><div class="diy-code"><div class="diy-code__bar"><span>Terminal</span><button type="button" data-copy-target="step-9-commands" data-copy-label="Step 9">Copy</button></div><pre id="step-9-commands"><code>.venv/bin/python tools/needle_tui.py --serial /dev/cu.usbmodemXXXX</code></pre></div><div class="diy-prompts"><strong>Test prompts</strong><code>Flash a red light for 3 seconds.</code><code>Shine a purple light for 7 seconds.</code><code>What is the capital of France?</code></div><p class="diy-note"><strong>Note:</strong> The final prompt is intentionally outside the tool schema. A correct result is an empty tool call rather than a chatbot answer.</p></div>
+  </article></div>
+    </section>
+
+    <section class="diy-shell diy-two-col" aria-labelledby="performance-title">
+      <article><p class="diy-section-no">Expected performance</p><h2 id="performance-title">Slow, local and purposeful</h2><p>Tool calling, device actions and structured extraction — not general chat. The documented ESP32-S3 port is compute-bound, so treat it as an offline device-action demo rather than a conversational assistant.</p><dl class="diy-performance"><div><dt>Decode</dt><dd>1.87 tokens/second on the documented 240 MHz board</dd></div><div><dt>Reasoning off</dt><dd>about 25 seconds per request</dd></div><div><dt>Reasoning on</dt><dd>about 47 seconds per request</dd></div><div><dt>First boot prime</dt><dd>about 51 seconds</dd></div></dl></article>
+      <aside><p class="diy-section-no">Go beyond the LED</p><h2>Replace the tool, not the model</h2><p>The repository lets you describe another tool in JSON, write a hardware handler and register it in the firmware. That is the path to servos, relays and sensor actions.</p><a href="https://github.com/andrisgauracs/needle-2-esp32#using-your-own-tools" target="_blank" rel="noopener">Read the creator's customization notes →</a></aside>
+    </section>
+
+    <section class="diy-shell diy-section" aria-labelledby="troubleshooting-title">
+      <div class="diy-section-head"><div><p class="diy-section-no">Troubleshooting</p><h2 id="troubleshooting-title">The failures that look mysterious</h2></div><p>The reference repository documents several silent configuration failures. Check these before changing the inference engine.</p></div>
+      <div class="diy-accordion"><details><summary>No serial output</summary><p>Use the UART bridge USB port and leave the ESP-IDF console selection at its default. Enabling USB-Serial/JTAG for the console can make the program appear silent.</p></details><details><summary>Boot loop or PSRAM error</summary><p>Confirm the board has 8 MB octal PSRAM and that CONFIG_SPIRAM_MODE_OCT=y plus CONFIG_SPIRAM_SPEED_80M=y are active.</p></details><details><summary>Inference is roughly 1.5× slower</summary><p>Check that CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y is applied. ESP-IDF may otherwise default the ESP32-S3 to 160 MHz.</p></details><details><summary>The model chooses the wrong action</summary><p>Needle 2 is constrained by the tool schema and its descriptions. Make field descriptions short and explicit, and remember that it is a dispatcher rather than a general chatbot.</p></details></div>
+    </section>
+
+    <section class="diy-shell diy-sources" aria-labelledby="sources-title">
+      <div><p class="diy-section-no">Sources and credit</p><h2 id="sources-title">Follow the work back to its creators</h2><p>Better Stack published the original demonstration. Andris Gauracs built and documented the independent ESP32-S3 inference implementation. LocalClaw's page is an independent guide and does not imply endorsement by Better Stack, Andris Gauracs or Cactus Compute.</p></div>
+      <ul><li><a href="https://www.youtube.com/watch?v=M24yg6ZM7-I" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="video"><span>Original Better Stack video</span><small>Video</small></a></li><li><a href="https://github.com/andrisgauracs/needle-2-esp32" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="source_code"><span>ESP32-S3 implementation by Andris Gauracs</span><small>Source code</small></a></li><li><a href="https://www.cactuscompute.com/needle" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="model_documentation"><span>Needle 2 official model page</span><small>Model documentation</small></a></li><li><a href="https://huggingface.co/Cactus-Compute/needle2" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="weights"><span>Needle 2 model weights</span><small>Weights</small></a></li><li><a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="toolchain"><span>ESP-IDF documentation</span><small>Toolchain</small></a></li></ul>
+      <p class="diy-license"><strong>License note:</strong> the ESP32 implementation and Needle 2 materials cited here identify Apache 2.0 licensing. LocalClaw links to the original repositories and does not redistribute their source code or model binary on this page.</p>
+    </section>
+
+    <section class="diy-shell diy-section" aria-labelledby="faq-title"><div class="diy-section-head"><div><p class="diy-section-no">Questions</p><h2 id="faq-title">Needle 2 ESP32-S3 FAQ</h2></div></div><div class="diy-accordion"><details><summary>Can Needle 2 run on any ESP32-S3 board?</summary><p>No. This port requires an N16R8-class ESP32-S3 with 16 MB flash and 8 MB octal PSRAM. Smaller or quad-PSRAM variants are not compatible with the documented build.</p></details><details><summary>Is Needle 2 a tiny offline chatbot?</summary><p>No. Needle 2 is trained for tool calling, device actions and structured extraction. It selects a declared function and fills its arguments; it is not trained for general conversation or world knowledge.</p></details><details><summary>Does the demo need Wi-Fi or a cloud API?</summary><p>No. Inference and the LED action run locally on the microcontroller. Internet access is needed during setup to download the source dependencies and model binary.</p></details><details><summary>How fast is Needle 2 on ESP32-S3?</summary><p>The documented board reaches about 1.87 tokens per second. Requests take about 25 seconds without reasoning and about 47 seconds with reasoning.</p></details><details><summary>Can I replace the LED with a servo or another device?</summary><p>Yes. The repository documents a three-part customization flow: describe the tool schema, write a device handler and register that handler in the firmware.</p></details></div></section>
+
+    <div class="diy-shell diy-back"><a href="/diy/">← Browse Community DIY Builds</a></div>
+  </main>
+  <footer class="diy-footer"><div class="diy-shell diy-footer__inner"><span>© 2026 LocalClaw · Independent local AI index</span><div><a href="/diy/">DIY Builds</a><a href="/privacy">Privacy</a><a href="/pricing">Pricing</a><a href="/account">My Machines</a></div></div></footer>
+  <script src="/js/diy-20260830a.js" defer></script>
+</body>
+</html>

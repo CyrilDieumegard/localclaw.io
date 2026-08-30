@@ -127,7 +127,13 @@ const groups = {
     }),
     ...htmlFiles('use-case').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.85')),
     ...htmlFiles('guides').map(file => page(file, file.endsWith('/index.html') ? 'weekly' : 'monthly', '0.88'))
-  ])
+  ]),
+  diy: unique(htmlFiles('diy').map(file => page(
+    file,
+    file.endsWith('/index.html') ? 'weekly' : 'monthly',
+    file.endsWith('/index.html') ? '0.92' : '0.9',
+    ['scripts/diy-projects.js']
+  )))
 };
 
 function urlset(items) {

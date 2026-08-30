@@ -181,7 +181,7 @@ for (const sitemapFile of sitemapFiles) {
 }
 
 for (const page of indexablePages) {
-  if (/^(?:models|tts|image|video|3d|music|vision|software|ram|hardware|use-case|guides|blog|case-study|changelog)\//.test(page.relative) && !sitemapUrls.has(page.canonical)) {
+  if (/^(?:models|tts|image|video|3d|music|vision|software|ram|hardware|use-case|guides|blog|case-study|changelog|diy)\//.test(page.relative) && !sitemapUrls.has(page.canonical)) {
     errors.push(`${page.relative}: canonical missing from child sitemaps`);
   }
 }

@@ -21,6 +21,9 @@ for (const marker of [
   'href="/charts"',
   'data-nav-key="charts"',
   '>Charts</a>',
+  'href="/diy/"',
+  'data-nav-key="diy"',
+  '>DIY</a>',
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile',
@@ -69,6 +72,7 @@ function activeSection(relativePath) {
   if (clean === 'computers' || clean.startsWith('hardware/')) return 'computers';
   if (clean === 'ram-gpu-for-local-ai' || clean.startsWith('ram/')) return 'ram-gpu';
   if (clean === 'charts') return 'charts';
+  if (clean === 'diy/index' || clean.startsWith('diy/')) return 'diy';
   if (clean === 'blog/index' || clean.startsWith('blog/') || clean.startsWith('case-study/')) return 'blog';
   if (clean === 'software' || clean === 'pricing' || clean === 'download' || clean.startsWith('changelog/')) return 'software';
   if (clean === 'account' || clean.startsWith('account/')) return 'account';
