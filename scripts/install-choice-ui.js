@@ -11,7 +11,7 @@ const LOGOS = {
   unsloth: 'https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png'
 };
 
-const runtimeLaunchAssistAsset = '<script src="/js/runtime-launch-assist-20260821a.js?v=20260821a" defer></script>';
+const runtimeLaunchAssistAsset = '<script src="/js/runtime-launch-assist-20260821a.js?v=20260830a" defer></script>';
 
 const runtimeLaunchAssistStyles = `
 .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!important;font-size:10px!important;line-height:1.45}

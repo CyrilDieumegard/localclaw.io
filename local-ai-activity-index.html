@@ -182,7 +182,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260830d">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260830e">
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
@@ -240,7 +240,7 @@
         <img class="atlas-poster" src="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" width="1448" height="966" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
         <canvas id="atlas-globe" tabindex="0" role="img" aria-label="Interactive globe where color shows a published country or regional aggregate. Select the map to open the country or region under the pointer; select a visible city label to inspect its cluster. Regional values appear only when their own DataFast row reaches five signals; neutral subdivisions are cartographic references. Each beacon marks a separate published DataFast city cluster at an approximate GeoNames network-city centroid. Drag to rotate, select the map and scroll to zoom, or use the visible zoom controls." aria-describedby="atlas-description atlas-map-meaning atlas-controls-description"></canvas>
         <ul class="atlas-label-layer" id="atlas-map-meaning" aria-label="Map legend">
-          <li class="atlas-label-layer__item">
+          <li class="atlas-label-layer__item" data-atlas-beacon-legend>
             <span class="atlas-label-layer__mark atlas-label-layer__mark--fill" aria-hidden="true"></span>
             <span class="atlas-label-layer__copy"><strong>Color</strong><small>Country or published subnational aggregate</small></span>
           </li>
@@ -267,7 +267,7 @@
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
         <button class="atlas-control" type="button" data-atlas-view="interest" aria-pressed="true">Interest</button>
-        <button class="atlas-control" type="button" data-atlas-view="installed" data-coming-soon aria-pressed="false" aria-label="Installed view, coming soon">Installed</button>
+        <button class="atlas-control" type="button" data-atlas-view="installed" aria-pressed="false" aria-label="Install-intent view">Installed</button>
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
 
@@ -325,7 +325,7 @@
             <span><strong data-atlas-share-secondary>62</strong><small data-atlas-share-secondary-label>Countries published</small></span>
           </div>
           <div class="atlas-share-card__footer">
-            <span><b></b> Interest signals, not installations or model runs.</span>
+            <span data-atlas-share-boundary><b></b> Interest signals, not installations or model runs.</span>
             <strong>LOCALCLAW.IO/ATLAS</strong>
           </div>
         </div>
@@ -366,8 +366,8 @@
     <div class="atlas-content" id="atlas-ranking">
       <div class="atlas-content__inner">
         <section class="atlas-section" aria-labelledby="snapshot-title">
-          <p class="atlas-section__eyebrow">Latest global snapshot</p>
-          <h2 id="snapshot-title">The clearest picture we can publish today.</h2>
+          <p class="atlas-section__eyebrow" data-snapshot-eyebrow>Latest global snapshot</p>
+          <h2 id="snapshot-title" data-snapshot-title>The clearest picture we can publish today.</h2>
           <p class="atlas-section__lead" data-snapshot-lead>As of 29 August 2026, the United States ranks first for observed local AI interest in the LocalClaw dataset, with 1,309 of 3,337 anonymous signals recorded during the last 30 days. This is a directional view of interest, not a census of local AI users.</p>
           <div class="atlas-snapshot">
             <article class="atlas-stat">
@@ -376,7 +376,7 @@
               <small data-leading-detail>1,309 observed signals · 39.2% of the snapshot</small>
             </article>
             <article class="atlas-stat">
-              <span>Observed interest</span>
+              <span data-observed-metric-label>Observed interest</span>
               <strong data-total-signals>3,337</strong>
               <small data-observed-window>Anonymous country-level signals · 31 Jul–29 Aug 2026</small>
             </article>
@@ -388,7 +388,7 @@
           </div>
         </section>
 
-        <section class="atlas-section" id="us-state-ranking" aria-labelledby="us-state-ranking-title">
+        <section class="atlas-section" id="us-state-ranking" aria-labelledby="us-state-ranking-title" data-interest-only>
           <p class="atlas-section__eyebrow">Worldwide regional drill-down · New</p>
           <h2 id="us-state-ranking-title">From country scale to regional detail.</h2>
           <p class="atlas-section__lead">Select any mapped country to reveal its administrative subdivisions. The United States drills from states into 3,144 Census counties and equivalents; China drills from provinces into 358 OCHA prefecture-level divisions; Australia drills from states and territories into 545 ABS local government areas and equivalents. A geography is colored and ranked only when DataFast directly publishes that same level at five or more signals. County, prefecture, and LGA boundaries stay neutral—visible for exploration, never assigned an estimated value.</p>
@@ -442,9 +442,9 @@
         </section>
 
         <section class="atlas-section" aria-labelledby="ranking-title">
-          <p class="atlas-section__eyebrow">Country ranking</p>
-          <h2 id="ranking-title">Where interest in local AI is concentrated.</h2>
-          <p class="atlas-section__lead">The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Country rows below five signals are withheld before public JSON publication to avoid over-reading tiny samples. Within a published country, signals outside a five-or-more-signal DataFast city cluster remain visible only through the country color.</p>
+          <p class="atlas-section__eyebrow" data-country-ranking-eyebrow>Country ranking</p>
+          <h2 id="ranking-title" data-country-ranking-title>Where interest in local AI is concentrated.</h2>
+          <p class="atlas-section__lead" data-country-ranking-lead>The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Country rows below five signals are withheld before public JSON publication to avoid over-reading tiny samples. Within a published country, signals outside a five-or-more-signal DataFast city cluster remain visible only through the country color.</p>
           <div class="atlas-ranking-wrap">
             <table class="atlas-ranking">
               <caption class="atlas-skip" data-country-ranking-caption>Top 20 countries by observed LocalClaw interest signals, 31 July to 29 August 2026</caption>
@@ -452,7 +452,7 @@
                 <tr>
                   <th scope="col">Rank</th>
                   <th scope="col">Country</th>
-                  <th scope="col">Signals</th>
+                  <th scope="col" data-country-signal-heading>Signals</th>
                   <th scope="col">Share</th>
                   <th scope="col" class="atlas-ranking__bar">Relative activity</th>
                 </tr>
@@ -483,26 +483,57 @@
           </div>
         </section>
 
+        <section class="atlas-section" aria-labelledby="model-demand-title" data-install-only hidden>
+          <p class="atlas-section__eyebrow">Model demand · New</p>
+          <h2 id="model-demand-title">Which models people tried to open locally.</h2>
+          <p class="atlas-section__lead">This companion ranking counts launch requests from LocalClaw model pages. It reveals model demand, but it does not verify that a download finished, a runtime opened successfully, or an inference ran.</p>
+          <div class="atlas-state-summary">
+            <article class="atlas-stat">
+              <span>Install-intent visitors</span>
+              <strong data-install-total>48</strong>
+              <small>Unique visitors across the goal family</small>
+            </article>
+            <article class="atlas-stat">
+              <span>Model launch requests</span>
+              <strong data-model-request-total>59</strong>
+              <small>Clicks may include repeat requests</small>
+            </article>
+            <article class="atlas-stat atlas-stat--flagged">
+              <span>History available</span>
+              <strong>Since 21 Aug</strong>
+              <small>Earlier periods are partial, not zero</small>
+            </article>
+          </div>
+          <div class="atlas-ranking-wrap">
+            <table class="atlas-ranking">
+              <caption class="atlas-skip">Models with at least two LocalClaw launch requests</caption>
+              <thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Requests</th><th scope="col">Share</th><th scope="col" class="atlas-ranking__bar">Relative demand</th></tr></thead>
+              <tbody data-model-ranking-body></tbody>
+            </table>
+          </div>
+          <div class="atlas-callout atlas-callout--quality"><p><strong>Read this precisely:</strong> “Installed” means a visitor selected at least one download or desktop-runtime path. The visitor is counted once across the goal family. LocalClaw does not yet receive proof of a completed installation or successful local run.</p></div>
+        </section>
+
         <section class="atlas-section" id="methodology" aria-labelledby="methodology-title">
-          <p class="atlas-section__eyebrow">Methodology · Version 1.0 beta</p>
-          <h2 id="methodology-title">A useful signal, with a visible boundary.</h2>
-          <p class="atlas-section__lead">LocalClaw Atlas is being built in public. The beta starts with a transparent measure we actually have: anonymous, aggregated interest in LocalClaw by country, with worldwide administrative drill-downs and privacy-thresholded regional values where DataFast can publish them. Verified installations and active local model runs will only appear after a separate, opt-in telemetry system exists.</p>
+          <p class="atlas-section__eyebrow" data-methodology-eyebrow>Methodology · Version 1.0 beta</p>
+          <h2 id="methodology-title" data-methodology-title>A useful signal, with a visible boundary.</h2>
+          <p class="atlas-section__lead" data-methodology-lead>LocalClaw Atlas is being built in public. The beta starts with a transparent measure we actually have: anonymous, aggregated interest in LocalClaw by country, with worldwide administrative drill-downs and privacy-thresholded regional values where DataFast can publish them. Verified installations and active local model runs will only appear after a separate, opt-in telemetry system exists.</p>
           <div class="atlas-method-grid">
             <article class="atlas-method-card">
               <h3>What counts today?</h3>
-              <p>A country-level unique website visitor reported by DataFast during the <span data-method-window>30-day window</span>. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, prefecture, or LGA totals.</p>
+              <p data-method-count>A country-level unique website visitor reported by DataFast during the <span data-method-window>30-day window</span>. Where DataFast supplies a country-filtered region breakdown, Atlas may also publish a subnational aggregate. Country, subnational, and city-cluster counts are separate provider breakdowns; city clusters are never used to derive region, county, prefecture, or LGA totals.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What does not count?</h3>
-              <p>No installation, model launch, prompt, inference, machine identity, or claim about the total number of local AI users is included in this beta.</p>
+              <p data-method-exclude>No installation, model launch, prompt, inference, machine identity, or claim about the total number of local AI users is included in this beta.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How are locations ranked?</h3>
-              <p>Countries and published regional rows are ordered only from their own DataFast breakdown. No city coordinate, polygon area, population share, or parent remainder is used to estimate a region. DataFast currently has no county, prefecture, or local-government-area dimension, so those deeper boundaries are never colored or ranked. A beacon appears only for a separate published DataFast city cluster with at least five signals, at an approximate network-city centroid from GeoNames.</p>
+              <p data-method-geography>Countries and published regional rows are ordered only from their own DataFast breakdown. No city coordinate, polygon area, population share, or parent remainder is used to estimate a region. DataFast currently has no county, prefecture, or local-government-area dimension, so those deeper boundaries are never colored or ranked. A beacon appears only for a separate published DataFast city cluster with at least five signals, at an approximate network-city centroid from GeoNames.</p>
             </article>
             <article class="atlas-method-card">
               <h3>How is privacy handled?</h3>
-              <p>The five-signal threshold is applied independently to country, subnational-region, and city-cluster rows before public JSON publication. Rows below five are omitted; only aggregate metadata is retained. Public outputs never contain individual people, devices, exact IP addresses, or exact visitor coordinates.</p>
+              <p data-method-privacy>The five-signal threshold is applied independently to country, subnational-region, and city-cluster rows before public JSON publication. Rows below five are omitted; only aggregate metadata is retained. Public outputs never contain individual people, devices, exact IP addresses, or exact visitor coordinates.</p>
             </article>
           </div>
           <div class="atlas-callout">
@@ -527,11 +558,11 @@
             </article>
             <article class="atlas-method-card">
               <h3>Is this a local AI adoption ranking?</h3>
-              <p>Not yet. Adoption requires trustworthy installation or active-use signals and a defensible population denominator. The beta deliberately reports interest instead.</p>
+              <p data-adoption-faq>Not yet. Adoption requires trustworthy installation or active-use signals and a defensible population denominator. The beta deliberately reports interest instead.</p>
             </article>
             <article class="atlas-method-card">
               <h3>What comes next?</h3>
-              <p>With explicit opt-in telemetry, Atlas can add verified installed and active views, then compare raw activity with a separate per-capita measure.</p>
+              <p data-next-faq>With explicit opt-in telemetry, Atlas can add verified installed and active views, then compare raw activity with a separate per-capita measure.</p>
             </article>
             <article class="atlas-method-card">
               <h3>Can I explore states, provinces, and federal subjects?</h3>
@@ -544,6 +575,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260830c"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260830e"></script>
 </body>
 </html>

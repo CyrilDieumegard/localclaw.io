@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "indexName": "Local AI Activity Index",
+  "view": "installed",
+  "status": "beta",
+  "source": "Aggregated anonymous LocalClaw install-intent goals measured by DataFast",
+  "sourceUrl": "https://localclaw.io/local-ai-activity-index#methodology",
+  "metric": "unique visitors completing at least one install-intent goal",
+  "publishThreshold": 5,
+  "claimBoundary": "Install intent only; a website click or desktop-app handoff does not verify a completed model download, installation, launch, or inference event.",
+  "timezone": "Europe/Zurich",
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-08-29",
+    "label": "Last 3 months",
+    "key": "90d",
+    "days": 90
+  },
+  "generatedAt": "2026-08-30T16:20:00.000Z",
+  "trackingCoverage": {
+    "canonicalGoal": "model_install_intent",
+    "canonicalGoalStartedAt": "2026-08-30",
+    "historicalGoalFamilyStartedAt": "2026-08-21",
+    "includedGoals": [
+      "model_runtime_launch_requested",
+      "model_install_huggingface",
+      "model_install_unsloth",
+      "model_install_github",
+      "model_install_python",
+      "model_install_localclaw",
+      "model_install_comfyui",
+      "model_install_intent"
+    ],
+    "note": "The historical snapshot is a de-duplicated visitor union across the listed legacy goal names. The canonical model_install_intent goal is used for future refreshes while the legacy family remains included for continuity."
+  },
+  "totals": {
+    "signals": 48,
+    "regions": 28,
+    "observedSignals": 48,
+    "observedRegions": 28,
+    "publishedSignals": 19,
+    "publishedRegions": 3,
+    "withheldSignals": 29,
+    "withheldRegions": 25
+  },
+  "countries": [
+    {
+      "name": "Germany",
+      "signals": 7,
+      "rank": 1
+    },
+    {
+      "name": "United States",
+      "signals": 7,
+      "rank": 2
+    },
+    {
+      "name": "India",
+      "signals": 5,
+      "rank": 3
+    }
+  ],
+  "subnational": {
+    "United States": {
+      "division": "state",
+      "source": "DataFast region breakdown filtered to the install-intent goal family",
+      "boundarySource": "U.S. Census Bureau 2024 Cartographic Boundary Files, 1:20m",
+      "publishThreshold": 5,
+      "totals": {
+        "countrySignals": 7,
+        "geolocatedSignals": 8,
+        "observedRegions": 8,
+        "publishedSignals": 0,
+        "publishedRegions": 0,
+        "withheldSignals": 8,
+        "unassignedSignals": 0
+      },
+      "qualityNotes": [
+        "Install intent is a website visitor who selected at least one model download or local-runtime path; it is not a verified installation.",
+        "Region is an approximate network location reported by DataFast, not verified residence.",
+        "No state reached the five-visitor publication threshold in this snapshot."
+      ],
+      "regions": []
+    }
+  },
+  "cityClusterMethodology": {
+    "source": "No city-cluster layer is published for install intent in this snapshot",
+    "metric": "unique visitors completing at least one install-intent goal",
+    "publishThreshold": 5,
+    "generatedAt": "2026-08-30T16:20:00.000Z",
+    "privacyNote": "No person, device, IP address, exact event location, or below-threshold geography is exposed.",
+    "mappingNote": "Country color is the only published geographic layer until a country-filtered region or city row independently reaches five unique visitors.",
+    "remainderTreatment": "Below-threshold geographic detail remains included only in aggregate withheld totals."
+  },
+  "cityClusters": [],
+  "modelRequests": {
+    "sourceGoal": "model_runtime_launch_requested",
+    "metric": "download or desktop-runtime launch requests",
+    "completions": 59,
+    "uniqueVisitors": 28,
+    "publishThreshold": 2,
+    "models": [
+      {
+        "rank": 1,
+        "model": "index-tts-2",
+        "requests": 11
+      },
+      {
+        "rank": 2,
+        "model": "granite4.2-8b",
+        "requests": 3
+      },
+      {
+        "rank": 3,
+        "model": "qwen3-14b",
+        "requests": 3
+      },
+      {
+        "rank": 4,
+        "model": "qwen3.8-27b",
+        "requests": 3
+      },
+      {
+        "rank": 5,
+        "model": "agents-a1-4b",
+        "requests": 2
+      },
+      {
+        "rank": 6,
+        "model": "command-r-plus",
+        "requests": 2
+      },
+      {
+        "rank": 7,
+        "model": "granite4.2-3b",
+        "requests": 2
+      },
+      {
+        "rank": 8,
+        "model": "higgs-tts-3-4b",
+        "requests": 2
+      },
+      {
+        "rank": 9,
+        "model": "lfm2.5-8b-a1b",
+        "requests": 2
+      },
+      {
+        "rank": 10,
+        "model": "ministral-3-14b-instruct",
+        "requests": 2
+      },
+      {
+        "rank": 11,
+        "model": "ornith-1-5-9b",
+        "requests": 2
+      },
+      {
+        "rank": 12,
+        "model": "qwen3-32b",
+        "requests": 2
+      },
+      {
+        "rank": 13,
+        "model": "qwen3-8b",
+        "requests": 2
+      },
+      {
+        "rank": 14,
+        "model": "voxcpm2",
+        "requests": 2
+      }
+    ]
+  }
+}

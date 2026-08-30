@@ -184,6 +184,10 @@ body.atlas-page::before {
   backdrop-filter: blur(14px);
 }
 
+.atlas-label-layer__item[hidden] {
+  display: none;
+}
+
 .atlas-label-layer__item:nth-of-type(2) {
   left: clamp(240px, 22vw, 340px);
 }

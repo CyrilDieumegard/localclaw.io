@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "view": "installed",
+  "generatedAt": "2026-08-30T16:20:00.000Z",
+  "period": {
+    "start": "2026-03-03",
+    "end": "2026-08-29",
+    "label": "Last 6 months",
+    "key": "180d",
+    "days": 180
+  },
+  "source": {
+    "provider": "DataFast",
+    "dimension": "region",
+    "method": "Country-filtered regional analytics for the install-intent goal family",
+    "snapshotNote": "No regional row independently reached the five-visitor threshold in this snapshot."
+  },
+  "publishThreshold": 5,
+  "privacy": {
+    "rule": "Only regional rows with at least five unique install-intent visitors are included.",
+    "withheldDetail": "Counts and identities below the threshold are not included in this public file."
+  },
+  "countries": {
+    "Germany": {
+      "countryCode": "DE",
+      "adm0A3": "DEU",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
+      "countrySignals": 7,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "United States": {
+      "countryCode": "US",
+      "adm0A3": "USA",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
+      "countrySignals": 7,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "India": {
+      "countryCode": "IN",
+      "adm0A3": "IND",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
+      "countrySignals": 5,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    }
+  }
+}

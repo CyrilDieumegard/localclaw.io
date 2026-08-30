@@ -82,6 +82,13 @@
     var target = event.target;
     if (!target || typeof target.closest !== 'function') return;
 
+    var intentLink = target.closest('a[data-fast-goal^="model_install_"], a[data-fast-goal^="model_runtime_"]');
+    if (intentLink) {
+      var legacyGoal = intentLink.getAttribute('data-fast-goal') || '';
+      var intentPlatform = legacyGoal.replace(/^model_(?:install|runtime)_/, '') || 'other';
+      track('model_install_intent', intentLink, intentPlatform, 'download_or_runtime');
+    }
+
     var launchLink = target.closest('a[href^="lmstudio://"], a[href^="unsloth://"]');
     if (launchLink) {
       var platform = launchLink.href.indexOf('lmstudio://') === 0 ? 'lmstudio' : 'unsloth';

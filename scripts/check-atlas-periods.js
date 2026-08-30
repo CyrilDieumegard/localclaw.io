@@ -8,6 +8,11 @@ const expected = [
   { key: '90d', days: 90, start: '2026-06-01', end: '2026-08-29', countries: 90 },
   { key: '180d', days: 180, start: '2026-03-03', end: '2026-08-29', countries: 97 }
 ];
+const installExpected = [
+  { key: '30d', days: 30, start: '2026-07-31', end: '2026-08-29', suffix: '' },
+  { key: '90d', days: 90, start: '2026-06-01', end: '2026-08-29', suffix: '-90d' },
+  { key: '180d', days: 180, start: '2026-03-03', end: '2026-08-29', suffix: '-180d' }
+];
 
 function read(relativePath) {
   try {
@@ -94,6 +99,36 @@ for (const window of expected) {
   }
 }
 
+for (const window of installExpected) {
+  const data = read(`data/local-ai-install-intent${window.suffix}.json`);
+  const admin1 = read(`data/local-ai-install-intent-admin1${window.suffix}.json`);
+  if (!data || !admin1) continue;
+  if (data.view !== 'installed' || data.period?.key !== window.key || data.period?.days !== window.days
+    || data.period?.start !== window.start || data.period?.end !== window.end || data.publishThreshold !== 5) {
+    issue(`${window.key} install-intent period metadata is invalid`);
+  }
+  if (data.totals?.observedSignals !== 48 || data.totals?.publishedSignals !== 19
+    || data.totals?.withheldSignals !== 29 || data.totals?.publishedRegions !== 3) {
+    issue(`${window.key} install-intent totals do not match the approved goal-filtered snapshot`);
+  }
+  if ((data.countries || []).some(country => !Number.isInteger(country.signals) || country.signals < 5)
+    || (data.countries || []).reduce((sum, country) => sum + country.signals, 0) !== data.totals?.publishedSignals) {
+    issue(`${window.key} install-intent country rows violate the five-visitor threshold or do not reconcile`);
+  }
+  if (!Array.isArray(data.cityClusters) || data.cityClusters.length !== 0) {
+    issue(`${window.key} install-intent snapshot must not invent city clusters`);
+  }
+  if (admin1.view !== 'installed' || admin1.publishThreshold !== 5
+    || admin1.period?.start !== window.start || admin1.period?.end !== window.end
+    || Object.keys(admin1.countries || {}).length !== 3
+    || Object.values(admin1.countries || {}).some(country => country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)) {
+    issue(`${window.key} install-intent regional snapshot must publish no below-threshold region`);
+  }
+  if (!String(data.claimBoundary || '').toLowerCase().includes('does not verify')) {
+    issue(`${window.key} install-intent snapshot must retain the click-versus-installation claim boundary`);
+  }
+}
+
 const page = fs.readFileSync(path.join(ROOT, 'local-ai-activity-index.html'), 'utf8');
 const app = fs.readFileSync(path.join(ROOT, 'js', 'local-ai-activity-index.js'), 'utf8');
 for (const key of ['30d', '90d', '180d', '365d']) {
@@ -104,6 +139,9 @@ if (!page.includes('data-atlas-period="365d"') || !/data-atlas-period="365d"[^>]
 }
 if (!app.includes("const ACTIVE_PERIOD") || !app.includes("url.searchParams.set('range', period)")) {
   issue('Atlas period selection is not wired to the versioned datasets');
+}
+if (!app.includes("requestedMetricView === 'installed'") || !app.includes("url.searchParams.set('view', 'installed')")) {
+  issue('Atlas Installed selection is not wired to the goal-filtered datasets and share URLs');
 }
 if (!app.includes("status === 'published' || status === 'partially_published'")) {
   issue('Partially published regional periods must remain visible as published aggregates');

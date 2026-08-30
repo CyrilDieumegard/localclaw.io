@@ -13,6 +13,8 @@ const VENDOR_LICENSE_PATH = 'js/vendor/THREE-LICENSE.txt';
 const GEOJSON_PATH = 'data/ne_50m_admin_0_countries.geojson';
 const ADMIN1_MANIFEST_PATH = 'data/admin1/manifest.json';
 const ADMIN1_ACTIVITY_PATH = 'data/local-ai-admin1-activity.json';
+const INSTALL_INTENT_PATH = 'data/local-ai-install-intent.json';
+const INSTALL_INTENT_ADMIN1_PATH = 'data/local-ai-install-intent-admin1.json';
 const ADMIN2_MANIFEST_PATH = 'data/admin2/manifest.json';
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
@@ -298,6 +300,8 @@ const vendorLicense = readFile(VENDOR_LICENSE_PATH, 'Three.js vendor license');
 const geojsonText = readFile(GEOJSON_PATH, 'country GeoJSON');
 const admin1ManifestText = readFile(ADMIN1_MANIFEST_PATH, 'worldwide Admin-1 manifest');
 const admin1ActivityText = readFile(ADMIN1_ACTIVITY_PATH, 'worldwide Admin-1 activity dataset');
+const installIntentText = readFile(INSTALL_INTENT_PATH, 'install-intent country dataset');
+const installIntentAdmin1Text = readFile(INSTALL_INTENT_ADMIN1_PATH, 'install-intent regional dataset');
 const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S., China, and Australia deeper-boundary manifest');
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
 const sitemapCore = readFile('sitemap-core.xml', 'core sitemap');
@@ -308,6 +312,8 @@ const data = parseJson(dataText, 'activity-index dataset');
 const geojson = parseJson(geojsonText, 'country GeoJSON');
 const admin1Manifest = parseJson(admin1ManifestText, 'worldwide Admin-1 manifest');
 const admin1Activity = parseJson(admin1ActivityText, 'worldwide Admin-1 activity dataset');
+const installIntent = parseJson(installIntentText, 'install-intent country dataset');
+const installIntentAdmin1 = parseJson(installIntentAdmin1Text, 'install-intent regional dataset');
 const admin2Manifest = parseJson(admin2ManifestText, 'U.S. and China Admin-2 manifest');
 const usGeojson = parseJson(usGeojsonText, 'U.S. state GeoJSON');
 
@@ -399,10 +405,14 @@ if (html !== null) {
       issue(`Missing ${label} activity control`);
       continue;
     }
-    if (!/\bdata-coming-soon\b/i.test(control)) issue(`${label} control must be marked data-coming-soon`);
+    if (view === 'installed' && /\bdata-coming-soon\b/i.test(control)) issue('Installed control must be active, not marked coming soon');
+    if (view === 'active' && !/\bdata-coming-soon\b/i.test(control)) issue('Active control must be marked data-coming-soon');
     if (attribute(control, 'aria-pressed') !== 'false') issue(`${label} control must not be presented as active`);
-    if (!(attribute(control, 'aria-label') || '').toLowerCase().includes('coming soon')) {
+    if (view === 'active' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('coming soon')) {
       issue(`${label} control must announce that it is coming soon`);
+    }
+    if (view === 'installed' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('install-intent')) {
+      issue('Installed control must identify the metric as install intent');
     }
     if (textContent(control) !== label) issue(`${label} control has unexpected visible text`);
   }
@@ -530,6 +540,33 @@ if (html !== null) {
       }
       if (cells[2] !== signals.toLocaleString('en-US')) issue(`Rendered state ranking row ${index + 1} has the wrong signal total`);
     });
+  }
+}
+
+if (installIntent) {
+  if (installIntent.view !== 'installed' || installIntent.publishThreshold !== 5) {
+    issue('Install-intent dataset must identify the installed view and five-visitor threshold');
+  }
+  if (installIntent.totals?.observedSignals !== 48 || installIntent.totals?.publishedSignals !== 19
+    || installIntent.totals?.withheldSignals !== 29 || installIntent.totals?.publishedRegions !== 3) {
+    issue('Install-intent 30-day totals do not match the approved DataFast snapshot');
+  }
+  const expectedInstallCountries = [['Germany', 7], ['United States', 7], ['India', 5]];
+  if (JSON.stringify((installIntent.countries || []).map(country => [country.name, country.signals])) !== JSON.stringify(expectedInstallCountries)) {
+    issue('Install-intent published country ranking does not match the approved DataFast snapshot');
+  }
+  if (!String(installIntent.claimBoundary || '').toLowerCase().includes('does not verify')) {
+    issue('Install-intent dataset must state that clicks do not verify installation or use');
+  }
+  if (installIntent.modelRequests?.completions !== 59 || installIntent.modelRequests?.uniqueVisitors !== 28) {
+    issue('Install-intent model request totals do not match the approved DataFast snapshot');
+  }
+}
+if (installIntentAdmin1) {
+  if (installIntentAdmin1.view !== 'installed' || installIntentAdmin1.publishThreshold !== 5
+    || Object.keys(installIntentAdmin1.countries || {}).length !== 3
+    || Object.values(installIntentAdmin1.countries || {}).some(country => country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)) {
+    issue('Install-intent regional dataset must retain a five-visitor threshold and publish no below-threshold region rows');
   }
 }
 

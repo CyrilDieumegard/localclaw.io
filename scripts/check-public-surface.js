@@ -69,9 +69,9 @@ for (const line of redirects.split(/\r?\n/)) {
   }
 }
 
-const runtimeAssistAsset = '/js/runtime-launch-assist-20260821a.js?v=20260821a';
+const runtimeAssistAsset = '/js/runtime-launch-assist-20260821a.js?v=20260830a';
 const runtimeAssistSource = fs.readFileSync(path.join(ROOT, 'js/runtime-launch-assist-20260821a.js'), 'utf8');
-for (const marker of ['model_runtime_launch_requested', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'https://lmstudio.ai/download', 'https://unsloth.ai/']) {
+for (const marker of ['model_install_intent', 'a[data-fast-goal^="model_install_"]', 'model_runtime_launch_requested', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'https://lmstudio.ai/download', 'https://unsloth.ai/']) {
   if (!runtimeAssistSource.includes(marker)) errors.push(`Runtime launch assistant is missing marker: ${marker}`);
 }
 
