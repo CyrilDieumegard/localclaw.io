@@ -506,6 +506,18 @@
       caveats: ['Scene reconstruction rather than single-object textured asset generation', 'CUDA research stack with custom rasterizers', 'VGGT-backbone release is still pending']
     },
     {
+      id: 'anysplat', name: 'AnySplat', category: '3d', developer: 'OpenRobotLab / InternRobotics',
+      summary: 'Feed-forward 3D Gaussian reconstruction model for uncalibrated image sets or video frames.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'pose-estimation', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA', 'Gradio'], output: ['PLY', '3D Gaussian', 'RGB video', 'Depth video'],
+      local_status: 'local', license: 'MIT', released: '2025-06',
+      source_url: 'https://github.com/OpenRobotLab/AnySplat', install_url: 'https://huggingface.co/lhjiang/anysplat',
+      hardware_note: 'The official repository targets Python 3.10+, PyTorch 2.2.0 and CUDA 12.1, then loads the MIT Hugging Face safetensors checkpoint through the local Python API or Gradio demo. The demo accepts uploaded images or video frames and returns a downloadable Gaussian PLY with rendered RGB and depth previews. No exact inference VRAM table is published, so 32 GB RAM and 16 GB NVIDIA VRAM are the conservative local floor.',
+      strengths: ['MIT licensed code and weights', 'Uncalibrated image or video-frame reconstruction', 'Local Gradio workflow with downloadable Gaussian PLY'],
+      caveats: ['CUDA research stack with gsplat, xformers and PyTorch3D dependencies', 'Scene reconstruction rather than text-to-object mesh generation', 'Quality depends on frame coverage and pose estimation']
+    },
+    {
       id: 'instant-nurec', name: 'Instant-NuRec', category: '3d', developer: 'NVIDIA',
       summary: 'Feed-forward driving-log reconstruction model that exports static 3D Gaussian scene PLY assets locally.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],

@@ -187,6 +187,7 @@ window.HOME_INDEX_LOGOS = {
     'NVIDIA': 'nvidia',
     'NVLabs / Efficient-Large-Model': 'nvidia',
     'OpenAI': 'openai',
+    'OpenRobotLab / InternRobotics': 'github',
     'PaddlePaddle': 'paddlepaddle-avatar',
     'Peking University / VAST AI Research': 'github',
     'Qwen Team': 'qwen',
