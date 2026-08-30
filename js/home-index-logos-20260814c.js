@@ -153,6 +153,7 @@ window.HOME_INDEX_LOGOS = {
     '3DTopia / Nanyang Technological University': '3dtopia-avatar',
     'ACE-Step Team': 'ace-step-avatar',
     'AILab-CVC': 'ailab-cvc-avatar',
+    'AIdeaLab': 'github',
     'Alibaba VILab': 'alibaba',
     'AnimateDiff Team': 'guoyww-avatar',
     'Avaturn': 'github',

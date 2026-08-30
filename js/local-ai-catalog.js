@@ -127,6 +127,19 @@
       caveats: ['Linux/CUDA research setup is the clearest practical path', 'Pro checkpoints were benchmarked on 80 GB H100 hardware', 'Russian and English prompt coverage is emphasized over broad multilingual testing']
     },
     {
+      id: 'animegen-i2v', name: 'AnimeGen I2V', category: 'video', developer: 'AIdeaLab',
+      summary: 'Apache-licensed Wan 2.2 anime-style image-to-video checkpoint for short animation previsualization and frame interpolation.',
+      tasks: ['image-to-video', 'text-to-video', 'animation', 'frame-interpolation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['Diffusers', 'PyTorch', 'DiffSynth-Studio'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-07',
+      source_url: 'https://huggingface.co/aidealab/AnimeGen-I2V',
+      install_url: 'https://huggingface.co/aidealab/AnimeGen-I2V',
+      hardware_note: 'The official model card documents a PyTorch and Diffusers workflow, CPU offload, layerwise FP8 casting and a recommended RTX 4090-or-higher local GPU for 480p anime-style clips. LocalClaw records 24 GB NVIDIA VRAM and 64 GB RAM as the conservative workstation floor for the 5-second, 16 fps Diffusers path.',
+      strengths: ['Official AIdeaLab safetensors and Diffusers example', 'Anime-style I2V and first/last-frame interpolation workflows', 'Apache 2.0 license with commercial-use metadata'],
+      caveats: ['Specialized for anime-style output, not photorealistic video', 'Built on Wan 2.2 I2V A14B components', 'Complex character motion can still drift or flicker']
+    },
+    {
       id: 'motif-video-2b', name: 'Motif-Video 2B', category: 'video', developer: 'Motif Technologies',
       summary: 'Apache-licensed 2B diffusion transformer for text-to-video and image-to-video generation through Diffusers or official ComfyUI nodes.',
       tasks: ['text-to-video', 'image-to-video', 'animation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
@@ -294,6 +307,19 @@
       hardware_note: 'Official inference uses the Wan2.2 animate task with preprocessing checkpoints, PyTorch, CUDA and optional FSDP/Ulysses multi-GPU execution. The 14B family efficiency table and single-GPU guidance support an 80 GB NVIDIA VRAM floor.',
       strengths: ['Official character animation and replacement weights', 'Motion and expression replication from source video', 'Diffusers, ComfyUI and preprocessing checkpoint support'],
       caveats: ['Requires preprocessing assets before inference', 'Workstation-class NVIDIA hardware is the practical floor']
+    },
+    {
+      id: 'wan2.2-animate-2-14b', name: 'Wan 2.2 Animate 2 14B', category: 'video', developer: 'Wan Team / Alibaba',
+      summary: 'Second-generation Wan character animation model that drives a reference character from a motion video with viewpoint control.',
+      tasks: ['character-animation', 'motion-transfer', 'video-to-video', 'image-to-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'Diffusers', 'Gradio'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/Wan-Video/Wan-Animate-2',
+      install_url: 'https://huggingface.co/Wan-AI/Wan2.2-Animate-2-14B-Distilled-Diffusers',
+      hardware_note: 'The official release provides base and distilled checkpoints, PyTorch inference scripts, local Gradio launchers and a WanAnimate2Pipeline Diffusers path. The repository tunes defaults for 8 A800 GPUs and reports 480p tests on 2 A800 GPUs, so LocalClaw keeps the same 80 GB NVIDIA VRAM and 128 GB RAM workstation floor used for the Wan 14B animation family until lower-memory offload guidance is published.',
+      strengths: ['Official Wan-Animate-2 code and Apache-licensed weights', 'Base and distilled Diffusers checkpoints', 'Direct driving-video input with stronger identity preservation'],
+      caveats: ['Default configs are multi-GPU workstation oriented', 'No official consumer-GPU memory table yet', 'Requires a caption prompt plus reference image and driving video']
     },
     {
       id: 'longcat-video', name: 'LongCat-Video', category: 'video', developer: 'Meituan LongCat',
