@@ -34,10 +34,12 @@ const ADMIN2_CACHE_LIMIT = 4;
 const GLOBE_RADIUS = 3.65;
 const MOBILE_BREAKPOINT = 760;
 const DESKTOP_TEXTURE_WIDTH = 4096;
-const MOBILE_TEXTURE_WIDTH = 2048;
+const MOBILE_TEXTURE_WIDTH = 1024;
 const DESKTOP_DPR_MIN = 2;
 const DESKTOP_DPR_MAX = 2.5;
-const MOBILE_DPR_MAX = 1.75;
+const MOBILE_DPR_MAX = 1.5;
+const MOBILE_ACTIVE_FPS = 45;
+const MOBILE_IDLE_FPS = 30;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const stage = document.querySelector('[data-atlas-stage]');
@@ -313,6 +315,10 @@ const state = {
   hovered: null,
   locked: null,
   lastInteractionAt: performance.now(),
+  lastRenderAt: 0,
+  renderWidth: 0,
+  renderHeight: 0,
+  resizeObserver: null,
   running: true,
   inViewport: true,
   contextLost: false,
@@ -836,7 +842,8 @@ function configureAtlasTexture(texture) {
   texture.minFilter = THREE.LinearMipmapLinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.generateMipmaps = true;
-  texture.anisotropy = Math.min(16, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
+  const anisotropyLimit = isMobileViewport() ? 4 : 16;
+  texture.anisotropy = Math.min(anisotropyLimit, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
   return texture;
 }
 
@@ -1186,7 +1193,7 @@ function admin1ZoomForBbox(bbox, mobile = isMobileViewport(), longitudeSpanDegre
   const verticalFov = THREE.MathUtils.degToRad(mobile ? 42 : 34);
   const verticalTangent = Math.tan(verticalFov / 2);
   const horizontalTangent = verticalTangent * aspect;
-  const targetFill = mobile ? 0.74 : 0.68;
+  const targetFill = mobile ? 0.85 : 0.68;
   const distanceForSpan = (span, tangent) => {
     const halfSpan = THREE.MathUtils.clamp(span / 2, 0.0005, Math.PI * 0.47);
     return GLOBE_RADIUS * Math.cos(halfSpan)
@@ -1198,7 +1205,7 @@ function admin1ZoomForBbox(bbox, mobile = isMobileViewport(), longitudeSpanDegre
   );
   // Keep the camera safely outside the globe while allowing small countries to
   // become the subject of the regional view instead of remaining map-sized dots.
-  return THREE.MathUtils.clamp(fittedDistance, GLOBE_RADIUS + 0.28, mobile ? 11.2 : 10.8);
+  return THREE.MathUtils.clamp(fittedDistance, mobile ? 4.7 : GLOBE_RADIUS + 0.28, mobile ? 11.2 : 10.8);
 }
 
 function detailConfigForCountry(country) {
@@ -2793,7 +2800,7 @@ function setupScene() {
     canvas,
     antialias: !isMobileViewport(),
     alpha: true,
-    preserveDrawingBuffer: true,
+    preserveDrawingBuffer: false,
     powerPreference: 'high-performance'
   });
   state.pixelRatio = atlasPixelRatio();
@@ -3032,15 +3039,22 @@ function resetCurrentView() {
 
 function resize() {
   if (!state.renderer || !state.camera) return;
-  const width = stage.clientWidth;
-  const height = stage.clientHeight;
+  const width = Math.max(1, Math.round(stage.clientWidth));
+  const height = Math.max(1, Math.round(stage.clientHeight));
   const mobile = isMobileViewport(width);
+  const regionalMobile = mobile && state.scope !== 'world';
   const nextPixelRatio = atlasPixelRatio(width, height);
-  if (Math.abs((state.pixelRatio || 0) - nextPixelRatio) > 0.01) {
+  const pixelRatioChanged = Math.abs((state.pixelRatio || 0) - nextPixelRatio) > 0.01;
+  const sizeChanged = state.renderWidth !== width || state.renderHeight !== height;
+  if (pixelRatioChanged) {
     state.pixelRatio = nextPixelRatio;
     state.renderer.setPixelRatio(nextPixelRatio);
   }
-  state.renderer.setSize(width, height, false);
+  if (sizeChanged || pixelRatioChanged) {
+    state.renderer.setSize(width, height, false);
+    state.renderWidth = width;
+    state.renderHeight = height;
+  }
   stage.dataset.renderDpr = state.pixelRatio.toFixed(2);
   stage.dataset.textureWidth = String(state.textureWidth || atlasTextureWidth());
   state.camera.aspect = width / Math.max(height, 1);
@@ -3049,10 +3063,20 @@ function resize() {
   if (state.zoom === null || state.mobileLayout !== mobile) state.zoom = scopeZoom;
   state.mobileLayout = mobile;
   state.camera.position.z = state.zoom;
-  state.camera.position.y = mobile ? 0.48 : 0.18;
-  state.globeGroup.position.y = mobile ? -1.48 : -1.18;
+  state.camera.position.y = mobile ? (regionalMobile ? 0.28 : 0.48) : 0.18;
+  state.globeGroup.position.y = mobile ? (regionalMobile ? -1.12 : -1.48) : -1.18;
+  state.camera.lookAt(0, regionalMobile ? 0 : -0.75, 0);
   state.camera.updateProjectionMatrix();
   updateZoomLevel();
+}
+
+let resizeFrame = 0;
+function scheduleResize() {
+  if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
+  resizeFrame = window.requestAnimationFrame(() => {
+    resizeFrame = 0;
+    resize();
+  });
 }
 
 function updateTheme(theme) {
@@ -3648,6 +3672,7 @@ function updateScopeInterface() {
   stage.classList.toggle('atlas-scope-us', regionalView);
   stage.classList.toggle('atlas-scope-admin1', admin1View || admin2View);
   stage.classList.toggle('atlas-scope-admin2', admin2View);
+  if (state.camera && state.renderer) resize();
   if (regionPanel) regionPanel.hidden = !regionalView;
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
   if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
@@ -4036,6 +4061,30 @@ function activePointerDistance() {
   return Math.hypot(pointers[0].x - pointers[1].x, pointers[0].y - pointers[1].y);
 }
 
+function consumeTouchPointer(event) {
+  if (event.pointerType === 'touch' && event.cancelable) event.preventDefault();
+}
+
+function captureCanvasPointer(pointerId) {
+  try {
+    canvas.setPointerCapture(pointerId);
+  } catch (_) {}
+}
+
+function releaseCanvasPointer(pointerId) {
+  try {
+    if (!canvas.hasPointerCapture || canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId);
+  } catch (_) {}
+}
+
+function resetPointerGesture() {
+  state.dragging = false;
+  state.pinching = false;
+  state.activePointers.clear();
+  state.pinchStartDistance = null;
+  state.pinchStartZoom = null;
+}
+
 function bindInteractions() {
   document.querySelectorAll('[data-atlas-share-open]').forEach(button => {
     button.addEventListener('click', () => setShareMode(true));
@@ -4057,11 +4106,12 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('pointerdown', event => {
+    consumeTouchPointer(event);
     stopTour();
     cancelFocusTransition();
     canvas.focus({ preventScroll: true });
     state.activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-    canvas.setPointerCapture(event.pointerId);
+    captureCanvasPointer(event.pointerId);
     hideTooltip();
     if (state.activePointers.size > 1) {
       state.pinching = true;
@@ -4078,6 +4128,7 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('pointermove', event => {
+    if (state.activePointers.has(event.pointerId)) consumeTouchPointer(event);
     if (state.activePointers.has(event.pointerId)) {
       state.activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     }
@@ -4116,11 +4167,12 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('pointerup', event => {
+    consumeTouchPointer(event);
     const moved = Math.hypot(event.clientX - state.dragStart.x, event.clientY - state.dragStart.y);
     const wasPinching = state.pinching;
     state.activePointers.delete(event.pointerId);
     state.dragging = false;
-    canvas.releasePointerCapture(event.pointerId);
+    releaseCanvasPointer(event.pointerId);
     if (wasPinching) {
       // Keep the whole two-finger gesture consumed until the last pointer is
       // released; otherwise that final release can be mistaken for a tap.
@@ -4144,12 +4196,18 @@ function bindInteractions() {
     }
   });
 
-  canvas.addEventListener('pointercancel', () => {
-    state.dragging = false;
-    state.pinching = false;
-    state.activePointers.clear();
-    state.pinchStartDistance = null;
-    state.pinchStartZoom = null;
+  canvas.addEventListener('pointercancel', event => {
+    releaseCanvasPointer(event.pointerId);
+    resetPointerGesture();
+  });
+
+  canvas.addEventListener('lostpointercapture', event => {
+    if (!state.activePointers.has(event.pointerId)) return;
+    resetPointerGesture();
+  });
+
+  canvas.addEventListener('contextmenu', event => {
+    if (isMobileViewport()) event.preventDefault();
   });
 
   canvas.addEventListener('pointerleave', () => {
@@ -4240,7 +4298,13 @@ function bindInteractions() {
     button.addEventListener('click', () => enterUnitedStates());
   });
 
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', scheduleResize, { passive: true });
+  window.addEventListener('orientationchange', scheduleResize, { passive: true });
+  window.visualViewport?.addEventListener('resize', scheduleResize, { passive: true });
+  if ('ResizeObserver' in window) {
+    state.resizeObserver = new ResizeObserver(scheduleResize);
+    state.resizeObserver.observe(stage);
+  }
   document.addEventListener('visibilitychange', () => {
     state.running = !document.hidden && state.inViewport && !state.contextLost;
   });
@@ -4272,6 +4336,12 @@ function bindInteractions() {
 
 function animate(time) {
   if (!state.running || !state.initialized) return;
+  if (isMobileViewport()) {
+    const activeMotion = state.dragging || state.pinching || state.focusTransition || state.revealStartedAt !== null;
+    const frameInterval = 1000 / (activeMotion ? MOBILE_ACTIVE_FPS : MOBILE_IDLE_FPS);
+    if (time - state.lastRenderAt < frameInterval) return;
+  }
+  state.lastRenderAt = time;
   const seconds = time * 0.001;
   const idle = performance.now() - state.lastInteractionAt > 2800;
   let cinematicMotion = false;

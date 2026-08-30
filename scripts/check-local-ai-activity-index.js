@@ -1015,8 +1015,8 @@ if (app !== null) {
   if (!Number.isFinite(desktopTextureWidth) || desktopTextureWidth < 4096) {
     issue('Desktop Atlas textures must be at least 4096 pixels wide');
   }
-  if (!Number.isFinite(mobileTextureWidth) || mobileTextureWidth < 2048) {
-    issue('Mobile Atlas textures must be at least 2048 pixels wide');
+  if (!Number.isFinite(mobileTextureWidth) || mobileTextureWidth < 1024) {
+    issue('Mobile Atlas textures must be at least 1024 pixels wide');
   }
   const textureWidthBody = topLevelFunctionBody(app, 'atlasTextureWidth');
   if (!textureWidthBody || !/return\s+[^;\n]+\?\s*MOBILE_TEXTURE_WIDTH\s*:\s*DESKTOP_TEXTURE_WIDTH\s*;/.test(textureWidthBody)) {
@@ -1668,10 +1668,35 @@ if (app !== null) {
     "atlas_share_mode_open",
     "atlas_share_link_copy",
     "atlas_share_image_download",
-    'preserveDrawingBuffer: true'
+    'preserveDrawingBuffer: false'
   ]) {
     if (!app.includes(marker)) issue(`Atlas Share Mode behavior is missing ${marker}`);
   }
+}
+if (app !== null) {
+  for (const marker of [
+    'const MOBILE_DPR_MAX = 1.5',
+    'function scheduleResize()',
+    'function consumeTouchPointer(event)',
+    'function captureCanvasPointer(pointerId)',
+    'function resetPointerGesture()',
+    'MOBILE_ACTIVE_FPS',
+    'MOBILE_IDLE_FPS',
+    'const regionalMobile = mobile && state.scope !== \'world\'',
+    'regionalMobile ? 0.28 : 0.48',
+    'regionalMobile ? -1.12 : -1.48'
+  ]) {
+    if (!app.includes(marker)) issue(`Atlas mobile stabilization is missing ${marker}`);
+  }
+}
+if (css !== null && !/#atlas-globe\s*\{[^}]*touch-action:\s*none/s.test(css)) {
+  issue('Atlas mobile canvas must reserve touch gestures for stable map interaction');
+}
+if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-map-label__button\s*\{[^}]*pointer-events:\s*none/s.test(css)) {
+  issue('Atlas mobile city labels must not intercept globe drag gestures');
+}
+if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-scope-us \.atlas-copy\s*\{[^}]*visibility:\s*hidden/s.test(css)) {
+  issue('Atlas mobile regional views must hide the large desktop copy so the globe remains visible');
 }
 if (css !== null) {
   for (const marker of ['.atlas-share-trigger', '.atlas-share-overlay', '.atlas-share-card', '.atlas-share-toolbar', '.atlas-is-sharing']) {
