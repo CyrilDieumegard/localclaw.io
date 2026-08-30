@@ -458,6 +458,267 @@ const projects = [
       { label: 'Dockcross ARMv6 toolchain', url: 'https://github.com/dockcross/dockcross#dockcrosslinux-armv6', type: 'Cross-compiler' },
       { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' }
     ]
+  },
+  {
+    slug: 'gemma-translator-raspberry-pi-5',
+    title: 'Build an Offline Gemma Translator on Raspberry Pi 5',
+    cardTitle: 'Gemma Offline Translator on Raspberry Pi 5',
+    summary: 'Build a private voice-to-voice translator with Gemma 4, Moonshine speech models, a Raspberry Pi 5, a USB microphone and a speaker.',
+    outcome: 'A standalone voice translator that records speech, transcribes it, translates locally with Gemma 4 and speaks the result without a cloud API after its models are cached.',
+    image: '/images/diy/gemma-translator-raspberry-pi-5.png',
+    imageAlt: 'Raspberry Pi 5 with active cooler connected to a USB microphone and compact speaker on a dark maker workbench',
+    difficulty: 'Intermediate',
+    budget: 'Complete build · price varies',
+    duration: '1–2 hours plus model download',
+    seo: {
+      title: 'Build Gemma Translator on Raspberry Pi 5 | LocalClaw',
+      description: 'Build a fully offline Gemma 4 voice translator on Raspberry Pi 5. Exact parts, DroneBot Workshop video, commands, fixes and offline test.'
+    },
+    topics: ['Offline voice AI', 'Raspberry Pi 5', 'Gemma 4'],
+    status: ['Creator demonstrated', 'LocalClaw source-reviewed'],
+    localClawTested: false,
+    creator: {
+      displayName: 'DroneBot Workshop',
+      url: 'https://www.youtube.com/@Dronebotworkshop',
+      implementationName: 'Google Creative Lab',
+      implementationUrl: 'https://github.com/google-gemma/gemma-translator',
+      implementationLabel: 'Project by',
+      note: 'DroneBot Workshop published the independent Raspberry Pi tutorial and demonstrated the finished translator, including an offline English-to-French output test. A small Google Creative Lab team created the Apache-2.0 project. Google states that it is not an officially supported Google product.'
+    },
+    model: {
+      name: 'Gemma 4 E2B Instruct for LiteRT-LM',
+      author: 'Google AI Edge',
+      url: 'https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm',
+      weightsUrl: 'https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm',
+      license: 'Apache-2.0',
+      parameters: 'E2B effective',
+      binarySize: '2,583 MB LiteRT-LM model',
+      purpose: 'Offline text translation inside a voice pipeline — not a simultaneous interpreter'
+    },
+    video: {
+      id: 'tyELRiuEG40',
+      title: 'Build the Gemma Translator: No Internet Required',
+      url: 'https://www.youtube.com/watch?v=tyELRiuEG40',
+      embedUrl: 'https://www.youtube-nocookie.com/embed/tyELRiuEG40?rel=0&cc_load_policy=1',
+      thumbnailUrl: 'https://i.ytimg.com/vi/tyELRiuEG40/maxresdefault.jpg',
+      uploadDate: '2026-08-23T19:01:12+00:00',
+      duration: 'PT27M2S',
+      durationLabel: '27:02'
+    },
+    repository: {
+      name: 'google-gemma/gemma-translator',
+      url: 'https://github.com/google-gemma/gemma-translator',
+      license: 'Apache-2.0',
+      reviewedCommit: '47f9b3ba40ca3650fb80ee42264a76d6a2b5f8ba'
+    },
+    page: {
+      about: ['Gemma Translator', 'Gemma 4 E2B', 'Raspberry Pi 5', 'offline translation', 'voice AI', 'Moonshine'],
+      howToTime: 'PT2H',
+      estimatedCost: { currency: 'USD', value: '150-240' },
+      tools: ['Raspberry Pi Imager', 'Git', 'Python 3.10+', 'Node.js 18+', 'npm'],
+      hardwareFact: { title: 'Raspberry Pi 5 8 GB', detail: 'USB microphone · USB or Bluetooth speaker' },
+      purposeFact: { title: 'Offline voice translation', detail: 'Cloud-free after every required model is cached' },
+      videoTitle: 'Watch DroneBot Workshop build the translator',
+      videoIntro: 'Bill assembles the Raspberry Pi setup, installs the full stack, fixes the current dependency-script failure, adds French output and disconnects networking to prove the final translation stays local.',
+      compatibilityLabel: 'Appliance gate',
+      compatibilityTitle: 'Use a Raspberry Pi 5 with 8 GB and active cooling',
+      compatibilityText: 'The project documents a Raspberry Pi 5 with 8 GB RAM. Its 2.6 GB model and voice pipeline are too demanding for this guide to promise compatibility with smaller boards. Use a stable 27 W supply and active cooling for sustained local inference.',
+      verificationText: 'LocalClaw checked the hardware gate, deployment flow, model identifier, language list and known setup failure against DroneBot Workshop\'s tutorial, the current Google repository and the official LiteRT-LM model card.',
+      partsTitle: 'Buy the complete Raspberry Pi voice kit',
+      guideTitle: 'Install and prove the translator offline',
+      guideIntro: 'The order below follows the creator\'s successful build while pinning the reviewed Google commit. Commands are independently organized by LocalClaw and include checks before the long model download.',
+      performanceTitle: 'Private, useful and intentionally not instant',
+      performanceIntro: 'The Raspberry Pi CPU runs transcription, Gemma translation and speech synthesis in sequence. Expect a noticeable pause after releasing the record key.',
+      secondaryTitle: 'French output works, French input does not',
+      secondaryText: 'The reviewed app ships with English, Spanish, Japanese, Chinese, Korean and Arabic for speech input and output. DroneBot Workshop added French as a speech-output target, but Moonshine does not provide French input transcription in this build.',
+      secondaryLinkLabel: 'Read the creator\'s French-output procedure',
+      secondaryLinkUrl: 'https://dronebotworkshop.com/gemma-translate/',
+      troubleshootingIntro: 'This project spans audio devices, Python packages, a 2.6 GB model, systemd and a Chromium kiosk. Isolate each layer instead of repeatedly reinstalling the entire image.',
+      licenseNote: 'The Google Gemma Translator repository and the referenced LiteRT-LM Gemma 4 E2B package identify Apache 2.0 licensing. LocalClaw does not redistribute the repository, model, tutorial text or video. The project is experimental and not an officially supported Google product.',
+      faqTitle: 'Gemma Translator on Raspberry Pi 5 FAQ',
+      sourceCta: 'Open Google source'
+    },
+    requirements: [
+      { label: 'Compute', value: 'Raspberry Pi 5 with 8 GB RAM' },
+      { label: 'Operating system', value: '64-bit Raspberry Pi OS Bookworm for the documented tutorial path' },
+      { label: 'Storage', value: '32 GB minimum microSD; keep at least 6 GB free before the model import' },
+      { label: 'Audio', value: 'USB microphone plus USB, Bluetooth or headphone-output speaker' },
+      { label: 'Display and control', value: 'HDMI display or touchscreen plus a USB keyboard for the documented kiosk controls' },
+      { label: 'Power and cooling', value: 'Stable 27 W USB-C supply and active cooling recommended for sustained inference' },
+      { label: 'Setup network', value: 'Internet required for packages and every language model used; translation can then run offline' }
+    ],
+    parts: [
+      {
+        name: 'Raspberry Pi 5 8 GB',
+        requirement: 'Required',
+        description: 'Use the 8 GB model specified by the project. A bundle is acceptable only when its power supply and cooling meet the requirements below.',
+        amazonQuery: 'Raspberry Pi 5 8GB board'
+      },
+      {
+        name: 'Official Raspberry Pi 27 W USB-C power supply',
+        requirement: 'Required',
+        description: 'Use a 5 V / 5 A supply suitable for Raspberry Pi 5, especially when the microphone, speaker and storage draw power over USB.',
+        amazonQuery: 'official Raspberry Pi 5 27W USB-C power supply 5V 5A'
+      },
+      {
+        name: 'Raspberry Pi 5 active cooler or fan case',
+        requirement: 'Strongly recommended',
+        description: 'Local inference keeps the CPU busy. Choose the official active cooler or a Pi 5 case with a real fan and unobstructed airflow.',
+        amazonQuery: 'official Raspberry Pi 5 active cooler fan'
+      },
+      {
+        name: 'USB desktop microphone',
+        requirement: 'Required',
+        description: 'A class-compliant USB microphone is the simplest path. The creator used a compact stick-style USB microphone and verified it before installation.',
+        amazonQuery: 'USB desktop microphone Raspberry Pi class compliant'
+      },
+      {
+        name: 'Compact USB speaker',
+        requirement: 'Required unless using Bluetooth',
+        description: 'Use a USB or Bluetooth speaker that Raspberry Pi OS exposes as an audio output. A small USB laptop speaker is sufficient.',
+        amazonQuery: 'compact USB speaker Raspberry Pi laptop'
+      },
+      {
+        name: '64 GB A2 microSD card',
+        requirement: 'Recommended',
+        description: 'The creator specifies 32 GB minimum. A reputable 64 GB A2 card gives safer headroom for Raspberry Pi OS, the 2.6 GB download, its imported copy and language assets.',
+        amazonQuery: '64GB A2 microSD card Raspberry Pi'
+      },
+      {
+        name: 'Micro-HDMI cable and USB keyboard',
+        requirement: 'Required if not already owned',
+        description: 'The documented setup uses a local display and keyboard. The final kiosk also relies on keyboard shortcuts for recording and language selection.',
+        amazonQuery: 'Raspberry Pi 5 micro HDMI cable USB keyboard kit'
+      }
+    ],
+    steps: [
+      {
+        title: 'Assemble and identify the exact hardware',
+        summary: 'Install the active cooler, insert the prepared microSD card, then connect the USB microphone, speaker, display, keyboard, network and 27 W power supply.',
+        checks: ['Confirm the board has 8 GB RAM.', 'Do not hide the active cooler under an incompatible case.', 'Keep Ethernet or Wi-Fi connected until every model and language asset has been downloaded.']
+      },
+      {
+        title: 'Install Raspberry Pi OS and the host packages',
+        summary: 'Flash 64-bit Raspberry Pi OS Bookworm, boot to the desktop, open a terminal and update the system before installing the build, audio and service tools used by the tutorial.',
+        commands: [
+          'sudo apt update && sudo apt full-upgrade -y',
+          'sudo apt install -y git python3-venv python3-pip ffmpeg libasound2-dev pulseaudio-utils alsa-utils lsof netcat-openbsd nodejs npm'
+        ],
+        links: [{ label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/' }]
+      },
+      {
+        title: 'Switch the kiosk session from Wayland to X11',
+        summary: 'The reviewed deployment script writes an LXDE X11 kiosk autostart entry. Select X11 for the tutorial path, reboot and return to the terminal.',
+        commands: [
+          'sudo raspi-config nonint do_wayland W1',
+          'sudo reboot'
+        ]
+      },
+      {
+        title: 'Prove microphone and speaker operation first',
+        summary: 'List the capture and playback devices, then make a short recording and play it back. Do not start the AI installation until this simple audio loop works.',
+        commands: [
+          'arecord -l',
+          'aplay -l',
+          'pw-record test.wav',
+          'pw-play test.wav',
+          'rm test.wav'
+        ],
+        note: 'Press Ctrl+C to stop pw-record before running pw-play. An HDMI monitor may appear as an additional audio output.'
+      },
+      {
+        title: 'Clone and pin the reviewed Google project',
+        summary: 'Pin the source revision reviewed by LocalClaw so that a later upstream change cannot silently alter this guide.',
+        commands: [
+          'git clone https://github.com/google-gemma/gemma-translator.git',
+          'cd gemma-translator',
+          'git checkout 47f9b3ba40ca3650fb80ee42264a76d6a2b5f8ba',
+          'chmod +x setup.sh download_model.sh start.sh deploy-pi.sh'
+        ]
+      },
+      {
+        title: 'Apply the documented dependency-script fix',
+        summary: 'At the reviewed commit, setup.sh enables pip hash enforcement while requirements.txt contains no hashes. Remove only that incompatible flag before deployment.',
+        commands: [
+          'grep -- --require-hashes setup.sh',
+          "sed -i 's/--require-hashes //' setup.sh"
+        ],
+        note: 'This fix is specific to the reviewed source state. Inspect setup.sh first and skip the edit if upstream has already removed the flag.'
+      },
+      {
+        title: 'Run the one-command appliance deployment',
+        summary: 'The script installs the Python environment, builds the React frontend, imports the 2.6 GB LiteRT-LM model, creates the systemd service and configures Chromium kiosk mode.',
+        commands: [
+          './deploy-pi.sh'
+        ],
+        note: 'DroneBot Workshop observed roughly 20–40 minutes for this stage. Keep at least 6 GB free and do not interrupt the model import.'
+      },
+      {
+        title: 'Reboot, wait for the service and test a translation',
+        summary: 'After reboot, Chromium should open the local interface. Select the source and target languages, hold Z while speaking, then release it to transcribe, translate and play the result.',
+        commands: [
+          'sudo reboot',
+          'systemctl status --no-pager gemma-translator.service'
+        ],
+        prompts: ['Hello, my name is Bill.', 'Where is the nearest railway station?', 'Please speak more slowly.'],
+        note: 'The kiosk can appear before the backend is ready. Wait several seconds before treating an initial localhost error as a failure.'
+      },
+      {
+        title: 'Cache language assets and prove the offline boundary',
+        summary: 'Use every language pair you plan to rely on while networking is still available. Then disable Wi-Fi or unplug Ethernet and repeat a translation.',
+        checks: ['A translation after disconnection proves local inference only for assets already downloaded.', 'Record which language pairs were tested.', 'Do not claim all languages are offline until each required Moonshine asset has been cached.'],
+        note: 'DroneBot Workshop demonstrated English speech translated to French output with Ethernet unplugged and no Wi-Fi configured.'
+      }
+    ],
+    performance: [
+      { label: 'Model file', value: '2,583 MB for the referenced Gemma 4 E2B LiteRT-LM package' },
+      { label: 'Official Pi 5 benchmark', value: '7.6 decode tokens/second and 7.8-second first-token latency on a Pi 5 16 GB reference system' },
+      { label: 'Tutorial hardware', value: 'Pi 5 8 GB; same CPU, but end-to-end voice latency is longer than the model-only benchmark' },
+      { label: 'Practical verdict', value: 'Useful private appliance with a noticeable pause, not simultaneous live interpretation' }
+    ],
+    troubleshooting: [
+      {
+        problem: 'pip aborts with Hashes are required in --require-hashes mode',
+        fix: 'At the reviewed commit, requirements.txt has pinned versions but no hashes. Confirm setup.sh still contains --require-hashes, remove that flag as shown in the guide, then rerun deploy-pi.sh.'
+      },
+      {
+        problem: 'The microphone records nothing or playback uses HDMI',
+        fix: 'Run arecord -l and aplay -l again, then repeat the pw-record/pw-play test. Set the desired Raspberry Pi OS input and output devices before restarting the translator service.'
+      },
+      {
+        problem: 'Chromium reports localhost cannot be reached just after boot',
+        fix: 'The kiosk can launch before the Python backend and LiteRT-LM server finish starting. Wait several seconds, then inspect systemctl status gemma-translator.service if the page does not recover.'
+      },
+      {
+        problem: 'The interface is tiny on a large HDMI display',
+        fix: 'The original UI targets a 480×320 display. Use Chromium zoom for a quick check, or follow DroneBot Workshop\'s documented device-scale-factor adjustment for the kiosk autostart entry.'
+      },
+      {
+        problem: 'French appears as output but cannot transcribe spoken French',
+        fix: 'This is a model-coverage boundary, not a microphone failure. The reviewed code supports six speech-input languages; the creator\'s French extension is output-only.'
+      },
+      {
+        problem: 'A language stops working after the network is disconnected',
+        fix: 'Reconnect temporarily and exercise that language pair so Moonshine can download its required assets. Disconnect again only after the pair succeeds once online.'
+      }
+    ],
+    faq: [
+      { question: 'Does the Gemma Translator need the internet?', answer: 'It needs internet access during installation and the first download of every required model or language asset. Once those assets are cached, the demonstrated translation pipeline can run without Wi-Fi, Ethernet or a cloud API.' },
+      { question: 'Can this run on a Raspberry Pi 4 or a 4 GB Pi 5?', answer: 'This guide does not claim that compatibility. The official project specifies Raspberry Pi 5 with 8 GB RAM, and LocalClaw keeps that hardware gate rather than extrapolating to smaller boards.' },
+      { question: 'Which languages work in the reviewed project?', answer: 'The source interface includes Arabic, English, Spanish, Japanese, Chinese and Korean for input and output. DroneBot Workshop also documented French as an output-only addition because French speech transcription is not available in the reviewed Moonshine configuration.' },
+      { question: 'How fast is the offline translator?', answer: 'It is not instant. The official model card reports 7.6 decode tokens per second and 7.8 seconds to first token on a Raspberry Pi 5 reference benchmark, while the complete voice pipeline adds transcription and speech synthesis.' },
+      { question: 'Is this an officially supported Google product?', answer: 'No. The public repository credits a small Google Creative Lab team but explicitly says the project is not an officially supported Google product.' },
+      { question: 'Has LocalClaw reproduced this build?', answer: 'No. DroneBot Workshop demonstrated the completed translator. LocalClaw reviewed the tutorial, source, model package, hardware requirements and installation commands but has not physically reproduced the appliance.' }
+    ],
+    sources: [
+      { label: 'DroneBot Workshop build video', url: 'https://www.youtube.com/watch?v=tyELRiuEG40', type: 'Video' },
+      { label: 'DroneBot Workshop written tutorial and parts list', url: 'https://dronebotworkshop.com/gemma-translate/', type: 'Creator tutorial' },
+      { label: 'Google Gemma Translator source', url: 'https://github.com/google-gemma/gemma-translator', type: 'Source code' },
+      { label: 'Google Gemma Translator Apache-2.0 license', url: 'https://github.com/google-gemma/gemma-translator/blob/47f9b3ba40ca3650fb80ee42264a76d6a2b5f8ba/LICENSE', type: 'Project license' },
+      { label: 'Gemma 4 E2B LiteRT-LM model package', url: 'https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm', type: 'Model and benchmark' },
+      { label: 'Raspberry Pi 5 hardware and power guidance', url: 'https://www.raspberrypi.com/products/raspberry-pi-5/', type: 'Hardware documentation' },
+      { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' }
+    ]
   }
 ];
 

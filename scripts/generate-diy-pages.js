@@ -78,8 +78,9 @@ function topicBadges(project) {
 }
 
 function creatorCardCredit(project) {
+  const implementationLabel = project.creator.implementationLabel || 'ESP32 implementation by';
   const implementation = project.creator.implementationName
-    ? ` · ESP32 implementation by <a href="${esc(project.creator.implementationUrl)}" target="_blank" rel="noopener">${esc(project.creator.implementationName)}</a>`
+    ? ` · ${esc(implementationLabel)} <a href="${esc(project.creator.implementationUrl)}" target="_blank" rel="noopener">${esc(project.creator.implementationName)}</a>`
     : '';
   return `By <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a>${implementation}`;
 }
