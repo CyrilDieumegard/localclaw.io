@@ -659,6 +659,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 2.6
   },
   {
+    "id": "audio8-tts-preview-0.1b",
+    "name": "Audio8 TTS Preview 0.1B",
+    "developer": "Audio8",
+    "family": "audio8",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08",
+    "quality": 8.8,
+    "speed": 9.3,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 1
+  },
+  {
     "id": "raon-opentts-1b",
     "name": "Raon-OpenTTS-1B",
     "developer": "KRAFTON AI",
