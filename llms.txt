@@ -62,6 +62,7 @@ Apple lists the new desktop models for pre-order with availability beginning Sep
 ## Community DIY Builds
 
 - [Needle 2 on ESP32-S3](https://localclaw.io/diy/needle-2-esp32-s3) — source-reviewed guide to running Cactus Compute's 14 MB tool-calling model offline on an ESP32-S3 N16R8; original demonstration by Better Stack and ESP32 implementation by Andris Gauracs
+- [Falcon-H1 Tiny on Raspberry Pi 1 B+](https://localclaw.io/diy/falcon-h1-raspberry-pi-1) — source-reviewed vintage ARMv6 guide to running TII's 90M-parameter Falcon-H1 Tiny GGUF offline on a 2014 Raspberry Pi 1 Model B+; original demonstration by Better Stack
 - DIY status labels distinguish creator demonstrations, LocalClaw source review and any future hands-on LocalClaw testing. Source review is not represented as physical reproduction.
 - Purchasing links use LocalClaw's regional Amazon resolver and may be affiliate links. Original creators are credited separately and are not represented as endorsing LocalClaw or its purchasing links.
 

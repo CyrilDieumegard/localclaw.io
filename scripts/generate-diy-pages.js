@@ -77,6 +77,13 @@ function topicBadges(project) {
     .join('');
 }
 
+function creatorCardCredit(project) {
+  const implementation = project.creator.implementationName
+    ? ` · ESP32 implementation by <a href="${esc(project.creator.implementationUrl)}" target="_blank" rel="noopener">${esc(project.creator.implementationName)}</a>`
+    : '';
+  return `By <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a>${implementation}`;
+}
+
 function projectCard(project) {
   return `<article class="diy-card" data-diy-project="${esc(project.slug)}">
     <a class="diy-card__media" href="${route(project)}" aria-label="Open ${esc(project.title)} build guide" data-fast-goal="diy_card_open" data-fast-goal-project="${esc(project.slug)}">
@@ -85,7 +92,7 @@ function projectCard(project) {
     </a>
     <div class="diy-card__body">
       <h2><a href="${route(project)}" data-fast-goal="diy_card_open" data-fast-goal-project="${esc(project.slug)}">${esc(project.cardTitle)}</a></h2>
-      <p class="diy-card__creator">By <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a> · ESP32 implementation by <a href="${esc(project.creator.implementationUrl)}" target="_blank" rel="noopener">${esc(project.creator.implementationName)}</a></p>
+      <p class="diy-card__creator">${creatorCardCredit(project)}</p>
       <div class="diy-chips">${topicBadges(project)}</div>
       <p>${esc(project.summary)}</p>
       <a class="diy-card__cta" href="${route(project)}" data-fast-goal="diy_card_open" data-fast-goal-project="${esc(project.slug)}">View build guide <span aria-hidden="true">→</span></a>
@@ -193,10 +200,10 @@ function detailSchema(project) {
     name: project.title,
     description: project.summary,
     image: `${BASE}${project.image}`,
-    totalTime: 'PT2H',
-    estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '10-25' },
+    totalTime: project.page.howToTime,
+    ...(project.page.estimatedCost ? { estimatedCost: { '@type': 'MonetaryAmount', ...project.page.estimatedCost } } : {}),
     supply: project.parts.map(part => ({ '@type': 'HowToSupply', name: part.name })),
-    tool: ['ESP-IDF 5.5+', 'Python 3', 'CMake', 'Git'].map(name => ({ '@type': 'HowToTool', name })),
+    tool: project.page.tools.map(name => ({ '@type': 'HowToTool', name })),
     step: project.steps.map((step, index) => ({
       '@type': 'HowToStep',
       position: index + 1,
@@ -220,7 +227,7 @@ function detailSchema(project) {
         dateModified: DIY_VERIFIED_DATE,
         author: { '@type': 'Organization', name: 'LocalClaw', url: `${BASE}/` },
         publisher: { '@type': 'Organization', name: 'LocalClaw', url: `${BASE}/`, logo: { '@type': 'ImageObject', url: `${BASE}/images/crab-logo.png` } },
-        about: [project.model.name, 'ESP32-S3', 'offline AI', 'tool calling', 'edge AI'],
+        about: project.page.about,
         proficiencyLevel: project.difficulty,
         isBasedOn: [project.video.url, project.repository.url, project.model.url],
         citation: project.sources.map(source => source.url),
@@ -232,11 +239,11 @@ function detailSchema(project) {
         '@type': 'VideoObject',
         '@id': videoId,
         name: project.video.title,
-        description: `Original ${project.creator.displayName} demonstration of ${project.model.name} running offline on an ESP32-S3.`,
+        description: `Original ${project.creator.displayName} demonstration of ${project.title}.`,
         thumbnailUrl: [project.video.thumbnailUrl],
         uploadDate: project.video.uploadDate,
         duration: project.video.duration,
-        embedUrl: `https://www.youtube.com/embed/${project.video.id}`,
+        embedUrl: project.video.embedUrl,
         contentUrl: project.video.url,
         publisher: { '@type': 'Organization', name: project.creator.displayName, url: project.creator.url }
       },
@@ -282,9 +289,16 @@ function stepMarkup(step, index) {
   </article>`;
 }
 
+function detailCreatorCredit(project) {
+  const implementation = project.creator.implementationName
+    ? ` <span>${esc(project.creator.implementationName)} built and documented the <a href="${esc(project.repository.url)}" target="_blank" rel="noopener">reference implementation</a>.</span>`
+    : '';
+  return `<strong>Original demonstration by <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a></strong>${implementation}<span>${esc(project.model.name)} by <a href="${esc(project.model.url)}" target="_blank" rel="noopener">${esc(project.model.author)}</a>.</span>`;
+}
+
 function renderDetail(project) {
-  const title = 'Run Needle 2 on ESP32-S3: Step-by-Step DIY Guide | LocalClaw';
-  const description = 'Build a fully offline 14 MB tool-calling AI on an ESP32-S3 N16R8. Exact hardware, original video, commands, testing and troubleshooting.';
+  const title = project.seo.title;
+  const description = project.seo.description;
   const canonical = `${BASE}${route(project)}`;
   const parts = project.parts.map((part, index) => {
     const href = `/go/amazon?q=${encodeURIComponent(part.amazonQuery)}`.replace(/&/g, '&amp;');
@@ -314,64 +328,64 @@ function renderDetail(project) {
         <h1>${esc(project.title)}</h1>
         <p class="diy-detail-hero__lede">${esc(project.outcome)}</p>
         <div class="diy-chips">${topicBadges(project)}</div>
-        <div class="diy-creator-credit"><strong>Original demonstration by <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a></strong><span>ESP32 implementation and documentation by <a href="${esc(project.repository.url)}" target="_blank" rel="noopener">${esc(project.creator.implementationName)}</a>. Needle 2 by <a href="${esc(project.model.url)}" target="_blank" rel="noopener">${esc(project.model.author)}</a>.</span></div>
-        <div class="diy-actions"><a class="diy-button diy-button--primary" href="#original-video">Watch original video</a><a class="diy-button" href="#parts">See exact parts</a><a class="diy-button diy-button--quiet" href="${esc(project.repository.url)}" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="github">Open source code ↗</a></div>
+        <div class="diy-creator-credit">${detailCreatorCredit(project)}</div>
+        <div class="diy-actions"><a class="diy-button diy-button--primary" href="#original-video">Watch original video</a><a class="diy-button" href="#parts">See exact parts</a><a class="diy-button diy-button--quiet" href="${esc(project.repository.url)}" target="_blank" rel="noopener" data-fast-goal="diy_source_open" data-fast-goal-source="github">${esc(project.page.sourceCta)} ↗</a></div>
       </div>
       <figure class="diy-detail-hero__media"><img src="${esc(project.image)}" width="1200" height="800" alt="${esc(project.imageAlt)}" decoding="async"><figcaption>Original LocalClaw editorial artwork · not a creator thumbnail</figcaption></figure>
     </header>
 
     <section class="diy-shell diy-facts" aria-label="Build overview">
       <div><span>Model</span><strong>${esc(project.model.parameters)} parameters</strong><small>${esc(project.model.binarySize)}</small></div>
-      <div><span>Hardware</span><strong>ESP32-S3 N16R8</strong><small>16 MB flash · 8 MB octal PSRAM</small></div>
-      <div><span>Purpose</span><strong>Offline tool calling</strong><small>Device actions, not general chat</small></div>
+      <div><span>Hardware</span><strong>${esc(project.page.hardwareFact.title)}</strong><small>${esc(project.page.hardwareFact.detail)}</small></div>
+      <div><span>Purpose</span><strong>${esc(project.page.purposeFact.title)}</strong><small>${esc(project.page.purposeFact.detail)}</small></div>
       <div><span>Source status</span><strong>Reviewed ${esc(DIY_VERIFIED_DATE)}</strong><small>Creator demonstrated · not yet LocalClaw tested</small></div>
     </section>
 
     <section class="diy-shell diy-video-section" id="original-video" aria-labelledby="video-title">
-      <div class="diy-section-head"><div><p class="diy-section-no">Original demonstration</p><h2 id="video-title">Watch Better Stack build it</h2></div><p>The original video remains attached to the project. Playback uses YouTube's privacy-enhanced player and starts only after you choose to play it.</p></div>
+      <div class="diy-section-head"><div><p class="diy-section-no">Original demonstration</p><h2 id="video-title">${esc(project.page.videoTitle)}</h2></div><p>${esc(project.page.videoIntro)}</p></div>
       <div class="diy-video" data-diy-video data-video-id="${esc(project.video.id)}" data-video-title="${esc(project.video.title)}">
         <img src="${esc(project.image)}" width="1200" height="800" alt="" loading="lazy" decoding="async">
         <div class="diy-video__shade"></div>
-        <button type="button" class="diy-video__play" aria-label="Play the original Better Stack video"><span aria-hidden="true">▶</span><strong>Play original video</strong><small>${esc(project.creator.displayName)} · 9:53</small></button>
+        <button type="button" class="diy-video__play" aria-label="Play the original ${esc(project.creator.displayName)} video"><span aria-hidden="true">▶</span><strong>Play original video</strong><small>${esc(project.creator.displayName)} · ${esc(project.video.durationLabel)}</small></button>
       </div>
       <p class="diy-video-credit">Video: <a href="${esc(project.video.url)}" target="_blank" rel="noopener">${esc(project.video.title)}</a> by <a href="${esc(project.creator.url)}" target="_blank" rel="noopener">${esc(project.creator.displayName)}</a>. LocalClaw does not rehost or modify the video.</p>
       <noscript><p><a href="${esc(project.video.url)}">Watch the original video on YouTube</a>.</p></noscript>
     </section>
 
     <section class="diy-shell diy-compat" aria-labelledby="compat-title">
-      <div class="diy-compat__warning"><span aria-hidden="true">!</span><div><p class="diy-section-no">Compatibility gate</p><h2 id="compat-title">N16R8 is not optional</h2><p>A generic ESP32-S3 listing is not enough. The reference implementation requires <strong>16 MB flash</strong> and <strong>8 MB octal PSRAM</strong>. A 2 MB or quad-PSRAM board will not run this documented build.</p></div></div>
+      <div class="diy-compat__warning"><span aria-hidden="true">!</span><div><p class="diy-section-no">${esc(project.page.compatibilityLabel)}</p><h2 id="compat-title">${esc(project.page.compatibilityTitle)}</h2><p>${esc(project.page.compatibilityText)}</p></div></div>
       <dl class="diy-specs">${requirements}</dl>
-      <p class="diy-truth"><strong>Verification boundary:</strong> LocalClaw checked these requirements and commands against the creator's repository at commit <code>${esc(project.repository.reviewedCommit.slice(0, 12))}</code> and Cactus Compute's model page. LocalClaw has source-reviewed this guide but has not physically reproduced this build.</p>
+      <p class="diy-truth"><strong>Verification boundary:</strong> ${esc(project.page.verificationText)} Reviewed runtime commit: <code>${esc(project.repository.reviewedCommit.slice(0, 12))}</code>. LocalClaw has source-reviewed this guide but has not physically reproduced this build.</p>
     </section>
 
     <section class="diy-shell diy-section" id="parts" aria-labelledby="parts-title">
-      <div class="diy-section-head"><div><p class="diy-section-no">Parts list</p><h2 id="parts-title">Buy the compatible hardware</h2></div><p>These buttons open regional Amazon searches through LocalClaw. Confirm the exact specifications on the seller page before ordering.</p></div>
+      <div class="diy-section-head"><div><p class="diy-section-no">Parts list</p><h2 id="parts-title">${esc(project.page.partsTitle)}</h2></div><p>These buttons open regional Amazon searches through LocalClaw. Confirm the exact specifications on the seller page before ordering.</p></div>
       <div class="diy-parts">${parts}</div>
       <p class="diy-affiliate diy-affiliate--inline">Affiliate disclosure: As an Amazon Associate, LocalClaw earns from qualifying purchases. The original creators do not endorse these purchasing links, and prices or availability may change.</p>
     </section>
 
     <section class="diy-shell diy-section" id="guide" aria-labelledby="guide-title">
-      <div class="diy-section-head"><div><p class="diy-section-no">Step-by-step</p><h2 id="guide-title">Build Needle 2 on ESP32-S3</h2></div><p>Commands are preserved where technical accuracy requires it; the explanations, order and checks are independently organized by LocalClaw from the cited primary sources.</p></div>
+      <div class="diy-section-head"><div><p class="diy-section-no">Step-by-step</p><h2 id="guide-title">${esc(project.page.guideTitle)}</h2></div><p>${esc(project.page.guideIntro)}</p></div>
       <div class="diy-steps">${project.steps.map(stepMarkup).join('\n')}</div>
     </section>
 
     <section class="diy-shell diy-two-col" aria-labelledby="performance-title">
-      <article><p class="diy-section-no">Expected performance</p><h2 id="performance-title">Slow, local and purposeful</h2><p>${esc(project.model.purpose)}. The documented ESP32-S3 port is compute-bound, so treat it as an offline device-action demo rather than a conversational assistant.</p><dl class="diy-performance">${performance}</dl></article>
-      <aside><p class="diy-section-no">Go beyond the LED</p><h2>Replace the tool, not the model</h2><p>The repository lets you describe another tool in JSON, write a hardware handler and register it in the firmware. That is the path to servos, relays and sensor actions.</p><a href="${esc(project.repository.url)}#using-your-own-tools" target="_blank" rel="noopener">Read the creator's customization notes →</a></aside>
+      <article><p class="diy-section-no">Expected performance</p><h2 id="performance-title">${esc(project.page.performanceTitle)}</h2><p>${esc(project.model.purpose)}. ${esc(project.page.performanceIntro)}</p><dl class="diy-performance">${performance}</dl></article>
+      <aside><p class="diy-section-no">Recommended path</p><h2>${esc(project.page.secondaryTitle)}</h2><p>${esc(project.page.secondaryText)}</p><a href="${esc(project.page.secondaryLinkUrl)}" target="_blank" rel="noopener">${esc(project.page.secondaryLinkLabel)} →</a></aside>
     </section>
 
     <section class="diy-shell diy-section" aria-labelledby="troubleshooting-title">
-      <div class="diy-section-head"><div><p class="diy-section-no">Troubleshooting</p><h2 id="troubleshooting-title">The failures that look mysterious</h2></div><p>The reference repository documents several silent configuration failures. Check these before changing the inference engine.</p></div>
+      <div class="diy-section-head"><div><p class="diy-section-no">Troubleshooting</p><h2 id="troubleshooting-title">The failures that look mysterious</h2></div><p>${esc(project.page.troubleshootingIntro)}</p></div>
       <div class="diy-accordion">${troubleshooting}</div>
     </section>
 
     <section class="diy-shell diy-sources" aria-labelledby="sources-title">
-      <div><p class="diy-section-no">Sources and credit</p><h2 id="sources-title">Follow the work back to its creators</h2><p>${esc(project.creator.note)} LocalClaw's page is an independent guide and does not imply endorsement by Better Stack, Andris Gauracs or Cactus Compute.</p></div>
+      <div><p class="diy-section-no">Sources and credit</p><h2 id="sources-title">Follow the work back to its creators</h2><p>${esc(project.creator.note)} LocalClaw's page is independent and does not imply endorsement by any cited creator, model author or tool maintainer.</p></div>
       <ul>${sourceLinks(project.sources)}</ul>
-      <p class="diy-license"><strong>License note:</strong> the ESP32 implementation and Needle 2 materials cited here identify Apache 2.0 licensing. LocalClaw links to the original repositories and does not redistribute their source code or model binary on this page.</p>
+      <p class="diy-license"><strong>License note:</strong> ${esc(project.page.licenseNote)}</p>
     </section>
 
-    <section class="diy-shell diy-section" aria-labelledby="faq-title"><div class="diy-section-head"><div><p class="diy-section-no">Questions</p><h2 id="faq-title">Needle 2 ESP32-S3 FAQ</h2></div></div><div class="diy-accordion">${faq}</div></section>
+    <section class="diy-shell diy-section" aria-labelledby="faq-title"><div class="diy-section-head"><div><p class="diy-section-no">Questions</p><h2 id="faq-title">${esc(project.page.faqTitle)}</h2></div></div><div class="diy-accordion">${faq}</div></section>
 
     <div class="diy-shell diy-back"><a href="/diy/">← Browse Community DIY Builds</a></div>
   </main>

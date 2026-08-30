@@ -1,9 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import { amazonMarketplace, amazonSearchUrl, normalizeAmazonQuery } from "../functions/_lib/amazon-links.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const require = createRequire(import.meta.url);
+const { projects: diyProjects } = require("./diy-projects.js");
 const html = fs.readFileSync(path.join(ROOT, "ram-gpu-for-local-ai.html"), "utf8");
 const computers = fs.readFileSync(path.join(ROOT, "computers.html"), "utf8");
 const hardwareDir = path.join(ROOT, "hardware");
@@ -64,7 +67,8 @@ for (const { file, href } of appleHardwareLinks) {
 for (const { file, html: page } of hardwarePages) {
   if (/href="https:\/\/(?:www\.)?amazon\./i.test(page)) errors.push(`${file} still contains a direct Amazon button URL`);
 }
-if (diyLinks.length !== 3) errors.push(`Expected 3 DIY Amazon searches; found ${diyLinks.length}`);
+const expectedDiyLinks = diyProjects.reduce((total, project) => total + project.parts.length, 0);
+if (diyLinks.length !== expectedDiyLinks) errors.push(`Expected ${expectedDiyLinks} DIY Amazon searches; found ${diyLinks.length}`);
 for (const { file, href } of diyLinks) {
   if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the regional Amazon resolver: ${href}`);
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");

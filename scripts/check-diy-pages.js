@@ -27,14 +27,17 @@ for (const project of projects) {
   const detail = fs.readFileSync(detailPath, 'utf8');
   for (const marker of [
     `<link rel="canonical" href="https://localclaw.io/diy/${project.slug}">`,
+    `<h1>${project.title}</h1>`,
     project.video.id,
     project.repository.url,
+    project.model.license,
+    project.page.compatibilityTitle,
     'LocalClaw has source-reviewed this guide but has not physically reproduced this build.',
     'data-fast-goal="amazon_click"',
     'application/ld+json',
     '"@type":"HowTo"',
     '"@type":"VideoObject"',
-    'N16R8'
+    '"@type":"FAQPage"'
   ]) {
     if (!detail.includes(marker)) errors.push(`${project.slug} missing marker: ${marker}`);
   }
@@ -47,6 +50,9 @@ for (const project of projects) {
 
 const generatedCards = [...index.matchAll(/data-diy-project="([^"]+)"/g)].map(match => match[1]);
 if (generatedCards.length !== projects.length) errors.push(`DIY index expected ${projects.length} project cards, found ${generatedCards.length}`);
+for (const project of projects) {
+  if (!generatedCards.includes(project.slug)) errors.push(`DIY index missing project card: ${project.slug}`);
+}
 
 if (errors.length) {
   console.error(`DIY validation failed with ${errors.length} issue(s):`);
