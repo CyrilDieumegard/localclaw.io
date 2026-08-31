@@ -8,7 +8,7 @@
          PRIMARY SEO META TAGS
          ============================================================ -->
     <title>LocalClaw Blog | Local AI Guides &amp; Model Comparisons</title>
-    <meta name="description" content="Expert local AI guides: Qwen3.8-27B, Kimi K3 hardware reality, Colibri storage streaming, GGUF and practical hardware advice.">
+    <meta name="description" content="OpenClaw 2.0 explained: new features, LocalClaw for Mac, local models and safe updates. Plus practical local AI guides and hardware comparisons.">
     <meta name="keywords" content="local AI blog, Qwen3.8-27B, Qwen3.8 local, Qwen3.8 vision, Colibri AI, GLM-5.2 25GB RAM, storage streamed MoE, Kimi K3 benchmarks, Kimi K3 local, Bonsai 27B, Gemma 4 12B, Ollama vs LM Studio, GGUF quantization, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/blog/">
     <meta property="og:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta property="og:description" content="Expert AI guides: Colibri and GLM-5.2, Kimi K3 hardware reality, Qwen 3.8 status, practical local models and hardware optimization.">
+    <meta property="og:description" content="OpenClaw 2.0, LocalClaw for Mac, practical local models and hardware. Read our complete guide to the new OpenClaw release.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -32,7 +32,7 @@
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta name="twitter:description" content="Colibri and GLM-5.2, Kimi K3 benchmarks, Qwen 3.8 status, local model comparisons and practical hardware guidance.">
+    <meta name="twitter:description" content="OpenClaw 2.0 is here. Read the complete release guide and get started with LocalClaw for Mac, plus practical local AI comparisons.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
@@ -81,7 +81,7 @@
         data-domain="localclaw.io"
         src="https://datafa.st/js/script.js">
     </script>
-    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">
+    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a&amp;openclaw=20260831a">
 
     <style>
         body { background: #050505; color: #FFFFFF; }
@@ -203,6 +203,7 @@
     <script src="../js/clarity.js" defer></script>
   <link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware"><script src="/js/site-nav.js?v=20260831hardware" defer></script>
   <script src="/js/theme-toggle.js?v=20260831hardware"></script>
+    <link rel="stylesheet" href="/css/openclaw-launch-20260831.css?v=20260831a">
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col selection:bg-claw-primary/30 selection:text-white relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
@@ -288,7 +289,7 @@
                 Local<span class="text-claw-primary">Claw</span> Blog
             </h1>
             <p class="text-lg sm:text-xl text-claw-muted max-w-2xl mx-auto leading-relaxed">
-                Expert guides, model comparisons, and tutorials to master local AI with LM Studio and the best open-source LLMs.
+                What’s new in OpenClaw, how to run it on your Mac, and the models, software and hardware that make local AI useful.
             </p>
         </div>
     </header>
@@ -299,6 +300,16 @@
     <main class="flex-grow px-4 pb-20 relative z-10">
         <div class="max-w-6xl mx-auto">
             
+            <section class="lc-launch lc-launch--feature" aria-labelledby="featured-openclaw-title">
+                <div>
+                    <span class="lc-launch__eyebrow">Featured · August 31, 2026 · OpenClaw 2.0</span>
+                    <h2 id="featured-openclaw-title">A new chapter for OpenClaw.<br>Your Mac is ready.</h2>
+                    <p>New conversations, memory, dashboards and automation. Explore the complete release guide, then get started with the compatible LocalClaw app.</p>
+                    <div class="lc-launch__actions"><a class="lc-launch__button" href="/blog/openclaw-2026-8-1-localclaw-mac" data-fast-goal="openclaw_article_click" data-fast-goal-source="blog_feature">Explore the full guide →</a><a class="lc-launch__link" href="/pricing">Get LocalClaw for Mac</a></div>
+                </div>
+                <figure><a href="/blog/openclaw-2026-8-1-localclaw-mac" aria-label="Read the OpenClaw 2.0 and LocalClaw guide"><img src="/images/pricing-carousel/home.jpg?v=20260602" width="1400" height="770" alt="LocalClaw native Mac dashboard with OpenClaw status and system controls" decoding="async"></a><figcaption>The native LocalClaw app. Compatible with OpenClaw 2026.8.1.</figcaption></figure>
+            </section>
+
             <!-- Filters -->
             <div id="blog-filters" class="flex flex-wrap gap-3 mb-10 justify-center">
                 <button data-filter="all" class="filter-btn px-4 py-2 rounded-full bg-claw-primary text-white text-sm font-medium transition-all">All</button>
@@ -309,6 +320,13 @@
 
             <!-- Articles Grid -->
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <a href="/blog/openclaw-2026-8-1-localclaw-mac" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
+                    <div class="flex items-center gap-2 mb-4"><span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">OpenClaw 2.0</span><span class="reading-time text-xs">Complete guide</span></div>
+                    <h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">OpenClaw 2.0 Is Here. LocalClaw Is Ready.</h2>
+                    <p class="text-claw-muted text-sm leading-relaxed mb-4">What’s new in 2026.8.1: conversations, memory, local inference, dashboards, approvals and experimental Swarm. Plus setup and updates on Mac.</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">August 31, 2026</span><span class="text-claw-primary text-sm font-semibold">Read the guide →</span></div>
+                </a>
 
                 <!-- Article NEW: Colibri storage-streamed frontier inference -->
                 <a href="/blog/colibri-glm-5-2-local-ai" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide">
@@ -730,7 +748,7 @@
                         OpenClaw v2026.7.1: Install, Update &amp; Run Locally
                     </h2>
                     <p class="text-claw-muted text-sm leading-relaxed mb-4">
-                        Current OpenClaw setup guide with official install and update commands, LM Studio and Ollama configuration, privacy boundaries, and LocalClaw 1.0.175 support.
+                        Foundations for the 2026.7.1 release: LM Studio, Ollama and configuration. For OpenClaw 2.0 and current LocalClaw compatibility, read the new release guide above.
                     </p>
                     <div class="flex items-center justify-between pt-4 border-t border-white/10">
                         <span class="text-xs text-claw-muted">Updated July 28, 2026</span>
@@ -933,12 +951,12 @@
                     <a href="/llm-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-claw-primary/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">LLM</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Find a local model</h4>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Browse 215 RAM-aware LLM records.</p>
+                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Browse RAM-aware local LLM records.</p>
                     </a>
                     <a href="/tts-list" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-purple-400/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-purple-300">TTS</span>
                         <h4 class="mt-2 font-display text-lg font-bold text-white">Compare voice models</h4>
-                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Explore 58 local TTS and ASR records.</p>
+                        <p class="mt-2 text-xs leading-relaxed text-claw-muted">Explore local TTS and ASR records.</p>
                     </a>
                     <a href="/computers" class="group rounded-xl border border-white/10 bg-black/30 p-4 transition-all hover:-translate-y-0.5 hover:border-blue-400/45">
                         <span class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-blue-300">Hardware</span>

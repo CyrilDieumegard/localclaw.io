@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw 2.0 (2026.8.1): What’s New + LocalClaw for Mac</title>
+<meta name="description" content="OpenClaw 2.0 is here and LocalClaw is ready. Explore memory, dashboards, local AI, agents and safer automations, then get the native Mac app.">
+<meta name="author" content="LocalClaw">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac">
+<meta property="og:title" content="OpenClaw 2.0 is here. LocalClaw is ready.">
+<meta property="og:description" content="The complete guide to OpenClaw 2026.8.1: what changed, what it means for your workflow, and how to get started with LocalClaw for Mac.">
+<meta property="og:site_name" content="LocalClaw">
+<meta property="og:image" content="https://localclaw.io/images/pricing-carousel/home.jpg">
+<meta property="og:image:alt" content="The native LocalClaw Mac app, showing its Home workspace">
+<meta property="article:published_time" content="2026-08-31T12:00:00+02:00">
+<meta property="article:modified_time" content="2026-08-31T12:00:00+02:00">
+<meta property="article:section" content="OpenClaw and LocalClaw">
+<meta property="article:tag" content="OpenClaw 2.0">
+<meta property="article:tag" content="LocalClaw for Mac">
+<meta property="article:tag" content="Local AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OpenClaw 2.0 is here. LocalClaw is ready.">
+<meta name="twitter:description" content="New memory, dashboards, local inference and agent workflows. Explore the release and get the native LocalClaw Mac app.">
+<meta name="twitter:image" content="https://localclaw.io/images/pricing-carousel/home.jpg">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+<meta name="theme-color" content="#faf9f6">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=20260822b">
+<link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a&amp;openclaw=20260831a">
+<link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware">
+<script src="/js/theme-toggle.js?v=20260831hardware"></script>
+<script src="/js/site-nav.js?v=20260831hardware" defer></script>
+<style>
+body.oc2-page{--oc2-ink:#f7f7f8;--oc2-muted:#b4b4bc;--oc2-bg:#080909;--oc2-card:#111314;--oc2-line:#2a2c2e;--oc2-accent:#ff786d;--oc2-soft:rgba(255,100,87,.08);margin:0;background:radial-gradient(ellipse at 50% 0,rgba(255,92,77,.12),transparent 36rem),var(--oc2-bg);color:var(--oc2-ink);font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+html.light body.oc2-page{--oc2-ink:#172025;--oc2-muted:#53616a;--oc2-bg:#faf9f6;--oc2-card:#fff;--oc2-line:#deded7;--oc2-accent:#b7352b;--oc2-soft:#fff1e9;background:radial-gradient(ellipse at 50% 0,rgba(236,141,99,.14),transparent 36rem),var(--oc2-bg);color:var(--oc2-ink)}
+.oc2-page *{box-sizing:border-box}.oc2-page a:focus-visible,.oc2-page summary:focus-visible{outline:3px solid var(--oc2-accent);outline-offset:5px;border-radius:4px}.oc2-wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}.oc2-skip{position:absolute;left:20px;top:-60px;z-index:100;background:var(--oc2-card);padding:12px;color:var(--oc2-ink)}.oc2-skip:focus{top:80px}.oc2-hero{padding:64px 0 40px}.oc2-back{color:var(--oc2-muted);font-size:14px;text-decoration:none}.oc2-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:32px 0 22px;font-size:12px;color:var(--oc2-muted)}.oc2-pill{display:inline-flex;align-items:center;gap:7px;background:var(--oc2-soft);color:var(--oc2-accent);border:1px solid var(--oc2-line);padding:7px 12px;border-radius:999px;font-weight:600}.oc2-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}.oc2-hero h1{max-width:1000px;font-family:'Space Grotesk',sans-serif;font-size:clamp(40px,6.2vw,76px);font-weight:700;line-height:1.03;letter-spacing:-.055em;margin:0 0 24px}.oc2-hero h1 span{color:var(--oc2-accent)}.oc2-deck{font-size:clamp(18px,2.2vw,22px);line-height:1.65;color:var(--oc2-muted);max-width:810px;margin:0 0 24px}.oc2-deck strong{color:var(--oc2-ink);font-weight:600}.oc2-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:22px 0 14px}.oc2-page a.oc2-button{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:#c83e32;border:1px solid #c83e32;color:#fff;font-size:14px;line-height:1.4;font-weight:600;text-decoration:none;padding:14px 20px;border-radius:9px;transition:transform .15s,background .15s}.oc2-page a.oc2-button:hover{background:#ab2c23;transform:translateY(-1px)}.oc2-page a.oc2-button--secondary{background:var(--oc2-card);color:var(--oc2-ink);border-color:var(--oc2-line)}.oc2-page a.oc2-button--secondary:hover{background:var(--oc2-soft)}.oc2-small{font-size:12px;line-height:1.7;color:var(--oc2-muted)}.oc2-shot{margin:30px 0 0}.oc2-shot-frame{padding:10px;background:#17191b;border:1px solid #36383a;border-radius:18px;box-shadow:0 24px 60px rgba(15,20,24,.15)}.oc2-shot img{display:block;width:100%;height:auto;border-radius:10px}.oc2-shot figcaption{color:var(--oc2-muted);font-size:12px;line-height:1.65;padding:12px 2px}.oc2-highlights{display:grid;grid-template-columns:repeat(3,1fr);margin:22px 0 48px;border:1px solid var(--oc2-line);border-radius:12px;overflow:hidden;background:var(--oc2-card)}.oc2-highlights div{padding:21px 24px;border-right:1px solid var(--oc2-line)}.oc2-highlights div:last-child{border-right:0}.oc2-highlights strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:23px;letter-spacing:-.03em}.oc2-highlights span{display:block;color:var(--oc2-muted);font-size:12px;margin-top:6px}.oc2-layout{display:grid;grid-template-columns:215px minmax(0,1fr);gap:60px;align-items:start;padding-bottom:64px}.oc2-toc{position:sticky;top:100px;font-size:13px;line-height:1.55}.oc2-toc p{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--oc2-muted);font-weight:600;margin:0 0 16px}.oc2-toc ol{list-style:none;padding:0;margin:0;border-left:1px solid var(--oc2-line)}.oc2-toc a{display:block;padding:8px 0 8px 16px;text-decoration:none;color:var(--oc2-muted)}.oc2-toc a:hover{color:var(--oc2-accent)}.oc2-toc .oc2-toc-app{border-top:1px solid var(--oc2-line);margin-top:20px;padding:20px 0;color:var(--oc2-accent);font-weight:600}.oc2-copy{min-width:0;font-size:16px;line-height:1.85}.oc2-copy section{scroll-margin-top:110px}.oc2-copy h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(27px,3vw,35px);font-weight:700;letter-spacing:-.04em;line-height:1.17;margin:52px 0 20px;color:var(--oc2-ink)}.oc2-copy section:first-child h2{margin-top:0}.oc2-copy h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;line-height:1.3;letter-spacing:-.025em;margin:30px 0 12px;color:var(--oc2-ink)}.oc2-copy p{color:var(--oc2-muted);margin:0 0 18px}.oc2-copy strong{color:var(--oc2-ink);font-weight:600}.oc2-copy a{color:var(--oc2-accent);text-underline-offset:3px}.oc2-copy ul,.oc2-copy ol{padding-left:22px;margin:15px 0 22px;color:var(--oc2-muted)}.oc2-copy li{padding-left:3px;margin:7px 0}.oc2-copy code{font-size:.88em;border:1px solid var(--oc2-line);border-radius:4px;padding:2px 5px;background:var(--oc2-card);overflow-wrap:anywhere}.oc2-note{background:var(--oc2-soft);border-left:3px solid var(--oc2-accent);padding:20px 24px;border-radius:0 9px 9px 0;margin:26px 0}.oc2-note p:last-child{margin-bottom:0}.oc2-source{font-size:12px!important;margin-top:-3px!important;line-height:1.6!important}.oc2-workflow{padding:24px;border:1px solid var(--oc2-line);border-radius:12px;background:var(--oc2-card);margin:20px 0}.oc2-copy .oc2-workflow h3{margin:8px 0 12px}.oc2-label{font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--oc2-accent);text-transform:uppercase}.oc2-prompt{border-top:1px solid var(--oc2-line);margin:18px 0 0;padding-top:18px;color:var(--oc2-ink);font-size:15px;font-style:italic;line-height:1.7}.oc2-table-wrap{overflow-x:auto;border:1px solid var(--oc2-line);border-radius:10px;margin:25px 0;-webkit-overflow-scrolling:touch}.oc2-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.7}.oc2-table th{background:var(--oc2-soft);font-weight:600;color:var(--oc2-ink);text-align:left}.oc2-table td,.oc2-table th{padding:16px;vertical-align:top;border-bottom:1px solid var(--oc2-line);min-width:155px}.oc2-table td{color:var(--oc2-muted)}.oc2-table tr:last-child td{border:0}.oc2-cta{padding:30px;border:1px solid var(--oc2-line);border-radius:14px;background:radial-gradient(ellipse at top right,rgba(227,111,70,.13),transparent 75%),var(--oc2-card);margin:36px 0}.oc2-copy .oc2-cta h3{font-size:27px;margin:0 0 12px}.oc2-cta .oc2-actions{margin-bottom:8px}.oc2-faq details{border-top:1px solid var(--oc2-line);padding:19px 0}.oc2-faq summary{font-weight:600;line-height:1.55;cursor:pointer;color:var(--oc2-ink);padding-right:16px}.oc2-faq details p{font-size:15px;margin:14px 0 0}.oc2-copy .oc2-sources{columns:2;column-gap:28px;font-size:12px;line-height:1.7}.oc2-sources li{break-inside:avoid;margin:0 0 10px}.oc2-footer{border-top:1px solid var(--oc2-line);padding:28px 0;color:var(--oc2-muted);font-size:12px}.oc2-footer .oc2-wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.oc2-footer a{color:var(--oc2-muted);margin-left:18px;text-decoration:none}
+@media(max-width:900px){.oc2-layout{grid-template-columns:1fr;gap:30px}.oc2-toc{position:static;padding:22px;background:var(--oc2-card);border:1px solid var(--oc2-line);border-radius:12px}.oc2-toc ol{display:grid;grid-template-columns:1fr 1fr;border:0;gap:0 20px}.oc2-toc a{padding:6px 0}.oc2-toc .oc2-toc-app{display:none}.oc2-copy{max-width:760px;margin:auto}.oc2-copy section:first-child h2{margin-top:10px}.oc2-hero{padding-top:38px}}@media(max-width:520px){.oc2-wrap{width:calc(100% - 32px)}.oc2-hero h1{font-size:41px}.oc2-meta{gap:9px}.oc2-actions .oc2-button{width:100%}.oc2-highlights{grid-template-columns:1fr;margin-bottom:28px}.oc2-highlights div{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-right:0;border-bottom:1px solid var(--oc2-line)}.oc2-highlights div:last-child{border-bottom:0}.oc2-highlights strong{font-size:18px}.oc2-highlights span{font-size:11px;margin:0;text-align:right}.oc2-toc ol{grid-template-columns:1fr}.oc2-note,.oc2-workflow,.oc2-cta{padding:20px}.oc2-copy{font-size:15px}.oc2-copy .oc2-sources{columns:1}.oc2-shot-frame{padding:5px;border-radius:12px}.oc2-shot img{border-radius:7px}.oc2-footer a{margin-left:0;margin-right:18px}}
+@media(prefers-reduced-motion:reduce){.oc2-page a.oc2-button{transition:none}.oc2-page a.oc2-button:hover{transform:none}}
+</style>
+<script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+<script src="/js/clarity.js" defer></script>
+</head>
+<body class="oc2-page lc-blog-article-theme">
+<a class="oc2-skip" href="#article">Skip to article</a>
+<nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+<header class="oc2-hero oc2-wrap">
+<a href="/blog/" class="oc2-back">&larr; LocalClaw Journal</a>
+<div class="oc2-meta"><span class="oc2-pill">OpenClaw 2.0 compatible</span><time datetime="2026-08-31">August 31, 2026</time><span>By LocalClaw</span><span>12 min read</span></div>
+<h1>OpenClaw 2.0 is here.<br><span>LocalClaw is ready.</span></h1>
+<p class="oc2-deck"><strong>OpenClaw 2026.8.1</strong> brings a rebuilt browser experience, richer memory, interactive dashboards and more capable agent workflows. LocalClaw puts your OpenClaw setup inside a native Mac app, available now.</p>
+<div class="oc2-actions"><a class="oc2-button" href="/download">Download LocalClaw for Mac <span aria-hidden="true">↗</span></a><a class="oc2-button oc2-button--secondary" href="/pricing">Explore the app · $49 lifetime beta</a></div>
+<p class="oc2-small">Apple silicon · macOS 13+ · Apple-notarized · Model and external-service costs are separate.</p>
+<figure class="oc2-shot"><div class="oc2-shot-frame"><img src="/images/pricing-carousel/home.jpg" width="1400" height="770" fetchpriority="high" decoding="async" alt="The native LocalClaw Mac app with its Home workspace and sidebar navigation"></div><figcaption>The native LocalClaw Mac app. This is LocalClaw’s interface, not a screenshot of OpenClaw’s new browser UI.</figcaption></figure>
+<div class="oc2-highlights" aria-label="Release and app details"><div><strong>2026.8.1</strong><span>OpenClaw stable release</span></div><div><strong>1.0.201</strong><span>LocalClaw · build 352</span></div><div><strong>Your Mac. Your setup.</strong><span>Local models or supported cloud providers</span></div></div>
+</header>
+<main class="oc2-wrap oc2-layout">
+<aside class="oc2-toc"><nav aria-label="Article contents"><p>In this guide</p><ol><li><a href="#release">Why this release matters</a></li><li><a href="#whats-new">What’s new in OpenClaw</a></li><li><a href="#local-models">The local AI opportunity</a></li><li><a href="#control">Secrets, approvals and plugins</a></li><li><a href="#agents">Agents and remote work</a></li><li><a href="#localclaw">Where LocalClaw fits</a></li><li><a href="#workflows">Three workflows to try</a></li><li><a href="#updating">Get started or update</a></li><li><a href="#privacy">Privacy, cost and limits</a></li><li><a href="#faq">Questions, answered</a></li></ol><a class="oc2-toc-app" href="/download">Get the Mac app ↗</a></nav></aside>
+<article id="article" class="oc2-copy" aria-label="OpenClaw 2.0 (2026.8.1): What’s New + LocalClaw for Mac">
+<section id="release"><h2>A bigger release. A better reason to start.</h2>
+<p><strong>LocalClaw is now compatible with the new OpenClaw.</strong> If you have been waiting for a good moment to build a useful AI workspace on your Mac, this is one. The release brings together better continuity, clearer controls and more ways to turn a conversation into work you can revisit.</p>
+<p>The name needs one clarification: <strong>OpenClaw 2.0 is the official launch branding; 2026.8.1 is the stable software version.</strong> OpenClaw’s announcement is dated August 30, and GitHub published the stable release on August 31. These describe the same launch.</p>
+<p>OpenClaw calls it the largest update in its history, crediting 933 contributors and more than 16,000 pull requests. The more useful story is its direction: simplify the first conversation, improve the browser workspace, and let a personal assistant grow into ongoing projects and shared work.</p>
+<p class="oc2-source">Sources: <a href="https://openclaw.ai/blog/openclaw-2-accidentally">official OpenClaw 2.0 announcement</a> · <a href="https://github.com/openclaw/openclaw/releases/tag/v2026.8.1">stable 2026.8.1 release</a>.</p>
+<p>LocalClaw’s role is straightforward: provide a native Mac home for your OpenClaw setup. You can explore the release without pretending that a longer feature list automatically makes a better workflow. Start with something useful, keep its scope clear, and expand from there.</p></section>
+<section id="whats-new"><h2>What’s new in OpenClaw 2.0?</h2>
+<h3>Conversations become easier to find and follow</h3>
+<p>Conversation search can find exact words or phrases in visible user and assistant messages and reopen the surrounding context. It respects session visibility; it does not search hidden reasoning, image content or incognito sessions. Think of finding the decision you made last Tuesday, rather than asking the model to guess it again.</p>
+<p>Search is particularly valuable when you name projects consistently. A distinctive client name, release label or document title gives both you and your agent a reliable handle on earlier work. Exact transcript search and semantic memory serve different purposes.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/concepts/session-search">OpenClaw session search</a>.</p>
+<h3>Explore a different direction without starting over</h3>
+<p>Conversation branching lets you return to an earlier point and try another path. For a proposal, keep the original approach while exploring a shorter version or a different audience. It is a useful way to compare alternatives while preserving the work that led to them. The release also adds editable prompt queues, giving you more control over what comes next while an agent is working.</p>
+<p class="oc2-source">Source: <a href="https://github.com/openclaw/openclaw/releases/tag/v2026.8.1" target="_blank" rel="noopener noreferrer">conversation and prompt-queue release notes</a>.</p>
+<h3>Memory gets a more deliberate role</h3>
+<p>Active Memory can retrieve bounded context from the same agent’s other eligible private conversations. On personal installations without configured direct-message isolation, cross-conversation recall defaults on when the required memory feature is enabled. Groups and channels are excluded from this recall path, and you can turn it off.</p>
+<p>A separate feature, Dreaming, consolidates sufficiently strong material into longer-term memory. It is enabled by default, uses provenance and validation checks, and exposes a Dream Diary for inspection. It is background context maintenance, not a guarantee that everything you say will be remembered correctly.</p>
+<p class="oc2-source">Sources: <a href="https://docs.openclaw.ai/concepts/active-memory">Active Memory</a> · <a href="https://docs.openclaw.ai/concepts/dreaming">Dreaming and its controls</a>.</p>
+<p>For real projects, the benefit is less repeated briefing. Keep durable preferences separate from temporary instructions: “use our editorial style” can outlive a session; “ignore this draft” probably should not become a permanent rule. Review what your assistant retains as the project changes.</p>
+<h3>Useful procedures can become reusable skills</h3>
+<p>Self-learning turns successful work and corrections into procedures that future sessions can reuse through Skill Workshop. The default automatic mode can apply eligible scanner-approved changes; review-first and disabled modes are available. This changes skills and instructions, not the underlying model’s weights.</p>
+<p>A repeatable export checklist is a sensible candidate. An unverified shortcut that happened to work once is not. The practical habit is to inspect learned procedures the way you would inspect a colleague’s checklist before relying on it.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/tools/self-learning">self-learning and Skill Workshop</a>.</p>
+<h3>Results can become interactive dashboards</h3>
+<p>OpenClaw can show widgets in chat and pin them to session dashboards with tabs and resizable layouts. A conversation can become an ongoing project view instead of a sequence of static replies. Render-only widgets have network access disabled; additional data, network or action capabilities follow the session’s permission policy.</p>
+<p>That opens a practical pattern: ask for a view, inspect it, then refine it. A dashboard could show milestones, a comparison table or a weekly workload. Connected data still needs an appropriate source and permission; an attractive widget does not make its numbers trustworthy.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/web/dashboards">session dashboards, widgets and grants</a>.</p></section>
+<section id="local-models"><h2>A stronger foundation for local AI</h2>
+<p>OpenClaw’s new managed llama.cpp path can install and supervise a local server after consent, or connect to a server you already operate. Managed mode also supports local memory embeddings. The distinction matters: connecting to an existing llama-server does not automatically provide the managed embedding setup.</p>
+<p>LocalClaw already supports <strong>LM Studio</strong> for local inference. That is a separate setup path from upstream’s managed llama.cpp onboarding. Compatibility with OpenClaw 2.0 does not mean every upstream model selector has been reproduced in LocalClaw’s native interface.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/plugins/llama-cpp">official llama.cpp provider documentation</a>. LocalClaw’s available paths are described on the <a href="/pricing">app page</a>.</p>
+<p>Choose your first model for the work you actually do. For short drafting, responsiveness may matter more than maximum context. For agents, reliable tool use matters. For image tasks, the selected model needs vision support. Keep enough memory available for macOS and your other applications, and test a representative task before building an elaborate automation around a model.</p>
+<div class="oc2-note"><p><strong>Start practical.</strong> Use the <a href="/llm-list">LocalClaw model catalogue</a> and <a href="/ram-gpu-for-local-ai">RAM and GPU guide</a> to narrow your choices, then verify the model with your own documents and workflows. A downloadable model is not automatically a comfortable fit for your Mac.</p></div></section>
+<section id="control"><h2>More capability, with clearer controls</h2>
+<h3>Credentials have a safer entry point</h3>
+<p>The new secrets tool can request a credential through a masked prompt. The value goes to the Gateway’s store without appearing in that request’s chat transcript or model context. The prompt identifies the requester and lets you review allowed destinations. OpenClaw also documents an opt-in protected-secret egress mechanism.</p>
+<p>Use the dedicated credential flow instead of pasting keys into ordinary messages. This protection has a defined scope: it is not a promise that every environment variable, plugin or external service handles secrets identically.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/tools/secrets">credential requests and secret handling</a>.</p>
+<h3>Repeated work can receive a precise standing approval</h3>
+<p>For supported automation execution, a standing grant can cover an exact operation, tied to its agent, job configuration, command, working directory and environment. Change the job or operation and the grant no longer applies. You can inspect and revoke these permissions.</p>
+<p>The useful distinction is between approving a particular recurring report and giving an assistant unrestricted authority. Define the first clearly. Avoid assuming an approval for one task extends to a different recipient, folder or command.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/tools/exec-approvals">standing grants for automations</a>.</p>
+<h3>Plugins deserve an intentional installation</h3>
+<p>Providers and integrations increasingly arrive as separate packages. Installation can involve credentials, capability review and a Gateway restart. Treat a plugin as code you are choosing to run. Official distribution and security signals help evaluation but do not remove the need to understand its access.</p>
+<p>LocalClaw can open Terminal for some OpenClaw plugin permission reviews. Routine native controls make everyday work easier; advanced configuration may still require a command-line step.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/tools/plugin">OpenClaw plugin installation and verification</a>.</p></section>
+<section id="agents"><h2>Agent work can reach beyond one machine</h2>
+<p>OpenClaw supports placing session execution on the Gateway, a paired device or a cloud worker. The Gateway retains the conversation and placement state, while remote machines execute the work. Model-provider credentials remain with the Gateway through proxied inference. Remote capacity still needs configuration and may carry service costs.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/gateway/cloud-sessions">cloud sessions and paired-device execution</a>.</p>
+<p>There is also <strong>Swarm</strong>, an experimental way to coordinate parallel subagents through Code Mode, collect structured results and follow progress. It is opt-in and disabled by default under Labs. Existing tool and agent policies still apply.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/tools/swarm">experimental Swarm documentation</a>.</p>
+<p>Parallelism makes sense when tasks are independent: separate research questions, different review areas, or isolated experiments. It is less useful when every step depends on the previous result. Start with a single agent and a visible goal before multiplying workers.</p></section>
+<section id="localclaw"><h2>OpenClaw underneath. LocalClaw on your Mac.</h2>
+<p>OpenClaw is the free, open-source foundation. <strong>LocalClaw is a separate, optional paid Mac app</strong> for managing and using an OpenClaw setup through a native workspace. Buying LocalClaw is not a requirement for using OpenClaw, and LocalClaw is not the OpenClaw project’s official app.</p>
+<p>LocalClaw brings together Chat with project context and image attachments, a Developer workspace with Git and local previews, Goals, agents, channels, scheduled work and Kanban. The appeal is continuity: keep the project, conversation and operating controls close enough that using your assistant becomes a normal part of your day.</p>
+<div class="oc2-table-wrap" role="region" aria-label="OpenClaw and LocalClaw comparison" tabindex="0"><table class="oc2-table"><thead><tr><th scope="col">Layer</th><th scope="col">What it provides</th></tr></thead><tbody><tr><td><strong>OpenClaw 2026.8.1</strong></td><td>The agent runtime, supported tools and providers, and upstream browser features described in this guide.</td></tr><tr><td><strong>LocalClaw for Mac</strong></td><td>A native workspace with Chat, Developer, Goals and management controls for your OpenClaw setup.</td></tr><tr><td><strong>Your model and services</strong></td><td>The inference, accounts and connected systems you select. Availability, permissions and costs vary.</td></tr></tbody></table></div>
+<p>Upstream features and native interface controls do not map one-to-one. For example, OpenClaw’s browser dashboards and experimental Swarm are upstream capabilities, not a promise of dedicated LocalClaw-native screens. The <a href="/pricing">app page</a> shows the native experience you can get today.</p>
+<div class="oc2-cta"><span class="oc2-label">Available now</span><h3>Give OpenClaw a home on your Mac.</h3><p>LocalClaw 1.0.201, build 352, is available for Apple silicon Macs running macOS 13 or later. The current Apple-notarized beta is $49 for a lifetime license.</p><div class="oc2-actions"><a class="oc2-button" href="/download">Download the Mac app ↗</a><a class="oc2-button oc2-button--secondary" href="/pricing">See features and pricing</a></div></div></section>
+<section id="workflows"><h2>Three useful first workflows</h2>
+<p>These are starting ideas, not claims that every integration is configured automatically. Adapt the inputs, permissions and selected model to your setup.</p>
+<div class="oc2-workflow"><span class="oc2-label">01 · Project companion</span><h3>Turn scattered notes into a decision brief</h3><p>Create a project in LocalClaw Chat. Add relevant context and ask for a brief separating decisions, open questions and next actions. Check it against the source material, then return to the project when new information arrives.</p><div class="oc2-prompt">“Use these project notes to prepare a one-page decision brief. Separate confirmed facts from assumptions, and ask before filling any gaps.”</div></div>
+<div class="oc2-workflow"><span class="oc2-label">02 · Development workspace</span><h3>Take one small feature from idea to review</h3><p>Use Developer with a project you can safely change. Ask for a narrowly defined improvement, inspect the Git diff, run the relevant checks and open the local preview. Keep publication separate from implementation until you have reviewed the result.</p><div class="oc2-prompt">“Add an empty state to this screen using the existing design. Keep the change small, show the diff and explain how to verify it.”</div></div>
+<div class="oc2-workflow"><span class="oc2-label">03 · Recurring project review</span><h3>Make progress visible every week</h3><p>Define a Goal, organize work in Kanban and configure a scheduled review of approved project inputs. Begin with a draft report inside your workspace. Add external delivery only after testing the report and explicitly authorizing its destination.</p><div class="oc2-prompt">“Review the project every Friday. Summarize completed work, blockers and three next actions. Keep the report here; do not send anything externally.”</div></div></section>
+<section id="updating"><h2>Get started, or update your existing setup</h2>
+<h3>New to LocalClaw?</h3>
+<ol><li><strong>Check your Mac.</strong> The current download targets Apple silicon and requires macOS 13 or later. It is not an Intel, Windows or Linux installer.</li><li><strong><a href="/download">Download LocalClaw</a> and review the <a href="/pricing">beta license</a>.</strong> Follow the app’s setup flow and select a supported model connection.</li><li><strong>Choose local or cloud deliberately.</strong> Configure LM Studio for a supported local workflow, or connect an available cloud/OAuth provider with your own account.</li><li><strong>Try one low-risk task.</strong> Verify the answer, files and permissions before connecting more accounts or scheduling unattended work.</li></ol>
+<h3>Already using LocalClaw?</h3>
+<p><strong>Update LocalClaw first, then update OpenClaw through the app’s Updates controls.</strong> Keep the app and its managed runtime on a compatible path rather than creating a second, unrelated global installation.</p>
+<p>Before a substantial runtime upgrade, make a verified backup of your existing setup. OpenClaw’s automatic configuration copy is not a complete state backup. After updating, check your conversations, model connection, agents, channels and scheduled jobs with a small real task.</p>
+<p class="oc2-source">Source: <a href="https://docs.openclaw.ai/install/updating">OpenClaw update and backup guidance</a>.</p>
+<div class="oc2-note"><p><strong>Existing custom setups need a closer look.</strong> Version 2026.8.1 removes the bundled OpenProse plugin and migrates legacy Codex provider references to <code>openai/*</code>. Some configured providers now require separate packages. Follow the release’s migration guidance if affected; do not delete working configuration just to silence an error.</p><p class="oc2-source">Source: <a href="https://github.com/openclaw/openclaw/releases/tag/v2026.8.1">breaking changes and provider migration notes</a>.</p></div></section>
+<section id="privacy"><h2>Keep privacy, cost and capability visible</h2>
+<p>Running the app on your Mac and running inference locally are different choices. A local model can keep inference on your machine, while a cloud model sends the relevant input to its provider. Connected search, messaging, plugins and remote workers have their own data paths. Review the whole workflow before treating it as offline or private.</p>
+<p>The LocalClaw license does not include unlimited cloud inference or third-party subscriptions. Supported OAuth connections follow the connected service’s availability and limits. Local inference also uses your machine’s memory, storage and electricity. None of these choices makes a weak model suddenly reliable at complex tool use.</p>
+<p>Give the assistant the smallest useful scope, inspect its output, and expand access as the workflow proves itself. A successful first week with one dependable project is a better foundation than connecting everything on the first afternoon.</p></section>
+<section id="faq" class="oc2-faq"><h2>Questions, answered</h2>
+<details><summary>Is OpenClaw 2.0 the same as 2026.8.1?</summary><p>Yes. OpenClaw 2.0 is the official launch branding, while 2026.8.1 is the stable software version released on August 31, 2026.</p></details>
+<details><summary>Is LocalClaw compatible with the new OpenClaw?</summary><p>Yes. LocalClaw now supports OpenClaw 2026.8.1. Update LocalClaw first, then use the app’s Updates controls for OpenClaw. Individual capabilities still depend on your model, plugins, permissions and configuration.</p></details>
+<details><summary>Is OpenClaw free? Why does LocalClaw cost $49?</summary><p>OpenClaw is free and open source. LocalClaw is a separate, optional native Mac app. Its current beta offer is $49 for a lifetime license. Model-provider usage and external services are separate.</p></details>
+<details><summary>Can I run everything offline?</summary><p>Not every workflow. LocalClaw supports local inference through LM Studio, but cloud models, account connections, online tools and remote services require network access. Your selected model and integrations determine where data goes.</p></details>
+<details><summary>Which Macs does the current download support?</summary><p>The current LocalClaw 1.0.201 build 352 download is Apple-notarized and targets Apple silicon Macs running macOS 13 or later. Do not use this artifact as an Intel Mac, Windows or Linux installer.</p></details>
+<details><summary>Are dashboards and Swarm native LocalClaw features?</summary><p>They are upstream OpenClaw capabilities described in this guide, not a claim of dedicated LocalClaw-native controls. Swarm is experimental, opt-in and disabled by default.</p></details>
+<details><summary>Will I ever need Terminal?</summary><p>Possibly. LocalClaw provides native controls for everyday workflows, but certain OpenClaw plugin permission reviews or advanced repair steps can still open Terminal.</p></details>
+</section>
+<div class="oc2-cta"><span class="oc2-label">Your next step</span><h3>Start with one useful task.</h3><p>The new OpenClaw gives you more room to build. LocalClaw gives you a native Mac workspace to begin. Download the app, connect your preferred model and make the first workflow yours.</p><div class="oc2-actions"><a class="oc2-button" href="/download">Get LocalClaw for Mac ↗</a><a class="oc2-button oc2-button--secondary" href="/pricing">Explore LocalClaw</a></div><p class="oc2-small">Current offer: $49 lifetime beta · Apple silicon · macOS 13+</p></div>
+<section id="sources"><h2>Sources and release scope</h2><p class="oc2-small">Checked August 31, 2026. Upstream release facts come from OpenClaw’s announcement, stable release and official documentation. Workflow examples are editorial suggestions. LocalClaw availability and native features are described on our app and download pages.</p>
+<ol class="oc2-sources">
+<li><a href="https://openclaw.ai/blog/openclaw-2-accidentally">OpenClaw 2.0 announcement · August 30</a></li>
+<li><a href="https://github.com/openclaw/openclaw/releases/tag/v2026.8.1">Stable 2026.8.1 release · August 31</a></li>
+<li><a href="https://docs.openclaw.ai/concepts/session-search">Session search</a></li>
+<li><a href="https://docs.openclaw.ai/concepts/active-memory">Active Memory</a></li>
+<li><a href="https://docs.openclaw.ai/concepts/dreaming">Dreaming</a></li>
+<li><a href="https://docs.openclaw.ai/tools/self-learning">Self-learning</a></li>
+<li><a href="https://docs.openclaw.ai/web/dashboards">Session dashboards</a></li>
+<li><a href="https://docs.openclaw.ai/plugins/llama-cpp">llama.cpp provider</a></li>
+<li><a href="https://docs.openclaw.ai/tools/secrets">Secrets</a></li>
+<li><a href="https://docs.openclaw.ai/tools/exec-approvals">Execution approvals</a></li>
+<li><a href="https://docs.openclaw.ai/tools/plugin">Plugin installation</a></li>
+<li><a href="https://docs.openclaw.ai/gateway/cloud-sessions">Cloud sessions</a></li>
+<li><a href="https://docs.openclaw.ai/tools/swarm">Experimental Swarm</a></li>
+<li><a href="https://docs.openclaw.ai/install/updating">Updating and backups</a></li>
+<li><a href="/pricing">LocalClaw features and pricing</a></li>
+<li><a href="/download">LocalClaw download and requirements</a></li>
+</ol></section>
+</article></main>
+<footer class="oc2-footer"><div class="oc2-wrap"><span>&copy; 2026 LocalClaw. Build your local AI workspace.</span><div><a href="/blog/">Journal</a><a href="/pricing">The app</a><a href="/download">Download</a><a href="/llm-list">Model catalogue</a></div></div></footer>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "OpenClaw 2.0 (2026.8.1): What’s New + LocalClaw for Mac",
+      "description": "OpenClaw 2.0 is here and LocalClaw is ready. Explore memory, dashboards, local AI, agents and safer automations, then get the native Mac app.",
+      "url": "https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac",
+      "datePublished": "2026-08-31T12:00:00+02:00",
+      "dateModified": "2026-08-31T12:00:00+02:00",
+      "inLanguage": "en",
+      "wordCount": 2488,
+      "author": {
+        "@type": "Organization",
+        "name": "LocalClaw",
+        "url": "https://localclaw.io/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "LocalClaw",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://localclaw.io/images/favicon.png?v=20260211g"
+        }
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://localclaw.io/images/pricing-carousel/home.jpg",
+        "width": 1400,
+        "height": 770
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "LocalClaw",
+          "item": "https://localclaw.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://localclaw.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "OpenClaw 2.0 and LocalClaw for Mac",
+          "item": "https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is OpenClaw 2.0 the same as 2026.8.1?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. OpenClaw 2.0 is the official launch branding, while 2026.8.1 is the stable software version released on August 31, 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is LocalClaw compatible with the new OpenClaw?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. LocalClaw now supports OpenClaw 2026.8.1. Update LocalClaw first, then use the app’s Updates controls for OpenClaw. Individual capabilities still depend on your model, plugins, permissions and configuration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is OpenClaw free? Why does LocalClaw cost $49?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OpenClaw is free and open source. LocalClaw is a separate, optional native Mac app. Its current beta offer is $49 for a lifetime license. Model-provider usage and external services are separate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I run everything offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not every workflow. LocalClaw supports local inference through LM Studio, but cloud models, account connections, online tools and remote services require network access. Your selected model and integrations determine where data goes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Macs does the current download support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The current LocalClaw 1.0.201 build 352 download is Apple-notarized and targets Apple silicon Macs running macOS 13 or later. Do not use this artifact as an Intel Mac, Windows or Linux installer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are dashboards and Swarm native LocalClaw features?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They are upstream OpenClaw capabilities described in this guide, not a claim of dedicated LocalClaw-native controls. Swarm is experimental, opt-in and disabled by default."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will I ever need Terminal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Possibly. LocalClaw provides native controls for everyday workflows, but certain OpenClaw plugin permission reviews or advanced repair steps can still open Terminal."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+</body>
+</html>

@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalClaw Pricing - Apple-Notarized macOS App for OpenClaw</title>
-    <meta name="description" content="Get LocalClaw beta lifetime access for $49 one-time. Apple-notarized macOS DMG for OpenClaw setup, local models, agents, cron jobs, Kanban and updates.">
+    <title>OpenClaw 2.0 for Mac | LocalClaw Native App · $49 Lifetime</title>
+    <meta name="description" content="OpenClaw 2.0 is here. LocalClaw 1.0.201 supports OpenClaw 2026.8.1 on Apple Silicon Macs. Native setup, chat, local models and updates. $49 lifetime beta access.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/pricing">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/pricing">
-    <meta property="og:title" content="LocalClaw for macOS - Apple-Notarized DMG">
-    <meta property="og:description" content="Install and manage OpenClaw from an Apple-notarized native macOS beta app. One-time $49 lifetime access, no subscription.">
+    <meta property="og:title" content="OpenClaw 2.0. Ready for your Mac. | LocalClaw">
+    <meta property="og:description" content="The new OpenClaw, a native Mac control center. LocalClaw 1.0.201 supports OpenClaw 2026.8.1. Download the Apple-notarized app. $49 lifetime beta access.">
     <meta property="og:site_name" content="LocalClaw">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LocalClaw for macOS - Apple-Notarized DMG">
-    <meta name="twitter:description" content="Native Apple-notarized macOS app for OpenClaw setup, local models, agents and updates. $49 one-time.">
+    <meta name="twitter:title" content="OpenClaw 2.0. Ready for your Mac. | LocalClaw">
+    <meta name="twitter:description" content="LocalClaw 1.0.201 is ready for OpenClaw 2026.8.1. Native Mac setup, chat, models and updates. Apple-notarized DMG. $49 lifetime beta access.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <meta name="theme-color" content="#faf9f6">
@@ -27,37 +27,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
     <link rel="preload" as="image" href="images/pricing-carousel/home.jpg?v=20260602" fetchpriority="high">
 
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Space Grotesk', 'Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    },
-                    colors: {
-                        claw: {
-                            bg: '#050505',
-                            surface: '#0f0f11',
-                            border: '#27272a',
-                            primary: '#ff453a',
-                            accent: '#ff6d64',
-                            text: '#ffffff',
-                            muted: '#a1a1aa'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a&amp;openclaw=20260831a">
     <link rel="stylesheet" href="css/style.css?v=20260822a">
 
     <style>
@@ -135,12 +109,126 @@
         }
 
         .hero-title {
-            font-size: clamp(3.1rem, 8vw, 6.8rem);
-            line-height: 0.9;
+            font-size: clamp(3.1rem, 5.9vw, 5.3rem);
+            line-height: 0.98;
             letter-spacing: -0.05em;
         }
 
-        .hero-copy {
+        .hero-title span { display: block; }
+        .hero-title > span:first-child { font-size: 0.82em; white-space: nowrap; line-height: 1.12; }
+
+        .hero-product-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 22px;
+            color: var(--claw-muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-product-name img { width: 28px; height: 28px; }
+
+        .compatibility-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 24px;
+            border: 1px solid rgba(255, 69, 58, 0.3);
+            border-radius: 16px;
+            background: rgba(255, 69, 58, 0.045);
+        }
+
+        .compatibility-bar strong { display: block; font-size: 15px; }
+        .compatibility-bar p { margin: 5px 0 0; color: var(--claw-muted); font-size: 13px; }
+
+        .release-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--claw-orange-soft);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .release-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+        .release-section { padding-top: 70px; padding-bottom: 52px; }
+
+        .release-heading-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .release-heading-row .section-heading { margin-bottom: 0; max-width: 700px; }
+        .release-heading-row > .release-link { flex: 0 0 auto; padding-bottom: 6px; }
+
+        .release-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+        .release-card {
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            border: 1px solid var(--claw-border);
+            border-radius: 20px;
+            background: linear-gradient(140deg, rgba(255, 69, 58, 0.045), var(--claw-card) 75%);
+        }
+
+        .release-card-number {
+            position: absolute;
+            top: 22px;
+            right: 25px;
+            color: var(--claw-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .release-card .feature-icon { margin-bottom: 25px; }
+        .release-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 27px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.2; }
+        .release-card p { color: var(--claw-muted); font-size: 15px; line-height: 1.7; margin-top: 12px; max-width: 465px; }
+
+        .release-scope {
+            margin-top: 20px;
+            color: var(--claw-muted);
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 940px;
+        }
+
+        .native-benefits { padding-top: 20px; padding-bottom: 48px; }
+        .native-benefits .card { padding: 27px; }
+        .native-benefits h3 { font-size: 22px; letter-spacing: -0.03em; line-height: 1.25; }
+
+        .update-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: 38px;
+            padding: 34px;
+            border: 1px solid var(--claw-border);
+            border-radius: 22px;
+            background: var(--claw-card);
+        }
+
+        .update-panel h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.07; letter-spacing: -0.035em; }
+        .update-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; counter-reset: update-step; }
+        .update-steps li { position: relative; padding-left: 44px; counter-increment: update-step; }
+        .update-steps li::before { content: counter(update-step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid rgba(255, 69, 58, 0.32); border-radius: 8px; color: var(--claw-orange-soft); font: 600 12px 'JetBrains Mono', monospace; }
+        .update-steps strong { font-size: 15px; }
+        .update-steps p { margin-top: 4px; color: var(--claw-muted); font-size: 14px; line-height: 1.6; }
+
+        .preview-release-note { padding: 13px 18px; border-top: 1px solid var(--claw-border); color: var(--claw-muted); font-size: 11px; line-height: 1.5; }
+        .preview-release-note strong { color: var(--claw-orange-soft); }
+        .purchase-disclosure { color: var(--claw-muted); font-size: 12px; line-height: 1.65; margin-top: 16px; max-width: 555px; }
+
+        .cta-primary:focus-visible, .cta-secondary:focus-visible, .release-link:focus-visible { outline: 3px solid var(--claw-orange-soft); outline-offset: 5px; }
+
+        .app-hero-copy {
             max-width: 610px;
             color: var(--claw-muted);
             font-size: clamp(1.05rem, 2vw, 1.25rem);
@@ -484,6 +572,8 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 
+        .screenshot-panel .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
         .compare-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -777,6 +867,11 @@
                 padding-top: 48px;
             }
 
+            .hero-grid > div:first-child { max-width: 740px; }
+            .hero-title { font-size: clamp(3.5rem, 8.8vw, 5.7rem); }
+            .release-heading-row { align-items: flex-start; flex-direction: column; }
+            .update-panel { grid-template-columns: 1fr; gap: 28px; }
+
             .app-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -789,8 +884,18 @@
             }
 
             .hero-title {
-                font-size: clamp(3rem, 15vw, 4.2rem);
+                font-size: clamp(2.85rem, 12.3vw, 4.2rem);
             }
+
+            .hero-grid { gap: 28px; padding-top: 32px; padding-bottom: 28px; }
+            .hero-product-name { margin-bottom: 16px; }
+            .release-section { padding-top: 46px; padding-bottom: 36px; }
+            .release-grid { grid-template-columns: 1fr; }
+            .release-card { padding: 25px; }
+            .compatibility-bar, .update-panel { padding: 22px; }
+            .compatibility-bar strong { line-height: 1.6; }
+            .release-card h3 { font-size: 25px; }
+            .hero-grid .pill { font-size: 10px; letter-spacing: 0.08em; }
 
             .cta-row,
             .cta-primary,
@@ -823,7 +928,8 @@
             }
 
             .quick-specs,
-            .app-grid {
+            .app-grid,
+            .screenshot-panel .app-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -925,41 +1031,37 @@
     <main class="relative z-10 flex-grow">
         <section class="pricing-container hero-grid">
             <div>
-                <div class="pill mono-label mb-6"><span class="pill-dot"></span> Apple-notarized beta access</div>
+                <div class="pill mono-label mb-6"><span class="pill-dot"></span> Now compatible · OpenClaw 2026.8.1</div>
+                <p class="hero-product-name"><img src="/images/crab-logo.png" alt="" width="28" height="28">LocalClaw · The native app for macOS</p>
                 <h1 class="hero-title font-display font-extrabold text-white">
-                    LocalClaw <br><span class="text-claw-primary">for macOS</span>
+                    <span>OpenClaw 2.0.</span><span class="text-claw-primary">Ready for<br>your Mac.</span>
                 </h1>
-                <p class="hero-copy mt-6">
-                    A native control center for OpenClaw. Install once, manage local models, agents, channels, cron jobs and Kanban work from your Mac.
+                <p class="app-hero-copy mt-6">
+                    A major new chapter for OpenClaw. A native Mac app to make it yours. Set up your runtime, choose your models, chat with your agents and manage updates from LocalClaw.
                 </p>
                 <div id="pricing-recommendation-context" class="recommendation-context" hidden>
                     Your LocalClaw recommendation: <strong id="pricing-recommendation-name"></strong>
                     <span id="pricing-recommendation-spec"></span>. Continue with the same model and quantization in the guided macOS setup.
                 </div>
                 <div class="cta-row">
-                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero" data-fast-goal-product="localclaw_lifetime" data-fast-goal-price="49" data-fast-goal-currency="USD">Get lifetime beta access · $49</a>
-                    <a class="returning-customer-link" href="/downloads/localclaw.dmg" data-fast-goal="download_dmg_click" data-fast-goal-source="pricing_hero">Already purchased? Download the latest DMG →</a>
+                    <a class="cta-primary" href="/download" data-fast-goal="download_page_click" data-fast-goal-source="pricing_hero_openclaw2">Download for Mac <span aria-hidden="true">↓</span></a>
+                    <a class="cta-secondary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_hero" data-fast-goal-product="localclaw_lifetime" data-fast-goal-price="49" data-fast-goal-currency="USD">Get lifetime access · $49</a>
                 </div>
-                <p class="microcopy">Secure Stripe checkout. Your license key appears after payment. No subscription.</p>
-                <div class="purchase-flow" aria-label="What happens after purchase">
-                    <div><b>1 · Checkout</b>Pay once through Stripe.</div>
-                    <div><b>2 · License</b>Copy the key shown after payment.</div>
-                    <div><b>3 · Install</b>Download the Apple-notarized DMG.</div>
-                </div>
+                <p class="microcopy">Apple Silicon · macOS 13+ · Apple-notarized DMG</p>
                 <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
-                    <a href="/download#current-build">v1.0.201 · current macOS build</a>
-                    <span>Apple-notarized DMG</span>
-                    <span>$49 one-time · lifetime access</span>
+                    <a href="/download#current-build">LocalClaw v1.0.201</a>
+                    <span>$49 one-time beta license</span>
                     <span>No subscription</span>
-                    <span>Web recommender stays free</span>
                 </div>
+                <p class="purchase-disclosure">The download requires a paid LocalClaw license to activate. OpenClaw itself is free and open source; LocalClaw is the optional native Mac app. Already have a license? Use it with the latest download.</p>
+                <a class="release-link mt-5" href="/blog/openclaw-2026-8-1-localclaw-mac" data-fast-goal="blog_article_click" data-fast-goal-source="pricing_hero">What changed in OpenClaw 2.0? <span aria-hidden="true">→</span></a>
             </div>
 
             <aside class="product-window" aria-label="LocalClaw macOS app preview">
                 <div class="product-titlebar">
                     <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
                         <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.201 beta</div>
-                    <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Local LLM</div>
+                    <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Native Mac app</div>
                 </div>
                 <div class="product-shot">
                     <button class="carousel-frame" type="button" onclick="openLightbox()" aria-label="Open LocalClaw app screenshot" data-fast-goal="pricing_screenshot_open" data-fast-goal-source="pricing_carousel">
@@ -1014,10 +1116,100 @@
                         </div>
                     </div>
                 </div>
+                <div class="preview-release-note"><strong>Real LocalClaw app screenshots.</strong> Interface previews are illustrative; screen details can evolve between beta builds.</div>
             </aside>
         </section>
 
-        <section class="pricing-container section">
+        <section class="pricing-container" aria-label="Current OpenClaw compatibility">
+            <div class="compatibility-bar">
+                <div>
+                    <strong>LocalClaw 1.0.201 <span aria-hidden="true">↔</span> OpenClaw 2026.8.1</strong>
+                    <p>OpenClaw 2.0 compatibility is here. Update LocalClaw first, then your OpenClaw runtime.</p>
+                </div>
+                <a href="#upgrade-openclaw" class="release-link">Already using LocalClaw? <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+
+        <section class="pricing-container section release-section" id="openclaw-2">
+            <div class="release-heading-row">
+                <div class="section-heading">
+                    <div class="mono-label text-xs text-claw-primary mb-3">New in OpenClaw 2.0</div>
+                    <h2 class="font-display font-bold text-white">More context.<br>More ways to get things done.</h2>
+                    <p>OpenClaw’s new release expands what your assistant can remember, how you work with conversations and what it can put on screen. LocalClaw is ready for the supported 2026.8.1 runtime.</p>
+                </div>
+                <a class="release-link" href="/blog/openclaw-2026-8-1-localclaw-mac" data-fast-goal="blog_article_click" data-fast-goal-source="pricing_release">Explore the full release <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="release-grid">
+                <article class="release-card">
+                    <span class="release-card-number" aria-hidden="true">01 / CONTEXT</span>
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M8 4H5v16h14V4h-3M8 4v4h8V4H8ZM8 12h8M8 16h5"/></svg></div>
+                    <h3>Memory gets a bigger role.</h3>
+                    <p>The new memory system is a headline OpenClaw 2.0 change, helping turn useful context into something your assistant can work with beyond a single conversation.</p>
+                </article>
+                <article class="release-card">
+                    <span class="release-card-number" aria-hidden="true">02 / CONVERSATIONS</span>
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6 4v16M6 8h5a6 6 0 006-6M6 15h5a6 6 0 016 6"/><circle cx="6" cy="4" r="2"/><circle cx="6" cy="20" r="2"/></svg></div>
+                    <h3>Find the thread. Try another path.</h3>
+                    <p>Searchable conversations and branching make it easier to revisit work and explore a different direction without losing the conversation that got you there.</p>
+                </article>
+                <article class="release-card">
+                    <span class="release-card-number" aria-hidden="true">03 / INTERACTION</span>
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" stroke-width="1.7"/><path d="M3 9h18M9 9v12M12 14h5M12 17h3" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+                    <h3>Go beyond a wall of text.</h3>
+                    <p>Interactive widgets give OpenClaw a richer way to present information and actions. A useful next step for assistants that can turn a response into something you can interact with.</p>
+                </article>
+                <article class="release-card">
+                    <span class="release-card-number" aria-hidden="true">04 / MODEL CHOICE</span>
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.7"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4M9 9h6v6H9z" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+                    <h3>Your assistant. Your model setup.</h3>
+                    <p>Explore the release’s local model direction, then use LocalClaw’s native model controls to configure LM Studio, cloud or OAuth modes for your own hardware and needs.</p>
+                </article>
+            </div>
+            <p class="release-scope">These are OpenClaw release highlights, not a promise that every upstream interface is built into LocalClaw. Availability depends on the OpenClaw runtime, interface, model provider and plugins. Experimental features, including Swarm, are not guaranteed in the native app. <a class="text-claw-primary hover:underline" href="https://openclaw.ai/blog/openclaw-2-accidentally" target="_blank" rel="noopener">Read the official announcement</a>.</p>
+        </section>
+
+        <section class="pricing-container section native-benefits" aria-labelledby="native-benefits-title">
+            <div class="section-heading">
+                <div class="mono-label text-xs text-claw-primary mb-3">Inside the LocalClaw Mac app</div>
+                <h2 id="native-benefits-title" class="font-display font-bold text-white">Make the new runtime<br>part of your everyday work.</h2>
+                <p>A native SwiftUI workspace brings the practical controls together, from your first install to your next project.</p>
+            </div>
+            <div class="app-grid">
+                <article class="card card-hot">
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v12H8l-4 3V5ZM8 9h8M8 13h5"/></svg></div>
+                    <h3 class="font-display font-bold text-white">Keep the project in the conversation.</h3>
+                    <p class="text-sm text-claw-muted mt-3 leading-relaxed">OpenClaw Chat brings project memory and image attachments into your native workspace, with your model choice close at hand.</p>
+                </article>
+                <article class="card">
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></svg></div>
+                    <h3 class="font-display font-bold text-white">Build with your workspace in view.</h3>
+                    <p class="text-sm text-claw-muted mt-3 leading-relaxed">Developer workspaces, Git and GitHub actions, plus a local preview help connect a conversation to the project you are actually building.</p>
+                </article>
+                <article class="card">
+                    <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg></div>
+                    <h3 class="font-display font-bold text-white">Give recurring work a home.</h3>
+                    <p class="text-sm text-claw-muted mt-3 leading-relaxed">Manage agents, connect channels, schedule cron jobs and organize Kanban tasks without scattering the controls across your workflow.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="pricing-container section" id="upgrade-openclaw">
+            <div class="update-panel">
+                <div>
+                    <div class="mono-label text-xs text-claw-primary mb-3">For existing users</div>
+                    <h2 class="font-display font-bold text-white">Your next update<br>starts here.</h2>
+                    <p class="text-sm text-claw-muted mt-4 leading-relaxed">The order matters: update the Mac app before upgrading the OpenClaw runtime.</p>
+                    <a href="/download" class="release-link mt-5" data-fast-goal="download_page_click" data-fast-goal-source="pricing_upgrade">Get the latest LocalClaw <span aria-hidden="true">→</span></a>
+                </div>
+                <ol class="update-steps">
+                    <li><strong>Update LocalClaw to 1.0.201.</strong><p>Download the current Apple-notarized Mac build. Existing customers can use their license key.</p></li>
+                    <li><strong>Open Updates and upgrade OpenClaw.</strong><p>Use LocalClaw’s Updates screen to move to the supported 2026.8.1 runtime. LocalClaw creates and verifies a runtime state backup first.</p></li>
+                    <li><strong>Check your setup, then get back to work.</strong><p>Review runtime health in Control Center and your selected model in Models. Keep a separate backup of project workspaces; the normal runtime backup does not include them.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="pricing-container section" id="lifetime-access">
             <div class="split-panel">
                 <div class="price-panel">
                     <div class="mono-label text-xs text-claw-primary mb-4">One-time beta offer</div>
@@ -1026,7 +1218,7 @@
                         <div class="pb-3 text-claw-muted font-semibold">lifetime</div>
                     </div>
                     <p class="text-claw-muted leading-relaxed">
-                        This is paid beta access to the native LocalClaw app. The free web model recommender stays free.
+                        One payment for your native OpenClaw workspace. This is a lifetime beta license for LocalClaw, including the current OpenClaw 2.0 compatibility update.
                     </p>
                     <div class="feature-list">
                         <div class="feature-line">
@@ -1051,18 +1243,25 @@
                         </div>
                         <div class="feature-line">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M5 13l4 4L19 7"/></svg>
-                            Fully local with LM Studio; cloud and OAuth modes remain optional.
+                            Local inference with LM Studio; optional cloud and OAuth provider modes.
                         </div>
                     </div>
                     <div class="cta-row">
                         <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_price_panel" data-fast-goal-product="localclaw_lifetime" data-fast-goal-price="49" data-fast-goal-currency="USD">Buy lifetime access</a>
                     </div>
+                    <p class="microcopy">Secure Stripe checkout. Your license key appears after payment. No LocalClaw subscription.</p>
+                    <div class="purchase-flow" aria-label="What happens after purchase">
+                        <div><b>1 · Checkout</b>Pay once through Stripe.</div>
+                        <div><b>2 · License</b>Copy the key shown after payment.</div>
+                        <div><b>3 · Install</b>Download and activate the app.</div>
+                    </div>
+                    <p class="purchase-disclosure">OpenClaw is free and open source. Optional third-party models, cloud services and API usage may have separate costs.</p>
                 </div>
 
                 <div class="screenshot-panel">
                     <div class="section-heading mb-5">
                         <div class="mono-label text-xs text-claw-primary mb-3">What you are buying</div>
-                        <h2 class="font-display font-bold text-white">The native dashboard, not just a model quiz.</h2>
+                        <h2 class="font-display font-bold text-white">All your controls.<br>One native home.</h2>
                         <p>LocalClaw gives OpenClaw a macOS control surface: setup, health, models, channels, agents and scheduled work in one place.</p>
                     </div>
                     <div class="app-grid">
@@ -1115,16 +1314,16 @@
 
         <section class="pricing-container section">
             <div class="section-heading">
-                <div class="mono-label text-xs text-claw-primary mb-3">Clear choice</div>
-                <h2 class="font-display font-bold text-white">Free compatibility guide or paid beta app?</h2>
-                <p>The free website helps you choose compatible models, software and hardware. The paid app helps you operate OpenClaw locally from macOS.</p>
+                <div class="mono-label text-xs text-claw-primary mb-3">Choose your way in</div>
+                <h2 class="font-display font-bold text-white">OpenClaw is free.<br>The native Mac app is optional.</h2>
+                <p>Use the open-source project directly, or choose LocalClaw for native setup and everyday controls. Our web model recommender and hardware guides stay free too.</p>
             </div>
             <div class="compare-grid">
                 <article class="card">
-                    <div class="mono-label text-xs text-claw-muted mb-4">Free website</div>
-                    <h3 class="text-2xl font-display font-bold text-white">Local AI compatibility guide</h3>
-                    <p class="text-claw-muted mt-3 leading-relaxed">Explore LLM, Voice, Image, Video, 3D, Music and Vision catalogues, filter by RAM and hardware, then compare software and computer guides.</p>
-                    <a href="/" class="cta-secondary mt-6" data-fast-goal="recommender_start" data-fast-goal-source="pricing_compare">Explore the free guide</a>
+                    <div class="mono-label text-xs text-claw-muted mb-4">Free and open source</div>
+                    <h3 class="text-2xl font-display font-bold text-white">OpenClaw on your own</h3>
+                    <p class="text-claw-muted mt-3 leading-relaxed">Install and configure OpenClaw directly using the project’s documentation and tools. You do not need to buy LocalClaw to use OpenClaw 2.0.</p>
+                    <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener" class="cta-secondary mt-6">Explore OpenClaw</a>
                 </article>
                 <article class="card card-hot">
                     <div class="mono-label text-xs text-claw-primary mb-4">Paid beta app</div>
@@ -1138,9 +1337,25 @@
         <section class="pricing-container section">
             <div class="section-heading">
                 <div class="mono-label text-xs text-claw-primary mb-3">Need details?</div>
-                <h2 class="font-display font-bold text-white">Everything important, without the noise.</h2>
+                <h2 class="font-display font-bold text-white">Before you make it yours.</h2>
             </div>
 
+            <details class="info-detail" open>
+                <summary>Is LocalClaw compatible with OpenClaw 2.0?</summary>
+                <div class="detail-body">Yes. LocalClaw 1.0.201 supports OpenClaw 2026.8.1, the stable release associated with the OpenClaw 2.0 launch, and retains the 2026.7.1 runtime path. Update LocalClaw first, then use the app’s Updates screen to upgrade OpenClaw. See the <a href="/blog/openclaw-2026-8-1-localclaw-mac" class="text-claw-primary hover:underline">full OpenClaw 2.0 guide</a> for the release details and upgrade checklist.</div>
+            </details>
+            <details class="info-detail">
+                <summary>Does every OpenClaw 2.0 feature have a native LocalClaw screen?</summary>
+                <div class="detail-body">No. LocalClaw provides native controls for its documented workflows, including setup, updates, models, Chat, Developer workspaces, agents, channels, cron jobs and Kanban. OpenClaw’s own features and interfaces depend on runtime version, provider, plugins and configuration. The launch’s interactive widgets, branching interfaces and experimental Swarm should not be read as a guarantee of equivalent native LocalClaw screens.</div>
+            </details>
+            <details class="info-detail">
+                <summary>Do I need to pay for OpenClaw 2.0?</summary>
+                <div class="detail-body">OpenClaw is free and open source. The $49 one-time price is for the optional native LocalClaw macOS app and its beta lifetime license. Cloud model providers, APIs and other third-party services can charge separately; they are not included in the LocalClaw license.</div>
+            </details>
+            <details class="info-detail">
+                <summary>What should I back up before upgrading?</summary>
+                <div class="detail-body">LocalClaw creates and verifies a runtime state backup before replacing OpenClaw. Its normal portable backup excludes project workspaces, so keep your own project backups as well. Review available disk space and follow the in-app checks. The retained 2026.7.1 runtime path does not mean a migrated database can always be downgraded.</div>
+            </details>
             <details class="info-detail">
                 <summary>What does beta lifetime access mean?</summary>
                 <div class="detail-body">
@@ -1150,7 +1365,7 @@
             <details class="info-detail">
                 <summary>What are the system requirements?</summary>
                 <div class="detail-body">
-                    LocalClaw is a macOS app for macOS 13 Ventura or later. Apple Silicon is recommended, Intel Macs are supported where the local AI stack works. 8 GB RAM is the minimum; 16 GB or more is strongly recommended for practical local models.
+                    The current LocalClaw download is built for Apple Silicon Macs running macOS 13 Ventura or later. 8 GB RAM is the minimum; 16 GB or more is strongly recommended for practical local models. The models you can run depend on available memory and each model’s requirements. The current packaged build is not an Intel release.
                 </div>
             </details>
             <details class="info-detail">
@@ -1190,9 +1405,9 @@
                 </div>
             </details>
             <details class="info-detail">
-                <summary>Does LocalClaw collect data?</summary>
+                <summary>Can I use local models, and what goes online?</summary>
                 <div class="detail-body">
-                    The LocalClaw website recommender runs in your browser. The app is built around local OpenClaw workflows on your machine. Payment and license activation require Stripe and a license check, but the product is designed for local AI control, not cloud data collection.
+                    LocalClaw supports local inference through LM Studio. Optional cloud and OAuth modes send requests to your chosen provider, and connected tools or channels can communicate with external services. Payment, license activation, downloads and updates require internet access. Data handling depends on the models, providers, tools and permissions you choose; a local runtime does not make every connected workflow offline.
                 </div>
             </details>
         </section>
@@ -1200,11 +1415,14 @@
         <section class="pricing-container section pb-20">
             <div class="final-cta">
                 <div>
-                    <div class="mono-label text-xs text-claw-primary mb-3">Beta access is open</div>
-                    <h2 class="font-display font-bold text-white text-3xl sm:text-5xl leading-tight">Install OpenClaw from one native Mac dashboard.</h2>
-                    <p class="text-claw-muted mt-4 max-w-2xl leading-relaxed">$49 one-time. Beta lifetime access. Apple-notarized DMG. No subscription.</p>
+                    <div class="mono-label text-xs text-claw-primary mb-3">OpenClaw 2.0 · LocalClaw 1.0.201</div>
+                    <h2 class="font-display font-bold text-white text-3xl sm:text-5xl leading-tight">The new OpenClaw.<br>Your Mac. Let’s go.</h2>
+                    <p class="text-claw-muted mt-4 max-w-2xl leading-relaxed">A native workspace for your next chapter with AI. $49 one-time beta lifetime access. No LocalClaw subscription.</p>
                 </div>
-                <a class="cta-primary shrink-0" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_final_cta" data-fast-goal-product="localclaw_lifetime" data-fast-goal-price="49" data-fast-goal-currency="USD">Get LocalClaw</a>
+                <div class="flex flex-col gap-4 shrink-0">
+                    <a class="cta-primary" href="https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04" target="_blank" rel="noopener" data-fast-goal="checkout_click" data-fast-goal-source="pricing_final_cta" data-fast-goal-product="localclaw_lifetime" data-fast-goal-price="49" data-fast-goal-currency="USD">Get LocalClaw · $49</a>
+                    <a class="cta-secondary" href="/download" data-fast-goal="download_page_click" data-fast-goal-source="pricing_final_cta">Download for Mac</a>
+                </div>
             </div>
         </section>
     </main>
@@ -1455,9 +1673,9 @@
         "@type": "SoftwareApplication",
         "@id": "https://localclaw.io/pricing#localclaw-app",
         "name": "LocalClaw",
-        "description": "Apple-notarized native macOS beta app for OpenClaw setup, local AI control, models, agents, cron jobs and Kanban.",
+        "description": "Apple-notarized native macOS beta app compatible with OpenClaw 2.0 (2026.8.1), with guided setup, local models, Chat, Developer workspaces, agents, cron jobs and Kanban.",
         "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "macOS",
+        "operatingSystem": "macOS 13 Ventura or later, Apple Silicon",
         "softwareVersion": "1.0.201",
         "url": "https://localclaw.io/pricing",
         "image": "https://localclaw.io/images/pricing-carousel/home.jpg",
@@ -1522,6 +1740,38 @@
         "mainEntity": [
             {
                 "@type": "Question",
+                "name": "Is LocalClaw compatible with OpenClaw 2.0?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. LocalClaw 1.0.201 supports OpenClaw 2026.8.1, the stable release associated with the OpenClaw 2.0 launch, and retains the 2026.7.1 runtime path. Update LocalClaw first, then use the app's Updates screen to upgrade OpenClaw."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does every OpenClaw 2.0 feature have a native LocalClaw screen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. LocalClaw provides native controls for its documented workflows. OpenClaw features and interfaces depend on runtime version, provider, plugins and configuration. Interactive widgets, branching interfaces and experimental Swarm are not a guarantee of equivalent native LocalClaw screens."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to pay for OpenClaw 2.0?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "OpenClaw is free and open source. The $49 one-time price is for the optional native LocalClaw macOS app and its beta lifetime license. Cloud model providers, APIs and other third-party services can charge separately."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What should I back up before upgrading?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "LocalClaw creates and verifies a runtime state backup before replacing OpenClaw. Its normal portable backup excludes project workspaces, so keep separate project backups. Review disk space and follow the in-app checks. Retaining the 2026.7.1 runtime path does not guarantee that a migrated database can be downgraded."
+                }
+            },
+            {
+                "@type": "Question",
                 "name": "What does LocalClaw beta lifetime access include?",
                 "acceptedAnswer": {
                     "@type": "Answer",
@@ -1541,7 +1791,7 @@
                 "name": "What are the LocalClaw app system requirements?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "LocalClaw requires macOS 13 Ventura or later. 8 GB RAM is the minimum, and 16 GB or more is recommended for practical local AI use."
+                    "text": "The current LocalClaw download is built for Apple Silicon Macs running macOS 13 Ventura or later. 8 GB RAM is the minimum, and 16 GB or more is recommended for practical local AI use. The current packaged build is not an Intel release."
                 }
             },
             {

@@ -480,7 +480,9 @@ function compactLlmsText() {
 - [Local AI Compatibility Guide](${BASE_URL}/) — hardware-aware guide to local AI models, software and computers
 - [Software directory](${BASE_URL}/software) — searchable comparison of local AI apps, model servers, inference engines and web interfaces, including Colibri; filter by system, role and use case with documented setup limits
 - [LM Studio](${BASE_URL}/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
-- [LocalClaw pricing](${BASE_URL}/pricing) — dedicated LocalClaw product, purchase and download page
+- [LocalClaw for Mac](${BASE_URL}/pricing) — optional native macOS app for OpenClaw, with $49 one-time beta lifetime access
+- [Download LocalClaw](${BASE_URL}/download) — current Apple-notarized app, requirements and update instructions
+- [OpenClaw 2.0 and LocalClaw for Mac](${BASE_URL}/blog/openclaw-2026-8-1-localclaw-mac) — August 31, 2026 release guide: OpenClaw 2026.8.1, LocalClaw 1.0.201 compatibility, new features and upgrade steps
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
 - [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
 - [Image catalogue](${BASE_URL}/image-models) - local generation and editing models

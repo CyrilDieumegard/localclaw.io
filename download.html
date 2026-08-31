@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download LocalClaw 1.0.201 for macOS | Notarized DMG</title>
-    <meta name="description" content="Download the Apple-notarized LocalClaw 1.0.201 DMG for macOS. Install and manage OpenClaw, LM Studio, local models and agents from one app.">
+    <title>Download LocalClaw for OpenClaw 2.0 | macOS App</title>
+    <meta name="description" content="Download LocalClaw 1.0.201 for Apple Silicon Macs. Compatible with OpenClaw 2.0 (2026.8.1). Notarized DMG, macOS 13+, $49 one-time activation.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/download">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/download">
     <meta property="og:title" content="Download LocalClaw 1.0.201 for macOS">
-    <meta property="og:description" content="Get the Apple-notarized LocalClaw DMG and manage OpenClaw, LM Studio, local models and agents from one native macOS app.">
+    <meta property="og:description" content="OpenClaw 2.0 is here. Get LocalClaw 1.0.201 for Apple Silicon Macs: guided setup, models, agents and updates in one native app.">
     <meta property="og:site_name" content="LocalClaw">
 
     <meta name="theme-color" content="#faf9f6" id="theme-color-meta">
@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=20260822a">
-    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">
+    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a&amp;openclaw=20260831a">
 
     <style>
         body { background: #050505; color: #FFFFFF; }.dl-btn {
@@ -99,6 +99,7 @@
     <script src="js/clarity.js?v=20260721a" defer></script>
   <link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware"><script src="/js/site-nav.js?v=20260831hardware" defer></script>
   <script src="/js/theme-toggle.js?v=20260831hardware"></script>
+    <link rel="stylesheet" href="/css/openclaw-launch-20260831.css?v=20260831a">
 </head>
 <body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
     <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
@@ -170,8 +171,9 @@
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
                     macOS · v1.0.201 · Apple-notarized
                 </div>
-                <h1 class="text-4xl sm:text-5xl font-display font-bold text-white mb-4 leading-tight">Download LocalClaw<br>Installer</h1>
-                <p class="text-claw-muted text-base leading-relaxed max-w-lg">LocalClaw installs and configures your local AI stack on Mac (LM Studio + OpenClaw). Download the Apple-notarized DMG, activate your license, and you're up and running in minutes.</p>
+                <h1 class="text-4xl sm:text-5xl font-display font-bold text-white mb-4 leading-tight">OpenClaw 2.0.<br>Meet LocalClaw.</h1>
+                <p class="text-claw-muted text-base leading-relaxed max-w-lg">LocalClaw 1.0.201 supports OpenClaw 2026.8.1, the release behind OpenClaw 2.0. Download the native Mac app for guided setup, chat, local models, agents and updates.</p>
+                <a href="/downloads/localclaw.dmg" class="dl-btn mt-5" data-fast-goal="download_dmg_click" data-fast-goal-source="download_hero_openclaw">Download LocalClaw for Mac ↓</a>
                 <div class="mt-5 rounded-xl px-4 py-3 text-sm leading-relaxed" style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.22);color:#d4d4d8;">
                     <strong class="text-white">Important:</strong> the web model recommender is free. This macOS installer is optional and requires a <strong class="text-white">$49 one-time license</strong> to activate.
                 </div>
@@ -193,7 +195,7 @@
                             <span class="px-2 py-0.5 rounded font-semibold" style="background:rgba(245,158,11,0.12);color:#fbbf24;">macOS 13+ required</span>
                             <span class="px-2 py-0.5 rounded" style="background:rgba(16,185,129,0.1);color:#34d399;">Activation required</span>
                         </div>
-                        <a href="/download#current-build" class="inline-block mt-3 text-xs font-semibold hover:underline" style="color:#FF6D64;">Current build information &rarr;</a>
+                        <a href="/changelog/localclaw-installer-v1.0.201" class="inline-block mt-3 text-xs font-semibold hover:underline" style="color:#FF6D64;">Version 1.0.201 · Build 352 · Release notes &rarr;</a>
                     </div>
                 </div>
 
@@ -214,11 +216,19 @@
                 <div class="flex items-start gap-2 mt-4 px-3 py-2.5 rounded-lg" style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);">
                     <svg class="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <p class="text-xs" style="color:#d97706;">
-                        <strong style="color:#fbbf24;">System requirements:</strong> macOS 13 Ventura or later &nbsp;·&nbsp; Apple Silicon or Intel &nbsp;·&nbsp; 8 GB RAM min.<br>
-                        <span style="color:#92400e;">⚠️ macOS 12 Monterey and earlier are not supported. Windows &amp; Linux are not supported.</span>
+                        <strong style="color:#fbbf24;">System requirements:</strong> macOS 13 Ventura or later &nbsp;·&nbsp; Apple Silicon (M-series) &nbsp;·&nbsp; 8 GB RAM app minimum; model requirements vary.<br>
+                        <span style="color:#92400e;">This build requires Apple Silicon and macOS 13+. Intel Macs, Windows and Linux are not supported by this LocalClaw app.</span>
                     </p>
                 </div>
             </div>
+
+            <section class="lc-launch lc-launch--notice" aria-labelledby="openclaw-upgrade-title">
+                <span class="lc-launch__eyebrow">Already using LocalClaw?</span>
+                <h2 id="openclaw-upgrade-title">Update the app first. Then update OpenClaw.</h2>
+                <ol><li>Update to LocalClaw 1.0.201 using the app updater, or install the current DMG above.</li><li>Open <strong>Updates</strong> in LocalClaw and follow the OpenClaw update flow. Allow space for its backup.</li><li>Complete any plugin permission review, then wait for runtime health verification. Check your model, chats and connected channels.</li></ol>
+                <p>Plugin review may open Terminal. Back up project folders separately: a runtime backup is not a backup of every project.</p>
+                <div class="lc-launch__actions"><a class="lc-launch__link" href="/blog/openclaw-2026-8-1-localclaw-mac#updating">Read the complete OpenClaw 2.0 guide →</a><a class="lc-launch__link" href="/pricing">Explore the Mac app</a></div>
+            </section>
 
             <!-- Free vs paid clarification -->
             <section class="mb-8 grid sm:grid-cols-2 gap-3" aria-label="Free recommender versus paid installer">
@@ -297,7 +307,6 @@
                             <div class="pb-4 text-sm text-claw-muted space-y-2">
                                 <p>When you launch LocalClaw for the first time, an <strong class="text-white">Activation screen</strong> will appear automatically.</p>
                                 <p>Enter the <strong class="text-white">email address</strong> you used during purchase and the <strong class="text-white">license key</strong> from your confirmation page (or backup email), then click <strong class="text-white">Activate</strong>. Activation requires a one-time internet check.</p>
-                                <p class="text-xs">You can also access the activation screen later via <strong class="text-white">LocalClaw → Settings → License</strong>.</p>
                             </div>
                         </div>
                     </div>
