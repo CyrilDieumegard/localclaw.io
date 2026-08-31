@@ -1,10 +1,14 @@
-const NAV_VERSION = '20260830a';
+const NAV_VERSION = '20260831hardware';
+
+const hardwareItems = [
+  ['computers', '/computers', 'Computers'],
+  ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU']
+];
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
   ['atlas', '/local-ai-activity-index', 'Atlas'],
-  ['computers', '/computers', 'Computers'],
-  ['ram-gpu', '/ram-gpu-for-local-ai', 'RAM/GPU'],
+  ['hardware', '', 'Hardware'],
   ['software', '/software', 'Software'],
   ['charts', '/charts', 'Charts'],
   ['diy', '/diy/', 'DIY'],
@@ -18,6 +22,15 @@ function link([key, href, label], active) {
   const account = key === 'account' ? ' lc-global-nav__link--account' : '';
   const current = key === active ? ' aria-current="page"' : '';
   return `<a href="${href}" class="lc-global-nav__link${account}" data-nav-key="${key}"${current}>${label}</a>`;
+}
+
+function navigationItem(item, active, context) {
+  if (item[0] !== 'hardware') return link(item, active);
+  const current = hardwareItems.some(([key]) => key === active) ? ' data-current="true"' : '';
+  return `<details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-${context}"${current}>Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-${context}" class="lc-global-nav__dropdown-panel">${hardwareItems.map(child => link(child, active)).join('')}</div>
+    </details>`;
 }
 
 function themeSwitcher(context) {
@@ -41,7 +54,7 @@ function siteNavigation(active = '', options = {}) {
     : item);
   const desktopItems = navigationItems.filter(item => item[0] !== 'account');
   const desktopAccount = navigationItems.find(item => item[0] === 'account');
-  const desktopNavigation = desktopItems.map(item => link(item, effectiveActive)).join('');
+  const desktopNavigation = desktopItems.map(item => navigationItem(item, effectiveActive, 'desktop')).join('');
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
@@ -60,7 +73,7 @@ function siteNavigation(active = '', options = {}) {
   <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
     <div class="lc-global-nav__mobile-inner">
       ${themeSwitcher('mobile')}
-      ${navigationItems.map(item => link(item, effectiveActive)).join('')}
+      ${navigationItems.map(item => navigationItem(item, effectiveActive, 'mobile')).join('')}
     </div>
   </div>
 </nav>`;

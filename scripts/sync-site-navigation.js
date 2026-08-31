@@ -12,6 +12,9 @@ for (const marker of [
   'href="/local-ai-activity-index"',
   'data-nav-key="atlas"',
   '>Atlas</a>',
+  'data-nav-dropdown="hardware"',
+  'data-nav-group="hardware"',
+  '>Hardware<svg',
   'href="/computers"',
   'data-nav-key="computers"',
   '>Computers</a>',
@@ -31,6 +34,20 @@ for (const marker of [
   '>My Machines</a>'
 ]) {
   if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
+}
+
+// Keep both crawlable destinations inside the disclosure in each layout.
+const hardwareGroups = [...navigationContract.matchAll(/<details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">([\s\S]*?)<\/details>/g)];
+if (hardwareGroups.length !== 2) throw new Error('Hardware must appear once per desktop/mobile navigation.');
+hardwareGroups.forEach(([group], index) => {
+  const context = index === 0 ? 'desktop' : 'mobile';
+  for (const marker of [`aria-controls="lc-hardware-${context}"`, `id="lc-hardware-${context}"`, 'href="/computers"', 'href="/ram-gpu-for-local-ai"']) {
+    if (!group.includes(marker)) throw new Error(`Hardware disclosure missing: ${marker}`);
+  }
+});
+const ungroupedNavigation = navigationContract.replace(/<details\b[\s\S]*?<\/details>/g, '');
+if (/data-nav-key="(?:computers|ram-gpu)"/.test(ungroupedNavigation)) {
+  throw new Error('Hardware destinations must not be duplicated as top-level navigation links.');
 }
 
 const desktopActions = navigationContract.match(/<div class="lc-global-nav__actions">([\s\S]*?)<\/div>\s*<button class="lc-global-nav__menu-button"/);

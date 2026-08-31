@@ -14,6 +14,7 @@
     if (path === '/vision-models' || path.indexOf('/vision/') === 0) return 'vision';
     if (path === '/new') return 'new';
     if (path === '/charts') return 'charts';
+    if (path === '/diy' || path.indexOf('/diy/') === 0) return 'diy';
     if (path === '/computers' || path.indexOf('/hardware/') === 0) return 'computers';
     if (path === '/ram-gpu-for-local-ai' || path.indexOf('/ram/') === 0) return 'ram-gpu';
     if (path === '/blog' || path.indexOf('/blog/') === 0 || path.indexOf('/case-study/') === 0) return 'blog';
@@ -31,6 +32,7 @@
   function initializeNavigation(nav) {
     var section = currentSection(window.location.pathname);
     var modelSections = ['llm', 'voice', 'image', 'video', '3d', 'music', 'vision'];
+    if (modelSections.indexOf(section) >= 0) section = 'index';
     nav.querySelectorAll('[data-nav-key]').forEach(function (link) {
       if (link.getAttribute('data-nav-key') === section) {
         link.setAttribute('aria-current', 'page');
@@ -38,27 +40,34 @@
         link.removeAttribute('aria-current');
       }
     });
-    var models = nav.querySelector('[data-nav-models]');
-    var modelsSummary = nav.querySelector('[data-nav-group="models"]');
-    if (modelsSummary) {
-      if (modelSections.indexOf(section) >= 0) modelsSummary.setAttribute('data-current', 'true');
-      else modelsSummary.removeAttribute('data-current');
-      modelsSummary.removeAttribute('aria-current');
+    var dropdowns = nav.querySelectorAll('[data-nav-dropdown]');
+    function closeDropdowns() {
+      dropdowns.forEach(function (dropdown) { dropdown.open = false; });
     }
-    if (models) {
-      models.addEventListener('click', function (event) {
-        if (event.target.closest('.lc-global-nav__models-panel a')) models.open = false;
+    dropdowns.forEach(function (dropdown) {
+      var summary = dropdown.querySelector('summary');
+      if (dropdown.querySelector('[aria-current="page"]')) summary.setAttribute('data-current', 'true');
+      else summary.removeAttribute('data-current');
+      dropdown.addEventListener('click', function (event) {
+        if (event.target.closest('a')) dropdown.open = false;
       });
-      document.addEventListener('click', function (event) {
-        if (models.open && !models.contains(event.target)) models.open = false;
+      dropdown.addEventListener('focusout', function (event) {
+        if (!dropdown.contains(event.relatedTarget)) dropdown.open = false;
       });
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && models.open) {
-          models.open = false;
-          if (modelsSummary) modelsSummary.focus();
+      dropdown.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && dropdown.open) {
+          event.preventDefault();
+          event.stopPropagation();
+          dropdown.open = false;
+          summary.focus();
         }
       });
-    }
+    });
+    document.addEventListener('click', function (event) {
+      dropdowns.forEach(function (dropdown) {
+        if (!dropdown.contains(event.target)) dropdown.open = false;
+      });
+    });
 
     var button = nav.querySelector('[data-nav-toggle]');
     var menu = nav.querySelector('[data-nav-mobile]');
@@ -66,22 +75,33 @@
 
     setOpen(button, menu, false);
     button.addEventListener('click', function () {
+      closeDropdowns();
       setOpen(button, menu, button.getAttribute('aria-expanded') !== 'true');
     });
 
     menu.addEventListener('click', function (event) {
-      if (event.target.closest('a')) setOpen(button, menu, false);
+      if (event.target.closest('a')) {
+        closeDropdowns();
+        setOpen(button, menu, false);
+      }
     });
 
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        closeDropdowns();
         setOpen(button, menu, false);
         button.focus();
       }
     });
 
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 980) setOpen(button, menu, false);
+    document.addEventListener('click', function (event) {
+      if (!nav.contains(event.target)) setOpen(button, menu, false);
+    });
+
+    var mobileLayout = window.matchMedia('(max-width: 980px)');
+    mobileLayout.addEventListener('change', function () {
+      closeDropdowns();
+      setOpen(button, menu, false);
     });
   }
 
