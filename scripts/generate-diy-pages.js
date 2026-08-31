@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
-const { DIY_VERIFIED_DATE, projects } = require('./diy-projects');
+const { DIY_VERIFIED_DATE, DIY_INDEX_MODIFIED_DATE, projects } = require('./diy-projects');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'diy');
 const BASE = 'https://localclaw.io';
-const ASSET_VERSION = '20260830a';
+const CSS_VERSION = '20260901a';
+const JS_VERSION = '20260830a';
 
 function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, character => ({
@@ -20,6 +21,14 @@ function json(value) {
 
 function route(project) {
   return `/diy/${project.slug}`;
+}
+
+function publishedDate(project) {
+  return project.publishedDate || DIY_VERIFIED_DATE;
+}
+
+function verifiedDate(project) {
+  return project.verifiedDate || DIY_VERIFIED_DATE;
 }
 
 function tracking() {
@@ -57,7 +66,7 @@ function commonHead({ title, description, canonical, image, type = 'website', sc
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css?v=20260822a">
-  <link rel="stylesheet" href="/css/diy-${ASSET_VERSION}.css">
+  <link rel="stylesheet" href="/css/diy-${CSS_VERSION}.css">
   ${siteNavAssets()}
   ${tracking()}
   <script type="application/ld+json">${json(schema)}</script>`;
@@ -111,7 +120,7 @@ function indexSchema() {
         name: 'Community DIY Builds',
         url: `${BASE}/diy/`,
         description: 'Creator-credited local AI hardware projects with original videos, source-reviewed requirements, step-by-step instructions and purchasing guidance.',
-        dateModified: DIY_VERIFIED_DATE,
+        dateModified: DIY_INDEX_MODIFIED_DATE,
         isPartOf: { '@type': 'WebSite', name: 'LocalClaw', url: `${BASE}/` },
         mainEntity: { '@id': `${BASE}/diy/#projects` }
       },
@@ -185,7 +194,7 @@ function renderIndex() {
     <p class="diy-shell diy-affiliate">Amazon links may be affiliate links. As an Amazon Associate, LocalClaw earns from qualifying purchases. Prices and availability can change.</p>
   </main>
   ${footer()}
-  <script src="/js/diy-${ASSET_VERSION}.js" defer></script>
+  <script src="/js/diy-${JS_VERSION}.js" defer></script>
 </body>
 </html>`;
 }
@@ -224,8 +233,8 @@ function detailSchema(project) {
         url: projectUrl,
         mainEntityOfPage: projectUrl,
         image: [`${BASE}${project.image}`],
-        datePublished: DIY_VERIFIED_DATE,
-        dateModified: DIY_VERIFIED_DATE,
+        datePublished: publishedDate(project),
+        dateModified: verifiedDate(project),
         author: { '@type': 'Organization', name: 'LocalClaw', url: `${BASE}/` },
         publisher: { '@type': 'Organization', name: 'LocalClaw', url: `${BASE}/`, logo: { '@type': 'ImageObject', url: `${BASE}/images/crab-logo.png` } },
         about: project.page.about,
@@ -314,8 +323,8 @@ function renderDetail(project) {
 <html lang="en" class="light">
 <head>
   ${commonHead({ title, description, canonical, image: project.image, type: 'article', schema: detailSchema(project) })}
-  <meta property="article:published_time" content="${DIY_VERIFIED_DATE}">
-  <meta property="article:modified_time" content="${DIY_VERIFIED_DATE}">
+  <meta property="article:published_time" content="${publishedDate(project)}">
+  <meta property="article:modified_time" content="${verifiedDate(project)}">
 </head>
 <body class="diy-body">
   <div class="diy-grid-bg" aria-hidden="true"></div>
@@ -339,7 +348,7 @@ function renderDetail(project) {
       <div><span>Model</span><strong>${esc(project.model.parameters)} parameters</strong><small>${esc(project.model.binarySize)}</small></div>
       <div><span>Hardware</span><strong>${esc(project.page.hardwareFact.title)}</strong><small>${esc(project.page.hardwareFact.detail)}</small></div>
       <div><span>Purpose</span><strong>${esc(project.page.purposeFact.title)}</strong><small>${esc(project.page.purposeFact.detail)}</small></div>
-      <div><span>Source status</span><strong>Reviewed ${esc(DIY_VERIFIED_DATE)}</strong><small>Creator demonstrated · not yet LocalClaw tested</small></div>
+      <div><span>Source status</span><strong>Reviewed ${esc(verifiedDate(project))}</strong><small>Creator demonstrated · not yet LocalClaw tested</small></div>
     </section>
 
     <section class="diy-shell diy-video-section" id="original-video" aria-labelledby="video-title">
@@ -391,7 +400,7 @@ function renderDetail(project) {
     <div class="diy-shell diy-back"><a href="/diy/">← Browse Community DIY Builds</a></div>
   </main>
   ${footer()}
-  <script src="/js/diy-${ASSET_VERSION}.js" defer></script>
+  <script src="/js/diy-${JS_VERSION}.js" defer></script>
 </body>
 </html>`;
 }

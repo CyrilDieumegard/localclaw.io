@@ -1,4 +1,5 @@
 const DIY_VERIFIED_DATE = '2026-08-30';
+const DIY_INDEX_MODIFIED_DATE = '2026-09-01';
 
 const projects = [
   {
@@ -719,7 +720,300 @@ const projects = [
       { label: 'Raspberry Pi 5 hardware and power guidance', url: 'https://www.raspberrypi.com/products/raspberry-pi-5/', type: 'Hardware documentation' },
       { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' }
     ]
+  },
+  {
+    slug: 'offline-voice-assistant-raspberry-pi-5',
+    title: 'Build a Raspberry Pi 5 Offline Voice Assistant',
+    cardTitle: 'Offline Voice Assistant on Raspberry Pi 5',
+    summary: 'Build a private, portable voice assistant that listens with Whisper, answers with Qwen3 through Ollama and speaks with Piper — without a cloud API.',
+    outcome: 'A battery-powered Raspberry Pi 5 assistant with a screen, microphone and speaker that can hear, think and answer locally after the required models are downloaded.',
+    image: '/images/diy/offline-voice-assistant-raspberry-pi-5.png',
+    imageAlt: 'Portable Raspberry Pi 5 voice assistant with a small display, microphone, speaker, active cooler and stacked battery board on a dark maker workbench',
+    difficulty: 'Intermediate',
+    budget: 'Complete build · price varies',
+    duration: '2–4 hours plus downloads',
+    publishedDate: '2026-09-01',
+    verifiedDate: '2026-09-01',
+    seo: {
+      title: 'Build an Offline Voice Assistant on Raspberry Pi 5 | LocalClaw',
+      description: 'Build a portable offline AI voice assistant with Raspberry Pi 5, Whisplay HAT, PiSugar, Whisper, Ollama Qwen3 and Piper. Full parts and steps.'
+    },
+    topics: ['Offline voice AI', 'Raspberry Pi 5', 'Whisplay'],
+    status: ['Creator demonstrated', 'LocalClaw source-reviewed'],
+    localClawTested: false,
+    creator: {
+      displayName: 'Jdaie Lin',
+      url: 'https://www.youtube.com/@PiSugarStudio',
+      implementationName: 'PiSugar',
+      implementationUrl: 'https://github.com/PiSugar/whisplay-ai-chatbot',
+      implementationLabel: 'Project by',
+      note: 'Jdaie Lin published the complete Raspberry Pi 5 offline build on the PiSugar Studio channel. PiSugar maintains the Whisplay hardware driver, chatbot application and battery manager used by the project.'
+    },
+    model: {
+      name: 'Qwen3 1.7B for Ollama',
+      author: 'Qwen',
+      url: 'https://huggingface.co/Qwen/Qwen3-1.7B',
+      weightsUrl: 'https://ollama.com/library/qwen3:1.7b',
+      license: 'Apache-2.0',
+      parameters: '1.7B class',
+      binarySize: '1.4 GB Ollama Q4_K_M package',
+      purpose: 'Private local voice conversation with sequential speech recognition, text generation and speech synthesis'
+    },
+    video: {
+      id: 'kFmhSTh167U',
+      title: 'Offline AI on Raspberry Pi 5 — It Talks, Thinks locally without Wi-Fi! (Complete Tutorial)',
+      url: 'https://www.youtube.com/watch?v=kFmhSTh167U',
+      embedUrl: 'https://www.youtube-nocookie.com/embed/kFmhSTh167U?rel=0&cc_load_policy=1',
+      thumbnailUrl: 'https://i.ytimg.com/vi/kFmhSTh167U/maxresdefault.jpg',
+      uploadDate: '2025-10-30T01:07:51-07:00',
+      duration: 'PT19M29S',
+      durationLabel: '19:29'
+    },
+    repository: {
+      name: 'PiSugar/whisplay-ai-chatbot',
+      url: 'https://github.com/PiSugar/whisplay-ai-chatbot',
+      license: 'GPL-3.0',
+      reviewedCommit: 'ee7301b2f7693111ee016f81c48a75d3387a7326'
+    },
+    page: {
+      about: ['offline voice assistant', 'Raspberry Pi 5', 'Whisplay HAT', 'PiSugar 3 Plus', 'Whisper', 'Ollama', 'Qwen3 1.7B', 'Piper'],
+      howToTime: 'PT4H',
+      estimatedCost: { currency: 'USD', value: '180-280' },
+      tools: ['Raspberry Pi Imager', 'SSH', 'Git', 'Whisper', 'Ollama', 'Piper'],
+      hardwareFact: { title: 'Raspberry Pi 5 8 GB', detail: 'Whisplay HAT · PiSugar 3 Plus · active cooling' },
+      purposeFact: { title: 'Offline voice conversation', detail: 'Local after models are cached; no cloud API required' },
+      videoTitle: 'Watch Jdaie Lin build the complete assistant',
+      videoIntro: 'The tutorial covers the physical stack, Raspberry Pi OS, SSH, Whisplay drivers, the chatbot, Ollama, Whisper, Piper, PiSugar power management, an offline conversation test and automatic startup.',
+      compatibilityLabel: 'Hardware gate',
+      compatibilityTitle: 'Use the Pi 5 8 GB and plan the stack before assembly',
+      compatibilityText: 'The creator recommends 8 GB or more because the combined AI stack uses roughly 4 GB in the demonstrated configuration. Active cooling is essential. The battery, cooler, stackable GPIO header and Whisplay HAT occupy the same compact area, so confirm clearances before tightening anything.',
+      verificationText: 'LocalClaw checked the parts and demonstrated flow against the original tutorial, PiSugar hardware documentation and the current Whisplay chatbot, driver and power-manager sources. The commands below use the current maintainer path at the reviewed commits rather than copying an older command transcript from the video.',
+      partsTitle: 'Buy every part for the portable build',
+      guideTitle: 'Assemble, install and prove the assistant offline',
+      guideIntro: 'The video remains the visual assembly reference. This written path independently organizes the current official commands, pins the reviewed chatbot revision and adds checks before each long download.',
+      performanceTitle: 'A real offline assistant with deliberate pauses',
+      performanceIntro: 'This is a three-stage CPU pipeline on a small computer: Whisper transcribes, Qwen3 generates and Piper synthesizes. It is private and portable, but it will not respond like a cloud smart speaker.',
+      secondaryTitle: 'Start with thinking disabled',
+      secondaryText: 'The video demonstrates Qwen3 thinking mode, but visible reasoning adds latency on Raspberry Pi 5. Validate the complete audio loop with thinking disabled first, then enable it only if the slower response is useful to you.',
+      secondaryLinkLabel: 'Open the official Qwen3 1.7B Ollama package',
+      secondaryLinkUrl: 'https://ollama.com/library/qwen3:1.7b',
+      troubleshootingIntro: 'Most failures are not model failures. Test the Whisplay hardware, each local engine and the final chatbot as separate layers before enabling automatic startup.',
+      licenseNote: 'The Whisplay chatbot and PiSugar power manager are GPL-3.0; the Whisplay hardware driver and Qwen3 model identify Apache-2.0 licensing. Piper uses GPL-3.0 and OpenAI Whisper uses MIT. LocalClaw links to the original projects and does not redistribute their code, model packages, voice files or video.',
+      faqTitle: 'Offline Raspberry Pi voice assistant FAQ',
+      sourceCta: 'Open PiSugar source'
+    },
+    requirements: [
+      { label: 'Compute', value: 'Raspberry Pi 5 with 8 GB RAM; the creator recommends 8 GB or more' },
+      { label: 'Display and audio', value: 'PiSugar Whisplay HAT with LCD, onboard microphones, speaker and button' },
+      { label: 'Battery', value: 'PiSugar 3 Plus 5000 mAh for the Raspberry Pi 5 build' },
+      { label: 'Cooling', value: 'Active cooler with confirmed clearance around the battery and HAT stack' },
+      { label: 'GPIO spacing', value: '2×20 stackable header/riser long enough to clear the cooler and expose all 40 pins' },
+      { label: 'Storage', value: '64 GB A2 microSD recommended; 32 GB is the practical minimum' },
+      { label: 'Operating system', value: 'Current 64-bit Raspberry Pi OS; SSH and network enabled during setup' },
+      { label: 'Offline boundary', value: 'Internet required for installation and model downloads, then removable for normal use' }
+    ],
+    parts: [
+      {
+        name: 'Raspberry Pi 5 8 GB',
+        requirement: 'Required',
+        description: 'Use the 8 GB model shown in the tutorial. The complete Whisper, Ollama and Piper stack uses several gigabytes and should not be presented as a comfortable 4 GB build.',
+        amazonQuery: 'Raspberry Pi 5 8GB board'
+      },
+      {
+        name: 'PiSugar Whisplay HAT',
+        requirement: 'Required',
+        description: 'This combines the small LCD, microphones, speaker, RGB LEDs and interaction button used by the assistant. Confirm it includes the speaker and mounting hardware.',
+        amazonQuery: 'PiSugar Whisplay HAT Raspberry Pi display microphone speaker'
+      },
+      {
+        name: 'PiSugar 3 Plus 5000 mAh battery',
+        requirement: 'Required for portable use',
+        description: 'Choose the Plus 5000 mAh version documented for Raspberry Pi 5, not the smaller 1200 mAh PiSugar 3 intended for lighter boards.',
+        amazonQuery: 'PiSugar 3 Plus 5000mAh Raspberry Pi 5 battery'
+      },
+      {
+        name: 'Raspberry Pi 5 active cooler',
+        requirement: 'Required',
+        description: 'Local speech and LLM inference sustain CPU load. Confirm the cooler and its fasteners clear the PiSugar underside and the raised Whisplay HAT.',
+        amazonQuery: 'official Raspberry Pi 5 active cooler'
+      },
+      {
+        name: '2×20 stackable GPIO header',
+        requirement: 'Required',
+        description: 'The riser lifts the Whisplay HAT above the cooler while passing all 40 GPIO pins through. Match the pin length and board clearance shown in the video.',
+        amazonQuery: 'Raspberry Pi 2x20 40 pin stackable GPIO header long pins'
+      },
+      {
+        name: '64 GB A2 microSD card',
+        requirement: 'Recommended',
+        description: 'Use a reputable card with room for Raspberry Pi OS, build dependencies, the 1.4 GB Qwen package, Whisper weights, a Piper voice and logs.',
+        amazonQuery: '64GB A2 microSD card Raspberry Pi'
+      },
+      {
+        name: 'Official Raspberry Pi 27 W USB-C supply',
+        requirement: 'Required for setup and charging',
+        description: 'Use stable wall power while installing and downloading models. The PiSugar battery makes the finished device portable but still needs a suitable charger.',
+        amazonQuery: 'official Raspberry Pi 5 27W USB-C power supply 5V 5A'
+      }
+    ],
+    steps: [
+      {
+        title: 'Flash Raspberry Pi OS with SSH enabled',
+        summary: 'Use Raspberry Pi Imager to write current 64-bit Raspberry Pi OS to the microSD card. Set a hostname, username, password, Wi-Fi and SSH in Imager before first boot.',
+        links: [{ label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/' }],
+        checks: ['Use 64-bit Raspberry Pi OS.', 'Keep networking enabled until every package, model and voice file is cached.', 'Record the hostname and login before ejecting the card.']
+      },
+      {
+        title: 'Dry-fit the cooler, battery, riser and Whisplay HAT',
+        summary: 'Install active cooling on the Pi 5, align the PiSugar 3 Plus underneath, add the 2×20 stackable header and seat the Whisplay HAT above the cooler. Check every pin before applying pressure.',
+        checks: ['Disconnect all power before assembly.', 'Never offset the 40-pin connector by one row.', 'Do not bend a cooler fastener unless you understand the mechanical risk shown in the creator video.', 'Confirm the HAT sits level and no metal part contacts the battery board.']
+      },
+      {
+        title: 'Install and test the current Whisplay driver',
+        summary: 'SSH into the Pi, clone the official driver, pin the revision reviewed by LocalClaw, install it and reboot. Run the hardware demo before adding any AI software.',
+        commands: [
+          'git clone https://github.com/PiSugar/Whisplay.git --depth 1',
+          'cd Whisplay',
+          'git checkout a695240f866257033414697d47c3aa4c5f9b749c',
+          'sudo bash install_driver.sh',
+          'sudo reboot'
+        ],
+        note: 'After reboot, return to ~/Whisplay/example, install its requirements and run bash run_test.sh. Do not continue until the display, button, LEDs, microphone and speaker pass the hardware test.'
+      },
+      {
+        title: 'Install the PiSugar power manager',
+        summary: 'Install the official release-channel power manager, select the PiSugar 3 model when prompted and confirm that the battery service sees the board.',
+        commands: [
+          'cd ~',
+          'wget -O pisugar-power-manager.sh https://cdn.pisugar.com/release/pisugar-power-manager.sh',
+          'bash pisugar-power-manager.sh -c release',
+          'systemctl status pisugar-server --no-pager'
+        ],
+        note: 'The official manager exposes its local web interface on port 8421. Change its default credentials before exposing that port beyond your trusted LAN.'
+      },
+      {
+        title: 'Clone and build the reviewed Whisplay chatbot',
+        summary: 'Clone the application, pin the current reviewed revision, install its system and Python dependencies, then load the Node environment added to your shell.',
+        commands: [
+          'cd ~',
+          'git clone https://github.com/PiSugar/whisplay-ai-chatbot.git',
+          'cd whisplay-ai-chatbot',
+          'git checkout ee7301b2f7693111ee016f81c48a75d3387a7326',
+          'bash install_dependencies.sh',
+          'source ~/.bashrc',
+          'bash build.sh'
+        ],
+        note: 'The current repository has evolved since the 2025 video. Pinning the reviewed commit keeps the commands and configuration fields on this page reproducible.'
+      },
+      {
+        title: 'Install and cache the three offline engines',
+        summary: 'Install Ollama and pull Qwen3 1.7B, install Whisper and cache its tiny English model, then install Piper HTTP and download one English voice.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'bash scripts/install_ollama.sh',
+          'ollama pull qwen3:1.7b',
+          'python3 -m pip install -U openai-whisper --break-system-packages',
+          'python3 -c "import whisper; whisper.load_model(\'tiny\')"',
+          "python3 -m pip install 'piper-tts[http]' --break-system-packages",
+          'mkdir -p /home/pi/piper',
+          'cd /home/pi/piper',
+          'python3 -m piper.download_voices en_US-amy-medium'
+        ],
+        note: 'The /home/pi paths match the official defaults and the creator setup. If your Raspberry Pi username is not pi, use your actual home directory consistently in .env.'
+      },
+      {
+        title: 'Configure the local voice pipeline',
+        summary: 'Run the official configuration wizard, choose Whisper for ASR, Ollama for the LLM and Piper HTTP for TTS, then verify the critical values in .env.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'whisplay configure',
+          "grep -E '^(ASR_SERVER|LLM_SERVER|TTS_SERVER|OLLAMA_MODEL|SERVE_OLLAMA|WHISPER_MODEL_SIZE_OR_PATH|PIPER_HTTP_MODEL|ENABLE_THINKING)=' .env"
+        ],
+        checks: ['ASR_SERVER=whisper', 'LLM_SERVER=ollama', 'TTS_SERVER=piper-http', 'OLLAMA_MODEL=qwen3:1.7b', 'SERVE_OLLAMA=true', 'WHISPER_MODEL_SIZE_OR_PATH=/home/pi/.cache/whisper/tiny.pt', 'PIPER_HTTP_MODEL=/home/pi/piper/en_US-amy-medium', 'ENABLE_THINKING=false for the first full test'],
+        note: 'If the wizard does not expose one of these advanced fields, edit .env directly. Never add a cloud API key for this fully local configuration.'
+      },
+      {
+        title: 'Run the chatbot and test the complete audio loop',
+        summary: 'Start the application in the foreground, press the Whisplay button, speak a short request and wait for the display and speaker response. Keep this foreground test visible until every stage works.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'bash run_chatbot.sh'
+        ],
+        prompts: ['Tell me a short joke.', 'Give me three ingredients for a pizza.', 'What can I do without an internet connection?'],
+        note: 'The first Whisper and Ollama request is slower because processes and model data are warming up. Thinking mode should remain disabled during this baseline test.'
+      },
+      {
+        title: 'Disconnect networking and enable startup only after proof',
+        summary: 'Stop the foreground process, disconnect Wi-Fi or Ethernet, repeat the same voice request, then install the startup service once the offline test succeeds.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'bash startup.sh',
+          'systemctl status chatbot --no-pager',
+          'journalctl -u chatbot -n 100 --no-pager'
+        ],
+        checks: ['Qwen3, Whisper and the Piper voice must already be present locally.', 'A successful disconnected request proves the demonstrated pipeline, not every optional plugin.', 'startup.sh switches the Pi to multi-user mode and disables the graphical desktop.', 'If whisplay-daemon is installed, follow the current repository warning instead of creating a competing legacy chatbot service.']
+      }
+    ],
+    performance: [
+      { label: 'Combined working memory', value: 'roughly 4 GB in the creator\'s demonstrated configuration' },
+      { label: 'Qwen3 Ollama package', value: '1.4 GB Q4_K_M download for qwen3:1.7b' },
+      { label: 'Response path', value: 'Whisper → Ollama/Qwen3 → Piper; each stage adds latency' },
+      { label: 'Practical verdict', value: 'Private and portable with visible pauses; not an instant smart-speaker replacement' }
+    ],
+    troubleshooting: [
+      {
+        problem: 'The Whisplay screen or audio does not work',
+        fix: 'Return to the official Whisplay example test. Recheck the 40-pin alignment, SPI/I2C/I2S driver installation and audio device before debugging Ollama or the chatbot.'
+      },
+      {
+        problem: 'Ollama answers in the terminal but the chatbot does not',
+        fix: 'Confirm LLM_SERVER=ollama, OLLAMA_MODEL=qwen3:1.7b and OLLAMA_ENDPOINT=http://localhost:11434 in .env. Run ollama list and curl the local Ollama endpoint before restarting the chatbot.'
+      },
+      {
+        problem: 'Whisper downloads again or fails after disconnecting Wi-Fi',
+        fix: 'Confirm /home/pi/.cache/whisper/tiny.pt exists and WHISPER_MODEL_SIZE_OR_PATH points to that exact file. Cache the model while online before repeating the offline test.'
+      },
+      {
+        problem: 'Piper starts but produces no audible response',
+        fix: 'Confirm both en_US-amy-medium.onnx and its JSON file exist under /home/pi/piper, verify PIPER_HTTP_MODEL uses the matching basename path, then test the Whisplay speaker independently.'
+      },
+      {
+        problem: 'The Pi becomes hot, throttles or restarts',
+        fix: 'Stop the chatbot and inspect cooling, power and GPIO-stack clearance. Use active cooling, a stable supply during setup and do not compress the cooler or battery against another board.'
+      },
+      {
+        problem: 'Responses take much longer with thinking mode',
+        fix: 'Set ENABLE_THINKING=false and restart the chatbot. Thinking produces more tokens and is an optional demonstration mode, not a requirement for a useful offline voice assistant.'
+      },
+      {
+        problem: 'startup.sh refuses because whisplay-daemon is present',
+        fix: 'Do not run two managers for the same hardware. The current project recommends registering the chatbot with whisplay-daemon; use the repository\'s current daemon path or explicitly stop and disable the daemon before choosing legacy chatbot.service mode.'
+      }
+    ],
+    faq: [
+      { question: 'Is this Raspberry Pi voice assistant really offline?', answer: 'Yes after setup, if Qwen3, the Whisper checkpoint and the Piper voice are already stored locally. Internet is still required to install packages and download those assets. Optional cloud providers or plugins are outside this offline claim.' },
+      { question: 'Why does the guide require a Raspberry Pi 5 with 8 GB?', answer: 'Jdaie Lin recommends 8 GB or more and reports that the combined AI software uses roughly 4 GB. LocalClaw keeps that demonstrated hardware gate rather than promising a comfortable 4 GB build.' },
+      { question: 'What does the Whisplay HAT add?', answer: 'It provides the small LCD, microphones, speaker, RGB LEDs and button used for the assistant interaction, avoiding a collection of separate audio and display peripherals.' },
+      { question: 'Can I use a different Ollama model?', answer: 'Yes, but qwen3:1.7b is the model demonstrated in the tutorial and the only model covered by this guide. Larger models increase memory use and latency; other models may handle thinking or tools differently.' },
+      { question: 'Do I need the PiSugar battery?', answer: 'No for a desk-only assistant, but yes for the portable build shown in the video. The PiSugar 3 Plus 5000 mAh is the documented Raspberry Pi 5 option.' },
+      { question: 'Has LocalClaw physically reproduced this build?', answer: 'No. Jdaie Lin demonstrated the finished device. LocalClaw verified the hardware list, current repositories, model package, licenses and installation path, but has not physically assembled this appliance.' }
+    ],
+    sources: [
+      { label: 'Jdaie Lin complete offline assistant video', url: 'https://www.youtube.com/watch?v=kFmhSTh167U', type: 'Video' },
+      { label: 'PiSugar Whisplay AI Chatbot source', url: 'https://github.com/PiSugar/whisplay-ai-chatbot', type: 'Source code' },
+      { label: 'Whisplay AI Chatbot GPL-3.0 license', url: 'https://github.com/PiSugar/whisplay-ai-chatbot/blob/ee7301b2f7693111ee016f81c48a75d3387a7326/LICENSE', type: 'Project license' },
+      { label: 'PiSugar Whisplay HAT driver', url: 'https://github.com/PiSugar/Whisplay', type: 'Hardware driver' },
+      { label: 'PiSugar Whisplay HAT product page', url: 'https://www.pisugar.com/products/whisplay-hat-for-pi-zero-2w-audio-display', type: 'Hardware' },
+      { label: 'PiSugar 3 series compatibility', url: 'https://docs.pisugar.com/docs/product-wiki/battery/pisugar3/pisugar-3-series', type: 'Battery documentation' },
+      { label: 'PiSugar power manager', url: 'https://github.com/PiSugar/pisugar-power-manager-rs', type: 'Battery software' },
+      { label: 'Qwen3 1.7B official model', url: 'https://huggingface.co/Qwen/Qwen3-1.7B', type: 'Model and license' },
+      { label: 'Qwen3 1.7B Ollama package', url: 'https://ollama.com/library/qwen3:1.7b', type: 'Inference package' },
+      { label: 'OpenAI Whisper source', url: 'https://github.com/openai/whisper', type: 'Speech recognition' },
+      { label: 'Piper source and CLI', url: 'https://github.com/OHF-Voice/piper1-gpl', type: 'Speech synthesis' },
+      { label: 'Raspberry Pi 5 hardware guidance', url: 'https://www.raspberrypi.com/products/raspberry-pi-5/', type: 'Hardware documentation' },
+      { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' }
+    ]
   }
 ];
 
-module.exports = { DIY_VERIFIED_DATE, projects };
+module.exports = { DIY_VERIFIED_DATE, DIY_INDEX_MODIFIED_DATE, projects };
