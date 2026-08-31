@@ -144,6 +144,14 @@
         .compatibility-bar strong { display: block; font-size: 15px; }
         .compatibility-bar p { margin: 5px 0 0; color: var(--claw-muted); font-size: 13px; }
 
+        .release-feedback { margin-top: 18px; padding: 4px 0 4px 18px; border-left: 2px solid rgba(255, 69, 58, 0.35); }
+        .release-feedback strong { display: block; font-size: 14px; }
+        .release-feedback p { max-width: 880px; margin: 7px 0 10px; color: var(--claw-muted); font-size: 13px; line-height: 1.75; }
+        .release-feedback a { color: var(--claw-orange-soft); font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+        .release-feedback a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+        html.light .release-feedback p { color: #475569; }
+        html.light .release-feedback a { color: #b7352b; }
+
         .release-link {
             display: inline-flex;
             align-items: center;
@@ -1128,6 +1136,11 @@
                 </div>
                 <a href="#upgrade-openclaw" class="release-link">Already using LocalClaw? <span aria-hidden="true">↗</span></a>
             </div>
+            <aside class="release-feedback" aria-label="Release stability and feedback">
+                <strong>New release. Your feedback matters.</strong>
+                <p>OpenClaw 2.0 has just launched, and the platform is still maturing. Some features or integrations may be unstable or behave unexpectedly. If you spot a bug or an error while using LocalClaw, please let me know. Your feedback helps me investigate issues and improve the Mac experience.</p>
+                <a href="mailto:helplocalclaw@gmail.com?subject=LocalClaw%20feedback%20-%20OpenClaw%202.0">Report a bug or share feedback <span aria-hidden="true">→</span></a>
+            </aside>
         </section>
 
         <section class="pricing-container section release-section" id="openclaw-2">
