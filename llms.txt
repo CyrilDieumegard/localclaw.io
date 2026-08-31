@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-08-28
 - Local LLM pages: 224 unique routes across 80 families
-- Local speech records: 76 across 62 families (57 TTS, 18 ASR, 1 app)
+- Local speech records: 77 across 63 families (58 TTS, 18 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 95
 - Latest catalogue release month: Aug 26, 2026
 - LLM source states: 184 public GGUF repositories, 39 public model cards without a verified GGUF file and 4 gated model cards
@@ -27,20 +27,19 @@
 - [LM Studio](https://localclaw.io/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
 - [LocalClaw pricing](https://localclaw.io/pricing) — dedicated LocalClaw product, purchase and download page
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 76 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 77 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
 - [Music catalogue](https://localclaw.io/music-models) - local song and sound models
 - [Vision catalogue](https://localclaw.io/vision-models) - local OCR and document models
 - [Newest local models](https://localclaw.io/new) — current releases and RSS feed
-- [Community DIY Builds](https://localclaw.io/diy/) — creator-credited local AI hardware projects with source-reviewed requirements, original videos, purchasing guidance and step-by-step instructions
 - [RAM guides](https://localclaw.io/ram/) — recommendations by memory tier
 - [Hardware guides](https://localclaw.io/hardware/) — model fit by machine
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 395 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 396 local homepage entries
 
 ## New Mac Local AI Guides
 
@@ -58,14 +57,6 @@
 - [Mac Studio M5 Ultra 512GB](https://localclaw.io/hardware/mac-studio-m5-ultra-512gb)
 
 Apple lists the new desktop models for pre-order with availability beginning September 22, 2026. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
-
-## Community DIY Builds
-
-- [Needle 2 on ESP32-S3](https://localclaw.io/diy/needle-2-esp32-s3) — source-reviewed guide to running Cactus Compute's 14 MB tool-calling model offline on an ESP32-S3 N16R8; original demonstration by Better Stack and ESP32 implementation by Andris Gauracs
-- [Falcon-H1 Tiny on Raspberry Pi 1 B+](https://localclaw.io/diy/falcon-h1-raspberry-pi-1) — source-reviewed vintage ARMv6 guide to running TII's 90M-parameter Falcon-H1 Tiny GGUF offline on a 2014 Raspberry Pi 1 Model B+; original demonstration by Better Stack
-- [Gemma Offline Translator on Raspberry Pi 5](https://localclaw.io/diy/gemma-translator-raspberry-pi-5) — source-reviewed guide to building DroneBot Workshop's demonstrated voice-to-voice appliance with Google Creative Lab's Gemma Translator, Gemma 4 E2B and Moonshine speech models
-- DIY status labels distinguish creator demonstrations, LocalClaw source review and any future hands-on LocalClaw testing. Source review is not represented as physical reproduction.
-- Purchasing links use LocalClaw's regional Amazon resolver and may be affiliate links. Original creators are credited separately and are not represented as endorsing LocalClaw or its purchasing links.
 
 ## RAM Decision Paths
 

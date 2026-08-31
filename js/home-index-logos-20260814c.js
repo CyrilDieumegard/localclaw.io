@@ -135,6 +135,7 @@ window.HOME_INDEX_LOGOS = {
     raon: 'github',
     sesame: 'sesame-avatar',
     silma: 'silma-avatar',
+    sopro: 'huggingface-avatar',
     spark: 'spark',
     step: 'stepfun',
     styletts: 'yl4579-avatar',

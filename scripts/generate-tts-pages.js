@@ -652,7 +652,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 79 || localModels.length !== 76 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 80 || localModels.length !== 77 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -676,7 +676,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('76<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('77<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 

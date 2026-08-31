@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 76 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 76 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 77 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 77 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 76 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 77 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1830,10 +1830,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">79</strong> speech records: <strong style="color:#fff;">76 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">80</strong> speech records: <strong style="color:#fff;">77 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>76 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>77 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1978,6 +1978,33 @@
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "Transcript-free zero-shot cloning",
                 context: "Speech encoder + LLM architecture, CUDA 12.6 local inference path",
+                license: "Apache 2.0"
+            },
+            {
+                id: "sopro-v2-turbo",
+                name: "Sopro V2 Turbo",
+                developer: "Samuel Vitorino / HALO Research",
+                family: "sopro",
+                description: "Apache-licensed 120M voice-cloning TTS model for private, low-latency speech generation. The official Sopro package runs locally on CPU, MPS or CUDA, supports streaming with about 300 ms time-to-first-audio on an M3 CPU, and also exposes an ONNX browser path for English, European Portuguese, French and German.",
+                languages: ["en", "pt", "fr", "de"],
+                languageCount: 4,
+                features: ["cloning", "streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 1.25,
+                sizeLabel: "120M params; 1.25 GB HF repo",
+                sizeCategory: "medium",
+                quality: 9.2,
+                speed: 9.4,
+                latency: "ultra-low",
+                releaseDate: "2026-08-27",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/samuel-vitorino/sopro-v2-turbo",
+                sourceStatus: "verified-code",
+                installCommand: "pip install -U sopro",
+                supportedFormats: ["pytorch", "safetensors", "onnx"],
+                voices: "Zero-shot voice cloning from 5-20 seconds of reference audio",
+                context: "120M F32 safetensors, Sopro CLI/Python API, CPU default on macOS with optional MPS, CUDA auto-selection and browser ONNX demo",
                 license: "Apache 2.0"
             },
             {

@@ -32,6 +32,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 3.06
   },
   {
+    "id": "sopro-v2-turbo",
+    "name": "Sopro V2 Turbo",
+    "developer": "Samuel Vitorino / HALO Research",
+    "family": "sopro",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08-27",
+    "quality": 9.2,
+    "speed": 9.4,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 1.25
+  },
+  {
     "id": "breeze-tts-2",
     "name": "Breeze TTS 2",
     "developer": "BreezeBlue",
