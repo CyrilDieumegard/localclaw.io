@@ -544,6 +544,30 @@
       caveats: ['CUDA research stack with gsplat, xformers and PyTorch3D dependencies', 'Scene reconstruction rather than text-to-object mesh generation', 'Quality depends on frame coverage and pose estimation']
     },
     {
+      id: 'dvlt', name: 'DVLT', category: '3d', developer: 'NVIDIA / University of Modena / University of Toronto / ETH Zurich',
+      summary: 'Looped-transformer multi-view reconstruction model for unordered images or video clips.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'pose-estimation', 'depth-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Hugging Face Accelerate', 'Gradio', 'Rerun'], output: ['GLB', 'Point cloud', 'Depth maps', 'Camera poses'],
+      local_status: 'local', license: 'NVIDIA noncommercial model license; Apache 2.0 code with VGGT notices', released: '2026-06',
+      source_url: 'https://github.com/nv-tlabs/dvlt', install_url: 'https://huggingface.co/nvidia/dvlt',
+      hardware_note: 'The official path installs Python 3.12, PyTorch 2.5.1 with CUDA 12.4 and Hugging Face Accelerate, then loads the nvidia/dvlt checkpoint from the Hub or a local directory. It supports Linux on NVIDIA Ampere, Lovelace, Hopper and Blackwell GPUs. No consumer VRAM table is published, so 32 GB RAM and 16 GB NVIDIA VRAM are conservative LocalClaw floors for small image sets.',
+      strengths: ['Official NVIDIA code and Hugging Face safetensors checkpoint', 'Unposed image-directory or video input', 'Offline demo path writes GLB plus Rerun scene output'],
+      caveats: ['Research and development only model terms', 'Predicts geometry, depth and cameras rather than textured object meshes', 'Larger scene batches are memory-bound']
+    },
+    {
+      id: 'lyra-2', name: 'Lyra 2.0', category: '3d', developer: 'NVIDIA',
+      summary: 'Image-conditioned generative world model that turns camera trajectories into explorable 3D Gaussian scenes.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'world-generation', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'WAN 2.1', 'VIPE', 'Depth Anything 3'], output: ['PLY', '3D Gaussian', 'MP4 preview'],
+      local_status: 'local', license: 'NVIDIA Internal Scientific Research and Development Model License; Apache 2.0 code', released: '2026-04',
+      source_url: 'https://github.com/nv-tlabs/lyra/tree/main/Lyra-2', install_url: 'https://huggingface.co/nvidia/Lyra-2.0',
+      hardware_note: 'The official workflow downloads checkpoints from Hugging Face, generates trajectory-conditioned exploration video, then lifts it with VIPE pose estimation and Depth Anything 3 into reconstructed_scene.ply plus a rendered flythrough. The repository reports about 9 minutes per 80 frames and about 1 minute for the GS reconstruction step on one H100 80 GB GPU, so LocalClaw records an H100/A100-class 80 GB NVIDIA floor.',
+      strengths: ['Official NVIDIA code and public checkpoints', 'Single starting image plus authored camera trajectory', 'Exports reconstructed Gaussian PLY scenes with preview video'],
+      caveats: ['Very heavy research workflow rather than a consumer asset tool', 'Model license is restricted to internal scientific research and development', 'Requires separate VIPE and DA3 reconstruction stages for final Gaussian output']
+    },
+    {
       id: 'instant-nurec', name: 'Instant-NuRec', category: '3d', developer: 'NVIDIA',
       summary: 'Feed-forward driving-log reconstruction model that exports static 3D Gaussian scene PLY assets locally.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
