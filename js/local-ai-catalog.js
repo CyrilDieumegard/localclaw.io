@@ -25,6 +25,19 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'minimax-h3-fun-controlnet-union', name: 'MiniMax-H3-Fun-Controlnet-Union', category: 'video', developer: 'Alibaba PAI',
+      summary: 'ControlNet-Union branch for MiniMax H3 that guides local video generation from Canny, depth, HED, MLSD, pose or inpaint control videos.',
+      tasks: ['video-to-video', 'controlled-video-generation', 'text-to-video', 'inpainting'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['VideoX-Fun', 'PyTorch', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'MiniMax H3 Community License Agreement', released: '2026-08',
+      source_url: 'https://github.com/aigc-apps/VideoX-Fun',
+      install_url: 'https://huggingface.co/alibaba-pai/MiniMax-H3-Fun-Controlnet-Union',
+      hardware_note: 'The official model card publishes a 6.8 GB control-branch safetensors checkpoint and VideoX-Fun scripts for Canny, depth, HED, MLSD, pose and inpaint workflows. It loads on top of MiniMax H3; the authors note the transformer plus Qwen3-VL text encoder do not fit fully on one 80 GB GPU, so LocalClaw records 80 GB NVIDIA VRAM with offload and 128 GB system RAM as the conservative workstation floor.',
+      strengths: ['One control branch covers five control-video types plus inpainting', 'Official Alibaba PAI checkpoint and VideoX-Fun code path', 'Guidance-distilled workflow runs at guidance scale 1.0'],
+      caveats: ['Requires separate MiniMax H3 base weights', 'Community license has territorial and acceptable-use restrictions', 'Workstation-class NVIDIA memory is required for practical local use']
+    },
+    {
       id: 'lingbot-video-dense-1.3b', name: 'LingBot-Video Dense 1.3B', category: 'video', developer: 'Robbyant / Ant Group',
       summary: 'Apache-licensed dense LingBot video checkpoint for local text-to-video and text-image-to-video generation.',
       tasks: ['text-to-video', 'image-to-video', 'text-image-to-video', 'world-generation'],
@@ -75,6 +88,19 @@
       hardware_note: 'The official repository targets Python 3.10, PyTorch 2.7, CUDA 12.8 and FlashAttention. The 5B BF16 Diffusers checkpoints build on Wan2.2 TI2V 5B and Qwen2.5-VL 3B, so LocalClaw treats 32 GB NVIDIA VRAM and 64 GB RAM as the conservative local floor.',
       strengths: ['Unified instruction and reference-image video editing', 'Official Diffusers checkpoints and demo script', 'MIT-licensed code release'],
       caveats: ['Linux/CUDA research stack', 'Weights depend on Wan and Qwen component licenses', 'Not a general text-only video generator']
+    },
+    {
+      id: 'wan2.2-fun-5b-control', name: 'Wan2.2-Fun 5B Control', category: 'video', developer: 'Alibaba PAI',
+      summary: 'Apache-licensed Wan 2.2 5B control-video checkpoint for local pose, depth, Canny, MLSD and trajectory-guided video generation.',
+      tasks: ['video-to-video', 'controlled-video-generation', 'image-to-video', 'text-to-video'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['VideoX-Fun', 'PyTorch', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/aigc-apps/VideoX-Fun',
+      install_url: 'https://huggingface.co/alibaba-pai/Wan2.2-Fun-5B-Control',
+      hardware_note: 'The official Hugging Face repository provides about 23 GB of downloadable Wan2.2-Fun 5B control weights, VAE and UMT5 assets. VideoX-Fun documents Windows and Linux local installs, ComfyUI and Python scripts, consumer NVIDIA examples including RTX 3060 12 GB and RTX 3090 24 GB, and offload modes; LocalClaw keeps 24 GB VRAM and 64 GB RAM as the conservative practical floor for 121-frame 24 fps control-video runs.',
+      strengths: ['Official Alibaba PAI Apache-licensed checkpoint', 'Pose, depth, Canny, MLSD and trajectory control in one Wan 2.2 5B line', 'VideoX-Fun local Python and ComfyUI workflows'],
+      caveats: ['Requires CUDA setup and large model downloads', 'Control workflows need preprocessed input videos', 'Lower-VRAM offload modes trade speed and quality headroom']
     },
     {
       id: 'cosmos3-edge', name: 'Cosmos3 Edge', category: 'video', developer: 'NVIDIA',
