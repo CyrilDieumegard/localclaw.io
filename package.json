@@ -7,6 +7,8 @@
     "catalog:generate": "node scripts/generate-local-ai-catalog.js",
     "diy:generate": "node scripts/generate-diy-pages.js",
     "diy:check": "node scripts/check-diy-pages.js",
+    "software:generate": "node scripts/generate-software-page.js",
+    "software:check": "node scripts/generate-software-page.js --check",
     "nav:sync": "node scripts/sync-site-navigation.js",
     "nav:check": "node scripts/sync-site-navigation.js --check",
     "urls:normalize": "node scripts/normalize-public-urls.js",
@@ -39,7 +41,7 @@
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs",
     "pages:build": "npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
-    "pages:check": "node scripts/check-pages-output.js"
+    "pages:check": "npm run software:check && node scripts/check-pages-output.js"
   },
   "dependencies": {
     "better-auth": "^1.6.25",

@@ -478,7 +478,7 @@ function compactLlmsText() {
 ## Core Pages
 
 - [Local AI Compatibility Guide](${BASE_URL}/) — hardware-aware guide to local AI models, software and computers
-- [Software directory](${BASE_URL}/software) — machine-aware comparison of local AI desktop apps, model servers, inference engines and complete stacks
+- [Software directory](${BASE_URL}/software) — searchable comparison of local AI apps, model servers, inference engines and web interfaces, including Colibri; filter by system, role and use case with documented setup limits
 - [LM Studio](${BASE_URL}/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
 - [LocalClaw pricing](${BASE_URL}/pricing) — dedicated LocalClaw product, purchase and download page
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
