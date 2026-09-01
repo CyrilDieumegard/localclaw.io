@@ -452,6 +452,11 @@ function signalLabel(value, singular = false) {
   return singular ? 'interest signal' : 'interest signals';
 }
 
+function visitorCount(value, qualifier = '') {
+  const count = Number(value) || 0;
+  return `${number(count)}${qualifier ? ` ${qualifier}` : ''} ${count === 1 ? 'visitor' : 'visitors'}`;
+}
+
 function publishedSignalLabel() {
   if (isModelInterestView()) return 'published model-page visitors';
   return isInstallIntentView() ? 'visitors in published country rows' : 'published signals';
@@ -5052,7 +5057,7 @@ function renderModelBrandButtons(container, brands, country, region = null) {
     name.textContent = brand.label;
     const detail = document.createElement('small');
     const publicModelCount = modelRowsForBrand(brand).length;
-    detail.textContent = number(modelBrandSignals(brand)) + ' visitors · '
+    detail.textContent = visitorCount(modelBrandSignals(brand)) + ' · '
       + (publicModelCount
         ? number(publicModelCount) + ' ' + (publicModelCount === 1 ? 'model' : 'models') + ' published'
         : 'model detail below threshold');
@@ -5117,9 +5122,9 @@ function renderModelRegionButtons(container) {
     detail.textContent = Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
       ? brand
         ? publishedBrand
-          ? `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · ${number(brandVisitors)} brand visitors · ${number(visitors)} all-model`
+          ? `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · ${visitorCount(brandVisitors, 'brand')} · ${visitorCount(visitors, 'all-model')}`
           : `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · exact leader count hidden · ${number(visitors)} all-model`
-        : `${number(visitors)} all-model visitors · leader unavailable`
+        : `${visitorCount(visitors, 'all-model')} · leader unavailable`
       : 'No regional brand detail published';
     copy.append(name, detail);
     const arrow = document.createElement('b');
@@ -5128,7 +5133,7 @@ function renderModelRegionButtons(container) {
     button.setAttribute('aria-label', Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
       ? brand
         ? publishedBrand
-          ? `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} with ${number(brandVisitors)} brand visitors; ${number(visitors)} all-model visitors in the region.`
+          ? `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} with ${visitorCount(brandVisitors, 'brand')}; ${visitorCount(visitors, 'all-model')} in the region.`
           : `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'}; its exact count is hidden below ${PUBLISH_THRESHOLD}. ${number(visitors)} all-model visitors in the region.`
         : `Open ${region.name} model interest. ${number(visitors)} all-model visitors; leader unavailable.`
       : `Open ${region.name} boundary; no regional brand detail is published`);
@@ -5291,7 +5296,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     ? dominant.label + (dominantCount > 1 ? ` · ${dominantCount}-way tie` : '')
     : 'Collecting enough signals';
   if (dominantSummary) dominantSummary.textContent = dominant
-    ? number(modelBrandSignals(dominant)) + ' unique visitors explored this brand across its eligible LocalClaw model pages.'
+    ? visitorCount(modelBrandSignals(dominant), 'unique') + ' explored this brand across its eligible LocalClaw model pages.'
       + (dominantCount > 1 ? ' It shares the lead in this scope.' : '')
     : 'No individual LLM page reaches five anonymous visitors in this scope yet.';
   if (familyCount) familyCount.textContent = number(brands.length);
@@ -5341,7 +5346,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       ? countryLeader.label + (countryCoLeaderCount > 1 ? ' · co-leader' : '')
       : 'No country-level brand published';
     if (countryLeaderCount) countryLeaderCount.textContent = countryLeader
-      ? `${number(modelBrandSignals(countryLeader))} country-level brand visitors`
+      ? visitorCount(modelBrandSignals(countryLeader), 'country-level brand')
       : 'No observed country-level brand visitor';
     if (scopeNote) {
       const independentScale = 'Each colored region shows its independently measured leading brand. Exact brand counts and available model detail appear from the first observed visitor.';
@@ -5352,7 +5357,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
         : '';
       const regionalExample = firstRegionalLeader
         ? firstRegionalLeader.publishedBrand
-          ? ` ${firstRegionalLeader.brand.label} ${mapLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name} with ${number(modelBrandSignals(firstRegionalLeader.publishedBrand))} brand visitors (${number(firstRegionalLeader.allModelVisitors)} all-model visitors).`
+          ? ` ${firstRegionalLeader.brand.label} ${mapLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name} with ${visitorCount(modelBrandSignals(firstRegionalLeader.publishedBrand), 'brand')} (${visitorCount(firstRegionalLeader.allModelVisitors, 'all-model')}).`
           : ` ${firstRegionalLeader.brand.label} ${mapLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name}; its exact leader count stays hidden below ${PUBLISH_THRESHOLD}.`
         : ' No regional leader is available.';
       scopeNote.textContent = independentScale + countryLeaderVisibility + regionalExample;
@@ -5368,10 +5373,10 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   if (brandName) brandName.textContent = selected?.label || '';
   if (brandSummary) brandSummary.textContent = selected
     ? region
-      ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page in ' + region.name + '.'
+      ? visitorCount(modelBrandSignals(selected), 'unique') + ' explored at least one eligible ' + selected.label + ' model page in ' + region.name + '.'
       : country
-        ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page here.'
-      : number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page worldwide. '
+        ? visitorCount(modelBrandSignals(selected), 'unique') + ' explored at least one eligible ' + selected.label + ' model page here.'
+      : visitorCount(modelBrandSignals(selected), 'unique') + ' explored at least one eligible ' + selected.label + ' model page worldwide. '
         + (selectedCountryCount
           ? `The globe shows the ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} where this brand has at least one observed visitor.`
           : 'No country has an observed visitor for this brand, so the globe is intentionally clear.')

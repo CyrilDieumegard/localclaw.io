@@ -1159,10 +1159,11 @@ if (!page.includes('data-atlas-model-regions')
   issue('Models regional panel controls and region list must remain present');
 }
 if (!app.includes('Each colored region shows its independently measured leading brand')
-  || !app.includes('country-level brand visitors')
-  || !app.includes('brand visitors · ${number(visitors)} all-model')
-  || !app.includes('exact leader count hidden')) {
-  issue('Models regional UI must distinguish visible regional leaders, hidden small counts, published brand visitors and all-model totals');
+  || !app.includes("visitorCount(modelBrandSignals(countryLeader), 'country-level brand')")
+  || !app.includes("visitorCount(brandVisitors, 'brand')")
+  || !app.includes('Every observed aggregate count is visible')
+  || !app.includes('Empty boundaries have no mapped model signal')) {
+  issue('Models regional UI must distinguish visible regional leaders, exact brand visitors, all-model totals and empty boundaries');
 }
 if (!app.includes("url.searchParams.set('view', 'installed')")
   || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")
