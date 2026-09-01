@@ -19,9 +19,9 @@ const INSTALL_INTENT_ADMIN1_PATH = 'data/local-ai-install-intent-admin1.json';
 const MODEL_PAGE_INTEREST_PATH = 'data/local-ai-model-page-interest.json';
 const ADMIN2_MANIFEST_PATH = 'data/admin2/manifest.json';
 const ADMIN2_MODEL_ACTIVITY_PATHS = [
-  ['30d', 'data/local-ai-admin2-model-activity.json', 9, 1],
-  ['90d', 'data/local-ai-admin2-model-activity-90d.json', 12, 1],
-  ['180d', 'data/local-ai-admin2-model-activity-180d.json', 12, 1]
+  ['30d', 'data/local-ai-admin2-model-activity.json', 9, 1, 41, 85],
+  ['90d', 'data/local-ai-admin2-model-activity-90d.json', 12, 1, 61, 174],
+  ['180d', 'data/local-ai-admin2-model-activity-180d.json', 12, 1, 64, 193]
 ];
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
@@ -655,11 +655,13 @@ const installIntentText = readFile(INSTALL_INTENT_PATH, 'install-intent country 
 const installIntentAdmin1Text = readFile(INSTALL_INTENT_ADMIN1_PATH, 'install-intent regional dataset');
 const modelPageInterestText = readFile(MODEL_PAGE_INTEREST_PATH, 'model-page-interest dataset');
 const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S., China, and Australia deeper-boundary manifest');
-const admin2ModelActivitySnapshots = ADMIN2_MODEL_ACTIVITY_PATHS.map(([period, relativePath, modelCount, installCount]) => ({
+const admin2ModelActivitySnapshots = ADMIN2_MODEL_ACTIVITY_PATHS.map(([period, relativePath, modelCount, installCount, parentCount, subdivisionCount]) => ({
   period,
   relativePath,
   modelCount,
   installCount,
+  parentCount,
+  subdivisionCount,
   data: parseJson(readFile(relativePath, `${period} Admin-2 model activity`), `${period} Admin-2 model activity`)
 }));
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
@@ -2154,12 +2156,70 @@ if (admin2Manifest) {
   const californiaPath = String(admin2Manifest.countries?.USA?.parents?.['US-CA']?.path || '').replace(/^\//, '');
   const california = parseJson(readFile(californiaPath, 'California county boundaries'), 'California county boundaries');
   const californiaCodes = new Set((california?.features || []).map(feature => String(feature.properties?.code || '')));
+  const admin2ParentFeatures = new Map();
+  for (const country of Object.values(admin2Manifest.countries || {})) {
+    for (const [parentCode, entry] of Object.entries(country.parents || {})) {
+      const shardPath = String(entry.path || '').replace(/^\//, '');
+      const shard = parseJson(readFile(shardPath, `${parentCode} subdivision boundaries`), `${parentCode} subdivision boundaries`);
+      admin2ParentFeatures.set(parentCode, new Set((shard?.features || []).map(feature => String(feature.properties?.code || ''))));
+    }
+  }
   for (const snapshot of admin2ModelActivitySnapshots) {
     const activity = snapshot.data;
     if (!activity) continue;
-    if (activity.schemaVersion !== 1 || activity.period?.key !== snapshot.period || activity.publishThreshold !== 5) {
+    if (activity.schemaVersion !== 2 || activity.period?.key !== snapshot.period || activity.publishThreshold !== 5
+      || activity.identityThreshold !== 1) {
       issue(`${snapshot.period} Admin-2 model activity has invalid schema, period, or privacy threshold`);
       continue;
+    }
+    const activityParents = Object.entries(activity.parents || {});
+    const activeSubdivisionCount = activityParents.reduce((sum, [, parent]) => sum + Number(parent.totals?.withModelSignal || 0), 0);
+    if (activityParents.length !== snapshot.parentCount
+      || activity.coverage?.parentsWithObservedModelSignal !== snapshot.parentCount
+      || activity.coverage?.boundaryParents !== EXPECTED_ADMIN2_PARENTS
+      || activeSubdivisionCount !== snapshot.subdivisionCount) {
+      issue(`${snapshot.period} global Admin-2 model coverage does not match the approved snapshot`);
+    }
+    if (!Number.isInteger(activity.coverage?.eligibleModelVisitorRows)
+      || activity.coverage.eligibleModelVisitorRows !== activity.coverage.mappedModelVisitorRows + activity.coverage.unresolvedVisitorRows
+      || activity.coverage.mappedModelVisitorRows / activity.coverage.eligibleModelVisitorRows < 0.95) {
+      issue(`${snapshot.period} Admin-2 city-to-boundary mapping coverage is incomplete or below 95%`);
+    }
+    for (const [parentCode, activityParent] of activityParents) {
+      const validCodes = admin2ParentFeatures.get(parentCode);
+      const activitySubdivisions = Array.isArray(activityParent.subdivisions) ? activityParent.subdivisions : [];
+      if (!validCodes || activityParent.totals?.subdivisions !== validCodes.size
+        || activityParent.totals?.withModelSignal !== activitySubdivisions.filter(row => row.modelInterest).length
+        || activityParent.totals?.withInstallModelAttribution !== activitySubdivisions.filter(row => row.installIntent).length) {
+        issue(`${snapshot.period} ${parentCode} Admin-2 model totals do not reconcile with its boundary shard`);
+      }
+      const seenParentCodes = new Set();
+      for (const subdivision of activitySubdivisions) {
+        if (!validCodes?.has(subdivision.code) || seenParentCodes.has(subdivision.code)) {
+          issue(`${snapshot.period} Admin-2 model activity has an unknown or duplicate subdivision code: ${subdivision.code}`);
+        }
+        seenParentCodes.add(subdivision.code);
+        for (const scopeName of ['modelInterest', 'installIntent']) {
+          const scope = subdivision[scopeName];
+          if (!scope) continue;
+          if (scope.observed !== true || !Array.isArray(scope.mapLeaders) || scope.mapLeaders.length < 1) {
+            issue(`${snapshot.period} ${subdivision.code} ${scopeName} must expose its own observed map leader`);
+          }
+          if (scope.visitors !== null && (!Number.isInteger(scope.visitors) || scope.visitors < activity.publishThreshold)) {
+            issue(`${snapshot.period} ${subdivision.code} ${scopeName} exposes an exact count below the privacy threshold`);
+          }
+          for (const brand of scope.brands || []) {
+            if (!Number.isInteger(brand.visitors) || brand.visitors < activity.publishThreshold) {
+              issue(`${snapshot.period} ${subdivision.code} exposes a brand below the privacy threshold`);
+            }
+            for (const model of brand.models || []) {
+              if (!Number.isInteger(model.visitors) || model.visitors < activity.publishThreshold) {
+                issue(`${snapshot.period} ${subdivision.code} exposes a model below the privacy threshold`);
+              }
+            }
+          }
+        }
+      }
     }
     const parent = activity.parents?.['US-CA'];
     const subdivisions = Array.isArray(parent?.subdivisions) ? parent.subdivisions : [];
@@ -2199,6 +2259,17 @@ if (admin2Manifest) {
     const serialized = JSON.stringify(activity).toLowerCase();
     for (const forbidden of ['visitorid', 'visitor_id', 'ipaddress', 'ip_address', 'deviceid', 'device_id']) {
       if (serialized.includes(forbidden)) issue(`${snapshot.period} Admin-2 model activity must not expose ${forbidden}`);
+    }
+    if (snapshot.period === '180d') {
+      const observedNames = parentCode => new Set((activity.parents?.[parentCode]?.subdivisions || []).map(row => row.name));
+      const texasNames = observedNames('US-TX');
+      const guangdongNames = observedNames('CN-GD');
+      const newSouthWalesNames = observedNames('AU-NSW');
+      if (!['Dallas', 'Harris', 'Travis'].every(name => texasNames.has(name))
+        || !guangdongNames.has('Guangzhou')
+        || !newSouthWalesNames.has('Sydney')) {
+        issue('180d deep model geography must resolve canonical Texas, Guangdong and New South Wales city boundaries');
+      }
     }
   }
 }
@@ -2370,4 +2441,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions, 90 lazy U.S./China/Australia deeper-boundary shards with 4,047 neutral subdivisions, exact provenance and fingerprints, 61 privacy-thresholded regional country records with 94 public rows, vector-only detail, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 base textures verified.');
+console.log('Local AI Activity Index validation passed: 242 lazy Natural Earth Admin-1 shards with 4,558 subdivisions, 90 lazy U.S./China/Australia deeper-boundary shards with 4,047 subdivisions, 193 independently mapped lower-level model signals across 64 parents in 180D, exact provenance and fingerprints, 61 privacy-thresholded regional country records with 94 public rows, vector-only detail, 3,337 observed country signals, 90 exact GeoNames city clusters, and 4096×2048 base textures verified.');

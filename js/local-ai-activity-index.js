@@ -4342,7 +4342,7 @@ function showTooltip(entity, event) {
       : '#' + entity.brandRank + ' published brand in ' + entity.region.name;
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.brand.label;
     tooltip.querySelector('[data-tooltip-signals]').textContent = isInstallIntentView()
-      ? `Attributed install-path leader · exact count hidden below ${PUBLISH_THRESHOLD} · select county`
+      ? `Attributed install-path leader · exact count hidden below ${PUBLISH_THRESHOLD} · select boundary`
       : publishedBrand
         ? number(modelBrandSignals(publishedBrand)) + ' regional brand visitors · select for model detail'
         : `Leading brand · exact count hidden below ${PUBLISH_THRESHOLD} · select region`;
@@ -4424,7 +4424,7 @@ function showTooltip(entity, event) {
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.label || entity.name;
     tooltip.querySelector('[data-tooltip-signals]').textContent = leaders.length
       ? `${leaders.map(leader => leader.label).join(' + ')} ${leaders.length > 1 ? 'co-lead' : 'leads'} · ${Number.isFinite(scopeData?.visitors) ? `${number(scopeData.visitors)} visitors` : `count hidden below ${PUBLISH_THRESHOLD}`} · select for detail`
-      : 'No observed model signal in this county';
+      : `No observed model signal in this ${state.admin2Config.childLabel}`;
     const rect = stage.getBoundingClientRect();
     const left = Math.min(event.clientX - rect.left, rect.width - 220);
     const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -4519,13 +4519,13 @@ function showSpotlight(entity) {
     const leaders = admin2MapLeaders(entity);
     const scopeData = admin2ScopeData(entity);
     spotlight.querySelector('[data-spotlight-rank]').textContent = leaders.length
-      ? isInstallIntentView() ? 'Attributed install-path leader' : 'County model-interest leader'
+      ? isInstallIntentView() ? 'Attributed install-path leader' : 'Subdivision model-interest leader'
       : 'No observed model signal';
     spotlight.querySelector('[data-spotlight-label]').textContent = entity.type || state.admin2Config.childLabel;
     spotlight.querySelector('[data-spotlight-country]').textContent = entity.label || entity.name;
     spotlight.querySelector('[data-spotlight-signals]').textContent = leaders.length
-      ? `${leaders.map(leader => leader.label).join(' + ')} ${leaders.length > 1 ? 'co-lead' : 'leads'} · ${Number.isFinite(scopeData?.visitors) ? `${number(scopeData.visitors)} county visitors` : `exact count hidden below ${PUBLISH_THRESHOLD}`} · ${isInstallIntentView() ? 'path selection, not verified download' : 'LocalClaw model-page interest'}`
-      : 'No county-level model signal is present in this snapshot.';
+      ? `${leaders.map(leader => leader.label).join(' + ')} ${leaders.length > 1 ? 'co-lead' : 'leads'} · ${Number.isFinite(scopeData?.visitors) ? `${number(scopeData.visitors)} ${state.admin2Config.childLabel} visitors` : `exact count hidden below ${PUBLISH_THRESHOLD}`} · ${isInstallIntentView() ? 'path selection, not verified download' : 'LocalClaw model-page interest'}`
+      : `No ${state.admin2Config.childLabel} model signal is present in this snapshot.`;
     return;
   }
   const stateView = state.scope === 'us';
@@ -5397,7 +5397,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       : publishedRegionalModelVisitors(region) !== null
         ? 'This region has a published all-model total, but no independently measured brand leader is available.'
       : isAdmin2Scope()
-        ? 'No county-level model-page signal is present for this boundary in the selected period.'
+        ? `No ${state.admin2Config.childLabel} model-page signal is present for this boundary in the selected period.`
         : admin1EntityStatusMessage(region)
     : 'This place has no model brand above the public threshold for the selected period.';
   if (back) {
@@ -5868,7 +5868,7 @@ function updateScopeInterface() {
     if (installIntentView) {
       const legendCopy = modelLegend.querySelector('small');
       if (legendCopy) legendCopy.textContent = admin2View
-        ? 'Attributed model leader by county · path selection only'
+        ? `Attributed model leader by ${state.admin2Config.childLabel} · path selection only`
         : admin1View
         ? 'Leading published country setup path · country-level'
         : 'Leading published setup path by country';
@@ -5905,7 +5905,7 @@ function updateScopeInterface() {
     summary.textContent = modelRegionalView
       ? modelRegion
         ? admin2View
-          ? `${state.admin2Config.parentName}, ${modelCountry?.name || state.detailCountry?.name || ''} · ${number(state.admin2Regions.length)} precise boundaries · ${number(admin2ActiveRegions.length)} with observed county model signals`
+          ? `${state.admin2Config.parentName}, ${modelCountry?.name || state.detailCountry?.name || ''} · ${number(state.admin2Regions.length)} precise boundaries · ${number(admin2ActiveRegions.length)} ${state.admin2Config.childrenLabel} with observed model signals`
           : `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
         : `${modelCountry?.name || state.detailCountry?.name || ''} · Privacy-thresholded regional model-page interest · ${periodDateRange()}`
       : modelInterestView
@@ -6022,14 +6022,14 @@ function updateScopeInterface() {
     : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
     ? admin2View
-      ? `Each logo comes from that county's own anonymous model-page visitors. Counties without an observed model signal stay empty. Exact counts remain hidden below ${PUBLISH_THRESHOLD}. This measures LocalClaw page interest, not downloads, installations or verified use.`
+      ? `Each logo comes from that ${state.admin2Config.childLabel}'s own anonymous model-page visitors. ${state.admin2Config.childrenLabel} without an observed model signal stay empty. Exact counts remain hidden below ${PUBLISH_THRESHOLD}. This measures LocalClaw page interest, not downloads, installations or verified use.`
       : 'Region color shows independently published all-model visitors. Every colored region shows the logo of its independently measured leading brand, even when the exact leader count stays hidden below five. Neutral boundaries do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
     : modelInterestView
       ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
     : installIntentView
     ? regionalView
       ? admin2View
-        ? `A county logo appears only when an eligible install-path event can be attributed to a preceding LocalClaw model page in that county. No logo means no attributable model path in this snapshot. Exact counts stay hidden below ${PUBLISH_THRESHOLD}; this does not verify a download or installation.`
+        ? `A ${state.admin2Config.childLabel} logo appears only when an eligible install-path event can be attributed to a preceding LocalClaw model page in that boundary. No logo means no attributable model path in this snapshot. Exact counts stay hidden below ${PUBLISH_THRESHOLD}; this does not verify a download or installation.`
         : 'Regional boundaries remain visible for exploration. No regional install-intent total reached the five-visitor publication threshold in this snapshot; neutral does not mean zero. A click does not verify a completed installation or local run.'
       : 'Country color shows unique visitors who selected an eligible setup, repository, or desktop-app path. The panel publishes model paths and setup destinations only at five unique visitors. No completed installation or local model run is verified.'
     : stateView
@@ -6043,14 +6043,14 @@ function updateScopeInterface() {
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', modelRegionalView
     ? admin2View
-      ? `Interactive globe showing precise ${state.admin2Config.childrenLabel} inside ${state.admin2Config.parentName}. Every county with an observed model signal displays its independently derived leading brand logo; counties without a signal stay empty. Select a logo or boundary for county detail.`
+      ? `Interactive globe showing precise ${state.admin2Config.childrenLabel} inside ${state.admin2Config.parentName}. Every boundary with an observed model signal displays its independently derived leading brand logo; boundaries without a signal stay empty. Select a logo or boundary for detail.`
       : `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo. Exact leader counts and model detail appear only when they reach five visitors. Select a region or logo for detail. Neutral boundaries do not mean zero. Use the panel back control to return.`
     : modelInterestView
       ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
     : installIntentView
     ? regionalView
       ? admin2View
-        ? `Interactive globe showing attributed model-path leaders across ${state.admin2Config.childrenLabel} in ${state.admin2Config.parentName}. Counties without an attributable model path remain empty. This is path-selection intent, not a verified download.`
+        ? `Interactive globe showing attributed model-path leaders across ${state.admin2Config.childrenLabel} in ${state.admin2Config.parentName}. Boundaries without an attributable model path remain empty. This is path-selection intent, not a verified download.`
         : `Interactive globe showing ${stateView ? 'U.S. states' : state.detailConfig.regionsLabel} as neutral boundaries because no regional install-intent aggregate reached five visitors. Use the back control to return.`
       : 'Interactive globe showing anonymous LocalClaw install-intent visitors by country. Select a country to inspect its privacy-thresholded model, setup-destination, and modality paths. Color appears only at five or more unique visitors; no completed installation or local run is verified.'
     : stateView
@@ -6095,7 +6095,7 @@ function updateScopeInterface() {
       metricItems[0].lastChild.textContent = stateView
         ? installIntentView ? ' install-intent visitors' : ' visible signals'
         : admin2View
-          ? ` ${isInstallIntentView() ? 'counties with attributed models' : 'counties with model signals'}`
+          ? ` ${isInstallIntentView() ? `${state.admin2Config.childrenLabel} with attributed models` : `${state.admin2Config.childrenLabel} with model signals`}`
         : state.detailDataStatus === 'published'
           ? installIntentView ? ' published regional install-intent visitors' : ' published regional signals'
           : ` ${state.detailDataStatus.replaceAll('_', ' ')}`;
@@ -6132,8 +6132,8 @@ function updateScopeInterface() {
         strong.textContent = 'Quality flag: ';
         note.replaceChildren(strong, document.createTextNode('Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.'));
       } else if (modelInterestView && admin2View) {
-        strong.textContent = 'County model interest: ';
-        note.replaceChildren(strong, document.createTextNode(`Each logo comes only from visitors assigned to that ${state.admin2Config.childLabel}. Empty rows have no observed county model-page signal in this snapshot. Exact counts below ${PUBLISH_THRESHOLD} remain hidden; this measures page exploration, not downloads or usage.`));
+        strong.textContent = 'Subdivision model interest: ';
+        note.replaceChildren(strong, document.createTextNode(`Each logo comes only from visitors assigned to that ${state.admin2Config.childLabel}. Empty rows have no observed model-page signal in this snapshot. Exact counts below ${PUBLISH_THRESHOLD} remain hidden; this measures page exploration, not downloads or usage.`));
       } else if (admin2View) {
         const sourceName = state.admin2Config.source?.name || state.admin2Config.sourceName || 'the cited boundary source';
         strong.textContent = 'Boundary view · no subdivision totals: ';
@@ -7201,7 +7201,7 @@ async function initialize() {
           return response.json();
         })
         .catch(error => {
-          console.warn('Atlas county model activity is unavailable; detailed boundaries remain active.', error);
+          console.warn('Atlas subdivision model activity is unavailable; detailed boundaries remain active.', error);
           return { publishThreshold: PUBLISH_THRESHOLD, parents: {} };
         })
       : Promise.resolve(null);

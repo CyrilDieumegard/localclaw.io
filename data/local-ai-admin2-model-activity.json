@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-09-01T18:21:41.201Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-01T19:16:39.384Z",
   "period": {
     "start": "2026-07-31",
     "end": "2026-08-29",
@@ -10,14 +10,88 @@
   },
   "publishThreshold": 5,
   "identityThreshold": 1,
-  "source": "DataFast anonymous visitor journeys joined to GeoNames city-to-county codes",
+  "source": "DataFast deduplicated model-page visitors joined to GeoNames network-city centroids and the published Atlas subdivision boundaries",
   "methodology": {
-    "modelInterest": "A visitor is assigned to an approximate network city and de-duplicated inside its mapped county. Every eligible canonical model page in the selected period contributes to that visitor's county-level brand set.",
-    "installIntent": "Only an eligible install-path goal whose immediately preceding canonical LocalClaw model page is available contributes a county-level model identity.",
+    "modelInterest": "Each visitor contributes the most recently observed eligible LocalClaw model page returned by the selected DataFast model-page visitor window. The visitor network city is mapped to one published lower-level administrative boundary.",
+    "installIntent": "Only an eligible install-path goal attributable to a preceding canonical LocalClaw model page contributes a lower-level model identity.",
     "privacy": "Exact visitor, brand and model counts are public only at five unique visitors. A leading brand logo may appear from one visitor without publishing its count. No visitor identifier, IP address, device or city row is public.",
     "claimBoundary": "Model interest measures LocalClaw page exploration. Install paths measures a path selection, not a verified download, installation, launch or local inference."
   },
+  "coverage": {
+    "boundaryParents": 90,
+    "parentsWithObservedModelSignal": 41,
+    "eligibleModelVisitorRows": 417,
+    "mappedModelVisitorRows": 412,
+    "unresolvedVisitorRows": 5
+  },
   "parents": {
+    "US-AL": {
+      "parentCode": "US-AL",
+      "parentName": "Alabama",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 67,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-01073",
+          "name": "Jefferson",
+          "label": "Jefferson County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-AZ": {
+      "parentCode": "US-AZ",
+      "parentName": "Arizona",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 15,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-04025",
+          "name": "Yavapai",
+          "label": "Yavapai County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
     "US-CA": {
       "parentCode": "US-CA",
       "parentName": "California",
@@ -230,6 +304,2166 @@
                 "rank": 2
               }
             ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-CO": {
+      "parentCode": "US-CO",
+      "parentName": "Colorado",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 64,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-08013",
+          "name": "Boulder",
+          "label": "Boulder County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-08031",
+          "name": "Denver",
+          "label": "Denver County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-CT": {
+      "parentCode": "US-CT",
+      "parentName": "Connecticut",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 9,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-09110",
+          "name": "Capitol",
+          "label": "Capitol Planning Region",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-DC": {
+      "parentCode": "US-DC",
+      "parentName": "District of Columbia",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 1,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-11001",
+          "name": "District of Columbia",
+          "label": "District of Columbia",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 11,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ai2",
+                "label": "AI2",
+                "logo": "/images/model-logos/ai2.svg"
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-FL": {
+      "parentCode": "US-FL",
+      "parentName": "Florida",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 67,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-12009",
+          "name": "Brevard",
+          "label": "Brevard County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-12057",
+          "name": "Hillsborough",
+          "label": "Hillsborough County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-GA": {
+      "parentCode": "US-GA",
+      "parentName": "Georgia",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 159,
+        "withModelSignal": 4,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-13051",
+          "name": "Chatham",
+          "label": "Chatham County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-13059",
+          "name": "Clarke",
+          "label": "Clarke County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-13089",
+          "name": "DeKalb",
+          "label": "DeKalb County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-13121",
+          "name": "Fulton",
+          "label": "Fulton County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-IA": {
+      "parentCode": "US-IA",
+      "parentName": "Iowa",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 99,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-19155",
+          "name": "Pottawattamie",
+          "label": "Pottawattamie County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-IL": {
+      "parentCode": "US-IL",
+      "parentName": "Illinois",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 102,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-17031",
+          "name": "Cook",
+          "label": "Cook County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 6,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "bespokelabs",
+                "label": "Bespokelabs",
+                "logo": "/images/model-logos/bespokelabs-avatar.webp"
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              },
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg"
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-17089",
+          "name": "Kane",
+          "label": "Kane County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-KS": {
+      "parentCode": "US-KS",
+      "parentName": "Kansas",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 105,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-20091",
+          "name": "Johnson",
+          "label": "Johnson County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-LA": {
+      "parentCode": "US-LA",
+      "parentName": "Louisiana",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 64,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-22071",
+          "name": "Orleans",
+          "label": "Orleans Parish",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-MA": {
+      "parentCode": "US-MA",
+      "parentName": "Massachusetts",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 14,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-25009",
+          "name": "Essex",
+          "label": "Essex County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "arcee",
+                "label": "Arcee",
+                "logo": "/images/model-logos/arcee.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-25021",
+          "name": "Norfolk",
+          "label": "Norfolk County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-MD": {
+      "parentCode": "US-MD",
+      "parentName": "Maryland",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 24,
+        "withModelSignal": 3,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-24003",
+          "name": "Anne Arundel",
+          "label": "Anne Arundel County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-24510",
+          "name": "Baltimore",
+          "label": "Baltimore city",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-24027",
+          "name": "Howard",
+          "label": "Howard County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-MI": {
+      "parentCode": "US-MI",
+      "parentName": "Michigan",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 83,
+        "withModelSignal": 3,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-26065",
+          "name": "Ingham",
+          "label": "Ingham County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-26081",
+          "name": "Kent",
+          "label": "Kent County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-26163",
+          "name": "Wayne",
+          "label": "Wayne County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-MN": {
+      "parentCode": "US-MN",
+      "parentName": "Minnesota",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 87,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-27025",
+          "name": "Chisago",
+          "label": "Chisago County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-MO": {
+      "parentCode": "US-MO",
+      "parentName": "Missouri",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 115,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-29183",
+          "name": "St. Charles",
+          "label": "St. Charles County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-29510",
+          "name": "St. Louis",
+          "label": "St. Louis city",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-ND": {
+      "parentCode": "US-ND",
+      "parentName": "North Dakota",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 53,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-38015",
+          "name": "Burleigh",
+          "label": "Burleigh County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-NJ": {
+      "parentCode": "US-NJ",
+      "parentName": "New Jersey",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 21,
+        "withModelSignal": 4,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-34003",
+          "name": "Bergen",
+          "label": "Bergen County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-34013",
+          "name": "Essex",
+          "label": "Essex County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-34017",
+          "name": "Hudson",
+          "label": "Hudson County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-34019",
+          "name": "Hunterdon",
+          "label": "Hunterdon County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-NV": {
+      "parentCode": "US-NV",
+      "parentName": "Nevada",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 17,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-32003",
+          "name": "Clark",
+          "label": "Clark County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 7,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-NY": {
+      "parentCode": "US-NY",
+      "parentName": "New York",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 62,
+        "withModelSignal": 6,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-36029",
+          "name": "Erie",
+          "label": "Erie County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 6,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-36071",
+          "name": "Orange",
+          "label": "Orange County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "nousresearch",
+                "label": "Nousresearch",
+                "logo": "/images/model-logos/nousresearch.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-36075",
+          "name": "Oswego",
+          "label": "Oswego County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-36081",
+          "name": "Queens",
+          "label": "Queens County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-36085",
+          "name": "Richmond",
+          "label": "Richmond County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 9,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-36103",
+          "name": "Suffolk",
+          "label": "Suffolk County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-OH": {
+      "parentCode": "US-OH",
+      "parentName": "Ohio",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 88,
+        "withModelSignal": 3,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-39035",
+          "name": "Cuyahoga",
+          "label": "Cuyahoga County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-39153",
+          "name": "Summit",
+          "label": "Summit County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-39157",
+          "name": "Tuscarawas",
+          "label": "Tuscarawas County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-OK": {
+      "parentCode": "US-OK",
+      "parentName": "Oklahoma",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 77,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-40143",
+          "name": "Tulsa",
+          "label": "Tulsa County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-OR": {
+      "parentCode": "US-OR",
+      "parentName": "Oregon",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 36,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-41065",
+          "name": "Wasco",
+          "label": "Wasco County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 222,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 54,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 20,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-32b",
+                    "label": "Qwen 3 (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-32b",
+                    "visitors": 16,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 31,
+                "models": [
+                  {
+                    "id": "glm-5.2",
+                    "label": "GLM-5.2 (744B MoE)",
+                    "family": "glm",
+                    "path": "/models/glm-5.2",
+                    "visitors": 15,
+                    "rank": 1
+                  },
+                  {
+                    "id": "glm4.5-air",
+                    "label": "GLM 4.5 Air (MoE)",
+                    "family": "glm",
+                    "path": "/models/glm4.5-air",
+                    "visitors": 8,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 27,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 16,
+                    "rank": 1
+                  },
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 6,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 21,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 5,
+                    "rank": 1
+                  },
+                  {
+                    "id": "mixtral-8x7b",
+                    "label": "Mixtral (8x7B)",
+                    "family": "mixtral",
+                    "path": "/models/mixtral-8x7b",
+                    "visitors": 5,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 17,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 9,
+                    "rank": 1
+                  },
+                  {
+                    "id": "ornith-1.0-9b-gguf",
+                    "label": "Ornith 1.0 9B GGUF",
+                    "family": "deepreinforce",
+                    "path": "/models/ornith-1.0-9b-gguf",
+                    "visitors": 5,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg",
+                "visitors": 12,
+                "models": [
+                  {
+                    "id": "phi4-mini",
+                    "label": "Phi-4 Mini (3.8B)",
+                    "family": "phi",
+                    "path": "/models/phi4-mini",
+                    "visitors": 6,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 9,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 7
+              },
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 7,
+                "models": [
+                  {
+                    "id": "kimi-linear-48b-a3b-instruct",
+                    "label": "Kimi Linear 48B-A3B Instruct",
+                    "family": "kimi",
+                    "path": "/models/kimi-linear-48b-a3b-instruct",
+                    "visitors": 7,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 8
+              },
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg",
+                "visitors": 7,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 9
+              },
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 10
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 11
+              }
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-PA": {
+      "parentCode": "US-PA",
+      "parentName": "Pennsylvania",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 67,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-42101",
+          "name": "Philadelphia",
+          "label": "Philadelphia County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-SC": {
+      "parentCode": "US-SC",
+      "parentName": "South Carolina",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 46,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-45035",
+          "name": "Dorchester",
+          "label": "Dorchester County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-45069",
+          "name": "Marlboro",
+          "label": "Marlboro County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "openai",
+                "label": "OpenAI",
+                "logo": "/images/model-logos/openai.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-TX": {
+      "parentCode": "US-TX",
+      "parentName": "Texas",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 254,
+        "withModelSignal": 8,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-48041",
+          "name": "Brazos",
+          "label": "Brazos County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48085",
+          "name": "Collin",
+          "label": "Collin County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48113",
+          "name": "Dallas",
+          "label": "Dallas County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48167",
+          "name": "Galveston",
+          "label": "Galveston County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48201",
+          "name": "Harris",
+          "label": "Harris County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48423",
+          "name": "Smith",
+          "label": "Smith County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48439",
+          "name": "Tarrant",
+          "label": "Tarrant County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-48453",
+          "name": "Travis",
+          "label": "Travis County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-VA": {
+      "parentCode": "US-VA",
+      "parentName": "Virginia",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 133,
+        "withModelSignal": 4,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-51059",
+          "name": "Fairfax",
+          "label": "Fairfax County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-51107",
+          "name": "Loudoun",
+          "label": "Loudoun County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-51117",
+          "name": "Mecklenburg",
+          "label": "Mecklenburg County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-51153",
+          "name": "Prince William",
+          "label": "Prince William County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-WA": {
+      "parentCode": "US-WA",
+      "parentName": "Washington",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 39,
+        "withModelSignal": 3,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-53033",
+          "name": "King",
+          "label": "King County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-53061",
+          "name": "Snohomish",
+          "label": "Snohomish County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-53063",
+          "name": "Spokane",
+          "label": "Spokane County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "US-WI": {
+      "parentCode": "US-WI",
+      "parentName": "Wisconsin",
+      "subdivisionLabel": "county or county-equivalent",
+      "totals": {
+        "subdivisions": 72,
+        "withModelSignal": 2,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "US-55111",
+          "name": "Sauk",
+          "label": "Sauk County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-55117",
+          "name": "Sheboygan",
+          "label": "Sheboygan County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-AH": {
+      "parentCode": "CN-AH",
+      "parentName": "Anhui",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 16,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN034070",
+          "name": "Hefei",
+          "label": "Hefei · 合肥市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-BJ": {
+      "parentCode": "CN-BJ",
+      "parentName": "Beijing",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 1,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN011010",
+          "name": "Beijing Municipality",
+          "label": "Beijing Municipality · 北京市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 8,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-GD": {
+      "parentCode": "CN-GD",
+      "parentName": "Guangdong",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 21,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN044040",
+          "name": "Guangzhou",
+          "label": "Guangzhou · 广州市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "internscience",
+                "label": "Internscience",
+                "logo": "/images/model-logos/internscience-avatar.webp"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-JS": {
+      "parentCode": "CN-JS",
+      "parentName": "Jiangsu",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 13,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN032070",
+          "name": "Suzhou",
+          "label": "Suzhou · 苏州市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-SC": {
+      "parentCode": "CN-SC",
+      "parentName": "Sichuan",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 21,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN051020",
+          "name": "Chengdu",
+          "label": "Chengdu · 成都市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-SH": {
+      "parentCode": "CN-SH",
+      "parentName": "Shanghai",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 1,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN031010",
+          "name": "Shanghai Municipality",
+          "label": "Shanghai Municipality · 上海市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "CN-TJ": {
+      "parentCode": "CN-TJ",
+      "parentName": "Tianjin",
+      "subdivisionLabel": "prefecture-level division",
+      "totals": {
+        "subdivisions": 1,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "CN012010",
+          "name": "Tianjin Municipality",
+          "label": "Tianjin Municipality · 天津市",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "inclusionai",
+                "label": "Inclusionai",
+                "logo": "/images/model-logos/inclusionai-avatar.webp"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "AU-ACT": {
+      "parentCode": "AU-ACT",
+      "parentName": "Australian Capital Territory",
+      "subdivisionLabel": "local government area or equivalent",
+      "totals": {
+        "subdivisions": 1,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "AU-LGA-89399",
+          "name": "Unincorporated ACT",
+          "label": "Unincorporated ACT",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "AU-NSW": {
+      "parentCode": "AU-NSW",
+      "parentName": "New South Wales",
+      "subdivisionLabel": "local government area or equivalent",
+      "totals": {
+        "subdivisions": 129,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "AU-LGA-17200",
+          "name": "Sydney",
+          "label": "Sydney",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "AU-QLD": {
+      "parentCode": "AU-QLD",
+      "parentName": "Queensland",
+      "subdivisionLabel": "local government area or equivalent",
+      "totals": {
+        "subdivisions": 78,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "AU-LGA-31000",
+          "name": "Brisbane",
+          "label": "Brisbane",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    },
+    "AU-VIC": {
+      "parentCode": "AU-VIC",
+      "parentName": "Victoria",
+      "subdivisionLabel": "local government area or equivalent",
+      "totals": {
+        "subdivisions": 80,
+        "withModelSignal": 1,
+        "withInstallModelAttribution": 0
+      },
+      "subdivisions": [
+        {
+          "code": "AU-LGA-24600",
+          "name": "Melbourne",
+          "label": "Melbourne",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
             "mapLeaders": [
               {
                 "id": "qwen",
