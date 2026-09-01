@@ -64,6 +64,31 @@
       caveats: ['Short native clips are capped around 81 frames without long-video extensions', 'Requires Wan 2.1 components and CUDA dependencies', 'Research checkpoint rather than a polished editor']
     },
     {
+      id: 'fastwan-qad-fp8-1.3b', name: 'FastWan-QAD-FP8 1.3B', category: 'video', developer: 'FastVideo / Hao AI Lab',
+      summary: 'Apache-licensed quantization-aware distilled Wan 1.3B text-to-video model for fast 480p local generation on RTX 4090-class GPUs.',
+      tasks: ['text-to-video', 'animation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 24, runtime: ['FastVideo', 'PyTorch', 'Diffusers'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-03',
+      source_url: 'https://github.com/hao-ai-lab/FastVideo',
+      install_url: 'https://huggingface.co/FastVideo/FastWan-QAD-FP8-1.3B',
+      hardware_note: 'The official model card describes this FP8 variant as the backward-compatible FastWan-QAD path for RTX 4090 and other Ampere, Ada and Hopper GPUs. It publishes Diffusers-format safetensors, a FastVideo local inference command and a 5-second 480p benchmark around 3.4 seconds on RTX 4090, so LocalClaw records 24 GB NVIDIA VRAM and 32 GB RAM as the practical local floor.',
+      strengths: ['Three-step quantization-aware distilled generation', 'RTX 4090-compatible FP8 path', 'Official FastVideo repository and Hugging Face weights'],
+      caveats: ['Text-to-video only', 'Requires FastVideo kernels, CUDA and TAEHV setup', 'Quality is bounded by the Wan 2.1 1.3B base model']
+    },
+    {
+      id: 'osdenhancer-v1', name: 'OSDEnhancer v1.0', category: 'video', developer: 'Beijing Jiaotong University / Hefei University of Technology',
+      summary: 'Apache-licensed one-step diffusion model for real-world space-time video super-resolution from low-resolution, low-frame-rate input video.',
+      tasks: ['video-to-video', 'video-super-resolution', 'frame-interpolation', 'video-enhancement'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'Diffusers'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-05',
+      source_url: 'https://github.com/W-Shuoyan/OSDEnhancer',
+      install_url: 'https://huggingface.co/W-Shuoyan/OSDEnhancer',
+      hardware_note: 'The official repository provides PyTorch/CUDA installation, Hugging Face checkpoints and an inference script that writes enhanced MP4 output. The authors recommend at least 80 GB VRAM for stable inference, especially at 4x spatial and 2x temporal scaling, so LocalClaw records 80 GB NVIDIA VRAM and 128 GB RAM as the conservative workstation floor.',
+      strengths: ['Official Apache 2.0 code and weights', 'Spatial and temporal video super-resolution in one pass', 'Chunked inference path for longer input videos'],
+      caveats: ['Enhancement model, not prompt-only video generation', 'Workstation-class NVIDIA memory is recommended', 'Built on CogVideoX1.5-5B components']
+    },
+    {
       id: 'bernini-r-1.3b', name: 'Bernini-R 1.3B', category: 'video', developer: 'ByteDance',
       summary: 'Compact Apache-licensed Bernini renderer checkpoint for local video editing, style transfer and reference-guided edits.',
       tasks: ['video-to-video', 'video-editing', 'reference-guided-editing', 'text-to-video'],
@@ -542,6 +567,30 @@
       hardware_note: 'The official repository targets Python 3.10+, PyTorch 2.2.0 and CUDA 12.1, then loads the MIT Hugging Face safetensors checkpoint through the local Python API or Gradio demo. The demo accepts uploaded images or video frames and returns a downloadable Gaussian PLY with rendered RGB and depth previews. No exact inference VRAM table is published, so 32 GB RAM and 16 GB NVIDIA VRAM are the conservative local floor.',
       strengths: ['MIT licensed code and weights', 'Uncalibrated image or video-frame reconstruction', 'Local Gradio workflow with downloadable Gaussian PLY'],
       caveats: ['CUDA research stack with gsplat, xformers and PyTorch3D dependencies', 'Scene reconstruction rather than text-to-object mesh generation', 'Quality depends on frame coverage and pose estimation']
+    },
+    {
+      id: 'dvlt', name: 'DVLT', category: '3d', developer: 'NVIDIA / University of Modena / University of Toronto / ETH Zurich',
+      summary: 'Looped-transformer multi-view reconstruction model for unordered images or video clips.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'pose-estimation', 'depth-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'Hugging Face Accelerate', 'Gradio', 'Rerun'], output: ['GLB', 'Point cloud', 'Depth maps', 'Camera poses'],
+      local_status: 'local', license: 'NVIDIA noncommercial model license; Apache 2.0 code with VGGT notices', released: '2026-06',
+      source_url: 'https://github.com/nv-tlabs/dvlt', install_url: 'https://huggingface.co/nvidia/dvlt',
+      hardware_note: 'The official path installs Python 3.12, PyTorch 2.5.1 with CUDA 12.4 and Hugging Face Accelerate, then loads the nvidia/dvlt checkpoint from the Hub or a local directory. It supports Linux on NVIDIA Ampere, Lovelace, Hopper and Blackwell GPUs. No consumer VRAM table is published, so 32 GB RAM and 16 GB NVIDIA VRAM are conservative LocalClaw floors for small image sets.',
+      strengths: ['Official NVIDIA code and Hugging Face safetensors checkpoint', 'Unposed image-directory or video input', 'Offline demo path writes GLB plus Rerun scene output'],
+      caveats: ['Research and development only model terms', 'Predicts geometry, depth and cameras rather than textured object meshes', 'Larger scene batches are memory-bound']
+    },
+    {
+      id: 'lyra-2', name: 'Lyra 2.0', category: '3d', developer: 'NVIDIA',
+      summary: 'Image-conditioned generative world model that turns camera trajectories into explorable 3D Gaussian scenes.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'world-generation', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'WAN 2.1', 'VIPE', 'Depth Anything 3'], output: ['PLY', '3D Gaussian', 'MP4 preview'],
+      local_status: 'local', license: 'NVIDIA Internal Scientific Research and Development Model License; Apache 2.0 code', released: '2026-04',
+      source_url: 'https://github.com/nv-tlabs/lyra/tree/main/Lyra-2', install_url: 'https://huggingface.co/nvidia/Lyra-2.0',
+      hardware_note: 'The official workflow downloads checkpoints from Hugging Face, generates trajectory-conditioned exploration video, then lifts it with VIPE pose estimation and Depth Anything 3 into reconstructed_scene.ply plus a rendered flythrough. The repository reports about 9 minutes per 80 frames and about 1 minute for the GS reconstruction step on one H100 80 GB GPU, so LocalClaw records an H100/A100-class 80 GB NVIDIA floor.',
+      strengths: ['Official NVIDIA code and public checkpoints', 'Single starting image plus authored camera trajectory', 'Exports reconstructed Gaussian PLY scenes with preview video'],
+      caveats: ['Very heavy research workflow rather than a consumer asset tool', 'Model license is restricted to internal scientific research and development', 'Requires separate VIPE and DA3 reconstruction stages for final Gaussian output']
     },
     {
       id: 'instant-nurec', name: 'Instant-NuRec', category: '3d', developer: 'NVIDIA',

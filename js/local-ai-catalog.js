@@ -64,6 +64,31 @@
       caveats: ['Short native clips are capped around 81 frames without long-video extensions', 'Requires Wan 2.1 components and CUDA dependencies', 'Research checkpoint rather than a polished editor']
     },
     {
+      id: 'fastwan-qad-fp8-1.3b', name: 'FastWan-QAD-FP8 1.3B', category: 'video', developer: 'FastVideo / Hao AI Lab',
+      summary: 'Apache-licensed quantization-aware distilled Wan 1.3B text-to-video model for fast 480p local generation on RTX 4090-class GPUs.',
+      tasks: ['text-to-video', 'animation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 32, min_vram_gb: 24, runtime: ['FastVideo', 'PyTorch', 'Diffusers'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-03',
+      source_url: 'https://github.com/hao-ai-lab/FastVideo',
+      install_url: 'https://huggingface.co/FastVideo/FastWan-QAD-FP8-1.3B',
+      hardware_note: 'The official model card describes this FP8 variant as the backward-compatible FastWan-QAD path for RTX 4090 and other Ampere, Ada and Hopper GPUs. It publishes Diffusers-format safetensors, a FastVideo local inference command and a 5-second 480p benchmark around 3.4 seconds on RTX 4090, so LocalClaw records 24 GB NVIDIA VRAM and 32 GB RAM as the practical local floor.',
+      strengths: ['Three-step quantization-aware distilled generation', 'RTX 4090-compatible FP8 path', 'Official FastVideo repository and Hugging Face weights'],
+      caveats: ['Text-to-video only', 'Requires FastVideo kernels, CUDA and TAEHV setup', 'Quality is bounded by the Wan 2.1 1.3B base model']
+    },
+    {
+      id: 'osdenhancer-v1', name: 'OSDEnhancer v1.0', category: 'video', developer: 'Beijing Jiaotong University / Hefei University of Technology',
+      summary: 'Apache-licensed one-step diffusion model for real-world space-time video super-resolution from low-resolution, low-frame-rate input video.',
+      tasks: ['video-to-video', 'video-super-resolution', 'frame-interpolation', 'video-enhancement'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'Diffusers'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-05',
+      source_url: 'https://github.com/W-Shuoyan/OSDEnhancer',
+      install_url: 'https://huggingface.co/W-Shuoyan/OSDEnhancer',
+      hardware_note: 'The official repository provides PyTorch/CUDA installation, Hugging Face checkpoints and an inference script that writes enhanced MP4 output. The authors recommend at least 80 GB VRAM for stable inference, especially at 4x spatial and 2x temporal scaling, so LocalClaw records 80 GB NVIDIA VRAM and 128 GB RAM as the conservative workstation floor.',
+      strengths: ['Official Apache 2.0 code and weights', 'Spatial and temporal video super-resolution in one pass', 'Chunked inference path for longer input videos'],
+      caveats: ['Enhancement model, not prompt-only video generation', 'Workstation-class NVIDIA memory is recommended', 'Built on CogVideoX1.5-5B components']
+    },
+    {
       id: 'bernini-r-1.3b', name: 'Bernini-R 1.3B', category: 'video', developer: 'ByteDance',
       summary: 'Compact Apache-licensed Bernini renderer checkpoint for local video editing, style transfer and reference-guided edits.',
       tasks: ['video-to-video', 'video-editing', 'reference-guided-editing', 'text-to-video'],

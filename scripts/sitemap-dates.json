@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "1f9b1878f80de6a20c8bf666f971c9c9f12545d21c7813b031aadab776f6bb30",
+    "hash": "3a23bcd758ab4c12015a548cd56183bc75f3331595ee4aeba553745528b5d45f",
     "lastmod": "2026-09-01"
   },
   "local-ai-activity-index.html": {
@@ -28,28 +28,28 @@
     "lastmod": "2026-09-01"
   },
   "tts-list.html": {
-    "hash": "0c88ec3252ce7ed1a419a01a49d1a8ef8f708c32b4e3d2492a9e429c289b6110",
+    "hash": "6354dceb6e71039b5470df123fae5e49e7e23a7318074afd0cbf09c2d55764a4",
     "lastmod": "2026-09-01"
   },
   "image-models.html": {
-    "hash": "94cae61a0caf6a01e57242fc095632178c032ebf11ca4775522a20216b50d834",
-    "lastmod": "2026-08-31"
+    "hash": "763d35f595097f244022216803115428be8c2e054e1af0cbc668feb46927add3",
+    "lastmod": "2026-09-01"
   },
   "video-models.html": {
-    "hash": "dda5a728431c754b581761239fb4d9c3e8c322e99ce146fffa2e348b01d2bd84",
-    "lastmod": "2026-08-31"
+    "hash": "ca3de2d003ab17bbd4d4869ece15ce6c2b8254bc2a81721b3625d07ed6aa5cc2",
+    "lastmod": "2026-09-01"
   },
   "3d-models.html": {
-    "hash": "346f5a9e276e53178b3dfe41778e0df54d1a15feb4437ad2bd90fe60b7fc7b97",
-    "lastmod": "2026-08-31"
+    "hash": "26ff6c6a4ac93bed3f4873fdc00e53494e93d8a33cd642f50fbcc80bbefa26c4",
+    "lastmod": "2026-09-01"
   },
   "music-models.html": {
-    "hash": "08fe80dc7980eb0850d7eba4af2cc1f0aa7d1897a26ee12772d455caeea2df2d",
-    "lastmod": "2026-08-31"
+    "hash": "dffaae98648a8ac79043948cd45f2ecd63d1b8146633ba091bd9a981ca18fcc5",
+    "lastmod": "2026-09-01"
   },
   "vision-models.html": {
-    "hash": "26c0e0883802bcb7c11bb350a780e2dcbec4ac30e1be5d55bb1b840892db0099",
-    "lastmod": "2026-08-31"
+    "hash": "f0dbc9ae6712aea937bfac4af751a8fd2486fa9d0fb9d3a0549ca8ff2ac03f64",
+    "lastmod": "2026-09-01"
   },
   "computers.html": {
     "hash": "a57dd225d532c22818b234344270d5ac0c31d4c32a015ea27f3f79543b3478a4",
@@ -64,7 +64,7 @@
     "lastmod": "2026-08-31"
   },
   "new.html": {
-    "hash": "0b8afcaba3f629ea1ecdf3e3e6173874dde13019f321b79b6e3f8835abb78748",
+    "hash": "02ec46e2c37c680833b0009ff153a7ce76b75fb3864d619df9939ebf0522018f",
     "lastmod": "2026-09-01"
   },
   "software/lm-studio.html": {
@@ -1264,7 +1264,7 @@
     "lastmod": "2026-08-31"
   },
   "tts/moss-audio-4b-instruct.html": {
-    "hash": "4f64ca672d7f06f8cf3d9d1dde7cffc487032ce1881c4fd94a97e03da669f6c5",
+    "hash": "c3eba660b0ccb9647cc481889e6032d81b6ed9742569adb7d74b97fd71f2b26d",
     "lastmod": "2026-09-01"
   },
   "tts/moss-transcribe-diarize.html": {
@@ -1471,6 +1471,10 @@
     "hash": "bea835aef6af8146340d6fc2b8d8b325a9d4980d7d28f1cbc3031012ae857952",
     "lastmod": "2026-08-31"
   },
+  "video/fastwan-qad-fp8-1.3b.html": {
+    "hash": "6e76dc856bc9a6bd8586e29d24194bb513dad0a52bcdf9739ad6a6fa440d8430",
+    "lastmod": "2026-09-01"
+  },
   "video/framepack-f1.html": {
     "hash": "ec10ffbc218569cac386c4c8f52fdb2575c90c8bd2afe87ee889dd3f7e5b1220",
     "lastmod": "2026-08-31"
@@ -1538,6 +1542,10 @@
   "video/nava.html": {
     "hash": "307987472853f8a72f2988317e813ea34d449a5d182c12d241a3665c7618306f",
     "lastmod": "2026-08-31"
+  },
+  "video/osdenhancer-v1.html": {
+    "hash": "55a26b2af37c0d1c04ab15ee8ed4d93a33548ad64ba6febbac6267393dee3a00",
+    "lastmod": "2026-09-01"
   },
   "video/sana-video-2.0-5b.html": {
     "hash": "86bb4b4a7488db28207b8c007fd63c73e29262a19f45789a0825eae42ef1f6f4",
