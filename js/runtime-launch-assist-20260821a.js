@@ -6,6 +6,28 @@
     unsloth: { name: 'Unsloth Desktop', download: 'https://unsloth.ai/' }
   };
 
+  // Only actions that move a visitor toward model files or a supported local
+  // runtime may feed the canonical install-intent goal. Keep this list
+  // explicit: discovery actions such as model_runtime_compare must never be
+  // promoted to install intent merely because they share a name prefix.
+  var INSTALL_INTENT_GOALS = Object.freeze({
+    model_install_comfyui: 'comfyui',
+    model_install_drawthings: 'drawthings',
+    model_install_github: 'github',
+    model_install_gradio: 'gradio',
+    model_install_huggingface: 'huggingface',
+    model_install_mlx: 'mlx',
+    model_install_python: 'python',
+    model_install_pytorch: 'pytorch',
+    model_install_unsloth: 'unsloth',
+    model_runtime_huggingface: 'huggingface',
+    model_runtime_llamacpp: 'llamacpp',
+    model_runtime_lmstudio: 'lmstudio',
+    model_runtime_official: 'official',
+    model_runtime_ollama: 'ollama',
+    model_runtime_unsloth: 'unsloth'
+  });
+
   function cleanValue(value) {
     return String(value || '').replace(/\s+/g, ' ').trim().slice(0, 160);
   }
@@ -33,6 +55,12 @@
     } catch (error) {
       // Analytics must never interrupt the launch flow.
     }
+  }
+
+  function installIntentPlatform(goal) {
+    return Object.prototype.hasOwnProperty.call(INSTALL_INTENT_GOALS, goal)
+      ? INSTALL_INTENT_GOALS[goal]
+      : '';
   }
 
   function sourceUrl(container) {
@@ -82,11 +110,13 @@
     var target = event.target;
     if (!target || typeof target.closest !== 'function') return;
 
-    var intentLink = target.closest('a[data-fast-goal^="model_install_"], a[data-fast-goal^="model_runtime_"]');
+    var intentLink = target.closest('a[data-fast-goal]');
     if (intentLink) {
       var legacyGoal = intentLink.getAttribute('data-fast-goal') || '';
-      var intentPlatform = legacyGoal.replace(/^model_(?:install|runtime)_/, '') || 'other';
-      track('model_install_intent', intentLink, intentPlatform, 'download_or_runtime');
+      var intentPlatform = installIntentPlatform(legacyGoal);
+      if (intentPlatform) {
+        track('model_install_intent', intentLink, intentPlatform, 'download_or_runtime');
+      }
     }
 
     var launchLink = target.closest('a[href^="lmstudio://"], a[href^="unsloth://"]');

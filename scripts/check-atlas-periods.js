@@ -315,17 +315,27 @@ for (const window of installExpected) {
   const data = read(`data/local-ai-install-intent${window.suffix}.json`);
   const admin1 = read(`data/local-ai-install-intent-admin1${window.suffix}.json`);
   if (!data || !admin1) continue;
-  if (data.view !== 'installed' || data.period?.key !== window.key || data.period?.days !== window.days
+  if (data.schemaVersion !== 2 || data.view !== 'installed' || data.displayName !== 'Install paths'
+    || data.period?.key !== window.key || data.period?.days !== window.days
     || data.period?.start !== window.start || data.period?.end !== window.end || data.publishThreshold !== 5) {
     issue(`${window.key} install-intent period metadata is invalid`);
   }
-  if (data.totals?.observedSignals !== 48 || data.totals?.publishedSignals !== 19
-    || data.totals?.withheldSignals !== 29 || data.totals?.publishedRegions !== 3) {
+  if (data.totals?.observedSignals !== 58 || data.totals?.globalVisitors !== 58
+    || data.totals?.observedRegions !== 29 || data.totals?.publishedSignals !== 24
+    || data.totals?.publishedCountryCellVisitors !== 24 || data.totals?.countryCellVisitors !== 60
+    || data.totals?.withheldCountryCellVisitors !== 36 || data.totals?.publishedRegions !== 3
+    || data.totals?.withheldRegions !== 26 || data.totals?.attributedModelVisitors !== 55
+    || 'withheldSignals' in data.totals) {
     issue(`${window.key} install-intent totals do not match the approved goal-filtered snapshot`);
   }
   if ((data.countries || []).some(country => !Number.isInteger(country.signals) || country.signals < 5)
     || (data.countries || []).reduce((sum, country) => sum + country.signals, 0) !== data.totals?.publishedSignals) {
     issue(`${window.key} install-intent country rows violate the five-visitor threshold or do not reconcile`);
+  }
+  if (!String(data.totals?.countryCellCounting || '').includes('more than one country')
+    || data.trackingCoverage?.hostname !== 'localclaw.io'
+    || (data.trackingCoverage?.includedGoals || []).some(goal => ['model_install_localclaw', 'model_runtime_localclaw'].includes(goal))) {
+    issue(`${window.key} install-intent snapshot must disclose overlapping country cells and exclude non-install LocalClaw goals`);
   }
   if (!Array.isArray(data.cityClusters) || data.cityClusters.length !== 0) {
     issue(`${window.key} install-intent snapshot must not invent city clusters`);
@@ -333,11 +343,44 @@ for (const window of installExpected) {
   if (admin1.view !== 'installed' || admin1.publishThreshold !== 5
     || admin1.period?.start !== window.start || admin1.period?.end !== window.end
     || Object.keys(admin1.countries || {}).length !== 3
-    || Object.values(admin1.countries || {}).some(country => country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)) {
+    || Object.values(admin1.countries || {}).some(country => country.collectionStatus !== 'collected' || country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)
+    || admin1.countries?.['United States']?.countryCode !== 'US'
+    || admin1.countries?.['United States']?.observedRegions !== 8
+    || admin1.countries?.Germany?.observedRegions !== 4
+    || admin1.countries?.India?.observedRegions !== 4) {
     issue(`${window.key} install-intent regional snapshot must publish no below-threshold region`);
   }
   if (!String(data.claimBoundary || '').toLowerCase().includes('does not verify')) {
     issue(`${window.key} install-intent snapshot must retain the click-versus-installation claim boundary`);
+  }
+  const details = data.installIntentDetails;
+  if (!details || details.attribution?.publishThreshold !== 5
+    || JSON.stringify((details.models || []).map(row => [row.id, row.visitors])) !== JSON.stringify([['qwen3.8-27b', 6]])
+    || JSON.stringify((details.runtimes || []).map(row => [row.id, row.visitors])) !== JSON.stringify([
+      ['huggingface', 23], ['lmstudio', 16], ['unsloth', 16]
+    ])
+    || JSON.stringify((details.modalities || []).map(row => [row.id, row.visitors])) !== JSON.stringify([
+      ['llm', 33], ['voice', 22]
+    ])
+    || forbiddenModelDataKeys(details).length) {
+    issue(`${window.key} install-intent model/destination detail must contain only privacy-thresholded unique-visitor rows`);
+  }
+  const installCountries = new Map((data.countries || []).map(country => [country.name, country]));
+  if (JSON.stringify((data.countries || []).map(country => [country.name, country.signals])) !== JSON.stringify([
+    ['United States', 11], ['Germany', 7], ['India', 6]
+  ])
+    || installCountries.get('United States')?.installIntent?.runtimes?.[0]?.visitors !== 7
+    || installCountries.get('Germany')?.installIntent?.runtimes?.[0]?.visitors !== 5
+    || (data.countries || []).some(country => (country.installIntent?.models || []).length !== 0)) {
+    issue(`${window.key} install-intent country stack cells violate their independent threshold`);
+  }
+  if (data.period?.partial !== true || data.period?.effectiveCoverageDays !== 9
+    || data.period?.observedStartAtInclusive !== '2026-08-21T00:00:00+02:00'
+    || data.period?.observedEndAtExclusive !== '2026-08-30T00:00:00+02:00'
+    || data.privacy?.minimumUniqueVisitors !== 5
+    || data.stages?.installationVerified?.available !== false
+    || data.stages?.inferenceCompleted?.available !== false) {
+    issue(`${window.key} install-intent snapshot must disclose partial coverage and unavailable verified stages`);
   }
 }
 
@@ -581,6 +624,13 @@ if (!app.includes("url.searchParams.set('view', 'models')")
   || !app.includes("brand: requestParams.get('brand')")
   || !app.includes('focusModelCountry(country, requestedView.brand)')) {
   issue('Models Share Mode must round-trip view, range, country and canonical brand');
+}
+if (!app.includes("url.searchParams.set('view', 'installed')")
+  || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")
+  || !app.includes("url.searchParams.set('model', state.selectedInstallModel)")
+  || !app.includes("model: requestParams.get('model')")
+  || !app.includes('focusInstallCountry(country, requestedView.model)')) {
+  issue('Install paths Share Mode must round-trip view, range, country and canonical model');
 }
 if (!app.includes("status === 'published' || status === 'partially_published'")) {
   issue('Partially published regional periods must remain visible as published aggregates');

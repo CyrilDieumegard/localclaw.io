@@ -1,175 +1,302 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "indexName": "Local AI Activity Index",
   "view": "installed",
+  "displayName": "Install paths",
   "status": "beta",
-  "source": "Aggregated anonymous LocalClaw install-intent goals measured by DataFast",
+  "source": "Aggregated anonymous LocalClaw install-path selections measured by DataFast",
   "sourceUrl": "https://localclaw.io/local-ai-activity-index#methodology",
-  "metric": "unique visitors completing at least one install-intent goal",
+  "metric": "unique visitors selecting at least one eligible model setup, repository, or desktop-app path",
   "publishThreshold": 5,
-  "claimBoundary": "Install intent only; a website click or desktop-app handoff does not verify a completed model download, installation, launch, or inference event.",
+  "claimBoundary": "Click intent only. It does not verify a completed download, installation, model launch, inference, or active use.",
   "timezone": "Europe/Zurich",
   "period": {
     "start": "2026-03-03",
     "end": "2026-08-29",
+    "startAtInclusive": "2026-03-03T00:00:00+01:00",
+    "endAtExclusive": "2026-08-30T00:00:00+02:00",
     "label": "Last 6 months",
     "key": "180d",
-    "days": 180
+    "days": 180,
+    "trackingStartedAt": "2026-08-21",
+    "effectiveCoverageDays": 9,
+    "partial": true,
+    "observedStartAtInclusive": "2026-08-21T00:00:00+02:00",
+    "observedEndAtExclusive": "2026-08-30T00:00:00+02:00"
   },
-  "generatedAt": "2026-08-30T16:20:00.000Z",
+  "generatedAt": "2026-09-01T12:52:35.000Z",
+  "privacy": {
+    "minimumUniqueVisitors": 5,
+    "appliesIndependentlyTo": [
+      "country",
+      "region",
+      "model",
+      "destination_path",
+      "modality",
+      "country_model",
+      "country_destination_path",
+      "country_modality"
+    ],
+    "note": "Counts below threshold and all visitor-level journeys are absent from the public files."
+  },
   "trackingCoverage": {
     "canonicalGoal": "model_install_intent",
     "canonicalGoalStartedAt": "2026-08-30",
     "historicalGoalFamilyStartedAt": "2026-08-21",
+    "hostname": "localclaw.io",
     "includedGoals": [
       "model_runtime_launch_requested",
+      "model_runtime_lmstudio",
+      "model_runtime_unsloth",
+      "model_runtime_huggingface",
+      "model_runtime_ollama",
+      "model_runtime_llamacpp",
       "model_install_huggingface",
       "model_install_unsloth",
       "model_install_github",
       "model_install_python",
-      "model_install_localclaw",
       "model_install_comfyui",
       "model_install_intent"
     ],
-    "note": "The historical snapshot is a de-duplicated visitor union across the listed legacy goal names. The canonical model_install_intent goal is used for future refreshes while the legacy family remains included for continuity."
+    "partial": true,
+    "effectiveCoverageDays": 9,
+    "note": "The snapshot de-duplicates visitors across eligible legacy and canonical goal names. Compare, hardware-check, pricing, help, and self-reported confirmation actions are excluded from the install-intent total."
+  },
+  "stages": {
+    "pathSelected": {
+      "available": true,
+      "publicMetric": true
+    },
+    "modelJourneyAttributed": {
+      "available": true,
+      "publicMetric": true
+    },
+    "desktopHandoffRequested": {
+      "available": true,
+      "publicMetric": false
+    },
+    "appOpenSelfReported": {
+      "available": true,
+      "publicMetric": false
+    },
+    "downloadCompleted": {
+      "available": false,
+      "publicMetric": false
+    },
+    "installationVerified": {
+      "available": false,
+      "publicMetric": false
+    },
+    "inferenceCompleted": {
+      "available": false,
+      "publicMetric": false
+    }
   },
   "totals": {
-    "signals": 48,
-    "regions": 28,
-    "observedSignals": 48,
-    "observedRegions": 28,
-    "publishedSignals": 19,
+    "signals": 58,
+    "globalVisitors": 58,
+    "regions": 29,
+    "observedSignals": 58,
+    "observedRegions": 29,
+    "publishedSignals": 24,
+    "publishedCountryCellVisitors": 24,
+    "countryCellVisitors": 60,
+    "withheldCountryCellVisitors": 36,
     "publishedRegions": 3,
-    "withheldSignals": 29,
-    "withheldRegions": 25
+    "withheldRegions": 26,
+    "countryCellCounting": "Unique within each country row; a visitor can appear in more than one country during the period, so country rows and publishedSignals must not be subtracted from the global unique-visitor total.",
+    "attributedModelVisitors": 55,
+    "publishedModelPaths": 1,
+    "publishedRuntimePaths": 3
   },
   "countries": [
     {
-      "name": "Germany",
-      "signals": 7,
-      "rank": 1
+      "name": "United States",
+      "countryCode": "US",
+      "adm0A3": "USA",
+      "signals": 11,
+      "rank": 1,
+      "installIntent": {
+        "modelStatus": "withheld_below_threshold",
+        "runtimeStatus": "published",
+        "modalityStatus": "published",
+        "models": [],
+        "runtimes": [
+          {
+            "rank": 1,
+            "id": "huggingface",
+            "label": "Hugging Face",
+            "logo": "/images/model-logos/huggingface-avatar.webp",
+            "visitors": 7,
+            "kind": "Model repository"
+          }
+        ],
+        "modalities": [
+          {
+            "rank": 1,
+            "id": "llm",
+            "label": "LLM",
+            "visitors": 5
+          },
+          {
+            "rank": 2,
+            "id": "voice",
+            "label": "Voice",
+            "visitors": 5
+          }
+        ]
+      }
     },
     {
-      "name": "United States",
+      "name": "Germany",
+      "countryCode": "DE",
+      "adm0A3": "DEU",
       "signals": 7,
-      "rank": 2
+      "rank": 2,
+      "installIntent": {
+        "modelStatus": "withheld_below_threshold",
+        "runtimeStatus": "published",
+        "modalityStatus": "published",
+        "models": [],
+        "runtimes": [
+          {
+            "rank": 1,
+            "id": "lmstudio",
+            "label": "LM Studio",
+            "logo": "/images/software/icons/lm-studio.png",
+            "visitors": 5,
+            "kind": "Desktop app"
+          }
+        ],
+        "modalities": [
+          {
+            "rank": 1,
+            "id": "llm",
+            "label": "LLM",
+            "visitors": 5
+          }
+        ]
+      }
     },
     {
       "name": "India",
-      "signals": 5,
-      "rank": 3
+      "countryCode": "IN",
+      "adm0A3": "IND",
+      "signals": 6,
+      "rank": 3,
+      "installIntent": {
+        "modelStatus": "withheld_below_threshold",
+        "runtimeStatus": "withheld_below_threshold",
+        "modalityStatus": "withheld_below_threshold",
+        "models": [],
+        "runtimes": [],
+        "modalities": []
+      }
     }
   ],
   "subnational": {
     "United States": {
       "division": "state",
-      "source": "DataFast region breakdown filtered to the install-intent goal family",
+      "source": "DataFast region breakdown filtered to the eligible install-path goal family",
       "boundarySource": "U.S. Census Bureau 2024 Cartographic Boundary Files, 1:20m",
       "publishThreshold": 5,
       "totals": {
-        "countrySignals": 7,
-        "geolocatedSignals": 8,
+        "countrySignals": 11,
+        "geolocatedSignals": 10,
         "observedRegions": 8,
         "publishedSignals": 0,
         "publishedRegions": 0,
-        "withheldSignals": 8,
-        "unassignedSignals": 0
+        "withheldSignals": 10,
+        "unassignedSignals": 1
       },
       "qualityNotes": [
-        "Install intent is a website visitor who selected at least one model download or local-runtime path; it is not a verified installation.",
+        "Install intent means that a website visitor selected an eligible model setup, repository, or desktop-app path; it is not a verified installation.",
         "Region is an approximate network location reported by DataFast, not verified residence.",
-        "No state reached the five-visitor publication threshold in this snapshot."
+        "No state independently reached the five-visitor publication threshold in this snapshot."
       ],
       "regions": []
     }
   },
   "cityClusterMethodology": {
     "source": "No city-cluster layer is published for install intent in this snapshot",
-    "metric": "unique visitors completing at least one install-intent goal",
+    "metric": "unique visitors selecting at least one eligible install path",
     "publishThreshold": 5,
-    "generatedAt": "2026-08-30T16:20:00.000Z",
+    "generatedAt": "2026-09-01T12:52:35.000Z",
     "privacyNote": "No person, device, IP address, exact event location, or below-threshold geography is exposed.",
-    "mappingNote": "Country color is the only published geographic layer until a country-filtered region or city row independently reaches five unique visitors.",
+    "mappingNote": "Country color is the only geographic layer until a country-filtered region independently reaches five unique visitors.",
     "remainderTreatment": "Below-threshold geographic detail remains included only in aggregate withheld totals."
   },
   "cityClusters": [],
-  "modelRequests": {
-    "sourceGoal": "model_runtime_launch_requested",
-    "metric": "download or desktop-runtime launch requests",
-    "completions": 59,
-    "uniqueVisitors": 28,
-    "publishThreshold": 2,
+  "installIntentDetails": {
+    "attribution": {
+      "method": "The immediately preceding eligible canonical LocalClaw model page in the same anonymous visitor journey is attributed to a supported path-selection event.",
+      "modelAttributionStartedAt": "2026-08-21",
+      "publishThreshold": 5,
+      "claimBoundary": "Journey attribution identifies the model page that preceded the selection. It does not prove which file was downloaded or whether installation succeeded."
+    },
+    "totals": {
+      "attributedVisitors": 55,
+      "publishedModels": 1,
+      "publishedRuntimes": 3,
+      "publishedModalities": 2,
+      "publishedCountryModelCells": 0,
+      "publishedCountryRuntimeCells": 2,
+      "publishedCountryModalityCells": 3
+    },
     "models": [
       {
         "rank": 1,
-        "model": "index-tts-2",
-        "requests": 11
+        "id": "qwen3.8-27b",
+        "label": "Qwen3.8-27B",
+        "kind": "llm",
+        "family": "qwen",
+        "path": "/models/qwen3.8-27b",
+        "logo": "/images/model-logos/qwen.svg",
+        "visitors": 6,
+        "recommendedProfile": "Q4_K_M",
+        "profileMeaning": "LocalClaw catalogue recommendation, not a measured download choice"
+      }
+    ],
+    "runtimes": [
+      {
+        "rank": 1,
+        "id": "huggingface",
+        "label": "Hugging Face",
+        "logo": "/images/model-logos/huggingface-avatar.webp",
+        "visitors": 23,
+        "kind": "Model repository"
       },
       {
         "rank": 2,
-        "model": "granite4.2-8b",
-        "requests": 3
+        "id": "lmstudio",
+        "label": "LM Studio",
+        "logo": "/images/software/icons/lm-studio.png",
+        "visitors": 16,
+        "kind": "Desktop app"
       },
       {
         "rank": 3,
-        "model": "qwen3-14b",
-        "requests": 3
-      },
-      {
-        "rank": 4,
-        "model": "qwen3.8-27b",
-        "requests": 3
-      },
-      {
-        "rank": 5,
-        "model": "agents-a1-4b",
-        "requests": 2
-      },
-      {
-        "rank": 6,
-        "model": "command-r-plus",
-        "requests": 2
-      },
-      {
-        "rank": 7,
-        "model": "granite4.2-3b",
-        "requests": 2
-      },
-      {
-        "rank": 8,
-        "model": "higgs-tts-3-4b",
-        "requests": 2
-      },
-      {
-        "rank": 9,
-        "model": "lfm2.5-8b-a1b",
-        "requests": 2
-      },
-      {
-        "rank": 10,
-        "model": "ministral-3-14b-instruct",
-        "requests": 2
-      },
-      {
-        "rank": 11,
-        "model": "ornith-1-5-9b",
-        "requests": 2
-      },
-      {
-        "rank": 12,
-        "model": "qwen3-32b",
-        "requests": 2
-      },
-      {
-        "rank": 13,
-        "model": "qwen3-8b",
-        "requests": 2
-      },
-      {
-        "rank": 14,
-        "model": "voxcpm2",
-        "requests": 2
+        "id": "unsloth",
+        "label": "Unsloth",
+        "logo": "/images/software/icons/unsloth-sticker.png",
+        "visitors": 16,
+        "kind": "Desktop app"
       }
-    ]
+    ],
+    "modalities": [
+      {
+        "rank": 1,
+        "id": "llm",
+        "label": "LLM",
+        "visitors": 33
+      },
+      {
+        "rank": 2,
+        "id": "voice",
+        "label": "Voice",
+        "visitors": 22
+      }
+    ],
+    "countNote": "Each row is a unique-visitor count. One visitor can select multiple model, destination, or modality paths, so rows overlap and must not be summed."
   }
 }

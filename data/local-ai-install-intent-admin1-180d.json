@@ -1,19 +1,27 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "view": "installed",
-  "generatedAt": "2026-08-30T16:20:00.000Z",
+  "displayName": "Install paths",
+  "generatedAt": "2026-09-01T12:52:35.000Z",
   "period": {
     "start": "2026-03-03",
     "end": "2026-08-29",
+    "startAtInclusive": "2026-03-03T00:00:00+01:00",
+    "endAtExclusive": "2026-08-30T00:00:00+02:00",
     "label": "Last 6 months",
     "key": "180d",
-    "days": 180
+    "days": 180,
+    "trackingStartedAt": "2026-08-21",
+    "effectiveCoverageDays": 9,
+    "partial": true,
+    "observedStartAtInclusive": "2026-08-21T00:00:00+02:00",
+    "observedEndAtExclusive": "2026-08-30T00:00:00+02:00"
   },
   "source": {
     "provider": "DataFast",
     "dimension": "region",
-    "method": "Country-filtered regional analytics for the install-intent goal family",
-    "snapshotNote": "No regional row independently reached the five-visitor threshold in this snapshot."
+    "method": "Country-filtered regional analytics for the eligible install-path goal family",
+    "snapshotNote": "Collected country breakdowns publish no regional row unless it independently reaches the five-visitor threshold. Countries without a collected breakdown are explicitly marked not_collected."
   },
   "publishThreshold": 5,
   "privacy": {
@@ -21,24 +29,30 @@
     "withheldDetail": "Counts and identities below the threshold are not included in this public file."
   },
   "countries": {
-    "Germany": {
-      "countryCode": "DE",
-      "adm0A3": "DEU",
-      "collectionStatus": "collected",
-      "publicationStatus": "none_above_threshold",
-      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
-      "countrySignals": 7,
-      "publishedSignals": 0,
-      "publishedRegions": 0,
-      "regions": []
-    },
     "United States": {
       "countryCode": "US",
       "adm0A3": "USA",
       "collectionStatus": "collected",
       "publicationStatus": "none_above_threshold",
-      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
+      "snapshotGeneratedAt": "2026-09-01T12:52:35.000Z",
+      "countrySignals": 11,
+      "observedRegions": 8,
+      "geolocatedSignals": 10,
+      "unassignedSignals": 1,
+      "publishedSignals": 0,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Germany": {
+      "countryCode": "DE",
+      "adm0A3": "DEU",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-09-01T12:52:35.000Z",
       "countrySignals": 7,
+      "observedRegions": 4,
+      "geolocatedSignals": 7,
+      "unassignedSignals": 0,
       "publishedSignals": 0,
       "publishedRegions": 0,
       "regions": []
@@ -48,8 +62,11 @@
       "adm0A3": "IND",
       "collectionStatus": "collected",
       "publicationStatus": "none_above_threshold",
-      "snapshotGeneratedAt": "2026-08-30T16:20:00.000Z",
-      "countrySignals": 5,
+      "snapshotGeneratedAt": "2026-09-01T12:52:35.000Z",
+      "countrySignals": 6,
+      "observedRegions": 4,
+      "geolocatedSignals": 4,
+      "unassignedSignals": 2,
       "publishedSignals": 0,
       "publishedRegions": 0,
       "regions": []

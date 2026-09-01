@@ -4,22 +4,22 @@ const PERIOD_CONFIG = Object.freeze({
   '30d': {
     dataUrl: '/data/local-ai-activity-index.json?v=20260829g',
     admin1Url: '/data/local-ai-admin1-activity.json?v=20260829h',
-    installedDataUrl: '/data/local-ai-install-intent.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260830a',
+    installedDataUrl: '/data/local-ai-install-intent.json?v=20260901b',
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a'
   },
   '90d': {
     dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-90d.json?v=20260829a',
-    installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260830a',
+    installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260901b',
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a'
   },
   '180d': {
     dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a',
-    installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260830a',
+    installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260901b',
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a'
   }
 });
@@ -30,7 +30,8 @@ const requestedView = Object.freeze({
   country: requestParams.get('country') || '',
   region: requestParams.get('region') || '',
   area: requestParams.get('area') || '',
-  brand: requestParams.get('brand') || requestParams.get('family') || ''
+  brand: requestParams.get('brand') || requestParams.get('family') || '',
+  model: requestParams.get('model') || ''
 });
 const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
 const ACTIVE_VIEW = requestedMetricView === 'installed'
@@ -91,8 +92,10 @@ const shareCopyButton = document.querySelector('[data-atlas-share-copy]');
 const shareDownloadButton = document.querySelector('[data-atlas-share-download]');
 const shareNativeButton = document.querySelector('[data-atlas-share-native]');
 const modelPanel = document.querySelector('[data-atlas-model-panel]');
+const installPanel = document.querySelector('[data-atlas-install-panel]');
 const modelLogoLayer = document.querySelector('[data-atlas-model-logo-layer]');
 const modelLegend = document.querySelector('[data-atlas-model-legend]');
+let installPanelReturnFocus = null;
 
 if (!stage || !canvas) {
   throw new Error('Local AI Activity Index stage is missing.');
@@ -318,6 +321,9 @@ const state = {
   selectedModelCountry: null,
   selectedModelBrand: null,
   modelPanelOpen: false,
+  selectedInstallCountry: null,
+  selectedInstallModel: null,
+  installPanelOpen: false,
   countryByCode: new Map(),
   scope: 'world',
   targetRotation: new THREE.Vector2(0.38, -0.1),
@@ -418,13 +424,20 @@ function signalLabel(value, singular = false) {
 
 function publishedSignalLabel() {
   if (isModelInterestView()) return 'published model-page visitors';
-  return isInstallIntentView() ? 'published install-intent visitors' : 'published signals';
+  return isInstallIntentView() ? 'visitors in published country rows' : 'published signals';
 }
 
 function sharePeriodLabel() {
   if (ACTIVE_PERIOD === '180d') return '6-MONTH VIEW';
   if (ACTIVE_PERIOD === '90d') return '3-MONTH VIEW';
   return '30-DAY VIEW';
+}
+
+function installCoverageCopy() {
+  if (!isInstallIntentView() || !state.data?.period?.partial) return '';
+  const days = number(state.data.period.effectiveCoverageDays || 0);
+  const startedAt = state.data.period.trackingStartedAt;
+  return `Coverage: ${days} observed day${days === 1 ? '' : 's'}${startedAt ? ` since ${formattedDate(startedAt, true)}` : ''}.`;
 }
 
 function atlasTrack(eventName, properties = {}) {
@@ -517,6 +530,59 @@ function shareSnapshot() {
       primaryLabel: 'Model-page visitors',
       secondary: number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions),
       secondaryLabel: 'Countries with brands'
+    };
+  }
+
+  if (isInstallIntentView() && state.scope === 'world') {
+    const country = state.selectedInstallCountry || worldCountry;
+    const models = installModelsForCountry(country);
+    const runtimes = installRuntimesForCountry(country);
+    const selectedModel = state.selectedInstallModel
+      ? models.find(model => installModelIdentifier(model) === state.selectedInstallModel) || null
+      : null;
+    const model = selectedModel || (country ? models[0] : null) || null;
+    const runtime = runtimes[0] || null;
+    const coverage = installCoverageCopy();
+    if (country) {
+      const modelRank = model ? models.indexOf(model) + 1 : 0;
+      return {
+        scope: model ? 'install-model' : 'country',
+        entity: country.name,
+        title: model
+          ? modelRank === 1
+            ? `${model.label} is the leading published model path in ${country.name}.`
+            : `${model.label} is the #${modelRank} published model path in ${country.name}.`
+          : runtime
+            ? `${runtime.label} is the leading published path in ${country.name}.`
+            : `${country.name} has install intent, with stack detail still private.`,
+        summary: `${number(country.signals)} visitors selected an eligible setup, repository or desktop-app path · ${dateRange}. ${coverage} Click intent, not verified installations.`,
+        primary: number(country.signals),
+        primaryLabel: 'Install-intent visitors',
+        secondary: model ? number(model.visitors) : runtime ? number(runtime.visitors) : '—',
+        secondaryLabel: model ? 'Model-path visitors' : runtime ? 'Destination visitors' : 'Detail below 5'
+      };
+    }
+    if (model) {
+      return {
+        scope: 'install-model',
+        entity: model.label,
+        title: `${model.label} is the first published model path in LocalClaw install intent.`,
+        summary: `${number(model.visitors)} visitors selected an eligible path after this model page · ${dateRange}. ${coverage} Click intent, not verified installations.`,
+        primary: number(model.visitors),
+        primaryLabel: 'Model-path visitors',
+        secondary: model.recommendedProfile || '—',
+        secondaryLabel: 'Catalogue profile'
+      };
+    }
+    return {
+      scope: 'world',
+      entity: 'World',
+      title: 'See which local AI install paths visitors choose.',
+      summary: `${number(state.data.totals.observedSignals)} unique visitors selected an eligible path · ${dateRange}. ${coverage} Click intent, not verified installations.`,
+      primary: number(state.data.totals.observedSignals),
+      primaryLabel: 'Install-intent visitors',
+      secondary: number(state.data.installIntentDetails?.totals?.publishedRuntimes || 0),
+      secondaryLabel: 'Setup destinations published'
     };
   }
 
@@ -626,6 +692,9 @@ function currentShareUrl() {
   if (isModelInterestView()) {
     if (state.selectedModelCountry) url.searchParams.set('country', state.selectedModelCountry.name);
     if (state.selectedModelBrand) url.searchParams.set('brand', state.selectedModelBrand);
+  } else if (isInstallIntentView() && (state.selectedInstallCountry || state.selectedInstallModel)) {
+    if (state.selectedInstallCountry) url.searchParams.set('country', state.selectedInstallCountry.name);
+    if (state.selectedInstallModel) url.searchParams.set('model', state.selectedInstallModel);
   } else if (state.scope === 'us') {
     url.searchParams.set('country', 'United States');
     if (locked?.code) url.searchParams.set('region', locked.name);
@@ -647,7 +716,14 @@ function currentShareUrl() {
 
 function updateSharePresentation() {
   const snapshot = shareSnapshot();
-  if (shareEyebrow) shareEyebrow.textContent = `LOCAL AI ${isModelInterestView() ? 'MODEL INTEREST' : isInstallIntentView() ? 'INSTALL INTENT' : 'INTEREST'} · ${sharePeriodLabel()}`;
+  const coverageCopy = installCoverageCopy();
+  if (coverageCopy && !snapshot.summary.includes(coverageCopy)) snapshot.summary = `${snapshot.summary} ${coverageCopy}`;
+  if (shareEyebrow) {
+    const coverage = isInstallIntentView() && state.data?.period?.partial
+      ? ` · ${number(state.data.period.effectiveCoverageDays)} DAYS OBSERVED`
+      : '';
+    shareEyebrow.textContent = `LOCAL AI ${isModelInterestView() ? 'MODEL INTEREST' : isInstallIntentView() ? 'INSTALL INTENT' : 'INTEREST'} · ${sharePeriodLabel()}${coverage}`;
+  }
   if (shareTitle) shareTitle.textContent = snapshot.title;
   if (shareSummary) shareSummary.textContent = snapshot.summary;
   if (sharePrimary) sharePrimary.textContent = snapshot.primary;
@@ -1427,7 +1503,7 @@ function admin1StatusMessage(status = state.detailDataStatus) {
     return 'The provider regional breakdown was unavailable for this snapshot. Administrative boundaries are shown without regional totals.';
   }
   if (status === 'none_above_threshold') {
-    return `A regional breakdown was collected, but no row reaches the ${threshold}-signal publication threshold.`;
+    return `A regional breakdown was collected, but no row reaches the ${threshold}-${isInstallIntentView() ? 'visitor' : 'signal'} publication threshold.`;
   }
   if (status === 'boundary_unresolved') {
     return 'A regional breakdown was collected, but it could not be mapped safely to these boundaries. No regional total is shown.';
@@ -3530,6 +3606,11 @@ function resetCurrentView() {
       state.selectedModelBrand = null;
       setModelPanelOpen(false);
       renderModelPanel(null, '');
+    } else if (isInstallIntentView()) {
+      state.selectedInstallCountry = null;
+      state.selectedInstallModel = null;
+      setInstallPanelOpen(false);
+      renderInstallPanel(null, '');
     }
   }
   spotlight.hidden = true;
@@ -3815,6 +3896,8 @@ function showTooltip(entity, event) {
   const stateDetailConfig = stateView ? admin2ConfigForParent(entity, 'us') : null;
   const action = isModelInterestView()
     ? ' · select for brand and model detail'
+    : isInstallIntentView() && !stateView
+      ? ' · select for model paths and setup destinations'
     : stateDetailConfig && Number(stateDetailConfig.featureCount) > 1
     ? ` · select for ${stateDetailConfig.childrenLabel}`
     : !stateView && entity.adm0A3 === 'USA'
@@ -3974,6 +4057,288 @@ function focusCluster(cluster) {
   updateSelectionOverlay(cluster);
   showSpotlight(cluster);
   scrollAtlasIntoView();
+}
+
+function installModelIdentifier(model) {
+  return String(model?.id || '');
+}
+
+function installDetails() {
+  return state.data?.installIntentDetails || {};
+}
+
+function installModelsForCountry(country = null) {
+  const rows = country ? country.installIntent?.models : installDetails().models;
+  return Array.isArray(rows) ? rows : [];
+}
+
+function installRuntimesForCountry(country = null) {
+  const rows = country ? country.installIntent?.runtimes : installDetails().runtimes;
+  return Array.isArray(rows) ? rows : [];
+}
+
+function installModalitiesForCountry(country = null) {
+  const rows = country ? country.installIntent?.modalities : installDetails().modalities;
+  return Array.isArray(rows) ? rows : [];
+}
+
+function setInstallPanelOpen(open, options = {}) {
+  const wasOpen = state.installPanelOpen;
+  const shouldOpen = Boolean(open);
+  if (shouldOpen && !wasOpen && options.focus) {
+    const active = document.activeElement;
+    installPanelReturnFocus = active instanceof HTMLElement && active !== document.body && !installPanel?.contains(active)
+      ? active
+      : canvas;
+  }
+  state.installPanelOpen = shouldOpen;
+  stage.classList.toggle('atlas-install-panel-open', state.installPanelOpen);
+  if (installPanel && isInstallIntentView()) installPanel.hidden = !state.installPanelOpen;
+  if (shouldOpen && options.focus) {
+    window.requestAnimationFrame(() => installPanel?.querySelector('[data-atlas-install-close]')?.focus({ preventScroll: true }));
+  } else if (!shouldOpen && options.restoreFocus) {
+    const target = installPanelReturnFocus?.isConnected ? installPanelReturnFocus : canvas;
+    installPanelReturnFocus = null;
+    window.requestAnimationFrame(() => target?.focus?.({ preventScroll: true }));
+  }
+}
+
+function installListRow(row, type, selected = false) {
+  const item = document.createElement('li');
+  const interactive = type === 'model';
+  const content = document.createElement(interactive ? 'button' : 'div');
+  if (interactive) {
+    content.type = 'button';
+    content.setAttribute('aria-pressed', String(selected));
+    content.addEventListener('click', () => {
+      state.selectedInstallModel = installModelIdentifier(row);
+      renderInstallPanel(state.selectedInstallCountry, state.selectedInstallModel);
+      window.requestAnimationFrame(() => installPanel?.querySelector('[data-atlas-install-back]')?.focus({ preventScroll: true }));
+    });
+  }
+  const logo = document.createElement('img');
+  logo.src = row.logo;
+  logo.alt = '';
+  logo.width = 28;
+  logo.height = 28;
+  logo.loading = 'lazy';
+  const identity = document.createElement('span');
+  identity.className = 'atlas-install-row__identity';
+  const label = document.createElement('strong');
+  label.textContent = row.label;
+  const detail = document.createElement('small');
+  detail.textContent = type === 'model'
+    ? [String(row.kind || '').toUpperCase(), row.recommendedProfile ? `${row.recommendedProfile} catalogue profile` : ''].filter(Boolean).join(' · ')
+    : row.kind || 'Selected destination';
+  identity.append(label, detail);
+  const value = document.createElement('b');
+  value.textContent = number(row.visitors);
+  content.append(logo, identity, value);
+  item.append(content);
+  return item;
+}
+
+function renderInstallRows(container, rows, type) {
+  if (!container) return;
+  const fragment = document.createDocumentFragment();
+  if (!rows.length) {
+    const item = document.createElement('li');
+    const placeholder = document.createElement('div');
+    const spacer = document.createElement('span');
+    spacer.setAttribute('aria-hidden', 'true');
+    const icon = document.createElement('span');
+    icon.setAttribute('aria-hidden', 'true');
+    const identity = document.createElement('span');
+    identity.className = 'atlas-install-row__identity';
+    const label = document.createElement('strong');
+    label.textContent = 'Collecting enough signals';
+    const detail = document.createElement('small');
+    detail.textContent = `No ${type === 'model' ? 'model' : 'setup destination'} independently reaches ${PUBLISH_THRESHOLD} visitors`;
+    identity.append(label, detail);
+    const value = document.createElement('b');
+    value.textContent = '—';
+    placeholder.append(spacer, icon, identity, value);
+    item.append(placeholder);
+    fragment.append(item);
+  } else {
+    rows.forEach(row => fragment.append(installListRow(row, type, type === 'model' && installModelIdentifier(row) === state.selectedInstallModel)));
+  }
+  container.replaceChildren(fragment);
+}
+
+function renderInstallModalities(container, rows) {
+  if (!container) return;
+  const fragment = document.createDocumentFragment();
+  if (!rows.length) {
+    const item = document.createElement('li');
+    const label = document.createElement('strong');
+    label.textContent = 'Detail below threshold';
+    item.append(label);
+    fragment.append(item);
+  } else {
+    rows.forEach(row => {
+      const item = document.createElement('li');
+      const label = document.createElement('strong');
+      label.textContent = row.label;
+      const value = document.createElement('small');
+      value.textContent = `${number(row.visitors)} visitors`;
+      item.append(label, value);
+      fragment.append(item);
+    });
+  }
+  container.replaceChildren(fragment);
+}
+
+function renderInstallPanel(country = state.selectedInstallCountry, requestedModelId = state.selectedInstallModel) {
+  if (!installPanel || !isInstallIntentView()) return;
+  installPanel.hidden = !state.installPanelOpen;
+  const models = installModelsForCountry(country);
+  const runtimes = installRuntimesForCountry(country);
+  const modalities = installModalitiesForCountry(country);
+  const selectedModel = models.find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
+  if (requestedModelId && !selectedModel) state.selectedInstallModel = null;
+  const dominant = selectedModel || models[0] || runtimes[0] || null;
+  const countryLabel = installPanel.querySelector('[data-atlas-install-country]');
+  const title = installPanel.querySelector('h2');
+  const dominantLogo = installPanel.querySelector('[data-atlas-install-dominant-logo]');
+  const dominantType = installPanel.querySelector('[data-atlas-install-dominant-type]');
+  const dominantLabel = installPanel.querySelector('[data-atlas-install-dominant-label]');
+  const dominantSummary = installPanel.querySelector('[data-atlas-install-dominant-summary]');
+  const metrics = installPanel.querySelector('[data-atlas-install-metrics]');
+  const total = installPanel.querySelector('[data-atlas-install-total]');
+  const totalLabel = installPanel.querySelector('[data-atlas-install-total-label]');
+  const attributed = installPanel.querySelector('[data-atlas-install-attributed]');
+  const modelList = installPanel.querySelector('[data-atlas-install-model-list]');
+  const runtimeList = installPanel.querySelector('[data-atlas-install-runtime-list]');
+  const modalityList = installPanel.querySelector('[data-atlas-install-modality-list]');
+  const empty = installPanel.querySelector('[data-atlas-install-empty]');
+  const overview = installPanel.querySelector('.atlas-install-overview');
+  const scopeDetails = installPanel.querySelectorAll('[data-atlas-install-scope-detail]');
+  const back = installPanel.querySelector('[data-atlas-install-back]');
+  const regions = installPanel.querySelector('[data-atlas-install-regions]');
+  if (countryLabel) countryLabel.textContent = country ? country.name : 'Worldwide install intent';
+  if (title) title.textContent = selectedModel ? selectedModel.label : country ? 'Country install paths' : 'Install-path leaders';
+  if (dominantLogo) {
+    if (dominant?.logo) dominantLogo.src = dominant.logo;
+    else dominantLogo.removeAttribute('src');
+    dominantLogo.alt = '';
+    dominantLogo.hidden = !dominant;
+  }
+  const selectedModelRank = selectedModel ? models.indexOf(selectedModel) + 1 : 0;
+  if (dominantType) dominantType.textContent = selectedModel
+    ? selectedModelRank === 1 ? 'Top model path selected' : 'Selected model path'
+    : models[0]
+      ? 'Top model path selected'
+    : runtimes[0]
+      ? 'Top setup destination selected'
+      : 'Published path detail';
+  if (dominantLabel) dominantLabel.textContent = dominant?.label || 'Collecting enough signals';
+  if (dominantSummary) dominantSummary.textContent = selectedModel
+    ? `${number(selectedModel.visitors)} unique visitors selected an eligible path after this model page. ${selectedModel.recommendedProfile || 'Its profile'} is a LocalClaw catalogue recommendation, not measured telemetry.`
+    : models[0]
+      ? `${number(models[0].visitors)} unique visitors selected an eligible path after this model page.`
+      : runtimes[0]
+        ? `${number(runtimes[0].visitors)} unique visitors selected this published destination path. No model path reaches five visitors in this scope yet.`
+        : `No model or setup destination independently reaches ${PUBLISH_THRESHOLD} unique visitors in this scope yet.`;
+  const scopeTotal = country?.signals ?? state.data.totals.observedSignals;
+  if (total) total.textContent = selectedModel ? number(selectedModel.visitors) : number(scopeTotal);
+  if (totalLabel) totalLabel.textContent = selectedModel
+    ? 'model-path visitors'
+    : country
+      ? 'country install-intent visitors'
+      : 'observed install-intent visitors';
+  if (metrics) metrics.setAttribute('aria-label', selectedModel
+    ? 'Selected model-path detail'
+    : country
+      ? 'Country install-intent totals'
+      : 'Observed install-intent totals');
+  const secondaryValue = selectedModel
+    ? selectedModel.recommendedProfile || null
+    : country
+      ? models[0]?.visitors ?? runtimes[0]?.visitors ?? null
+      : state.data.totals.attributedModelVisitors;
+  if (attributed) {
+    attributed.textContent = secondaryValue === null ? '—' : selectedModel ? secondaryValue : number(secondaryValue);
+    const label = attributed.nextElementSibling;
+    if (label) label.textContent = selectedModel
+      ? 'catalogue profile · not telemetry'
+      : country
+        ? secondaryValue === null ? 'detail below threshold' : models[0] ? 'top model-path visitors' : 'top destination visitors'
+        : 'model-attributed visitors';
+  }
+  renderInstallRows(modelList, models, 'model');
+  renderInstallRows(runtimeList, runtimes, 'runtime');
+  renderInstallModalities(modalityList, modalities);
+  const showEmpty = !selectedModel && !models.length && !runtimes.length && !modalities.length;
+  if (overview) overview.hidden = showEmpty;
+  if (empty) empty.hidden = !showEmpty;
+  scopeDetails.forEach(element => { element.hidden = Boolean(selectedModel); });
+  if (back) {
+    back.hidden = !country && !selectedModel;
+    back.setAttribute('aria-label', selectedModel
+      ? country ? 'Return to country install paths' : 'Return to worldwide install paths'
+      : 'Return to the worldwide install-path overview');
+  }
+  if (regions) {
+    regions.hidden = Boolean(selectedModel) || !country || (!manifestEntryForCountry(country) && country.adm0A3 !== 'USA');
+    const heading = regions.querySelector('strong');
+    const detail = regions.querySelector('small');
+    if (heading) heading.textContent = `Explore ${country?.name || ''} boundaries`;
+    if (detail) detail.textContent = 'Regional totals appear only when they independently reach 5+';
+  }
+  installPanel.dataset.scope = selectedModel ? 'model' : country ? 'country' : 'world';
+}
+
+function focusInstallCountry(country, requestedModelId = '') {
+  if (!country || !isInstallIntentView()) return;
+  if (!state.tourAdvancing) stopTour();
+  if (state.scope !== 'world') exitToWorld();
+  const selectedModel = installModelsForCountry(country)
+    .find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
+  state.selectedInstallCountry = country;
+  state.selectedInstallModel = selectedModel ? installModelIdentifier(selectedModel) : null;
+  state.locked = country;
+  const center = state.centers.get(country.name);
+  if (center) beginFocusTransition(center, isMobileViewport() ? 9.35 : 7.65);
+  state.lastInteractionAt = performance.now();
+  updateSelectionOverlay(country);
+  hideTooltip();
+  if (spotlight) spotlight.hidden = true;
+  setInstallPanelOpen(true, { focus: true });
+  renderInstallPanel(country, state.selectedInstallModel);
+  scrollAtlasIntoView();
+}
+
+function showGlobalInstallPanel(requestedModelId = '') {
+  state.selectedInstallCountry = null;
+  const selectedModel = installModelsForCountry(null)
+    .find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
+  state.selectedInstallModel = selectedModel ? installModelIdentifier(selectedModel) : null;
+  if (state.scope !== 'world') exitToWorld();
+  state.locked = null;
+  updateSelectionOverlay(null);
+  setInstallPanelOpen(true, { focus: state.initialized });
+  renderInstallPanel(null, state.selectedInstallModel);
+  scrollAtlasIntoView();
+}
+
+function resetInstallPanel() {
+  state.selectedInstallCountry = null;
+  state.selectedInstallModel = null;
+  state.locked = null;
+  setInstallPanelOpen(false);
+  updateSelectionOverlay(null);
+  renderInstallPanel(null, '');
+}
+
+function openInstallRegionExplorer() {
+  const country = state.selectedInstallCountry;
+  if (!country) return;
+  state.selectedInstallCountry = null;
+  state.selectedInstallModel = null;
+  setInstallPanelOpen(false);
+  if (country.adm0A3 === 'USA') enterUnitedStates();
+  else if (manifestEntryForCountry(country)) void enterCountryDetail(country);
 }
 
 function brandIdentifier(brand) {
@@ -4216,6 +4581,10 @@ function focusCountry(country) {
     focusModelCountry(country);
     return;
   }
+  if (isInstallIntentView()) {
+    focusInstallCountry(country);
+    return;
+  }
   if (state.scope !== 'world') exitToWorld();
   if (country.adm0A3 === 'USA' && state.usRegions.length) {
     enterUnitedStates();
@@ -4360,12 +4729,24 @@ async function applyRequestedView() {
     }
     return;
   }
+  if (isInstallIntentView() && !requestedView.country) {
+    if (requestedView.model && installModelsForCountry(null)
+      .some(model => installModelIdentifier(model) === requestedView.model)) {
+      showGlobalInstallPanel(requestedView.model);
+    }
+    return;
+  }
   if (!requestedView.country) return;
   const country = findEntityByName(state.countries, requestedView.country);
   if (!country) return;
 
   if (isModelInterestView()) {
     focusModelCountry(country, requestedView.brand);
+    return;
+  }
+
+  if (isInstallIntentView() && !requestedView.region && !requestedView.area) {
+    focusInstallCountry(country, requestedView.model);
     return;
   }
 
@@ -4450,9 +4831,11 @@ function updateScopeInterface() {
   stage.classList.toggle('atlas-scope-admin1', admin1View || admin2View);
   stage.classList.toggle('atlas-scope-admin2', admin2View);
   stage.classList.toggle('atlas-view-models', modelInterestView);
+  stage.classList.toggle('atlas-view-installed', installIntentView);
   if (state.camera && state.renderer) resize();
   if (regionPanel) regionPanel.hidden = modelInterestView || !regionalView;
   if (modelPanel) modelPanel.hidden = !modelInterestView || !state.modelPanelOpen;
+  if (installPanel) installPanel.hidden = !installIntentView || !state.installPanelOpen;
   if (modelLegend) modelLegend.hidden = !modelInterestView;
   if (modelLogoLayer) modelLogoLayer.hidden = !modelInterestView;
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
@@ -4465,7 +4848,7 @@ function updateScopeInterface() {
   else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
   else if (admin1View) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, state.detailConfig.titleEmphasis);
   else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
-  else if (installIntentView) setAtlasTitle('See where local AI', 'install intent is strongest.');
+  else if (installIntentView) setAtlasTitle('See which local AI stacks', 'people choose.');
   else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
     summary.textContent = modelInterestView
@@ -4477,7 +4860,7 @@ function updateScopeInterface() {
         : admin2View
           ? `${state.admin2Config.countryName} · ${state.admin2Config.parentName} · Cartographic boundaries · No subdivision-level activity totals`
         : installIntentView
-          ? `Anonymous install-intent visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ visitors · ${periodLabel()} · Tracking since 21 August 2026`
+          ? `Model paths and setup destinations selected by anonymous visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ · ${periodLabel()} · Tracking since 21 August 2026`
           : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
   }
   if (liveLabel) liveLabel.textContent = modelInterestView
@@ -4488,7 +4871,7 @@ function updateScopeInterface() {
       ? state.detailConfig.liveLabel
       : admin2View
         ? state.admin2Config.liveLabel
-      : installIntentView ? 'Install-intent exploration' : 'Live exploration';
+      : installIntentView ? 'Install-path exploration' : 'Live exploration';
   const scopeSignals = modelInterestView
     ? (state.data.totals.modelVisitors ?? state.data.totals.signals)
     : stateView
@@ -4551,7 +4934,7 @@ function updateScopeInterface() {
     : installIntentView
     ? regionalView
       ? 'Regional boundaries remain visible for exploration. No regional install-intent total reached the five-visitor publication threshold in this snapshot; neutral does not mean zero. A click does not verify a completed installation or local run.'
-      : 'Country color shows unique visitors who selected at least one LocalClaw model download or desktop-runtime path. Visitors are de-duplicated across the goal family. No completed installation or local model run is verified.'
+      : 'Country color shows unique visitors who selected an eligible setup, repository, or desktop-app path. The panel publishes model paths and setup destinations only at five unique visitors. No completed installation or local model run is verified.'
     : stateView
     ? 'State color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.'
     : admin1View
@@ -4566,7 +4949,7 @@ function updateScopeInterface() {
     : installIntentView
     ? regionalView
       ? `Interactive globe showing ${stateView ? 'U.S. states' : admin1View ? state.detailConfig.regionsLabel : state.admin2Config.childrenLabel} as neutral boundaries because no regional install-intent aggregate reached five visitors. Use the back control to return.`
-      : 'Interactive globe showing anonymous LocalClaw install-intent visitors by country. Select a country to explore its boundaries. Color appears only at five or more unique visitors; no completed installation or local run is verified.'
+      : 'Interactive globe showing anonymous LocalClaw install-intent visitors by country. Select a country to inspect its privacy-thresholded model, setup-destination, and modality paths. Color appears only at five or more unique visitors; no completed installation or local run is verified.'
     : stateView
     ? 'Interactive globe showing anonymous LocalClaw interest signals by U.S. state. Select a state to open its counties and equivalents; select a visible city label to inspect its separate cluster. Drag to rotate, select the map and scroll or use the visible controls to zoom, or return to the world view.'
     : admin1View
@@ -4915,6 +5298,9 @@ function bindInteractions() {
     if (event.key === 'Escape' && state.shareMode) {
       event.preventDefault();
       setShareMode(false);
+    } else if (event.key === 'Escape' && state.installPanelOpen) {
+      event.preventDefault();
+      setInstallPanelOpen(false, { restoreFocus: true });
     }
   });
 
@@ -5072,7 +5458,7 @@ function bindInteractions() {
       if (button.disabled || period === ACTIVE_PERIOD || !Object.hasOwn(PERIOD_CONFIG, period)) return;
       document.documentElement.classList.add('atlas-period-loading');
       button.setAttribute('aria-busy', 'true');
-      const url = isModelInterestView()
+      const url = isModelInterestView() || isInstallIntentView()
         ? new URL(currentShareUrl())
         : new URL(window.location.href);
       if (period === '30d') url.searchParams.delete('range');
@@ -5093,6 +5479,13 @@ function bindInteractions() {
           } else {
             showGlobalModelPanel();
           }
+        } else if (view === 'installed') {
+          if (state.selectedInstallCountry || state.selectedInstallModel) {
+            setInstallPanelOpen(true, { focus: true });
+            renderInstallPanel(state.selectedInstallCountry, state.selectedInstallModel);
+          } else {
+            showGlobalInstallPanel();
+          }
         }
         return;
       }
@@ -5110,10 +5503,30 @@ function bindInteractions() {
       url.searchParams.delete('area');
       url.searchParams.delete('family');
       url.searchParams.delete('brand');
+      url.searchParams.delete('model');
       url.searchParams.delete('v');
       window.location.assign(url);
     });
   });
+
+  const installClose = document.querySelector('[data-atlas-install-close]');
+  const installBack = document.querySelector('[data-atlas-install-back]');
+  const installRegions = document.querySelector('[data-atlas-install-regions]');
+  if (installClose) installClose.addEventListener('click', () => {
+    setInstallPanelOpen(false, { restoreFocus: true });
+  });
+  if (installBack) installBack.addEventListener('click', () => {
+    stopTour();
+    if (state.selectedInstallModel) {
+      const keepsCountryBack = Boolean(state.selectedInstallCountry);
+      state.selectedInstallModel = null;
+      renderInstallPanel(state.selectedInstallCountry, '');
+      if (!keepsCountryBack) window.requestAnimationFrame(() => installClose?.focus({ preventScroll: true }));
+    } else {
+      showGlobalInstallPanel();
+    }
+  });
+  if (installRegions) installRegions.addEventListener('click', openInstallRegionExplorer);
 
   const modelClose = document.querySelector('[data-atlas-model-close]');
   const modelBack = document.querySelector('[data-atlas-model-back]');
@@ -5323,21 +5736,25 @@ function renderRankingRows(selector, rows, denominator, kind, limit) {
 
 function renderModelRequestRows() {
   const body = document.querySelector('[data-model-ranking-body]');
-  const modelRequests = state.data.modelRequests;
-  if (!body || !modelRequests) return;
-  const maximum = modelRequests.models[0]?.requests || 1;
+  const details = state.data.installIntentDetails;
+  if (!body || !details) return;
+  const rows = [
+    ...(details.models || []).map(row => ({ ...row, type: 'Model path' })),
+    ...(details.runtimes || []).map(row => ({ ...row, type: row.kind || 'Setup destination' }))
+  ].sort((left, right) => right.visitors - left.visitors || left.label.localeCompare(right.label));
+  const maximum = rows[0]?.visitors || 1;
   const fragment = document.createDocumentFragment();
-  modelRequests.models.forEach((entity, index) => {
+  rows.forEach((entity, index) => {
     const row = document.createElement('tr');
     appendRankingCell(row, String(index + 1).padStart(2, '0'), 'atlas-ranking__rank');
-    appendRankingCell(row, entity.model, 'atlas-ranking__country');
-    appendRankingCell(row, number(entity.requests));
-    appendRankingCell(row, `${((entity.requests / modelRequests.completions) * 100).toFixed(1)}%`);
+    appendRankingCell(row, entity.label, 'atlas-ranking__country');
+    appendRankingCell(row, number(entity.visitors));
+    appendRankingCell(row, entity.type);
     const barCell = appendRankingCell(row, '', 'atlas-ranking__bar');
     const track = document.createElement('div');
     track.className = 'atlas-ranking__track';
     const fill = document.createElement('span');
-    fill.style.setProperty('--atlas-share', `${((entity.requests / maximum) * 100).toFixed(1)}%`);
+    fill.style.setProperty('--atlas-share', `${((entity.visitors / maximum) * 100).toFixed(1)}%`);
     track.append(fill);
     barCell.append(track);
     fragment.append(row);
@@ -5357,6 +5774,12 @@ function renderDataSummary() {
   const beaconLegend = document.querySelector('[data-atlas-beacon-legend]');
   if (colorLegend) colorLegend.hidden = false;
   if (beaconLegend) beaconLegend.hidden = installIntentView || modelInterestView;
+  if (installIntentView && colorLegend) {
+    const colorLegendTitle = colorLegend.querySelector('strong');
+    const colorLegendCopy = colorLegend.querySelector('small');
+    if (colorLegendTitle) colorLegendTitle.textContent = 'Color';
+    if (colorLegendCopy) colorLegendCopy.textContent = 'Install-intent visitors by country';
+  }
   if (modelInterestView) {
     const colorLegendTitle = colorLegend?.querySelector('strong');
     const colorLegendCopy = colorLegend?.querySelector('small');
@@ -5462,7 +5885,7 @@ function renderDataSummary() {
     updateScopeInterface();
     return;
   }
-  if (installIntentView) document.title = `Local AI Install Intent by Country (${periodDays()} Days) | LocalClaw Atlas`;
+  if (installIntentView) document.title = `Local AI Model & Setup Paths by Country | LocalClaw Atlas`;
   document.querySelectorAll('[data-total-signals]').forEach(element => {
     element.textContent = number(state.data.totals.signals);
   });
@@ -5481,13 +5904,13 @@ function renderDataSummary() {
   const snapshotLead = document.querySelector('[data-snapshot-lead]');
   if (snapshotLead && leader) {
     snapshotLead.textContent = installIntentView
-      ? `${leader.name} and the United States lead the published ${periodLabel().toLowerCase()} install-intent snapshot with ${number(leader.signals)} unique visitors each. Atlas observed ${number(state.data.totals.observedSignals)} visitors across ${number(state.data.totals.observedRegions)} countries; only countries reaching five visitors are named. Tracking began 21 August 2026, so longer windows are partial.`
+      ? `${leader.name} leads the published ${periodLabel().toLowerCase()} install-intent snapshot with ${number(leader.signals)} unique visitors. Atlas observed ${number(state.data.totals.observedSignals)} visitors across ${number(state.data.totals.observedRegions)} countries; model, destination and country cells must each independently reach five visitors. Tracking began 21 August 2026, so longer windows are partial.`
       : `As of 29 August 2026, ${leader.name} ranks first for observed local AI interest in the LocalClaw dataset, with ${number(leader.signals)} of ${number(state.data.totals.signals)} anonymous signals recorded during the ${periodLabel().toLowerCase()}. This is a directional view of interest, not a census of local AI users.`;
   }
   const snapshotEyebrow = document.querySelector('[data-snapshot-eyebrow]');
   if (snapshotEyebrow) snapshotEyebrow.textContent = installIntentView ? 'Latest install-intent snapshot' : 'Latest global snapshot';
   const snapshotTitle = document.querySelector('[data-snapshot-title]');
-  if (snapshotTitle) snapshotTitle.textContent = installIntentView ? 'The path from interest toward installation.' : 'The clearest picture we can publish today.';
+  if (snapshotTitle) snapshotTitle.textContent = installIntentView ? 'From interest to the model paths and setup destinations people choose.' : 'The clearest picture we can publish today.';
   const observedMetricLabel = document.querySelector('[data-observed-metric-label]');
   if (observedMetricLabel) observedMetricLabel.textContent = installIntentView ? 'Install-intent visitors' : 'Observed interest';
   const leadingCountry = document.querySelector('[data-leading-country]');
@@ -5496,7 +5919,7 @@ function renderDataSummary() {
   if (leadingDetail && leader) leadingDetail.textContent = `${number(leader.signals)} ${signalLabel(leader.signals)} · ${((leader.signals / state.data.totals.signals) * 100).toFixed(1)}% of the snapshot`;
   const leaderFaq = document.querySelector('[data-current-leader-faq]');
   if (leaderFaq && leader) leaderFaq.textContent = installIntentView
-    ? `${leader.name} shares the lead in this published ${periodDays()}-day install-intent snapshot with ${number(leader.signals)} unique visitors. The result reflects LocalClaw click intent since 21 August 2026, not verified installations worldwide.`
+    ? `${leader.name} leads this published ${periodDays()}-day install-intent snapshot with ${number(leader.signals)} unique visitors. The result reflects LocalClaw path selections since 21 August 2026, not verified installations worldwide.`
     : `${leader.name} leads this ${periodDays()}-day LocalClaw interest snapshot with ${number(leader.signals)} signals. That result reflects this dataset, not all local AI activity worldwide.`;
   const observedWindow = document.querySelector('[data-observed-window]');
   if (observedWindow) observedWindow.textContent = installIntentView
@@ -5525,7 +5948,7 @@ function renderDataSummary() {
   if (rankingTitle) rankingTitle.textContent = installIntentView ? 'Where visitors moved beyond browsing.' : 'Where interest in local AI is concentrated.';
   const rankingLead = document.querySelector('[data-country-ranking-lead]');
   if (rankingLead) rankingLead.textContent = installIntentView
-    ? 'A visitor counts once after selecting at least one model download or desktop-runtime path, even if several related goals fired. Countries below five unique visitors are withheld. Select a country to inspect its boundaries; regional totals remain neutral until that same level independently reaches five visitors.'
+    ? 'A visitor counts once after selecting at least one eligible setup, repository or desktop-app path, even if several related goals fired. Countries below five unique visitors are withheld. Select a country to inspect its published model, setup-destination and modality paths; use the panel’s boundary action for regional exploration.'
     : 'The ranking below uses raw observed interest signals. Select a country to bring it into focus on the globe. Country rows below five signals are withheld before public JSON publication to avoid over-reading tiny samples. Within a published country, signals outside a five-or-more-signal DataFast city cluster remain visible only through the country color.';
   const countrySignalHeading = document.querySelector('[data-country-signal-heading]');
   if (countrySignalHeading) countrySignalHeading.textContent = installIntentView ? 'Visitors' : 'Signals';
@@ -5543,11 +5966,11 @@ function renderDataSummary() {
     const methodPrivacy = document.querySelector('[data-method-privacy]');
     if (methodologyEyebrow) methodologyEyebrow.textContent = 'Methodology · Install intent beta';
     if (methodologyTitle) methodologyTitle.textContent = 'A stronger signal, without overstating it.';
-    if (methodologyLead) methodologyLead.textContent = 'Installed is an install-intent view built from anonymous DataFast goals already emitted when a visitor chooses a model download or supported desktop-runtime path. It is closer to adoption than a page view, but it is not proof of installation or use.';
+    if (methodologyLead) methodologyLead.textContent = 'Install paths is an install-intent view built from anonymous DataFast goals emitted when a visitor chooses an eligible setup, repository or desktop-app path. The immediately preceding eligible model page can supply a model attribution, but neither signal proves installation or use.';
     if (methodCount) methodCount.textContent = `One unique visitor who completed at least one included install-intent goal during the ${periodDays()}-day window. Visitors are de-duplicated across the complete goal family, so multiple paths still count as one person in the country total.`;
     if (methodExclude) methodExclude.textContent = 'No completed download, installed model, successful runtime launch, prompt, inference, machine identity, or active-use claim is included. A click can fail or be abandoned after leaving LocalClaw.';
     if (methodGeography) methodGeography.textContent = 'Countries are ranked from DataFast’s goal-filtered country breakdown. Regional boundaries remain visible, but are colored only when that same goal-filtered region independently reaches five unique visitors. No location is inferred from model demand or a parent total.';
-    if (methodPrivacy) methodPrivacy.textContent = 'The five-visitor threshold is applied before public country or regional rows are published. Below-threshold country names and all individual event trails are omitted. The model-demand table uses an independent two-request threshold and contains model identifiers, never visitor identities.';
+    if (methodPrivacy) methodPrivacy.textContent = 'The five-visitor threshold is applied independently to every public country, region, model, setup destination, modality and geographic cross-section. Below-threshold detail and all individual event trails are omitted. Every table row is a unique-visitor count and rows are never added together.';
     const adoptionFaq = document.querySelector('[data-adoption-faq]');
     const nextFaq = document.querySelector('[data-next-faq]');
     if (adoptionFaq) adoptionFaq.textContent = 'Not yet. Install intent is stronger than a page view, but a click does not prove that a download finished, a model was installed, or an inference ran. This beta labels that boundary directly.';
@@ -5560,7 +5983,7 @@ function renderDataSummary() {
   const installTotal = document.querySelector('[data-install-total]');
   if (installTotal) installTotal.textContent = number(state.data.totals.observedSignals);
   const modelRequestTotal = document.querySelector('[data-model-request-total]');
-  if (modelRequestTotal) modelRequestTotal.textContent = number(state.data.modelRequests?.completions || 0);
+  if (modelRequestTotal) modelRequestTotal.textContent = number(state.data.totals.attributedModelVisitors || 0);
   renderRankingRows('[data-country-ranking-body]', state.countries, state.data.totals.signals, 'country', 20);
   if (!installIntentView) renderRankingRows('[data-us-ranking-body]', state.usRegions, state.usData.totals.countrySignals, 'state', 10);
   renderModelRequestRows();
@@ -5606,6 +6029,13 @@ async function initialize() {
         || !String(state.data.claimBoundary || '').toLowerCase().includes('not')
         || !state.data.modelInterest) {
         throw new Error('Model-interest data contract is invalid.');
+      }
+    } else if (isInstallIntentView()) {
+      if (Number(state.data.schemaVersion) < 2
+        || Number(state.data.publishThreshold) !== PUBLISH_THRESHOLD
+        || !String(state.data.claimBoundary || '').toLowerCase().includes('does not verify')
+        || !state.data.installIntentDetails) {
+        throw new Error('Install-intent data contract is invalid.');
       }
     }
     state.admin1ActivityByA3 = new Map(Object.values(state.admin1Activity?.countries || {})
@@ -5677,9 +6107,11 @@ async function initialize() {
     stage.dataset.admin2Subdivisions = String(state.admin2Manifest?.totals?.subdivisions || 0);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
     if (isModelInterestView()) setModelPanelOpen(!isMobileViewport());
+    if (isInstallIntentView()) setInstallPanelOpen(!isMobileViewport());
     renderStatePanel();
     renderDataSummary();
     if (isModelInterestView()) renderModelPanel(null, '');
+    if (isInstallIntentView()) renderInstallPanel(null, '');
     bindInteractions();
     state.initialized = true;
     await applyRequestedView();

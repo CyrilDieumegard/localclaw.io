@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
@@ -71,8 +72,89 @@ for (const line of redirects.split(/\r?\n/)) {
 
 const runtimeAssistAsset = '/js/runtime-launch-assist-20260821a.js?v=20260830a';
 const runtimeAssistSource = fs.readFileSync(path.join(ROOT, 'js/runtime-launch-assist-20260821a.js'), 'utf8');
-for (const marker of ['model_install_intent', 'a[data-fast-goal^="model_install_"]', 'model_runtime_launch_requested', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'https://lmstudio.ai/download', 'https://unsloth.ai/']) {
+for (const marker of ['INSTALL_INTENT_GOALS', 'installIntentPlatform', 'model_install_intent', 'a[data-fast-goal]', 'model_runtime_launch_requested', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'https://lmstudio.ai/download', 'https://unsloth.ai/']) {
   if (!runtimeAssistSource.includes(marker)) errors.push(`Runtime launch assistant is missing marker: ${marker}`);
+}
+if (/a\[data-fast-goal\^=["']model_runtime_["']\]/.test(runtimeAssistSource)
+  || /a\[data-fast-goal\^=["']model_install_["']\][^\n]*a\[data-fast-goal\^=["']model_runtime_["']\]/.test(runtimeAssistSource)) {
+  errors.push('Runtime launch assistant must not classify every model_runtime_* link as install intent');
+}
+
+const installIntentGoalCases = new Map([
+  ['model_install_comfyui', 'comfyui'],
+  ['model_install_drawthings', 'drawthings'],
+  ['model_install_github', 'github'],
+  ['model_install_gradio', 'gradio'],
+  ['model_install_huggingface', 'huggingface'],
+  ['model_install_mlx', 'mlx'],
+  ['model_install_python', 'python'],
+  ['model_install_pytorch', 'pytorch'],
+  ['model_install_unsloth', 'unsloth'],
+  ['model_runtime_huggingface', 'huggingface'],
+  ['model_runtime_llamacpp', 'llamacpp'],
+  ['model_runtime_lmstudio', 'lmstudio'],
+  ['model_runtime_official', 'official'],
+  ['model_runtime_ollama', 'ollama'],
+  ['model_runtime_unsloth', 'unsloth']
+]);
+
+try {
+  let clickHandler = null;
+  const tracked = [];
+  const sandbox = {
+    document: {
+      addEventListener(name, handler) {
+        if (name === 'click') clickHandler = handler;
+      }
+    },
+    window: {
+      datafast(name, payload) {
+        tracked.push({ name, payload });
+      }
+    }
+  };
+  vm.runInNewContext(runtimeAssistSource, sandbox, { filename: 'runtime-launch-assist-20260821a.js' });
+  if (typeof clickHandler !== 'function') {
+    errors.push('Runtime launch assistant did not register its click handler');
+  } else {
+    const runIntentClick = goal => {
+      const link = {
+        getAttribute(name) {
+          if (name === 'data-fast-goal') return goal;
+          if (name === 'data-fast-goal-model') return 'test-model';
+          return '';
+        }
+      };
+      const target = {
+        closest(selector) {
+          return selector === 'a[data-fast-goal]' ? link : null;
+        }
+      };
+      const start = tracked.length;
+      clickHandler({ target });
+      return tracked.slice(start);
+    };
+
+    for (const [goal, platform] of installIntentGoalCases) {
+      const events = runIntentClick(goal);
+      const canonical = events.filter(event => event.name === 'model_install_intent');
+      if (canonical.length !== 1) {
+        errors.push(`${goal} must emit exactly one canonical model_install_intent event`);
+        continue;
+      }
+      const payload = canonical[0].payload || {};
+      if (payload.model !== 'test-model' || payload.platform !== platform || payload.target !== 'download_or_runtime') {
+        errors.push(`${goal} must preserve model, platform and target in the canonical install-intent payload`);
+      }
+    }
+
+    for (const excludedGoal of ['model_runtime_compare', 'model_runtime_help_opened', 'model_runtime_launch_confirmed', 'model_runtime_preview', 'model_install_localclaw', 'model_runtime_localclaw']) {
+      const canonical = runIntentClick(excludedGoal).filter(event => event.name === 'model_install_intent');
+      if (canonical.length) errors.push(`${excludedGoal} must not emit canonical model_install_intent`);
+    }
+  }
+} catch (error) {
+  errors.push(`Runtime launch assistant install-intent behavior could not be validated: ${error.message}`);
 }
 
 const llms = fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8');

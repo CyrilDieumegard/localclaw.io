@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Local AI Activity &amp; Model Interest Map | LocalClaw Atlas</title>
-  <meta name="description" content="Explore local AI interest by country and region, then compare the privacy-thresholded local AI brands and models people explore in each country. Model-page interest is not verified usage.">
+  <meta name="description" content="Explore local AI interest by country and region, compare the models people explore, and see privacy-thresholded model paths and setup destinations selected after LocalClaw model pages.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/local-ai-activity-index">
 
@@ -33,7 +33,7 @@
         "url": "https://localclaw.io/local-ai-activity-index",
         "name": "Local AI Activity Index",
         "headline": "Where local AI activity is growing around the world",
-        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, with privacy-thresholded model-page interest by country and local AI brand, worldwide administrative subdivisions, and deeper boundary views for the United States, China, and Australia. The beta does not measure verified installations or model runs.",
+        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, privacy-thresholded model-page interest, and eligible model paths and setup destinations selected after model pages. Click intent is not a verified installation or model run.",
         "datePublished": "2026-08-29",
         "dateModified": "2026-09-01",
         "isPartOf": { "@id": "https://localclaw.io/#website" },
@@ -89,6 +89,11 @@
             "@type": "PropertyValue",
             "name": "Anonymous LocalClaw model-page interest by country and local AI brand",
             "description": "Unique visitors to an exact allow-list of canonical LocalClaw LLM pages. Country, brand, and individual model rows are independently privacy-thresholded. Brand totals are deduplicated across eligible pages and do not measure downloads, installations, launches, inference, or verified usage."
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Anonymous LocalClaw install-path selections",
+            "description": "Unique visitors selecting eligible setup, repository, or desktop-app paths, with model-journey and setup-destination rows independently privacy-thresholded at five visitors. These clicks do not verify completed downloads, installations, launches, inference, or active use."
           }
         ],
         "distribution": [
@@ -109,6 +114,12 @@
             "name": "Privacy-thresholded local AI model-page interest by country and brand in JSON",
             "encodingFormat": "application/json",
             "contentUrl": "https://localclaw.io/data/local-ai-model-page-interest.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "Privacy-thresholded local AI install-path selections in JSON",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://localclaw.io/data/local-ai-install-intent.json"
           },
           {
             "@type": "DataDownload",
@@ -195,7 +206,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260901a">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260901b">
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
@@ -291,7 +302,7 @@
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
         <button class="atlas-control" type="button" data-atlas-view="interest" aria-pressed="true">Interest</button>
-        <button class="atlas-control" type="button" data-atlas-view="installed" aria-pressed="false" aria-label="Install-intent view">Installed</button>
+        <button class="atlas-control" type="button" data-atlas-view="installed" aria-pressed="false" aria-label="Install-intent path selection view">Install paths</button>
         <button class="atlas-control" type="button" data-atlas-view="models" aria-pressed="false" aria-label="Model-interest view">Models</button>
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
@@ -331,6 +342,76 @@
         </div>
         <ol class="atlas-region-panel__list" data-atlas-region-list></ol>
         <p class="atlas-region-panel__note"><strong>Quality flag:</strong> Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.</p>
+      </aside>
+
+      <aside class="atlas-install-panel" data-atlas-install-panel hidden aria-labelledby="atlas-install-panel-title">
+        <div class="atlas-install-panel__head">
+          <button class="atlas-install-panel__back" type="button" data-atlas-install-back hidden aria-label="Return to the install-intent overview">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m12.5 4.5-5 5 5 5M8 9.5h7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div>
+            <span data-atlas-install-country>Worldwide install intent</span>
+            <h2 id="atlas-install-panel-title">Install-intent paths</h2>
+          </div>
+          <button class="atlas-install-panel__close" type="button" data-atlas-install-close aria-label="Close install-intent details">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m5.5 5.5 9 9m0-9-9 9" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <div class="atlas-install-panel__body">
+          <section class="atlas-install-overview" aria-label="Install-intent path overview">
+            <p class="atlas-install-panel__lede">Privacy-thresholded install intent shows which model paths and setup destinations visitors selected after exploring LocalClaw.</p>
+            <article class="atlas-install-dominant">
+              <span class="atlas-install-dominant__logo" aria-hidden="true">
+                <img data-atlas-install-dominant-logo width="54" height="54" alt="" hidden>
+                <svg data-atlas-install-dominant-placeholder viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 7.5h8M8 12h8M8 16.5h5" stroke-linecap="round"></path><path d="M5.5 4.5h13v15h-13z" stroke-linejoin="round"></path></svg>
+              </span>
+              <div>
+                <small data-atlas-install-dominant-type>Top published path</small>
+                <strong data-atlas-install-dominant-label>Select a country</strong>
+                <span data-atlas-install-dominant-summary>Choose a published country to inspect its model paths and setup destinations.</span>
+              </div>
+            </article>
+
+            <div class="atlas-install-panel__metrics" data-atlas-install-metrics aria-label="Observed install-intent totals">
+              <span><strong data-atlas-install-total>0</strong><small data-atlas-install-total-label>observed install-intent visitors</small></span>
+              <span><strong data-atlas-install-attributed>0</strong><small>model-attributed visitors</small></span>
+            </div>
+
+            <div class="atlas-install-panel__section-head" data-atlas-install-scope-detail>
+              <span>Model paths selected</span>
+              <small>Published only</small>
+            </div>
+            <ol class="atlas-install-model-list" data-atlas-install-model-list data-atlas-install-scope-detail aria-label="Model paths selected"></ol>
+
+            <div class="atlas-install-panel__section-head" data-atlas-install-scope-detail>
+              <span>Setup destinations selected</span>
+              <small>Published only</small>
+            </div>
+            <ol class="atlas-install-runtime-list" data-atlas-install-runtime-list data-atlas-install-scope-detail aria-label="Setup destinations selected"></ol>
+
+            <div class="atlas-install-panel__section-head" data-atlas-install-scope-detail>
+              <span>Model modalities</span>
+              <small>Path selections</small>
+            </div>
+            <ul class="atlas-install-modality-list" data-atlas-install-modality-list data-atlas-install-scope-detail aria-label="Model modalities selected"></ul>
+
+            <p class="atlas-install-count-note" data-atlas-install-count-note data-atlas-install-scope-detail>Unique visitors; rows can overlap and must not be added together.</p>
+
+            <button class="atlas-install-regions" type="button" data-atlas-install-regions hidden>
+              <span><strong>Explore country boundaries</strong><small>Regional totals appear only at 5+ visitors</small></span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m8 5 5 5-5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </section>
+
+          <div class="atlas-install-empty" data-atlas-install-empty hidden>
+            <span aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor"><circle cx="14" cy="14" r="9"></circle><path d="M10.5 14h7" stroke-linecap="round"></path></svg></span>
+            <strong>No publishable path detail yet</strong>
+            <p>This country has install intent, but no model path, setup destination, or modality independently reaches the public threshold for this period.</p>
+          </div>
+        </div>
+
+        <p class="atlas-install-panel__note"><strong>Install intent:</strong> A visitor selected a model path or setup destination on LocalClaw. This does not verify a completed download, successful launch, inference, or model use.</p>
       </aside>
 
       <aside class="atlas-model-panel" data-atlas-model-panel hidden aria-labelledby="atlas-model-panel-title" aria-live="polite">
@@ -574,19 +655,19 @@
         </section>
 
         <section class="atlas-section" aria-labelledby="model-demand-title" data-install-only hidden>
-          <p class="atlas-section__eyebrow">Model demand · New</p>
-          <h2 id="model-demand-title">Which models people tried to open locally.</h2>
-          <p class="atlas-section__lead">This companion ranking counts launch requests from LocalClaw model pages. It reveals model demand, but it does not verify that a download finished, a runtime opened successfully, or an inference ran.</p>
+          <p class="atlas-section__eyebrow">Install paths · New</p>
+          <h2 id="model-demand-title">Which model paths and setup destinations visitors selected.</h2>
+          <p class="atlas-section__lead">The model path is attributed only when an eligible LocalClaw model page immediately precedes a supported setup selection in the anonymous journey. Destination rows identify the repository or app selected. Every published row independently reaches five unique visitors.</p>
           <div class="atlas-state-summary">
             <article class="atlas-stat">
               <span>Install-intent visitors</span>
-              <strong data-install-total>48</strong>
+              <strong data-install-total>58</strong>
               <small>Unique visitors across the goal family</small>
             </article>
             <article class="atlas-stat">
-              <span>Model launch requests</span>
-              <strong data-model-request-total>59</strong>
-              <small>Clicks may include repeat requests</small>
+              <span>Model-attributed visitors</span>
+              <strong data-model-request-total>55</strong>
+              <small>Matched to an immediately preceding model page</small>
             </article>
             <article class="atlas-stat atlas-stat--flagged">
               <span>History available</span>
@@ -596,12 +677,12 @@
           </div>
           <div class="atlas-ranking-wrap">
             <table class="atlas-ranking">
-              <caption class="atlas-skip">Models with at least two LocalClaw launch requests</caption>
-              <thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Requests</th><th scope="col">Share</th><th scope="col" class="atlas-ranking__bar">Relative demand</th></tr></thead>
+              <caption class="atlas-skip">Model paths and setup destinations with at least five unique visitors</caption>
+              <thead><tr><th scope="col">Rank</th><th scope="col">Published path</th><th scope="col">Visitors</th><th scope="col">Type</th><th scope="col" class="atlas-ranking__bar">Relative intent</th></tr></thead>
               <tbody data-model-ranking-body></tbody>
             </table>
           </div>
-          <div class="atlas-callout atlas-callout--quality"><p><strong>Read this precisely:</strong> “Installed” means a visitor selected at least one download or desktop-runtime path. The visitor is counted once across the goal family. LocalClaw does not yet receive proof of a completed installation or successful local run.</p></div>
+          <div class="atlas-callout atlas-callout--quality"><p><strong>Read this precisely:</strong> these are selected model paths and setup destinations, not installed models. LocalClaw does not yet receive proof that a download completed, an installation succeeded, or an inference ran.</p></div>
         </section>
 
         <section class="atlas-section" id="methodology" aria-labelledby="methodology-title">
@@ -669,6 +750,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260901a"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260901b"></script>
 </body>
 </html>

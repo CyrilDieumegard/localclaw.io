@@ -1113,6 +1113,594 @@ body.atlas-page::before {
   color: #ffbd45;
 }
 
+.atlas-install-panel {
+  --atlas-install-panel-accent: #ff7048;
+  position: absolute;
+  top: clamp(126px, 15vh, 154px);
+  right: clamp(24px, 4.8vw, 78px);
+  bottom: 82px;
+  z-index: 10;
+  width: min(390px, calc(100vw - 48px));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(145, 177, 202, 0.2);
+  border-top-color: rgba(255, 119, 76, 0.58);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 22% -8%, rgba(255, 102, 54, 0.17), transparent 34%),
+    linear-gradient(145deg, rgba(6, 12, 20, 0.97), rgba(2, 6, 11, 0.92));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.64), 0 0 52px rgba(255, 73, 28, 0.07), inset 0 1px rgba(255, 255, 255, 0.045);
+  color: #fff;
+  backdrop-filter: blur(24px) saturate(1.12);
+  animation: atlas-install-panel-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.atlas-install-panel[hidden],
+.atlas-install-empty[hidden],
+.atlas-install-regions[hidden] {
+  display: none;
+}
+
+/* Installed owns the single detail-panel slot if both UI states are briefly open. */
+.atlas-install-panel:not([hidden]) ~ .atlas-model-panel {
+  display: none;
+}
+
+@keyframes atlas-install-panel-in {
+  from { opacity: 0; transform: translate3d(18px, 0, 0) scale(0.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.atlas-install-panel__head {
+  position: relative;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
+  background: linear-gradient(90deg, rgba(255, 102, 54, 0.07), transparent 58%);
+}
+
+.atlas-install-panel__head::after {
+  position: absolute;
+  right: 14px;
+  bottom: -1px;
+  left: 14px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, var(--atlas-install-panel-accent), rgba(255, 112, 72, 0.2) 34%, transparent 74%);
+  opacity: 0.46;
+}
+
+.atlas-install-panel__head > div {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.atlas-install-panel__back { grid-column: 1; grid-row: 1; }
+.atlas-install-panel__close { grid-column: 3; grid-row: 1; }
+
+.atlas-install-panel__head > div > span {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 126, 82, 0.84);
+  font: 700 8px/1.2 "JetBrains Mono", monospace;
+  letter-spacing: 0.11em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.atlas-install-panel__head h2 {
+  overflow: hidden;
+  margin: 5px 0 0;
+  color: #fff;
+  font: 700 21px/1 "Space Grotesk", Inter, sans-serif;
+  letter-spacing: -0.035em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.atlas-install-panel__back,
+.atlas-install-panel__close {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(155, 185, 208, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(237, 244, 249, 0.7);
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.atlas-install-panel__back[hidden] {
+  display: grid;
+  visibility: hidden;
+}
+
+.atlas-install-panel__back svg,
+.atlas-install-panel__close svg {
+  width: 19px;
+  height: 19px;
+}
+
+.atlas-install-panel__back:hover,
+.atlas-install-panel__back:focus-visible,
+.atlas-install-panel__close:hover,
+.atlas-install-panel__close:focus-visible {
+  border-color: rgba(255, 113, 71, 0.62);
+  background: rgba(255, 69, 58, 0.11);
+  color: #fff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.atlas-install-panel__body {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 93, 49, 0.52) transparent;
+}
+
+.atlas-install-overview {
+  padding: 17px;
+}
+
+.atlas-install-panel__lede {
+  margin: 0 0 15px;
+  color: rgba(217, 229, 238, 0.58);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.atlas-install-dominant {
+  position: relative;
+  min-height: 96px;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+  padding: 14px;
+  border: 1px solid rgba(255, 122, 78, 0.28);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 4% 8%, rgba(255, 107, 61, 0.2), transparent 38%),
+    linear-gradient(125deg, rgba(255, 91, 43, 0.085), rgba(11, 17, 25, 0.64));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.035), 0 18px 42px rgba(0, 0, 0, 0.22);
+}
+
+.atlas-install-dominant::after {
+  position: absolute;
+  top: -26px;
+  right: -18px;
+  width: 92px;
+  height: 92px;
+  border: 1px solid rgba(255, 125, 79, 0.12);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 0 12px rgba(255, 125, 79, 0.035), 0 0 0 27px rgba(255, 125, 79, 0.018);
+  pointer-events: none;
+}
+
+.atlas-install-dominant__logo {
+  position: relative;
+  z-index: 1;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 139, 94, 0.27);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34), 0 0 22px rgba(255, 90, 40, 0.1);
+}
+
+.atlas-install-dominant__logo img {
+  width: 42px;
+  height: 42px;
+  display: block;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: none;
+}
+
+.atlas-install-dominant__logo img[hidden] {
+  display: none;
+}
+
+.atlas-install-dominant__logo svg {
+  width: 29px;
+  height: 29px;
+  color: rgba(22, 32, 43, 0.5);
+  stroke-width: 1.25;
+}
+
+.atlas-install-dominant__logo img:not([hidden]) + [data-atlas-install-dominant-placeholder] {
+  display: none;
+}
+
+.atlas-install-dominant > div {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.atlas-install-dominant small {
+  display: block;
+  color: rgba(255, 138, 91, 0.74);
+  font: 700 7px/1.2 "JetBrains Mono", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.atlas-install-dominant strong {
+  display: block;
+  overflow: hidden;
+  margin-top: 5px;
+  color: #fff;
+  font: 700 20px/1.05 "Space Grotesk", Inter, sans-serif;
+  letter-spacing: -0.035em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.atlas-install-dominant > div > span {
+  display: -webkit-box;
+  margin-top: 5px;
+  overflow: hidden;
+  color: rgba(215, 227, 236, 0.54);
+  font-size: 9px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.atlas-install-panel__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 12px 0 18px;
+  overflow: hidden;
+  border: 1px solid rgba(145, 177, 202, 0.13);
+  border-radius: 11px;
+  background: rgba(145, 177, 202, 0.08);
+}
+
+.atlas-install-panel__metrics > span {
+  min-width: 0;
+  padding: 11px 12px;
+  background: rgba(4, 9, 15, 0.82);
+}
+
+.atlas-install-panel__metrics strong,
+.atlas-install-panel__metrics small {
+  display: block;
+}
+
+.atlas-install-panel__metrics strong {
+  color: #fff;
+  font: 700 20px/1 "Space Grotesk", Inter, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.atlas-install-panel__metrics small {
+  margin-top: 4px;
+  overflow: hidden;
+  color: rgba(190, 209, 223, 0.46);
+  font: 700 6.5px/1.35 "JetBrains Mono", monospace;
+  letter-spacing: 0.055em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.atlas-install-panel__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 17px 3px 8px;
+  color: rgba(238, 244, 248, 0.72);
+  font: 700 7px/1.2 "JetBrains Mono", monospace;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.atlas-install-panel__section-head small {
+  color: rgba(181, 201, 216, 0.36);
+  font: inherit;
+}
+
+.atlas-install-model-list,
+.atlas-install-runtime-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: atlas-install-row;
+}
+
+.atlas-install-model-list > li,
+.atlas-install-runtime-list > li {
+  min-width: 0;
+  counter-increment: atlas-install-row;
+}
+
+.atlas-install-model-list > li > :is(button, a, div),
+.atlas-install-runtime-list > li > :is(button, a, div) {
+  width: 100%;
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 20px 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border: 1px solid rgba(145, 177, 202, 0.105);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.022);
+  color: rgba(239, 245, 249, 0.82);
+  font-family: Inter, sans-serif;
+  text-align: left;
+  text-decoration: none;
+}
+
+.atlas-install-model-list > li > :is(button, a, div)::before,
+.atlas-install-runtime-list > li > :is(button, a, div)::before {
+  content: counter(atlas-install-row, decimal-leading-zero);
+  color: rgba(255, 111, 69, 0.78);
+  font: 700 7px/1 "JetBrains Mono", monospace;
+}
+
+.atlas-install-model-list > li > :is(button, a),
+.atlas-install-runtime-list > li > :is(button, a) {
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.atlas-install-model-list > li > :is(button, a):hover,
+.atlas-install-model-list > li > :is(button, a):focus-visible,
+.atlas-install-model-list > li > button[aria-pressed="true"],
+.atlas-install-runtime-list > li > :is(button, a):hover,
+.atlas-install-runtime-list > li > :is(button, a):focus-visible {
+  border-color: rgba(255, 115, 72, 0.4);
+  background: linear-gradient(90deg, rgba(255, 83, 40, 0.1), rgba(255, 255, 255, 0.025));
+  outline: none;
+  transform: translateX(2px);
+}
+
+.atlas-install-model-list > li > button[aria-pressed="true"] {
+  border-color: rgba(255, 115, 72, 0.54);
+  background: linear-gradient(90deg, rgba(255, 83, 40, 0.15), rgba(255, 255, 255, 0.035));
+  box-shadow: 0 0 20px rgba(255, 76, 35, 0.08);
+}
+
+.atlas-install-model-list img,
+.atlas-install-runtime-list img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  object-fit: contain;
+}
+
+.atlas-install-model-list strong,
+.atlas-install-runtime-list strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.atlas-install-model-list small,
+.atlas-install-runtime-list small,
+.atlas-install-model-list b,
+.atlas-install-runtime-list b {
+  color: rgba(206, 221, 231, 0.5);
+  font: 700 8px/1.2 "JetBrains Mono", monospace;
+  white-space: nowrap;
+}
+
+.atlas-install-model-list b,
+.atlas-install-runtime-list b {
+  color: rgba(255, 147, 101, 0.88);
+}
+
+.atlas-install-row__identity {
+  min-width: 0;
+}
+
+.atlas-install-row__identity strong,
+.atlas-install-row__identity small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.atlas-install-row__identity small {
+  margin-top: 3px;
+}
+
+.atlas-install-modality-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atlas-install-modality-list > li {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid rgba(145, 177, 202, 0.12);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(228, 238, 245, 0.7);
+}
+
+.atlas-install-modality-list strong,
+.atlas-install-modality-list small {
+  font: 700 8px/1.2 "JetBrains Mono", monospace;
+}
+
+.atlas-install-modality-list small {
+  color: rgba(255, 143, 96, 0.84);
+}
+
+.atlas-install-count-note {
+  margin: 12px 3px 0;
+  color: rgba(194, 210, 222, 0.44);
+  font: 600 8px/1.5 "JetBrains Mono", monospace;
+}
+
+.atlas-install-overview[hidden],
+[data-atlas-install-scope-detail][hidden],
+.atlas-install-empty[hidden] {
+  display: none;
+}
+
+.atlas-install-regions {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 17px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 121, 77, 0.24);
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255, 86, 39, 0.09), rgba(255, 255, 255, 0.025));
+  color: rgba(239, 245, 249, 0.82);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.atlas-install-regions:hover,
+.atlas-install-regions:focus-visible {
+  border-color: rgba(255, 119, 76, 0.52);
+  background: linear-gradient(90deg, rgba(255, 86, 39, 0.14), rgba(255, 255, 255, 0.035));
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.atlas-install-regions > span {
+  min-width: 0;
+}
+
+.atlas-install-regions strong,
+.atlas-install-regions small {
+  display: block;
+}
+
+.atlas-install-regions strong {
+  color: #f7f9fb;
+  font-size: 10px;
+}
+
+.atlas-install-regions small {
+  margin-top: 3px;
+  color: rgba(204, 219, 229, 0.5);
+  font: 700 7px/1.3 "JetBrains Mono", monospace;
+}
+
+.atlas-install-regions svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: rgba(255, 142, 95, 0.86);
+}
+
+.atlas-install-empty {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px 24px;
+  text-align: center;
+}
+
+.atlas-install-empty > span {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 111, 68, 0.24);
+  border-radius: 17px;
+  background: rgba(255, 79, 37, 0.065);
+  color: rgba(255, 125, 82, 0.62);
+  box-shadow: 0 0 32px rgba(255, 77, 31, 0.07);
+}
+
+.atlas-install-empty svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.2;
+}
+
+.atlas-install-empty strong {
+  color: #f7f8fa;
+  font: 700 17px/1.1 "Space Grotesk", Inter, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.atlas-install-empty p {
+  max-width: 276px;
+  margin: 8px 0 0;
+  color: rgba(198, 215, 227, 0.5);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.atlas-install-panel__note {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 11px 14px 12px;
+  border-top: 1px solid rgba(255, 159, 91, 0.16);
+  background: linear-gradient(90deg, rgba(255, 99, 48, 0.075), rgba(255, 176, 32, 0.025));
+  color: rgba(211, 224, 233, 0.47);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.atlas-install-panel__note strong {
+  color: rgba(255, 154, 103, 0.9);
+}
+
+.atlas-stage.atlas-install-panel-open .atlas-region-panel,
+.atlas-stage.atlas-install-panel-open .atlas-model-panel,
+.atlas-stage.atlas-install-panel-open .atlas-spotlight {
+  display: none;
+}
+
+@supports selector(.atlas-stage:has(.atlas-install-panel:not([hidden]))) {
+  .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-region-panel,
+  .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-model-panel,
+  .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-spotlight {
+    display: none;
+  }
+}
+
 .atlas-model-panel {
   --atlas-model-panel-accent: #ff7048;
   position: absolute;
@@ -2854,6 +3442,101 @@ html.light .atlas-page .atlas-callout a {
     display: none;
   }
 
+  .atlas-install-panel {
+    top: auto;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    left: 10px;
+    width: auto;
+    max-height: min(68svh, 560px);
+    border-radius: 20px;
+    touch-action: pan-y;
+    animation-name: atlas-install-sheet-in;
+  }
+
+  .atlas-install-panel::before {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    z-index: 2;
+    width: 34px;
+    height: 3px;
+    border-radius: 999px;
+    content: "";
+    background: rgba(210, 225, 235, 0.24);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  @keyframes atlas-install-sheet-in {
+    from { opacity: 0; transform: translate3d(0, 22px, 0) scale(0.985); }
+    to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  }
+
+  .atlas-install-panel__head {
+    min-height: 68px;
+    padding: 13px 11px 9px;
+  }
+
+  .atlas-install-panel__head h2 { font-size: 19px; }
+  .atlas-install-overview { padding: 13px; }
+  .atlas-install-panel__lede { margin-bottom: 11px; }
+
+  .atlas-install-dominant {
+    min-height: 86px;
+    grid-template-columns: 50px minmax(0, 1fr);
+    gap: 11px;
+    padding: 11px;
+  }
+
+  .atlas-install-dominant__logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+  }
+
+  .atlas-install-dominant__logo img { width: 36px; height: 36px; }
+  .atlas-install-dominant strong { font-size: 19px; }
+  .atlas-install-panel__metrics { margin: 10px 0 14px; }
+  .atlas-install-panel__metrics > span { padding: 9px 10px; }
+  .atlas-install-panel__metrics strong { font-size: 18px; }
+  .atlas-install-panel__section-head { margin-top: 14px; }
+  .atlas-install-model-list,
+  .atlas-install-runtime-list { gap: 5px; }
+
+  .atlas-install-model-list > li > :is(button, a, div),
+  .atlas-install-runtime-list > li > :is(button, a, div) {
+    min-height: 44px;
+    padding: 6px 9px;
+  }
+
+  .atlas-install-panel__note {
+    padding: 9px 12px max(10px, env(safe-area-inset-bottom));
+    font-size: 10px;
+  }
+
+  .atlas-stage.atlas-install-panel-open .atlas-controls,
+  .atlas-stage.atlas-install-panel-open .atlas-periods,
+  .atlas-stage.atlas-install-panel-open .atlas-navigation,
+  .atlas-stage.atlas-install-panel-open .atlas-region-panel,
+  .atlas-stage.atlas-install-panel-open .atlas-model-panel,
+  .atlas-stage.atlas-install-panel-open .atlas-spotlight,
+  .atlas-stage.atlas-install-panel-open .atlas-status {
+    display: none;
+  }
+
+  @supports selector(.atlas-stage:has(.atlas-install-panel:not([hidden]))) {
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-controls,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-periods,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-navigation,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-region-panel,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-model-panel,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-spotlight,
+    .atlas-stage:has(.atlas-install-panel:not([hidden])) .atlas-status {
+      display: none;
+    }
+  }
+
   .atlas-model-panel {
     top: auto;
     right: 10px;
@@ -3213,6 +3896,7 @@ body.atlas-share-active .atlas-stage {
 .atlas-stage.atlas-is-sharing .atlas-periods,
 .atlas-stage.atlas-is-sharing .atlas-navigation,
 .atlas-stage.atlas-is-sharing .atlas-region-panel,
+.atlas-stage.atlas-is-sharing .atlas-install-panel,
 .atlas-stage.atlas-is-sharing .atlas-model-panel,
 .atlas-stage.atlas-is-sharing .atlas-tooltip,
 .atlas-stage.atlas-is-sharing .atlas-spotlight,
@@ -3362,6 +4046,7 @@ body.atlas-share-active .atlas-stage {
   .atlas-copy,
   .atlas-controls,
   .atlas-periods,
+  .atlas-install-panel,
   .atlas-model-panel,
   .atlas-status,
   .atlas-content {

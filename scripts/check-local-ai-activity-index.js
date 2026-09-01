@@ -755,6 +755,28 @@ if (html !== null) {
     }
   }
 
+  const installPanelMarkup = html.match(/<aside\b[^>]*data-atlas-install-panel\b[^>]*>[\s\S]*?<\/aside>/i)?.[0] || '';
+  const installPanelText = textContent(installPanelMarkup).toLowerCase();
+  if (!installPanelMarkup) {
+    issue('Atlas is missing the visible Install paths detail panel');
+  } else {
+    for (const hook of [
+      'data-atlas-install-country',
+      'data-atlas-install-dominant-label',
+      'data-atlas-install-model-list',
+      'data-atlas-install-runtime-list',
+      'data-atlas-install-modality-list',
+      'data-atlas-install-regions'
+    ]) {
+      if (!installPanelMarkup.includes(hook)) issue(`Install paths panel is missing ${hook}`);
+    }
+    if (!installPanelText.includes('model paths selected') || !installPanelText.includes('setup destinations selected')
+      || !installPanelText.includes('does not verify') || !installPanelText.includes('completed download')
+      || !installPanelText.includes('inference') || !installPanelText.includes('model use')) {
+      issue('Install paths panel must expose model/destination detail and visibly deny download, inference and usage claims');
+    }
+  }
+
   const buttonTags = [...html.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/gi)].map(match => match[0]);
   for (const action of ['in', 'out', 'reset']) {
     if (!buttonTags.some(tag => attribute(tag, 'data-atlas-zoom') === action)) {
@@ -783,7 +805,8 @@ if (html !== null) {
     if (view === 'models' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('model-interest')) {
       issue('Models control must identify the metric as model interest');
     }
-    if (textContent(control) !== label) issue(`${label} control has unexpected visible text`);
+    const expectedVisibleLabel = view === 'installed' ? 'Install paths' : label;
+    if (textContent(control) !== expectedVisibleLabel) issue(`${label} control has unexpected visible text`);
   }
 
   const linkTags = [...html.matchAll(/<link\b[^>]*>/gi)].map(match => match[0]);
@@ -915,28 +938,64 @@ if (html !== null) {
 }
 
 if (installIntent) {
-  if (installIntent.view !== 'installed' || installIntent.publishThreshold !== 5) {
-    issue('Install-intent dataset must identify the installed view and five-visitor threshold');
+  if (installIntent.schemaVersion !== 2 || installIntent.view !== 'installed'
+    || installIntent.displayName !== 'Install paths' || installIntent.publishThreshold !== 5) {
+    issue('Install-intent dataset must identify the v2 Install paths view and five-visitor threshold');
   }
-  if (installIntent.totals?.observedSignals !== 48 || installIntent.totals?.publishedSignals !== 19
-    || installIntent.totals?.withheldSignals !== 29 || installIntent.totals?.publishedRegions !== 3) {
+  if (installIntent.totals?.observedSignals !== 58 || installIntent.totals?.globalVisitors !== 58
+    || installIntent.totals?.observedRegions !== 29 || installIntent.totals?.publishedSignals !== 24
+    || installIntent.totals?.publishedCountryCellVisitors !== 24 || installIntent.totals?.countryCellVisitors !== 60
+    || installIntent.totals?.withheldCountryCellVisitors !== 36 || installIntent.totals?.publishedRegions !== 3
+    || installIntent.totals?.withheldRegions !== 26 || installIntent.totals?.attributedModelVisitors !== 55
+    || 'withheldSignals' in installIntent.totals) {
     issue('Install-intent 30-day totals do not match the approved DataFast snapshot');
   }
-  const expectedInstallCountries = [['Germany', 7], ['United States', 7], ['India', 5]];
+  const expectedInstallCountries = [['United States', 11], ['Germany', 7], ['India', 6]];
   if (JSON.stringify((installIntent.countries || []).map(country => [country.name, country.signals])) !== JSON.stringify(expectedInstallCountries)) {
     issue('Install-intent published country ranking does not match the approved DataFast snapshot');
   }
   if (!String(installIntent.claimBoundary || '').toLowerCase().includes('does not verify')) {
     issue('Install-intent dataset must state that clicks do not verify installation or use');
   }
-  if (installIntent.modelRequests?.completions !== 59 || installIntent.modelRequests?.uniqueVisitors !== 28) {
-    issue('Install-intent model request totals do not match the approved DataFast snapshot');
+  const details = installIntent.installIntentDetails;
+  if (!details || JSON.stringify((details.models || []).map(row => [row.id, row.visitors])) !== JSON.stringify([['qwen3.8-27b', 6]])
+    || JSON.stringify((details.runtimes || []).map(row => [row.id, row.visitors])) !== JSON.stringify([
+      ['huggingface', 23], ['lmstudio', 16], ['unsloth', 16]
+    ])
+    || JSON.stringify((details.modalities || []).map(row => [row.id, row.visitors])) !== JSON.stringify([
+      ['llm', 33], ['voice', 22]
+    ])) {
+    issue('Install-intent model, destination and modality rows must match the privacy-thresholded unique-visitor snapshot');
+  }
+  const installCountries = new Map((installIntent.countries || []).map(country => [country.name, country]));
+  if (installCountries.get('United States')?.installIntent?.runtimes?.[0]?.id !== 'huggingface'
+    || installCountries.get('United States')?.installIntent?.runtimes?.[0]?.visitors !== 7
+    || installCountries.get('Germany')?.installIntent?.runtimes?.[0]?.id !== 'lmstudio'
+    || installCountries.get('Germany')?.installIntent?.runtimes?.[0]?.visitors !== 5
+    || (installCountries.get('India')?.installIntent?.runtimes || []).length !== 0
+    || (installIntent.countries || []).some(country => (country.installIntent?.models || []).length !== 0)) {
+    issue('Install-intent country stack rows must apply the independent five-visitor cell threshold');
+  }
+  if (installIntent.privacy?.minimumUniqueVisitors !== 5 || installIntent.period?.partial !== true
+    || installIntent.period?.effectiveCoverageDays !== 9
+    || installIntent.period?.observedStartAtInclusive !== '2026-08-21T00:00:00+02:00'
+    || installIntent.period?.observedEndAtExclusive !== '2026-08-30T00:00:00+02:00'
+    || installIntent.trackingCoverage?.hostname !== 'localclaw.io'
+    || (installIntent.trackingCoverage?.includedGoals || []).some(goal => ['model_install_localclaw', 'model_runtime_localclaw'].includes(goal))
+    || !String(installIntent.totals?.countryCellCounting || '').includes('more than one country')
+    || installIntent.stages?.installationVerified?.available !== false
+    || installIntent.stages?.inferenceCompleted?.available !== false) {
+    issue('Install-intent v2 must disclose partial history, privacy threshold and unavailable verified stages');
   }
 }
 if (installIntentAdmin1) {
-  if (installIntentAdmin1.view !== 'installed' || installIntentAdmin1.publishThreshold !== 5
+  if (installIntentAdmin1.schemaVersion !== 2 || installIntentAdmin1.view !== 'installed' || installIntentAdmin1.publishThreshold !== 5
     || Object.keys(installIntentAdmin1.countries || {}).length !== 3
-    || Object.values(installIntentAdmin1.countries || {}).some(country => country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)) {
+    || Object.values(installIntentAdmin1.countries || {}).some(country => country.collectionStatus !== 'collected' || country.publicationStatus !== 'none_above_threshold' || country.regions?.length !== 0)
+    || installIntentAdmin1.countries?.['United States']?.countryCode !== 'US'
+    || installIntentAdmin1.countries?.['United States']?.observedRegions !== 8
+    || installIntentAdmin1.countries?.Germany?.observedRegions !== 4
+    || installIntentAdmin1.countries?.India?.observedRegions !== 4) {
     issue('Install-intent regional dataset must retain a five-visitor threshold and publish no below-threshold region rows');
   }
 }
@@ -2115,10 +2174,31 @@ if (app !== null) {
     || shareUrlBody.includes("url.searchParams.set('family'")) {
     issue('Models Share Mode must preserve view=models, range, country and the canonical brand query parameter');
   }
+  if (!shareUrlBody.includes("ACTIVE_VIEW === 'installed'")
+    || !shareUrlBody.includes("url.searchParams.set('view', 'installed')")
+    || !shareUrlBody.includes("isInstallIntentView() && (state.selectedInstallCountry || state.selectedInstallModel)")
+    || !shareUrlBody.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")
+    || !shareUrlBody.includes("url.searchParams.set('model', state.selectedInstallModel)")
+    || !shareUrlBody.includes("state.scope === 'us'")
+    || !shareUrlBody.includes("url.searchParams.set('region', locked.name)")) {
+    issue('Install paths Share Mode must preserve view=installed, range, model and regional state without overriding regional drill-downs');
+  }
   const requestedViewBody = topLevelFunctionBody(app, 'applyRequestedView');
   if (!app.includes("brand: requestParams.get('brand')")
     || !requestedViewBody.includes('focusModelCountry(country, requestedView.brand)')) {
     issue('Shared Models URLs must restore their selected country and brand');
+  }
+  if (!app.includes("model: requestParams.get('model')")
+    || !requestedViewBody.includes('focusInstallCountry(country, requestedView.model)')
+    || !requestedViewBody.includes('showGlobalInstallPanel(requestedView.model)')
+    || !requestedViewBody.includes('isInstallIntentView() && !requestedView.region && !requestedView.area')) {
+    issue('Shared Install paths URLs must restore valid worldwide or country model state');
+  }
+  const focusInstallCountryBody = topLevelFunctionBody(app, 'focusInstallCountry');
+  if (!focusInstallCountryBody.includes('installModelsForCountry(country)')
+    || !focusInstallCountryBody.includes('installModelIdentifier(model) === String(requestedModelId')
+    || !focusInstallCountryBody.includes('state.selectedInstallModel = selectedModel ? installModelIdentifier(selectedModel) : null')) {
+    issue('Invalid or stale Install paths model deep links must fall back to the country overview');
   }
   const focusModelCountryBody = topLevelFunctionBody(app, 'focusModelCountry');
   if (!focusModelCountryBody.includes('modelBrandsForCountry(country)')
@@ -2131,6 +2211,11 @@ if (app !== null) {
     || !shareSnapshotBody.includes('const isLeader = leaders.includes(brand)')
     || !shareSnapshotBody.includes("brand.label + ' model-page interest in ' + country.name")) {
     issue('Models share cards must distinguish leaders, co-leaders and non-leading selected brands');
+  }
+  if (!shareSnapshotBody.includes("isInstallIntentView() && state.scope === 'world'")
+    || !shareSnapshotBody.includes('selectedModel || (country ? models[0] : null)')
+    || !shareSnapshotBody.includes('const coverage = installCoverageCopy()')) {
+    issue('Install paths share cards must keep the unselected world total global and disclose partial tracking coverage');
   }
 }
 if (app !== null) {
@@ -2164,6 +2249,13 @@ if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-model-pane
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-navigation')
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-status'))) {
   issue('Atlas mobile Models sheet must respect the iPhone safe area, remain scrollable, and hide overlapping controls while open');
+}
+if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-install-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(68svh,\s*560px\)[^}]*touch-action:\s*pan-y/s.test(css)
+  || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-controls')
+  || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-periods')
+  || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-navigation')
+  || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-status'))) {
+  issue('Atlas mobile Install paths sheet must respect the iPhone safe area, remain scrollable, and hide overlapping controls while open');
 }
 if (css !== null) {
   for (const marker of ['.atlas-share-trigger', '.atlas-share-overlay', '.atlas-share-card', '.atlas-share-toolbar', '.atlas-is-sharing']) {
