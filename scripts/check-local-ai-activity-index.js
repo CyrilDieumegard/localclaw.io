@@ -2185,13 +2185,15 @@ if (app !== null) {
   }
   const requestedViewBody = topLevelFunctionBody(app, 'applyRequestedView');
   if (!app.includes("brand: requestParams.get('brand')")
-    || !requestedViewBody.includes('focusModelCountry(country, requestedView.brand)')) {
+    || !requestedViewBody.includes('focusModelCountry(country, requestedView.brand, { exploreRegions: false })')
+    || !requestedViewBody.includes('await enterModelRegionExplorer(country)')) {
     issue('Shared Models URLs must restore their selected country and brand');
   }
   if (!app.includes("model: requestParams.get('model')")
-    || !requestedViewBody.includes('focusInstallCountry(country, requestedView.model)')
+    || !requestedViewBody.includes('focusInstallCountry(country, requestedView.model, { exploreRegions: false })')
+    || !requestedViewBody.includes('await enterInstallRegionExplorer(country, requestedView.model)')
     || !requestedViewBody.includes('showGlobalInstallPanel(requestedView.model)')
-    || !requestedViewBody.includes('isInstallIntentView() && !requestedView.region && !requestedView.area')) {
+    || !requestedViewBody.includes('isInstallIntentView()')) {
     issue('Shared Install paths URLs must restore valid worldwide or country model state');
   }
   const focusInstallCountryBody = topLevelFunctionBody(app, 'focusInstallCountry');
@@ -2205,6 +2207,15 @@ if (app !== null) {
     || !focusModelCountryBody.includes('brandIdentifier(brand) === String(requestedBrandId')
     || !focusModelCountryBody.includes('state.selectedModelBrand = requestedBrand ? brandIdentifier(requestedBrand) : null')) {
     issue('Invalid or stale Models brand deep links must fall back to the country overview');
+  }
+  if (!focusModelCountryBody.includes('void enterModelRegionExplorer(country)')
+    || !focusInstallCountryBody.includes('void enterInstallRegionExplorer(country, state.selectedInstallModel)')
+    || !app.includes("entry.kind !== 'installStack'")
+    || !app.includes('leadingInstallPath(country)')
+    || !app.includes('function syncInstallUrl()')
+    || !app.includes("if (isInstallIntentView()) syncInstallUrl()")
+    || !app.includes('/^(?:US|CN|AU)-[A-Z0-9]{2,3}$/')) {
+    issue('Models and Install paths country selections must automatically open regional detail and keep the leading install-path logo on the map');
   }
   const shareSnapshotBody = topLevelFunctionBody(app, 'shareSnapshot');
   if (!shareSnapshotBody.includes('const leaders = coLeadingModelBrands(country)')

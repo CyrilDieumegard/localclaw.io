@@ -1010,7 +1010,8 @@ if (!app.includes("url.searchParams.set('view', 'models')")
   || !app.includes("url.searchParams.set('country', state.selectedModelCountry.name)")
   || !app.includes("url.searchParams.set('brand', state.selectedModelBrand)")
   || !app.includes("brand: requestParams.get('brand')")
-  || !app.includes('focusModelCountry(country, requestedView.brand)')) {
+  || !app.includes('focusModelCountry(country, requestedView.brand, { exploreRegions: false })')
+  || !app.includes('await enterModelRegionExplorer(country)')) {
   issue('Models Share Mode must round-trip view, range, country and canonical brand');
 }
 if (!app.includes("region: requestParams.get('region')")
@@ -1031,7 +1032,10 @@ if (!app.includes("url.searchParams.set('view', 'installed')")
   || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")
   || !app.includes("url.searchParams.set('model', state.selectedInstallModel)")
   || !app.includes("model: requestParams.get('model')")
-  || !app.includes('focusInstallCountry(country, requestedView.model)')) {
+  || !app.includes('focusInstallCountry(country, requestedView.model, { exploreRegions: false })')
+  || !app.includes('await enterInstallRegionExplorer(country, requestedView.model)')
+  || !app.includes("url.searchParams.set('regions', '1')")
+  || !app.includes('function syncInstallUrl()')) {
   issue('Install paths Share Mode must round-trip view, range, country and canonical model');
 }
 if (!app.includes("status === 'published' || status === 'partially_published'")) {

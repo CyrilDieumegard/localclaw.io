@@ -123,6 +123,13 @@ const aliases = new Map([
 ]);
 
 const countryDetailOverrides = new Map([
+  ['United States', {
+    viewLabel: 'State-level view',
+    liveLabel: 'State-level exploration',
+    regionLabel: 'state or federal district',
+    regionsLabel: 'states and federal district',
+    titleEmphasis: 'across the United States, state by state.'
+  }],
   ['China', {
     viewLabel: 'Province-level view',
     liveLabel: 'Province-level exploration',
@@ -147,6 +154,7 @@ const countryDetailOverrides = new Map([
 ]);
 
 const admin1NameOverrides = new Map([
+  ['US-DC', 'District of Columbia'],
   ['RUS-2399', 'Altai Krai'],
   ['RUS-2400', 'Altai Republic'],
   ['RUS-2364', 'Moscow Oblast'],
@@ -760,6 +768,13 @@ function currentShareUrl() {
     if (state.selectedModelBrand) url.searchParams.set('brand', state.selectedModelBrand);
   } else if (isInstallIntentView() && (state.selectedInstallCountry || state.selectedInstallModel)) {
     if (state.selectedInstallCountry) url.searchParams.set('country', state.selectedInstallCountry.name);
+    if (state.selectedInstallCountry && isAdmin2Scope() && state.admin2Config) {
+      url.searchParams.set('region', state.admin2Config.parentName);
+      if (locked?.kind === 'admin2') url.searchParams.set('area', locked.name);
+    } else if (state.selectedInstallCountry && isAdmin1Scope()) {
+      if (locked?.kind === 'admin1') url.searchParams.set('region', locked.sourceName || locked.name);
+      else url.searchParams.set('regions', '1');
+    }
     if (state.selectedInstallModel) url.searchParams.set('model', state.selectedInstallModel);
   } else if (state.scope === 'us') {
     url.searchParams.set('country', 'United States');
@@ -1662,7 +1677,7 @@ function admin2ParentCode(parent, parentScope = state.scope) {
   }
   return (parent.codes || [])
     .map(code => String(code || '').trim().toUpperCase())
-    .find(code => /^(?:CN|AU)-[A-Z0-9]{2,3}$/.test(code)) || '';
+    .find(code => /^(?:US|CN|AU)-[A-Z0-9]{2,3}$/.test(code)) || '';
 }
 
 function admin2ConfigForParent(parent, parentScope = state.scope) {
@@ -2739,6 +2754,18 @@ function dominantModelBrand(country) {
   return coLeadingModelBrands(country)[0] || null;
 }
 
+function leadingInstallPath(country) {
+  return installModelsForCountry(country)[0] || installRuntimesForCountry(country)[0] || null;
+}
+
+function mapLogoIdentity(country) {
+  return isInstallIntentView() ? leadingInstallPath(country) : dominantModelBrand(country);
+}
+
+function mapLogoCoLeaderCount(country) {
+  return isModelInterestView() ? Math.max(1, coLeadingModelBrands(country).length) : 1;
+}
+
 function paintModelBadge(canvas, brand, image = null, coLeaderCount = 1) {
   const context = canvas.getContext('2d');
   const size = canvas.width;
@@ -2835,13 +2862,13 @@ function createModelBrandMarkers() {
   state.modelMarkerGroup = new THREE.Group();
   state.modelMarkerGroup.userData.activityScope = 'models';
   state.globeGroup.add(state.modelMarkerGroup);
-  if (!isModelInterestView()) {
+  if (!isModelInterestView() && !isInstallIntentView()) {
     state.modelMarkerGroup.visible = false;
     return;
   }
   for (const country of state.countries) {
-    const brand = dominantModelBrand(country);
-    const coLeaderCount = coLeadingModelBrands(country).length;
+    const brand = mapLogoIdentity(country);
+    const coLeaderCount = mapLogoCoLeaderCount(country);
     const center = centerForCountry(country);
     if (!brand || !center || modelBrandSignals(brand) < PUBLISH_THRESHOLD) continue;
     const position = latLonToVector(center[0], center[1], GLOBE_RADIUS + 0.13);
@@ -2857,7 +2884,7 @@ function createModelBrandMarkers() {
     sprite.center.set(0.5, 0.5);
     sprite.renderOrder = 7;
     const marker = {
-      kind: 'modelBrand',
+      kind: isInstallIntentView() ? 'installStack' : 'modelBrand',
       country,
       brand,
       coLeaderCount,
@@ -2937,11 +2964,12 @@ function syncModelMarkerBrands(selectedCountry = null, selectedBrand = null) {
 }
 
 function updateModelDomFallback() {
-  const fallbackActive = Boolean(state.contextLost && isModelInterestView());
+  const fallbackActive = Boolean(state.contextLost && (isModelInterestView() || isInstallIntentView()));
   modelLogoLayer?.classList.toggle('is-fallback', fallbackActive);
   for (const entry of state.modelMarkerEntries) {
     if (!entry.element) continue;
-    entry.element.classList.toggle('is-hidden', !(fallbackActive && state.scope === 'world' && entry.projectedVisible));
+    const activeScope = state.scope === 'world' || (isInstallIntentView() && isAdmin1Scope());
+    entry.element.classList.toggle('is-hidden', !(fallbackActive && activeScope && entry.projectedVisible));
   }
   for (const entry of state.modelRegionMarkerEntries) {
     if (!entry.element) continue;
@@ -2951,7 +2979,9 @@ function updateModelDomFallback() {
 
 function updateModelMarkerVisibility() {
   if (!state.modelMarkerGroup || !state.camera || !state.globeGroup) return;
-  const active = isModelInterestView() && state.scope === 'world';
+  const worldActive = (isModelInterestView() || isInstallIntentView()) && state.scope === 'world';
+  const installCountryActive = isInstallIntentView() && isAdmin1Scope() && Boolean(state.selectedInstallCountry);
+  const active = worldActive || installCountryActive;
   state.modelMarkerGroup.visible = active;
   if (!active) {
     for (const entry of state.modelMarkerEntries) {
@@ -2970,6 +3000,7 @@ function updateModelMarkerVisibility() {
   const globeCenter = state.globeGroup.getWorldPosition(modelMarkerScratch.globeCenter);
   const candidates = [];
   for (const entry of state.modelMarkerEntries) {
+    if (installCountryActive && entry.country !== state.selectedInstallCountry) continue;
     if (entry.filteredOut) continue;
     const worldPosition = state.globeGroup.localToWorld(modelMarkerScratch.worldPosition.copy(entry.position));
     const surfaceNormal = modelMarkerScratch.surfaceNormal.copy(worldPosition).sub(globeCenter).normalize();
@@ -2985,8 +3016,9 @@ function updateModelMarkerVisibility() {
     });
   }
   candidates.sort((left, right) => {
-    const selectedLeft = left.entry.country === state.selectedModelCountry ? 1 : 0;
-    const selectedRight = right.entry.country === state.selectedModelCountry ? 1 : 0;
+    const selectedCountry = isInstallIntentView() ? state.selectedInstallCountry : state.selectedModelCountry;
+    const selectedLeft = left.entry.country === selectedCountry ? 1 : 0;
+    const selectedRight = right.entry.country === selectedCountry ? 1 : 0;
     return selectedRight - selectedLeft
       || modelCountryVisitors(right.entry.country) - modelCountryVisitors(left.entry.country)
       || left.entry.country.name.localeCompare(right.entry.country.name);
@@ -2994,7 +3026,8 @@ function updateModelMarkerVisibility() {
   const visible = new Set();
   const occupied = [];
   for (const candidate of candidates) {
-    const selected = candidate.entry.country === state.selectedModelCountry;
+    const selectedCountry = isInstallIntentView() ? state.selectedInstallCountry : state.selectedModelCountry;
+    const selected = candidate.entry.country === selectedCountry;
     const blockedByCopy = !selected && candidate.x < (mobile ? stage.clientWidth - 16 : Math.min(490, stage.clientWidth * 0.42))
       && candidate.y < (mobile ? 225 : 315);
     const blockedByPanel = !selected && !mobile && candidate.x > stage.clientWidth - 390 && candidate.y < stage.clientHeight - 70;
@@ -3021,7 +3054,8 @@ function updateModelMarkerVisibility() {
     const cameraDepth = Math.max(0.08, -cameraPosition.z);
     const pixelsPerLocalUnit = viewportHeight * Math.max(globeScale.x, 0.001)
       / (2 * Math.max(halfFovTangent, 0.001) * cameraDepth);
-    const selected = entry.country === state.selectedModelCountry;
+    const selectedCountry = isInstallIntentView() ? state.selectedInstallCountry : state.selectedModelCountry;
+    const selected = entry.country === selectedCountry;
     const pixels = (mobile ? 42 : 50) + (selected ? 8 : 0);
     const localScale = THREE.MathUtils.clamp(pixels / pixelsPerLocalUnit, 0.18, 0.9);
     entry.sprite.scale.setScalar(localScale);
@@ -3977,6 +4011,7 @@ function resetCurrentView() {
   setZoom(defaultZoom());
   updateSelectionOverlay(null);
   updateScopeInterface();
+  if (isInstallIntentView()) syncInstallUrl();
 }
 
 function resize() {
@@ -4170,9 +4205,11 @@ function entityAtPointer({ preferGeography = false } = {}) {
   const activeModelHitMeshes = state.scope === 'world'
     ? state.modelMarkerHitMeshes
     : isAdmin1Scope()
-      ? state.modelRegionMarkerHitMeshes
+      ? isInstallIntentView()
+        ? state.modelMarkerHitMeshes
+        : state.modelRegionMarkerHitMeshes
       : [];
-  const modelHits = isModelInterestView()
+  const modelHits = isModelInterestView() || isInstallIntentView()
     ? state.raycaster.intersectObjects(activeModelHitMeshes.filter(hit => hit.visible), false)
     : [];
   const modelHit = frontSurfaceHit && modelHits[0] && modelHits[0].distance <= intersection.distance + 0.24
@@ -4192,6 +4229,18 @@ function entityAtPointer({ preferGeography = false } = {}) {
 
 function showTooltip(entity, event) {
   if (!tooltip || !entity || window.innerWidth < 760) return;
+  if (entity.kind === 'installStack') {
+    tooltip.hidden = false;
+    tooltip.querySelector('[data-tooltip-rank]').textContent = `Leading published path in ${entity.country.name}`;
+    tooltip.querySelector('[data-tooltip-country]').textContent = entity.brand.label;
+    tooltip.querySelector('[data-tooltip-signals]').textContent = `${number(modelBrandSignals(entity.brand))} country-level path visitors · select for details`;
+    const rect = stage.getBoundingClientRect();
+    const left = Math.min(event.clientX - rect.left, rect.width - 250);
+    const top = Math.min(event.clientY - rect.top, rect.height - 140);
+    tooltip.style.left = Math.max(4, left) + 'px';
+    tooltip.style.top = Math.max(4, top) + 'px';
+    return;
+  }
   if (entity.kind === 'modelRegionBrand') {
     tooltip.hidden = false;
     tooltip.querySelector('[data-tooltip-rank]').textContent = entity.isLeader
@@ -4257,7 +4306,7 @@ function showTooltip(entity, event) {
       ? ` · select for ${drillConfig.childrenLabel}`
       : '';
     tooltip.querySelector('[data-tooltip-signals]').textContent = entity.published && Number.isFinite(entity.signals)
-      ? `${number(entity.signals)} published regional signals${drillAction}`
+      ? `${number(entity.signals)} published regional ${isInstallIntentView() ? 'install-intent visitors' : 'signals'}${drillAction}`
       : `${admin1EntityStatusMessage(entity)}${drillAction}`;
     const rect = stage.getBoundingClientRect();
     const left = Math.min(event.clientX - rect.left, rect.width - 220);
@@ -4287,9 +4336,9 @@ function showTooltip(entity, event) {
   const detailConfig = !stateView ? detailConfigForCountry(entity) : null;
   const stateDetailConfig = stateView ? admin2ConfigForParent(entity, 'us') : null;
   const action = isModelInterestView()
-    ? ' · select for brand and model detail'
+    ? ' · select for regional brand and model detail'
     : isInstallIntentView() && !stateView
-      ? ' · select for model paths and setup destinations'
+      ? ' · select for regional boundaries and stack detail'
     : stateDetailConfig && Number(stateDetailConfig.featureCount) > 1
     ? ` · select for ${stateDetailConfig.childrenLabel}`
     : !stateView && entity.adm0A3 === 'USA'
@@ -4356,8 +4405,8 @@ function showSpotlight(entity) {
       return;
     }
     spotlight.querySelector('[data-spotlight-signals]').textContent = entity.qualityNote
-      ? `${number(entity.signals)} signals · ${entity.qualityNote}`
-      : `${number(entity.signals)} published regional signals · independently privacy-thresholded`;
+      ? `${number(entity.signals)} ${isInstallIntentView() ? 'install-intent visitors' : 'signals'} · ${entity.qualityNote}`
+      : `${number(entity.signals)} published regional ${isInstallIntentView() ? 'install-intent visitors' : 'signals'} · independently privacy-thresholded`;
     return;
   }
   if (entity.kind === 'admin2') {
@@ -4486,6 +4535,33 @@ function installModalitiesForCountry(country = null) {
   return Array.isArray(rows) ? rows : [];
 }
 
+function syncInstallMarkerPaths(selectedCountry = null, selectedPath = null) {
+  for (const entry of state.modelMarkerEntries) {
+    if (entry.kind !== 'installStack') continue;
+    const target = entry.country === selectedCountry && selectedPath
+      ? selectedPath
+      : leadingInstallPath(entry.country);
+    entry.filteredOut = false;
+    if (!target) {
+      entry.projectedVisible = false;
+      entry.sprite.visible = false;
+      entry.hit.visible = false;
+      entry.element?.classList.add('is-hidden');
+      continue;
+    }
+    if (entry.brand !== target) {
+      entry.sprite.material.map = textureForModelBrand(target, 1);
+      entry.sprite.material.needsUpdate = true;
+    }
+    entry.brand = target;
+    entry.coLeaderCount = 1;
+    entry.isLeader = true;
+    entry.brandRank = 1;
+    const fallbackImage = entry.element?.querySelector('img');
+    if (fallbackImage) fallbackImage.src = target.logo;
+  }
+}
+
 function setInstallPanelOpen(open, options = {}) {
   const wasOpen = state.installPanelOpen;
   const shouldOpen = Boolean(open);
@@ -4602,6 +4678,7 @@ function renderInstallPanel(country = state.selectedInstallCountry, requestedMod
   const selectedModel = models.find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
   if (requestedModelId && !selectedModel) state.selectedInstallModel = null;
   const dominant = selectedModel || models[0] || runtimes[0] || null;
+  syncInstallMarkerPaths(country, dominant);
   const countryLabel = installPanel.querySelector('[data-atlas-install-country]');
   const title = installPanel.querySelector('h2');
   const dominantLogo = installPanel.querySelector('[data-atlas-install-dominant-logo]');
@@ -4693,9 +4770,43 @@ function renderInstallPanel(country = state.selectedInstallCountry, requestedMod
   installPanel.dataset.scope = selectedModel ? 'model' : country ? 'country' : 'world';
 }
 
-function focusInstallCountry(country, requestedModelId = '') {
+function openInstallCountryPanel(country, requestedModelId = '') {
+  if (!country || !isInstallIntentView()) return;
+  const selectedModel = installModelsForCountry(country)
+    .find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
+  state.selectedInstallCountry = country;
+  state.selectedInstallModel = selectedModel ? installModelIdentifier(selectedModel) : null;
+  setInstallPanelOpen(true, { focus: true });
+  renderInstallPanel(country, state.selectedInstallModel);
+  syncInstallUrl();
+  scrollAtlasIntoView();
+}
+
+async function enterInstallRegionExplorer(country = state.selectedInstallCountry, requestedModelId = state.selectedInstallModel) {
+  if (!country || !isInstallIntentView() || !manifestEntryForCountry(country)) return false;
+  const selectedModel = installModelsForCountry(country)
+    .find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
+  state.selectedInstallCountry = country;
+  state.selectedInstallModel = selectedModel ? installModelIdentifier(selectedModel) : null;
+  setInstallPanelOpen(false);
+  renderInstallPanel(country, state.selectedInstallModel);
+  const entered = await enterCountryDetail(country);
+  if (!entered) {
+    openInstallCountryPanel(country, state.selectedInstallModel);
+    return false;
+  }
+  state.locked = { kind: 'admin1View', name: `${country.name} regional install-path view` };
+  updateScopeInterface();
+  syncInstallUrl();
+  scrollAtlasIntoView();
+  return true;
+}
+
+function focusInstallCountry(country, requestedModelId = '', options = {}) {
   if (!country || !isInstallIntentView()) return;
   if (!state.tourAdvancing) stopTour();
+  state.admin1LoadToken += 1;
+  setAdmin1Busy(false);
   if (state.scope !== 'world') exitToWorld();
   const selectedModel = installModelsForCountry(country)
     .find(model => installModelIdentifier(model) === String(requestedModelId || '')) || null;
@@ -4708,8 +4819,13 @@ function focusInstallCountry(country, requestedModelId = '') {
   updateSelectionOverlay(country);
   hideTooltip();
   if (spotlight) spotlight.hidden = true;
-  setInstallPanelOpen(true, { focus: true });
   renderInstallPanel(country, state.selectedInstallModel);
+  if (options.exploreRegions !== false && manifestEntryForCountry(country)) {
+    void enterInstallRegionExplorer(country, state.selectedInstallModel);
+    return;
+  }
+  setInstallPanelOpen(true, { focus: true });
+  syncInstallUrl();
   scrollAtlasIntoView();
 }
 
@@ -4723,6 +4839,7 @@ function showGlobalInstallPanel(requestedModelId = '') {
   updateSelectionOverlay(null);
   setInstallPanelOpen(true, { focus: state.initialized });
   renderInstallPanel(null, state.selectedInstallModel);
+  syncInstallUrl();
   scrollAtlasIntoView();
 }
 
@@ -4733,16 +4850,13 @@ function resetInstallPanel() {
   setInstallPanelOpen(false);
   updateSelectionOverlay(null);
   renderInstallPanel(null, '');
+  syncInstallUrl();
 }
 
 function openInstallRegionExplorer() {
   const country = state.selectedInstallCountry;
   if (!country) return;
-  state.selectedInstallCountry = null;
-  state.selectedInstallModel = null;
-  setInstallPanelOpen(false);
-  if (country.adm0A3 === 'USA') enterUnitedStates();
-  else if (manifestEntryForCountry(country)) void enterCountryDetail(country);
+  void enterInstallRegionExplorer(country, state.selectedInstallModel);
 }
 
 function brandIdentifier(brand) {
@@ -4783,6 +4897,17 @@ function focusModelPanelNavigation() {
 
 function syncModelUrl() {
   if (!isModelInterestView() || !state.initialized) return;
+  const canonical = new URL(currentShareUrl());
+  const url = new URL(window.location.href);
+  ['view', 'range', 'country', 'region', 'regions', 'brand', 'family', 'model', 'area']
+    .forEach(key => url.searchParams.delete(key));
+  canonical.searchParams.forEach((value, key) => url.searchParams.set(key, value));
+  url.searchParams.delete('v');
+  window.history.replaceState({}, '', url);
+}
+
+function syncInstallUrl() {
+  if (!isInstallIntentView() || !state.initialized) return;
   const canonical = new URL(currentShareUrl());
   const url = new URL(window.location.href);
   ['view', 'range', 'country', 'region', 'regions', 'brand', 'family', 'model', 'area']
@@ -5105,7 +5230,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   modelPanel.dataset.scope = selected ? 'brand' : region ? 'region' : regionalListView ? 'regions' : country ? 'country' : 'world';
 }
 
-function focusModelCountry(country, requestedBrandId = '') {
+function focusModelCountry(country, requestedBrandId = '', options = {}) {
   if (!country || !isModelInterestView()) return;
   if (!state.tourAdvancing) stopTour();
   // A country selection supersedes any Admin-1 shard still loading for a
@@ -5128,6 +5253,10 @@ function focusModelCountry(country, requestedBrandId = '') {
   setModelPanelOpen(true);
   renderModelPanel(country, state.selectedModelBrand, null);
   syncModelUrl();
+  if (options.exploreRegions !== false && !requestedBrandId && manifestEntryForCountry(country)) {
+    void enterModelRegionExplorer(country);
+    return;
+  }
   scrollAtlasIntoView();
 }
 
@@ -5242,6 +5371,7 @@ function focusAdmin1Region(region) {
   state.lastInteractionAt = performance.now();
   updateSelectionOverlay(region);
   showSpotlight(region);
+  if (isInstallIntentView()) syncInstallUrl();
   scrollAtlasIntoView();
 }
 
@@ -5281,6 +5411,7 @@ async function enterAdmin2Detail(parent, parentScope = state.scope) {
     hideTooltip();
     spotlight.hidden = true;
     updateScopeInterface();
+    if (isInstallIntentView()) syncInstallUrl();
     const center = parent.center || (parentScope === 'us' ? state.usCenters.get(parent.name) : null);
     if (center) beginFocusTransition(center, defaultZoom('admin2'));
     showToast(`${config.parentName} · ${number(state.admin2Regions.length)} ${config.childrenLabel} loaded`);
@@ -5309,6 +5440,7 @@ function focusAdmin2Region(region) {
   state.lastInteractionAt = performance.now();
   updateSelectionOverlay(region);
   showSpotlight(region);
+  if (isInstallIntentView()) syncInstallUrl();
   scrollAtlasIntoView();
 }
 
@@ -5386,11 +5518,15 @@ async function applyRequestedView() {
 
   if (isModelInterestView()) {
     if (!requestedView.region) {
-      focusModelCountry(country, requestedView.brand);
-      if (requestedView.regions) await enterModelRegionExplorer(country);
+      if (requestedView.brand && !requestedView.regions) {
+        focusModelCountry(country, requestedView.brand, { exploreRegions: false });
+      } else {
+        focusModelCountry(country, '', { exploreRegions: false });
+        await enterModelRegionExplorer(country);
+      }
       return;
     }
-    focusModelCountry(country);
+    focusModelCountry(country, '', { exploreRegions: false });
     const entered = await enterModelRegionExplorer(country);
     if (!entered) return;
     const matchedBoundary = findEntityByName(state.detailRegions, requestedView.region);
@@ -5401,8 +5537,27 @@ async function applyRequestedView() {
     return;
   }
 
-  if (isInstallIntentView() && !requestedView.region && !requestedView.area) {
-    focusInstallCountry(country, requestedView.model);
+  if (isInstallIntentView()) {
+    if (requestedView.model && !requestedView.region && !requestedView.regions) {
+      focusInstallCountry(country, requestedView.model, { exploreRegions: false });
+      return;
+    }
+    const entered = await enterInstallRegionExplorer(country, requestedView.model);
+    if (!entered || !requestedView.region) return;
+    const matchedBoundary = findEntityByName(state.detailRegions, requestedView.region);
+    const region = findEntityByName(state.detailRankedRegions, requestedView.region)
+      || matchedBoundary?.activityEntity
+      || matchedBoundary;
+    if (!region) return;
+    if (requestedView.area && admin2ConfigForParent(region, 'admin1')) {
+      const enteredArea = await enterAdmin2Detail(region, 'admin1');
+      if (enteredArea) {
+        const area = findEntityByName(state.admin2Regions, requestedView.area);
+        if (area) focusAdmin2Region(area);
+      }
+    } else {
+      focusAdmin1Region(region);
+    }
     return;
   }
 
@@ -5496,13 +5651,26 @@ function updateScopeInterface() {
   if (regionPanel) regionPanel.hidden = modelInterestView || !regionalView;
   if (modelPanel) modelPanel.hidden = !modelInterestView || !state.modelPanelOpen;
   if (installPanel) installPanel.hidden = !installIntentView || !state.installPanelOpen;
-  if (modelLegend) modelLegend.hidden = !modelInterestView;
-  if (modelLogoLayer) modelLogoLayer.hidden = !modelInterestView;
+  if (modelLegend) {
+    modelLegend.hidden = !modelInterestView && !installIntentView;
+    if (installIntentView) {
+      const legendCopy = modelLegend.querySelector('small');
+      if (legendCopy) legendCopy.textContent = admin1View
+        ? 'Leading published country setup path · country-level'
+        : 'Leading published setup path by country';
+    }
+  }
+  if (modelLogoLayer) modelLogoLayer.hidden = !modelInterestView && !installIntentView;
   if (modelInterestView) {
     const colorLegendCopy = document.querySelector('[data-atlas-color-legend] small');
     if (colorLegendCopy) colorLegendCopy.textContent = modelRegionalView
       ? 'All-model regional visitors'
       : 'All-model country visitors';
+  } else if (installIntentView) {
+    const colorLegendCopy = document.querySelector('[data-atlas-color-legend] small');
+    if (colorLegendCopy) colorLegendCopy.textContent = admin1View
+      ? 'Published regional install-intent visitors'
+      : 'Country install-intent visitors';
   }
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
   if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
@@ -5585,8 +5753,16 @@ function updateScopeInterface() {
     : stateView
     ? installIntentView ? 'visible state install-intent visitors' : 'visible state signals'
     : admin1View
-      ? state.detailDataStatus === 'published'
-        ? 'published regional signals'
+      ? installIntentView
+        ? state.detailDataStatus === 'published'
+          ? 'published regional install-intent visitors'
+          : state.detailDataStatus === 'unavailable'
+            ? 'regional data unavailable'
+            : state.detailDataStatus === 'not_collected'
+              ? 'regional data not collected'
+              : 'no regional total above threshold'
+        : state.detailDataStatus === 'published'
+          ? 'published regional signals'
         : state.detailDataStatus === 'unavailable'
           ? 'regional data unavailable'
           : state.detailDataStatus === 'not_collected'
@@ -5621,7 +5797,7 @@ function updateScopeInterface() {
     : modelRegionalView
       ? `${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold`
     : regionalView
-      ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
+      ? `${admin1View ? state.detailTotals.publishThreshold : 5}-${installIntentView ? 'visitor' : 'signal'} threshold`
     : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
     ? 'Region color shows independently published all-model visitors. Each logo is the leading published brand in that region; a selected brand appears only where it independently reaches five visitors. Neutral boundaries and absent logos do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
@@ -5690,7 +5866,7 @@ function updateScopeInterface() {
         : admin2View
           ? ` ${Number.isFinite(state.admin2Config.parentSignals) ? state.admin2Config.parentSignalLabel : 'parent aggregate not published'}`
         : state.detailDataStatus === 'published'
-          ? ' published regional signals'
+          ? installIntentView ? ' published regional install-intent visitors' : ' published regional signals'
           : ` ${state.detailDataStatus.replaceAll('_', ' ')}`;
     }
     if (metricItems[1]) {
@@ -5714,7 +5890,10 @@ function updateScopeInterface() {
       const strong = document.createElement('strong');
       if (installIntentView) {
         strong.textContent = 'Install-intent boundary: ';
-        note.replaceChildren(strong, document.createTextNode('No subdivision reached five unique visitors in this snapshot. Neutral regions are not zero; they are withheld or below the publication threshold. Clicks do not prove completed installations.'));
+        const installBoundaryCopy = state.detailDataStatus === 'published'
+          ? `${number(state.detailTotals.regions)} ${state.detailConfig.regionsLabel} independently reached ${state.detailTotals.publishThreshold}+ install-intent visitors. Neutral regions are withheld or below threshold.`
+          : 'No subdivision reached five unique visitors in this snapshot. Neutral regions are not zero; they are withheld or below the publication threshold.';
+        note.replaceChildren(strong, document.createTextNode(`${installBoundaryCopy} Clicks do not prove completed installations.`));
       } else if (stateView) {
         strong.textContent = 'Quality flag: ';
         note.replaceChildren(strong, document.createTextNode('Oregon is dominated by a published DataFast city cluster for The Dalles. Its beacon uses an approximate GeoNames network-city centroid, not a residence or exact visitor location.'));
@@ -5794,7 +5973,7 @@ function renderStatePanel() {
     button.setAttribute('aria-label', admin2View
       ? `${accessibleName}: no subdivision-level activity total published; select to focus the boundary`
       : published && Number.isFinite(region.signals)
-        ? `${accessibleName}: ${number(region.signals)} published regional signals${drillConfig && Number(drillConfig.featureCount) > 1 ? `; select for ${drillConfig.childrenLabel}` : ''}`
+        ? `${accessibleName}: ${number(region.signals)} published regional ${isInstallIntentView() ? 'install-intent visitors' : 'signals'}${drillConfig && Number(drillConfig.featureCount) > 1 ? `; select for ${drillConfig.childrenLabel}` : ''}`
         : `${accessibleName}: no regional total published${drillConfig && Number(drillConfig.featureCount) > 1 ? `; select for ${drillConfig.childrenLabel}` : ''}`);
     button.addEventListener('click', () => {
       if (admin2View) focusAdmin2Region(region);
@@ -5864,7 +6043,13 @@ function exitToWorld() {
   setStateLineSelection(null);
   updateSelectionOverlay(null);
   hideTooltip();
+  if (isInstallIntentView()) {
+    state.selectedInstallCountry = null;
+    state.selectedInstallModel = null;
+    syncInstallMarkerPaths(null, null);
+  }
   updateScopeInterface();
+  if (isInstallIntentView()) syncInstallUrl();
 }
 
 function exitUnitedStates() {
@@ -5921,7 +6106,7 @@ function advanceTour() {
   if (state.scope === 'us') focusRegion(entity);
   else if (isAdmin1Scope() && isModelInterestView()) focusModelRegion(entity);
   else if (isAdmin1Scope()) focusAdmin1Region(entity);
-  else if (isModelInterestView()) focusModelCountry(entity);
+  else if (isModelInterestView()) focusModelCountry(entity, '', { exploreRegions: false });
   else focusCountrySurface(entity);
   state.tourAdvancing = false;
   if (tourLabel) tourLabel.textContent = `${String(state.tourIndex || entities.length).padStart(2, '0')}/10 · ${entity.name}`;
@@ -6086,7 +6271,11 @@ function bindInteractions() {
       const entity = entityAtPointer({ preferGeography: true });
       if (entity) {
         if (entity.kind === 'modelRegionBrand') focusModelRegion(entity.region, brandIdentifier(entity.brand));
-        else if (entity.kind === 'modelBrand') focusModelCountry(entity.country, entity.brand.id || entity.brand.brandId || entity.brand.family);
+        else if (entity.kind === 'modelBrand') focusModelCountry(entity.country);
+        else if (entity.kind === 'installStack') {
+          if (isAdmin1Scope()) openInstallCountryPanel(entity.country);
+          else focusInstallCountry(entity.country);
+        }
         else if (entity.kind === 'cityCluster') focusCluster(entity);
         else if (isAdmin2Scope() && entity.kind === 'admin2') focusAdmin2Region(entity);
         else if (state.scope === 'us') activateUsRegion(entity);
@@ -6222,6 +6411,7 @@ function bindInteractions() {
       const keepsCountryBack = Boolean(state.selectedInstallCountry);
       state.selectedInstallModel = null;
       renderInstallPanel(state.selectedInstallCountry, '');
+      syncInstallUrl();
       if (!keepsCountryBack) window.requestAnimationFrame(() => installClose?.focus({ preventScroll: true }));
     } else {
       showGlobalInstallPanel();
@@ -6246,7 +6436,7 @@ function bindInteractions() {
       } else if (state.selectedModelRegion) {
         showModelRegionOverview();
       } else if (isAdmin1Scope() && state.selectedModelCountry) {
-        focusModelCountry(state.selectedModelCountry);
+        focusModelCountry(state.selectedModelCountry, '', { exploreRegions: false });
       } else {
         showGlobalModelPanel();
       }
