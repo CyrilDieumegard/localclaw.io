@@ -1510,6 +1510,14 @@ if (app !== null) {
     || !css.includes('.atlas-scope-admin2 .atlas-region-panel__list button.is-active')) {
     issue('Admin-2 boundary selection must remain visible and expose aria-current in the long subdivision list');
   }
+  const regionalMarkerOffset = Number(app.match(/const\s+REGIONAL_MODEL_MARKER_OFFSET\s*=\s*([0-9.]+)\s*;/)?.[1]);
+  const createModelRegionMarkersBody = topLevelFunctionBody(app, 'createModelRegionMarkers');
+  if (!Number.isFinite(regionalMarkerOffset)
+    || regionalMarkerOffset <= 0.04
+    || regionalMarkerOffset > 0.06
+    || !createModelRegionMarkersBody.includes('GLOBE_RADIUS + REGIONAL_MODEL_MARKER_OFFSET')) {
+    issue('Regional model logos must remain pinned just above the vector boundary surface without visible globe parallax');
+  }
   const defaultZoomBody = topLevelFunctionBody(app, 'defaultZoom');
   if (!app.includes('function featureLongitudeSpan(')
     || !app.includes('function admin1ZoomForBbox(bbox, mobile = isMobileViewport(), longitudeSpanDegrees = null)')

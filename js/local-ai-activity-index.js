@@ -64,6 +64,10 @@ const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
 const ADMIN2_CACHE_LIMIT = 4;
 const GLOBE_RADIUS = 3.65;
+// Regional logos should read as pinned to their administrative polygon. Keep
+// them only a hair above the sharp vector boundaries to avoid z-fighting
+// without introducing visible parallax while rotating or zooming the globe.
+const REGIONAL_MODEL_MARKER_OFFSET = 0.052;
 const MOBILE_BREAKPOINT = 760;
 const DESKTOP_TEXTURE_WIDTH = 4096;
 const MOBILE_TEXTURE_WIDTH = 1024;
@@ -3148,7 +3152,11 @@ function createModelRegionMarkers(scope = 'admin1') {
     const brand = leaders[0] || null;
     if (!brand || !region.center) continue;
     const coLeaderCount = leaders.length;
-    const position = latLonToVector(region.center[0], region.center[1], GLOBE_RADIUS + 0.13);
+    const position = latLonToVector(
+      region.center[0],
+      region.center[1],
+      GLOBE_RADIUS + REGIONAL_MODEL_MARKER_OFFSET
+    );
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
       map: textureForModelBrand(brand, coLeaderCount),
       transparent: true,
