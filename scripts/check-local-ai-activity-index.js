@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const PAGE_PATH = 'local-ai-activity-index.html';
@@ -15,13 +16,14 @@ const ADMIN1_MANIFEST_PATH = 'data/admin1/manifest.json';
 const ADMIN1_ACTIVITY_PATH = 'data/local-ai-admin1-activity.json';
 const INSTALL_INTENT_PATH = 'data/local-ai-install-intent.json';
 const INSTALL_INTENT_ADMIN1_PATH = 'data/local-ai-install-intent-admin1.json';
+const MODEL_PAGE_INTEREST_PATH = 'data/local-ai-model-page-interest.json';
 const ADMIN2_MANIFEST_PATH = 'data/admin2/manifest.json';
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
 const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
 const ADMIN1_ACTIVITY_URL = 'https://localclaw.io/data/local-ai-admin1-activity.json';
 const ADMIN1_MANIFEST_URL = 'https://localclaw.io/data/admin1/manifest.json';
-const EXPECTED_TITLE = 'Local AI Activity Index by Country & Region | LocalClaw';
+const EXPECTED_TITLE = 'Local AI Activity & Model Interest Map | LocalClaw Atlas';
 const EXPECTED_H1 = 'See where local AI is taking off.';
 const EXPECTED_SIGNALS = 3337;
 const EXPECTED_OBSERVED_REGIONS = 113;
@@ -229,6 +231,350 @@ function isIsoTimestamp(value) {
   return typeof value === 'string' && Number.isFinite(Date.parse(value));
 }
 
+function forbiddenModelDataKeys(value, trail = '$', findings = []) {
+  if (Array.isArray(value)) {
+    value.forEach((entry, index) => forbiddenModelDataKeys(entry, `${trail}[${index}]`, findings));
+    return findings;
+  }
+  if (!value || typeof value !== 'object') return findings;
+  for (const [key, child] of Object.entries(value)) {
+    if (['requests', 'completions', 'modeldemand'].includes(key.toLowerCase())) findings.push(`${trail}.${key}`);
+    forbiddenModelDataKeys(child, `${trail}.${key}`, findings);
+  }
+  return findings;
+}
+
+function canonicalModelBrandId(asset) {
+  return String(asset || '')
+    .replace(/-official-color$/, '')
+    .replace(/-inverted$/, '')
+    .replace(/-avatar$/, '');
+}
+
+function canonicalModelBrandLabel(brandId) {
+  const overrides = {
+    ai2: 'AI2',
+    alibaba: 'Alibaba',
+    bespokelabs: 'Bespoke Labs',
+    bigcode: 'BigCode',
+    codegeex: 'CodeGeeX',
+    dbrx: 'DBRX',
+    deepcogito: 'Deep Cogito',
+    deepseek: 'DeepSeek',
+    huggingfaceh4: 'Hugging Face H4',
+    huggingfacetb: 'Hugging Face TB',
+    ibm: 'IBM',
+    inclusionai: 'InclusionAI',
+    internlm: 'InternLM',
+    internscience: 'InternScience',
+    lg: 'LG',
+    liquid: 'Liquid AI',
+    llava: 'LLaVA',
+    longcat: 'LongCat',
+    minimax: 'MiniMax',
+    miromind: 'MiroMind',
+    nousresearch: 'Nous Research',
+    numind: 'NuMind',
+    nvidia: 'NVIDIA',
+    odaxai: 'OdaxAI',
+    'open-thoughts': 'Open Thoughts',
+    openai: 'OpenAI',
+    openbmb: 'OpenBMB',
+    openchat: 'OpenChat',
+    opengvlab: 'OpenGVLab',
+    prismml: 'PrismML',
+    qwen: 'Qwen',
+    smallthinker: 'SmallThinker',
+    stepfun: 'StepFun',
+    'swiss-ai': 'Swiss AI',
+    tinyllama: 'TinyLlama',
+    xiaomimimo: 'Xiaomi MiMo',
+    zeroone: 'ZeroOne',
+    zhipu: 'Zhipu AI'
+  };
+  if (overrides[brandId]) return overrides[brandId];
+  return String(brandId || '')
+    .split('-')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function loadCanonicalModelCatalogue() {
+  const models = new Map();
+  const brands = new Map();
+  const ambiguousIds = new Set();
+  try {
+    const context = { window: {} };
+    vm.createContext(context);
+    vm.runInContext(`${fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8')};this.APP_DATA=APP_DATA;`, context);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-avatar-formats-20260814a.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814c.js'), 'utf8'), context);
+    const unavailable = new Set(Object.keys(context.APP_DATA?.hfRepoVerification?.unavailable || {}));
+    const rowsById = new Map();
+    for (const model of context.APP_DATA?.models || []) {
+      if (!model?.id || model.hosted_only || unavailable.has(model.id)) continue;
+      const rows = rowsById.get(model.id) || [];
+      rows.push(model);
+      rowsById.set(model.id, rows);
+    }
+    const logos = context.window.HOME_INDEX_LOGOS?.llm || {};
+    const formats = context.window.HOME_INDEX_AVATAR_FORMATS || {};
+    for (const [id, rows] of rowsById) {
+      const families = new Set(rows.map(row => String(row.family || '').trim()).filter(Boolean));
+      if (families.size !== 1) {
+        ambiguousIds.add(id);
+        continue;
+      }
+      const family = [...families][0];
+      const asset = logos[family];
+      if (!asset) continue;
+      const extension = formats[asset] || 'svg';
+      const logo = `/images/model-logos/${asset}.${extension}`;
+      const brandId = canonicalModelBrandId(asset);
+      const model = rows.at(-1);
+      models.set(id, {
+        id,
+        label: String(model.name || id),
+        family,
+        brandId,
+        logo,
+        path: `/models/${id}`
+      });
+      const currentBrand = brands.get(brandId);
+      if (currentBrand && currentBrand.logo !== logo) {
+        issue(`Canonical model catalogue maps brand ${brandId} to conflicting logo assets`);
+      } else {
+        brands.set(brandId, { id: brandId, label: canonicalModelBrandLabel(brandId), logo });
+      }
+    }
+  } catch (error) {
+    issue(`Canonical model catalogue could not be loaded: ${error.message}`);
+  }
+  return { models, brands, ambiguousIds };
+}
+
+function validateModelBrandRows(brands, label, catalogue) {
+  if (!Array.isArray(brands)) {
+    issue(`${label} brands must be an array`);
+    return [];
+  }
+  const seenBrands = new Set();
+  let previousVisitors = Infinity;
+  brands.forEach((brand, brandIndex) => {
+    const rowLabel = `${label} brand row ${brandIndex + 1}`;
+    const extraBrandKeys = unexpectedKeys(brand, ['rank', 'id', 'label', 'logo', 'visitors', 'models', 'modelsStatus']);
+    if (extraBrandKeys.length) issue(`${rowLabel} has unexpected fields: ${extraBrandKeys.join(', ')}`);
+    if (brand.rank !== brandIndex + 1) issue(`${rowLabel} rank must be contiguous`);
+    if (!brand.id || seenBrands.has(brand.id)) issue(`${rowLabel} has a missing or duplicate id`);
+    seenBrands.add(brand.id);
+    if (!brand.label || !Number.isInteger(brand.visitors) || brand.visitors < 5) {
+      issue(`${rowLabel} must publish a label and at least five de-duplicated visitors`);
+    }
+    if (brand.visitors > previousVisitors) issue(`${label} brands must be ranked by descending visitors`);
+    previousVisitors = brand.visitors;
+
+    const canonicalBrand = catalogue.brands.get(brand.id);
+    if (!canonicalBrand) {
+      issue(`${rowLabel} does not match a canonical LocalClaw model brand`);
+    } else {
+      if (brand.label !== canonicalBrand.label) issue(`${rowLabel} label must be ${canonicalBrand.label}`);
+      if (brand.logo !== canonicalBrand.logo) issue(`${rowLabel} logo must be the canonical local asset ${canonicalBrand.logo}`);
+    }
+    if (!/^\/images\/model-logos\/[a-z0-9][a-z0-9._-]*\.(?:svg|png|webp)$/i.test(String(brand.logo || ''))
+      || !fs.existsSync(path.join(ROOT, String(brand.logo || '').replace(/^\//, '')))) {
+      issue(`${rowLabel} logo must resolve to an existing local model-logo asset`);
+    }
+
+    const models = Array.isArray(brand.models) ? brand.models : null;
+    if (!models) {
+      issue(`${rowLabel} models must be an array`);
+      return;
+    }
+    if (brand.modelsStatus !== (models.length ? 'published' : 'withheld_below_threshold')) {
+      issue(`${rowLabel} modelsStatus must distinguish published models from no individual page above threshold`);
+    }
+    const seenModels = new Set();
+    let previousModelVisitors = Infinity;
+    models.forEach((model, modelIndex) => {
+      const modelLabel = `${rowLabel} model row ${modelIndex + 1}`;
+      const extraModelKeys = unexpectedKeys(model, ['rank', 'id', 'label', 'family', 'path', 'visitors']);
+      if (extraModelKeys.length) issue(`${modelLabel} has unexpected fields: ${extraModelKeys.join(', ')}`);
+      if (model.rank !== modelIndex + 1) issue(`${modelLabel} rank must be contiguous`);
+      if (!model.id || seenModels.has(model.id)) issue(`${modelLabel} has a missing or duplicate id`);
+      seenModels.add(model.id);
+      if (!model.label || !model.family || !Number.isInteger(model.visitors) || model.visitors < 5) {
+        issue(`${modelLabel} must independently reach the five-visitor threshold`);
+      }
+      if (model.visitors > brand.visitors) issue(`${modelLabel} cannot exceed its de-duplicated brand total`);
+      if (model.visitors > previousModelVisitors) issue(`${rowLabel} models must be ranked by descending visitors`);
+      previousModelVisitors = model.visitors;
+      if (model.path !== `/models/${model.id}` || /(?:\.html|[?#]|\/$)/i.test(String(model.path || ''))) {
+        issue(`${modelLabel} must use the exact canonical path /models/${model.id}`);
+      }
+      if (!fs.existsSync(path.join(ROOT, 'models', `${model.id}.html`))) {
+        issue(`${modelLabel} points to a model detail page that does not exist`);
+      }
+      if (catalogue.ambiguousIds.has(model.id)) {
+        issue(`${modelLabel} references an APP_DATA id with divergent families`);
+        return;
+      }
+      const canonicalModel = catalogue.models.get(model.id);
+      if (!canonicalModel) {
+        issue(`${modelLabel} does not match a canonical, locally runnable APP_DATA model`);
+      } else {
+        if (model.label !== canonicalModel.label) issue(`${modelLabel} label must match APP_DATA`);
+        if (model.family !== canonicalModel.family) issue(`${modelLabel} family must match APP_DATA`);
+        if (model.path !== canonicalModel.path) issue(`${modelLabel} path must match APP_DATA`);
+        if (canonicalModel.brandId !== brand.id) issue(`${modelLabel} belongs to canonical brand ${canonicalModel.brandId}, not ${brand.id}`);
+      }
+    });
+  });
+  return brands;
+}
+
+function validateDominantModelBrands(dominantBrands, brands, label) {
+  if (!Array.isArray(dominantBrands)) {
+    issue(`${label} dominantBrands must be an array`);
+    return;
+  }
+  const maximum = brands[0]?.visitors;
+  const expected = maximum === undefined
+    ? []
+    : brands.filter(brand => brand.visitors === maximum).map(brand => brand.id).sort();
+  const actual = [...dominantBrands].sort();
+  if (!sameJson(actual, expected)) issue(`${label} dominantBrands must contain every tied visitor leader and nothing else`);
+}
+
+function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
+  if (!snapshot) return;
+  if (snapshot.schemaVersion !== 1 || snapshot.view !== 'model-page-interest' || snapshot.status !== 'beta') {
+    issue(`${label} must use schemaVersion 1 and identify the beta model-page-interest view`);
+  }
+  if (snapshot.publishThreshold !== 5) issue(`${label} publish threshold must remain five visitors`);
+  if (snapshot.period?.key !== expectedPeriod.key || snapshot.period?.days !== expectedPeriod.days
+    || snapshot.period?.start !== expectedPeriod.start || snapshot.period?.end !== expectedPeriod.end) {
+    issue(`${label} period metadata is invalid`);
+  }
+  if (!isIsoTimestamp(snapshot.generatedAt)) issue(`${label} generatedAt must be an ISO timestamp`);
+  if (!/DataFast/i.test(JSON.stringify(snapshot.source || snapshot.methodology?.provider || ''))) {
+    issue(`${label} must identify DataFast as its source`);
+  }
+  if (snapshot.methodology?.provider !== 'DataFast'
+    || snapshot.methodology?.dimension !== 'hostname + country + exact canonical model paths'
+    || snapshot.methodology?.hostnameFilter !== 'localclaw.io'
+    || !String(snapshot.methodology?.modelPathRule || '').includes('/models/${APP_DATA.models[].id}')
+    || /www\.localclaw\.io/i.test(JSON.stringify(snapshot.methodology || {}))) {
+    issue(`${label} methodology must use exact DataFast host, country and canonical APP_DATA model paths for localclaw.io, never www`);
+  }
+  if (!/unique visitors?/i.test(String(snapshot.metric || '')) || !/canonical LocalClaw/i.test(String(snapshot.metric || ''))
+    || !/(?:LLM detail pages|\/models\/)/i.test(String(snapshot.metric || ''))) {
+    issue(`${label} metric must be unique visitors to canonical LocalClaw LLM detail pages`);
+  }
+  const claimBoundary = String(snapshot.claimBoundary || '').toLowerCase();
+  if (!claimBoundary.includes('model-page interest') || !/(?:not|does not|no )/.test(claimBoundary)
+    || !claimBoundary.includes('download') || !claimBoundary.includes('install') || !claimBoundary.includes('launch')
+    || !claimBoundary.includes('inference') || !claimBoundary.includes('verified') || !/(?:use|usage)/.test(claimBoundary)) {
+    issue(`${label} must explicitly limit the claim to page interest, not verified download, installation, launch, inference or use`);
+  }
+  const forbiddenKeys = forbiddenModelDataKeys(snapshot);
+  if (forbiddenKeys.length) issue(`${label} contains retired request/completion/modelDemand fields: ${forbiddenKeys.join(', ')}`);
+
+  const catalogue = loadCanonicalModelCatalogue();
+  const global = snapshot.modelInterest?.global;
+  if (!global || typeof global !== 'object' || Array.isArray(global)) {
+    issue(`${label} is missing modelInterest.global`);
+    return;
+  }
+  const globalBrands = validateModelBrandRows(global.brands, `${label} global`, catalogue);
+  validateDominantModelBrands(global.dominantBrands, globalBrands, `${label} global`);
+  if (!Number.isInteger(global.signals) || global.signals < 5
+    || !Number.isInteger(global.modelVisitors) || global.modelVisitors < 5) {
+    issue(`${label} global signals and modelVisitors must be publishable integer visitor totals`);
+  }
+  if (globalBrands.some(brand => brand.visitors > global.modelVisitors)) {
+    issue(`${label} global brand visitors cannot exceed the de-duplicated global model-page total`);
+  }
+
+  const countries = Array.isArray(snapshot.countries) ? snapshot.countries : [];
+  if (!Array.isArray(snapshot.countries)) issue(`${label} countries must be an array`);
+  const globalByBrand = new Map(globalBrands.map(brand => [brand.id, brand]));
+  const seenCountries = new Set();
+  let countryBrandsMissingFromGlobal = 0;
+  let previousCountryVisitors = Infinity;
+  countries.forEach((country, countryIndex) => {
+    const countryLabel = `${label} country row ${countryIndex + 1}`;
+    const extraCountryKeys = unexpectedKeys(country, ['rank', 'name', 'signals', 'modelVisitors', 'modelInterest']);
+    if (extraCountryKeys.length) issue(`${countryLabel} has unexpected fields: ${extraCountryKeys.join(', ')}`);
+    if (country.rank !== countryIndex + 1) issue(`${countryLabel} rank must be contiguous`);
+    if (!country.name || seenCountries.has(country.name)) issue(`${countryLabel} has a missing or duplicate name`);
+    seenCountries.add(country.name);
+    if (!Number.isInteger(country.signals) || country.signals < 5
+      || !Number.isInteger(country.modelVisitors) || country.modelVisitors < 5) {
+      issue(`${countryLabel} signals and modelVisitors must be publishable integer visitor totals`);
+    }
+    if (country.signals !== country.modelVisitors) {
+      issue(`${countryLabel} signals must be the exact compatibility alias of modelVisitors`);
+    }
+    if (country.modelVisitors > previousCountryVisitors) issue(`${label} countries must be ranked by descending modelVisitors`);
+    previousCountryVisitors = country.modelVisitors;
+    const modelInterest = country.modelInterest;
+    const extraInterestKeys = unexpectedKeys(modelInterest, ['brands', 'dominantBrands']);
+    if (!modelInterest || typeof modelInterest !== 'object' || Array.isArray(modelInterest)) {
+      issue(`${countryLabel} is missing modelInterest`);
+      return;
+    }
+    if (extraInterestKeys.length) issue(`${countryLabel} modelInterest has unexpected fields: ${extraInterestKeys.join(', ')}`);
+    const brands = validateModelBrandRows(modelInterest.brands, countryLabel, catalogue);
+    validateDominantModelBrands(modelInterest.dominantBrands, brands, countryLabel);
+    if (brands.some(brand => brand.visitors > country.modelVisitors)) {
+      issue(`${countryLabel} brand visitors cannot exceed the de-duplicated country model-page total`);
+    }
+    for (const brand of brands) {
+      const globalBrand = globalByBrand.get(brand.id);
+      if (!globalBrand) {
+        countryBrandsMissingFromGlobal += 1;
+        continue;
+      }
+      if (globalBrand.label !== brand.label || globalBrand.logo !== brand.logo
+        || globalBrand.visitors < brand.visitors) {
+        issue(`${countryLabel} brand ${brand.id} must match and not exceed its global brand aggregate`);
+        continue;
+      }
+      const globalModels = new Map((globalBrand.models || []).map(model => [model.id, model]));
+      for (const model of brand.models || []) {
+        const globalModel = globalModels.get(model.id);
+        if (!globalModel || globalModel.visitors < model.visitors) {
+          issue(`${countryLabel} model ${model.id} must match and not exceed its global model aggregate`);
+        }
+      }
+    }
+  });
+
+  const publishedBrandCells = countries.reduce((sum, country) => sum + (country.modelInterest?.brands?.length || 0), 0);
+  const publishedModelCells = countries.reduce((sum, country) => sum + (country.modelInterest?.brands || [])
+    .reduce((brandSum, brand) => brandSum + (brand.models?.length || 0), 0), 0);
+  const countriesWithPublishedBrands = countries.filter(country => country.modelInterest?.brands?.length).length;
+  const omittedProviderScopes = snapshot.diagnostics?.omittedProviderInconsistentBrandScopes;
+  if (!Number.isInteger(omittedProviderScopes) || omittedProviderScopes < 0
+    || countryBrandsMissingFromGlobal > omittedProviderScopes) {
+    issue(`${label} must account for every country brand missing from the global view as a fail-closed provider-inconsistent scope`);
+  }
+  if (snapshot.totals?.publishedBrandCells !== publishedBrandCells
+    || snapshot.totals?.publishedModelCells !== publishedModelCells
+    || snapshot.totals?.countriesWithPublishedBrands !== countriesWithPublishedBrands
+    || snapshot.totals?.regions !== countries.length
+    || snapshot.totals?.regions !== snapshot.totals?.countriesWithPublishedBrands) {
+    issue(`${label} published country, brand and model cell totals do not reconcile`);
+  }
+  if (snapshot.totals?.modelVisitors !== global.modelVisitors
+    || snapshot.totals?.signals !== snapshot.totals?.modelVisitors
+    || global.signals !== global.modelVisitors
+    || snapshot.totals?.signals !== global.signals) {
+    issue(`${label} global and root model visitor totals must reconcile`);
+  }
+}
+
 function validateSubnationalSnapshot(countryName, record, expectedTotals, expectedRegions) {
   if (!record) {
     issue(`Dataset is missing the ${countryName} subnational breakdown`);
@@ -302,6 +648,7 @@ const admin1ManifestText = readFile(ADMIN1_MANIFEST_PATH, 'worldwide Admin-1 man
 const admin1ActivityText = readFile(ADMIN1_ACTIVITY_PATH, 'worldwide Admin-1 activity dataset');
 const installIntentText = readFile(INSTALL_INTENT_PATH, 'install-intent country dataset');
 const installIntentAdmin1Text = readFile(INSTALL_INTENT_ADMIN1_PATH, 'install-intent regional dataset');
+const modelPageInterestText = readFile(MODEL_PAGE_INTEREST_PATH, 'model-page-interest dataset');
 const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S., China, and Australia deeper-boundary manifest');
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
 const sitemapCore = readFile('sitemap-core.xml', 'core sitemap');
@@ -314,6 +661,7 @@ const admin1Manifest = parseJson(admin1ManifestText, 'worldwide Admin-1 manifest
 const admin1Activity = parseJson(admin1ActivityText, 'worldwide Admin-1 activity dataset');
 const installIntent = parseJson(installIntentText, 'install-intent country dataset');
 const installIntentAdmin1 = parseJson(installIntentAdmin1Text, 'install-intent regional dataset');
+const modelPageInterest = parseJson(modelPageInterestText, 'model-page-interest dataset');
 const admin2Manifest = parseJson(admin2ManifestText, 'U.S. and China Admin-2 manifest');
 const usGeojson = parseJson(usGeojsonText, 'U.S. state GeoJSON');
 
@@ -391,6 +739,22 @@ if (html !== null) {
     issue('Visible copy must disclose the official ABS Australia LGA source, approximation caveat, and license');
   }
 
+  const modelPanelMarkup = html.match(/<aside\b[^>]*data-atlas-model-panel\b[^>]*>[\s\S]*?<\/aside>/i)?.[0] || '';
+  const modelPanelText = textContent(modelPanelMarkup).toLowerCase();
+  if (!modelPanelMarkup) {
+    issue('Atlas is missing the visible Models detail panel');
+  } else {
+    if (!modelPanelText.includes('model-page interest') || !modelPanelText.includes('unique visitors')
+      || !/not downloads?\b/.test(modelPanelText) || !/installs?\b/.test(modelPanelText)
+      || !/launch(?:es)?\b/.test(modelPanelText) || !modelPanelText.includes('inference')
+      || !/verified[- ]usage/.test(modelPanelText)) {
+      issue('Models panel must visibly define model-page interest and deny download, install, launch, inference and verified-usage claims');
+    }
+    if (/\bmost used\b|\bmodel usage by country\b|\bactive users?\b/i.test(modelPanelText)) {
+      issue('Models panel must not turn page interest into a positive model-usage or active-user claim');
+    }
+  }
+
   const buttonTags = [...html.matchAll(/<button\b[^>]*>[\s\S]*?<\/button>/gi)].map(match => match[0]);
   for (const action of ['in', 'out', 'reset']) {
     if (!buttonTags.some(tag => attribute(tag, 'data-atlas-zoom') === action)) {
@@ -398,14 +762,16 @@ if (html !== null) {
     }
   }
   if (!buttonTags.some(tag => /\bdata-atlas-tour\b/i.test(tag))) issue('Missing top-10 guided tour control');
-  for (const view of ['installed', 'active']) {
+  for (const view of ['installed', 'models', 'active']) {
     const control = buttonTags.find(tag => attribute(tag, 'data-atlas-view') === view);
     const label = view[0].toUpperCase() + view.slice(1);
     if (!control) {
       issue(`Missing ${label} activity control`);
       continue;
     }
-    if (view === 'installed' && /\bdata-coming-soon\b/i.test(control)) issue('Installed control must be active, not marked coming soon');
+    if ((view === 'installed' || view === 'models') && /\bdata-coming-soon\b/i.test(control)) {
+      issue(`${label} control must be active, not marked coming soon`);
+    }
     if (view === 'active' && !/\bdata-coming-soon\b/i.test(control)) issue('Active control must be marked data-coming-soon');
     if (attribute(control, 'aria-pressed') !== 'false') issue(`${label} control must not be presented as active`);
     if (view === 'active' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('coming soon')) {
@@ -413,6 +779,9 @@ if (html !== null) {
     }
     if (view === 'installed' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('install-intent')) {
       issue('Installed control must identify the metric as install intent');
+    }
+    if (view === 'models' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('model-interest')) {
+      issue('Models control must identify the metric as model interest');
     }
     if (textContent(control) !== label) issue(`${label} control has unexpected visible text`);
   }
@@ -449,7 +818,9 @@ if (html !== null) {
     if (!String(datasetNode.description || '').toLowerCase().includes('interest signals')) {
       issue('Dataset JSON-LD must identify the values as interest signals');
     }
-    if (!String(datasetNode.description || '').toLowerCase().includes('does not measure verified')) {
+    const datasetDescription = String(datasetNode.description || '').toLowerCase();
+    if (!datasetDescription.includes('does not measure verified')
+      && !/(?:not|does not)[^.]{0,100}verified (?:use|usage|installation|model run)/.test(datasetDescription)) {
       issue('Dataset JSON-LD must retain the verified-use limitation');
     }
     if (!String(datasetNode.measurementTechnique || '').includes('DataFast')) {
@@ -569,6 +940,13 @@ if (installIntentAdmin1) {
     issue('Install-intent regional dataset must retain a five-visitor threshold and publish no below-threshold region rows');
   }
 }
+
+validateModelPageInterestSnapshot(modelPageInterest, '30-day model-page-interest dataset', {
+  key: '30d',
+  days: 30,
+  start: '2026-07-31',
+  end: '2026-08-29'
+});
 
 if (data) {
   if (data.indexName !== 'Local AI Activity Index') issue('Dataset indexName is incorrect');
@@ -830,6 +1208,19 @@ if (app !== null) {
     || !app.includes("dataUrl: '/data/local-ai-activity-index-180d.json?")) {
     issue('Activity-index JavaScript does not load the versioned JSON dataset');
   }
+  if (!app.includes("modelDataUrl: '/data/local-ai-model-page-interest.json?")
+    || !app.includes("modelDataUrl: '/data/local-ai-model-page-interest-90d.json?")
+    || !app.includes("modelDataUrl: '/data/local-ai-model-page-interest-180d.json?")) {
+    issue('Models view must load a versioned 30-day, 3-month and 6-month model-page-interest dataset');
+  }
+  if (!app.includes("requestedMetricView === 'models'")
+    || !app.includes("ACTIVE_VIEW === 'models'")
+    || !app.includes('PERIOD_CONFIG[ACTIVE_PERIOD].modelDataUrl')) {
+    issue('Models view is not wired to the selected period dataset');
+  }
+  if (/\bmost used\b|\bmodel usage by country\b|\bactive users?\b/i.test(app)) {
+    issue('Models JavaScript must not make a positive most-used, model-usage-by-country or active-user claim');
+  }
   if (!app.includes("const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?")) {
     issue('Activity-index JavaScript must load the versioned Natural Earth 50m country GeoJSON');
   }
@@ -896,7 +1287,9 @@ if (app !== null) {
     issue('Atlas initialization must fetch the deeper-boundary manifest');
   }
   const initializeBody = topLevelFunctionBody(app, 'initialize');
-  if (!initializeBody.includes('const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)')
+  const hasOptionalAdmin2Fetch = initializeBody.includes('const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)')
+    || initializeBody.includes('modelsView ? Promise.resolve(null) : fetch(ADMIN2_MANIFEST_URL)');
+  if (!hasOptionalAdmin2Fetch
     || !initializeBody.includes('the world and regional maps remain active')
     || initializeBody.includes('!admin2ManifestResponse.ok')) {
     issue('Admin-2 must remain an optional enhancement that cannot disable the core world and regional Atlas');
@@ -938,6 +1331,10 @@ if (app !== null) {
     || !pointerPickBody.includes('return geographicEntity;')
     || pointerPickBody.indexOf('if (preferGeography)') > pointerPickBody.indexOf('if (clusterHit)')) {
     issue('Atlas map activation must prioritize the country, state, Admin-1 or Admin-2 geography beneath city beacon hit areas');
+  }
+  if (!pointerPickBody.includes('const modelHit = frontSurfaceHit && modelHits[0]')
+    || !pointerPickBody.includes('modelHits[0].distance <= intersection.distance + 0.24')) {
+    issue('Models view logo hits must be limited to the visible front surface so countries behind the globe cannot be selected');
   }
   const clusterGeographyBody = topLevelFunctionBody(app, 'geographyForCluster');
   if (!clusterGeographyBody.includes("if (state.scope === 'us') return regionForCode(cluster.regionCode)")
@@ -1709,6 +2106,32 @@ if (app !== null) {
   ]) {
     if (!app.includes(marker)) issue(`Atlas Share Mode behavior is missing ${marker}`);
   }
+  const shareUrlBody = topLevelFunctionBody(app, 'currentShareUrl');
+  if (!shareUrlBody.includes("ACTIVE_VIEW === 'models'")
+    || !shareUrlBody.includes("url.searchParams.set('view', 'models')")
+    || !shareUrlBody.includes("url.searchParams.set('range', ACTIVE_PERIOD)")
+    || !shareUrlBody.includes("url.searchParams.set('country', state.selectedModelCountry.name)")
+    || !shareUrlBody.includes("url.searchParams.set('brand', state.selectedModelBrand)")
+    || shareUrlBody.includes("url.searchParams.set('family'")) {
+    issue('Models Share Mode must preserve view=models, range, country and the canonical brand query parameter');
+  }
+  const requestedViewBody = topLevelFunctionBody(app, 'applyRequestedView');
+  if (!app.includes("brand: requestParams.get('brand')")
+    || !requestedViewBody.includes('focusModelCountry(country, requestedView.brand)')) {
+    issue('Shared Models URLs must restore their selected country and brand');
+  }
+  const focusModelCountryBody = topLevelFunctionBody(app, 'focusModelCountry');
+  if (!focusModelCountryBody.includes('modelBrandsForCountry(country)')
+    || !focusModelCountryBody.includes('brandIdentifier(brand) === String(requestedBrandId')
+    || !focusModelCountryBody.includes('state.selectedModelBrand = requestedBrand ? brandIdentifier(requestedBrand) : null')) {
+    issue('Invalid or stale Models brand deep links must fall back to the country overview');
+  }
+  const shareSnapshotBody = topLevelFunctionBody(app, 'shareSnapshot');
+  if (!shareSnapshotBody.includes('const leaders = coLeadingModelBrands(country)')
+    || !shareSnapshotBody.includes('const isLeader = leaders.includes(brand)')
+    || !shareSnapshotBody.includes("brand.label + ' model-page interest in ' + country.name")) {
+    issue('Models share cards must distinguish leaders, co-leaders and non-leading selected brands');
+  }
 }
 if (app !== null) {
   for (const marker of [
@@ -1734,6 +2157,13 @@ if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-map-label__
 }
 if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-scope-us \.atlas-copy\s*\{[^}]*visibility:\s*hidden/s.test(css)) {
   issue('Atlas mobile regional views must hide the large desktop copy so the globe remains visible');
+}
+if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-model-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(68svh,\s*560px\)[^}]*touch-action:\s*pan-y/s.test(css)
+  || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-controls')
+  || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-periods')
+  || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-navigation')
+  || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-status'))) {
+  issue('Atlas mobile Models sheet must respect the iPhone safe area, remain scrollable, and hide overlapping controls while open');
 }
 if (css !== null) {
   for (const marker of ['.atlas-share-trigger', '.atlas-share-overlay', '.atlas-share-card', '.atlas-share-toolbar', '.atlas-is-sharing']) {

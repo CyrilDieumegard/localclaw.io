@@ -1,0 +1,1441 @@
+{
+  "schemaVersion": 1,
+  "indexName": "Local AI Activity Index",
+  "view": "model-page-interest",
+  "status": "beta",
+  "source": "Aggregated anonymous LocalClaw model-page traffic measured by DataFast",
+  "sourceUrl": "https://localclaw.io/local-ai-activity-index#methodology",
+  "metric": "unique visitors to canonical LocalClaw /models/ pages",
+  "publishThreshold": 5,
+  "claimBoundary": "Model-page interest only. A page visit is not verified model use and does not prove a download, installation, launch, or inference.",
+  "timezone": "Europe/Zurich",
+  "period": {
+    "start": "2026-07-31",
+    "end": "2026-08-29",
+    "label": "Last 30 days",
+    "key": "30d",
+    "days": 30
+  },
+  "generatedAt": "2026-09-01T11:27:22Z",
+  "methodology": {
+    "provider": "DataFast",
+    "dimension": "hostname + country + exact canonical model paths",
+    "hostnameFilter": "localclaw.io",
+    "countryFilter": "DataFast country name",
+    "modelPathRule": "Exact allow-list match to /models/${APP_DATA.models[].id} for non-hosted models whose Hugging Face repository is not marked unavailable.",
+    "modelVisitorAggregation": "DataFast analytics overview filtered to the union of all eligible canonical LLM paths; page rows are never summed to derive modelVisitors.",
+    "brandAggregation": "Models sharing the same canonical LocalClaw logo are grouped as one brand. Brand visitors come from DataFast analytics overview filtered to every eligible canonical path in that brand; child model rows are never summed.",
+    "publicationRule": "A brand is published at five de-duplicated visitors even when no individual model page reaches five. Individual models are independently published only at five visitors.",
+    "genericLogoRule": "Generic hosting-platform logo groups github and huggingface are fail-closed and never published as model brands. Dedicated organizations such as Hugging Face H4 and Hugging Face TB remain eligible when their canonical logo mapping is distinct.",
+    "sourceConsistencyRule": "A global brand is omitted fail-closed for a window when a child page row exceeds its independently de-duplicated DataFast overview total. Country aggregates remain independently sourced and the diagnostic reports each omitted global scope. No value is altered, estimated, or backfilled.",
+    "rankingRule": "Countries rank by all-model unique visitors. dominantBrands lists every co-leading most-explored published brand ID.",
+    "geographyNote": "Country is an approximate network location reported by DataFast, not verified residence or nationality.",
+    "privacyNote": "Only country-brand and country-model aggregates meeting the five-visitor threshold are published. No visitor, device, IP address, city, or below-threshold row is included.",
+    "caveat": "Results measure LocalClaw page interest and can be affected by search demand, page age, referrals, and catalogue availability."
+  },
+  "totals": {
+    "signals": 791,
+    "modelVisitors": 791,
+    "regions": 14,
+    "countriesWithPublishedBrands": 14,
+    "observedCountries": 78,
+    "collectedCountries": 25,
+    "publishedBrandCells": 31,
+    "publishedModelCells": 29
+  },
+  "diagnostics": {
+    "omittedProviderInconsistentBrandScopes": 0
+  },
+  "modelInterest": {
+    "global": {
+      "signals": 791,
+      "modelVisitors": 791,
+      "brands": [
+        {
+          "id": "qwen",
+          "label": "Qwen",
+          "logo": "/images/model-logos/qwen.svg",
+          "visitors": 318,
+          "models": [
+            {
+              "id": "qwen3.6-27b",
+              "label": "Qwen 3.6 (27B)",
+              "family": "qwen",
+              "path": "/models/qwen3.6-27b",
+              "visitors": 50,
+              "rank": 1
+            },
+            {
+              "id": "qwen3.8-27b",
+              "label": "Qwen3.8-27B",
+              "family": "qwen",
+              "path": "/models/qwen3.8-27b",
+              "visitors": 49,
+              "rank": 2
+            },
+            {
+              "id": "qwen3-32b",
+              "label": "Qwen 3 (32B)",
+              "family": "qwen",
+              "path": "/models/qwen3-32b",
+              "visitors": 48,
+              "rank": 3
+            },
+            {
+              "id": "qwen3-14b",
+              "label": "Qwen 3 (14B)",
+              "family": "qwen",
+              "path": "/models/qwen3-14b",
+              "visitors": 42,
+              "rank": 4
+            },
+            {
+              "id": "qwen3.6-35b-a3b",
+              "label": "Qwen 3.6 35B-A3B",
+              "family": "qwen",
+              "path": "/models/qwen3.6-35b-a3b",
+              "visitors": 42,
+              "rank": 5
+            },
+            {
+              "id": "qwen3-coder-30b",
+              "label": "Qwen 3 Coder (30B)",
+              "family": "qwen-coder",
+              "path": "/models/qwen3-coder-30b",
+              "visitors": 17,
+              "rank": 6
+            },
+            {
+              "id": "qwen2.5-72b",
+              "label": "Qwen 2.5 (72B)",
+              "family": "qwen",
+              "path": "/models/qwen2.5-72b",
+              "visitors": 15,
+              "rank": 7
+            },
+            {
+              "id": "qwen3.5-9b",
+              "label": "Qwen 3.5 (9B)",
+              "family": "qwen",
+              "path": "/models/qwen3.5-9b",
+              "visitors": 14,
+              "rank": 8
+            },
+            {
+              "id": "qwen3-8b",
+              "label": "Qwen 3 (8B)",
+              "family": "qwen",
+              "path": "/models/qwen3-8b",
+              "visitors": 11,
+              "rank": 9
+            },
+            {
+              "id": "qwen3.5-4b",
+              "label": "Qwen 3.5 (4B)",
+              "family": "qwen",
+              "path": "/models/qwen3.5-4b",
+              "visitors": 11,
+              "rank": 10
+            },
+            {
+              "id": "qwen3-next-80b-a3b",
+              "label": "Qwen 3 Next (80B/3B MoE)",
+              "family": "qwen-moe",
+              "path": "/models/qwen3-next-80b-a3b",
+              "visitors": 10,
+              "rank": 11
+            },
+            {
+              "id": "qwen3-coder-next",
+              "label": "Qwen3-Coder-Next",
+              "family": "qwen-coder",
+              "path": "/models/qwen3-coder-next",
+              "visitors": 10,
+              "rank": 12
+            },
+            {
+              "id": "qwen3.5-122b-a10b",
+              "label": "Qwen 3.5 MoE (122B/10B active)",
+              "family": "qwen",
+              "path": "/models/qwen3.5-122b-a10b",
+              "visitors": 8,
+              "rank": 13
+            },
+            {
+              "id": "qwen2.5-coder-7b",
+              "label": "Qwen 2.5 Coder (7B)",
+              "family": "qwen-coder",
+              "path": "/models/qwen2.5-coder-7b",
+              "visitors": 7,
+              "rank": 14
+            },
+            {
+              "id": "qwen3-30b-a3b",
+              "label": "Qwen 3 MoE (30B/3B active)",
+              "family": "qwen-moe",
+              "path": "/models/qwen3-30b-a3b",
+              "visitors": 6,
+              "rank": 15
+            },
+            {
+              "id": "qwen3.5-35b-a3b",
+              "label": "Qwen 3.5 MoE (35B/3B active)",
+              "family": "qwen",
+              "path": "/models/qwen3.5-35b-a3b",
+              "visitors": 6,
+              "rank": 16
+            },
+            {
+              "id": "qwen3-4b",
+              "label": "Qwen 3 (4B)",
+              "family": "qwen",
+              "path": "/models/qwen3-4b",
+              "visitors": 5,
+              "rank": 17
+            },
+            {
+              "id": "qwen3-235b-a22b",
+              "label": "Qwen 3 MoE (235B/22B active)",
+              "family": "qwen-moe",
+              "path": "/models/qwen3-235b-a22b",
+              "visitors": 5,
+              "rank": 18
+            },
+            {
+              "id": "qwen3.5-27b",
+              "label": "Qwen 3.5 (27B)",
+              "family": "qwen",
+              "path": "/models/qwen3.5-27b",
+              "visitors": 5,
+              "rank": 19
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 1
+        },
+        {
+          "id": "ornith",
+          "label": "Ornith",
+          "logo": "/images/model-logos/ornith-avatar.png",
+          "visitors": 84,
+          "models": [
+            {
+              "id": "ornith-1-5-9b",
+              "label": "Ornith-1.5-9B",
+              "family": "ornith",
+              "path": "/models/ornith-1-5-9b",
+              "visitors": 37,
+              "rank": 1
+            },
+            {
+              "id": "ornith-1-5-35b-a3b",
+              "label": "Ornith-1.5-35B-A3B",
+              "family": "ornith",
+              "path": "/models/ornith-1-5-35b-a3b",
+              "visitors": 26,
+              "rank": 2
+            },
+            {
+              "id": "ornith-1.0-9b-gguf",
+              "label": "Ornith 1.0 9B GGUF",
+              "family": "deepreinforce",
+              "path": "/models/ornith-1.0-9b-gguf",
+              "visitors": 16,
+              "rank": 3
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 2
+        },
+        {
+          "id": "deepseek",
+          "label": "DeepSeek",
+          "logo": "/images/model-logos/deepseek.svg",
+          "visitors": 77,
+          "models": [
+            {
+              "id": "deepseek-v3.1",
+              "label": "DeepSeek V3.1 (671B MoE)",
+              "family": "deepseek-v3",
+              "path": "/models/deepseek-v3.1",
+              "visitors": 25,
+              "rank": 1
+            },
+            {
+              "id": "deepseek-v3.2",
+              "label": "DeepSeek V3.2 (37B/685B MoE)",
+              "family": "deepseek-v3",
+              "path": "/models/deepseek-v3.2",
+              "visitors": 12,
+              "rank": 2
+            },
+            {
+              "id": "deepseek-coder-v2-16b",
+              "label": "DeepSeek Coder V2 (16B)",
+              "family": "deepseek",
+              "path": "/models/deepseek-coder-v2-16b",
+              "visitors": 9,
+              "rank": 3
+            },
+            {
+              "id": "deepseek-v4-flash-0731",
+              "label": "DeepSeek V4 Flash 0731 (284B MoE)",
+              "family": "deepseek-flash",
+              "path": "/models/deepseek-v4-flash-0731",
+              "visitors": 9,
+              "rank": 4
+            },
+            {
+              "id": "deepseek-r1-32b",
+              "label": "DeepSeek R1 Distill (32B)",
+              "family": "deepseek",
+              "path": "/models/deepseek-r1-32b",
+              "visitors": 5,
+              "rank": 5
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 3
+        },
+        {
+          "id": "gemma",
+          "label": "Gemma",
+          "logo": "/images/model-logos/gemma-official-color.svg",
+          "visitors": 58,
+          "models": [
+            {
+              "id": "gemma4-26b-a4b",
+              "label": "Gemma 4 26B A4B",
+              "family": "gemma",
+              "path": "/models/gemma4-26b-a4b",
+              "visitors": 17,
+              "rank": 1
+            },
+            {
+              "id": "gemma4-12b",
+              "label": "Gemma 4 12B",
+              "family": "gemma",
+              "path": "/models/gemma4-12b",
+              "visitors": 12,
+              "rank": 2
+            },
+            {
+              "id": "gemma4-e4b",
+              "label": "Gemma 4 E4B",
+              "family": "gemma",
+              "path": "/models/gemma4-e4b",
+              "visitors": 11,
+              "rank": 3
+            },
+            {
+              "id": "gemma4-31b",
+              "label": "Gemma 4 31B",
+              "family": "gemma",
+              "path": "/models/gemma4-31b",
+              "visitors": 10,
+              "rank": 4
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 4
+        },
+        {
+          "id": "zhipu",
+          "label": "Zhipu AI",
+          "logo": "/images/model-logos/zhipu.svg",
+          "visitors": 56,
+          "models": [
+            {
+              "id": "glm4.5-air",
+              "label": "GLM 4.5 Air (MoE)",
+              "family": "glm",
+              "path": "/models/glm4.5-air",
+              "visitors": 23,
+              "rank": 1
+            },
+            {
+              "id": "glm-5.2",
+              "label": "GLM-5.2 (744B MoE)",
+              "family": "glm",
+              "path": "/models/glm-5.2",
+              "visitors": 19,
+              "rank": 2
+            },
+            {
+              "id": "glm4.7-flash",
+              "label": "GLM 4.7 Flash",
+              "family": "glm",
+              "path": "/models/glm4.7-flash",
+              "visitors": 5,
+              "rank": 3
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 5
+        },
+        {
+          "id": "mistral",
+          "label": "Mistral",
+          "logo": "/images/model-logos/mistral.svg",
+          "visitors": 49,
+          "models": [
+            {
+              "id": "codestral-22b",
+              "label": "Codestral (22B)",
+              "family": "mistral",
+              "path": "/models/codestral-22b",
+              "visitors": 12,
+              "rank": 1
+            },
+            {
+              "id": "mistral-large-123b",
+              "label": "Mistral Large (123B)",
+              "family": "mistral",
+              "path": "/models/mistral-large-123b",
+              "visitors": 6,
+              "rank": 2
+            },
+            {
+              "id": "devstral-24b",
+              "label": "Devstral (24B)",
+              "family": "mistral",
+              "path": "/models/devstral-24b",
+              "visitors": 5,
+              "rank": 3
+            },
+            {
+              "id": "ministral-3-14b-instruct",
+              "label": "Ministral 3 14B Instruct",
+              "family": "mistral",
+              "path": "/models/ministral-3-14b-instruct",
+              "visitors": 5,
+              "rank": 4
+            },
+            {
+              "id": "mixtral-8x7b",
+              "label": "Mixtral (8x7B)",
+              "family": "mixtral",
+              "path": "/models/mixtral-8x7b",
+              "visitors": 5,
+              "rank": 5
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 6
+        },
+        {
+          "id": "meta",
+          "label": "Meta",
+          "logo": "/images/model-logos/meta.svg",
+          "visitors": 34,
+          "models": [
+            {
+              "id": "muse-glimmer-30b",
+              "label": "Muse Glimmer 30B",
+              "family": "meta",
+              "path": "/models/muse-glimmer-30b",
+              "visitors": 12,
+              "rank": 1
+            },
+            {
+              "id": "llama3.3-70b",
+              "label": "Llama 3.3 (70B)",
+              "family": "llama",
+              "path": "/models/llama3.3-70b",
+              "visitors": 5,
+              "rank": 2
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 7
+        },
+        {
+          "id": "kimi",
+          "label": "Kimi",
+          "logo": "/images/model-logos/kimi-inverted.svg",
+          "visitors": 31,
+          "models": [
+            {
+              "id": "kimi-k2.5-32b",
+              "label": "Kimi K2.5 (1T MoE)",
+              "family": "kimi",
+              "path": "/models/kimi-k2.5-32b",
+              "visitors": 15,
+              "rank": 1
+            },
+            {
+              "id": "kimi-linear-48b-a3b-instruct",
+              "label": "Kimi Linear 48B-A3B Instruct",
+              "family": "kimi",
+              "path": "/models/kimi-linear-48b-a3b-instruct",
+              "visitors": 7,
+              "rank": 2
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 8
+        },
+        {
+          "id": "liquid",
+          "label": "Liquid AI",
+          "logo": "/images/model-logos/liquid.svg",
+          "visitors": 30,
+          "models": [
+            {
+              "id": "lfm2.5-8b-a1b",
+              "label": "LFM2.5-8B-A1B",
+              "family": "lfm",
+              "path": "/models/lfm2.5-8b-a1b",
+              "visitors": 21,
+              "rank": 1
+            },
+            {
+              "id": "lfm2-5-2-6b",
+              "label": "LFM2.5-2.6B",
+              "family": "lfm",
+              "path": "/models/lfm2-5-2-6b",
+              "visitors": 8,
+              "rank": 2
+            },
+            {
+              "id": "lfm2-5-vl-3b",
+              "label": "LFM2.5-VL-3B",
+              "family": "lfm",
+              "path": "/models/lfm2-5-vl-3b",
+              "visitors": 5,
+              "rank": 3
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 9
+        },
+        {
+          "id": "prismml",
+          "label": "PrismML",
+          "logo": "/images/model-logos/prismml-avatar.webp",
+          "visitors": 28,
+          "models": [
+            {
+              "id": "bonsai-27b",
+              "label": "Bonsai 27B",
+              "family": "bonsai",
+              "path": "/models/bonsai-27b",
+              "visitors": 28,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 10
+        },
+        {
+          "id": "microsoft",
+          "label": "Microsoft",
+          "logo": "/images/model-logos/microsoft.svg",
+          "visitors": 24,
+          "models": [
+            {
+              "id": "phi4-mini",
+              "label": "Phi-4 Mini (3.8B)",
+              "family": "phi",
+              "path": "/models/phi4-mini",
+              "visitors": 9,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 11
+        },
+        {
+          "id": "ibm",
+          "label": "IBM",
+          "logo": "/images/model-logos/ibm.svg",
+          "visitors": 20,
+          "models": [
+            {
+              "id": "granite4.2-8b",
+              "label": "Granite 4.2 (8B)",
+              "family": "granite",
+              "path": "/models/granite4.2-8b",
+              "visitors": 9,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 12
+        },
+        {
+          "id": "nousresearch",
+          "label": "Nous Research",
+          "logo": "/images/model-logos/nousresearch.svg",
+          "visitors": 18,
+          "models": [
+            {
+              "id": "hermes3-8b",
+              "label": "Hermes 3 (8B)",
+              "family": "hermes",
+              "path": "/models/hermes3-8b",
+              "visitors": 12,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 13
+        },
+        {
+          "id": "nvidia",
+          "label": "NVIDIA",
+          "logo": "/images/model-logos/nvidia.svg",
+          "visitors": 18,
+          "models": [
+            {
+              "id": "nemotron3-49b",
+              "label": "Llama-3.3-Nemotron-Super (49B)",
+              "family": "nemotron",
+              "path": "/models/nemotron3-49b",
+              "visitors": 5,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 14
+        },
+        {
+          "id": "cohere",
+          "label": "Cohere",
+          "logo": "/images/model-logos/cohere.svg",
+          "visitors": 15,
+          "models": [
+            {
+              "id": "command-r-plus",
+              "label": "Command R+ (104B)",
+              "family": "cohere",
+              "path": "/models/command-r-plus",
+              "visitors": 7,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 15
+        },
+        {
+          "id": "minimax",
+          "label": "MiniMax",
+          "logo": "/images/model-logos/minimax.svg",
+          "visitors": 13,
+          "models": [
+            {
+              "id": "minimax-m2.1",
+              "label": "MiniMax M2.1",
+              "family": "minimax",
+              "path": "/models/minimax-m2.1",
+              "visitors": 5,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 16
+        },
+        {
+          "id": "openai",
+          "label": "OpenAI",
+          "logo": "/images/model-logos/openai.svg",
+          "visitors": 8,
+          "models": [],
+          "modelsStatus": "withheld_below_threshold",
+          "rank": 17
+        },
+        {
+          "id": "dolphin",
+          "label": "Dolphin",
+          "logo": "/images/model-logos/dolphin.svg",
+          "visitors": 7,
+          "models": [
+            {
+              "id": "dolphin3-8b",
+              "label": "Dolphin 3 (8B)",
+              "family": "dolphin",
+              "path": "/models/dolphin3-8b",
+              "visitors": 7,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 18
+        },
+        {
+          "id": "inclusionai",
+          "label": "InclusionAI",
+          "logo": "/images/model-logos/inclusionai-avatar.webp",
+          "visitors": 7,
+          "models": [
+            {
+              "id": "ling-3.0-tiny",
+              "label": "Ling-3.0-tiny",
+              "family": "ling",
+              "path": "/models/ling-3.0-tiny",
+              "visitors": 5,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 19
+        },
+        {
+          "id": "moondream",
+          "label": "Moondream",
+          "logo": "/images/model-logos/moondream-avatar.webp",
+          "visitors": 6,
+          "models": [
+            {
+              "id": "moondream2",
+              "label": "Moondream 2",
+              "family": "moondream",
+              "path": "/models/moondream2",
+              "visitors": 6,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 20
+        },
+        {
+          "id": "miromind",
+          "label": "MiroMind",
+          "logo": "/images/model-logos/miromind-avatar.webp",
+          "visitors": 5,
+          "models": [],
+          "modelsStatus": "withheld_below_threshold",
+          "rank": 21
+        },
+        {
+          "id": "nanbeige",
+          "label": "Nanbeige",
+          "logo": "/images/model-logos/nanbeige-avatar.webp",
+          "visitors": 5,
+          "models": [
+            {
+              "id": "nanbeige4.2-3b",
+              "label": "Nanbeige4.2 3B",
+              "family": "nanbeige",
+              "path": "/models/nanbeige4.2-3b",
+              "visitors": 5,
+              "rank": 1
+            }
+          ],
+          "modelsStatus": "published",
+          "rank": 22
+        }
+      ],
+      "dominantBrands": [
+        "qwen"
+      ]
+    }
+  },
+  "countries": [
+    {
+      "name": "United States",
+      "signals": 400,
+      "modelVisitors": 400,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 134,
+            "models": [
+              {
+                "id": "qwen3-14b",
+                "label": "Qwen 3 (14B)",
+                "family": "qwen",
+                "path": "/models/qwen3-14b",
+                "visitors": 27,
+                "rank": 1
+              },
+              {
+                "id": "qwen3-32b",
+                "label": "Qwen 3 (32B)",
+                "family": "qwen",
+                "path": "/models/qwen3-32b",
+                "visitors": 24,
+                "rank": 2
+              },
+              {
+                "id": "qwen3.6-35b-a3b",
+                "label": "Qwen 3.6 35B-A3B",
+                "family": "qwen",
+                "path": "/models/qwen3.6-35b-a3b",
+                "visitors": 17,
+                "rank": 3
+              },
+              {
+                "id": "qwen3.6-27b",
+                "label": "Qwen 3.6 (27B)",
+                "family": "qwen",
+                "path": "/models/qwen3.6-27b",
+                "visitors": 16,
+                "rank": 4
+              },
+              {
+                "id": "qwen3.8-27b",
+                "label": "Qwen3.8-27B",
+                "family": "qwen",
+                "path": "/models/qwen3.8-27b",
+                "visitors": 11,
+                "rank": 5
+              },
+              {
+                "id": "qwen2.5-72b",
+                "label": "Qwen 2.5 (72B)",
+                "family": "qwen",
+                "path": "/models/qwen2.5-72b",
+                "visitors": 6,
+                "rank": 6
+              },
+              {
+                "id": "qwen3-coder-30b",
+                "label": "Qwen 3 Coder (30B)",
+                "family": "qwen-coder",
+                "path": "/models/qwen3-coder-30b",
+                "visitors": 6,
+                "rank": 7
+              },
+              {
+                "id": "qwen3-next-80b-a3b",
+                "label": "Qwen 3 Next (80B/3B MoE)",
+                "family": "qwen-moe",
+                "path": "/models/qwen3-next-80b-a3b",
+                "visitors": 5,
+                "rank": 8
+              },
+              {
+                "id": "qwen3.5-4b",
+                "label": "Qwen 3.5 (4B)",
+                "family": "qwen",
+                "path": "/models/qwen3.5-4b",
+                "visitors": 5,
+                "rank": 9
+              },
+              {
+                "id": "qwen3.5-122b-a10b",
+                "label": "Qwen 3.5 MoE (122B/10B active)",
+                "family": "qwen",
+                "path": "/models/qwen3.5-122b-a10b",
+                "visitors": 5,
+                "rank": 10
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 1
+          },
+          {
+            "id": "deepseek",
+            "label": "DeepSeek",
+            "logo": "/images/model-logos/deepseek.svg",
+            "visitors": 47,
+            "models": [
+              {
+                "id": "deepseek-v3.1",
+                "label": "DeepSeek V3.1 (671B MoE)",
+                "family": "deepseek-v3",
+                "path": "/models/deepseek-v3.1",
+                "visitors": 21,
+                "rank": 1
+              },
+              {
+                "id": "deepseek-coder-v2-16b",
+                "label": "DeepSeek Coder V2 (16B)",
+                "family": "deepseek",
+                "path": "/models/deepseek-coder-v2-16b",
+                "visitors": 6,
+                "rank": 2
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 2
+          },
+          {
+            "id": "zhipu",
+            "label": "Zhipu AI",
+            "logo": "/images/model-logos/zhipu.svg",
+            "visitors": 39,
+            "models": [
+              {
+                "id": "glm-5.2",
+                "label": "GLM-5.2 (744B MoE)",
+                "family": "glm",
+                "path": "/models/glm-5.2",
+                "visitors": 16,
+                "rank": 1
+              },
+              {
+                "id": "glm4.5-air",
+                "label": "GLM 4.5 Air (MoE)",
+                "family": "glm",
+                "path": "/models/glm4.5-air",
+                "visitors": 11,
+                "rank": 2
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 3
+          },
+          {
+            "id": "ornith",
+            "label": "Ornith",
+            "logo": "/images/model-logos/ornith-avatar.png",
+            "visitors": 32,
+            "models": [
+              {
+                "id": "ornith-1-5-9b",
+                "label": "Ornith-1.5-9B",
+                "family": "ornith",
+                "path": "/models/ornith-1-5-9b",
+                "visitors": 13,
+                "rank": 1
+              },
+              {
+                "id": "ornith-1-5-35b-a3b",
+                "label": "Ornith-1.5-35B-A3B",
+                "family": "ornith",
+                "path": "/models/ornith-1-5-35b-a3b",
+                "visitors": 10,
+                "rank": 2
+              },
+              {
+                "id": "ornith-1.0-9b-gguf",
+                "label": "Ornith 1.0 9B GGUF",
+                "family": "deepreinforce",
+                "path": "/models/ornith-1.0-9b-gguf",
+                "visitors": 6,
+                "rank": 3
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 4
+          },
+          {
+            "id": "mistral",
+            "label": "Mistral",
+            "logo": "/images/model-logos/mistral.svg",
+            "visitors": 31,
+            "models": [
+              {
+                "id": "codestral-22b",
+                "label": "Codestral (22B)",
+                "family": "mistral",
+                "path": "/models/codestral-22b",
+                "visitors": 9,
+                "rank": 1
+              },
+              {
+                "id": "mixtral-8x7b",
+                "label": "Mixtral (8x7B)",
+                "family": "mixtral",
+                "path": "/models/mixtral-8x7b",
+                "visitors": 5,
+                "rank": 2
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 5
+          },
+          {
+            "id": "gemma",
+            "label": "Gemma",
+            "logo": "/images/model-logos/gemma-official-color.svg",
+            "visitors": 24,
+            "models": [
+              {
+                "id": "gemma4-26b-a4b",
+                "label": "Gemma 4 26B A4B",
+                "family": "gemma",
+                "path": "/models/gemma4-26b-a4b",
+                "visitors": 8,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 6
+          },
+          {
+            "id": "meta",
+            "label": "Meta",
+            "logo": "/images/model-logos/meta.svg",
+            "visitors": 16,
+            "models": [
+              {
+                "id": "muse-glimmer-30b",
+                "label": "Muse Glimmer 30B",
+                "family": "meta",
+                "path": "/models/muse-glimmer-30b",
+                "visitors": 5,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 7
+          },
+          {
+            "id": "microsoft",
+            "label": "Microsoft",
+            "logo": "/images/model-logos/microsoft.svg",
+            "visitors": 16,
+            "models": [
+              {
+                "id": "phi4-mini",
+                "label": "Phi-4 Mini (3.8B)",
+                "family": "phi",
+                "path": "/models/phi4-mini",
+                "visitors": 7,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 8
+          },
+          {
+            "id": "kimi",
+            "label": "Kimi",
+            "logo": "/images/model-logos/kimi-inverted.svg",
+            "visitors": 13,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 9
+          },
+          {
+            "id": "ibm",
+            "label": "IBM",
+            "logo": "/images/model-logos/ibm.svg",
+            "visitors": 11,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 10
+          },
+          {
+            "id": "liquid",
+            "label": "Liquid AI",
+            "logo": "/images/model-logos/liquid.svg",
+            "visitors": 11,
+            "models": [
+              {
+                "id": "lfm2.5-8b-a1b",
+                "label": "LFM2.5-8B-A1B",
+                "family": "lfm",
+                "path": "/models/lfm2.5-8b-a1b",
+                "visitors": 8,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 11
+          },
+          {
+            "id": "prismml",
+            "label": "PrismML",
+            "logo": "/images/model-logos/prismml-avatar.webp",
+            "visitors": 10,
+            "models": [
+              {
+                "id": "bonsai-27b",
+                "label": "Bonsai 27B",
+                "family": "bonsai",
+                "path": "/models/bonsai-27b",
+                "visitors": 10,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 12
+          },
+          {
+            "id": "cohere",
+            "label": "Cohere",
+            "logo": "/images/model-logos/cohere.svg",
+            "visitors": 9,
+            "models": [
+              {
+                "id": "command-r-plus",
+                "label": "Command R+ (104B)",
+                "family": "cohere",
+                "path": "/models/command-r-plus",
+                "visitors": 5,
+                "rank": 1
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 13
+          },
+          {
+            "id": "nousresearch",
+            "label": "Nous Research",
+            "logo": "/images/model-logos/nousresearch.svg",
+            "visitors": 8,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 14
+          },
+          {
+            "id": "nvidia",
+            "label": "NVIDIA",
+            "logo": "/images/model-logos/nvidia.svg",
+            "visitors": 6,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 15
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 1
+    },
+    {
+      "name": "Germany",
+      "signals": 49,
+      "modelVisitors": 49,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 26,
+            "models": [
+              {
+                "id": "qwen3-32b",
+                "label": "Qwen 3 (32B)",
+                "family": "qwen",
+                "path": "/models/qwen3-32b",
+                "visitors": 5,
+                "rank": 1
+              },
+              {
+                "id": "qwen3.6-27b",
+                "label": "Qwen 3.6 (27B)",
+                "family": "qwen",
+                "path": "/models/qwen3.6-27b",
+                "visitors": 5,
+                "rank": 2
+              },
+              {
+                "id": "qwen3.6-35b-a3b",
+                "label": "Qwen 3.6 35B-A3B",
+                "family": "qwen",
+                "path": "/models/qwen3.6-35b-a3b",
+                "visitors": 5,
+                "rank": 3
+              },
+              {
+                "id": "qwen3.8-27b",
+                "label": "Qwen3.8-27B",
+                "family": "qwen",
+                "path": "/models/qwen3.8-27b",
+                "visitors": 5,
+                "rank": 4
+              }
+            ],
+            "modelsStatus": "published",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 2
+    },
+    {
+      "name": "China",
+      "signals": 29,
+      "modelVisitors": 29,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 10,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          },
+          {
+            "id": "deepseek",
+            "label": "DeepSeek",
+            "logo": "/images/model-logos/deepseek.svg",
+            "visitors": 6,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 2
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 3
+    },
+    {
+      "name": "India",
+      "signals": 21,
+      "modelVisitors": 21,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 9,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 4
+    },
+    {
+      "name": "United Kingdom",
+      "signals": 21,
+      "modelVisitors": 21,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 12,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 5
+    },
+    {
+      "name": "Canada",
+      "signals": 14,
+      "modelVisitors": 14,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 6,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          },
+          {
+            "id": "ornith",
+            "label": "Ornith",
+            "logo": "/images/model-logos/ornith-avatar.png",
+            "visitors": 5,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 2
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 6
+    },
+    {
+      "name": "Hong Kong",
+      "signals": 14,
+      "modelVisitors": 14,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 7,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 7
+    },
+    {
+      "name": "Italy",
+      "signals": 14,
+      "modelVisitors": 14,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 6,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 8
+    },
+    {
+      "name": "Japan",
+      "signals": 13,
+      "modelVisitors": 13,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 7,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          },
+          {
+            "id": "ornith",
+            "label": "Ornith",
+            "logo": "/images/model-logos/ornith-avatar.png",
+            "visitors": 6,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 2
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 9
+    },
+    {
+      "name": "Netherlands",
+      "signals": 13,
+      "modelVisitors": 13,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 7,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 10
+    },
+    {
+      "name": "Spain",
+      "signals": 12,
+      "modelVisitors": 12,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 8,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 11
+    },
+    {
+      "name": "Finland",
+      "signals": 11,
+      "modelVisitors": 11,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 5,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 12
+    },
+    {
+      "name": "Switzerland",
+      "signals": 9,
+      "modelVisitors": 9,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 5,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 13
+    },
+    {
+      "name": "Sweden",
+      "signals": 7,
+      "modelVisitors": 7,
+      "modelInterest": {
+        "brands": [
+          {
+            "id": "qwen",
+            "label": "Qwen",
+            "logo": "/images/model-logos/qwen.svg",
+            "visitors": 5,
+            "models": [],
+            "modelsStatus": "withheld_below_threshold",
+            "rank": 1
+          }
+        ],
+        "dominantBrands": [
+          "qwen"
+        ]
+      },
+      "rank": 14
+    }
+  ]
+}

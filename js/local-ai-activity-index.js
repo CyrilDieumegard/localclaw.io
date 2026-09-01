@@ -5,19 +5,22 @@ const PERIOD_CONFIG = Object.freeze({
     dataUrl: '/data/local-ai-activity-index.json?v=20260829g',
     admin1Url: '/data/local-ai-admin1-activity.json?v=20260829h',
     installedDataUrl: '/data/local-ai-install-intent.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260830a'
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260830a',
+    modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a'
   },
   '90d': {
     dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-90d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260830a'
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260830a',
+    modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a'
   },
   '180d': {
     dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260830a',
-    installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260830a'
+    installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260830a',
+    modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a'
   }
 });
 const requestParams = new URLSearchParams(window.location.search);
@@ -26,13 +29,20 @@ const requestedMetricView = requestParams.get('view');
 const requestedView = Object.freeze({
   country: requestParams.get('country') || '',
   region: requestParams.get('region') || '',
-  area: requestParams.get('area') || ''
+  area: requestParams.get('area') || '',
+  brand: requestParams.get('brand') || requestParams.get('family') || ''
 });
 const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
-const ACTIVE_VIEW = requestedMetricView === 'installed' ? 'installed' : 'interest';
+const ACTIVE_VIEW = requestedMetricView === 'installed'
+  ? 'installed'
+  : requestedMetricView === 'models'
+    ? 'models'
+    : 'interest';
 const DATA_URL = ACTIVE_VIEW === 'installed'
   ? PERIOD_CONFIG[ACTIVE_PERIOD].installedDataUrl
-  : PERIOD_CONFIG[ACTIVE_PERIOD].dataUrl;
+  : ACTIVE_VIEW === 'models'
+    ? PERIOD_CONFIG[ACTIVE_PERIOD].modelDataUrl
+    : PERIOD_CONFIG[ACTIVE_PERIOD].dataUrl;
 const WORLD_URL = '/data/ne_50m_admin_0_countries.geojson?v=20260829f';
 const US_STATES_URL = '/data/us-states-2024-20m.geojson?v=20260829b';
 const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
@@ -80,6 +90,9 @@ const shareSecondaryLabel = document.querySelector('[data-atlas-share-secondary-
 const shareCopyButton = document.querySelector('[data-atlas-share-copy]');
 const shareDownloadButton = document.querySelector('[data-atlas-share-download]');
 const shareNativeButton = document.querySelector('[data-atlas-share-native]');
+const modelPanel = document.querySelector('[data-atlas-model-panel]');
+const modelLogoLayer = document.querySelector('[data-atlas-model-logo-layer]');
+const modelLegend = document.querySelector('[data-atlas-model-legend]');
 
 if (!stage || !canvas) {
   throw new Error('Local AI Activity Index stage is missing.');
@@ -298,6 +311,13 @@ const state = {
   clusterEntries: [],
   clusterHitMeshes: [],
   clusterLabels: [],
+  modelMarkerGroup: null,
+  modelMarkerEntries: [],
+  modelMarkerHitMeshes: [],
+  modelTextureCache: new Map(),
+  selectedModelCountry: null,
+  selectedModelBrand: null,
+  modelPanelOpen: false,
   countryByCode: new Map(),
   scope: 'world',
   targetRotation: new THREE.Vector2(0.38, -0.1),
@@ -343,6 +363,16 @@ const state = {
   theme: document.documentElement.classList.contains('light') ? 'light' : 'dark'
 };
 
+const modelMarkerScratch = {
+  globeCenter: new THREE.Vector3(),
+  worldPosition: new THREE.Vector3(),
+  surfaceNormal: new THREE.Vector3(),
+  towardCamera: new THREE.Vector3(),
+  projected: new THREE.Vector3(),
+  cameraPosition: new THREE.Vector3(),
+  globeScale: new THREE.Vector3(1, 1, 1)
+};
+
 function number(value) {
   return new Intl.NumberFormat('en-US').format(value);
 }
@@ -376,12 +406,18 @@ function isInstallIntentView() {
   return ACTIVE_VIEW === 'installed';
 }
 
+function isModelInterestView() {
+  return ACTIVE_VIEW === 'models';
+}
+
 function signalLabel(value, singular = false) {
   if (isInstallIntentView()) return singular ? 'install-intent visitor' : 'install-intent visitors';
+  if (isModelInterestView()) return singular ? 'model-page visitor' : 'model-page visitors';
   return singular ? 'interest signal' : 'interest signals';
 }
 
 function publishedSignalLabel() {
+  if (isModelInterestView()) return 'published model-page visitors';
   return isInstallIntentView() ? 'published install-intent visitors' : 'published signals';
 }
 
@@ -413,6 +449,76 @@ function shareSnapshot() {
         ? locked
         : null
     : null;
+
+  if (isModelInterestView()) {
+    const country = state.selectedModelCountry || worldCountry;
+    const brands = country ? modelBrandsForCountry(country) : globalModelBrands();
+    const brand = state.selectedModelBrand
+      ? brands.find(row => brandIdentifier(row) === state.selectedModelBrand) || null
+      : null;
+    if (country && brand) {
+      const leaders = coLeadingModelBrands(country);
+      const isLeader = leaders.includes(brand);
+      const isCoLeader = isLeader && leaders.length > 1;
+      const brandRank = isLeader ? 1 : brands.indexOf(brand) + 1;
+      return {
+        scope: 'model',
+        entity: country.name,
+        title: isLeader
+          ? brand.label + (isCoLeader ? ' is a co-leading' : ' is the most explored') + ' local AI brand in ' + country.name + '.'
+          : brand.label + ' model-page interest in ' + country.name + '.',
+        summary: number(modelBrandSignals(brand)) + ' anonymous visitors explored its eligible model pages · ' + dateRange + '.',
+        primary: number(modelBrandSignals(brand)),
+        primaryLabel: 'Brand visitors',
+        secondary: brandRank > 0 ? '#' + brandRank : number(modelRowsForBrand(brand).length),
+        secondaryLabel: isCoLeader
+          ? 'Co-leading country rank'
+          : brandRank > 0
+            ? 'Country brand rank'
+            : 'Models published'
+      };
+    }
+    if (country) {
+      return {
+        scope: 'country',
+        entity: country.name,
+        title: 'Local AI model interest in ' + country.name + '.',
+        summary: number(modelCountryVisitors(country)) + ' anonymous visitors explored a LocalClaw LLM page · ' + dateRange + '.',
+        primary: number(modelCountryVisitors(country)),
+        primaryLabel: 'Model-page visitors',
+        secondary: number(brands.length),
+        secondaryLabel: 'Brands published'
+      };
+    }
+    if (brand && state.selectedModelBrand) {
+      const publishedCountryCount = state.countries.filter(candidate => modelBrandsForCountry(candidate)
+        .some(candidateBrand => brandIdentifier(candidateBrand) === brandIdentifier(brand))).length;
+      return {
+        scope: 'brand',
+        entity: brand.label,
+        title: brand.label + ' model-page interest around the world.',
+        summary: number(modelBrandSignals(brand)) + ' unique visitors explored its eligible LocalClaw model pages; '
+          + (publishedCountryCount
+            ? `${number(publishedCountryCount)} countr${publishedCountryCount === 1 ? 'y' : 'ies'} independently reached ${PUBLISH_THRESHOLD}+ visitors`
+            : `no individual country independently reached ${PUBLISH_THRESHOLD} visitors`)
+          + ' · ' + dateRange + '.',
+        primary: number(modelBrandSignals(brand)),
+        primaryLabel: 'Brand visitors',
+        secondary: number(publishedCountryCount),
+        secondaryLabel: 'Countries published'
+      };
+    }
+    return {
+      scope: 'world',
+      entity: 'World',
+      title: 'See which local AI brands each country is exploring.',
+      summary: number(state.data.totals.modelVisitors ?? state.data.totals.signals) + ' anonymous model-page visitors · ' + dateRange + '.',
+      primary: number(state.data.totals.modelVisitors ?? state.data.totals.signals),
+      primaryLabel: 'Model-page visitors',
+      secondary: number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions),
+      secondaryLabel: 'Countries with brands'
+    };
+  }
 
   if (state.scope === 'us') {
     const region = locked?.code ? locked : null;
@@ -514,9 +620,13 @@ function shareSnapshot() {
 function currentShareUrl() {
   const url = new URL('/local-ai-activity-index', window.location.origin);
   if (ACTIVE_VIEW === 'installed') url.searchParams.set('view', 'installed');
+  if (ACTIVE_VIEW === 'models') url.searchParams.set('view', 'models');
   if (ACTIVE_PERIOD !== '30d') url.searchParams.set('range', ACTIVE_PERIOD);
   const locked = state.locked;
-  if (state.scope === 'us') {
+  if (isModelInterestView()) {
+    if (state.selectedModelCountry) url.searchParams.set('country', state.selectedModelCountry.name);
+    if (state.selectedModelBrand) url.searchParams.set('brand', state.selectedModelBrand);
+  } else if (state.scope === 'us') {
     url.searchParams.set('country', 'United States');
     if (locked?.code) url.searchParams.set('region', locked.name);
   } else if (isAdmin2Scope()) {
@@ -537,7 +647,7 @@ function currentShareUrl() {
 
 function updateSharePresentation() {
   const snapshot = shareSnapshot();
-  if (shareEyebrow) shareEyebrow.textContent = `LOCAL AI ${isInstallIntentView() ? 'INSTALL INTENT' : 'INTEREST'} · ${sharePeriodLabel()}`;
+  if (shareEyebrow) shareEyebrow.textContent = `LOCAL AI ${isModelInterestView() ? 'MODEL INTEREST' : isInstallIntentView() ? 'INSTALL INTENT' : 'INTEREST'} · ${sharePeriodLabel()}`;
   if (shareTitle) shareTitle.textContent = snapshot.title;
   if (shareSummary) shareSummary.textContent = snapshot.summary;
   if (sharePrimary) sharePrimary.textContent = snapshot.primary;
@@ -547,9 +657,16 @@ function updateSharePresentation() {
   const boundary = document.querySelector('[data-atlas-share-boundary]');
   if (boundary) {
     const mark = document.createElement('b');
-    boundary.replaceChildren(mark, document.createTextNode(isInstallIntentView()
-      ? ' Click intent, not verified installations or model runs.'
-      : ' Interest signals, not installations or model runs.'));
+    const modelLogoMeaning = state.selectedModelBrand && !state.selectedModelCountry
+      ? `${globalModelBrands().find(brand => brandIdentifier(brand) === state.selectedModelBrand)?.label || 'Selected brand'} logos where a country reaches ${PUBLISH_THRESHOLD}+`
+      : state.selectedModelBrand
+        ? 'selected country brand logo'
+        : 'leading local brand logos';
+    boundary.replaceChildren(mark, document.createTextNode(isModelInterestView()
+      ? ` Color = all-model country visitors; ${modelLogoMeaning}. Page interest, not downloads, installations or verified use.`
+      : isInstallIntentView()
+        ? ' Click intent, not verified installations or model runs.'
+        : ' Interest signals, not installations or model runs.'));
   }
   return snapshot;
 }
@@ -725,7 +842,7 @@ async function buildShareImage() {
 
   context.fillStyle = '#ff5b50';
   context.font = '700 14px "JetBrains Mono", monospace';
-  context.fillText(`LOCAL AI INTEREST  ·  ${sharePeriodLabel()}`, 96, 216);
+  context.fillText(`LOCAL AI ${isModelInterestView() ? 'MODEL INTEREST' : isInstallIntentView() ? 'INSTALL INTENT' : 'INTEREST'}  ·  ${sharePeriodLabel()}`, 96, 216);
 
   const titleSize = snapshot.title.length > 58 ? 61 : snapshot.title.length > 40 ? 68 : 76;
   context.fillStyle = '#ffffff';
@@ -768,6 +885,17 @@ async function buildShareImage() {
     context.fillText(String(item.label).toUpperCase().slice(0, 34), item.x + 20, metricY + 82);
   }
 
+  if (isModelInterestView()) {
+    const logoMeaning = state.selectedModelBrand && !state.selectedModelCountry
+      ? 'LOGOS = SELECTED BRAND IN COUNTRIES AT 5+'
+      : state.selectedModelBrand
+        ? 'LOGO = SELECTED COUNTRY BRAND'
+        : 'LOGOS = MOST EXPLORED LOCAL BRAND';
+    context.fillStyle = 'rgba(218,231,239,0.52)';
+    context.font = '700 10px "JetBrains Mono", monospace';
+    context.fillText(`${logoMeaning}  ·  COLOR = ALL-MODEL COUNTRY VISITORS`, 96, 804);
+  }
+
   context.fillStyle = '#ff453a';
   context.shadowColor = 'rgba(255,69,58,0.8)';
   context.shadowBlur = 12;
@@ -777,7 +905,11 @@ async function buildShareImage() {
   context.shadowBlur = 0;
   context.fillStyle = 'rgba(218,231,239,0.52)';
   context.font = '700 11px "JetBrains Mono", monospace';
-  context.fillText('INTEREST SIGNALS, NOT INSTALLATIONS OR MODEL RUNS.', 114, 828);
+  context.fillText(isModelInterestView()
+    ? 'MODEL-PAGE INTEREST, NOT VERIFIED MODEL USE.'
+    : isInstallIntentView()
+      ? 'CLICK INTENT, NOT VERIFIED INSTALLATIONS OR MODEL RUNS.'
+      : 'INTEREST SIGNALS, NOT INSTALLATIONS OR MODEL RUNS.', 114, 828);
   context.textAlign = 'right';
   context.fillStyle = 'rgba(255,255,255,0.82)';
   context.font = '700 14px "JetBrains Mono", monospace';
@@ -855,7 +987,7 @@ function updatePeriodControls() {
 }
 
 function isMobileViewport(width = window.innerWidth) {
-  return width < MOBILE_BREAKPOINT;
+  return width <= MOBILE_BREAKPOINT;
 }
 
 function atlasTextureWidth() {
@@ -1004,8 +1136,8 @@ function buildWorldCountryEntities() {
   for (const feature of state.world?.features || []) {
     const adm0A3 = admin0A3ForFeature(feature);
     const manifest = state.admin1Manifest?.countries?.[adm0A3];
-    if (!manifest) continue;
     const published = publishedByFeature.get(feature) || null;
+    if (!manifest && !(isModelInterestView() && published)) continue;
     const names = featureNames(feature);
     const entity = published || {
       rank: null,
@@ -2380,6 +2512,325 @@ function createCityClusters() {
   updateClusterVisibility();
 }
 
+function modelBrandsForCountry(country) {
+  const brands = country?.modelInterest?.brands || country?.brands || [];
+  return Array.isArray(brands) ? brands : [];
+}
+
+function modelBrandSignals(brand) {
+  return Number(brand?.visitors ?? brand?.signals ?? brand?.score) || 0;
+}
+
+function modelCountryVisitors(country) {
+  return Number(country?.modelVisitors ?? country?.visitors ?? country?.signals) || 0;
+}
+
+function coLeadingModelBrands(country) {
+  const brands = modelBrandsForCountry(country);
+  const dominant = country?.modelInterest?.dominantBrands || country?.dominantBrands || [];
+  if (Array.isArray(dominant) && dominant.length) {
+    const declared = dominant
+      .map(id => brands.find(brand => String(id) === String(brand.id || brand.brandId || brand.family)))
+      .filter(Boolean);
+    if (declared.length) return declared;
+  }
+  const maximum = modelBrandSignals(brands[0]);
+  return brands.filter(brand => modelBrandSignals(brand) === maximum);
+}
+
+function dominantModelBrand(country) {
+  return coLeadingModelBrands(country)[0] || null;
+}
+
+function paintModelBadge(canvas, brand, image = null, coLeaderCount = 1) {
+  const context = canvas.getContext('2d');
+  const size = canvas.width;
+  const center = size / 2;
+  context.clearRect(0, 0, size, size);
+  const aura = context.createRadialGradient(center, center, size * 0.15, center, center, size * 0.48);
+  aura.addColorStop(0, 'rgba(255, 103, 67, 0.38)');
+  aura.addColorStop(0.55, 'rgba(255, 65, 58, 0.18)');
+  aura.addColorStop(1, 'rgba(255, 48, 38, 0)');
+  context.fillStyle = aura;
+  context.fillRect(0, 0, size, size);
+  context.shadowColor = 'rgba(255, 73, 52, 0.72)';
+  context.shadowBlur = size * 0.055;
+  context.beginPath();
+  context.arc(center, center, size * 0.345, 0, Math.PI * 2);
+  context.fillStyle = '#050a10';
+  context.fill();
+  context.shadowBlur = 0;
+  context.lineWidth = size * 0.018;
+  context.strokeStyle = '#ff493b';
+  context.stroke();
+  context.beginPath();
+  context.arc(center, center, size * 0.273, 0, Math.PI * 2);
+  context.fillStyle = 'rgba(255,255,255,0.97)';
+  context.fill();
+  if (image && image.naturalWidth && image.naturalHeight) {
+    const maximum = size * 0.36;
+    const ratio = Math.min(maximum / image.naturalWidth, maximum / image.naturalHeight);
+    const width = image.naturalWidth * ratio;
+    const height = image.naturalHeight * ratio;
+    context.drawImage(image, center - width / 2, center - height / 2, width, height);
+  } else {
+    const initials = String(brand?.label || brand?.id || '?')
+      .split(/\s+/)
+      .map(word => word[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+    context.fillStyle = '#111821';
+    context.font = '800 ' + Math.round(size * 0.16) + 'px system-ui, sans-serif';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText(initials, center, center + size * 0.01);
+  }
+  if (coLeaderCount > 1) {
+    const badgeX = size * 0.73;
+    const badgeY = size * 0.27;
+    context.beginPath();
+    context.arc(badgeX, badgeY, size * 0.095, 0, Math.PI * 2);
+    context.fillStyle = '#ff493b';
+    context.fill();
+    context.lineWidth = size * 0.012;
+    context.strokeStyle = '#050a10';
+    context.stroke();
+    context.fillStyle = '#fff';
+    context.font = '800 ' + Math.round(size * 0.075) + 'px system-ui, sans-serif';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText('+' + (coLeaderCount - 1), badgeX, badgeY + size * 0.004);
+  }
+}
+
+function textureForModelBrand(brand, coLeaderCount = 1) {
+  const key = String(brand?.logo || brand?.id || '') + '|' + coLeaderCount;
+  if (state.modelTextureCache.has(key)) return state.modelTextureCache.get(key);
+  const badge = document.createElement('canvas');
+  const textureSize = isMobileViewport() ? 256 : 512;
+  badge.width = textureSize;
+  badge.height = textureSize;
+  paintModelBadge(badge, brand, null, coLeaderCount);
+  const texture = new THREE.CanvasTexture(badge);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
+  texture.anisotropy = Math.min(8, state.renderer?.capabilities.getMaxAnisotropy?.() || 4);
+  state.modelTextureCache.set(key, texture);
+  if (brand?.logo) {
+    const image = new Image();
+    image.decoding = 'async';
+    image.addEventListener('load', () => {
+      paintModelBadge(badge, brand, image, coLeaderCount);
+      texture.needsUpdate = true;
+    }, { once: true });
+    image.addEventListener('error', () => {
+      texture.needsUpdate = true;
+    }, { once: true });
+    image.src = brand.logo;
+  }
+  return texture;
+}
+
+function createModelBrandMarkers() {
+  state.modelMarkerGroup = new THREE.Group();
+  state.modelMarkerGroup.userData.activityScope = 'models';
+  state.globeGroup.add(state.modelMarkerGroup);
+  if (!isModelInterestView()) {
+    state.modelMarkerGroup.visible = false;
+    return;
+  }
+  for (const country of state.countries) {
+    const brand = dominantModelBrand(country);
+    const coLeaderCount = coLeadingModelBrands(country).length;
+    const center = centerForCountry(country);
+    if (!brand || !center || modelBrandSignals(brand) < PUBLISH_THRESHOLD) continue;
+    const position = latLonToVector(center[0], center[1], GLOBE_RADIUS + 0.13);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: textureForModelBrand(brand, coLeaderCount),
+      transparent: true,
+      opacity: 0.96,
+      depthTest: true,
+      depthWrite: false,
+      toneMapped: false
+    }));
+    sprite.position.copy(position);
+    sprite.center.set(0.5, 0.5);
+    sprite.renderOrder = 7;
+    const marker = {
+      kind: 'modelBrand',
+      country,
+      brand,
+      coLeaderCount,
+      isLeader: true,
+      brandRank: 1,
+      name: country.name,
+      position: position.clone(),
+      sprite,
+      hit: null,
+      element: null,
+      projectedVisible: false
+    };
+    sprite.userData = { modelBrandMarker: marker };
+    const hit = new THREE.Mesh(
+      new THREE.SphereGeometry(0.18, 16, 10),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    hit.position.copy(position);
+    hit.userData = { modelBrandMarker: marker };
+    marker.hit = hit;
+    if (modelLogoLayer) {
+      const element = document.createElement('span');
+      element.className = 'atlas-model-logo is-hidden';
+      element.setAttribute('aria-hidden', 'true');
+      const mark = document.createElement('span');
+      mark.className = 'atlas-model-logo__mark';
+      const image = document.createElement('img');
+      image.src = brand.logo;
+      image.alt = '';
+      image.width = 27;
+      image.height = 27;
+      mark.append(image);
+      element.append(mark);
+      modelLogoLayer.append(element);
+      marker.element = element;
+    }
+    state.modelMarkerGroup.add(sprite, hit);
+    state.modelMarkerEntries.push(marker);
+    state.modelMarkerHitMeshes.push(hit);
+  }
+  stage.dataset.modelMarkers = String(state.modelMarkerEntries.length);
+}
+
+function syncModelMarkerBrands(selectedCountry = null, selectedBrand = null) {
+  const globalBrandFilter = !selectedCountry && selectedBrand
+    ? brandIdentifier(selectedBrand)
+    : '';
+  for (const entry of state.modelMarkerEntries) {
+    const brands = modelBrandsForCountry(entry.country);
+    const target = globalBrandFilter
+      ? brands.find(brand => brandIdentifier(brand) === globalBrandFilter) || null
+      : entry.country === selectedCountry && selectedBrand
+        ? selectedBrand
+        : dominantModelBrand(entry.country);
+    entry.filteredOut = Boolean(globalBrandFilter && !target);
+    if (!target) {
+      entry.projectedVisible = false;
+      entry.sprite.visible = false;
+      entry.hit.visible = false;
+      entry.element?.classList.add('is-hidden');
+      continue;
+    }
+    const leaders = coLeadingModelBrands(entry.country);
+    const isLeader = leaders.includes(target);
+    const coLeaderCount = isLeader ? leaders.length : 1;
+    if (entry.brand !== target || entry.coLeaderCount !== coLeaderCount) {
+      entry.sprite.material.map = textureForModelBrand(target, coLeaderCount);
+      entry.sprite.material.needsUpdate = true;
+    }
+    entry.brand = target;
+    entry.coLeaderCount = coLeaderCount;
+    entry.isLeader = isLeader;
+    entry.brandRank = Math.max(1, brands.indexOf(target) + 1);
+    const fallbackImage = entry.element?.querySelector('img');
+    if (fallbackImage) fallbackImage.src = target.logo;
+  }
+}
+
+function updateModelDomFallback() {
+  const fallbackActive = Boolean(state.contextLost && isModelInterestView());
+  modelLogoLayer?.classList.toggle('is-fallback', fallbackActive);
+  for (const entry of state.modelMarkerEntries) {
+    if (!entry.element) continue;
+    entry.element.classList.toggle('is-hidden', !(fallbackActive && entry.projectedVisible));
+  }
+}
+
+function updateModelMarkerVisibility() {
+  if (!state.modelMarkerGroup || !state.camera || !state.globeGroup) return;
+  const active = isModelInterestView() && state.scope === 'world';
+  state.modelMarkerGroup.visible = active;
+  if (!active) return;
+  const mobile = isMobileViewport();
+  const limit = mobile ? 7 : 18;
+  const minimumDistance = mobile ? 43 : 52;
+  state.camera.updateMatrixWorld(true);
+  state.globeGroup.updateMatrixWorld(true);
+  const globeCenter = state.globeGroup.getWorldPosition(modelMarkerScratch.globeCenter);
+  const candidates = [];
+  for (const entry of state.modelMarkerEntries) {
+    if (entry.filteredOut) continue;
+    const worldPosition = state.globeGroup.localToWorld(modelMarkerScratch.worldPosition.copy(entry.position));
+    const surfaceNormal = modelMarkerScratch.surfaceNormal.copy(worldPosition).sub(globeCenter).normalize();
+    const towardCamera = modelMarkerScratch.towardCamera.copy(state.camera.position).sub(worldPosition).normalize();
+    const projected = modelMarkerScratch.projected.copy(worldPosition).project(state.camera);
+    const frontFacing = surfaceNormal.dot(towardCamera) > 0.075;
+    const onScreen = Math.abs(projected.x) < 0.96 && Math.abs(projected.y) < 0.92 && projected.z > -1 && projected.z < 1;
+    if (!frontFacing || !onScreen) continue;
+    candidates.push({
+      entry,
+      x: (projected.x * 0.5 + 0.5) * stage.clientWidth,
+      y: (-projected.y * 0.5 + 0.5) * stage.clientHeight
+    });
+  }
+  candidates.sort((left, right) => {
+    const selectedLeft = left.entry.country === state.selectedModelCountry ? 1 : 0;
+    const selectedRight = right.entry.country === state.selectedModelCountry ? 1 : 0;
+    return selectedRight - selectedLeft
+      || modelCountryVisitors(right.entry.country) - modelCountryVisitors(left.entry.country)
+      || left.entry.country.name.localeCompare(right.entry.country.name);
+  });
+  const visible = new Set();
+  const occupied = [];
+  for (const candidate of candidates) {
+    const selected = candidate.entry.country === state.selectedModelCountry;
+    const blockedByCopy = !selected && candidate.x < (mobile ? stage.clientWidth - 16 : Math.min(490, stage.clientWidth * 0.42))
+      && candidate.y < (mobile ? 225 : 315);
+    const blockedByPanel = !selected && !mobile && candidate.x > stage.clientWidth - 390 && candidate.y < stage.clientHeight - 70;
+    const collides = !selected && occupied.some(point => Math.hypot(candidate.x - point.x, candidate.y - point.y) < minimumDistance);
+    if (blockedByCopy || blockedByPanel || collides) continue;
+    visible.add(candidate.entry);
+    occupied.push(candidate);
+    if (visible.size >= limit && !selected) break;
+  }
+  const viewportHeight = Math.max(stage.clientHeight, 1);
+  const halfFovTangent = Math.tan(THREE.MathUtils.degToRad(state.camera.fov) / 2);
+  const globeScale = state.globeGroup.getWorldScale(modelMarkerScratch.globeScale);
+  for (const entry of state.modelMarkerEntries) {
+    const show = visible.has(entry);
+    entry.projectedVisible = show;
+    entry.sprite.visible = show;
+    entry.hit.visible = show;
+    if (!show) {
+      if (entry.element) entry.element.classList.add('is-hidden');
+      continue;
+    }
+    const worldPosition = state.globeGroup.localToWorld(modelMarkerScratch.worldPosition.copy(entry.position));
+    const cameraPosition = modelMarkerScratch.cameraPosition.copy(worldPosition).applyMatrix4(state.camera.matrixWorldInverse);
+    const cameraDepth = Math.max(0.08, -cameraPosition.z);
+    const pixelsPerLocalUnit = viewportHeight * Math.max(globeScale.x, 0.001)
+      / (2 * Math.max(halfFovTangent, 0.001) * cameraDepth);
+    const selected = entry.country === state.selectedModelCountry;
+    const pixels = (mobile ? 42 : 50) + (selected ? 8 : 0);
+    const localScale = THREE.MathUtils.clamp(pixels / pixelsPerLocalUnit, 0.18, 0.9);
+    entry.sprite.scale.setScalar(localScale);
+    const hitPixels = mobile ? 48 : 42;
+    entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitPixels / (0.36 * pixelsPerLocalUnit), 0.3, 4));
+    entry.sprite.material.opacity = selected ? 1 : 0.93;
+    if (entry.element) {
+      const projected = occupied.find(candidate => candidate.entry === entry);
+      if (projected) {
+        entry.element.style.setProperty('--atlas-model-x', projected.x + 'px');
+        entry.element.style.setProperty('--atlas-model-y', projected.y + 'px');
+      }
+      entry.element.classList.toggle('is-selected', selected);
+      entry.element.classList.toggle('is-hidden', !state.contextLost);
+    }
+  }
+}
+
 function createClusterLabel(entry) {
   if (!labelLayer || !entry) return;
   const item = document.createElement('li');
@@ -2401,6 +2852,7 @@ function createClusterLabel(entry) {
 }
 
 function clusterVisibleInScope(cluster) {
+  if (isModelInterestView()) return false;
   if (state.scope === 'world') return true;
   if (state.scope === 'us') return String(cluster.countryCode || '').toUpperCase() === 'US';
   if (isAdmin1Scope()) return String(cluster.countryCode || '').toUpperCase() === state.detailConfig.alpha2;
@@ -2897,9 +3349,12 @@ function setupScene() {
   createAtmosphere();
   createAggregateHeatLayer('world', state.globeGroup);
   createWorldBoundaries();
-  createStateBoundaries();
-  createUSActivity();
+  if (!isModelInterestView()) {
+    createStateBoundaries();
+    createUSActivity();
+  }
   createCityClusters();
+  createModelBrandMarkers();
   createSelectionOverlay();
   createBackgroundField();
   resize();
@@ -3070,6 +3525,12 @@ function resetCurrentView() {
   } else {
     state.locked = null;
     state.targetRotation.set(0.38, -0.1);
+    if (isModelInterestView()) {
+      state.selectedModelCountry = null;
+      state.selectedModelBrand = null;
+      setModelPanelOpen(false);
+      renderModelPanel(null, '');
+    }
   }
   spotlight.hidden = true;
   hideTooltip();
@@ -3265,6 +3726,13 @@ function entityAtPointer({ preferGeography = false } = {}) {
   const clusterHit = frontSurfaceHit && clusterHits[0] && clusterHits[0].distance <= intersection.distance + 0.12
     ? clusterHits[0].object.userData.cityCluster || null
     : null;
+  const modelHits = isModelInterestView()
+    ? state.raycaster.intersectObjects(state.modelMarkerHitMeshes.filter(hit => hit.visible), false)
+    : [];
+  const modelHit = frontSurfaceHit && modelHits[0] && modelHits[0].distance <= intersection.distance + 0.24
+    ? modelHits[0].object.userData.modelBrandMarker || null
+    : null;
+  if (modelHit) return modelHit;
   // Map activation always drills into the geography under the pointer. If a
   // coastal city centroid lands just outside a simplified boundary, its mapped
   // country, state or Admin-1 assignment is the geographic fallback. Beacons
@@ -3278,6 +3746,20 @@ function entityAtPointer({ preferGeography = false } = {}) {
 
 function showTooltip(entity, event) {
   if (!tooltip || !entity || window.innerWidth < 760) return;
+  if (entity.kind === 'modelBrand') {
+    tooltip.hidden = false;
+    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.isLeader
+      ? (entity.coLeaderCount > 1 ? 'Co-leading' : 'Most explored') + ' brand in ' + entity.country.name
+      : '#' + entity.brandRank + ' published brand in ' + entity.country.name;
+    tooltip.querySelector('[data-tooltip-country]').textContent = entity.brand.label;
+    tooltip.querySelector('[data-tooltip-signals]').textContent = number(modelBrandSignals(entity.brand)) + ' unique brand visitors · select for model detail';
+    const rect = stage.getBoundingClientRect();
+    const left = Math.min(event.clientX - rect.left, rect.width - 250);
+    const top = Math.min(event.clientY - rect.top, rect.height - 140);
+    tooltip.style.left = Math.max(4, left) + 'px';
+    tooltip.style.top = Math.max(4, top) + 'px';
+    return;
+  }
   if (entity.kind === 'cityCluster') {
     tooltip.hidden = false;
     tooltip.querySelector('[data-tooltip-rank]').textContent = 'Published DataFast city cluster';
@@ -3331,7 +3813,9 @@ function showTooltip(entity, event) {
   tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
   const detailConfig = !stateView ? detailConfigForCountry(entity) : null;
   const stateDetailConfig = stateView ? admin2ConfigForParent(entity, 'us') : null;
-  const action = stateDetailConfig && Number(stateDetailConfig.featureCount) > 1
+  const action = isModelInterestView()
+    ? ' · select for brand and model detail'
+    : stateDetailConfig && Number(stateDetailConfig.featureCount) > 1
     ? ` · select for ${stateDetailConfig.childrenLabel}`
     : !stateView && entity.adm0A3 === 'USA'
     ? ' · select for state detail'
@@ -3339,7 +3823,7 @@ function showTooltip(entity, event) {
       ? ` · select for ${detailConfig.regionLabel} detail`
       : '';
   tooltip.querySelector('[data-tooltip-signals]').textContent = Number.isFinite(entity.signals)
-    ? `${number(entity.signals)} interest signals${action}`
+    ? `${number(entity.signals)} ${signalLabel(entity.signals)}${action}`
     : `No country total published${action}`;
   const rect = stage.getBoundingClientRect();
   const left = Math.min(event.clientX - rect.left, rect.width - 220);
@@ -3492,8 +3976,246 @@ function focusCluster(cluster) {
   scrollAtlasIntoView();
 }
 
+function brandIdentifier(brand) {
+  return String(brand?.id || brand?.brandId || brand?.family || '');
+}
+
+function modelRowsForBrand(brand) {
+  const models = brand?.models;
+  return Array.isArray(models) ? models : [];
+}
+
+function modelRowSignals(model) {
+  return Number(model?.visitors ?? model?.signals ?? model?.score) || 0;
+}
+
+function globalModelBrands() {
+  const brands = state.data?.modelInterest?.global?.brands || state.data?.brands || [];
+  return Array.isArray(brands) ? brands : [];
+}
+
+function setModelPanelOpen(open) {
+  state.modelPanelOpen = Boolean(open);
+  stage.classList.toggle('atlas-model-panel-open', state.modelPanelOpen);
+  if (modelPanel && isModelInterestView()) {
+    modelPanel.hidden = !state.modelPanelOpen;
+  }
+}
+
+function humanModelFamily(value) {
+  return String(value || 'LLM family')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, character => character.toUpperCase());
+}
+
+function renderModelBrandButtons(container, brands, country) {
+  if (!container) return;
+  const fragment = document.createDocumentFragment();
+  for (const brand of brands) {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'atlas-model-family-button';
+    const logo = document.createElement('img');
+    logo.src = brand.logo;
+    logo.alt = '';
+    logo.width = 34;
+    logo.height = 34;
+    logo.loading = 'lazy';
+    const copy = document.createElement('span');
+    const name = document.createElement('strong');
+    name.textContent = brand.label;
+    const detail = document.createElement('small');
+    const publicModelCount = modelRowsForBrand(brand).length;
+    detail.textContent = number(modelBrandSignals(brand)) + ' visitors · '
+      + (publicModelCount
+        ? number(publicModelCount) + ' ' + (publicModelCount === 1 ? 'model' : 'models') + ' published'
+        : 'model detail below threshold');
+    copy.append(name, detail);
+    const arrow = document.createElement('b');
+    arrow.textContent = '→';
+    button.append(logo, copy, arrow);
+    button.setAttribute('aria-label', 'Open ' + brand.label + ' model detail');
+    button.addEventListener('click', () => {
+      stopTour();
+      state.selectedModelBrand = brandIdentifier(brand);
+      setModelPanelOpen(true);
+      renderModelPanel(country, state.selectedModelBrand);
+    });
+    item.append(button);
+    fragment.append(item);
+  }
+  container.replaceChildren(fragment);
+}
+
+function renderModelRows(container, brand) {
+  if (!container) return;
+  const fragment = document.createDocumentFragment();
+  const models = modelRowsForBrand(brand)
+    .slice()
+    .sort((left, right) => modelRowSignals(right) - modelRowSignals(left)
+      || String(left.label || left.name || left.id).localeCompare(String(right.label || right.name || right.id)));
+  if (!models.length) {
+    const empty = document.createElement('li');
+    empty.className = 'atlas-model-list__empty';
+    empty.textContent = `This brand reaches the public visitor threshold, but no individual model page independently reaches ${PUBLISH_THRESHOLD} visitors in this scope.`;
+    fragment.append(empty);
+  }
+  models.forEach((model, index) => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    const modelId = String(model.id || model.modelId || '');
+    link.href = model.path || ('/models/' + encodeURIComponent(modelId));
+    const rank = document.createElement('b');
+    rank.textContent = String(index + 1).padStart(2, '0');
+    const copy = document.createElement('span');
+    const name = document.createElement('strong');
+    name.textContent = model.label || model.name || modelId;
+    const family = document.createElement('small');
+    family.textContent = humanModelFamily(model.family) + ' · ' + number(modelRowSignals(model)) + ' visitors';
+    copy.append(name, family);
+    const value = document.createElement('em');
+    value.textContent = number(modelRowSignals(model));
+    link.append(rank, copy, value);
+    item.append(link);
+    fragment.append(item);
+  });
+  container.replaceChildren(fragment);
+}
+
+function renderModelPanel(country = state.selectedModelCountry, selectedBrandId = state.selectedModelBrand) {
+  if (!modelPanel || !isModelInterestView()) return;
+  modelPanel.hidden = !state.modelPanelOpen;
+  const brands = country ? modelBrandsForCountry(country) : globalModelBrands();
+  const dominant = brands[0] || null;
+  const dominantCount = country
+    ? coLeadingModelBrands(country).length
+    : dominant
+      ? brands.filter(brand => modelBrandSignals(brand) === modelBrandSignals(dominant)).length
+      : 0;
+  const selected = brands.find(brand => brandIdentifier(brand) === selectedBrandId) || null;
+  const selectedCountryCount = !country && selected
+    ? state.countries.filter(candidate => modelBrandsForCountry(candidate)
+      .some(brand => brandIdentifier(brand) === brandIdentifier(selected))).length
+    : 0;
+  syncModelMarkerBrands(country, selected);
+  const modelLegendCopy = modelLegend?.querySelector('small');
+  if (modelLegendCopy) {
+    const selectedIsLeader = country && selected ? coLeadingModelBrands(country).includes(selected) : true;
+    modelLegendCopy.textContent = !country && selected
+      ? selectedCountryCount
+        ? `${selected.label} · ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} published`
+        : `${selected.label} · no country independently reaches ${PUBLISH_THRESHOLD}`
+      : selectedIsLeader
+        ? 'Most explored local model brand'
+        : 'Selected brand in focus · other logos show leaders';
+  }
+  const countryLabel = modelPanel.querySelector('[data-atlas-model-country]');
+  const dominantLogo = modelPanel.querySelector('[data-atlas-model-dominant-logo]');
+  const dominantFamily = modelPanel.querySelector('[data-atlas-model-dominant-family]');
+  const dominantSummary = modelPanel.querySelector('[data-atlas-model-dominant-summary]');
+  const familyCount = modelPanel.querySelector('[data-atlas-model-family-count]');
+  const requestCount = modelPanel.querySelector('[data-atlas-model-request-count]');
+  const familyList = modelPanel.querySelector('[data-atlas-model-family-list]');
+  const brandLogo = modelPanel.querySelector('[data-atlas-model-brand-logo]');
+  const brandName = modelPanel.querySelector('[data-atlas-model-brand-name]');
+  const brandSummary = modelPanel.querySelector('[data-atlas-model-brand-summary]');
+  const modelList = modelPanel.querySelector('[data-atlas-model-list]');
+  const overview = modelPanel.querySelector('[data-atlas-model-overview]');
+  const brandView = modelPanel.querySelector('[data-atlas-model-brand-view]');
+  const empty = modelPanel.querySelector('[data-atlas-model-empty]');
+  const back = modelPanel.querySelector('[data-atlas-model-back]');
+  if (countryLabel) countryLabel.textContent = country ? country.name : 'Worldwide model interest';
+  if (dominantLogo) {
+    dominantLogo.src = dominant?.logo || '';
+    dominantLogo.alt = '';
+    dominantLogo.hidden = !dominant;
+  }
+  if (dominantFamily) dominantFamily.textContent = dominant
+    ? dominant.label + (dominantCount > 1 ? ` · ${dominantCount}-way tie` : '')
+    : 'Collecting enough signals';
+  if (dominantSummary) dominantSummary.textContent = dominant
+    ? number(modelBrandSignals(dominant)) + ' unique visitors explored this brand across its eligible LocalClaw model pages.'
+      + (dominantCount > 1 ? ' It shares the lead in this scope.' : '')
+    : 'No individual LLM page reaches five anonymous visitors in this scope yet.';
+  if (familyCount) familyCount.textContent = number(brands.length);
+  const visitorTotal = country
+    ? modelCountryVisitors(country)
+    : Number(state.data?.totals?.modelVisitors ?? state.data?.totals?.signals) || 0;
+  if (requestCount) requestCount.textContent = number(visitorTotal);
+  renderModelBrandButtons(familyList, brands, country);
+  if (brandLogo) {
+    brandLogo.src = selected?.logo || '';
+    brandLogo.alt = '';
+    brandLogo.hidden = !selected;
+  }
+  if (brandName) brandName.textContent = selected?.label || '';
+  if (brandSummary) brandSummary.textContent = selected
+    ? country
+      ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page here.'
+      : number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page worldwide. '
+        + (selectedCountryCount
+          ? `The globe shows the ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} where this brand independently reaches the public threshold.`
+          : `No individual country independently reaches the ${PUBLISH_THRESHOLD}-visitor threshold for this brand, so the globe is intentionally clear.`)
+    : '';
+  if (selected) renderModelRows(modelList, selected);
+  else if (modelList) modelList.replaceChildren();
+  if (overview) overview.hidden = Boolean(selected) || !brands.length;
+  if (brandView) brandView.hidden = !selected;
+  if (empty) empty.hidden = Boolean(brands.length);
+  if (back) {
+    back.hidden = !selected && !country;
+    back.textContent = selected ? '← All brands' : '← World';
+    back.setAttribute('aria-label', selected ? 'Return to the model-brand overview' : 'Return to the world model view');
+  }
+  modelPanel.dataset.scope = selected ? 'brand' : country ? 'country' : 'world';
+}
+
+function focusModelCountry(country, requestedBrandId = '') {
+  if (!country || !isModelInterestView()) return;
+  if (!state.tourAdvancing) stopTour();
+  if (state.scope !== 'world') exitToWorld();
+  const requestedBrand = modelBrandsForCountry(country)
+    .find(brand => brandIdentifier(brand) === String(requestedBrandId || '')) || null;
+  state.selectedModelCountry = country;
+  state.selectedModelBrand = requestedBrand ? brandIdentifier(requestedBrand) : null;
+  state.locked = country;
+  const center = state.centers.get(country.name);
+  if (center) beginFocusTransition(center, isMobileViewport() ? 9.35 : 7.65);
+  state.lastInteractionAt = performance.now();
+  updateSelectionOverlay(country);
+  hideTooltip();
+  if (spotlight) spotlight.hidden = true;
+  setModelPanelOpen(true);
+  renderModelPanel(country, state.selectedModelBrand);
+  scrollAtlasIntoView();
+}
+
+function resetModelPanel() {
+  stopTour();
+  state.selectedModelCountry = null;
+  state.selectedModelBrand = null;
+  state.locked = null;
+  setModelPanelOpen(false);
+  updateSelectionOverlay(null);
+  renderModelPanel(null, '');
+}
+
+function showGlobalModelPanel() {
+  state.selectedModelCountry = null;
+  state.selectedModelBrand = null;
+  exitToWorld();
+  setModelPanelOpen(true);
+  renderModelPanel(null, '');
+  scrollAtlasIntoView();
+}
+
 function focusCountry(country) {
   if (!state.tourAdvancing) stopTour();
+  if (isModelInterestView()) {
+    focusModelCountry(country);
+    return;
+  }
   if (state.scope !== 'world') exitToWorld();
   if (country.adm0A3 === 'USA' && state.usRegions.length) {
     enterUnitedStates();
@@ -3630,9 +4352,22 @@ function findEntityByName(entities, value) {
 }
 
 async function applyRequestedView() {
+  if (isModelInterestView() && !requestedView.country) {
+    if (requestedView.brand && globalModelBrands().some(brand => brandIdentifier(brand) === requestedView.brand)) {
+      state.selectedModelBrand = requestedView.brand;
+      setModelPanelOpen(true);
+      renderModelPanel(null, requestedView.brand);
+    }
+    return;
+  }
   if (!requestedView.country) return;
   const country = findEntityByName(state.countries, requestedView.country);
   if (!country) return;
+
+  if (isModelInterestView()) {
+    focusModelCountry(country, requestedView.brand);
+    return;
+  }
 
   if (country.adm0A3 === 'USA') {
     enterUnitedStates();
@@ -3706,6 +4441,7 @@ function metric(value) {
 
 function updateScopeInterface() {
   const installIntentView = isInstallIntentView();
+  const modelInterestView = isModelInterestView();
   const stateView = state.scope === 'us';
   const admin1View = isAdmin1Scope();
   const admin2View = isAdmin2Scope();
@@ -3713,21 +4449,28 @@ function updateScopeInterface() {
   stage.classList.toggle('atlas-scope-us', regionalView);
   stage.classList.toggle('atlas-scope-admin1', admin1View || admin2View);
   stage.classList.toggle('atlas-scope-admin2', admin2View);
+  stage.classList.toggle('atlas-view-models', modelInterestView);
   if (state.camera && state.renderer) resize();
-  if (regionPanel) regionPanel.hidden = !regionalView;
+  if (regionPanel) regionPanel.hidden = modelInterestView || !regionalView;
+  if (modelPanel) modelPanel.hidden = !modelInterestView || !state.modelPanelOpen;
+  if (modelLegend) modelLegend.hidden = !modelInterestView;
+  if (modelLogoLayer) modelLogoLayer.hidden = !modelInterestView;
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
   if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
   if (state.detailGroup) state.detailGroup.visible = admin1View || (admin2View && state.admin2ParentScope === 'admin1');
   if (state.admin2Group) state.admin2Group.visible = admin2View;
   if (tourButton) tourButton.hidden = admin2View;
   updateClusterVisibility();
-  if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
+  if (modelInterestView) setAtlasTitle('See which local AI brands', 'each country is exploring.');
+  else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
   else if (admin1View) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, state.detailConfig.titleEmphasis);
   else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
   else if (installIntentView) setAtlasTitle('See where local AI', 'install intent is strongest.');
   else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
-    summary.textContent = stateView
+    summary.textContent = modelInterestView
+      ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show a privacy-thresholded brand · ${periodLabel()}`
+      : stateView
       ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
         ? `${state.detailCountry.name} · Approximate network regions · ${periodDateRange()}`
@@ -3737,21 +4480,27 @@ function updateScopeInterface() {
           ? `Anonymous install-intent visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ visitors · ${periodLabel()} · Tracking since 21 August 2026`
           : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
   }
-  if (liveLabel) liveLabel.textContent = stateView
+  if (liveLabel) liveLabel.textContent = modelInterestView
+    ? 'Model interest exploration'
+    : stateView
     ? 'State-level exploration'
     : admin1View
       ? state.detailConfig.liveLabel
       : admin2View
         ? state.admin2Config.liveLabel
       : installIntentView ? 'Install-intent exploration' : 'Live exploration';
-  const scopeSignals = stateView
+  const scopeSignals = modelInterestView
+    ? (state.data.totals.modelVisitors ?? state.data.totals.signals)
+    : stateView
     ? state.usData.totals.publishedSignals
     : admin1View
       ? state.detailTotals.signals
       : admin2View
         ? state.admin2Config.parentSignals
       : (state.data.totals.publishedSignals ?? state.data.totals.signals);
-  const scopeRegions = stateView
+  const scopeRegions = modelInterestView
+    ? (state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)
+    : stateView
     ? state.usData.totals.publishedRegions
     : admin1View
       ? state.detailTotals.regions
@@ -3762,7 +4511,9 @@ function updateScopeInterface() {
   document.querySelector('[data-scope-regions]').textContent = admin1View && !Number.isFinite(scopeRegions)
     ? number(state.detailRegions.length)
     : metric(scopeRegions);
-  document.querySelector('[data-scope-signal-label]').textContent = stateView
+  document.querySelector('[data-scope-signal-label]').textContent = modelInterestView
+    ? 'anonymous model-page visitors'
+    : stateView
     ? installIntentView ? 'visible state install-intent visitors' : 'visible state signals'
     : admin1View
       ? state.detailDataStatus === 'published'
@@ -3779,7 +4530,9 @@ function updateScopeInterface() {
           ? state.admin2Config.parentSignalLabel
           : 'parent aggregate not published'
       : publishedSignalLabel();
-  document.querySelector('[data-scope-region-label]').textContent = stateView
+  document.querySelector('[data-scope-region-label]').textContent = modelInterestView
+    ? 'countries with published brands'
+    : stateView
     ? 'states published'
     : admin1View
       ? Number.isFinite(state.detailTotals.regions)
@@ -3793,7 +4546,9 @@ function updateScopeInterface() {
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
     : `${periodDays()}-day window`;
-  document.querySelector('[data-scope-disclosure]').textContent = installIntentView
+  document.querySelector('[data-scope-disclosure]').textContent = modelInterestView
+    ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
+    : installIntentView
     ? regionalView
       ? 'Regional boundaries remain visible for exploration. No regional install-intent total reached the five-visitor publication threshold in this snapshot; neutral does not mean zero. A click does not verify a completed installation or local run.'
       : 'Country color shows unique visitors who selected at least one LocalClaw model download or desktop-runtime path. Visitors are de-duplicated across the goal family. No completed installation or local model run is verified.'
@@ -3806,7 +4561,9 @@ function updateScopeInterface() {
       : admin2View
         ? `${state.admin2Config.childrenLabel} are neutral cartographic references. DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate published city clusters, not subdivision totals.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
-  canvas.setAttribute('aria-label', installIntentView
+  canvas.setAttribute('aria-label', modelInterestView
+    ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
+    : installIntentView
     ? regionalView
       ? `Interactive globe showing ${stateView ? 'U.S. states' : admin1View ? state.detailConfig.regionsLabel : state.admin2Config.childrenLabel} as neutral boundaries because no regional install-intent aggregate reached five visitors. Use the back control to return.`
       : 'Interactive globe showing anonymous LocalClaw install-intent visitors by country. Select a country to explore its boundaries. Color appears only at five or more unique visitors; no completed installation or local run is verified.'
@@ -4082,6 +4839,7 @@ function advanceTour() {
   state.tourAdvancing = true;
   if (state.scope === 'us') focusRegion(entity);
   else if (isAdmin1Scope()) focusAdmin1Region(entity);
+  else if (isModelInterestView()) focusModelCountry(entity);
   else focusCountrySurface(entity);
   state.tourAdvancing = false;
   if (tourLabel) tourLabel.textContent = `${String(state.tourIndex || entities.length).padStart(2, '0')}/10 · ${entity.name}`;
@@ -4242,7 +5000,8 @@ function bindInteractions() {
       updatePointer(event);
       const entity = entityAtPointer({ preferGeography: true });
       if (entity) {
-        if (entity.kind === 'cityCluster') focusCluster(entity);
+        if (entity.kind === 'modelBrand') focusModelCountry(entity.country, entity.brand.id || entity.brand.brandId || entity.brand.family);
+        else if (entity.kind === 'cityCluster') focusCluster(entity);
         else if (isAdmin2Scope() && entity.kind === 'admin2') focusAdmin2Region(entity);
         else if (state.scope === 'us') activateUsRegion(entity);
         else if (isAdmin1Scope() && entity.kind === 'admin1') activateAdmin1Region(entity);
@@ -4313,7 +5072,9 @@ function bindInteractions() {
       if (button.disabled || period === ACTIVE_PERIOD || !Object.hasOwn(PERIOD_CONFIG, period)) return;
       document.documentElement.classList.add('atlas-period-loading');
       button.setAttribute('aria-busy', 'true');
-      const url = new URL(window.location.href);
+      const url = isModelInterestView()
+        ? new URL(currentShareUrl())
+        : new URL(window.location.href);
       if (period === '30d') url.searchParams.delete('range');
       else url.searchParams.set('range', period);
       url.searchParams.delete('v');
@@ -4324,21 +5085,53 @@ function bindInteractions() {
   document.querySelectorAll('[data-atlas-view]').forEach(button => {
     button.addEventListener('click', () => {
       const view = button.getAttribute('data-atlas-view');
-      if (view === ACTIVE_VIEW) return;
+      if (view === ACTIVE_VIEW) {
+        if (view === 'models') {
+          if (state.selectedModelCountry || state.selectedModelBrand) {
+            setModelPanelOpen(true);
+            renderModelPanel(state.selectedModelCountry, state.selectedModelBrand);
+          } else {
+            showGlobalModelPanel();
+          }
+        }
+        return;
+      }
       if (view === 'active') {
         showToast('Verified activity requires real local model launches. LocalClaw will never infer it from website visits.');
         return;
       }
       const url = new URL(window.location.href);
       if (view === 'installed') url.searchParams.set('view', 'installed');
+      else if (view === 'models') url.searchParams.set('view', 'models');
       else url.searchParams.delete('view');
       url.searchParams.delete('country');
       url.searchParams.delete('region');
       url.searchParams.delete('subregion');
+      url.searchParams.delete('area');
+      url.searchParams.delete('family');
+      url.searchParams.delete('brand');
       url.searchParams.delete('v');
       window.location.assign(url);
     });
   });
+
+  const modelClose = document.querySelector('[data-atlas-model-close]');
+  const modelBack = document.querySelector('[data-atlas-model-back]');
+  if (modelClose) modelClose.addEventListener('click', () => {
+    setModelPanelOpen(false);
+    canvas.focus({ preventScroll: true });
+  });
+  if (modelBack) {
+    modelBack.addEventListener('click', () => {
+      stopTour();
+      if (state.selectedModelBrand) {
+        state.selectedModelBrand = null;
+        renderModelPanel(state.selectedModelCountry, '');
+      } else {
+        showGlobalModelPanel();
+      }
+    });
+  }
 
   document.querySelectorAll('[data-country-focus]').forEach(button => {
     button.addEventListener('click', () => {
@@ -4385,15 +5178,19 @@ function bindInteractions() {
     state.contextLost = true;
     state.running = false;
     stage.classList.remove('atlas-ready');
+    updateModelDomFallback();
     if (fallbackNote) {
       fallbackNote.hidden = false;
-      fallbackNote.textContent = 'Interactive globe paused · static view active';
+      fallbackNote.textContent = isModelInterestView()
+        ? 'Interactive globe paused · model logos and rankings remain available'
+        : 'Interactive globe paused · static view active';
     }
   });
   canvas.addEventListener('webglcontextrestored', () => {
     state.contextLost = false;
     state.running = !document.hidden && state.inViewport;
     stage.classList.add('atlas-ready');
+    updateModelDomFallback();
     if (fallbackNote) fallbackNote.hidden = true;
   });
 }
@@ -4476,6 +5273,7 @@ function animate(time) {
   }
 
   updateProjectedLabels(time);
+  updateModelMarkerVisibility();
   updateWorldMapClarity();
   state.renderer.render(state.scene, state.camera);
 }
@@ -4549,12 +5347,121 @@ function renderModelRequestRows() {
 
 function renderDataSummary() {
   const installIntentView = isInstallIntentView();
+  const modelInterestView = isModelInterestView();
   const leader = state.countries[0];
   const oregon = state.usRegions.find(region => region.name === 'Oregon');
-  document.querySelectorAll('[data-interest-only]').forEach(element => { element.hidden = installIntentView; });
+  document.querySelectorAll('[data-interest-only]').forEach(element => { element.hidden = installIntentView || modelInterestView; });
   document.querySelectorAll('[data-install-only]').forEach(element => { element.hidden = !installIntentView; });
+  document.querySelectorAll('[data-model-only]').forEach(element => { element.hidden = !modelInterestView; });
+  const colorLegend = document.querySelector('[data-atlas-color-legend]');
   const beaconLegend = document.querySelector('[data-atlas-beacon-legend]');
-  if (beaconLegend) beaconLegend.hidden = installIntentView;
+  if (colorLegend) colorLegend.hidden = false;
+  if (beaconLegend) beaconLegend.hidden = installIntentView || modelInterestView;
+  if (modelInterestView) {
+    const colorLegendTitle = colorLegend?.querySelector('strong');
+    const colorLegendCopy = colorLegend?.querySelector('small');
+    if (colorLegendTitle) colorLegendTitle.textContent = 'Color';
+    if (colorLegendCopy) colorLegendCopy.textContent = 'All-model country visitors';
+    document.title = 'Most Explored Local AI Models by Country | LocalClaw Atlas';
+    const leadingBrand = dominantModelBrand(leader);
+    const leadingBrands = coLeadingModelBrands(leader);
+    const hasLeadingTie = leadingBrands.length > 1;
+    const totalVisitors = Number(state.data.totals.modelVisitors ?? state.data.totals.signals) || 0;
+    const publishedCountries = Number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions) || 0;
+    document.querySelectorAll('[data-total-signals]').forEach(element => {
+      element.textContent = number(totalVisitors);
+    });
+    document.querySelectorAll('[data-total-regions]').forEach(element => {
+      element.textContent = number(publishedCountries);
+    });
+    document.querySelectorAll('[data-period-date-range]').forEach(element => {
+      element.textContent = periodDateRange();
+    });
+    const snapshotEyebrow = document.querySelector('[data-snapshot-eyebrow]');
+    if (snapshotEyebrow) snapshotEyebrow.textContent = 'Model interest by country';
+    const snapshotTitle = document.querySelector('[data-snapshot-title]');
+    if (snapshotTitle) snapshotTitle.textContent = 'Which local AI brands is each country exploring?';
+    const snapshotLead = document.querySelector('[data-snapshot-lead]');
+    if (snapshotLead) snapshotLead.textContent = leader && leadingBrand
+      ? `${leader.name} leads this published model-page snapshot with ${number(modelCountryVisitors(leader))} unique visitors; ${leadingBrand.label} ${hasLeadingTie ? `shares the local lead with ${number(leadingBrands.length - 1)} other brand${leadingBrands.length > 2 ? 's' : ''}` : 'is its most explored local AI brand'}. This measures LocalClaw page exploration, not verified model usage.`
+      : `Atlas publishes only country and brand totals that independently reach ${PUBLISH_THRESHOLD} unique model-page visitors. This measures LocalClaw page exploration, not verified model usage.`;
+    const leadingCountry = document.querySelector('[data-leading-country]');
+    if (leadingCountry) leadingCountry.textContent = leader?.name || 'Collecting signals';
+    const leadingDetail = document.querySelector('[data-leading-detail]');
+    if (leadingDetail) leadingDetail.textContent = leader && leadingBrand
+      ? `${number(modelCountryVisitors(leader))} model-page visitors · ${leadingBrand.label} ${hasLeadingTie ? 'co-leads locally' : 'leads locally'}`
+      : 'No country reaches the public threshold yet';
+    const observedMetricLabel = document.querySelector('[data-observed-metric-label]');
+    if (observedMetricLabel) observedMetricLabel.textContent = 'Model-page visitors';
+    const observedWindow = document.querySelector('[data-observed-window]');
+    if (observedWindow) observedWindow.textContent = `Unique visitors across eligible LLM pages · ${periodDateRange()}`;
+    const coverageLabel = document.querySelector('[data-global-coverage-label]');
+    const coverageValue = document.querySelector('[data-global-coverage-value]');
+    const coverageDetail = document.querySelector('[data-global-coverage-detail]');
+    if (coverageLabel) coverageLabel.textContent = 'Published coverage';
+    if (coverageValue) coverageValue.textContent = `${number(publishedCountries)} countries`;
+    if (coverageDetail) coverageDetail.textContent = `${number(globalModelBrands().length)} brands published globally at ${PUBLISH_THRESHOLD}+ visitors`;
+    const rankingEyebrow = document.querySelector('[data-country-ranking-eyebrow]');
+    if (rankingEyebrow) rankingEyebrow.textContent = 'Model interest country ranking';
+    const rankingTitle = document.querySelector('[data-country-ranking-title]');
+    if (rankingTitle) rankingTitle.textContent = 'Where people explore local AI models.';
+    const rankingLead = document.querySelector('[data-country-ranking-lead]');
+    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country to see its leading brands, then open a brand for its publishable model detail. Country, brand and individual model rows must independently reach five visitors.';
+    const countryCaption = document.querySelector('[data-country-ranking-caption]');
+    if (countryCaption) countryCaption.textContent = `Countries with at least ${PUBLISH_THRESHOLD} unique visitors across eligible LocalClaw LLM pages, ${periodDateRange()}`;
+    const countrySignalHeading = document.querySelector('[data-country-signal-heading]');
+    if (countrySignalHeading) countrySignalHeading.textContent = 'Visitors';
+    const methodologyEyebrow = document.querySelector('[data-methodology-eyebrow]');
+    if (methodologyEyebrow) methodologyEyebrow.textContent = 'Methodology · Model interest beta';
+    const methodologyTitle = document.querySelector('[data-methodology-title]');
+    if (methodologyTitle) methodologyTitle.textContent = 'Model discovery, measured without pretending it is usage.';
+    const methodologyLead = document.querySelector('[data-methodology-lead]');
+    if (methodologyLead) methodologyLead.textContent = 'The Models view uses anonymous DataFast visitors to canonical LocalClaw LLM pages. Country and brand totals are queried as deduplicated visitor groups; individual model rows are published only when that exact page independently reaches the privacy threshold.';
+    const methodCount = document.querySelector('[data-method-count]');
+    if (methodCount) methodCount.textContent = `A unique visitor to at least one eligible LocalClaw /models/ page during the ${periodDays()}-day window. A brand total is deduplicated across that brand’s exact model-page allow-list; individual pages are never summed to invent a unique brand total.`;
+    const methodExclude = document.querySelector('[data-method-exclude]');
+    if (methodExclude) methodExclude.textContent = 'No download completion, installation, launch, prompt, inference, active-use event, device identity, or claim about worldwide model usage is included.';
+    const methodGeography = document.querySelector('[data-method-geography]');
+    if (methodGeography) methodGeography.textContent = 'Countries are approximate network locations reported by DataFast. The logo on each country is its highest published brand total for the selected period. This view does not infer subnational model preference.';
+    const methodPrivacy = document.querySelector('[data-method-privacy]');
+    if (methodPrivacy) methodPrivacy.textContent = `Country, brand and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Rows below threshold and all visitor-level data remain absent from the public JSON.`;
+    const sourceCoverage = document.querySelector('[data-source-coverage]');
+    if (sourceCoverage) {
+      const sourceLabel = document.createElement('strong');
+      sourceLabel.textContent = 'Source and coverage:';
+      const countryBoundaryLink = document.createElement('a');
+      countryBoundaryLink.href = 'https://www.naturalearthdata.com/downloads/50m-cultural-vectors/';
+      countryBoundaryLink.rel = 'external noopener';
+      countryBoundaryLink.textContent = 'Natural Earth 1:50m';
+      sourceCoverage.replaceChildren(
+        sourceLabel,
+        document.createTextNode(` aggregated anonymous LocalClaw website traffic measured by DataFast, ${periodDateRange()}, Europe/Zurich. Country outlines use `),
+        countryBoundaryLink,
+        document.createTextNode('. The Models view loads country boundaries only and does not infer subnational model preference. Source coverage is biased toward people and network routes that reach LocalClaw.')
+      );
+    }
+    const leaderFaq = document.querySelector('[data-current-leader-faq]');
+    if (leaderFaq) leaderFaq.textContent = leader && leadingBrand
+      ? `${leader.name} leads this ${periodDays()}-day model-page snapshot, and ${leadingBrand.label} ${hasLeadingTie ? `is one of ${number(leadingBrands.length)} co-leading published brands` : 'is its most explored published brand'}. The result reflects LocalClaw page interest, not verified use worldwide.`
+      : 'The Models view publishes only privacy-thresholded LocalClaw page interest, not verified use worldwide.';
+    const regionalFaqTitle = document.querySelector('[data-regional-faq-title]');
+    const regionalFaq = document.querySelector('[data-regional-faq]');
+    if (regionalFaqTitle) regionalFaqTitle.textContent = 'Does the Models view go below country level?';
+    if (regionalFaq) regionalFaq.textContent = 'Not yet. Brand totals are published at country level because no independently privacy-thresholded subnational model breakdown is available. Atlas does not infer a state, province, canton, or city model preference from a country total.';
+    renderRankingRows('[data-country-ranking-body]', state.countries, totalVisitors || 1, 'country', state.countries.length);
+    const countryDownload = document.querySelector('[data-country-download]');
+    if (countryDownload) {
+      countryDownload.href = DATA_URL.split('?')[0];
+      countryDownload.textContent = 'Download model-interest JSON';
+    }
+    const regionalDownload = document.querySelector('[data-admin1-download]');
+    const deeperBoundaryDownload = document.querySelector('[data-admin2-download]');
+    if (regionalDownload) regionalDownload.hidden = true;
+    if (deeperBoundaryDownload) deeperBoundaryDownload.hidden = true;
+    updatePeriodControls();
+    updateScopeInterface();
+    return;
+  }
   if (installIntentView) document.title = `Local AI Install Intent by Country (${periodDays()} Days) | LocalClaw Atlas`;
   document.querySelectorAll('[data-total-signals]').forEach(element => {
     element.textContent = number(state.data.totals.signals);
@@ -4663,7 +5570,12 @@ function renderDataSummary() {
 
 async function initialize() {
   try {
-    const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)
+    const modelsView = isModelInterestView();
+    const emptyJsonResponse = value => Promise.resolve({
+      ok: true,
+      json: async () => value
+    });
+    const admin2ManifestPromise = modelsView ? Promise.resolve(null) : fetch(ADMIN2_MANIFEST_URL)
       .then(async response => {
         if (!response.ok) throw new Error(`Deeper boundary manifest could not be loaded (${response.status}).`);
         return response.json();
@@ -4675,9 +5587,9 @@ async function initialize() {
     const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse, admin2Manifest] = await Promise.all([
       fetch(DATA_URL),
       fetch(WORLD_URL),
-      fetch(US_STATES_URL),
-      fetch(ADMIN1_MANIFEST_URL),
-      fetch(ADMIN1_ACTIVITY_URL),
+      modelsView ? emptyJsonResponse({ type: 'FeatureCollection', features: [] }) : fetch(US_STATES_URL),
+      modelsView ? emptyJsonResponse({ countries: {} }) : fetch(ADMIN1_MANIFEST_URL),
+      modelsView ? emptyJsonResponse({ countries: {} }) : fetch(ADMIN1_ACTIVITY_URL),
       admin2ManifestPromise
     ]);
     if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
@@ -4689,11 +5601,27 @@ async function initialize() {
     state.admin1Manifest = await manifestResponse.json();
     state.admin1Activity = await activityResponse.json();
     state.admin2Manifest = admin2Manifest;
+    if (isModelInterestView()) {
+      if (Number(state.data.publishThreshold) !== PUBLISH_THRESHOLD
+        || !String(state.data.claimBoundary || '').toLowerCase().includes('not')
+        || !state.data.modelInterest) {
+        throw new Error('Model-interest data contract is invalid.');
+      }
+    }
     state.admin1ActivityByA3 = new Map(Object.values(state.admin1Activity?.countries || {})
       .map(record => [String(record.adm0A3 || '').toUpperCase(), record])
       .filter(([code]) => Boolean(code)));
-    state.usData = state.data.subnational?.['United States'];
-    if (!state.usData) throw new Error('United States state data is missing.');
+    const publishedUsData = state.data.subnational?.['United States'];
+    if (!publishedUsData && !isModelInterestView()) throw new Error('United States state data is missing.');
+    state.usData = publishedUsData || {
+      publishThreshold: PUBLISH_THRESHOLD,
+      totals: {
+        countrySignals: 0,
+        publishedSignals: 0,
+        publishedRegions: 0
+      },
+      regions: []
+    };
     state.countries = state.data.countries.filter(country => country.signals >= PUBLISH_THRESHOLD);
     state.usRegions = state.usData.regions.filter(region => region.signals >= state.usData.publishThreshold);
     state.cityClusters = normalizeCityClusters(state.data.cityClusters);
@@ -4748,8 +5676,10 @@ async function initialize() {
     stage.dataset.admin2Parents = String(state.admin2Manifest?.totals?.parents || 0);
     stage.dataset.admin2Subdivisions = String(state.admin2Manifest?.totals?.subdivisions || 0);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
+    if (isModelInterestView()) setModelPanelOpen(!isMobileViewport());
     renderStatePanel();
     renderDataSummary();
+    if (isModelInterestView()) renderModelPanel(null, '');
     bindInteractions();
     state.initialized = true;
     await applyRequestedView();
@@ -4760,7 +5690,9 @@ async function initialize() {
     stage.classList.remove('atlas-ready');
     if (fallbackNote) {
       fallbackNote.hidden = false;
-      fallbackNote.textContent = 'Static globe active · rankings remain available below';
+      fallbackNote.textContent = isModelInterestView()
+        ? 'Interactive model globe unavailable · country and brand rankings remain available below'
+        : 'Static globe active · rankings remain available below';
     }
   }
 }
