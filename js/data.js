@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated August 28, 2026 - Added DFM-Mimir - 234 LLM total
+// Updated September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
+// Previous: August 28, 2026 - Added DFM-Mimir - 234 LLM total
 // Previous: August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
 // Previous: August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
 // Previous: August 24, 2026 - Added NVIDIA Nemotron 3.5 Lightning - 230 LLM total
@@ -157,6 +158,24 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'ibnsina-1.5b',
+            name: 'IbnSina-1.5B',
+            family: 'ibnsina',
+            params: '1.5B',
+            size_gb: 0.9,
+            min_ram: 4,
+            tags: ['chat', 'light', 'speed', 'multilingual', 'general'],
+            description: 'IbnSina-1.5B is a Persian-first 1.48B Llama-compatible language model trained from scratch on a Persian-heavy corpus, with Apache 2.0 weights and GGUF artifacts for laptop, phone, Ollama, LM Studio and llama.cpp use.',
+            search_term: 'ibnsina-1.5b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'ibnsina-llm/ibnsina-1.5b',
+            source_url: 'https://huggingface.co/ibnsina-llm/ibnsina-1.5b',
+            runtime_url: 'https://huggingface.co/ibnsina-llm/ibnsina-1.5b',
+            benchmarks: { speed: 10, quality: 5, coding: 2, reasoning: 4 },
+            released: '2026-09-01',
+            isNew: true
+        },
         {
             id: 'dfm-mimir',
             name: 'DFM-Mimir',
@@ -3886,10 +3905,11 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-08-28T00:00:00.000Z",
-        catalogueHash: "85c527a3fad12f43b01908dc055fadf457a19fe4215043420c64cef12d0947ef",
+        catalogueHash: "f8f527b51bc82862ad0656c1e3ad6b58a84e1ff786b7dd89b3a0945d6d0d7af3",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
+            "ibnsina-1.5b": "ibnsina-llm/ibnsina-1.5b",
             "dfm-mimir": "noctrex/DFM-Mimir",
             "gemma4-e4b": "unsloth/gemma-4-E4B-it-GGUF",
             "gemma3-1b": "lmstudio-community/gemma-3-1b-it-GGUF",

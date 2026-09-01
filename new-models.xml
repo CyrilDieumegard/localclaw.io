@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>IbnSina-1.5B</title>
+      <link>https://localclaw.io/models/ibnsina-1.5b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ibnsina-1.5b</guid>
+      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
+      <category>ibnsina</category>
+      <description>IbnSina-1.5B is a Persian-first 1.48B Llama-compatible language model trained from scratch on a Persian-heavy corpus, with Apache 2.0 weights and GGUF artifacts for laptop, phone, Ollama, LM Studio and llama.cpp use. 1.5B · 4 GB minimum RAM · Q4_K_M · ibnsina.</description>
+    </item>
     <item>
       <title>Granite 4.2 (8B)</title>
       <link>https://localclaw.io/models/granite4.2-8b</link>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
       <category>hy3</category>
       <description>Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF. 295B (21B active) · 128 GB minimum RAM · IQ1_M · hy3.</description>
-    </item>
-    <item>
-      <title>Bonsai 27B</title>
-      <link>https://localclaw.io/models/bonsai-27b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/bonsai-27b</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <category>bonsai</category>
-      <description>PrismML low-bit model derived from Qwen 3.6 27B. Official Apache 2.0 ternary (7.2GB deployed) and 1-bit (3.9GB) builds retain multimodal, reasoning and agentic capabilities through custom GGUF and MLX runtimes. 27.3B (ternary / 1-bit) · 16 GB minimum RAM · Ternary Q2_0_g128 · bonsai.</description>
     </item>
   </channel>
 </rss>

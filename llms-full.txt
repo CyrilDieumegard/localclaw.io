@@ -1,10 +1,10 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-08-28 from the LocalClaw repository catalogue. This file lists all 400 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-09-01 from the LocalClaw repository catalogue. This file lists all 401 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
-## Local LLMs (224)
+## Local LLMs (225)
 
 - 001 [DeepSeek V4 Flash 0731 (284B MoE)](https://localclaw.io/models/deepseek-v4-flash-0731) — family: deepseek-flash; LocalClaw: 9.3/10; parameters: 284B (13B active); minimum RAM: 256 GB; licence: MIT; released: Jul 31, 2026.
 - 002 [Kimi K2.5 (1T MoE)](https://localclaw.io/models/kimi-k2.5-32b) — family: kimi; LocalClaw: 9.2/10; parameters: 1T (32B active, MoE); minimum RAM: 1024 GB; licence: Modified MIT; released: Jan 2026.
@@ -223,13 +223,14 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 215 [Llama Guard 3 (8B)](https://localclaw.io/models/llama-guard3-8b) — family: llama; LocalClaw: 5.1/10; parameters: 8B; minimum RAM: 8 GB; licence: See upstream model page; released: Sep 2024.
 - 216 [NuExtract (3.8B)](https://localclaw.io/models/nuextract-3.8b) — family: nuextract; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: Jun 2024.
 - 217 [LLaVA-Phi3 (3.8B)](https://localclaw.io/models/llava-phi3-3.8b) — family: llava; LocalClaw: 5.1/10; parameters: 3.8B; minimum RAM: 6 GB; licence: See upstream model page; released: May 2024.
-- 218 [Reader LM (1.5B)](https://localclaw.io/models/reader-lm-1.5b) — family: reader-lm; LocalClaw: 4.7/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Sep 2024.
-- 219 [Qwen 3.5 (0.8B)](https://localclaw.io/models/qwen3.5-0.8b) — family: qwen; LocalClaw: 4.6/10; parameters: 0.8B; minimum RAM: 2 GB; licence: See upstream model page; released: Mar 2026.
-- 220 [Gemma 3 (1B)](https://localclaw.io/models/gemma3-1b) — family: gemma; LocalClaw: 4.4/10; parameters: 1B; minimum RAM: 4 GB; licence: Gemma License; released: Mar 2025.
-- 221 [SmolLM 2 (1.7B)](https://localclaw.io/models/smollm2-1.7b) — family: smollm; LocalClaw: 4.4/10; parameters: 1.7B; minimum RAM: 4 GB; licence: See upstream model page; released: Nov 2024.
-- 222 [Moondream 2](https://localclaw.io/models/moondream2) — family: moondream; LocalClaw: 4.1/10; parameters: 1.9B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jul 2024.
-- 223 [Llama 3.2 (1B)](https://localclaw.io/models/llama3.2-1b) — family: llama; LocalClaw: 4.0/10; parameters: 1B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
-- 224 [TinyLlama (1.1B)](https://localclaw.io/models/tinyllama-1.1b) — family: tinyllama; LocalClaw: 3.5/10; parameters: 1.1B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jan 2024.
+- 218 [IbnSina-1.5B](https://localclaw.io/models/ibnsina-1.5b) — family: ibnsina; LocalClaw: 4.7/10; parameters: 1.5B; minimum RAM: 4 GB; licence: Apache 2.0; released: Sep 1, 2026.
+- 219 [Reader LM (1.5B)](https://localclaw.io/models/reader-lm-1.5b) — family: reader-lm; LocalClaw: 4.7/10; parameters: 1.5B; minimum RAM: 4 GB; licence: See upstream model page; released: Sep 2024.
+- 220 [Qwen 3.5 (0.8B)](https://localclaw.io/models/qwen3.5-0.8b) — family: qwen; LocalClaw: 4.6/10; parameters: 0.8B; minimum RAM: 2 GB; licence: See upstream model page; released: Mar 2026.
+- 221 [Gemma 3 (1B)](https://localclaw.io/models/gemma3-1b) — family: gemma; LocalClaw: 4.4/10; parameters: 1B; minimum RAM: 4 GB; licence: Gemma License; released: Mar 2025.
+- 222 [SmolLM 2 (1.7B)](https://localclaw.io/models/smollm2-1.7b) — family: smollm; LocalClaw: 4.4/10; parameters: 1.7B; minimum RAM: 4 GB; licence: See upstream model page; released: Nov 2024.
+- 223 [Moondream 2](https://localclaw.io/models/moondream2) — family: moondream; LocalClaw: 4.1/10; parameters: 1.9B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jul 2024.
+- 224 [Llama 3.2 (1B)](https://localclaw.io/models/llama3.2-1b) — family: llama; LocalClaw: 4.0/10; parameters: 1B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
+- 225 [TinyLlama (1.1B)](https://localclaw.io/models/tinyllama-1.1b) — family: tinyllama; LocalClaw: 3.5/10; parameters: 1.1B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jan 2024.
 
 ## Local Speech Models (77)
 
