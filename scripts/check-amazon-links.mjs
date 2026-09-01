@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
-import { amazonMarketplace, amazonSearchUrl, normalizeAmazonQuery } from "../functions/_lib/amazon-links.mjs";
+import { amazonSearchUrl, normalizeAmazonQuery } from "../functions/_lib/amazon-links.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
@@ -38,7 +38,7 @@ const errors = [];
 
 if (links.length !== 18) errors.push(`Expected 18 RAM/GPU Amazon buttons; found ${links.length}`);
 for (const href of links) {
-  if (!href.startsWith("/go/amazon?q=")) errors.push(`Amazon button bypasses the regional resolver: ${href}`);
+  if (!href.startsWith("/go/amazon?q=")) errors.push(`Amazon button bypasses the OneLink resolver: ${href}`);
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`Amazon button has an invalid search query: ${href}`);
 }
@@ -50,10 +50,10 @@ for (const query of computerQueries) {
 }
 if (new Set(computerQueries).size !== computerQueries.length) errors.push("Computers Amazon searches must be unique");
 if (/amazonUrl:|https:\/\/(?:www\.)?amazon\./i.test(computers)) errors.push("Computers page still contains a direct Amazon URL");
-if (!computers.includes('`/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}`')) errors.push("Computers cards do not use the regional resolver");
+if (!computers.includes('`/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}`')) errors.push("Computers cards do not use the OneLink resolver");
 if (hardwareLinks.length !== 20) errors.push(`Expected 20 Mac hardware-guide Amazon buttons; found ${hardwareLinks.length}`);
 for (const { file, href } of hardwareLinks) {
-  if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the regional Amazon resolver: ${href}`);
+  if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the OneLink resolver: ${href}`);
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
 }
@@ -70,7 +70,7 @@ for (const { file, html: page } of hardwarePages) {
 const expectedDiyLinks = diyProjects.reduce((total, project) => total + project.parts.length, 0);
 if (diyLinks.length !== expectedDiyLinks) errors.push(`Expected ${expectedDiyLinks} DIY Amazon searches; found ${diyLinks.length}`);
 for (const { file, href } of diyLinks) {
-  if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the regional Amazon resolver: ${href}`);
+  if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the OneLink resolver: ${href}`);
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
 }
@@ -79,12 +79,13 @@ for (const { file, html: page } of diyPages) {
 }
 if (!workerRoutes.include.includes("/go/amazon")) errors.push("Cloudflare routes do not include /go/amazon");
 
-const swiss = new URL(amazonSearchUrl("DDR5 64GB 2x32GB 6000 CL30", "CH"));
-if (swiss.hostname !== "www.amazon.de" || swiss.searchParams.has("tag")) errors.push("Swiss traffic must use Amazon.de without the US affiliate tag");
-const us = new URL(amazonSearchUrl("RTX 4090 24GB", "US"));
-if (us.hostname !== "www.amazon.com" || us.searchParams.get("tag") !== "localclaw-20") errors.push("US traffic must keep the localclaw-20 affiliate tag");
-if (amazonMarketplace("GB") !== "www.amazon.co.uk") errors.push("UK marketplace mapping is invalid");
-if (amazonSearchUrl("x", "US") !== "") errors.push("Invalid short searches must fail closed");
+for (const country of ["CH", "DE", "FR", "GB", "US"]) {
+  const oneLink = new URL(amazonSearchUrl("DDR5 64GB 2x32GB 6000 CL30", country));
+  if (oneLink.hostname !== "www.amazon.com" || oneLink.searchParams.get("tag") !== "localclaw-20") {
+    errors.push(`${country} traffic must start with the tagged US link so Amazon OneLink can localize it`);
+  }
+}
+if (amazonSearchUrl("x") !== "") errors.push("Invalid short searches must fail closed");
 
 if (errors.length) {
   console.error(`Amazon link validation failed with ${errors.length} issue(s):`);

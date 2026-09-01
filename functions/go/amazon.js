@@ -10,8 +10,7 @@ export async function onRequestGet(context) {
     });
   }
 
-  const country = context.request.cf?.country || context.request.headers.get("CF-IPCountry") || "";
-  const destination = amazonSearchUrl(query, country);
+  const destination = amazonSearchUrl(query);
   if (!destination) {
     return new Response("Amazon search is unavailable.", {
       status: 400,
