@@ -19,9 +19,9 @@ const INSTALL_INTENT_ADMIN1_PATH = 'data/local-ai-install-intent-admin1.json';
 const MODEL_PAGE_INTEREST_PATH = 'data/local-ai-model-page-interest.json';
 const ADMIN2_MANIFEST_PATH = 'data/admin2/manifest.json';
 const ADMIN2_MODEL_ACTIVITY_PATHS = [
-  ['30d', 'data/local-ai-admin2-model-activity.json', 9, 1, 41, 85],
-  ['90d', 'data/local-ai-admin2-model-activity-90d.json', 12, 1, 61, 174],
-  ['180d', 'data/local-ai-admin2-model-activity-180d.json', 12, 1, 64, 193]
+  ['30d', 'data/local-ai-admin2-model-activity.json', 9, 0, 41, 85],
+  ['90d', 'data/local-ai-admin2-model-activity-90d.json', 12, 0, 61, 173],
+  ['180d', 'data/local-ai-admin2-model-activity-180d.json', 12, 0, 64, 192]
 ];
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
@@ -359,7 +359,7 @@ function loadCanonicalModelCatalogue() {
   return { models, brands, ambiguousIds };
 }
 
-function validateModelBrandRows(brands, label, catalogue) {
+function validateModelBrandRows(brands, label, catalogue, publishThreshold = 5) {
   if (!Array.isArray(brands)) {
     issue(`${label} brands must be an array`);
     return [];
@@ -373,8 +373,8 @@ function validateModelBrandRows(brands, label, catalogue) {
     if (brand.rank !== brandIndex + 1) issue(`${rowLabel} rank must be contiguous`);
     if (!brand.id || seenBrands.has(brand.id)) issue(`${rowLabel} has a missing or duplicate id`);
     seenBrands.add(brand.id);
-    if (!brand.label || !Number.isInteger(brand.visitors) || brand.visitors < 5) {
-      issue(`${rowLabel} must publish a label and at least five de-duplicated visitors`);
+    if (!brand.label || !Number.isInteger(brand.visitors) || brand.visitors < publishThreshold) {
+      issue(`${rowLabel} must publish a label and at least ${publishThreshold} de-duplicated visitor(s)`);
     }
     if (brand.visitors > previousVisitors) issue(`${label} brands must be ranked by descending visitors`);
     previousVisitors = brand.visitors;
@@ -408,8 +408,8 @@ function validateModelBrandRows(brands, label, catalogue) {
       if (model.rank !== modelIndex + 1) issue(`${modelLabel} rank must be contiguous`);
       if (!model.id || seenModels.has(model.id)) issue(`${modelLabel} has a missing or duplicate id`);
       seenModels.add(model.id);
-      if (!model.label || !model.family || !Number.isInteger(model.visitors) || model.visitors < 5) {
-        issue(`${modelLabel} must independently reach the five-visitor threshold`);
+      if (!model.label || !model.family || !Number.isInteger(model.visitors) || model.visitors < publishThreshold) {
+        issue(`${modelLabel} must independently reach the ${publishThreshold}-visitor threshold`);
       }
       if (model.visitors > brand.visitors) issue(`${modelLabel} cannot exceed its de-duplicated brand total`);
       if (model.visitors > previousModelVisitors) issue(`${rowLabel} models must be ranked by descending visitors`);
@@ -456,7 +456,7 @@ function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
   if (snapshot.schemaVersion !== 1 || snapshot.view !== 'model-page-interest' || snapshot.status !== 'beta') {
     issue(`${label} must use schemaVersion 1 and identify the beta model-page-interest view`);
   }
-  if (snapshot.publishThreshold !== 5) issue(`${label} publish threshold must remain five visitors`);
+  if (snapshot.publishThreshold !== 1) issue(`${label} Models publish threshold must be one observed visitor`);
   if (snapshot.period?.key !== expectedPeriod.key || snapshot.period?.days !== expectedPeriod.days
     || snapshot.period?.start !== expectedPeriod.start || snapshot.period?.end !== expectedPeriod.end) {
     issue(`${label} period metadata is invalid`);
@@ -466,7 +466,7 @@ function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
     issue(`${label} must identify DataFast as its source`);
   }
   if (snapshot.methodology?.provider !== 'DataFast'
-    || snapshot.methodology?.dimension !== 'hostname + country + exact canonical model paths'
+    || snapshot.methodology?.dimension !== 'hostname + country + current exact canonical model path'
     || snapshot.methodology?.hostnameFilter !== 'localclaw.io'
     || !String(snapshot.methodology?.modelPathRule || '').includes('/models/${APP_DATA.models[].id}')
     || /www\.localclaw\.io/i.test(JSON.stringify(snapshot.methodology || {}))) {
@@ -491,10 +491,10 @@ function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
     issue(`${label} is missing modelInterest.global`);
     return;
   }
-  const globalBrands = validateModelBrandRows(global.brands, `${label} global`, catalogue);
+  const globalBrands = validateModelBrandRows(global.brands, `${label} global`, catalogue, snapshot.publishThreshold);
   validateDominantModelBrands(global.dominantBrands, globalBrands, `${label} global`);
-  if (!Number.isInteger(global.signals) || global.signals < 5
-    || !Number.isInteger(global.modelVisitors) || global.modelVisitors < 5) {
+  if (!Number.isInteger(global.signals) || global.signals < snapshot.publishThreshold
+    || !Number.isInteger(global.modelVisitors) || global.modelVisitors < snapshot.publishThreshold) {
     issue(`${label} global signals and modelVisitors must be publishable integer visitor totals`);
   }
   if (globalBrands.some(brand => brand.visitors > global.modelVisitors)) {
@@ -514,8 +514,8 @@ function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
     if (country.rank !== countryIndex + 1) issue(`${countryLabel} rank must be contiguous`);
     if (!country.name || seenCountries.has(country.name)) issue(`${countryLabel} has a missing or duplicate name`);
     seenCountries.add(country.name);
-    if (!Number.isInteger(country.signals) || country.signals < 5
-      || !Number.isInteger(country.modelVisitors) || country.modelVisitors < 5) {
+    if (!Number.isInteger(country.signals) || country.signals < snapshot.publishThreshold
+      || !Number.isInteger(country.modelVisitors) || country.modelVisitors < snapshot.publishThreshold) {
       issue(`${countryLabel} signals and modelVisitors must be publishable integer visitor totals`);
     }
     if (country.signals !== country.modelVisitors) {
@@ -530,7 +530,7 @@ function validateModelPageInterestSnapshot(snapshot, label, expectedPeriod) {
       return;
     }
     if (extraInterestKeys.length) issue(`${countryLabel} modelInterest has unexpected fields: ${extraInterestKeys.join(', ')}`);
-    const brands = validateModelBrandRows(modelInterest.brands, countryLabel, catalogue);
+    const brands = validateModelBrandRows(modelInterest.brands, countryLabel, catalogue, snapshot.publishThreshold);
     validateDominantModelBrands(modelInterest.dominantBrands, brands, countryLabel);
     if (brands.some(brand => brand.visitors > country.modelVisitors)) {
       issue(`${countryLabel} brand visitors cannot exceed the de-duplicated country model-page total`);
@@ -1515,8 +1515,8 @@ if (app !== null) {
   const regionalMarkerOffset = Number(app.match(/const\s+REGIONAL_MODEL_MARKER_OFFSET\s*=\s*([0-9.]+)\s*;/)?.[1]);
   const createModelRegionMarkersBody = topLevelFunctionBody(app, 'createModelRegionMarkers');
   if (!Number.isFinite(regionalMarkerOffset)
-    || regionalMarkerOffset <= 0.04
-    || regionalMarkerOffset > 0.06
+    || regionalMarkerOffset <= 0.005
+    || regionalMarkerOffset > 0.03
     || !createModelRegionMarkersBody.includes('GLOBE_RADIUS + REGIONAL_MODEL_MARKER_OFFSET')) {
     issue('Regional model logos must remain pinned just above the vector boundary surface without visible globe parallax');
   }
@@ -2167,7 +2167,7 @@ if (admin2Manifest) {
   for (const snapshot of admin2ModelActivitySnapshots) {
     const activity = snapshot.data;
     if (!activity) continue;
-    if (activity.schemaVersion !== 2 || activity.period?.key !== snapshot.period || activity.publishThreshold !== 5
+    if (activity.schemaVersion !== 2 || activity.period?.key !== snapshot.period || activity.publishThreshold !== 1
       || activity.identityThreshold !== 1) {
       issue(`${snapshot.period} Admin-2 model activity has invalid schema, period, or privacy threshold`);
       continue;

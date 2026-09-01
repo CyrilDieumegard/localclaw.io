@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Local AI Activity &amp; Model Interest Map | LocalClaw Atlas</title>
-  <meta name="description" content="Explore local AI interest by country and region, compare the models people explore, and see privacy-thresholded model paths and setup destinations selected after LocalClaw model pages.">
+  <meta name="description" content="Explore local AI interest by country and region, compare the models people explore from the first observed visitor, and see privacy-thresholded setup destinations selected after LocalClaw model pages.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/local-ai-activity-index">
 
@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://localclaw.io/local-ai-activity-index">
   <meta property="og:site_name" content="LocalClaw">
   <meta property="og:title" content="See which local AI brands each country is exploring">
-  <meta property="og:description" content="Explore local AI interest worldwide, compare the local model brands each country explores, and open privacy-thresholded model detail.">
+  <meta property="og:description" content="Explore local AI interest worldwide, compare the local model brands each country and region explores, and open observed model detail.">
   <meta property="og:image" content="https://localclaw.io/images/og-local-ai-model-interest.jpg?v=20260901a">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -33,7 +33,7 @@
         "url": "https://localclaw.io/local-ai-activity-index",
         "name": "Local AI Activity Index",
         "headline": "Where local AI activity is growing around the world",
-        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, privacy-thresholded model-page interest, and eligible model paths and setup destinations selected after model pages. Click intent is not a verified installation or model run.",
+        "description": "A global map and country ranking built from anonymous LocalClaw interest signals, observed model-page interest published from the first visitor, and eligible model paths and setup destinations selected after model pages. Click intent is not a verified installation or model run.",
         "datePublished": "2026-08-29",
         "dateModified": "2026-09-01",
         "isPartOf": { "@id": "https://localclaw.io/#website" },
@@ -88,7 +88,7 @@
           {
             "@type": "PropertyValue",
             "name": "Anonymous LocalClaw model-page interest by country and local AI brand",
-            "description": "Unique visitors to an exact allow-list of canonical LocalClaw LLM pages. Country, brand, and individual model rows are independently privacy-thresholded. Brand totals are deduplicated across eligible pages and do not measure downloads, installations, launches, inference, or verified usage."
+            "description": "Unique visitors to an exact allow-list of canonical LocalClaw LLM pages. Country, regional, brand, and individual model aggregates are published from the first observed visitor. Brand totals are deduplicated across eligible pages and do not measure downloads, installations, launches, inference, or verified usage."
           },
           {
             "@type": "PropertyValue",
@@ -437,7 +437,7 @@
 
         <div class="atlas-model-panel__body">
           <section class="atlas-model-overview" data-atlas-model-overview aria-label="Model-brand overview">
-            <p class="atlas-model-panel__lede">Privacy-thresholded unique visitors to eligible LocalClaw model pages show which local model brands people explore most.</p>
+            <p class="atlas-model-panel__lede">Observed unique visitors to eligible LocalClaw model pages show which local model brands people explore most, starting with the first visitor.</p>
             <article class="atlas-model-dominant" data-atlas-model-dominant>
               <span class="atlas-model-dominant__logo" aria-hidden="true">
                 <img data-atlas-model-dominant-logo width="54" height="54" alt="" hidden>
@@ -459,7 +459,7 @@
             </div>
             <ol class="atlas-model-family-list" data-atlas-model-family-list aria-label="Most explored model brands"></ol>
             <button class="atlas-model-regions" type="button" data-atlas-model-regions hidden>
-              <span><strong>Explore regional model interest</strong><small>Regional totals and brands appear only at 5+ visitors</small></span>
+              <span><strong>Explore regional model interest</strong><small>Every observed region shows its leading model brand</small></span>
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m8 5 5 5-5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </section>
@@ -514,7 +514,7 @@
           </div>
         </div>
 
-        <p class="atlas-model-panel__note"><strong>Model interest:</strong> Every colored region shows its leading brand. Exact brand counts and model detail are independently privacy-thresholded and rows must not be added together. This is not download, install, launch, inference or verified-usage data.</p>
+        <p class="atlas-model-panel__note"><strong>Model interest:</strong> Every colored region shows its leading brand from the first observed visitor. Exact brand counts and available model detail are aggregated independently and rows must not be added together. This is not download, install, launch, inference or verified-usage data.</p>
       </aside>
 
       <section class="atlas-share-overlay" data-atlas-share-overlay hidden aria-labelledby="atlas-share-title">
@@ -767,7 +767,7 @@
             </article>
             <article class="atlas-method-card">
               <h3>Which local AI models are people exploring in each country?</h3>
-              <p>Open the Models view to see the leading published local AI brand for each eligible country, then select its logo for model-level detail. The ranking counts privacy-thresholded visitors to LocalClaw model pages, not verified model use.</p>
+              <p>Open the Models view to see the leading local AI brand for each observed country and region, then select its logo for model-level detail. The ranking starts with the first visitor to LocalClaw model pages and does not measure verified model use.</p>
             </article>
             <article class="atlas-method-card">
               <h3>Is this a local AI adoption ranking?</h3>
@@ -788,6 +788,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260901l"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260901p"></script>
 </body>
 </html>

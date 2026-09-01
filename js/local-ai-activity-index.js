@@ -6,27 +6,27 @@ const PERIOD_CONFIG = Object.freeze({
     admin1Url: '/data/local-ai-admin1-activity.json?v=20260829h',
     installedDataUrl: '/data/local-ai-install-intent.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?v=20260901b',
-    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901c',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?v=20260901c',
+    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity.json?v=20260901c'
   },
   '90d': {
     dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-90d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?v=20260901b',
-    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity-90d.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901c',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?v=20260901c',
+    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity-90d.json?v=20260901c'
   },
   '180d': {
     dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?v=20260901b',
-    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity-180d.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901c',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?v=20260901c',
+    admin2ModelActivityUrl: '/data/local-ai-admin2-model-activity-180d.json?v=20260901c'
   }
 });
 const requestParams = new URLSearchParams(window.location.search);
@@ -60,14 +60,16 @@ const ADMIN1_ACTIVITY_URL = ACTIVE_VIEW === 'installed'
 const MODEL_ADMIN1_ACTIVITY_URL = PERIOD_CONFIG[ACTIVE_PERIOD].modelAdmin1Url;
 const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829c';
 const ADMIN2_MODEL_ACTIVITY_URL = PERIOD_CONFIG[ACTIVE_PERIOD].admin2ModelActivityUrl;
-const PUBLISH_THRESHOLD = 5;
+// Models publish every observed aggregate cell. Interest and install paths
+// retain the existing five-visitor threshold.
+const PUBLISH_THRESHOLD = ACTIVE_VIEW === 'models' ? 1 : 5;
 const ADMIN1_CACHE_LIMIT = 4;
 const ADMIN2_CACHE_LIMIT = 4;
 const GLOBE_RADIUS = 3.65;
 // Regional logos should read as pinned to their administrative polygon. Keep
 // them only a hair above the sharp vector boundaries to avoid z-fighting
 // without introducing visible parallax while rotating or zooming the globe.
-const REGIONAL_MODEL_MARKER_OFFSET = 0.052;
+const REGIONAL_MODEL_MARKER_OFFSET = 0.018;
 const MOBILE_BREAKPOINT = 760;
 const DESKTOP_TEXTURE_WIDTH = 4096;
 const MOBILE_TEXTURE_WIDTH = 1024;
@@ -540,8 +542,8 @@ function shareSnapshot() {
         entity: country.name,
         title: `Local AI model interest across ${country.name}.`,
         summary: countryVisitors !== null
-          ? `${number(countryVisitors)} anonymous country-level model-page visitors; regional rows are independently privacy-thresholded · ${dateRange}.`
-          : `Regional model-page interest is shown only where an administrative row independently reaches ${PUBLISH_THRESHOLD} visitors · ${dateRange}.`,
+          ? `${number(countryVisitors)} anonymous country-level model-page visitors; every observed regional model cell is visible · ${dateRange}.`
+          : `No observed regional model-page visitor is available for this administrative scope · ${dateRange}.`,
         primary: countryVisitors !== null ? number(countryVisitors) : '—',
         primaryLabel: 'Country model-page visitors',
         secondary: publishedRegions !== null ? number(publishedRegions) : number(state.detailRegions.length),
@@ -1067,10 +1069,10 @@ async function buildShareImage() {
   if (isModelInterestView()) {
     const logoMeaning = isAdmin1Scope()
       ? state.selectedModelBrand
-        ? 'LOGOS = SELECTED BRAND IN REGIONS AT 5+'
+        ? 'LOGOS = SELECTED BRAND IN OBSERVED REGIONS'
         : 'LOGOS = LEADING PUBLISHED REGIONAL BRAND'
       : state.selectedModelBrand && !state.selectedModelCountry
-      ? 'LOGOS = SELECTED BRAND IN COUNTRIES AT 5+'
+      ? 'LOGOS = SELECTED BRAND IN OBSERVED COUNTRIES'
       : state.selectedModelBrand
         ? 'LOGO = SELECTED COUNTRY BRAND'
         : 'LOGOS = MOST EXPLORED LOCAL BRAND';
@@ -5181,7 +5183,7 @@ function renderModelRows(container, brand) {
   if (!models.length) {
     const empty = document.createElement('li');
     empty.className = 'atlas-model-list__empty';
-    empty.textContent = `This brand reaches the public visitor threshold, but no individual model page independently reaches ${PUBLISH_THRESHOLD} visitors in this scope.`;
+    empty.textContent = 'This brand is observed, but no eligible individual model page is available in this scope.';
     fragment.append(empty);
   }
   models.forEach((model, index) => {
@@ -5305,7 +5307,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     if (heading) heading.textContent = `Explore ${country?.name || ''} regions`;
   }
   if (regionStatus) regionStatus.textContent = state.detailDataStatus === 'published'
-    ? `Regional totals independently meet the ${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold. Every colored region shows its leader; exact brand counts appear only at the threshold.`
+    ? 'Every colored region contains at least one observed model-page visitor and shows its exact leading brand count.'
     : admin1StatusMessage();
   if (regionTotal) {
     const countryVisitors = state.detailTotals.countrySignals ?? publishedModelCountryVisitors(country);
@@ -5340,9 +5342,9 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       : 'No country-level brand published';
     if (countryLeaderCount) countryLeaderCount.textContent = countryLeader
       ? `${number(modelBrandSignals(countryLeader))} country-level brand visitors`
-      : `No brand independently reaches ${PUBLISH_THRESHOLD} country-level visitors`;
+      : 'No observed country-level brand visitor';
     if (scopeNote) {
-      const independentScale = `Each colored region shows its independently measured leading brand. Exact brand counts and model detail appear only at ${PUBLISH_THRESHOLD}+ visitors.`;
+      const independentScale = 'Each colored region shows its independently measured leading brand. Exact brand counts and available model detail appear from the first observed visitor.';
       const countryLeaderVisibility = countryLeader
         ? countryLeaderIsRegionalLeader
           ? ` ${countryLeader.label} also leads at least one region.`
@@ -5371,8 +5373,8 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
         ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page here.'
       : number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page worldwide. '
         + (selectedCountryCount
-          ? `The globe shows the ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} where this brand independently reaches the public threshold.`
-          : `No individual country independently reaches the ${PUBLISH_THRESHOLD}-visitor threshold for this brand, so the globe is intentionally clear.`)
+          ? `The globe shows the ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} where this brand has at least one observed visitor.`
+          : 'No country has an observed visitor for this brand, so the globe is intentionally clear.')
     : '';
   if (selected) renderModelRows(modelList, selected);
   else if (modelList) modelList.replaceChildren();
@@ -5399,7 +5401,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       : isAdmin2Scope()
         ? `No ${state.admin2Config.childLabel} model-page signal is present for this boundary in the selected period.`
         : admin1EntityStatusMessage(region)
-    : 'This place has no model brand above the public threshold for the selected period.';
+    : 'This place has no observed model-page signal for the selected period.';
   if (back) {
     back.hidden = !selected && !country;
     back.textContent = selected
@@ -5907,9 +5909,9 @@ function updateScopeInterface() {
         ? admin2View
           ? `${state.admin2Config.parentName}, ${modelCountry?.name || state.detailCountry?.name || ''} · ${number(state.admin2Regions.length)} precise boundaries · ${number(admin2ActiveRegions.length)} ${state.admin2Config.childrenLabel} with observed model signals`
           : `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
-        : `${modelCountry?.name || state.detailCountry?.name || ''} · Privacy-thresholded regional model-page interest · ${periodDateRange()}`
+        : `${modelCountry?.name || state.detailCountry?.name || ''} · Regional model-page interest from the first observed visitor · ${periodDateRange()}`
       : modelInterestView
-        ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show a privacy-thresholded brand · ${periodLabel()}`
+        ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show an observed brand · ${periodLabel()}`
         : stateView
       ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
@@ -6016,16 +6018,16 @@ function updateScopeInterface() {
   document.querySelector('[data-scope-window]').textContent = admin2View
     ? `${periodDays()}-day window · ${number(admin2ActiveRegions.length)} independently mapped`
     : modelRegionalView
-      ? `${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold`
+      ? 'visible from the first visitor'
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-${installIntentView ? 'visitor' : 'signal'} threshold`
     : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
     ? admin2View
-      ? `Each logo comes from that ${state.admin2Config.childLabel}'s own anonymous model-page visitors. ${state.admin2Config.childrenLabel} without an observed model signal stay empty. Exact counts remain hidden below ${PUBLISH_THRESHOLD}. This measures LocalClaw page interest, not downloads, installations or verified use.`
-      : 'Region color shows independently published all-model visitors. Every colored region shows the logo of its independently measured leading brand, even when the exact leader count stays hidden below five. Neutral boundaries do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
+      ? `Each logo comes from that ${state.admin2Config.childLabel}'s own anonymous model-page visitors. ${state.admin2Config.childrenLabel} without an observed model signal stay empty. Every observed aggregate count is visible. This measures LocalClaw page interest, not downloads, installations or verified use.`
+      : 'Region color shows observed all-model visitors. Every colored region shows the logo and exact count of its leading brand. Empty boundaries have no mapped model signal in this snapshot. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
     : modelInterestView
-      ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
+      ? 'Each logo is the brand with the most observed visitors across its eligible LLM pages in that country. Every observed model aggregate is visible from the first visitor. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
     : installIntentView
     ? regionalView
       ? admin2View
@@ -6044,9 +6046,9 @@ function updateScopeInterface() {
   canvas.setAttribute('aria-label', modelRegionalView
     ? admin2View
       ? `Interactive globe showing precise ${state.admin2Config.childrenLabel} inside ${state.admin2Config.parentName}. Every boundary with an observed model signal displays its independently derived leading brand logo; boundaries without a signal stay empty. Select a logo or boundary for detail.`
-      : `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo. Exact leader counts and model detail appear only when they reach five visitors. Select a region or logo for detail. Neutral boundaries do not mean zero. Use the panel back control to return.`
+      : `Interactive globe showing observed model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo, exact count and model detail from the first visitor. Empty boundaries have no mapped signal in this snapshot. Use the panel back control to return.`
     : modelInterestView
-      ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
+      ? 'Interactive globe showing the most explored local LLM brand in each observed country. Select a brand logo or country to open its model ranking from the first observed visitor. Drag to rotate and scroll or use the controls to zoom.'
     : installIntentView
     ? regionalView
       ? admin2View
@@ -6349,7 +6351,9 @@ function advanceTour() {
     if (isAdmin1Scope()) {
       stopTour();
       if (tourLabel) tourLabel.textContent = 'No published regional ranking';
-      showToast(`No ${state.detailConfig.regionLabel} reaches the ${state.detailTotals.publishThreshold}-${isModelInterestView() ? 'visitor' : 'signal'} publication threshold.`);
+      showToast(isModelInterestView()
+        ? `No ${state.detailConfig.regionLabel} has an observed model-page signal in this snapshot.`
+        : `No ${state.detailConfig.regionLabel} reaches the ${state.detailTotals.publishThreshold}-signal publication threshold.`);
     }
     return false;
   }
@@ -6984,7 +6988,7 @@ function renderDataSummary() {
     const snapshotLead = document.querySelector('[data-snapshot-lead]');
     if (snapshotLead) snapshotLead.textContent = leader && leadingBrand
       ? `${leader.name} leads this published model-page snapshot with ${number(modelCountryVisitors(leader))} unique visitors; ${leadingBrand.label} ${hasLeadingTie ? `shares the local lead with ${number(leadingBrands.length - 1)} other brand${leadingBrands.length > 2 ? 's' : ''}` : 'is its most explored local AI brand'}. This measures LocalClaw page exploration, not verified model usage.`
-      : `Atlas publishes only country and brand totals that independently reach ${PUBLISH_THRESHOLD} unique model-page visitors. This measures LocalClaw page exploration, not verified model usage.`;
+      : 'Atlas publishes every observed country and brand aggregate from one model-page visitor. This measures LocalClaw page exploration, not verified model usage.';
     const leadingCountry = document.querySelector('[data-leading-country]');
     if (leadingCountry) leadingCountry.textContent = leader?.name || 'Collecting signals';
     const leadingDetail = document.querySelector('[data-leading-detail]');
@@ -7000,15 +7004,15 @@ function renderDataSummary() {
     const coverageDetail = document.querySelector('[data-global-coverage-detail]');
     if (coverageLabel) coverageLabel.textContent = 'Published coverage';
     if (coverageValue) coverageValue.textContent = `${number(publishedCountries)} countries`;
-    if (coverageDetail) coverageDetail.textContent = `${number(globalModelBrands().length)} brands published globally at ${PUBLISH_THRESHOLD}+ visitors`;
+    if (coverageDetail) coverageDetail.textContent = `${number(globalModelBrands().length)} brands observed globally`;
     const rankingEyebrow = document.querySelector('[data-country-ranking-eyebrow]');
     if (rankingEyebrow) rankingEyebrow.textContent = 'Model interest country ranking';
     const rankingTitle = document.querySelector('[data-country-ranking-title]');
     if (rankingTitle) rankingTitle.textContent = 'Where people explore local AI models.';
     const rankingLead = document.querySelector('[data-country-ranking-lead]');
-    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country for its leading brands or open Explore regions. Every colored region shows its leading brand; exact brand counts and model rows appear only at five visitors.';
+    if (rankingLead) rankingLead.textContent = 'Countries are ranked by observed visitors across eligible LocalClaw LLM pages. Select a country for its leading brands or open Explore regions. Every colored region shows its logo, exact leading-brand count and model rows from the first visitor.';
     const countryCaption = document.querySelector('[data-country-ranking-caption]');
-    if (countryCaption) countryCaption.textContent = `Countries with at least ${PUBLISH_THRESHOLD} unique visitors across eligible LocalClaw LLM pages, ${periodDateRange()}`;
+    if (countryCaption) countryCaption.textContent = `Countries with at least one observed visitor across eligible LocalClaw LLM pages, ${periodDateRange()}`;
     const countrySignalHeading = document.querySelector('[data-country-signal-heading]');
     if (countrySignalHeading) countrySignalHeading.textContent = 'Visitors';
     const methodologyEyebrow = document.querySelector('[data-methodology-eyebrow]');
@@ -7016,15 +7020,15 @@ function renderDataSummary() {
     const methodologyTitle = document.querySelector('[data-methodology-title]');
     if (methodologyTitle) methodologyTitle.textContent = 'Model discovery, measured without pretending it is usage.';
     const methodologyLead = document.querySelector('[data-methodology-lead]');
-    if (methodologyLead) methodologyLead.textContent = 'The Models view uses anonymous DataFast visitors to canonical LocalClaw LLM pages. Country, region and brand totals are queried as deduplicated visitor groups; individual model rows are published only when that exact geographic page cell independently reaches the privacy threshold.';
+    if (methodologyLead) methodologyLead.textContent = 'The Models view uses anonymous DataFast visitors to canonical LocalClaw LLM pages. Country, region, brand and model aggregates are visible from the first observed visitor; zero-observation cells stay empty.';
     const methodCount = document.querySelector('[data-method-count]');
     if (methodCount) methodCount.textContent = `A unique visitor to at least one eligible LocalClaw /models/ page during the ${periodDays()}-day window. A brand total is deduplicated across that brand’s exact model-page allow-list; individual pages are never summed to invent a unique brand total.`;
     const methodExclude = document.querySelector('[data-method-exclude]');
     if (methodExclude) methodExclude.textContent = 'No download completion, installation, launch, prompt, inference, active-use event, device identity, or claim about worldwide model usage is included.';
     const methodGeography = document.querySelector('[data-method-geography]');
-    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A colored region independently reaches the regional threshold and shows the leading brand measured inside that region. Atlas never derives a regional preference from a country total.';
+    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A colored region contains at least one mapped model-page visitor and shows the leading brand measured inside that region. Atlas never derives a regional preference from a country total.';
     const methodPrivacy = document.querySelector('[data-method-privacy]');
-    if (methodPrivacy) methodPrivacy.textContent = `Country and region totals, exact brand counts and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Below-threshold leader identities may power a logo, but their exact counts, model detail and all visitor-level data remain absent.`;
+    if (methodPrivacy) methodPrivacy.textContent = 'Every observed geographic model aggregate is public from the first visitor. Public files contain no visitor identifier, IP address, device, exact coordinate or raw city row.';
     const sourceCoverage = document.querySelector('[data-source-coverage]');
     if (sourceCoverage) {
       const sourceLabel = document.createElement('strong');
@@ -7043,17 +7047,17 @@ function renderDataSummary() {
         countryBoundaryLink,
         document.createTextNode('; regional exploration uses '),
         regionalBoundaryLink,
-        document.createTextNode('. Every public geographic model-interest cell is independently thresholded. Source coverage is biased toward people and network routes that reach LocalClaw.')
+        document.createTextNode('. Every observed geographic model-interest aggregate is visible from the first visitor. Source coverage is biased toward people and network routes that reach LocalClaw.')
       );
     }
     const leaderFaq = document.querySelector('[data-current-leader-faq]');
     if (leaderFaq) leaderFaq.textContent = leader && leadingBrand
       ? `${leader.name} leads this ${periodDays()}-day model-page snapshot, and ${leadingBrand.label} ${hasLeadingTie ? `is one of ${number(leadingBrands.length)} co-leading published brands` : 'is its most explored published brand'}. The result reflects LocalClaw page interest, not verified use worldwide.`
-      : 'The Models view publishes only privacy-thresholded LocalClaw page interest, not verified use worldwide.';
+      : 'The Models view publishes observed LocalClaw page interest, not verified use worldwide.';
     const regionalFaqTitle = document.querySelector('[data-regional-faq-title]');
     const regionalFaq = document.querySelector('[data-regional-faq]');
     if (regionalFaqTitle) regionalFaqTitle.textContent = 'Does the Models view go below country level?';
-    if (regionalFaq) regionalFaq.textContent = `Yes, where a country has a supported administrative boundary layer. Select a country, then Explore regions. Every colored region shows its independently measured leading brand; exact brand counts and model pages appear only at ${PUBLISH_THRESHOLD}+ visitors. Neutral regions do not mean zero, and Atlas does not infer city-level model preference.`;
+    if (regionalFaq) regionalFaq.textContent = 'Yes, where a country has a supported administrative boundary layer and a visitor can be mapped to it. Select a country, then Explore regions. Every colored region shows its observed leading brand, exact count and model pages. Empty regions have no mapped model signal in this snapshot.';
     renderRankingRows('[data-country-ranking-body]', state.countries, totalVisitors || 1, 'country', state.countries.length);
     const countryDownload = document.querySelector('[data-country-download]');
     if (countryDownload) {

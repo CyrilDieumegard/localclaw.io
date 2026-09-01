@@ -548,6 +548,10 @@ for (const window of installExpected) {
   }
 }
 
+// Retained below as historical contract documentation. Models now publishes
+// every observed aggregate from one visitor, so the former five-visitor
+// snapshot lock is intentionally disabled in favor of the current contract.
+if (false) {
 const canonicalModels = loadCanonicalModelCatalogue();
 const modelSnapshots = new Map();
 const modelAdmin1Snapshots = new Map();
@@ -1001,6 +1005,99 @@ for (const [shortKey, longKey] of [['30d', '90d'], ['90d', '180d']]) {
       }
     }
   }
+}
+}
+
+const observedModelSnapshots = new Map();
+const observedRegionalSnapshots = new Map();
+for (const window of modelExpected) {
+  const suffix = window.suffix;
+  const countryData = read(`data/local-ai-model-page-interest${suffix}.json`);
+  const regionalData = read(`data/local-ai-model-page-interest-admin1${suffix}.json`);
+  const admin2Data = read(`data/local-ai-admin2-model-activity${suffix}.json`);
+  if (!countryData || !regionalData || !admin2Data) continue;
+  observedModelSnapshots.set(window.key, countryData);
+  observedRegionalSnapshots.set(window.key, regionalData);
+  const label = `${window.key} observed Models`;
+  if (countryData.schemaVersion !== 1 || countryData.view !== 'model-page-interest'
+    || countryData.status !== 'beta' || countryData.publishThreshold !== 1
+    || countryData.period?.key !== window.key || countryData.period?.days !== window.days
+    || countryData.period?.start !== window.start || countryData.period?.end !== window.end) {
+    issue(`${label} country contract or period is invalid`);
+  }
+  if (regionalData.schemaVersion !== 1 || regionalData.view !== 'model-page-interest'
+    || regionalData.publishThreshold !== 1 || regionalData.period?.key !== window.key
+    || regionalData.period?.start !== window.start || regionalData.period?.end !== window.end) {
+    issue(`${label} regional contract or period is invalid`);
+  }
+  if (admin2Data.schemaVersion !== 2 || admin2Data.publishThreshold !== 1
+    || admin2Data.identityThreshold !== 1 || admin2Data.period?.key !== window.key) {
+    issue(`${label} deeper-boundary contract or period is invalid`);
+  }
+  const serialized = JSON.stringify({ countryData, regionalData, admin2Data });
+  if (/"(?:visitorId|ip|ipAddress|deviceId|rawRows|rawVisitors|city)"\s*:/.test(serialized)
+    || /withheld_below_threshold/.test(serialized)) {
+    issue(`${label} exposes visitor-level geography or a retired below-five cell`);
+  }
+  const countries = Array.isArray(countryData.countries) ? countryData.countries : [];
+  if (!countries.length || countries.some((country, index) => country.rank !== index + 1
+    || !Number.isInteger(country.modelVisitors) || country.modelVisitors < 1
+    || country.signals !== country.modelVisitors || !(country.modelInterest?.brands || []).length)) {
+    issue(`${label} must publish every observed country from one visitor with a leading brand`);
+  }
+  if (countryData.totals?.regions !== countries.length
+    || countryData.totals?.countriesWithPublishedBrands !== countries.length
+    || countryData.totals?.modelVisitors !== countryData.modelInterest?.global?.modelVisitors) {
+    issue(`${label} country totals do not reconcile`);
+  }
+  const regionalCountries = regionalData.countries && typeof regionalData.countries === 'object'
+    ? regionalData.countries : {};
+  if (Object.keys(regionalCountries).length !== countries.length) {
+    issue(`${label} regional country coverage must match the world Models view`);
+  }
+  for (const country of Object.values(regionalCountries)) {
+    const regions = Array.isArray(country.regions) ? country.regions : [];
+    if (country.publishedRegions !== regions.length
+      || regions.some((region, index) => region.rank !== index + 1
+        || !Number.isInteger(region.modelVisitors) || region.modelVisitors < 1
+        || region.signals !== region.modelVisitors
+        || !Array.isArray(region.boundaryFeatureIds) || region.boundaryFeatureIds.length !== 1
+        || !(region.modelInterest?.mapLeaders || []).length
+        || !(region.modelInterest?.brands || []).length)) {
+      issue(`${label} has a regional row without an exact observed count, boundary or logo`);
+    }
+  }
+  for (const parent of Object.values(admin2Data.parents || {})) {
+    for (const subdivision of parent.subdivisions || []) {
+      const scope = subdivision.modelInterest;
+      if (scope && (!Number.isInteger(scope.visitors) || scope.visitors < 1
+        || scope.visitorsStatus !== 'published' || !(scope.mapLeaders || []).length
+        || !(scope.brands || []).length)) {
+        issue(`${label} has a deeper subdivision without an exact observed count or logo`);
+      }
+    }
+  }
+}
+
+for (const [shortKey, longKey] of [['30d', '90d'], ['90d', '180d']]) {
+  const shorter = observedModelSnapshots.get(shortKey);
+  const longer = observedModelSnapshots.get(longKey);
+  if (!shorter || !longer) continue;
+  if (longer.totals.modelVisitors < shorter.totals.modelVisitors
+    || longer.countries.length < shorter.countries.length) {
+    issue(`Observed Models coverage must remain monotone from ${shortKey} to ${longKey}`);
+  }
+}
+
+const france180 = observedRegionalSnapshots.get('180d')?.countries?.France;
+if (!france180 || france180.regions.length < 10
+  || !france180.regions.some(region => region.modelVisitors >= 1 && region.modelVisitors <= 4)) {
+  issue('France 180d must expose multiple detailed boundaries including exact counts below five');
+}
+const texas180 = read('data/local-ai-admin2-model-activity-180d.json')?.parents?.['US-TX'];
+if (!texas180 || !(texas180.subdivisions || []).some(row => row.modelInterest?.visitors >= 1
+  && row.modelInterest.visitors <= 4 && row.modelInterest.mapLeaders?.length)) {
+  issue('Texas 180d must expose a below-five county-equivalent model logo and exact count');
 }
 
 const page = fs.readFileSync(path.join(ROOT, 'local-ai-activity-index.html'), 'utf8');

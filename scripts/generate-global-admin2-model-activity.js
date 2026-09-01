@@ -7,7 +7,7 @@ const readline = require('readline');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
-const THRESHOLD = 5;
+const THRESHOLD = 1;
 const WINDOWS = ['30d', '90d', '180d'];
 const GENERIC_LOGO_BRANDS = new Set(['github', 'huggingface']);
 
@@ -266,7 +266,7 @@ function locationForRecord(record, places, boundaries, cache) {
   return result;
 }
 
-function buildWindow(raw, places, catalogue, boundaries, period, preservedCalifornia) {
+function buildWindow(raw, places, catalogue, boundaries, period) {
   const aggregates = new Map();
   const locationCache = new Map();
   const unresolved = new Map();
@@ -279,6 +279,7 @@ function buildWindow(raw, places, catalogue, boundaries, period, preservedCalifo
   };
   let visitorNumber = 0;
   for (const record of raw.model?.records || []) {
+    if (!boundaries.parents.has(String(record.region || '').toUpperCase())) continue;
     const visits = (record.visits || []).filter(visit => dateInPeriod(visit.timestamp, period) && catalogue.has(visit.modelId));
     if (!visits.length) continue;
     eligibleModelVisitorRows += 1;
@@ -300,6 +301,7 @@ function buildWindow(raw, places, catalogue, boundaries, period, preservedCalifo
   }
   visitorNumber = 0;
   for (const record of raw.install?.records || []) {
+    if (!boundaries.parents.has(String(record.region || '').toUpperCase())) continue;
     const events = (record.events || []).filter(event => dateInPeriod(event.timestamp, period) && catalogue.has(event.modelId));
     if (!events.length) continue;
     const location = locationForRecord(record, places, boundaries, locationCache);
@@ -340,7 +342,6 @@ function buildWindow(raw, places, catalogue, boundaries, period, preservedCalifo
       subdivisions
     };
   }
-  if (preservedCalifornia) parents['US-CA'] = preservedCalifornia;
   return {
     schemaVersion: 2,
     generatedAt: new Date().toISOString(),
@@ -351,7 +352,7 @@ function buildWindow(raw, places, catalogue, boundaries, period, preservedCalifo
     methodology: {
       modelInterest: 'Each visitor contributes the most recently observed eligible LocalClaw model page returned by the selected DataFast model-page visitor window. The visitor network city is mapped to one published lower-level administrative boundary.',
       installIntent: 'Only an eligible install-path goal attributable to a preceding canonical LocalClaw model page contributes a lower-level model identity.',
-      privacy: 'Exact visitor, brand and model counts are public only at five unique visitors. A leading brand logo may appear from one visitor without publishing its count. No visitor identifier, IP address, device or city row is public.',
+      privacy: 'Every observed aggregate model cell is public from one visitor. No visitor identifier, IP address, device or city row is public.',
       claimBoundary: 'Model interest measures LocalClaw page exploration. Install paths measures a path selection, not a verified download, installation, launch or local inference.'
     },
     coverage: {
@@ -381,9 +382,8 @@ async function main() {
   for (const windowKey of WINDOWS) {
     const suffix = windowKey === '30d' ? '' : `-${windowKey}`;
     const outputPath = path.join(ROOT, 'data', `local-ai-admin2-model-activity${suffix}.json`);
-    const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
     const reference = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', `local-ai-model-page-interest${suffix}.json`), 'utf8'));
-    const payload = buildWindow(raw, places, catalogue, boundaries, reference.period, existing.parents?.['US-CA'] || null);
+    const payload = buildWindow(raw, places, catalogue, boundaries, reference.period);
     fs.writeFileSync(outputPath, `${JSON.stringify(payload, null, 2)}\n`);
     const subdivisions = Object.values(payload.parents).reduce((sum, parent) => sum + parent.totals.withModelSignal, 0);
     console.log(`${windowKey}: ${Object.keys(payload.parents).length} parents and ${subdivisions} lower-level boundaries with observed model signals.`);

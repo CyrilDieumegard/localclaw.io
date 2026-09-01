@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-01T19:16:39.384Z",
+  "generatedAt": "2026-09-01T19:49:20.043Z",
   "period": {
     "start": "2026-07-31",
     "end": "2026-08-29",
@@ -8,21 +8,21 @@
     "key": "30d",
     "days": 30
   },
-  "publishThreshold": 5,
+  "publishThreshold": 1,
   "identityThreshold": 1,
   "source": "DataFast deduplicated model-page visitors joined to GeoNames network-city centroids and the published Atlas subdivision boundaries",
   "methodology": {
     "modelInterest": "Each visitor contributes the most recently observed eligible LocalClaw model page returned by the selected DataFast model-page visitor window. The visitor network city is mapped to one published lower-level administrative boundary.",
     "installIntent": "Only an eligible install-path goal attributable to a preceding canonical LocalClaw model page contributes a lower-level model identity.",
-    "privacy": "Exact visitor, brand and model counts are public only at five unique visitors. A leading brand logo may appear from one visitor without publishing its count. No visitor identifier, IP address, device or city row is public.",
+    "privacy": "Every observed aggregate model cell is public from one visitor. No visitor identifier, IP address, device or city row is public.",
     "claimBoundary": "Model interest measures LocalClaw page exploration. Install paths measures a path selection, not a verified download, installation, launch or local inference."
   },
   "coverage": {
     "boundaryParents": 90,
     "parentsWithObservedModelSignal": 41,
     "eligibleModelVisitorRows": 417,
-    "mappedModelVisitorRows": 412,
-    "unresolvedVisitorRows": 5
+    "mappedModelVisitorRows": 411,
+    "unresolvedVisitorRows": 6
   },
   "parents": {
     "US-AL": {
@@ -41,9 +41,46 @@
           "label": "Jefferson County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-26b-a4b",
+                    "label": "Gemma 4 26B A4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-26b-a4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "gemma",
@@ -77,9 +114,28 @@
           "label": "Yavapai County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-coder-30b",
+                    "label": "Qwen 3 Coder (30B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen3-coder-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -95,11 +151,11 @@
     "US-CA": {
       "parentCode": "US-CA",
       "parentName": "California",
-      "subdivisionLabel": "county",
+      "subdivisionLabel": "county or county-equivalent",
       "totals": {
         "subdivisions": 58,
         "withModelSignal": 9,
-        "withInstallModelAttribution": 1
+        "withInstallModelAttribution": 0
       },
       "subdivisions": [
         {
@@ -108,9 +164,28 @@
           "label": "Alameda County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -127,9 +202,46 @@
           "label": "Los Angeles County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-r1-32b",
+                    "label": "DeepSeek R1 Distill (32B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "kimi-k2.5-32b",
+                    "label": "Kimi K2.5 (1T MoE)",
+                    "family": "kimi",
+                    "path": "/models/kimi-k2.5-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -151,9 +263,28 @@
           "label": "Orange County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "nousresearch",
+                "label": "Nousresearch",
+                "logo": "/images/model-logos/nousresearch.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "hermes4-70b",
+                    "label": "Hermes 4 (70B)",
+                    "family": "hermes",
+                    "path": "/models/hermes4-70b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "nousresearch",
@@ -170,9 +301,36 @@
           "label": "Riverside County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen2.5-72b",
+                    "label": "Qwen 2.5 (72B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-72b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -189,9 +347,28 @@
           "label": "Sacramento County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -200,19 +377,7 @@
               }
             ]
           },
-          "installIntent": {
-            "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
-            "mapLeaders": [
-              {
-                "id": "ornith",
-                "label": "Ornith",
-                "logo": "/images/model-logos/ornith-avatar.png"
-              }
-            ]
-          }
+          "installIntent": null
         },
         {
           "code": "US-06071",
@@ -220,9 +385,54 @@
           "label": "San Bernardino County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen2.5-coder-7b",
+                    "label": "Qwen 2.5 Coder (7B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen2.5-coder-7b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "glm4.5-air",
+                    "label": "GLM 4.5 Air (MoE)",
+                    "family": "glm",
+                    "path": "/models/glm4.5-air",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -239,15 +449,29 @@
           "label": "San Francisco County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
-            "mapLeaders": [
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
               {
-                "id": "gemma",
-                "label": "Gemma",
-                "logo": "/images/model-logos/gemma-official-color.svg"
-              },
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
+            "mapLeaders": [
               {
                 "id": "qwen",
                 "label": "Qwen",
@@ -263,9 +487,28 @@
           "label": "San Mateo County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -290,18 +533,442 @@
                 "label": "Qwen",
                 "logo": "/images/model-logos/qwen.svg",
                 "visitors": 8,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "models": [
+                  {
+                    "id": "qwen2.5-coder-7b",
+                    "label": "Qwen 2.5 Coder (7B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen2.5-coder-7b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen2.5-vl-72b",
+                    "label": "Qwen 2.5 VL (72B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-vl-72b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "qwen3-32b",
+                    "label": "Qwen 3 (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-32b",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "qwen3-coder-30b",
+                    "label": "Qwen 3 Coder (30B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen3-coder-30b",
+                    "visitors": 1,
+                    "rank": 4
+                  },
+                  {
+                    "id": "qwen3-vl-32b",
+                    "label": "Qwen 3 VL (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-vl-32b",
+                    "visitors": 1,
+                    "rank": 5
+                  },
+                  {
+                    "id": "qwen3.5-4b",
+                    "label": "Qwen 3.5 (4B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-4b",
+                    "visitors": 1,
+                    "rank": 6
+                  },
+                  {
+                    "id": "qwen3.5-122b-a10b",
+                    "label": "Qwen 3.5 MoE (122B/10B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-122b-a10b",
+                    "visitors": 1,
+                    "rank": 7
+                  },
+                  {
+                    "id": "qwen3.5-35b-a3b",
+                    "label": "Qwen 3.5 MoE (35B/3B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 8
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 1
               },
               {
                 "id": "deepseek",
                 "label": "DeepSeek",
                 "logo": "/images/model-logos/deepseek.svg",
-                "visitors": 5,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "visitors": 4,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "deepseek-r1-8b",
+                    "label": "DeepSeek R1 Distill (8B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-8b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "deepseek-v3.2",
+                    "label": "DeepSeek V3.2 (37B/685B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.2",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "deepseek-v3.2-exp",
+                    "label": "DeepSeek V3.2 Exp (671B MoE)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-v3.2-exp",
+                    "visitors": 1,
+                    "rank": 4
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 2
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 4,
+                "models": [
+                  {
+                    "id": "devstral-24b",
+                    "label": "Devstral (24B)",
+                    "family": "mistral",
+                    "path": "/models/devstral-24b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "ministral-3-14b-instruct",
+                    "label": "Ministral 3 14B Instruct",
+                    "family": "mistral",
+                    "path": "/models/ministral-3-14b-instruct",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "ministral-3-3b-instruct",
+                    "label": "Ministral 3 3B Instruct",
+                    "family": "mistral",
+                    "path": "/models/ministral-3-3b-instruct",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "mistral-small3.2-24b",
+                    "label": "Mistral Small 3.2 (24B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-small3.2-24b",
+                    "visitors": 1,
+                    "rank": 4
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "gemma4-26b-a4b",
+                    "label": "Gemma 4 26B A4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-26b-a4b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "gemma4-e4b",
+                    "label": "Gemma 4 E4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-e4b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "llama3.3-8b",
+                    "label": "Llama 3.3 (8B)",
+                    "family": "llama",
+                    "path": "/models/llama3.3-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "llama4-maverick",
+                    "label": "Llama 4 Maverick (17B/128E MoE)",
+                    "family": "llama",
+                    "path": "/models/llama4-maverick",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "phi3.5-moe-instruct",
+                    "label": "Phi-3.5 MoE Instruct",
+                    "family": "phi",
+                    "path": "/models/phi3.5-moe-instruct",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "phi4-14b",
+                    "label": "Phi-4 (14B)",
+                    "family": "phi",
+                    "path": "/models/phi4-14b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "glm-4.6-355b",
+                    "label": "GLM 4.6 (355B MoE)",
+                    "family": "glm",
+                    "path": "/models/glm-4.6-355b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "glm4.7-flash",
+                    "label": "GLM 4.7 Flash",
+                    "family": "glm",
+                    "path": "/models/glm4.7-flash",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 7
+              },
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "granite3.3-2b",
+                    "label": "Granite 3.3 (2B Instruct)",
+                    "family": "granite",
+                    "path": "/models/granite3.3-2b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 8
+              },
+              {
+                "id": "internlm",
+                "label": "InternLM",
+                "logo": "/images/model-logos/internlm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "internlm2-7b",
+                    "label": "InternLM 2.5 (7B)",
+                    "family": "internlm",
+                    "path": "/models/internlm2-7b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 9
+              },
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "lfm2.5-8b-a1b",
+                    "label": "LFM2.5-8B-A1B",
+                    "family": "lfm",
+                    "path": "/models/lfm2.5-8b-a1b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 10
+              },
+              {
+                "id": "minimax",
+                "label": "MiniMax",
+                "logo": "/images/model-logos/minimax.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "minimax-m2.1",
+                    "label": "MiniMax M2.1",
+                    "family": "minimax",
+                    "path": "/models/minimax-m2.1",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 11
+              },
+              {
+                "id": "moondream",
+                "label": "Moondream",
+                "logo": "/images/model-logos/moondream-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "moondream2",
+                    "label": "Moondream 2",
+                    "family": "moondream",
+                    "path": "/models/moondream2",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 12
+              },
+              {
+                "id": "nanbeige",
+                "label": "Nanbeige",
+                "logo": "/images/model-logos/nanbeige-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "nanbeige4.2-3b",
+                    "label": "Nanbeige4.2 3B",
+                    "family": "nanbeige",
+                    "path": "/models/nanbeige4.2-3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 13
+              },
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "nemotron-mini-4b",
+                    "label": "Nemotron Mini (4B)",
+                    "family": "nemotron",
+                    "path": "/models/nemotron-mini-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 14
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 15
+              },
+              {
+                "id": "poolside",
+                "label": "Poolside",
+                "logo": "/images/model-logos/poolside.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "laguna-xs-2.1",
+                    "label": "Laguna XS 2.1",
+                    "family": "laguna",
+                    "path": "/models/laguna-xs-2.1",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 16
+              },
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 17
               }
             ],
             "mapLeaders": [
@@ -332,9 +999,28 @@
           "label": "Boulder County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "granite4.2-8b",
+                    "label": "Granite 4.2 (8B)",
+                    "family": "granite",
+                    "path": "/models/granite4.2-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ibm",
@@ -351,9 +1037,28 @@
           "label": "Denver County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "nemotron3-nano-4b",
+                    "label": "Nemotron 3 Nano (4B)",
+                    "family": "nemotron-nano",
+                    "path": "/models/nemotron3-nano-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "nvidia",
@@ -382,9 +1087,28 @@
           "label": "Capitol Planning Region",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -415,7 +1139,176 @@
             "observed": true,
             "visitors": 11,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "ai2",
+                "label": "AI2",
+                "logo": "/images/model-logos/ai2.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "olmo2-32b",
+                    "label": "OLMo 2 (32B)",
+                    "family": "olmo",
+                    "path": "/models/olmo2-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "olmo2-7b",
+                    "label": "OLMo 2 (7B)",
+                    "family": "olmo",
+                    "path": "/models/olmo2-7b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "deepseek-v3-671b",
+                    "label": "DeepSeek V3 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3-671b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3-4b",
+                    "label": "Qwen 3 (4B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-vl-32b",
+                    "label": "Qwen 3 VL (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-vl-32b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "deepcogito",
+                "label": "Deepcogito",
+                "logo": "/images/model-logos/deepcogito.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "cogito-32b",
+                    "label": "Cogito (32B)",
+                    "family": "cogito",
+                    "path": "/models/cogito-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "defog",
+                "label": "Defog",
+                "logo": "/images/model-logos/defog-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "sqlcoder-15b",
+                    "label": "SQLCoder (15B)",
+                    "family": "sqlcoder",
+                    "path": "/models/sqlcoder-15b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mirothinker-1.7",
+                    "label": "MiroThinker 1.7 (30B MoE)",
+                    "family": "mirothinker",
+                    "path": "/models/mirothinker-1.7",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mistral-nemo-12b",
+                    "label": "Mistral Nemo (12B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-nemo-12b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 7
+              },
+              {
+                "id": "nousresearch",
+                "label": "Nousresearch",
+                "logo": "/images/model-logos/nousresearch.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "hermes4-405b",
+                    "label": "Hermes 4 (405B)",
+                    "family": "hermes",
+                    "path": "/models/hermes4-405b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 8
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ai2",
@@ -454,9 +1347,46 @@
           "label": "Brevard County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "lfm2.5-8b-a1b",
+                    "label": "LFM2.5-8B-A1B",
+                    "family": "lfm",
+                    "path": "/models/lfm2.5-8b-a1b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "liquid",
@@ -478,9 +1408,28 @@
           "label": "Hillsborough County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -509,9 +1458,28 @@
           "label": "Chatham County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -528,9 +1496,28 @@
           "label": "Clarke County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -547,9 +1534,28 @@
           "label": "DeKalb County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "granite4.2-8b",
+                    "label": "Granite 4.2 (8B)",
+                    "family": "granite",
+                    "path": "/models/granite4.2-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ibm",
@@ -566,9 +1572,28 @@
           "label": "Fulton County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -597,9 +1622,46 @@
           "label": "Pottawattamie County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 2,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "command-a-111b",
+                    "label": "Command A (111B)",
+                    "family": "cohere",
+                    "path": "/models/command-a-111b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -630,7 +1692,116 @@
             "observed": true,
             "visitors": 6,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "bespokelabs",
+                "label": "Bespokelabs",
+                "logo": "/images/model-logos/bespokelabs-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bespoke-minicheck",
+                    "label": "Bespoke MiniCheck (3.8B)",
+                    "family": "bespoke",
+                    "path": "/models/bespoke-minicheck",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-12b",
+                    "label": "Gemma 4 12B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-12b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "llama3.3-70b",
+                    "label": "Llama 3.3 (70B)",
+                    "family": "llama",
+                    "path": "/models/llama3.3-70b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "phi4-mini",
+                    "label": "Phi-4 Mini (3.8B)",
+                    "family": "phi",
+                    "path": "/models/phi4-mini",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-next-80b-a3b",
+                    "label": "Qwen 3 Next (80B/3B MoE)",
+                    "family": "qwen-moe",
+                    "path": "/models/qwen3-next-80b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "bespokelabs",
@@ -672,9 +1843,28 @@
           "label": "Kane County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -703,9 +1893,28 @@
           "label": "Johnson County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "mistral",
@@ -734,9 +1943,28 @@
           "label": "Orleans Parish",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen2.5-72b",
+                    "label": "Qwen 2.5 (72B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-72b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -765,9 +1993,46 @@
           "label": "Essex County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "arcee",
+                "label": "Arcee",
+                "logo": "/images/model-logos/arcee.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "trinity-large",
+                    "label": "Trinity Large Preview (398B MoE)",
+                    "family": "trinity",
+                    "path": "/models/trinity-large",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "arcee",
@@ -789,9 +2054,28 @@
           "label": "Norfolk County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-26b-a4b",
+                    "label": "Gemma 4 26B A4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-26b-a4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "gemma",
@@ -820,9 +2104,28 @@
           "label": "Anne Arundel County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -839,9 +2142,46 @@
           "label": "Baltimore city",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "wizardlm2-8x22b",
+                    "label": "WizardLM 2 (8x22B)",
+                    "family": "wizardlm",
+                    "path": "/models/wizardlm2-8x22b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-coder-next",
+                    "label": "Qwen3-Coder-Next",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen3-coder-next",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "microsoft",
@@ -863,9 +2203,46 @@
           "label": "Howard County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "muse-glimmer-30b",
+                    "label": "Muse Glimmer 30B",
+                    "family": "meta",
+                    "path": "/models/muse-glimmer-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.5-122b-a10b",
+                    "label": "Qwen 3.5 MoE (122B/10B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-122b-a10b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "meta",
@@ -899,9 +2276,28 @@
           "label": "Ingham County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -918,9 +2314,28 @@
           "label": "Kent County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "prismml",
@@ -937,9 +2352,28 @@
           "label": "Wayne County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "kimi-k2.5-32b",
+                    "label": "Kimi K2.5 (1T MoE)",
+                    "family": "kimi",
+                    "path": "/models/kimi-k2.5-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "kimi",
@@ -968,9 +2402,28 @@
           "label": "Chisago County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -999,9 +2452,28 @@
           "label": "St. Charles County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "kimi-k2-thinking",
+                    "label": "Kimi K2 Thinking (1T MoE)",
+                    "family": "kimi",
+                    "path": "/models/kimi-k2-thinking",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "kimi",
@@ -1018,9 +2490,28 @@
           "label": "St. Louis city",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1049,9 +2540,28 @@
           "label": "Burleigh County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -1080,9 +2590,28 @@
           "label": "Bergen County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -1099,9 +2628,46 @@
           "label": "Essex County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "lfm2.5-8b-a1b",
+                    "label": "LFM2.5-8B-A1B",
+                    "family": "lfm",
+                    "path": "/models/lfm2.5-8b-a1b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "liquid",
@@ -1123,9 +2689,44 @@
           "label": "Hudson County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "qwen3-32b",
+                    "label": "Qwen 3 (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-coder-30b",
+                    "label": "Qwen 3 Coder (30B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen3-coder-30b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "qwen3.5-122b-a10b",
+                    "label": "Qwen 3.5 MoE (122B/10B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-122b-a10b",
+                    "visitors": 1,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1142,9 +2743,36 @@
           "label": "Hunterdon County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1175,7 +2803,124 @@
             "observed": true,
             "visitors": 7,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-8b",
+                    "label": "Qwen 3 (8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-8b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma3n-4b",
+                    "label": "Gemma 3n (4B)",
+                    "family": "gemma",
+                    "path": "/models/gemma3n-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "granite4.1-8b",
+                    "label": "Granite 4.1 (8B)",
+                    "family": "granite",
+                    "path": "/models/granite4.1-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mirothinker-1.7",
+                    "label": "MiroThinker 1.7 (30B MoE)",
+                    "family": "mirothinker",
+                    "path": "/models/mirothinker-1.7",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mistral-small-3.2-24b",
+                    "label": "Mistral Small 3.2 (24B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-small-3.2-24b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "nanbeige",
+                "label": "Nanbeige",
+                "logo": "/images/model-logos/nanbeige-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "nanbeige4.2-3b",
+                    "label": "Nanbeige4.2 3B",
+                    "family": "nanbeige",
+                    "path": "/models/nanbeige4.2-3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1206,7 +2951,96 @@
             "observed": true,
             "visitors": 6,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "qwen2.5-7b",
+                    "label": "Qwen 2.5 (7B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-7b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-32b",
+                    "label": "Qwen 3 (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-32b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "qwen3-next-80b-a3b",
+                    "label": "Qwen 3 Next (80B/3B MoE)",
+                    "family": "qwen-moe",
+                    "path": "/models/qwen3-next-80b-a3b",
+                    "visitors": 1,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.2",
+                    "label": "DeepSeek V3.2 (37B/685B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.2",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-26b-a4b",
+                    "label": "Gemma 4 26B A4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-26b-a4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1223,9 +3057,28 @@
           "label": "Orange County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "nousresearch",
+                "label": "Nousresearch",
+                "logo": "/images/model-logos/nousresearch.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "hermes3-8b",
+                    "label": "Hermes 3 (8B)",
+                    "family": "hermes",
+                    "path": "/models/hermes3-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "nousresearch",
@@ -1242,9 +3095,28 @@
           "label": "Oswego County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "command-r-plus",
+                    "label": "Command R+ (104B)",
+                    "family": "cohere",
+                    "path": "/models/command-r-plus",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "cohere",
@@ -1261,9 +3133,28 @@
           "label": "Queens County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-31b",
+                    "label": "Gemma 4 31B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-31b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "gemma",
@@ -1282,7 +3173,130 @@
             "observed": true,
             "visitors": 9,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 4,
+                "models": [
+                  {
+                    "id": "qwen2.5-coder-32b",
+                    "label": "Qwen 2.5 Coder (32B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen2.5-coder-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.5-0.8b",
+                    "label": "Qwen 3.5 (0.8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-0.8b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "qwen3.5-4b",
+                    "label": "Qwen 3.5 (4B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-4b",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "qwen3.5-9b",
+                    "label": "Qwen 3.5 (9B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-9b",
+                    "visitors": 1,
+                    "rank": 4
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "deepcoder-14b",
+                    "label": "DeepCoder (14B)",
+                    "family": "deepcoder",
+                    "path": "/models/deepcoder-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "deepseek-v3.2-exp",
+                    "label": "DeepSeek V3.2 Exp (671B MoE)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-v3.2-exp",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "openai",
+                "label": "OpenAI",
+                "logo": "/images/model-logos/openai.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gpt-oss-20b",
+                    "label": "GPT-OSS (20B)",
+                    "family": "gpt-oss",
+                    "path": "/models/gpt-oss-20b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1299,9 +3313,46 @@
           "label": "Suffolk County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -1335,9 +3386,28 @@
           "label": "Cuyahoga County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1354,9 +3424,28 @@
           "label": "Summit County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1373,9 +3462,28 @@
           "label": "Tuscarawas County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1404,9 +3512,28 @@
           "label": "Tulsa County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "glm4.5-air",
+                    "label": "GLM 4.5 Air (MoE)",
+                    "family": "glm",
+                    "path": "/models/glm4.5-air",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "zhipu",
@@ -1435,7 +3562,7 @@
           "label": "Wasco County",
           "modelInterest": {
             "observed": true,
-            "visitors": 222,
+            "visitors": 221,
             "visitorsStatus": "published",
             "brands": [
               {
@@ -1459,6 +3586,94 @@
                     "path": "/models/qwen3-32b",
                     "visitors": 16,
                     "rank": 2
+                  },
+                  {
+                    "id": "qwen3-30b-a3b",
+                    "label": "Qwen 3 MoE (30B/3B active)",
+                    "family": "qwen-moe",
+                    "path": "/models/qwen3-30b-a3b",
+                    "visitors": 3,
+                    "rank": 3
+                  },
+                  {
+                    "id": "qwen3.5-4b",
+                    "label": "Qwen 3.5 (4B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-4b",
+                    "visitors": 3,
+                    "rank": 4
+                  },
+                  {
+                    "id": "qwen2.5-72b",
+                    "label": "Qwen 2.5 (72B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-72b",
+                    "visitors": 2,
+                    "rank": 5
+                  },
+                  {
+                    "id": "qwen2.5-coder-7b",
+                    "label": "Qwen 2.5 Coder (7B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen2.5-coder-7b",
+                    "visitors": 2,
+                    "rank": 6
+                  },
+                  {
+                    "id": "qwen3-vl-8b",
+                    "label": "Qwen 3 VL (8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-vl-8b",
+                    "visitors": 2,
+                    "rank": 7
+                  },
+                  {
+                    "id": "qwen2.5-coder-32b",
+                    "label": "Qwen 2.5 Coder (32B)",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen2.5-coder-32b",
+                    "visitors": 1,
+                    "rank": 8
+                  },
+                  {
+                    "id": "qwen3.5-0.8b",
+                    "label": "Qwen 3.5 (0.8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-0.8b",
+                    "visitors": 1,
+                    "rank": 9
+                  },
+                  {
+                    "id": "qwen3.5-9b",
+                    "label": "Qwen 3.5 (9B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-9b",
+                    "visitors": 1,
+                    "rank": 10
+                  },
+                  {
+                    "id": "qwen3.5-35b-a3b",
+                    "label": "Qwen 3.5 MoE (35B/3B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-35b-a3b",
+                    "visitors": 1,
+                    "rank": 11
+                  },
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 12
+                  },
+                  {
+                    "id": "qwq-32b",
+                    "label": "QwQ (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwq-32b",
+                    "visitors": 1,
+                    "rank": 13
                   }
                 ],
                 "modelsStatus": "published",
@@ -1485,6 +3700,38 @@
                     "path": "/models/glm4.5-air",
                     "visitors": 8,
                     "rank": 2
+                  },
+                  {
+                    "id": "glm-4.6-355b",
+                    "label": "GLM 4.6 (355B MoE)",
+                    "family": "glm",
+                    "path": "/models/glm-4.6-355b",
+                    "visitors": 3,
+                    "rank": 3
+                  },
+                  {
+                    "id": "glm4.7-flash",
+                    "label": "GLM 4.7 Flash",
+                    "family": "glm",
+                    "path": "/models/glm4.7-flash",
+                    "visitors": 2,
+                    "rank": 4
+                  },
+                  {
+                    "id": "glm4-32b",
+                    "label": "GLM-4 (32B)",
+                    "family": "glm",
+                    "path": "/models/glm4-32b",
+                    "visitors": 2,
+                    "rank": 5
+                  },
+                  {
+                    "id": "glm4-9b",
+                    "label": "GLM-4 (9B)",
+                    "family": "glm",
+                    "path": "/models/glm4-9b",
+                    "visitors": 1,
+                    "rank": 6
                   }
                 ],
                 "modelsStatus": "published",
@@ -1511,6 +3758,38 @@
                     "path": "/models/deepseek-coder-v2-16b",
                     "visitors": 6,
                     "rank": 2
+                  },
+                  {
+                    "id": "deepseek-r1-14b",
+                    "label": "DeepSeek R1 Distill (14B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-14b",
+                    "visitors": 2,
+                    "rank": 3
+                  },
+                  {
+                    "id": "deepseek-r1-0528",
+                    "label": "DeepSeek R1 0528 (671B MoE)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-0528",
+                    "visitors": 1,
+                    "rank": 4
+                  },
+                  {
+                    "id": "deepseek-r1-32b",
+                    "label": "DeepSeek R1 Distill (32B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-32b",
+                    "visitors": 1,
+                    "rank": 5
+                  },
+                  {
+                    "id": "deepseek-v3.2-exp",
+                    "label": "DeepSeek V3.2 Exp (671B MoE)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-v3.2-exp",
+                    "visitors": 1,
+                    "rank": 6
                   }
                 ],
                 "modelsStatus": "published",
@@ -1520,7 +3799,7 @@
                 "id": "mistral",
                 "label": "Mistral",
                 "logo": "/images/model-logos/mistral.svg",
-                "visitors": 21,
+                "visitors": 20,
                 "models": [
                   {
                     "id": "codestral-22b",
@@ -1537,6 +3816,46 @@
                     "path": "/models/mixtral-8x7b",
                     "visitors": 5,
                     "rank": 2
+                  },
+                  {
+                    "id": "mistral-nemo-12b",
+                    "label": "Mistral Nemo (12B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-nemo-12b",
+                    "visitors": 3,
+                    "rank": 3
+                  },
+                  {
+                    "id": "mistral-small3.2-24b",
+                    "label": "Mistral Small 3.2 (24B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-small3.2-24b",
+                    "visitors": 3,
+                    "rank": 4
+                  },
+                  {
+                    "id": "devstral-24b",
+                    "label": "Devstral (24B)",
+                    "family": "mistral",
+                    "path": "/models/devstral-24b",
+                    "visitors": 2,
+                    "rank": 5
+                  },
+                  {
+                    "id": "mistral-large-123b",
+                    "label": "Mistral Large (123B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-large-123b",
+                    "visitors": 1,
+                    "rank": 6
+                  },
+                  {
+                    "id": "mistral-small-3.2-24b",
+                    "label": "Mistral Small 3.2 (24B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-small-3.2-24b",
+                    "visitors": 1,
+                    "rank": 7
                   }
                 ],
                 "modelsStatus": "published",
@@ -1563,6 +3882,14 @@
                     "path": "/models/ornith-1.0-9b-gguf",
                     "visitors": 5,
                     "rank": 2
+                  },
+                  {
+                    "id": "ornith-1-5-35b-a3b",
+                    "label": "Ornith-1.5-35B-A3B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-35b-a3b",
+                    "visitors": 3,
+                    "rank": 3
                   }
                 ],
                 "modelsStatus": "published",
@@ -1581,6 +3908,38 @@
                     "path": "/models/phi4-mini",
                     "visitors": 6,
                     "rank": 1
+                  },
+                  {
+                    "id": "phi4-14b",
+                    "label": "Phi-4 (14B)",
+                    "family": "phi",
+                    "path": "/models/phi4-14b",
+                    "visitors": 3,
+                    "rank": 2
+                  },
+                  {
+                    "id": "phi3-14b",
+                    "label": "Phi-3 Medium (14B)",
+                    "family": "phi",
+                    "path": "/models/phi3-14b",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "phi3.5-moe-instruct",
+                    "label": "Phi-3.5 MoE Instruct",
+                    "family": "phi",
+                    "path": "/models/phi3.5-moe-instruct",
+                    "visitors": 1,
+                    "rank": 4
+                  },
+                  {
+                    "id": "phi4-reasoning-14b",
+                    "label": "Phi-4 Reasoning (14B)",
+                    "family": "phi",
+                    "path": "/models/phi4-reasoning-14b",
+                    "visitors": 1,
+                    "rank": 5
                   }
                 ],
                 "modelsStatus": "published",
@@ -1591,8 +3950,33 @@
                 "label": "Gemma",
                 "logo": "/images/model-logos/gemma-official-color.svg",
                 "visitors": 9,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "models": [
+                  {
+                    "id": "gemma3-12b",
+                    "label": "Gemma 3 (12B)",
+                    "family": "gemma",
+                    "path": "/models/gemma3-12b",
+                    "visitors": 3,
+                    "rank": 1
+                  },
+                  {
+                    "id": "gemma3-27b",
+                    "label": "Gemma 3 (27B)",
+                    "family": "gemma",
+                    "path": "/models/gemma3-27b",
+                    "visitors": 3,
+                    "rank": 2
+                  },
+                  {
+                    "id": "gemma4-12b",
+                    "label": "Gemma 4 12B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-12b",
+                    "visitors": 3,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 7
               },
               {
@@ -1618,8 +4002,25 @@
                 "label": "Liquid AI",
                 "logo": "/images/model-logos/liquid.svg",
                 "visitors": 7,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "models": [
+                  {
+                    "id": "lfm2.5-8b-a1b",
+                    "label": "LFM2.5-8B-A1B",
+                    "family": "lfm",
+                    "path": "/models/lfm2.5-8b-a1b",
+                    "visitors": 4,
+                    "rank": 1
+                  },
+                  {
+                    "id": "lfm2-5-2-6b",
+                    "label": "LFM2.5-2.6B",
+                    "family": "lfm",
+                    "path": "/models/lfm2-5-2-6b",
+                    "visitors": 3,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 9
               },
               {
@@ -1627,8 +4028,33 @@
                 "label": "Cohere",
                 "logo": "/images/model-logos/cohere.svg",
                 "visitors": 6,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "models": [
+                  {
+                    "id": "command-r-plus",
+                    "label": "Command R+ (104B)",
+                    "family": "cohere",
+                    "path": "/models/command-r-plus",
+                    "visitors": 4,
+                    "rank": 1
+                  },
+                  {
+                    "id": "command-r-35b",
+                    "label": "Command R (35B)",
+                    "family": "cohere",
+                    "path": "/models/command-r-35b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "north-mini-code-1.0",
+                    "label": "North Mini Code 1.0",
+                    "family": "cohere",
+                    "path": "/models/north-mini-code-1.0",
+                    "visitors": 1,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 10
               },
               {
@@ -1636,9 +4062,308 @@
                 "label": "Meta",
                 "logo": "/images/model-logos/meta.svg",
                 "visitors": 6,
-                "models": [],
-                "modelsStatus": "withheld_below_threshold",
+                "models": [
+                  {
+                    "id": "llama4-scout-17b-16e",
+                    "label": "Llama 4 Scout (17B/109B MoE)",
+                    "family": "llama",
+                    "path": "/models/llama4-scout-17b-16e",
+                    "visitors": 3,
+                    "rank": 1
+                  },
+                  {
+                    "id": "llama3.2-3b",
+                    "label": "Llama 3.2 (3B)",
+                    "family": "llama",
+                    "path": "/models/llama3.2-3b",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "llama4-maverick",
+                    "label": "Llama 4 Maverick (17B/128E MoE)",
+                    "family": "llama",
+                    "path": "/models/llama4-maverick",
+                    "visitors": 1,
+                    "rank": 3
+                  },
+                  {
+                    "id": "llama4-maverick-17b-128e",
+                    "label": "Llama 4 Maverick (17B/400B MoE)",
+                    "family": "llama",
+                    "path": "/models/llama4-maverick-17b-128e",
+                    "visitors": 1,
+                    "rank": 4
+                  }
+                ],
+                "modelsStatus": "published",
                 "rank": 11
+              },
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 4,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 4,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 12
+              },
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "granite3.3-8b",
+                    "label": "Granite 3.3 (8B Instruct)",
+                    "family": "granite",
+                    "path": "/models/granite3.3-8b",
+                    "visitors": 2,
+                    "rank": 1
+                  },
+                  {
+                    "id": "granite3.2-vision-2b",
+                    "label": "Granite 3.2 Vision (2B)",
+                    "family": "granite",
+                    "path": "/models/granite3.2-vision-2b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 13
+              },
+              {
+                "id": "minimax",
+                "label": "MiniMax",
+                "logo": "/images/model-logos/minimax.svg",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "minimax-m2-230b",
+                    "label": "MiniMax M2 (230B MoE)",
+                    "family": "minimax",
+                    "path": "/models/minimax-m2-230b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "minimax-m2.1",
+                    "label": "MiniMax M2.1",
+                    "family": "minimax",
+                    "path": "/models/minimax-m2.1",
+                    "visitors": 1,
+                    "rank": 2
+                  },
+                  {
+                    "id": "minimax-m3",
+                    "label": "MiniMax M3 (428B/23B active)",
+                    "family": "minimax",
+                    "path": "/models/minimax-m3",
+                    "visitors": 1,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 14
+              },
+              {
+                "id": "moondream",
+                "label": "Moondream",
+                "logo": "/images/model-logos/moondream-avatar.webp",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "moondream2",
+                    "label": "Moondream 2",
+                    "family": "moondream",
+                    "path": "/models/moondream2",
+                    "visitors": 3,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 15
+              },
+              {
+                "id": "nousresearch",
+                "label": "Nousresearch",
+                "logo": "/images/model-logos/nousresearch.svg",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "hermes3-8b",
+                    "label": "Hermes 3 (8B)",
+                    "family": "hermes",
+                    "path": "/models/hermes3-8b",
+                    "visitors": 2,
+                    "rank": 1
+                  },
+                  {
+                    "id": "hermes4-405b",
+                    "label": "Hermes 4 (405B)",
+                    "family": "hermes",
+                    "path": "/models/hermes4-405b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 16
+              },
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "nemotron3-49b",
+                    "label": "Llama-3.3-Nemotron-Super (49B)",
+                    "family": "nemotron",
+                    "path": "/models/nemotron3-49b",
+                    "visitors": 2,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 17
+              },
+              {
+                "id": "dbrx",
+                "label": "Dbrx",
+                "logo": "/images/model-logos/dbrx.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "dbrx-132b",
+                    "label": "DBRX (132B MoE)",
+                    "family": "dbrx",
+                    "path": "/models/dbrx-132b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 18
+              },
+              {
+                "id": "dolphin",
+                "label": "Dolphin",
+                "logo": "/images/model-logos/dolphin.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "dolphin3-8b",
+                    "label": "Dolphin 3 (8B)",
+                    "family": "dolphin",
+                    "path": "/models/dolphin3-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 19
+              },
+              {
+                "id": "huggingfacetb",
+                "label": "Huggingfacetb",
+                "logo": "/images/model-logos/huggingfacetb-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "smollm2-1.7b",
+                    "label": "SmolLM 2 (1.7B)",
+                    "family": "smollm",
+                    "path": "/models/smollm2-1.7b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 20
+              },
+              {
+                "id": "inclusionai",
+                "label": "Inclusionai",
+                "logo": "/images/model-logos/inclusionai-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ling-3.0-tiny",
+                    "label": "Ling-3.0-tiny",
+                    "family": "ling",
+                    "path": "/models/ling-3.0-tiny",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 21
+              },
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mirothinker-30b",
+                    "label": "MiroThinker v1.5 (30B MoE)",
+                    "family": "mirothinker",
+                    "path": "/models/mirothinker-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 22
+              },
+              {
+                "id": "openchat",
+                "label": "Openchat",
+                "logo": "/images/model-logos/openchat.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "openchat-7b",
+                    "label": "OpenChat 3.5 (7B)",
+                    "family": "openchat",
+                    "path": "/models/openchat-7b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 23
+              },
+              {
+                "id": "opengvlab",
+                "label": "Opengvlab",
+                "logo": "/images/model-logos/opengvlab-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "internvl3-8b",
+                    "label": "InternVL3 (8B)",
+                    "family": "internvl",
+                    "path": "/models/internvl3-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 24
               }
             ],
             "mapLeaders": [
@@ -1669,9 +4394,46 @@
           "label": "Philadelphia County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "prismml",
@@ -1705,9 +4467,28 @@
           "label": "Dorchester County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1724,9 +4505,28 @@
           "label": "Marlboro County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "openai",
+                "label": "OpenAI",
+                "logo": "/images/model-logos/openai.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gpt-oss-20b",
+                    "label": "GPT-OSS (20B)",
+                    "family": "gpt-oss",
+                    "path": "/models/gpt-oss-20b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "openai",
@@ -1755,9 +4555,28 @@
           "label": "Brazos County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1774,9 +4593,28 @@
           "label": "Collin County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.8-27b",
+                    "label": "Qwen3.8-27B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.8-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1793,9 +4631,64 @@
           "label": "Dallas County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 4,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 2,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v4-flash-0731",
+                    "label": "DeepSeek V4 Flash 0731 (284B MoE)",
+                    "family": "deepseek-flash",
+                    "path": "/models/deepseek-v4-flash-0731",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "llama3.1-nemotron-nano-4b",
+                    "label": "Llama-3.1-Nemotron-Nano (4B)",
+                    "family": "nemotron-llama-nano",
+                    "path": "/models/llama3.1-nemotron-nano-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1812,9 +4705,28 @@
           "label": "Galveston County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.5-0.8b",
+                    "label": "Qwen 3.5 (0.8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-0.8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1831,9 +4743,28 @@
           "label": "Harris County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ibm",
+                "label": "IBM",
+                "logo": "/images/model-logos/ibm.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "granite4.2-8b",
+                    "label": "Granite 4.2 (8B)",
+                    "family": "granite",
+                    "path": "/models/granite4.2-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ibm",
@@ -1850,9 +4781,28 @@
           "label": "Smith County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "kimi-linear-48b-a3b-instruct",
+                    "label": "Kimi Linear 48B-A3B Instruct",
+                    "family": "kimi",
+                    "path": "/models/kimi-linear-48b-a3b-instruct",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "kimi",
@@ -1869,9 +4819,28 @@
           "label": "Tarrant County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "muse-glimmer-30b",
+                    "label": "Muse Glimmer 30B",
+                    "family": "meta",
+                    "path": "/models/muse-glimmer-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "meta",
@@ -1888,9 +4857,46 @@
           "label": "Travis County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "prismml",
@@ -1924,9 +4930,28 @@
           "label": "Fairfax County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.5-122b-a10b",
+                    "label": "Qwen 3.5 MoE (122B/10B active)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-122b-a10b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1943,9 +4968,54 @@
           "label": "Loudoun County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen2.5-14b",
+                    "label": "Qwen 2.5 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-14b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -1962,9 +5032,28 @@
           "label": "Mecklenburg County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -1981,9 +5070,28 @@
           "label": "Prince William County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -2012,9 +5120,54 @@
           "label": "King County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "llama3.1-nemotron-nano-4b",
+                    "label": "Llama-3.1-Nemotron-Nano (4B)",
+                    "family": "nemotron-llama-nano",
+                    "path": "/models/llama3.1-nemotron-nano-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -2031,9 +5184,28 @@
           "label": "Snohomish County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -2050,9 +5222,28 @@
           "label": "Spokane County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -2081,9 +5272,28 @@
           "label": "Sauk County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen2.5-72b",
+                    "label": "Qwen 2.5 (72B)",
+                    "family": "qwen",
+                    "path": "/models/qwen2.5-72b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -2100,9 +5310,28 @@
           "label": "Sheboygan County",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-26b-a4b",
+                    "label": "Gemma 4 26B A4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-26b-a4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "gemma",
@@ -2131,9 +5360,28 @@
           "label": "Hefei · 合肥市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.2",
+                    "label": "DeepSeek V3.2 (37B/685B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.2",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -2164,7 +5412,96 @@
             "observed": true,
             "visitors": 8,
             "visitorsStatus": "published",
-            "brands": [],
+            "brands": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 3,
+                "models": [
+                  {
+                    "id": "ornith-1.0-397b",
+                    "label": "Ornith 1.0 (397B MoE)",
+                    "family": "deepreinforce",
+                    "path": "/models/ornith-1.0-397b",
+                    "visitors": 2,
+                    "rank": 1
+                  },
+                  {
+                    "id": "ornith-1.0-9b-gguf",
+                    "label": "Ornith 1.0 9B GGUF",
+                    "family": "deepreinforce",
+                    "path": "/models/ornith-1.0-9b-gguf",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "minimax",
+                "label": "MiniMax",
+                "logo": "/images/model-logos/minimax.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "minimax-m3",
+                    "label": "MiniMax M3 (428B/23B active)",
+                    "family": "minimax",
+                    "path": "/models/minimax-m3",
+                    "visitors": 2,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3-235b-a22b",
+                    "label": "Qwen 3 MoE (235B/22B active)",
+                    "family": "qwen-moe",
+                    "path": "/models/qwen3-235b-a22b",
+                    "visitors": 1,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.5-2b",
+                    "label": "Qwen 3.5 (2B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.5-2b",
+                    "visitors": 1,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-12b",
+                    "label": "Gemma 4 12B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-12b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "ornith",
@@ -2193,9 +5530,28 @@
           "label": "Guangzhou · 广州市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "internscience",
+                "label": "Internscience",
+                "logo": "/images/model-logos/internscience-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "agents-a1-4b",
+                    "label": "Agents-A1 4B",
+                    "family": "agents-a1",
+                    "path": "/models/agents-a1-4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "internscience",
@@ -2224,9 +5580,46 @@
           "label": "Suzhou · 苏州市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "command-r-35b",
+                    "label": "Command R (35B)",
+                    "family": "cohere",
+                    "path": "/models/command-r-35b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-coder-next",
+                    "label": "Qwen3-Coder-Next",
+                    "family": "qwen-coder",
+                    "path": "/models/qwen3-coder-next",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "cohere",
@@ -2260,9 +5653,28 @@
           "label": "Chengdu · 成都市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "gemma4-e4b",
+                    "label": "Gemma 4 E4B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-e4b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "gemma",
@@ -2291,9 +5703,28 @@
           "label": "Shanghai Municipality · 上海市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "qwen3-8b",
+                    "label": "Qwen 3 (8B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-8b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
@@ -2322,9 +5753,46 @@
           "label": "Tianjin Municipality · 天津市",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 2,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-r1-32b",
+                    "label": "DeepSeek R1 Distill (32B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-r1-32b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "inclusionai",
+                "label": "Inclusionai",
+                "logo": "/images/model-logos/inclusionai-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ling-3.0-tiny",
+                    "label": "Ling-3.0-tiny",
+                    "family": "ling",
+                    "path": "/models/ling-3.0-tiny",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -2358,9 +5826,28 @@
           "label": "Unincorporated ACT",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "mirothinker-30b",
+                    "label": "MiroThinker v1.5 (30B MoE)",
+                    "family": "mirothinker",
+                    "path": "/models/mirothinker-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "miromind",
@@ -2389,9 +5876,64 @@
           "label": "Sydney",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 3,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v3.2",
+                    "label": "DeepSeek V3.2 (37B/685B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.2",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "deepseek",
@@ -2430,9 +5972,28 @@
           "label": "Brisbane",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 1,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "prismml",
+                "label": "Prismml",
+                "logo": "/images/model-logos/prismml-avatar.webp",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "bonsai-27b",
+                    "label": "Bonsai 27B",
+                    "family": "bonsai",
+                    "path": "/models/bonsai-27b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "prismml",
@@ -2461,9 +6022,64 @@
           "label": "Melbourne",
           "modelInterest": {
             "observed": true,
-            "visitors": null,
-            "visitorsStatus": "withheld_below_threshold",
-            "brands": [],
+            "visitors": 4,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 2,
+                "models": [
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 2,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "deepseek-v4-flash-0731",
+                    "label": "DeepSeek V4 Flash 0731 (284B MoE)",
+                    "family": "deepseek-flash",
+                    "path": "/models/deepseek-v4-flash-0731",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 1,
+                "models": [
+                  {
+                    "id": "muse-glimmer-30b",
+                    "label": "Muse Glimmer 30B",
+                    "family": "meta",
+                    "path": "/models/muse-glimmer-30b",
+                    "visitors": 1,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              }
+            ],
             "mapLeaders": [
               {
                 "id": "qwen",
