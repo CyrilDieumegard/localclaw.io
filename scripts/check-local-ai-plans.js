@@ -116,8 +116,8 @@ assert(machineCompatibility.includes('includeTight: false'), 'Account plans must
 assert(account.includes('indexableLocalModels()'), 'Account recommendations must use the same indexable local LLM scope as the homepage');
 assert(account.includes('APP_DATA.hfRepoVerification?.unavailable'), 'Account recommendations must exclude exact-repository-unavailable LLM tombstones');
 assert(accountHtml.includes('/js/machine-compat-20260802a.js?v=20260823a'), 'Account machine compatibility cache key is stale');
-assert(index.includes('js/data.js?v=20260901a'), 'Homepage flow data cache key is stale');
-assert(index.includes('js/app-20260816a.js?v=20260901a'), 'Homepage plan app cache key is stale');
+assert(index.includes('js/data.js?v=20260901b'), 'Homepage flow data cache key is stale');
+assert(index.includes('js/app-20260816a.js?v=20260901b'), 'Homepage plan app cache key is stale');
 assert(index.includes('js/growth-paths-20260727a.js?v=20260822a'), 'Homepage growth path cache key is stale');
 assert(growth.includes('Build my Local AI Plan'), 'Article acquisition CTA is not plan-led');
 assert(growth.includes('no signup before value'), 'Article CTA must explain the no-signup result');
