@@ -5,6 +5,7 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const errors = [];
 const issue = message => errors.push(message);
+const MODEL_REGION_ROUTING_NOTE = 'Known network-routing cluster in the general Atlas interest dataset; interpret this regional model-page total as an approximate network location, not a resident count.';
 const expected = [
   { key: '90d', days: 90, start: '2026-06-01', end: '2026-08-29', countries: 90 },
   { key: '180d', days: 180, start: '2026-03-03', end: '2026-08-29', countries: 97 }
@@ -19,6 +20,40 @@ const modelExpected = [
   { key: '90d', days: 90, start: '2026-06-01', end: '2026-08-29', suffix: '-90d', visitors: 2015, countries: 28, brandCells: 79, modelCells: 79, globalBrands: 31, omittedScopes: 4 },
   { key: '180d', days: 180, start: '2026-03-03', end: '2026-08-29', suffix: '-180d', visitors: 2193, countries: 28, brandCells: 86, modelCells: 97, globalBrands: 27, omittedScopes: 10 }
 ];
+const modelAdmin1Expected = {
+  '30d': {
+    regions: 22,
+    brandCells: 20,
+    modelCells: 10,
+    emptyCountries: 4,
+    diagnostics: { unresolved: 0, parentBrands: 0, parentModels: 1 },
+    landmarks: [
+      { country: 'United States', region: 'Oregon', regionVisitors: 221, brand: 'qwen', brandVisitors: 54 }
+    ]
+  },
+  '90d': {
+    regions: 71,
+    brandCells: 45,
+    modelCells: 26,
+    emptyCountries: 4,
+    diagnostics: { unresolved: 0, parentBrands: 0, parentModels: 2 },
+    landmarks: [
+      { country: 'United States', region: 'Oregon', regionVisitors: 332, brand: 'qwen', brandVisitors: 73 },
+      { country: 'China', region: 'Guangdong', regionVisitors: 37, brand: 'qwen', brandVisitors: 10 }
+    ]
+  },
+  '180d': {
+    regions: 77,
+    brandCells: 47,
+    modelCells: 27,
+    emptyCountries: 4,
+    diagnostics: { unresolved: 1, parentBrands: 0, parentModels: 2 },
+    landmarks: [
+      { country: 'United States', region: 'Oregon', regionVisitors: 335, brand: 'qwen', brandVisitors: 74 },
+      { country: 'China', region: 'Guangdong', regionVisitors: 43, brand: 'qwen', brandVisitors: 13 }
+    ]
+  }
+};
 
 function read(relativePath) {
   try {
@@ -235,6 +270,107 @@ function modelRowMap(brand) {
   return new Map((brand?.models || []).map(model => [model.id, model]));
 }
 
+function normalizeRegionName(value) {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
+function isIsoTimestamp(value) {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(value) && Number.isFinite(Date.parse(value));
+}
+
+function modelAdmin1References(window) {
+  const base = read(`data/local-ai-activity-index${window.suffix}.json`);
+  const admin1 = read(`data/local-ai-admin1-activity${window.suffix}.json`);
+  const manifest = read('data/admin1/manifest.json');
+  if (!base || !admin1 || !manifest) return new Map();
+  const references = new Map();
+  for (const [countryName, country] of Object.entries(admin1.countries || {})) {
+    const regions = new Map();
+    const canonicalCandidates = new Map();
+    for (const region of country.regions || []) {
+      const record = {
+        sourceName: region.sourceName,
+        canonicalName: region.canonicalName,
+        boundaryMatch: region.boundaryMatch,
+        boundaryFeatureIds: region.boundaryFeatureIds,
+        qualityFlag: region.qualityFlag,
+        qualityNote: region.qualityNote
+      };
+      regions.set(normalizeRegionName(region.sourceName), record);
+      const canonicalKey = normalizeRegionName(region.canonicalName);
+      const candidates = canonicalCandidates.get(canonicalKey) || [];
+      candidates.push(record);
+      canonicalCandidates.set(canonicalKey, candidates);
+    }
+    for (const [canonicalKey, candidates] of canonicalCandidates) {
+      if (candidates.length === 1 && !regions.has(canonicalKey)) regions.set(canonicalKey, candidates[0]);
+    }
+    const manifestEntry = manifest.countries?.[country.adm0A3];
+    const boundaryShard = manifestEntry ? read(String(manifestEntry.path || '').replace(/^\//, '')) : null;
+    const exactCandidates = new Map();
+    for (const feature of boundaryShard?.features || []) {
+      const properties = feature.properties || {};
+      const record = {
+        sourceName: properties.name || properties.name_en,
+        canonicalName: properties.name_en || properties.name,
+        boundaryMatch: 'exact',
+        boundaryFeatureIds: [properties.adm1_code],
+        qualityFlag: undefined,
+        qualityNote: undefined
+      };
+      for (const name of [properties.name, properties.name_en, ...String(properties.name_local || '').split('|')]) {
+        const normalizedName = normalizeRegionName(name);
+        if (!normalizedName) continue;
+        const candidates = exactCandidates.get(normalizedName) || [];
+        candidates.push(record);
+        exactCandidates.set(normalizedName, candidates);
+      }
+    }
+    for (const [nameKey, candidates] of exactCandidates) {
+      if (candidates.length === 1 && !regions.has(nameKey)) regions.set(nameKey, candidates[0]);
+    }
+    references.set(countryName, { countryCode: country.countryCode, adm0A3: country.adm0A3, regions });
+  }
+
+  const usaManifest = manifest.countries?.USA;
+  const usaShard = usaManifest ? read(String(usaManifest.path || '').replace(/^\//, '')) : null;
+  const usaByIso = new Map((usaShard?.features || []).map(feature => [
+    String(feature.properties?.iso_3166_2 || '').toUpperCase(),
+    feature
+  ]));
+  const usaByName = new Map((usaShard?.features || []).map(feature => [
+    normalizeRegionName(feature.properties?.name || feature.properties?.name_en),
+    feature
+  ]));
+  const usaRegions = new Map();
+  for (const state of base.subnational?.['United States']?.regions || []) {
+    const feature = usaByIso.get(`US-${String(state.code || '').toUpperCase()}`) || usaByName.get(normalizeRegionName(state.name));
+    if (!feature) {
+      issue(`${window.key} Interest reference is missing the Natural Earth boundary for U.S. state ${state.name}`);
+      continue;
+    }
+    const record = {
+      sourceName: state.name,
+      canonicalName: state.name,
+      boundaryMatch: 'exact',
+      boundaryFeatureIds: [feature.properties?.adm1_code],
+      qualityFlag: state.qualityFlag,
+      qualityNote: state.qualityNote
+    };
+    usaRegions.set(normalizeRegionName(state.name), record);
+    usaRegions.set(normalizeRegionName(state.code), record);
+  }
+  references.set('United States', { countryCode: 'US', adm0A3: 'USA', regions: usaRegions });
+  return references;
+}
+
 for (const window of expected) {
   const dataPath = `data/local-ai-activity-index-${window.key}.json`;
   const admin1Path = `data/local-ai-admin1-activity-${window.key}.json`;
@@ -386,6 +522,7 @@ for (const window of installExpected) {
 
 const canonicalModels = loadCanonicalModelCatalogue();
 const modelSnapshots = new Map();
+const modelAdmin1Snapshots = new Map();
 for (const window of modelExpected) {
   const dataPath = `data/local-ai-model-page-interest${window.suffix}.json`;
   const data = read(dataPath);
@@ -530,6 +667,206 @@ for (const window of modelExpected) {
   }
 }
 
+for (const window of modelExpected) {
+  const modelData = modelSnapshots.get(window.key);
+  const dataPath = `data/local-ai-model-page-interest-admin1${window.suffix}.json`;
+  const data = read(dataPath);
+  if (!modelData || !data) continue;
+  modelAdmin1Snapshots.set(window.key, data);
+  const label = `${window.key} regional model-page-interest`;
+  const topLevelKeys = unexpectedKeys(data, [
+    'schemaVersion', 'view', 'displayName', 'generatedAt', 'period', 'source',
+    'publishThreshold', 'claimBoundary', 'privacy', 'diagnostics', 'countries'
+  ]);
+  if (topLevelKeys.length) issue(`${label} contains unexpected public fields: ${topLevelKeys.join(', ')}`);
+  if (data.schemaVersion !== 1 || data.view !== 'model-page-interest' || data.displayName !== 'Models by region'
+    || data.publishThreshold !== 5 || !isIsoTimestamp(data.generatedAt)
+    || data.period?.key !== window.key || data.period?.days !== window.days
+    || data.period?.start !== window.start || data.period?.end !== window.end
+    || data.period?.timezone !== modelData.timezone) {
+    issue(`${label} schema, threshold, timestamp or period metadata is invalid`);
+  }
+  if (data.source?.provider !== 'DataFast'
+    || data.source?.dimension !== 'country + region + exact canonical model paths'
+    || !String(data.source?.method || '').includes('independent all-model, brand and exact-model')
+    || !String(data.source?.snapshotNote || '').includes('never summed')
+    || data.source?.regionalSnapshotGeneratedAt !== data.generatedAt
+    || data.source?.countrySnapshotGeneratedAt !== modelData.generatedAt
+    || !String(data.source?.snapshotLinkage || '').includes('fail-closed')) {
+    issue(`${label} must disclose the independently queried DataFast region, brand and exact-model scopes`);
+  }
+  const claimBoundary = String(data.claimBoundary || '').toLowerCase();
+  if (!claimBoundary.includes('regional model-page interest') || !claimBoundary.includes('not verified model use')
+    || !claimBoundary.includes('download') || !claimBoundary.includes('installation')
+    || !claimBoundary.includes('launch') || !claimBoundary.includes('inference')) {
+    issue(`${label} must deny verified regional model use, download, installation, launch and inference claims`);
+  }
+  if (!String(data.privacy?.rule || '').toLowerCase().includes('at least five unique visitors')
+    || !String(data.privacy?.withheldDetail || '').toLowerCase().includes('not included')
+    || !String(data.privacy?.overlapNote || '').toLowerCase().includes('not additive')) {
+    issue(`${label} must disclose independent five-visitor publication and non-additive cells`);
+  }
+  if (/\bmost used\b|\bmodel usage by region\b|\bactive users?\b/i.test(JSON.stringify(data))) {
+    issue(`${label} must not contain a positive most-used, model-usage-by-region or active-user claim`);
+  }
+  const forbiddenKeys = forbiddenModelDataKeys(data);
+  if (forbiddenKeys.length) issue(`${label} contains retired fields: ${forbiddenKeys.join(', ')}`);
+  const serialized = JSON.stringify(data);
+  for (const forbiddenKey of ['rawRegions', 'rawRows', 'withheldRegions', 'withheldRows', 'regionTotals', 'brandCells', 'modelCells']) {
+    if (new RegExp(`"${forbiddenKey}"\\s*:`).test(serialized)) {
+      issue(`${label} exposes private or below-threshold detail via ${forbiddenKey}`);
+    }
+  }
+  if (!Number.isInteger(data.diagnostics?.omittedUnresolvedBoundaryRegions)
+    || data.diagnostics.omittedUnresolvedBoundaryRegions < 0
+    || !Number.isInteger(data.diagnostics?.omittedParentInconsistentBrandCells)
+    || data.diagnostics.omittedParentInconsistentBrandCells < 0
+    || !Number.isInteger(data.diagnostics?.omittedParentInconsistentModelCells)
+    || data.diagnostics.omittedParentInconsistentModelCells < 0) {
+    issue(`${label} must disclose non-negative fail-closed parent-inconsistent brand and model cell counts`);
+  }
+
+  const countries = data.countries && typeof data.countries === 'object' && !Array.isArray(data.countries)
+    ? data.countries : {};
+  if (countries !== data.countries) issue(`${label} countries must be an object keyed by public country name`);
+  const expectedCountries = new Map((modelData.countries || []).map(country => [country.name, country]));
+  if (Object.keys(countries).length !== expectedCountries.size
+    || [...expectedCountries.keys()].some(countryName => !Object.hasOwn(countries, countryName))) {
+    issue(`${label} country coverage must exactly match the public country model-interest snapshot`);
+  }
+  const references = modelAdmin1References(window);
+  const assignedBoundariesByCountry = new Map();
+  let publishedRegions = 0;
+  let publishedBrandCells = 0;
+  let publishedModelCells = 0;
+  let emptyCountries = 0;
+  for (const [countryName, country] of Object.entries(countries)) {
+    const countryLabel = `${label}/${countryName}`;
+    const parent = expectedCountries.get(countryName);
+    const geography = references.get(countryName);
+    const countryKeys = unexpectedKeys(country, [
+      'countryCode', 'adm0A3', 'collectionStatus', 'publicationStatus', 'snapshotGeneratedAt',
+      'countrySignals', 'countryModelVisitors', 'publishedRegions', 'regions'
+    ]);
+    if (countryKeys.length) issue(`${countryLabel} contains unexpected public fields: ${countryKeys.join(', ')}`);
+    if (!parent) {
+      issue(`${countryLabel} has no public country model-interest parent`);
+      continue;
+    }
+    if (!geography || country.countryCode !== geography.countryCode || country.adm0A3 !== geography.adm0A3) {
+      issue(`${countryLabel} country identity does not match its Interest Admin-1 geography`);
+    }
+    if (country.collectionStatus !== 'collected' || !isIsoTimestamp(country.snapshotGeneratedAt)
+      || country.snapshotGeneratedAt !== data.generatedAt) {
+      issue(`${countryLabel} collection status or snapshot timestamp is invalid`);
+    }
+    if (country.countrySignals !== parent.modelVisitors || country.countryModelVisitors !== parent.modelVisitors) {
+      issue(`${countryLabel} must preserve the independently queried public country model visitor total`);
+    }
+    const regions = Array.isArray(country.regions) ? country.regions : [];
+    publishedRegions += regions.length;
+    if (!regions.length) emptyCountries += 1;
+    if (!Array.isArray(country.regions) || country.publishedRegions !== regions.length) {
+      issue(`${countryLabel} publishedRegions must match its public regional rows`);
+    }
+    if (country.publicationStatus !== (regions.length ? 'published' : 'none_above_threshold')) {
+      issue(`${countryLabel} publicationStatus does not match its public regional rows`);
+    }
+    const countryBrands = modelBrandMap(parent.modelInterest);
+    const seenSourceNames = new Set();
+    const seenRegionIds = new Set();
+    const assignedBoundaries = assignedBoundariesByCountry.get(countryName) || new Set();
+    let previousVisitors = Infinity;
+    regions.forEach((region, regionIndex) => {
+      const regionLabel = `${countryLabel}/${region.canonicalName || region.sourceName || `region ${regionIndex + 1}`}`;
+      const regionKeys = unexpectedKeys(region, [
+        'rank', 'regionId', 'sourceName', 'canonicalName', 'signals', 'modelVisitors', 'boundaryMatch',
+        'boundaryFeatureIds', 'qualityFlag', 'qualityNote', 'modelInterest'
+      ]);
+      if (regionKeys.length) issue(`${regionLabel} contains unexpected public fields: ${regionKeys.join(', ')}`);
+      if (region.rank !== regionIndex + 1 || !region.sourceName || !region.canonicalName
+        || !region.regionId || seenSourceNames.has(region.sourceName) || seenRegionIds.has(region.regionId)) {
+        issue(`${regionLabel} has a non-contiguous rank, missing name or duplicate identity`);
+      }
+      seenSourceNames.add(region.sourceName);
+      seenRegionIds.add(region.regionId);
+      if (!Number.isInteger(region.signals) || !Number.isInteger(region.modelVisitors)
+        || region.signals !== region.modelVisitors || region.modelVisitors < 5
+        || region.modelVisitors > parent.modelVisitors || region.modelVisitors > previousVisitors) {
+        issue(`${regionLabel} violates ranking, parent bounds or the five-visitor regional threshold`);
+      }
+      previousVisitors = region.modelVisitors;
+      const reference = geography?.regions.get(normalizeRegionName(region.sourceName));
+      const expectedQualityNote = reference?.qualityNote ? MODEL_REGION_ROUTING_NOTE : undefined;
+      if (!reference || region.canonicalName !== reference.canonicalName
+        || region.boundaryMatch !== reference.boundaryMatch
+        || JSON.stringify(region.boundaryFeatureIds) !== JSON.stringify(reference.boundaryFeatureIds)
+        || region.qualityFlag !== reference.qualityFlag || region.qualityNote !== expectedQualityNote) {
+        issue(`${regionLabel} does not preserve the corresponding Interest Admin-1 boundary identity and quality flag`);
+      }
+      const boundaryIds = Array.isArray(region.boundaryFeatureIds) ? region.boundaryFeatureIds : [];
+      if (region.regionId !== `${country.adm0A3}:${boundaryIds.join('+')}`) {
+        issue(`${regionLabel} regionId must be derived from its stable Admin-0 and sorted Admin-1 boundary IDs`);
+      }
+      if (!boundaryIds.length || new Set(boundaryIds).size !== boundaryIds.length
+        || JSON.stringify(boundaryIds) !== JSON.stringify([...boundaryIds].sort())) {
+        issue(`${regionLabel} must reference unique, stable sorted Admin-1 boundary IDs`);
+      }
+      if (region.boundaryMatch === 'composite' ? boundaryIds.length < 2 : boundaryIds.length !== 1) {
+        issue(`${regionLabel} boundary count does not match its ${region.boundaryMatch} mapping`);
+      }
+      for (const boundaryId of boundaryIds) {
+        if (assignedBoundaries.has(boundaryId)) issue(`${regionLabel} reuses boundary ${boundaryId}`);
+        assignedBoundaries.add(boundaryId);
+      }
+      const interestKeys = unexpectedKeys(region.modelInterest, ['brands', 'dominantBrands']);
+      if (interestKeys.length) issue(`${regionLabel} modelInterest contains unexpected fields: ${interestKeys.join(', ')}`);
+      const brands = validateModelBrands(region.modelInterest?.brands, regionLabel, canonicalModels);
+      publishedBrandCells += brands.length;
+      publishedModelCells += brands.reduce((sum, brand) => sum + (Array.isArray(brand.models) ? brand.models.length : 0), 0);
+      validateDominantBrands(region.modelInterest?.dominantBrands, brands, regionLabel);
+      for (const brand of brands) {
+        if (brand.visitors > region.modelVisitors) {
+          issue(`${regionLabel}/${brand.id} exceeds the independently queried all-model region total`);
+        }
+        const countryBrand = countryBrands.get(brand.id);
+        if (!countryBrand || brand.visitors > countryBrand.visitors
+          || brand.label !== countryBrand.label || brand.logo !== countryBrand.logo) {
+          issue(`${regionLabel}/${brand.id} exceeds or does not match its country brand scope`);
+          continue;
+        }
+        const countryModels = modelRowMap(countryBrand);
+        for (const model of brand.models || []) {
+          const countryModel = countryModels.get(model.id);
+          if (!countryModel || model.visitors > countryModel.visitors) {
+            issue(`${regionLabel}/${brand.id}/${model.id} exceeds or is missing from its country model scope`);
+          }
+        }
+      }
+    });
+    assignedBoundariesByCountry.set(countryName, assignedBoundaries);
+  }
+  const approved = modelAdmin1Expected[window.key];
+  if (!approved
+    || publishedRegions !== approved.regions
+    || publishedBrandCells !== approved.brandCells
+    || publishedModelCells !== approved.modelCells
+    || emptyCountries !== approved.emptyCountries
+    || data.diagnostics?.omittedUnresolvedBoundaryRegions !== approved.diagnostics.unresolved
+    || data.diagnostics?.omittedParentInconsistentBrandCells !== approved.diagnostics.parentBrands
+    || data.diagnostics?.omittedParentInconsistentModelCells !== approved.diagnostics.parentModels) {
+    issue(`${label} does not match the approved regional DataFast snapshot counts and diagnostics`);
+  }
+  for (const landmark of approved?.landmarks || []) {
+    const region = countries[landmark.country]?.regions?.find(candidate => candidate.canonicalName === landmark.region);
+    const brand = region?.modelInterest?.brands?.find(candidate => candidate.id === landmark.brand);
+    if (!region || region.modelVisitors !== landmark.regionVisitors
+      || !brand || brand.visitors !== landmark.brandVisitors) {
+      issue(`${label} approved landmark ${landmark.country}/${landmark.region}/${landmark.brand} is missing or changed`);
+    }
+  }
+}
+
 for (const [shortKey, longKey] of [['30d', '90d'], ['90d', '180d']]) {
   const shorter = modelSnapshots.get(shortKey);
   const longer = modelSnapshots.get(longKey);
@@ -592,6 +929,50 @@ for (const [shortKey, longKey] of [['30d', '90d'], ['90d', '180d']]) {
   }
 }
 
+for (const [shortKey, longKey] of [['30d', '90d'], ['90d', '180d']]) {
+  const shorter = modelAdmin1Snapshots.get(shortKey);
+  const longer = modelAdmin1Snapshots.get(longKey);
+  if (!shorter || !longer) continue;
+  for (const [countryName, shortCountry] of Object.entries(shorter.countries || {})) {
+    const longCountry = longer.countries?.[countryName];
+    if (!longCountry || longCountry.countryModelVisitors < shortCountry.countryModelVisitors) {
+      issue(`${countryName} regional model-page country visitors must persist monotonically from ${shortKey} to ${longKey}`);
+      continue;
+    }
+    const longRegions = new Map((longCountry.regions || []).map(region => [region.sourceName, region]));
+    for (const shortRegion of shortCountry.regions || []) {
+      const longRegion = longRegions.get(shortRegion.sourceName);
+      const regionLabel = `${countryName}/${shortRegion.canonicalName}`;
+      if (!longRegion || longRegion.modelVisitors < shortRegion.modelVisitors) {
+        issue(`${regionLabel} model-page visitors must persist monotonically from ${shortKey} to ${longKey}`);
+        continue;
+      }
+      if (longRegion.canonicalName !== shortRegion.canonicalName
+        || longRegion.regionId !== shortRegion.regionId
+        || longRegion.boundaryMatch !== shortRegion.boundaryMatch
+        || JSON.stringify(longRegion.boundaryFeatureIds) !== JSON.stringify(shortRegion.boundaryFeatureIds)
+        || longRegion.qualityFlag !== shortRegion.qualityFlag) {
+        issue(`${regionLabel} boundary identity and quality flag must remain stable from ${shortKey} to ${longKey}`);
+      }
+      const longBrands = modelBrandMap(longRegion.modelInterest);
+      for (const shortBrand of shortRegion.modelInterest?.brands || []) {
+        const longBrand = longBrands.get(shortBrand.id);
+        if (!longBrand || longBrand.visitors < shortBrand.visitors) {
+          issue(`${regionLabel}/${shortBrand.id} must persist monotonically from ${shortKey} to ${longKey}`);
+          continue;
+        }
+        const longModels = modelRowMap(longBrand);
+        for (const shortModel of shortBrand.models || []) {
+          const longModel = longModels.get(shortModel.id);
+          if (!longModel || longModel.visitors < shortModel.visitors) {
+            issue(`${regionLabel}/${shortBrand.id}/${shortModel.id} must persist monotonically from ${shortKey} to ${longKey}`);
+          }
+        }
+      }
+    }
+  }
+}
+
 const page = fs.readFileSync(path.join(ROOT, 'local-ai-activity-index.html'), 'utf8');
 const app = fs.readFileSync(path.join(ROOT, 'js', 'local-ai-activity-index.js'), 'utf8');
 for (const key of ['30d', '90d', '180d', '365d']) {
@@ -617,6 +998,13 @@ if (!app.includes("modelDataUrl: '/data/local-ai-model-page-interest.json?")
   || !app.includes('PERIOD_CONFIG[ACTIVE_PERIOD].modelDataUrl')) {
   issue('Atlas Models selection is not wired to its 30D, 3M and 6M datasets');
 }
+if (!app.includes("modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?")
+  || !app.includes("modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?")
+  || !app.includes("modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?")
+  || !app.includes('PERIOD_CONFIG[ACTIVE_PERIOD].modelAdmin1Url')
+  || !app.includes('state.modelAdmin1Activity')) {
+  issue('Atlas Models regional selection is not wired to its 30D, 3M and 6M Admin-1 datasets');
+}
 if (!app.includes("url.searchParams.set('view', 'models')")
   || !app.includes("url.searchParams.set('range', ACTIVE_PERIOD)")
   || !app.includes("url.searchParams.set('country', state.selectedModelCountry.name)")
@@ -624,6 +1012,20 @@ if (!app.includes("url.searchParams.set('view', 'models')")
   || !app.includes("brand: requestParams.get('brand')")
   || !app.includes('focusModelCountry(country, requestedView.brand)')) {
   issue('Models Share Mode must round-trip view, range, country and canonical brand');
+}
+if (!app.includes("region: requestParams.get('region')")
+  || !app.includes("regions: ['1', 'true'].includes")
+  || !app.includes("url.searchParams.set('region', state.selectedModelRegion.sourceName")
+  || !app.includes("url.searchParams.set('regions', '1')")
+  || !app.includes('enterModelRegionExplorer(country)')
+  || !app.includes('focusModelRegion(region, requestedView.brand)')
+  || !app.includes('data-atlas-model-region-list')) {
+  issue('Models regional Share Mode must round-trip country, region, regional overview and canonical brand state');
+}
+if (!page.includes('data-atlas-model-regions')
+  || !page.includes('data-atlas-model-region-view')
+  || !page.includes('data-atlas-model-region-list')) {
+  issue('Models regional panel controls and region list must remain present');
 }
 if (!app.includes("url.searchParams.set('view', 'installed')")
   || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")

@@ -206,7 +206,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260901b">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260901c">
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
@@ -421,11 +421,18 @@
           </button>
           <div>
             <span data-atlas-model-country>Worldwide model interest</span>
-            <h2 id="atlas-model-panel-title">Most explored models</h2>
+            <h2 id="atlas-model-panel-title" data-atlas-model-title>Most explored models</h2>
           </div>
           <button class="atlas-model-panel__close" type="button" data-atlas-model-close aria-label="Close model details">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m5.5 5.5 9 9m0-9-9 9" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
+        </div>
+
+        <div class="atlas-model-panel__periods" role="group" aria-label="Model data period">
+          <span>Period</span>
+          <button type="button" data-atlas-period="30d" aria-pressed="true">30D</button>
+          <button type="button" data-atlas-period="90d" aria-pressed="false">3M</button>
+          <button type="button" data-atlas-period="180d" aria-pressed="false">6M</button>
         </div>
 
         <div class="atlas-model-panel__body">
@@ -451,6 +458,23 @@
               <small>Published only</small>
             </div>
             <ol class="atlas-model-family-list" data-atlas-model-family-list aria-label="Most explored model brands"></ol>
+            <button class="atlas-model-regions" type="button" data-atlas-model-regions hidden>
+              <span><strong>Explore regional model interest</strong><small>Regional totals and brands appear only at 5+ visitors</small></span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="m8 5 5 5-5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </section>
+
+          <section class="atlas-model-region-view" data-atlas-model-region-view hidden aria-label="Regional model-interest overview">
+            <p class="atlas-model-panel__lede" data-atlas-model-region-status>Administrative boundaries are shown while the regional model-interest snapshot loads.</p>
+            <div class="atlas-model-panel__metrics" aria-label="Published regional model-interest totals">
+              <span><strong data-atlas-model-region-total>0</strong><small>country model-page visitors</small></span>
+              <span><strong data-atlas-model-region-count>0</strong><small>regions published</small></span>
+            </div>
+            <div class="atlas-model-panel__section-head">
+              <span>Regions</span>
+              <small>Published detail first</small>
+            </div>
+            <ol class="atlas-model-region-list" data-atlas-model-region-list aria-label="Administrative regions and published model interest"></ol>
           </section>
 
           <section class="atlas-model-brand-view" data-atlas-model-brand-view hidden aria-label="Model brand detail">
@@ -471,12 +495,12 @@
 
           <div class="atlas-model-empty" data-atlas-model-empty hidden>
             <span aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor"><circle cx="14" cy="14" r="9"></circle><path d="M10.5 14h7M14 10.5v7" stroke-linecap="round"></path></svg></span>
-            <strong>No publishable model detail yet</strong>
-            <p>This place has no model brand above the public threshold for the selected period.</p>
+            <strong data-atlas-model-empty-title>No publishable model detail yet</strong>
+            <p data-atlas-model-empty-copy>This place has no model brand above the public threshold for the selected period.</p>
           </div>
         </div>
 
-        <p class="atlas-model-panel__note"><strong>Model interest:</strong> Visitors are deduplicated at brand level across that brand’s eligible canonical model pages. Individual model rows appear only at five or more visitors. This is not download, install, launch, inference or verified-usage data.</p>
+        <p class="atlas-model-panel__note"><strong>Model interest:</strong> Country, regional, brand and model totals are independently privacy-thresholded. Rows must not be added together. This is not download, install, launch, inference or verified-usage data.</p>
       </aside>
 
       <section class="atlas-share-overlay" data-atlas-share-overlay hidden aria-labelledby="atlas-share-title">
@@ -750,6 +774,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260901b"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260901c"></script>
 </body>
 </html>

@@ -6,21 +6,24 @@ const PERIOD_CONFIG = Object.freeze({
     admin1Url: '/data/local-ai-admin1-activity.json?v=20260829h',
     installedDataUrl: '/data/local-ai-install-intent.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?v=20260901a'
   },
   '90d': {
     dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-90d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?v=20260901a'
   },
   '180d': {
     dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
     admin1Url: '/data/local-ai-admin1-activity-180d.json?v=20260829a',
     installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260901b',
-    modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a'
+    modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a',
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?v=20260901a'
   }
 });
 const requestParams = new URLSearchParams(window.location.search);
@@ -29,6 +32,7 @@ const requestedMetricView = requestParams.get('view');
 const requestedView = Object.freeze({
   country: requestParams.get('country') || '',
   region: requestParams.get('region') || '',
+  regions: ['1', 'true'].includes(String(requestParams.get('regions') || '').toLowerCase()),
   area: requestParams.get('area') || '',
   brand: requestParams.get('brand') || requestParams.get('family') || '',
   model: requestParams.get('model') || ''
@@ -50,6 +54,7 @@ const ADMIN1_MANIFEST_URL = '/data/admin1/manifest.json?v=20260829h';
 const ADMIN1_ACTIVITY_URL = ACTIVE_VIEW === 'installed'
   ? PERIOD_CONFIG[ACTIVE_PERIOD].installedAdmin1Url
   : PERIOD_CONFIG[ACTIVE_PERIOD].admin1Url;
+const MODEL_ADMIN1_ACTIVITY_URL = PERIOD_CONFIG[ACTIVE_PERIOD].modelAdmin1Url;
 const ADMIN2_MANIFEST_URL = '/data/admin2/manifest.json?v=20260829c';
 const PUBLISH_THRESHOLD = 5;
 const ADMIN1_CACHE_LIMIT = 4;
@@ -227,6 +232,7 @@ const state = {
   usBoundaries: null,
   admin1Manifest: null,
   admin1Activity: null,
+  modelAdmin1Activity: null,
   admin1Boundaries: null,
   admin1ActivityByA3: new Map(),
   admin1Cache: new Map(),
@@ -317,8 +323,12 @@ const state = {
   modelMarkerGroup: null,
   modelMarkerEntries: [],
   modelMarkerHitMeshes: [],
+  modelRegionMarkerGroup: null,
+  modelRegionMarkerEntries: [],
+  modelRegionMarkerHitMeshes: [],
   modelTextureCache: new Map(),
   selectedModelCountry: null,
+  selectedModelRegion: null,
   selectedModelBrand: null,
   modelPanelOpen: false,
   selectedInstallCountry: null,
@@ -465,10 +475,61 @@ function shareSnapshot() {
 
   if (isModelInterestView()) {
     const country = state.selectedModelCountry || worldCountry;
-    const brands = country ? modelBrandsForCountry(country) : globalModelBrands();
+    const region = state.selectedModelRegion;
+    const scopeEntity = region || country;
+    const brands = scopeEntity ? modelBrandsForCountry(scopeEntity) : globalModelBrands();
     const brand = state.selectedModelBrand
       ? brands.find(row => brandIdentifier(row) === state.selectedModelBrand) || null
       : null;
+    if (country && region && brand) {
+      const leaders = coLeadingModelBrands(region);
+      const isLeader = leaders.includes(brand);
+      const isCoLeader = isLeader && leaders.length > 1;
+      const brandRank = isLeader ? 1 : brands.indexOf(brand) + 1;
+      return {
+        scope: 'regional-model',
+        entity: region.name,
+        title: isLeader
+          ? `${brand.label}${isCoLeader ? ' co-leads' : ' leads'} model-page interest in ${region.name}.`
+          : `${brand.label} model-page interest in ${region.name}.`,
+        summary: `${number(modelBrandSignals(brand))} anonymous visitors explored its eligible model pages in ${region.name}, ${country.name} · ${dateRange}.`,
+        primary: number(modelBrandSignals(brand)),
+        primaryLabel: 'Regional brand visitors',
+        secondary: brandRank > 0 ? `#${brandRank}` : number(modelRowsForBrand(brand).length),
+        secondaryLabel: isCoLeader ? 'Co-leading region rank' : 'Region brand rank'
+      };
+    }
+    if (country && region) {
+      const visitors = publishedRegionalModelVisitors(region);
+      return {
+        scope: 'region',
+        entity: region.name,
+        title: `Local AI model interest in ${region.name}.`,
+        summary: visitors !== null
+          ? `${number(visitors)} anonymous visitors explored a LocalClaw LLM page in ${region.name}, ${country.name} · ${dateRange}.`
+          : `No independently published regional model-page total is available for ${region.name} · ${dateRange}.`,
+        primary: visitors !== null ? number(visitors) : '—',
+        primaryLabel: 'Regional model-page visitors',
+        secondary: number(brands.length),
+        secondaryLabel: 'Regional brands published'
+      };
+    }
+    if (country && isAdmin1Scope()) {
+      const countryVisitors = state.detailTotals.countrySignals ?? publishedModelCountryVisitors(country);
+      const publishedRegions = Number.isFinite(state.detailTotals.regions) ? state.detailTotals.regions : null;
+      return {
+        scope: 'country-regions',
+        entity: country.name,
+        title: `Local AI model interest across ${country.name}.`,
+        summary: countryVisitors !== null
+          ? `${number(countryVisitors)} anonymous country-level model-page visitors; regional rows are independently privacy-thresholded · ${dateRange}.`
+          : `Regional model-page interest is shown only where an administrative row independently reaches ${PUBLISH_THRESHOLD} visitors · ${dateRange}.`,
+        primary: countryVisitors !== null ? number(countryVisitors) : '—',
+        primaryLabel: 'Country model-page visitors',
+        secondary: publishedRegions !== null ? number(publishedRegions) : number(state.detailRegions.length),
+        secondaryLabel: publishedRegions !== null ? 'Regions published' : 'Boundaries shown'
+      };
+    }
     if (country && brand) {
       const leaders = coLeadingModelBrands(country);
       const isLeader = leaders.includes(brand);
@@ -492,12 +553,15 @@ function shareSnapshot() {
       };
     }
     if (country) {
+      const countryVisitors = publishedModelCountryVisitors(country);
       return {
         scope: 'country',
         entity: country.name,
         title: 'Local AI model interest in ' + country.name + '.',
-        summary: number(modelCountryVisitors(country)) + ' anonymous visitors explored a LocalClaw LLM page · ' + dateRange + '.',
-        primary: number(modelCountryVisitors(country)),
+        summary: countryVisitors !== null
+          ? number(countryVisitors) + ' anonymous visitors explored a LocalClaw LLM page · ' + dateRange + '.'
+          : `No independently published country model-page total is available for ${country.name} · ${dateRange}.`,
+        primary: countryVisitors !== null ? number(countryVisitors) : '—',
         primaryLabel: 'Model-page visitors',
         secondary: number(brands.length),
         secondaryLabel: 'Brands published'
@@ -691,6 +755,8 @@ function currentShareUrl() {
   const locked = state.locked;
   if (isModelInterestView()) {
     if (state.selectedModelCountry) url.searchParams.set('country', state.selectedModelCountry.name);
+    if (state.selectedModelRegion) url.searchParams.set('region', state.selectedModelRegion.sourceName || state.selectedModelRegion.name);
+    else if (state.selectedModelCountry && isAdmin1Scope()) url.searchParams.set('regions', '1');
     if (state.selectedModelBrand) url.searchParams.set('brand', state.selectedModelBrand);
   } else if (isInstallIntentView() && (state.selectedInstallCountry || state.selectedInstallModel)) {
     if (state.selectedInstallCountry) url.searchParams.set('country', state.selectedInstallCountry.name);
@@ -733,13 +799,21 @@ function updateSharePresentation() {
   const boundary = document.querySelector('[data-atlas-share-boundary]');
   if (boundary) {
     const mark = document.createElement('b');
-    const modelLogoMeaning = state.selectedModelBrand && !state.selectedModelCountry
+    const selectedRegionalBrand = state.selectedModelRegion && state.selectedModelBrand
+      ? modelBrandsForCountry(state.selectedModelRegion)
+        .find(brand => brandIdentifier(brand) === state.selectedModelBrand)
+      : null;
+    const modelLogoMeaning = isAdmin1Scope()
+      ? selectedRegionalBrand
+        ? `${selectedRegionalBrand.label} logos in regions where it independently reaches ${PUBLISH_THRESHOLD}+`
+        : 'leading published regional brand logos'
+      : state.selectedModelBrand && !state.selectedModelCountry
       ? `${globalModelBrands().find(brand => brandIdentifier(brand) === state.selectedModelBrand)?.label || 'Selected brand'} logos where a country reaches ${PUBLISH_THRESHOLD}+`
       : state.selectedModelBrand
         ? 'selected country brand logo'
         : 'leading local brand logos';
     boundary.replaceChildren(mark, document.createTextNode(isModelInterestView()
-      ? ` Color = all-model country visitors; ${modelLogoMeaning}. Page interest, not downloads, installations or verified use.`
+      ? ` Color = all-model ${isAdmin1Scope() ? 'regional' : 'country'} visitors; ${modelLogoMeaning}. Page interest, not downloads, installations or verified use.`
       : isInstallIntentView()
         ? ' Click intent, not verified installations or model runs.'
         : ' Interest signals, not installations or model runs.'));
@@ -962,14 +1036,18 @@ async function buildShareImage() {
   }
 
   if (isModelInterestView()) {
-    const logoMeaning = state.selectedModelBrand && !state.selectedModelCountry
+    const logoMeaning = isAdmin1Scope()
+      ? state.selectedModelBrand
+        ? 'LOGOS = SELECTED BRAND IN REGIONS AT 5+'
+        : 'LOGOS = LEADING PUBLISHED REGIONAL BRAND'
+      : state.selectedModelBrand && !state.selectedModelCountry
       ? 'LOGOS = SELECTED BRAND IN COUNTRIES AT 5+'
       : state.selectedModelBrand
         ? 'LOGO = SELECTED COUNTRY BRAND'
         : 'LOGOS = MOST EXPLORED LOCAL BRAND';
     context.fillStyle = 'rgba(218,231,239,0.52)';
     context.font = '700 10px "JetBrains Mono", monospace';
-    context.fillText(`${logoMeaning}  ·  COLOR = ALL-MODEL COUNTRY VISITORS`, 96, 804);
+    context.fillText(`${logoMeaning}  ·  COLOR = ALL-MODEL ${isAdmin1Scope() ? 'REGIONAL' : 'COUNTRY'} VISITORS`, 96, 804);
   }
 
   context.fillStyle = '#ff453a';
@@ -1190,6 +1268,15 @@ function manifestEntryForCountry(country) {
 }
 
 function activityRecordForCountry(country) {
+  if (isModelInterestView()) {
+    const records = state.modelAdmin1Activity?.countries || {};
+    const direct = records[country?.name];
+    if (direct) return direct;
+    const adm0A3 = String(country?.adm0A3 || admin0A3ForFeature(country?.feature || featureForCountry(country?.name))).toUpperCase();
+    const countryCode = String(country?.countryCode || alpha2ForFeature(country?.feature || featureForCountry(country?.name))).toUpperCase();
+    return Object.values(records).find(record => String(record?.adm0A3 || '').toUpperCase() === adm0A3
+      || String(record?.countryCode || '').toUpperCase() === countryCode) || null;
+  }
   const adm0A3 = country?.adm0A3 || admin0A3ForFeature(country?.feature || featureForCountry(country?.name));
   return state.admin1ActivityByA3.get(adm0A3) || null;
 }
@@ -1494,16 +1581,26 @@ function admin1DataStatus(activity) {
   const status = String(activity?.publicationStatus || '').trim();
   if (['unavailable', 'none_above_threshold', 'boundary_unresolved'].includes(status)) return status;
   if (status === 'published' || status === 'partially_published') return 'published';
+  if (isModelInterestView()) {
+    const regions = Array.isArray(activity?.regions) ? activity.regions : [];
+    const publishedRegions = Number(activity?.publishedRegions);
+    if ((Number.isFinite(publishedRegions) && publishedRegions > 0)
+      || regions.some(region => Number(region?.modelVisitors ?? region?.signals) >= PUBLISH_THRESHOLD)) {
+      return 'published';
+    }
+    if (activity && (Number.isFinite(publishedRegions) || regions.length)) return 'none_above_threshold';
+  }
   return 'not_collected';
 }
 
 function admin1StatusMessage(status = state.detailDataStatus) {
   const threshold = state.detailTotals.publishThreshold || PUBLISH_THRESHOLD;
+  const unit = isModelInterestView() || isInstallIntentView() ? 'visitor' : 'signal';
   if (status === 'unavailable') {
     return 'The provider regional breakdown was unavailable for this snapshot. Administrative boundaries are shown without regional totals.';
   }
   if (status === 'none_above_threshold') {
-    return `A regional breakdown was collected, but no row reaches the ${threshold}-${isInstallIntentView() ? 'visitor' : 'signal'} publication threshold.`;
+    return `A regional breakdown was collected, but no row reaches the ${threshold}-${unit} publication threshold.`;
   }
   if (status === 'boundary_unresolved') {
     return 'A regional breakdown was collected, but it could not be mapped safely to these boundaries. No regional total is shown.';
@@ -1511,7 +1608,7 @@ function admin1StatusMessage(status = state.detailDataStatus) {
   if (status === 'not_collected') {
     return 'No country-filtered regional snapshot was collected. Administrative boundaries are shown without regional totals.';
   }
-  return `Published regional totals independently meet the ${threshold}-signal privacy threshold.`;
+  return `Published regional totals independently meet the ${threshold}-${unit} privacy threshold.`;
 }
 
 function admin1EntityStatusMessage(entity) {
@@ -1788,7 +1885,8 @@ function buildAdmin1Aggregation(country, config) {
   }));
   const activity = config.activity || null;
   const sourceRegions = Array.isArray(activity?.regions) ? activity.regions : [];
-  const publishThreshold = Number(state.admin1Activity?.publishThreshold) || PUBLISH_THRESHOLD;
+  const activityDataset = isModelInterestView() ? state.modelAdmin1Activity : state.admin1Activity;
+  const publishThreshold = Number(activityDataset?.publishThreshold) || PUBLISH_THRESHOLD;
   const regionByFeature = new Map(regions.map(region => [region.feature, region]));
   const featureById = new Map();
   for (const feature of features) {
@@ -1805,12 +1903,13 @@ function buildAdmin1Aggregation(country, config) {
       unresolvedRows += 1;
       continue;
     }
-    const signals = Number(sourceRegion.signals);
+    const signals = Number(sourceRegion.modelVisitors ?? sourceRegion.signals);
     if (!Number.isFinite(signals) || signals < publishThreshold) continue;
     const name = String(sourceRegion.canonicalName || sourceRegion.sourceName || 'Published region').trim();
     const feature = combinedAdmin1Feature(mappedFeatures, name);
     const entity = {
       kind: 'admin1',
+      regionId: String(sourceRegion.regionId || ''),
       name,
       sourceName: String(sourceRegion.sourceName || ''),
       type: mappedFeatures.length > 1 ? config.regionLabel : admin1FeatureType(mappedFeatures[0]),
@@ -1821,6 +1920,10 @@ function buildAdmin1Aggregation(country, config) {
       bounds: featureBounds(feature),
       center: featureCenter(feature),
       signals,
+      modelVisitors: isModelInterestView() ? signals : null,
+      modelInterest: isModelInterestView() && sourceRegion.modelInterest && typeof sourceRegion.modelInterest === 'object'
+        ? sourceRegion.modelInterest
+        : null,
       clusters: [],
       rank: Number(sourceRegion.rank) || null,
       published: true,
@@ -1863,11 +1966,15 @@ function buildAdmin1Aggregation(country, config) {
   state.detailDataStatus = dataStatus;
   const published = dataStatus === 'published';
   state.detailTotals = {
-    signals: published && Number.isFinite(Number(activity?.publishedSignals)) ? Number(activity.publishedSignals) : null,
+    signals: published && Number.isFinite(Number(activity?.publishedSignals ?? activity?.countryModelVisitors))
+      ? Number(activity.publishedSignals ?? activity.countryModelVisitors)
+      : null,
     regions: published && Number.isFinite(Number(activity?.publishedRegions)) ? Number(activity.publishedRegions) : null,
     observedSignals: null,
     observedRegions: null,
-    countrySignals: Number.isFinite(Number(activity?.countrySignals)) ? Number(activity.countrySignals) : null,
+    countrySignals: Number.isFinite(Number(activity?.countrySignals ?? activity?.countryModelVisitors))
+      ? Number(activity.countrySignals ?? activity.countryModelVisitors)
+      : null,
     publishThreshold,
     clusters: assignments.size,
     unassignedClusters,
@@ -2601,6 +2708,20 @@ function modelCountryVisitors(country) {
   return Number(country?.modelVisitors ?? country?.visitors ?? country?.signals) || 0;
 }
 
+function publishedModelCountryVisitors(country) {
+  const rawValue = country?.modelVisitors ?? country?.visitors ?? country?.signals;
+  if (rawValue === null || rawValue === undefined || rawValue === '') return null;
+  const visitors = Number(rawValue);
+  return Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD ? visitors : null;
+}
+
+function publishedRegionalModelVisitors(region) {
+  const rawValue = region?.modelVisitors ?? region?.signals;
+  if (rawValue === null || rawValue === undefined || rawValue === '') return null;
+  const visitors = Number(rawValue);
+  return Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD ? visitors : null;
+}
+
 function coLeadingModelBrands(country) {
   const brands = modelBrandsForCountry(country);
   const dominant = country?.modelInterest?.dominantBrands || country?.dominantBrands || [];
@@ -2820,7 +2941,11 @@ function updateModelDomFallback() {
   modelLogoLayer?.classList.toggle('is-fallback', fallbackActive);
   for (const entry of state.modelMarkerEntries) {
     if (!entry.element) continue;
-    entry.element.classList.toggle('is-hidden', !(fallbackActive && entry.projectedVisible));
+    entry.element.classList.toggle('is-hidden', !(fallbackActive && state.scope === 'world' && entry.projectedVisible));
+  }
+  for (const entry of state.modelRegionMarkerEntries) {
+    if (!entry.element) continue;
+    entry.element.classList.toggle('is-hidden', !(fallbackActive && isAdmin1Scope() && entry.projectedVisible));
   }
 }
 
@@ -2828,7 +2953,15 @@ function updateModelMarkerVisibility() {
   if (!state.modelMarkerGroup || !state.camera || !state.globeGroup) return;
   const active = isModelInterestView() && state.scope === 'world';
   state.modelMarkerGroup.visible = active;
-  if (!active) return;
+  if (!active) {
+    for (const entry of state.modelMarkerEntries) {
+      entry.projectedVisible = false;
+      entry.sprite.visible = false;
+      entry.hit.visible = false;
+      entry.element?.classList.add('is-hidden');
+    }
+    return;
+  }
   const mobile = isMobileViewport();
   const limit = mobile ? 7 : 18;
   const minimumDistance = mobile ? 43 : 52;
@@ -2895,6 +3028,221 @@ function updateModelMarkerVisibility() {
     const hitPixels = mobile ? 48 : 42;
     entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitPixels / (0.36 * pixelsPerLocalUnit), 0.3, 4));
     entry.sprite.material.opacity = selected ? 1 : 0.93;
+    if (entry.element) {
+      const projected = occupied.find(candidate => candidate.entry === entry);
+      if (projected) {
+        entry.element.style.setProperty('--atlas-model-x', projected.x + 'px');
+        entry.element.style.setProperty('--atlas-model-y', projected.y + 'px');
+      }
+      entry.element.classList.toggle('is-selected', selected);
+      entry.element.classList.toggle('is-hidden', !state.contextLost);
+    }
+  }
+}
+
+function clearModelRegionMarkers() {
+  if (state.modelRegionMarkerGroup) {
+    state.modelRegionMarkerGroup.traverse(object => {
+      if (object.geometry) object.geometry.dispose();
+      if (object.material) object.material.dispose();
+    });
+    state.globeGroup?.remove(state.modelRegionMarkerGroup);
+  }
+  for (const entry of state.modelRegionMarkerEntries) entry.element?.remove();
+  state.modelRegionMarkerGroup = null;
+  state.modelRegionMarkerEntries = [];
+  state.modelRegionMarkerHitMeshes = [];
+  stage.dataset.modelRegionMarkers = '0';
+}
+
+function createModelRegionMarkers() {
+  clearModelRegionMarkers();
+  if (!isModelInterestView() || !state.globeGroup) return;
+  state.modelRegionMarkerGroup = new THREE.Group();
+  state.modelRegionMarkerGroup.userData.activityScope = 'model-admin1';
+  for (const region of state.detailRankedRegions) {
+    const brand = dominantModelBrand(region);
+    if (!brand || !region.center || modelBrandSignals(brand) < PUBLISH_THRESHOLD) continue;
+    const coLeaderCount = coLeadingModelBrands(region).length;
+    const position = latLonToVector(region.center[0], region.center[1], GLOBE_RADIUS + 0.13);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: textureForModelBrand(brand, coLeaderCount),
+      transparent: true,
+      opacity: 0.96,
+      depthTest: true,
+      depthWrite: false,
+      toneMapped: false
+    }));
+    sprite.position.copy(position);
+    sprite.center.set(0.5, 0.5);
+    sprite.renderOrder = 7;
+    const marker = {
+      kind: 'modelRegionBrand',
+      country: state.detailCountry,
+      region,
+      brand,
+      coLeaderCount,
+      isLeader: true,
+      brandRank: 1,
+      position: position.clone(),
+      sprite,
+      hit: null,
+      element: null,
+      filteredOut: false,
+      projectedVisible: false
+    };
+    sprite.userData = { modelBrandMarker: marker };
+    const hit = new THREE.Mesh(
+      new THREE.SphereGeometry(0.18, 16, 10),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    hit.position.copy(position);
+    hit.userData = { modelBrandMarker: marker };
+    marker.hit = hit;
+    if (modelLogoLayer) {
+      const element = document.createElement('span');
+      element.className = 'atlas-model-logo is-hidden';
+      element.setAttribute('aria-hidden', 'true');
+      const mark = document.createElement('span');
+      mark.className = 'atlas-model-logo__mark';
+      const image = document.createElement('img');
+      image.src = brand.logo;
+      image.alt = '';
+      image.width = 27;
+      image.height = 27;
+      mark.append(image);
+      element.append(mark);
+      modelLogoLayer.append(element);
+      marker.element = element;
+    }
+    state.modelRegionMarkerGroup.add(sprite, hit);
+    state.modelRegionMarkerEntries.push(marker);
+    state.modelRegionMarkerHitMeshes.push(hit);
+  }
+  state.modelRegionMarkerGroup.visible = false;
+  state.globeGroup.add(state.modelRegionMarkerGroup);
+  stage.dataset.modelRegionMarkers = String(state.modelRegionMarkerEntries.length);
+}
+
+function syncModelRegionMarkerBrands(selectedBrand = null) {
+  const selectedId = selectedBrand ? brandIdentifier(selectedBrand) : '';
+  for (const entry of state.modelRegionMarkerEntries) {
+    const brands = modelBrandsForCountry(entry.region);
+    const target = selectedId
+      ? brands.find(brand => brandIdentifier(brand) === selectedId) || null
+      : dominantModelBrand(entry.region);
+    entry.filteredOut = Boolean(selectedId && !target);
+    if (!target) {
+      entry.projectedVisible = false;
+      entry.sprite.visible = false;
+      entry.hit.visible = false;
+      entry.element?.classList.add('is-hidden');
+      continue;
+    }
+    const leaders = coLeadingModelBrands(entry.region);
+    const isLeader = leaders.includes(target);
+    const coLeaderCount = isLeader ? leaders.length : 1;
+    if (entry.brand !== target || entry.coLeaderCount !== coLeaderCount) {
+      entry.sprite.material.map = textureForModelBrand(target, coLeaderCount);
+      entry.sprite.material.needsUpdate = true;
+    }
+    entry.brand = target;
+    entry.coLeaderCount = coLeaderCount;
+    entry.isLeader = isLeader;
+    entry.brandRank = Math.max(1, brands.indexOf(target) + 1);
+    const fallbackImage = entry.element?.querySelector('img');
+    if (fallbackImage) fallbackImage.src = target.logo;
+  }
+}
+
+function sameModelRegion(left, right) {
+  if (!left || !right) return false;
+  if (left === right) return true;
+  const leftRegionId = String(left.regionId || '');
+  const rightRegionId = String(right.regionId || '');
+  if (leftRegionId || rightRegionId) return Boolean(leftRegionId && rightRegionId && leftRegionId === rightRegionId);
+  const leftIds = Array.isArray(left.boundaryFeatureIds) ? left.boundaryFeatureIds : [];
+  const rightIds = Array.isArray(right.boundaryFeatureIds) ? right.boundaryFeatureIds : [];
+  if (leftIds.length || rightIds.length) return leftIds.some(id => rightIds.includes(id));
+  return left.name === right.name;
+}
+
+function updateModelRegionMarkerVisibility() {
+  if (!state.modelRegionMarkerGroup || !state.camera || !state.globeGroup) return;
+  const active = isModelInterestView() && isAdmin1Scope();
+  state.modelRegionMarkerGroup.visible = active;
+  if (!active) {
+    for (const entry of state.modelRegionMarkerEntries) {
+      entry.projectedVisible = false;
+      entry.sprite.visible = false;
+      entry.hit.visible = false;
+      entry.element?.classList.add('is-hidden');
+    }
+    return;
+  }
+  const mobile = isMobileViewport();
+  const limit = mobile ? 7 : 18;
+  const minimumDistance = mobile ? 41 : 48;
+  state.camera.updateMatrixWorld(true);
+  state.globeGroup.updateMatrixWorld(true);
+  const globeCenter = state.globeGroup.getWorldPosition(modelMarkerScratch.globeCenter);
+  const candidates = [];
+  for (const entry of state.modelRegionMarkerEntries) {
+    if (entry.filteredOut) continue;
+    const worldPosition = state.globeGroup.localToWorld(modelMarkerScratch.worldPosition.copy(entry.position));
+    const surfaceNormal = modelMarkerScratch.surfaceNormal.copy(worldPosition).sub(globeCenter).normalize();
+    const towardCamera = modelMarkerScratch.towardCamera.copy(state.camera.position).sub(worldPosition).normalize();
+    const projected = modelMarkerScratch.projected.copy(worldPosition).project(state.camera);
+    const frontFacing = surfaceNormal.dot(towardCamera) > 0.075;
+    const onScreen = Math.abs(projected.x) < 0.96 && Math.abs(projected.y) < 0.92 && projected.z > -1 && projected.z < 1;
+    if (!frontFacing || !onScreen) continue;
+    candidates.push({
+      entry,
+      x: (projected.x * 0.5 + 0.5) * stage.clientWidth,
+      y: (-projected.y * 0.5 + 0.5) * stage.clientHeight
+    });
+  }
+  candidates.sort((left, right) => {
+    const selectedLeft = sameModelRegion(left.entry.region, state.selectedModelRegion) ? 1 : 0;
+    const selectedRight = sameModelRegion(right.entry.region, state.selectedModelRegion) ? 1 : 0;
+    return selectedRight - selectedLeft
+      || modelCountryVisitors(right.entry.region) - modelCountryVisitors(left.entry.region)
+      || left.entry.region.name.localeCompare(right.entry.region.name);
+  });
+  const visible = new Set();
+  const occupied = [];
+  for (const candidate of candidates) {
+    const selected = sameModelRegion(candidate.entry.region, state.selectedModelRegion);
+    const blockedByPanel = !selected && !mobile && candidate.x > stage.clientWidth - 390;
+    const collides = !selected && occupied.some(point => Math.hypot(candidate.x - point.x, candidate.y - point.y) < minimumDistance);
+    if (blockedByPanel || collides) continue;
+    visible.add(candidate.entry);
+    occupied.push(candidate);
+    if (visible.size >= limit && !selected) break;
+  }
+  const viewportHeight = Math.max(stage.clientHeight, 1);
+  const halfFovTangent = Math.tan(THREE.MathUtils.degToRad(state.camera.fov) / 2);
+  const globeScale = state.globeGroup.getWorldScale(modelMarkerScratch.globeScale);
+  for (const entry of state.modelRegionMarkerEntries) {
+    const show = visible.has(entry);
+    entry.projectedVisible = show;
+    entry.sprite.visible = show;
+    entry.hit.visible = show;
+    if (!show) {
+      entry.element?.classList.add('is-hidden');
+      continue;
+    }
+    const worldPosition = state.globeGroup.localToWorld(modelMarkerScratch.worldPosition.copy(entry.position));
+    const cameraPosition = modelMarkerScratch.cameraPosition.copy(worldPosition).applyMatrix4(state.camera.matrixWorldInverse);
+    const cameraDepth = Math.max(0.08, -cameraPosition.z);
+    const pixelsPerLocalUnit = viewportHeight * Math.max(globeScale.x, 0.001)
+      / (2 * Math.max(halfFovTangent, 0.001) * cameraDepth);
+    const selected = sameModelRegion(entry.region, state.selectedModelRegion);
+    const pixels = (mobile ? 40 : 48) + (selected ? 8 : 0);
+    entry.sprite.scale.setScalar(THREE.MathUtils.clamp(pixels / pixelsPerLocalUnit, 0.16, 0.82));
+    const hitPixels = mobile ? 48 : 42;
+    entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitPixels / (0.36 * pixelsPerLocalUnit), 0.3, 4));
+    entry.sprite.material.opacity = selected ? 1 : 0.92;
     if (entry.element) {
       const projected = occupied.find(candidate => candidate.entry === entry);
       if (projected) {
@@ -3155,6 +3503,7 @@ function createUSActivity() {
 }
 
 function clearAdmin1Layer({ resetAggregation = false } = {}) {
+  clearModelRegionMarkers();
   if (state.detailGroup) {
     state.detailGroup.traverse(object => {
       if (object.geometry) object.geometry.dispose();
@@ -3255,6 +3604,7 @@ function createAdmin1Layer() {
 
   state.detailGroup.visible = false;
   state.globeGroup.add(state.detailGroup);
+  if (isModelInterestView()) createModelRegionMarkers();
 }
 
 function clearAdmin2Layer({ reset = true } = {}) {
@@ -3585,6 +3935,13 @@ function resetCurrentView() {
     setStateLineSelection(null);
   } else if (isAdmin1Scope()) {
     state.locked = { kind: 'admin1View', name: `${state.detailCountry.name} regional view` };
+    if (isModelInterestView()) {
+      state.selectedModelRegion = null;
+      state.selectedModelBrand = null;
+      setModelPanelOpen(true);
+      renderModelPanel(state.selectedModelCountry, '', null);
+      syncModelUrl();
+    }
     const center = state.centers.get(state.detailCountry.name);
     if (center) {
       state.targetRotation.x = THREE.MathUtils.clamp(THREE.MathUtils.degToRad(center[0] - 22), -1.15, 1.15);
@@ -3603,9 +3960,11 @@ function resetCurrentView() {
     state.targetRotation.set(0.38, -0.1);
     if (isModelInterestView()) {
       state.selectedModelCountry = null;
+      state.selectedModelRegion = null;
       state.selectedModelBrand = null;
       setModelPanelOpen(false);
       renderModelPanel(null, '');
+      syncModelUrl();
     } else if (isInstallIntentView()) {
       state.selectedInstallCountry = null;
       state.selectedInstallModel = null;
@@ -3617,6 +3976,7 @@ function resetCurrentView() {
   hideTooltip();
   setZoom(defaultZoom());
   updateSelectionOverlay(null);
+  updateScopeInterface();
 }
 
 function resize() {
@@ -3807,8 +4167,13 @@ function entityAtPointer({ preferGeography = false } = {}) {
   const clusterHit = frontSurfaceHit && clusterHits[0] && clusterHits[0].distance <= intersection.distance + 0.12
     ? clusterHits[0].object.userData.cityCluster || null
     : null;
+  const activeModelHitMeshes = state.scope === 'world'
+    ? state.modelMarkerHitMeshes
+    : isAdmin1Scope()
+      ? state.modelRegionMarkerHitMeshes
+      : [];
   const modelHits = isModelInterestView()
-    ? state.raycaster.intersectObjects(state.modelMarkerHitMeshes.filter(hit => hit.visible), false)
+    ? state.raycaster.intersectObjects(activeModelHitMeshes.filter(hit => hit.visible), false)
     : [];
   const modelHit = frontSurfaceHit && modelHits[0] && modelHits[0].distance <= intersection.distance + 0.24
     ? modelHits[0].object.userData.modelBrandMarker || null
@@ -3827,6 +4192,20 @@ function entityAtPointer({ preferGeography = false } = {}) {
 
 function showTooltip(entity, event) {
   if (!tooltip || !entity || window.innerWidth < 760) return;
+  if (entity.kind === 'modelRegionBrand') {
+    tooltip.hidden = false;
+    tooltip.querySelector('[data-tooltip-rank]').textContent = entity.isLeader
+      ? (entity.coLeaderCount > 1 ? 'Co-leading' : 'Most explored') + ' brand in ' + entity.region.name
+      : '#' + entity.brandRank + ' published brand in ' + entity.region.name;
+    tooltip.querySelector('[data-tooltip-country]').textContent = entity.brand.label;
+    tooltip.querySelector('[data-tooltip-signals]').textContent = number(modelBrandSignals(entity.brand)) + ' regional brand visitors · select for model detail';
+    const rect = stage.getBoundingClientRect();
+    const left = Math.min(event.clientX - rect.left, rect.width - 250);
+    const top = Math.min(event.clientY - rect.top, rect.height - 140);
+    tooltip.style.left = Math.max(4, left) + 'px';
+    tooltip.style.top = Math.max(4, top) + 'px';
+    return;
+  }
   if (entity.kind === 'modelBrand') {
     tooltip.hidden = false;
     tooltip.querySelector('[data-tooltip-rank]').textContent = entity.isLeader
@@ -3857,9 +4236,22 @@ function showTooltip(entity, event) {
   if (entity.kind === 'admin1') {
     tooltip.hidden = false;
     tooltip.querySelector('[data-tooltip-rank]').textContent = entity.published && entity.rank
-      ? `#${entity.rank} ${state.detailConfig.regionLabel} rank`
+      ? `#${entity.rank} ${isModelInterestView() ? 'regional model-interest' : state.detailConfig.regionLabel} rank`
       : (entity.type || state.detailConfig.regionLabel);
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.name;
+    if (isModelInterestView()) {
+      const visitors = publishedRegionalModelVisitors(entity);
+      const publishedBrands = modelBrandsForCountry(entity).length;
+      tooltip.querySelector('[data-tooltip-signals]').textContent = visitors !== null
+        ? `${number(visitors)} regional model-page visitors · ${number(publishedBrands)} published brand${publishedBrands === 1 ? '' : 's'} · select for detail`
+        : `${admin1EntityStatusMessage(entity)} Select to inspect this boundary.`;
+      const rect = stage.getBoundingClientRect();
+      const left = Math.min(event.clientX - rect.left, rect.width - 220);
+      const top = Math.min(event.clientY - rect.top, rect.height - 140);
+      tooltip.style.left = `${Math.max(4, left)}px`;
+      tooltip.style.top = `${Math.max(4, top)}px`;
+      return;
+    }
     const drillConfig = admin2ConfigForParent(entity, 'admin1');
     const drillAction = drillConfig && Number(drillConfig.featureCount) > 1
       ? ` · select for ${drillConfig.childrenLabel}`
@@ -3942,6 +4334,18 @@ function showSpotlight(entity) {
   }
   if (entity.kind === 'admin1') {
     spotlight.hidden = false;
+    if (isModelInterestView()) {
+      spotlight.querySelector('[data-spotlight-rank]').textContent = entity.published && entity.rank
+        ? `Regional model-interest rank #${entity.rank}`
+        : 'Regional model interest';
+      spotlight.querySelector('[data-spotlight-label]').textContent = entity.type || state.detailConfig.regionLabel;
+      spotlight.querySelector('[data-spotlight-country]').textContent = entity.name;
+      const visitors = publishedRegionalModelVisitors(entity);
+      spotlight.querySelector('[data-spotlight-signals]').textContent = visitors === null
+        ? admin1EntityStatusMessage(entity)
+        : `${number(visitors)} regional model-page visitors · approximate network location${entity.qualityFlag || entity.qualityFlags?.length ? '; known routing cluster' : ''}`;
+      return;
+    }
     spotlight.querySelector('[data-spotlight-rank]').textContent = entity.published && entity.rank
       ? `${state.detailConfig.viewLabel} rank #${entity.rank}`
       : state.detailConfig.viewLabel;
@@ -4367,13 +4771,34 @@ function setModelPanelOpen(open) {
   }
 }
 
+function focusModelPanelNavigation() {
+  window.requestAnimationFrame(() => {
+    if (!modelPanel || modelPanel.hidden) return;
+    const back = modelPanel.querySelector('[data-atlas-model-back]');
+    const close = modelPanel.querySelector('[data-atlas-model-close]');
+    const target = back && !back.hidden ? back : close;
+    target?.focus({ preventScroll: true });
+  });
+}
+
+function syncModelUrl() {
+  if (!isModelInterestView() || !state.initialized) return;
+  const canonical = new URL(currentShareUrl());
+  const url = new URL(window.location.href);
+  ['view', 'range', 'country', 'region', 'regions', 'brand', 'family', 'model', 'area']
+    .forEach(key => url.searchParams.delete(key));
+  canonical.searchParams.forEach((value, key) => url.searchParams.set(key, value));
+  url.searchParams.delete('v');
+  window.history.replaceState({}, '', url);
+}
+
 function humanModelFamily(value) {
   return String(value || 'LLM family')
     .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, character => character.toUpperCase());
 }
 
-function renderModelBrandButtons(container, brands, country) {
+function renderModelBrandButtons(container, brands, country, region = null) {
   if (!container) return;
   const fragment = document.createDocumentFragment();
   for (const brand of brands) {
@@ -4400,15 +4825,104 @@ function renderModelBrandButtons(container, brands, country) {
     const arrow = document.createElement('b');
     arrow.textContent = '→';
     button.append(logo, copy, arrow);
-    button.setAttribute('aria-label', 'Open ' + brand.label + ' model detail');
+    button.setAttribute('aria-label', 'Open ' + brand.label + ' model detail'
+      + (region ? ' in ' + region.name : country ? ' in ' + country.name : ' worldwide'));
     button.addEventListener('click', () => {
       stopTour();
       state.selectedModelBrand = brandIdentifier(brand);
       setModelPanelOpen(true);
-      renderModelPanel(country, state.selectedModelBrand);
+      renderModelPanel(country, state.selectedModelBrand, region);
+      syncModelUrl();
+      focusModelPanelNavigation();
     });
     item.append(button);
     fragment.append(item);
+  }
+  container.replaceChildren(fragment);
+}
+
+function publishedModelRegionForBoundary(region) {
+  return region?.activityEntity || region || null;
+}
+
+function renderModelRegionButtons(container) {
+  if (!container) return;
+  const published = state.detailRankedRegions.slice();
+  const publishedFeatures = new Set(published.flatMap(region => region.features || [region.feature]).filter(Boolean));
+  const neutral = state.detailRegions
+    .filter(region => !publishedFeatures.has(region.feature) && !region.activityEntity)
+    .sort((left, right) => left.name.localeCompare(right.name));
+  const fragment = document.createDocumentFragment();
+  for (const sourceRegion of published) {
+    const region = publishedModelRegionForBoundary(sourceRegion);
+    const brand = dominantModelBrand(region);
+    const visitors = Number(region?.modelVisitors ?? region?.signals);
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'atlas-model-region-button';
+    button.classList.toggle('has-no-brand', !brand?.logo);
+    if (sameModelRegion(region, state.selectedModelRegion)) button.classList.add('is-selected');
+    if (brand?.logo) {
+      const logo = document.createElement('img');
+      logo.src = brand.logo;
+      logo.alt = '';
+      logo.width = 28;
+      logo.height = 28;
+      logo.loading = 'lazy';
+      button.append(logo);
+    }
+    const copy = document.createElement('span');
+    const name = document.createElement('strong');
+    name.textContent = region.name;
+    const detail = document.createElement('small');
+    detail.textContent = Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
+      ? `${brand ? brand.label + (coLeadingModelBrands(region).length > 1 ? ' co-leads' : ' leads') + ' · ' : ''}${number(visitors)} visitors`
+      : 'No regional brand detail published';
+    copy.append(name, detail);
+    const arrow = document.createElement('b');
+    arrow.textContent = '→';
+    button.append(copy, arrow);
+    button.setAttribute('aria-label', Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
+      ? `Open ${region.name} model interest${brand ? `, ${brand.label} ${coLeadingModelBrands(region).length > 1 ? 'co-leads' : 'leads'}` : ''}`
+      : `Open ${region.name} boundary; no regional brand detail is published`);
+    button.addEventListener('click', () => {
+      focusModelRegion(region);
+      focusModelPanelNavigation();
+    });
+    item.append(button);
+    fragment.append(item);
+  }
+  if (neutral.length) {
+    const remainder = document.createElement('li');
+    remainder.className = 'atlas-model-region-list__remainder';
+    const disclosure = document.createElement('details');
+    const summary = document.createElement('summary');
+    const label = document.createElement('strong');
+    label.textContent = `${number(neutral.length)} other region${neutral.length === 1 ? '' : 's'} remain neutral`;
+    const detail = document.createElement('small');
+    detail.textContent = 'Open the list to select one. Neutral does not mean zero.';
+    const arrow = document.createElement('b');
+    arrow.textContent = '⌄';
+    summary.append(label, detail, arrow);
+    const neutralList = document.createElement('ul');
+    neutralList.setAttribute('aria-label', 'Regions without a published model-brand total');
+    for (const region of neutral) {
+      const item = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = region.name;
+      button.setAttribute('aria-label', `Open ${region.name}; no regional model-brand detail is published`);
+      button.addEventListener('click', () => {
+        focusModelRegion(region);
+        focusModelPanelNavigation();
+      });
+      item.append(button);
+      neutralList.append(item);
+    }
+    disclosure.append(summary, neutralList);
+    remainder.append(disclosure);
+    fragment.append(remainder);
   }
   container.replaceChildren(fragment);
 }
@@ -4448,13 +4962,15 @@ function renderModelRows(container, brand) {
   container.replaceChildren(fragment);
 }
 
-function renderModelPanel(country = state.selectedModelCountry, selectedBrandId = state.selectedModelBrand) {
+function renderModelPanel(country = state.selectedModelCountry, selectedBrandId = state.selectedModelBrand, region = state.selectedModelRegion) {
   if (!modelPanel || !isModelInterestView()) return;
   modelPanel.hidden = !state.modelPanelOpen;
-  const brands = country ? modelBrandsForCountry(country) : globalModelBrands();
-  const dominant = brands[0] || null;
-  const dominantCount = country
-    ? coLeadingModelBrands(country).length
+  const regionalListView = Boolean(country && isAdmin1Scope() && !region);
+  const scopeEntity = region || country;
+  const brands = region ? modelBrandsForCountry(region) : country ? modelBrandsForCountry(country) : globalModelBrands();
+  const dominant = scopeEntity ? dominantModelBrand(scopeEntity) : brands[0] || null;
+  const dominantCount = scopeEntity
+    ? coLeadingModelBrands(scopeEntity).length
     : dominant
       ? brands.filter(brand => modelBrandSignals(brand) === modelBrandSignals(dominant)).length
       : 0;
@@ -4464,24 +4980,36 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       .some(brand => brandIdentifier(brand) === brandIdentifier(selected))).length
     : 0;
   syncModelMarkerBrands(country, selected);
+  syncModelRegionMarkerBrands(selected);
   const modelLegendCopy = modelLegend?.querySelector('small');
   if (modelLegendCopy) {
-    const selectedIsLeader = country && selected ? coLeadingModelBrands(country).includes(selected) : true;
+    const selectedIsLeader = scopeEntity && selected ? coLeadingModelBrands(scopeEntity).includes(selected) : true;
     modelLegendCopy.textContent = !country && selected
       ? selectedCountryCount
         ? `${selected.label} · ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} published`
         : `${selected.label} · no country independently reaches ${PUBLISH_THRESHOLD}`
-      : selectedIsLeader
-        ? 'Most explored local model brand'
-        : 'Selected brand in focus · other logos show leaders';
+      : region && selected
+        ? `${selected.label} across published ${state.detailConfig?.regionsLabel || 'regions'}`
+        : isAdmin1Scope()
+          ? 'Most explored published model brand in each region'
+          : selectedIsLeader
+            ? 'Most explored local model brand'
+            : 'Selected brand in focus · other logos show leaders';
   }
   const countryLabel = modelPanel.querySelector('[data-atlas-model-country]');
+  const panelTitle = modelPanel.querySelector('[data-atlas-model-title]');
   const dominantLogo = modelPanel.querySelector('[data-atlas-model-dominant-logo]');
   const dominantFamily = modelPanel.querySelector('[data-atlas-model-dominant-family]');
   const dominantSummary = modelPanel.querySelector('[data-atlas-model-dominant-summary]');
   const familyCount = modelPanel.querySelector('[data-atlas-model-family-count]');
   const requestCount = modelPanel.querySelector('[data-atlas-model-request-count]');
   const familyList = modelPanel.querySelector('[data-atlas-model-family-list]');
+  const regionsButton = modelPanel.querySelector('[data-atlas-model-regions]');
+  const regionView = modelPanel.querySelector('[data-atlas-model-region-view]');
+  const regionStatus = modelPanel.querySelector('[data-atlas-model-region-status]');
+  const regionTotal = modelPanel.querySelector('[data-atlas-model-region-total]');
+  const regionCount = modelPanel.querySelector('[data-atlas-model-region-count]');
+  const regionList = modelPanel.querySelector('[data-atlas-model-region-list]');
   const brandLogo = modelPanel.querySelector('[data-atlas-model-brand-logo]');
   const brandName = modelPanel.querySelector('[data-atlas-model-brand-name]');
   const brandSummary = modelPanel.querySelector('[data-atlas-model-brand-summary]');
@@ -4489,8 +5017,15 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   const overview = modelPanel.querySelector('[data-atlas-model-overview]');
   const brandView = modelPanel.querySelector('[data-atlas-model-brand-view]');
   const empty = modelPanel.querySelector('[data-atlas-model-empty]');
+  const emptyTitle = modelPanel.querySelector('[data-atlas-model-empty-title]');
+  const emptyCopy = modelPanel.querySelector('[data-atlas-model-empty-copy]');
   const back = modelPanel.querySelector('[data-atlas-model-back]');
-  if (countryLabel) countryLabel.textContent = country ? country.name : 'Worldwide model interest';
+  if (countryLabel) countryLabel.textContent = region
+    ? `${region.name} · ${country.name}`
+    : regionalListView
+      ? `${country.name} · ${state.detailConfig?.viewLabel || 'Regional view'}`
+      : country ? country.name : 'Worldwide model interest';
+  if (panelTitle) panelTitle.textContent = regionalListView ? 'Model interest by region' : 'Most explored models';
   if (dominantLogo) {
     dominantLogo.src = dominant?.logo || '';
     dominantLogo.alt = '';
@@ -4504,11 +5039,29 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       + (dominantCount > 1 ? ' It shares the lead in this scope.' : '')
     : 'No individual LLM page reaches five anonymous visitors in this scope yet.';
   if (familyCount) familyCount.textContent = number(brands.length);
-  const visitorTotal = country
-    ? modelCountryVisitors(country)
+  const visitorTotal = region
+    ? publishedRegionalModelVisitors(region)
+    : country ? publishedModelCountryVisitors(country)
     : Number(state.data?.totals?.modelVisitors ?? state.data?.totals?.signals) || 0;
-  if (requestCount) requestCount.textContent = number(visitorTotal);
-  renderModelBrandButtons(familyList, brands, country);
+  if (requestCount) requestCount.textContent = visitorTotal === null ? '—' : number(visitorTotal);
+  renderModelBrandButtons(familyList, brands, country, region);
+  if (regionsButton) {
+    regionsButton.hidden = !country || Boolean(region) || isAdmin1Scope() || !manifestEntryForCountry(country);
+    const heading = regionsButton.querySelector('strong');
+    if (heading) heading.textContent = `Explore ${country?.name || ''} regions`;
+  }
+  if (regionStatus) regionStatus.textContent = state.detailDataStatus === 'published'
+    ? `Published regional model-page totals and brand rows independently meet the ${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold.`
+    : admin1StatusMessage();
+  if (regionTotal) {
+    const countryVisitors = state.detailTotals.countrySignals ?? publishedModelCountryVisitors(country);
+    regionTotal.textContent = countryVisitors === null ? '—' : number(countryVisitors);
+  }
+  if (regionCount) regionCount.textContent = Number.isFinite(state.detailTotals.regions)
+    ? number(state.detailTotals.regions)
+    : number(state.detailRankedRegions.length);
+  if (regionalListView) renderModelRegionButtons(regionList);
+  else if (regionList) regionList.replaceChildren();
   if (brandLogo) {
     brandLogo.src = selected?.logo || '';
     brandLogo.alt = '';
@@ -4516,8 +5069,10 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   }
   if (brandName) brandName.textContent = selected?.label || '';
   if (brandSummary) brandSummary.textContent = selected
-    ? country
-      ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page here.'
+    ? region
+      ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page in ' + region.name + '.'
+      : country
+        ? number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page here.'
       : number(modelBrandSignals(selected)) + ' unique visitors explored at least one eligible ' + selected.label + ' model page worldwide. '
         + (selectedCountryCount
           ? `The globe shows the ${number(selectedCountryCount)} countr${selectedCountryCount === 1 ? 'y' : 'ies'} where this brand independently reaches the public threshold.`
@@ -4525,20 +5080,39 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     : '';
   if (selected) renderModelRows(modelList, selected);
   else if (modelList) modelList.replaceChildren();
-  if (overview) overview.hidden = Boolean(selected) || !brands.length;
+  if (overview) overview.hidden = regionalListView || Boolean(selected) || !brands.length;
+  if (regionView) regionView.hidden = !regionalListView;
   if (brandView) brandView.hidden = !selected;
-  if (empty) empty.hidden = Boolean(brands.length);
+  const showEmpty = !regionalListView && !selected && !brands.length;
+  if (empty) empty.hidden = !showEmpty;
+  if (emptyTitle) emptyTitle.textContent = region ? 'No regional brand detail published' : 'No publishable model detail yet';
+  if (emptyCopy) emptyCopy.textContent = region
+    ? publishedRegionalModelVisitors(region) !== null
+      ? `This region has a published all-model total, but no individual brand independently reaches ${PUBLISH_THRESHOLD} visitors for this period.`
+      : admin1EntityStatusMessage(region)
+    : 'This place has no model brand above the public threshold for the selected period.';
   if (back) {
     back.hidden = !selected && !country;
-    back.textContent = selected ? '← All brands' : '← World';
-    back.setAttribute('aria-label', selected ? 'Return to the model-brand overview' : 'Return to the world model view');
+    back.textContent = selected
+      ? region ? '← Region' : '← All brands'
+      : region ? '← Regions'
+        : regionalListView ? '← Country' : '← World';
+    back.setAttribute('aria-label', selected
+      ? region ? `Return to ${region.name} brand overview` : 'Return to the model-brand overview'
+      : region ? `Return to ${country.name} regional overview`
+        : regionalListView ? `Return to ${country.name} country model overview` : 'Return to the world model view');
   }
-  modelPanel.dataset.scope = selected ? 'brand' : country ? 'country' : 'world';
+  modelPanel.dataset.scope = selected ? 'brand' : region ? 'region' : regionalListView ? 'regions' : country ? 'country' : 'world';
 }
 
 function focusModelCountry(country, requestedBrandId = '') {
   if (!country || !isModelInterestView()) return;
   if (!state.tourAdvancing) stopTour();
+  // A country selection supersedes any Admin-1 shard still loading for a
+  // previous country, even while both interactions happened in world scope.
+  state.admin1LoadToken += 1;
+  setAdmin1Busy(false);
+  state.selectedModelRegion = null;
   if (state.scope !== 'world') exitToWorld();
   const requestedBrand = modelBrandsForCountry(country)
     .find(brand => brandIdentifier(brand) === String(requestedBrandId || '')) || null;
@@ -4552,26 +5126,86 @@ function focusModelCountry(country, requestedBrandId = '') {
   hideTooltip();
   if (spotlight) spotlight.hidden = true;
   setModelPanelOpen(true);
-  renderModelPanel(country, state.selectedModelBrand);
+  renderModelPanel(country, state.selectedModelBrand, null);
+  syncModelUrl();
   scrollAtlasIntoView();
+}
+
+async function enterModelRegionExplorer(country = state.selectedModelCountry) {
+  if (!country || !isModelInterestView() || !manifestEntryForCountry(country)) return false;
+  state.selectedModelCountry = country;
+  state.selectedModelRegion = null;
+  state.selectedModelBrand = null;
+  setModelPanelOpen(true);
+  const entered = await enterCountryDetail(country);
+  if (!entered) {
+    renderModelPanel(country, '', null);
+    return false;
+  }
+  renderModelPanel(country, '', null);
+  syncModelUrl();
+  return true;
+}
+
+function focusModelRegion(region, requestedBrandId = '') {
+  if (!region || !isModelInterestView() || !isAdmin1Scope()) return;
+  if (!state.tourAdvancing) stopTour();
+  const resolvedRegion = publishedModelRegionForBoundary(region);
+  const requestedBrand = modelBrandsForCountry(resolvedRegion)
+    .find(brand => brandIdentifier(brand) === String(requestedBrandId || '')) || null;
+  state.selectedModelRegion = resolvedRegion;
+  state.selectedModelBrand = requestedBrand ? brandIdentifier(requestedBrand) : null;
+  state.locked = resolvedRegion;
+  const center = resolvedRegion.center || state.centers.get(state.detailCountry.name);
+  const bounds = resolvedRegion.bounds;
+  const bbox = bounds ? [bounds.minLon, bounds.minLat, bounds.maxLon, bounds.maxLat] : state.detailManifest?.bbox;
+  if (center) beginFocusTransition(center, admin1ZoomForBbox(bbox, isMobileViewport()));
+  state.lastInteractionAt = performance.now();
+  updateSelectionOverlay(resolvedRegion);
+  hideTooltip();
+  if (spotlight) spotlight.hidden = true;
+  setModelPanelOpen(true);
+  renderModelPanel(state.selectedModelCountry, state.selectedModelBrand, resolvedRegion);
+  updateScopeInterface();
+  syncModelUrl();
+  scrollAtlasIntoView();
+}
+
+function showModelRegionOverview() {
+  if (!isModelInterestView() || !isAdmin1Scope() || !state.selectedModelCountry) return;
+  state.selectedModelRegion = null;
+  state.selectedModelBrand = null;
+  state.locked = { kind: 'admin1View', name: `${state.selectedModelCountry.name} regional model view` };
+  updateSelectionOverlay(null);
+  const center = state.centers.get(state.selectedModelCountry.name);
+  if (center) beginFocusTransition(center, defaultZoom('admin1'));
+  setModelPanelOpen(true);
+  renderModelPanel(state.selectedModelCountry, '', null);
+  updateScopeInterface();
+  syncModelUrl();
 }
 
 function resetModelPanel() {
   stopTour();
   state.selectedModelCountry = null;
+  state.selectedModelRegion = null;
   state.selectedModelBrand = null;
+  if (state.scope !== 'world') exitToWorld();
   state.locked = null;
   setModelPanelOpen(false);
   updateSelectionOverlay(null);
   renderModelPanel(null, '');
+  syncModelUrl();
 }
 
 function showGlobalModelPanel() {
   state.selectedModelCountry = null;
+  state.selectedModelRegion = null;
   state.selectedModelBrand = null;
   exitToWorld();
   setModelPanelOpen(true);
   renderModelPanel(null, '');
+  syncModelUrl();
   scrollAtlasIntoView();
 }
 
@@ -4685,6 +5319,10 @@ function activateUsRegion(region) {
 }
 
 function activateAdmin1Region(region) {
+  if (isModelInterestView()) {
+    focusModelRegion(region);
+    return;
+  }
   const config = admin2ConfigForParent(region, 'admin1');
   if (config) void enterAdmin2Detail(region, 'admin1');
   else focusAdmin1Region(region);
@@ -4726,6 +5364,9 @@ async function applyRequestedView() {
       state.selectedModelBrand = requestedView.brand;
       setModelPanelOpen(true);
       renderModelPanel(null, requestedView.brand);
+      syncModelUrl();
+    } else if (requestedView.brand || requestedView.region || requestedView.regions) {
+      syncModelUrl();
     }
     return;
   }
@@ -4737,11 +5378,26 @@ async function applyRequestedView() {
     return;
   }
   if (!requestedView.country) return;
-  const country = findEntityByName(state.countries, requestedView.country);
-  if (!country) return;
+  const country = findEntityByName(isModelInterestView() ? state.worldCountries : state.countries, requestedView.country);
+  if (!country) {
+    if (isModelInterestView()) syncModelUrl();
+    return;
+  }
 
   if (isModelInterestView()) {
-    focusModelCountry(country, requestedView.brand);
+    if (!requestedView.region) {
+      focusModelCountry(country, requestedView.brand);
+      if (requestedView.regions) await enterModelRegionExplorer(country);
+      return;
+    }
+    focusModelCountry(country);
+    const entered = await enterModelRegionExplorer(country);
+    if (!entered) return;
+    const matchedBoundary = findEntityByName(state.detailRegions, requestedView.region);
+    const region = findEntityByName(state.detailRankedRegions, requestedView.region)
+      || matchedBoundary?.activityEntity
+      || matchedBoundary;
+    if (region) focusModelRegion(region, requestedView.brand);
     return;
   }
 
@@ -4826,6 +5482,10 @@ function updateScopeInterface() {
   const stateView = state.scope === 'us';
   const admin1View = isAdmin1Scope();
   const admin2View = isAdmin2Scope();
+  const modelRegionalView = modelInterestView && admin1View;
+  const modelRegion = modelRegionalView ? state.selectedModelRegion : null;
+  const modelCountry = modelRegionalView ? (state.selectedModelCountry || state.detailCountry) : null;
+  const modelRegionVisitors = publishedRegionalModelVisitors(modelRegion);
   const regionalView = stateView || admin1View || admin2View;
   stage.classList.toggle('atlas-scope-us', regionalView);
   stage.classList.toggle('atlas-scope-admin1', admin1View || admin2View);
@@ -4838,22 +5498,34 @@ function updateScopeInterface() {
   if (installPanel) installPanel.hidden = !installIntentView || !state.installPanelOpen;
   if (modelLegend) modelLegend.hidden = !modelInterestView;
   if (modelLogoLayer) modelLogoLayer.hidden = !modelInterestView;
+  if (modelInterestView) {
+    const colorLegendCopy = document.querySelector('[data-atlas-color-legend] small');
+    if (colorLegendCopy) colorLegendCopy.textContent = modelRegionalView
+      ? 'All-model regional visitors'
+      : 'All-model country visitors';
+  }
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
   if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
   if (state.detailGroup) state.detailGroup.visible = admin1View || (admin2View && state.admin2ParentScope === 'admin1');
   if (state.admin2Group) state.admin2Group.visible = admin2View;
   if (tourButton) tourButton.hidden = admin2View;
   updateClusterVisibility();
-  if (modelInterestView) setAtlasTitle('See which local AI brands', 'each country is exploring.');
+  if (modelRegionalView && modelRegion) setAtlasTitle('See model interest in', `${modelRegion.name}.`);
+  else if (modelRegionalView) setAtlasTitle('See which local AI brands', `lead across ${modelCountry?.name || 'this country'}.`);
+  else if (modelInterestView) setAtlasTitle('See which local AI brands', 'each country is exploring.');
   else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
   else if (admin1View) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, state.detailConfig.titleEmphasis);
   else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
   else if (installIntentView) setAtlasTitle('See which local AI stacks', 'people choose.');
   else setAtlasTitle('See where', 'local AI is taking off.');
   if (summary) {
-    summary.textContent = modelInterestView
-      ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show a privacy-thresholded brand · ${periodLabel()}`
-      : stateView
+    summary.textContent = modelRegionalView
+      ? modelRegion
+        ? `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
+        : `${modelCountry?.name || state.detailCountry?.name || ''} · Privacy-thresholded regional model-page interest · ${periodDateRange()}`
+      : modelInterestView
+        ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show a privacy-thresholded brand · ${periodLabel()}`
+        : stateView
       ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
         ? `${state.detailCountry.name} · Approximate network regions · ${periodDateRange()}`
@@ -4863,8 +5535,10 @@ function updateScopeInterface() {
           ? `Model paths and setup destinations selected by anonymous visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ · ${periodLabel()} · Tracking since 21 August 2026`
           : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
   }
-  if (liveLabel) liveLabel.textContent = modelInterestView
-    ? 'Model interest exploration'
+  if (liveLabel) liveLabel.textContent = modelRegionalView
+    ? modelRegion ? 'Regional model detail' : 'Regional model interest exploration'
+    : modelInterestView
+      ? 'Model interest exploration'
     : stateView
     ? 'State-level exploration'
     : admin1View
@@ -4872,8 +5546,12 @@ function updateScopeInterface() {
       : admin2View
         ? state.admin2Config.liveLabel
       : installIntentView ? 'Install-path exploration' : 'Live exploration';
-  const scopeSignals = modelInterestView
-    ? (state.data.totals.modelVisitors ?? state.data.totals.signals)
+  const scopeSignals = modelRegionalView
+    ? modelRegion
+      ? modelRegionVisitors
+      : (state.detailTotals.countrySignals ?? publishedModelCountryVisitors(modelCountry))
+    : modelInterestView
+      ? (state.data.totals.modelVisitors ?? state.data.totals.signals)
     : stateView
     ? state.usData.totals.publishedSignals
     : admin1View
@@ -4881,8 +5559,12 @@ function updateScopeInterface() {
       : admin2View
         ? state.admin2Config.parentSignals
       : (state.data.totals.publishedSignals ?? state.data.totals.signals);
-  const scopeRegions = modelInterestView
-    ? (state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)
+  const scopeRegions = modelRegionalView
+    ? modelRegion
+      ? modelBrandsForCountry(modelRegion).length
+      : state.detailTotals.regions
+    : modelInterestView
+      ? (state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)
     : stateView
     ? state.usData.totals.publishedRegions
     : admin1View
@@ -4894,8 +5576,12 @@ function updateScopeInterface() {
   document.querySelector('[data-scope-regions]').textContent = admin1View && !Number.isFinite(scopeRegions)
     ? number(state.detailRegions.length)
     : metric(scopeRegions);
-  document.querySelector('[data-scope-signal-label]').textContent = modelInterestView
-    ? 'anonymous model-page visitors'
+  document.querySelector('[data-scope-signal-label]').textContent = modelRegionalView
+    ? modelRegion
+      ? modelRegionVisitors !== null ? 'regional model-page visitors' : 'regional total not published'
+      : 'country model-page visitors'
+    : modelInterestView
+      ? 'anonymous model-page visitors'
     : stateView
     ? installIntentView ? 'visible state install-intent visitors' : 'visible state signals'
     : admin1View
@@ -4913,8 +5599,14 @@ function updateScopeInterface() {
           ? state.admin2Config.parentSignalLabel
           : 'parent aggregate not published'
       : publishedSignalLabel();
-  document.querySelector('[data-scope-region-label]').textContent = modelInterestView
-    ? 'countries with published brands'
+  document.querySelector('[data-scope-region-label]').textContent = modelRegionalView
+    ? modelRegion
+      ? 'regional brands published'
+      : Number.isFinite(state.detailTotals.regions)
+        ? `${state.detailConfig.regionsLabel} published`
+        : `${state.detailConfig.regionsLabel} shown`
+    : modelInterestView
+      ? 'countries with published brands'
     : stateView
     ? 'states published'
     : admin1View
@@ -4926,11 +5618,15 @@ function updateScopeInterface() {
       : 'countries published';
   document.querySelector('[data-scope-window]').textContent = admin2View
     ? 'boundary view · no subdivision totals'
+    : modelRegionalView
+      ? `${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold`
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-signal threshold`
     : `${periodDays()}-day window`;
-  document.querySelector('[data-scope-disclosure]').textContent = modelInterestView
-    ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
+  document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
+    ? 'Region color shows independently published all-model visitors. Each logo is the leading published brand in that region; a selected brand appears only where it independently reaches five visitors. Neutral boundaries and absent logos do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
+    : modelInterestView
+      ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
     : installIntentView
     ? regionalView
       ? 'Regional boundaries remain visible for exploration. No regional install-intent total reached the five-visitor publication threshold in this snapshot; neutral does not mean zero. A click does not verify a completed installation or local run.'
@@ -4944,8 +5640,10 @@ function updateScopeInterface() {
       : admin2View
         ? `${state.admin2Config.childrenLabel} are neutral cartographic references. DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate published city clusters, not subdivision totals.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
-  canvas.setAttribute('aria-label', modelInterestView
-    ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
+  canvas.setAttribute('aria-label', modelRegionalView
+    ? `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and logos represent the leading published brand. Select a region or logo for regional brand and model detail. Neutral boundaries and absent logos do not mean zero. Use the panel back control to return.`
+    : modelInterestView
+      ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
     : installIntentView
     ? regionalView
       ? `Interactive globe showing ${stateView ? 'U.S. states' : admin1View ? state.detailConfig.regionsLabel : state.admin2Config.childrenLabel} as neutral boundaries because no regional install-intent aggregate reached five visitors. Use the back control to return.`
@@ -5213,7 +5911,7 @@ function advanceTour() {
     if (isAdmin1Scope()) {
       stopTour();
       if (tourLabel) tourLabel.textContent = 'No published regional ranking';
-      showToast(`No ${state.detailConfig.regionLabel} reaches the ${state.detailTotals.publishThreshold}-signal publication threshold.`);
+      showToast(`No ${state.detailConfig.regionLabel} reaches the ${state.detailTotals.publishThreshold}-${isModelInterestView() ? 'visitor' : 'signal'} publication threshold.`);
     }
     return false;
   }
@@ -5221,6 +5919,7 @@ function advanceTour() {
   state.tourIndex = (state.tourIndex + 1) % entities.length;
   state.tourAdvancing = true;
   if (state.scope === 'us') focusRegion(entity);
+  else if (isAdmin1Scope() && isModelInterestView()) focusModelRegion(entity);
   else if (isAdmin1Scope()) focusAdmin1Region(entity);
   else if (isModelInterestView()) focusModelCountry(entity);
   else focusCountrySurface(entity);
@@ -5386,7 +6085,8 @@ function bindInteractions() {
       updatePointer(event);
       const entity = entityAtPointer({ preferGeography: true });
       if (entity) {
-        if (entity.kind === 'modelBrand') focusModelCountry(entity.country, entity.brand.id || entity.brand.brandId || entity.brand.family);
+        if (entity.kind === 'modelRegionBrand') focusModelRegion(entity.region, brandIdentifier(entity.brand));
+        else if (entity.kind === 'modelBrand') focusModelCountry(entity.country, entity.brand.id || entity.brand.brandId || entity.brand.family);
         else if (entity.kind === 'cityCluster') focusCluster(entity);
         else if (isAdmin2Scope() && entity.kind === 'admin2') focusAdmin2Region(entity);
         else if (state.scope === 'us') activateUsRegion(entity);
@@ -5473,9 +6173,9 @@ function bindInteractions() {
       const view = button.getAttribute('data-atlas-view');
       if (view === ACTIVE_VIEW) {
         if (view === 'models') {
-          if (state.selectedModelCountry || state.selectedModelBrand) {
+          if (state.selectedModelCountry || state.selectedModelRegion || state.selectedModelBrand) {
             setModelPanelOpen(true);
-            renderModelPanel(state.selectedModelCountry, state.selectedModelBrand);
+            renderModelPanel(state.selectedModelCountry, state.selectedModelBrand, state.selectedModelRegion);
           } else {
             showGlobalModelPanel();
           }
@@ -5499,6 +6199,7 @@ function bindInteractions() {
       else url.searchParams.delete('view');
       url.searchParams.delete('country');
       url.searchParams.delete('region');
+      url.searchParams.delete('regions');
       url.searchParams.delete('subregion');
       url.searchParams.delete('area');
       url.searchParams.delete('family');
@@ -5530,6 +6231,7 @@ function bindInteractions() {
 
   const modelClose = document.querySelector('[data-atlas-model-close]');
   const modelBack = document.querySelector('[data-atlas-model-back]');
+  const modelRegions = document.querySelector('[data-atlas-model-regions]');
   if (modelClose) modelClose.addEventListener('click', () => {
     setModelPanelOpen(false);
     canvas.focus({ preventScroll: true });
@@ -5539,12 +6241,22 @@ function bindInteractions() {
       stopTour();
       if (state.selectedModelBrand) {
         state.selectedModelBrand = null;
-        renderModelPanel(state.selectedModelCountry, '');
+        renderModelPanel(state.selectedModelCountry, '', state.selectedModelRegion);
+        syncModelUrl();
+      } else if (state.selectedModelRegion) {
+        showModelRegionOverview();
+      } else if (isAdmin1Scope() && state.selectedModelCountry) {
+        focusModelCountry(state.selectedModelCountry);
       } else {
         showGlobalModelPanel();
       }
     });
   }
+  if (modelRegions) modelRegions.addEventListener('click', () => {
+    void enterModelRegionExplorer().then(entered => {
+      if (entered) focusModelPanelNavigation();
+    });
+  });
 
   document.querySelectorAll('[data-country-focus]').forEach(button => {
     button.addEventListener('click', () => {
@@ -5687,6 +6399,7 @@ function animate(time) {
 
   updateProjectedLabels(time);
   updateModelMarkerVisibility();
+  updateModelRegionMarkerVisibility();
   updateWorldMapClarity();
   state.renderer.render(state.scene, state.camera);
 }
@@ -5829,7 +6542,7 @@ function renderDataSummary() {
     const rankingTitle = document.querySelector('[data-country-ranking-title]');
     if (rankingTitle) rankingTitle.textContent = 'Where people explore local AI models.';
     const rankingLead = document.querySelector('[data-country-ranking-lead]');
-    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country to see its leading brands, then open a brand for its publishable model detail. Country, brand and individual model rows must independently reach five visitors.';
+    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country for its leading brands or open Explore regions for independently published regional detail. Country, region, brand and individual model rows must each reach five visitors.';
     const countryCaption = document.querySelector('[data-country-ranking-caption]');
     if (countryCaption) countryCaption.textContent = `Countries with at least ${PUBLISH_THRESHOLD} unique visitors across eligible LocalClaw LLM pages, ${periodDateRange()}`;
     const countrySignalHeading = document.querySelector('[data-country-signal-heading]');
@@ -5839,15 +6552,15 @@ function renderDataSummary() {
     const methodologyTitle = document.querySelector('[data-methodology-title]');
     if (methodologyTitle) methodologyTitle.textContent = 'Model discovery, measured without pretending it is usage.';
     const methodologyLead = document.querySelector('[data-methodology-lead]');
-    if (methodologyLead) methodologyLead.textContent = 'The Models view uses anonymous DataFast visitors to canonical LocalClaw LLM pages. Country and brand totals are queried as deduplicated visitor groups; individual model rows are published only when that exact page independently reaches the privacy threshold.';
+    if (methodologyLead) methodologyLead.textContent = 'The Models view uses anonymous DataFast visitors to canonical LocalClaw LLM pages. Country, region and brand totals are queried as deduplicated visitor groups; individual model rows are published only when that exact geographic page cell independently reaches the privacy threshold.';
     const methodCount = document.querySelector('[data-method-count]');
     if (methodCount) methodCount.textContent = `A unique visitor to at least one eligible LocalClaw /models/ page during the ${periodDays()}-day window. A brand total is deduplicated across that brand’s exact model-page allow-list; individual pages are never summed to invent a unique brand total.`;
     const methodExclude = document.querySelector('[data-method-exclude]');
     if (methodExclude) methodExclude.textContent = 'No download completion, installation, launch, prompt, inference, active-use event, device identity, or claim about worldwide model usage is included.';
     const methodGeography = document.querySelector('[data-method-geography]');
-    if (methodGeography) methodGeography.textContent = 'Countries are approximate network locations reported by DataFast. The logo on each country is its highest published brand total for the selected period. This view does not infer subnational model preference.';
+    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A regional all-model total, brand, or model appears only when that exact regional visitor group is independently queried and published; Atlas never derives a regional preference from a country total.';
     const methodPrivacy = document.querySelector('[data-method-privacy]');
-    if (methodPrivacy) methodPrivacy.textContent = `Country, brand and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Rows below threshold and all visitor-level data remain absent from the public JSON.`;
+    if (methodPrivacy) methodPrivacy.textContent = `Country, region, brand and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Rows below threshold and all visitor-level data remain absent from the public JSON.`;
     const sourceCoverage = document.querySelector('[data-source-coverage]');
     if (sourceCoverage) {
       const sourceLabel = document.createElement('strong');
@@ -5856,11 +6569,17 @@ function renderDataSummary() {
       countryBoundaryLink.href = 'https://www.naturalearthdata.com/downloads/50m-cultural-vectors/';
       countryBoundaryLink.rel = 'external noopener';
       countryBoundaryLink.textContent = 'Natural Earth 1:50m';
+      const regionalBoundaryLink = document.createElement('a');
+      regionalBoundaryLink.href = 'https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/';
+      regionalBoundaryLink.rel = 'external noopener';
+      regionalBoundaryLink.textContent = 'Natural Earth 1:10m Admin-1';
       sourceCoverage.replaceChildren(
         sourceLabel,
         document.createTextNode(` aggregated anonymous LocalClaw website traffic measured by DataFast, ${periodDateRange()}, Europe/Zurich. Country outlines use `),
         countryBoundaryLink,
-        document.createTextNode('. The Models view loads country boundaries only and does not infer subnational model preference. Source coverage is biased toward people and network routes that reach LocalClaw.')
+        document.createTextNode('; regional exploration uses '),
+        regionalBoundaryLink,
+        document.createTextNode('. Every public geographic model-interest cell is independently thresholded. Source coverage is biased toward people and network routes that reach LocalClaw.')
       );
     }
     const leaderFaq = document.querySelector('[data-current-leader-faq]');
@@ -5870,7 +6589,7 @@ function renderDataSummary() {
     const regionalFaqTitle = document.querySelector('[data-regional-faq-title]');
     const regionalFaq = document.querySelector('[data-regional-faq]');
     if (regionalFaqTitle) regionalFaqTitle.textContent = 'Does the Models view go below country level?';
-    if (regionalFaq) regionalFaq.textContent = 'Not yet. Brand totals are published at country level because no independently privacy-thresholded subnational model breakdown is available. Atlas does not infer a state, province, canton, or city model preference from a country total.';
+    if (regionalFaq) regionalFaq.textContent = `Yes, where a country has a supported administrative boundary layer. Select a country, then Explore regions to compare only the regional totals, brands and model pages that independently reach ${PUBLISH_THRESHOLD} visitors. Neutral regions and absent logos do not mean zero, and Atlas does not infer city-level model preference.`;
     renderRankingRows('[data-country-ranking-body]', state.countries, totalVisitors || 1, 'country', state.countries.length);
     const countryDownload = document.querySelector('[data-country-download]');
     if (countryDownload) {
@@ -5879,7 +6598,11 @@ function renderDataSummary() {
     }
     const regionalDownload = document.querySelector('[data-admin1-download]');
     const deeperBoundaryDownload = document.querySelector('[data-admin2-download]');
-    if (regionalDownload) regionalDownload.hidden = true;
+    if (regionalDownload) {
+      regionalDownload.hidden = false;
+      regionalDownload.href = MODEL_ADMIN1_ACTIVITY_URL.split('?')[0];
+      regionalDownload.textContent = 'Download regional model-interest JSON';
+    }
     if (deeperBoundaryDownload) deeperBoundaryDownload.hidden = true;
     updatePeriodControls();
     updateScopeInterface();
@@ -6007,13 +6730,40 @@ async function initialize() {
         console.warn('Atlas deeper boundary views are unavailable; the world and regional maps remain active.', error);
         return null;
       });
-    const [dataResponse, worldResponse, statesResponse, manifestResponse, activityResponse, admin2Manifest] = await Promise.all([
+    const admin1ManifestResponsePromise = modelsView ? fetch(ADMIN1_MANIFEST_URL)
+      .then(response => {
+        if (!response.ok) throw new Error(`Regional boundary manifest could not be loaded (${response.status}).`);
+        return response;
+      })
+      .catch(error => {
+        console.warn('Atlas regional boundaries are unavailable; country model interest remains active.', error);
+        return emptyJsonResponse({ countries: {} });
+      }) : fetch(ADMIN1_MANIFEST_URL);
+    const modelAdmin1ActivityPromise = modelsView ? fetch(MODEL_ADMIN1_ACTIVITY_URL)
+      .then(async response => {
+        if (!response.ok) throw new Error(`Regional model-interest data could not be loaded (${response.status}).`);
+        return response.json();
+      })
+      .catch(error => {
+        console.warn('Atlas regional model-interest totals are unavailable; country model interest remains active.', error);
+        return { publishThreshold: PUBLISH_THRESHOLD, countries: {} };
+      }) : Promise.resolve(null);
+    const [
+      dataResponse,
+      worldResponse,
+      statesResponse,
+      manifestResponse,
+      activityResponse,
+      admin2Manifest,
+      modelAdmin1Activity
+    ] = await Promise.all([
       fetch(DATA_URL),
       fetch(WORLD_URL),
       modelsView ? emptyJsonResponse({ type: 'FeatureCollection', features: [] }) : fetch(US_STATES_URL),
-      modelsView ? emptyJsonResponse({ countries: {} }) : fetch(ADMIN1_MANIFEST_URL),
+      admin1ManifestResponsePromise,
       modelsView ? emptyJsonResponse({ countries: {} }) : fetch(ADMIN1_ACTIVITY_URL),
-      admin2ManifestPromise
+      admin2ManifestPromise,
+      modelAdmin1ActivityPromise
     ]);
     if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
       throw new Error('Atlas data could not be loaded.');
@@ -6024,11 +6774,18 @@ async function initialize() {
     state.admin1Manifest = await manifestResponse.json();
     state.admin1Activity = await activityResponse.json();
     state.admin2Manifest = admin2Manifest;
+    state.modelAdmin1Activity = modelAdmin1Activity;
     if (isModelInterestView()) {
       if (Number(state.data.publishThreshold) !== PUBLISH_THRESHOLD
         || !String(state.data.claimBoundary || '').toLowerCase().includes('not')
         || !state.data.modelInterest) {
         throw new Error('Model-interest data contract is invalid.');
+      }
+      if (!state.modelAdmin1Activity
+        || Number(state.modelAdmin1Activity.publishThreshold || PUBLISH_THRESHOLD) !== PUBLISH_THRESHOLD
+        || typeof state.modelAdmin1Activity.countries !== 'object') {
+        console.warn('Atlas regional model-interest data contract is invalid; country model interest remains active.');
+        state.modelAdmin1Activity = { publishThreshold: PUBLISH_THRESHOLD, countries: {} };
       }
     } else if (isInstallIntentView()) {
       if (Number(state.data.schemaVersion) < 2

@@ -1,0 +1,2412 @@
+{
+  "schemaVersion": 1,
+  "view": "model-page-interest",
+  "displayName": "Models by region",
+  "generatedAt": "2026-09-01T14:48:23Z",
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-08-29",
+    "label": "Last 3 months",
+    "key": "90d",
+    "days": 90,
+    "timezone": "Europe/Zurich"
+  },
+  "source": {
+    "provider": "DataFast",
+    "dimension": "country + region + exact canonical model paths",
+    "method": "Country-filtered regional analytics with independent all-model, brand and exact-model path scopes",
+    "snapshotNote": "Region totals, brand cells and exact-model cells are queried independently. Child cells are never summed to derive a parent total.",
+    "regionalSnapshotGeneratedAt": "2026-09-01T14:48:23Z",
+    "countrySnapshotGeneratedAt": "2026-09-01T11:27:22Z",
+    "snapshotLinkage": "Regional cells are checked fail-closed against the named public country snapshot; inconsistent cells are omitted, never capped or estimated."
+  },
+  "publishThreshold": 5,
+  "claimBoundary": "Regional model-page interest only. A page visit is not verified model use and does not prove a download, installation, launch, or inference.",
+  "privacy": {
+    "rule": "A region, brand or exact model is published only when its independently queried scope has at least five unique visitors.",
+    "withheldDetail": "Below-threshold region, brand and exact-model identities and counts are not included in this public file.",
+    "overlapNote": "Brand and model scopes can overlap. They are not additive and are never reconciled by summing child rows."
+  },
+  "diagnostics": {
+    "omittedUnresolvedBoundaryRegions": 0,
+    "omittedParentInconsistentBrandCells": 0,
+    "omittedParentInconsistentModelCells": 2
+  },
+  "countries": {
+    "United States": {
+      "countryCode": "US",
+      "adm0A3": "USA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 810,
+      "countryModelVisitors": 810,
+      "publishedRegions": 20,
+      "regions": [
+        {
+          "regionId": "USA:USA-3525",
+          "sourceName": "Oregon",
+          "canonicalName": "Oregon",
+          "signals": 332,
+          "modelVisitors": 332,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3525"
+          ],
+          "qualityFlag": "network-location-cluster",
+          "qualityNote": "Known network-routing cluster in the general Atlas interest dataset; interpret this regional model-page total as an approximate network location, not a resident count.",
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 73,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 25,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3-32b",
+                    "label": "Qwen 3 (32B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-32b",
+                    "visitors": 17,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 56,
+                "models": [
+                  {
+                    "id": "glm-5.2",
+                    "label": "GLM-5.2 (744B MoE)",
+                    "family": "glm",
+                    "path": "/models/glm-5.2",
+                    "visitors": 26,
+                    "rank": 1
+                  },
+                  {
+                    "id": "glm4.5-air",
+                    "label": "GLM 4.5 Air (MoE)",
+                    "family": "glm",
+                    "path": "/models/glm4.5-air",
+                    "visitors": 11,
+                    "rank": 2
+                  },
+                  {
+                    "id": "glm-4.6-355b",
+                    "label": "GLM 4.6 (355B MoE)",
+                    "family": "glm",
+                    "path": "/models/glm-4.6-355b",
+                    "visitors": 11,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 41,
+                "models": [
+                  {
+                    "id": "deepseek-v3.1",
+                    "label": "DeepSeek V3.1 (671B MoE)",
+                    "family": "deepseek-v3",
+                    "path": "/models/deepseek-v3.1",
+                    "visitors": 23,
+                    "rank": 1
+                  },
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 8,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 31,
+                "models": [
+                  {
+                    "id": "codestral-22b",
+                    "label": "Codestral (22B)",
+                    "family": "mistral",
+                    "path": "/models/codestral-22b",
+                    "visitors": 6,
+                    "rank": 1
+                  },
+                  {
+                    "id": "devstral-24b",
+                    "label": "Devstral (24B)",
+                    "family": "mistral",
+                    "path": "/models/devstral-24b",
+                    "visitors": 5,
+                    "rank": 2
+                  },
+                  {
+                    "id": "mistral-nemo-12b",
+                    "label": "Mistral Nemo (12B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-nemo-12b",
+                    "visitors": 5,
+                    "rank": 3
+                  },
+                  {
+                    "id": "mistral-small3.2-24b",
+                    "label": "Mistral Small 3.2 (24B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-small3.2-24b",
+                    "visitors": 5,
+                    "rank": 4
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 4
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 25,
+                "models": [
+                  {
+                    "id": "gemma3-12b",
+                    "label": "Gemma 3 (12B)",
+                    "family": "gemma",
+                    "path": "/models/gemma3-12b",
+                    "visitors": 9,
+                    "rank": 1
+                  },
+                  {
+                    "id": "gemma4-12b",
+                    "label": "Gemma 4 12B",
+                    "family": "gemma",
+                    "path": "/models/gemma4-12b",
+                    "visitors": 8,
+                    "rank": 2
+                  },
+                  {
+                    "id": "gemma3-27b",
+                    "label": "Gemma 3 (27B)",
+                    "family": "gemma",
+                    "path": "/models/gemma3-27b",
+                    "visitors": 6,
+                    "rank": 3
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png",
+                "visitors": 18,
+                "models": [
+                  {
+                    "id": "ornith-1-5-9b",
+                    "label": "Ornith-1.5-9B",
+                    "family": "ornith",
+                    "path": "/models/ornith-1-5-9b",
+                    "visitors": 9,
+                    "rank": 1
+                  },
+                  {
+                    "id": "ornith-1.0-9b-gguf",
+                    "label": "Ornith 1.0 9B GGUF",
+                    "family": "deepreinforce",
+                    "path": "/models/ornith-1.0-9b-gguf",
+                    "visitors": 5,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 6
+              },
+              {
+                "id": "microsoft",
+                "label": "Microsoft",
+                "logo": "/images/model-logos/microsoft.svg",
+                "visitors": 16,
+                "models": [
+                  {
+                    "id": "phi4-mini",
+                    "label": "Phi-4 Mini (3.8B)",
+                    "family": "phi",
+                    "path": "/models/phi4-mini",
+                    "visitors": 8,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 7
+              },
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg",
+                "visitors": 8,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 8
+              },
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 7,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 9
+              },
+              {
+                "id": "liquid",
+                "label": "Liquid AI",
+                "logo": "/images/model-logos/liquid.svg",
+                "visitors": 7,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 10
+              },
+              {
+                "id": "nousresearch",
+                "label": "Nous Research",
+                "logo": "/images/model-logos/nousresearch.svg",
+                "visitors": 7,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 11
+              },
+              {
+                "id": "cohere",
+                "label": "Cohere",
+                "logo": "/images/model-logos/cohere.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 12
+              },
+              {
+                "id": "miromind",
+                "label": "MiroMind",
+                "logo": "/images/model-logos/miromind-avatar.webp",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 13
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "USA:USA-3521",
+          "sourceName": "California",
+          "canonicalName": "California",
+          "signals": 132,
+          "modelVisitors": 132,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3521"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 49,
+                "models": [
+                  {
+                    "id": "mistral-large-123b",
+                    "label": "Mistral Large (123B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-large-123b",
+                    "visitors": 45,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 27,
+                "models": [
+                  {
+                    "id": "qwen3.6-27b",
+                    "label": "Qwen 3.6 (27B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-27b",
+                    "visitors": 6,
+                    "rank": 1
+                  },
+                  {
+                    "id": "qwen3.6-35b-a3b",
+                    "label": "Qwen 3.6 35B-A3B",
+                    "family": "qwen",
+                    "path": "/models/qwen3.6-35b-a3b",
+                    "visitors": 5,
+                    "rank": 2
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 21,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 11,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 3
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 8,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 4
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 7,
+                "models": [
+                  {
+                    "id": "glm4.5-air",
+                    "label": "GLM 4.5 Air (MoE)",
+                    "family": "glm",
+                    "path": "/models/glm4.5-air",
+                    "visitors": 5,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 5
+              },
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 6
+              }
+            ],
+            "dominantBrands": [
+              "mistral"
+            ]
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "USA:USA-3559",
+          "sourceName": "New York",
+          "canonicalName": "New York",
+          "signals": 46,
+          "modelVisitors": 46,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3559"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 22,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 10,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 6,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 3
+        },
+        {
+          "regionId": "USA:USA-3536",
+          "sourceName": "Texas",
+          "canonicalName": "Texas",
+          "signals": 37,
+          "modelVisitors": 37,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3536"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 16,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 2
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 3
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 4
+        },
+        {
+          "regionId": "USA:USA-3552",
+          "sourceName": "Virginia",
+          "canonicalName": "Virginia",
+          "signals": 28,
+          "modelVisitors": 28,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3552"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 13,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 9,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 8,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 2
+              }
+            ],
+            "dominantBrands": [
+              "deepseek"
+            ]
+          },
+          "rank": 5
+        },
+        {
+          "regionId": "USA:USA-3546",
+          "sourceName": "Illinois",
+          "canonicalName": "Illinois",
+          "signals": 17,
+          "modelVisitors": 17,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3546"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 6
+        },
+        {
+          "regionId": "USA:USA-3556",
+          "sourceName": "District of Columbia",
+          "canonicalName": "District of Columbia",
+          "signals": 14,
+          "modelVisitors": 14,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3556"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 7
+        },
+        {
+          "regionId": "USA:USA-3558",
+          "sourceName": "New Jersey",
+          "canonicalName": "New Jersey",
+          "signals": 14,
+          "modelVisitors": 14,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3558"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 9,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 8
+        },
+        {
+          "regionId": "USA:USA-3543",
+          "sourceName": "Georgia",
+          "canonicalName": "Georgia",
+          "signals": 13,
+          "modelVisitors": 13,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3543"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 8,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 9
+        },
+        {
+          "regionId": "USA:USA-3522",
+          "sourceName": "Colorado",
+          "canonicalName": "Colorado",
+          "signals": 12,
+          "modelVisitors": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3522"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 10
+        },
+        {
+          "regionId": "USA:USA-3513",
+          "sourceName": "Massachusetts",
+          "canonicalName": "Massachusetts",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3513"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 11
+        },
+        {
+          "regionId": "USA:USA-3523",
+          "sourceName": "Nevada",
+          "canonicalName": "Nevada",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3523"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 12
+        },
+        {
+          "regionId": "USA:USA-3542",
+          "sourceName": "Florida",
+          "canonicalName": "Florida",
+          "signals": 9,
+          "modelVisitors": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3542"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 13
+        },
+        {
+          "regionId": "USA:USA-3529",
+          "sourceName": "Iowa",
+          "canonicalName": "Iowa",
+          "signals": 9,
+          "modelVisitors": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3529"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 14
+        },
+        {
+          "regionId": "USA:USA-3560",
+          "sourceName": "Pennsylvania",
+          "canonicalName": "Pennsylvania",
+          "signals": 9,
+          "modelVisitors": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3560"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 15
+        },
+        {
+          "regionId": "USA:USA-3520",
+          "sourceName": "Arizona",
+          "canonicalName": "Arizona",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3520"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 16
+        },
+        {
+          "regionId": "USA:USA-3550",
+          "sourceName": "Ohio",
+          "canonicalName": "Ohio",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3550"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 17
+        },
+        {
+          "regionId": "USA:USA-3519",
+          "sourceName": "Washington",
+          "canonicalName": "Washington",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3519"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 18
+        },
+        {
+          "regionId": "USA:USA-3562",
+          "sourceName": "Michigan",
+          "canonicalName": "Michigan",
+          "signals": 6,
+          "modelVisitors": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3562"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 19
+        },
+        {
+          "regionId": "USA:USA-3557",
+          "sourceName": "Maryland",
+          "canonicalName": "Maryland",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "USA-3557"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 20
+        }
+      ]
+    },
+    "China": {
+      "countryCode": "CN",
+      "adm0A3": "CHN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 252,
+      "countryModelVisitors": 252,
+      "publishedRegions": 6,
+      "regions": [
+        {
+          "regionId": "CHN:CHN-1180",
+          "sourceName": "Guangdong Sheng",
+          "canonicalName": "Guangdong",
+          "signals": 37,
+          "modelVisitors": 37,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1180"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 10,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 2
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "CHN:CHN-1155",
+          "sourceName": "Beijing Shi",
+          "canonicalName": "Beijing",
+          "signals": 12,
+          "modelVisitors": 12,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1155"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "CHN:CHN-1807",
+          "sourceName": "Hubei Sheng",
+          "canonicalName": "Hubei",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1807"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        },
+        {
+          "regionId": "CHN:CHN-1808",
+          "sourceName": "Hunan Sheng",
+          "canonicalName": "Hunan",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1808"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 4
+        },
+        {
+          "regionId": "CHN:CHN-1818",
+          "sourceName": "Jiangsu Sheng",
+          "canonicalName": "Jiangsu",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1818"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 5
+        },
+        {
+          "regionId": "CHN:CHN-1816",
+          "sourceName": "Tianjin Shi",
+          "canonicalName": "Tianjin",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "legacy-exact",
+          "boundaryFeatureIds": [
+            "CHN-1816"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 6
+        }
+      ]
+    },
+    "Germany": {
+      "countryCode": "DE",
+      "adm0A3": "DEU",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 92,
+      "countryModelVisitors": 92,
+      "publishedRegions": 7,
+      "regions": [
+        {
+          "regionId": "DEU:DEU-1574",
+          "sourceName": "Hessen",
+          "canonicalName": "Hesse",
+          "signals": 16,
+          "modelVisitors": 16,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1574"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 13,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "DEU:DEU-1572",
+          "sourceName": "Nordrhein-Westfalen",
+          "canonicalName": "North Rhine-Westphalia",
+          "signals": 14,
+          "modelVisitors": 14,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1572"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "DEU:DEU-1591",
+          "sourceName": "Bayern",
+          "canonicalName": "Bavaria",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1591"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        },
+        {
+          "regionId": "DEU:DEU-1599",
+          "sourceName": "Berlin",
+          "canonicalName": "Berlin",
+          "signals": 9,
+          "modelVisitors": 9,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1599"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 4
+        },
+        {
+          "regionId": "DEU:DEU-1573",
+          "sourceName": "Baden-Württemberg",
+          "canonicalName": "Baden-Württemberg",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1573"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 5
+        },
+        {
+          "regionId": "DEU:DEU-3487",
+          "sourceName": "Brandenburg",
+          "canonicalName": "Brandenburg",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-3487"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 6
+        },
+        {
+          "regionId": "DEU:DEU-1601",
+          "sourceName": "Sachsen",
+          "canonicalName": "Saxony",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "DEU-1601"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 7
+        }
+      ]
+    },
+    "United Kingdom": {
+      "countryCode": "GB",
+      "adm0A3": "GBR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 66,
+      "countryModelVisitors": 66,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "GBR:GBR-2028+GBR-2029+GBR-2030+GBR-2031+GBR-2032+GBR-2033+GBR-2034+GBR-2035+GBR-2036+GBR-2038+GBR-2039+GBR-2040+GBR-2042+GBR-2043+GBR-2044+GBR-2045+GBR-2046+GBR-2047+GBR-2048+GBR-2050+GBR-2051+GBR-2052+GBR-2053+GBR-2054+GBR-2055+GBR-2056+GBR-2057+GBR-2058+GBR-2059+GBR-2060+GBR-2061+GBR-2062+GBR-2063+GBR-2064+GBR-2065+GBR-2066+GBR-2067+GBR-2068+GBR-2069+GBR-2070+GBR-2071+GBR-2072+GBR-2073+GBR-2074+GBR-2075+GBR-2076+GBR-2077+GBR-2078+GBR-2079+GBR-2080+GBR-2081+GBR-2108+GBR-2110+GBR-2120+GBR-2121+GBR-2122+GBR-2123+GBR-2124+GBR-2139+GBR-2140+GBR-2141+GBR-2142+GBR-2317+GBR-2318+GBR-2319+GBR-2674+GBR-2675+GBR-2676+GBR-2677+GBR-2678+GBR-2679+GBR-2748+GBR-2749+GBR-2750+GBR-2751+GBR-2752+GBR-2753+GBR-2754+GBR-2755+GBR-2756+GBR-2757+GBR-2758+GBR-2759+GBR-2760+GBR-2761+GBR-2762+GBR-2763+GBR-2764+GBR-2765+GBR-2766+GBR-2767+GBR-2768+GBR-2769+GBR-2770+GBR-2771+GBR-2774+GBR-2775+GBR-2776+GBR-2777+GBR-2778+GBR-2779+GBR-3409+GBR-4809+GBR-5661+GBR-5662+GBR-5663+GBR-5664+GBR-5665+GBR-5666+GBR-5667+GBR-5668+GBR-5669+GBR-5670+GBR-5671+GBR-5672+GBR-5673+GBR-5674+GBR-5675+GBR-5676+GBR-5677+GBR-5678+GBR-5679+GBR-5680+GBR-5681+GBR-5682+GBR-5683+GBR-5684+GBR-5685+GBR-5686+GBR-5687+GBR-5688+GBR-5689+GBR-5690+GBR-5691+GBR-5692+GBR-5693+GBR-5694+GBR-5695+GBR-5696+GBR-5697+GBR-5698+GBR-5699+GBR-5700+GBR-5701+GBR-5702+GBR-5703+GBR-5704+GBR-5705+GBR-5706+GBR-5707+GBR-5708+GBR-5988",
+          "sourceName": "England",
+          "canonicalName": "England",
+          "signals": 56,
+          "modelVisitors": 56,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "GBR-2028",
+            "GBR-2029",
+            "GBR-2030",
+            "GBR-2031",
+            "GBR-2032",
+            "GBR-2033",
+            "GBR-2034",
+            "GBR-2035",
+            "GBR-2036",
+            "GBR-2038",
+            "GBR-2039",
+            "GBR-2040",
+            "GBR-2042",
+            "GBR-2043",
+            "GBR-2044",
+            "GBR-2045",
+            "GBR-2046",
+            "GBR-2047",
+            "GBR-2048",
+            "GBR-2050",
+            "GBR-2051",
+            "GBR-2052",
+            "GBR-2053",
+            "GBR-2054",
+            "GBR-2055",
+            "GBR-2056",
+            "GBR-2057",
+            "GBR-2058",
+            "GBR-2059",
+            "GBR-2060",
+            "GBR-2061",
+            "GBR-2062",
+            "GBR-2063",
+            "GBR-2064",
+            "GBR-2065",
+            "GBR-2066",
+            "GBR-2067",
+            "GBR-2068",
+            "GBR-2069",
+            "GBR-2070",
+            "GBR-2071",
+            "GBR-2072",
+            "GBR-2073",
+            "GBR-2074",
+            "GBR-2075",
+            "GBR-2076",
+            "GBR-2077",
+            "GBR-2078",
+            "GBR-2079",
+            "GBR-2080",
+            "GBR-2081",
+            "GBR-2108",
+            "GBR-2110",
+            "GBR-2120",
+            "GBR-2121",
+            "GBR-2122",
+            "GBR-2123",
+            "GBR-2124",
+            "GBR-2139",
+            "GBR-2140",
+            "GBR-2141",
+            "GBR-2142",
+            "GBR-2317",
+            "GBR-2318",
+            "GBR-2319",
+            "GBR-2674",
+            "GBR-2675",
+            "GBR-2676",
+            "GBR-2677",
+            "GBR-2678",
+            "GBR-2679",
+            "GBR-2748",
+            "GBR-2749",
+            "GBR-2750",
+            "GBR-2751",
+            "GBR-2752",
+            "GBR-2753",
+            "GBR-2754",
+            "GBR-2755",
+            "GBR-2756",
+            "GBR-2757",
+            "GBR-2758",
+            "GBR-2759",
+            "GBR-2760",
+            "GBR-2761",
+            "GBR-2762",
+            "GBR-2763",
+            "GBR-2764",
+            "GBR-2765",
+            "GBR-2766",
+            "GBR-2767",
+            "GBR-2768",
+            "GBR-2769",
+            "GBR-2770",
+            "GBR-2771",
+            "GBR-2774",
+            "GBR-2775",
+            "GBR-2776",
+            "GBR-2777",
+            "GBR-2778",
+            "GBR-2779",
+            "GBR-3409",
+            "GBR-4809",
+            "GBR-5661",
+            "GBR-5662",
+            "GBR-5663",
+            "GBR-5664",
+            "GBR-5665",
+            "GBR-5666",
+            "GBR-5667",
+            "GBR-5668",
+            "GBR-5669",
+            "GBR-5670",
+            "GBR-5671",
+            "GBR-5672",
+            "GBR-5673",
+            "GBR-5674",
+            "GBR-5675",
+            "GBR-5676",
+            "GBR-5677",
+            "GBR-5678",
+            "GBR-5679",
+            "GBR-5680",
+            "GBR-5681",
+            "GBR-5682",
+            "GBR-5683",
+            "GBR-5684",
+            "GBR-5685",
+            "GBR-5686",
+            "GBR-5687",
+            "GBR-5688",
+            "GBR-5689",
+            "GBR-5690",
+            "GBR-5691",
+            "GBR-5692",
+            "GBR-5693",
+            "GBR-5694",
+            "GBR-5695",
+            "GBR-5696",
+            "GBR-5697",
+            "GBR-5698",
+            "GBR-5699",
+            "GBR-5700",
+            "GBR-5701",
+            "GBR-5702",
+            "GBR-5703",
+            "GBR-5704",
+            "GBR-5705",
+            "GBR-5706",
+            "GBR-5707",
+            "GBR-5708",
+            "GBR-5988"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 21,
+                "models": [
+                  {
+                    "id": "qwen3-14b",
+                    "label": "Qwen 3 (14B)",
+                    "family": "qwen",
+                    "path": "/models/qwen3-14b",
+                    "visitors": 5,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 13,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 8,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 3
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "GBR:GBR-2001+GBR-2002+GBR-2003+GBR-2004+GBR-2005+GBR-2006+GBR-2007+GBR-2008+GBR-2009+GBR-2010+GBR-2011+GBR-2012+GBR-2013+GBR-2014+GBR-2015+GBR-2016+GBR-2017+GBR-2018+GBR-2019+GBR-2020+GBR-2021+GBR-2022+GBR-2023+GBR-2024+GBR-2025+GBR-2026+GBR-2138+GBR-2744+GBR-2745+GBR-2746+GBR-2747+GBR-2772",
+          "sourceName": "Scotland",
+          "canonicalName": "Scotland",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "GBR-2001",
+            "GBR-2002",
+            "GBR-2003",
+            "GBR-2004",
+            "GBR-2005",
+            "GBR-2006",
+            "GBR-2007",
+            "GBR-2008",
+            "GBR-2009",
+            "GBR-2010",
+            "GBR-2011",
+            "GBR-2012",
+            "GBR-2013",
+            "GBR-2014",
+            "GBR-2015",
+            "GBR-2016",
+            "GBR-2017",
+            "GBR-2018",
+            "GBR-2019",
+            "GBR-2020",
+            "GBR-2021",
+            "GBR-2022",
+            "GBR-2023",
+            "GBR-2024",
+            "GBR-2025",
+            "GBR-2026",
+            "GBR-2138",
+            "GBR-2744",
+            "GBR-2745",
+            "GBR-2746",
+            "GBR-2747",
+            "GBR-2772"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "India": {
+      "countryCode": "IN",
+      "adm0A3": "IND",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 55,
+      "countryModelVisitors": 55,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "regionId": "IND:IND-3263",
+          "sourceName": "Tamil Nādu",
+          "canonicalName": "Tamil Nadu",
+          "signals": 12,
+          "modelVisitors": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-3263"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "IND:IND-2447",
+          "sourceName": "Mahārāshtra",
+          "canonicalName": "Maharashtra",
+          "signals": 10,
+          "modelVisitors": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2447"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "IND:IND-2446",
+          "sourceName": "Karnātaka",
+          "canonicalName": "Karnataka",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2446"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        },
+        {
+          "regionId": "IND:IND-2428",
+          "sourceName": "Delhi",
+          "canonicalName": "Delhi",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IND-2428"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 4
+        }
+      ]
+    },
+    "Brazil": {
+      "countryCode": "BR",
+      "adm0A3": "BRA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 39,
+      "countryModelVisitors": 39,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "regionId": "BRA:BRA-1311",
+          "sourceName": "São Paulo",
+          "canonicalName": "São Paulo",
+          "signals": 15,
+          "modelVisitors": 15,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-1311"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "BRA:BRA-627",
+          "sourceName": "Rio de Janeiro",
+          "canonicalName": "Rio de Janeiro",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-627"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "BRA:BRA-612",
+          "sourceName": "Rio Grande do Sul",
+          "canonicalName": "Rio Grande do Sul",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "BRA-612"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        }
+      ]
+    },
+    "Canada": {
+      "countryCode": "CA",
+      "adm0A3": "CAN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 35,
+      "countryModelVisitors": 35,
+      "publishedRegions": 4,
+      "regions": [
+        {
+          "regionId": "CAN:CAN-682",
+          "sourceName": "Ontario",
+          "canonicalName": "Ontario",
+          "signals": 12,
+          "modelVisitors": 12,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-682"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "CAN:CAN-683",
+          "sourceName": "Quebec",
+          "canonicalName": "Quebec",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-683"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "CAN:CAN-633",
+          "sourceName": "British Columbia",
+          "canonicalName": "British Columbia",
+          "signals": 6,
+          "modelVisitors": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-633"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        },
+        {
+          "regionId": "CAN:CAN-632",
+          "sourceName": "Alberta",
+          "canonicalName": "Alberta",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CAN-632"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 4
+        }
+      ]
+    },
+    "France": {
+      "countryCode": "FR",
+      "adm0A3": "FRA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 35,
+      "countryModelVisitors": 35,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "FRA:FRA-5289+FRA-5306+FRA-5333+FRA-5342+FRA-5344+FRA-5349+FRA-5350+FRA-5357",
+          "sourceName": "Île-de-France",
+          "canonicalName": "Île-de-France",
+          "signals": 14,
+          "modelVisitors": 14,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "FRA-5289",
+            "FRA-5306",
+            "FRA-5333",
+            "FRA-5342",
+            "FRA-5344",
+            "FRA-5349",
+            "FRA-5350",
+            "FRA-5357"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "deepseek"
+            ]
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "FRA:FRA-5262+FRA-5264+FRA-5267+FRA-5276+FRA-5288+FRA-5299+FRA-5302+FRA-5311+FRA-5315+FRA-5335+FRA-5338+FRA-5341",
+          "sourceName": "Auvergne-Rhône-Alpes",
+          "canonicalName": "Auvergne-Rhône-Alpes",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "FRA-5262",
+            "FRA-5264",
+            "FRA-5267",
+            "FRA-5276",
+            "FRA-5288",
+            "FRA-5299",
+            "FRA-5302",
+            "FRA-5311",
+            "FRA-5315",
+            "FRA-5335",
+            "FRA-5338",
+            "FRA-5341"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "Hong Kong": {
+      "countryCode": "HK",
+      "adm0A3": "HKG",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 31,
+      "countryModelVisitors": 31,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Italy": {
+      "countryCode": "IT",
+      "adm0A3": "ITA",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 28,
+      "countryModelVisitors": 28,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "ITA:ITA-5443+ITA-5444+ITA-5445+ITA-5446+ITA-5447+ITA-5448+ITA-5449+ITA-5450+ITA-5451+ITA-5452+ITA-5453+ITA-5454",
+          "sourceName": "Lombardia",
+          "canonicalName": "Lombardia",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ITA-5443",
+            "ITA-5444",
+            "ITA-5445",
+            "ITA-5446",
+            "ITA-5447",
+            "ITA-5448",
+            "ITA-5449",
+            "ITA-5450",
+            "ITA-5451",
+            "ITA-5452",
+            "ITA-5453",
+            "ITA-5454"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Viet Nam": {
+      "countryCode": "VN",
+      "adm0A3": "VNM",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 26,
+      "countryModelVisitors": 26,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "VNM:VNM-501",
+          "sourceName": "Hồ Chí Minh",
+          "canonicalName": "Ho Chi Minh",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VNM-501"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "VNM:VNM-462",
+          "sourceName": "Hà Nội",
+          "canonicalName": "Hanoi",
+          "signals": 6,
+          "modelVisitors": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "VNM-462"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "Japan": {
+      "countryCode": "JP",
+      "adm0A3": "JPN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 25,
+      "countryModelVisitors": 25,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "JPN:JPN-1860",
+          "sourceName": "Tôkyô",
+          "canonicalName": "Tokyo",
+          "signals": 14,
+          "modelVisitors": 14,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "JPN-1860"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Netherlands": {
+      "countryCode": "NL",
+      "adm0A3": "NLD",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 25,
+      "countryModelVisitors": 25,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "NLD:NLD-3486",
+          "sourceName": "Noord-Holland",
+          "canonicalName": "North Holland",
+          "signals": 10,
+          "modelVisitors": 10,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "NLD-3486"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 7,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Australia": {
+      "countryCode": "AU",
+      "adm0A3": "AUS",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 24,
+      "countryModelVisitors": 24,
+      "publishedRegions": 3,
+      "regions": [
+        {
+          "regionId": "AUS:AUS-2654",
+          "sourceName": "New South Wales",
+          "canonicalName": "New South Wales",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2654"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "AUS:AUS-2656",
+          "sourceName": "Victoria",
+          "canonicalName": "Victoria",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2656"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        },
+        {
+          "regionId": "AUS:AUS-2657",
+          "sourceName": "Queensland",
+          "canonicalName": "Queensland",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUS-2657"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 3
+        }
+      ]
+    },
+    "Spain": {
+      "countryCode": "ES",
+      "adm0A3": "ESP",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 24,
+      "countryModelVisitors": 24,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "ESP:ESP-5809+ESP-5820+ESP-5831+ESP-5846",
+          "sourceName": "Catalunya",
+          "canonicalName": "Catalunya",
+          "signals": 10,
+          "modelVisitors": 10,
+          "boundaryMatch": "composite",
+          "boundaryFeatureIds": [
+            "ESP-5809",
+            "ESP-5820",
+            "ESP-5831",
+            "ESP-5846"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 8,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Switzerland": {
+      "countryCode": "CH",
+      "adm0A3": "CHE",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 22,
+      "countryModelVisitors": 22,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "CHE:CHE-176",
+          "sourceName": "Zürich",
+          "canonicalName": "Zürich",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-176"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "CHE:CHE-159",
+          "sourceName": "Genève",
+          "canonicalName": "Geneva",
+          "signals": 6,
+          "modelVisitors": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "CHE-159"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "Sweden": {
+      "countryCode": "SE",
+      "adm0A3": "SWE",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 21,
+      "countryModelVisitors": 21,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "SWE:SWE-194",
+          "sourceName": "Stockholms län",
+          "canonicalName": "Stockholm",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "SWE-194"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Austria": {
+      "countryCode": "AT",
+      "adm0A3": "AUT",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 18,
+      "countryModelVisitors": 18,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "AUT:AUT-2331",
+          "sourceName": "Wien",
+          "canonicalName": "Vienna",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "AUT-2331"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Finland": {
+      "countryCode": "FI",
+      "adm0A3": "FIN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 18,
+      "countryModelVisitors": 18,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "FIN:FIN-3193",
+          "sourceName": "Uusimaa",
+          "canonicalName": "Uusimaa",
+          "signals": 11,
+          "modelVisitors": 11,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "FIN-3193"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Poland": {
+      "countryCode": "PL",
+      "adm0A3": "POL",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 18,
+      "countryModelVisitors": 18,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "POL:POL-3148",
+          "sourceName": "Mazowieckie",
+          "canonicalName": "Masovian Voivodeship",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "POL-3148"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Indonesia": {
+      "countryCode": "ID",
+      "adm0A3": "IDN",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 17,
+      "countryModelVisitors": 17,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "IDN:IDN-1226",
+          "sourceName": "Banten",
+          "canonicalName": "Banten",
+          "signals": 7,
+          "modelVisitors": 7,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1226"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "IDN:IDN-1223",
+          "sourceName": "Jawa Barat",
+          "canonicalName": "West Java",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "IDN-1223"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "South Africa": {
+      "countryCode": "ZA",
+      "adm0A3": "ZAF",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 16,
+      "countryModelVisitors": 16,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "ZAF:ZAF-1208",
+          "sourceName": "Gauteng",
+          "canonicalName": "Gauteng",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "ZAF-1208"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "ZAF:ZAF-1188",
+          "sourceName": "Kapa-Vupeladyambu",
+          "canonicalName": "Northern Cape",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "ZAF-1188"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "Russia": {
+      "countryCode": "RU",
+      "adm0A3": "RUS",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 15,
+      "countryModelVisitors": 15,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Portugal": {
+      "countryCode": "PT",
+      "adm0A3": "PRT",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 13,
+      "countryModelVisitors": 13,
+      "publishedRegions": 2,
+      "regions": [
+        {
+          "regionId": "PRT:PRT-746",
+          "sourceName": "Lisboa",
+          "canonicalName": "Lisbon",
+          "signals": 6,
+          "modelVisitors": 6,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PRT-746"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        },
+        {
+          "regionId": "PRT:PRT-754",
+          "sourceName": "Porto",
+          "canonicalName": "Porto",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "PRT-754"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 2
+        }
+      ]
+    },
+    "Denmark": {
+      "countryCode": "DK",
+      "adm0A3": "DNK",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 11,
+      "countryModelVisitors": 11,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "DNK:DNK-3419",
+          "sourceName": "Region Hovedstaden",
+          "canonicalName": "Denmark",
+          "signals": 5,
+          "modelVisitors": 5,
+          "boundaryMatch": "alias",
+          "boundaryFeatureIds": [
+            "DNK-3419"
+          ],
+          "modelInterest": {
+            "brands": [],
+            "dominantBrands": []
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "South Korea": {
+      "countryCode": "KR",
+      "adm0A3": "KOR",
+      "collectionStatus": "collected",
+      "publicationStatus": "published",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 10,
+      "countryModelVisitors": 10,
+      "publishedRegions": 1,
+      "regions": [
+        {
+          "regionId": "KOR:KOR-2497",
+          "sourceName": "Seoul",
+          "canonicalName": "Seoul",
+          "signals": 8,
+          "modelVisitors": 8,
+          "boundaryMatch": "exact",
+          "boundaryFeatureIds": [
+            "KOR-2497"
+          ],
+          "modelInterest": {
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 5,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              }
+            ],
+            "dominantBrands": [
+              "qwen"
+            ]
+          },
+          "rank": 1
+        }
+      ]
+    },
+    "Turkey": {
+      "countryCode": "TR",
+      "adm0A3": "TUR",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 10,
+      "countryModelVisitors": 10,
+      "publishedRegions": 0,
+      "regions": []
+    },
+    "Thailand": {
+      "countryCode": "TH",
+      "adm0A3": "THA",
+      "collectionStatus": "collected",
+      "publicationStatus": "none_above_threshold",
+      "snapshotGeneratedAt": "2026-09-01T14:48:23Z",
+      "countrySignals": 6,
+      "countryModelVisitors": 6,
+      "publishedRegions": 0,
+      "regions": []
+    }
+  }
+}
