@@ -254,6 +254,30 @@ function buildInterest(brandRows, modelRows, label, catalogue, modelVisitors, co
   const countryBrands = new Map((countryInterest?.brands || []).map(brand => [brand.id, brand]));
   const modelsByBrand = new Map();
 
+  const leaderCandidates = brandRows.map(row => {
+    const brandId = text(row.brand ?? row.id, `${label} brand id`);
+    if (GENERIC_LOGO_BRANDS.has(brandId)) {
+      throw new Error(`${label}/${brandId}: generic platform logo cannot be published as a model brand`);
+    }
+    const canonical = catalogue.brands.get(brandId);
+    if (!canonical) throw new Error(`${label}/${brandId}: missing canonical brand/logo mapping`);
+    const visitors = integer(row.visitors, `${label}/${brandId} visitors`);
+    if (visitors > modelVisitors) throw new Error(`${label}/${brandId}: brand visitors exceed the independently queried region total`);
+    return { canonical, visitors };
+  }).filter(candidate => candidate.visitors > 0)
+    .sort((left, right) => right.visitors - left.visitors || left.canonical.label.localeCompare(right.canonical.label));
+  if (!leaderCandidates.length) {
+    throw new Error(`${label}: a published regional all-model total must have an independently queried brand leader`);
+  }
+  const mapLeaderVisitors = leaderCandidates[0].visitors;
+  const mapLeaders = leaderCandidates
+    .filter(candidate => candidate.visitors === mapLeaderVisitors)
+    .map(candidate => ({
+      id: candidate.canonical.id,
+      label: candidate.canonical.label,
+      logo: candidate.canonical.logo
+    }));
+
   for (const row of modelRows) {
     const modelId = text(row.model ?? row.id, `${label} model id`);
     const model = catalogue.registry.get(modelId);
@@ -326,7 +350,8 @@ function buildInterest(brandRows, modelRows, label, catalogue, modelVisitors, co
   const leaderVisitors = brands[0]?.visitors;
   return {
     brands,
-    dominantBrands: leaderVisitors === undefined ? [] : brands.filter(brand => brand.visitors === leaderVisitors).map(brand => brand.id)
+    dominantBrands: leaderVisitors === undefined ? [] : brands.filter(brand => brand.visitors === leaderVisitors).map(brand => brand.id),
+    mapLeaders
   };
 }
 
@@ -457,8 +482,8 @@ function buildPeriod(raw, key, catalogue) {
     publishThreshold: THRESHOLD,
     claimBoundary: 'Regional model-page interest only. A page visit is not verified model use and does not prove a download, installation, launch, or inference.',
     privacy: {
-      rule: 'A region, brand or exact model is published only when its independently queried scope has at least five unique visitors.',
-      withheldDetail: 'Below-threshold region, brand and exact-model identities and counts are not included in this public file.',
+      rule: 'Regional totals, brand counts and exact-model detail are published only when their independently queried scope has at least five unique visitors. A regional map-leader identity may be shown below five without its count.',
+      withheldDetail: 'Below-threshold leader counts and exact-model detail are not included in this public file.',
       overlapNote: 'Brand and model scopes can overlap. They are not additive and are never reconciled by summing child rows.'
     },
     diagnostics,

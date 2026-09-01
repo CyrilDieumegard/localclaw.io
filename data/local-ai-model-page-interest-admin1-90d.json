@@ -23,8 +23,8 @@
   "publishThreshold": 5,
   "claimBoundary": "Regional model-page interest only. A page visit is not verified model use and does not prove a download, installation, launch, or inference.",
   "privacy": {
-    "rule": "A region, brand or exact model is published only when its independently queried scope has at least five unique visitors.",
-    "withheldDetail": "Below-threshold region, brand and exact-model identities and counts are not included in this public file.",
+    "rule": "Regional totals, brand counts and exact-model detail are published only when their independently queried scope has at least five unique visitors. A regional map-leader identity may be shown below five without its count.",
+    "withheldDetail": "Below-threshold leader counts and exact-model detail are not included in this public file.",
     "overlapNote": "Brand and model scopes can overlap. They are not additive and are never reconciled by summing child rows."
   },
   "diagnostics": {
@@ -320,6 +320,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -437,6 +444,13 @@
             ],
             "dominantBrands": [
               "mistral"
+            ],
+            "mapLeaders": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              }
             ]
           },
           "rank": 2
@@ -483,6 +497,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 3
@@ -529,6 +550,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 4
@@ -575,6 +603,13 @@
             ],
             "dominantBrands": [
               "deepseek"
+            ],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
             ]
           },
           "rank": 5
@@ -603,6 +638,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 6
@@ -619,7 +661,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
           },
           "rank": 7
         },
@@ -647,6 +696,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 8
@@ -675,6 +731,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 9
@@ -691,7 +754,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 10
         },
@@ -707,7 +777,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
           },
           "rank": 11
         },
@@ -723,7 +800,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 12
         },
@@ -739,7 +823,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 13
         },
@@ -755,7 +851,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 14
         },
@@ -771,7 +874,24 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "prismml",
+                "label": "PrismML",
+                "logo": "/images/model-logos/prismml-avatar.webp"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 15
         },
@@ -787,7 +907,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 16
         },
@@ -815,6 +947,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 17
@@ -843,6 +982,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 18
@@ -859,7 +1005,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 19
         },
@@ -875,7 +1028,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 20
         }
@@ -924,6 +1084,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -940,7 +1107,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         },
@@ -956,7 +1135,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
           },
           "rank": 3
         },
@@ -972,7 +1163,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              },
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              }
+            ]
           },
           "rank": 4
         },
@@ -988,7 +1191,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              }
+            ]
           },
           "rank": 5
         },
@@ -1004,7 +1214,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "inclusionai",
+                "label": "InclusionAI",
+                "logo": "/images/model-logos/inclusionai-avatar.webp"
+              }
+            ]
           },
           "rank": 6
         }
@@ -1044,6 +1261,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -1072,6 +1296,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 2
@@ -1088,7 +1319,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 3
         },
@@ -1116,6 +1359,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 4
@@ -1132,7 +1382,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 5
         },
@@ -1160,6 +1417,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 6
@@ -1176,7 +1440,19 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 7
         }
@@ -1403,6 +1679,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -1450,7 +1733,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -1478,7 +1768,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -1494,7 +1791,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         },
@@ -1510,7 +1814,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 3
         },
@@ -1526,7 +1837,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
           },
           "rank": 4
         }
@@ -1554,7 +1872,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -1570,7 +1895,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "zyphra",
+                "label": "Zyphra",
+                "logo": "/images/model-logos/zyphra-avatar.webp"
+              }
+            ]
           },
           "rank": 2
         },
@@ -1586,7 +1918,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "meta",
+                "label": "Meta",
+                "logo": "/images/model-logos/meta.svg"
+              }
+            ]
           },
           "rank": 3
         }
@@ -1614,7 +1953,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -1630,7 +1976,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         },
@@ -1646,7 +1999,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 3
         },
@@ -1662,7 +2022,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 4
         }
@@ -1709,6 +2076,13 @@
             ],
             "dominantBrands": [
               "deepseek"
+            ],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
             ]
           },
           "rank": 1
@@ -1736,7 +2110,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -1786,7 +2167,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -1814,7 +2202,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -1830,7 +2225,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -1858,7 +2260,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -1898,6 +2307,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -1926,7 +2342,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -1942,7 +2365,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         },
@@ -1958,7 +2388,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 3
         }
@@ -2001,6 +2438,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -2029,7 +2473,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -2045,7 +2496,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -2073,7 +2531,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -2101,7 +2566,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -2141,6 +2613,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1
@@ -2169,7 +2648,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -2197,7 +2683,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -2213,7 +2706,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -2241,7 +2741,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -2257,7 +2764,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -2296,7 +2810,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         },
@@ -2312,7 +2833,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 2
         }
@@ -2340,7 +2868,14 @@
           ],
           "modelInterest": {
             "brands": [],
-            "dominantBrands": []
+            "dominantBrands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
           },
           "rank": 1
         }
@@ -2380,6 +2915,13 @@
             ],
             "dominantBrands": [
               "qwen"
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
             ]
           },
           "rank": 1

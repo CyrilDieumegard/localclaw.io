@@ -2482,6 +2482,12 @@ body.atlas-page::before {
 
 .atlas-model-empty svg { width: 30px; height: 30px; stroke-width: 1.2; }
 
+.atlas-model-empty img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
 .atlas-model-empty strong {
   color: #f7f8fa;
   font: 700 17px/1.1 "Space Grotesk", Inter, sans-serif;

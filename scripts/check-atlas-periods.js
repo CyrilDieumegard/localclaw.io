@@ -194,6 +194,34 @@ function validateDominantBrands(dominantBrands, brands, label) {
   }
 }
 
+function validateMapLeaders(mapLeaders, brands, label, catalogue) {
+  if (!Array.isArray(mapLeaders) || !mapLeaders.length) {
+    issue(`${label} mapLeaders must contain at least one independently measured leader identity`);
+    return [];
+  }
+  const seen = new Set();
+  for (const [index, leader] of mapLeaders.entries()) {
+    const leaderLabel = `${label} map leader ${index + 1}`;
+    const extraKeys = unexpectedKeys(leader, ['id', 'label', 'logo']);
+    if (extraKeys.length) issue(`${leaderLabel} exposes unexpected or below-threshold fields: ${extraKeys.join(', ')}`);
+    if (!leader.id || seen.has(leader.id)) issue(`${leaderLabel} has a missing or duplicate id`);
+    seen.add(leader.id);
+    const canonical = catalogue.brands.get(leader.id);
+    if (!canonical || leader.label !== canonical.label || leader.logo !== canonical.logo) {
+      issue(`${leaderLabel} does not match the canonical brand identity and logo`);
+    }
+  }
+  if (brands.length) {
+    const maximum = brands[0].visitors;
+    const publishedLeaderIds = brands.filter(brand => brand.visitors === maximum).map(brand => brand.id).sort();
+    const mapLeaderIds = mapLeaders.map(leader => leader.id).sort();
+    if (JSON.stringify(mapLeaderIds) !== JSON.stringify(publishedLeaderIds)) {
+      issue(`${label} mapLeaders must match the published visitor leaders whenever a brand count reaches five`);
+    }
+  }
+  return mapLeaders;
+}
+
 function validateModelBrands(brands, label, catalogue) {
   if (!Array.isArray(brands)) {
     issue(`${label} brands must be an array`);
@@ -702,6 +730,7 @@ for (const window of modelExpected) {
     issue(`${label} must deny verified regional model use, download, installation, launch and inference claims`);
   }
   if (!String(data.privacy?.rule || '').toLowerCase().includes('at least five unique visitors')
+    || !String(data.privacy?.rule || '').toLowerCase().includes('leader identity may be shown below five')
     || !String(data.privacy?.withheldDetail || '').toLowerCase().includes('not included')
     || !String(data.privacy?.overlapNote || '').toLowerCase().includes('not additive')) {
     issue(`${label} must disclose independent five-visitor publication and non-additive cells`);
@@ -819,12 +848,13 @@ for (const window of modelExpected) {
         if (assignedBoundaries.has(boundaryId)) issue(`${regionLabel} reuses boundary ${boundaryId}`);
         assignedBoundaries.add(boundaryId);
       }
-      const interestKeys = unexpectedKeys(region.modelInterest, ['brands', 'dominantBrands']);
+      const interestKeys = unexpectedKeys(region.modelInterest, ['brands', 'dominantBrands', 'mapLeaders']);
       if (interestKeys.length) issue(`${regionLabel} modelInterest contains unexpected fields: ${interestKeys.join(', ')}`);
       const brands = validateModelBrands(region.modelInterest?.brands, regionLabel, canonicalModels);
       publishedBrandCells += brands.length;
       publishedModelCells += brands.reduce((sum, brand) => sum + (Array.isArray(brand.models) ? brand.models.length : 0), 0);
       validateDominantBrands(region.modelInterest?.dominantBrands, brands, regionLabel);
+      validateMapLeaders(region.modelInterest?.mapLeaders, brands, regionLabel, canonicalModels);
       for (const brand of brands) {
         if (brand.visitors > region.modelVisitors) {
           issue(`${regionLabel}/${brand.id} exceeds the independently queried all-model region total`);
@@ -1031,11 +1061,11 @@ if (!page.includes('data-atlas-model-regions')
   || !page.includes('data-atlas-model-scope-note')) {
   issue('Models regional panel controls and region list must remain present');
 }
-if (!app.includes('Regional logos are recalculated independently')
+if (!app.includes('Each colored region shows its independently measured leading brand')
   || !app.includes('country-level brand visitors')
   || !app.includes('brand visitors · ${number(visitors)} all-model')
-  || !app.includes('is not a published regional leader, so its logo is absent here')) {
-  issue('Models regional UI must distinguish country leaders, regional leaders, brand visitors and all-model totals');
+  || !app.includes('exact leader count hidden')) {
+  issue('Models regional UI must distinguish visible regional leaders, hidden small counts, published brand visitors and all-model totals');
 }
 if (!app.includes("url.searchParams.set('view', 'installed')")
   || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")

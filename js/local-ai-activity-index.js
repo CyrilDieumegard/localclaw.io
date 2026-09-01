@@ -7,7 +7,7 @@ const PERIOD_CONFIG = Object.freeze({
     installedDataUrl: '/data/local-ai-install-intent.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?v=20260901a'
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1.json?v=20260901b'
   },
   '90d': {
     dataUrl: '/data/local-ai-activity-index-90d.json?v=20260829a',
@@ -15,7 +15,7 @@ const PERIOD_CONFIG = Object.freeze({
     installedDataUrl: '/data/local-ai-install-intent-90d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-90d.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest-90d.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?v=20260901a'
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-90d.json?v=20260901b'
   },
   '180d': {
     dataUrl: '/data/local-ai-activity-index-180d.json?v=20260829a',
@@ -23,7 +23,7 @@ const PERIOD_CONFIG = Object.freeze({
     installedDataUrl: '/data/local-ai-install-intent-180d.json?v=20260901b',
     installedAdmin1Url: '/data/local-ai-install-intent-admin1-180d.json?v=20260901b',
     modelDataUrl: '/data/local-ai-model-page-interest-180d.json?v=20260901a',
-    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?v=20260901a'
+    modelAdmin1Url: '/data/local-ai-model-page-interest-admin1-180d.json?v=20260901b'
   }
 });
 const requestParams = new URLSearchParams(window.location.search);
@@ -821,7 +821,7 @@ function updateSharePresentation() {
     const modelLogoMeaning = isAdmin1Scope()
       ? selectedRegionalBrand
         ? `${selectedRegionalBrand.label} logos in regions where it independently reaches ${PUBLISH_THRESHOLD}+`
-        : 'leading published regional brand logos'
+        : 'leading brand logo in every colored region; small leader counts stay hidden'
       : state.selectedModelBrand && !state.selectedModelCountry
       ? `${globalModelBrands().find(brand => brandIdentifier(brand) === state.selectedModelBrand)?.label || 'Selected brand'} logos where a country reaches ${PUBLISH_THRESHOLD}+`
       : state.selectedModelBrand
@@ -2754,6 +2754,20 @@ function dominantModelBrand(country) {
   return coLeadingModelBrands(country)[0] || null;
 }
 
+function mapLeadingModelBrands(entity) {
+  const leaders = entity?.modelInterest?.mapLeaders || entity?.mapLeaders || [];
+  return Array.isArray(leaders) && leaders.length ? leaders : coLeadingModelBrands(entity);
+}
+
+function dominantMapModelBrand(entity) {
+  return mapLeadingModelBrands(entity)[0] || null;
+}
+
+function publishedVersionOfMapBrand(entity, mapBrand) {
+  const id = brandIdentifier(mapBrand);
+  return modelBrandsForCountry(entity).find(brand => brandIdentifier(brand) === id) || null;
+}
+
 function leadingInstallPath(country) {
   return installModelsForCountry(country)[0] || installRuntimesForCountry(country)[0] || null;
 }
@@ -3095,9 +3109,9 @@ function createModelRegionMarkers() {
   state.modelRegionMarkerGroup = new THREE.Group();
   state.modelRegionMarkerGroup.userData.activityScope = 'model-admin1';
   for (const region of state.detailRankedRegions) {
-    const brand = dominantModelBrand(region);
-    if (!brand || !region.center || modelBrandSignals(brand) < PUBLISH_THRESHOLD) continue;
-    const coLeaderCount = coLeadingModelBrands(region).length;
+    const brand = dominantMapModelBrand(region);
+    if (!brand || !region.center) continue;
+    const coLeaderCount = mapLeadingModelBrands(region).length;
     const position = latLonToVector(region.center[0], region.center[1], GLOBE_RADIUS + 0.13);
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
       map: textureForModelBrand(brand, coLeaderCount),
@@ -3161,10 +3175,10 @@ function createModelRegionMarkers() {
 function syncModelRegionMarkerBrands(selectedBrand = null) {
   const selectedId = selectedBrand ? brandIdentifier(selectedBrand) : '';
   for (const entry of state.modelRegionMarkerEntries) {
-    const brands = modelBrandsForCountry(entry.region);
+    const leaders = mapLeadingModelBrands(entry.region);
     const target = selectedId
-      ? brands.find(brand => brandIdentifier(brand) === selectedId) || null
-      : dominantModelBrand(entry.region);
+      ? leaders.find(brand => brandIdentifier(brand) === selectedId) || null
+      : dominantMapModelBrand(entry.region);
     entry.filteredOut = Boolean(selectedId && !target);
     if (!target) {
       entry.projectedVisible = false;
@@ -3173,7 +3187,6 @@ function syncModelRegionMarkerBrands(selectedBrand = null) {
       entry.element?.classList.add('is-hidden');
       continue;
     }
-    const leaders = coLeadingModelBrands(entry.region);
     const isLeader = leaders.includes(target);
     const coLeaderCount = isLeader ? leaders.length : 1;
     if (entry.brand !== target || entry.coLeaderCount !== coLeaderCount) {
@@ -3183,7 +3196,7 @@ function syncModelRegionMarkerBrands(selectedBrand = null) {
     entry.brand = target;
     entry.coLeaderCount = coLeaderCount;
     entry.isLeader = isLeader;
-    entry.brandRank = Math.max(1, brands.indexOf(target) + 1);
+    entry.brandRank = 1;
     const fallbackImage = entry.element?.querySelector('img');
     if (fallbackImage) fallbackImage.src = target.logo;
   }
@@ -4242,12 +4255,15 @@ function showTooltip(entity, event) {
     return;
   }
   if (entity.kind === 'modelRegionBrand') {
+    const publishedBrand = publishedVersionOfMapBrand(entity.region, entity.brand);
     tooltip.hidden = false;
     tooltip.querySelector('[data-tooltip-rank]').textContent = entity.isLeader
       ? (entity.coLeaderCount > 1 ? 'Co-leading' : 'Most explored') + ' brand in ' + entity.region.name
       : '#' + entity.brandRank + ' published brand in ' + entity.region.name;
     tooltip.querySelector('[data-tooltip-country]').textContent = entity.brand.label;
-    tooltip.querySelector('[data-tooltip-signals]').textContent = number(modelBrandSignals(entity.brand)) + ' regional brand visitors · select for model detail';
+    tooltip.querySelector('[data-tooltip-signals]').textContent = publishedBrand
+      ? number(modelBrandSignals(publishedBrand)) + ' regional brand visitors · select for model detail'
+      : `Leading brand · exact count hidden below ${PUBLISH_THRESHOLD} · select region`;
     const rect = stage.getBoundingClientRect();
     const left = Math.min(event.clientX - rect.left, rect.width - 250);
     const top = Math.min(event.clientY - rect.top, rect.height - 140);
@@ -4291,8 +4307,11 @@ function showTooltip(entity, event) {
     if (isModelInterestView()) {
       const visitors = publishedRegionalModelVisitors(entity);
       const publishedBrands = modelBrandsForCountry(entity).length;
+      const mapLeader = dominantMapModelBrand(entity);
       tooltip.querySelector('[data-tooltip-signals]').textContent = visitors !== null
-        ? `${number(visitors)} regional model-page visitors · ${number(publishedBrands)} published brand${publishedBrands === 1 ? '' : 's'} · select for detail`
+        ? mapLeader
+          ? `${number(visitors)} regional model-page visitors · ${mapLeader.label} leads${publishedBrands ? ` · ${number(publishedBrands)} detailed brand${publishedBrands === 1 ? '' : 's'}` : ' · exact leader count hidden'} · select for detail`
+          : `${number(visitors)} regional model-page visitors · leader unavailable · select for detail`
         : `${admin1EntityStatusMessage(entity)} Select to inspect this boundary.`;
       const rect = stage.getBoundingClientRect();
       const left = Math.min(event.clientX - rect.left, rect.width - 220);
@@ -4980,10 +4999,11 @@ function renderModelRegionButtons(container) {
   const fragment = document.createDocumentFragment();
   for (const sourceRegion of published) {
     const region = publishedModelRegionForBoundary(sourceRegion);
-    const brand = dominantModelBrand(region);
+    const brand = dominantMapModelBrand(region);
+    const publishedBrand = publishedVersionOfMapBrand(region, brand);
     const visitors = Number(region?.modelVisitors ?? region?.signals);
-    const brandVisitors = brand ? modelBrandSignals(brand) : null;
-    const coLeaderCount = brand ? coLeadingModelBrands(region).length : 0;
+    const brandVisitors = publishedBrand ? modelBrandSignals(publishedBrand) : null;
+    const coLeaderCount = brand ? mapLeadingModelBrands(region).length : 0;
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
@@ -5005,8 +5025,10 @@ function renderModelRegionButtons(container) {
     const detail = document.createElement('small');
     detail.textContent = Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
       ? brand
-        ? `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · ${number(brandVisitors)} brand visitors · ${number(visitors)} all-model`
-        : `${number(visitors)} all-model visitors · no brand at ${PUBLISH_THRESHOLD}+`
+        ? publishedBrand
+          ? `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · ${number(brandVisitors)} brand visitors · ${number(visitors)} all-model`
+          : `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · exact leader count hidden · ${number(visitors)} all-model`
+        : `${number(visitors)} all-model visitors · leader unavailable`
       : 'No regional brand detail published';
     copy.append(name, detail);
     const arrow = document.createElement('b');
@@ -5014,8 +5036,10 @@ function renderModelRegionButtons(container) {
     button.append(copy, arrow);
     button.setAttribute('aria-label', Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
       ? brand
-        ? `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} with ${number(brandVisitors)} brand visitors; ${number(visitors)} all-model visitors in the region.`
-        : `Open ${region.name} model interest. ${number(visitors)} all-model visitors; no individual brand reaches ${PUBLISH_THRESHOLD}.`
+        ? publishedBrand
+          ? `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} with ${number(brandVisitors)} brand visitors; ${number(visitors)} all-model visitors in the region.`
+          : `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'}; its exact count is hidden below ${PUBLISH_THRESHOLD}. ${number(visitors)} all-model visitors in the region.`
+        : `Open ${region.name} model interest. ${number(visitors)} all-model visitors; leader unavailable.`
       : `Open ${region.name} boundary; no regional brand detail is published`);
     button.addEventListener('click', () => {
       focusModelRegion(region);
@@ -5122,7 +5146,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       : region && selected
         ? `${selected.label} across published ${state.detailConfig?.regionsLabel || 'regions'}`
         : isAdmin1Scope()
-          ? 'Most explored published model brand in each region'
+          ? 'Leading model brand in every colored region'
           : selectedIsLeader
             ? 'Most explored local model brand'
             : 'Selected brand in focus · other logos show leaders';
@@ -5154,6 +5178,8 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   const overview = modelPanel.querySelector('[data-atlas-model-overview]');
   const brandView = modelPanel.querySelector('[data-atlas-model-brand-view]');
   const empty = modelPanel.querySelector('[data-atlas-model-empty]');
+  const emptyLogo = modelPanel.querySelector('[data-atlas-model-empty-logo]');
+  const emptyIcon = modelPanel.querySelector('[data-atlas-model-empty-icon]');
   const emptyTitle = modelPanel.querySelector('[data-atlas-model-empty-title]');
   const emptyCopy = modelPanel.querySelector('[data-atlas-model-empty-copy]');
   const back = modelPanel.querySelector('[data-atlas-model-back]');
@@ -5188,7 +5214,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     if (heading) heading.textContent = `Explore ${country?.name || ''} regions`;
   }
   if (regionStatus) regionStatus.textContent = state.detailDataStatus === 'published'
-    ? `Published regional model-page totals and brand rows independently meet the ${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold.`
+    ? `Regional totals independently meet the ${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold. Every colored region shows its leader; exact brand counts appear only at the threshold.`
     : admin1StatusMessage();
   if (regionTotal) {
     const countryVisitors = state.detailTotals.countrySignals ?? publishedModelCountryVisitors(country);
@@ -5203,9 +5229,10 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     const countryCoLeaderCount = countryLeader ? coLeadingModelBrands(country).length : 0;
     const regionalLeaderRows = state.detailRankedRegions.flatMap(sourceRegion => {
       const publishedRegion = publishedModelRegionForBoundary(sourceRegion);
-      return coLeadingModelBrands(publishedRegion).map(brand => ({
+      return mapLeadingModelBrands(publishedRegion).map(brand => ({
         region: publishedRegion,
         brand,
+        publishedBrand: publishedVersionOfMapBrand(publishedRegion, brand),
         allModelVisitors: publishedRegionalModelVisitors(publishedRegion)
       }));
     });
@@ -5224,15 +5251,17 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
       ? `${number(modelBrandSignals(countryLeader))} country-level brand visitors`
       : `No brand independently reaches ${PUBLISH_THRESHOLD} country-level visitors`;
     if (scopeNote) {
-      const independentScale = `Regional logos are recalculated independently at ${PUBLISH_THRESHOLD}+ visitors.`;
+      const independentScale = `Each colored region shows its independently measured leading brand. Exact brand counts and model detail appear only at ${PUBLISH_THRESHOLD}+ visitors.`;
       const countryLeaderVisibility = countryLeader
         ? countryLeaderIsRegionalLeader
-          ? ` ${countryLeader.label} also appears as a published regional leader.`
-          : ` ${countryLeader.label} leads ${country.name} overall but is not a published regional leader, so its logo is absent here.`
+          ? ` ${countryLeader.label} also leads at least one region.`
+          : ` ${countryLeader.label} leads ${country.name} overall, while different brands lead its visible regions.`
         : '';
       const regionalExample = firstRegionalLeader
-        ? ` ${firstRegionalLeader.brand.label} ${coLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name} with ${number(modelBrandSignals(firstRegionalLeader.brand))} brand visitors (${number(firstRegionalLeader.allModelVisitors)} all-model visitors).`
-        : ` No regional brand independently reaches ${PUBLISH_THRESHOLD} visitors.`;
+        ? firstRegionalLeader.publishedBrand
+          ? ` ${firstRegionalLeader.brand.label} ${mapLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name} with ${number(modelBrandSignals(firstRegionalLeader.publishedBrand))} brand visitors (${number(firstRegionalLeader.allModelVisitors)} all-model visitors).`
+          : ` ${firstRegionalLeader.brand.label} ${mapLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name}; its exact leader count stays hidden below ${PUBLISH_THRESHOLD}.`
+        : ' No regional leader is available.';
       scopeNote.textContent = independentScale + countryLeaderVisibility + regionalExample;
     }
   }
@@ -5261,10 +5290,21 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   if (brandView) brandView.hidden = !selected;
   const showEmpty = !regionalListView && !selected && !brands.length;
   if (empty) empty.hidden = !showEmpty;
-  if (emptyTitle) emptyTitle.textContent = region ? 'No regional brand detail published' : 'No publishable model detail yet';
+  const mapLeader = region ? dominantMapModelBrand(region) : null;
+  const mapLeaderCount = region && mapLeader ? mapLeadingModelBrands(region).length : 0;
+  if (emptyLogo) {
+    emptyLogo.src = mapLeader?.logo || '';
+    emptyLogo.hidden = !mapLeader;
+  }
+  if (emptyIcon) emptyIcon.hidden = Boolean(mapLeader);
+  if (emptyTitle) emptyTitle.textContent = region && mapLeader
+    ? `${mapLeader.label} ${mapLeaderCount > 1 ? 'co-leads' : 'leads'} this region`
+    : region ? 'No regional brand leader available' : 'No publishable model detail yet';
   if (emptyCopy) emptyCopy.textContent = region
-    ? publishedRegionalModelVisitors(region) !== null
-      ? `This region has a published all-model total, but no individual brand independently reaches ${PUBLISH_THRESHOLD} visitors for this period.`
+    ? mapLeader
+      ? `The leading brand is visible on the map. Its exact regional count and model-level detail stay hidden because the brand has fewer than ${PUBLISH_THRESHOLD} visitors in this period.`
+      : publishedRegionalModelVisitors(region) !== null
+        ? 'This region has a published all-model total, but no independently measured brand leader is available.'
       : admin1EntityStatusMessage(region)
     : 'This place has no model brand above the public threshold for the selected period.';
   if (back) {
@@ -5851,7 +5891,7 @@ function updateScopeInterface() {
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-${installIntentView ? 'visitor' : 'signal'} threshold`
     : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
-    ? 'Region color shows independently published all-model visitors. Each logo is the leading published brand in that region; a selected brand appears only where it independently reaches five visitors. Neutral boundaries and absent logos do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
+    ? 'Region color shows independently published all-model visitors. Every colored region shows the logo of its independently measured leading brand, even when the exact leader count stays hidden below five. Neutral boundaries do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
     : modelInterestView
       ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
     : installIntentView
@@ -5868,7 +5908,7 @@ function updateScopeInterface() {
         ? `${state.admin2Config.childrenLabel} are neutral cartographic references. DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate published city clusters, not subdivision totals.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', modelRegionalView
-    ? `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and logos represent the leading published brand. Select a region or logo for regional brand and model detail. Neutral boundaries and absent logos do not mean zero. Use the panel back control to return.`
+    ? `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo. Exact leader counts and model detail appear only when they reach five visitors. Select a region or logo for detail. Neutral boundaries do not mean zero. Use the panel back control to return.`
     : modelInterestView
       ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
     : installIntentView
@@ -6783,7 +6823,7 @@ function renderDataSummary() {
     const rankingTitle = document.querySelector('[data-country-ranking-title]');
     if (rankingTitle) rankingTitle.textContent = 'Where people explore local AI models.';
     const rankingLead = document.querySelector('[data-country-ranking-lead]');
-    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country for its leading brands or open Explore regions for independently published regional detail. Country, region, brand and individual model rows must each reach five visitors.';
+    if (rankingLead) rankingLead.textContent = 'Countries are ranked by unique visitors across eligible LocalClaw LLM pages. Select a country for its leading brands or open Explore regions. Every colored region shows its leading brand; exact brand counts and model rows appear only at five visitors.';
     const countryCaption = document.querySelector('[data-country-ranking-caption]');
     if (countryCaption) countryCaption.textContent = `Countries with at least ${PUBLISH_THRESHOLD} unique visitors across eligible LocalClaw LLM pages, ${periodDateRange()}`;
     const countrySignalHeading = document.querySelector('[data-country-signal-heading]');
@@ -6799,9 +6839,9 @@ function renderDataSummary() {
     const methodExclude = document.querySelector('[data-method-exclude]');
     if (methodExclude) methodExclude.textContent = 'No download completion, installation, launch, prompt, inference, active-use event, device identity, or claim about worldwide model usage is included.';
     const methodGeography = document.querySelector('[data-method-geography]');
-    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A regional all-model total, brand, or model appears only when that exact regional visitor group is independently queried and published; Atlas never derives a regional preference from a country total.';
+    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A colored region independently reaches the regional threshold and shows the leading brand measured inside that region. Atlas never derives a regional preference from a country total.';
     const methodPrivacy = document.querySelector('[data-method-privacy]');
-    if (methodPrivacy) methodPrivacy.textContent = `Country, region, brand and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Rows below threshold and all visitor-level data remain absent from the public JSON.`;
+    if (methodPrivacy) methodPrivacy.textContent = `Country and region totals, exact brand counts and individual model cells must independently reach ${PUBLISH_THRESHOLD} unique visitors before publication. Below-threshold leader identities may power a logo, but their exact counts, model detail and all visitor-level data remain absent.`;
     const sourceCoverage = document.querySelector('[data-source-coverage]');
     if (sourceCoverage) {
       const sourceLabel = document.createElement('strong');
@@ -6830,7 +6870,7 @@ function renderDataSummary() {
     const regionalFaqTitle = document.querySelector('[data-regional-faq-title]');
     const regionalFaq = document.querySelector('[data-regional-faq]');
     if (regionalFaqTitle) regionalFaqTitle.textContent = 'Does the Models view go below country level?';
-    if (regionalFaq) regionalFaq.textContent = `Yes, where a country has a supported administrative boundary layer. Select a country, then Explore regions to compare only the regional totals, brands and model pages that independently reach ${PUBLISH_THRESHOLD} visitors. Neutral regions and absent logos do not mean zero, and Atlas does not infer city-level model preference.`;
+    if (regionalFaq) regionalFaq.textContent = `Yes, where a country has a supported administrative boundary layer. Select a country, then Explore regions. Every colored region shows its independently measured leading brand; exact brand counts and model pages appear only at ${PUBLISH_THRESHOLD}+ visitors. Neutral regions do not mean zero, and Atlas does not infer city-level model preference.`;
     renderRankingRows('[data-country-ranking-body]', state.countries, totalVisitors || 1, 'country', state.countries.length);
     const countryDownload = document.querySelector('[data-country-download]');
     if (countryDownload) {
