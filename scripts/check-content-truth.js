@@ -640,9 +640,24 @@ const pricingPage = read('pricing.html');
 for (const marker of ['href="/privacy"', 'href="/account"', 'href="mailto:helplocalclaw@gmail.com"']) {
   if (!pricingPage.includes(marker)) errors.push(`pricing.html footer is missing trust/navigation link: ${marker}`);
 }
-if (!manifest.dmgUrl.includes(`localclaw-${manifest.latestVersion}.dmg`)) errors.push('Installer manifest DMG URL does not match latestVersion');
+const expectedInstallerName = `localclaw-${manifest.latestVersion}-${manifest.latestBuild}.dmg`;
+let manifestInstallerName = '';
+try {
+  manifestInstallerName = path.posix.basename(new URL(manifest.dmgUrl).pathname);
+} catch {
+  errors.push('Installer manifest DMG URL is invalid');
+}
+if (!manifest.latestBuild || manifestInstallerName !== expectedInstallerName) {
+  errors.push('Installer manifest DMG URL does not match latestVersion and latestBuild');
+}
+const versionedDmgPath = path.join(ROOT, 'downloads', expectedInstallerName);
+if (!fs.existsSync(versionedDmgPath)) errors.push(`Versioned installer is missing: downloads/${expectedInstallerName}`);
 const dmgHash = crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'downloads/localclaw.dmg'))).digest('hex');
 if (dmgHash !== manifest.sha256) errors.push(`localclaw.dmg SHA-256 ${dmgHash} does not match manifest ${manifest.sha256}`);
+if (fs.existsSync(versionedDmgPath)) {
+  const versionedDmgHash = crypto.createHash('sha256').update(fs.readFileSync(versionedDmgPath)).digest('hex');
+  if (versionedDmgHash !== manifest.sha256) errors.push(`Versioned installer SHA-256 ${versionedDmgHash} does not match manifest ${manifest.sha256}`);
+}
 const notesPath = new URL(manifest.notesUrl).pathname;
 const notesFile = path.join(ROOT, `${notesPath.replace(/^\//, '')}.html`);
 const redirects = read('_redirects');
