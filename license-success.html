@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifying purchase — LocalClaw Installer</title>
+    <meta name="description" content="Verify your LocalClaw purchase and retrieve your installer license key.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <script>
+        // Capture the Stripe bearer before any third-party resource or analytics
+        // can observe the checkout URL, then keep refresh support in this tab.
+        (() => {
+            const storageKey = 'localclaw_checkout_session_v1';
+            const params = new URLSearchParams(window.location.search);
+            const urlSessionId = params.get('session_id') || '';
+            const validSessionPattern = /^cs_(live|test)_[A-Za-z0-9]{20,}$/;
+            const testOnProduction = location.hostname === 'localclaw.io' && urlSessionId.startsWith('cs_test_');
+            try {
+                if (validSessionPattern.test(urlSessionId) && !testOnProduction) {
+                    sessionStorage.setItem(storageKey, urlSessionId);
+                } else if (urlSessionId) {
+                    // Never let an invalid or production test URL fall back to a
+                    // previously cached paid session in the same tab.
+                    sessionStorage.removeItem(storageKey);
+                }
+            } catch (_) {
+                // Storage-disabled browsers fail closed in the verifier below.
+            }
+            if (testOnProduction) window.__localclawCheckoutRejected = 'test';
+            history.replaceState({}, '', '/license-success');
+        })();
+    </script>
+
+    <meta name="theme-color" content="#faf9f6">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+    <link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+    <link rel="stylesheet" href="css/style.css?v=20260822a">
+    <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">
+
+    <style>
+        body { background: #050505; color: #FFFFFF; }/* ── Download button ── */
+        .dl-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px 28px; border-radius: 14px;
+            font-weight: 800; font-size: 15px; text-decoration: none;
+            background: linear-gradient(135deg, #FF453A, #FF6D64);
+            color: #fff; box-shadow: 0 4px 20px rgba(255,69,58,0.35);
+            transition: all 0.2s ease; border: none; cursor: pointer; width: 100%;
+        }
+        .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,69,58,0.5); color: #fff; }
+
+        /* ── License key box ── */
+        .license-box {
+            background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.03) 100%);
+            border: 2px solid rgba(16,185,129,0.4);
+            border-radius: 20px;
+            padding: 28px 24px;
+        }
+        .license-key-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #34d399;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(16,185,129,0.25);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+            word-break: break-all;
+            user-select: all;
+        }
+        @media (max-width: 480px) {
+            .license-key-display { font-size: 16px; padding: 14px 12px; letter-spacing: 0.04em; }
+        }
+        .copy-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px;
+            padding: 12px 20px; border-radius: 10px; border: none; cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4);
+            color: #34d399; transition: all 0.2s ease; width: 100%;
+        }
+        .copy-btn:hover { background: rgba(16,185,129,0.25); }
+        .copy-btn.copied { background: rgba(16,185,129,0.3); color: #10b981; border-color: rgba(16,185,129,0.6); }
+
+        /* Light mode */
+        html.light body { background: #faf9f6 !important; color: #1e293b !important; }
+        html.light .bg-claw-bg { background-color: #faf9f6 !important; }
+        html.light .bg-claw-bg\/80 { background-color: rgba(250,249,246,0.8) !important; }
+        html.light .text-white { color: #0f172a !important; }
+        html.light .text-claw-text { color: #0f172a !important; }
+        html.light .text-claw-muted { color: #64748b !important; }
+        html.light .border-claw-border\/50 { border-color: rgba(0,0,0,0.1) !important; }html.light [style*="radial-gradient(ellipse 90% 80%"] { opacity: 0 !important; }
+        html.light [style*="radial-gradient(ellipse 90% 80%"] > div { opacity: 0 !important; }
+        /* Kill ALL glows in light mode */
+        html.light [class*="shadow-[0_0_"] { box-shadow: none !important; }
+        html.light .absolute.inset-0[class*="bg-gradient-to-"] { display: none !important; }
+        html.light [class*="blur-2xl"]:not(nav):not(header), html.light [class*="blur-3xl"]:not(nav):not(header), html.light [class*="blur-xl"]:not(nav):not(header) { opacity: 0 !important; pointer-events: none !important; }
+        html.light [style*="background:rgba(255,255,255,0.02)"],
+        html.light [style*="background: rgba(255,255,255,0.02)"] { background: rgba(0,0,0,0.02) !important; }
+        html.light [style*="background:rgba(255,255,255,0.04)"] { background: rgba(0,0,0,0.03) !important; }
+        html.light [style*="background:rgba(255,255,255,0.06)"] { background: rgba(0,0,0,0.04) !important; }
+        html.light [style*="background:rgba(255,255,255,0.08)"] { background: rgba(0,0,0,0.05) !important; }
+        html.light [style*="border:1px solid rgba(255,255,255,0.07)"],
+        html.light [style*="border: 1px solid rgba(255,255,255"] { border-color: rgba(0,0,0,0.08) !important; }
+        html.light strong { color: #0f172a !important; }
+        html.light [style*="color:#e2e8f0"] { color: #374151 !important; }
+        html.light code[style] { background: rgba(0,0,0,0.06) !important; color: #dc2626 !important; }
+        html.light [style*="color:#3f3f46"] { color: #64748b !important; }
+        html.light .license-box { background: linear-gradient(135deg,rgba(16,185,129,0.06) 0%,rgba(16,185,129,0.02) 100%) !important; }
+        html.light .license-key-display { background: rgba(0,0,0,0.04) !important; color: #059669 !important; }
+        html.light .copy-btn { background: rgba(16,185,129,0.08) !important; color: #059669 !important; }
+        html.light .copy-btn:hover { background: rgba(16,185,129,0.15) !important; }
+    </style>
+
+  <link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware"><script src="/js/site-nav.js?v=20260831hardware" defer></script>
+  <script src="/js/theme-toggle.js?v=20260831hardware"></script>
+</head>
+<body class="bg-claw-bg text-claw-text antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0" style="background:radial-gradient(ellipse 90% 80% at 50% 45%,transparent 0%,rgba(0,0,0,0.3) 60%,rgba(0,0,0,0.85) 100%);"></div>
+    </div>
+    <script src="js/bg-circuit.js"></script>
+
+    <!-- Navbar -->
+    <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+
+    <!-- Main -->
+    <main class="flex-grow flex flex-col items-center px-4 py-10 sm:py-14 relative z-10">
+        <div class="w-full max-w-xl mx-auto">
+
+            <!-- ── Success header ── -->
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                     style="background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.4);">
+                    <svg class="w-7 h-7" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <div id="payment-status" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
+                     style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#10b981;">
+                    Verifying payment
+                </div>
+                <h1 id="purchase-title" class="text-3xl sm:text-4xl font-display font-bold text-white mb-2">Confirming your purchase…</h1>
+                <p class="text-claw-muted text-sm">Everything you need is right here below.</p>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 LICENSE KEY — zone principale, au-dessus
+                 ══════════════════════════════════════════ -->
+            <div class="license-box mb-5">
+                <!-- En-tête -->
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-5 h-5 flex-shrink-0" style="color:#34d399" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                    </svg>
+                    <span class="text-sm font-bold uppercase tracking-wider" style="color:#34d399;">Your license key</span>
+                </div>
+
+                <!-- Clé affichée -->
+                <div class="license-key-display mb-3" id="license-key-text">—</div>
+
+                <!-- Validité -->
+                <p class="text-xs text-center mb-4" style="color:#6ee7b7;">
+                    <svg class="w-3.5 h-3.5 inline mb-0.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Valid forever — lifetime license. <strong>Keep this key safe.</strong>
+                </p>
+
+                <!-- Bouton copier -->
+                <button class="copy-btn" id="copy-btn" onclick="copyLicenseKey()">
+                    <svg class="w-4 h-4" id="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span id="copy-text">Copy license key</span>
+                </button>
+            </div>
+
+            <!-- ── Download button ── -->
+            <div class="mb-5">
+                <a href="/downloads/localclaw.dmg"
+                   class="dl-btn"
+                   id="dl-btn"
+                   data-fast-goal="post_purchase_download"
+                   data-fast-goal-source="success_page"
+                   data-fast-goal-product="localclaw_lifetime"
+                   onclick="handleDownload(this)">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download LocalClaw Installer (.dmg)
+                </a>
+                <p class="text-xs text-center text-claw-muted mt-2">macOS · latest Apple-notarized build · Requires activation</p>
+            </div>
+
+            <!-- ── Next steps ── -->
+            <div class="mb-5 rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.07);">
+                <div class="px-5 py-3" style="background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);">
+                    <p class="text-xs font-bold uppercase tracking-widest" style="color:#FF453A;">Next steps</p>
+                </div>
+                <div class="divide-y" style="--tw-divide-opacity:1;border-color:rgba(255,255,255,0.05);">
+
+                    <div class="flex gap-3 items-start px-5 py-4">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(255,69,58,0.15);color:#FF6D64;border:1px solid rgba(255,69,58,0.3);">1</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Download the installer above</p>
+                            <p class="text-xs text-claw-muted mt-0.5">Open the .dmg, drag LocalClaw to Applications, launch it.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 items-start px-5 py-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(255,69,58,0.15);color:#FF6D64;border:1px solid rgba(255,69,58,0.3);">2</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Enter your email + license key</p>
+                            <p class="text-xs text-claw-muted mt-0.5">On first launch, paste the key above into the Activation screen.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 items-start px-5 py-4" style="border-top:1px solid rgba(255,255,255,0.05);">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                              style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);">3</span>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Click Activate — you're done</p>
+                            <p class="text-xs text-claw-muted mt-0.5">LocalClaw is ready. Local AI, fully private on your Mac.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── macOS warning tip ── -->
+            <div class="flex gap-3 items-start p-4 rounded-xl mb-5" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#f59e0b" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+                <p class="text-xs" style="color:#fbbf24;">
+                    <strong>macOS security warning?</strong> Go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>"Open Anyway"</strong>.
+                </p>
+            </div>
+
+            <!-- ── Support ── -->
+            <div class="flex gap-3 items-start p-4 rounded-xl mb-6" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-claw-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <p class="text-xs text-claw-muted">
+                    If the key doesn't work, contact
+                    <a href="mailto:support@localclaw.io" class="font-semibold hover:underline" style="color:#FF6D64;">support@localclaw.io</a>
+                    — we'll fix it fast.
+                </p>
+            </div>
+
+            <!-- Footer note -->
+            <div class="text-center pt-4 border-t" style="border-color:rgba(255,255,255,0.06);">
+                <p class="text-xs text-claw-muted mb-1">
+                    Need help? <a href="/download" class="hover:underline" style="color:#FF6D64;">Installation FAQ →</a>
+                </p>
+                <p class="text-xs" style="color:#3f3f46;">&copy; 2026 LocalClaw — License activation required in app.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-claw-border/50 py-5 mt-auto bg-claw-bg/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-claw-muted text-xs">&copy; 2026 LocalClaw. Privacy-first AI. No prompts collected.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ══════════════════════════════════════════════════════════
+           SECURITY GATE — v3 (server-verified)
+           A valid Stripe session_id (cs_live_… or cs_test_…) MUST have
+           been captured from the URL into per-tab storage. Without it the
+           page is blocked and no license key is ever generated or shown.
+
+           The Checkout Session is claimed through the dedicated licence
+           backend only after a signature-verified Stripe webhook has stored
+           the paid session. No key material or derivation salt is shipped to
+           the browser.
+           ══════════════════════════════════════════════════════════ */
+        (async function() {
+            const keyEl   = document.getElementById('license-key-text');
+            const mainEl  = document.querySelector('main');
+
+            /* ── 1. Read the bearer captured before external resources ── */
+            const storageKey = 'localclaw_checkout_session_v1';
+            const validSessionPattern = /^cs_(live|test)_[A-Za-z0-9]{20,}$/;
+            const rejectedInput = window.__localclawCheckoutRejected || '';
+            try { delete window.__localclawCheckoutRejected; } catch (_) { window.__localclawCheckoutRejected = undefined; }
+            let sessionId = '';
+            try {
+                sessionId = sessionStorage.getItem(storageKey) || '';
+            } catch (_) {
+                // Storage-disabled browsers fail closed rather than expose a key.
+            }
+
+            /* ── Phase 1: lightweight monitoring (non-blocking) ── */
+            function trackSecurityEvent(type, extra = {}) {
+                try {
+                    const event = {
+                        type,
+                        ts: Date.now(),
+                        hasSessionId: Boolean(extra.hasSessionId)
+                    };
+                    if (extra.sessionMode === 'live' || extra.sessionMode === 'test') {
+                        event.sessionMode = extra.sessionMode;
+                    }
+                    if (/^[a-z0-9_]{3,80}$/i.test(String(extra.error || ''))) {
+                        event.error = String(extra.error);
+                    }
+
+                    // Local ring buffer (max 50) for quick diagnostics
+                    const key = 'lc_security_events';
+                    const arr = JSON.parse(localStorage.getItem(key) || '[]');
+                    arr.push(event);
+                    if (arr.length > 50) arr.shift();
+                    localStorage.setItem(key, JSON.stringify(arr));
+
+                } catch (_) {
+                    // Silent by design — never block purchase UX
+                }
+            }
+
+            /* ── 2. Validate format: must start with cs_live_ or cs_test_ ── */
+            const isValid = validSessionPattern.test(sessionId);
+            const testOnProduction = rejectedInput === 'test'
+                || (location.hostname === 'localclaw.io' && sessionId.startsWith('cs_test_'));
+
+            if (!isValid || testOnProduction) {
+                if (testOnProduction) {
+                    try { sessionStorage.removeItem(storageKey); } catch (_) {}
+                }
+                trackSecurityEvent(testOnProduction ? 'test_session_blocked' : 'invalid_success_access', {
+                    hasSessionId: Boolean(sessionId),
+                    sessionMode: testOnProduction ? 'test' : undefined
+                });
+
+                /* Block the entire page — replace content with error */
+                document.title = 'Access Denied — LocalClaw';
+                mainEl.innerHTML = `
+                  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                               min-height:60vh;text-align:center;padding:40px 20px;gap:20px;">
+                    <div style="width:64px;height:64px;border-radius:50%;background:rgba(255,69,58,0.15);
+                                border:2px solid rgba(255,69,58,0.4);display:flex;align-items:center;justify-content:center;">
+                      <svg width="28" height="28" fill="none" stroke="#FF453A" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                      </svg>
+                    </div>
+                    <h1 style="font-size:1.8rem;font-weight:800;color:#fff;font-family:'Space Grotesk',sans-serif;">
+                      Access Denied
+                    </h1>
+                    <p style="color:#a1a1aa;max-width:380px;line-height:1.6;">
+                      This page is only accessible after completing a purchase.<br>
+                      If you've already paid, contact support with the email used at checkout.
+                    </p>
+                    <a href="/pricing"
+                       style="margin-top:8px;padding:12px 28px;border-radius:12px;background:linear-gradient(135deg,#FF453A,#FF6D64);
+                              color:#fff;font-weight:700;text-decoration:none;font-size:14px;
+                              box-shadow:0 4px 20px rgba(255,69,58,0.35);">
+                      → Go to Pricing
+                    </a>
+                    <p style="color:#3f3f46;font-size:11px;margin-top:4px;">
+                      Need help? <a href="mailto:helplocalclaw@gmail.com" style="color:#FF6D64;">helplocalclaw@gmail.com</a>
+                    </p>
+                  </div>`;
+                return; /* stop — nothing else runs */
+            }
+
+            trackSecurityEvent('success_access_granted', {
+                hasSessionId: true,
+                sessionMode: sessionId.startsWith('cs_live_') ? 'live' : 'test'
+            });
+
+            /* ── 3. Claim the paid session server-side (webhook may race redirect) ── */
+            keyEl.textContent = 'Verifying payment…';
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            let claim = null;
+            for (let attempt = 0; attempt < 10; attempt += 1) {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+                let response;
+                try {
+                    response = await fetch('/api/license/claim', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sessionId }),
+                        cache: 'no-store',
+                        signal: controller.signal
+                    });
+                    claim = await response.json();
+                } catch (_) {
+                    claim = null;
+                } finally {
+                    clearTimeout(timeout);
+                }
+                if (response && response.ok && claim && claim.ok) break;
+                if (!response || response.status !== 202 || !claim || !claim.pending) break;
+                await delay(2000);
+            }
+
+            if (!claim || !claim.ok || !/^LOCALCLAW-(?:[A-Z2-9]{4}-){5}[A-Z2-9]{4}$/.test(claim.licenseKey || '')) {
+                trackSecurityEvent('license_claim_failed', {
+                    error: claim && claim.error ? String(claim.error).slice(0, 80) : 'network_or_timeout'
+                });
+                keyEl.textContent = 'Payment verification pending';
+                const statusEl = document.getElementById('payment-status');
+                const titleEl = document.getElementById('purchase-title');
+                if (statusEl) statusEl.textContent = 'Verification pending';
+                if (titleEl) titleEl.textContent = 'Your payment is still being verified.';
+                const copyButton = document.getElementById('copy-btn');
+                if (copyButton) {
+                    copyButton.disabled = true;
+                    copyButton.style.opacity = '0.5';
+                }
+                const help = document.createElement('p');
+                help.style.cssText = 'color:#fbbf24;font-size:13px;line-height:1.5;margin-top:12px;';
+                help.textContent = 'Stripe confirmation is taking longer than expected. Refresh this page in a moment. If it persists, contact support with your checkout email.';
+                keyEl.insertAdjacentElement('afterend', help);
+                return;
+            }
+
+            trackSecurityEvent('license_claim_succeeded', { mode: claim.mode || 'secure' });
+            try { sessionStorage.removeItem(storageKey); } catch (_) {}
+            const statusEl = document.getElementById('payment-status');
+            const titleEl = document.getElementById('purchase-title');
+            if (statusEl) statusEl.textContent = '✓ Payment confirmed';
+            if (titleEl) titleEl.textContent = 'Your license is active.';
+            document.title = 'Payment confirmed — LocalClaw Installer';
+            keyEl.textContent = claim.licenseKey;
+        })();
+
+        /* ── Copy license key ── */
+        function copyLicenseKey() {
+            const key = document.getElementById('license-key-text').innerText.trim();
+            const btn = document.getElementById('copy-btn');
+            const txt = document.getElementById('copy-text');
+            const ico = document.getElementById('copy-icon');
+
+            navigator.clipboard.writeText(key).then(() => {
+                btn.classList.add('copied');
+                txt.textContent = 'Copied!';
+                ico.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    txt.textContent = 'Copy license key';
+                    ico.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+                }, 2500);
+            }).catch(() => {
+                /* Fallback pour vieux navigateurs */
+                const sel = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(document.getElementById('license-key-text'));
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand('copy');
+                sel.removeAllRanges();
+                txt.textContent = 'Copied!';
+                setTimeout(() => { txt.textContent = 'Copy license key'; }, 2500);
+            });
+        }
+
+        /* ── Download feedback ── */
+        function handleDownload(btn) {
+            const original = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Starting download…';
+            setTimeout(() => { btn.innerHTML = original; }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -43,9 +43,16 @@ const SKIP_PREFIXES = [
   "/images/",
   "/js/"
 ];
+const SENSITIVE_PATHS = new Set([
+  "/success",
+  "/success.html",
+  "/license-success",
+  "/license-success.html"
+]);
 const SKIP_EXTENSIONS = /\.(?:avif|css|gif|ico|jpg|jpeg|js|json|map|png|svg|webp)$/i;
 
 function shouldTrackAICrawler(pathname) {
+  if (SENSITIVE_PATHS.has(pathname)) return false;
   if (SKIP_PREFIXES.some(prefix => pathname.startsWith(prefix))) return false;
   if (SKIP_EXTENSIONS.test(pathname)) return false;
   return true;

@@ -6,6 +6,13 @@
 
 ## ✅ Currently completed features
 
+### Secure app-licence migration
+
+The staged Cloudflare Pages + D1 licence backend, isolated Stripe webhook,
+signed-receipt contract, legacy compatibility policy and rollback gates are
+documented in `LICENSE_BACKEND_ROLLOUT.md`. Run `npm run license:test` before
+any release. The source change alone is not proof of a production migration.
+
 ### 0. Safe ZIP export / GitHub migration helper
 
 Added a browser-based export helper so the full static site can be downloaded as a ZIP before migrating to GitHub + Cloudflare Pages:

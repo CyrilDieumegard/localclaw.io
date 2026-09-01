@@ -25,6 +25,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'llm-list.html',
   'llms-full.txt',
   'llms.txt',
+  'license-success.html',
   'local-ai-activity-index.html',
   'new-models.xml',
   'new.html',

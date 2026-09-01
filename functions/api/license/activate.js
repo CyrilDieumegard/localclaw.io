@@ -1,112 +1,70 @@
+import {
+  hashLicenseIdentity,
+  isVersionAllowed,
+  legacyRollbackToken,
+  licenseCorsHeaders,
+  licenseJson,
+  normalizeEmail,
+  normalizeLicenseKey,
+  readBoundedJson
+} from "../../_lib/license.js";
+
+// Compatibility endpoint for LocalClaw 1.0.201 and earlier.
+//
+// Do not issue signed receipts or write D1 state here. Historical app builds
+// only understand the unsigned token contract, and old checkout sessions
+// cannot be proven from the new Stripe account. New app builds use
+// /api/license/v2/activate.
+const HISTORICAL_CUSTOMER = Object.freeze({
+  id: "cn-client-001",
+  emailHash: "mjjApnO3kfdkKEuf7tJQcZw0_hxl92xCocViWt2dd7g",
+  keyHash: "43qagIyQxtXHkLoTcpzMAZ8k6jZUpBMEISCqIK0aO1I",
+  minVersion: "1.0.98"
+});
+
 export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: corsHeaders() });
+  return new Response(null, { status: 204, headers: licenseCorsHeaders() });
 }
 
 export async function onRequestPost(context) {
   try {
-    const body = await context.request.json();
-    const email = String(body.email || "").trim().toLowerCase();
-    const licenseKey = String(body.licenseKey || "").trim().toUpperCase();
-    const machineId = String(body.machineId || "").trim();
-    const appVersion = String(body.appVersion || "").trim();
+    const body = await readBoundedJson(context.request);
+    const email = normalizeEmail(body?.email);
+    const licenseKey = normalizeLicenseKey(body?.licenseKey);
+    const machineId = String(body?.machineId || "").trim();
+    const appVersion = String(body?.appVersion || "").trim();
 
-    if (!email.includes("@") || !machineId || !isAcceptedLicenseKey(licenseKey)) {
-      return json({ ok: false, message: "Invalid license" }, 403);
+    if (!email.includes("@") || !machineId || !/^LCW-\d{8}-[A-F0-9]{4}-[A-F0-9]{4}$/.test(licenseKey)) {
+      return licenseJson({ ok: false, message: "Invalid license" }, 403);
     }
 
-    const customer = getWhitelistedCustomer(email);
-    if (customer) {
-      if (!isVersionAllowed(appVersion, customer.minVersion)) {
-        return json({ ok: false, message: `Please update to ${customer.minVersion} or later` }, 403);
+    const emailHash = await hashLicenseIdentity("email", email);
+    let customerId = null;
+    if (emailHash === HISTORICAL_CUSTOMER.emailHash) {
+      if (!isVersionAllowed(appVersion, HISTORICAL_CUSTOMER.minVersion)) {
+        return licenseJson({
+          ok: false,
+          message: `Please update to ${HISTORICAL_CUSTOMER.minVersion} or later`
+        }, 403);
       }
-
-      if (!isStableCustomerKey(licenseKey, customer.stableKey)) {
-        return json({ ok: false, message: "Invalid license" }, 403);
+      const keyHash = await hashLicenseIdentity("key", licenseKey);
+      if (keyHash !== HISTORICAL_CUSTOMER.keyHash) {
+        return licenseJson({ ok: false, message: "Invalid license" }, 403);
       }
+      customerId = HISTORICAL_CUSTOMER.id;
     }
 
-    const tokenPayload = {
+    const token = legacyRollbackToken({
       email,
       licenseKey,
       machineId,
       appVersion,
       activatedAt: new Date().toISOString(),
       product: "localclaw",
-      customerId: customer ? customer.id : null
-    };
-
-    const token = base64EncodeUnicode(JSON.stringify(tokenPayload));
-    return json({ ok: true, token, message: "Activated", expiresAt: null });
+      customerId
+    });
+    return licenseJson({ ok: true, token, message: "Activated", expiresAt: null });
   } catch {
-    return json({ ok: false, message: "Bad request" }, 400);
+    return licenseJson({ ok: false, message: "Bad request" }, 400);
   }
-}
-
-function base64EncodeUnicode(value) {
-  const bytes = new TextEncoder().encode(value);
-  let binary = "";
-  for (const byte of bytes) {
-    binary += String.fromCharCode(byte);
-  }
-  return btoa(binary);
-}
-
-function isAcceptedLicenseKey(key) {
-  return /^LCW-\d{8}-[A-F0-9]{4}-[A-F0-9]{4}$/.test(key)
-    || /^LOCALCLAW-[A-Z0-9-]{8,}$/.test(key);
-}
-
-function getWhitelistedCustomer(email) {
-  const customers = {
-    "18609505168@163.com": {
-      id: "cn-client-001",
-      minVersion: "1.0.98",
-      stableKey: "LCW-20260519-1860-9516"
-    }
-  };
-
-  return customers[email] || null;
-}
-
-function isStableCustomerKey(actualKey, expectedKey) {
-  return actualKey === expectedKey;
-}
-
-function isVersionAllowed(current, minimum) {
-  if (!current || !minimum) return false;
-
-  const a = parseVersion(current);
-  const b = parseVersion(minimum);
-  if (!a || !b) return false;
-
-  for (let i = 0; i < 3; i += 1) {
-    if (a[i] > b[i]) return true;
-    if (a[i] < b[i]) return false;
-  }
-  return true;
-}
-
-function parseVersion(value) {
-  const parts = value.split(".").map((part) => Number.parseInt(part, 10));
-  if (parts.length < 2 || parts.some((part) => Number.isNaN(part))) return null;
-  while (parts.length < 3) parts.push(0);
-  return parts.slice(0, 3);
-}
-
-function json(payload, status = 200) {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: {
-      ...corsHeaders(),
-      "Content-Type": "application/json; charset=utf-8"
-    }
-  });
-}
-
-function corsHeaders() {
-  return {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  };
 }

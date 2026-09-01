@@ -32,6 +32,22 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
 
+/license-success
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store
+  Cloudflare-CDN-Cache-Control: no-store
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+/license-success.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store
+  Cloudflare-CDN-Cache-Control: no-store
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
 /cdn-cgi/*
   X-Robots-Tag: noindex, nofollow
 

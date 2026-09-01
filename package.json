@@ -40,6 +40,7 @@
     "sponsor-admin:check": "node scripts/check-sponsor-admin.js",
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs",
+    "license:test": "node --test tests/license-backend.test.mjs",
     "pages:build": "npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
     "pages:check": "npm run software:check && node scripts/check-pages-output.js"
   },
