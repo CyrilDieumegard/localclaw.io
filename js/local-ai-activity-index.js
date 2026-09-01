@@ -765,6 +765,9 @@ function currentShareUrl() {
     if (state.selectedModelCountry) url.searchParams.set('country', state.selectedModelCountry.name);
     if (state.selectedModelRegion) url.searchParams.set('region', state.selectedModelRegion.sourceName || state.selectedModelRegion.name);
     else if (state.selectedModelCountry && isAdmin1Scope()) url.searchParams.set('regions', '1');
+    if (state.selectedModelRegion && isAdmin2Scope() && locked?.kind === 'admin2') {
+      url.searchParams.set('area', locked.name);
+    }
     if (state.selectedModelBrand) url.searchParams.set('brand', state.selectedModelBrand);
   } else if (isInstallIntentView() && (state.selectedInstallCountry || state.selectedInstallModel)) {
     if (state.selectedInstallCountry) url.searchParams.set('country', state.selectedInstallCountry.name);
@@ -5363,7 +5366,7 @@ async function enterModelRegionExplorer(country = state.selectedModelCountry) {
   return true;
 }
 
-function focusModelRegion(region, requestedBrandId = '') {
+async function focusModelRegion(region, requestedBrandId = '', options = {}) {
   if (!region || !isModelInterestView() || !isAdmin1Scope()) return;
   if (!state.tourAdvancing) stopTour();
   const resolvedRegion = publishedModelRegionForBoundary(region);
@@ -5384,7 +5387,17 @@ function focusModelRegion(region, requestedBrandId = '') {
   renderModelPanel(state.selectedModelCountry, state.selectedModelBrand, resolvedRegion);
   updateScopeInterface();
   syncModelUrl();
+  const drillConfig = admin2ConfigForParent(resolvedRegion, 'admin1');
+  if (options.exploreAreas !== false && drillConfig && Number(drillConfig.featureCount) > 1) {
+    const entered = await enterAdmin2Detail(resolvedRegion, 'admin1');
+    if (entered) {
+      renderModelPanel(state.selectedModelCountry, state.selectedModelBrand, resolvedRegion);
+      updateScopeInterface();
+      syncModelUrl();
+    }
+  }
   scrollAtlasIntoView();
+  return true;
 }
 
 function showModelRegionOverview() {
@@ -5459,6 +5472,7 @@ function focusAdmin1Region(region) {
   updateSelectionOverlay(region);
   showSpotlight(region);
   if (isInstallIntentView()) syncInstallUrl();
+  if (isModelInterestView()) syncModelUrl();
   scrollAtlasIntoView();
 }
 
@@ -5528,6 +5542,7 @@ function focusAdmin2Region(region) {
   updateSelectionOverlay(region);
   showSpotlight(region);
   if (isInstallIntentView()) syncInstallUrl();
+  if (isModelInterestView()) syncModelUrl();
   scrollAtlasIntoView();
 }
 
@@ -5539,7 +5554,7 @@ function activateUsRegion(region) {
 
 function activateAdmin1Region(region) {
   if (isModelInterestView()) {
-    focusModelRegion(region);
+    void focusModelRegion(region);
     return;
   }
   const config = admin2ConfigForParent(region, 'admin1');
@@ -5620,7 +5635,13 @@ async function applyRequestedView() {
     const region = findEntityByName(state.detailRankedRegions, requestedView.region)
       || matchedBoundary?.activityEntity
       || matchedBoundary;
-    if (region) focusModelRegion(region, requestedView.brand);
+    if (region) {
+      const enteredAreaView = await focusModelRegion(region, requestedView.brand);
+      if (enteredAreaView !== false && requestedView.area && isAdmin2Scope()) {
+        const area = findEntityByName(state.admin2Regions, requestedView.area);
+        if (area) focusAdmin2Region(area);
+      }
+    }
     return;
   }
 
@@ -5636,9 +5657,9 @@ async function applyRequestedView() {
       || matchedBoundary?.activityEntity
       || matchedBoundary;
     if (!region) return;
-    if (requestedView.area && admin2ConfigForParent(region, 'admin1')) {
+    if (admin2ConfigForParent(region, 'admin1')) {
       const enteredArea = await enterAdmin2Detail(region, 'admin1');
-      if (enteredArea) {
+      if (enteredArea && requestedView.area) {
         const area = findEntityByName(state.admin2Regions, requestedView.area);
         if (area) focusAdmin2Region(area);
       }
@@ -5652,9 +5673,9 @@ async function applyRequestedView() {
     enterUnitedStates();
     const region = findEntityByName(state.usAllRegions, requestedView.region);
     if (!region) return;
-    if (requestedView.area && admin2ConfigForParent(region, 'us')) {
+    if (admin2ConfigForParent(region, 'us')) {
       const entered = await enterAdmin2Detail(region, 'us');
-      if (entered) {
+      if (entered && requestedView.area) {
         const area = findEntityByName(state.admin2Regions, requestedView.area);
         if (area) focusAdmin2Region(area);
       }
@@ -5676,9 +5697,9 @@ async function applyRequestedView() {
     || matchedBoundary?.activityEntity
     || matchedBoundary;
   if (!region) return;
-  if (requestedView.area && admin2ConfigForParent(region, 'admin1')) {
+  if (admin2ConfigForParent(region, 'admin1')) {
     const enteredArea = await enterAdmin2Detail(region, 'admin1');
-    if (enteredArea) {
+    if (enteredArea && requestedView.area) {
       const area = findEntityByName(state.admin2Regions, requestedView.area);
       if (area) focusAdmin2Region(area);
     }
@@ -5724,7 +5745,7 @@ function updateScopeInterface() {
   const stateView = state.scope === 'us';
   const admin1View = isAdmin1Scope();
   const admin2View = isAdmin2Scope();
-  const modelRegionalView = modelInterestView && admin1View;
+  const modelRegionalView = modelInterestView && (admin1View || (admin2View && Boolean(state.selectedModelRegion)));
   const modelRegion = modelRegionalView ? state.selectedModelRegion : null;
   const modelCountry = modelRegionalView ? (state.selectedModelCountry || state.detailCountry) : null;
   const modelRegionVisitors = publishedRegionalModelVisitors(modelRegion);
@@ -5760,12 +5781,13 @@ function updateScopeInterface() {
       : 'Country install-intent visitors';
   }
   state.worldActivity.forEach(object => { object.visible = !regionalView; });
-  if (state.usGroup) state.usGroup.visible = stateView || (admin2View && state.admin2ParentScope === 'us');
-  if (state.detailGroup) state.detailGroup.visible = admin1View || (admin2View && state.admin2ParentScope === 'admin1');
+  if (state.usGroup) state.usGroup.visible = stateView;
+  if (state.detailGroup) state.detailGroup.visible = admin1View;
   if (state.admin2Group) state.admin2Group.visible = admin2View;
   if (tourButton) tourButton.hidden = admin2View;
   updateClusterVisibility();
-  if (modelRegionalView && modelRegion) setAtlasTitle('See model interest in', `${modelRegion.name}.`);
+  if (modelRegionalView && modelRegion && admin2View) setAtlasTitle(`Explore ${modelRegion.name}`, `${state.admin2Config.childrenLabel}.`);
+  else if (modelRegionalView && modelRegion) setAtlasTitle('See model interest in', `${modelRegion.name}.`);
   else if (modelRegionalView) setAtlasTitle('See which local AI brands', `lead across ${modelCountry?.name || 'this country'}.`);
   else if (modelInterestView) setAtlasTitle('See which local AI brands', 'each country is exploring.');
   else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
@@ -5776,7 +5798,9 @@ function updateScopeInterface() {
   if (summary) {
     summary.textContent = modelRegionalView
       ? modelRegion
-        ? `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
+        ? admin2View
+          ? `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · ${number(state.admin2Regions.length)} precise boundaries · Model totals remain measured at ${modelRegion.type || 'region'} level`
+          : `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
         : `${modelCountry?.name || state.detailCountry?.name || ''} · Privacy-thresholded regional model-page interest · ${periodDateRange()}`
       : modelInterestView
         ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show a privacy-thresholded brand · ${periodLabel()}`
@@ -5880,14 +5904,18 @@ function updateScopeInterface() {
         ? `${state.admin2Config.childrenLabel} shown`
       : 'countries published';
   document.querySelector('[data-scope-window]').textContent = admin2View
-    ? 'boundary view · no subdivision totals'
+    ? modelRegionalView
+      ? `${periodDays()}-day model window · no inferred child totals`
+      : 'boundary view · no subdivision totals'
     : modelRegionalView
       ? `${state.detailTotals.publishThreshold || PUBLISH_THRESHOLD}-visitor threshold`
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-${installIntentView ? 'visitor' : 'signal'} threshold`
     : `${periodDays()}-day window`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
-    ? 'Region color shows independently published all-model visitors. Every colored region shows the logo of its independently measured leading brand, even when the exact leader count stays hidden below five. Neutral boundaries do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
+    ? admin2View
+      ? `The ${state.admin2Config.childrenLabel} are precise neutral boundaries. ${modelRegion.name} model and brand totals remain independently measured at ${modelRegion.type || 'region'} level; Atlas never copies that leader into every child area or invents child data. This measures LocalClaw page interest, not verified usage.`
+      : 'Region color shows independently published all-model visitors. Every colored region shows the logo of its independently measured leading brand, even when the exact leader count stays hidden below five. Neutral boundaries do not mean zero. This measures LocalClaw page interest, not downloads, installations, launches, inference or verified usage.'
     : modelInterestView
       ? 'Each logo is the brand with the most unique visitors across its eligible LLM pages in that country. Every displayed model page reached at least five visitors. This measures exploration on LocalClaw, not downloads, installations, launches, inference or verified usage.'
     : installIntentView
@@ -5904,7 +5932,9 @@ function updateScopeInterface() {
         ? `${state.admin2Config.childrenLabel} are neutral cartographic references. DataFast does not provide totals at this level; neutral does not mean zero. Beacons are separate published city clusters, not subdivision totals.`
       : 'Country color is the aggregate. Beacons mark published DataFast city clusters at approximate GeoNames city centroids.';
   canvas.setAttribute('aria-label', modelRegionalView
-    ? `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo. Exact leader counts and model detail appear only when they reach five visitors. Select a region or logo for detail. Neutral boundaries do not mean zero. Use the panel back control to return.`
+    ? admin2View
+      ? `Interactive globe showing precise neutral ${state.admin2Config.childrenLabel} inside ${modelRegion.name}. Model and brand totals remain measured at ${modelRegion.type || 'region'} level and are not copied into child areas. Select a boundary to focus it or use the model panel back control to return.`
+      : `Interactive globe showing privacy-thresholded model-page interest across ${state.detailConfig.regionsLabel} in ${modelCountry?.name || state.detailCountry?.name}. Region color represents all-model visitors and every colored region displays its leading brand logo. Exact leader counts and model detail appear only when they reach five visitors. Select a region or logo for detail. Neutral boundaries do not mean zero. Use the panel back control to return.`
     : modelInterestView
       ? 'Interactive globe showing the most explored local LLM brand in each eligible country. Select a brand logo or country to open its privacy-thresholded model ranking. Drag to rotate and scroll or use the controls to zoom.'
     : installIntentView
@@ -6521,6 +6551,7 @@ function bindInteractions() {
         renderModelPanel(state.selectedModelCountry, '', state.selectedModelRegion);
         syncModelUrl();
       } else if (state.selectedModelRegion) {
+        if (isAdmin2Scope()) exitAdmin2();
         showModelRegionOverview();
       } else if (isAdmin1Scope() && state.selectedModelCountry) {
         focusModelCountry(state.selectedModelCountry, '', { exploreRegions: false });
@@ -6998,7 +7029,7 @@ async function initialize() {
       ok: true,
       json: async () => value
     });
-    const admin2ManifestPromise = modelsView ? Promise.resolve(null) : fetch(ADMIN2_MANIFEST_URL)
+    const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)
       .then(async response => {
         if (!response.ok) throw new Error(`Deeper boundary manifest could not be loaded (${response.status}).`);
         return response.json();

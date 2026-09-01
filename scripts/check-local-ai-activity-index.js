@@ -1346,11 +1346,11 @@ if (app !== null) {
     issue('Atlas initialization must fetch the deeper-boundary manifest');
   }
   const initializeBody = topLevelFunctionBody(app, 'initialize');
-  const hasOptionalAdmin2Fetch = initializeBody.includes('const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)')
-    || initializeBody.includes('modelsView ? Promise.resolve(null) : fetch(ADMIN2_MANIFEST_URL)');
+  const hasOptionalAdmin2Fetch = initializeBody.includes('const admin2ManifestPromise = fetch(ADMIN2_MANIFEST_URL)');
   if (!hasOptionalAdmin2Fetch
     || !initializeBody.includes('the world and regional maps remain active')
-    || initializeBody.includes('!admin2ManifestResponse.ok')) {
+    || initializeBody.includes('!admin2ManifestResponse.ok')
+    || initializeBody.includes('modelsView ? Promise.resolve(null) : fetch(ADMIN2_MANIFEST_URL)')) {
     issue('Admin-2 must remain an optional enhancement that cannot disable the core world and regional Atlas');
   }
   if (!app.includes('async function loadAdmin2Shard(')
@@ -1468,6 +1468,15 @@ if (app !== null) {
     || admin2LayerBody.includes("makeActivityTexture('admin2')")) {
     issue('Admin-2 must remain a neutral vector-boundary layer with no inferred activity fill');
   }
+  const focusModelRegionBody = topLevelFunctionBody(app, 'focusModelRegion');
+  const scopeInterfaceBody = topLevelFunctionBody(app, 'updateScopeInterface');
+  const shareUrlBody = topLevelFunctionBody(app, 'currentShareUrl');
+  if (!focusModelRegionBody.includes("admin2ConfigForParent(resolvedRegion, 'admin1')")
+    || !focusModelRegionBody.includes("enterAdmin2Detail(resolvedRegion, 'admin1')")
+    || !scopeInterfaceBody.includes('state.detailGroup.visible = admin1View;')
+    || !scopeInterfaceBody.includes('state.usGroup.visible = stateView;')) {
+    issue('Models and Install Paths must reuse Admin-2 subdivisions without leaving a flat parent aggregate visible underneath');
+  }
   const spotlightBody = topLevelFunctionBody(app, 'showSpotlight');
   if (!spotlightBody.includes("entity.kind === 'admin2'")
     || !spotlightBody.includes('Boundary view · no activity total')
@@ -1479,6 +1488,10 @@ if (app !== null) {
     issue('The ranked-region tour must stay visually hidden in unranked Admin-2 views');
   }
   const focusAdmin2Body = topLevelFunctionBody(app, 'focusAdmin2Region');
+  if (!focusAdmin2Body.includes('if (isModelInterestView()) syncModelUrl();')
+    || !shareUrlBody.includes("url.searchParams.set('area', locked.name)")) {
+    issue('Models Admin-2 selections must preserve the selected child area in shareable URLs');
+  }
   if (!focusAdmin2Body.includes('syncRegionPanelSelection(region)')
     || !app.includes("button.setAttribute('aria-current', 'true')")
     || !css.includes('.atlas-scope-admin2 .atlas-region-panel__list button.is-active')) {
