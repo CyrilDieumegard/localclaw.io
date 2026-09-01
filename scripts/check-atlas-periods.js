@@ -1025,8 +1025,17 @@ if (!app.includes("region: requestParams.get('region')")
 }
 if (!page.includes('data-atlas-model-regions')
   || !page.includes('data-atlas-model-region-view')
-  || !page.includes('data-atlas-model-region-list')) {
+  || !page.includes('data-atlas-model-region-list')
+  || !page.includes('data-atlas-model-scope-compare')
+  || !page.includes('data-atlas-model-country-leader')
+  || !page.includes('data-atlas-model-scope-note')) {
   issue('Models regional panel controls and region list must remain present');
+}
+if (!app.includes('Regional logos are recalculated independently')
+  || !app.includes('country-level brand visitors')
+  || !app.includes('brand visitors · ${number(visitors)} all-model')
+  || !app.includes('is not a published regional leader, so its logo is absent here')) {
+  issue('Models regional UI must distinguish country leaders, regional leaders, brand visitors and all-model totals');
 }
 if (!app.includes("url.searchParams.set('view', 'installed')")
   || !app.includes("url.searchParams.set('country', state.selectedInstallCountry.name)")

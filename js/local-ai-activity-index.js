@@ -4982,6 +4982,8 @@ function renderModelRegionButtons(container) {
     const region = publishedModelRegionForBoundary(sourceRegion);
     const brand = dominantModelBrand(region);
     const visitors = Number(region?.modelVisitors ?? region?.signals);
+    const brandVisitors = brand ? modelBrandSignals(brand) : null;
+    const coLeaderCount = brand ? coLeadingModelBrands(region).length : 0;
     const item = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
@@ -5002,14 +5004,18 @@ function renderModelRegionButtons(container) {
     name.textContent = region.name;
     const detail = document.createElement('small');
     detail.textContent = Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
-      ? `${brand ? brand.label + (coLeadingModelBrands(region).length > 1 ? ' co-leads' : ' leads') + ' · ' : ''}${number(visitors)} visitors`
+      ? brand
+        ? `${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} · ${number(brandVisitors)} brand visitors · ${number(visitors)} all-model`
+        : `${number(visitors)} all-model visitors · no brand at ${PUBLISH_THRESHOLD}+`
       : 'No regional brand detail published';
     copy.append(name, detail);
     const arrow = document.createElement('b');
     arrow.textContent = '→';
     button.append(copy, arrow);
     button.setAttribute('aria-label', Number.isFinite(visitors) && visitors >= PUBLISH_THRESHOLD
-      ? `Open ${region.name} model interest${brand ? `, ${brand.label} ${coLeadingModelBrands(region).length > 1 ? 'co-leads' : 'leads'}` : ''}`
+      ? brand
+        ? `Open ${region.name} model interest. ${brand.label} ${coLeaderCount > 1 ? 'co-leads' : 'leads'} with ${number(brandVisitors)} brand visitors; ${number(visitors)} all-model visitors in the region.`
+        : `Open ${region.name} model interest. ${number(visitors)} all-model visitors; no individual brand reaches ${PUBLISH_THRESHOLD}.`
       : `Open ${region.name} boundary; no regional brand detail is published`);
     button.addEventListener('click', () => {
       focusModelRegion(region);
@@ -5135,6 +5141,12 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   const regionTotal = modelPanel.querySelector('[data-atlas-model-region-total]');
   const regionCount = modelPanel.querySelector('[data-atlas-model-region-count]');
   const regionList = modelPanel.querySelector('[data-atlas-model-region-list]');
+  const scopeCompare = modelPanel.querySelector('[data-atlas-model-scope-compare]');
+  const countryScopeLabel = modelPanel.querySelector('[data-atlas-model-country-scope-label]');
+  const countryLeaderLogo = modelPanel.querySelector('[data-atlas-model-country-leader-logo]');
+  const countryLeaderName = modelPanel.querySelector('[data-atlas-model-country-leader]');
+  const countryLeaderCount = modelPanel.querySelector('[data-atlas-model-country-leader-count]');
+  const scopeNote = modelPanel.querySelector('[data-atlas-model-scope-note]');
   const brandLogo = modelPanel.querySelector('[data-atlas-model-brand-logo]');
   const brandName = modelPanel.querySelector('[data-atlas-model-brand-name]');
   const brandSummary = modelPanel.querySelector('[data-atlas-model-brand-summary]');
@@ -5185,6 +5197,45 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
   if (regionCount) regionCount.textContent = Number.isFinite(state.detailTotals.regions)
     ? number(state.detailTotals.regions)
     : number(state.detailRankedRegions.length);
+  if (scopeCompare) scopeCompare.hidden = !regionalListView;
+  if (regionalListView) {
+    const countryLeader = dominantModelBrand(country);
+    const countryCoLeaderCount = countryLeader ? coLeadingModelBrands(country).length : 0;
+    const regionalLeaderRows = state.detailRankedRegions.flatMap(sourceRegion => {
+      const publishedRegion = publishedModelRegionForBoundary(sourceRegion);
+      return coLeadingModelBrands(publishedRegion).map(brand => ({
+        region: publishedRegion,
+        brand,
+        allModelVisitors: publishedRegionalModelVisitors(publishedRegion)
+      }));
+    });
+    const countryLeaderIsRegionalLeader = countryLeader && regionalLeaderRows.some(row =>
+      brandIdentifier(row.brand) === brandIdentifier(countryLeader));
+    const firstRegionalLeader = regionalLeaderRows[0] || null;
+    if (countryScopeLabel) countryScopeLabel.textContent = `${country.name} overall`;
+    if (countryLeaderLogo) {
+      countryLeaderLogo.src = countryLeader?.logo || '';
+      countryLeaderLogo.hidden = !countryLeader;
+    }
+    if (countryLeaderName) countryLeaderName.textContent = countryLeader
+      ? countryLeader.label + (countryCoLeaderCount > 1 ? ' · co-leader' : '')
+      : 'No country-level brand published';
+    if (countryLeaderCount) countryLeaderCount.textContent = countryLeader
+      ? `${number(modelBrandSignals(countryLeader))} country-level brand visitors`
+      : `No brand independently reaches ${PUBLISH_THRESHOLD} country-level visitors`;
+    if (scopeNote) {
+      const independentScale = `Regional logos are recalculated independently at ${PUBLISH_THRESHOLD}+ visitors.`;
+      const countryLeaderVisibility = countryLeader
+        ? countryLeaderIsRegionalLeader
+          ? ` ${countryLeader.label} also appears as a published regional leader.`
+          : ` ${countryLeader.label} leads ${country.name} overall but is not a published regional leader, so its logo is absent here.`
+        : '';
+      const regionalExample = firstRegionalLeader
+        ? ` ${firstRegionalLeader.brand.label} ${coLeadingModelBrands(firstRegionalLeader.region).length > 1 ? 'co-leads' : 'leads'} ${firstRegionalLeader.region.name} with ${number(modelBrandSignals(firstRegionalLeader.brand))} brand visitors (${number(firstRegionalLeader.allModelVisitors)} all-model visitors).`
+        : ` No regional brand independently reaches ${PUBLISH_THRESHOLD} visitors.`;
+      scopeNote.textContent = independentScale + countryLeaderVisibility + regionalExample;
+    }
+  }
   if (regionalListView) renderModelRegionButtons(regionList);
   else if (regionList) regionList.replaceChildren();
   if (brandLogo) {
