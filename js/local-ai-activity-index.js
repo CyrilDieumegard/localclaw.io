@@ -3228,8 +3228,6 @@ function updateModelRegionMarkerVisibility() {
     return;
   }
   const mobile = isMobileViewport();
-  const limit = mobile ? 7 : 18;
-  const minimumDistance = mobile ? 41 : 48;
   state.camera.updateMatrixWorld(true);
   state.globeGroup.updateMatrixWorld(true);
   const globeCenter = state.globeGroup.getWorldPosition(modelMarkerScratch.globeCenter);
@@ -3261,11 +3259,9 @@ function updateModelRegionMarkerVisibility() {
   for (const candidate of candidates) {
     const selected = sameModelRegion(candidate.entry.region, state.selectedModelRegion);
     const blockedByPanel = !selected && !mobile && candidate.x > stage.clientWidth - 390;
-    const collides = !selected && occupied.some(point => Math.hypot(candidate.x - point.x, candidate.y - point.y) < minimumDistance);
-    if (blockedByPanel || collides) continue;
+    if (blockedByPanel) continue;
     visible.add(candidate.entry);
     occupied.push(candidate);
-    if (visible.size >= limit && !selected) break;
   }
   const viewportHeight = Math.max(stage.clientHeight, 1);
   const halfFovTangent = Math.tan(THREE.MathUtils.degToRad(state.camera.fov) / 2);
@@ -3285,7 +3281,7 @@ function updateModelRegionMarkerVisibility() {
     const pixelsPerLocalUnit = viewportHeight * Math.max(globeScale.x, 0.001)
       / (2 * Math.max(halfFovTangent, 0.001) * cameraDepth);
     const selected = sameModelRegion(entry.region, state.selectedModelRegion);
-    const pixels = (mobile ? 40 : 48) + (selected ? 8 : 0);
+    const pixels = (mobile ? 30 : 38) + (selected ? 8 : 0);
     entry.sprite.scale.setScalar(THREE.MathUtils.clamp(pixels / pixelsPerLocalUnit, 0.16, 0.82));
     const hitPixels = mobile ? 48 : 42;
     entry.hit.scale.setScalar(THREE.MathUtils.clamp(hitPixels / (0.36 * pixelsPerLocalUnit), 0.3, 4));
