@@ -1013,6 +1013,277 @@ const projects = [
       { label: 'Raspberry Pi 5 hardware guidance', url: 'https://www.raspberrypi.com/products/raspberry-pi-5/', type: 'Hardware documentation' },
       { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' }
     ]
+  },
+  {
+    slug: 'pocket-ai-chatbot-raspberry-pi-zero-2-w',
+    title: 'Build a Pocket AI Chatbot on Raspberry Pi Zero 2 W',
+    cardTitle: 'Pocket AI Chatbot on Raspberry Pi Zero 2 W',
+    summary: 'Build a tiny battery-powered voice chatbot with a screen, microphone and speaker, using a Raspberry Pi Zero 2 W and cloud AI APIs.',
+    outcome: 'A pocket-sized push-to-talk chatbot that captures speech, sends it to a configured cloud AI service and plays the spoken answer through the Whisplay HAT.',
+    image: '/images/diy/pocket-ai-chatbot-raspberry-pi-zero-2-w.png',
+    imageAlt: 'Pocket AI chatbot made from a Raspberry Pi Zero 2 W, Whisplay audio display HAT and slim battery board on a dark maker workbench',
+    difficulty: 'Intermediate',
+    budget: 'Complete build · price varies',
+    duration: '1.5–3 hours plus installation',
+    publishedDate: '2026-09-01',
+    verifiedDate: '2026-09-01',
+    seo: {
+      title: 'Build a Pocket AI Chatbot on Raspberry Pi Zero 2 W | LocalClaw',
+      description: 'Build a talking pocket AI chatbot with Raspberry Pi Zero 2 W, Whisplay HAT and PiSugar 3. Exact parts, cloud setup, steps and troubleshooting.'
+    },
+    topics: ['Cloud voice AI', 'Raspberry Pi Zero 2 W', 'Whisplay'],
+    status: ['Creator demonstrated', 'LocalClaw source-reviewed'],
+    localClawTested: false,
+    creator: {
+      displayName: 'Jdaie Lin',
+      url: 'https://www.youtube.com/@PiSugarStudio',
+      implementationName: 'PiSugar',
+      implementationUrl: 'https://github.com/PiSugar/whisplay-ai-chatbot',
+      implementationLabel: 'Project by',
+      note: 'Jdaie Lin published the original Pi Zero 2 W tutorial on the PiSugar Studio channel. PiSugar maintains the Whisplay driver, chatbot application and battery software used by the build.'
+    },
+    model: {
+      name: 'OpenAI API voice pipeline',
+      author: 'OpenAI',
+      url: 'https://platform.openai.com/docs/overview',
+      weightsUrl: 'https://platform.openai.com/api-keys',
+      license: 'Hosted API service',
+      parameters: 'Cloud model',
+      binarySize: 'No local model weights',
+      purpose: 'Cloud speech recognition, language generation and speech synthesis from a pocket-sized Raspberry Pi interface'
+    },
+    video: {
+      id: 'Nwu2DruSuyI',
+      title: 'This Tiny Raspberry Pi Chatbot Actually Talks! 🤖 | Build an AI Chatbot with Whisplay HAT & PiSugar',
+      url: 'https://www.youtube.com/watch?v=Nwu2DruSuyI',
+      embedUrl: 'https://www.youtube-nocookie.com/embed/Nwu2DruSuyI?rel=0&cc_load_policy=1',
+      thumbnailUrl: 'https://i.ytimg.com/vi/Nwu2DruSuyI/hqdefault.jpg',
+      uploadDate: '2025-10-13T07:27:31-07:00',
+      duration: 'PT11M16S',
+      durationLabel: '11:16'
+    },
+    repository: {
+      name: 'PiSugar/whisplay-ai-chatbot',
+      url: 'https://github.com/PiSugar/whisplay-ai-chatbot',
+      license: 'GPL-3.0',
+      reviewedCommit: 'ee7301b2f7693111ee016f81c48a75d3387a7326'
+    },
+    page: {
+      about: ['pocket AI chatbot', 'Raspberry Pi Zero 2 W', 'Whisplay HAT', 'PiSugar 3', 'cloud voice AI', 'OpenAI API'],
+      howToTime: 'PT3H',
+      tools: ['Raspberry Pi Imager', 'SSH', 'Git', 'Whisplay CLI', 'OpenAI API'],
+      hardwareFact: { title: 'Raspberry Pi Zero 2 W', detail: 'Whisplay HAT · PiSugar 3 1200 mAh' },
+      purposeFact: { title: 'Pocket cloud chatbot', detail: 'Internet and a funded API key required during use' },
+      videoTitle: 'Watch Jdaie Lin build the pocket chatbot',
+      videoIntro: 'The tutorial covers hardware assembly, Raspberry Pi OS, SSH, Whisplay drivers, chatbot configuration, volume adjustment, automatic startup and battery status in a compact Pi Zero 2 W stack.',
+      compatibilityLabel: 'Cloud boundary',
+      compatibilityTitle: 'The Pi Zero runs the interface, not the AI model',
+      compatibilityText: 'This build sends audio and prompts to configured cloud services. Normal conversations require working Wi-Fi, a valid API key and available account credit; API usage can incur charges. It is not the offline Raspberry Pi 5 build listed separately in this directory.',
+      verificationText: 'LocalClaw checked the hardware and install path against the original video, the current PiSugar repository, Whisplay driver and official PiSugar documentation. The commands below pin the reviewed source revisions and keep credentials out of logs.',
+      partsTitle: 'Buy the exact pocket-size stack',
+      guideTitle: 'Assemble, configure and test the cloud chatbot',
+      guideIntro: 'Use the original video as the visual assembly reference. This independent LocalClaw path follows the current official repository, adds credential protection and separates hardware, cloud and startup checks.',
+      performanceTitle: 'Small hardware, cloud-dependent response time',
+      performanceIntro: 'The Zero 2 W handles the display, button and audio stream while remote services do the heavy inference. Response time therefore depends on Wi-Fi, API availability and the selected models.',
+      secondaryTitle: 'Use the prebuilt image only as a shortcut',
+      secondaryText: 'PiSugar also publishes a basic prebuilt image for this hardware. The manual route is easier to audit and troubleshoot; use the image only if its release notes match your board and you still replace all placeholder credentials.',
+      secondaryLinkLabel: 'Open the official prebuilt-image guide',
+      secondaryLinkUrl: 'https://github.com/PiSugar/whisplay-ai-chatbot/wiki/Prebuild-Image-%E2%80%90-Basic',
+      troubleshootingIntro: 'Prove the screen, microphones and speaker before debugging the API. Then test credentials and network access before enabling the boot service.',
+      licenseNote: 'The Whisplay chatbot is GPL-3.0 and the Whisplay hardware driver identifies Apache-2.0 licensing. OpenAI is a Hosted API service governed separately by provider terms and billing. LocalClaw links to the original projects and does not redistribute their code, credentials, video or model outputs.',
+      faqTitle: 'Pocket Raspberry Pi chatbot FAQ',
+      sourceCta: 'Open PiSugar source'
+    },
+    requirements: [
+      { label: 'Compute', value: 'Raspberry Pi Zero 2 W with a correctly soldered 40-pin GPIO header' },
+      { label: 'Display and audio', value: 'PiSugar Whisplay HAT with LCD, microphones, speaker, button and RGB LEDs' },
+      { label: 'Battery', value: 'PiSugar 3 1200 mAh, the documented Zero 2 W version' },
+      { label: 'Storage', value: '16 GB microSD minimum in the official image guide; 32 GB A2 recommended here' },
+      { label: 'Operating system', value: 'Current 64-bit Raspberry Pi OS with SSH and Wi-Fi configured' },
+      { label: 'Cloud access', value: 'Internet connection, OpenAI API key and sufficient API account credit for normal use' },
+      { label: 'Privacy', value: 'Voice recordings and prompts leave the Raspberry Pi when cloud providers are selected' }
+    ],
+    parts: [
+      {
+        name: 'Raspberry Pi Zero 2 W with headers',
+        requirement: 'Required',
+        description: 'Choose a Zero 2 W with the 40-pin header already soldered, or add a correctly soldered header before stacking the HAT. A full-size Pi 5 is not required for this cloud version.',
+        amazonQuery: 'Raspberry Pi Zero 2 W with pre soldered GPIO header'
+      },
+      {
+        name: 'PiSugar Whisplay HAT',
+        requirement: 'Required',
+        description: 'This board combines the portrait LCD, microphones, speaker, button and status LEDs used by the tutorial. Confirm the package includes its speaker and mounting hardware.',
+        amazonQuery: 'PiSugar Whisplay HAT Raspberry Pi Zero 2 W audio display'
+      },
+      {
+        name: 'PiSugar 3 1200 mAh battery',
+        requirement: 'Required for portable use',
+        description: 'Use the compact 1200 mAh PiSugar 3 documented for the Zero 2 W build, not the larger PiSugar 3 Plus intended for Raspberry Pi 5.',
+        amazonQuery: 'PiSugar 3 1200mAh Raspberry Pi Zero 2 W battery'
+      },
+      {
+        name: '32 GB A2 microSD card',
+        requirement: 'Recommended',
+        description: 'The official prebuilt path requires at least 16 GB. A reputable 32 GB A2 card leaves room for Raspberry Pi OS, dependencies, builds and logs.',
+        amazonQuery: '32GB A2 microSD card Raspberry Pi Zero 2 W'
+      },
+      {
+        name: 'USB-C charging cable and 5 V adapter',
+        requirement: 'Required for setup and charging',
+        description: 'Use a regulated adapter and a reliable cable while installing. Confirm the connector and charging instructions against the PiSugar 3 documentation before powering the assembled stack.',
+        amazonQuery: 'USB C 5V 3A power adapter cable Raspberry Pi PiSugar'
+      }
+    ],
+    steps: [
+      {
+        title: 'Flash Raspberry Pi OS and enable remote access',
+        summary: 'Use Raspberry Pi Imager to write current 64-bit Raspberry Pi OS. Set the hostname, username, password, Wi-Fi and SSH before the first boot.',
+        links: [
+          { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/' },
+          { label: 'Optional PiSugar prebuilt image', url: 'https://github.com/PiSugar/whisplay-ai-chatbot/wiki/Prebuild-Image-%E2%80%90-Basic' }
+        ],
+        checks: ['Use a 16 GB or larger microSD card.', 'Record the hostname and login.', 'Keep Wi-Fi available because this version requires cloud access during use.']
+      },
+      {
+        title: 'Assemble the battery, Pi Zero and Whisplay HAT',
+        summary: 'With all power disconnected, mount the PiSugar 3 beneath the Raspberry Pi Zero 2 W and align the Whisplay HAT over the complete 40-pin header.',
+        checks: ['Never attach or move a HAT while powered.', 'Check the first and last GPIO pins before pressing the boards together.', 'Use the supplied spacers so no solder joint or metal fastener touches the battery.']
+      },
+      {
+        title: 'Boot, connect over SSH and update the Pi',
+        summary: 'Start on stable external power, connect to the configured hostname and update Raspberry Pi OS before adding the hardware driver.',
+        commands: [
+          'ssh your-user@your-hostname.local',
+          'sudo apt update',
+          'sudo apt full-upgrade -y'
+        ]
+      },
+      {
+        title: 'Install and test the reviewed Whisplay driver',
+        summary: 'Clone the official driver, pin the revision reviewed by LocalClaw, install it and reboot. Run the supplied hardware example before installing the chatbot.',
+        commands: [
+          'cd ~',
+          'git clone https://github.com/PiSugar/Whisplay.git --depth 1',
+          'cd Whisplay',
+          'git checkout a695240f866257033414697d47c3aa4c5f9b749c',
+          'sudo bash install_driver.sh',
+          'sudo reboot'
+        ],
+        note: 'After reboot, use the official example test to confirm the display, button, LEDs, microphone and speaker. Do not debug the cloud API until the hardware passes.'
+      },
+      {
+        title: 'Install and build the reviewed chatbot',
+        summary: 'Clone the PiSugar application, pin the reviewed revision, install its dependencies and build the interface.',
+        commands: [
+          'cd ~',
+          'git clone https://github.com/PiSugar/whisplay-ai-chatbot.git',
+          'cd whisplay-ai-chatbot',
+          'git checkout ee7301b2f7693111ee016f81c48a75d3387a7326',
+          'bash install_dependencies.sh',
+          'source ~/.bashrc',
+          'bash build.sh'
+        ]
+      },
+      {
+        title: 'Configure cloud speech, chat and voice safely',
+        summary: 'Run the interactive wizard and select OpenAI for ASR, LLM and TTS. Enter the API key only on the Raspberry Pi, restrict the .env file and verify provider names without printing the secret.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'whisplay configure',
+          'chmod 600 .env',
+          "grep -E '^(ASR_SERVER|LLM_SERVER|TTS_SERVER)=' .env"
+        ],
+        checks: ['ASR_SERVER=openai', 'LLM_SERVER=openai', 'TTS_SERVER=openai', 'Never paste OPENAI_API_KEY into screenshots, shell history, Git or support messages.', 'Review current API pricing and set account limits before repeated tests.'],
+        note: 'The reviewed source currently defaults to hosted models when explicit overrides are absent. Provider availability and pricing can change, so confirm the current OpenAI documentation before choosing overrides.'
+      },
+      {
+        title: 'Run one complete push-to-talk test',
+        summary: 'Start the chatbot in the foreground, press the Whisplay button, speak a short request and wait for the displayed and spoken answer.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'bash run_chatbot.sh'
+        ],
+        prompts: ['Say hello in one short sentence.', 'Give me one idea for a weekend project.'],
+        note: 'A successful answer proves hardware, network and API access together. If volume is low, open alsamixer and adjust the Whisplay output before changing AI settings.'
+      },
+      {
+        title: 'Install the PiSugar manager and check the battery',
+        summary: 'Install the official PiSugar power manager, select the PiSugar 3 model when prompted and verify that its service can read the battery.',
+        commands: [
+          'cd ~',
+          'wget -O pisugar-power-manager.sh https://cdn.pisugar.com/release/pisugar-power-manager.sh',
+          'bash pisugar-power-manager.sh -c release',
+          'systemctl status pisugar-server --no-pager'
+        ],
+        note: 'The manager exposes a local web interface on port 8421. Change default credentials and do not expose it directly to the public internet.'
+      },
+      {
+        title: 'Enable startup only after the foreground test passes',
+        summary: 'Stop the foreground process, run the official startup helper and inspect the service and log after reboot.',
+        commands: [
+          'cd ~/whisplay-ai-chatbot',
+          'bash startup.sh',
+          'systemctl status chatbot --no-pager',
+          'tail -n 100 chatbot.log'
+        ],
+        checks: ['Run startup.sh as the normal user, not with sudo.', 'The helper may switch the Pi to headless multi-user mode.', 'If whisplay-daemon is installed, follow the current repository warning instead of creating a competing service.']
+      }
+    ],
+    performance: [
+      { label: 'Local workload', value: 'Screen, button, microphone capture, audio playback and API client' },
+      { label: 'AI inference', value: 'Remote; no LLM, ASR or TTS model weights run on the Pi Zero in this configuration' },
+      { label: 'Latency', value: 'Depends on Wi-Fi, upload speed, provider availability and selected cloud models' },
+      { label: 'Battery', value: '1200 mAh portable pack; runtime varies with load, audio volume, Wi-Fi and battery condition' }
+    ],
+    troubleshooting: [
+      {
+        problem: 'The screen, button or audio does not work',
+        fix: 'Return to the Whisplay driver example. Recheck 40-pin alignment, driver installation and ALSA devices before touching API configuration.'
+      },
+      {
+        problem: 'The chatbot reports an authentication or quota error',
+        fix: 'Confirm the key belongs to the intended API project, billing or credits are available and the account can access the configured services. Replace a leaked key immediately; never print it for debugging.'
+      },
+      {
+        problem: 'Recording works but no answer arrives',
+        fix: 'Verify Wi-Fi and DNS from the Pi, then inspect chatbot.log for the provider stage that failed. A browser subscription does not automatically include API credit.'
+      },
+      {
+        problem: 'The response is delayed or cuts out',
+        fix: 'Test close to the Wi-Fi access point, reduce competing traffic and use a short prompt. Cloud response time includes upload, speech recognition, generation, synthesis and download.'
+      },
+      {
+        problem: 'The speaker is too quiet or distorted',
+        fix: 'Use alsamixer to adjust the Whisplay output and rerun the hardware audio test. Avoid maximum gain if it clips; this is independent of the cloud model.'
+      },
+      {
+        problem: 'startup.sh refuses because whisplay-daemon is present',
+        fix: 'Do not run two managers for the same hardware. Use the repository daemon registration path, or deliberately stop and disable the daemon before choosing the legacy chatbot.service mode.'
+      }
+    ],
+    faq: [
+      { question: 'Does this Pi Zero 2 W chatbot work offline?', answer: 'No in the documented configuration. The Pi handles the interface and audio, but speech recognition, the language model and speech synthesis use cloud APIs. Internet access, a valid key and available API credit are required for normal conversations.' },
+      { question: 'How is this different from the Raspberry Pi 5 offline assistant?', answer: 'This project is smaller and uses a PiSugar 3 1200 mAh battery, but sends AI work to the cloud. The separate Pi 5 guide downloads Whisper, Qwen3 and Piper so the demonstrated conversation loop can run locally after setup.' },
+      { question: 'Does a ChatGPT subscription pay for the API?', answer: 'No. ChatGPT subscriptions and API billing are separate. Create an API project, review current pricing and set spending limits before using the device.' },
+      { question: 'Can I use the official prebuilt image?', answer: 'Yes. PiSugar publishes a basic image for a Pi Zero 2 W, Whisplay HAT, PiSugar 3 and 16 GB or larger card. Check the release notes, update it, replace placeholder credentials and test each hardware function after flashing.' },
+      { question: 'How long will the 1200 mAh battery last?', answer: 'The official documentation identifies the capacity but this guide does not promise a runtime. Screen brightness, speaker volume, Wi-Fi activity, CPU load, battery age and power settings all affect it.' },
+      { question: 'Has LocalClaw physically reproduced this build?', answer: 'No. Jdaie Lin demonstrated the completed device. LocalClaw verified the tutorial metadata, hardware list, current repositories, official documentation and install path, but has not physically assembled it.' }
+    ],
+    sources: [
+      { label: 'Jdaie Lin pocket chatbot tutorial', url: 'https://www.youtube.com/watch?v=Nwu2DruSuyI', type: 'Video' },
+      { label: 'PiSugar Whisplay AI Chatbot source', url: 'https://github.com/PiSugar/whisplay-ai-chatbot', type: 'Source code' },
+      { label: 'Whisplay AI Chatbot GPL-3.0 license', url: 'https://github.com/PiSugar/whisplay-ai-chatbot/blob/ee7301b2f7693111ee016f81c48a75d3387a7326/LICENSE', type: 'Project license' },
+      { label: 'PiSugar Whisplay HAT driver', url: 'https://github.com/PiSugar/Whisplay', type: 'Hardware driver' },
+      { label: 'PiSugar Whisplay HAT product page', url: 'https://www.pisugar.com/products/whisplay-hat-for-pi-zero-2w-audio-display', type: 'Hardware' },
+      { label: 'PiSugar 3 series documentation', url: 'https://docs.pisugar.com/docs/product-wiki/battery/pisugar3/pisugar-3-series', type: 'Battery documentation' },
+      { label: 'PiSugar power manager', url: 'https://github.com/PiSugar/pisugar-power-manager-rs', type: 'Battery software' },
+      { label: 'PiSugar basic prebuilt image guide', url: 'https://github.com/PiSugar/whisplay-ai-chatbot/wiki/Prebuild-Image-%E2%80%90-Basic', type: 'Prebuilt image' },
+      { label: 'Raspberry Pi Zero 2 W product brief', url: 'https://pip-assets.raspberrypi.com/categories/584-raspberry-pi-zero-2-w/documents/RP-008359-DS/raspberry-pi-zero-2-w-product-brief.pdf', type: 'Hardware documentation' },
+      { label: 'Raspberry Pi Imager', url: 'https://www.raspberrypi.com/software/', type: 'Operating system tool' },
+      { label: 'OpenAI API documentation', url: 'https://platform.openai.com/docs/overview', type: 'Cloud API' },
+      { label: 'OpenAI API pricing', url: 'https://platform.openai.com/docs/pricing', type: 'Cloud pricing' }
+    ]
   }
 ];
 
