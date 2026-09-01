@@ -18,6 +18,11 @@ const INSTALL_INTENT_PATH = 'data/local-ai-install-intent.json';
 const INSTALL_INTENT_ADMIN1_PATH = 'data/local-ai-install-intent-admin1.json';
 const MODEL_PAGE_INTEREST_PATH = 'data/local-ai-model-page-interest.json';
 const ADMIN2_MANIFEST_PATH = 'data/admin2/manifest.json';
+const ADMIN2_MODEL_ACTIVITY_PATHS = [
+  ['30d', 'data/local-ai-admin2-model-activity.json', 9, 1],
+  ['90d', 'data/local-ai-admin2-model-activity-90d.json', 12, 1],
+  ['180d', 'data/local-ai-admin2-model-activity-180d.json', 12, 1]
+];
 const US_GEOJSON_PATH = 'data/us-states-2024-20m.geojson';
 const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
 const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
@@ -650,6 +655,13 @@ const installIntentText = readFile(INSTALL_INTENT_PATH, 'install-intent country 
 const installIntentAdmin1Text = readFile(INSTALL_INTENT_ADMIN1_PATH, 'install-intent regional dataset');
 const modelPageInterestText = readFile(MODEL_PAGE_INTEREST_PATH, 'model-page-interest dataset');
 const admin2ManifestText = readFile(ADMIN2_MANIFEST_PATH, 'U.S., China, and Australia deeper-boundary manifest');
+const admin2ModelActivitySnapshots = ADMIN2_MODEL_ACTIVITY_PATHS.map(([period, relativePath, modelCount, installCount]) => ({
+  period,
+  relativePath,
+  modelCount,
+  installCount,
+  data: parseJson(readFile(relativePath, `${period} Admin-2 model activity`), `${period} Admin-2 model activity`)
+}));
 const usGeojsonText = readFile(US_GEOJSON_PATH, 'U.S. state GeoJSON');
 const sitemapCore = readFile('sitemap-core.xml', 'core sitemap');
 const sitemapIndex = readFile('sitemap.xml', 'sitemap index');
@@ -1464,9 +1476,10 @@ if (app !== null) {
   }
   const admin2LayerBody = topLevelFunctionBody(app, 'createAdmin2Layer');
   if (!admin2LayerBody.includes('new THREE.LineSegments(')
-    || admin2LayerBody.includes('sphericalFillGeometry(')
+    || !admin2LayerBody.includes('sphericalFillGeometry(region.feature')
+    || !admin2LayerBody.includes('admin2ScopeData(region)?.observed')
     || admin2LayerBody.includes("makeActivityTexture('admin2')")) {
-    issue('Admin-2 must remain a neutral vector-boundary layer with no inferred activity fill');
+    issue('Admin-2 must keep exact vector boundaries and use only independently observed subdivision model data for fills');
   }
   const focusModelRegionBody = topLevelFunctionBody(app, 'focusModelRegion');
   const scopeInterfaceBody = topLevelFunctionBody(app, 'updateScopeInterface');
@@ -1479,9 +1492,9 @@ if (app !== null) {
   }
   const spotlightBody = topLevelFunctionBody(app, 'showSpotlight');
   if (!spotlightBody.includes("entity.kind === 'admin2'")
-    || !spotlightBody.includes('Boundary view · no activity total')
-    || !spotlightBody.includes('not a subdivision total')) {
-    issue('Admin-2 selections must disclose their boundary-only status instead of reusing country activity copy');
+    || !spotlightBody.includes('No observed model signal')
+    || !spotlightBody.includes('path selection, not verified download')) {
+    issue('Admin-2 selections must distinguish observed county model leaders from empty counties and unverified downloads');
   }
   if (!css.includes('.atlas-navigation__tour[hidden]')
     || !css.includes('display: none !important;')) {
@@ -2129,6 +2142,59 @@ if (admin2Manifest) {
   }
 }
 
+if (admin2Manifest) {
+  const californiaPath = String(admin2Manifest.countries?.USA?.parents?.['US-CA']?.path || '').replace(/^\//, '');
+  const california = parseJson(readFile(californiaPath, 'California county boundaries'), 'California county boundaries');
+  const californiaCodes = new Set((california?.features || []).map(feature => String(feature.properties?.code || '')));
+  for (const snapshot of admin2ModelActivitySnapshots) {
+    const activity = snapshot.data;
+    if (!activity) continue;
+    if (activity.schemaVersion !== 1 || activity.period?.key !== snapshot.period || activity.publishThreshold !== 5) {
+      issue(`${snapshot.period} Admin-2 model activity has invalid schema, period, or privacy threshold`);
+      continue;
+    }
+    const parent = activity.parents?.['US-CA'];
+    const subdivisions = Array.isArray(parent?.subdivisions) ? parent.subdivisions : [];
+    if (!parent || parent.totals?.subdivisions !== 58
+      || parent.totals?.withModelSignal !== snapshot.modelCount
+      || parent.totals?.withInstallModelAttribution !== snapshot.installCount
+      || subdivisions.length !== snapshot.modelCount) {
+      issue(`${snapshot.period} California county model totals do not match the approved snapshot`);
+    }
+    const seenCodes = new Set();
+    for (const subdivision of subdivisions) {
+      if (!californiaCodes.has(subdivision.code) || seenCodes.has(subdivision.code)) {
+        issue(`${snapshot.period} Admin-2 model activity has an unknown or duplicate county code: ${subdivision.code}`);
+      }
+      seenCodes.add(subdivision.code);
+      for (const scopeName of ['modelInterest', 'installIntent']) {
+        const scope = subdivision[scopeName];
+        if (!scope) continue;
+        if (scope.observed !== true || !Array.isArray(scope.mapLeaders) || scope.mapLeaders.length < 1) {
+          issue(`${snapshot.period} ${subdivision.code} ${scopeName} must expose its own observed map leader`);
+        }
+        if (scope.visitors !== null && (!Number.isInteger(scope.visitors) || scope.visitors < activity.publishThreshold)) {
+          issue(`${snapshot.period} ${subdivision.code} ${scopeName} exposes an exact count below the privacy threshold`);
+        }
+        for (const brand of scope.brands || []) {
+          if (!Number.isInteger(brand.visitors) || brand.visitors < activity.publishThreshold) {
+            issue(`${snapshot.period} ${subdivision.code} exposes a brand below the privacy threshold`);
+          }
+          for (const model of brand.models || []) {
+            if (!Number.isInteger(model.visitors) || model.visitors < activity.publishThreshold) {
+              issue(`${snapshot.period} ${subdivision.code} exposes a model below the privacy threshold`);
+            }
+          }
+        }
+      }
+    }
+    const serialized = JSON.stringify(activity).toLowerCase();
+    for (const forbidden of ['visitorid', 'visitor_id', 'ipaddress', 'ip_address', 'deviceid', 'device_id']) {
+      if (serialized.includes(forbidden)) issue(`${snapshot.period} Admin-2 model activity must not expose ${forbidden}`);
+    }
+  }
+}
+
 if (usGeojson) {
   if (usGeojson.type !== 'FeatureCollection' || !Array.isArray(usGeojson.features) || usGeojson.features.length !== 51) {
     issue('U.S. state GeoJSON must contain the 50 states plus District of Columbia');
@@ -2267,14 +2333,14 @@ if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-map-label__
 if (css !== null && !/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-scope-us \.atlas-copy\s*\{[^}]*visibility:\s*hidden/s.test(css)) {
   issue('Atlas mobile regional views must hide the large desktop copy so the globe remains visible');
 }
-if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-model-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(68svh,\s*560px\)[^}]*touch-action:\s*pan-y/s.test(css)
+if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-model-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(52svh,\s*480px\)[^}]*touch-action:\s*pan-y/s.test(css)
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-controls')
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-periods')
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-navigation')
   || !css.includes('.atlas-stage.atlas-model-panel-open .atlas-status'))) {
   issue('Atlas mobile Models sheet must respect the iPhone safe area, remain scrollable, and hide overlapping controls while open');
 }
-if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-install-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(68svh,\s*560px\)[^}]*touch-action:\s*pan-y/s.test(css)
+if (css !== null && (!/@media\s*\(max-width:\s*760px\)[\s\S]*?\.atlas-install-panel\s*\{[^}]*bottom:\s*max\(10px,\s*env\(safe-area-inset-bottom\)\)[^}]*max-height:\s*min\(52svh,\s*480px\)[^}]*touch-action:\s*pan-y/s.test(css)
   || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-controls')
   || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-periods')
   || !css.includes('.atlas-stage.atlas-install-panel-open .atlas-navigation')

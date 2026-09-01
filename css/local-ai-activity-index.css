@@ -1073,6 +1073,17 @@ body.atlas-page::before {
   gap: 7px;
 }
 
+.atlas-region-panel__list button > span img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  padding: 2px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  object-fit: contain;
+  box-shadow: 0 0 0 1px rgba(255, 91, 64, 0.28), 0 0 12px rgba(255, 69, 58, 0.18);
+}
+
 .atlas-region-panel__list b,
 .atlas-region-panel__list strong,
 .atlas-region-panel__list em {
@@ -2554,6 +2565,11 @@ body.atlas-page::before {
   color: #ff9d86;
 }
 
+.atlas-scope-admin2 .atlas-region-panel__list button[data-published="true"] strong {
+  color: #ff9d86;
+  font-size: 8px;
+}
+
 .atlas-scope-admin2 .atlas-region-panel__note {
   border-top-color: rgba(255, 69, 58, 0.24);
   background: linear-gradient(90deg, rgba(255, 69, 58, 0.09), rgba(255, 176, 32, 0.04));
@@ -3703,7 +3719,7 @@ html.light .atlas-page .atlas-callout a {
     bottom: max(10px, env(safe-area-inset-bottom));
     left: 10px;
     width: auto;
-    max-height: min(68svh, 560px);
+    max-height: min(52svh, 480px);
     border-radius: 20px;
     touch-action: pan-y;
     animation-name: atlas-install-sheet-in;
@@ -3798,7 +3814,7 @@ html.light .atlas-page .atlas-callout a {
     bottom: max(10px, env(safe-area-inset-bottom));
     left: 10px;
     width: auto;
-    max-height: min(68svh, 560px);
+    max-height: min(52svh, 480px);
     border-radius: 20px;
     touch-action: pan-y;
     animation-name: atlas-model-sheet-in;

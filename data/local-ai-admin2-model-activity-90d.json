@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-01T18:21:41.206Z",
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-08-29",
+    "label": "Last 3 months",
+    "key": "90d",
+    "days": 90
+  },
+  "publishThreshold": 5,
+  "identityThreshold": 1,
+  "source": "DataFast anonymous visitor journeys joined to GeoNames city-to-county codes",
+  "methodology": {
+    "modelInterest": "A visitor is assigned to an approximate network city and de-duplicated inside its mapped county. Every eligible canonical model page in the selected period contributes to that visitor's county-level brand set.",
+    "installIntent": "Only an eligible install-path goal whose immediately preceding canonical LocalClaw model page is available contributes a county-level model identity.",
+    "privacy": "Exact visitor, brand and model counts are public only at five unique visitors. A leading brand logo may appear from one visitor without publishing its count. No visitor identifier, IP address, device or city row is public.",
+    "claimBoundary": "Model interest measures LocalClaw page exploration. Install paths measures a path selection, not a verified download, installation, launch or local inference."
+  },
+  "parents": {
+    "US-CA": {
+      "parentCode": "US-CA",
+      "parentName": "California",
+      "subdivisionLabel": "county",
+      "totals": {
+        "subdivisions": 58,
+        "withModelSignal": 12,
+        "withInstallModelAttribution": 1
+      },
+      "subdivisions": [
+        {
+          "code": "US-06001",
+          "name": "Alameda",
+          "label": "Alameda County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06037",
+          "name": "Los Angeles",
+          "label": "Los Angeles County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 54,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 38,
+                "models": [
+                  {
+                    "id": "mistral-large-123b",
+                    "label": "Mistral Large (123B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-large-123b",
+                    "visitors": 38,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 8,
+                "models": [
+                  {
+                    "id": "deepseek-coder-v2-16b",
+                    "label": "DeepSeek Coder V2 (16B)",
+                    "family": "deepseek",
+                    "path": "/models/deepseek-coder-v2-16b",
+                    "visitors": 5,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 2
+              }
+            ],
+            "mapLeaders": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06059",
+          "name": "Orange",
+          "label": "Orange County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 6,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg",
+                "visitors": 5,
+                "models": [
+                  {
+                    "id": "mistral-large-123b",
+                    "label": "Mistral Large (123B)",
+                    "family": "mistral",
+                    "path": "/models/mistral-large-123b",
+                    "visitors": 5,
+                    "rank": 1
+                  }
+                ],
+                "modelsStatus": "published",
+                "rank": 1
+              }
+            ],
+            "mapLeaders": [
+              {
+                "id": "mistral",
+                "label": "Mistral",
+                "logo": "/images/model-logos/mistral.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06065",
+          "name": "Riverside",
+          "label": "Riverside County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06067",
+          "name": "Sacramento",
+          "label": "Sacramento County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
+          },
+          "installIntent": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "ornith",
+                "label": "Ornith",
+                "logo": "/images/model-logos/ornith-avatar.png"
+              }
+            ]
+          }
+        },
+        {
+          "code": "US-06071",
+          "name": "San Bernardino",
+          "label": "San Bernardino County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 7,
+            "visitorsStatus": "published",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06073",
+          "name": "San Diego",
+          "label": "San Diego County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "kimi",
+                "label": "Kimi",
+                "logo": "/images/model-logos/kimi-inverted.svg"
+              },
+              {
+                "id": "nvidia",
+                "label": "NVIDIA",
+                "logo": "/images/model-logos/nvidia.svg"
+              },
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              },
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06075",
+          "name": "San Francisco",
+          "label": "San Francisco County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06079",
+          "name": "San Luis Obispo",
+          "label": "San Luis Obispo County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "zhipu",
+                "label": "Zhipu AI",
+                "logo": "/images/model-logos/zhipu.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06081",
+          "name": "San Mateo",
+          "label": "San Mateo County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06085",
+          "name": "Santa Clara",
+          "label": "Santa Clara County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": 44,
+            "visitorsStatus": "published",
+            "brands": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg",
+                "visitors": 10,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 1
+              },
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 2
+              },
+              {
+                "id": "gemma",
+                "label": "Gemma",
+                "logo": "/images/model-logos/gemma-official-color.svg",
+                "visitors": 6,
+                "models": [],
+                "modelsStatus": "withheld_below_threshold",
+                "rank": 3
+              }
+            ],
+            "mapLeaders": [
+              {
+                "id": "qwen",
+                "label": "Qwen",
+                "logo": "/images/model-logos/qwen.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        },
+        {
+          "code": "US-06099",
+          "name": "Stanislaus",
+          "label": "Stanislaus County",
+          "modelInterest": {
+            "observed": true,
+            "visitors": null,
+            "visitorsStatus": "withheld_below_threshold",
+            "brands": [],
+            "mapLeaders": [
+              {
+                "id": "deepseek",
+                "label": "DeepSeek",
+                "logo": "/images/model-logos/deepseek.svg"
+              }
+            ]
+          },
+          "installIntent": null
+        }
+      ]
+    }
+  }
+}
