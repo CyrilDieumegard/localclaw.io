@@ -31,6 +31,7 @@ window.HOME_INDEX_LOGOS = {
     granite: 'ibm',
     hermes: 'nousresearch',
     hy3: 'tencent',
+    ibnsina: 'huggingface-avatar',
     internlm: 'internlm',
     internscience: 'internscience-avatar',
     internvl: 'opengvlab-avatar',

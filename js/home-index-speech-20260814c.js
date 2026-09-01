@@ -113,6 +113,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.7
   },
   {
+    "id": "audar-asr-v1-flash",
+    "name": "Audar-ASR-V1-Flash",
+    "developer": "Audar AI Labs",
+    "family": "audar",
+    "license": "AudarAI Open License v1.0",
+    "releaseDate": "2026-08-20",
+    "quality": 9.1,
+    "speed": 9.4,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 1.6
+  },
+  {
     "id": "index-tts-2.5",
     "name": "IndexTTS 2.5",
     "developer": "Bilibili",
@@ -908,6 +925,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "apple"
     ],
     "sizeGB": 1.8
+  },
+  {
+    "id": "moss-audio-4b-instruct",
+    "name": "MOSS-Audio 4B Instruct",
+    "developer": "OpenMOSS / MOSI.AI",
+    "family": "moss",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-04-13",
+    "quality": 9.2,
+    "speed": 7.7,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 10.5
   },
   {
     "id": "ark-asr-3b",

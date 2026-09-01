@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 77 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 77 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 79 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 79 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 77 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 79 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">80</strong> speech records: <strong style="color:#fff;">77 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">82</strong> speech records: <strong style="color:#fff;">79 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>77 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>79 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2122,6 +2122,34 @@
                 voices: "N/A (ASR: Arabic-first transcription)",
                 context: "2.35B BF16 Qwen3-ASR adaptation, 30 s 16 kHz audio window, Arabic MSA/dialects plus English and 28 more languages; vLLM W4A16 fits 12 GB GPUs",
                 license: "AudarAI Community License v1.0"
+            },
+            {
+                id: "audar-asr-v1-flash",
+                name: "Audar-ASR-V1-Flash",
+                developer: "Audar AI Labs",
+                family: "audar",
+                isAsr: true,
+                description: "Edge-tier Arabic-first generative ASR model from Audar AI Labs. It keeps the same dialect-aware transcription focus as Turbo in a 0.78B checkpoint, with downloadable BF16 safetensors, GGUF decoder variants, a required BF16 audio projector, Transformers, vLLM and llama.cpp paths, plus streaming notes for stable real-time captions.",
+                languages: ["ar", "en", "multilingual"],
+                languageCount: 30,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "edge"],
+                sizeGB: 1.6,
+                sizeLabel: "0.78B params; ~1.6 GB BF16 or 0.78-1.02 GB GGUF + mmproj",
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 9.4,
+                latency: "ultra-low",
+                releaseDate: "2026-08-20",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/audarai/Audar-ASR-V1-Flash",
+                sourceStatus: "verified-code",
+                installCommand: "llama serve -hf audarai/Audar-ASR-V1-Flash:Q4_K_M",
+                supportedFormats: ["transformers", "safetensors", "gguf", "vllm", "llama.cpp"],
+                voices: "N/A (ASR: Arabic-first real-time transcription)",
+                context: "782M BF16 Qwen3-ASR adaptation, 30 s 16 kHz audio window, Arabic MSA/dialects plus English and 28 more languages; vLLM notes say BF16 fits 8 GB GPUs",
+                license: "AudarAI Open License v1.0"
             },
             {
                 id: "index-tts-2.5",
@@ -3386,6 +3414,34 @@
                 supportedFormats: ["transformers", "safetensors", "vllm", "sglang"],
                 voices: "N/A (ASR + diarization: outputs speaker-aware text)",
                 context: "0.9B model, 1.8GB safetensors, 50+ languages, 90-minute single-pass transcription",
+                license: "Apache 2.0"
+            },
+            {
+                id: "moss-audio-4b-instruct",
+                name: "MOSS-Audio 4B Instruct",
+                developer: "OpenMOSS / MOSI.AI",
+                family: "moss",
+                isAsr: true,
+                description: "Apache-licensed audio-language model for speech, sound and audio understanding. The 4B Instruct tier combines a MOSS audio encoder with a Qwen3-4B backbone, supports transcription, speech captioning, audio QA and time-aware reasoning, and ships downloadable BF16 safetensors with official local PyTorch, Gradio and SGLang paths.",
+                languages: ["en", "zh"],
+                languageCount: 2,
+                features: ["multilingual", "controllable", "long-form"],
+                hardware: ["gpu"],
+                sizeGB: 10.5,
+                sizeLabel: "5.22B BF16 params; 10.5 GB HF repo",
+                sizeCategory: "xl",
+                quality: 9.2,
+                speed: 7.7,
+                latency: "medium",
+                releaseDate: "2026-04-13",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/OpenMOSS-Team/MOSS-Audio-4B-Instruct",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/OpenMOSS/MOSS-Audio",
+                supportedFormats: ["pytorch", "safetensors", "sglang"],
+                voices: "N/A (audio-language understanding, ASR and captioning)",
+                context: "MOSS-Audio encoder plus Qwen3-4B backbone, 5.22B BF16 safetensors, Python 3.12 local runtime, ffmpeg and PyTorch CUDA setup; evaluated on audio understanding, speech captioning, ASR and timestamp ASR",
                 license: "Apache 2.0"
             },
             {
