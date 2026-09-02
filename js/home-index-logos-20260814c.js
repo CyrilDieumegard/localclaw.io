@@ -200,6 +200,7 @@ window.HOME_INDEX_LOGOS = {
     'OpenRobotLab / InternRobotics': 'github',
     'PaddlePaddle': 'paddlepaddle-avatar',
     'Peking University / VAST AI Research': 'github',
+    'PKU-YuanGroup': 'github',
     'Qwen Team': 'qwen',
     'Robbyant / Ant Group': 'github',
     'Roblox Foundation AI': 'github',
