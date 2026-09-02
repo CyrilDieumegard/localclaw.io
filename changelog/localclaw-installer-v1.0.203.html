@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalClaw 1.0.203 Release Notes</title>
+  <meta name="description" content="LocalClaw 1.0.203 supports OpenClaw 2026.8.2 and keeps long backup and update progress visible with live diagnostics.">
+  <link rel="canonical" href="https://localclaw.io/changelog/localclaw-installer-v1.0.203">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LocalClaw 1.0.203">
+  <meta property="og:description" content="OpenClaw 2026.8.2 compatibility with visible backup progress, live diagnostics and safer update verification.">
+  <meta property="og:image" content="https://localclaw.io/images/localclaw-app-home.jpg">
+  <meta property="article:published_time" content="2026-09-02">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/png" href="../images/favicon.png?v=20260211g">
+  <link rel="stylesheet" href="../css/style.css?v=20260822a">
+  <style>
+    :root { color-scheme: dark; --accent: #ff5a50; --surface: #111111; --line: #303036; --muted: #a1a1aa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #090909; color: #fff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    main, footer { width: min(1040px, calc(100% - 36px)); margin: 0 auto; }
+    main { padding: 64px 0 80px; }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    h1 { margin: 10px 0 16px; font-size: 48px; line-height: 1; letter-spacing: 0; }
+    .lede { max-width: 780px; color: #c8c8cd; font-size: 19px; line-height: 1.65; }
+    .meta, .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0; }
+    .meta span { padding: 7px 10px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 12px; }
+    .button { min-height: 46px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 6px; color: #fff; text-decoration: none; font-weight: 800; }
+    .button-primary { color: #090909; border-color: var(--accent); background: var(--accent); }
+    section { margin-top: 54px; }
+    h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .item { min-height: 168px; padding: 22px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); }
+    .item strong { display: block; margin-bottom: 9px; font-size: 17px; }
+    .item p { margin: 0; color: var(--muted); line-height: 1.65; }
+    footer { padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    html.light { color-scheme: light; --accent: #c92f28; --surface: #ffffff; --line: #d7dce4; --muted: #64748b; }
+    html.light body { background: #faf9f6; color: #111827; }
+    html.light .lede { color: #475569; }
+    html.light .button { color: #111827; }
+    html.light .button-primary { color: #fff; }
+    @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } .actions { display: grid; } .button { width: 100%; } }
+  </style>
+  <script src="/js/theme-toggle.js?v=20260831hardware"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware"><script src="/js/site-nav.js?v=20260831hardware" defer></script>
+</head>
+<body><nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Atlas</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software" aria-current="page">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+  <main>
+    <article>
+      <div class="eyebrow">OpenClaw 2026.8.2 update reliability</div>
+      <h1>LocalClaw 1.0.203</h1>
+      <p class="lede">Long OpenClaw backups and update checks now stay visibly active instead of appearing frozen. LocalClaw streams safe diagnostics, reports elapsed time and keeps the latest progress in view while preserving the verified recovery-first workflow.</p>
+      <div class="meta"><span>Build 356</span><span>September 2, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
+      <div class="actions">
+        <a class="button button-primary" href="../downloads/localclaw.dmg">Download LocalClaw</a>
+        <a class="button" href="https://github.com/CyrilDieumegard/LocalClaw">View source</a>
+      </div>
+      <section>
+        <h2>What changed</h2>
+        <div class="grid">
+          <div class="item"><strong>Progress that stays visible</strong><p>Verified backups and update finalization report elapsed time every 15 seconds. The live log follows the newest entry automatically, so a large history no longer looks like a frozen updater.</p></div>
+          <div class="item"><strong>OpenClaw 2026.8.2 ready</strong><p>CLI, configuration, models, Gateway, channels, agents, sessions, Goal, backup, update ownership and post-update repair were exercised against the real 2026.8.2 package in isolated fixtures.</p></div>
+          <div class="item"><strong>Backup-first upgrades preserved</strong><p>LocalClaw still identifies the exact runtime and profile, creates and verifies a recovery checkpoint before replacement, and resumes safely when a previous update stopped after the package swap.</p></div>
+          <div class="item"><strong>Useful diagnostics without leaking secrets</strong><p>OpenClaw diagnostics reach the interface while the command is still running. Sensitive configuration text is redacted, long lines are bounded and final JSON remains intact for verification.</p></div>
+          <div class="item"><strong>Existing installations stay in control</strong><p>The updater keeps the selected installation, service, state and configuration boundaries. Historical approval migration remains restricted to known OpenClaw versions and fails closed on an unknown contract.</p></div>
+          <div class="item"><strong>Release verification</strong><p>The app passed 278 automated tests across 13 suites, real OpenClaw 2026.8.2 compatibility checks, Developer ID signing, Apple notarization, stapling and Gatekeeper validation.</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+  <footer>LocalClaw 1.0.203 | Developer ID Application: Cyril Dieumegard</footer>
+</body>
+</html>
