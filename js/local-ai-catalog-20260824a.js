@@ -25,6 +25,19 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'fasth3-preview-v1', name: 'FastH3 Preview v1', category: 'video', developer: 'FastVideo / Hao AI Lab',
+      summary: 'Open-weight four-forward MiniMax H3 distillation for synchronized text-to-video-and-audio generation.',
+      tasks: ['text-to-audio-video', 'text-to-video', 'audio-video-generation', 'animation'],
+      platforms: ['macos', 'linux'], accelerators: ['apple-silicon', 'nvidia'], min_ram_gb: 128, min_vram_gb: 48,
+      runtime: ['FastVideo', 'MLX', 'PyTorch'], output: ['MP4', 'stereo audio'],
+      local_status: 'local', license: 'MiniMax H3 Community License', released: '2026-08',
+      source_url: 'https://github.com/hao-ai-lab/FastVideo',
+      install_url: 'https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree',
+      hardware_note: 'The official FastVideo release publishes full safetensors weights, a matching LoRA and a basic_fasth3.py runner. The card defaults to four B200 GPUs for the VSA-H3 CUDA path, while the project documents newer Apple Silicon MLX and DGX Spark recipes; LocalClaw records 128 GB RAM and a 48 GB NVIDIA VRAM workstation floor until smaller RTX/NVFP4 recipes mature.',
+      strengths: ['Four transformer forwards for text-to-audio-video generation', 'Official FastVideo weights and inference contract', 'Apple Silicon MLX and NVIDIA CUDA recipe coverage'],
+      caveats: ['Preview checkpoint only supports text-conditioned audio-video, not FL2VA or Ref2VA', 'MiniMax community license carries territory and acceptable-use restrictions', 'Documented high-performance defaults use multi-GPU Blackwell systems']
+    },
+    {
       id: 'minimax-h3-fun-controlnet-union', name: 'MiniMax-H3-Fun-Controlnet-Union', category: 'video', developer: 'Alibaba PAI',
       summary: 'ControlNet-Union branch for MiniMax H3 that guides local video generation from Canny, depth, HED, MLSD, pose or inpaint control videos.',
       tasks: ['video-to-video', 'controlled-video-generation', 'text-to-video', 'inpainting'],
@@ -62,6 +75,19 @@
       hardware_note: 'The official project publishes Hugging Face checkpoints, PyTorch CLI inference and framewise T2V/I2V configs built on Wan 2.1. The authors report real-time streaming generation on a single RTX 4090, and ComfyUI publishes a 5.68 GB Apache-licensed repackaged framewise workflow; LocalClaw uses 12 GB NVIDIA VRAM and 32 GB RAM as a conservative local floor for 480p/5-second tests.',
       strengths: ['Official THU-ML code and checkpoints', 'Few-step framewise T2V and I2V', 'ComfyUI repackaged workflow available'],
       caveats: ['Short native clips are capped around 81 frames without long-video extensions', 'Requires Wan 2.1 components and CUDA dependencies', 'Research checkpoint rather than a polished editor']
+    },
+    {
+      id: 'anyflow-far-wan2.1-1.3b', name: 'AnyFlow FAR Wan2.1 1.3B', category: 'video', developer: 'NVIDIA / NUS / MIT',
+      summary: 'Any-step causal Wan 2.1 distillation for local text-to-video, image-to-video and video-to-video generation.',
+      tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['Diffusers', 'PyTorch', 'ComfyUI'], output: ['MP4'],
+      local_status: 'local', license: 'NVIDIA non-commercial license', released: '2026-05',
+      source_url: 'https://github.com/NVlabs/AnyFlow',
+      install_url: 'https://huggingface.co/nvidia/AnyFlow-FAR-Wan2.1-1.3B-Diffusers',
+      hardware_note: 'The official repository provides Hugging Face download commands, PyTorch demo.py inference and Diffusers-format safetensors built from Wan 2.1 1.3B. Diffusers now includes an AnyFlow FAR pipeline; LocalClaw records 12 GB NVIDIA VRAM and 32 GB RAM as the conservative local floor for 480p 1.3B experiments, with 14B checkpoints requiring substantially larger GPUs.',
+      strengths: ['One distilled checkpoint scales across inference step budgets', 'Official NVIDIA/NUS/MIT code and Diffusers weights', 'T2V, I2V and V2V modes in the FAR causal path'],
+      caveats: ['Weights are restricted to non-commercial research use', 'Linux/CUDA research setup is the primary local path', 'The 1.3B checkpoint inherits Wan 2.1 quality limits']
     },
     {
       id: 'fastwan-qad-fp8-1.3b', name: 'FastWan-QAD-FP8 1.3B', category: 'video', developer: 'FastVideo / Hao AI Lab',

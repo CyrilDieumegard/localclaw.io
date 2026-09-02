@@ -193,6 +193,7 @@ window.HOME_INDEX_LOGOS = {
     'Moondream': 'moondream-avatar',
     'Motif Technologies': 'github',
     'NVIDIA': 'nvidia',
+    'NVIDIA / NUS / MIT': 'nvidia',
     'NVIDIA / University of Modena / University of Toronto / ETH Zurich': 'nvidia',
     'NVLabs / Efficient-Large-Model': 'nvidia',
     'OpenAI': 'openai',
