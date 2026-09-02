@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>MOSS-TTS local TTS: quality, speed and setup | LocalClaw</title>
-  <meta name="description" content="MOSS-TTS: local text-to-speech generation guide with quality 9.2/10, speed 6.8/10, 20 languages, hardware and install notes.">
+  <title>KorvaTTS local TTS: quality, speed and setup | LocalClaw</title>
+  <meta name="description" content="KorvaTTS: local text-to-speech generation guide with quality 8.6/10, speed 9.2/10, 2 languages, hardware and install notes.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/tts/moss-tts">
+  <link rel="canonical" href="https://localclaw.io/tts/korvatts">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/tts/moss-tts">
-  <meta property="og:title" content="MOSS-TTS Local TTS model | LocalClaw">
-  <meta property="og:description" content="MOSS-TTS: local text-to-speech generation guide with quality 9.2/10, speed 6.8/10, 20 languages, hardware and install notes.">
+  <meta property="og:url" content="https://localclaw.io/tts/korvatts">
+  <meta property="og:title" content="KorvaTTS Local TTS model | LocalClaw">
+  <meta property="og:description" content="KorvaTTS: local text-to-speech generation guide with quality 8.6/10, speed 9.2/10, 2 languages, hardware and install notes.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MOSS-TTS Local TTS model | LocalClaw">
-  <meta name="twitter:description" content="MOSS-TTS: local text-to-speech generation guide with quality 9.2/10, speed 6.8/10, 20 languages, hardware and install notes.">
+  <meta name="twitter:title" content="KorvaTTS Local TTS model | LocalClaw">
+  <meta name="twitter:description" content="KorvaTTS: local text-to-speech generation guide with quality 8.6/10, speed 9.2/10, 2 languages, hardware and install notes.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"MOSS-TTS","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/moss-tts","description":"MOSS-TTS: local text-to-speech generation guide with quality 9.2/10, speed 6.8/10, 20 languages, hardware and install notes.","softwareVersion":"2026-03","softwareRequirements":"16 GB model size; gpu, apple","license":"Apache 2.0","creator":{"@type":"Organization","name":"OpenMOSS / MOSI.AI"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can MOSS-TTS run locally?","acceptedAnswer":{"@type":"Answer","text":"MOSS-TTS is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is MOSS-TTS best for?","acceptedAnswer":{"@type":"Answer","text":"MOSS-TTS is best for local voice cloning and expressive speech generation."}},{"@type":"Question","name":"What license does MOSS-TTS use?","acceptedAnswer":{"@type":"Answer","text":"Apache 2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"MOSS-TTS","item":"https://localclaw.io/tts/moss-tts"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"KorvaTTS","applicationCategory":"Local TTS model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/korvatts","description":"KorvaTTS: local text-to-speech generation guide with quality 8.6/10, speed 9.2/10, 2 languages, hardware and install notes.","softwareVersion":"2026-09","softwareRequirements":"0.4 GB model size; cpu, gpu, apple, edge","license":"Apache 2.0","creator":{"@type":"Organization","name":"dogenthq"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can KorvaTTS run locally?","acceptedAnswer":{"@type":"Answer","text":"KorvaTTS is listed by LocalClaw as a local TTS option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is KorvaTTS best for?","acceptedAnswer":{"@type":"Answer","text":"KorvaTTS is best for fast on-device voice responses and local assistants."}},{"@type":"Question","name":"What license does KorvaTTS use?","acceptedAnswer":{"@type":"Answer","text":"Apache 2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"KorvaTTS","item":"https://localclaw.io/tts/korvatts"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -94,121 +94,121 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>MOSS-TTS</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>KorvaTTS</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Local TTS model</div>
-        <h1 class="title">MOSS-TTS</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Canonical OpenMOSS full speech generation family with 8B and 1.7B checkpoints for multilingual zero-shot voice cloning, emotion control and long-text generation. Heavier than Nano, but materially better for production-quality local voice work.</p>
+        <h1 class="title">KorvaTTS</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Apache-licensed Vietnamese-first on-device TTS model for natural code-switching with embedded English. It is trained from scratch on Vietnamese speech, ships ONNX Runtime weights and 10 bundled voice styles, runs on CPU without an API call, and outputs 44.1 kHz WAV audio.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">GPU recommended</span><span class="chip">text-to-speech generation</span><span class="chip">20 languages</span><span class="chip">Apache 2.0</span></div>
+        <div class="chips"><span class="chip hot">Edge ready</span><span class="chip">text-to-speech generation</span><span class="chip">2 languages</span><span class="chip">Apache 2.0</span></div>
         <section class="install-choice" data-install-choice data-install-category="voice">
     <div class="install-choice-head"><div><span>Choose an app</span><p>Start with Recommended. No terminal commands are shown.</p></div><a href="/tts-list">Compare speech models</a></div>
-    <div class="install-choice-grid"><a class="install-choice-card featured" href="https://huggingface.co/OpenMOSS-Team/MOSS-TTS" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="moss-tts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open model files</strong><small>Recommended verified starting point</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="unsloth://open_from_hf?model=OpenMOSS-Team%2FMOSS-TTS" data-fast-goal="model_install_unsloth" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="moss-tts"><span class="install-choice-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model</small></span><span class="install-choice-arrow" aria-hidden="true">Open</span></a><a class="install-choice-card" href="https://pypi.org/project/moss-tts/" target="_blank" rel="noopener" data-fast-goal="model_install_python" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="moss-tts"><span class="install-choice-logo" aria-hidden="true"><img src="https://www.python.org/static/favicon.ico" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open Python package</strong><small>Verified package page without exposing a command</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="https://huggingface.co/OpenMOSS-Team/MOSS-TTS" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="moss-tts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and model card</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="/account" data-fast-goal="model_install_localclaw" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="moss-tts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Check my machine</strong><small>Optional: verify the fit with your saved hardware</small></span><span class="install-choice-arrow" aria-hidden="true">&#8594;</span></a></div>
+    <div class="install-choice-grid"><a class="install-choice-card featured" href="https://huggingface.co/dogenthq/KorvaTTS" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="korvatts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open model files</strong><small>Recommended verified starting point</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="unsloth://open_from_hf?model=dogenthq%2FKorvaTTS" data-fast-goal="model_install_unsloth" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="korvatts"><span class="install-choice-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model</small></span><span class="install-choice-arrow" aria-hidden="true">Open</span></a><a class="install-choice-card" href="https://pypi.org/project/korvatts/" target="_blank" rel="noopener" data-fast-goal="model_install_python" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="korvatts"><span class="install-choice-logo" aria-hidden="true"><img src="https://www.python.org/static/favicon.ico" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open Python package</strong><small>Verified package page without exposing a command</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="https://huggingface.co/dogenthq/KorvaTTS" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="korvatts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and model card</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="/account" data-fast-goal="model_install_localclaw" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="korvatts"><span class="install-choice-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Check my machine</strong><small>Optional: verify the fit with your saved hardware</small></span><span class="install-choice-arrow" aria-hidden="true">&#8594;</span></a></div>
     <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>
   </section><script src="/js/runtime-launch-assist-20260821a.js?v=20260830a" defer></script>
       </section>
       <aside class="hero-panel">
         <div class="score-card">
-          <div><div class="score-label">Audio catalogue score</div><div class="score">8.4<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p></div>
+          <div><div class="score-label">Audio catalogue score</div><div class="score">8.8<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p></div>
         </div>
-        <div data-community-rating data-model-id="tts-moss-tts" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
+        <div data-community-rating data-model-id="tts-korvatts" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Developer</div><div class="v">OpenMOSS / MOSI.AI</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-03</div></div>
+          <div class="mini"><div class="k">Developer</div><div class="v">dogenthq</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-09</div></div>
         </div>
       </aside>
     </header>
 
 
     <section class="specs" aria-label="Model specs">
-      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">9.2/10</div></div>
-      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">6.8/10</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">16 GB</div></div>
-      <div class="spec-card"><div class="k">Voices</div><div class="v">Zero-shot cloning, voice conversion and long-form speech</div></div>
+      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">8.6/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">9.2/10</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">99M params; ~0.40 GB ONNX assets</div></div>
+      <div class="spec-card"><div class="k">Voices</div><div class="v">10 bundled Vietnamese voice styles; voice cloning is on the roadmap, not in this release</div></div>
     </section>
 
 
     <section class="section">
-      <h2>Can MOSS-TTS run locally?</h2>
-      <p>MOSS-TTS can generate speech locally for private voice workflows. Use the verified setup options on this page; no terminal command is required to choose the right path.</p>
+      <h2>Can KorvaTTS run locally?</h2>
+      <p>KorvaTTS can generate speech locally for private voice workflows. Use the verified setup options on this page; no terminal command is required to choose the right path.</p>
       <p>Apache 2.0 license. Still verify upstream usage notes before shipping.</p>
-      <div class="source-links"><a href="https://huggingface.co/OpenMOSS-Team/MOSS-TTS" target="_blank" rel="noopener nofollow">Upstream source</a></div>
-      <div style="margin-top:18px"><span class="tag">cloning</span><span class="tag">streaming</span><span class="tag">multilingual</span><span class="tag">emotion</span><span class="tag">controllable</span></div>
+      <div class="source-links"><a href="https://huggingface.co/dogenthq/KorvaTTS" target="_blank" rel="noopener nofollow">Upstream source</a></div>
+      <div style="margin-top:18px"><span class="tag">multilingual</span><span class="tag">low-latency</span><span class="tag">controllable</span></div>
     </section>
 
     <section class="section cols">
       <div>
         <h2>Audio profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:92%"></div></div><span>9.2</span></div>
-          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:68%"></div></div><span>6.8</span></div>
-          <div class="bar-row"><span>Audio</span><div class="track"><div class="fill" style="width:84%"></div></div><span>8.4</span></div>
+          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:86%"></div></div><span>8.6</span></div>
+          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:92%"></div></div><span>9.2</span></div>
+          <div class="bar-row"><span>Audio</span><div class="track"><div class="fill" style="width:88%"></div></div><span>8.8</span></div>
         </div>
       </div>
-      <div><h2>Best fit</h2><p>MOSS-TTS is best for local voice cloning and expressive speech generation.</p><p class="muted">Hardware: <span class="chip">gpu</span><span class="chip">apple</span></p></div>
+      <div><h2>Best fit</h2><p>KorvaTTS is best for fast on-device voice responses and local assistants.</p><p class="muted">Hardware: <span class="chip">cpu</span><span class="chip">gpu</span><span class="chip">apple</span><span class="chip">edge</span></p></div>
     </section>
 
     <section class="section">
       <h2>Model details</h2>
       <div class="detail-grid">
         <div class="detail"><div class="k">Type</div><div class="v">Local TTS model</div></div>
-        <div class="detail"><div class="k">Family</div><div class="v">moss</div></div>
-        <div class="detail"><div class="k">Latency</div><div class="v">medium</div></div>
-        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">pytorch</span><span class="chip">safetensors</span></div></div>
-        <div class="detail"><div class="k">Languages</div><div class="v">zh, en, de, es, fr, ja, it, hu, ko, ru, fa, ar, pl, pt, cs, da, sv, el, tr</div></div>
-        <div class="detail"><div class="k">Context</div><div class="v">8B and 1.7B open-weight checkpoints, 20 languages, 24 kHz output</div></div>
+        <div class="detail"><div class="k">Family</div><div class="v">korva</div></div>
+        <div class="detail"><div class="k">Latency</div><div class="v">low</div></div>
+        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">onnx</span></div></div>
+        <div class="detail"><div class="k">Languages</div><div class="v">vi, en</div></div>
+        <div class="detail"><div class="k">Context</div><div class="v">ONNX Runtime CPU path, optional onnxruntime-gpu for CUDA, Python CLI/package, browser-compatible Supertonic 3 graph signatures and 44.1 kHz output</div></div>
       </div>
     </section>
 
     <section class="section">
       <h2>Install locally</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports pytorch, safetensors on your machine.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports onnx on your machine.</span></div>
         <div class="step"><div class="step-num">02</div><strong>Open recommended setup</strong><span>Use the app and model links above. LocalClaw does not expose a terminal command.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Test locally</strong><span>Run a short private audio prompt before moving into production workflows.</span></div>
       </div>
     </section>
 
     <section class="section cols">
-      <div><h2>Good for</h2><ul class="list"><li>text-to-speech generation</li><li>GPU recommended local workflows</li><li>cloning, streaming, multilingual</li></ul></div>
+      <div><h2>Good for</h2><ul class="list"><li>text-to-speech generation</li><li>Edge ready local workflows</li><li>multilingual, low-latency, controllable</li></ul></div>
       <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
     </section>
 
     <section class="section">
       <h2>Related TTS and speech models</h2>
-      <div class="similar"><a class="similar-card" href="/tts/moss-tts-nano" style="--model-color:#ff453a">
-    <span class="similar-family">OpenMOSS / MOSI.AI</span>
-    <strong>MOSS-TTS-Nano</strong>
-    <small>Local TTS model · Q 8.5 · Speed 9.7</small>
+      <div class="similar"><a class="similar-card" href="/tts/magpie-tts-multilingual-357m" style="--model-color:#ff453a">
+    <span class="similar-family">NVIDIA</span>
+    <strong>MagpieTTS Multilingual 357M</strong>
+    <small>Local TTS model · Q 9 · Speed 8.6</small>
+  </a><a class="similar-card" href="/tts/kokoro" style="--model-color:#ff453a">
+    <span class="similar-family">hexgrad</span>
+    <strong>Kokoro TTS</strong>
+    <small>Local TTS model · Q 9.2 · Speed 9.8</small>
+  </a><a class="similar-card" href="/tts/sopro-v2-turbo" style="--model-color:#ff453a">
+    <span class="similar-family">Samuel Vitorino / HALO Research</span>
+    <strong>Sopro V2 Turbo</strong>
+    <small>Local TTS model · Q 9.2 · Speed 9.4</small>
   </a><a class="similar-card" href="/tts/zonos2" style="--model-color:#ff453a">
     <span class="similar-family">Zyphra</span>
     <strong>ZONOS2</strong>
     <small>Local TTS model · Q 9.6 · Speed 8.5</small>
-  </a><a class="similar-card" href="/tts/higgs-tts-3-4b" style="--model-color:#fb7185">
-    <span class="similar-family">Boson AI</span>
-    <strong>Higgs TTS 3 4B</strong>
-    <small>Local TTS model · Q 9.7 · Speed 8</small>
-  </a><a class="similar-card" href="/tts/voxcpm2" style="--model-color:#ff453a">
-    <span class="similar-family">OpenBMB</span>
-    <strong>VoxCPM2</strong>
-    <small>Local TTS model · Q 9.4 · Speed 8.3</small>
-  </a><a class="similar-card" href="/tts/ice-012-audio" style="--model-color:#ff453a">
-    <span class="similar-family">DarkPs</span>
-    <strong>ICE-012 Audio</strong>
-    <small>Local TTS model · Q 9.1 · Speed 8.2</small>
-  </a><a class="similar-card" href="/tts/breeze-tts-2" style="--model-color:#ff453a">
-    <span class="similar-family">BreezeBlue</span>
-    <strong>Breeze TTS 2</strong>
-    <small>Local TTS model · Q 9.6 · Speed 8.4</small>
-  </a><a class="similar-card" href="/tts/zonos" style="--model-color:#ff453a">
-    <span class="similar-family">Zyphra</span>
-    <strong>Zonos v0.1</strong>
-    <small>Local TTS model · Q 9.5 · Speed 8.5</small>
+  </a><a class="similar-card" href="/tts/audio8-tts-preview-0.6b" style="--model-color:#ff453a">
+    <span class="similar-family">Audio8</span>
+    <strong>Audio8 TTS Preview 0.6B</strong>
+    <small>Local TTS model · Q 9.3 · Speed 8.9</small>
   </a><a class="similar-card" href="/tts/index-tts-2.5" style="--model-color:#ff453a">
     <span class="similar-family">Bilibili</span>
     <strong>IndexTTS 2.5</strong>
     <small>Local TTS model · Q 9.5 · Speed 8.4</small>
+  </a><a class="similar-card" href="/tts/supertonic-3" style="--model-color:#ff453a">
+    <span class="similar-family">Supertone</span>
+    <strong>Supertonic 3</strong>
+    <small>Local TTS model · Q 8.8 · Speed 9.8</small>
+  </a><a class="similar-card" href="/tts/higgs-tts-3-4b" style="--model-color:#fb7185">
+    <span class="similar-family">Boson AI</span>
+    <strong>Higgs TTS 3 4B</strong>
+    <small>Local TTS model · Q 9.7 · Speed 8</small>
   </a></div>
     </section>
 

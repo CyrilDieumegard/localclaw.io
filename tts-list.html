@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 79 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 79 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 81 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 81 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 79 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 81 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">82</strong> speech records: <strong style="color:#fff;">79 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">84</strong> speech records: <strong style="color:#fff;">81 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>79 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>81 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1959,6 +1959,58 @@
                 voices: "Multiple speakers + voice cloning",
                 context: "Emotion tags, speed control",
                 license: "Apache-2.0"
+            },
+            {
+                id: "ice-012-audio",
+                name: "ICE-012 Audio",
+                developer: "DarkPs",
+                family: "ice",
+                description: "Apache-licensed multilingual streaming TTS model with reference-audio voice cloning and controllable voice design. The Hugging Face release ships a 1.43 GB F16 safetensors checkpoint, custom Transformers code and language-name or language-code routing across hundreds of listed language names and variants.",
+                languages: ["multilingual"],
+                languageCount: 590,
+                features: ["cloning", "streaming", "multilingual", "emotion", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 1.43,
+                sizeLabel: "1.43 GB F16 safetensors",
+                sizeCategory: "medium",
+                quality: 9.1,
+                speed: 8.2,
+                latency: "low",
+                releaseDate: "2026-08",
+                isNew: true,
+                hfLink: "https://huggingface.co/darkps/ice-012-audio",
+                sourceStatus: "verified-model",
+                installCommand: "huggingface-cli download darkps/ice-012-audio",
+                supportedFormats: ["transformers", "safetensors"],
+                voices: "Reference-audio voice cloning plus gender, age, pitch, accent, style and speed controls",
+                context: "Custom Transformers AutoModelForCausalLM path with trust_remote_code=True, streaming TTS and voice-clone examples; no official VRAM floor published, but the downloadable checkpoint is 1.43 GB F16",
+                license: "Apache 2.0"
+            },
+            {
+                id: "korvatts",
+                name: "KorvaTTS",
+                developer: "dogenthq",
+                family: "korva",
+                description: "Apache-licensed Vietnamese-first on-device TTS model for natural code-switching with embedded English. It is trained from scratch on Vietnamese speech, ships ONNX Runtime weights and 10 bundled voice styles, runs on CPU without an API call, and outputs 44.1 kHz WAV audio.",
+                languages: ["vi", "en"],
+                languageCount: 2,
+                features: ["multilingual", "low-latency", "controllable"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.4,
+                sizeLabel: "99M params; ~0.40 GB ONNX assets",
+                sizeCategory: "tiny",
+                quality: 8.6,
+                speed: 9.2,
+                latency: "low",
+                releaseDate: "2026-09",
+                isNew: true,
+                hfLink: "https://huggingface.co/dogenthq/KorvaTTS",
+                sourceStatus: "verified-code",
+                installCommand: "pip install korvatts",
+                supportedFormats: ["onnx"],
+                voices: "10 bundled Vietnamese voice styles; voice cloning is on the roadmap, not in this release",
+                context: "ONNX Runtime CPU path, optional onnxruntime-gpu for CUDA, Python CLI/package, browser-compatible Supertonic 3 graph signatures and 44.1 kHz output",
+                license: "Apache 2.0"
             },
             {
                 id: "confucius4-tts",

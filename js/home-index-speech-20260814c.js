@@ -17,6 +17,40 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.52
   },
   {
+    "id": "ice-012-audio",
+    "name": "ICE-012 Audio",
+    "developer": "DarkPs",
+    "family": "ice",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08",
+    "quality": 9.1,
+    "speed": 8.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.43
+  },
+  {
+    "id": "korvatts",
+    "name": "KorvaTTS",
+    "developer": "dogenthq",
+    "family": "korva",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-09",
+    "quality": 8.6,
+    "speed": 9.2,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.4
+  },
+  {
     "id": "confucius4-tts",
     "name": "Confucius4-TTS",
     "developer": "NetEase Youdao",
