@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
+// Updated September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
+// Previous: September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
 // Previous: August 28, 2026 - Added DFM-Mimir - 234 LLM total
 // Previous: August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
 // Previous: August 26, 2026 - Added Granite 4.2 8B and 30B - 232 LLM total
@@ -158,6 +159,42 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'spark-x2-5-4b',
+            name: 'Spark-X2.5-4B',
+            family: 'spark',
+            params: '4B',
+            size_gb: 7.67,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'long-context', 'general'],
+            description: 'Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows.',
+            search_term: 'Spark-X2.5-4B',
+            recommended_quant: 'BF16 GGUF',
+            hf_repo: 'XHToken/Spark-X2.5-4B-GGUF',
+            source_url: 'https://huggingface.co/XHToken/Spark-X2.5-4B',
+            runtime_url: 'https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF',
+            benchmarks: { speed: 8, quality: 7, coding: 7, reasoning: 7 },
+            released: '2026-09-02',
+            isNew: true
+        },
+        {
+            id: 'spark-x2-5-1-7b',
+            name: 'Spark-X2.5-1.7B',
+            family: 'spark',
+            params: '1.7B',
+            size_gb: 3.19,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'long-context', 'light', 'general'],
+            description: 'Spark-X2.5-1.7B is the smaller Apache 2.0 Spark-X2.5 release, tuned for lightweight conversation, coding, reasoning and agentic workflows with a 1M-token native context claim and official GGUF local runtime artifacts.',
+            search_term: 'Spark-X2.5-1.7B',
+            recommended_quant: 'BF16 GGUF',
+            hf_repo: 'XHToken/Spark-X2.5-1.7B-GGUF',
+            source_url: 'https://huggingface.co/XHToken/Spark-X2.5-1.7B',
+            runtime_url: 'https://huggingface.co/XHToken/Spark-X2.5-1.7B-GGUF',
+            benchmarks: { speed: 10, quality: 6, coding: 6, reasoning: 6 },
+            released: '2026-09-02',
+            isNew: true
+        },
         {
             id: 'ibnsina-1.5b',
             name: 'IbnSina-1.5B',
@@ -3904,11 +3941,13 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-08-28T00:00:00.000Z",
-        catalogueHash: "f8f527b51bc82862ad0656c1e3ad6b58a84e1ff786b7dd89b3a0945d6d0d7af3",
+        checkedAt: "2026-09-02T06:15:00.000Z",
+        catalogueHash: "4c1befeafaee027f41a31a458dcca4dee710b5bcb2dbf7f5f05dd5e5ea3198a2",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
+            "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",
+            "spark-x2-5-1-7b": "XHToken/Spark-X2.5-1.7B-GGUF",
             "ibnsina-1.5b": "ibnsina-llm/ibnsina-1.5b",
             "dfm-mimir": "noctrex/DFM-Mimir",
             "gemma4-e4b": "unsloth/gemma-4-E4B-it-GGUF",

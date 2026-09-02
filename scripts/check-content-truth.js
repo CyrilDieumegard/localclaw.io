@@ -57,8 +57,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 231) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 231 preserved routes`);
-if (indexableLocalModels.length !== 225) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 225`);
+if (uniqueLocalModels.length !== 233) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 233 preserved routes`);
+if (indexableLocalModels.length !== 227) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 227`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 101) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 101`);
 
@@ -457,7 +457,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 233) errors.push('models/ must contain 233 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 235) errors.push('models/ must contain 235 HTML files');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 83) errors.push('tts/ must contain 82 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -479,14 +479,14 @@ for (const file of fs.readdirSync(path.join(ROOT, 'use-case')).filter(name => na
 
 const newPage = read('new.html');
 for (const marker of [
+  'href="/models/spark-x2-5-4b"',
+  'href="/models/spark-x2-5-1-7b"',
   'href="/models/ibnsina-1.5b"',
-  'href="/models/granite4.2-8b"',
-  'href="/models/granite4.2-30b"',
+  '16 GB RAM · BF16 GGUF · 1M context',
+  '8 GB RAM · BF16 GGUF · 1M context',
   '4 GB RAM · Q4_K_M · 2K context',
-  '8 GB RAM · Q4_K_M · 128K context',
-  '32 GB RAM · Q4_K_M · 128K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260901c',
+  'js/data.js?v=20260902a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -509,7 +509,7 @@ for (const staleMarker of [
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['ibnsina-1.5b', 'granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'dfm-mimir', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b', 'lfm2-5-vl-3b', 'ling-3.0-tiny', 'muse-glimmer-30b'];
+const expectedLatestIds = ['spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b', 'granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'dfm-mimir', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b', 'lfm2-5-vl-3b'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -519,6 +519,8 @@ for (const model of latestModels.slice(0, 3)) {
   }
 }
 for (const [modelId, released] of Object.entries({
+  'spark-x2-5-4b': '2026-09-02',
+  'spark-x2-5-1-7b': '2026-09-02',
   'ibnsina-1.5b': '2026-09-01',
   'granite4.2-8b': '2026-08-26',
   'granite4.2-30b': '2026-08-26',
@@ -581,7 +583,7 @@ if ((newPage.match(/LocalClawNewModels\.releaseTimestamp\(dateStr\)/g) || []).le
   errors.push('/new date formatting, age and NEW badge helpers must all use the shared release parser');
 }
 if (newPage.includes("new Date(dateStr + '-")) errors.push('/new renderer still corrupts complete release dates by appending a day');
-const fallbackOrder = ['ibnsina-1.5b', 'granite4.2-8b', 'granite4.2-30b'].map(id => newPage.indexOf(`href="/models/${id}"`));
+const fallbackOrder = ['spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b'].map(id => newPage.indexOf(`href="/models/${id}"`));
 if (fallbackOrder.some(index => index < 0) || !(fallbackOrder[0] < fallbackOrder[1] && fallbackOrder[1] < fallbackOrder[2])) {
   errors.push('/new static fallback order does not match the canonical freshness sort');
 }
@@ -602,7 +604,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260901c') || !index.includes('js/app-20260816a.js?v=20260901c')) {
+if (!index.includes('js/data.js?v=20260902a') || !index.includes('js/app-20260816a.js?v=20260902a')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -681,7 +683,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 185, publicModelCard: 39, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 187, publicModelCard: 39, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);

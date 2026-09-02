@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>Nemotron 3 Nano (4B) local AI: RAM + LM Studio | LocalClaw</title>
-  <meta name="description" content="Nemotron 3 Nano (4B): 4B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <title>Spark-X2.5-4B local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="Spark-X2.5-4B: 4B local AI model guide with RAM requirements, BF16 GGUF quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/nemotron3-nano-4b">
+  <link rel="canonical" href="https://localclaw.io/models/spark-x2-5-4b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/nemotron3-nano-4b">
-  <meta property="og:title" content="Nemotron 3 Nano (4B) local AI model | LocalClaw">
-  <meta property="og:description" content="Nemotron 3 Nano (4B): 4B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta property="og:url" content="https://localclaw.io/models/spark-x2-5-4b">
+  <meta property="og:title" content="Spark-X2.5-4B local AI model | LocalClaw">
+  <meta property="og:description" content="Spark-X2.5-4B: 4B local AI model guide with RAM requirements, BF16 GGUF quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nemotron 3 Nano (4B) local AI model | LocalClaw">
-  <meta name="twitter:description" content="Nemotron 3 Nano (4B): 4B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
+  <meta name="twitter:title" content="Spark-X2.5-4B local AI model | LocalClaw">
+  <meta name="twitter:description" content="Spark-X2.5-4B: 4B local AI model guide with RAM requirements, BF16 GGUF quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Nemotron 3 Nano (4B)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/nemotron3-nano-4b","description":"Nemotron 3 Nano (4B): 4B local AI model guide with RAM requirements, Q5_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2025-02","memoryRequirements":"6 GB RAM minimum","license":"https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf","creator":{"@type":"Organization","name":"NVIDIA","url":"https://www.nvidia.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Nemotron 3 Nano (4B) run locally?","acceptedAnswer":{"@type":"Answer","text":"Nemotron 3 Nano (4B) can run locally with at least 6 GB RAM. LocalClaw recommends Q5_K_M quantization."}},{"@type":"Question","name":"What is Nemotron 3 Nano (4B) best for?","acceptedAnswer":{"@type":"Answer","text":"Nemotron 3 Nano (4B) is tagged in the LocalClaw catalogue for Reasoning. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Nemotron 3 Nano (4B)","item":"https://localclaw.io/models/nemotron3-nano-4b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Spark-X2.5-4B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/spark-x2-5-4b","description":"Spark-X2.5-4B: 4B local AI model guide with RAM requirements, BF16 GGUF quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-09-02","memoryRequirements":"16 GB RAM minimum","license":"https://huggingface.co/XHToken/Spark-X2.5-4B/blob/main/LICENSE","creator":{"@type":"Organization","name":"XHToken / SparkLLM","url":"https://huggingface.co/XHToken"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Spark-X2.5-4B run locally?","acceptedAnswer":{"@type":"Answer","text":"Spark-X2.5-4B can run locally with at least 16 GB RAM. LocalClaw recommends BF16 GGUF quantization."}},{"@type":"Question","name":"What is Spark-X2.5-4B best for?","acceptedAnswer":{"@type":"Answer","text":"Spark-X2.5-4B is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Spark-X2.5-4B","item":"https://localclaw.io/models/spark-x2-5-4b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -100,17 +100,17 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Nemotron 3 Nano (4B)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Spark-X2.5-4B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">Nemotron 3 Nano <span>(4B)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> NVIDIA compact hybrid model distilled from a 9B teacher, with hybrid attention and SSM layers. A lightweight option for local chat and reasoning under the NVIDIA Open Model License.</p>
+        <h1 class="title">Spark-X2.5-4B</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">6 GB catalogue minimum</span><span class="chip">6 GB RAM</span><span class="chip">Q5_K_M</span><span class="chip">Reasoning</span></div>
+        <div class="chips"><span class="chip hot">16 GB catalogue minimum</span><span class="chip">16 GB RAM</span><span class="chip">BF16 GGUF</span><span class="chip">Coding assistant</span></div>
         <div class="run-picker" data-model-run-options>
-          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Pick the app you already use. No terminal and no command to copy.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b">Compare models</a></div>
-          <div class="run-grid"><a class="run-option featured" data-runtime="lmstudio" href="lmstudio://open_from_hf?model=nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF" data-fast-goal="model_runtime_lmstudio" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b" data-fast-goal-quant="Q5_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in LM Studio</strong><small>Opens the app on this model&#39;s download screen</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=nvidia%2FNVIDIA-Nemotron-3-Nano-4B-GGUF" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b" data-fast-goal-quant="Q5_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b" data-fast-goal-quant="Q5_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option " data-runtime="llamacpp" href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_llamacpp" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b" data-fast-goal-quant="Q5_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open llama.cpp setup</strong><small>Advanced option: opens the model files</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="nemotron3-nano-4b" data-fast-goal-quant="Q5_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Pick the app you already use. No terminal and no command to copy.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b">Compare models</a></div>
+          <div class="run-grid"><a class="run-option featured" data-runtime="lmstudio" href="lmstudio://open_from_hf?model=XHToken/Spark-X2.5-4B-GGUF" data-fast-goal="model_runtime_lmstudio" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in LM Studio</strong><small>Opens the app on this model&#39;s download screen</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=XHToken%2FSpark-X2.5-4B-GGUF" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option " data-runtime="llamacpp" href="https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_llamacpp" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open llama.cpp setup</strong><small>Advanced option: opens the model files</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="spark-x2-5-4b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
           <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>
         </div>
       </section>
@@ -118,80 +118,80 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">7.2<small>/10</small></div>
+            <div class="score">7.1<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="nemotron3-nano-4b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="spark-x2-5-4b" data-rating-mode="full"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">nemotron-nano</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2025-02</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">spark</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-09-02</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
       <div class="spec-card"><div class="k">Parameters</div><div class="v">4B</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">6 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">2.8 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q5_K_M</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">16 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">7.67 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">BF16 GGUF</div></div>
     </section>
-<section class="personal-fit" hidden data-localclaw-model-context data-model-id="nemotron3-nano-4b" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="spark-x2-5-4b" aria-live="polite"></section>
     <section class="section">
-      <h2>Can Nemotron 3 Nano (4B) run locally?</h2>
-      <p>Nemotron 3 Nano (4B) has a catalogue minimum of 6 GB RAM with Q5_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Use <code>nvidia-nemotron-3-nano-4b</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
-      <div class="source-links"><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-09-02): nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF</a><a href="https://huggingface.co/blog/nvidia/nemotron-3-nano-4b" target="_blank" rel="noopener">Upstream release</a><a href="https://research.nvidia.com/labs/nemotron/Nemotron-3/" target="_blank" rel="noopener">Paper or model card</a><a href="https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">light</span><span class="tag">speed</span><span class="tag">reasoning</span></div>
+      <h2>Can Spark-X2.5-4B run locally?</h2>
+      <p>Spark-X2.5-4B has a catalogue minimum of 16 GB RAM with BF16 GGUF. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use <code>Spark-X2.5-4B</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
+      <div class="source-links"><a href="https://huggingface.co/XHToken/Spark-X2.5-4B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-09-02): XHToken/Spark-X2.5-4B-GGUF</a><a href="https://huggingface.co/XHToken/Spark-X2.5-4B" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/XHToken/Spark-X2.5-4B/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">tool-calling</span><span class="tag">long-context</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 6 GB RAM. Start with the Q5_K_M quant.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search nvidia-nemotron-3-nano-4b in LM Studio.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 16 GB RAM. Start with the BF16 GGUF quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search Spark-X2.5-4B in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: nemotron-nano</li><li>Parameters: 4B</li><li>Recommended quantization: Q5_K_M</li><li>Catalogue minimum RAM: 6 GB</li><li>Catalogue model size: 2.8 GB</li><li>Tags: chat, light, speed, reasoning</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: spark</li><li>Parameters: 4B</li><li>Recommended quantization: BF16 GGUF</li><li>Catalogue minimum RAM: 16 GB</li><li>Catalogue model size: 7.67 GB</li><li>Tags: chat, code, reasoning, tool-calling, long-context, general</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>light</li><li>speed</li><li>reasoning</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>tool-calling</li><li>long-context</li><li>general</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">NVIDIA</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">NVIDIA Open Model License</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">4,096 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Hybrid Transformer + SSM (Mamba-style layers) — distilled from 9B</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">XHToken / SparkLLM</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">1,048,576 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Compact 4B Spark-X2.5 causal language model with a hybrid attention design that combines full-attention and sliding-window attention layers for lower long-context overhead.</div></div>
       </div>
     </section>
 <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
+        <a href="/hardware/mac-mini-m4-16gb"><small>Starter desktop</small>Mac mini M4 16GB</a><a href="/hardware/macbook-air-m4-16gb"><small>Portable fit</small>MacBook Air M4 16GB</a><a href="/ram/16gb"><small>Best 16GB models</small>16GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/llama3.1-nemotron-nano-4b">Llama-3.1-Nemotron-Nano (4B) <span>4B</span></a><a href="/models/phi3-3.8b">Phi-3 (3.8B) <span>3.8B</span></a><a href="/models/granite4.1-3b">Granite 4.1 (3B) <span>3B</span></a><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/ling-3.0-tiny">Ling-3.0-tiny <span>7.9B (1.3B active, MoE)</span></a><a href="/models/minicpm5-1b">MiniCPM5 1B <span>1B</span></a><a href="/models/qwen3-4b">Qwen 3 (4B) <span>4B</span></a><a href="/models/gemma3n-4b">Gemma 3n (4B) <span>4B</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/spark-x2-5-1-7b">Spark-X2.5-1.7B <span>1.7B</span></a><a href="/models/nemotron-3-5-lightning-30b-a3b">Nemotron 3.5 Lightning 30B-A3B <span>30B (3B active, MoE)</span></a><a href="/models/ornith-1-5-9b">Ornith-1.5-9B <span>9B</span></a><a href="/models/agents-a1-4b">Agents-A1 4B <span>4B</span></a><a href="/models/granite4.2-3b">Granite 4.2 (3B) <span>3B</span></a><a href="/models/granite4.2-8b">Granite 4.2 (8B) <span>8.8B</span></a><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/ling-3.0-tiny">Ling-3.0-tiny <span>7.9B (1.3B active, MoE)</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/16gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"nemotron3-nano-4b","name":"Nemotron 3 Nano (4B)","family":"nemotron-nano","params":"4B","size_gb":2.8,"min_ram":6,"tags":["chat","light","speed","reasoning"],"description":"NVIDIA compact hybrid model distilled from a 9B teacher, with hybrid attention and SSM layers. A lightweight option for local chat and reasoning under the NVIDIA Open Model License.","search_term":"nvidia-nemotron-3-nano-4b","recommended_quant":"Q5_K_M","hf_repo":"nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF","benchmarks":{"speed":10,"quality":7,"coding":6,"reasoning":7},"released":"2025-02","isNew":true,"isPick":true};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"spark-x2-5-4b","name":"Spark-X2.5-4B","family":"spark","params":"4B","size_gb":7.67,"min_ram":16,"tags":["chat","code","reasoning","tool-calling","long-context","general"],"description":"Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows.","search_term":"Spark-X2.5-4B","recommended_quant":"BF16 GGUF","hf_repo":"XHToken/Spark-X2.5-4B-GGUF","source_url":"https://huggingface.co/XHToken/Spark-X2.5-4B","runtime_url":"https://huggingface.co/XHToken/Spark-X2.5-4B-GGUF","benchmarks":{"speed":8,"quality":7,"coding":7,"reasoning":7},"released":"2026-09-02","isNew":true};</script>
   <script src="/js/runtime-launch-assist-20260821a.js?v=20260830a" defer></script>
   <script src="/js/machine-compat-20260802a.js?v=20260823a"></script>
   <script src="/js/account-context-20260802b.js?v=20260802b"></script>

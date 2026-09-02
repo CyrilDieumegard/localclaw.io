@@ -6,8 +6,24 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Spark-X2.5-4B</title>
+      <link>https://localclaw.io/models/spark-x2-5-4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/spark-x2-5-4b</guid>
+      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
+      <category>spark</category>
+      <description>Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows. 4B · 16 GB minimum RAM · BF16 GGUF · spark.</description>
+    </item>
+    <item>
+      <title>Spark-X2.5-1.7B</title>
+      <link>https://localclaw.io/models/spark-x2-5-1-7b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/spark-x2-5-1-7b</guid>
+      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
+      <category>spark</category>
+      <description>Spark-X2.5-1.7B is the smaller Apache 2.0 Spark-X2.5 release, tuned for lightweight conversation, coding, reasoning and agentic workflows with a 1M-token native context claim and official GGUF local runtime artifacts. 1.7B · 8 GB minimum RAM · BF16 GGUF · spark.</description>
+    </item>
     <item>
       <title>IbnSina-1.5B</title>
       <link>https://localclaw.io/models/ibnsina-1.5b</link>
@@ -151,22 +167,6 @@
       <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
       <category>agents-a1</category>
       <description>InternScience compact dense agent model with Apache 2.0 licensing, 262K context and official Q4_K_M GGUF artifacts for 8GB-class local assistants. 4B · 8 GB minimum RAM · Q4_K_M · agents-a1.</description>
-    </item>
-    <item>
-      <title>Laguna S 2.1</title>
-      <link>https://localclaw.io/models/laguna-s-2.1</link>
-      <guid isPermaLink="true">https://localclaw.io/models/laguna-s-2.1</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <category>laguna</category>
-      <description>Poolside workstation-class coding MoE with 1M context, 118B total / 8B active parameters, OpenMDW-1.1 licensing and official Q4_K_M GGUF plus Ollama availability. 118B (8B active, MoE) · 96 GB minimum RAM · Q4_K_M · laguna.</description>
-    </item>
-    <item>
-      <title>Hy3</title>
-      <link>https://localclaw.io/models/hy3</link>
-      <guid isPermaLink="true">https://localclaw.io/models/hy3</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <category>hy3</category>
-      <description>Tencent Hy Team MoE model with 256K context, strong agent/productivity benchmarks and Apache 2.0 licensing. Practical only for very large local workstations via IQ1_M GGUF. 295B (21B active) · 128 GB minimum RAM · IQ1_M · hy3.</description>
     </item>
   </channel>
 </rss>
