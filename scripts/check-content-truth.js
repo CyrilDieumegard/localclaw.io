@@ -486,7 +486,7 @@ for (const marker of [
   '8 GB RAM · BF16 GGUF · 1M context',
   '4 GB RAM · Q4_K_M · 2K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260902a',
+  'js/data.js?v=20260902b',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -604,7 +604,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260902a') || !index.includes('js/app-20260816a.js?v=20260902a')) {
+if (!index.includes('js/data.js?v=20260902b') || !index.includes('js/app-20260816a.js?v=20260902b')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
