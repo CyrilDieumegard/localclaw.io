@@ -786,6 +786,17 @@
       caveats: ['Requires an existing input mesh', 'CUDA and flash-attn setup make this a workstation workflow']
     },
     {
+      id: 'ultrashape-1', name: 'UltraShape 1.0', category: '3d', developer: 'PKU-YuanGroup',
+      summary: 'Apache-licensed geometry refinement model that turns a coarse image-conditioned mesh into a higher-fidelity local mesh.',
+      tasks: ['mesh-refinement', 'image-to-3d', 'mesh-generation'], platforms: ['linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'], output: ['Refined mesh', 'GLB', 'OBJ'],
+      local_status: 'local', license: 'Apache 2.0 checkpoint; upstream Hunyuan3D component terms apply', released: '2025-12',
+      source_url: 'https://github.com/PKU-YuanGroup/UltraShape-1.0', install_url: 'https://huggingface.co/infinith/UltraShape',
+      hardware_note: 'The official repository documents a Linux/Python 3.10/CUDA 12.1 PyTorch setup, downloads the Apache-licensed Hugging Face checkpoint, and runs either scripts/run.sh or scripts/gradio_app.py. UltraShape refines a coarse GLB or OBJ mesh produced by Hunyuan3D-2.1; no fixed consumer VRAM table is published, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative workstation floor.',
+      strengths: ['Official inference code and Hugging Face checkpoint', 'Refines coarse GLB or OBJ geometry into higher-detail meshes', 'Local CLI and Gradio workflows with low-VRAM options'],
+      caveats: ['Requires an initial Hunyuan3D-2.1 coarse mesh', 'Geometry refinement only; texture pass remains external', 'CUDA research stack with cubvh and optional PyTorch3D dependencies']
+    },
+    {
       id: 'cubepart', name: 'CubePart', category: '3d', developer: 'Roblox Foundation AI',
       summary: 'Open-vocabulary part-controllable 3D generator that decomposes an input mesh into named editable parts.',
       tasks: ['mesh-generation', 'part-based-generation', 'asset-generation'], platforms: ['linux'],
