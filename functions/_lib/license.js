@@ -300,8 +300,13 @@ export function validatePaidCheckoutSession(env, session, lineItems) {
 }
 
 export async function verifyLicenseStripeWebhook(env, signatureHeader, rawBody, nowMs = Date.now()) {
-  const secret = String(env?.LOCALCLAW_STRIPE_WEBHOOK_SECRET || "").trim();
-  if (!/^whsec_[A-Za-z0-9]+$/.test(secret)) {
+  const secrets = [
+    env?.LOCALCLAW_STRIPE_WEBHOOK_SECRET,
+    env?.LOCALCLAW_STRIPE_WEBHOOK_SECRET_SECONDARY
+  ]
+    .map((value) => String(value || "").trim())
+    .filter((value, index, values) => /^whsec_[A-Za-z0-9]+$/.test(value) && values.indexOf(value) === index);
+  if (secrets.length === 0) {
     throw new LicenseError("license_webhook_secret_missing", 503, "Webhook is unavailable");
   }
   const parts = String(signatureHeader || "").split(",").map((part) => part.trim());
@@ -318,19 +323,21 @@ export async function verifyLicenseStripeWebhook(env, signatureHeader, rawBody, 
   if (Math.abs(Math.floor(nowMs / 1000) - timestamp) > tolerance) {
     throw new LicenseError("stripe_signature_expired", 400, "Invalid webhook signature");
   }
-  const key = await crypto.subtle.importKey(
-    "raw",
-    TEXT_ENCODER.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["verify"]
-  );
   const prefix = TEXT_ENCODER.encode(`${timestamp}.`);
   const signed = new Uint8Array(prefix.length + rawBody.length);
   signed.set(prefix, 0);
   signed.set(rawBody, prefix.length);
-  for (const signature of signatures) {
-    if (signature.byteLength === 32 && await crypto.subtle.verify("HMAC", key, signature, signed)) return true;
+  for (const secret of secrets) {
+    const key = await crypto.subtle.importKey(
+      "raw",
+      TEXT_ENCODER.encode(secret),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"]
+    );
+    for (const signature of signatures) {
+      if (signature.byteLength === 32 && await crypto.subtle.verify("HMAC", key, signature, signed)) return true;
+    }
   }
   throw new LicenseError("stripe_signature_invalid", 400, "Invalid webhook signature");
 }

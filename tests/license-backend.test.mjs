@@ -22,12 +22,13 @@ import { onRequestPost as activate } from "../functions/api/license/v2/activate.
 import { onRequestPost as claim } from "../functions/api/license/claim.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const PAYMENT_LINK_ID = "plink_1UAq6UEIFWJOEDDQmgnQIgbY";
+const PAYMENT_LINK_ID = "plink_1T3ImGAXaNRwBAW19ocAoU9I";
+const PREVIOUS_PAYMENT_LINK_ID = "plink_1UAq6UEIFWJOEDDQmgnQIgbY";
 const BASE_ENV = Object.freeze({
   STRIPE_EXPECTED_LIVEMODE: "true",
-  LICENSE_STRIPE_PAYMENT_LINK_IDS: PAYMENT_LINK_ID,
-  LICENSE_STRIPE_PRICE_IDS: "price_1UAq6HEIFWJOEDDQjebzVAcC",
-  LICENSE_STRIPE_PRODUCT_IDS: "prod_VBCVDxuRbxVHmT",
+  LICENSE_STRIPE_PAYMENT_LINK_IDS: `${PAYMENT_LINK_ID},${PREVIOUS_PAYMENT_LINK_ID}`,
+  LICENSE_STRIPE_PRICE_IDS: "price_1T3IkfAXaNRwBAW1XeiKJ1zA,price_1UAq6HEIFWJOEDDQjebzVAcC",
+  LICENSE_STRIPE_PRODUCT_IDS: "prod_U1LRtFz1PdO0Ix,prod_VBCVDxuRbxVHmT",
   LICENSE_STRIPE_AMOUNT_CENTS: "4900",
   LICENSE_STRIPE_CURRENCY: "usd",
   LICENSE_MACHINE_LIMIT: "3",
@@ -189,6 +190,27 @@ test("dedicated Stripe webhook signature accepts current payload and rejects tam
   ), /stripe_signature_invalid/);
 });
 
+test("Stripe webhook migration accepts either the primary or secondary signing secret", async () => {
+  const primary = "whsec_primary0123456789abcdefghijklmnopqrstuvwxyz";
+  const secondary = "whsec_secondary0123456789abcdefghijklmnopqrstuvwxyz";
+  const raw = Buffer.from(JSON.stringify({ id: "evt_migration12345678", object: "event" }));
+  const timestamp = Math.floor(Date.parse("2026-09-03T16:00:00Z") / 1000);
+  const env = {
+    LOCALCLAW_STRIPE_WEBHOOK_SECRET: primary,
+    LOCALCLAW_STRIPE_WEBHOOK_SECRET_SECONDARY: secondary
+  };
+
+  for (const secret of [primary, secondary]) {
+    const digest = createHmac("sha256", secret).update(`${timestamp}.`).update(raw).digest("hex");
+    assert.equal(await verifyLicenseStripeWebhook(
+      env,
+      `t=${timestamp},v1=${digest}`,
+      raw,
+      timestamp * 1000
+    ), true);
+  }
+});
+
 test("signed async Checkout events remain pending until paid and never authorize a claim", () => {
   const pendingEvent = checkoutEvent({
     id: "evt_pending12345678",
@@ -210,6 +232,16 @@ test("signed async Checkout events remain pending until paid and never authorize
   assert.equal(paid.ignored, false);
   assert.equal(paid.amountTotal, 4900);
   assert.equal(paid.currency, "usd");
+
+  const alreadyCompletedPreviousAccountEvent = checkoutEvent({
+    id: "evt_previous12345678",
+    type: "checkout.session.completed",
+    paymentStatus: "paid",
+    paymentLink: PREVIOUS_PAYMENT_LINK_ID
+  });
+  const acceptedPreviousAccountEvent = validateLicenseStripeEvent(BASE_ENV, alreadyCompletedPreviousAccountEvent);
+  assert.equal(acceptedPreviousAccountEvent.ignored, false);
+  assert.equal(acceptedPreviousAccountEvent.sessionId, alreadyCompletedPreviousAccountEvent.data.object.id);
 
   const wrongLink = checkoutEvent({
     id: "evt_other123456789",
