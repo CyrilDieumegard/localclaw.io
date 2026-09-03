@@ -112,6 +112,7 @@ window.HOME_INDEX_LOGOS = {
     higgs: 'bosonai-avatar',
     ice: 'huggingface-avatar',
     indextts: 'bilibiliindex',
+    inflect: 'huggingface-avatar',
     indic: 'ai4bharat-avatar',
     kitten: 'kittenml-avatar',
     kokoro: 'hexgrad-avatar',

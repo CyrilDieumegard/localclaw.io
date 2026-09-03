@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS &amp; Speech AI List — 81 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 81 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <meta name="description" content="Compare 82 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 81 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 82 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">84</strong> speech records: <strong style="color:#fff;">81 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">85</strong> speech records: <strong style="color:#fff;">82 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>81 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>82 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2063,6 +2063,33 @@
                 supportedFormats: ["pytorch", "safetensors", "onnx"],
                 voices: "Zero-shot voice cloning from 5-20 seconds of reference audio",
                 context: "120M F32 safetensors, Sopro CLI/Python API, CPU default on macOS with optional MPS, CUDA auto-selection and browser ONNX demo",
+                license: "Apache 2.0"
+            },
+            {
+                id: "inflect-nano-v2",
+                name: "Inflect Nano v2",
+                developer: "Owen Song",
+                family: "inflect",
+                description: "Ultra-small English fixed-voice text-to-waveform TTS with complete downloadable weights, deterministic seeds and punctuation-aware long-text chunking. The Nano checkpoint is under 4M deployable parameters, runs several times faster than real time on CPU and has an official ONNX Runtime export for torch-free local deployment.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["realtime", "low-latency", "edge"],
+                hardware: ["cpu", "gpu", "apple", "edge"],
+                sizeGB: 0.016,
+                sizeLabel: "3.97M params; 15.97 MB FP32 weights",
+                sizeCategory: "small",
+                quality: 8.6,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2026-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/owensong/Inflect-Nano-v2",
+                sourceStatus: "verified-code",
+                installCommand: "hf download owensong/Inflect-Nano-v2 --local-dir Inflect-Nano-v2 && python -m pip install -r Inflect-Nano-v2/requirements.txt",
+                supportedFormats: ["pytorch", "onnx"],
+                voices: "One fixed synthetic English voice; Micro/Nano variants share the public API",
+                context: "24 kHz mono output, CPU/CUDA PyTorch path, separate official ONNX Runtime export, 10.72x real-time in the published 4-thread CPU run",
                 license: "Apache 2.0"
             },
             {

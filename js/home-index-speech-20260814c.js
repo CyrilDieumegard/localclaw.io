@@ -84,6 +84,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 1.25
   },
   {
+    "id": "inflect-nano-v2",
+    "name": "Inflect Nano v2",
+    "developer": "Owen Song",
+    "family": "inflect",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-07",
+    "quality": 8.6,
+    "speed": 9.8,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.016
+  },
+  {
     "id": "breeze-tts-2",
     "name": "Breeze TTS 2",
     "developer": "BreezeBlue",
