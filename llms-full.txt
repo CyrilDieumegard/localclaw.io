@@ -1,6 +1,6 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-09-02 from the LocalClaw repository catalogue. This file lists all 413 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-09-02 from the LocalClaw repository catalogue. This file lists all 415 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
@@ -374,7 +374,7 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 43 [DynamiCrafter 512](https://localclaw.io/video/dynamicrafter-512) - developer: Doubiiu / CUHK; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Research use, model terms apply; released: Oct 2023.
 - 44 [Wan 2.1 I2V 14B via Wan2GP](https://localclaw.io/video/wan2.1-i2v-14b-gp) - developer: Wan Team / Wan2GP; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0 model, runtime license applies; released: Mar 2025.
 
-## Local 3D Models (45)
+## Local 3D Models (47)
 
 - 01 [Depth Anything 3 Base](https://localclaw.io/3d/depth-anything-3-base) - developer: ByteDance Seed; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Apache 2.0; released: Nov 2025.
 - 02 [Step1X-3D](https://localclaw.io/3d/step1x-3d) - developer: StepFun; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: Apache 2.0; released: May 2025.
@@ -408,19 +408,21 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 30 [Hi3DGen](https://localclaw.io/3d/hi3dgen) - developer: ByteDance / Stable-X; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: Mar 2025.
 - 31 [Direct3D-S2](https://localclaw.io/3d/direct3d-s2) - developer: DreamTechAI / Neural4D; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2025.
 - 32 [TripoSR](https://localclaw.io/3d/triposr) - developer: Stability AI / Tripo AI; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: MIT code, model terms apply; released: Mar 2024.
-- 33 [Hunyuan3D 2 Mini Turbo](https://localclaw.io/3d/hunyuan3d-2-mini-turbo) - developer: Tencent Hunyuan; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Mar 2025.
-- 34 [Hunyuan3D Swift](https://localclaw.io/3d/hunyuan3d-swift) - developer: Zimeng Xiong / Tencent Hunyuan; minimum RAM: 8 GB; minimum VRAM: 0 GB; licence: MIT runtime, original model terms apply; released: Jul 2026.
-- 35 [SPAR3D](https://localclaw.io/3d/spar3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 7 GB; licence: Stability AI Community License; released: Feb 2025.
-- 36 [TripoSG 1.5B](https://localclaw.io/3d/triposg) - developer: VAST AI Research; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: Mar 2025.
-- 37 [PartCrafter](https://localclaw.io/3d/partcrafter) - developer: Peking University / VAST AI Research; minimum RAM: 24 GB; minimum VRAM: 8 GB; licence: MIT; released: Jul 2025.
-- 38 [InstantMesh](https://localclaw.io/3d/instantmesh) - developer: Tencent ARC; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Apr 2024.
-- 39 [LGM](https://localclaw.io/3d/lgm) - developer: 3DTopia / Nanyang Technological University; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: MIT; released: Feb 2024.
-- 40 [CRM](https://localclaw.io/3d/crm) - developer: Tsinghua University; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: MIT; released: Jan 2024.
-- 41 [Wonder3D](https://localclaw.io/3d/wonder3d) - developer: XLong Research; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Repository and model terms apply; released: Oct 2023.
-- 42 [DreamGaussian](https://localclaw.io/3d/dreamgaussian) - developer: DreamGaussian Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Repository license applies; released: Sep 2023.
-- 43 [Shap-E](https://localclaw.io/3d/shap-e) - developer: OpenAI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: May 2023.
-- 44 [TRELLIS Text Base](https://localclaw.io/3d/trellis-text-base) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT code, model terms apply; released: Dec 2024.
-- 45 [OpenLRM](https://localclaw.io/3d/openlrm) - developer: 3DTopia; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, checkpoint terms apply; released: Nov 2023.
+- 33 [WorldMirror 2.0](https://localclaw.io/3d/worldmirror-2) - developer: Tencent Hunyuan; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent HY-World 2.0 Community License; released: Apr 2026.
+- 34 [ABot-Recon](https://localclaw.io/3d/abot-recon) - developer: Alibaba AMAP CV Lab; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, CC BY-NC 4.0 weights; released: Aug 2026.
+- 35 [Hunyuan3D 2 Mini Turbo](https://localclaw.io/3d/hunyuan3d-2-mini-turbo) - developer: Tencent Hunyuan; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Mar 2025.
+- 36 [Hunyuan3D Swift](https://localclaw.io/3d/hunyuan3d-swift) - developer: Zimeng Xiong / Tencent Hunyuan; minimum RAM: 8 GB; minimum VRAM: 0 GB; licence: MIT runtime, original model terms apply; released: Jul 2026.
+- 37 [SPAR3D](https://localclaw.io/3d/spar3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 7 GB; licence: Stability AI Community License; released: Feb 2025.
+- 38 [TripoSG 1.5B](https://localclaw.io/3d/triposg) - developer: VAST AI Research; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: Mar 2025.
+- 39 [PartCrafter](https://localclaw.io/3d/partcrafter) - developer: Peking University / VAST AI Research; minimum RAM: 24 GB; minimum VRAM: 8 GB; licence: MIT; released: Jul 2025.
+- 40 [InstantMesh](https://localclaw.io/3d/instantmesh) - developer: Tencent ARC; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Apr 2024.
+- 41 [LGM](https://localclaw.io/3d/lgm) - developer: 3DTopia / Nanyang Technological University; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: MIT; released: Feb 2024.
+- 42 [CRM](https://localclaw.io/3d/crm) - developer: Tsinghua University; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: MIT; released: Jan 2024.
+- 43 [Wonder3D](https://localclaw.io/3d/wonder3d) - developer: XLong Research; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Repository and model terms apply; released: Oct 2023.
+- 44 [DreamGaussian](https://localclaw.io/3d/dreamgaussian) - developer: DreamGaussian Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Repository license applies; released: Sep 2023.
+- 45 [Shap-E](https://localclaw.io/3d/shap-e) - developer: OpenAI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: May 2023.
+- 46 [TRELLIS Text Base](https://localclaw.io/3d/trellis-text-base) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT code, model terms apply; released: Dec 2024.
+- 47 [OpenLRM](https://localclaw.io/3d/openlrm) - developer: 3DTopia; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, checkpoint terms apply; released: Nov 2023.
 
 ## Local Music Models (5)
 

@@ -160,6 +160,7 @@ window.HOME_INDEX_LOGOS = {
     'ACE-Step Team': 'ace-step-avatar',
     'AILab-CVC': 'ailab-cvc-avatar',
     'AIdeaLab': 'github',
+    'Alibaba AMAP CV Lab': 'alibaba',
     'Alibaba PAI': 'alibaba',
     'Alibaba VILab': 'alibaba',
     'AnimateDiff Team': 'guoyww-avatar',
