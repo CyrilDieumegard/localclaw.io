@@ -908,6 +908,30 @@
       caveats: ['Geometry only by default', 'Lower fidelity than newer multi-stage systems']
     },
     {
+      id: 'worldmirror-2', name: 'WorldMirror 2.0', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Feed-forward world reconstruction model that predicts camera, geometry, point clouds and 3D Gaussian attributes from multi-view images or video.',
+      tasks: ['video-to-3d', 'multi-view-reconstruction', 'gaussian-splatting', 'point-cloud-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'FSDP', 'Gradio'], output: ['PLY', '3D Gaussian', 'Camera JSON', 'MP4 preview'],
+      local_status: 'local', license: 'Tencent HY-World 2.0 Community License', released: '2026-04',
+      source_url: 'https://github.com/Tencent-Hunyuan/HY-World-2.0', install_url: 'https://huggingface.co/tencent/HY-World-2.0',
+      hardware_note: 'The official WorldMirror path targets Python 3.11, CUDA 12.8 and NVIDIA GPUs, with optional sequence parallel and FSDP multi-GPU inference. Treat 64 GB RAM and 24 GB VRAM as a conservative single-workstation floor for reduced inputs.',
+      strengths: ['Public WorldMirror 2.0 checkpoint', 'Multi-view or video reconstruction', 'Exports point clouds and Gaussian splats'],
+      caveats: ['License excludes use in the EU, UK and South Korea', 'Full HY-World generation pipeline is much heavier than WorldMirror reconstruction', 'Linux/CUDA setup with custom gsplat and FlashAttention dependencies']
+    },
+    {
+      id: 'abot-recon', name: 'ABot-Recon', category: '3d', developer: 'Alibaba AMAP CV Lab',
+      summary: 'Streaming 3D reconstruction model that composes local point maps and relative poses from long video frame sequences.',
+      tasks: ['video-to-3d', 'streaming-reconstruction', 'camera-pose-estimation', 'point-cloud-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'FlashInfer', 'cuRoPE'], output: ['PLY', 'Point cloud', 'Camera poses', 'Confidence maps'],
+      local_status: 'local', license: 'Apache 2.0 code, CC BY-NC 4.0 weights', released: '2026-08',
+      source_url: 'https://github.com/amap-cvlab/ABot-Recon', install_url: 'https://huggingface.co/acvlab/ABot-Recon',
+      hardware_note: 'The release targets Linux, Python 3.10+, PyTorch 2.5.1 and CUDA 12.1. Official benchmarks report 6.71 GiB on H100 at 504x280, but 16 GB NVIDIA VRAM is a safer floor for practical local exports.',
+      strengths: ['Public checkpoint and inference code', 'Bounded-memory long-video reconstruction', 'PLY export script for RGB point clouds'],
+      caveats: ['Non-commercial model weights', 'Training recipes were still pending at release', 'Mesh texturing is outside the base reconstruction output']
+    },
+    {
       id: 'hunyuan3d-2-mini-turbo', name: 'Hunyuan3D 2 Mini Turbo', category: '3d', developer: 'Tencent Hunyuan',
       summary: 'Distilled 0.6B image-to-shape model built for lower-memory local 3D generation.',
       tasks: ['image-to-3d', 'mesh-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
