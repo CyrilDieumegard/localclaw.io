@@ -405,6 +405,20 @@ test("secure success route claims server-side while the historical success page 
   assert.doesNotMatch(claimSource, /STRIPE_SECRET_KEY|stripeClient|functions\/_lib\/stripe/);
 });
 
+test("public purchase CTAs route only to the LocalClaw Stripe account", () => {
+  const pricing = readFileSync(join(ROOT, "pricing.html"), "utf8");
+  const download = readFileSync(join(ROOT, "download.html"), "utf8");
+  const publicPurchasePages = `${pricing}\n${download}`;
+  const localClawCheckout = "https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04";
+  const profileAuditCheckout = "https://buy.stripe.com/6oUcN5aYi4a4gEEeCV8EM04";
+
+  assert.equal(publicPurchasePages.match(new RegExp(localClawCheckout, "g"))?.length, 5);
+  assert.doesNotMatch(publicPurchasePages, new RegExp(profileAuditCheckout));
+  assert.match(readFileSync(join(ROOT, "wrangler.toml"), "utf8"), new RegExp(
+    `LICENSE_STRIPE_PAYMENT_LINK_IDS = "${PAYMENT_LINK_ID},${PREVIOUS_PAYMENT_LINK_ID}"`
+  ));
+});
+
 test("provisioning refuses implicit signing or derivation key rotation", () => {
   const source = readFileSync(join(ROOT, "scripts/provision-license-signing-key.mjs"), "utf8");
   assert.match(source, /--bootstrap-new-keyset/);

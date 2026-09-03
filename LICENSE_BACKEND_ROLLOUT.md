@@ -1,28 +1,28 @@
 # LocalClaw licence backend rollout
 
-Status: implemented and locally tested on 2026-09-01. This file is an operational handoff, not proof of a production deployment.
+Status: implemented on 2026-09-01; Stripe account routing corrected and locally retested on 2026-09-03. This file is an operational handoff, not proof of a production deployment.
 
 ## What changes, and what remains untouched
 
 The app-licence flow is isolated under `/api/license/*`. It does **not** replace or reuse the existing sponsor webhook, sponsor product, sponsor Payment Link, `STRIPE_SECRET_KEY`, or `STRIPE_WEBHOOK_SECRET`.
 
-The new purchase source is:
+The active purchase source must belong to the dedicated Stripe account `acct_1SzfBZAXaNRwBAW1` (`LocalClaw`):
 
-- Stripe product: `prod_VBCVDxuRbxVHmT`
-- one-time USD price: `price_1UAq6HEIFWJOEDDQjebzVAcC` (`4900` cents)
-- Payment Link: `plink_1UAq6UEIFWJOEDDQmgnQIgbY`
-- Payment URL: `https://buy.stripe.com/6oUcN5aYi4a4gEEeCV8EM04`
-- dedicated webhook endpoint: `we_1UAq7DEIFWJOEDDQSSzry3jR`
+- Stripe product: `prod_U1LRtFz1PdO0Ix`
+- one-time USD price: `price_1T3IkfAXaNRwBAW1XeiKJ1zA` (`4900` cents)
+- Payment Link: `plink_1T3ImGAXaNRwBAW19ocAoU9I`
+- Payment URL: `https://buy.stripe.com/cNi6oG71m8ns1X51Js1oI04`
+- dedicated webhook endpoint: `we_1UBfGwAXaNRwBAW1vGcVuGbj`
 - webhook URL: `https://localclaw.io/api/license/stripe-webhook`
 - webhook events: `checkout.session.completed` and `checkout.session.async_payment_succeeded`
 
-The old Payment Link and already-issued keys remain valid. Do not delete the legacy route, change the sponsor secrets, or revoke existing app caches during this rollout.
+The previous ProfileAudit-account IDs remain second in the server allowlists only to preserve already-completed purchases during migration. No public LocalClaw page may link to that checkout. Already-issued keys remain valid. Do not delete the legacy route, change the sponsor secrets, or revoke existing app caches during this rollout.
 
 ## Endpoints
 
 ### `POST /api/license/stripe-webhook`
 
-This endpoint verifies the raw request with `LOCALCLAW_STRIPE_WEBHOOK_SECRET`. It accepts a paid licence only when all of the following match:
+This endpoint verifies the raw request with `LOCALCLAW_STRIPE_WEBHOOK_SECRET`. During a Stripe account migration it can also accept `LOCALCLAW_STRIPE_WEBHOOK_SECRET_SECONDARY`, so an already-paid customer is never invalidated while new checkouts move accounts. It accepts a paid licence only when all of the following match:
 
 - live/test mode equals `STRIPE_EXPECTED_LIVEMODE`;
 - Checkout mode is `payment` and status is `complete`;
@@ -156,6 +156,7 @@ The private JWK must never be added to source, logs, artifacts, test fixtures, o
 Cloudflare secrets:
 
 - `LOCALCLAW_STRIPE_WEBHOOK_SECRET` — dedicated app-purchase webhook secret, already provisioned; do not replace the sponsor webhook secret.
+- `LOCALCLAW_STRIPE_WEBHOOK_SECRET_SECONDARY` — optional second app-purchase webhook secret used only for a zero-downtime Stripe account migration.
 - `LICENSE_SIGNING_PRIVATE_JWK` — current Ed25519 private JWK.
 - `LICENSE_KEY_DERIVATION_SECRET` — independent random HMAC secret, at least 32 bytes.
 
