@@ -107,6 +107,7 @@ window.HOME_INDEX_LOGOS = {
     f5: 'swivid-avatar',
     fish: 'fishaudio',
     firered: 'huggingface-avatar',
+    gepard: 'huggingface-avatar',
     gptsovits: 'github',
     'granite-speech': 'ibm',
     higgs: 'bosonai-avatar',

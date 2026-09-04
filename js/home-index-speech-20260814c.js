@@ -713,6 +713,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 14
   },
   {
+    "id": "gepard-1.0",
+    "name": "Gepard 1.0",
+    "developer": "Nineninesix",
+    "family": "gepard",
+    "license": "Apache 2.0 model; NVIDIA Open Model License codec",
+    "releaseDate": "2026-06",
+    "quality": 8.9,
+    "speed": 9.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 2.3
+  },
+  {
     "id": "cohere-transcribe-03-2026",
     "name": "Cohere Transcribe 03-2026",
     "developer": "Cohere",

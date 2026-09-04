@@ -208,7 +208,7 @@ for (const directory of ['image', 'video', '3d', 'music', 'vision']) {
 
 const speechDetailPages = fs.readdirSync(path.join(ROOT, 'tts')).filter(name => name.endsWith('.html') && name !== 'index.html');
 const speechWithChooser = speechDetailPages.filter(file => fs.readFileSync(path.join(ROOT, 'tts', file), 'utf8').includes('data-install-choice'));
-if (speechWithChooser.length !== 82) errors.push(`Expected 82 local speech pages with app choosers; found ${speechWithChooser.length}`);
+if (speechWithChooser.length !== 83) errors.push(`Expected 83 local speech pages with app choosers; found ${speechWithChooser.length}`);
 for (const file of speechWithChooser) {
   const html = fs.readFileSync(path.join(ROOT, 'tts', file), 'utf8');
   const cardCount = (html.match(/class="install-choice-card\b/g) || []).length;

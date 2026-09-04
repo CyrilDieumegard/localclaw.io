@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 81 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 82 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 83 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 83 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 82 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 83 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">85</strong> speech records: <strong style="color:#fff;">82 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">86</strong> speech records: <strong style="color:#fff;">83 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>82 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>83 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3086,6 +3086,31 @@
                 voices: "N/A (ASR: outputs text)",
                 context: "60-minute single-pass ASR with diarization + timestamps",
                 license: "MIT"
+            },
+            {
+                id: "gepard-1.0",
+                name: "Gepard 1.0",
+                developer: "Nineninesix",
+                family: "gepard",
+                description: "Apache-licensed autoregressive TTS model built for real-time dialogue. Gepard streams audio frames as text arrives, supports short-clip voice cloning, and ships downloadable safetensors weights with official PyTorch and vLLM inference paths.",
+                languages: ["en", "es", "pt", "nl"],
+                languageCount: 4,
+                features: ["cloning", "streaming", "realtime", "low-latency", "multilingual"],
+                hardware: ["gpu"],
+                sizeGB: 2.3,
+                sizeCategory: "medium",
+                quality: 8.9,
+                speed: 9.2,
+                latency: "ultra-low",
+                releaseDate: "2026-06",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/nineninesix/gepard-1.0",
+                installCommand: "git clone https://github.com/nineninesix-ai/gepard-inference",
+                supportedFormats: ["pytorch", "safetensors", "vllm"],
+                voices: "Zero-shot voice cloning from a short reference clip",
+                context: "555.7M params, 22.05 kHz output, real-time vLLM path reports about 50 ms first audio chunk on RTX 5090; NVIDIA NanoCodec dependency uses NVIDIA Open Model License",
+                license: "Apache 2.0 model; NVIDIA Open Model License codec"
             },
             {
                 id: "cohere-transcribe-03-2026",
