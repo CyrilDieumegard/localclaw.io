@@ -24,7 +24,7 @@ requireText(homepage, 'data-sponsor-empty-slot', 'Empty sponsor inventory needs 
 requireText(homepage, "trackHomeGoal('sponsor_empty_slot_click'", 'Empty sponsor slot clicks need a dedicated goal');
 requireText(homepage, "placement: offer.dataset.sponsorPlacement || 'unknown'", 'Empty sponsor slot goals must retain the exact placement key');
 requireText(homepage, "slot.removeAttribute('data-sponsor-empty-slot')", 'Hydrated sponsor campaigns must remove the empty-slot marker');
-requireText(index, 'js/home-index-20260814g.js?v=20260826g', 'Homepage analytics JavaScript cache key was not updated');
+requireText(index, 'js/home-index-20260814g.js?v=20260905a', 'Homepage analytics JavaScript cache key was not updated');
 requireText(homepage, "trackHomeGoal('funnel_account_open'", 'Homepage account funnel entry tracking is missing');
 requireText(homepage, 'localclaw_funnel_landing_page', 'Homepage funnel landing-page context is missing');
 requireText(homepage, 'source_control:', 'Homepage sort goals must distinguish the select from column-header clicks');
@@ -52,7 +52,7 @@ requireText(homepage, 'data-multimodal-more=', 'Homepage multimodal progressive-
 requireText(homepage, "trackHomeGoal('home_machine_select'", 'Saved-machine selection needs a dedicated privacy-safe goal');
 requireText(homepage, 'machine_count: savedMachines.length', 'Machine selection telemetry must be aggregate-only');
 requireText(homepage, 'ram_bucket: ramBucket(machine.ramGb)', 'Machine selection telemetry must bucket RAM');
-requireText(homepage, 'tabindex="${selected ? \'0\' : \'-1\'}"', 'Saved-machine radios must use a roving tab stop');
+requireText(homepage, 'tabindex="${selected || (!machineFiltersEnabled && index === 0) ? \'0\' : \'-1\'}"', 'Saved-machine radios must use a roving tab stop');
 requireText(homepage, "event.key === 'ArrowRight' || event.key === 'ArrowDown'", 'Saved-machine radios must support arrow-key selection');
 const machineSelectionGoal = homepage.match(/trackHomeGoal\('home_machine_select',[\s\S]*?\n\s*}\);/);
 if (!machineSelectionGoal || /machine_(?:id|name)|\bid\s*:|\bname\s*:/.test(machineSelectionGoal[0])) {

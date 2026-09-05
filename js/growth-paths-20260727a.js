@@ -301,7 +301,17 @@
         if (!source) return;
         window.setTimeout(() => {
             if (typeof App !== 'undefined' && typeof App.startFlow === 'function' && App.state && App.state.view === 'hero') {
-                App.startFlow('guided', `${source}_deep_link`);
+                const prefill = {};
+                const ram = Number(params.get('ram'));
+                if (Number.isInteger(ram) && ram >= 4 && ram <= 2048) {
+                    prefill.ramGb = ram;
+                    prefill.level = ram <= 8 ? 'light' : ram <= 16 ? 'standard' : ram <= 32 ? 'power' : 'beast';
+                }
+                const os = params.get('os');
+                if (['mac', 'mac-intel', 'windows', 'linux'].includes(os)) prefill.os = os === 'windows' ? 'win' : os;
+                const usage = params.get('usage');
+                if (['chat', 'code', 'reasoning', 'vision', 'mix'].includes(usage)) prefill.usage = usage;
+                App.startFlow('guided', `${source}_deep_link`, prefill);
             }
         }, 0);
     }

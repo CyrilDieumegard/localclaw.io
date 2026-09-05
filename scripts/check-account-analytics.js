@@ -113,7 +113,7 @@ for (const forbidden of ['email:', 'user_id:', 'machine_id:', 'machine_name:', '
 }
 
 const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260823a');
-const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260825a');
+const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260905a');
 assert(helperIndex >= 0 && accountIndex > helperIndex, 'Account analytics helper must load before the account client');
 
 console.log(`Account analytics checks passed: ${requiredEvents.length} funnel events, safe-property allowlist and once-only deduplication.`);

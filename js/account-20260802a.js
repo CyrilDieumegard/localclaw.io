@@ -1742,8 +1742,7 @@
             closeMachineDialog();
             localStorage.removeItem(PENDING_PLAN_KEY);
             localStorage.removeItem(PENDING_MACHINE_KEY);
-            await loadWorkspace(data.machine?.id || id);
-            showToast(id ? 'Machine updated.' : 'Machine added.');
+            await refreshSavedPlanWorkspace(data.machine?.id || id, id ? 'Machine updated.' : 'Machine added.');
         } catch (error) {
             if (!failureTracked) {
                 trackAccountGoal(id ? 'machine_update_failed' : 'machine_create_failed', {
@@ -1791,7 +1790,9 @@
         const title = document.querySelector('#auth-gate .lc-auth-panel h2');
         const copy = document.querySelector('#auth-gate .lc-auth-panel > p');
         if (title) title.textContent = 'Save this Local AI Plan';
-        if (copy) copy.textContent = 'Your recommendation is ready. Continue with Google once and LocalClaw will save the plan automatically.';
+        if (copy) copy.textContent = pending.machine.accelerator === 'nvidia' && pending.machine.vramGb === null
+            ? 'Your recommendation is ready. Continue with Google, then confirm your GPU memory to save this plan.'
+            : 'Your recommendation is ready. Continue with Google once and LocalClaw will save the plan automatically.';
         if (elements.googleSignIn) {
             const label = [...elements.googleSignIn.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
             if (label) label.textContent = ' Save my plan with Google';
@@ -1815,7 +1816,7 @@
                     cpuModel: String(machine.cpuModel || '').slice(0, 80),
                     gpuModel: String(machine.gpuModel || '').slice(0, 80),
                     ramGb: Number(machine.ramGb),
-                    vramGb: machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb),
+                    vramGb: machine.vramGb == null || machine.vramGb === '' ? null : Number(machine.vramGb),
                     useCase: String(machine.useCase || 'general'),
                     priority: String(machine.priority || 'balanced'),
                     isPrimary: state.machines.length === 0,
@@ -1840,10 +1841,9 @@
         if (!['general', 'chat', 'coding', 'reasoning', 'vision', 'creative'].includes(String(machine.useCase || ''))) return false;
         if (!['balanced', 'quality', 'speed', 'memory'].includes(String(machine.priority || ''))) return false;
         const ram = Number(machine.ramGb);
-        const vram = machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb);
+        const vram = machine.vramGb == null || machine.vramGb === '' ? null : Number(machine.vramGb);
         if (!Number.isFinite(ram) || ram < 4 || ram > 2048) return false;
         if (vram !== null && (!Number.isFinite(vram) || vram < 0 || vram > 256)) return false;
-        if (machine.accelerator === 'nvidia' && vram === null) return false;
         return true;
     }
 
@@ -2000,13 +2000,15 @@
                 top_model: pending.topModelId,
                 ...machineAnalytics(selectedMachine)
             });
-            if (preferencesUpdated) await loadWorkspace(selectedMachine.id);
+            if (preferencesUpdated) {
+                await refreshSavedPlanWorkspace(selectedMachine.id, `Plan linked to ${selectedMachine.name}. No duplicate machine created.`);
+            }
             else {
                 renderMachineList();
                 renderSelectedMachine();
                 cachePrimaryMachine();
+                showToast(`Plan linked to ${selectedMachine.name}. No duplicate machine created.`);
             }
-            showToast(`Plan linked to ${selectedMachine.name}. No duplicate machine created.`);
         } catch (error) {
             if (preferencesUpdated) {
                 trackAccountGoal('machine_update_failed', {
@@ -2043,6 +2045,14 @@
         const pending = readPendingPlan();
         if (!pending || state.saving) return;
 
+        // The finder permits skipping exact GPU memory. Keep the handoff until
+        // the user supplies it; the existing form requires VRAM for NVIDIA.
+        if (pending.machine.accelerator === 'nvidia' && pending.machine.vramGb === null) {
+            openMachineDialog({ ...pending.machine, id: '' });
+            elements.formError.textContent = 'Enter your NVIDIA GPU memory (VRAM in GB) to save this plan. Your recommendation has been kept.';
+            return;
+        }
+
         const resolution = resolvePendingPlanMachine(state.machines, pending);
         if (resolution.matches.length) {
             trackMachineMatchShown(pending, resolution.matches, resolution.matchSource);
@@ -2066,6 +2076,7 @@
         state.saving = true;
         let response = null;
         let data = null;
+        let savedMachineId = null;
         try {
             trackAccountGoal('machine_create_started', {
                 source: 'account_plan_handoff',
@@ -2098,11 +2109,7 @@
                 is_first_machine: state.machines.length === 0,
                 ...machineAnalytics(pending.machine)
             });
-            await loadWorkspace(data.machine.id);
-            state.viewMode = 'compatible';
-            renderMachineList();
-            renderSelectedMachine();
-            showToast('Plan saved. We will keep these matches current.');
+            savedMachineId = data.machine.id;
         } catch (error) {
             const errorCode = analytics?.errorCode(data?.error, 'automatic_plan_save_failed') || 'automatic_plan_save_failed';
             trackAccountGoal('plan_save_failed', {
@@ -2120,6 +2127,30 @@
             showToast('One quick review is needed before saving this plan.', 'error');
         } finally {
             state.saving = false;
+        }
+
+        if (!savedMachineId) return;
+        await refreshSavedPlanWorkspace(savedMachineId, 'Plan saved. We will keep these matches current.');
+    }
+
+    async function refreshSavedPlanWorkspace(machineId, successMessage) {
+        // A failed refresh cannot undo a successful POST. Never reopen a new
+        // machine form after persistence, which could create a duplicate.
+        try {
+            const refreshed = await loadWorkspace(machineId);
+            if (refreshed === false) throw new Error('workspace_refresh_failed');
+            state.viewMode = 'compatible';
+            renderMachineList();
+            renderSelectedMachine();
+            showToast(successMessage);
+        } catch {
+            trackAccountGoal('account_api_error', {
+                source: 'account_plan_handoff',
+                error_stage: 'workspace_refresh',
+                error_code: 'workspace_refresh_failed',
+                online: navigator.onLine !== false
+            });
+            showToast('Your plan is saved. Reload this page to display it.', 'error');
         }
     }
 

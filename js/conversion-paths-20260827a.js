@@ -14,14 +14,21 @@
         const system = form.elements.system.value;
         const ram = Number.parseInt(form.elements.ram.value, 10) || 16;
         const usage = form.elements.goal.value || 'chat';
-        const app = window.App;
+        const app = typeof App !== 'undefined' ? App : window.App;
         window.__localClawQuickFit = {system, ram, usage};
-        window.sessionStorage.setItem('localclawQuickFit', JSON.stringify(window.__localClawQuickFit));
+        try { window.sessionStorage.setItem('localclawQuickFit', JSON.stringify(window.__localClawQuickFit)); } catch (_error) {}
+        const previousProfile = form._fitProfile;
+        const platform = system === 'mac' || system === 'mac-intel' ? 'macos' : system;
+        const sameSystem = previousProfile && previousProfile.platform === platform && (system === 'mac') === (previousProfile.accelerator === 'apple-silicon');
+        const profile = {ramGb: ram, platform, accelerator: system === 'mac' ? 'apple-silicon' : sameSystem ? previousProfile.accelerator : 'cpu', vramGb: sameSystem ? previousProfile.vramGb : null, useCase: usage, context: sameSystem ? previousProfile.context : '8k'};
+        window.LocalClawFitContext?.select(profile);
 
         if (!app || !app.state || typeof app.calculateResults !== 'function') {
             const target = new URL('/', window.location.origin);
             target.searchParams.set('fitRam', String(ram));
             target.searchParams.set('fitGoal', usage);
+            target.searchParams.set('fitPlatform', profile.platform);
+            target.searchParams.set('fitAccelerator', profile.accelerator);
             target.hash = 'llm-index';
             window.location.assign(target.toString());
             return;
@@ -33,13 +40,18 @@
         app.state.answers = {
             parsedRam: ram,
             parsedOS: system,
-            gpu: system === 'mac' ? 'apple' : 'cpu',
+            gpu: profile.accelerator === 'apple-silicon' ? 'apple' : profile.accelerator,
+            vram: profile.vramGb,
             usage,
             priority: 'balanced',
-            context: '8k'
+            context: profile.context
         };
         app.state.flowSource = 'home_quick_fit';
         app.state.trackedStepViews = {};
+        app.state.prefilledSteps = [];
+        app.state.planHandoffStarted = false;
+        app.state.existingMachineMatchTracked = false;
+        app.trackGoal('recommender_start', {flow: 'pro', source: 'home_quick_fit'});
         app.calculateResults();
     };
 
@@ -56,13 +68,13 @@
         form.className = 'lc-quick-fit';
         form.setAttribute('aria-label', 'Quick local AI compatibility check');
         form.innerHTML = `
-            <label><span>System</span><select name="system" aria-label="Computer system"><option value="mac">Apple Silicon</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
+            <label><span>System</span><select name="system" aria-label="Computer system" required><option value="" disabled>Choose your system</option><option value="mac">Apple Silicon</option><option value="mac-intel">Intel Mac</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
             <label><span>Memory</span><select name="ram" aria-label="System memory"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option><option value="128">128 GB</option></select></label>
             <label><span>Goal</span><select name="goal" aria-label="Primary AI goal"><option value="chat">Private chat</option><option value="code" selected>Coding</option><option value="reasoning">Reasoning</option><option value="vision">Vision</option></select></label>
             <button type="submit">Show my models <span aria-hidden="true">→</span></button>
         `;
 
-        const activeAnswers = window.App?.state?.answers || {};
+        const activeAnswers = (typeof App !== 'undefined' ? App : window.App)?.state?.answers || {};
         let sessionFit = {};
         try {
             sessionFit = JSON.parse(window.sessionStorage.getItem('localclawQuickFit') || '{}');
@@ -70,12 +82,46 @@
             sessionFit = {};
         }
         const activeFit = window.__localClawQuickFit || sessionFit;
-        const activeSystem = ['mac', 'windows', 'linux'].includes(activeFit.system || activeAnswers.parsedOS) ? (activeFit.system || activeAnswers.parsedOS) : null;
+        const activeSystem = ['mac', 'mac-intel', 'windows', 'linux'].includes(activeFit.system || activeAnswers.parsedOS) ? (activeFit.system || activeAnswers.parsedOS) : null;
         const activeRam = String(activeFit.ram || activeAnswers.parsedRam || '');
         const activeGoal = activeFit.usage || activeAnswers.usage;
         if (activeSystem) form.elements.system.value = activeSystem;
         if ([...form.elements.ram.options].some((option) => option.value === activeRam)) form.elements.ram.value = activeRam;
         if ([...form.elements.goal.options].some((option) => option.value === activeGoal)) form.elements.goal.value = activeGoal;
+
+        const syncProfile = (profile) => {
+            if (!profile || form.dataset.edited === 'true') return;
+            form._fitProfile = profile;
+            form.elements.system.value = profile.platform === 'macos' || profile.platform === 'mac'
+                ? profile.accelerator === 'apple-silicon' ? 'mac' : 'mac-intel' : ['windows', 'linux'].includes(profile.platform) ? profile.platform : '';
+            const memory = String(profile.ramGb);
+            if (![...form.elements.ram.options].some(option => option.value === memory)) {
+                const option = document.createElement('option'); option.value = memory; option.textContent = `${memory} GB`; form.elements.ram.append(option);
+            }
+            form.elements.ram.value = memory;
+            const goal = profile.useCase === 'coding' ? 'code' : profile.useCase === 'general' ? 'chat' : profile.useCase;
+            if ([...form.elements.goal.options].some(option => option.value === goal)) form.elements.goal.value = goal;
+        };
+        const explicitProfile = window.LocalClawFitContext?.fromSearch();
+        let savedProfile = null;
+        try { savedProfile = JSON.parse(localStorage.getItem('localclaw_primary_machine') || 'null'); } catch (_error) {}
+        syncProfile(explicitProfile || window.LocalClawFitContext?.normalize(savedProfile));
+        form.addEventListener('change', () => { form.dataset.edited = 'true'; });
+        const onProfile = (event) => {
+            if (!form.isConnected) {
+                window.removeEventListener('localclaw:fit-context', onProfile);
+                window.removeEventListener('localclaw:home-machine-selection', onProfile);
+                return;
+            }
+            if (event.type === 'localclaw:home-machine-selection') {
+                if (event.detail.explicit) form.dataset.edited = 'false';
+                syncProfile(window.LocalClawFitContext?.normalize(event.detail.machine));
+            } else syncProfile(event.detail);
+        };
+        window.addEventListener('localclaw:fit-context', onProfile);
+        window.addEventListener('localclaw:home-machine-selection', onProfile);
+        const offer = document.querySelector('[aria-labelledby="openclaw-launch-title"]');
+        if (offer) hero.closest('.lc-index-hero').insertAdjacentElement('afterend', offer);
 
         const actions = hero.querySelector('.lc-index-hero__actions');
         if (actions) {
@@ -121,11 +167,11 @@
                 const fitControl = document.getElementById('lc-index-fit-filter');
                 const sortControl = document.getElementById('lc-index-sort');
                 const searchControl = document.getElementById('lc-index-search');
-                if (fitRam && ramControl && ramControl.value !== fitRam) {
+                if (!window.LocalClawFitContext && fitRam && ramControl && ramControl.value !== fitRam) {
                     ramControl.value = fitRam;
                     ramControl.dispatchEvent(new Event('change', {bubbles: true}));
                 }
-                if (fitRam && fitControl && fitControl.value !== 'fits') {
+                if (!window.LocalClawFitContext && fitRam && fitControl && fitControl.value !== 'fits') {
                     fitControl.disabled = false;
                     fitControl.value = 'fits';
                     fitControl.dispatchEvent(new Event('change', {bubbles: true}));
@@ -144,7 +190,7 @@
                 }
                 if (deepLinkAttempts === 0) document.getElementById('llm-index')?.scrollIntoView({block: 'start'});
                 deepLinkAttempts += 1;
-                if (deepLinkAttempts < 40) window.setTimeout(applyDeepLinkFilters, 250);
+                if (deepLinkAttempts < 2) window.setTimeout(applyDeepLinkFilters, 250);
             };
             window.requestAnimationFrame(applyDeepLinkFilters);
         }

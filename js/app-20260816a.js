@@ -13,6 +13,7 @@ const App = {
         selectedModelIndex: 0, // index of the selected model in recommendations
         flowSource: 'model_finder',
         trackedStepViews: {},
+        prefilledSteps: [],
         planHandoffStarted: false,
         existingMachineMatchTracked: false,
     },
@@ -53,6 +54,7 @@ const App = {
             activeFlow: this.state.activeFlow,
             currentStepIndex: this.state.currentStepIndex,
             answers: this.state.answers,
+            prefilledSteps: this.state.prefilledSteps,
         })));
     },
 
@@ -66,11 +68,25 @@ const App = {
         }
     },
 
-    startFlow(flowId, source = 'model_finder') {
+    startFlow(flowId, source = 'model_finder', prefill = {}) {
         this.pushState();
         this.state.activeFlow = flowId;
         this.state.currentStepIndex = 0;
         this.state.answers = {};
+        this.state.prefilledSteps = [];
+        const steps = APP_DATA.flows[flowId] || [];
+        for (const step of steps) {
+            if (step.options?.some(option => option.value === prefill[step.id])) {
+                this.state.answers[step.id] = prefill[step.id];
+                this.state.prefilledSteps.push(step.id);
+            }
+        }
+        if (flowId === 'guided' && this.state.prefilledSteps.includes('level') && Number.isInteger(prefill.ramGb) && prefill.ramGb >= 4 && prefill.ramGb <= 2048) {
+            this.state.answers.ramGb = prefill.ramGb;
+        }
+        while (this.state.prefilledSteps.includes(steps[this.state.currentStepIndex]?.id)) this.state.currentStepIndex++;
+        this.state.planHandoffStarted = false;
+        this.state.existingMachineMatchTracked = false;
         this.state.flowSource = source;
         this.state.trackedStepViews = {};
         this.trackGoal('recommender_start', {flow: flowId, source});
@@ -80,7 +96,8 @@ const App = {
         } else {
             this.state.view = 'flow';
         }
-        this.render();
+        if (flowId !== 'pro' && this.state.currentStepIndex >= steps.length) this.calculateResults();
+        else this.render();
     },
 
     reset() {
@@ -95,6 +112,7 @@ const App = {
             selectedModelIndex: 0,
             flowSource: 'model_finder',
             trackedStepViews: {},
+            prefilledSteps: [],
             planHandoffStarted: false,
             existingMachineMatchTracked: false,
             _contextNote: false,
@@ -114,11 +132,30 @@ const App = {
         this.render();
     },
 
+    guidedRamGb() {
+        return Number(this.state.answers.ramGb) || ({ light: 8, standard: 16, power: 32, beast: 64 }[this.state.answers.level] || 8);
+    },
+
+    modelLink(model) {
+        const href = `/models/${encodeURIComponent(model.id)}`;
+        const profile = {...this.buildCurrentMachineProfile(), context: this.state.answers.context || '8k'};
+        return this.escapeHtml(window.LocalClawFitContext?.withMachine(href, profile) || href);
+    },
+
+    editPrefilledMemory() {
+        this.pushState();
+        this.state.prefilledSteps = (this.state.prefilledSteps || []).filter(key => key !== 'level');
+        delete this.state.answers.ramGb;
+        delete this.state.answers.level;
+        this.state.currentStepIndex = APP_DATA.flows[this.state.activeFlow].findIndex(step => step.id === 'level');
+        this.render();
+    },
+
     buildCurrentMachineProfile() {
         const answers = this.state.answers || {};
         const levelRam = { light: 8, standard: 16, power: 32, beast: 64 };
         const ramGb = this.state.activeFlow === 'guided'
-            ? (levelRam[answers.level] || 8)
+            ? this.guidedRamGb()
             : this.state.activeFlow === 'quick'
                 ? (answers.ram === 'unknown' ? 8 : Number.parseInt(answers.ram, 10) || 8)
                 : (answers.parsedRam || 16);
@@ -129,7 +166,7 @@ const App = {
                 ? 'windows'
                 : 'linux';
         const isApple = answers.gpu === 'apple' || (this.state.activeFlow === 'guided' && rawPlatform === 'mac');
-        const hasNvidia = String(answers.gpu || '').startsWith('nvidia') || (!isApple && Number.parseInt(answers.vram, 10) > 0);
+        const hasNvidia = String(answers.gpu || '').startsWith('nvidia') || (!isApple && answers.gpu !== 'amd' && Number.parseInt(answers.vram, 10) > 0);
         const accelerator = isApple ? 'apple-silicon' : hasNvidia ? 'nvidia' : answers.gpu === 'amd' ? 'amd' : 'cpu';
         const usage = answers.usage === 'code' ? 'coding' : answers.usage === 'mix' ? 'general' : (answers.usage || 'general');
 
@@ -140,7 +177,7 @@ const App = {
             cpuModel: '',
             gpuModel: '',
             ramGb,
-            vramGb: accelerator === 'nvidia' ? (Number.parseInt(answers.vram, 10) || null) : null,
+            vramGb: ['nvidia', 'amd'].includes(accelerator) ? (Number.parseInt(answers.vram, 10) || null) : null,
             useCase: usage,
             priority: answers.priority || 'balanced',
             isPrimary: false,
@@ -279,9 +316,15 @@ const App = {
             source: String(this.state.flowSource || 'model_finder')
         });
         this.state.answers[key] = value;
+        if (key === 'level') delete this.state.answers.ramGb;
+        this.state.currentStepIndex++;
+        while ((this.state.prefilledSteps || []).includes(flowSteps[this.state.currentStepIndex]?.id)) this.state.currentStepIndex++;
+        if (this.state.activeFlow === 'guided') {
+            const unanswered = flowSteps.findIndex(step => this.state.answers[step.id] === undefined);
+            this.state.currentStepIndex = unanswered < 0 ? flowSteps.length : unanswered;
+        }
 
-        if (this.state.currentStepIndex < flowSteps.length - 1) {
-            this.state.currentStepIndex++;
+        if (this.state.currentStepIndex < flowSteps.length) {
             this.render();
         } else {
             this.calculateResults();
@@ -299,7 +342,7 @@ const App = {
         // --- Determine RAM ---
         if (this.state.activeFlow === 'guided') {
             const ramMap = { light: 8, standard: 16, power: 32, beast: 64 };
-            ramLimit = ramMap[answers.level] || 8;
+            ramLimit = this.guidedRamGb();
         } else if (this.state.activeFlow === 'quick') {
             ramLimit = answers.ram === 'unknown' ? 8 : parseInt(answers.ram);
         } else if (this.state.activeFlow === 'pro') {
@@ -335,13 +378,8 @@ const App = {
         }
 
         const machine = {
+            ...this.buildCurrentMachineProfile(),
             name: 'Finder profile',
-            platform: ['mac', 'macos', 'mac-intel'].includes(String(answers.os || answers.parsedOS || '').toLowerCase())
-                ? 'macos'
-                : (answers.os || answers.parsedOS || (isAppleSilicon ? 'macos' : 'other')),
-            accelerator: isAppleSilicon ? 'apple-silicon' : String(answers.gpu || '').startsWith('nvidia') ? 'nvidia' : 'cpu',
-            ramGb: ramLimit,
-            vramGb: vramGB || null,
             useCase: usage,
             priority,
             context: contextTarget
@@ -948,8 +986,7 @@ const App = {
         try {
             // Lire l'OS directement depuis le state de l'app (source unique de vérité)
             const answers = this.state.answers || {};
-            const osRaw = answers.os || 'mac';
-            // Normalisation : 'win', 'windows' → 'win' ; tout le reste → 'mac'
+            const osRaw = this.buildCurrentMachineProfile().platform;
             const isWindows = (osRaw === 'win' || osRaw === 'windows');
             const isLinux = osRaw === 'linux';
 
@@ -973,7 +1010,7 @@ const App = {
             const modelName = String(selectedModel?.name || 'your recommended model');
             const modelId = encodeURIComponent(String(selectedModel?.id || ''));
             const quant = String(selectedModel?.recommended_quant || 'recommended quant');
-            const ram = String(answers.ram || '');
+            const ram = String(this.buildCurrentMachineProfile().ramGb);
             const pricingHref = `pricing.html?from=recommender&amp;model=${modelId}&amp;name=${encodeURIComponent(modelName)}&amp;quant=${encodeURIComponent(quant)}&amp;ram=${encodeURIComponent(ram)}`;
 
             // macOS → contextual bridge from the free recommendation to the app.
@@ -1030,7 +1067,7 @@ const App = {
         let ramLimit = 8;
         if (this.state.activeFlow === 'guided') {
             const ramMap = { light: 8, standard: 16, power: 32, beast: 64 };
-            ramLimit = ramMap[answers.level] || 8;
+            ramLimit = this.guidedRamGb();
         } else if (this.state.activeFlow === 'quick') {
             ramLimit = answers.ram === 'unknown' ? 8 : parseInt(answers.ram);
         } else if (this.state.activeFlow === 'pro') {
@@ -1985,8 +2022,12 @@ const App = {
 
     renderFlowStep(container) {
         const step = APP_DATA.flows[this.state.activeFlow][this.state.currentStepIndex];
-        const total = APP_DATA.flows[this.state.activeFlow].length;
-        const progress = this.getProgressPercent();
+        const visibleSteps = APP_DATA.flows[this.state.activeFlow].filter(item => !(this.state.prefilledSteps || []).includes(item.id));
+        const total = visibleSteps.length;
+        const displayStep = visibleSteps.findIndex(item => item.id === step.id) + 1;
+        const progress = (displayStep / total) * 100;
+        const memoryNotice = this.state.answers.ramGb
+            ? `<p class="mb-6 rounded-lg border border-claw-primary/30 p-3 text-center text-sm text-claw-muted">Using <strong class="text-white">${this.state.answers.ramGb} GB</strong> from your guide. <button type="button" onclick="App.editPrefilledMemory()" class="ml-2 text-claw-primary underline">Change memory</button></p>` : '';
         const isMac = this.state.answers.os === 'mac';
         const stepViewKey = `${this.state.activeFlow}:${this.state.currentStepIndex}`;
         if (!this.state.trackedStepViews[stepViewKey]) {
@@ -2026,7 +2067,7 @@ const App = {
                         <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         Back
                     </button>
-                    <span class="text-xs font-bold text-claw-primary tracking-widest uppercase">Step ${this.state.currentStepIndex + 1}/${total}</span>
+                    <span class="text-xs font-bold text-claw-primary tracking-widest uppercase">Step ${displayStep}/${total}</span>
                 </div>
 
                 <!-- Progress Bar -->
@@ -2034,6 +2075,7 @@ const App = {
                     <div class="h-full bg-gradient-to-r from-claw-primary to-orange-500 rounded-full transition-all duration-500 ease-out" style="width: ${progress}%"></div>
                 </div>
 
+                ${memoryNotice}
                 <!-- Question -->
                 <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-center mb-3 text-white leading-tight">${step.question}</h2>
                 ${step.subtitle ? `<p class="text-claw-muted text-center mb-12 text-sm">${step.subtitle}</p>` : '<div class="mb-12"></div>'}
@@ -2228,7 +2270,7 @@ const App = {
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-xl font-bold text-white flex items-center gap-3">
-                                <a href="/models/${model.id}" class="hover:text-claw-primary transition-colors" onclick="event.stopPropagation()" title="View full details">${model.name}</a>
+                                <a href="${this.modelLink(model)}" class="hover:text-claw-primary transition-colors" onclick="event.stopPropagation()" title="View full details">${model.name}</a>
                                 <span class="text-xs font-mono text-claw-muted font-normal">${model.params}</span>
                             </h3>
                             <div class="flex flex-wrap gap-1.5 mt-3">
@@ -2288,7 +2330,7 @@ const App = {
                             <span class="text-[9px] text-claw-primary uppercase font-bold">Quant</span>
                             <span class="text-xs text-white font-mono font-bold">${model.recommended_quant}</span>
                         </div>
-                        <a href="/models/${model.id}" class="p-2 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="View full details">
+                        <a href="${this.modelLink(model)}" class="p-2 rounded-lg border border-white/10 text-claw-muted hover:text-claw-primary hover:border-claw-primary/30 transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="View full details">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </a>
                         <button onclick="App.toggleCompare('${model.id}')" class="p-2 rounded-lg border ${isCompared ? 'border-claw-primary bg-claw-primary/20 text-claw-primary' : 'border-white/10 text-claw-muted hover:text-white hover:border-white/20'} transition-all h-[52px] w-10 flex items-center justify-center shrink-0" title="Compare">
@@ -2326,7 +2368,7 @@ const App = {
                         <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
                             ${savedMachine ? `Use ${savedMachineName}` : 'Keep this plan updated'}
                         </button>
-                        <a href="/models/${selectedModel.id}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
+                        <a href="${this.modelLink(selectedModel)}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
                         <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'Saved machine recognized on this browser. LocalClaw verifies it again in your account.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
                     </div>
                 </div>

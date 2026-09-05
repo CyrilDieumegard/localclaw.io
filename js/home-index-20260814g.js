@@ -65,7 +65,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const parsed = Number.parseInt(value, 10);
             return Number.isFinite(parsed) && parsed >= 4 && parsed <= 2048 ? parsed : 0;
         };
+        const fitContext = window.LocalClawFitContext;
+        let selectedConfiguration = fitContext?.fromSearch() || null;
+        let explicitSelection = Boolean(selectedConfiguration);
         let machineRam = (() => {
+            if (selectedConfiguration) return selectedConfiguration.ramGb;
             const queryRam = normalizeMachineRam(new URLSearchParams(window.location.search).get('ram'));
             if (queryRam) return queryRam;
             try {
@@ -271,6 +275,13 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return result || speechScore(b) - speechScore(a) || finite(b.quality) - finite(a.quality) || finite(b.speed) - finite(a.speed) || nameCompare(a, b) || speechCatalogueOrder.get(a.id) - speechCatalogueOrder.get(b.id);
         };
         const scoreMarkup = (value, title, modifier = '') => `<span class="lc-index-score ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>${scoreLabel(value)}</strong><small>/10</small></span>`;
+        const currentFitMachine = () => machineFiltersEnabled && activeMachine
+            ? activeMachine
+            : selectedConfiguration || (machineRam ? {ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'} : null);
+        const modelHref = (model) => {
+            const href = `/models/${encodeURIComponent(model.id)}`;
+            return escapeHtml(fitContext ? fitContext.withMachine(href, currentFitMachine()) : href);
+        };
         const machineFit = (model) => {
             if (!machineRam) return {key: 'unset', label: 'Set RAM'};
             const sharedRanking = window.LocalClawModelRanking;
@@ -278,21 +289,20 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (!sharedRanking.isLocallyEligible(model)) {
                 return {key: 'too-large', label: 'Unavailable'};
             }
-            const machine = machineFiltersEnabled && activeMachine
-                ? {...activeMachine, context: '8k'}
-                : {ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'};
+            const machine = currentFitMachine();
+            if (fitContext) return fitContext.assess(machine, model);
             const result = sharedRanking.calculateHardwareFit(machine, model);
             if (!result.compatible) return {key: 'too-large', label: 'Too large'};
             if (result.fitState === 'tight') return {key: 'tight', label: 'Tight'};
-            return {key: 'fits', label: result.fitState === 'comfortable' ? 'Comfortable' : 'Good fit'};
+            return {key: 'fits', label: result.fitState === 'comfortable' ? 'Comfortable' : 'Estimated fit'};
         };
         const fitMarkup = (model) => {
             const fit = machineFit(model);
             if (fit.key === 'unset') return '';
-            const memoryKind = activeMachine && machineFiltersEnabled && activeMachine.accelerator === 'apple-silicon'
+            const memoryKind = currentFitMachine()?.accelerator === 'apple-silicon'
                 ? 'unified memory'
                 : 'RAM';
-            const title = `${fit.label} for ${machineRam} GB ${memoryKind} using the shared LocalClaw memory-fit rules with system and 8k-context headroom.`;
+            const title = `${fit.label} for ${machineRam} GB ${memoryKind}. ${fit.note || '8K context estimate with system memory reserved. Longer context and other apps need more memory.'}`;
             return `<span class="lc-index-fit is-${fit.key}" title="${escapeHtml(title)}">${escapeHtml(fit.label)}</span>`;
         };
         const sponsorAudienceSnapshot = Object.freeze({
@@ -378,7 +388,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <tr>
                     <td class="lc-index-rank">${String(offset + index + 1).padStart(3, '0')}</td>
                     <td>
-                        <a class="lc-index-model-link" href="/models/${encodeURIComponent(model.id)}" data-fast-goal="model_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
+                        <a class="lc-index-model-link" href="${modelHref(model)}" data-fast-goal="model_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
                             ${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}
                             <span><strong class="lc-index-model-name">${escapeHtml(model.name)}</strong><span class="lc-index-model-family">${escapeHtml(model.family || 'local model')}</span></span>
                         </a>
@@ -389,7 +399,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     <td><span class="lc-index-ram-value">${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</span>${fitMarkup(model)}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
                     <td>${escapeHtml(releaseLabel(model.released))}</td>
-                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${escapeHtml(model.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="/models/${encodeURIComponent(model.id)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
+                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${escapeHtml(model.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="${modelHref(model)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
                 </tr>`;
         }).join('');
 
@@ -714,7 +724,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const renderCompareDialog = () => {
             const models = Array.from(comparedModelIds).map((id) => localModels.find((model) => model.id === id)).filter(Boolean);
             const valueRow = (label, values) => `<tr><th scope="row">${escapeHtml(label)}</th>${values.map((value) => `<td>${value}</td>`).join('')}</tr>`;
-            const headers = models.map((model) => `<th scope="col"><a href="/models/${encodeURIComponent(model.id)}">${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}<span>${escapeHtml(model.name)}</span></a></th>`).join('');
+            const headers = models.map((model) => `<th scope="col"><a href="${modelHref(model)}">${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}<span>${escapeHtml(model.name)}</span></a></th>`).join('');
             const rowsMarkup = [
                 valueRow('Community', models.map((model) => communityMarkup(model.id))),
                 valueRow('LocalClaw', models.map((model) => {
@@ -731,7 +741,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 valueRow('Speed', models.map((model) => escapeHtml(scoreLabel(model.benchmarks && model.benchmarks.speed)))),
                 valueRow('Licence', models.map((model) => escapeHtml(modelLicense(model)))),
                 valueRow('Released', models.map((model) => escapeHtml(releaseLabel(model.released)))),
-                valueRow('Details', models.map((model) => `<a class="lc-index-compare-detail" href="/models/${encodeURIComponent(model.id)}">Open model →</a>`))
+                valueRow('Details', models.map((model) => `<a class="lc-index-compare-detail" href="${modelHref(model)}">Open model →</a>`))
             ].join('');
             compareContent.innerHTML = `<div class="lc-index-compare-table-wrap"><table class="lc-index-compare-table"><thead><tr><th scope="col">Signal</th>${headers}</tr></thead><tbody>${rowsMarkup}</tbody></table></div>`;
         };
@@ -757,7 +767,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 quickPicks.hidden = true;
                 return;
             }
-            const candidates = models.slice();
+            const candidates = models.filter((model) => machineFit(model).key === 'fits');
             const used = new Set();
             const pickUnique = (comparator) => candidates.slice().sort(comparator).find((model) => !used.has(model.id));
             const metricComparator = (metric) => (a, b) => finite(b.benchmarks && b.benchmarks[metric]) - finite(a.benchmarks && a.benchmarks[metric])
@@ -776,12 +786,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const picks = specs.filter((item) => item.model);
             quickPicks.hidden = picks.length === 0;
             if (!picks.length) return;
-            const machineLabel = machineFiltersEnabled && activeMachine ? activeMachine.name : `${machineRam} GB`;
+            const machineLabel = currentFitMachine()?.name || `${machineRam} GB`;
             quickPicksTitle.textContent = `Top picks for ${machineLabel}`;
             quickPicksCopy.textContent = machineFiltersEnabled && activeMachine
                 ? 'Three compatible starting points, using the same green-fit rules as the directory.'
-                : 'Three practical starting points before the full directory.';
-            quickPickCards.innerHTML = picks.map((item) => `<a class="lc-index-quick-pick" href="/models/${encodeURIComponent(item.model.id)}" data-quick-pick-id="${escapeHtml(item.model.id)}" data-quick-pick-type="${item.key}">
+                : 'Three starting points with estimated memory headroom. Longer context and other apps need more memory.';
+            quickPickCards.innerHTML = picks.map((item) => `<a class="lc-index-quick-pick" href="${modelHref(item.model)}" data-quick-pick-id="${escapeHtml(item.model.id)}" data-quick-pick-type="${item.key}">
                 <span>${item.label}</span><strong>${escapeHtml(item.model.name)}</strong><small>${escapeHtml(item.reason(item.model))}</small><b>Open model →</b>
             </a>`).join('');
         };
@@ -867,8 +877,14 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }, 400);
         });
         machineRamSelect.addEventListener('change', () => {
+            const previousConfiguration = currentFitMachine();
             beginCustomCatalogueView();
             machineRam = normalizeMachineRam(machineRamSelect.value);
+            selectedConfiguration = fitContext?.normalize({...previousConfiguration, id: '', ramGb: machineRam}) || null;
+            explicitSelection = true;
+            fitContext?.select(selectedConfiguration, {notify: false});
+            window.dispatchEvent(new CustomEvent('localclaw:home-machine-selection', {detail: {machine: selectedConfiguration, explicit: true}}));
+            renderMachineWorkspace();
             fitFilter.disabled = !machineRam;
             if (!machineRam) fitFilter.value = 'all';
             try {
@@ -1114,10 +1130,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             }
             machinesPanel.hidden = false;
             machineList.innerHTML = savedMachines.map((machine, index) => {
-                const selected = activeMachine && machine.id === activeMachine.id;
+                const selected = machineFiltersEnabled && activeMachine && machine.id === activeMachine.id;
                 const hardwareDetail = [machine.cpuModel, machine.gpuModel].filter(Boolean).join(' · ');
                 const machineImages = machineImagePaths(machine);
-                return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" tabindex="${selected ? '0' : '-1'}" data-saved-machine="${index}">
+                return `<button class="lc-home-machine-card${selected ? ' is-active' : ''}${selected && !machineFiltersEnabled ? ' is-catalogue-view' : ''}" type="button" role="radio" aria-checked="${selected}" tabindex="${selected || (!machineFiltersEnabled && index === 0) ? '0' : '-1'}" data-saved-machine="${index}">
                     <span class="lc-home-machine-card__visual" aria-hidden="true"><img class="lc-home-machine-card__image" src="${machineImages.light}" alt="" width="104" height="104" loading="lazy" decoding="async"></span>
                     <span class="lc-home-machine-card__copy"><strong>${escapeHtml(machine.name)}</strong><span>${escapeHtml(platformLabel(machine.platform))} · ${escapeHtml(acceleratorLabel(machine.accelerator))}</span><span class="lc-home-machine-card__hardware" title="${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}">${escapeHtml([machineMemoryLabel(machine), hardwareDetail].filter(Boolean).join(' · '))}</span></span>
                     <span class="lc-home-machine-card__signals">${selected ? '<span class="lc-home-machine-card__selected">Selected</span>' : ''}${machine.isPrimary ? '<span class="lc-home-machine-card__primary" title="Primary machine"><i></i>Primary</span>' : ''}</span>
@@ -1153,14 +1169,23 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><i></i><strong>${escapeHtml(activeMachine.name)}</strong> selected</span><span>All 7 directories updated · Green LLM fits only · Voice uses verified hardware paths</span>`;
                 machineCatalogueToggle.textContent = 'Show full catalogues';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'false');
+            } else if (machineRam) {
+                const label = currentFitMachine()?.name || `${machineRam} GB RAM`;
+                machineIntroCopy.textContent = `Checking ${label}. Choose a saved machine to switch configuration.`;
+                machineStatus.innerHTML = `<span class="lc-home-machine-status__state"><strong>${escapeHtml(label)}</strong> selected</span><span>Your saved machines are unchanged.</span>`;
+                machineCatalogueToggle.textContent = 'Show full catalogues';
+                machineCatalogueToggle.setAttribute('aria-pressed', 'false');
             } else {
                 machineIntroCopy.textContent = 'Your saved machines are ready. Select one to see compatible models across every directory.';
-                machineStatus.innerHTML = '<span class="lc-home-machine-status__state"><strong>Full catalogues visible</strong></span><span>Your saved machine remains selected. Choose its card to reapply hardware filters.</span>';
-                machineCatalogueToggle.textContent = 'Apply selected machine';
+                machineStatus.innerHTML = '<span class="lc-home-machine-status__state"><strong>Full catalogues visible</strong></span><span>Choose a machine card to apply its hardware filters.</span>';
+                machineCatalogueToggle.textContent = 'Apply primary machine';
                 machineCatalogueToggle.setAttribute('aria-pressed', 'true');
             }
         };
         const applySavedMachine = (machine, shouldTrack = false) => {
+            selectedConfiguration = null;
+            if (shouldTrack) explicitSelection = true;
+            if (shouldTrack) fitContext?.select(machine, {notify: false});
             activeMachine = machine;
             machineFiltersEnabled = true;
             machineRam = machine.ramGb;
@@ -1220,6 +1245,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             updateIndex();
             updateSpeechIndex();
             updateMultimodalIndex();
+            window.dispatchEvent(new CustomEvent('localclaw:home-machine-selection', {detail: {machine, explicit: shouldTrack}}));
             if (shouldTrack) {
                 trackHomeGoal('home_machine_select', {
                     machine_count: savedMachines.length,
@@ -1233,6 +1259,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const beginCustomCatalogueView = () => {
             if (!machineFiltersEnabled) return;
+            selectedConfiguration = selectedConfiguration || fitContext?.normalize({...activeMachine, id: ''}) || null;
             machineFiltersEnabled = false;
             multimodalVram.disabled = false;
             if (multimodalVram.options[0].value === '0') multimodalVram.options[0].textContent = 'Any VRAM';
@@ -1241,6 +1268,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             renderMachineWorkspace();
         };
         const showFullCatalogues = () => {
+            explicitSelection = true;
+            selectedConfiguration = null;
+            fitContext?.select(null, {notify: false});
             machineFiltersEnabled = false;
             machineRam = 0;
             machineRamSelect.value = '0';
@@ -1261,8 +1291,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             updateMultimodalIndex();
         };
         machineCatalogueToggle.addEventListener('click', () => {
-            if (machineFiltersEnabled) showFullCatalogues();
-            else if (activeMachine) applySavedMachine(activeMachine, false);
+            if (machineRam) showFullCatalogues();
+            else {
+                const primary = savedMachines.find((machine) => machine.isPrimary) || savedMachines[0];
+                if (primary) applySavedMachine(primary, true);
+            }
         });
         let multimodalSearchGoalTimer = 0;
         let lastTrackedMultimodalSearch = '';
@@ -1333,11 +1366,36 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 if (machineCta) machineCta.textContent = savedMachines.length ? 'My Machines →' : 'Add my machine →';
                 if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'You are signed in. Add your first Mac, PC or NVIDIA workstation to unlock compatible models and new-release updates.';
                 const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
-                if (primary) applySavedMachine(primary, false);
+                const selectedSaved = selectedConfiguration?.id && savedMachines.find((item) =>
+                    item.id === selectedConfiguration.id && item.ramGb === selectedConfiguration.ramGb &&
+                    item.platform === selectedConfiguration.platform && item.accelerator === selectedConfiguration.accelerator &&
+                    (item.vramGb || 0) === (selectedConfiguration.vramGb || 0));
+                if (selectedSaved) applySavedMachine({...selectedSaved, useCase: selectedConfiguration.useCase, context: selectedConfiguration.context}, false);
+                else if (primary && !explicitSelection) applySavedMachine(primary, false);
+                else renderMachineWorkspace();
             } catch (error) {
                 // Anonymous visitors and unavailable account APIs keep the local quick selector.
             }
         };
+        const applySelectedConfiguration = (configuration) => {
+            explicitSelection = true;
+            selectedConfiguration = fitContext?.normalize(configuration) || null;
+            activeMachine = null;
+            beginCustomCatalogueView();
+            machineRam = selectedConfiguration?.ramGb || 0;
+            if (machineRam) ensureMachineOption(machineRam);
+            machineRamSelect.value = String(machineRam);
+            fitFilter.disabled = !machineRam;
+            fitFilter.value = machineRam ? 'fits' : 'all';
+            renderMachineWorkspace();
+            updateIndex();
+        };
+        if (window.__localClawHomeFitContextListener) {
+            window.removeEventListener('localclaw:fit-context', window.__localClawHomeFitContextListener);
+        }
+        window.__localClawHomeFitContextListener = (event) => applySelectedConfiguration(event.detail);
+        window.addEventListener('localclaw:fit-context', window.__localClawHomeFitContextListener);
+        if (selectedConfiguration) applySelectedConfiguration(selectedConfiguration);
         syncSortControls();
         renderCompareTray();
         loadCommunityRatings();
