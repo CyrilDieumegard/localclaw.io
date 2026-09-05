@@ -25,7 +25,7 @@ const software = [
     id: 'localclaw', name: 'LocalClaw', roles: ['stack'], platforms: ['macos'], uses: ['agents'],
     type: 'Complete stack', workflow: 'OpenClaw setup · Agent management', badge: 'Featured',
     description: 'Install and manage OpenClaw from a native Mac app. Your chosen provider or local runtime handles model inference.',
-    platformNote: 'macOS 13+ · Apple Silicon or Intel. The Mac app requires a paid license.',
+    platformNote: 'Apple Silicon only · macOS 13+ for the app, macOS 14+ for local models with LM Studio. Paid app license required.',
     icon: '/images/logo-localclaw.svg', href: '/pricing',
     action: { label: 'Explore', href: '/pricing' },
     docs: 'https://localclaw.io/download',

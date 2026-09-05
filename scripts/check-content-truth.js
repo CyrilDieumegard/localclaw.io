@@ -605,7 +605,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260902b') || !index.includes('js/app-20260816a.js?v=20260905a')) {
+if (!index.includes('js/data.js?v=20260902b') || !index.includes('js/app-20260816a.js?v=20260905b')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 

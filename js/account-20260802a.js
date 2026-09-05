@@ -1219,7 +1219,7 @@
     }
 
     function renderUpgradePlanner(machine, compatibleById) {
-        const candidates = upgradeCandidates(compatibleById);
+        const candidates = upgradeCandidates(machine, compatibleById);
         if (!candidates.length) return '';
 
         if (!state.upgradeModelId || !candidates.some((model) => model.id === state.upgradeModelId)) {
@@ -1227,14 +1227,15 @@
         }
 
         const target = candidates.find((model) => model.id === state.upgradeModelId) || candidates[0];
-        const requiredRam = recommendedTier(requiredMemoryForModel(target), [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]);
-        const requiredVram = recommendedTier(Number(target.size_gb) / 0.88, [8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192]);
+        const requiredRam = target.upgradePlan.ramGb;
+        const optionalVram = target.upgradePlan.fullOffloadVramGb;
+        const gpuUpgrade = optionalVram !== null && optionalVram > Number(machine.vramGb || 0);
         const isApple = machine.accelerator === 'apple-silicon';
         const advice = isApple
-            ? `Apple unified memory cannot be expanded after purchase. A ${requiredRam} GB unified-memory Mac is the planning target for this catalogue fit.`
+            ? `Apple unified memory cannot be expanded after purchase. A ${requiredRam} GB unified-memory Mac meets the memory estimate for this model at 8K context.`
             : machine.accelerator === 'nvidia'
-                ? `Plan for at least ${requiredRam} GB system RAM. About ${requiredVram} GB VRAM is the full-offload planning tier; less VRAM may use partial offload.`
-                : `Plan for at least ${requiredRam} GB system RAM. GPU acceleration and usable VRAM depend on your runtime and operating system.`;
+                ? `The system-memory target is ${requiredRam} GB RAM at 8K context, keeping your ${formatNumber(machine.vramGb)} GB GPU. CPU or partial GPU offload may be needed.${gpuUpgrade ? ` A separate ${optionalVram} GB VRAM tier is an optional full-offload estimate, not a requirement for this RAM fit.` : ''}`
+                : `The system-memory target is ${requiredRam} GB RAM at 8K context. GPU acceleration depends on your runtime and operating system.`;
         const primaryLink = isApple ? '/computers#apple-machines-title' : '/ram-gpu-for-local-ai#ram-picks';
         const primaryLabel = isApple ? 'Browse Apple systems' : 'Browse RAM upgrades';
 
@@ -1243,7 +1244,7 @@
                 <div class="lc-upgrade-heading">
                     <div>
                         <p class="lc-kicker">Hardware upgrade planner</p>
-                        <h3 id="upgrade-planner-title">What would unlock a larger model?</h3>
+                        <h3 id="upgrade-planner-title">Which memory upgrade would improve model fit?</h3>
                     </div>
                     <label>
                         <span>Target model</span>
@@ -1254,41 +1255,67 @@
                 </div>
                 <div class="lc-upgrade-result">
                     <div><span>Current machine</span><strong>${escapeHtml(machine.ramGb)} GB${machine.vramGb ? ` · ${escapeHtml(machine.vramGb)} GB VRAM` : ''}</strong></div>
-                    <div><span>Planning target</span><strong>${requiredRam} GB RAM${machine.accelerator === 'nvidia' ? ` · ${requiredVram} GB VRAM` : ''}</strong></div>
+                    <div><span>${isApple ? 'Unified-memory target' : 'System RAM target'}</span><strong>${requiredRam} GB${isApple ? ' unified memory' : ' RAM'}</strong></div>
                     <div><span>Model size</span><strong>${formatNumber(target.size_gb)} GB</strong></div>
                 </div>
                 <p class="lc-upgrade-copy">${escapeHtml(advice)} These are conservative planning estimates, not a performance guarantee.</p>
                 <div class="lc-upgrade-actions">
                     <a class="lc-button lc-button-primary" href="${primaryLink}">${primaryLabel}</a>
-                    ${isApple ? '' : '<a class="lc-button" href="/ram-gpu-for-local-ai#gpu-picks">Browse GPUs</a>'}
+                    ${gpuUpgrade ? '<a class="lc-button" href="/ram-gpu-for-local-ai#gpu-picks">Optional GPU upgrade</a>' : ''}
                     <a class="lc-button" href="/models/${encodeURIComponent(target.id)}">View target model</a>
                 </div>
             </section>
         `;
     }
 
-    function upgradeCandidates(compatibleById) {
+    function upgradeCandidates(machine, compatibleById) {
+        const ranking = window.LocalClawModelRanking;
+        if (!ranking?.normalizeMachine || !ranking?.scoreModel || !ranking?.calculateHardwareFit || !ranking?.isLocallyEligible) return [];
+        const profile = ranking.normalizeMachine({ ...machine, context: '8k' });
+        if (!['macos', 'windows', 'linux'].includes(profile.platform)) return [];
+        if (profile.accelerator === 'nvidia' && !(profile.vramGb > 0)) return [];
+        const verification = APP_DATA.hfRepoVerification || {};
+        const ramTiers = profile.accelerator === 'apple-silicon'
+            ? [8, 16, 24, 32, 36, 48, 64, 96, 128, 192, 256, 512]
+            : [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024];
         const seen = new Set();
-        return APP_DATA.models
+        return indexableLocalModels()
             .filter((model) => {
-                if (!model?.id || seen.has(model.id) || model.hosted_only || Number(model.size_gb) <= 0 || compatibleById.has(model.id)) return false;
+                if (seen.has(model.id)) return false;
                 seen.add(model.id);
+                if (compatibleById.has(model.id) || !ranking.isLocallyEligible(model)) return false;
+                // Extra RAM does not resolve download access or special runtime
+                // requirements. Restrict purchase guidance to verified GGUFs.
+                if (!verification.publicGguf?.[model.id] || verification.gated?.[model.id] || model.gated || model.custom_runtime) return false;
+                if (Array.isArray(model.platforms) && !model.platforms.includes(profile.platform)) return false;
+                if (Array.isArray(model.accelerators) && !model.accelerators.includes(profile.accelerator)) return false;
+                const currentFit = ranking.calculateHardwareFit(profile, model);
+                if (currentFit.compatible && currentFit.fitState !== 'tight') return false;
                 return true;
             })
+            .map((model) => {
+                // Keep CPU, OS and GPU unchanged while finding a RAM increase
+                // that actually passes the same account fit engine at 8K.
+                const ramGb = ramTiers.find((ram) => ram > profile.ramGb && ranking.scoreModel(
+                    { ...profile, ramGb: ram }, {}, model, { includeTight: false }
+                ).compatible);
+                if (!ramGb) return null;
+                let fullOffloadVramGb = null;
+                if (profile.accelerator === 'nvidia') {
+                    const upgradedFit = ranking.calculateHardwareFit({ ...profile, ramGb }, model);
+                    const fullOffloadMemory = (upgradedFit.modelSize + upgradedFit.contextOverhead) / 0.88;
+                    fullOffloadVramGb = [8, 12, 16, 24, 32, 48, 64, 80, 96, 128, 192].find(
+                        (vram) => vram >= profile.vramGb && vram >= fullOffloadMemory
+                    ) || null;
+                }
+                return { ...model, upgradePlan: { ramGb, fullOffloadVramGb } };
+            })
+            .filter(Boolean)
             .sort((a, b) => {
-                const memoryDelta = requiredMemoryForModel(a) - requiredMemoryForModel(b);
+                const memoryDelta = a.upgradePlan.ramGb - b.upgradePlan.ramGb;
                 if (memoryDelta) return memoryDelta;
                 return Number(b.benchmarks?.quality || 0) - Number(a.benchmarks?.quality || 0);
             });
-    }
-
-    function requiredMemoryForModel(model) {
-        return Math.max(Number(model.min_ram) || 0, Math.ceil((Number(model.size_gb) || 0) + 2.5));
-    }
-
-    function recommendedTier(required, tiers) {
-        const match = tiers.find((tier) => tier >= required);
-        return match || Math.ceil(required / 128) * 128;
     }
 
     function benchmarkValue(model, key) {

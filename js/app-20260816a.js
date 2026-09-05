@@ -989,10 +989,11 @@ const App = {
             const osRaw = this.buildCurrentMachineProfile().platform;
             const isWindows = (osRaw === 'win' || osRaw === 'windows');
             const isLinux = osRaw === 'linux';
+            const isIntel = this.isIntelMac();
 
             // Non-macOS visitors keep the free setup guide; the native app is macOS-only.
-            if (isWindows || isLinux) {
-                const platformLabel = isWindows ? 'Windows' : 'Linux';
+            if (isWindows || isLinux || isIntel) {
+                const platformLabel = isIntel ? 'Intel Mac' : isWindows ? 'Windows' : 'Linux';
                 return `
                 <div class="ocs-card ocs-card-disabled">
                     <div class="ocs-card-inner">
@@ -1000,9 +1001,9 @@ const App = {
                             <span class="ocs-icon">
                                 <svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                             </span>
-                            <span class="ocs-title">LocalClaw Installer — macOS only for now</span>
+                            <span class="ocs-title">LocalClaw Installer — ${isIntel ? 'Apple Silicon required' : 'macOS only for now'}</span>
                         </div>
-                        <p class="ocs-desc">The LocalClaw app is currently macOS only. Continue with the free ${platformLabel} setup guide below.</p>
+                        <p class="ocs-desc">${isIntel ? 'The LocalClaw app requires Apple Silicon. Intel Macs can use the free CPU setup guide below.' : `The LocalClaw app is currently macOS only. Continue with the free ${platformLabel} setup guide below.`}</p>
                     </div>
                 </div>`;
             }
@@ -1042,7 +1043,7 @@ const App = {
                     </div>
                     <div style="margin-top:10px;padding:7px 10px;border-radius:7px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);font-size:10px;color:#d97706;line-height:1.5;">
                         <strong style="color:#fbbf24;">⚠ Requires macOS 13 Ventura or later</strong><br>
-                        Apple Silicon or Intel · 8 GB RAM minimum · Not compatible with Windows or Linux
+                        Apple Silicon only · 8 GB RAM app minimum · Local models with LM Studio require macOS 14+
                     </div>
                 </div>
             </div>`;
@@ -2161,22 +2162,31 @@ const App = {
     // RESULTS VIEW
     // ========================================================================
 
-    // Build the left instruction panel for a given model
-    buildLeftPanel(selectedModel, selectedIdx) {
+    isIntelMac() {
+        const machine = this.buildCurrentMachineProfile();
+        return machine.platform === 'macos' && machine.accelerator !== 'apple-silicon';
+    },
+
+    buildRuntimeSetupSteps(selectedModel) {
+        if (this.isIntelMac()) {
+            return `
+                <div class="claw-card rounded-xl p-6">
+                    <h3 class="text-xs uppercase tracking-widest text-claw-muted font-bold mb-3">1 · Set up llama.cpp for Intel Mac</h3>
+                    <p class="text-sm text-claw-muted mb-4 leading-relaxed">Use the CPU build of llama.cpp. LM Studio and the LocalClaw Mac app do not support Intel Macs. This path requires manual setup.</p>
+                    <a href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md#cpu-build" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-lg text-sm">Open the official CPU setup guide →</a>
+                </div>
+                <div class="claw-card rounded-xl p-6 border-claw-primary/30">
+                    <h3 class="text-xs uppercase tracking-widest text-claw-primary font-bold mb-3">2 · Get the model files</h3>
+                    <p class="text-sm text-claw-muted mb-4 leading-relaxed">Start with <strong class="text-white">${this.escapeHtml(selectedModel.recommended_quant)}</strong>. Check the model page for its verified GGUF source and any required runtime version before downloading.</p>
+                    <a href="${this.modelLink(selectedModel)}" class="inline-flex items-center justify-center w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-lg text-sm">Open model files and requirements →</a>
+                </div>
+                <div class="claw-card rounded-xl p-6">
+                    <h3 class="text-xs uppercase tracking-widest text-emerald-400 font-bold mb-3">3 · Start a CPU conversation</h3>
+                    <p class="text-sm text-claw-muted leading-relaxed">Load the GGUF file with llama-cli or llama-server using the official guide. Start with a short context and check memory use. CPU speed depends on your Mac and the model.</p>
+                </div>
+            `;
+        }
         return `
-                    <div>
-                        <button onclick="App.goBack()" class="text-sm text-claw-muted hover:text-white mb-6 flex items-center gap-2 group">
-                            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                            Start Over
-                        </button>
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold mb-1 text-white">Your Setup Guide</h2>
-                        <p class="text-claw-primary text-sm font-semibold mb-3">${selectedModel.name} <span class="text-claw-muted font-normal">${selectedModel.params}</span>${selectedModel._risk ? ` <span class="text-[10px] ml-2 px-2 py-0.5 rounded-full font-bold ${selectedModel._risk.color === 'green' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : selectedModel._risk.color === 'yellow' ? 'bg-yellow-500/10 border border-yellow-500/30 text-yellow-400' : 'bg-red-500/10 border border-red-500/30 text-red-400'}"><svg class='lc-icon lc-icon-sm' viewBox='0 0 24 24'><circle cx='12' cy='12' r='6' fill='currentColor'/></svg> ${selectedModel._risk.label}</span>` : ''}</p>
-                        <p class="text-claw-muted leading-relaxed text-sm">${selectedModel.description}</p>
-                    </div>
-
-                    <!-- LocalClaw Installer CTA — affiché immédiatement sous le titre -->
-                    ${this.buildOneClickSetupBlock(selectedModel)}
-
                     <!-- Step 1 -->
                     <div class="claw-card rounded-xl p-6 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-white/10"></div>
@@ -2184,7 +2194,7 @@ const App = {
                             <span class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white">1</span>
                             <h3 class="text-xs uppercase tracking-widest text-claw-muted font-bold">Get LM Studio</h3>
                         </div>
-                        <p class="text-sm text-claw-muted mb-4 leading-relaxed">Download and install LM Studio for your operating system.</p>
+                        <p class="text-sm text-claw-muted mb-4 leading-relaxed">Download and install LM Studio for your operating system.${this.buildCurrentMachineProfile().platform === 'macos' ? ' Apple Silicon and macOS 14 or later are required.' : ''}</p>
                         <a href="https://lmstudio.ai" target="_blank" class="inline-flex items-center justify-center w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white rounded-lg font-medium transition-all gap-2 text-sm">
                             Download LM Studio
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -2215,6 +2225,27 @@ const App = {
                         </div>
                         <p class="text-sm text-claw-muted leading-relaxed">Go to the Chat tab and start talking to your local AI. No internet needed. Your data stays on your machine.</p>
                     </div>
+
+        `;
+    },
+
+    // Build the left instruction panel for a given model
+    buildLeftPanel(selectedModel, selectedIdx) {
+        return `
+                    <div>
+                        <button onclick="App.goBack()" class="text-sm text-claw-muted hover:text-white mb-6 flex items-center gap-2 group">
+                            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            Start Over
+                        </button>
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold mb-1 text-white">Your Setup Guide</h2>
+                        <p class="text-claw-primary text-sm font-semibold mb-3">${selectedModel.name} <span class="text-claw-muted font-normal">${selectedModel.params}</span>${selectedModel._risk ? ` <span class="text-[10px] ml-2 px-2 py-0.5 rounded-full font-bold ${selectedModel._risk.color === 'green' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : selectedModel._risk.color === 'yellow' ? 'bg-yellow-500/10 border border-yellow-500/30 text-yellow-400' : 'bg-red-500/10 border border-red-500/30 text-red-400'}"><svg class='lc-icon lc-icon-sm' viewBox='0 0 24 24'><circle cx='12' cy='12' r='6' fill='currentColor'/></svg> ${selectedModel._risk.label}</span>` : ''}</p>
+                        <p class="text-claw-muted leading-relaxed text-sm">${selectedModel.description}</p>
+                    </div>
+
+                    <!-- LocalClaw Installer CTA — affiché immédiatement sous le titre -->
+                    ${this.buildOneClickSetupBlock(selectedModel)}
+
+                    ${this.buildRuntimeSetupSteps(selectedModel)}
 
                     <!-- One-Click Setup supprimé ici — remonté au-dessus des steps -->
 
@@ -2321,7 +2352,7 @@ const App = {
                     <div class="flex items-center gap-2" onclick="event.stopPropagation()">
                         <div class="flex-grow bg-black/60 border border-white/5 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:border-claw-primary/30 transition-colors" onclick="App.copyToClipboard('${model.search_term}', '${model.name}')">
                             <div class="flex flex-col">
-                                <span class="text-[10px] text-claw-muted uppercase">Search in LM Studio</span>
+                                <span class="text-[10px] text-claw-muted uppercase">${this.isIntelMac() ? 'Model search term' : 'Search in LM Studio'}</span>
                                 <code class="text-xs text-claw-primary font-mono">${model.search_term}</code>
                             </div>
                             <svg class="h-4 w-4 text-claw-muted shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -2347,12 +2378,12 @@ const App = {
                     <div class="lg:col-span-2">
                         <div class="mb-3 flex flex-wrap items-center gap-2">
                             <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">My Local AI Plan</span>
-                            <span class="text-[11px] font-mono text-emerald-400">Ready now · no signup required</span>
+                            <span class="text-[11px] font-mono text-emerald-400">${this.isIntelMac() ? 'Memory fit found · manual setup required' : 'Ready now · no signup required'}</span>
                         </div>
                         <h2 id="local-ai-plan-title" class="max-w-3xl text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
                             ${selectedModel.name} is your best current fit for ${useCaseLabel}.
                         </h2>
-                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-claw-muted">Use <strong class="text-white">${selectedModel.recommended_quant}</strong> in LM Studio. LocalClaw matched it to your hardware, goal and optimization preference, then kept three practical alternatives below.</p>
+                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-claw-muted">Use <strong class="text-white">${selectedModel.recommended_quant}</strong> ${this.isIntelMac() ? 'with the CPU build of llama.cpp. Review the Intel Mac setup steps and model requirements below.' : 'in LM Studio. LocalClaw matched it to your hardware, goal and optimization preference, then kept three practical alternatives below.'}</p>
                         <dl class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
                             <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Machine</dt><dd class="mt-1 text-xs font-bold text-white">${platformLabel} · ${memoryLabel}</dd></div>
                             <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Goal</dt><dd class="mt-1 text-xs font-bold text-white">${useCaseLabel}</dd></div>
@@ -2398,7 +2429,7 @@ const App = {
                     ${this.state._contextNote ? `
                     <div class="mt-2 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 flex items-start gap-2">
                         <span class="text-yellow-400 text-sm mt-0.5"><svg class='lc-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z'/></svg></span>
-                        <p class="text-[11px] text-yellow-200/80 leading-relaxed"><strong>Long context uses much more memory (KV cache).</strong> At 16K+ tokens, the KV cache can add 20-50% extra RAM on top of the model size. If you experience slowdowns, reduce context length in LM Studio settings.</p>
+                        <p class="text-[11px] text-yellow-200/80 leading-relaxed"><strong>Long context uses much more memory (KV cache).</strong> At 16K+ tokens, the KV cache can add 20-50% extra RAM on top of the model size. If you experience slowdowns, reduce context length when loading the model.</p>
                     </div>` : ''}
                 </div>
             </div>
