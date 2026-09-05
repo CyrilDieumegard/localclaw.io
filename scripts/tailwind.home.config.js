@@ -3,7 +3,7 @@ module.exports = {
   content: [
     './index.html',
     './js/home-index-20260814g.js',
-    './js/app-20260814f.js',
+    './js/app-20260816a.js',
     './js/growth-paths-20260727a.js',
     './js/site-nav.js'
   ],

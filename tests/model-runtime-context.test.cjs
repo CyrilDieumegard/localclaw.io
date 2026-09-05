@@ -12,11 +12,14 @@ const intel = {id: 'saved-intel', name: 'Intel Mac', platform: 'macos', accelera
 function element(tagName) {
     return {tagName: tagName.toUpperCase(), hidden: false, style: {display: ''}, dataset: {}, children: [], textContent: '', append(...nodes) { this.children.push(...nodes); }};
 }
-async function harness(search = '', primary = apple) {
+async function harness(search = '', primary = apple, runtimeModel = model) {
     const links = [...page.matchAll(/<a[^>]*data-runtime="([^"]+)"[^>]*href="([^"]+)"[^>]*>/g)].map(match => ({...element('a'), dataset: {runtime: match[1]}, href: match[2]}));
     assert.ok(links.some(link => link.dataset.runtime === 'lmstudio'), 'the real model template has an LM Studio launcher');
     assert.ok(links.some(link => link.dataset.runtime === 'localclaw'), 'the real model template has a LocalClaw launcher');
-    const description = {...element('p'), textContent: 'Pick the app you already use. No terminal and no command to copy.'};
+    if (runtimeModel.custom_runtime) links.push({...element('a'), dataset: {runtime: 'official'}, href: runtimeModel.runtime_url});
+    const description = {...element('p'), textContent: runtimeModel.custom_runtime
+        ? 'This model needs a special runtime. Unsupported apps are clearly marked.'
+        : 'Pick the app you already use. No terminal and no command to copy.'};
     const disclosure = {...element('p'), textContent: 'Desktop app links require the app to be installed.'};
     const picker = {...element('div'), querySelector: selector => selector === '.run-picker-head p' ? description : selector === '.runtime-launch-disclosure' ? disclosure : null, querySelectorAll: () => links};
     const installHeading = {...element('h2'), textContent: 'Install path'};
@@ -28,7 +31,7 @@ async function harness(search = '', primary = apple) {
     let state = {primaryMachine: primary, machines: [primary]};
     const location = new URL(`https://localclaw.io/models/qwen3-14b${search}`);
     const context = vm.createContext({
-        URL, URLSearchParams, location, LOCALCLAW_MODEL: model,
+        URL, URLSearchParams, location, LOCALCLAW_MODEL: runtimeModel,
         history: {state: null, replaceState(_state, _unused, href) { location.href = new URL(href, location).href; }},
         document: {
             querySelector: selector => selector === '[data-localclaw-model-context]' ? panel : selector === '[data-model-run-options]' ? picker : null,
@@ -101,4 +104,20 @@ test('a primary machine change from Intel to Apple restores the launcher without
     assert.equal(h.link('lmstudio').hidden, false);
     assert.equal(h.link('localclaw').hidden, false);
     assert.equal(h.note().hidden, true);
+});
+
+test('Intel keeps a custom model official runtime and never substitutes a stock llama.cpp guide', async () => {
+    const customPage = fs.readFileSync(path.join(root, 'models/bonsai-27b.html'), 'utf8');
+    const customModel = JSON.parse(customPage.match(/window\.LOCALCLAW_MODEL=(.*?);<\/script>/)[1]);
+    assert.ok(customModel.custom_runtime);
+    assert.ok(customModel.runtime_url);
+    const h = await harness('?fitRam=64&fitPlatform=macos&fitAccelerator=cpu', apple, customModel);
+    assert.equal(h.link('official').hidden, false);
+    assert.equal(h.link('official').href, customModel.runtime_url);
+    assert.equal(h.link('huggingface').hidden, false);
+    assert.equal(h.link('llamacpp').hidden, true);
+    assert.equal(h.link('lmstudio').hidden, true);
+    assert.equal(h.link('localclaw').hidden, true);
+    assert.match(h.description.textContent, /special runtime/);
+    assert.equal(h.note(), undefined, 'the generic CPU-build note would replace the model-specific requirement');
 });

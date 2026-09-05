@@ -14,9 +14,17 @@
     const runtimePicker = document.querySelector('[data-model-run-options]');
     const runtimeOriginals = new Map();
     let intelRuntimeNote = null;
+    let currentMachine = null;
 
     window.addEventListener('localclaw:account-context', (event) => render(event.detail));
     window.addEventListener('localclaw:fit-context', () => render(context?.getState()));
+    document.addEventListener?.('DOMContentLoaded', updateAccountLinks);
+    ['click', 'auxclick', 'contextmenu'].forEach((name) => {
+        document.addEventListener?.(name, (event) => {
+            const link = event.target?.closest?.('a[href]');
+            if (link) updateAccountLink(link);
+        }, true);
+    });
     context?.ready.then(() => render(context.getState()));
     render(context?.getState());
 
@@ -29,6 +37,8 @@
             (Number(item.vramGb) || 0) === (selection.vramGb || 0));
         const savedMachine = selection ? savedSelection : accountState?.primaryMachine;
         const machine = selection ? {...selection, ...(savedSelection ? {name: savedSelection.name} : {})} : savedMachine;
+        currentMachine = machine || null;
+        updateAccountLinks();
         adaptRuntimePicker(machine);
         if (!machine) {
             panel.hidden = true;
@@ -49,6 +59,7 @@
             ? `${model.recommended_quant || 'Listed quantization'} · ${score.runtimeNote || 'System-memory inference'}. ${fit.note}`
             : `This model exceeds the available memory for this selection. ${fit.note}`;
         const backHref = fitContext.withMachine('/#llm-index', machine);
+        const accountHref = fitContext.withMachine('/account', machine);
 
         panel.hidden = false;
         panel.dataset.fit = fit.key === 'too-large' ? 'too-large' : fit.fitState === 'comfortable' ? 'best' : 'limited';
@@ -62,7 +73,7 @@
             <div class="personal-fit-actions">
                 ${savedMachine ? `<button type="button" data-context-favorite aria-describedby="model-favorite-error"${pending ? ' disabled aria-busy="true"' : ''}>${favoriteLabel}</button>` : ''}
                 <a href="${escapeHtml(backHref)}">Matching models</a>
-                <a href="/account">My Machines</a>
+                <a href="${escapeHtml(accountHref)}">My Machines</a>
             </div>
         `;
 
@@ -97,9 +108,23 @@
         });
     }
 
+    function updateAccountLink(link) {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin || !['/account', '/account/', '/account.html'].includes(url.pathname)) return;
+        const next = fitContext.withMachine(href, currentMachine);
+        if (next !== href) link.setAttribute('href', next);
+    }
+
+    function updateAccountLinks() {
+        document.querySelectorAll('a[href]').forEach(updateAccountLink);
+    }
+
     function adaptRuntimePicker(machine) {
         if (!runtimePicker?.querySelectorAll) return;
         const intelMac = ['mac', 'macos'].includes(machine?.platform) && machine?.accelerator !== 'apple-silicon';
+        const customRuntime = Boolean(model.custom_runtime);
         const hideForIntel = (element) => {
             if (!element) return;
             if (!runtimeOriginals.has(element)) runtimeOriginals.set(element, {hidden: element.hidden, display: element.style.display});
@@ -108,7 +133,8 @@
             element.style.display = intelMac ? 'none' : original.display;
         };
         runtimePicker.querySelectorAll('[data-runtime]').forEach((link) => {
-            if (!['huggingface', 'llamacpp'].includes(link.dataset.runtime)) hideForIntel(link);
+            const allowed = customRuntime ? ['huggingface', 'official'] : ['huggingface', 'llamacpp'];
+            if (!allowed.includes(link.dataset.runtime)) hideForIntel(link);
         });
         hideForIntel(runtimePicker.querySelector('.runtime-launch-disclosure'));
         document.querySelectorAll('.install-steps').forEach((steps) => {
@@ -123,11 +149,11 @@
         const description = runtimePicker.querySelector('.run-picker-head p');
         if (description) {
             if (!runtimeOriginals.has(description)) runtimeOriginals.set(description, {text: description.textContent});
-            description.textContent = intelMac
+            description.textContent = intelMac && !customRuntime
                 ? 'Intel Mac requires manual CPU setup. Check the model files and runtime requirements below.'
                 : runtimeOriginals.get(description).text;
         }
-        if (intelMac && !intelRuntimeNote) {
+        if (intelMac && !customRuntime && !intelRuntimeNote) {
             intelRuntimeNote = document.createElement('div');
             intelRuntimeNote.className = 'run-required';
             intelRuntimeNote.dataset.intelRuntimeNote = '';
@@ -147,8 +173,8 @@
             runtimePicker.append(intelRuntimeNote);
         }
         if (intelRuntimeNote) {
-            intelRuntimeNote.hidden = !intelMac;
-            intelRuntimeNote.style.display = intelMac ? '' : 'none';
+            intelRuntimeNote.hidden = !intelMac || customRuntime;
+            intelRuntimeNote.style.display = intelMac && !customRuntime ? '' : 'none';
         }
     }
 

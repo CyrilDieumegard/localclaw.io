@@ -2,6 +2,9 @@
     'use strict';
 
     const STORAGE_PREFIX = 'localclaw_account_goal:';
+    const MAX_CUSTOM_PARAMETERS = 10;
+    const MACHINE_PROPERTIES = ['platform', 'accelerator', 'ram_bucket', 'use_case', 'priority'];
+    const CONTEXT_PROPERTIES = ['entry_source', 'landing_page', 'device_type'];
     const ALLOWED_EVENTS = new Set([
         'account_page_loaded',
         'auth_started',
@@ -77,7 +80,7 @@
         const onceKey = cleanOnceKey(options.onceKey);
         if (onceKey && wasTracked(onceKey)) return false;
 
-        const safeProperties = sanitize({...funnelContext(), ...properties});
+        const safeProperties = eventProperties(properties);
         try {
             root.datafast(name, safeProperties);
             if (onceKey) markTracked(onceKey);
@@ -85,6 +88,23 @@
         } catch {
             return false;
         }
+    }
+
+    function eventProperties(properties) {
+        const event = sanitize(properties);
+        const context = sanitize(funnelContext());
+        const supplemental = new Set([...MACHINE_PROPERTIES, ...CONTEXT_PROPERTIES]);
+        const entries = Object.entries(event).filter(([key]) => !supplemental.has(key));
+        // Preserve the event's purpose and outcome first, then hardware details.
+        // Acquisition context fills only the remaining DataFast parameter slots.
+        for (const key of MACHINE_PROPERTIES) {
+            if (Object.prototype.hasOwnProperty.call(event, key)) entries.push([key, event[key]]);
+        }
+        for (const key of CONTEXT_PROPERTIES) {
+            const value = Object.prototype.hasOwnProperty.call(event, key) ? event[key] : context[key];
+            if (value !== undefined) entries.push([key, value]);
+        }
+        return Object.fromEntries(entries.slice(0, MAX_CUSTOM_PARAMETERS));
     }
 
     function sanitize(properties) {

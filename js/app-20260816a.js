@@ -188,13 +188,14 @@ const App = {
     buildCurrentPlanPayload() {
         const machine = this.buildCurrentMachineProfile();
         const recommendations = (this.state.recommendations || []).slice(0, 4);
+        const selectedModel = recommendations[this.state.selectedModelIndex] || recommendations[0];
         const savedMachine = this.findCachedHardwareMatch(machine);
         return {
             version: 1,
             createdAt: new Date().toISOString(),
             machine,
             preferredMachineId: String(savedMachine?.id || ''),
-            topModelId: String(recommendations[0]?.id || ''),
+            topModelId: String(selectedModel?.id || ''),
             modelIds: recommendations.map((model) => String(model.id || '')).filter(Boolean),
             context: String(this.state.answers?.context || '8k'),
             source: String(this.state.flowSource || 'model_finder')
@@ -430,6 +431,7 @@ const App = {
         });
 
         this.state.recommendations = finalRecs;
+        this.state.selectedModelIndex = 0;
         this.state._contextNote = highContext; // flag for KV-cache note in results
         this.state.view = 'results';
         this.render();
@@ -472,8 +474,11 @@ const App = {
 
         parts.push(`Uses ~${ramPct}% of your ~${Math.round(effectiveRam)} GB effective RAM`);
 
-        // Apple Silicon specific reasoning
-        if (isApple) {
+        const customRuntime = this.customRuntimeFor(model);
+        if (customRuntime) parts.push(`Requires ${model.custom_runtime}; check its setup and hardware requirements`);
+
+        // Stock-runtime speed estimates do not establish support for custom backends.
+        if (isApple && !customRuntime) {
             if (model.size_gb <= 4 && (model.benchmarks?.speed || 0) >= 9) {
                 parts.push('⚡ Runs at ~70–120 tok/s on Apple Silicon Metal — very fast');
                 parts.push('Small enough for full GPU acceleration on unified memory');
@@ -484,7 +489,7 @@ const App = {
             }
         }
 
-        if (vramGB > 0) {
+        if (vramGB > 0 && !customRuntime) {
             if (model.size_gb <= vramGB) {
                 parts.push(`Fits in your ${vramGB} GB VRAM → full GPU acceleration`);
             } else {
@@ -722,16 +727,18 @@ const App = {
         if (this.state.view === 'results') this.render();
     },
 
-    // Select a model from the recommendations list — updates left panel
+    // Keep the selected guide, plan summary and saved model in sync.
     selectModel(idx) {
         if (idx === this.state.selectedModelIndex) return;
         if (idx < 0 || idx >= this.state.recommendations.length) return;
         this.state.selectedModelIndex = idx;
+        const selectedModel = this.state.recommendations[idx];
+        const planSummary = document.getElementById('results-plan-summary');
+        if (planSummary) planSummary.innerHTML = this.buildPlanSummary(selectedModel);
 
         // Update left panel without full re-render (smooth UX)
         const leftPanel = document.getElementById('results-left-panel');
         if (leftPanel) {
-            const selectedModel = this.state.recommendations[idx];
             leftPanel.innerHTML = this.buildLeftPanel(selectedModel, idx);
             // Smooth scroll left panel into view on mobile
             if (window.innerWidth < 1024) {
@@ -984,6 +991,7 @@ const App = {
     // ── CTA LocalClaw Installer (remplace l'ancien One-Click Setup) ──
     buildOneClickSetupBlock(selectedModel) {
         try {
+            if (this.customRuntimeFor(selectedModel)) return '';
             // Lire l'OS directement depuis le state de l'app (source unique de vérité)
             const answers = this.state.answers || {};
             const osRaw = this.buildCurrentMachineProfile().platform;
@@ -2167,7 +2175,33 @@ const App = {
         return machine.platform === 'macos' && machine.accelerator !== 'apple-silicon';
     },
 
+    customRuntimeFor(model) {
+        const name = typeof model?.custom_runtime === 'string' ? model.custom_runtime.trim() : '';
+        if (!name) return null;
+        let href = this.modelLink(model);
+        try {
+            const url = new URL(model.runtime_url);
+            if (url.protocol === 'https:') href = this.escapeHtml(url.href);
+        } catch {}
+        return { name: this.escapeHtml(name), href };
+    },
+
     buildRuntimeSetupSteps(selectedModel) {
+        const customRuntime = this.customRuntimeFor(selectedModel);
+        if (customRuntime) {
+            return `
+                <div class="claw-card rounded-xl p-6 border-claw-primary/30">
+                    <h3 class="text-xs uppercase tracking-widest text-claw-primary font-bold mb-3">1 · Set up the required runtime</h3>
+                    <p class="text-sm text-claw-muted mb-4 leading-relaxed">This model requires <strong class="text-white">${customRuntime.name}</strong>. Follow its project-specific instructions and check support for your operating system and hardware. The standard LM Studio, Ollama or llama.cpp setup is not a verified path for this model.</p>
+                    <a href="${customRuntime.href}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-lg text-sm">Open the required runtime guide →</a>
+                </div>
+                <div class="claw-card rounded-xl p-6">
+                    <h3 class="text-xs uppercase tracking-widest text-claw-muted font-bold mb-3">2 · Check the model files and format</h3>
+                    <p class="text-sm text-claw-muted mb-4 leading-relaxed">The memory estimate uses <strong class="text-white">${this.escapeHtml(selectedModel.recommended_quant)}</strong>. Confirm that the required runtime supports this format before downloading or loading the model.</p>
+                    <a href="${this.modelLink(selectedModel)}" class="inline-flex items-center justify-center w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-lg text-sm">Open model files and requirements →</a>
+                </div>
+            `;
+        }
         if (this.isIntelMac()) {
             return `
                 <div class="claw-card rounded-xl p-6">
@@ -2257,13 +2291,7 @@ const App = {
         `;
     },
 
-    renderResults(container) {
-        const selectedIdx = this.state.selectedModelIndex || 0;
-        // Clamp index
-        if (selectedIdx >= this.state.recommendations.length) this.state.selectedModelIndex = 0;
-        const selectedModel = this.state.recommendations[this.state.selectedModelIndex] || this.state.recommendations[0];
-        if (!selectedModel) return;
-
+    buildPlanSummary(selectedModel) {
         const plan = this.buildCurrentPlanPayload();
         const machine = plan.machine;
         const savedMachine = this.findCachedHardwareMatch(machine);
@@ -2286,6 +2314,47 @@ const App = {
             ? `${machine.ramGb} GB unified memory`
             : `${machine.ramGb} GB RAM${machine.vramGb ? ` · ${machine.vramGb} GB VRAM` : ''}`;
 
+        const customRuntime = this.customRuntimeFor(selectedModel);
+        return `
+                <div class="grid gap-6 p-5 sm:p-7 lg:grid-cols-3 lg:items-center">
+                    <div class="lg:col-span-2">
+                        <div class="mb-3 flex flex-wrap items-center gap-2">
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">My Local AI Plan</span>
+                            <span class="text-[11px] font-mono ${customRuntime ? 'text-claw-primary' : 'text-emerald-400'}">${customRuntime ? 'Custom runtime · manual setup required' : this.isIntelMac() ? 'Memory fit found · manual setup required' : 'Ready now · no signup required'}</span>
+                        </div>
+                        <h2 id="local-ai-plan-title" class="max-w-3xl text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
+                            ${this.escapeHtml(selectedModel.name)} ${this.state.selectedModelIndex === 0 ? 'is your best current fit' : 'is your selected model'} for ${useCaseLabel}.
+                        </h2>
+                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-claw-muted">${customRuntime ? `Memory estimate: <strong class="text-white">${this.escapeHtml(selectedModel.recommended_quant)}</strong>. This model requires <strong class="text-white">${customRuntime.name}</strong>; check its supported hardware and setup steps below.` : `Use <strong class="text-white">${selectedModel.recommended_quant}</strong> ${this.isIntelMac() ? 'with the CPU build of llama.cpp. Review the Intel Mac setup steps and model requirements below.' : 'in LM Studio. LocalClaw matched it to your hardware, goal and optimization preference, then kept three practical alternatives below.'}`}</p>
+                        <dl class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Machine</dt><dd class="mt-1 text-xs font-bold text-white">${platformLabel} · ${memoryLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Goal</dt><dd class="mt-1 text-xs font-bold text-white">${useCaseLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Optimize</dt><dd class="mt-1 text-xs font-bold text-white">${priorityLabel}</dd></div>
+                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Context</dt><dd class="mt-1 text-xs font-bold text-white">${contextLabel}</dd></div>
+                        </dl>
+                    </div>
+                    <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
+                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
+                        <p class="mt-2 text-sm leading-relaxed text-white">${savedMachine
+                            ? `<strong>${savedMachineName}</strong> already matches this hardware. LocalClaw will update its plan without creating a duplicate.`
+                            : 'Save the plan free. New compatible releases and better matches will appear automatically.'}</p>
+                        <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
+                            ${savedMachine ? `Use ${savedMachineName}` : 'Keep this plan updated'}
+                        </button>
+                        <a href="${this.modelLink(selectedModel)}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
+                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'Saved machine recognized on this browser. LocalClaw verifies it again in your account.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
+                    </div>
+                </div>
+        `;
+    },
+
+    renderResults(container) {
+        const selectedIdx = this.state.selectedModelIndex || 0;
+        // Clamp index
+        if (selectedIdx >= this.state.recommendations.length) this.state.selectedModelIndex = 0;
+        const selectedModel = this.state.recommendations[this.state.selectedModelIndex] || this.state.recommendations[0];
+        if (!selectedModel) return;
+
         const recCards = this.state.recommendations.map((model, idx) => {
             const isCompared = this.state.compareList.includes(model.id);
             const isSelected = idx === this.state.selectedModelIndex;
@@ -2305,6 +2374,7 @@ const App = {
                                 <span class="text-xs font-mono text-claw-muted font-normal">${model.params}</span>
                             </h3>
                             <div class="flex flex-wrap gap-1.5 mt-3">
+                                ${this.customRuntimeFor(model) ? '<span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-claw-primary/30 text-claw-primary">Custom runtime required</span>' : ''}
                                 ${model.tags.slice(0, 5).map(t => `<span class="text-[10px] uppercase tracking-wider bg-white/5 border border-white/10 px-2 py-0.5 rounded-full text-claw-muted">${t}</span>`).join('')}
                                 ${model._risk ? `<span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold ${model._risk.color === 'green' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' : model._risk.color === 'yellow' ? 'bg-yellow-500/10 border border-yellow-500/30 text-yellow-400' : 'bg-red-500/10 border border-red-500/30 text-red-400'}"><svg class='lc-icon lc-icon-sm' viewBox='0 0 24 24'><circle cx='12' cy='12' r='6' fill='currentColor'/></svg> ${model._risk.label}</span>` : ''}
                             </div>
@@ -2352,7 +2422,7 @@ const App = {
                     <div class="flex items-center gap-2" onclick="event.stopPropagation()">
                         <div class="flex-grow bg-black/60 border border-white/5 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:border-claw-primary/30 transition-colors" onclick="App.copyToClipboard('${model.search_term}', '${model.name}')">
                             <div class="flex flex-col">
-                                <span class="text-[10px] text-claw-muted uppercase">${this.isIntelMac() ? 'Model search term' : 'Search in LM Studio'}</span>
+                                <span class="text-[10px] text-claw-muted uppercase">${this.customRuntimeFor(model) ? 'Model identifier · custom runtime' : this.isIntelMac() ? 'Model search term' : 'Search in LM Studio'}</span>
                                 <code class="text-xs text-claw-primary font-mono">${model.search_term}</code>
                             </div>
                             <svg class="h-4 w-4 text-claw-muted shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -2373,36 +2443,8 @@ const App = {
         }).join('');
 
         container.innerHTML = `
-            <section class="mb-7 overflow-hidden rounded-2xl border border-claw-primary/35 bg-[radial-gradient(circle_at_top_left,rgba(255,69,58,0.16),transparent_42%)] bg-black/70 shadow-2xl shadow-black/30" aria-labelledby="local-ai-plan-title">
-                <div class="grid gap-6 p-5 sm:p-7 lg:grid-cols-3 lg:items-center">
-                    <div class="lg:col-span-2">
-                        <div class="mb-3 flex flex-wrap items-center gap-2">
-                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">My Local AI Plan</span>
-                            <span class="text-[11px] font-mono text-emerald-400">${this.isIntelMac() ? 'Memory fit found · manual setup required' : 'Ready now · no signup required'}</span>
-                        </div>
-                        <h2 id="local-ai-plan-title" class="max-w-3xl text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
-                            ${selectedModel.name} is your best current fit for ${useCaseLabel}.
-                        </h2>
-                        <p class="mt-3 max-w-3xl text-sm leading-relaxed text-claw-muted">Use <strong class="text-white">${selectedModel.recommended_quant}</strong> ${this.isIntelMac() ? 'with the CPU build of llama.cpp. Review the Intel Mac setup steps and model requirements below.' : 'in LM Studio. LocalClaw matched it to your hardware, goal and optimization preference, then kept three practical alternatives below.'}</p>
-                        <dl class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Machine</dt><dd class="mt-1 text-xs font-bold text-white">${platformLabel} · ${memoryLabel}</dd></div>
-                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Goal</dt><dd class="mt-1 text-xs font-bold text-white">${useCaseLabel}</dd></div>
-                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Optimize</dt><dd class="mt-1 text-xs font-bold text-white">${priorityLabel}</dd></div>
-                            <div class="rounded-lg border border-white/10 bg-black/35 p-3"><dt class="text-[9px] font-mono font-bold uppercase tracking-widest text-claw-muted">Context</dt><dd class="mt-1 text-xs font-bold text-white">${contextLabel}</dd></div>
-                        </dl>
-                    </div>
-                    <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
-                        <p class="mt-2 text-sm leading-relaxed text-white">${savedMachine
-                            ? `<strong>${savedMachineName}</strong> already matches this hardware. LocalClaw will update its plan without creating a duplicate.`
-                            : 'Save the plan free. New compatible releases and better matches will appear automatically.'}</p>
-                        <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
-                            ${savedMachine ? `Use ${savedMachineName}` : 'Keep this plan updated'}
-                        </button>
-                        <a href="${this.modelLink(selectedModel)}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
-                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'Saved machine recognized on this browser. LocalClaw verifies it again in your account.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
-                    </div>
-                </div>
+            <section class="mb-7 overflow-hidden rounded-2xl border border-claw-primary/35 bg-[radial-gradient(circle_at_top_left,rgba(255,69,58,0.16),transparent_42%)] bg-black/70 shadow-2xl shadow-black/30" id="results-plan-summary" aria-labelledby="local-ai-plan-title">
+                ${this.buildPlanSummary(selectedModel)}
             </section>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 

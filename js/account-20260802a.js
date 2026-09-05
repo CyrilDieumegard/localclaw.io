@@ -478,11 +478,25 @@
         if (preferredId && state.machines.some((machine) => machine.id === preferredId)) {
             return preferredId;
         }
+        const requestedId = new URLSearchParams(window.location?.search || '').get('fitMachine');
+        if (requestedId && state.machines.some((machine) => machine.id === requestedId)) {
+            return requestedId;
+        }
         if (state.selectedMachineId && state.machines.some((machine) => machine.id === state.selectedMachineId)) {
             return state.selectedMachineId;
         }
         const primary = state.machines.find((machine) => machine.isPrimary);
         return primary?.id || state.machines[0]?.id || null;
+    }
+
+    function rememberSelectedMachine(machine) {
+        // Restore owned hardware from the account, not the specs supplied in a URL.
+        window.LocalClawFitContext?.select(machine, { notify: false });
+    }
+
+    function modelHref(modelId, machine) {
+        const href = `/models/${encodeURIComponent(modelId)}`;
+        return window.LocalClawFitContext?.withMachine(href, machine) || href;
     }
 
     function cachePrimaryMachine() {
@@ -614,6 +628,7 @@
             return;
         }
 
+        rememberSelectedMachine(machine);
         const result = window.LocalClawCompatibility.rankModels(machine, indexableLocalModels());
         const compatibleById = new Map(result.compatible.map((model) => [model.id, model]));
         const machineFavorites = state.favorites.filter((favorite) => favorite.machineId === machine.id);
@@ -785,7 +800,7 @@
                 <div class="lc-plan-overview__action">
                     <span>Next action</span>
                     <strong>Run the recommended setup</strong>
-                    <a class="lc-button lc-button-primary lc-button-full" href="/models/${encodeURIComponent(primaryModel.id)}" data-plan-primary-model="${escapeAttribute(primaryModel.id)}">Open ${escapeHtml(primaryModel.name)}</a>
+                    <a class="lc-button lc-button-primary lc-button-full" href="${escapeAttribute(modelHref(primaryModel.id, machine))}" data-plan-primary-model="${escapeAttribute(primaryModel.id)}">Open ${escapeHtml(primaryModel.name)}</a>
                     <small>Plan updates appear here when a stronger compatible model enters the catalogue.</small>
                 </div>
             </section>
@@ -804,7 +819,7 @@
                     <p>Counts use the same local catalogue metadata as the dedicated directories. Voice is shown only as an explicit hardware tag, not a RAM or VRAM fit.</p>
                 </header>
                 <div class="lc-machine-families__grid">
-                    ${families.map(renderMachineFamilyCard).join('')}
+                    ${families.map((family) => renderMachineFamilyCard(family, machine)).join('')}
                 </div>
             </section>
         `;
@@ -955,17 +970,17 @@
         return `Explicit ${hardwareTag.toUpperCase()} tag only: canonical Voice records do not consistently publish RAM or VRAM floors.`;
     }
 
-    function renderMachineFamilyCard(family) {
+    function renderMachineFamilyCard(family, machine) {
         let modelMarkup = '';
         if (family.model) {
             const modelPath = family.key === 'llm'
-                ? `/models/${encodeURIComponent(family.model.id)}`
+                ? modelHref(family.model.id, machine)
                 : family.key === 'voice'
                     ? `/tts/${encodeURIComponent(family.model.id)}`
                     : `/${family.key === '3d' ? '3d' : family.key}/${encodeURIComponent(family.model.id)}`;
             modelMarkup = `
                 <span class="lc-machine-family__model-label">${escapeHtml(family.modelLabel)}</span>
-                <a class="lc-machine-family__model" href="${modelPath}">${escapeHtml(family.model.name)}</a>
+                <a class="lc-machine-family__model" href="${escapeAttribute(modelPath)}">${escapeHtml(family.model.name)}</a>
             `;
         }
         return `
@@ -1018,7 +1033,7 @@
                     <span>${escapeHtml(model.runtimeNote)}</span>
                     <span class="lc-model-actions">
                         ${canCompare ? `<button class="lc-compare-button${isCompared ? ' is-selected' : ''}" type="button" data-compare-model="${escapeAttribute(model.id)}" aria-pressed="${isCompared ? 'true' : 'false'}">${isCompared ? 'Selected' : 'Compare'}</button>` : ''}
-                        <a class="lc-model-link" href="/models/${encodeURIComponent(model.id)}" data-account-model-open="${escapeAttribute(model.id)}">View model →</a>
+                        <a class="lc-model-link" href="${escapeAttribute(modelHref(model.id, machine))}" data-account-model-open="${escapeAttribute(model.id)}">View model →</a>
                     </span>
                 </footer>
             </article>
@@ -1092,7 +1107,7 @@
                             ${models.map((model) => `
                                 <th scope="col">
                                     ${Number(model.compatibilityScore) === bestScore ? '<span class="lc-recommended-tag">Recommended</span>' : ''}
-                                    <a href="/models/${encodeURIComponent(model.id)}">${escapeHtml(model.name)}</a>
+                                    <a href="${escapeAttribute(modelHref(model.id, machine))}">${escapeHtml(model.name)}</a>
                                 </th>
                             `).join('')}
                         </tr>
@@ -1262,7 +1277,7 @@
                 <div class="lc-upgrade-actions">
                     <a class="lc-button lc-button-primary" href="${primaryLink}">${primaryLabel}</a>
                     ${gpuUpgrade ? '<a class="lc-button" href="/ram-gpu-for-local-ai#gpu-picks">Optional GPU upgrade</a>' : ''}
-                    <a class="lc-button" href="/models/${encodeURIComponent(target.id)}">View target model</a>
+                    <a class="lc-button" href="${escapeAttribute(modelHref(target.id, machine))}">View target model</a>
                 </div>
             </section>
         `;

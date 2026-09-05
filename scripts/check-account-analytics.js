@@ -11,7 +11,10 @@ const calls = [];
 const storage = new Map();
 const context = {
   window: {
-    datafast: (...args) => calls.push(args),
+    datafast: (name, parameters) => {
+      assert(Object.keys(parameters).length <= 10, 'DataFast rejects more than 10 custom parameters');
+      calls.push([name, parameters]);
+    },
     innerWidth: 390,
     location: { search: '?view=machines', pathname: '/account' },
     sessionStorage: {
@@ -112,8 +115,8 @@ for (const forbidden of ['email:', 'user_id:', 'machine_id:', 'machine_name:', '
   assert(!trackingBlocks.includes(forbidden), `Sensitive tracking property found: ${forbidden}`);
 }
 
-const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=20260823a');
-const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=20260905b');
+const helperIndex = accountHtml.indexOf('/js/account-analytics-20260820a.js?v=');
+const accountIndex = accountHtml.indexOf('/js/account-20260802a.js?v=');
 assert(helperIndex >= 0 && accountIndex > helperIndex, 'Account analytics helper must load before the account client');
 
 console.log(`Account analytics checks passed: ${requiredEvents.length} funnel events, safe-property allowlist and once-only deduplication.`);

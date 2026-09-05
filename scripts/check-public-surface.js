@@ -163,8 +163,11 @@ if (!llms.includes('/llms-full.txt')) errors.push('llms.txt does not link to llm
 
 const homepage = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 if (homepage.includes('cdn.tailwindcss.com')) errors.push('Homepage still compiles Tailwind in the browser');
-if (!homepage.includes('css/home-tailwind-20260814a.css?v=20260814a')) errors.push('Homepage local Tailwind asset is missing');
+if (!homepage.includes('css/home-tailwind-20260814a.css?v=20260905c')) errors.push('Homepage local Tailwind asset is missing');
 if (!fs.existsSync(path.join(ROOT, 'css/home-tailwind-20260814a.css'))) errors.push('Generated homepage Tailwind CSS file is missing');
+const activeApp = homepage.match(/src="(js\/app-[^"?]+\.js)(?:\?[^\"]*)?"/)?.[1];
+const homeCssSources = require('./tailwind.home.config.js').content;
+if (!activeApp || !homeCssSources.includes(`./${activeApp}`)) errors.push('Homepage CSS must scan the active recommender script');
 
 const modelPages = fs.readdirSync(path.join(ROOT, 'models'))
   .filter(file => file.endsWith('.html') && file !== 'index.html');
