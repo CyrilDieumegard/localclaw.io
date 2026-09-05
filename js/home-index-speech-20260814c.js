@@ -51,6 +51,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.4
   },
   {
+    "id": "vieneu-tts-v3-turbo",
+    "name": "VieNeu-TTS v3 Turbo",
+    "developer": "Phạm Nguyễn Ngọc Bảo",
+    "family": "vieneu",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-09",
+    "quality": 9.2,
+    "speed": 9.4,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.55
+  },
+  {
     "id": "confucius4-tts",
     "name": "Confucius4-TTS",
     "developer": "NetEase Youdao",

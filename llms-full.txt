@@ -1,6 +1,6 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-09-05 from the LocalClaw repository catalogue. This file lists all 417 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-09-05 from the LocalClaw repository catalogue. This file lists all 418 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
@@ -235,7 +235,7 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 227 [Llama 3.2 (1B)](https://localclaw.io/models/llama3.2-1b) — family: llama; LocalClaw: 4.0/10; parameters: 1B; minimum RAM: 4 GB; licence: Llama 3.2 Community License; released: Sep 2024.
 - 228 [TinyLlama (1.1B)](https://localclaw.io/models/tinyllama-1.1b) — family: tinyllama; LocalClaw: 3.5/10; parameters: 1.1B; minimum RAM: 4 GB; licence: Apache 2.0; released: Jan 2024.
 
-## Local Speech Models (83)
+## Local Speech Models (84)
 
 - 01 [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — family: parakeet; type: ASR; Audio: 9.6/10; quality: 9.4/10; speed: 10.0/10; licence: CC-BY-4.0; released: May 2025.
 - 02 [Parakeet TDT 0.6B v3](https://localclaw.io/tts/parakeet-tdt-0.6b-v3) — family: parakeet; type: ASR; Audio: 9.6/10; quality: 9.5/10; speed: 9.7/10; licence: CC-BY-4.0; released: Aug 2025.
@@ -248,78 +248,79 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 09 [F5-TTS](https://localclaw.io/tts/f5-tts) — family: f5; type: TTS; Audio: 9.3/10; quality: 9.4/10; speed: 9.0/10; licence: CC-BY-NC-4.0 weights; MIT code; released: Oct 2024.
 - 10 [MaskGCT](https://localclaw.io/tts/maskgct) — family: maskgct; type: TTS; Audio: 9.3/10; quality: 9.4/10; speed: 9.0/10; licence: MIT; released: Oct 2024.
 - 11 [Sopro V2 Turbo](https://localclaw.io/tts/sopro-v2-turbo) — family: sopro; type: TTS; Audio: 9.3/10; quality: 9.2/10; speed: 9.4/10; licence: Apache 2.0; released: Aug 27, 2026.
-- 12 [Voxtral Mini 4B Realtime 2602](https://localclaw.io/tts/voxtral-mini-4b-realtime-2602) — family: voxtral; type: ASR; Audio: 9.3/10; quality: 9.2/10; speed: 9.4/10; licence: Apache 2.0; released: Feb 2026.
-- 13 [ZONOS2](https://localclaw.io/tts/zonos2) — family: zonos; type: TTS; Audio: 9.2/10; quality: 9.6/10; speed: 8.5/10; licence: MIT / Apache-2.0 metadata; released: Aug 25, 2026.
-- 14 [Whisper v3 Turbo](https://localclaw.io/tts/whisper-v3-turbo) — family: whisper; type: ASR; Audio: 9.2/10; quality: 9.1/10; speed: 9.5/10; licence: MIT; released: Oct 2024.
-- 15 [Breeze TTS 2](https://localclaw.io/tts/breeze-tts-2) — family: breeze; type: TTS; Audio: 9.2/10; quality: 9.6/10; speed: 8.4/10; licence: BreezeBlue Research and Non-Commercial License; released: Aug 25, 2026.
-- 16 [Canary 1B v2](https://localclaw.io/tts/canary-1b-v2) — family: canary; type: ASR; Audio: 9.2/10; quality: 9.3/10; speed: 9.0/10; licence: CC-BY-4.0; released: Jul 2025.
-- 17 [Audar-ASR-V1-Flash](https://localclaw.io/tts/audar-asr-v1-flash) — family: audar; type: ASR; Audio: 9.2/10; quality: 9.1/10; speed: 9.4/10; licence: AudarAI Open License v1.0; released: Aug 20, 2026.
-- 18 [Qwen3-TTS (0.6B / 1.7B)](https://localclaw.io/tts/qwen3-tts) — family: qwen; type: TTS; Audio: 9.2/10; quality: 9.5/10; speed: 8.5/10; licence: Apache-2.0; released: Jan 22, 2026.
-- 19 [Zonos v0.1](https://localclaw.io/tts/zonos) — family: zonos; type: TTS; Audio: 9.2/10; quality: 9.5/10; speed: 8.5/10; licence: Apache 2.0; released: Feb 2025.
-- 20 [Audio8 TTS Preview 0.6B](https://localclaw.io/tts/audio8-tts-preview-0.6b) — family: audio8; type: TTS; Audio: 9.2/10; quality: 9.3/10; speed: 8.9/10; licence: Apache 2.0; released: Jul 2026.
-- 21 [Moshi](https://localclaw.io/tts/moshi) — family: moshi; type: TTS; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: CC-BY-4.0; released: Sep 2024.
-- 22 [NeuTTS Air](https://localclaw.io/tts/neutts-air) — family: neutts; type: TTS; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: Apache 2.0; released: Oct 2025.
-- 23 [Voicebox](https://localclaw.io/tts/voicebox) — family: app; type: APP; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: MIT; released: Feb 2025.
-- 24 [Higgs TTS 3 4B](https://localclaw.io/tts/higgs-tts-3-4b) — family: higgs; type: TTS; Audio: 9.2/10; quality: 9.7/10; speed: 8.0/10; licence: Boson Higgs TTS 3 Research and Non-Commercial License; released: Jul 2026.
-- 25 [IndexTTS 2.5](https://localclaw.io/tts/index-tts-2.5) — family: indextts; type: TTS; Audio: 9.1/10; quality: 9.5/10; speed: 8.4/10; licence: bilibili Model Use License; released: Aug 12, 2026.
-- 26 [Audar-ASR-V1-Turbo](https://localclaw.io/tts/audar-asr-v1-turbo) — family: audar; type: ASR; Audio: 9.1/10; quality: 9.4/10; speed: 8.6/10; licence: AudarAI Community License v1.0; released: Aug 2026.
-- 27 [CosyVoice 2](https://localclaw.io/tts/cosyvoice2) — family: cosyvoice; type: TTS; Audio: 9.1/10; quality: 9.3/10; speed: 8.8/10; licence: Apache 2.0; released: Dec 2024.
-- 28 [VibeVoice Realtime 0.5B](https://localclaw.io/tts/vibevoice-realtime-0.5b) — family: vibevoice; type: TTS; Audio: 9.1/10; quality: 9.1/10; speed: 9.2/10; licence: MIT; released: Dec 2025.
-- 29 [Supertonic 3](https://localclaw.io/tts/supertonic-3) — family: supertonic; type: TTS; Audio: 9.1/10; quality: 8.8/10; speed: 9.8/10; licence: OpenRAIL-M; released: May 2026.
-- 30 [ARK-ASR-3B](https://localclaw.io/tts/ark-asr-3b) — family: ark-asr; type: ASR; Audio: 9.1/10; quality: 9.3/10; speed: 8.7/10; licence: Apache 2.0; released: Jun 2026.
-- 31 [MOSS-Transcribe-Diarize 0.9B](https://localclaw.io/tts/moss-transcribe-diarize) — family: moss; type: ASR; Audio: 9.1/10; quality: 9.4/10; speed: 8.4/10; licence: Apache 2.0; released: Jul 2026.
-- 32 [VoxCPM2](https://localclaw.io/tts/voxcpm2) — family: voxcpm; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.3/10; licence: Apache 2.0; released: May 2026.
-- 33 [Confucius4-TTS](https://localclaw.io/tts/confucius4-tts) — family: confucius; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.2/10; licence: Apache 2.0; released: Aug 14, 2026.
-- 34 [MeloTTS](https://localclaw.io/tts/melotts) — family: melo; type: TTS; Audio: 9.0/10; quality: 9.0/10; speed: 9.0/10; licence: MIT; released: Mar 2024.
-- 35 [Gepard 1.0](https://localclaw.io/tts/gepard-1.0) — family: gepard; type: TTS; Audio: 9.0/10; quality: 8.9/10; speed: 9.2/10; licence: Apache 2.0 model; NVIDIA Open Model License codec; released: Jun 2026.
-- 36 [Inflect Nano v2](https://localclaw.io/tts/inflect-nano-v2) — family: inflect; type: TTS; Audio: 9.0/10; quality: 8.6/10; speed: 9.8/10; licence: Apache 2.0; released: Jul 2026.
-- 37 [Audio8 TTS Preview 0.1B](https://localclaw.io/tts/audio8-tts-preview-0.1b) — family: audio8; type: TTS; Audio: 9.0/10; quality: 8.8/10; speed: 9.3/10; licence: Apache 2.0; released: Aug 2026.
-- 38 [Chatterbox TTS](https://localclaw.io/tts/chatterbox) — family: chatterbox; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: MIT; released: May 2025.
-- 39 [Dots TTS MF](https://localclaw.io/tts/dots-tts-mf) — family: dots; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: Apache 2.0; released: Jun 2026.
-- 40 [IndexTTS 2](https://localclaw.io/tts/index-tts-2) — family: indextts; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: Apache 2.0; released: Sep 2025.
-- 41 [OpenVoice V2](https://localclaw.io/tts/openvoice-v2) — family: openvoice; type: TTS; Audio: 8.9/10; quality: 8.9/10; speed: 9.0/10; licence: MIT; released: May 2024.
-- 42 [Orpheus TTS](https://localclaw.io/tts/orpheus-tts) — family: orpheus; type: TTS; Audio: 8.9/10; quality: 9.6/10; speed: 7.5/10; licence: Apache 2.0; released: Mar 2025.
-- 43 [MOSS-TTS-Nano](https://localclaw.io/tts/moss-tts-nano) — family: moss; type: TTS; Audio: 8.9/10; quality: 8.5/10; speed: 9.7/10; licence: Apache 2.0; released: Apr 2026.
-- 44 [MagpieTTS Multilingual 357M](https://localclaw.io/tts/magpie-tts-multilingual-357m) — family: magpie; type: TTS; Audio: 8.9/10; quality: 9.0/10; speed: 8.6/10; licence: NVIDIA Open Model License; released: Jul 2026.
-- 45 [Sesame CSM](https://localclaw.io/tts/sesame-csm) — family: sesame; type: TTS; Audio: 8.9/10; quality: 9.5/10; speed: 7.5/10; licence: Apache 2.0; released: Mar 2025.
-- 46 [Fish Speech](https://localclaw.io/tts/fish-speech) — family: fish; type: TTS; Audio: 8.8/10; quality: 9.0/10; speed: 8.5/10; licence: Apache 2.0; released: Jun 2024.
-- 47 [Higgs Audio v2](https://localclaw.io/tts/higgs-audio-v2) — family: higgs; type: TTS; Audio: 8.8/10; quality: 9.7/10; speed: 7.0/10; licence: Apache 2.0; released: Jul 2025.
-- 48 [Granite Speech 4.1 2B](https://localclaw.io/tts/granite-speech-4.1-2b) — family: granite-speech; type: ASR; Audio: 8.8/10; quality: 9.2/10; speed: 8.0/10; licence: Apache 2.0; released: Apr 2026.
-- 49 [ICE-012 Audio](https://localclaw.io/tts/ice-012-audio) — family: ice; type: TTS; Audio: 8.8/10; quality: 9.1/10; speed: 8.2/10; licence: Apache 2.0; released: Aug 2026.
-- 50 [KorvaTTS](https://localclaw.io/tts/korvatts) — family: korva; type: TTS; Audio: 8.8/10; quality: 8.6/10; speed: 9.2/10; licence: Apache 2.0; released: Sep 2026.
-- 51 [Raon-OpenTTS-1B](https://localclaw.io/tts/raon-opentts-1b) — family: raon; type: TTS; Audio: 8.8/10; quality: 9.3/10; speed: 7.7/10; licence: CC-BY-NC-4.0; released: May 2026.
-- 52 [Spark TTS](https://localclaw.io/tts/spark-tts) — family: spark; type: TTS; Audio: 8.7/10; quality: 9.0/10; speed: 8.2/10; licence: Apache 2.0; released: Mar 2025.
-- 53 [SILMA TTS](https://localclaw.io/tts/silma-tts) — family: silma; type: TTS; Audio: 8.7/10; quality: 8.7/10; speed: 8.8/10; licence: Apache 2.0; released: Mar 2026.
-- 54 [Step-Audio 2 Mini](https://localclaw.io/tts/step-audio-2-mini) — family: step; type: TTS; Audio: 8.7/10; quality: 9.3/10; speed: 7.5/10; licence: Apache 2.0; released: Aug 2025.
-- 55 [VibeVoice ASR](https://localclaw.io/tts/vibevoice-asr) — family: vibevoice; type: ASR; Audio: 8.7/10; quality: 9.3/10; speed: 7.5/10; licence: MIT; released: Jan 2026.
-- 56 [MOSS-Audio 4B Instruct](https://localclaw.io/tts/moss-audio-4b-instruct) — family: moss; type: ASR; Audio: 8.7/10; quality: 9.2/10; speed: 7.7/10; licence: Apache 2.0; released: Apr 13, 2026.
-- 57 [Cohere Transcribe 03-2026](https://localclaw.io/tts/cohere-transcribe-03-2026) — family: cohere; type: ASR; Audio: 8.7/10; quality: 9.0/10; speed: 8.0/10; licence: Apache 2.0; released: Mar 2026.
-- 58 [OuteTTS](https://localclaw.io/tts/outetts) — family: outetts; type: TTS; Audio: 8.6/10; quality: 8.7/10; speed: 8.5/10; licence: MIT; released: Jan 2025.
-- 59 [TADA](https://localclaw.io/tts/tada) — family: tada; type: TTS; Audio: 8.6/10; quality: 9.1/10; speed: 7.5/10; licence: Apache 2.0; released: Feb 2025.
-- 60 [FireRedAudio](https://localclaw.io/tts/firered-audio) — family: firered; type: ASR; Audio: 8.6/10; quality: 9.5/10; speed: 6.6/10; licence: Apache 2.0; released: Aug 21, 2026.
-- 61 [Dia](https://localclaw.io/tts/dia-tts) — family: dia; type: TTS; Audio: 8.6/10; quality: 9.3/10; speed: 7.0/10; licence: Apache 2.0; released: Apr 2025.
-- 62 [MARS5](https://localclaw.io/tts/mars5) — family: mars; type: TTS; Audio: 8.5/10; quality: 9.0/10; speed: 7.5/10; licence: AGPL-3.0; released: Jun 2024.
-- 63 [LLaSA 3B](https://localclaw.io/tts/llasa-3b) — family: llasa; type: TTS; Audio: 8.5/10; quality: 9.2/10; speed: 7.0/10; licence: CC-BY-NC 4.0; released: Jan 2025.
-- 64 [Higgs Audio v3 8B STT v2](https://localclaw.io/tts/higgs-audio-v3-8b-stt-v2) — family: higgs; type: ASR; Audio: 8.5/10; quality: 9.1/10; speed: 7.2/10; licence: Apache 2.0; released: May 2026.
-- 65 [VibeVoice 1.5B](https://localclaw.io/tts/vibevoice-1.5b) — family: vibevoice; type: TTS; Audio: 8.5/10; quality: 9.4/10; speed: 6.5/10; licence: MIT; released: Aug 2025.
-- 66 [A.X K2 Raon-Speech 21B-A3B](https://localclaw.io/tts/ax-k2-raon-speech-21b-a3b) — family: raon; type: ASR; Audio: 8.4/10; quality: 9.4/10; speed: 6.4/10; licence: CC-BY-NC-4.0; released: Jul 2026.
-- 67 [MOSS-TTS](https://localclaw.io/tts/moss-tts) — family: moss; type: TTS; Audio: 8.4/10; quality: 9.2/10; speed: 6.8/10; licence: Apache 2.0; released: Mar 2026.
-- 68 [GPT-SoVITS](https://localclaw.io/tts/gpt-sovits) — family: gptsovits; type: TTS; Audio: 8.4/10; quality: 9.1/10; speed: 7.0/10; licence: MIT; released: Jan 2024.
-- 69 [StyleTTS 2](https://localclaw.io/tts/styletts2) — family: styletts; type: TTS; Audio: 8.4/10; quality: 9.3/10; speed: 6.5/10; licence: MIT; released: Jan 2024.
-- 70 [Kitten TTS v0.8](https://localclaw.io/tts/kitten-tts) — family: kitten; type: TTS; Audio: 8.3/10; quality: 7.5/10; speed: 10.0/10; licence: Apache-2.0; released: Feb 24, 2026.
-- 71 [Piper](https://localclaw.io/tts/piper) — family: piper; type: TTS; Audio: 8.3/10; quality: 7.5/10; speed: 10.0/10; licence: MIT; released: Jun 2023.
-- 72 [MisoTTS](https://localclaw.io/tts/miso-tts) — family: miso; type: TTS; Audio: 8.2/10; quality: 9.4/10; speed: 5.8/10; licence: Other / custom; released: May 2026.
-- 73 [ChatTTS](https://localclaw.io/tts/chattts) — family: chattts; type: TTS; Audio: 8.2/10; quality: 8.8/10; speed: 7.0/10; licence: AGPL-3.0; released: May 2024.
-- 74 [Parler TTS](https://localclaw.io/tts/parler-tts) — family: parler; type: TTS; Audio: 8.2/10; quality: 8.8/10; speed: 7.0/10; licence: Apache 2.0; released: Feb 2024.
-- 75 [EmotiVoice](https://localclaw.io/tts/emotivoice) — family: emotivoice; type: TTS; Audio: 8.2/10; quality: 8.5/10; speed: 7.5/10; licence: Apache 2.0; released: Nov 2023.
-- 76 [Coqui TTS (XTTS v2)](https://localclaw.io/tts/coqui-tts) — family: coqui; type: TTS; Audio: 8.2/10; quality: 9.2/10; speed: 6.0/10; licence: CPML (custom); released: Sep 2023.
-- 77 [IndicTTS](https://localclaw.io/tts/indic-tts) — family: indic; type: TTS; Audio: 8.2/10; quality: 8.0/10; speed: 8.5/10; licence: MIT; released: Feb 2024.
-- 78 [MetaVoice-1B](https://localclaw.io/tts/metavoice) — family: metavoice; type: TTS; Audio: 8.0/10; quality: 8.9/10; speed: 6.0/10; licence: Apache 2.0; released: Mar 2024.
-- 79 [WavTTS](https://localclaw.io/tts/wavtts) — family: wavtts; type: TTS; Audio: 7.9/10; quality: 9.1/10; speed: 5.2/10; licence: CC-BY-NC 4.0 weights / MIT code; released: Jun 2026.
-- 80 [MMS (Meta)](https://localclaw.io/tts/mms) — family: mms; type: TTS; Audio: 7.2/10; quality: 7.0/10; speed: 7.5/10; licence: CC-BY-NC 4.0; released: May 2023.
-- 81 [Tortoise TTS](https://localclaw.io/tts/tortoise-tts) — family: tortoise; type: TTS; Audio: 7.1/10; quality: 9.1/10; speed: 3.0/10; licence: Apache 2.0; released: May 2022.
-- 82 [Bark (Suno)](https://localclaw.io/tts/bark) — family: bark; type: TTS; Audio: 7.1/10; quality: 8.5/10; speed: 4.0/10; licence: MIT; released: Apr 2023.
-- 83 [eSpeak NG](https://localclaw.io/tts/espeak-ng) — family: espeak; type: TTS; Audio: 6.9/10; quality: 5.5/10; speed: 10.0/10; licence: GPL-3.0; released: Jan 2010.
+- 12 [VieNeu-TTS v3 Turbo](https://localclaw.io/tts/vieneu-tts-v3-turbo) — family: vieneu; type: TTS; Audio: 9.3/10; quality: 9.2/10; speed: 9.4/10; licence: Apache 2.0; released: Sep 2026.
+- 13 [Voxtral Mini 4B Realtime 2602](https://localclaw.io/tts/voxtral-mini-4b-realtime-2602) — family: voxtral; type: ASR; Audio: 9.3/10; quality: 9.2/10; speed: 9.4/10; licence: Apache 2.0; released: Feb 2026.
+- 14 [ZONOS2](https://localclaw.io/tts/zonos2) — family: zonos; type: TTS; Audio: 9.2/10; quality: 9.6/10; speed: 8.5/10; licence: MIT / Apache-2.0 metadata; released: Aug 25, 2026.
+- 15 [Whisper v3 Turbo](https://localclaw.io/tts/whisper-v3-turbo) — family: whisper; type: ASR; Audio: 9.2/10; quality: 9.1/10; speed: 9.5/10; licence: MIT; released: Oct 2024.
+- 16 [Breeze TTS 2](https://localclaw.io/tts/breeze-tts-2) — family: breeze; type: TTS; Audio: 9.2/10; quality: 9.6/10; speed: 8.4/10; licence: BreezeBlue Research and Non-Commercial License; released: Aug 25, 2026.
+- 17 [Canary 1B v2](https://localclaw.io/tts/canary-1b-v2) — family: canary; type: ASR; Audio: 9.2/10; quality: 9.3/10; speed: 9.0/10; licence: CC-BY-4.0; released: Jul 2025.
+- 18 [Audar-ASR-V1-Flash](https://localclaw.io/tts/audar-asr-v1-flash) — family: audar; type: ASR; Audio: 9.2/10; quality: 9.1/10; speed: 9.4/10; licence: AudarAI Open License v1.0; released: Aug 20, 2026.
+- 19 [Qwen3-TTS (0.6B / 1.7B)](https://localclaw.io/tts/qwen3-tts) — family: qwen; type: TTS; Audio: 9.2/10; quality: 9.5/10; speed: 8.5/10; licence: Apache-2.0; released: Jan 22, 2026.
+- 20 [Zonos v0.1](https://localclaw.io/tts/zonos) — family: zonos; type: TTS; Audio: 9.2/10; quality: 9.5/10; speed: 8.5/10; licence: Apache 2.0; released: Feb 2025.
+- 21 [Audio8 TTS Preview 0.6B](https://localclaw.io/tts/audio8-tts-preview-0.6b) — family: audio8; type: TTS; Audio: 9.2/10; quality: 9.3/10; speed: 8.9/10; licence: Apache 2.0; released: Jul 2026.
+- 22 [Moshi](https://localclaw.io/tts/moshi) — family: moshi; type: TTS; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: CC-BY-4.0; released: Sep 2024.
+- 23 [NeuTTS Air](https://localclaw.io/tts/neutts-air) — family: neutts; type: TTS; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: Apache 2.0; released: Oct 2025.
+- 24 [Voicebox](https://localclaw.io/tts/voicebox) — family: app; type: APP; Audio: 9.2/10; quality: 9.0/10; speed: 9.5/10; licence: MIT; released: Feb 2025.
+- 25 [Higgs TTS 3 4B](https://localclaw.io/tts/higgs-tts-3-4b) — family: higgs; type: TTS; Audio: 9.2/10; quality: 9.7/10; speed: 8.0/10; licence: Boson Higgs TTS 3 Research and Non-Commercial License; released: Jul 2026.
+- 26 [IndexTTS 2.5](https://localclaw.io/tts/index-tts-2.5) — family: indextts; type: TTS; Audio: 9.1/10; quality: 9.5/10; speed: 8.4/10; licence: bilibili Model Use License; released: Aug 12, 2026.
+- 27 [Audar-ASR-V1-Turbo](https://localclaw.io/tts/audar-asr-v1-turbo) — family: audar; type: ASR; Audio: 9.1/10; quality: 9.4/10; speed: 8.6/10; licence: AudarAI Community License v1.0; released: Aug 2026.
+- 28 [CosyVoice 2](https://localclaw.io/tts/cosyvoice2) — family: cosyvoice; type: TTS; Audio: 9.1/10; quality: 9.3/10; speed: 8.8/10; licence: Apache 2.0; released: Dec 2024.
+- 29 [VibeVoice Realtime 0.5B](https://localclaw.io/tts/vibevoice-realtime-0.5b) — family: vibevoice; type: TTS; Audio: 9.1/10; quality: 9.1/10; speed: 9.2/10; licence: MIT; released: Dec 2025.
+- 30 [Supertonic 3](https://localclaw.io/tts/supertonic-3) — family: supertonic; type: TTS; Audio: 9.1/10; quality: 8.8/10; speed: 9.8/10; licence: OpenRAIL-M; released: May 2026.
+- 31 [ARK-ASR-3B](https://localclaw.io/tts/ark-asr-3b) — family: ark-asr; type: ASR; Audio: 9.1/10; quality: 9.3/10; speed: 8.7/10; licence: Apache 2.0; released: Jun 2026.
+- 32 [MOSS-Transcribe-Diarize 0.9B](https://localclaw.io/tts/moss-transcribe-diarize) — family: moss; type: ASR; Audio: 9.1/10; quality: 9.4/10; speed: 8.4/10; licence: Apache 2.0; released: Jul 2026.
+- 33 [VoxCPM2](https://localclaw.io/tts/voxcpm2) — family: voxcpm; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.3/10; licence: Apache 2.0; released: May 2026.
+- 34 [Confucius4-TTS](https://localclaw.io/tts/confucius4-tts) — family: confucius; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.2/10; licence: Apache 2.0; released: Aug 14, 2026.
+- 35 [MeloTTS](https://localclaw.io/tts/melotts) — family: melo; type: TTS; Audio: 9.0/10; quality: 9.0/10; speed: 9.0/10; licence: MIT; released: Mar 2024.
+- 36 [Gepard 1.0](https://localclaw.io/tts/gepard-1.0) — family: gepard; type: TTS; Audio: 9.0/10; quality: 8.9/10; speed: 9.2/10; licence: Apache 2.0 model; NVIDIA Open Model License codec; released: Jun 2026.
+- 37 [Inflect Nano v2](https://localclaw.io/tts/inflect-nano-v2) — family: inflect; type: TTS; Audio: 9.0/10; quality: 8.6/10; speed: 9.8/10; licence: Apache 2.0; released: Jul 2026.
+- 38 [Audio8 TTS Preview 0.1B](https://localclaw.io/tts/audio8-tts-preview-0.1b) — family: audio8; type: TTS; Audio: 9.0/10; quality: 8.8/10; speed: 9.3/10; licence: Apache 2.0; released: Aug 2026.
+- 39 [Chatterbox TTS](https://localclaw.io/tts/chatterbox) — family: chatterbox; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: MIT; released: May 2025.
+- 40 [Dots TTS MF](https://localclaw.io/tts/dots-tts-mf) — family: dots; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: Apache 2.0; released: Jun 2026.
+- 41 [IndexTTS 2](https://localclaw.io/tts/index-tts-2) — family: indextts; type: TTS; Audio: 9.0/10; quality: 9.4/10; speed: 8.0/10; licence: Apache 2.0; released: Sep 2025.
+- 42 [OpenVoice V2](https://localclaw.io/tts/openvoice-v2) — family: openvoice; type: TTS; Audio: 8.9/10; quality: 8.9/10; speed: 9.0/10; licence: MIT; released: May 2024.
+- 43 [Orpheus TTS](https://localclaw.io/tts/orpheus-tts) — family: orpheus; type: TTS; Audio: 8.9/10; quality: 9.6/10; speed: 7.5/10; licence: Apache 2.0; released: Mar 2025.
+- 44 [MOSS-TTS-Nano](https://localclaw.io/tts/moss-tts-nano) — family: moss; type: TTS; Audio: 8.9/10; quality: 8.5/10; speed: 9.7/10; licence: Apache 2.0; released: Apr 2026.
+- 45 [MagpieTTS Multilingual 357M](https://localclaw.io/tts/magpie-tts-multilingual-357m) — family: magpie; type: TTS; Audio: 8.9/10; quality: 9.0/10; speed: 8.6/10; licence: NVIDIA Open Model License; released: Jul 2026.
+- 46 [Sesame CSM](https://localclaw.io/tts/sesame-csm) — family: sesame; type: TTS; Audio: 8.9/10; quality: 9.5/10; speed: 7.5/10; licence: Apache 2.0; released: Mar 2025.
+- 47 [Fish Speech](https://localclaw.io/tts/fish-speech) — family: fish; type: TTS; Audio: 8.8/10; quality: 9.0/10; speed: 8.5/10; licence: Apache 2.0; released: Jun 2024.
+- 48 [Higgs Audio v2](https://localclaw.io/tts/higgs-audio-v2) — family: higgs; type: TTS; Audio: 8.8/10; quality: 9.7/10; speed: 7.0/10; licence: Apache 2.0; released: Jul 2025.
+- 49 [Granite Speech 4.1 2B](https://localclaw.io/tts/granite-speech-4.1-2b) — family: granite-speech; type: ASR; Audio: 8.8/10; quality: 9.2/10; speed: 8.0/10; licence: Apache 2.0; released: Apr 2026.
+- 50 [ICE-012 Audio](https://localclaw.io/tts/ice-012-audio) — family: ice; type: TTS; Audio: 8.8/10; quality: 9.1/10; speed: 8.2/10; licence: Apache 2.0; released: Aug 2026.
+- 51 [KorvaTTS](https://localclaw.io/tts/korvatts) — family: korva; type: TTS; Audio: 8.8/10; quality: 8.6/10; speed: 9.2/10; licence: Apache 2.0; released: Sep 2026.
+- 52 [Raon-OpenTTS-1B](https://localclaw.io/tts/raon-opentts-1b) — family: raon; type: TTS; Audio: 8.8/10; quality: 9.3/10; speed: 7.7/10; licence: CC-BY-NC-4.0; released: May 2026.
+- 53 [Spark TTS](https://localclaw.io/tts/spark-tts) — family: spark; type: TTS; Audio: 8.7/10; quality: 9.0/10; speed: 8.2/10; licence: Apache 2.0; released: Mar 2025.
+- 54 [SILMA TTS](https://localclaw.io/tts/silma-tts) — family: silma; type: TTS; Audio: 8.7/10; quality: 8.7/10; speed: 8.8/10; licence: Apache 2.0; released: Mar 2026.
+- 55 [Step-Audio 2 Mini](https://localclaw.io/tts/step-audio-2-mini) — family: step; type: TTS; Audio: 8.7/10; quality: 9.3/10; speed: 7.5/10; licence: Apache 2.0; released: Aug 2025.
+- 56 [VibeVoice ASR](https://localclaw.io/tts/vibevoice-asr) — family: vibevoice; type: ASR; Audio: 8.7/10; quality: 9.3/10; speed: 7.5/10; licence: MIT; released: Jan 2026.
+- 57 [MOSS-Audio 4B Instruct](https://localclaw.io/tts/moss-audio-4b-instruct) — family: moss; type: ASR; Audio: 8.7/10; quality: 9.2/10; speed: 7.7/10; licence: Apache 2.0; released: Apr 13, 2026.
+- 58 [Cohere Transcribe 03-2026](https://localclaw.io/tts/cohere-transcribe-03-2026) — family: cohere; type: ASR; Audio: 8.7/10; quality: 9.0/10; speed: 8.0/10; licence: Apache 2.0; released: Mar 2026.
+- 59 [OuteTTS](https://localclaw.io/tts/outetts) — family: outetts; type: TTS; Audio: 8.6/10; quality: 8.7/10; speed: 8.5/10; licence: MIT; released: Jan 2025.
+- 60 [TADA](https://localclaw.io/tts/tada) — family: tada; type: TTS; Audio: 8.6/10; quality: 9.1/10; speed: 7.5/10; licence: Apache 2.0; released: Feb 2025.
+- 61 [FireRedAudio](https://localclaw.io/tts/firered-audio) — family: firered; type: ASR; Audio: 8.6/10; quality: 9.5/10; speed: 6.6/10; licence: Apache 2.0; released: Aug 21, 2026.
+- 62 [Dia](https://localclaw.io/tts/dia-tts) — family: dia; type: TTS; Audio: 8.6/10; quality: 9.3/10; speed: 7.0/10; licence: Apache 2.0; released: Apr 2025.
+- 63 [MARS5](https://localclaw.io/tts/mars5) — family: mars; type: TTS; Audio: 8.5/10; quality: 9.0/10; speed: 7.5/10; licence: AGPL-3.0; released: Jun 2024.
+- 64 [LLaSA 3B](https://localclaw.io/tts/llasa-3b) — family: llasa; type: TTS; Audio: 8.5/10; quality: 9.2/10; speed: 7.0/10; licence: CC-BY-NC 4.0; released: Jan 2025.
+- 65 [Higgs Audio v3 8B STT v2](https://localclaw.io/tts/higgs-audio-v3-8b-stt-v2) — family: higgs; type: ASR; Audio: 8.5/10; quality: 9.1/10; speed: 7.2/10; licence: Apache 2.0; released: May 2026.
+- 66 [VibeVoice 1.5B](https://localclaw.io/tts/vibevoice-1.5b) — family: vibevoice; type: TTS; Audio: 8.5/10; quality: 9.4/10; speed: 6.5/10; licence: MIT; released: Aug 2025.
+- 67 [A.X K2 Raon-Speech 21B-A3B](https://localclaw.io/tts/ax-k2-raon-speech-21b-a3b) — family: raon; type: ASR; Audio: 8.4/10; quality: 9.4/10; speed: 6.4/10; licence: CC-BY-NC-4.0; released: Jul 2026.
+- 68 [MOSS-TTS](https://localclaw.io/tts/moss-tts) — family: moss; type: TTS; Audio: 8.4/10; quality: 9.2/10; speed: 6.8/10; licence: Apache 2.0; released: Mar 2026.
+- 69 [GPT-SoVITS](https://localclaw.io/tts/gpt-sovits) — family: gptsovits; type: TTS; Audio: 8.4/10; quality: 9.1/10; speed: 7.0/10; licence: MIT; released: Jan 2024.
+- 70 [StyleTTS 2](https://localclaw.io/tts/styletts2) — family: styletts; type: TTS; Audio: 8.4/10; quality: 9.3/10; speed: 6.5/10; licence: MIT; released: Jan 2024.
+- 71 [Kitten TTS v0.8](https://localclaw.io/tts/kitten-tts) — family: kitten; type: TTS; Audio: 8.3/10; quality: 7.5/10; speed: 10.0/10; licence: Apache-2.0; released: Feb 24, 2026.
+- 72 [Piper](https://localclaw.io/tts/piper) — family: piper; type: TTS; Audio: 8.3/10; quality: 7.5/10; speed: 10.0/10; licence: MIT; released: Jun 2023.
+- 73 [MisoTTS](https://localclaw.io/tts/miso-tts) — family: miso; type: TTS; Audio: 8.2/10; quality: 9.4/10; speed: 5.8/10; licence: Other / custom; released: May 2026.
+- 74 [ChatTTS](https://localclaw.io/tts/chattts) — family: chattts; type: TTS; Audio: 8.2/10; quality: 8.8/10; speed: 7.0/10; licence: AGPL-3.0; released: May 2024.
+- 75 [Parler TTS](https://localclaw.io/tts/parler-tts) — family: parler; type: TTS; Audio: 8.2/10; quality: 8.8/10; speed: 7.0/10; licence: Apache 2.0; released: Feb 2024.
+- 76 [EmotiVoice](https://localclaw.io/tts/emotivoice) — family: emotivoice; type: TTS; Audio: 8.2/10; quality: 8.5/10; speed: 7.5/10; licence: Apache 2.0; released: Nov 2023.
+- 77 [Coqui TTS (XTTS v2)](https://localclaw.io/tts/coqui-tts) — family: coqui; type: TTS; Audio: 8.2/10; quality: 9.2/10; speed: 6.0/10; licence: CPML (custom); released: Sep 2023.
+- 78 [IndicTTS](https://localclaw.io/tts/indic-tts) — family: indic; type: TTS; Audio: 8.2/10; quality: 8.0/10; speed: 8.5/10; licence: MIT; released: Feb 2024.
+- 79 [MetaVoice-1B](https://localclaw.io/tts/metavoice) — family: metavoice; type: TTS; Audio: 8.0/10; quality: 8.9/10; speed: 6.0/10; licence: Apache 2.0; released: Mar 2024.
+- 80 [WavTTS](https://localclaw.io/tts/wavtts) — family: wavtts; type: TTS; Audio: 7.9/10; quality: 9.1/10; speed: 5.2/10; licence: CC-BY-NC 4.0 weights / MIT code; released: Jun 2026.
+- 81 [MMS (Meta)](https://localclaw.io/tts/mms) — family: mms; type: TTS; Audio: 7.2/10; quality: 7.0/10; speed: 7.5/10; licence: CC-BY-NC 4.0; released: May 2023.
+- 82 [Tortoise TTS](https://localclaw.io/tts/tortoise-tts) — family: tortoise; type: TTS; Audio: 7.1/10; quality: 9.1/10; speed: 3.0/10; licence: Apache 2.0; released: May 2022.
+- 83 [Bark (Suno)](https://localclaw.io/tts/bark) — family: bark; type: TTS; Audio: 7.1/10; quality: 8.5/10; speed: 4.0/10; licence: MIT; released: Apr 2023.
+- 84 [eSpeak NG](https://localclaw.io/tts/espeak-ng) — family: espeak; type: TTS; Audio: 6.9/10; quality: 5.5/10; speed: 10.0/10; licence: GPL-3.0; released: Jan 2010.
 
 ## Local Image Models (5)
 

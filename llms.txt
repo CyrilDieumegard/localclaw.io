@@ -4,7 +4,7 @@
 
 - Verified snapshot: 2026-09-05
 - Local LLM pages: 228 unique routes across 82 families
-- Local speech records: 83 across 67 families (62 TTS, 20 ASR, 1 app)
+- Local speech records: 84 across 68 families (63 TTS, 20 ASR, 1 app)
 - Local image, video, 3D, music and vision records: 106
 - Latest catalogue release month: Sep 2, 2026
 - LLM source states: 188 public GGUF repositories, 39 public model cards without a verified GGUF file and 4 gated model cards
@@ -29,7 +29,7 @@
 - [Download LocalClaw](https://localclaw.io/download) — current Apple-notarized app, requirements and update instructions
 - [OpenClaw 2.0 and LocalClaw for Mac](https://localclaw.io/blog/openclaw-2026-8-1-localclaw-mac) — August 31, 2026 release guide: OpenClaw 2026.8.1, LocalClaw 1.0.201 compatibility, new features and upgrade steps
 - [LLM catalogue](https://localclaw.io/llm-list) — complete catalogue surface
-- [Speech catalogue](https://localclaw.io/tts-list) — 83 local records, two online/API references and one unverified preserved route
+- [Speech catalogue](https://localclaw.io/tts-list) — 84 local records, two online/API references and one unverified preserved route
 - [Image catalogue](https://localclaw.io/image-models) - local generation and editing models
 - [Video catalogue](https://localclaw.io/video-models) - local generation and animation models
 - [3D catalogue](https://localclaw.io/3d-models) - local mesh and splat models
@@ -41,7 +41,7 @@
 - [Use-case guides](https://localclaw.io/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed
 - [Live community rating aggregates](https://localclaw.io/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
-- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 417 local homepage entries
+- [Full AI-readable model index](https://localclaw.io/llms-full.txt) - all 418 local homepage entries
 
 ## New Mac Local AI Guides
 

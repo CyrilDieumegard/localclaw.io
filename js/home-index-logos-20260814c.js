@@ -149,6 +149,7 @@ window.HOME_INDEX_LOGOS = {
     tada: 'hume-avatar',
     tortoise: 'jbetker-avatar',
     vibevoice: 'microsoft',
+    vieneu: 'huggingface-avatar',
     voxtral: 'mistral',
     voxcpm: 'openbmb-avatar',
     wavtts: 'worstchan-avatar',
