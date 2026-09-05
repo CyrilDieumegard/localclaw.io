@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Spark-X2.5-4B</title>
@@ -55,6 +55,14 @@
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.2 3B is the compact Apache 2.0 Granite reasoning model with 128K native context, thinking-mode chat, tool calling and official GGUF artifacts for laptop-class local inference. 3B · 8 GB minimum RAM · Q4_K_M · granite.</description>
+    </item>
+    <item>
+      <title>GLM-5.3-Flash</title>
+      <link>https://localclaw.io/models/glm-5.3-flash</link>
+      <guid isPermaLink="true">https://localclaw.io/models/glm-5.3-flash</guid>
+      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
+      <category>glm</category>
+      <description>Z.ai MIT-licensed GLM-5 refresh with 320B total / 18B active parameters, native multimodal support, hybrid sparse-linear attention and a 1M-token context. Unsloth Dynamic GGUF makes it technically local, but it remains workstation/server-class hardware. 320B (18B active, MoE) · 160 GB minimum RAM · UD-IQ2_XXS · glm.</description>
     </item>
     <item>
       <title>Ornith-1.5-9B</title>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
       <category>nanbeige</category>
       <description>Nanbeige compact Apache 2.0 agentic model with 256K context, strong official code-agent and office-agent claims, and practical Q4_K_M GGUF/Ollama paths through Nanbeige-compatible llama.cpp runtimes. 4B (3B non-embedding) · 8 GB minimum RAM · Q4_K_M · nanbeige.</description>
-    </item>
-    <item>
-      <title>Agents-A1 4B</title>
-      <link>https://localclaw.io/models/agents-a1-4b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/agents-a1-4b</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <category>agents-a1</category>
-      <description>InternScience compact dense agent model with Apache 2.0 licensing, 262K context and official Q4_K_M GGUF artifacts for 8GB-class local assistants. 4B · 8 GB minimum RAM · Q4_K_M · agents-a1.</description>
     </item>
   </channel>
 </rss>

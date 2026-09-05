@@ -57,8 +57,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 233) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 233 preserved routes`);
-if (indexableLocalModels.length !== 227) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 227`);
+if (uniqueLocalModels.length !== 234) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 234 preserved routes`);
+if (indexableLocalModels.length !== 228) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 228`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 106) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 106`);
 
@@ -457,7 +457,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 235) errors.push('models/ must contain 235 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 236) errors.push('models/ must contain 236 HTML files');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 87) errors.push('tts/ must contain 86 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -509,7 +509,7 @@ for (const staleMarker of [
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b', 'granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'dfm-mimir', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b', 'lfm2-5-vl-3b'];
+const expectedLatestIds = ['spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b', 'granite4.2-8b', 'granite4.2-30b', 'granite4.2-3b', 'glm-5.3-flash', 'ornith-1-5-9b', 'ornith-1-5-35b-a3b', 'dfm-mimir', 'llm-jp-4-33b-thinking', 'nemotron-3-5-lightning-30b-a3b'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -525,6 +525,7 @@ for (const [modelId, released] of Object.entries({
   'granite4.2-8b': '2026-08-26',
   'granite4.2-30b': '2026-08-26',
   'granite4.2-3b': '2026-08-25',
+  'glm-5.3-flash': '2026-08-25',
   'ornith-1-5-9b': '2026-08-18',
   'ornith-1-5-35b-a3b': '2026-08-18',
   'dfm-mimir': '2026-08-14',
@@ -683,7 +684,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 187, publicModelCard: 39, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 188, publicModelCard: 39, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);

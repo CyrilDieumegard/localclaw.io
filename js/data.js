@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
+// Updated September 5, 2026 - Added GLM-5.3-Flash - 238 LLM total
+// Previous: September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
 // Previous: September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
 // Previous: August 28, 2026 - Added DFM-Mimir - 234 LLM total
 // Previous: August 27, 2026 - Added Granite 4.2 3B - 233 LLM total
@@ -283,6 +284,25 @@ const APP_DATA = {
             runtime_url: 'https://huggingface.co/lmstudio-community/granite-4.2-30b-MLX-4bit',
             benchmarks: { speed: 4, quality: 9, coding: 8, reasoning: 9 },
             released: '2026-08-26',
+            isNew: true
+        },
+        {
+            id: 'glm-5.3-flash',
+            name: 'GLM-5.3-Flash',
+            family: 'glm',
+            params: '320B (18B active, MoE)',
+            size_gb: 120,
+            min_ram: 160,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'beast', 'agentic', 'long-context', 'multimodal'],
+            description: 'Z.ai MIT-licensed GLM-5 refresh with 320B total / 18B active parameters, native multimodal support, hybrid sparse-linear attention and a 1M-token context. Unsloth Dynamic GGUF makes it technically local, but it remains workstation/server-class hardware.',
+            search_term: 'glm-5.3-flash',
+            recommended_quant: 'UD-IQ2_XXS',
+            hf_repo: 'unsloth/GLM-5.3-Flash-GGUF',
+            source_url: 'https://huggingface.co/zai-org/GLM-5.3-Flash',
+            custom_runtime: 'Unsloth Desktop / GLM-5.3 llama.cpp PR',
+            runtime_url: 'https://huggingface.co/unsloth/GLM-5.3-Flash-GGUF',
+            benchmarks: { speed: 4, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-08-25',
             isNew: true
         },
         {
@@ -3941,8 +3961,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-02T06:15:00.000Z",
-        catalogueHash: "4c1befeafaee027f41a31a458dcca4dee710b5bcb2dbf7f5f05dd5e5ea3198a2",
+        checkedAt: "2026-09-05T06:20:00.000Z",
+        catalogueHash: "260f35298bc1ebbf9fe8df4f1fb1bbab0141aa7357b297a12ee5cabba5b56ae6",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3980,6 +4000,7 @@ const APP_DATA = {
             "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
+            "glm-5.3-flash": "unsloth/GLM-5.3-Flash-GGUF",
             "granite4.1-3b": "ibm-granite/granite-4.1-3b-GGUF",
             "mistral-small-4-119b": "lmstudio-community/Mistral-Small-4-119B-2603-GGUF",
             "sarvam-30b": "sarvamai/sarvam-30b-gguf",

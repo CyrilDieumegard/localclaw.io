@@ -2912,6 +2912,43 @@ var MODEL_DETAILS = {
         paper_url: 'https://arxiv.org/abs/2608.13517',
     },
 
+    'glm-5.3-flash': {
+        developer: 'Z.ai',
+        developer_url: 'https://z.ai/',
+        context_window: 1000000,
+        license: 'MIT',
+        license_url: 'https://opensource.org/license/mit',
+        architecture: 'Native multimodal GLM-5 series sparse MoE with 320B total parameters, about 18B active parameters, hybrid sparse-linear attention and Manifold-Constrained Hyper-Connections.',
+        training_data: 'Z.ai describes GLM-5.3-Flash as starting from a newly trained base model with a redesigned architecture and recipe, trained on a 30T-token multimodal pre-training corpus.',
+        languages: ['English', 'Chinese', 'Code', 'Image-text prompts', 'Tool calls'],
+        strengths: [
+            'Official Z.ai MIT open-weight release with very high early Hugging Face adoption',
+            'First native multimodal model in the GLM-5 series',
+            '320B total / 18B active MoE shape is more efficient than the larger GLM-5.2 record',
+            '1M-token context target for long repository, document and agent traces',
+            'Official local serving guidance covers SGLang, vLLM, Transformers, KTransformers and Unsloth',
+            'Unsloth Dynamic GGUF artifacts provide a realistic low-bit local experiment path',
+        ],
+        weaknesses: [
+            'Still workstation/server-class: even low-bit GGUF runs need substantial memory and recent runtimes',
+            'Current llama.cpp path depends on GLM-5.3-specific support rather than stock mature desktop support everywhere',
+            'Multimodal and long-context use can push memory far beyond the base quantized weight size',
+            'Vendor benchmark claims should be validated on the exact local runtime before production use',
+        ],
+        use_cases: [
+            'Server-class local coding agent',
+            'Long-context repository analysis',
+            'Multimodal document and UI reasoning',
+            'Private tool-use and automation experiments',
+            'Comparing GLM-5.2 against a lighter GLM-5.3 variant',
+            'Unsloth Desktop workstation trials',
+        ],
+        similar_models: ['glm-5.2', 'hy3', 'deepseek-v4-flash-0731', 'minimax-m3', 'granite4.2-30b', 'ornith-1-5-35b-a3b'],
+        fun_fact: 'GLM-5.3-Flash cuts active parameters to about 18B while keeping the GLM-5 long-context and agentic focus, which is why it matters more locally than a simple version bump.',
+        official_blog: 'https://z.ai/blog/glm-5.3-flash',
+        paper_url: 'https://arxiv.org/abs/2602.15763',
+    },
+
     'granite4.2-3b': {
         developer: 'IBM Granite Team',
         developer_url: 'https://www.ibm.com/granite',
