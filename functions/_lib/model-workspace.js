@@ -1,8 +1,10 @@
 import { json } from "./auth.js";
 import { parseJsonBody } from "./machines.js";
+import { canonicalModelId } from "./model-identity.js";
 
 export const MAX_FAVORITES_PER_ACCOUNT = 160;
 export const MAX_CATALOG_MODEL_IDS = 600;
+export const MAX_FAVORITE_NOTES_LENGTH = 2400;
 
 const ALLOWED_STATUSES = new Set(["saved", "to-test", "downloaded", "installed"]);
 const ALLOWED_TEST_VERDICTS = new Set(["untested", "works", "limited", "failed"]);
@@ -21,12 +23,12 @@ export function validateFavorite(input, modelId) {
   };
   const favorite = {
     machineId: cleanIdentifier(payload.machineId, MACHINE_ID_PATTERN),
-    modelId: cleanIdentifier(modelId, MODEL_ID_PATTERN),
+    modelId: canonicalModelId(cleanIdentifier(modelId, MODEL_ID_PATTERN)),
     status: cleanStatus(provided.status ? payload.status : "saved"),
     quantization: cleanOptionalText(payload.quantization, 32),
     testVerdict: cleanTestVerdict(provided.testVerdict ? payload.testVerdict : "untested"),
     measuredTps: measuredTps.value,
-    notes: cleanOptionalNote(payload.notes, 800)
+    notes: cleanOptionalNote(payload.notes, MAX_FAVORITE_NOTES_LENGTH)
   };
 
   const errors = [];
@@ -36,7 +38,7 @@ export function validateFavorite(input, modelId) {
   if (provided.quantization && String(payload.quantization ?? "").trim() && !favorite.quantization) errors.push("quantization");
   if (!favorite.testVerdict) errors.push("testVerdict");
   if (provided.measuredTps && !measuredTps.valid) errors.push("measuredTps");
-  if (provided.notes && String(payload.notes ?? "").replace(/\r\n?/g, "\n").trim().length > 800) errors.push("notes");
+  if (provided.notes && String(payload.notes ?? "").replace(/\r\n?/g, "\n").trim().length > MAX_FAVORITE_NOTES_LENGTH) errors.push("notes");
 
   return { ok: errors.length === 0, errors, favorite, provided };
 }
@@ -46,8 +48,9 @@ export function validateCatalogState(input) {
     return { ok: false, errors: ["knownModelIds"], modelIds: [] };
   }
 
-  const modelIds = [...new Set(input.knownModelIds.map((value) => cleanIdentifier(value, MODEL_ID_PATTERN)).filter(Boolean))];
-  const invalidCount = input.knownModelIds.length - modelIds.length;
+  const originalIds = input.knownModelIds.map((value) => cleanIdentifier(value, MODEL_ID_PATTERN));
+  const invalidCount = originalIds.filter(value => !value).length;
+  const modelIds = [...new Set(originalIds.filter(Boolean).map(canonicalModelId))];
 
   if (invalidCount > 0 || modelIds.length > MAX_CATALOG_MODEL_IDS) {
     return { ok: false, errors: ["knownModelIds"], modelIds: [] };
@@ -59,7 +62,7 @@ export function validateCatalogState(input) {
 export function favoriteRowToJson(row) {
   return {
     machineId: row.machine_id,
-    modelId: row.model_id,
+    modelId: canonicalModelId(row.model_id),
     status: row.status,
     quantization: row.quantization || "",
     testVerdict: row.test_verdict || "untested",

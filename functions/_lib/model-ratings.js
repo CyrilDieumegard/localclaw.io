@@ -1,11 +1,12 @@
 import { json } from "./auth.js";
+import { canonicalModelId } from "./model-identity.js";
 
 const MODEL_ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,159}$/i;
 export const MAX_RATINGS_PER_ACCOUNT = 1000;
 
 export function validateModelId(value) {
   const modelId = String(value || "").trim();
-  return MODEL_ID_PATTERN.test(modelId) ? modelId : null;
+  return MODEL_ID_PATTERN.test(modelId) ? canonicalModelId(modelId) : null;
 }
 
 export async function parseRatingBody(request) {

@@ -4,6 +4,7 @@ const vm = require('vm');
 const { normalizeDirectory } = require('./normalize-public-urls');
 const { siteNavigation, siteNavAssets } = require('./site-navigation');
 const { runtimeLaunchAssistAsset, runtimeLaunchAssistStyles } = require('./install-choice-ui');
+const { assertCatalogueIntegrity } = require('./catalogue-integrity');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://localclaw.io';
@@ -95,6 +96,14 @@ function hardwareSentence(m) {
   if (state === 'publicModelCard') return `LocalClaw verified a public model card for ${esc(m.name)} on ${esc(hfVerificationDate())}, but no public GGUF file in that repository. The catalogue RAM and quantization fields are estimates, not a verified install path.`;
   if (state === 'gated') return `LocalClaw verified a gated model card for ${esc(m.name)} on ${esc(hfVerificationDate())}. Access approval or licence acceptance is required, and no public GGUF install path is claimed.`;
   return `${esc(m.name)} has a catalogue minimum of ${esc(m.min_ram)} GB RAM with ${esc(m.recommended_quant)}. Actual memory use and speed vary by context length, runtime, backend and system headroom.`;
+}
+
+function downloadVariantsMarkup(m) {
+  if (!Array.isArray(m.download_variants) || !m.download_variants.length || !m.hf_repo) return '';
+  return `\n    <section class="section"><h2>Download formats for this model</h2>
+    <p class="muted">These are quantizations of the same model. The RAM fit above uses ${esc(m.recommended_quant)}; larger files need more memory. File sizes exclude the runtime, context cache and optional vision projector.</p>
+    <ul class="list">${m.download_variants.map(variant => `<li><a href="https://huggingface.co/${esc(m.hf_repo)}/blob/main/${encodeURIComponent(variant.file)}" target="_blank" rel="noopener">${esc(variant.quant)}</a> · ${esc(variant.size_gb)} GB${variant.quant === m.recommended_quant ? ' · used for this recommendation' : ''}</li>`).join('')}</ul>
+  </section>`;
 }
 
 function hfRepoState(m) {
@@ -750,7 +759,7 @@ ${personalFitSection}
       <div class="source-links">${sourceLine}${hfLine}${detailSourceLine}</div>
       <div style="margin-top:16px">${tags}</div>
     </section>
-    ${deploymentSection}
+    ${deploymentSection}${downloadVariantsMarkup(m)}
     <section class="section cols">
       <div><h2>Catalogue record</h2><ul class="list">${catalogueFacts}</ul></div>
       <div><h2>Practical limits</h2><ul class="list">${limitations}</ul></div>
@@ -791,11 +800,21 @@ ${hasRuntimeLaunchAssist ? `  ${runtimeLaunchAssistAsset}\n` : ''}  <script src=
 
 const APP_DATA = loadAppData();
 const MODEL_DETAILS = loadModelDetails();
-const uniqueModels = Array.from(new Map(APP_DATA.models.map(model => [model.id, model])).values());
+assertCatalogueIntegrity(APP_DATA);
+const uniqueModels = APP_DATA.models;
 const outDir = path.join(ROOT, 'models');
 
 fs.rmSync(outDir, {recursive: true, force: true});
 fs.mkdirSync(outDir, {recursive: true});
+
+// Preserve old bookmarks and indexed URLs while generating just one model page.
+const redirectsPath = path.join(ROOT, '_redirects');
+const redirects = fs.readFileSync(redirectsPath, 'utf8').replace(/\n?# BEGIN model identity aliases[\s\S]*?# END model identity aliases\n?/g, '');
+const aliasRedirects = Object.entries(APP_DATA.modelAliases || {}).flatMap(([alias, canonical]) => [
+  `/models/${alias} /models/${canonical} 301`,
+  `/models/${alias}.html /models/${canonical} 301`
+]);
+fs.writeFileSync(redirectsPath, `# BEGIN model identity aliases\n${aliasRedirects.join('\n')}\n# END model identity aliases\n\n${redirects.trimStart()}`);
 
 for (const m of uniqueModels) {
   fs.writeFileSync(path.join(outDir, `${slug(m.id)}.html`), modelPage(m, MODEL_DETAILS[m.id] || {}, uniqueModels));

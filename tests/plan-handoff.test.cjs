@@ -133,7 +133,7 @@ test('an API failure retains the pending plan and offers a review without succes
 });
 
 test('an existing matching plan is reused without creating another machine', async () => {
-    const run = harness({ machines: [{ ...baseMachine, id: 'existing' }] });
+    const run = harness({ machines: [{ ...baseMachine, id: 'existing', selectedModelId: 'test-model', context: '8k' }] });
     run.seed();
     await run.api.resumePendingPlanIfNeeded();
     assert.equal(run.requests.length, 0);
@@ -156,7 +156,7 @@ test('reusing hardware with new preferences patches only those preferences', asy
     assert.equal(run.requests.length, 1);
     assert.equal(run.requests[0].method, 'PATCH');
     assert.equal(run.requests[0].url, '/api/machines/existing');
-    assert.deepEqual(run.requests[0].body, { useCase: 'coding', priority: 'balanced' });
+    assert.deepEqual(run.requests[0].body, { useCase: 'coding', priority: 'balanced', selectedModelId: 'test-model', context: '8k' });
     assert(names(run).includes('machine_update_succeeded'));
     assert(names(run).includes('plan_saved'));
     assert(!names(run).includes('machine_create_succeeded'));

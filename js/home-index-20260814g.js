@@ -833,15 +833,15 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const updateIndex = (resetLimit = true) => {
             if (resetLimit) llmVisibleLimit = LLM_PAGE_SIZE;
             const query = search.value.trim().toLowerCase();
+            const matchesSearch = window.LocalClawModelSearch.createMatcher(query);
             const selectedFamily = family.value;
             const selectedFit = fitFilter.value;
             const filtered = localModels.filter((model) => {
-                const haystack = `${model.name} ${model.family} ${(model.tags || []).join(' ')}`.toLowerCase();
                 const fit = machineFit(model).key;
                 const matchesFit = selectedFit === 'all'
                     || (selectedFit === 'compatible' && (fit === 'fits' || fit === 'tight'))
                     || fit === selectedFit;
-                return haystack.includes(query)
+                return matchesSearch(model)
                     && matchesFit
                     && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(activeSortKey, activeSortDirection));

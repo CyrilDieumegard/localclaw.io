@@ -112,7 +112,7 @@
         const href = link.getAttribute('href');
         if (!href) return;
         const url = new URL(href, window.location.href);
-        if (url.origin !== window.location.origin || !['/account', '/account/', '/account.html'].includes(url.pathname)) return;
+        if (url.origin !== window.location.origin || !/^\/account(?:\/|\.html)?$/.test(url.pathname)) return;
         const next = fitContext.withMachine(href, currentMachine);
         if (next !== href) link.setAttribute('href', next);
     }

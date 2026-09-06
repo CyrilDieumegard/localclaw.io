@@ -1,4 +1,5 @@
 import { json } from "./auth.js";
+import { canonicalModelId } from "./model-identity.js";
 
 export const MAX_MACHINES_PER_ACCOUNT = 12;
 
@@ -6,6 +7,7 @@ const ALLOWED_PLATFORMS = new Set(["macos", "windows", "linux"]);
 const ALLOWED_ACCELERATORS = new Set(["apple-silicon", "nvidia", "amd", "cpu"]);
 const ALLOWED_USE_CASES = new Set(["general", "chat", "coding", "reasoning", "vision", "creative"]);
 const ALLOWED_PRIORITIES = new Set(["balanced", "quality", "speed", "memory"]);
+const ALLOWED_CONTEXTS = new Set(["4k", "8k", "16k", "32k"]);
 
 export function validateMachine(input) {
   const machine = {
@@ -18,6 +20,8 @@ export function validateMachine(input) {
     vramGb: cleanOptionalInteger(input?.vramGb, 0, 256),
     useCase: cleanEnum(input?.useCase || "general", ALLOWED_USE_CASES),
     priority: cleanEnum(input?.priority || "balanced", ALLOWED_PRIORITIES),
+    context: cleanEnum(input?.context ?? "8k", ALLOWED_CONTEXTS),
+    selectedModelId: cleanSelectedModelId(input?.selectedModelId),
     isPrimary: input?.isPrimary === true,
     source: input?.source === "finder" ? "finder" : "manual"
   };
@@ -30,6 +34,8 @@ export function validateMachine(input) {
   if (machine.ramGb === null) errors.push("ramGb");
   if (!machine.useCase) errors.push("useCase");
   if (!machine.priority) errors.push("priority");
+  if (!machine.context) errors.push("context");
+  if (machine.selectedModelId === undefined) errors.push("selectedModelId");
 
   if (machine.accelerator === "apple-silicon") {
     machine.vramGb = null;
@@ -56,11 +62,20 @@ export function machineRowToJson(row) {
     vramGb: row.vram_gb,
     useCase: row.use_case,
     priority: row.priority,
+    context: row.context || "8k",
+    selectedModelId: row.selected_model_id ? canonicalModelId(row.selected_model_id) : null,
     isPrimary: row.is_primary === 1,
     source: row.source,
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
+}
+
+function cleanSelectedModelId(value) {
+  if (value === undefined || value === null || value === "") return null;
+  if (typeof value !== "string") return undefined;
+  const id = canonicalModelId(value);
+  return /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$/.test(id) ? id : undefined;
 }
 
 export async function parseJsonBody(request) {

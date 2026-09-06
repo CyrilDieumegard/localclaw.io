@@ -12,7 +12,7 @@ export async function onRequestGet(context) {
 
   const result = await context.env.LOCALCLAW_DB.prepare(`
     SELECT id, name, platform, accelerator, cpu_model, gpu_model, ram_gb, vram_gb,
-           use_case, priority, is_primary, source, created_at, updated_at
+           use_case, priority, context, selected_model_id, is_primary, source, created_at, updated_at
     FROM machines
     WHERE user_id = ?
     ORDER BY is_primary DESC, updated_at DESC
@@ -75,8 +75,8 @@ export async function onRequestPost(context) {
     context.env.LOCALCLAW_DB.prepare(`
       INSERT INTO machines (
         id, user_id, name, platform, accelerator, cpu_model, gpu_model, ram_gb,
-        vram_gb, use_case, priority, is_primary, source, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        vram_gb, use_case, priority, context, selected_model_id, is_primary, source, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       id,
       auth.session.user.id,
@@ -89,6 +89,8 @@ export async function onRequestPost(context) {
       machine.vramGb,
       machine.useCase,
       machine.priority,
+      machine.context,
+      machine.selectedModelId,
       isPrimary,
       machine.source,
       now,
@@ -111,6 +113,8 @@ export async function onRequestPost(context) {
       vram_gb: machine.vramGb,
       use_case: machine.useCase,
       priority: machine.priority,
+      context: machine.context,
+      selected_model_id: machine.selectedModelId,
       is_primary: isPrimary,
       source: machine.source,
       created_at: now,

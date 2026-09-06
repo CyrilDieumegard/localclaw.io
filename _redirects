@@ -1,3 +1,8 @@
+# BEGIN model identity aliases
+/models/mistral-small3.2-24b /models/mistral-small-3.2-24b 301
+/models/mistral-small3.2-24b.html /models/mistral-small-3.2-24b 301
+# END model identity aliases
+
 # Canonicalize: /index.html → / (301)
 /index.html              /              301
 

@@ -84,6 +84,7 @@
         upgradeModelId: null,
         saving: false,
         pendingPlanSelection: null,
+        editingPlan: null,
         recommendationViewKeys: new Set()
     };
 
@@ -511,6 +512,8 @@
                     accelerator: machine.accelerator,
                     ramGb: machine.ramGb,
                     vramGb: machine.vramGb,
+                    context: savedContext(machine),
+                    selectedModelId: savedModelId(machine.selectedModelId),
                     isPrimary: machine.isPrimary === true
                 }))));
             } else {
@@ -656,7 +659,7 @@
                 : ['No compatible models found', 'Try increasing available memory or changing this hardware profile.'];
 
         elements.recommendationPanel.innerHTML = `
-            ${primaryModel ? renderPlanOverview(machine, primaryModel, newFitCount) : ''}
+            ${primaryModel || machine.selectedModelId ? renderPlanOverview(machine, primaryModel, newFitCount) : ''}
             ${renderMachineFamilySummary(machine, result.compatible)}
             <header class="lc-recommendation-head">
                 <div>
@@ -780,6 +783,15 @@
     function renderPlanOverview(machine, primaryModel, updateCount) {
         const useCase = useCaseLabel(machine.useCase).toLowerCase();
         const priority = priorityLabel(machine.priority);
+        const selectedId = savedModelId(machine.selectedModelId);
+        const selectedModel = selectedId ? APP_DATA.models.find((model) => savedModelId(model.id) === selectedId) : null;
+        const displayedModel = selectedId ? selectedModel : primaryModel;
+        const verification = APP_DATA.hfRepoVerification || {};
+        const savedUnavailable = Boolean(selectedId && (!selectedModel || verification.unavailable?.[selectedId]
+            || !window.LocalClawModelRanking?.isLocallyEligible(selectedModel)));
+        const savedVerified = Boolean(selectedId && verification.publicGguf?.[selectedId] && !savedUnavailable);
+        const selectedFit = savedVerified ? window.LocalClawFitContext?.assess(machine, selectedModel) : null;
+        const contextLabel = savedContext(machine).toUpperCase();
         const stateLabel = updateCount
             ? `${updateCount} new compatible ${updateCount === 1 ? 'model' : 'models'}`
             : 'Plan current';
@@ -788,20 +800,22 @@
             <section class="lc-plan-overview" aria-labelledby="account-plan-title">
                 <div class="lc-plan-overview__main">
                     <div class="lc-plan-overview__status${stateClass}"><span aria-hidden="true"></span>${escapeHtml(stateLabel)}</div>
-                    <p class="lc-kicker">My Local AI Plan</p>
-                    <h2 id="account-plan-title">${escapeHtml(primaryModel.name)} is your best current fit for ${escapeHtml(useCase)}.</h2>
-                    <p>This plan follows <strong>${escapeHtml(machine.name)}</strong>, your ${escapeHtml(priority.toLowerCase())} preference and the current LocalClaw catalogue.</p>
+                    <p class="lc-kicker">${selectedId ? 'Your saved choice' : 'My Local AI Plan'}</p>
+                    <h2 id="account-plan-title">${escapeHtml(selectedId ? selectedModel?.name || selectedId : primaryModel.name)}</h2>
+                    <p>Saved for <strong>${escapeHtml(machine.name)}</strong> at ${contextLabel} context, with your ${escapeHtml(priority.toLowerCase())} preference for ${escapeHtml(useCase)}.</p>
+                    ${selectedId ? `<p>${savedUnavailable ? 'This saved model is no longer available as a local model in the current catalogue. Your choice has been kept.' : savedVerified ? `${escapeHtml(selectedFit?.label || 'Check model requirements')} at your saved ${contextLabel} context.${selectedModel.custom_runtime ? ' Check its required runtime before installation.' : ''}` : 'Model availability and runtime requirements need verification. Your choice has been kept.'}</p>` : ''}
+                    <p><strong>Current suggestion:</strong> ${primaryModel ? `<a href="${escapeAttribute(modelHref(primaryModel.id, machine))}">${escapeHtml(primaryModel.name)}</a>` : 'No compatible model for this configuration.'}${selectedId ? ' Your saved choice stays unchanged.' : ''}</p>
                     <div class="lc-plan-overview__signals">
-                        <span>${escapeHtml(primaryModel.recommended_quant || 'Recommended quant')}</span>
-                        <span>${escapeHtml(primaryModel.runtimeNote || 'Local runtime')}</span>
-                        <span>${escapeHtml(formatNumber(primaryModel.compatibilityScore))}/100 personal fit</span>
+                        <span>${contextLabel} context</span>
+                        ${displayedModel ? `<span>${escapeHtml(displayedModel.recommended_quant || 'Recommended quant')}</span>` : ''}
+                        ${!selectedId && primaryModel ? `<span>${escapeHtml(formatNumber(primaryModel.compatibilityScore))}/100 personal fit</span>` : ''}
                     </div>
                 </div>
                 <div class="lc-plan-overview__action">
                     <span>Next action</span>
-                    <strong>Run the recommended setup</strong>
-                    <a class="lc-button lc-button-primary lc-button-full" href="${escapeAttribute(modelHref(primaryModel.id, machine))}" data-plan-primary-model="${escapeAttribute(primaryModel.id)}">Open ${escapeHtml(primaryModel.name)}</a>
-                    <small>Plan updates appear here when a stronger compatible model enters the catalogue.</small>
+                    <strong>${selectedId ? savedUnavailable ? 'Review the current suggestion' : 'View your saved model' : 'Run the recommended setup'}</strong>
+                    ${displayedModel && !savedUnavailable ? `<a class="lc-button lc-button-primary lc-button-full" href="${escapeAttribute(modelHref(displayedModel.id, machine))}" data-plan-primary-model="${escapeAttribute(displayedModel.id)}">Open ${escapeHtml(displayedModel.name)}</a>` : ''}
+                    <small>${selectedId ? 'New suggestions do not replace the model you saved.' : 'Plan updates appear here when a stronger compatible model enters the catalogue.'}</small>
                 </div>
             </section>
         `;
@@ -1246,11 +1260,12 @@
         const optionalVram = target.upgradePlan.fullOffloadVramGb;
         const gpuUpgrade = optionalVram !== null && optionalVram > Number(machine.vramGb || 0);
         const isApple = machine.accelerator === 'apple-silicon';
+        const contextLabel = savedContext(machine).toUpperCase();
         const advice = isApple
-            ? `Apple unified memory cannot be expanded after purchase. A ${requiredRam} GB unified-memory Mac meets the memory estimate for this model at 8K context.`
+            ? `Apple unified memory cannot be expanded after purchase. A ${requiredRam} GB unified-memory Mac meets the memory estimate for this model at ${contextLabel} context.`
             : machine.accelerator === 'nvidia'
-                ? `The system-memory target is ${requiredRam} GB RAM at 8K context, keeping your ${formatNumber(machine.vramGb)} GB GPU. CPU or partial GPU offload may be needed.${gpuUpgrade ? ` A separate ${optionalVram} GB VRAM tier is an optional full-offload estimate, not a requirement for this RAM fit.` : ''}`
-                : `The system-memory target is ${requiredRam} GB RAM at 8K context. GPU acceleration depends on your runtime and operating system.`;
+                ? `The system-memory target is ${requiredRam} GB RAM at ${contextLabel} context, keeping your ${formatNumber(machine.vramGb)} GB GPU. CPU or partial GPU offload may be needed.${gpuUpgrade ? ` A separate ${optionalVram} GB VRAM tier is an optional full-offload estimate, not a requirement for this RAM fit.` : ''}`
+                : `The system-memory target is ${requiredRam} GB RAM at ${contextLabel} context. GPU acceleration depends on your runtime and operating system.`;
         const primaryLink = isApple ? '/computers#apple-machines-title' : '/ram-gpu-for-local-ai#ram-picks';
         const primaryLabel = isApple ? 'Browse Apple systems' : 'Browse RAM upgrades';
 
@@ -1286,7 +1301,7 @@
     function upgradeCandidates(machine, compatibleById) {
         const ranking = window.LocalClawModelRanking;
         if (!ranking?.normalizeMachine || !ranking?.scoreModel || !ranking?.calculateHardwareFit || !ranking?.isLocallyEligible) return [];
-        const profile = ranking.normalizeMachine({ ...machine, context: '8k' });
+        const profile = ranking.normalizeMachine({ ...machine, context: savedContext(machine) });
         if (!['macos', 'windows', 'linux'].includes(profile.platform)) return [];
         if (profile.accelerator === 'nvidia' && !(profile.vramGb > 0)) return [];
         const verification = APP_DATA.hfRepoVerification || {};
@@ -1310,7 +1325,7 @@
             })
             .map((model) => {
                 // Keep CPU, OS and GPU unchanged while finding a RAM increase
-                // that actually passes the same account fit engine at 8K.
+                // that passes the account fit engine at the saved context.
                 const ramGb = ramTiers.find((ram) => ram > profile.ramGb && ranking.scoreModel(
                     { ...profile, ramGb: ram }, {}, model, { includeTight: false }
                 ).compatible);
@@ -1517,6 +1532,7 @@
     }
 
     function openMachineDialog(machine) {
+        state.editingPlan = { context: savedContext(machine), selectedModelId: savedModelId(machine?.selectedModelId) };
         trackAccountGoal(machine?.id ? 'machine_update_started' : 'machine_create_started', {
             source: 'account_workspace',
             machine_action: machine?.id ? 'update' : 'create',
@@ -1724,6 +1740,8 @@
             vramGb: formData.get('vramGb') === '' ? null : Number(formData.get('vramGb')),
             useCase: String(formData.get('useCase') || 'general'),
             priority: String(formData.get('priority') || 'balanced'),
+            context: state.editingPlan?.context || '8k',
+            selectedModelId: state.editingPlan?.selectedModelId || null,
             isPrimary: formData.get('isPrimary') === 'on',
             source: String(formData.get('source') || 'manual')
         };
@@ -1849,6 +1867,10 @@
             const parsed = rawPlan ? JSON.parse(rawPlan) : { version: 0, machine: JSON.parse(rawMachine) };
             const machine = parsed?.machine;
             if (!isValidPendingMachine(machine)) throw new Error('invalid_pending_machine');
+            const context = String(parsed.context ?? machine.context ?? '8k').toLowerCase();
+            const rawModelId = parsed.topModelId ?? machine.selectedModelId ?? null;
+            const selectedModelId = savedModelId(rawModelId);
+            if (!['4k', '8k', '16k', '32k'].includes(context) || (rawModelId !== null && rawModelId !== '' && !selectedModelId)) throw new Error('invalid_pending_plan');
             return {
                 version: Number(parsed.version || 0),
                 machine: {
@@ -1861,11 +1883,13 @@
                     vramGb: machine.vramGb == null || machine.vramGb === '' ? null : Number(machine.vramGb),
                     useCase: String(machine.useCase || 'general'),
                     priority: String(machine.priority || 'balanced'),
+                    context,
+                    selectedModelId,
                     isPrimary: state.machines.length === 0,
                     source: 'finder'
                 },
                 preferredMachineId: String(parsed.preferredMachineId || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80),
-                topModelId: String(parsed.topModelId || ''),
+                topModelId: selectedModelId || '',
                 source: String(parsed.source || 'model_finder')
             };
         } catch {
@@ -1889,6 +1913,19 @@
         return true;
     }
 
+    function savedContext(machine) {
+        const context = String(machine?.context || '8k').toLowerCase();
+        return ['4k', '8k', '16k', '32k'].includes(context) ? context : '8k';
+    }
+
+    function savedModelId(value) {
+        if (typeof value !== 'string') return null;
+        const id = value.trim();
+        if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$/.test(id)) return null;
+        const aliases = typeof APP_DATA !== 'undefined' ? APP_DATA.modelAliases : null;
+        return aliases && Object.prototype.hasOwnProperty.call(aliases, id) ? aliases[id] : id;
+    }
+
     function samePlanMachine(left, right) {
         const comparable = (machine) => [
             machine.platform,
@@ -1896,7 +1933,9 @@
             Number(machine.ramGb),
             machine.vramGb === null || machine.vramGb === '' ? null : Number(machine.vramGb),
             machine.useCase,
-            machine.priority
+            machine.priority,
+            savedContext(machine),
+            savedModelId(machine.selectedModelId)
         ];
         return JSON.stringify(comparable(left)) === JSON.stringify(comparable(right));
     }
@@ -1987,7 +2026,9 @@
     async function reusePendingPlanMachine(machine, pending, matchSource) {
         if (state.saving) return;
         state.saving = true;
-        const preferencesUpdated = machine.useCase !== pending.machine.useCase || machine.priority !== pending.machine.priority;
+        const preferencesUpdated = machine.useCase !== pending.machine.useCase || machine.priority !== pending.machine.priority
+            || savedContext(machine) !== savedContext(pending.machine)
+            || savedModelId(machine.selectedModelId) !== savedModelId(pending.machine.selectedModelId);
         let response = null;
         let data = null;
         let selectedMachine = machine;
@@ -2005,7 +2046,9 @@
                     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         useCase: pending.machine.useCase,
-                        priority: pending.machine.priority
+                        priority: pending.machine.priority,
+                        context: savedContext(pending.machine),
+                        selectedModelId: savedModelId(pending.machine.selectedModelId)
                     })
                 });
                 data = await readJson(response);

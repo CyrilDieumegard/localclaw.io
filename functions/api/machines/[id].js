@@ -43,7 +43,7 @@ export async function onRequestPatch(context) {
     context.env.LOCALCLAW_DB.prepare(`
       UPDATE machines
       SET name = ?, platform = ?, accelerator = ?, cpu_model = ?, gpu_model = ?,
-          ram_gb = ?, vram_gb = ?, use_case = ?, priority = ?, is_primary = ?,
+          ram_gb = ?, vram_gb = ?, use_case = ?, priority = ?, context = ?, selected_model_id = ?, is_primary = ?,
           source = ?, updated_at = ?
       WHERE id = ? AND user_id = ?
     `).bind(
@@ -56,6 +56,8 @@ export async function onRequestPatch(context) {
       machine.vramGb,
       machine.useCase,
       machine.priority,
+      machine.context,
+      machine.selectedModelId,
       machine.isPrimary ? 1 : 0,
       machine.source,
       now,
@@ -106,7 +108,7 @@ export async function onRequestDelete(context) {
 async function getOwnedMachine(context, userId) {
   return context.env.LOCALCLAW_DB.prepare(`
     SELECT id, name, platform, accelerator, cpu_model, gpu_model, ram_gb, vram_gb,
-           use_case, priority, is_primary, source, created_at, updated_at
+           use_case, priority, context, selected_model_id, is_primary, source, created_at, updated_at
     FROM machines
     WHERE id = ? AND user_id = ?
   `).bind(context.params.id, userId).first();

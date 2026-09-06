@@ -1,4 +1,5 @@
 import { getRequiredSession, json, requireSameOrigin } from "../../_lib/auth.js";
+import { canonicalModelId } from "../../_lib/model-identity.js";
 import {
   invalidWorkspacePayload,
   parseWorkspaceJsonBody,
@@ -52,7 +53,7 @@ export async function onRequestPut(context) {
 function parseKnownModelIds(value) {
   try {
     const parsed = JSON.parse(value || "[]");
-    return Array.isArray(parsed) ? parsed.filter((item) => typeof item === "string") : [];
+    return Array.isArray(parsed) ? [...new Set(parsed.filter((item) => typeof item === "string").map(canonicalModelId))] : [];
   } catch {
     return [];
   }

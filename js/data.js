@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 5, 2026 - Added GLM-5.3-Flash - 238 LLM total
+// Updated September 6, 2026 - Consolidated model identities - 234 unique LLM records
 // Previous: September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
 // Previous: September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
 // Previous: August 28, 2026 - Added DFM-Mimir - 234 LLM total
@@ -61,6 +61,7 @@ const ICONS = {
 };
 
 const APP_DATA = {
+    modelAliases: { 'mistral-small3.2-24b': 'mistral-small-3.2-24b' },
     // ------------------------------------------------------------------------
     // MODEL DATABASE - Updated March 2026 (v2.3 — data accuracy corrections)
     // Organized by: Lightweight → Standard → Power → Beast
@@ -1408,22 +1409,6 @@ const APP_DATA = {
             released: '2024-03'
         },
         {
-            id: 'mistral-small3.2-24b',
-            name: 'Mistral Small 3.2 (24B)',
-            family: 'mistral',
-            params: '24B',
-            size_gb: 14,
-            min_ram: 20,
-            tags: ['chat', 'general', 'power'],
-            description: 'Improved Mistral Small with function calling. Great for tool-use and agents. 677K downloads.',
-            search_term: 'mistral-small-3.2-24b-instruct',
-            recommended_quant: 'Q4_K_M',
-            hf_repo: 'unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF',
-            source_url: 'https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506',
-            benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 8 },
-            released: '2025-06'
-        },
-        {
             id: 'ministral-3-3b-instruct',
             name: 'Ministral 3 3B Instruct',
             family: 'mistral',
@@ -1473,21 +1458,6 @@ const APP_DATA = {
             benchmarks: { speed: 7, quality: 8, coding: 8, reasoning: 8 },
             released: '2025-12',
             isNew: true
-        },
-        {
-            id: 'granite3.3-8b',
-            name: 'Granite 3.3 (8B)',
-            family: 'granite',
-            params: '8B',
-            size_gb: 5,
-            min_ram: 8,
-            tags: ['chat', 'reasoning', 'standard'],
-            description: 'IBM 128K context with reasoning. Thinking capabilities at 8B. 604K downloads.',
-            search_term: 'granite-3.3-8b-instruct',
-            recommended_quant: 'Q5_K_M',
-            hf_repo: 'ibm-granite/granite-3.3-8b-instruct-GGUF',
-            benchmarks: { speed: 8, quality: 7, coding: 6, reasoning: 7 },
-            released: '2025-03'
         },
         {
             id: 'openthinker-7b',
@@ -1895,21 +1865,6 @@ const APP_DATA = {
             released: '2024-05'
         },
         {
-            id: 'aya-expanse-32b',
-            name: 'Aya Expanse (32B)',
-            family: 'aya',
-            params: '32B',
-            size_gb: 19,
-            min_ram: 24,
-            tags: ['chat', 'power', 'general'],
-            description: 'Cohere 23-language improved model. Strong multilingual at 32B. 86K downloads.',
-            search_term: 'aya-expanse-32b',
-            recommended_quant: 'Q4_K_M',
-            hf_repo: 'bartowski/aya-expanse-32b-GGUF',
-            benchmarks: { speed: 4, quality: 8, coding: 6, reasoning: 8 },
-            released: '2024-10'
-        },
-        {
             id: 'smallthinker-3b',
             name: 'SmallThinker (3B)',
             family: 'smallthinker',
@@ -1940,21 +1895,6 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/perplexity-ai/r1-1776',
             benchmarks: { speed: 6, quality: 8, coding: 7, reasoning: 9 },
             released: '2025-02'
-        },
-        {
-            id: 'command-a-111b',
-            name: 'Command A (111B)',
-            family: 'cohere',
-            params: '111B',
-            size_gb: 64,
-            min_ram: 80,
-            tags: ['chat', 'general', 'quality'],
-            description: 'Cohere enterprise flagship. Top-tier for RAG and enterprise use. 58K downloads.',
-            search_term: 'command-a-111b',
-            recommended_quant: 'Q4_K_M',
-            hf_repo: 'CohereForAI/c4ai-command-a-03-2025-GGUF',
-            benchmarks: { speed: 1, quality: 10, coding: 8, reasoning: 9 },
-            released: '2025-03'
         },
         {
             id: 'granite4-8b',
@@ -3438,16 +3378,16 @@ const APP_DATA = {
             name: 'Granite 3.3 (8B Instruct)',
             family: 'granite',
             params: '8B',
-            size_gb: 4.9,
+            size_gb: 5.8,
             min_ram: 8,
             tags: ['chat', 'code', 'standard', 'general', 'reasoning'],
             description: 'IBM enterprise-grade 8B. Trained for RAG, tool-use and structured output. Strong function calling and long-context performance (128K). Apache 2.0 with full data provenance.',
             search_term: 'granite-3.3-8b-instruct',
             recommended_quant: 'Q5_K_M',
             hf_repo: 'ibm-granite/granite-3.3-8b-instruct-GGUF',
+            source_url: 'https://huggingface.co/ibm-granite/granite-3.3-8b-instruct',
             benchmarks: { speed: 8, quality: 7, coding: 7, reasoning: 7 },
-            released: '2025-10',
-            isNew: true
+            released: '2025-04'
         },
         {
             id: 'granite3.3-2b',
@@ -3507,7 +3447,7 @@ const APP_DATA = {
             name: 'Command A (111B)',
             family: 'cohere',
             params: '111B',
-            size_gb: 68,
+            size_gb: 67.2,
             min_ram: 96,
             tags: ['chat', 'reasoning', 'quality', 'general', 'power'],
             description: 'Cohere open-weight flagship optimised for agentic workflows and long-context RAG. 256K context, excellent multilingual coverage (23 languages). CC-BY-NC 4.0 — non-commercial.',
@@ -3516,8 +3456,7 @@ const APP_DATA = {
             hf_repo: 'bartowski/CohereForAI_c4ai-command-a-03-2025-GGUF',
             source_url: 'https://huggingface.co/CohereLabs/c4ai-command-a-03-2025',
             benchmarks: { speed: 2, quality: 10, coding: 9, reasoning: 10 },
-            released: '2025-03',
-            isNew: true
+            released: '2025-03'
         },
 
         // Aya Expanse (Cohere, multilingual 23 languages)
@@ -3526,7 +3465,7 @@ const APP_DATA = {
             name: 'Aya Expanse (32B)',
             family: 'cohere',
             params: '32B',
-            size_gb: 19,
+            size_gb: 19.8,
             min_ram: 24,
             tags: ['chat', 'multilingual', 'power', 'quality'],
             description: 'Cohere\'s multilingual powerhouse — 23 languages including Arabic, Hindi, Japanese, Polish. State-of-the-art on multilingual benchmarks at 32B scale. CC-BY-NC 4.0.',
@@ -3535,8 +3474,7 @@ const APP_DATA = {
             hf_repo: 'bartowski/aya-expanse-32b-GGUF',
             source_url: 'https://huggingface.co/CohereLabs/aya-expanse-32b',
             benchmarks: { speed: 4, quality: 8, coding: 7, reasoning: 8 },
-            released: '2024-10',
-            isNew: true
+            released: '2024-10'
         },
 
         // ==================== v2.7 — APRIL 22, 2026 ADDITIONS ====================
@@ -3765,17 +3703,20 @@ const APP_DATA = {
             name: 'Mistral Small 3.2 (24B)',
             family: 'mistral',
             params: '24B',
-            size_gb: 14,
-            min_ram: 24,
+            size_gb: 14.3,
+            min_ram: 20,
             tags: ['chat', 'code', 'power', 'general', 'reasoning'],
-            description: 'Mistral AI\'s latest dense 24B. Improved instruction following, function calling, and reduced repetition. Strong European-language support. 128K context. Apache 2.0.',
+            description: 'Mistral AI\'s June 2025 dense 24B release. Improved instruction following, function calling, and reduced repetition. Strong European-language support. 128K context. Apache 2.0.',
             search_term: 'mistral-small-3.2-24b-instruct',
-            recommended_quant: 'Q5_K_M',
+            recommended_quant: 'Q4_K_M',
+            download_variants: [
+                { quant: 'Q4_K_M', size_gb: 14.3, file: 'Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf' },
+                { quant: 'Q5_K_M', size_gb: 16.8, file: 'Mistral-Small-3.2-24B-Instruct-2506-Q5_K_M.gguf' }
+            ],
             hf_repo: 'unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF',
             source_url: 'https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506',
             benchmarks: { speed: 6, quality: 8, coding: 8, reasoning: 8 },
-            released: '2025-06',
-            isNew: true
+            released: '2025-06'
         },
 
         // Qwen 3 Next — 80B-A3B MoE (Sept 2025), dense-replacement flagship
@@ -3962,7 +3903,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-09-05T06:20:00.000Z",
-        catalogueHash: "260f35298bc1ebbf9fe8df4f1fb1bbab0141aa7357b297a12ee5cabba5b56ae6",
+        catalogueHash: "5eafcfb5777e68f9ffc219fc4a6ea0399e705d1143eac333567dd0cc40e3486e",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4043,7 +3984,6 @@ const APP_DATA = {
             "qwen2.5vl-7b": "unsloth/Qwen2.5-VL-7B-Instruct-GGUF",
             "llama4-scout": "unsloth/Llama-4-Scout-17B-16E-Instruct-GGUF",
             "llama4-maverick": "unsloth/Llama-4-Maverick-17B-128E-Instruct-GGUF",
-            "mistral-small3.2-24b": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF",
             "ministral-3-3b-instruct": "mistralai/Ministral-3-3B-Instruct-2512-GGUF",
             "ministral-3-8b-instruct": "mistralai/Ministral-3-8B-Instruct-2512-GGUF",
             "ministral-3-14b-instruct": "mistralai/Ministral-3-14B-Instruct-2512-GGUF",
