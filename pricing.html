@@ -1058,7 +1058,7 @@
                 </div>
                 <p class="microcopy">Apple Silicon only · macOS 13+ app · Apple-notarized DMG<br>Local models with LM Studio require macOS 14+.</p>
                 <div class="trust-strip" aria-label="LocalClaw purchase trust signals">
-                    <a href="/download#current-build">LocalClaw v1.0.206</a>
+                    <a href="/download#current-build">LocalClaw v1.0.207</a>
                     <span>$49 one-time beta license</span>
                     <span>No subscription</span>
                 </div>
@@ -1069,7 +1069,7 @@
             <aside class="product-window" id="pricing-tour" aria-label="LocalClaw macOS app guided tour">
                 <div class="product-titlebar">
                     <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.206 beta</div>
+                        <div class="text-xs font-mono text-claw-muted">LocalClaw v1.0.207 beta</div>
                     <div class="text-[10px] font-mono font-bold tracking-[0.18em] text-claw-primary uppercase">Native Mac app</div>
                 </div>
                 <div class="product-shot">
@@ -1303,14 +1303,14 @@
         <section class="pricing-container" aria-label="Current OpenClaw compatibility">
             <div class="compatibility-bar">
                 <div>
-                    <strong>LocalClaw 1.0.206 <span aria-hidden="true">↔</span> OpenClaw 2026.8.2</strong>
-                    <p>OpenClaw 2.0 compatibility is here. Update LocalClaw first, then complete the guided runtime repair.</p>
+                    <strong>LocalClaw 1.0.207 <span aria-hidden="true">↔</span> OpenClaw 2026.9.2</strong>
+                    <p>OpenClaw 2026.9.2 workflows tested. Install this LocalClaw release once, then get future app updates without dragging files in Finder.</p>
                 </div>
                 <a href="#upgrade-openclaw" class="release-link">Already using LocalClaw? <span aria-hidden="true">↗</span></a>
             </div>
             <aside class="release-feedback" aria-label="Release stability and feedback">
                 <strong>New release. Your feedback matters.</strong>
-                <p>OpenClaw 2.0 has just launched, and the platform is still maturing. Some features or integrations may be unstable or behave unexpectedly. If you spot a bug or an error while using LocalClaw, please let me know. Your feedback helps me investigate issues and improve the Mac experience.</p>
+                <p>OpenClaw and LocalClaw are still evolving. Some features or integrations may be unstable or behave unexpectedly. If you spot a bug or an error while using LocalClaw, please let me know. Your feedback helps me investigate issues and improve the Mac experience.</p>
                 <a href="mailto:helplocalclaw@gmail.com?subject=LocalClaw%20feedback%20-%20OpenClaw%202.0">Report a bug or share feedback <span aria-hidden="true">→</span></a>
             </aside>
         </section>
@@ -1320,9 +1320,9 @@
                 <div class="section-heading">
                     <div class="mono-label text-xs text-claw-primary mb-3">New in OpenClaw 2.0</div>
                     <h2 class="font-display font-bold text-white">More context.<br>More ways to get things done.</h2>
-                    <p>LocalClaw now handles OpenClaw 2026.8.2 capability consent, repairs ownerless multi-agent Gateway startup and avoids a second full archive on an ordinary 8.1 → 8.2 update.</p>
+                    <p>LocalClaw 1.0.207 adds in-app installation of future updates and fixes OpenClaw 2026.9.2 recovery, agent and model selection, Goals and automation status. The OpenClaw 2.0 highlights below remain part of the wider platform.</p>
                 </div>
-                <a class="release-link" href="/changelog/localclaw-installer-v1.0.206" data-fast-goal="blog_article_click" data-fast-goal-source="pricing_release">Explore the full release <span aria-hidden="true">→</span></a>
+                <a class="release-link" href="/changelog/localclaw-installer-v1.0.207" data-fast-goal="blog_article_click" data-fast-goal-source="pricing_release">Explore the full release <span aria-hidden="true">→</span></a>
             </div>
             <div class="release-grid">
                 <article class="release-card">
@@ -1362,8 +1362,8 @@
                     <a href="/download" class="release-link mt-5" data-fast-goal="download_page_click" data-fast-goal-source="pricing_upgrade">Get the latest LocalClaw <span aria-hidden="true">→</span></a>
                 </div>
                 <ol class="update-steps">
-                    <li><strong>Update LocalClaw to 1.0.206.</strong><p>Download the current Apple-notarized Mac build. Existing customers can keep using their saved license on the same Mac.</p></li>
-                    <li><strong>Open Updates and repair OpenClaw.</strong><p>LocalClaw pauses only the selected Gateway before Doctor, restores it afterward, and keeps capability approval in your hands. A normal 2026.8.1 → 2026.8.2 update does not repeat the full state archive.</p></li>
+                    <li><strong>Update LocalClaw to 1.0.207.</strong><p>On 1.0.206 or earlier, install this Apple-notarized DMG in Applications one last time. Your saved license stays in place. From 1.0.207 onward, use App update → Update. Update all handles dependencies and OpenClaw first, then installs and relaunches LocalClaw last. Automatic replacement needs a writable Applications folder; if the shared folder is protected, install the app once in your personal ~/Applications folder.</p></li>
+                    <li><strong>Open Updates and update OpenClaw.</strong><p>LocalClaw checks the selected installation, coordinates Gateway maintenance and verifies recovery before reporting success. Plugin capability approval stays in your hands.</p></li>
                     <li><strong>Check your setup, then get back to work.</strong><p>Review runtime health in Control Center and your selected model in Models. Keep a separate backup of project workspaces; LocalClaw’s runtime safeguards do not include them.</p></li>
                 </ol>
             </div>
@@ -1377,7 +1377,7 @@
 
             <details class="info-detail" open>
                 <summary>Is LocalClaw compatible with OpenClaw 2.0?</summary>
-                <div class="detail-body">Yes. LocalClaw 1.0.206 supports OpenClaw 2026.8.2 and prevents Doctor from contending with the active Gateway lifecycle coordinator. Update LocalClaw first, then use the app’s Updates screen. See the <a href="/changelog/localclaw-installer-v1.0.206" class="text-claw-primary hover:underline">1.0.206 release notes</a> for the details and upgrade checklist.</div>
+                <div class="detail-body">Yes. LocalClaw 1.0.207 has been tested with the real OpenClaw 2026.9.2 package and fixes recovery, agent selection, models and Goals. Update LocalClaw first, then use the app’s Updates screen. See the <a href="/changelog/localclaw-installer-v1.0.207" class="text-claw-primary hover:underline">1.0.207 release notes</a> for the details and upgrade checklist.</div>
             </details>
             <details class="info-detail">
                 <summary>Does every OpenClaw 2.0 feature have a native LocalClaw screen?</summary>
@@ -1450,7 +1450,7 @@
         <section class="pricing-container section pb-20">
             <div class="final-cta">
                 <div>
-                    <div class="mono-label text-xs text-claw-primary mb-3">OpenClaw 2026.8.2 · LocalClaw 1.0.206</div>
+                    <div class="mono-label text-xs text-claw-primary mb-3">OpenClaw 2026.9.2 · LocalClaw 1.0.207</div>
                     <h2 class="font-display font-bold text-white text-3xl sm:text-5xl leading-tight">Bring your AI workflow<br>home to your Mac.</h2>
                     <p class="text-claw-muted mt-4 max-w-2xl leading-relaxed">A native workspace for your next chapter with AI. $49 one-time beta lifetime access. No LocalClaw subscription.</p>
                 </div>
@@ -1714,10 +1714,10 @@
         "@type": "SoftwareApplication",
         "@id": "https://localclaw.io/pricing#localclaw-app",
         "name": "LocalClaw",
-        "description": "Apple-notarized native macOS beta app compatible with OpenClaw 2026.8.2, with guided setup, local models, Chat, Developer workspaces, agents, cron jobs and Kanban.",
+        "description": "Apple-notarized native macOS beta app tested with OpenClaw 2026.9.2, with in-app updates, guided setup, local models, Chat, Developer workspaces, agents, cron jobs and Kanban.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS 13 Ventura or later, Apple Silicon",
-        "softwareVersion": "1.0.206",
+        "softwareVersion": "1.0.207",
         "url": "https://localclaw.io/pricing",
         "image": "https://localclaw.io/images/pricing-carousel/home.jpg",
         "publisher": {
@@ -1784,7 +1784,7 @@
                 "name": "Is LocalClaw compatible with OpenClaw 2.0?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes. LocalClaw 1.0.206 supports OpenClaw 2026.8.2 and prevents Doctor from contending with the active Gateway lifecycle coordinator. Update LocalClaw first, then use the app's Updates screen."
+                    "text": "Yes. LocalClaw 1.0.207 has been tested with the real OpenClaw 2026.9.2 package and fixes recovery, agent selection, models and Goals. Update LocalClaw first, then use the app's Updates screen."
                 }
             },
             {
