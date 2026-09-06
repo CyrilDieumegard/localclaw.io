@@ -2152,6 +2152,42 @@ var MODEL_DETAILS = {
         official_blog: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731',
         paper_url: 'https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF',
     },
+    'deepseek-v4-flash-vision-exp': {
+        developer: 'DeepSeek AI',
+        developer_url: 'https://www.deepseek.com/',
+        context_window: 1048576,
+        license: 'MIT',
+        license_url: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/main/LICENSE',
+        architecture: 'DeepSeek V4 Flash multimodal MoE with about 284B total parameters, roughly 13B active parameters, vision encoder and aligner modules, DFlash attention, MoE layers, Hyper-Connections and DSpark speculative decoding support.',
+        training_data: 'Not fully disclosed. DeepSeek describes continued training from DeepSeek V4 Flash to add visual understanding while preserving comparable text-agent performance.',
+        languages: ['English', 'Chinese', 'Multilingual'],
+        strengths: [
+            'Official DeepSeek AI release with MIT licensing',
+            'Adds image understanding to the DeepSeek V4 Flash family',
+            'DeepSeek reports stronger multimodal agent scores than DeepSeek V4 Flash 0731 on ApexBench and Agents Last Exam',
+            'Unsloth Dynamic GGUF artifacts provide a local llama.cpp-compatible path',
+            '1M-token context target for long documents and repository-scale workflows',
+            'Supports DSpark speculative decoding in compatible runtimes',
+        ],
+        weaknesses: [
+            'Experimental multimodal release, so runtime support is newer than the text-only DeepSeek V4 Flash path',
+            'Not a laptop model: practical GGUF files start around 82GB and Q4/Q8 builds are much larger',
+            'Vision input requires a recent llama.cpp build with DeepSeek V4 vision support',
+            'Official vLLM and SGLang examples target multi-GPU datacenter hardware',
+            'Long-context and vision sessions need extra KV-cache and media-processing headroom',
+        ],
+        use_cases: [
+            'Private multimodal agent experiments on high-memory workstations',
+            'Screenshot, chart and document understanding with local weights',
+            'Repository-scale coding plus visual UI context',
+            'Terminal automation benchmark comparisons against DeepSeek V4 Flash 0731',
+            'Testing DeepSeek V4 vision support in current llama.cpp and Unsloth stacks',
+        ],
+        similar_models: ['deepseek-v4-flash-0731', 'deepseek-v4-flash', 'qwen3.8-27b', 'muse-glimmer-30b', 'glm-5.3-flash'],
+        fun_fact: 'The Unsloth card says image input needs llama.cpp b10766 or later, making this one of the first DeepSeek V4 vision GGUF paths to depend on very recent runtime support.',
+        official_blog: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp',
+        paper_url: 'https://huggingface.co/unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF',
+    },
 
     // ==================== MINIMAX M3 (June 2026 — NEW) ====================
     'minimax-m3': {

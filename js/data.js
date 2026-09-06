@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 6, 2026 - Consolidated model identities - 234 unique LLM records
+// Updated September 6, 2026 - Added DeepSeek V4 Flash Vision Exp - 235 unique LLM records
+// Previous: September 6, 2026 - Consolidated model identities - 234 unique LLM records
 // Previous: September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
 // Previous: September 1, 2026 - Added IbnSina-1.5B - 235 LLM total
 // Previous: August 28, 2026 - Added DFM-Mimir - 234 LLM total
@@ -3578,6 +3579,23 @@ const APP_DATA = {
             released: '2026-07-31',
             isNew: true
         },
+        {
+            id: 'deepseek-v4-flash-vision-exp',
+            name: 'DeepSeek V4 Flash Vision Exp',
+            family: 'deepseek-flash',
+            params: '284B (13B active, multimodal MoE)',
+            size_gb: 97,
+            min_ram: 128,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'long-context', 'quality'],
+            description: 'Official MIT DeepSeek V4 Flash multimodal experiment with image understanding, 1M context and Unsloth Dynamic GGUF artifacts. The lightest practical GGUF is roughly 82-97GB, while higher-quality Q4/Q8 builds are about 155-162GB, so this belongs on large-memory workstations.',
+            search_term: 'deepseek-v4-flash-vision-exp',
+            recommended_quant: 'UD-Q2_K_XL',
+            hf_repo: 'unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF',
+            source_url: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp',
+            benchmarks: { speed: 5, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-08-31',
+            isNew: true
+        },
 
         // GLM-5.1 — Z.ai flagship agentic engineering model, May 2026
         {
@@ -3902,8 +3920,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-05T06:20:00.000Z",
-        catalogueHash: "5eafcfb5777e68f9ffc219fc4a6ea0399e705d1143eac333567dd0cc40e3486e",
+        checkedAt: "2026-09-06T07:05:52.000Z",
+        catalogueHash: "0dc1a12925e31710345b188553a10f6305a11dd8699f1f939138a2ed603ff640",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3942,6 +3960,7 @@ const APP_DATA = {
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
             "glm-5.3-flash": "unsloth/GLM-5.3-Flash-GGUF",
+            "deepseek-v4-flash-vision-exp": "unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF",
             "granite4.1-3b": "ibm-granite/granite-4.1-3b-GGUF",
             "mistral-small-4-119b": "lmstudio-community/Mistral-Small-4-119B-2603-GGUF",
             "sarvam-30b": "sarvamai/sarvam-30b-gguf",
@@ -4095,6 +4114,7 @@ const APP_DATA = {
             "mistral-small-3.2-24b": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF"
         },
         publicModelCard: {
+            "deepseek-v4-flash-vision-exp": "deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
             "moondream2": "vikhyatk/moondream2",
             "gpt-oss-20b": "openai/gpt-oss-20b",
             "granite4.1-8b": "ibm-granite/granite-4.1-8b",
