@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>DANTE-Mosaic-3.5B public model card status | LocalClaw</title>
-  <meta name="description" content="DANTE-Mosaic-3.5B: public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
+  <title>K2-Horizon-0.9B local AI: custom runtime | LocalClaw</title>
+  <meta name="description" content="K2-Horizon-0.9B: 0.9B local AI guide with RAM requirements, BF16 GGUF, catalogue ratings and its required K2 Horizon llama.cpp fork / pending upstream.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/dante-mosaic-3.5b">
+  <link rel="canonical" href="https://localclaw.io/models/k2-horizon-0-9b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/dante-mosaic-3.5b">
-  <meta property="og:title" content="DANTE-Mosaic-3.5B public model card status | LocalClaw">
-  <meta property="og:description" content="DANTE-Mosaic-3.5B: public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
+  <meta property="og:url" content="https://localclaw.io/models/k2-horizon-0-9b">
+  <meta property="og:title" content="K2-Horizon-0.9B local AI model | LocalClaw">
+  <meta property="og:description" content="K2-Horizon-0.9B: 0.9B local AI guide with RAM requirements, BF16 GGUF, catalogue ratings and its required K2 Horizon llama.cpp fork / pending upstream.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DANTE-Mosaic-3.5B public model card status | LocalClaw">
-  <meta name="twitter:description" content="DANTE-Mosaic-3.5B: public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.">
+  <meta name="twitter:title" content="K2-Horizon-0.9B local AI model | LocalClaw">
+  <meta name="twitter:description" content="K2-Horizon-0.9B: 0.9B local AI guide with RAM requirements, BF16 GGUF, catalogue ratings and its required K2 Horizon llama.cpp fork / pending upstream.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"DANTE-Mosaic-3.5B source and local availability status","url":"https://localclaw.io/models/dante-mosaic-3.5b","description":"DANTE-Mosaic-3.5B: public upstream model card verified, but no public GGUF file or one-click local install was verified in that repository.","about":{"@type":"Thing","name":"DANTE-Mosaic-3.5B"},"isPartOf":{"@type":"WebSite","name":"LocalClaw","url":"https://localclaw.io"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What source was verified for DANTE-Mosaic-3.5B?","acceptedAnswer":{"@type":"Answer","text":"A public Hugging Face model card was verified on 2026-09-07, but no public GGUF file was verified in that repository."}},{"@type":"Question","name":"Does LocalClaw provide a one-click install for DANTE-Mosaic-3.5B?","acceptedAnswer":{"@type":"Answer","text":"No. LocalClaw links to the public model card but does not claim an LM Studio, GGUF or one-click installation path for this record."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"DANTE-Mosaic-3.5B","item":"https://localclaw.io/models/dante-mosaic-3.5b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"K2-Horizon-0.9B","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/k2-horizon-0-9b","description":"K2-Horizon-0.9B: 0.9B local AI guide with RAM requirements, BF16 GGUF, catalogue ratings and its required K2 Horizon llama.cpp fork / pending upstream.","softwareVersion":"2026-09-01","memoryRequirements":"8 GB RAM minimum","license":"https://www.apache.org/licenses/LICENSE-2.0","creator":{"@type":"Organization","name":"IFM","url":"https://ifm.ai/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can K2-Horizon-0.9B run locally?","acceptedAnswer":{"@type":"Answer","text":"K2-Horizon-0.9B can run locally with at least 8 GB RAM using the official K2 Horizon llama.cpp fork / pending upstream llama.cpp support runtime. Its low-bit files are not a stock LM Studio install today."}},{"@type":"Question","name":"What is K2-Horizon-0.9B best for?","acceptedAnswer":{"@type":"Answer","text":"K2-Horizon-0.9B is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"K2-Horizon-0.9B","item":"https://localclaw.io/models/k2-horizon-0-9b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -97,88 +97,97 @@
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>DANTE-Mosaic-3.5B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>K2-Horizon-0.9B</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Public model card reference</div>
-        <h1 class="title">DANTE-Mosaic-3.5B</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> OdaxAI compact dense model based on SmolLM3-3B and distilled from Kimi K2. Strong small-model benchmark profile: GSM8K 74.45, HellaSwag 76.73 and MBPP 42.6. Apache 2.0, BF16 weights, practical for local Transformers/vLLM use.</p>
+        <div class="eyebrow">Open-weight local LLM</div>
+        <h1 class="title">K2-Horizon-0.9B</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> IFM Apache 2.0 compact dense K2 Horizon model with 128K context, multi-teacher distillation for math/code/STEM tasks, and an official BF16 GGUF path for llama.cpp-compatible local experiments.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">Public model card</span><span class="chip">No public GGUF verified</span><span class="chip">3.08B</span><span class="chip">2026-05</span></div>
+        <div class="chips"><span class="chip hot">8 GB catalogue minimum</span><span class="chip">8 GB RAM</span><span class="chip">BF16 GGUF</span><span class="chip">Coding assistant</span></div>
         <div class="run-picker" data-model-run-options>
-          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Only verified options can be opened. Unsupported apps are clearly marked.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="dante-mosaic-3.5b">Compare models</a></div>
-          <div class="run-grid"><div class="run-option unavailable" aria-disabled="true" data-runtime="lmstudio"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>LM Studio</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><div class="run-option unavailable" aria-disabled="true" data-runtime="unsloth"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Unsloth</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="dante-mosaic-3.5b" data-fast-goal-quant="BF16"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Model card, licence and access details</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="llamacpp"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>llama.cpp</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="dante-mosaic-3.5b" data-fast-goal-quant="BF16"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>This model needs a special runtime. Unsupported apps are clearly marked.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="k2-horizon-0-9b">Compare models</a></div>
+          <div class="run-grid"><div class="run-option unavailable" aria-disabled="true" data-runtime="lmstudio"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>LM Studio</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><div class="run-option unavailable" aria-disabled="true" data-runtime="unsloth"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Unsloth</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="k2-horizon-0-9b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="llamacpp"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>llama.cpp</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="k2-horizon-0-9b" data-fast-goal-quant="BF16 GGUF"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div><a class="run-required" href="https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_official" data-fast-goal-source="model_detail" data-fast-goal-model="k2-horizon-0-9b" data-fast-goal-quant="BF16 GGUF"><span><strong>This model needs its official runtime</strong><small>K2 Horizon llama.cpp fork / pending upstream llama.cpp support</small></span><span aria-hidden="true">Open setup &#8599;</span></a>
         </div>
       </section>
       <aside class="hero-panel">
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">6.9<small>/10</small></div>
+            <div class="score">6.7<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="dante-mosaic-3.5b" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="k2-horizon-0-9b" data-rating-mode="full"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">dante</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-05</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">k2-horizon</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-09-01</div></div>
         </div>
       </aside>
     </header>
-<section class="specs" aria-label="Verified model source status">
-      <div class="spec-card"><div class="k">Source status</div><div class="v">Public model card</div></div>
-      <div class="spec-card"><div class="k">Public GGUF</div><div class="v">Not verified</div></div>
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">3.08B</div></div>
-      <div class="spec-card"><div class="k">Access</div><div class="v">Public card</div></div>
+<section class="specs" aria-label="Key local AI model specs">
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">0.9B</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">8 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">2.1 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">BF16 GGUF</div></div>
     </section>
-
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="k2-horizon-0-9b" aria-live="polite"></section>
     <section class="section">
-      <h2>Verified source status</h2>
-      <p>LocalClaw verified a public model card for DANTE-Mosaic-3.5B on 2026-09-07, but no public GGUF file in that repository. The catalogue RAM and quantization fields are estimates, not a verified install path.</p>
-      <p>Only the public model card was verified; no public GGUF file was verified in that repository. Open the model card to confirm current artefacts and supported runtimes. LocalClaw does not claim a one-click LM Studio install.</p>
-      <div class="source-links"><a href="https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B" target="_blank" rel="noopener" data-hf-repo-status="public-model-card">Public model card (no GGUF file verified 2026-09-07): OdaxAI/DANTE-Mosaic-3.5B</a><a href="https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">reasoning</span><span class="tag">code</span><span class="tag">light</span><span class="tag">multilingual</span></div>
+      <h2>Can K2-Horizon-0.9B run locally?</h2>
+      <p>K2-Horizon-0.9B has a catalogue minimum of 8 GB RAM with BF16 GGUF. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use the official <a href="https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF" target="_blank" rel="noopener">K2 Horizon llama.cpp fork / pending upstream llama.cpp support</a> setup. The current low-bit files are not a stock LM Studio install.</p>
+      <div class="source-links"><a href="https://huggingface.co/IFM/K2-Horizon-0.9B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-09-07): IFM/K2-Horizon-0.9B-GGUF</a><a href="https://ifm.ai/blog/k2/" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">light</span><span class="tag">long-context</span><span class="tag">general</span></div>
     </section>
-    <section class="section" data-source-only-status="publicModelCard">
-      <h2>Source availability</h2>
+    <section class="section">
+      <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Open the model card</strong><span>Use the verified upstream card as the source of truth for this record.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Inspect current files</strong><span>No public GGUF file was verified in the repository during the catalogue audit.</span></div>
-        <div class="step"><div class="step-num">03</div><strong>Confirm a supported runtime</strong><span>Choose a local runtime only after verifying the exact artefact, licence and hardware requirements upstream.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 8 GB RAM. Start with the BF16 GGUF quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Follow the official K2 Horizon llama.cpp fork / pending upstream llama.cpp support instructions. Stock LM Studio support is not confirmed.</span></div>
+        <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: dante</li><li>Parameters: 3.08B</li><li>Recommended quantization: BF16</li><li>Catalogue minimum RAM: 8 GB</li><li>Catalogue model size: 6.2 GB</li><li>Tags: chat, reasoning, code, light, multilingual</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: k2-horizon</li><li>Parameters: 0.9B</li><li>Recommended quantization: BF16 GGUF</li><li>Catalogue minimum RAM: 8 GB</li><li>Catalogue model size: 2.1 GB</li><li>Tags: chat, code, reasoning, light, long-context, general</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>reasoning</li><li>code</li><li>light</li><li>multilingual</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>light</li><li>long-context</li><li>general</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:80%"></div></div><strong>8</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:70%"></div></div><strong>7</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">OdaxAI</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">IFM</div></div>
         <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">See upstream repository</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">Dense SmolLM3 causal language model fine-tune with 3.08B parameters. Distilled from Kimi K2 using generative cross-architecture / cross-tokenizer distillation.</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">131,072 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">0.9B-class dense decoder-only K2 Horizon model with YaRN RoPE scaling for a 128K-token context window.</div></div>
       </div>
     </section>
-
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/agents-a1-4b">Agents-A1 4B <span>4B</span></a><a href="/models/granite4.2-3b">Granite 4.2 (3B) <span>3B</span></a><a href="/models/k2-horizon-0-9b">K2-Horizon-0.9B <span>0.9B</span></a><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/ling-3.0-tiny">Ling-3.0-tiny <span>7.9B (1.3B active, MoE)</span></a><a href="/models/nanbeige4.2-3b">Nanbeige4.2 3B <span>4B (3B non-embedding)</span></a><a href="/models/spark-x2-5-1-7b">Spark-X2.5-1.7B <span>1.7B</span></a><a href="/models/dfm-mimir">DFM-Mimir <span>1.8B</span></a></div></section>
-<section class="section"><h2>Where to go next</h2><div class="next">
-        <a href="https://huggingface.co/OdaxAI/DANTE-Mosaic-3.5B" target="_blank" rel="noopener"><small>Upstream</small>Open the public model card</a>
-        <a href="/llm-list"><small>Verified artefacts</small>Compare models with public GGUF files</a>
-        <a href="/"><small>Directory</small>Browse The Local Model Index</a>
-      </div></section>
+<section class="section">
+      <h2>This model fits these next steps</h2>
+      <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
+      <div class="hardware-fit">
+        <a href="/hardware/macbook-air-m3-8gb"><small>Entry laptop fit</small>MacBook Air 8GB</a><a href="/hardware/mac-mini-m4-16gb"><small>More headroom</small>Mac mini M4 16GB</a><a href="/ram/8gb"><small>All compatible picks</small>8GB RAM guide</a>
+      </div>
+    </section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/k2-horizon-mova-36b-a4b">K2-Horizon-MoVA-36B-A4B <span>36B (4B active, MoE)</span></a><a href="/models/lfm2-5-2-6b">LFM2.5-2.6B <span>2.7B</span></a><a href="/models/ling-3.0-tiny">Ling-3.0-tiny <span>7.9B (1.3B active, MoE)</span></a><a href="/models/spark-x2-5-1-7b">Spark-X2.5-1.7B <span>1.7B</span></a><a href="/models/agents-a1-4b">Agents-A1 4B <span>4B</span></a><a href="/models/granite4.2-3b">Granite 4.2 (3B) <span>3B</span></a><a href="/models/nanbeige4.2-3b">Nanbeige4.2 3B <span>4B (3B non-embedding)</span></a><a href="/models/granite4.1-3b">Granite 4.1 (3B) <span>3B</span></a></div></section>
+<section class="section">
+      <h2>Where to go next</h2>
+      <div class="next">
+        <a href="/ram/8gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/computers"><small>Hardware</small>See computers for local AI</a>
+        <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
+      </div>
+    </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"dante-mosaic-3.5b","name":"DANTE-Mosaic-3.5B","family":"dante","params":"3.08B","size_gb":6.2,"min_ram":8,"tags":["chat","reasoning","code","light","multilingual"],"description":"OdaxAI compact dense model based on SmolLM3-3B and distilled from Kimi K2. Strong small-model benchmark profile: GSM8K 74.45, HellaSwag 76.73 and MBPP 42.6. Apache 2.0, BF16 weights, practical for local Transformers/vLLM use.","search_term":"OdaxAI/DANTE-Mosaic-3.5B","recommended_quant":"BF16","hf_repo":"OdaxAI/DANTE-Mosaic-3.5B","benchmarks":{"speed":8,"quality":7,"coding":6,"reasoning":7},"released":"2026-05","isNew":true};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"k2-horizon-0-9b","name":"K2-Horizon-0.9B","family":"k2-horizon","params":"0.9B","size_gb":2.1,"min_ram":8,"tags":["chat","code","reasoning","light","long-context","general"],"description":"IFM Apache 2.0 compact dense K2 Horizon model with 128K context, multi-teacher distillation for math/code/STEM tasks, and an official BF16 GGUF path for llama.cpp-compatible local experiments.","search_term":"k2-horizon-0.9b","recommended_quant":"BF16 GGUF","hf_repo":"IFM/K2-Horizon-0.9B-GGUF","source_url":"https://huggingface.co/IFM/K2-Horizon-0.9B","custom_runtime":"K2 Horizon llama.cpp fork / pending upstream llama.cpp support","runtime_url":"https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF","benchmarks":{"speed":9,"quality":6,"coding":6,"reasoning":7},"released":"2026-09-01","isNew":true};</script>
   <script src="/js/model-ranking.js?v=20260820a"></script>
   <script src="/js/fit-context.js?v=20260905a"></script>
   <script src="/js/machine-compat-20260802a.js?v=20260823a"></script>

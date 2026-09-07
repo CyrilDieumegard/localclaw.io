@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 06 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Spark-X2.5-4B</title>
@@ -31,6 +31,22 @@
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <category>ibnsina</category>
       <description>IbnSina-1.5B is a Persian-first 1.48B Llama-compatible language model trained from scratch on a Persian-heavy corpus, with Apache 2.0 weights and GGUF artifacts for laptop, phone, Ollama, LM Studio and llama.cpp use. 1.5B · 4 GB minimum RAM · Q4_K_M · ibnsina.</description>
+    </item>
+    <item>
+      <title>K2-Horizon-0.9B</title>
+      <link>https://localclaw.io/models/k2-horizon-0-9b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-0-9b</guid>
+      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
+      <category>k2-horizon</category>
+      <description>IFM Apache 2.0 compact dense K2 Horizon model with 128K context, multi-teacher distillation for math/code/STEM tasks, and an official BF16 GGUF path for llama.cpp-compatible local experiments. 0.9B · 8 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
+    </item>
+    <item>
+      <title>K2-Horizon-MoVA-36B-A4B</title>
+      <link>https://localclaw.io/models/k2-horizon-mova-36b-a4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-mova-36b-a4b</guid>
+      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
+      <category>k2-horizon</category>
+      <description>IFM Apache 2.0 sparse K2 Horizon release with Mixture-of-Experts plus Mixture-of-Values attention, 36B total / 4B active parameters, 512K context and an official BF16 GGUF path for high-memory local workstations. 36B (4B active, MoE) · 96 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
     </item>
     <item>
       <title>DeepSeek V4 Flash Vision Exp</title>
@@ -151,22 +167,6 @@
       <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
       <category>deepseek-flash</category>
       <description>Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB. 284B (13B active) · 256 GB minimum RAM · UD-Q4_K_XL · deepseek-flash.</description>
-    </item>
-    <item>
-      <title>LFM2.5-2.6B</title>
-      <link>https://localclaw.io/models/lfm2-5-2-6b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/lfm2-5-2-6b</guid>
-      <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
-      <category>lfm</category>
-      <description>Liquid AI compact hybrid model with 128K context, LFM 1.0 open weights, official GGUF, ONNX and MLX artifacts, and practical llama.cpp / LM Studio paths for 8GB-class local machines. 2.7B · 8 GB minimum RAM · Q4_K_M · lfm.</description>
-    </item>
-    <item>
-      <title>KAT-Coder V2.5 Dev</title>
-      <link>https://localclaw.io/models/kat-coder-v2-5-dev</link>
-      <guid isPermaLink="true">https://localclaw.io/models/kat-coder-v2-5-dev</guid>
-      <pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>
-      <category>kat-coder</category>
-      <description>Kwaipilot open-weight Apache 2.0 coding-agent MoE built from Qwen3.6-35B-A3B. Text-only release with 262K context, 35B total / 3B active parameters and established GGUF paths from bartowski and LocalAI/APEX for LM Studio, llama.cpp and LocalAI testing on 48GB+ machines. 35B (3B active, MoE) · 48 GB minimum RAM · Q4_K_M · kat-coder.</description>
     </item>
   </channel>
 </rss>
