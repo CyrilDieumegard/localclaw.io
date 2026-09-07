@@ -36,6 +36,7 @@ window.HOME_INDEX_LOGOS = {
     internscience: 'internscience-avatar',
     internvl: 'opengvlab-avatar',
     'kat-coder': 'qwen',
+    'k2-horizon': 'huggingface-avatar',
     kimi: 'kimi-inverted',
     laguna: 'poolside',
     lfm: 'liquid',
@@ -140,6 +141,7 @@ window.HOME_INDEX_LOGOS = {
     qwen: 'qwen',
     raon: 'github',
     sesame: 'sesame-avatar',
+    sanotts: 'huggingface-avatar',
     silma: 'silma-avatar',
     sopro: 'huggingface-avatar',
     spark: 'spark',
@@ -154,6 +156,7 @@ window.HOME_INDEX_LOGOS = {
     voxcpm: 'openbmb-avatar',
     wavtts: 'worstchan-avatar',
     whisper: 'openai',
+    zerotts: 'huggingface-avatar',
     zonos: 'zyphra-avatar'
   },
   multimodal: {

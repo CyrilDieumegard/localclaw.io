@@ -69,6 +69,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.55
   },
   {
+    "id": "zerotts",
+    "name": "ZeroTTS",
+    "developer": "ZeroWeight AI",
+    "family": "zerotts",
+    "license": "MIT",
+    "releaseDate": "2026-09",
+    "quality": 8.9,
+    "speed": 9.6,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.91
+  },
+  {
     "id": "confucius4-tts",
     "name": "Confucius4-TTS",
     "developer": "NetEase Youdao",
@@ -118,6 +136,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "edge"
     ],
     "sizeGB": 0.016
+  },
+  {
+    "id": "sanotts",
+    "name": "sanoTTS",
+    "developer": "Ampixa Labs",
+    "family": "sanotts",
+    "license": "GPL-3.0",
+    "releaseDate": "2026-09",
+    "quality": 8.3,
+    "speed": 9.9,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.15
   },
   {
     "id": "breeze-tts-2",
