@@ -62,7 +62,26 @@
       'stable-video-diffusion-xt-1.1': { kind: 'image', url: 'https://raw.githubusercontent.com/Stability-AI/generative-models/main/assets/sv3d.gif', alt: 'Official Stability AI video animation example', sourceLabel: 'Stability AI official repository', sourceUrl: 'https://github.com/Stability-AI/generative-models' },
       'animatediff-sd15': { kind: 'image', url: 'https://raw.githubusercontent.com/guoyww/AnimateDiff/main/__assets__/animations/model_01/01.gif', alt: 'Official AnimateDiff animation example', sourceLabel: 'AnimateDiff official repository', sourceUrl: 'https://github.com/guoyww/AnimateDiff' },
       'videocrafter2': { kind: 'image', url: 'https://img.youtube.com/vi/TUsFkW0tK-s/maxresdefault.jpg', alt: 'Official VideoCrafter2 showcase thumbnail', sourceLabel: 'VideoCrafter official repository', sourceUrl: 'https://github.com/AILab-CVC/VideoCrafter' },
-      'dynamicrafter-512': { kind: 'image', url: 'https://img.youtube.com/vi/0NfmIsNAg-g/maxresdefault.jpg', alt: 'Official DynamiCrafter showcase thumbnail', sourceLabel: 'DynamiCrafter official repository', sourceUrl: 'https://github.com/Doubiiu/DynamiCrafter' },
+      'bernini-r-1.3b': {
+        kind: 'video',
+        url: 'https://bernini-ai.github.io/assets/v2v/style_outputvid_web.mp4',
+        poster: 'https://bernini-ai.github.io/assets/v2v/style_outputvid.webp',
+        uploadDate: '2026-05-25T08:46:11Z',
+        title: 'Bernini family official style-transfer example',
+        alt: 'Official Bernini family example: a video restyled with neon blue and purple lighting.',
+        caption: 'This is a Bernini family showcase from the official project page. The publisher does not identify it as an output of the 1.3B checkpoint.',
+        sourceLabel: 'Bernini official project showcase', sourceUrl: 'https://bernini-ai.github.io/'
+      },
+      'dynamicrafter-512': {
+        kind: 'video',
+        url: 'https://doubiiu.github.io/projects/DynamiCrafter/video_showcase_512/bloom2.mp4',
+        poster: 'https://doubiiu.github.io/projects/DynamiCrafter/video_showcase_512/bloom2.png',
+        uploadDate: '2024-02-04T14:27:09Z',
+        title: 'DynamiCrafter 512 official flower animation',
+        alt: 'Official DynamiCrafter 512 example: time-lapse of a blooming flower on a stem.',
+        caption: 'The official 512-resolution showcase animates a still image with the prompt: time-lapse of a blooming flower on a stem.',
+        sourceLabel: 'DynamiCrafter official 512 showcase', sourceUrl: 'https://doubiiu.github.io/projects/DynamiCrafter/'
+      },
       'wan2.1-i2v-14b-gp': { kind: 'video', url: 'https://cloud.video.taobao.com/vod/Jth64Y7wNoPcJki_Bo1ZJTDBvNjsgjlVKsNs05Fqfps.mp4', poster: '/images/external-media/video/wan2.1-i2v-14b-gp.jpg', uploadDate: '2025-02-25T22:54:11+08:00', alt: 'Official Wan2.1 image-to-video demo', sourceLabel: 'Wan2.1 I2V official model card', sourceUrl: 'https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-480P-Diffusers' }
     },
     '3d': {
