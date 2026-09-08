@@ -72,9 +72,20 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
       return;
     }
     structuredItems.push(value);
-    if (value['@graph']) collectStructuredItems(value['@graph']);
+    Object.values(value).forEach(collectStructuredItems);
   };
   structuredData.forEach(collectStructuredItems);
+  const datasets = structuredItems.filter(value => [value['@type']].flat().includes('Dataset'));
+  for (const item of datasets) {
+    const licenseUrl = typeof item.license === 'string' ? item.license : item.license?.url;
+    if (!licenseUrl || !/^https:\/\//.test(licenseUrl)) {
+      errors.push(`${relative}: Dataset missing an absolute HTTPS license URL`);
+    } else if (licenseUrl.startsWith(`${BASE}/`)) {
+      const route = new URL(licenseUrl).pathname;
+      if (!fs.existsSync(targetForRoute(route))) errors.push(`${relative}: Dataset license page does not exist`);
+    }
+  }
+
   const videoObjects = structuredItems.filter(value => value['@type'] === 'VideoObject');
   for (const item of videoObjects) {
     for (const field of ['name', 'description', 'thumbnailUrl', 'uploadDate']) {
