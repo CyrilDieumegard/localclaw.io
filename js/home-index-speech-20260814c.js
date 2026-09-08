@@ -155,6 +155,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.15
   },
   {
+    "id": "voxflash-tts",
+    "name": "VoxFlash-TTS",
+    "developer": "VoxFlash",
+    "family": "voxflash",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-09",
+    "quality": 8.7,
+    "speed": 9.7,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 0.854
+  },
+  {
     "id": "breeze-tts-2",
     "name": "Breeze TTS 2",
     "developer": "BreezeBlue",

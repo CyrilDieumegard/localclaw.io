@@ -152,6 +152,7 @@ window.HOME_INDEX_LOGOS = {
     tortoise: 'jbetker-avatar',
     vibevoice: 'microsoft',
     vieneu: 'huggingface-avatar',
+    voxflash: 'huggingface-avatar',
     voxtral: 'mistral',
     voxcpm: 'openbmb-avatar',
     wavtts: 'worstchan-avatar',
