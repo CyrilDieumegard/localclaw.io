@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 7, 2026 - Added K2 Horizon 0.9B and MoVA 36B-A4B - 237 unique LLM records
+// Updated September 8, 2026 - Added MiniCPM5 2B - 238 unique LLM records
+// Previous: September 7, 2026 - Added K2 Horizon 0.9B and MoVA 36B-A4B - 237 unique LLM records
 // Previous: September 6, 2026 - Added DeepSeek V4 Flash Vision Exp - 235 unique LLM records
 // Previous: September 6, 2026 - Consolidated model identities - 234 unique LLM records
 // Previous: September 2, 2026 - Added Spark-X2.5 4B and 1.7B - 237 LLM total
@@ -729,6 +730,23 @@ const APP_DATA = {
             source_url: 'https://huggingface.co/openbmb/MiniCPM5-1B',
             benchmarks: { speed: 10, quality: 6, coding: 6, reasoning: 6 },
             released: '2026-05',
+            isNew: true
+        },
+        {
+            id: 'minicpm5-2b',
+            name: 'MiniCPM5 2B',
+            family: 'minicpm',
+            params: '2B',
+            size_gb: 1.6,
+            min_ram: 4,
+            tags: ['chat', 'code', 'reasoning', 'agent', 'light', 'long-context', 'tool-calling', 'general'],
+            description: 'Official OpenBMB compact on-device LLM with Apache 2.0 licensing, 131K context, tool-calling and coding focus, plus official Q4_K_M GGUF, Ollama, llama.cpp, Docker and OpenClaw run paths.',
+            search_term: 'minicpm5-2b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'openbmb/MiniCPM5-2B-GGUF',
+            source_url: 'https://huggingface.co/openbmb/MiniCPM5-2B',
+            benchmarks: { speed: 10, quality: 7, coding: 7, reasoning: 7 },
+            released: '2026-09-08',
             isNew: true
         },
         {
@@ -3960,7 +3978,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-09-07T06:07:14.000Z",
-        catalogueHash: "509549424930a652e58be20661f603759480e4c26d0ba0d7204279399dba9af4",
+        catalogueHash: "516fe981da08c93c83f6109740dc4c67a97c10ba8c0621f54df311699e3076d7",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -3995,6 +4013,7 @@ const APP_DATA = {
             "laguna-xs-2.1": "poolside/Laguna-XS-2.1-GGUF",
             "lfm2.5-8b-a1b": "LiquidAI/LFM2.5-8B-A1B-GGUF",
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
+            "minicpm5-2b": "openbmb/MiniCPM5-2B-GGUF",
             "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",

@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>MiniCPM5 2B</title>
+      <link>https://localclaw.io/models/minicpm5-2b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/minicpm5-2b</guid>
+      <pubDate>Tue, 08 Sep 2026 12:00:00 GMT</pubDate>
+      <category>minicpm</category>
+      <description>Official OpenBMB compact on-device LLM with Apache 2.0 licensing, 131K context, tool-calling and coding focus, plus official Q4_K_M GGUF, Ollama, llama.cpp, Docker and OpenClaw run paths. 2B · 4 GB minimum RAM · Q4_K_M · minicpm.</description>
+    </item>
     <item>
       <title>Spark-X2.5-4B</title>
       <link>https://localclaw.io/models/spark-x2-5-4b</link>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
       <category>qwen</category>
       <description>Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>DeepSeek V4 Flash 0731 (284B MoE)</title>
-      <link>https://localclaw.io/models/deepseek-v4-flash-0731</link>
-      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-flash-0731</guid>
-      <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
-      <category>deepseek-flash</category>
-      <description>Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB. 284B (13B active) · 256 GB minimum RAM · UD-Q4_K_XL · deepseek-flash.</description>
     </item>
   </channel>
 </rss>
