@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>DeepSeek V4 Flash 0731 (284B MoE) local AI | LocalClaw</title>
-  <meta name="description" content="DeepSeek V4 Flash 0731 (284B MoE): 284B (13B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving.">
+  <title>Nex-N2.5-mini local AI: RAM + LM Studio | LocalClaw</title>
+  <meta name="description" content="Nex-N2.5-mini: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/models/deepseek-v4-flash-0731">
+  <link rel="canonical" href="https://localclaw.io/models/nex-n2-5-mini">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/models/deepseek-v4-flash-0731">
-  <meta property="og:title" content="DeepSeek V4 Flash 0731 (284B MoE) local AI model | LocalClaw">
-  <meta property="og:description" content="DeepSeek V4 Flash 0731 (284B MoE): 284B (13B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving.">
+  <meta property="og:url" content="https://localclaw.io/models/nex-n2-5-mini">
+  <meta property="og:title" content="Nex-N2.5-mini local AI model | LocalClaw">
+  <meta property="og:description" content="Nex-N2.5-mini: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DeepSeek V4 Flash 0731 (284B MoE) local AI model | LocalClaw">
-  <meta name="twitter:description" content="DeepSeek V4 Flash 0731 (284B MoE): 284B (13B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving.">
+  <meta name="twitter:title" content="Nex-N2.5-mini local AI model | LocalClaw">
+  <meta name="twitter:description" content="Nex-N2.5-mini: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DeepSeek V4 Flash 0731 (284B MoE)","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/deepseek-v4-flash-0731","description":"DeepSeek V4 Flash 0731 (284B MoE): 284B (13B active) server-grade open model guide with RAM requirements, runtime notes, catalogue ratings and local serving.","softwareVersion":"2026-07-31","memoryRequirements":"256 GB RAM minimum","license":"https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE","creator":{"@type":"Organization","name":"DeepSeek AI","url":"https://www.deepseek.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can DeepSeek V4 Flash 0731 (284B MoE) run locally?","acceptedAnswer":{"@type":"Answer","text":"DeepSeek V4 Flash 0731 (284B MoE) can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install."}},{"@type":"Question","name":"What is DeepSeek V4 Flash 0731 (284B MoE) best for?","acceptedAnswer":{"@type":"Answer","text":"DeepSeek V4 Flash 0731 (284B MoE) is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"DeepSeek V4 Flash 0731 (284B MoE)","item":"https://localclaw.io/models/deepseek-v4-flash-0731"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Nex-N2.5-mini","applicationCategory":"AIApplication","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/models/nex-n2-5-mini","description":"Nex-N2.5-mini: 35B MoE local AI model guide with RAM requirements, Q4_K_M quantization, catalogue ratings, use cases and LM Studio setup.","softwareVersion":"2026-09-10","memoryRequirements":"32 GB RAM minimum","license":"https://huggingface.co/nex-agi/Nex-N2.5-mini/blob/main/README.md","creator":{"@type":"Organization","name":"Nex-AGI","url":"https://nex-agi.com/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Nex-N2.5-mini run locally?","acceptedAnswer":{"@type":"Answer","text":"Nex-N2.5-mini can run locally with at least 32 GB RAM. LocalClaw recommends Q4_K_M quantization."}},{"@type":"Question","name":"What is Nex-N2.5-mini best for?","acceptedAnswer":{"@type":"Answer","text":"Nex-N2.5-mini is tagged in the LocalClaw catalogue for Coding assistant. Verify task performance on your own workload."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"LLM","item":"https://localclaw.io/llm-list"},{"@type":"ListItem","position":3,"name":"Nex-N2.5-mini","item":"https://localclaw.io/models/nex-n2-5-mini"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -100,17 +100,17 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>DeepSeek V4 Flash 0731 (284B MoE)</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/llm-list">LLM</a><span>/</span><span>Nex-N2.5-mini</span></div>
     <header class="hero">
       <section class="hero-copy">
-        <div class="eyebrow">Open-weight local LLM</div>
-        <h1 class="title">DeepSeek V4 Flash 0731 <span>(284B MoE)</span></h1>
-        <p class="desc"><strong>Catalogue summary:</strong> Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB.</p>
+        <div class="eyebrow">Open-weight MoE</div>
+        <h1 class="title">Nex-N2.5-mini</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">256 GB catalogue minimum</span><span class="chip">256 GB RAM</span><span class="chip">UD-Q4_K_XL</span><span class="chip">Coding assistant</span></div>
+        <div class="chips"><span class="chip hot">32 GB catalogue minimum</span><span class="chip">32 GB RAM</span><span class="chip">Q4_K_M</span><span class="chip">Coding assistant</span></div>
         <div class="run-picker" data-model-run-options>
-          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Only verified options can be opened. Unsupported apps are clearly marked.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="deepseek-v4-flash-0731">Compare models</a></div>
-          <div class="run-grid"><div class="run-option unavailable" aria-disabled="true" data-runtime="lmstudio"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>LM Studio</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=unsloth%2FDeepSeek-V4-Flash-0731-GGUF" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="deepseek-v4-flash-0731" data-fast-goal-quant="UD-Q4_K_XL"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="deepseek-v4-flash-0731" data-fast-goal-quant="UD-Q4_K_XL"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="llamacpp"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>llama.cpp</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="deepseek-v4-flash-0731" data-fast-goal-quant="UD-Q4_K_XL"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
+          <div class="run-picker-head"><div><span class="run-picker-label">Choose an app</span><p>Pick the app you already use. No terminal and no command to copy.</p></div><a href="/llm-list" data-fast-goal="model_runtime_compare" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini">Compare models</a></div>
+          <div class="run-grid"><a class="run-option featured" data-runtime="lmstudio" href="lmstudio://open_from_hf?model=mradermacher/Nex-N2.5-mini-i1-GGUF" data-fast-goal="model_runtime_lmstudio" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://lmstudio.ai/assets/marketing/logo-192x192.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in LM Studio</strong><small>Opens the app on this model&#39;s download screen</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><a class="run-option " data-runtime="unsloth" href="unsloth://open_from_hf?model=mradermacher%2FNex-N2.5-mini-i1-GGUF" data-fast-goal="model_runtime_unsloth" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model&#39;s download page</small></span><span class="run-option-arrow" aria-hidden="true">Open</span></a><div class="run-option unavailable" aria-disabled="true" data-runtime="ollama"><span class="run-option-logo" aria-hidden="true"><img src="https://ollama.com/public/ollama.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Ollama</strong><small>Not available for this model</small></span><span class="run-option-state" aria-hidden="true">Unavailable</span></div><a class="run-option " data-runtime="huggingface" href="https://huggingface.co/mradermacher/Nex-N2.5-mini-i1-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_huggingface" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and available downloads</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option " data-runtime="llamacpp" href="https://huggingface.co/mradermacher/Nex-N2.5-mini-i1-GGUF" target="_blank" rel="noopener" data-fast-goal="model_runtime_llamacpp" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/ggml-org/llama.cpp/master/media/llama1-icon-transparent.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open llama.cpp setup</strong><small>Advanced option: opens the model files</small></span><span class="run-option-arrow" aria-hidden="true">&#8599;</span></a><a class="run-option localclaw" data-runtime="localclaw" href="/pricing" data-fast-goal="model_runtime_localclaw" data-fast-goal-source="model_detail" data-fast-goal-model="nex-n2-5-mini" data-fast-goal-quant="Q4_K_M"><span class="run-option-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Use with LocalClaw</strong><small>Optional workspace after the model is installed</small></span><span class="run-option-arrow" aria-hidden="true">&#8594;</span></a></div>
           <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>
         </div>
       </section>
@@ -118,80 +118,80 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
         <div class="score-card">
           <div>
             <div class="score-label">LocalClaw catalogue score</div>
-            <div class="score">9.3<small>/10</small></div>
+            <div class="score">8.6<small>/10</small></div>
             <p class="score-caption">Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.</p>
           </div>
         </div>
-        <div data-community-rating data-model-id="deepseek-v4-flash-0731" data-rating-mode="full"></div>
+        <div data-community-rating data-model-id="nex-n2-5-mini" data-rating-mode="full"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">deepseek-flash</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-07-31</div></div>
+          <div class="mini"><div class="k">Family</div><div class="v" style="color:#ff453a">nex</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-09-10</div></div>
         </div>
       </aside>
     </header>
 <section class="specs" aria-label="Key local AI model specs">
-      <div class="spec-card"><div class="k">Parameters</div><div class="v">284B (13B active)</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">256 GB</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">155 GB</div></div>
-      <div class="spec-card"><div class="k">Quantization</div><div class="v">UD-Q4_K_XL</div></div>
+      <div class="spec-card"><div class="k">Parameters</div><div class="v">35B MoE</div></div>
+      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">32 GB</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">21.3 GB</div></div>
+      <div class="spec-card"><div class="k">Quantization</div><div class="v">Q4_K_M</div></div>
     </section>
-<section class="personal-fit" hidden data-localclaw-model-context data-model-id="deepseek-v4-flash-0731" aria-live="polite"></section>
+<section class="personal-fit" hidden data-localclaw-model-context data-model-id="nex-n2-5-mini" aria-live="polite"></section>
     <section class="section">
-      <h2>Can DeepSeek V4 Flash 0731 (284B MoE) run locally?</h2>
-      <p>DeepSeek V4 Flash 0731 (284B MoE) has a catalogue minimum of 256 GB RAM with UD-Q4_K_XL. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
-      <p>Treat <code>deepseek-v4-flash-0731</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.</p>
-      <div class="source-links"><a href="https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-09-10): unsloth/DeepSeek-V4-Flash-0731-GGUF</a><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE" target="_blank" rel="noopener">Licence text</a></div>
-      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">quality</span><span class="tag">agentic</span><span class="tag">long-context</span><span class="tag">general</span></div>
+      <h2>Can Nex-N2.5-mini run locally?</h2>
+      <p>Nex-N2.5-mini has a catalogue minimum of 32 GB RAM with Q4_K_M. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
+      <p>Use <code>nex-n2.5-mini</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.</p>
+      <div class="source-links"><a href="https://huggingface.co/nex-agi/Nex-N2.5-mini" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/mradermacher/Nex-N2.5-mini-i1-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-09-10): mradermacher/Nex-N2.5-mini-i1-GGUF</a><a href="https://huggingface.co/nex-agi/Nex-N2.5-mini" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/mradermacher/Nex-N2.5-mini-i1-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://huggingface.co/nex-agi/Nex-N2.5-mini/blob/main/README.md" target="_blank" rel="noopener">Licence text</a></div>
+      <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="tag">agentic</span><span class="tag">power</span><span class="tag">long-context</span><span class="tag">tool-calling</span></div>
     </section>
     <section class="section">
-      <h2>Deployment path</h2>
+      <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Server-grade target. Plan for 256 GB class multi-GPU memory.</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Use deepseek-v4-flash-0731 only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 32 GB RAM. Start with the Q4_K_M quant.</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Search nex-n2.5-mini in LM Studio.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue record</h2><ul class="list"><li>Family: deepseek-flash</li><li>Parameters: 284B (13B active)</li><li>Recommended quantization: UD-Q4_K_XL</li><li>Catalogue minimum RAM: 256 GB</li><li>Catalogue model size: 155 GB</li><li>Tags: chat, code, reasoning, quality, agentic, long-context, general</li></ul></div>
+      <div><h2>Catalogue record</h2><ul class="list"><li>Family: nex</li><li>Parameters: 35B MoE</li><li>Recommended quantization: Q4_K_M</li><li>Catalogue minimum RAM: 32 GB</li><li>Catalogue model size: 21.3 GB</li><li>Tags: chat, code, reasoning, vision, agentic, power, long-context, tool-calling</li></ul></div>
       <div><h2>Practical limits</h2><ul class="list"><li>Catalogue RAM is a minimum estimate, not a guarantee for every context length or runtime.</li><li>Speed and memory use vary by quantization, backend, context length and system headroom.</li><li>Verify architecture, licence and usage restrictions in the linked upstream material before deployment.</li></ul></div>
     </section>
     <section class="section cols">
-      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>quality</li><li>agentic</li><li>long-context</li></ul></div>
+      <div><h2>Catalogue tags</h2><ul class="list"><li>chat</li><li>code</li><li>reasoning</li><li>vision</li><li>agentic</li><li>power</li></ul></div>
       <div>
         <h2>Capability profile</h2>
         <p class="muted">Repository catalogue ratings used by LocalClaw's editorial rubric. They are not a standardized third-party benchmark.</p>
         <div class="bars">
-          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:50%"></div></div><strong>5</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>10</strong></div>
+          <div class="bar-row"><span>speed</span><div class="track"><div class="fill" style="width:60%"></div></div><strong>6</strong></div><div class="bar-row"><span>quality</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>coding</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div><div class="bar-row"><span>reasoning</span><div class="track"><div class="fill" style="width:90%"></div></div><strong>9</strong></div>
         </div>
       </div>
     </section>
     <section class="section">
       <h2>Technical notes</h2>
       <div class="meta-grid">
-        <div class="meta"><div class="k">Developer</div><div class="v">DeepSeek AI</div></div>
-        <div class="meta"><div class="k">License</div><div class="v">MIT</div></div>
-        <div class="meta"><div class="k">Context window</div><div class="v">1,048,576 tokens</div></div>
-        <div class="meta"><div class="k">Architecture</div><div class="v">DeepSeek V4 Flash MoE successor release with 284B total parameters, about 13B active parameters, million-token context and the same DSpark speculative-decoding structure as DeepSeek V4 Flash DSpark.</div></div>
+        <div class="meta"><div class="k">Developer</div><div class="v">Nex-AGI</div></div>
+        <div class="meta"><div class="k">License</div><div class="v">Apache 2.0</div></div>
+        <div class="meta"><div class="k">Context window</div><div class="v">262,144 tokens</div></div>
+        <div class="meta"><div class="k">Architecture</div><div class="v">Multimodal Qwen3.5-style Mixture-of-Experts model. Community GGUF notes identify 256 experts, 8 active experts per token, 40 text layers and a 262,144-token text context configuration.</div></div>
       </div>
     </section>
 <section class="section">
       <h2>This model fits these next steps</h2>
       <p class="muted">Hardware fit is based on LocalClaw's RAM tier, model size and quantization metadata. Always leave memory headroom for your OS and runtime.</p>
       <div class="hardware-fit">
-        <a href="/hardware/mac-studio-m3-ultra-256gb"><small>Very large memory</small>Mac Studio Ultra class</a><a href="/computers"><small>Check model size first</small>NVIDIA GB10 / server options</a><a href="/llm-list"><small>More practical alternatives</small>Compare smaller models</a>
+        <a href="/hardware/mac-mini-m4-pro-48gb"><small>Comfortable headroom</small>Mac mini M4 Pro 48GB</a><a href="/hardware/macbook-pro-m4-max-36gb"><small>Mobile workstation</small>MacBook Pro M4 Max 36GB</a><a href="/ram/32gb"><small>Power-user picks</small>32GB RAM guide</a>
       </div>
     </section>
-    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/deepseek-v4-flash">DeepSeek V4 Flash (284B MoE) <span>284B (13B active)</span></a><a href="/models/deepseek-v4-flash-vision-exp">DeepSeek V4 Flash Vision Exp <span>284B (13B active, multimodal MoE)</span></a><a href="/models/glm-5.2">GLM-5.2 (744B MoE) <span>744B (40B active)</span></a><a href="/models/glm4.7">GLM 4.7 <span>355B (32B active, MoE)</span></a><a href="/models/qwen3.5-397b-a17b">Qwen 3.5 MoE (397B/17B active) <span>397B (17B active)</span></a><a href="/models/glm-4.6-355b">GLM 4.6 (355B MoE) <span>355B (32B active)</span></a><a href="/models/trinity-large">Trinity Large Preview (398B MoE) <span>398B total (13B active, MoE)</span></a><a href="/models/glm-5.3-flash">GLM-5.3-Flash <span>320B (18B active, MoE)</span></a></div></section>
+    <section class="section"><h2>Related catalogue entries</h2><p class="muted">Linked mechanically by family, shared tags and nearby RAM tier; this is not a quality ranking.</p><div class="similar"><a href="/models/qwen3.6-35b-a3b">Qwen 3.6 35B-A3B <span>35B (3B active, MoE)</span></a><a href="/models/qwen3.8-27b">Qwen3.8-27B <span>27B</span></a><a href="/models/muse-glimmer-30b">Muse Glimmer 30B <span>29.8B multimodal</span></a><a href="/models/nemotron-3-5-lightning-30b-a3b">Nemotron 3.5 Lightning 30B-A3B <span>30B (3B active, MoE)</span></a><a href="/models/agents-a1-4b">Agents-A1 4B <span>4B</span></a><a href="/models/agents-a1">Agents-A1 <span>35B (3B active, MoE)</span></a><a href="/models/bonsai-27b">Bonsai 27B <span>27.3B (ternary / 1-bit)</span></a><a href="/models/kat-coder-v2-5-dev">KAT-Coder V2.5 Dev <span>35B (3B active, MoE)</span></a></div></section>
 <section class="section">
       <h2>Where to go next</h2>
       <div class="next">
-        <a href="/ram/128gb"><small>RAM guide</small>Find models for this memory tier</a>
+        <a href="/ram/32gb"><small>RAM guide</small>Find models for this memory tier</a>
         <a href="/computers"><small>Hardware</small>See computers for local AI</a>
         <a href="/pricing"><small>LocalClaw</small>Control OpenClaw from one native app</a>
       </div>
     </section>
   </main>
-  <script>window.LOCALCLAW_MODEL={"id":"deepseek-v4-flash-0731","name":"DeepSeek V4 Flash 0731 (284B MoE)","family":"deepseek-flash","params":"284B (13B active)","size_gb":155,"min_ram":256,"tags":["chat","code","reasoning","quality","agentic","long-context","general"],"description":"Official MIT DeepSeek V4 Flash successor release with stronger agentic coding, DSpark speculative decoding support and a practical Unsloth Dynamic GGUF path. Still a large workstation/server local model: Q4 is about 155GB and Q8 is about 162GB.","search_term":"deepseek-v4-flash-0731","recommended_quant":"UD-Q4_K_XL","hf_repo":"unsloth/DeepSeek-V4-Flash-0731-GGUF","benchmarks":{"speed":5,"quality":10,"coding":10,"reasoning":10},"released":"2026-07-31","isNew":true};</script>
+  <script>window.LOCALCLAW_MODEL={"id":"nex-n2-5-mini","name":"Nex-N2.5-mini","family":"nex","params":"35B MoE","size_gb":21.3,"min_ram":32,"tags":["chat","code","reasoning","vision","agentic","power","long-context","tool-calling"],"description":"Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests.","search_term":"nex-n2.5-mini","recommended_quant":"Q4_K_M","hf_repo":"mradermacher/Nex-N2.5-mini-i1-GGUF","source_url":"https://huggingface.co/nex-agi/Nex-N2.5-mini","benchmarks":{"speed":6,"quality":9,"coding":9,"reasoning":9},"released":"2026-09-10","isNew":true};</script>
   <script src="/js/runtime-launch-assist-20260821a.js?v=20260830a" defer></script>
   <script src="/js/model-ranking.js?v=20260820a"></script>
   <script src="/js/fit-context.js?v=20260905a"></script>

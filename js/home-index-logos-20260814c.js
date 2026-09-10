@@ -58,6 +58,7 @@ window.HOME_INDEX_LOGOS = {
     nemotron: 'nvidia',
     'nemotron-llama-nano': 'nvidia',
     'nemotron-nano': 'nvidia',
+    nex: 'huggingface-avatar',
     nuextract: 'numind-avatar',
     olmo: 'ai2',
     openchat: 'openchat',

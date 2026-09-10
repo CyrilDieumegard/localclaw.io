@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 8, 2026 - Added MiniCPM5 2B - 238 unique LLM records
+// Updated September 10, 2026 - Added Nex-N2.5-mini - 239 unique LLM records
+// Previous: September 8, 2026 - Added MiniCPM5 2B - 238 unique LLM records
 // Previous: September 7, 2026 - Added K2 Horizon 0.9B and MoVA 36B-A4B - 237 unique LLM records
 // Previous: September 6, 2026 - Added DeepSeek V4 Flash Vision Exp - 235 unique LLM records
 // Previous: September 6, 2026 - Consolidated model identities - 234 unique LLM records
@@ -3028,6 +3029,23 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'nex-n2-5-mini',
+            name: 'Nex-N2.5-mini',
+            family: 'nex',
+            params: '35B MoE',
+            size_gb: 21.3,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'power', 'long-context', 'tool-calling'],
+            description: 'Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests.',
+            search_term: 'nex-n2.5-mini',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'mradermacher/Nex-N2.5-mini-i1-GGUF',
+            source_url: 'https://huggingface.co/nex-agi/Nex-N2.5-mini',
+            benchmarks: { speed: 6, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-09-10',
+            isNew: true
+        },
+        {
             id: 'qwen3.7-max-preview',
             name: 'Qwen 3.7 Max Preview',
             family: 'qwen',
@@ -3977,8 +3995,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-07T06:07:14.000Z",
-        catalogueHash: "516fe981da08c93c83f6109740dc4c67a97c10ba8c0621f54df311699e3076d7",
+        checkedAt: "2026-09-10T06:25:00.000Z",
+        catalogueHash: "d9244cf2bb28192c0da1a0ce5ca9ee66022b64b9427cff6c0b48d6084281f693",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4014,6 +4032,7 @@ const APP_DATA = {
             "lfm2.5-8b-a1b": "LiquidAI/LFM2.5-8B-A1B-GGUF",
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
             "minicpm5-2b": "openbmb/MiniCPM5-2B-GGUF",
+            "nex-n2-5-mini": "mradermacher/Nex-N2.5-mini-i1-GGUF",
             "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",

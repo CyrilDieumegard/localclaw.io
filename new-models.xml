@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 08 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Nex-N2.5-mini</title>
+      <link>https://localclaw.io/models/nex-n2-5-mini</link>
+      <guid isPermaLink="true">https://localclaw.io/models/nex-n2-5-mini</guid>
+      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
+      <category>nex</category>
+      <description>Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests. 35B MoE · 32 GB minimum RAM · Q4_K_M · nex.</description>
+    </item>
     <item>
       <title>MiniCPM5 2B</title>
       <link>https://localclaw.io/models/minicpm5-2b</link>
@@ -159,14 +167,6 @@
       <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
       <category>meta</category>
       <description>Meta Superintelligence Lab local agent model with text+image input, 131K context, Apache 2.0 weights and official GGUF/ExecuTorch artifacts. The K-Quant 17GB build targets 24GB machines; 32GB is safer for vision and long-context sessions. 29.8B multimodal · 24 GB minimum RAM · K-Quant 17GB Q4_K_M · meta.</description>
-    </item>
-    <item>
-      <title>Qwen3.8-27B</title>
-      <link>https://localclaw.io/models/qwen3.8-27b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.8-27b</guid>
-      <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Official Qwen dense 27B vision-language release with Apache 2.0 weights, 262K native context, thinking controls and strong agentic coding benchmarks. Practical local path through Unsloth and LM Studio-compatible GGUF artifacts. 27B · 32 GB minimum RAM · Q4_K_M · qwen.</description>
     </item>
   </channel>
 </rss>
