@@ -981,6 +981,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.6
   },
   {
+    "id": "omnivoice",
+    "name": "OmniVoice",
+    "developer": "k2-fsa / OmniVoice Team",
+    "family": "omnivoice",
+    "license": "CC-BY-NC pretrained model / Apache 2.0 code",
+    "releaseDate": "2026-07",
+    "quality": 9.1,
+    "speed": 9,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 3.3
+  },
+  {
     "id": "granite-speech-4.1-2b",
     "name": "Granite Speech 4.1 2B",
     "developer": "IBM Granite Team",

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 84 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 84 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 88 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 88 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 84 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 88 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">87</strong> speech records: <strong style="color:#fff;">84 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">91</strong> speech records: <strong style="color:#fff;">88 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>84 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>88 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3495,6 +3495,33 @@
                 voices: "Zero-shot voice cloning from a 5-10 second reference",
                 context: "150M parameters, Arabic/English, F5-style local inference",
                 license: "Apache 2.0"
+            },
+            {
+                id: "omnivoice",
+                name: "OmniVoice",
+                developer: "k2-fsa / OmniVoice Team",
+                family: "omnivoice",
+                description: "Massively multilingual zero-shot TTS model built on a diffusion language-model style architecture. It supports voice cloning from a short reference clip, prompt-based voice design and local CUDA, Apple Silicon MPS and Intel XPU inference through the official Python package.",
+                languages: ["multilingual"],
+                languageCount: 600,
+                features: ["cloning", "multilingual", "controllable", "realtime"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 3.3,
+                sizeLabel: "Qwen3-0.6B base plus 2.45GB model and 806MB audio tokenizer safetensors",
+                sizeCategory: "large",
+                quality: 9.1,
+                speed: 9.0,
+                latency: "low",
+                releaseDate: "2026-07",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/k2-fsa/OmniVoice",
+                sourceStatus: "verified-model",
+                installCommand: "pip install omnivoice",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot voice cloning, saved clone prompts and text-described voice design",
+                context: "600+ languages, RTF as low as 0.025, local web UI via omnivoice-demo, pretrained weights are CC-BY-NC",
+                license: "CC-BY-NC pretrained model / Apache 2.0 code"
             },
             {
                 id: "granite-speech-4.1-2b",
