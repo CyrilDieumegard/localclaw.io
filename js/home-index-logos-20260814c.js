@@ -133,6 +133,7 @@ window.HOME_INDEX_LOGOS = {
     moss: 'openmoss-avatar',
     nemotron: 'nvidia',
     neutts: 'neuphonic-avatar',
+    omnivoice: 'huggingface-avatar',
     openvoice: 'myshell',
     orpheus: 'canopylabs-avatar',
     outetts: 'outeai-avatar',

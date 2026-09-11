@@ -246,6 +246,7 @@ function runOptionsMarkup(m, hfState) {
   const hfUrl = m.hf_repo ? `https://huggingface.co/${m.hf_repo}` : '';
   const publicGguf = hfState === 'publicGguf';
   const desktopReady = publicGguf && !m.hosted_only && !isServerServingModel(m) && !requiresCustomRuntime(m);
+  const advancedGguf = publicGguf && !m.hosted_only && isServerServingModel(m) && !requiresCustomRuntime(m);
   const unslothReady = publicGguf && !m.hosted_only && !requiresCustomRuntime(m);
   const ollamaHref = verifiedOllamaHref(m);
   const cards = [
@@ -282,10 +283,10 @@ function runOptionsMarkup(m, hfState) {
       href: hfUrl,
       m
     }) : runOptionUnavailable({platform: 'huggingface', label: 'Hugging Face'}),
-    desktopReady ? runOptionLink({
+    (desktopReady || advancedGguf) ? runOptionLink({
       platform: 'llamacpp',
       label: 'Open llama.cpp setup',
-      note: 'Advanced option: opens the model files',
+      note: advancedGguf ? 'Advanced option: opens GGUF files and patch notes' : 'Advanced option: opens the model files',
       href: hfUrl,
       m
     }) : runOptionUnavailable({platform: 'llamacpp', label: 'llama.cpp'}),
@@ -304,6 +305,8 @@ function runOptionsMarkup(m, hfState) {
     : '';
   const availabilityNote = desktopReady
     ? 'Pick the app you already use. No terminal and no command to copy.'
+    : advancedGguf
+      ? 'This is an advanced workstation/server GGUF path. Unsupported apps are clearly marked.'
     : requiresCustomRuntime(m)
       ? 'This model needs a special runtime. Unsupported apps are clearly marked.'
       : 'Only verified options can be opened. Unsupported apps are clearly marked.';
@@ -322,6 +325,7 @@ function lmStudioLine(m) {
   const state = hfRepoState(m);
   if (state === 'publicModelCard') return `Only the public model card was verified; no public GGUF file was verified in that repository. Open the model card to confirm current artefacts and supported runtimes. LocalClaw does not claim a one-click LM Studio install.`;
   if (state === 'gated') return `The model card is gated and may require account approval or licence acceptance. No public GGUF file was verified, so LocalClaw does not publish an LM Studio or one-click installation path.`;
+  if (state === 'publicGguf' && isServerServingModel(m)) return `Treat <code>${esc(m.search_term)}</code> as an advanced workstation/server-grade catalogue target with verified GGUF artefacts. Open the GGUF files and follow the upstream runtime notes; LocalClaw does not claim a one-click LM Studio install.`;
   if (isServerServingModel(m)) return `Treat <code>${esc(m.search_term)}</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.`;
   if (requiresCustomRuntime(m)) return `Use the official <a href="${esc(m.runtime_url)}" target="_blank" rel="noopener">${esc(m.custom_runtime)}</a> setup. The current low-bit files are not a stock LM Studio install.`;
   return `Use <code>${esc(m.search_term)}</code> as the catalogue search term in a compatible runtime, and confirm the available format on the upstream repository before download.`;
@@ -604,7 +608,7 @@ function modelPage(m, d, allModels) {
         {
           '@type': 'Question',
           name: `Can ${m.name} run locally?`,
-          acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
+          acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : hfRepoState(m) === 'publicGguf' && isServerServingModel(m) ? `${m.name} has verified GGUF artefacts, but LocalClaw treats it as an advanced workstation/server target with at least ${m.min_ram} GB RAM.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
         },
         {
           '@type': 'Question',
@@ -661,7 +665,7 @@ function modelPage(m, d, allModels) {
       <h2>${isServerServingModel(m) ? 'Deployment path' : 'Install path'}</h2>
       <div class="install-steps">
         <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
-        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : isServerServingModel(m) ? `Use ${esc(m.search_term)} only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
+        <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : hfRepoState(m) === 'publicGguf' && isServerServingModel(m) ? `Open the verified GGUF files for ${esc(m.search_term)} and follow the upstream runtime or patch notes first.` : isServerServingModel(m) ? `Use ${esc(m.search_term)} only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
         <div class="step"><div class="step-num">03</div><strong>Control locally</strong><span>Use LocalClaw to manage models, agents, chat, channels and scheduled OpenClaw work.</span></div>
       </div>
     </section>`;

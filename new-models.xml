@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 10 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Nex-N2.5-mini</title>
@@ -15,6 +15,14 @@
       <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
       <category>nex</category>
       <description>Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests. 35B MoE · 32 GB minimum RAM · Q4_K_M · nex.</description>
+    </item>
+    <item>
+      <title>DeepSeek V4.1 Flash</title>
+      <link>https://localclaw.io/models/deepseek-v4-1-flash</link>
+      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-1-flash</guid>
+      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
+      <category>deepseek-flash</category>
+      <description>Official MIT DeepSeek V4.1 Flash release with CED architecture, CSA2 attention, multimodal input and 1M-token context. Community GGUF artifacts include split Q2_K/Q3/Q4 builds plus a llama.cpp patch path; use only on 256GB+ workstations, with 384GB+ safer. 552B MoE (8B/16B active) · 256 GB minimum RAM · Q2_K · deepseek-flash.</description>
     </item>
     <item>
       <title>MiniCPM5 2B</title>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
       <category>ling</category>
       <description>Official InclusionAI MIT hybrid-reasoning MoE with 131K context, 1.3B active parameters and a validated GGUF path through stock llama.cpp builds from the 2026-08-17 bailingmoe3 merge. 7.9B (1.3B active, MoE) · 8 GB minimum RAM · Q4_K_M · ling.</description>
-    </item>
-    <item>
-      <title>Muse Glimmer 30B</title>
-      <link>https://localclaw.io/models/muse-glimmer-30b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/muse-glimmer-30b</guid>
-      <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
-      <category>meta</category>
-      <description>Meta Superintelligence Lab local agent model with text+image input, 131K context, Apache 2.0 weights and official GGUF/ExecuTorch artifacts. The K-Quant 17GB build targets 24GB machines; 32GB is safer for vision and long-context sessions. 29.8B multimodal · 24 GB minimum RAM · K-Quant 17GB Q4_K_M · meta.</description>
     </item>
   </channel>
 </rss>

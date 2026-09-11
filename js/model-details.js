@@ -2261,6 +2261,42 @@ var MODEL_DETAILS = {
         official_blog: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp',
         paper_url: 'https://huggingface.co/unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF',
     },
+    'deepseek-v4-1-flash': {
+        developer: 'DeepSeek AI',
+        developer_url: 'https://www.deepseek.com/',
+        context_window: 1048576,
+        license: 'MIT',
+        license_url: 'https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/LICENSE',
+        architecture: 'DeepSeek V4.1 Flash is a 552B-parameter multimodal Mixture-of-Experts model using a Causal Encoder-Decoder layout, CSA2 sparse attention, FP4 KV caching, Engram conditional memory and DSpark speculative decoding. DeepSeek reports 8B active parameters during prefill and 16B during decode.',
+        training_data: 'DeepSeek reports training from scratch on a multimodal corpus of roughly 45T tokens, with sparse attention training at 64K sequence length and extension to a 1M-token context late in pre-training. Full corpus composition is not disclosed.',
+        languages: ['English', 'Chinese', 'Multilingual text plus image prompts'],
+        strengths: [
+            'Official DeepSeek AI release with MIT-licensed weights',
+            '1M-token context target for very large repositories and document sets',
+            'Multimodal text and image input in the upstream model',
+            'Strong source-reported agentic coding, terminal, SWE and automation benchmark results',
+            'GGUF conversion repo exposes split Q2_K, Q3_K_M and Q4_K_M artifacts with a llama.cpp patch path',
+            'Much lower KV-cache footprint than earlier DeepSeek V4 Flash according to the technical report',
+        ],
+        weaknesses: [
+            'Large-workstation model only: the lightest GGUF path is roughly 246GB before runtime and context overhead',
+            '256GB RAM is a minimal catalogue floor; 384GB or 512GB is safer for real sessions',
+            'Community GGUF conversion rather than an official DeepSeek GGUF release',
+            'Requires very current llama.cpp support and conversion patches for the DeepSeek V4.1 architecture',
+            'Full 1M-token or multimodal sessions can demand far more memory than the model files alone',
+        ],
+        use_cases: [
+            'Private agentic coding on high-memory workstations',
+            'Repository-scale refactoring and debugging',
+            'Long-context technical research',
+            'Local terminal automation benchmark experiments',
+            'Testing DeepSeek V4.1 architecture support in llama.cpp and GGUF runtimes',
+        ],
+        similar_models: ['deepseek-v4-flash-vision-exp', 'deepseek-v4-flash-0731', 'deepseek-v4-flash', 'deepseek-v4-pro', 'glm-5.3-flash'],
+        fun_fact: 'DeepSeek reports a global KV cache footprint of about 890 bytes per token, making the context-memory story more interesting than the raw 552B parameter count suggests.',
+        official_blog: 'https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash',
+        paper_url: 'https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf',
+    },
 
     // ==================== MINIMAX M3 (June 2026 — NEW) ====================
     'minimax-m3': {
