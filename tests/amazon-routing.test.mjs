@@ -21,6 +21,21 @@ test('country selection is allowlisted and manual choice takes priority',()=>{
   assert.equal(selectMarket('https://evil.test','FR'),'FR');assert.equal(selectMarket('__proto__','CA'),'CA');
   assert.equal(selectMarket('','XX'),'US');assert.equal(selectMarket('','IN'),'IN');
 });
+test('compact Amazon configurations preserve exact SSD, memory and marketplace',()=>{
+  for(const [query,market,asin] of [
+    ['GMKtec EVO-X2 Ryzen AI Max+ 395 128GB 2TB','DE','B0F6X332N6'],
+    ['Minisforum MS-S1 MAX Ryzen AI Max+ 395 128GB 2TB','DE','B0HCNRF4Y1'],
+    ['ASUS Ascent GX10 NVIDIA GB10 128GB 2TB','FR','B0GBXPZ8V8']
+  ]){
+    const offer=findOffer(query,market,now);
+    assert.equal(offer.asin,asin);
+    assert.equal(offer.storage,'2TB SSD');
+    assert.match(offer.memory,/128GB/);
+    assert.equal(findOffer(query.replace('128GB','64GB'),market,now),undefined);
+    assert.equal(findOffer(query.replace('2TB','1TB'),market,now),undefined);
+    assert.equal(findOffer(query,'US',now),undefined);
+  }
+});
 test('registered family tags are distinct; international activation preserves old tag',()=>{
   for(const family of Object.keys(FAMILY_TAGS)){
     const us=new URL(localDestination('test computer','US',null,family,now,'US'));

@@ -40,3 +40,7 @@ Confirmed defect: opening the exact US B0DTPPBN95 URL with localclaw-20 from Swi
 DE B0DLBWRZS5 again displayed selected M4 Pro / 24GB / 512GB, in stock, Amazon as shipper/seller, with delivery to Switzerland. US B0DTPPBN95 again displayed Renewed and could not ship to the selected Swiss address. These checks are not universal delivery guarantees. The German standard buybox does not explicitly expose an item-condition label in the inspected accessibility view; New is based on the standard Amazon offer, not a renewed offer.
 
 Amazon's observed automatic US-to-DE redirect retained localclaw-20, supporting the Global Store tag format; this still does not prove commission attribution for direct regional links or newly created family IDs. No test order was placed. All other configurations remain explicitly labelled unverified searches.
+
+## Available compact workstations integrated
+
+Added GMKtec EVO-X2 and Minisforum MS-S1 MAX 128GB/2TB Ryzen AI Max+ 395 cards; updated ASUS Ascent GX10 to the inspected 128GB/2TB GB10 configuration. Exact DE offers: B0F6X332N6 and B0HCNRF4Y1; exact FR offer: B0GBXPZ8V8. Product pages inspected on 11 September showed stock; DE offered Swiss delivery, FR Swiss delivery not confirmed. Other marketplaces retain explicit search fallback. Existing illustrative artwork is labelled as illustration in alt text. No fixed price or ongoing stock promise is published. Family tracking and 30-day verification expiry remain active. No upcoming 192GB models added.

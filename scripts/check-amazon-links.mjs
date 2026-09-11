@@ -44,7 +44,7 @@ for (const href of links) {
 }
 if (new Set(links).size !== links.length) errors.push("RAM/GPU Amazon searches must be unique");
 if (/href="https:\/\/(?:www\.)?amazon\./i.test(html)) errors.push("RAM/GPU page still contains a direct Amazon button URL");
-if (computerQueries.length !== 28) errors.push(`Expected 28 Computers Amazon searches; found ${computerQueries.length}`);
+if (computerQueries.length !== 30) errors.push(`Expected 30 Computers Amazon searches; found ${computerQueries.length}`);
 for (const query of computerQueries) {
   if (!normalizeAmazonQuery(query)) errors.push(`Computers page has an invalid Amazon search query: ${query}`);
 }
