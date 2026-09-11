@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "b3497bf2b9188fdae34913ee1332641bf3ca2d800348bc880ba9737df8aa030d",
+    "hash": "11dbf7651601392ae41c435af32ab616ae15fe96656e0d4866e768b2265123c6",
     "lastmod": "2026-09-11"
   },
   "local-ai-activity-index.html": {
@@ -28,28 +28,28 @@
     "lastmod": "2026-09-11"
   },
   "tts-list.html": {
-    "hash": "3c590b61b046b4cafcef46b99a226b0ab82226a3b7436215c6ef78557fad007f",
-    "lastmod": "2026-09-10"
+    "hash": "0ac0adbf563df1d444efb0a400df29b794fb3e0faabe93badc107bd37f961fd2",
+    "lastmod": "2026-09-11"
   },
   "image-models.html": {
-    "hash": "87ff3b2cb2a60c4b935e48d06f16ca4969b145911a778acde2266c070ddd9717",
-    "lastmod": "2026-09-10"
+    "hash": "a4b22e96577668ce7c0aa6e0143d183f0764353d8aef34ced67986f45586dda6",
+    "lastmod": "2026-09-11"
   },
   "video-models.html": {
-    "hash": "02c905a419cd1191db61998b3694ff1f114dbc07ec3688160a062b2befdfa207",
-    "lastmod": "2026-09-10"
+    "hash": "0164362c0333f9a680e637733e48f6efc5ce791138741f7c9eb113cc45352d6a",
+    "lastmod": "2026-09-11"
   },
   "3d-models.html": {
-    "hash": "5468a060e81780cdb8e10408a49770d8489700990642e289c6784ec84638ddee",
-    "lastmod": "2026-09-10"
+    "hash": "11b3c550511fe44324904ce2a26e25c32e4d377c56958c36548c74b924a5968f",
+    "lastmod": "2026-09-11"
   },
   "music-models.html": {
-    "hash": "df122c601e37501c4cd931ad34e3a157b2d5728e804d456a0d9d701973cd096b",
-    "lastmod": "2026-09-10"
+    "hash": "41e82a0eb7afe71f8e7ebe816f128b5a7a29d51b79bd17b48b4d0d8431fe3810",
+    "lastmod": "2026-09-11"
   },
   "vision-models.html": {
-    "hash": "5ec2eaa58964f845d2035afe10b9d0405b8b66241bd8667517d24dc34f623bcc",
-    "lastmod": "2026-09-10"
+    "hash": "d3cd2388eb9e54e2fff1ddf33947d79a36778112bc22a54981b336dd8ebe2477",
+    "lastmod": "2026-09-11"
   },
   "computers.html": {
     "hash": "423c1fa1a11d93f7bbf9877e93984b21a9801d9d562b68f453a8264ebdccb4bb",
@@ -1159,9 +1159,13 @@
     "hash": "3269cd112b84bed94737545aa15b86774dec77a67862e6e712a6a08aae9b9d6d",
     "lastmod": "2026-09-10"
   },
+  "tts/auk.html": {
+    "hash": "f9f19742dad57161c99b95f5ec93e3c4772096a771879d1452b321eac1bcd6c2",
+    "lastmod": "2026-09-11"
+  },
   "tts/ax-k2-raon-speech-21b-a3b.html": {
-    "hash": "ea6bf9bfe4c6350aa312a6ad8a69214a0a07ffb277b04ba359240793246c65f3",
-    "lastmod": "2026-09-10"
+    "hash": "974056a816c8bbed0aabd84c79dbd31ef35e305070dfe8749541f3e92ccb63f7",
+    "lastmod": "2026-09-11"
   },
   "tts/bark.html": {
     "hash": "c00dcb8dea277b2b2df432a5c64ffe6d6679f7d561976ae85920990753c9f2f7",
@@ -1228,8 +1232,8 @@
     "lastmod": "2026-09-10"
   },
   "tts/firered-audio.html": {
-    "hash": "732516900e7add7b190fe6da60c42c68ad87e111f4c13bbd374c4e6e33711608",
-    "lastmod": "2026-09-10"
+    "hash": "fd9cba9a7eb085a55d596bd8433de8e39f0c72e33468614c3b553f72afb735f4",
+    "lastmod": "2026-09-11"
   },
   "tts/fish-speech.html": {
     "hash": "d2e10f47ef6e0c4596ebc462c9cba0e255e2a2a64a9b2c1bdc34fe16c9827873",
@@ -1238,6 +1242,10 @@
   "tts/gepard-1.0.html": {
     "hash": "f3a8b8a3b2d2cce3ac8324609fe19feda77753b3181b70109e723573bd414dee",
     "lastmod": "2026-09-10"
+  },
+  "tts/gigachat-audio-10b-a1.8b.html": {
+    "hash": "e855fa870c79c363f4cb378de4053c31efb6e1815e9cd52d98dbe5440a282dbb",
+    "lastmod": "2026-09-11"
   },
   "tts/gpt-sovits.html": {
     "hash": "247e9fdac874ab46f0d57d38e5db9dd9b026bcb736c86d663459afc227afd0b2",
@@ -1276,8 +1284,8 @@
     "lastmod": "2026-09-10"
   },
   "tts/index.html": {
-    "hash": "08b65062f488f24bedfe0c400db6ca278ec4ed9b7329436e19a6100863c1b5c3",
-    "lastmod": "2026-09-10"
+    "hash": "bef28728b27d15cbf9c05c687752104264d744413fdc0ffe84bfc24e245af1ca",
+    "lastmod": "2026-09-11"
   },
   "tts/indic-tts.html": {
     "hash": "14881f1ee1b7c1fbc711a7b4fd09c606a31426cc570f17e6291203185bc534cd",
@@ -1340,12 +1348,12 @@
     "lastmod": "2026-09-10"
   },
   "tts/moss-audio-4b-instruct.html": {
-    "hash": "c3eba660b0ccb9647cc481889e6032d81b6ed9742569adb7d74b97fd71f2b26d",
-    "lastmod": "2026-09-10"
+    "hash": "4de70a6bedc916b4ad7f31355209373f7fae54a38e403b3e04b3243895c13822",
+    "lastmod": "2026-09-11"
   },
   "tts/moss-transcribe-diarize.html": {
-    "hash": "57b7b1a853c6fca7ce87409acdf756df76a5313eb5c39d10ee1568165271c911",
-    "lastmod": "2026-09-10"
+    "hash": "903cb3400d567f4550dc33bd806d8a50e0f5c4fda928dc3beabab75e606da5db",
+    "lastmod": "2026-09-11"
   },
   "tts/moss-tts-nano.html": {
     "hash": "b5b5951d87b6cca3a02456f76345e20b44e3e33229cc17bf4a8dd6f76739ceaf",

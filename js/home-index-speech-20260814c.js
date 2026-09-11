@@ -997,6 +997,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 3.3
   },
   {
+    "id": "auk",
+    "name": "AuK",
+    "developer": "Tencent Hunyuan",
+    "family": "auk",
+    "license": "MIT",
+    "releaseDate": "2026-09",
+    "quality": 9.3,
+    "speed": 7.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 6.8
+  },
+  {
     "id": "granite-speech-4.1-2b",
     "name": "Granite Speech 4.1 2B",
     "developer": "IBM Granite Team",
@@ -1028,6 +1043,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "edge"
     ],
     "sizeGB": 1.9
+  },
+  {
+    "id": "gigachat-audio-10b-a1.8b",
+    "name": "GigaChat Audio 10B A1.8B",
+    "developer": "ai-sage",
+    "family": "gigachat-audio",
+    "license": "MIT",
+    "releaseDate": "2026-07",
+    "quality": 9.1,
+    "speed": 6.7,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 23.4
   },
   {
     "id": "qwen3-asr",
