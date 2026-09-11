@@ -1045,7 +1045,7 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 1.9
   },
   {
-    "id": "gigachat-audio-10b-a1.8b",
+    "id": "gigachat-audio-10b-a1-8b",
     "name": "GigaChat Audio 10B A1.8B",
     "developer": "ai-sage",
     "family": "gigachat-audio",
