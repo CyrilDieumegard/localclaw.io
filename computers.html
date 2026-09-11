@@ -1581,11 +1581,11 @@
             }).join('');
 
             const amazonUrl = comp.amazonQuery
-                ? `/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}`
+                ? `/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}&family=computers&product=${encodeURIComponent(comp.id)}&source=computers_card`
                 : (comp.asin ? `/go/amazon?q=${encodeURIComponent(`${comp.name} ${comp.chip}`)}` : null);
             const appleActionLabel = comp.preorder ? 'Pre-order on Apple.com' : 'View on Apple.com';
             const actionBtn = amazonUrl
-                ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} View on Amazon</a>`
+                ? `<a href="${amazonUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_offer_open" data-fast-goal-family="computers" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} Amazon buying options</a>`
                 : `<a href="${comp.appleUrl}" target="_blank" rel="noopener" class="act-btn apple-store" data-fast-goal="apple_store_click" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.apple} ${appleActionLabel}</a>`;
             const guideBtn = comp.guideUrl
                 ? `<a href="${esc(comp.guideUrl)}" class="act-btn guide" data-fast-goal="guide_open" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}">See local AI fit guide</a>`

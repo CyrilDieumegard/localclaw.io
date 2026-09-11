@@ -33,7 +33,7 @@ for (const project of projects) {
     project.model.license,
     project.page.compatibilityTitle,
     'LocalClaw has source-reviewed this guide but has not physically reproduced this build.',
-    'data-fast-goal="amazon_click"',
+    'data-fast-goal="amazon_offer_open"',
     'application/ld+json',
     '"@type":"HowTo"',
     '"@type":"VideoObject"',

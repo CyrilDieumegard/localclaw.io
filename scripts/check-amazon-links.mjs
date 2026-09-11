@@ -18,7 +18,7 @@ const hardwarePages = fs.readdirSync(hardwareDir)
   .filter(file => file.endsWith(".html"))
   .map(file => ({ file, html: fs.readFileSync(path.join(hardwareDir, file), "utf8") }));
 const hardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
-  [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
+  [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="amazon_offer_open"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
 const appleHardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
@@ -31,7 +31,7 @@ const diyPages = fs.existsSync(diyDir)
     .map(file => ({ file, html: fs.readFileSync(path.join(diyDir, file), "utf8") }))
   : [];
 const diyLinks = diyPages.flatMap(({ file, html: page }) =>
-  [...page.matchAll(/<a[^>]+href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
+  [...page.matchAll(/<a[^>]+href="([^"]+)"[^>]+data-fast-goal="amazon_offer_open"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
 const errors = [];
@@ -50,7 +50,7 @@ for (const query of computerQueries) {
 }
 if (new Set(computerQueries).size !== computerQueries.length) errors.push("Computers Amazon searches must be unique");
 if (/amazonUrl:|https:\/\/(?:www\.)?amazon\./i.test(computers)) errors.push("Computers page still contains a direct Amazon URL");
-if (!computers.includes('`/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}`')) errors.push("Computers cards do not use the OneLink resolver");
+if (!computers.includes('`/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}&family=computers&product=${encodeURIComponent(comp.id)}&source=computers_card`')) errors.push("Computers cards do not use the OneLink resolver");
 if (hardwareLinks.length !== 20) errors.push(`Expected 20 Mac hardware-guide Amazon buttons; found ${hardwareLinks.length}`);
 for (const { file, href } of hardwareLinks) {
   if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the OneLink resolver: ${href}`);
@@ -79,9 +79,17 @@ for (const { file, html: page } of diyPages) {
 }
 if (!workerRoutes.include.includes("/go/amazon")) errors.push("Cloudflare routes do not include /go/amazon");
 
+for (const [family, entries] of [["gpuram", links.map(href => ({href}))], ["computers", hardwareLinks], ["diy", diyLinks]]) {
+  for (const {file, href} of entries) {
+    const params = new URL(href.replaceAll("&amp;", "&"), "https://localclaw.io").searchParams;
+    if (params.get("family") !== family) errors.push(`${file || "RAM/GPU"} has missing or wrong family: ${href}`);
+    if (!params.get("source")) errors.push(`${file || "RAM/GPU"} has no source: ${href}`);
+  }
+}
+
 for (const country of ["CH", "DE", "FR", "GB", "US"]) {
-  const oneLink = new URL(amazonSearchUrl("DDR5 64GB 2x32GB 6000 CL30", country));
-  if (oneLink.hostname !== "www.amazon.com" || oneLink.searchParams.get("tag") !== "localclaw-20") {
+  const oneLink = new URL(amazonSearchUrl("DDR5 64GB 2x32GB 6000 CL30", {country}));
+  if (oneLink.hostname !== "www.amazon.com" || !/^localclaw(?:-computers)?-20$/.test(oneLink.searchParams.get("tag"))) {
     errors.push(`${country} traffic must start with the tagged US link so Amazon OneLink can localize it`);
   }
 }

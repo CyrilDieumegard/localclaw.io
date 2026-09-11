@@ -311,8 +311,8 @@ function renderDetail(project) {
   const description = project.seo.description;
   const canonical = `${BASE}${route(project)}`;
   const parts = project.parts.map((part, index) => {
-    const href = `/go/amazon?q=${encodeURIComponent(part.amazonQuery)}`.replace(/&/g, '&amp;');
-    return `<article class="diy-part"><div class="diy-part__index">${String(index + 1).padStart(2, '0')}</div><div><span class="diy-part__required">${esc(part.requirement)}</span><h3>${esc(part.name)}</h3><p>${esc(part.description)}</p></div><a class="diy-button diy-button--amazon" href="${href}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_click" data-fast-goal-source="diy_parts" data-fast-goal-project="${esc(project.slug)}" data-fast-goal-product="${esc(part.name)}">Find on Amazon <span aria-hidden="true">↗</span></a></article>`;
+    const href = `/go/amazon?q=${encodeURIComponent(part.amazonQuery)}&family=diy&product=${encodeURIComponent(part.name)}&source=${encodeURIComponent(project.slug)}`.replace(/&/g, '&amp;');
+    return `<article class="diy-part"><div class="diy-part__index">${String(index + 1).padStart(2, '0')}</div><div><span class="diy-part__required">${esc(part.requirement)}</span><h3>${esc(part.name)}</h3><p>${esc(part.description)}</p></div><a class="diy-button diy-button--amazon" href="${href}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_offer_open" data-fast-goal-family="diy" data-fast-goal-source="diy_parts" data-fast-goal-project="${esc(project.slug)}" data-fast-goal-product="${esc(part.name)}">Amazon buying options <span aria-hidden="true">↗</span></a></article>`;
   }).join('');
   const requirements = project.requirements.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('');
   const performance = project.performance.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('');

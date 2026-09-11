@@ -1,39 +1,18 @@
-import { amazonSearchUrl, normalizeAmazonQuery } from "../_lib/amazon-links.mjs";
+import { MARKETS, normalizeAmazonQuery, normalizeFamily, selectMarket, findOffer, amazonSearchUrl, localDestination } from '../_lib/amazon-links.mjs';
 
-export async function onRequestGet(context) {
-  const requestUrl = new URL(context.request.url);
-  const query = normalizeAmazonQuery(requestUrl.searchParams.get("q"));
-  if (!query) {
-    return new Response("A valid Amazon search is required.", {
-      status: 400,
-      headers: responseHeaders("text/plain; charset=utf-8")
-    });
-  }
-
-  const destination = amazonSearchUrl(query);
-  if (!destination) {
-    return new Response("Amazon search is unavailable.", {
-      status: 400,
-      headers: responseHeaders("text/plain; charset=utf-8")
-    });
-  }
-
-  return new Response(null, {
-    status: 302,
-    headers: {
-      ...responseHeaders(),
-      Location: destination
-    }
-  });
-}
-
-function responseHeaders(contentType = "") {
-  return {
-    "Cache-Control": "no-store, max-age=0",
-    "Cloudflare-CDN-Cache-Control": "no-store",
-    ...(contentType ? { "Content-Type": contentType } : {}),
-    "Referrer-Policy": "no-referrer",
-    "X-Content-Type-Options": "nosniff",
-    "X-Robots-Tag": "noindex, nofollow, noarchive"
-  };
+const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const bounded = value => String(value || '').replace(/[^a-zA-Z0-9 _.-]/g,'').slice(0,80);
+export async function onRequestGet({request}) {
+  const url=new URL(request.url), q=normalizeAmazonQuery(url.searchParams.get('q'));
+  const headers={'Cache-Control':'no-store, max-age=0','Cloudflare-CDN-Cache-Control':'no-store','Referrer-Policy':'strict-origin-when-cross-origin','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, nofollow, noarchive'};
+  if(!q)return new Response('A valid product search is required.',{status:400,headers});
+  const country=/^[A-Z]{2}$/.test(request.cf?.country || '') ? request.cf.country : '';
+  const family=normalizeFamily(url.searchParams.get('family'));
+  const market=selectMarket(url.searchParams.get('market'),country);
+  const offer=findOffer(q,market), source=bounded(url.searchParams.get('source')), product=bounded(url.searchParams.get('product'));
+  const destination=localDestination(q,market,offer,family,Date.now(),country);
+  const props=`data-fast-goal="amazon_click" data-fast-goal-family="${family}" data-fast-goal-market="${market}" data-fast-goal-country="${country||'unknown'}" data-fast-goal-source="${escape(source)}" data-fast-goal-product="${escape(product||q.slice(0,80))}"`;
+  const enrolled=['US','CA','GB','DE','FR','IT','ES','NL','PL','SE'].includes(market);
+  const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escape(q)} — buying options | LocalClaw</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/amazon-offers-20260911.css"><script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script><script defer src="/js/amazon-offers-20260911.js"></script></head><body><header><a class="brand" href="/">LOCAL<span>CLAW</span></a><a href="/computers">Hardware guides ↗</a></header><main><p class="eyebrow">BUYING OPTIONS · ${family==='gpuram'?'GPU & RAM':family==='diy'?'DIY PARTS':'COMPUTERS'}</p><h1>The right configuration.<br><span>The right store.</span></h1><p class="requested">${escape(q)}</p><form action="/go/amazon" method="get"><input type="hidden" name="q" value="${escape(q)}"><input type="hidden" name="family" value="${family}"><input type="hidden" name="source" value="${escape(source)}"><input type="hidden" name="product" value="${escape(product)}"><label for="market">Amazon store</label><div class="store"><select name="market" id="market">${Object.entries(MARKETS).map(([key,[label,host]])=>`<option value="${key}"${key===market?' selected':''}>${label} · ${host.replace('www.','')}</option>`).join('')}</select><button type="submit">Update store</button></div><p class="hint">${country==='CH'?'For Switzerland, Germany is a starting point. France or Italy may also suit your delivery address.':country&&!Object.hasOwn(MARKETS,country)?'Check which store delivers to your country. You can change the store above.':'Choose the store that delivers to you. Availability depends on your address.'}</p></form><article><div class="status ${offer?'verified':''}">${offer?'Configuration checked':'Search results · configuration not verified'}</div><h2>${offer?escape(offer.title):'Find this configuration locally'}</h2>${offer?`<dl><div><dt>Memory</dt><dd>${escape(offer.memory)}</dd></div><div><dt>Storage</dt><dd>${escape(offer.storage)}</dd></div><div><dt>Condition</dt><dd>${escape(offer.condition)}</dd></div></dl><p>${escape(offer.note)}</p><p class="hint">Listing checked ${offer.checked}. Recheck the selected variant, seller and condition before ordering.</p>`:`<p>We haven’t verified an exact listing in this store. Search results may show different memory, storage or used products. Match the configuration above before buying.</p>`}<a class="primary" href="${escape(destination)}" rel="sponsored nofollow noopener" ${props} data-fast-goal-match="${offer?'exact':'search'}" data-fast-goal-attribution="${enrolled?'global_store':'none'}">${offer?'View '+escape(offer.condition.toLowerCase())+' listing':'Search'} on ${MARKETS[market][1].replace('www.','')} ↗</a>${market!=='US'?`<a class="secondary" href="${escape(amazonSearchUrl(q,{family,country}))}" rel="sponsored nofollow noopener" ${props} data-fast-goal-match="automatic" data-fast-goal-attribution="onelink">Or let Amazon find a local match ↗</a><p class="hint">Automatic matching can return a different configuration or search results.</p>`:''}</article><footer>As an Amazon Associate, LocalClaw earns from qualifying purchases. Prices, stock, delivery, import charges and return terms are confirmed by Amazon.</footer></main></body></html>`;
+  return new Response(html,{headers:{...headers,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':"default-src 'self'; script-src 'self' https://datafa.st; style-src 'self'; connect-src 'self' https://datafa.st; img-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"}});
 }
