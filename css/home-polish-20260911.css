@@ -1,0 +1,124 @@
+/* Homepage finishing pass: keep the layout and brand, clarify the details.
+   Loaded last; scoped so the shared navigation and other pages stay intact. */
+body.lc-home-index {
+    --polish-panel: #0e0e10;
+    --polish-card: #101012;
+    --polish-border: rgba(255, 255, 255, .13);
+    --polish-muted: #b4b4bd;
+    --polish-accent: #ff8179;
+    --polish-shadow: 0 1px 2px rgba(0, 0, 0, .2), 0 5px 18px rgba(0, 0, 0, .1);
+}
+html.light body.lc-home-index {
+    --polish-panel: #faf9f7;
+    --polish-card: #fff;
+    --polish-border: #d7dce4;
+    --polish-muted: #475569;
+    --polish-accent: #b4231d;
+    --polish-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 5px 18px rgba(15, 23, 42, .035);
+}
+
+/* The circuit stays behind the introduction, instead of following the tables. */
+body.lc-home-index #bg-circuit {
+    position: absolute;
+    mask-image: linear-gradient(#000 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(#000 55%, transparent 100%);
+}
+
+body.lc-home-index :is(.lc-index-hero h1 small, .lc-index-universe h2, .lc-index-quick-picks h3) {
+    text-wrap: balance;
+}
+body.lc-home-index :is(.lc-index-universe__copy, .lc-index-quick-picks__head p, .lc-workspace-value small) {
+    text-wrap: pretty;
+}
+
+/* Quiet outer surfaces; colour remains on actions and selected states. */
+body.lc-home-index :is(.lc-index-universe, .lc-index-quick-picks, .lc-home-machines, .lc-workspace-value, .lc-launch--strip) {
+    border-color: var(--polish-border);
+    background: var(--polish-panel);
+    box-shadow: var(--polish-shadow);
+}
+body.lc-home-index .lc-sponsor-offer-inline:not(:hover):not(:focus-visible) {
+    border-color: var(--polish-border);
+    background: var(--polish-panel);
+}
+body.lc-home-index .lc-index-quick-picks { border-radius: 18px; }
+body.lc-home-index .lc-index-quick-pick {
+    min-height: 138px;
+    padding: 15px;
+    border-color: var(--polish-border);
+    background: var(--polish-card);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+    transition: border-color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+body.lc-home-index .lc-index-quick-pick:is(:hover, :focus-visible) {
+    border-color: var(--polish-accent);
+    background: var(--polish-card);
+    box-shadow: 0 0 0 1px var(--polish-accent);
+    transform: none;
+}
+body.lc-home-index .lc-index-quick-pick > span { font-size: 10px; color: var(--polish-accent); }
+body.lc-home-index .lc-index-quick-pick > strong {
+    font-size: 16px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+body.lc-home-index .lc-index-quick-pick > small {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--polish-muted);
+    font-variant-numeric: tabular-nums;
+}
+body.lc-home-index .lc-index-quick-pick > b { font-size: 10px; color: var(--polish-accent); }
+body.lc-home-index .lc-index-quick-picks__head p { font-size: 12px; line-height: 1.5; color: var(--polish-muted); }
+body.lc-home-index .lc-workspace-value__intro span { font-size: 10px; color: var(--polish-accent); }
+body.lc-home-index .lc-workspace-value a strong { font-size: 13px; }
+body.lc-home-index .lc-workspace-value a small { font-size: 12px; color: var(--polish-muted); }
+
+/* Concentric 18px shell / 8px controls, with 10px between them. */
+body.lc-home-index .lc-quick-fit { border-radius: 18px; padding: 10px; }
+body.lc-home-index .lc-quick-fit label { gap: 7px; padding: 9px 11px; }
+body.lc-home-index .lc-quick-fit label > span { color: var(--polish-muted); font-size: 10px; }
+body.lc-home-index .lc-quick-fit select { font-size: 13px; min-height: 24px; }
+body.lc-home-index .lc-quick-fit button {
+    font-size: 11px;
+    transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+body.lc-home-index .lc-quick-fit button:is(:hover, :focus-visible) { transform: none; }
+body.lc-home-index .lc-index-control {
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+/* Existing Added/Compare feedback remains immediate, with a stable hit area. */
+body.lc-home-index .lc-index-compare-toggle {
+    min-height: 36px;
+    transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease;
+}
+body.lc-home-index .lc-index-compare-toggle.is-selected {
+    border-color: var(--polish-accent);
+    background: rgba(255, 69, 58, .12);
+    color: var(--polish-accent);
+    box-shadow: inset 3px 0 0 var(--polish-accent);
+}
+body.lc-home-index .lc-index-compare-tray > div:first-child strong { font-size: 13px; }
+body.lc-home-index .lc-index-compare-tray > div:first-child span { font-size: 10px; color: var(--polish-muted); }
+body.lc-home-index .lc-index-compare-chips button { min-height: 32px; font-size: 11px; }
+body.lc-home-index .lc-index-compare-actions button { min-height: 40px; font-size: 10px; }
+body.lc-home-index .lc-index-compare-dialog__head button { width: 44px; height: 44px; flex-shrink: 0; }
+body.lc-home-index :is(.lc-index-compare-toggle, .lc-index-compare-actions button, .lc-index-compare-chips button):focus-visible {
+    outline: 2px solid var(--polish-accent);
+    outline-offset: 3px;
+}
+body.lc-home-index :is(.lc-index-score, .lc-index-ram-value, .lc-index-community, .lc-index-section-meta, .lc-index-compare-table) {
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+    /* Native selects remain comfortable and avoid iOS focus zoom. */
+    body.lc-home-index :is(.lc-quick-fit select, .lc-index-control) { font-size: 16px; }
+    body.lc-home-index .lc-index-quick-pick { min-height: 128px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    body.lc-home-index :is(.lc-quick-fit button, .lc-index-control, .lc-index-quick-pick, .lc-index-compare-toggle) {
+        transition: none;
+    }
+}
