@@ -37,6 +37,9 @@ export function amazonSearchUrl(queryValue,options={}) {
 }
 export function localDestination(query,market,offer,family,now=Date.now(),country="") {
   const target=new URL(`https://${MARKETS[market][1]}/${offer ? 'dp/'+offer.asin : 's'}`);
+  // Amazon's own return-to-original-store links use this parameter. Without it,
+  // OneLink can replace an explicitly selected exact US listing with DE search.
+  target.searchParams.set('creatorsDisableRedirect','true');
   if(!offer)target.searchParams.set('k',normalizeAmazonQuery(query));
   // The account uses one store ID across its ten Global Earning countries.
   // Do not attach a US tag to marketplaces outside that enrolled scope.

@@ -32,7 +32,15 @@ test('registered family tags are distinct; international activation preserves ol
     assert.equal(ready.searchParams.get('tag'),FAMILY_TAGS[family]);
     assert.equal(new URL(localDestination('test computer','IN',null,family,now)).searchParams.get('tag'),null);
   }
-  for(const market of Object.keys(MARKETS))assert.equal(new URL(localDestination('DDR5 64GB',market)).hostname,MARKETS[market][1]);
+  for(const market of Object.keys(MARKETS)){
+    const destination=new URL(localDestination('DDR5 64GB',market));
+    assert.equal(destination.hostname,MARKETS[market][1]);
+    assert.equal(destination.searchParams.get('creatorsDisableRedirect'),'true');
+  }
+  const exact=new URL(localDestination('Apple Mac mini M4 16GB 256GB','US',findOffer('Apple Mac mini M4 16GB 256GB','US',now),'computers',now,'CH'));
+  assert.equal(exact.pathname,'/dp/B0DTPPBN95');
+  assert.equal(exact.searchParams.get('creatorsDisableRedirect'),'true');
+  assert.equal(new URL(amazonSearchUrl('DDR5 64GB',{now})).searchParams.has('creatorsDisableRedirect'),false);
   assert.equal(new URL(amazonSearchUrl('DDR5 64GB',{family:'gpuram',country:'US',now})).searchParams.get('tag'),FAMILY_TAGS.gpuram);
 });
 test('HTML escapes supplied text, rejects invalid input and is never cached',async()=>{

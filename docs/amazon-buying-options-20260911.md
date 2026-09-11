@@ -30,3 +30,13 @@ Global Earning account UI verified US + CA/GB/DE/FR/IT/ES/NL/PL/SE on 11 Septemb
 ## Validation
 
 `npm run amazon:check` includes variant/country isolation, expiry, allowlists, activation windows, invalid inputs/XSS escaping, no-cache responses and family event behavior. Run catalog/content/SEO/navigation, DIY and Pages checks before deployment. Browser checks cover desktop and 390px mobile, country change, renewed labels and search fallback. No test purchase was made.
+
+## Follow-up link audit — 11 September 2026
+
+135 live resolver checks passed: 92 core placements, 25 buyer-path placements (7 distinct URLs), and all 18 manual marketplace choices. The CSV records HTTP and resolver markup checks, not stock or commission validation. Source family checks and the routing/analytics tests also passed.
+
+Confirmed defect: opening the exact US B0DTPPBN95 URL with localclaw-20 from Switzerland redirected to a German search containing unrelated PCs. Amazon itself exposed a return-to-original URL with creatorsDisableRedirect=true. Reopening with that parameter stayed on amazon.com and showed M4 / 16GB / 256GB / Renewed. Explicit store destinations now include this parameter; the separate automatic matching link does not. Regression coverage checks all 18 stores and exact-ASIN preservation.
+
+DE B0DLBWRZS5 again displayed selected M4 Pro / 24GB / 512GB, in stock, Amazon as shipper/seller, with delivery to Switzerland. US B0DTPPBN95 again displayed Renewed and could not ship to the selected Swiss address. These checks are not universal delivery guarantees. The German standard buybox does not explicitly expose an item-condition label in the inspected accessibility view; New is based on the standard Amazon offer, not a renewed offer.
+
+Amazon's observed automatic US-to-DE redirect retained localclaw-20, supporting the Global Store tag format; this still does not prove commission attribution for direct regional links or newly created family IDs. No test order was placed. All other configurations remain explicitly labelled unverified searches.
