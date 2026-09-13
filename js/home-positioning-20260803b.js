@@ -3,9 +3,9 @@
 if (typeof App !== 'undefined') {
     App.renderHero = function renderDiscoveryHome(container) {
         const freshModels = [
-            ['Nanbeige4.2 3B', 'Apache 2.0 · 256K context · 8 GB class', '/models/nanbeige4.2-3b', 'Agentic 3B'],
-            ['Agents-A1 4B', 'Official Q4_K_M GGUF · tool use · 8 GB class', '/models/agents-a1-4b', 'Agentic 4B'],
-            ['Laguna S 2.1', '118B total · 8B active · 1M context', '/models/laguna-s-2.1', 'Coding MoE']
+            ['Nex-N2.5-mini', 'Apache 2.0 · 262K context · Q4_K_M GGUF', '/models/nex-n2-5-mini', 'Agentic VLM'],
+            ['DeepSeek V4.1 Flash', 'MIT · 1M context · 256GB+ workstation', '/models/deepseek-v4-1-flash', 'Workstation MoE'],
+            ['MiniCPM5 2B', 'Apache 2.0 · 131K context · Q4_K_M GGUF', '/models/minicpm5-2b', 'On-device 2B']
         ];
         const catalogue = [
             ['Qwen 3.5 9B', 'Balanced local model for 16 GB+', '/models/qwen3.5-9b', 'Laptop'],
@@ -27,7 +27,7 @@ if (typeof App !== 'undefined') {
                 <div class="grid items-center gap-10 lg:grid-cols-[1.04fr_0.96fr]">
                     <div class="text-center lg:text-left">
                         <div class="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">215 LLM records</span>
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-primary">240 LLM records</span>
                             <span class="rounded-full border border-purple-400/25 bg-purple-400/[0.06] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-purple-300">58 speech models</span>
                             <span class="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-claw-muted">hardware-aware</span>
                         </div>
@@ -122,7 +122,7 @@ if (typeof App !== 'undefined') {
             </section>
 
             <section aria-labelledby="catalogue-title" class="mb-20">
-                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// EXPLORE THE DATABASE</p><h2 id="catalogue-title" class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Models you can inspect, compare and save</h2></div><div class="flex flex-wrap gap-3 text-sm font-mono"><a href="/llm-list" class="text-claw-primary hover:text-white">215 LLM records →</a><a href="/tts-list" class="text-purple-300 hover:text-white">58 speech models →</a><a href="/computers" class="text-claw-muted hover:text-white">Hardware →</a></div></div>
+                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// EXPLORE THE DATABASE</p><h2 id="catalogue-title" class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Models you can inspect, compare and save</h2></div><div class="flex flex-wrap gap-3 text-sm font-mono"><a href="/llm-list" class="text-claw-primary hover:text-white">240 LLM records →</a><a href="/tts-list" class="text-purple-300 hover:text-white">58 speech models →</a><a href="/computers" class="text-claw-muted hover:text-white">Hardware →</a></div></div>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">${catalogue.map(([name, meta, href, tag]) => `<a href="${href}" data-fast-goal="${href.startsWith('/tts/') ? 'tts_open' : 'model_open'}" data-fast-goal-source="home_teaser" class="group rounded-xl border border-white/10 bg-white/[0.025] p-5 transition-all hover:-translate-y-0.5 hover:border-white/25"><div class="flex items-center justify-between"><span class="text-[10px] font-mono uppercase tracking-[0.18em] text-claw-primary">${tag}</span><span class="text-claw-muted group-hover:text-white">→</span></div><h3 class="mt-4 text-lg font-display font-bold text-white">${name}</h3><p class="mt-2 text-xs font-mono leading-relaxed text-claw-muted">${meta}</p></a>`).join('')}</div>
             </section>
 
