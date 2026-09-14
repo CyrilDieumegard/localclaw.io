@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 88 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 88 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 91 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 91 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 88 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 91 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">91</strong> speech records: <strong style="color:#fff;">88 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">94</strong> speech records: <strong style="color:#fff;">91 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>88 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>91 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3549,6 +3549,33 @@
                 voices: "Zero-shot TTS, voice-description TTS and instruction-guided speech editing",
                 context: "1.5B speech generation/editing model; official docs show English and Chinese demos but do not publish a fixed language table; AuK-Flash supports 4-step inference; local CLI, Gradio, ComfyUI and SGLang-Omni paths",
                 license: "MIT"
+            },
+            {
+                id: "voxtral-4b-tts-2603",
+                name: "Voxtral 4B TTS 2603",
+                developer: "Mistral AI",
+                family: "voxtral",
+                description: "Official 4B open-weight TTS model for low-latency voice-agent speech. Ships BF16 weights, 20 reference voices, 9-language generation, streaming and batch serving, and a supported local vLLM-Omni path.",
+                languages: ["en", "fr", "es", "de", "it", "pt", "nl", "ar", "hi"],
+                languageCount: 9,
+                features: ["streaming", "realtime", "multilingual", "cloning", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 9.0,
+                sizeLabel: "4B BF16 weights; official card recommends a single GPU with at least 16GB memory",
+                sizeCategory: "large",
+                quality: 9.5,
+                speed: 9.1,
+                latency: "ultra-low",
+                releaseDate: "2026-03",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/mistralai/Voxtral-4B-TTS-2603",
+                sourceStatus: "verified-model",
+                installCommand: "uv pip install -U vllm && uv pip install vllm-omni --upgrade",
+                supportedFormats: ["pytorch", "safetensors", "vllm-omni"],
+                voices: "20 preset voices plus reference-audio adaptation",
+                context: "4B BF16 TTS model, 24 kHz output, vLLM-Omni serve path, 9 languages and single-GPU 16GB+ VRAM guidance",
+                license: "CC-BY-NC 4.0"
             },
             {
                 id: "granite-speech-4.1-2b",

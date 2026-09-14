@@ -1012,6 +1012,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 6.8
   },
   {
+    "id": "voxtral-4b-tts-2603",
+    "name": "Voxtral 4B TTS 2603",
+    "developer": "Mistral AI",
+    "family": "voxtral",
+    "license": "CC-BY-NC 4.0",
+    "releaseDate": "2026-03",
+    "quality": 9.5,
+    "speed": 9.1,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 9
+  },
+  {
     "id": "granite-speech-4.1-2b",
     "name": "Granite Speech 4.1 2B",
     "developer": "IBM Granite Team",
