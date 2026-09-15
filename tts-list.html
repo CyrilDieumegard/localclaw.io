@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 91 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 91 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 92 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 92 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 91 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 92 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">94</strong> speech records: <strong style="color:#fff;">91 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">95</strong> speech records: <strong style="color:#fff;">92 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>91 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>92 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2011,6 +2011,33 @@
                 voices: "10 bundled Vietnamese voice styles; voice cloning is on the roadmap, not in this release",
                 context: "ONNX Runtime CPU path, optional onnxruntime-gpu for CUDA, Python CLI/package, browser-compatible Supertonic 3 graph signatures and 44.1 kHz output",
                 license: "Apache 2.0"
+            },
+            {
+                id: "pocket-tts",
+                name: "Pocket TTS",
+                developer: "Kyutai",
+                family: "kyutai",
+                description: "Kyutai's CC-BY-4.0 lightweight local TTS model built for fast CPU speech generation without a cloud API. The official Hugging Face release ships downloadable safetensors weights, a Pocket-TTS Python package and CLI, audio streaming, voice prompts and a local HTTP server path; the model card lists 100M parameters, English support, roughly 200 ms first audio chunk latency and about 6x real-time CPU generation on a MacBook Air M4.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "apple", "edge"],
+                sizeGB: 0.24,
+                sizeLabel: "100M params; ~0.24 GB safetensors",
+                sizeCategory: "small",
+                quality: 8.8,
+                speed: 9.6,
+                latency: "ultra-low",
+                releaseDate: "2026-08",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/kyutai/pocket-tts-without-voice-cloning",
+                sourceStatus: "verified-code",
+                installCommand: "pip install pocket-tts",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Bundled Kyutai voices plus local voice-prompt cloning from user-provided WAV/MP3 samples",
+                context: "Official Pocket-TTS package and CLI, CPU PyTorch path, local serve command, audio streaming, no GPU requirement, and client-side/community ONNX, Candle, MLX and desktop app implementations noted by Kyutai",
+                license: "CC-BY-4.0"
             },
             {
                 id: "vieneu-tts-v3-turbo",

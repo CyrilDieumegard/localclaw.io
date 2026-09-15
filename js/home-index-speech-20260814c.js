@@ -51,6 +51,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.4
   },
   {
+    "id": "pocket-tts",
+    "name": "Pocket TTS",
+    "developer": "Kyutai",
+    "family": "kyutai",
+    "license": "CC-BY-4.0",
+    "releaseDate": "2026-08",
+    "quality": 8.8,
+    "speed": 9.6,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.24
+  },
+  {
     "id": "vieneu-tts-v3-turbo",
     "name": "VieNeu-TTS v3 Turbo",
     "developer": "Phạm Nguyễn Ngọc Bảo",
