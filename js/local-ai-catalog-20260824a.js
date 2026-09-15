@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'evoke-turbo', name: 'Evoke-Turbo', category: 'video', developer: 'AlayaLab',
+      summary: 'Three-step CFG-free interactive world model for prompt, image or reference-video driven 384x640 video rollouts with camera control.',
+      tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'world-generation', 'camera-controlled-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'CUDA', 'Diffusers fork', 'Director Web UI'], output: ['MP4', 'streamed video chunks'],
+      local_status: 'local', license: 'Apache 2.0 core weights/code; required ViGeo depth backend is CC-BY-NC-4.0', released: '2026-09',
+      source_url: 'https://github.com/AlayaLab/Evoke',
+      install_url: 'https://huggingface.co/AlayaLab/Evoke-Turbo',
+      hardware_note: 'AlayaLab publishes Apache-2.0 GitHub code plus Hugging Face safetensors for Evoke and Evoke-Turbo, with documented hf download commands for base components, Turbo transformer weights and the required ViGeo depth backend. The official environment targets Python 3.10, CUDA 12.4, PyTorch 2.4, a development Diffusers fork and FFmpeg, with localhost Director UI and shell launchers for t2v, i2v, v2v and segment rollouts. The authors report 1.5 seconds of 384 x 640 video in 2.11 seconds on one H200, and the newer interactive UI averages 1.34 seconds per chunk on five H200 GPUs, so LocalClaw records 128 GB RAM and 80 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official AlayaLab code and weights', 'Three-step CFG-free generation with camera-aware world-state memory', 'Local Director UI for per-chunk prompts, continuation and revision branching'],
+      caveats: ['Practical performance is documented on H200-class NVIDIA hardware', 'Required ViGeo depth backend is CC-BY-NC-4.0 despite Apache-2.0 core release', 'Distilled i2v and t2v modes are documented as zero-shot relative to v2v training']
+    },
+    {
+      id: 'ovi', name: 'Ovi', category: 'video', developer: 'Character.AI',
+      summary: 'Apache-licensed 11B twin-backbone model for local text-to-audio-video and image-to-audio-video generation.',
+      tasks: ['text-to-audio-video', 'image-to-audio-video', 'text-to-video', 'image-to-video', 'speech-to-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'ComfyUI-WanVideoWrapper'], output: ['MP4', 'audio-video'],
+      local_status: 'local', license: 'Apache 2.0 model/code; upstream Wan2.2 and MMAudio component terms apply', released: '2025-11',
+      source_url: 'https://github.com/character-ai/Ovi',
+      install_url: 'https://huggingface.co/chetwinlow1/Ovi',
+      hardware_note: 'The official Character.AI repository documents Python, PyTorch 2.6, FlashAttention, Gradio and single-GPU or torchrun inference. Its downloader pulls Wan2.2-TI2V-5B text/VAE components, MMAudio audio VAE assets and Ovi safetensors from Hugging Face, including 720x720 5-second, 960x960 5-second and 960x960 10-second checkpoints. The README lists about 80 GB peak VRAM for bf16, about 32 GB with CPU offload, and 24 GB GPU paths through fp8 or qint8 plus CPU offload, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative quantized local floor.',
+      strengths: ['Official code and Hugging Face safetensors', 'Native synchronized video, speech and sound effects instead of a post-hoc audio chain', 'Text-only, text-plus-image, Gradio and ComfyUI integration paths'],
+      caveats: ['Quantized 24 GB operation trades quality and speed for memory', 'Full bf16 generation is still an 80 GB-class GPU workload', 'Reference voice conditioning and training scripts are not yet released']
+    },
+    {
       id: 'ltx-video', name: 'LTX 2.5', category: 'video', developer: 'Lightricks',
       summary: 'Current open-weight LTX release for local synchronized audio and video generation, with an official desktop application.',
       tasks: ['text-to-video', 'image-to-video', 'audio-to-video', 'video-to-video'],
