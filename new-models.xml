@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 11 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Nex-N2.5-mini</title>
@@ -63,6 +63,14 @@
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <category>k2-horizon</category>
       <description>IFM Apache 2.0 compact dense K2 Horizon model with 128K context, multi-teacher distillation for math/code/STEM tasks, and an official BF16 GGUF path for llama.cpp-compatible local experiments. 0.9B · 8 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
+    </item>
+    <item>
+      <title>K2-Horizon-7B</title>
+      <link>https://localclaw.io/models/k2-horizon-7b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-7b</guid>
+      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
+      <category>k2-horizon</category>
+      <description>IFM Apache 2.0 dense K2 Horizon release with about 9B parameters, 128K context, open training-data references and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments. 9B · 24 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
     </item>
     <item>
       <title>K2-Horizon-MoVA-36B-A4B</title>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
       <category>lfm</category>
       <description>Liquid AI edge vision-language model with LFM2.5-2.6B backbone, SigLIP2 NaFlex vision encoder, 32K context, LFM 1.0 open weights and official GGUF plus llama.cpp and MLX runtime paths for local image chat and OCR. 3B multimodal · 8 GB minimum RAM · Q4_K_M + mmproj · lfm.</description>
-    </item>
-    <item>
-      <title>Ling-3.0-tiny</title>
-      <link>https://localclaw.io/models/ling-3.0-tiny</link>
-      <guid isPermaLink="true">https://localclaw.io/models/ling-3.0-tiny</guid>
-      <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
-      <category>ling</category>
-      <description>Official InclusionAI MIT hybrid-reasoning MoE with 131K context, 1.3B active parameters and a validated GGUF path through stock llama.cpp builds from the 2026-08-17 bailingmoe3 merge. 7.9B (1.3B active, MoE) · 8 GB minimum RAM · Q4_K_M · ling.</description>
     </item>
   </channel>
 </rss>
