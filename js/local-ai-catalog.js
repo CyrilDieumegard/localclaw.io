@@ -958,6 +958,18 @@
       caveats: ['Non-commercial model weights', 'Training recipes were still pending at release', 'Mesh texturing is outside the base reconstruction output']
     },
     {
+      id: 'asset-harvester', name: 'Asset Harvester', category: '3d', developer: 'NVIDIA',
+      summary: 'Image-to-3D system that turns sparse autonomous-driving object views into reusable 3D Gaussian PLY assets.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'asset-generation', 'simulation-assets'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 30,
+      runtime: ['PyTorch', 'Diffusers', 'gsplat', 'CLI'], output: ['PLY', '3D Gaussian', 'Metadata YAML'],
+      local_status: 'local', license: 'NVIDIA Open Model License; Apache 2.0 code', released: '2026-04',
+      source_url: 'https://github.com/NVIDIA/asset-harvester', install_url: 'https://huggingface.co/nvidia/asset-harvester',
+      hardware_note: 'The official model card lists Linux, NVIDIA Ampere/Hopper/Lovelace/Blackwell GPUs, CUDA compute capability 8.0 or newer, 32 GB system RAM, 100 GB disk and at least 30 GB GPU memory. The GitHub README provides a local conda setup, Hugging Face checkpoint download commands and run_inference.py workflows that export Gaussian PLY assets, with a lower-VRAM CPU-offload option for small sample runs.',
+      strengths: ['Official NVIDIA code and checkpoints', 'Single-image or sparse-view object workflow', 'Exports reusable 3D Gaussian PLY assets for simulation pipelines'],
+      caveats: ['Specialized for vehicles, VRUs and road-object assets from driving logs', 'NCore/NuRec integration is useful but not required for the sample image workflow', 'Safety-critical simulation use still needs domain validation of generated assets']
+    },
+    {
       id: 'hunyuan3d-2-mini-turbo', name: 'Hunyuan3D 2 Mini Turbo', category: '3d', developer: 'Tencent Hunyuan',
       summary: 'Distilled 0.6B image-to-shape model built for lower-memory local 3D generation.',
       tasks: ['image-to-3d', 'mesh-generation'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
