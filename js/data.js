@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 15, 2026 - Added K2-Horizon-7B - 241 unique LLM records
+// Updated September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
 // Previous: September 11, 2026 - Added DeepSeek V4.1 Flash - 240 unique LLM records
 // Previous: September 10, 2026 - Added Nex-N2.5-mini - 239 unique LLM records
 // Previous: September 8, 2026 - Added MiniCPM5 2B - 238 unique LLM records
@@ -328,6 +328,25 @@ const APP_DATA = {
             custom_runtime: 'K2 Horizon llama.cpp fork / pending upstream llama.cpp support',
             runtime_url: 'https://huggingface.co/IFM/K2-Horizon-0.9B-GGUF',
             benchmarks: { speed: 9, quality: 6, coding: 6, reasoning: 7 },
+            released: '2026-09-01',
+            isNew: true
+        },
+        {
+            id: 'k2-horizon-3-7b',
+            name: 'K2-Horizon-3.7B',
+            family: 'k2-horizon',
+            params: '3.7B',
+            size_gb: 10.1,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'long-context', 'standard', 'general'],
+            description: 'IFM Apache 2.0 dense K2 Horizon model with 3.7B parameters, 512K context, public training resources and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments.',
+            search_term: 'k2-horizon-3.7b',
+            recommended_quant: 'BF16 GGUF',
+            hf_repo: 'IFM/K2-Horizon-3.7B-GGUF',
+            source_url: 'https://huggingface.co/IFM/K2-Horizon-3.7B',
+            custom_runtime: 'K2 Horizon llama.cpp fork / pending upstream llama.cpp support',
+            runtime_url: 'https://huggingface.co/IFM/K2-Horizon-3.7B-GGUF',
+            benchmarks: { speed: 8, quality: 7, coding: 8, reasoning: 8 },
             released: '2026-09-01',
             isNew: true
         },
@@ -4033,8 +4052,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-15T06:00:00.000Z",
-        catalogueHash: "02fa1753db19703eff8e1121dd57ae1ac3afe453e3b1c509e9c7b9bfcf984a1f",
+        checkedAt: "2026-09-16T06:00:00.000Z",
+        catalogueHash: "9f903c1432fe676183c3bbc442cd329c645e5805cbabb8442555275671261e36",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4076,6 +4095,7 @@ const APP_DATA = {
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
             "glm-5.3-flash": "unsloth/GLM-5.3-Flash-GGUF",
             "k2-horizon-0-9b": "IFM/K2-Horizon-0.9B-GGUF",
+            "k2-horizon-3-7b": "IFM/K2-Horizon-3.7B-GGUF",
             "k2-horizon-7b": "IFM/K2-Horizon-7B-GGUF",
             "k2-horizon-mova-36b-a4b": "IFM/K2-Horizon-MoVA-36B-A4B-GGUF",
             "deepseek-v4-flash-vision-exp": "unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF",

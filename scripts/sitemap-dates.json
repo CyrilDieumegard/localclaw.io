@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "10f3fd8b02b195223c04e654b49c256d6dcb165ea1268c0b86a18178208131bf",
+    "hash": "bd141b1ef8f1be94e129f29854293647bd39a5510d14204ddc7fdd31e15e717c",
     "lastmod": "2026-09-16"
   },
   "local-ai-activity-index.html": {
@@ -24,8 +24,8 @@
     "lastmod": "2026-09-10"
   },
   "llm-list.html": {
-    "hash": "328946ab2c508ce823fb8c8d9f76e789209fa93b83896fbdd1460c2144d02fd1",
-    "lastmod": "2026-09-15"
+    "hash": "46a620d92425b16d374808706ec601191e68824f834b298ac5f6e64937989335",
+    "lastmod": "2026-09-16"
   },
   "tts-list.html": {
     "hash": "2d70899b6155745cec4dd27825dacc7ce4ef3108b6c64759398dad0cab3625c3",
@@ -64,8 +64,8 @@
     "lastmod": "2026-09-10"
   },
   "new.html": {
-    "hash": "3984be9b768d0ee2ff0280c2de07c65a35209e28e0abbcfcb6321a5b01a14ebf",
-    "lastmod": "2026-09-15"
+    "hash": "708743b079c8ab3dba6032719c1953a971dc1bf01e70f2a8f658f23c2dd1a245",
+    "lastmod": "2026-09-16"
   },
   "software/lm-studio.html": {
     "hash": "43f76106fc790826e4b70ed940eaeb55c4eb69d05cff9f469ffa3b21fde91a40",
@@ -200,948 +200,952 @@
     "lastmod": "2026-09-10"
   },
   "models/agents-a1-4b.html": {
-    "hash": "917e901662b32e3cafcc1fe3b0334b72ac9a03510e4477f8ed9c9b8b45047a82",
-    "lastmod": "2026-09-15"
+    "hash": "f960103ced35beb552765b7f0d7665bc021c1f2312d0ef43bc0de5e7e2d7c3b0",
+    "lastmod": "2026-09-16"
   },
   "models/agents-a1.html": {
-    "hash": "0148b8b5eb9d63e2a6b9cc08f1e3a3e63c5c3331df55fbb698d0e9a64c17c532",
-    "lastmod": "2026-09-15"
+    "hash": "dab04635de06a26dd365e8a301e87bb306231b18672ddecc3f28ab8a95a7b80a",
+    "lastmod": "2026-09-16"
   },
   "models/apertus-8b-instruct.html": {
-    "hash": "e1f4ec8581c6ffc77b258602f30edb9170ca1a8bd1b6275915b2209dfd7eaf5d",
-    "lastmod": "2026-09-15"
+    "hash": "635ce5e68c5e9731b1451bb10307372f67e7b08be37d270b6834dcbae8b0320b",
+    "lastmod": "2026-09-16"
   },
   "models/apriel-nemotron-15b-thinker.html": {
-    "hash": "7c47b6f9b7db72cc61ff7abefa69e3abd82db96a0aec9a73598305d526505781",
-    "lastmod": "2026-09-15"
+    "hash": "75747c7e25e1c91d61d39503d6b0a9aea1db2fa1d7013637d7ebae2bc76eded4",
+    "lastmod": "2026-09-16"
   },
   "models/athene-v2-72b.html": {
-    "hash": "91597fd16db69b3d5435bbf5117cd5615c29e43fc9a4c1dd677116c8682ef888",
-    "lastmod": "2026-09-15"
+    "hash": "dd43aa5a3eebb70feb5657afd101b16468969ef7498e291b79030f81b6d2dbed",
+    "lastmod": "2026-09-16"
   },
   "models/aya-8b.html": {
-    "hash": "2ea7c4794fc85e6bd912033d72393f19591b6c187f49e2a8939eccbe56ad4767",
-    "lastmod": "2026-09-15"
+    "hash": "b48f10e45c3335940c83fa719c309378869df520f8a4a02487af5d974589214a",
+    "lastmod": "2026-09-16"
   },
   "models/aya-expanse-32b.html": {
-    "hash": "05f338789e0bfad51436e1453d25ec36bb4bb9c3d5764822b63b0aeefbf9c3ad",
-    "lastmod": "2026-09-15"
+    "hash": "ecb824b0ea6f5647664cb5c7684c8b7fdb0bff01b66ecb9b03219cc401bf7526",
+    "lastmod": "2026-09-16"
   },
   "models/bespoke-minicheck.html": {
-    "hash": "83a666e3024a4bb7ce9cd405626400d13d226ff74584b71e0afcc58a485c521f",
-    "lastmod": "2026-09-15"
+    "hash": "f1d0b69f5c1fefa6d757b1156a4382537f0c7f450354e511ec0f213e2aea2508",
+    "lastmod": "2026-09-16"
   },
   "models/bonsai-27b.html": {
-    "hash": "7a76d6f6c27a00f41437effe129c5c689152230810787d6a6c1bfbb0ee96af8b",
-    "lastmod": "2026-09-15"
+    "hash": "9b7842e11d2b7f6cf06151c9a85c774949648835d17b9680078e2ebbbe8866e9",
+    "lastmod": "2026-09-16"
   },
   "models/codegeex4-9b.html": {
-    "hash": "185c6ff485b5a2272af830390dd8c7a9440593b96cf0309afbdfc43ae19ff8c8",
-    "lastmod": "2026-09-15"
+    "hash": "356bd992b72aeb1012e08f51988d33a7c68f9f4dae008808da80f81d137b9041",
+    "lastmod": "2026-09-16"
   },
   "models/codegemma-7b.html": {
-    "hash": "f8c91d23b6644e485ab52179048f4f64063a38c53aecda99c2984cb3572240ac",
-    "lastmod": "2026-09-15"
+    "hash": "b7e40c939548d2421ad5c3e1411729812673767f362eeeca1043c41c666b804d",
+    "lastmod": "2026-09-16"
   },
   "models/codellama-34b.html": {
-    "hash": "47e4041df5b89642978b2a9bfef007aab6a9ad62ddf7c7e644cd736ba8340626",
-    "lastmod": "2026-09-15"
+    "hash": "75013b8de14a6e23b5c225dcc8427082e4f75c19faa769baf4e5f4a674d0ec3e",
+    "lastmod": "2026-09-16"
   },
   "models/codestral-22b.html": {
-    "hash": "a9cb05fa93cbc784fa6ba646a4efbe06f7cb8fd8bf95dbe397c2dd47ea656af4",
-    "lastmod": "2026-09-15"
+    "hash": "21cd35fd2d65580d3e3de7e329cc1d211381a6896388d9b76719013367cb6f6b",
+    "lastmod": "2026-09-16"
   },
   "models/cogito-32b.html": {
-    "hash": "81f6d3655e99f031750129f46108c6500d6c02565b83c2b96a1b045bc8704659",
-    "lastmod": "2026-09-15"
+    "hash": "cd608ccf6e5a373f71c27757b1492245d5f0e82dc793bf3e62e8c4bf1a975900",
+    "lastmod": "2026-09-16"
   },
   "models/cogito-8b.html": {
-    "hash": "7fc9bd847bb636e85dfba564d06563e883eb15da21cd1e9d297d209fc0814e69",
-    "lastmod": "2026-09-15"
+    "hash": "0125f10c05e8f399aca379f1577e62ebf003328e3b4fd30d527c6c55ef9a04fd",
+    "lastmod": "2026-09-16"
   },
   "models/command-a-111b.html": {
-    "hash": "cfc892f53aab574c21d65da81478eb04a79bb46b67b2f1d81a2100ce3e0ebcb9",
-    "lastmod": "2026-09-15"
+    "hash": "5fa8a2616a682638ba10b8517e765fdc7230a339da2d18adddd9fb0014af8229",
+    "lastmod": "2026-09-16"
   },
   "models/command-r-35b.html": {
-    "hash": "5e5c6914dc1777f029fbaf7ed7b0f868cbac1e6a772a834147b41c97c12c2340",
-    "lastmod": "2026-09-15"
+    "hash": "aaa5e50a5cd4e25e56f19af203f491160b5953c076dd0621df2f8eb8a339dad3",
+    "lastmod": "2026-09-16"
   },
   "models/command-r-plus.html": {
-    "hash": "17584815b81e7372834e22d745eea882f64eabbeda29dc73ae301d0af7dc9ae0",
-    "lastmod": "2026-09-15"
+    "hash": "b2cb12825ee3423b6cf024b3305b36412c4b94421dbc76c3f82a0c1862ff5389",
+    "lastmod": "2026-09-16"
   },
   "models/dante-mosaic-3.5b.html": {
-    "hash": "7a4478eee84276d7afeee85c13fe178dc418dbefe04b20d83c540307d9af1788",
-    "lastmod": "2026-09-15"
+    "hash": "cd0ab4fa8ec42523f68d3867a83ec1faf78856a710b67a60b2f7880678e45406",
+    "lastmod": "2026-09-16"
   },
   "models/dbrx-132b.html": {
-    "hash": "8e85e11b9e483523698ceddc7c4eb3b28ae621d642ee51e4dcd77c5e20223b08",
-    "lastmod": "2026-09-15"
+    "hash": "154680f98e605de78551975d92280868a70f708eb4a2959188faf72727c41858",
+    "lastmod": "2026-09-16"
   },
   "models/deepcoder-14b.html": {
-    "hash": "7a4b3090d4f769359ec07ab6ad1c6dc2a407580902e599ffc1cfe853e71554db",
-    "lastmod": "2026-09-15"
+    "hash": "2c2c5f7eaa47d81ff0eb1a4213ef100a72e05a32fbf48806595d09ec0d51fac6",
+    "lastmod": "2026-09-16"
   },
   "models/deepscaler-1.5b.html": {
-    "hash": "31a9beaaca2b8d68289411a667017ef6aeb82a9729af072f50b873fc4ade14e9",
-    "lastmod": "2026-09-15"
+    "hash": "228e788339f3ed81325b1fdf49ae5ba6386497a532bace5fbf7947f59c15843c",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-coder-33b.html": {
-    "hash": "cf435f6000103739cf7ead879e292e73f81a46c4e899c4dec5b9324d64044c75",
-    "lastmod": "2026-09-15"
+    "hash": "00585cf2c8453c84acb1dc1a279afb5ed489748d24bb25df92049d8a0e005082",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-coder-v2-16b.html": {
-    "hash": "5b9db8a57610cf67111bf14a8a5dd77f55f0e72a05af238b1aa81cc115cfea54",
-    "lastmod": "2026-09-15"
+    "hash": "61738cfcc96e5048fdd8733c6406029009772380eb292f7497f8be14c939fb89",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-0528-qwen3-8b.html": {
-    "hash": "e915f393c900029d94566fa45075a77fb871a6145da06b328ff85366750a0705",
-    "lastmod": "2026-09-15"
+    "hash": "8c1323d094da952c7d0b7f9343387f463d82d95f9fa85c83738a44b40534d6de",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-0528.html": {
-    "hash": "d7ef20c2976551988c3798df9863706554d7da061e12436f60ed4fa301774f04",
-    "lastmod": "2026-09-15"
+    "hash": "493dcc53184ea1ea5356c825c6db741c44d75d084c11c7b6453f54c2257880a3",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-14b.html": {
-    "hash": "20ef4c001d9feb3b119192498e0339bb1a13fbd42b52bf44857b69c497142aa1",
-    "lastmod": "2026-09-15"
+    "hash": "84dfacb30d77a3410a952361923b967bf968c3bda653f1e15d272193b9b3fcb8",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-32b.html": {
-    "hash": "e422cd9d92245039c69d1df5c8ff66dbbd21906079e55fb4236464c0e82a76b9",
-    "lastmod": "2026-09-15"
+    "hash": "86307417643f17a6a4197ff3f2cb1c448e3286e3f6cfac12a9bcacb944583f6e",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-70b.html": {
-    "hash": "4b18506ffe513c083f68fca3c036d47ba213f258bb425fb504930467bb5e545b",
-    "lastmod": "2026-09-15"
+    "hash": "6add35717820c5791d4cf9c4220642cbd01e52bcecd2aae5b882d730cb7be0fb",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-7b.html": {
-    "hash": "f0999e0cb1d4afe8a0022bf811f62eaa413fbaf3adc9e818af6b3d06c79b15b4",
-    "lastmod": "2026-09-15"
+    "hash": "05a9c5ebd10c727c83acb753d357791b0ebd26f0ef71c7b49b026bc99a544eda",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-r1-8b.html": {
-    "hash": "9f6cc6df4485210e998cd6c475689ad2c20ca7d9be1bf4cf71fbb28277a0c05a",
-    "lastmod": "2026-09-15"
+    "hash": "dc3409ca19efc7f489f4195bef02eb05c7841204dd4463f44588180afbf7ceba",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v3-671b.html": {
-    "hash": "08d183f5f86e3215475690d9e29becf87388370b34b9ccece56cf5570be8ffb2",
-    "lastmod": "2026-09-15"
+    "hash": "683bd5b22fa794f2a69e617173f12795cd07aae1f6995b61f7d812fbc109aa59",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v3.1.html": {
-    "hash": "d15bfcdb43d3d672ff33e465053de093b531bafe2d1879408388841331adace9",
-    "lastmod": "2026-09-15"
+    "hash": "6b995ef9a17a9e9d3b8041bda29b6f762e58bf43288c3cbd0c907a4663bc1756",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v3.2-exp.html": {
-    "hash": "c1761e84e844d70210b8f59e158bf4ecd88c73a21eadddb80a7552c0f4083796",
-    "lastmod": "2026-09-15"
+    "hash": "6c31ee08752ea0690501d98309c47d64f7946a8946a196779583570b52b751e3",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v3.2.html": {
-    "hash": "b1a29dff3860c53289b4308bdf32eefd0624bfd8ff4990af348078185b57b31e",
-    "lastmod": "2026-09-15"
+    "hash": "9067b613b466cd55e36a18060c49af1b4afce84e116b1c32856f7e981a8d52e1",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v4-1-flash.html": {
-    "hash": "99e1d4bf6f27fc2a0d5297b6b45f1a96f217cd11aaac41d13c9fc27256844f40",
-    "lastmod": "2026-09-15"
+    "hash": "f4f03bdb8a77333622c7be3809d381ee38c82e3c36446de034a284885ded5df0",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v4-flash-0731.html": {
-    "hash": "4755b3e5004ff57c6ac10a007bb443d8efd26b6dd5efc950af45096c9ca385a9",
-    "lastmod": "2026-09-15"
+    "hash": "6ac083f0231661df39767333484c58e2c136ce494dcd2f682dde342e264eef2c",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v4-flash-vision-exp.html": {
-    "hash": "1dbd519870d76189ea50ff417705ac6120da8693dbca32b8b514e00c0bbdbad2",
-    "lastmod": "2026-09-15"
+    "hash": "004b30e392d64122ee76464f4604c244ced913094632d52c226f005c7870ce4b",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v4-flash.html": {
-    "hash": "125965ad1556a4b3f165d9475324df3ca5553ec2c8dea1c2858b5c5368acaa90",
-    "lastmod": "2026-09-15"
+    "hash": "561f7b01e16837c7ffa8dd6e8bfa2439872c8dc2c30d9f9a1d1f9039b2ca3744",
+    "lastmod": "2026-09-16"
   },
   "models/deepseek-v4-pro.html": {
-    "hash": "6ebb7614dd8cedc34a62d7cbe9eb933e3ccef322c227747905faa88422843ea4",
-    "lastmod": "2026-09-15"
+    "hash": "64d185b9c5b6e4c549ab02ea246e87f1289d277737db0f86c82623be5d05924b",
+    "lastmod": "2026-09-16"
   },
   "models/devstral-24b.html": {
-    "hash": "832a2c7d387e7a2f5bd758d5a1ac45ca80543026e393945df48402b5af63dccc",
-    "lastmod": "2026-09-15"
+    "hash": "0ca07f72e0e741257dd596e5189dc798f6081f784bf169f982d78fe709310f58",
+    "lastmod": "2026-09-16"
   },
   "models/dfm-mimir.html": {
-    "hash": "867fe861a57192616e3e97993972cad661328c459772dc775de956b21e3f7a5b",
-    "lastmod": "2026-09-15"
+    "hash": "1cdeccdf33e9a773a730167e4846e9deeb47b131b002384fd43d405f5239bff7",
+    "lastmod": "2026-09-16"
   },
   "models/diffusiongemma-26b-a4b-it.html": {
-    "hash": "d0cf33a8f0bc9d3cdc2a10f58e86e4d55713bf76bc40052216d1a189e3eee4d5",
-    "lastmod": "2026-09-15"
+    "hash": "2f7a4c9f43dbd50f233a8e115e8636fc7cc01bd9c28e9242b57ab6dc63e65ee4",
+    "lastmod": "2026-09-16"
   },
   "models/dolphin3-8b.html": {
-    "hash": "8897ca99807d1cb7fd2c86b3907e60c6cba2b74dbd4d666cb0b5ef6e8d312302",
-    "lastmod": "2026-09-15"
+    "hash": "e286f5482230e654aa983a96aad0af1a96254d4a0d7dfacb5a5aea415d6c3a57",
+    "lastmod": "2026-09-16"
   },
   "models/exaone-deep-32b.html": {
-    "hash": "06ecf892c244ec77fbd54d495d4a54c71e1ef645804f07c7d7ad3970ec942a7e",
-    "lastmod": "2026-09-15"
+    "hash": "e354c0bd9557efa0dbe9fd8c97fd281b8e0c97d9dbb2eb7d85f0060c721dd0a5",
+    "lastmod": "2026-09-16"
   },
   "models/exaone-deep-7.8b.html": {
-    "hash": "0223ac9eea2aa9f6b9374d7f03426f68bdf829e3cc08edb5a34f839b5d020621",
-    "lastmod": "2026-09-15"
+    "hash": "2ba3eb187ea7ecfb65963467573bb62327ae10532ea2a60bf8c51676fb7a1719",
+    "lastmod": "2026-09-16"
   },
   "models/exaone3.5-7.8b.html": {
-    "hash": "61c0f13e90b4e1fae7b3bc961bf674c1902d12ded474552fad4dc36b35b73932",
-    "lastmod": "2026-09-15"
+    "hash": "16495ebd29253ba41d06b260f26aa28063ddfda04553910cbc634970a46a0f83",
+    "lastmod": "2026-09-16"
   },
   "models/falcon3-7b.html": {
-    "hash": "dc09292355e88858ecb5081b1699136e3514a55de075eadd6843407b22df788e",
-    "lastmod": "2026-09-15"
+    "hash": "e9031e3efd414a712c79cf450c7dfcbc6b50ea57c7d6e6ceda1d2611cc591168",
+    "lastmod": "2026-09-16"
   },
   "models/gemma2-27b.html": {
-    "hash": "70ef249429e5aca98073ade7883a0d983ea75a99aeead146bbde0ab08183d2c7",
-    "lastmod": "2026-09-15"
+    "hash": "3977ddaeadedd91b37925f769fc46593f067ca8f47a46c9fe9842bec50009905",
+    "lastmod": "2026-09-16"
   },
   "models/gemma2-9b.html": {
-    "hash": "cc23a2e8d6fdc4b6850d6628c2264dfb406d2f73ba2cb3a29361c16a2d611c87",
-    "lastmod": "2026-09-15"
+    "hash": "80e82fb85f354cf3d2b727556273774082baa0d29f4c6d63ecb639a5c8ce2e41",
+    "lastmod": "2026-09-16"
   },
   "models/gemma3-12b.html": {
-    "hash": "f93e1ad894851b20f7877804356eb487d96ce9e673093d08e5fa9899d935d0f2",
-    "lastmod": "2026-09-15"
+    "hash": "b07aee2f6f97aff86fefdd3811d40668a5961c9d6de0ee41e46329a8f9d8ffd2",
+    "lastmod": "2026-09-16"
   },
   "models/gemma3-1b.html": {
-    "hash": "4f39b84115ff0943cef9dde6a875a02b868bdd5d29c33f125e1e4ef3903d4be0",
-    "lastmod": "2026-09-15"
+    "hash": "1112fb5ad591194f9add19cdfd87ef3ea3d2b78de73fcd9e84c96808a56601fa",
+    "lastmod": "2026-09-16"
   },
   "models/gemma3-27b.html": {
-    "hash": "2736d62ef0b7ccb5f24af5ba67d308a1734c555ca7c49873b42af95bc11d5a0f",
-    "lastmod": "2026-09-15"
+    "hash": "87bbc4befc35e9d1425c3c456a3bef9da9752d3ed6d39ec7026eb383265cb7dd",
+    "lastmod": "2026-09-16"
   },
   "models/gemma3-4b.html": {
-    "hash": "9b697c9698abd3d2ffa625972ae6817ab2657203c141c999424ef943aadf7312",
-    "lastmod": "2026-09-15"
+    "hash": "fbc96a9ff0795f072d6f5cdfc017ebc008bf56241664a56cc3c0a120d7f7bafd",
+    "lastmod": "2026-09-16"
   },
   "models/gemma3n-4b.html": {
-    "hash": "1bcfe7680eaf106512f44728b56d1296aaae280874776d5784352b3493ed77b4",
-    "lastmod": "2026-09-15"
+    "hash": "a63814894fb72218c4be47e168a630c23addc65607ac2a0306ea6938dabfecd3",
+    "lastmod": "2026-09-16"
   },
   "models/gemma4-12b.html": {
-    "hash": "bf4e9664d8dffa04216cc234ba289a5fdb8aff88b08c3a90f4422b8b43913ce8",
-    "lastmod": "2026-09-15"
+    "hash": "ced7502c4e658c8c68402cfaaef7e589cb14a628b3ce5bde23e8711a516f84bc",
+    "lastmod": "2026-09-16"
   },
   "models/gemma4-26b-a4b.html": {
-    "hash": "f459029b4f0d1e7abf43fddd7649b18b24349da3342cf9335087188a311e98eb",
-    "lastmod": "2026-09-15"
+    "hash": "7a38e02ab9d33cdcde0c9c26be65827db9df47ee746f5127490c0236641c469d",
+    "lastmod": "2026-09-16"
   },
   "models/gemma4-31b.html": {
-    "hash": "8ff08d699da77412f08245da51b8c77b1f40585295977b34a240b11807ce7449",
-    "lastmod": "2026-09-15"
+    "hash": "ab3340467da29227d8871f70d83d3c6e70cbd008ca850feb8c3071972fc685fa",
+    "lastmod": "2026-09-16"
   },
   "models/gemma4-e2b.html": {
-    "hash": "ada4386892f76a3598e2767e8c446a61b1c8b1da83638b0d31774723b3d81994",
-    "lastmod": "2026-09-15"
+    "hash": "32ee1909f1e364824b292352a72e5465873ec9ec6d5aa1e37f894a7b4dfefdc9",
+    "lastmod": "2026-09-16"
   },
   "models/gemma4-e4b.html": {
-    "hash": "cc8ecc0117a757d95bff29786f6cabcc65a880c64b86db317701c9de84089e64",
-    "lastmod": "2026-09-15"
+    "hash": "49f7c9005a14cdaf9677292aecf656ab1ae481de078e9e525c7e2cf6fb7241d1",
+    "lastmod": "2026-09-16"
   },
   "models/glm-4.6-355b.html": {
-    "hash": "f65066e9ec0f1be6f8c61f936e1bb5922e118850faf504b02619f08ca951351d",
-    "lastmod": "2026-09-15"
+    "hash": "1662463d7135c9c2be791e3d0a265a44c73cb150c0909f044a85629e8069560b",
+    "lastmod": "2026-09-16"
   },
   "models/glm-5.1.html": {
-    "hash": "4d9a7a66294309f2f6ec77c3e3d8c5d8fff2b98c5ac7cab4f354e52fb7d2307b",
-    "lastmod": "2026-09-15"
+    "hash": "7c5b74e2e54e42808acff6200c520e6378b8897cac96aa93b4e42895e7aa346f",
+    "lastmod": "2026-09-16"
   },
   "models/glm-5.2.html": {
-    "hash": "8e1460f7df819786a892a374338479f827430f16feeb9bb4de3e843937cfb4f1",
-    "lastmod": "2026-09-15"
+    "hash": "f58578f51a3225ec212c5ea3f77e8daa5baab940155b4646d05e8f2934497dfe",
+    "lastmod": "2026-09-16"
   },
   "models/glm-5.3-flash.html": {
-    "hash": "2549aa7c7618fccf096d1be4d71902fe3e656cac85f49a7d5fd7e8ceebec81e7",
-    "lastmod": "2026-09-15"
+    "hash": "952a9aae7f47a44af8822dd4136649b3c3021f267587c91f13e6ea7829c9b01e",
+    "lastmod": "2026-09-16"
   },
   "models/glm4-32b.html": {
-    "hash": "8a5a90930c5d0e18e6abad633d7a4ee168cdaab6e6546b0b5b9d3f97ec2b644b",
-    "lastmod": "2026-09-15"
+    "hash": "274ce7e451b1582145cd75016f639198d765241170e1980db7420c9ad039ef1c",
+    "lastmod": "2026-09-16"
   },
   "models/glm4-9b.html": {
-    "hash": "1247f2b848e861c8315bbcac9e478c4f08a094d02b37573cb690a140af37ab49",
-    "lastmod": "2026-09-15"
+    "hash": "ca211f7bfaa77c302b9863b558e5d86e9306e921646403cbb3881e6949eb171c",
+    "lastmod": "2026-09-16"
   },
   "models/glm4.5-air.html": {
-    "hash": "396565d5353efad7e653328b43c5c7c3b5fd54dba202ef8ec4657c61c57c0e23",
-    "lastmod": "2026-09-15"
+    "hash": "413b81b1f74d6c4fc593defaa92d4108ba4c812b10fcc1debb53b3ad552c07d6",
+    "lastmod": "2026-09-16"
   },
   "models/glm4.7-flash.html": {
-    "hash": "8cd360fbd464280dfc21a21493e63e0c836d403a42f9e9ca1f92cb2991dcb889",
-    "lastmod": "2026-09-15"
+    "hash": "13507447fa17d267d1c93b93043a0c4fd951e556388fdbd1731b80c75d5ff67e",
+    "lastmod": "2026-09-16"
   },
   "models/glm4.7.html": {
-    "hash": "97609f9d3b78f3d41162f8a973b178fb9aa8d89b9b55aef4d899e80749f3e62e",
-    "lastmod": "2026-09-15"
+    "hash": "57c6e802efa5af2d774c2ee279f5a03396dd6a466e3de159124ff0f03aa6ce5b",
+    "lastmod": "2026-09-16"
   },
   "models/gpt-oss-120b.html": {
-    "hash": "d5b4cd0b1e2b276ea2dc7adfb25dd450f55421b3c70d1040655f9759260b435f",
-    "lastmod": "2026-09-15"
+    "hash": "53570f05cc1edbb87b5cec4e6db87ea946f78707b8c65bc49bab59c3062a158b",
+    "lastmod": "2026-09-16"
   },
   "models/gpt-oss-20b.html": {
-    "hash": "2ca1abda9519f9409e0586f80aa5e4f73ad9bd05a1af2a8d2c9f273b1f026fd5",
-    "lastmod": "2026-09-15"
+    "hash": "2d150302863828573cf55f8490fd18a4217919ee2577b0cb47c5ed4fafe1e001",
+    "lastmod": "2026-09-16"
   },
   "models/granite3.2-vision-2b.html": {
-    "hash": "6c129afb92146f00c00a1f2c9b37516a9fdaf92c9f1c764e80ebd3d1066aff4f",
-    "lastmod": "2026-09-15"
+    "hash": "3f65e6c00793882e2344922f4194dc93c58dfb4d600954ff1d7d2d0200b66d42",
+    "lastmod": "2026-09-16"
   },
   "models/granite3.3-2b.html": {
-    "hash": "869cdd023090926ac6b0d48f001d6c1ab1f96d5aaba9a64b212b329410ebdac5",
-    "lastmod": "2026-09-15"
+    "hash": "d8a652083d6aea35dc37c2af8face66479b139448bad3e079c9bfeeb90ea57a6",
+    "lastmod": "2026-09-16"
   },
   "models/granite3.3-8b.html": {
-    "hash": "05166770c23755cc6be50e01cd8c901deeb981eb4dadf3c92313c0e8c7e59423",
-    "lastmod": "2026-09-15"
+    "hash": "f5f13d12cb5f042ef9ca0f18d47ba833e2da5fcc04924385782694b070fee15f",
+    "lastmod": "2026-09-16"
   },
   "models/granite4.1-3b.html": {
-    "hash": "303a99541c0f3d1fad10997f9fd7c877ceef65760bfd0aab83b3f10351407604",
-    "lastmod": "2026-09-15"
+    "hash": "bcb10ee159bcedc1a2432e16535dc6e7662d8d7cff3af29696d065e10c82a489",
+    "lastmod": "2026-09-16"
   },
   "models/granite4.1-8b.html": {
-    "hash": "190d7105f94de1995d68d31a864414682cebe27d428e1af7b23a132c092d8e94",
-    "lastmod": "2026-09-15"
+    "hash": "4d89c723a6d453187592f8114c6c66ca9acaf2f31aa82c79f4e30bd5f88b6342",
+    "lastmod": "2026-09-16"
   },
   "models/granite4.2-30b.html": {
-    "hash": "ee5e2078efaa608546454f62d2cc83a4a73bda2d931aa0baa23a72deb0343c49",
-    "lastmod": "2026-09-15"
+    "hash": "16a5c42aa71a47d5db7361dfc56f12d9b84f985ee12d590a67951d0654b15153",
+    "lastmod": "2026-09-16"
   },
   "models/granite4.2-3b.html": {
-    "hash": "12cf8117b734cb52b82dbcc0155b31ac7026b26d7852778a1f1df03a18a62cfc",
-    "lastmod": "2026-09-15"
+    "hash": "86ce139a06e7a354c13caa13596191ba933bd55c646847bd7b376d82b8fb2e49",
+    "lastmod": "2026-09-16"
   },
   "models/granite4.2-8b.html": {
-    "hash": "6b0bf39d69699cfeb8ee9ee1d960460154066db22424340157ccf9d4b5ce0e58",
-    "lastmod": "2026-09-15"
+    "hash": "d68dee1f1c729b8ba79eefb526ba4bda22c0856806d51639a93dd388e507048d",
+    "lastmod": "2026-09-16"
   },
   "models/hermes3-8b.html": {
-    "hash": "ebf52df0a9bfceb34625141806560a06beea433d0b10ff0c37e8897ea526423b",
-    "lastmod": "2026-09-15"
+    "hash": "e5183e066475e52c9fec96d49d7de555fc412fd2e8401fcd8e2fc26695cc33da",
+    "lastmod": "2026-09-16"
   },
   "models/hermes4-405b.html": {
-    "hash": "1bb4d19de96a480981d0774819b00c2c9e45a9afdc410d56091966352b37ef22",
-    "lastmod": "2026-09-15"
+    "hash": "babf980da639cb737309bccebced711f18e07f8fecf9feff149d3c50ee80e8f4",
+    "lastmod": "2026-09-16"
   },
   "models/hermes4-70b.html": {
-    "hash": "cebda36c3ca57ca7284963da636fe1122047353a471de00a39c227e18971a95e",
-    "lastmod": "2026-09-15"
+    "hash": "7265306904e058803fed10e4527577cf525fc74a40d36845c3cbdd7a331848c0",
+    "lastmod": "2026-09-16"
   },
   "models/hy3.html": {
-    "hash": "2b9f381107607355f39b67a996f7e4b18da4942848df72b2d62d2d7058121ff1",
-    "lastmod": "2026-09-15"
+    "hash": "e15e60a922053d50e8a2d5ef9cb3b4253d5238cecb31424052abbbca3c83bd3c",
+    "lastmod": "2026-09-16"
   },
   "models/ibnsina-1.5b.html": {
-    "hash": "23b3a765ea3df0998fd1e3b752a2529a68acdcda81711597ced100695f36ac92",
-    "lastmod": "2026-09-15"
+    "hash": "af4ea871fdd509a5dc7dce88b2adcbf5336813c8b8793c0bd8193476bfd461ca",
+    "lastmod": "2026-09-16"
   },
   "models/index.html": {
-    "hash": "37bcdaeb470de761d5a6f17c8d465a90f441611ab22f2ae858d97acfb2b1e1a1",
-    "lastmod": "2026-09-15"
+    "hash": "9bfeb76d36a73e17ea6a37076001c51ece205fe0ab4bc7b701cec047ac7c3750",
+    "lastmod": "2026-09-16"
   },
   "models/internlm2-7b.html": {
-    "hash": "21b574bfc8e28fd820e6ea32c1a30d8c607603106877193e011955942cecd7b9",
-    "lastmod": "2026-09-15"
+    "hash": "462e7c408b2abaef60d319b93691c9ad5e0fc99943cac71f74d88c91f5582232",
+    "lastmod": "2026-09-16"
   },
   "models/internvl3-8b.html": {
-    "hash": "27db418804afc41daed6e8f6837574cf2f14afd07713056cad81a3e8a1246646",
-    "lastmod": "2026-09-15"
+    "hash": "88f2d02986ec894ea16ae2e2a27c52a2a8a09285fda7ce1cf242d4f84ad75755",
+    "lastmod": "2026-09-16"
   },
   "models/k2-horizon-0-9b.html": {
-    "hash": "f930fef32e62f4ed68b70678a39aa3e6d2dde6c0ddcf3204b0b670da39fab745",
-    "lastmod": "2026-09-15"
+    "hash": "54956830e3e61869f80f536de8b4229d1058bcc27bc3bfaa1dedeaacf598826f",
+    "lastmod": "2026-09-16"
+  },
+  "models/k2-horizon-3-7b.html": {
+    "hash": "ed3236e03be0a5af669f386aad20295a9e8d7c8127079b56e8d33d1869ed0193",
+    "lastmod": "2026-09-16"
   },
   "models/k2-horizon-7b.html": {
-    "hash": "b9964af422c89bb50d1e157b78907e0acf5a1214c9606156c3858bb03b22f419",
-    "lastmod": "2026-09-15"
+    "hash": "9950f3b4402acdbcc7c639206d4e3b5cfa17740cf17d6ee878609ff1ed9627ad",
+    "lastmod": "2026-09-16"
   },
   "models/k2-horizon-mova-36b-a4b.html": {
-    "hash": "00e5a91d335dd2ad1e225737c7b5d6835a5517aa8e061ee130ef2eda70461443",
-    "lastmod": "2026-09-15"
+    "hash": "cac959826088bff6a7a337099ef40c7262414cd0c13ec2ad9617fe541a706c0d",
+    "lastmod": "2026-09-16"
   },
   "models/kat-coder-v2-5-dev.html": {
-    "hash": "3113c53b52c47120b4b4297b46e08360fba5d6cf0f0be99a44ea3be00cc85747",
-    "lastmod": "2026-09-15"
+    "hash": "6737447a9d4e78a23334dff8834a732768d5e87fdd08a2068d4dd6052dc61ded",
+    "lastmod": "2026-09-16"
   },
   "models/kimi-k2-instruct.html": {
-    "hash": "896c8e2f83c8de07315a7dfbf1ac4619e9252f73a3ac6fdc1a0d3f237d1614c9",
-    "lastmod": "2026-09-15"
+    "hash": "03cd473dc0127b7ef189b8d39813ca73050e8d791c3e038cd56716e46b43035e",
+    "lastmod": "2026-09-16"
   },
   "models/kimi-k2-thinking.html": {
-    "hash": "a303a1308f29b1cd198b701eb7acf55aef2e80b73c796d245147eba4abd26835",
-    "lastmod": "2026-09-15"
+    "hash": "ee970661039598cd73925a479c33feb2b96d8c778ae51d8fc5e7d67c0b3a2277",
+    "lastmod": "2026-09-16"
   },
   "models/kimi-k2.5-32b.html": {
-    "hash": "d42a005513d0bcb5e773e48005bc364637076be5eaeee475e3406876337449c1",
-    "lastmod": "2026-09-15"
+    "hash": "9cab3a3ade39c4b1a368818edd06bda1057bf4834dbae2e8f8e006e5548a9496",
+    "lastmod": "2026-09-16"
   },
   "models/kimi-k2.7-code.html": {
-    "hash": "de3ce7ed8ff0c6eec1d9ea995a044d59e02afa13fb578ea7455efe2194c42c2b",
-    "lastmod": "2026-09-15"
+    "hash": "2bdbc7a2c75c2c0c3140f00ae73a8602dd8227471455e4fcd1dbbd475ba85fb4",
+    "lastmod": "2026-09-16"
   },
   "models/kimi-linear-48b-a3b-instruct.html": {
-    "hash": "b9da841788e8438f15d8d19e024d464c59c75e550ccc722ca5df385324c9ace0",
-    "lastmod": "2026-09-15"
+    "hash": "3bd3992cfc70b3263f2bc392f40b7b8a5905aa3f0bdb578aa91b0131ef9362da",
+    "lastmod": "2026-09-16"
   },
   "models/laguna-s-2.1.html": {
-    "hash": "91fcbd760d428616a3ac37095870087663622cd68af362e8ba4a3cdf4799cade",
-    "lastmod": "2026-09-15"
+    "hash": "2842aa7f7c3b0ab45726626557e05dc30d8a10ff0b3494aae24b89464b844fc1",
+    "lastmod": "2026-09-16"
   },
   "models/laguna-xs-2.1.html": {
-    "hash": "e5daaf4493b39af76b5f3ed5324ac8c5bd47bb2e6d3557120d380841375ef2d1",
-    "lastmod": "2026-09-15"
+    "hash": "346a743fdd64d943fce21be2a8256d7919458d8467ae6581fef4eddafe8c706b",
+    "lastmod": "2026-09-16"
   },
   "models/lfm2-5-2-6b.html": {
-    "hash": "46a984b2e669d83aa28e902a9a00ce4475bf00ecb8679b4b8c6d5842ad6637ff",
-    "lastmod": "2026-09-15"
+    "hash": "5b945e96dd1f0bd3d910d9306d0f6de8cb3181fe430d250faa5f746a67b7c8f5",
+    "lastmod": "2026-09-16"
   },
   "models/lfm2-5-vl-3b.html": {
-    "hash": "bb371ee4560f0b929b72035f2440d6d7cb9cddcfb44c3821598849d61472037f",
-    "lastmod": "2026-09-15"
+    "hash": "dd3b67a8118c0f632d984436d842cf084afd003153306c15ad72aed96d48c1fa",
+    "lastmod": "2026-09-16"
   },
   "models/lfm2.5-8b-a1b.html": {
-    "hash": "6b803bcb7531e1637ddebd7d2ea6e7142ccc40a630a6b9e2ef66fb04e44d750d",
-    "lastmod": "2026-09-15"
+    "hash": "716696e4f65cba91960d4db30cffbbd9ad1fbf0f3cb2ec4617649c6ea354cd5c",
+    "lastmod": "2026-09-16"
   },
   "models/ling-1t.html": {
-    "hash": "d83aebb07b075b2364059c282ec2bf984774fb3ee82ae1cd430e72fea4058e82",
-    "lastmod": "2026-09-15"
+    "hash": "90f3f9a3ae1aa159d88830bb1e9c8a768d24864b0c7790d16202b640f85d17f9",
+    "lastmod": "2026-09-16"
   },
   "models/ling-2.6-flash.html": {
-    "hash": "a22b6901e2362ed56b0e5728be87a00125805ed2cd490429b1460e8f93596784",
-    "lastmod": "2026-09-15"
+    "hash": "39c0747ca0ef3c8098e87b1cbf2a4cc219b4fde8025cb2175ca759069efb6f0e",
+    "lastmod": "2026-09-16"
   },
   "models/ling-3.0-tiny.html": {
-    "hash": "69f1fd915b8914c644172a30c18b222c44f9107959a693669c936e17a9355636",
-    "lastmod": "2026-09-15"
+    "hash": "1da0cba15543c18a1acd0a329ad5bb131db4cfd9f277e5ddc92ee98f30b525ec",
+    "lastmod": "2026-09-16"
   },
   "models/ling-flash-base-2.0.html": {
-    "hash": "214a1059d8dbab71be3223d85da2fe5dc5bd03e75b459217a4e6165c84a22abc",
-    "lastmod": "2026-09-15"
+    "hash": "c7003081385c3a6bc5aee7b5d68d5dc0588cca70a91cc8c618bec57e14c69f14",
+    "lastmod": "2026-09-16"
   },
   "models/llama-guard3-8b.html": {
-    "hash": "1ebad4f7204a9438b560560464ae517f944ed597f6d54301533b300bd90a7e4f",
-    "lastmod": "2026-09-15"
+    "hash": "b8b1924f0a6fe24965ae1cf98facb1fb275dca8e6cf7ed67719747482f27e3d7",
+    "lastmod": "2026-09-16"
   },
   "models/llama3-8b.html": {
-    "hash": "8e63c63a0078cb98c5e10f807cc2bc1c689c9ed4ca9e6232a7c496b805463522",
-    "lastmod": "2026-09-15"
+    "hash": "4ec699317f554c2fc98c8fb8f1f92fe91b029a2968511f31f83aa1861adcaf82",
+    "lastmod": "2026-09-16"
   },
   "models/llama3-chatqa-8b.html": {
-    "hash": "d7b5f2e43a7bc5dc60ef811dabb3c9f1a6e8cc8f46a69e258f419401ba198eb5",
-    "lastmod": "2026-09-15"
+    "hash": "840f514a8d4e89f2d173b24bd96152e59a8062d33eb0177ec5ce00fdf44235b8",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.1-70b.html": {
-    "hash": "34e2e128a86d79151dc55e2ac6d411725b3e6c6bc52bfcbedde03bc1db0fabb7",
-    "lastmod": "2026-09-15"
+    "hash": "da3c73aa7a62f22724da2c8bd18ee9585c22ccfaba126f6ebd51eba38010910f",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.1-8b.html": {
-    "hash": "387bf3b03f71805c4bf6e1f52d9e59ee34af1cef208ac99d3714eb310b3eae8b",
-    "lastmod": "2026-09-15"
+    "hash": "94544628f2e1c7a58198584993e70c5c86c8fd190c0af4669b6717ca5353c467",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.1-nemotron-nano-4b.html": {
-    "hash": "e621bf0044daa6082e945b16e83b8caaeb9c50beaca22fccfad638ce2b2f5ee6",
-    "lastmod": "2026-09-15"
+    "hash": "81625c704e18b659774bf66e4446af809e5ff8555cfb13af3b5d3e6edb85a12d",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.2-1b.html": {
-    "hash": "9bc67ecbc4089a49432b0800b6a906b4c8999f6f17fceb0ae6b8b616471f0746",
-    "lastmod": "2026-09-15"
+    "hash": "a31baae939ac905e9f6c10b218dcf7694626f70aaf39e8eef48320ea80e5b40f",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.2-3b.html": {
-    "hash": "d957522c71ae4a8a69eb53952f810ff41d04fe25975bf8f5e9229c3e121abb5d",
-    "lastmod": "2026-09-15"
+    "hash": "97727dd0c249b8cea42df4264789ab56a6f9d846d84020ba0d6d2922cfe2ce13",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.2-vision-11b.html": {
-    "hash": "8cacf38fa9870935b5865910c0fb19f9d2315e6af02c10af0d78eadbd36d11fc",
-    "lastmod": "2026-09-15"
+    "hash": "5e58adbbb8e613596a61d31a9964e746ad2e880730ea1beeebf9156be220cdd0",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.2-vision-90b.html": {
-    "hash": "234691e899955f2fc5a8c14591b1cf1aa4f4029d91a2b54c299ff0e9d237e3fe",
-    "lastmod": "2026-09-15"
+    "hash": "8121ed3a6b0e50575f5f5ea378f1f107eb07988abe45d2e380fca0b1b01914e4",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.3-70b.html": {
-    "hash": "32593a37402c991cd0286458aec6cdf510c4ccd2745109984d1e3aca006d68de",
-    "lastmod": "2026-09-15"
+    "hash": "528ab652442fd1e8e73bb9e9261501c2d19137e6a71da8d7edaf25f95b5b4eb5",
+    "lastmod": "2026-09-16"
   },
   "models/llama3.3-8b.html": {
-    "hash": "7c145177898214c4799e89689073fc7d193691fafb361090de57de9b4a5907d8",
-    "lastmod": "2026-09-15"
+    "hash": "fb6e58630cea1928ecd320d09a06f933b17ffc227380ea0161aefe50dbdb35b8",
+    "lastmod": "2026-09-16"
   },
   "models/llama4-maverick-17b-128e.html": {
-    "hash": "837d647d77db0c7b10cddf23b07c096588f72eddc6c7719cdaf083bc4b83ac5c",
-    "lastmod": "2026-09-15"
+    "hash": "2bcedb78d2ce9abc2690d1d3685bb3adbc00690f2599fe369f492df6224f7d8a",
+    "lastmod": "2026-09-16"
   },
   "models/llama4-maverick.html": {
-    "hash": "202f3e4175ea1b0a8eb16c497810d0a39d07a450d8c54df6559a51313d57dfaf",
-    "lastmod": "2026-09-15"
+    "hash": "ec87a68a827a96aa301b29a4b35fb3201b39fd150983d871d6b3cbe635078559",
+    "lastmod": "2026-09-16"
   },
   "models/llama4-scout-17b-16e.html": {
-    "hash": "279788728d58295e7b86b942f3e6576af23dba31f16eaf4638e0160b7ac24fc2",
-    "lastmod": "2026-09-15"
+    "hash": "86e00067699a1f10afffc629fad1d03beb67b0a3aaf0d0ef9451b07c9792d3ad",
+    "lastmod": "2026-09-16"
   },
   "models/llama4-scout.html": {
-    "hash": "ce2b73e34cbd349d2e63abf59f572f7b20f24add3ea7a838f5f4b8b8906de7de",
-    "lastmod": "2026-09-15"
+    "hash": "26751ad533a66cc4ca3694cbd96fdeb010fac2e30be874c578e14bbe138e1c50",
+    "lastmod": "2026-09-16"
   },
   "models/llava-1.6-7b.html": {
-    "hash": "cfaabc191a9fc05b7b24191df32f18a84bd9845fdee156ad2af910e481450f4c",
-    "lastmod": "2026-09-15"
+    "hash": "8e5ea74b903f49fef8a352ca699afbfac7588175399b42973f5f93870af3e54f",
+    "lastmod": "2026-09-16"
   },
   "models/llava-13b.html": {
-    "hash": "e3f12a909e0aa2d3f311a0db26966de0f4f3fe1ae0c5b78f8726db98cbfdf14d",
-    "lastmod": "2026-09-15"
+    "hash": "3e1a8e3796607b0c7465fd759a817572fa57ae80995d0fc7a4f2bafb93709c63",
+    "lastmod": "2026-09-16"
   },
   "models/llava-llama3-8b.html": {
-    "hash": "32a27a0b9778980ab75850c120fb2270a8a06fe569c913f0f1e155f92927710f",
-    "lastmod": "2026-09-15"
+    "hash": "749bb0200ec33f178c90b50802e093d7c33afac832a1d003be856480c5f160b9",
+    "lastmod": "2026-09-16"
   },
   "models/llava-phi3-3.8b.html": {
-    "hash": "23fd33fb12dc39f2e5ef5b78a575680483a3d5308ac1b61336232a043e9d0ef4",
-    "lastmod": "2026-09-15"
+    "hash": "bd4a7f9b829d8fed3c239e11789bb942cf0522f32ae560c599192ce6138ab028",
+    "lastmod": "2026-09-16"
   },
   "models/llm-jp-4-33b-thinking.html": {
-    "hash": "d580027852280f7c9f0f23e1994e7f386218d964d3445480daf9f77a7a602fea",
-    "lastmod": "2026-09-15"
+    "hash": "14e1aceb6f0c0df239cfe5ea52d2af518acaa4840692b12df7fc3c9681a82fe0",
+    "lastmod": "2026-09-16"
   },
   "models/longcat-flash-lite.html": {
-    "hash": "fd253b74b898f9d5ae3d22b824d0748687e27b26bde7c116987171ce1bf2b816",
-    "lastmod": "2026-09-15"
+    "hash": "22b309a120e548caefe799916a7f4e43f5250c691af21cc14202d4e2605f8fae",
+    "lastmod": "2026-09-16"
   },
   "models/magistral-24b.html": {
-    "hash": "f149727b76e23b52c9c9aa31fa560ccc8851b0a131faa06866c539acb6736d3d",
-    "lastmod": "2026-09-15"
+    "hash": "c46342ce886ebe11c3e96f7bd7fbf822195d02a6b5cb437c60d9d868c57f64ca",
+    "lastmod": "2026-09-16"
   },
   "models/marco-o1-7b.html": {
-    "hash": "7e73a73193b886a0b99aa90c3314f6ad4d29bc286ffa83b12dc840996c5995f6",
-    "lastmod": "2026-09-15"
+    "hash": "5746634b8438d1f5f7bd9a407d16fd536287f29f7ff811c42f94df776236bc1d",
+    "lastmod": "2026-09-16"
   },
   "models/mathstral-7b.html": {
-    "hash": "4f259af30aad5cc1fa7f1474b93ea712e89d2210b7aa6c0f3217bb6f885e60bf",
-    "lastmod": "2026-09-15"
+    "hash": "ef13524bfeb2cf1d67dfd99e44f11b8b4ecc1130f5722f5d765a53a4b618bf8f",
+    "lastmod": "2026-09-16"
   },
   "models/mimo-v2.5-pro.html": {
-    "hash": "f2bc9194eae592b2fe92c153c6565d8f4ad8ce9cfb2c9585f1f0bd8ec266609f",
-    "lastmod": "2026-09-15"
+    "hash": "a05b43884f88c5300a2eb4ee6845a88bfec51245811845876fb6f57f326649d4",
+    "lastmod": "2026-09-16"
   },
   "models/minicpm-v-8b.html": {
-    "hash": "22d45094d266dd03a413bf2cbd37d6cd81577e06b9cadbb240bd2b23d21928ff",
-    "lastmod": "2026-09-15"
+    "hash": "fc27bc7a9c8bc8c7aa15d951dc290bfcb9f2cfffb233b1923420000d4a2cc782",
+    "lastmod": "2026-09-16"
   },
   "models/minicpm5-1b.html": {
-    "hash": "fcce50301035206e9d8e35e02581d5e32983bff540be2e4ba52b1b91668b55ba",
-    "lastmod": "2026-09-15"
+    "hash": "d3b2b52b1fa4f7e2495281938a79e9bc5ff6738ff16c3ad64bb0bbf88f222dca",
+    "lastmod": "2026-09-16"
   },
   "models/minicpm5-2b.html": {
-    "hash": "b5ba3d3268de016dd5ef317c3cbb08a403774764f844e8bb42b61d345e4e4e1b",
-    "lastmod": "2026-09-15"
+    "hash": "92abc81e4f91c8f7da2bdc6c6f841ce4a12190c6a2c1c59db6bf62518cd11a0e",
+    "lastmod": "2026-09-16"
   },
   "models/minimax-m2-230b.html": {
-    "hash": "abdda98d10eb66df9d39e86306f5ab2997304cedd4c4b9d4f8aa0f3f4f3f3500",
-    "lastmod": "2026-09-15"
+    "hash": "aed0d3441283ae9195082d428e879e21b7ac4a0f9ff78e106d07f470cff605f4",
+    "lastmod": "2026-09-16"
   },
   "models/minimax-m2.1.html": {
-    "hash": "a7768c886282478552d70f7adf9b830d6ee465d0f4cf92143460a113ac008902",
-    "lastmod": "2026-09-15"
+    "hash": "8886d774f994408c11b79149ec9ca92fa9370c982c8550cf9c4389bff77802e3",
+    "lastmod": "2026-09-16"
   },
   "models/minimax-m3.html": {
-    "hash": "a079335a5736b02d020e7b612455b61d9f957e22813951c323eac2b98ae61439",
-    "lastmod": "2026-09-15"
+    "hash": "d30a305e4ee77eabed93b7489ce3600aa28403c8e58896ec59f931fec58c93ec",
+    "lastmod": "2026-09-16"
   },
   "models/ministral-3-14b-instruct.html": {
-    "hash": "0dc4d0a0d7f7cac74624d0314dd8303380aeeae0903f4197a18cf22c08c1bac3",
-    "lastmod": "2026-09-15"
+    "hash": "10326df74e6f7f572b4bb75a2d7e0385f533633efadfa017304a3dd1545e549e",
+    "lastmod": "2026-09-16"
   },
   "models/ministral-3-3b-instruct.html": {
-    "hash": "c4df42af29bc76cd990046549459bc097fcc8df42bea02885d37afd02cf052a2",
-    "lastmod": "2026-09-15"
+    "hash": "cf7ec894002644195b280ce629ad98e9c10079549eb4b2f0467ea978a50e4a08",
+    "lastmod": "2026-09-16"
   },
   "models/ministral-3-8b-instruct.html": {
-    "hash": "457ab8739385d79063f4694cafeb402d2f646f47e3c7306a9cbd3e9c4ce0ff73",
-    "lastmod": "2026-09-15"
+    "hash": "fdd4c21c8d227915c868d689dae6163ae4836b57f3c489abb45f50f48951fa51",
+    "lastmod": "2026-09-16"
   },
   "models/mirothinker-1.7-mini.html": {
-    "hash": "ccc96e9eed0f539cad24c15a7290f6ed922207711bfb27571bfbd2bac834a521",
-    "lastmod": "2026-09-15"
+    "hash": "25658e7fd887666a34d3c4b83ab876a7e5d9e6590e0a75639b889abf1e88a2c2",
+    "lastmod": "2026-09-16"
   },
   "models/mirothinker-1.7.html": {
-    "hash": "49baba99fb1441e6d1bfd515e6ce341b6d9cd60ed13c4e4a3866facd4f50644d",
-    "lastmod": "2026-09-15"
+    "hash": "dba9e482475ceeca31df3cd478eeb66320d5a10f264f60735d012cae97353400",
+    "lastmod": "2026-09-16"
   },
   "models/mirothinker-30b.html": {
-    "hash": "847117d9280f8ef64e88805fc6bbf2c7bc8db01f121854d0f3bb408082794049",
-    "lastmod": "2026-09-15"
+    "hash": "fbcdea65f5c1e22e28bdd04ec9119954ddfc27885e07007a32fc3a66caf9f58c",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-7b-v0.3.html": {
-    "hash": "79b1bbb4ee536cc028246175638dd1b5b474b5f0d41d8bc88162dcab638c95cb",
-    "lastmod": "2026-09-15"
+    "hash": "26da4101f161eec58e45c86859346bcba6bf8aa0cd9327361d2f55495052e599",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-large-123b.html": {
-    "hash": "9d5367794b58a62a37d2cfccad6ecdbae4485010885ca3a0efab57a9d3347758",
-    "lastmod": "2026-09-15"
+    "hash": "47758acb52a13b0453b3565d9754d726f27d8d77361dc061d5994e764a448eae",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-nemo-12b.html": {
-    "hash": "3d22b9a0af0df605a2302581fe2850e6e9b1ca0ba4b8ded58b530fa6f559cb26",
-    "lastmod": "2026-09-15"
+    "hash": "3189bf1bcc2846578a9841d5ab6c88e13da150405530db6f5142aaf8b7afc868",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-small-24b.html": {
-    "hash": "d81c7be8b82c347603f5e1b037c82f2f8542a3b82120f06c7327734c8d30b378",
-    "lastmod": "2026-09-15"
+    "hash": "baf2f94f8b2cdcdc10b71ef22ac92024d938bf1e4936289ab52ab052fef89662",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-small-3.2-24b.html": {
-    "hash": "07b0ede41c1f7f510ecb1d87549f50f807d2a49626f6ceb7a9106bde2254449b",
-    "lastmod": "2026-09-15"
+    "hash": "1d69a3772e78b114395cee6be569007cbbfc15b6eabbeba663837b034344c7a4",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-small-4-119b.html": {
-    "hash": "e14e388d23f4eb5744721e995fb1ccf090ec4e6ea26a81383dae9823c14e33b0",
-    "lastmod": "2026-09-15"
+    "hash": "87cbb5a76ffc5fe18285c308a9a40fbb7b077bf6a14aee51644618e565ac409d",
+    "lastmod": "2026-09-16"
   },
   "models/mistral-small3.1-24b.html": {
-    "hash": "e9a713faae16638435d7a73196644acc21f7c47b29a8681795d958f9778f078d",
-    "lastmod": "2026-09-15"
+    "hash": "1f36331587b35eb040ee91f3e64813263fb3b77df41bd0f2456c3191092af6be",
+    "lastmod": "2026-09-16"
   },
   "models/mixtral-8x7b.html": {
-    "hash": "b3ce726f7caeb2eab6c5f3abd65683192375932b867de8ebace332565cbfea2c",
-    "lastmod": "2026-09-15"
+    "hash": "fa707c7334c57e0912300a9f8648366efc04abe974b82e8ade27e4f4d94c33c8",
+    "lastmod": "2026-09-16"
   },
   "models/moondream2.html": {
-    "hash": "0a6bb1d248d2ec286e7b7ae79d0c1c2f4c5bca19e853d640680be553dbe4b0c1",
-    "lastmod": "2026-09-15"
+    "hash": "5c1f9a31f1c1f40990415e2ac8374b170c2d5f039974c4fcd78a765a66839b15",
+    "lastmod": "2026-09-16"
   },
   "models/muse-glimmer-30b.html": {
-    "hash": "f4547bd7a7daa2ec07025ef55de1f1bd5f0a091d44fb8ff5fe2622b6b539e620",
-    "lastmod": "2026-09-15"
+    "hash": "50e8d42d8e5026e00bd18c457f204eb4fb83ce5745c31f5766f2377b86a72f27",
+    "lastmod": "2026-09-16"
   },
   "models/nanbeige4.2-3b.html": {
-    "hash": "e5b6f6706cf6e3e61018fb615dca2a31ab962a9e546af9771d1d3cb6864cef64",
-    "lastmod": "2026-09-15"
+    "hash": "e9b11989405b9656a4740ac75ed63b9066374efd102d54fcefcde8f7b604ee98",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron-3-5-lightning-30b-a3b.html": {
-    "hash": "41441566a6fd933631b2cb42a7eb2920d4b21eb6c94b87f8623c35c35fef68fa",
-    "lastmod": "2026-09-15"
+    "hash": "9be892a99490ee55daeee18727d6884a25fa9baf3f509ba4a7633713d7ec351e",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron-mini-4b.html": {
-    "hash": "ba79c5dba1f488a2bd11d58b647a077ed59347cc098bd42696c379475c270dc2",
-    "lastmod": "2026-09-15"
+    "hash": "9b5264443d7e63092ef9ef95b09350ccf6d4b13777f520c561b442be0919fa7e",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron-nano-9b-v2.html": {
-    "hash": "396fbb89fd99293a7810245f94fe786000f2df9f3ea0dd1e924685958d595e34",
-    "lastmod": "2026-09-15"
+    "hash": "a6980dff73ec9ff180dcf82cd381e988493649a5fbede07110ebd18f35756d6d",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron3-49b.html": {
-    "hash": "5b2d1df086be75483fbcecbf099bb27bb000faf885a386891e9f120dc816e086",
-    "lastmod": "2026-09-15"
+    "hash": "c7aa7b29c346a5a825f797d566357ea3dc33cfcb974ce9092ba5ee88f27aac26",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron3-70b.html": {
-    "hash": "13c4b9e24cf5882d82bcea23ea93c991d8ddb9ce7f650f9b15b443f5fe216f1f",
-    "lastmod": "2026-09-15"
+    "hash": "6c030fb3da3a75eb10b43bae391738b9947dce07fbb8165613596d02347eed00",
+    "lastmod": "2026-09-16"
   },
   "models/nemotron3-nano-4b.html": {
-    "hash": "8f815abd1e69d8e2cc0f3d329bc82e03e122e72d278462107ab497252f4a134f",
-    "lastmod": "2026-09-15"
+    "hash": "39a7c8b3bde5449d2e73d8e4166cfc4b92c02e09a3151fced1b8e05df0693125",
+    "lastmod": "2026-09-16"
   },
   "models/nex-n2-5-mini.html": {
-    "hash": "7d040ced57beda5bf3c342b6743978d5f8f36a874835e5c34bb309c78e76a51d",
-    "lastmod": "2026-09-15"
+    "hash": "aa63d9544b71ae3da61b13721efe3265768d4692de54ae7e49023db220adc93b",
+    "lastmod": "2026-09-16"
   },
   "models/north-mini-code-1.0.html": {
-    "hash": "b7ca88c337914322523aed05c14564ceff138299bc2b654e05980584e1f8994b",
-    "lastmod": "2026-09-15"
+    "hash": "1dd558ea0300bee4022b973f43329d861e76aa85d3833929f191a0127924c034",
+    "lastmod": "2026-09-16"
   },
   "models/nuextract-3.8b.html": {
-    "hash": "df3a35df8cc6e14d2b10b582e28b4a3af7a9c19d1753ae4f57300387ade93f2d",
-    "lastmod": "2026-09-15"
+    "hash": "bf3b1f5d86aaf9a8a497a32da08c2169587882c6ae17e8e7b719307a42a003fa",
+    "lastmod": "2026-09-16"
   },
   "models/olmo2-32b.html": {
-    "hash": "1ac9471bdde9efe6b12910624de671b49502a074cc9ca4387414ff415b3e0190",
-    "lastmod": "2026-09-15"
+    "hash": "0acf3f25747c6b80b3065124a716dde1fa87cca97896ed78cd57317b28f326f8",
+    "lastmod": "2026-09-16"
   },
   "models/olmo2-7b.html": {
-    "hash": "952dac634c3ef75b18240722253a04fde4362e3a03d4922fc658014a6db9be16",
-    "lastmod": "2026-09-15"
+    "hash": "92a411baef1c7f590bacbffc43e7c339a5a9434efa7bb41680940e5bda94c316",
+    "lastmod": "2026-09-16"
   },
   "models/olmo3-32b-think.html": {
-    "hash": "142f34401d2b4812191e6bcca1f11bd11881c1e2763a2897a8d6a07f79543d90",
-    "lastmod": "2026-09-15"
+    "hash": "b1755c2aa5d5b2e74ca9dc8b53f4b74610168baf7171d829f2c6a22225985a2b",
+    "lastmod": "2026-09-16"
   },
   "models/olmo3-7b-instruct.html": {
-    "hash": "29e7b0eab1db4e1daee9771081cfaecf34bd0d25528fef60b46508b9d8b21a56",
-    "lastmod": "2026-09-15"
+    "hash": "d6f9751a3bf77804ba2c928c27057dbb0ec46055d3a56de02ac351b8d1790b72",
+    "lastmod": "2026-09-16"
   },
   "models/openchat-7b.html": {
-    "hash": "c74d67dceaf951fa06e2d8d4d6236f9db20f69e6f6af5eed4504a3b993d4dce4",
-    "lastmod": "2026-09-15"
+    "hash": "81a1faf1cbd38b3b0a1c578fb672ab96307fa941af7f40ab15a825bbbd3349be",
+    "lastmod": "2026-09-16"
   },
   "models/opencoder-8b.html": {
-    "hash": "df7b690670ec5e11d46b7c1909b42705375b8df28241d13923f2fb09bf2df21f",
-    "lastmod": "2026-09-15"
+    "hash": "b4bdbea9d78daa7e1718ef915fc1a555f15d4e2c026ea20e1c6d218c04b67d53",
+    "lastmod": "2026-09-16"
   },
   "models/openthinker-7b.html": {
-    "hash": "c3ac9d1534f1d13ffbd4ff4cc8ff7dc95c0aad8d4937045edb729c36d60ee666",
-    "lastmod": "2026-09-15"
+    "hash": "ea3b8ede51aadcfe83a2ff69a27492be5cd434c58dd6e5b907c8af5320873796",
+    "lastmod": "2026-09-16"
   },
   "models/ornith-1-5-35b-a3b.html": {
-    "hash": "71b231b10ce76a0ed677f315971fb9b14b97edcc32469362f863895393280cce",
-    "lastmod": "2026-09-15"
+    "hash": "5e4c28288eee56e5b0fb4b6d3c52650ccf14450e119d28215658178f61d16245",
+    "lastmod": "2026-09-16"
   },
   "models/ornith-1-5-9b.html": {
-    "hash": "e5dcfce5017c291832683c07ea140c59ef1d8465aa67f7e7abccd965f5f47756",
-    "lastmod": "2026-09-15"
+    "hash": "b29df3c3d8f09284b4e0a3a68f78e887772ecea65de5948ecbe584cb0d657073",
+    "lastmod": "2026-09-16"
   },
   "models/ornith-1.0-35b-gguf.html": {
-    "hash": "1e80c42a43a747cf4185a3649ccb51f958697932cd3a8af7e16c2100443f4aa9",
-    "lastmod": "2026-09-15"
+    "hash": "d94a893938031c6548dfdb1543524cd3a9727290bfb4dc2a10fa7b6d39490c2c",
+    "lastmod": "2026-09-16"
   },
   "models/ornith-1.0-397b.html": {
-    "hash": "1d1c3944b0d18febcf0f24e2117f12320026eb03d2fed0e43e6c55f048c72605",
-    "lastmod": "2026-09-15"
+    "hash": "80d4fdafcc2e5120e0d04320eab0e94c8ccc15d52a3dd371d6a0202e7c88a025",
+    "lastmod": "2026-09-16"
   },
   "models/ornith-1.0-9b-gguf.html": {
-    "hash": "bf76381a85eb4dd1bfdcef0c67714764ac685f34bb9336341f23935d6067bfb4",
-    "lastmod": "2026-09-15"
+    "hash": "4dcaa267fc3e37e4123acfff2b58c2e2107811188bc33d2360ee2aaff5d1b7d3",
+    "lastmod": "2026-09-16"
   },
   "models/phi3-14b.html": {
-    "hash": "5edfbd91519c10f92fdcb1a5b16c904b5a29c7e2e54b93f415d5d8bd76279a50",
-    "lastmod": "2026-09-15"
+    "hash": "0ca3b25debf73f55402fda50959c46bf3ce1013539cd6d506a87ac8119680d5e",
+    "lastmod": "2026-09-16"
   },
   "models/phi3-3.8b.html": {
-    "hash": "6170f036129db4f166874b7f274737b38e77d600db6750c9b32f7e0295160f13",
-    "lastmod": "2026-09-15"
+    "hash": "b042cfbe00c81a192fe0bf2f3d73a278c80db1faf886a08709bde82658fd14ca",
+    "lastmod": "2026-09-16"
   },
   "models/phi3.5-3.8b.html": {
-    "hash": "57ceb24e601831cd8d05d12b7776455a2659405229f0858511b1d99cad84a0ce",
-    "lastmod": "2026-09-15"
+    "hash": "c14cdb12e6f3802917c07896fa1868c7ef2446d98f1fa459917fc82df889dbeb",
+    "lastmod": "2026-09-16"
   },
   "models/phi3.5-moe-instruct.html": {
-    "hash": "f83c2c559752eef0ecbea8dfde8a321be6040784b4c1c31639f481b43e13107a",
-    "lastmod": "2026-09-15"
+    "hash": "fee807ce2eb123f8a62d9161c58eb9c411e63060b517335e1bdb25a7ee47512d",
+    "lastmod": "2026-09-16"
   },
   "models/phi4-14b.html": {
-    "hash": "40ea645c6d8daab8f82de4c0b6afa5f625970c358c5d4233e8f2396ec73bde51",
-    "lastmod": "2026-09-15"
+    "hash": "3d8f822ad949f9e779b7e3cc4561b97e02a4fade0e91d632829265b47bad2a22",
+    "lastmod": "2026-09-16"
   },
   "models/phi4-mini-reasoning.html": {
-    "hash": "bf12b9e786d607f65786ee8618015daa86789be062a976a340f9f7b3ac6cf5e1",
-    "lastmod": "2026-09-15"
+    "hash": "6411c89a243718442be02a28452584ea1619c8ce8c3a6ce326fce9594aa8ed9c",
+    "lastmod": "2026-09-16"
   },
   "models/phi4-mini.html": {
-    "hash": "9a0b2d4d512aea4de1b21325686ba6ba6fc7a7457245742666f3b3df6de5ebf7",
-    "lastmod": "2026-09-15"
+    "hash": "1a4ba9cf83dfc2f8fa1a646576bca0562e36015b6501a676ff1104d27f46f42b",
+    "lastmod": "2026-09-16"
   },
   "models/phi4-reasoning-14b.html": {
-    "hash": "188741a4039f3da39c70ecb4f9d4f12f8923b5b006e603059dafe5c76034d6de",
-    "lastmod": "2026-09-15"
+    "hash": "14741cfa70e28ed81442960916748a864aee5282fa81e5d5d98fa3f8d49ed995",
+    "lastmod": "2026-09-16"
   },
   "models/qwen-agentworld-35b-a3b.html": {
-    "hash": "876460f0f379f564fea5c1a661c0b9fe6b93b1d336bd81ccf9782972ef1fc04f",
-    "lastmod": "2026-09-15"
+    "hash": "a461713f780b72dc7c4cfd452c723e3c2c5f2beb281df472cc71c30c3839e4da",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2-math-72b.html": {
-    "hash": "da066f731154a0ab0dcd3f277371fa73f5bcad15d7c0539b21be2977e2f583f3",
-    "lastmod": "2026-09-15"
+    "hash": "3c73f8767a700c553f74de3adc648de5d4cd8f8791262e60d1bfdf75f293d835",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-14b.html": {
-    "hash": "27b5e77d888f9df25b6d5408a6bfb3238794e0108b87b57b804df8a71f92a887",
-    "lastmod": "2026-09-15"
+    "hash": "97c183eef4c44a5f2df2e79182dd1cdeed59a13fb16e1acc19fc0ed4316cf654",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-72b.html": {
-    "hash": "0bbefb5ce1a03bd4ccbeda37bf11efe5de3b7f33d720d77d4642549379a1c4d7",
-    "lastmod": "2026-09-15"
+    "hash": "773a3550ab8ff154a452f591ef4fed18c5a0c296c9f88c13fec543d2538fb991",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-7b.html": {
-    "hash": "2bba001704bb915ff6350ff6c94d95b139e07a6dbf4fe236861717fae7adad93",
-    "lastmod": "2026-09-15"
+    "hash": "aae9880dd6c0ec7b46586780350b585c65747b1eea447086c02cdb1dbf6c1d35",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-coder-32b.html": {
-    "hash": "b458179219f83093722685cc7defc20ca8174a0aa2de265e21238640fa07caf4",
-    "lastmod": "2026-09-15"
+    "hash": "ca6bbd026dc12183d5f981076eba2e52bd54eaa5b5c1003239f9578e1aedd57d",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-coder-7b.html": {
-    "hash": "87ec1ffd41b8e58f7ff0e0721d0f45a050a592e93da96ac7bb39e249a09e308c",
-    "lastmod": "2026-09-15"
+    "hash": "6b8f486e2ad8073b029002122576e37b12d8e5eb06b7888b093af8895e1aa280",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5-vl-72b.html": {
-    "hash": "0693b0ffb8865719781b0c6ea6fe618525f3019701a89727e4816ee4c33f84bb",
-    "lastmod": "2026-09-15"
+    "hash": "54073ace509d9e9ec001e95b8b42010602c77a54ef2e09496441f8c48e35b0f0",
+    "lastmod": "2026-09-16"
   },
   "models/qwen2.5vl-7b.html": {
-    "hash": "57f6fb85bdb43d668eb22b50a4dec966395eb1724bc4867a9c49df1732a68bef",
-    "lastmod": "2026-09-15"
+    "hash": "9d25dbbe679a788d46f7499bbc6d52dbb9105943db42ce5ca6c98254b0d247d1",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-14b.html": {
-    "hash": "1156943dbcdda32e13d1d703e2b497ebe1eccadfaa274fef9032b6d698871b9c",
-    "lastmod": "2026-09-15"
+    "hash": "bd3dd267493b49497edff3bab0fe3be898f146065d6f6ae35d74ce50bac41479",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-235b-a22b.html": {
-    "hash": "f6037a4f9a9dbb66b74f4961264c3a18ae3e072c033609a717c084e747a4aa86",
-    "lastmod": "2026-09-15"
+    "hash": "0e162d69905b37176f76171b7e83672433692928e2e3fc4379ef8d2cfbfd9293",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-30b-a3b.html": {
-    "hash": "9cdebd1fe451ad412153542c52827e0882c9df995b093c09769791ef0cb080e1",
-    "lastmod": "2026-09-15"
+    "hash": "e66df157491b7e9c0bcd57aaebe07b78dc91e0304af082ae87d29fdd6695f62b",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-32b.html": {
-    "hash": "9ed8f58ff5fc5f193419c8a2852b955458e658d58d05fadeed2d513d513b4742",
-    "lastmod": "2026-09-15"
+    "hash": "667c51450159fb1737d071ed4204abfd41e8941229312b37e90238cbf7b66017",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-4b.html": {
-    "hash": "f673bec12a004b327b63142f11b2b3f555156f6c7dc81b21e243997665b10934",
-    "lastmod": "2026-09-15"
+    "hash": "5b0dbf66f07b0b8064c816a5d91489947c3fde8de9db6d4a067ebaaba0385cf1",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-8b.html": {
-    "hash": "28fa0a8d0edb455264d7162f5dd5e4c7dbb5fc58cbd5d8f531c3c83fce75d26d",
-    "lastmod": "2026-09-15"
+    "hash": "b3953a0ca4dcf3eb3f2305b18e850eed363338de4d6f91662c6a60b8e1061f09",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-coder-30b.html": {
-    "hash": "04a822bc7ee6545f2fbd0691ec868be52cf527a7e173b6aee87a37b3e2fb61e1",
-    "lastmod": "2026-09-15"
+    "hash": "53e113cd65d9165d8ce55f2f62bede286aa67bb4219b529e51f13f18c38d512c",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-coder-next.html": {
-    "hash": "516100c604cc6388d5ef29663f583efc0605ff52a3d0d34867891b076bc50fc9",
-    "lastmod": "2026-09-15"
+    "hash": "8cce980f717eafc883ef8df962c1839b9a39df1dd60d42f6442795ffe74f9e92",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-next-80b-a3b.html": {
-    "hash": "565bc4978fd1a42698ce74579a765c4907cd61abc3df40e8fd6f6f9d5dfd9f2a",
-    "lastmod": "2026-09-15"
+    "hash": "fc9eaed26c3e3541984c6bd434c56f0c70f44602fd6035f83e7a28aed0674f41",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-vl-32b.html": {
-    "hash": "255c4c6f730ae256661b75628fa83b5fc553bcf31d4aa27de73e44c93b077359",
-    "lastmod": "2026-09-15"
+    "hash": "1a1dc4289c0b65e6242ada743012f8f30e8a3d87c97158fa56e408fe000da69e",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3-vl-8b.html": {
-    "hash": "206c462657af77f684ce187ffe01d13dd02f94d49fa9e0055f8abb7efd8014f0",
-    "lastmod": "2026-09-15"
+    "hash": "f3c1ed8d5f17f51c3183f493776cb1c035e9a98bb383df504a6186730ed9e2d7",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-0.8b.html": {
-    "hash": "ba0a023b0bf4dbfb168eba5f69c0b4913073c52e21185c86509e083d81cd0cb9",
-    "lastmod": "2026-09-15"
+    "hash": "f2179f81f44582c148e7ac5a1a7023975f25878a4e34c4abf95e947ed1cb0bb6",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-122b-a10b.html": {
-    "hash": "5b63814f9f744894436ac5757a6212fff3d4b01ae63a604399f2cf9c60afb857",
-    "lastmod": "2026-09-15"
+    "hash": "45484c8ff2f05bc674cd4f3f0e17e2c808c83844876f14ecd62eb6eefeddc608",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-27b.html": {
-    "hash": "c4e78e1e5375e0b08f19e0c4fe0a43bc8ccf436b53debe02d4f91033b9433e14",
-    "lastmod": "2026-09-15"
+    "hash": "6f9f1f9afe6e044fd4c851b4960219550ce7b58ac0cbfc09deb8ee1f0b30fac8",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-2b.html": {
-    "hash": "59886eee79788f75cc19009b828205ed4595f75dca49413d6563d7bcc8779669",
-    "lastmod": "2026-09-15"
+    "hash": "aac2737be04add526ef496029689caaa324b2ba17dbd56de6e85cc546ba18524",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-35b-a3b.html": {
-    "hash": "787ded30c0baa5a5e5e0c846c338199f2e1217b4ee5dc80e7a96c1d766d2e05c",
-    "lastmod": "2026-09-15"
+    "hash": "3e022f9a3c314a188b1f50ddbe248315462cc2d802f874d34fc229e49c5b4211",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-397b-a17b.html": {
-    "hash": "f3470924ae7f17dd490ab30e02942f76ba0e2fe8dfffb1470f7d317cbfb9c8fd",
-    "lastmod": "2026-09-15"
+    "hash": "e6fa854681cad9469b833cff5185c64265d3a0236a71bb5aa6feaf5fc8d990ed",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-4b.html": {
-    "hash": "a4547d83dd6c0c267d355dc41d9397a955d6ad5a8de209f95039784a7e1d3970",
-    "lastmod": "2026-09-15"
+    "hash": "47571def6ab0e73ee90c899bb489c5c2e006c3689e1b5f1111c1bf55576cd2c5",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.5-9b.html": {
-    "hash": "46f3caefca62c30db19acbb785ab72c99490baf30f437444df1b53c5b520ddfc",
-    "lastmod": "2026-09-15"
+    "hash": "115aece1b5b2288ca4f7b748ecdc7520cafec562d20bb88d6b443fd9fba72342",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.6-27b.html": {
-    "hash": "91bbb53c6f731e2aefb3e3173b5776d8b85df3796296d56a7a43281b2702c0ff",
-    "lastmod": "2026-09-15"
+    "hash": "2bfb83df489fce0a2ddf1ef41fdb7083c9bb5df3f9a33146d97eaba9275cb32c",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.6-35b-a3b.html": {
-    "hash": "13079129b74d1706ab2b37b96f7bd1663eab36197b735769e84876a4dbad4dd0",
-    "lastmod": "2026-09-15"
+    "hash": "29f66a87542bf9f5285d058ace97176f8f44923d51ac4814d72ded707ba6d1f1",
+    "lastmod": "2026-09-16"
   },
   "models/qwen3.7-max-preview.html": {
     "hash": "2559c59cfb947398a55e9624272b398d57df4e640ea1f8e3c1e89c922a2a5536",
     "lastmod": "2026-09-10"
   },
   "models/qwen3.8-27b.html": {
-    "hash": "f3ac09bcdd4fe9ab0e584a82722d508ed24f79db32f9e71e6946f39fd7a610f0",
-    "lastmod": "2026-09-15"
+    "hash": "6d594db698ae0afae466b13e8016ff36455d733036b3daa42d9a77ad5c830c95",
+    "lastmod": "2026-09-16"
   },
   "models/qwq-32b.html": {
-    "hash": "d83d0f52dfb6e9e3333ff6d4be90f98e9020fb23f6a715897003f1c1e3947545",
-    "lastmod": "2026-09-15"
+    "hash": "f978d9b822b422650e535448a176bd2a640c24f5f53987399acdd20eb0fd86f0",
+    "lastmod": "2026-09-16"
   },
   "models/r1-1776-14b.html": {
-    "hash": "9dbbe17e57feef7ec9dc09270518862f3a262b8e5edc36eb24a7203b90fe9c14",
-    "lastmod": "2026-09-15"
+    "hash": "cabf901673ddfc4ee5844cea49cecb319190abd8691196b484160a1b4a49b1b9",
+    "lastmod": "2026-09-16"
   },
   "models/reader-lm-1.5b.html": {
-    "hash": "fcb232ecee2fa4b397752a8a984e132426811119fabd12867df5e17d22b9d7a8",
-    "lastmod": "2026-09-15"
+    "hash": "e180dab218963363fb677931115a234e6951af9f35af4b77c6f77782372fae95",
+    "lastmod": "2026-09-16"
   },
   "models/sailor2-8b.html": {
-    "hash": "a1ddd93258753ef864bda02e6656a0c465ae1c32a5bf3d580ee81a8d34ef79ac",
-    "lastmod": "2026-09-15"
+    "hash": "a557bafd912645540f794d871fcd0d0db352465c7bff52ada227996dd3824ac5",
+    "lastmod": "2026-09-16"
   },
   "models/sarvam-30b.html": {
-    "hash": "ae6f2d0b120610cc8d677e72cdc7292253bdb393e0b6d836bfa199387148251c",
-    "lastmod": "2026-09-15"
+    "hash": "075b21f0640d9669315441862a7fdc1395d3327ffbebb94b65aac40b4d9387f2",
+    "lastmod": "2026-09-16"
   },
   "models/smallthinker-3b.html": {
-    "hash": "7ead16167d85526c58941a2839956e6b60f59e7c37163091fad1b18d22c69e79",
-    "lastmod": "2026-09-15"
+    "hash": "0068fc4e726c2446c359a3661f430060d206207a3c32dab27988b9b89c82c99c",
+    "lastmod": "2026-09-16"
   },
   "models/smollm2-1.7b.html": {
-    "hash": "66227ffebb9c34aecaf6c6f6ccb588fded46e12467b241e0036c8186a644b6df",
-    "lastmod": "2026-09-15"
+    "hash": "2787d6e674fa9468c337a392fa14e0ab1283e64f19434dac98f8d8ef5c42f8d1",
+    "lastmod": "2026-09-16"
   },
   "models/solar-pro-22b.html": {
-    "hash": "853c129e19ab0842a787504bd14752f3b8b71f726c1e8bde94b6d76006ce9334",
-    "lastmod": "2026-09-15"
+    "hash": "2bd4cf6ffdb8fc5dc5d045c6b44ac256fb64b03ddb18765f4cc3860265460682",
+    "lastmod": "2026-09-16"
   },
   "models/spark-x2-5-1-7b.html": {
-    "hash": "7f7bc9092a55d3f6c78a6a7adf3534582a571753c42f7be4de193be36b2a5122",
-    "lastmod": "2026-09-15"
+    "hash": "5752ae32826859211fbbb3f80ae8f728ac96e0c8da0fa8e3e7102d0948cf60cd",
+    "lastmod": "2026-09-16"
   },
   "models/spark-x2-5-4b.html": {
-    "hash": "a64166cc54eea4c2c75e03a44f02fa1ca5111ba8c5f2f0219e381651b8c74436",
-    "lastmod": "2026-09-15"
+    "hash": "366cc1a0b59b4d13e85542bc282a5882d574daf3edee583393a2ddf71089f03f",
+    "lastmod": "2026-09-16"
   },
   "models/sqlcoder-15b.html": {
-    "hash": "c0c2ad0aea4d41b83f9caf5f695a6737c76d38db46d9a9dc9d9a7bae281dbfd1",
-    "lastmod": "2026-09-15"
+    "hash": "042de2d6b918ff48ec31dd0ec338acdcee343fb93443760ba559eaf33dcaeebe",
+    "lastmod": "2026-09-16"
   },
   "models/starcoder2-15b.html": {
-    "hash": "e3a185e668cd553dc6f645377f0f79ee1c02a5d6b3dba321b4aa1a73a194441b",
-    "lastmod": "2026-09-15"
+    "hash": "77154d8b54db0ad856761acb284d3d1b6c801674f8d3d69b8ccdc7a8bb927aa4",
+    "lastmod": "2026-09-16"
   },
   "models/step3.5-flash.html": {
-    "hash": "3ea62e7a8e13ec2a57e81458f524f4a6c7d44013f4e389e5727ffaa341869752",
-    "lastmod": "2026-09-15"
+    "hash": "7a437390c2760d5a392b6028744b2450bce383111cd958a3ff3206884d2370ab",
+    "lastmod": "2026-09-16"
   },
   "models/tinyllama-1.1b.html": {
-    "hash": "aae785ceb4ee5c63f7b78e4a22b86635d29ed4e6cc0d7575e0a4d49ffeb10585",
-    "lastmod": "2026-09-15"
+    "hash": "f4e0ae4931cc669be0c534ddb486a2ca6e027945951fef51642fbd2e8ccd4a9b",
+    "lastmod": "2026-09-16"
   },
   "models/trinity-large.html": {
-    "hash": "413bbce5d14acf5f1b8a4c1a2d2757f661417cf333f4b77ecebd9a5d43fc2a1e",
-    "lastmod": "2026-09-15"
+    "hash": "c55bc59e782094e8ac89cf6f603b1dac887b39e9807c48a4ea900d1705f93565",
+    "lastmod": "2026-09-16"
   },
   "models/tulu3-8b.html": {
-    "hash": "470941fecf8fc3fd01ce60ecb8e7a321a068867d88ed7cedf6e8a7be3f799b8c",
-    "lastmod": "2026-09-15"
+    "hash": "32fe884d674005e417e44dfdbe77c4a5d84ad7e6c8c349755f0bf72c7b958e9f",
+    "lastmod": "2026-09-16"
   },
   "models/wizardlm2-8x22b.html": {
-    "hash": "3107be43286d5d266dad315e463e4d8a9357ea0e98b49632dd01fa73c5f1d540",
-    "lastmod": "2026-09-15"
+    "hash": "18f1dd076400dc3721d51f76038520a81b671cb4fcd84c311f812473604ad783",
+    "lastmod": "2026-09-16"
   },
   "models/yi-34b.html": {
-    "hash": "69ed2f80860e2542b7cc7e39ea3b435e25b65c8da1770a4c0e8b2f1eb2b56a7b",
-    "lastmod": "2026-09-15"
+    "hash": "addceff363eb8dd1fb2fc6fd6d191ca23a771ff611e85c61e3a2ddf8f7efd10b",
+    "lastmod": "2026-09-16"
   },
   "models/yi-coder-9b.html": {
-    "hash": "bb705b6839b887b868d35d05781e672421ace89e473e022a48e6f1239e902115",
-    "lastmod": "2026-09-15"
+    "hash": "16f8730089567b0a6cc11a3af2d2f52d33055fe024eea51c8b05b7bee68aa35a",
+    "lastmod": "2026-09-16"
   },
   "models/zaya1-8b.html": {
-    "hash": "cfe484ffdec43922a46118bd435704969dd743c3444b060d697f098c812e3b0d",
-    "lastmod": "2026-09-15"
+    "hash": "0bb14c044beb745c18eb5a943347df2fd6c8e0b86667fbe597489f450c822aa5",
+    "lastmod": "2026-09-16"
   },
   "models/zephyr-7b.html": {
-    "hash": "c8db97ada2008f83a49c774c813ef3fd08287309af45051e5f8d0c5aee6c86ea",
-    "lastmod": "2026-09-15"
+    "hash": "575a61a0dd7d6d8739d14119c640114feff5c85920293220aa80d4a01298c4d8",
+    "lastmod": "2026-09-16"
   },
   "tts/ark-asr-3b.html": {
     "hash": "f5567a225c7663e451c779f9a9608597a325b11e7757bd1134263f9fd42d0898",
@@ -2076,172 +2080,172 @@
     "lastmod": "2026-09-10"
   },
   "ram/128gb.html": {
-    "hash": "97b6bcefd2272ec9315c5bffa91ec5c0b94215fc94e7d4851f4a21a66ce8ae4d",
-    "lastmod": "2026-09-15"
+    "hash": "4e3cc2cff3c3d8f2abe6f0770d32b87e1a1d9fbbc5ead7b2d2a84c46889cd551",
+    "lastmod": "2026-09-16"
   },
   "ram/16gb.html": {
-    "hash": "24fa87e9e04ecae6ef14812b73fffe0230b55516f9cb61359416b987e674c856",
-    "lastmod": "2026-09-15"
+    "hash": "52358ecbbe40764c4a785ceb4767f2891f64f8ba7e97ee3d67d42e4866ca8f3f",
+    "lastmod": "2026-09-16"
   },
   "ram/32gb.html": {
-    "hash": "6771f02987e1692dc9773713d7fd4bcf70f2feaf981bdb4781b9a352cee824c1",
-    "lastmod": "2026-09-15"
+    "hash": "3aa2dfadf7ffd3275d4b3d3734c6cd3146e6348d4880cbe96065f15ff59ebe08",
+    "lastmod": "2026-09-16"
   },
   "ram/64gb.html": {
-    "hash": "c2761e27360d16381f850be01fde3a27087a65d4858b225475efade7b776a15f",
-    "lastmod": "2026-09-15"
+    "hash": "5a5f1d9c1795b709a5ee9bfca6113051f67884ed440eafe40e47d9e5d0945852",
+    "lastmod": "2026-09-16"
   },
   "ram/8gb.html": {
-    "hash": "459e3769226e7a460f58323e9ec06acb3081ad5ac9ea10b0eb3fac76d173f37b",
-    "lastmod": "2026-09-15"
+    "hash": "4efe397b6cf5f6ad911b992c810a242a58239aca273b8ed8aeb482041724c8cf",
+    "lastmod": "2026-09-16"
   },
   "ram/index.html": {
     "hash": "42052b4a0be12cca81a14ca273588d78aec569d7f488518e91beef837a388db0",
     "lastmod": "2026-09-10"
   },
   "hardware/index.html": {
-    "hash": "2b1ec5f7893be16f4b8859d771e227c08753512428278fe4efd42c1197e7299c",
-    "lastmod": "2026-09-15"
+    "hash": "b845f40ea705a700c491d4e99b62bda7dbf1c007cb7111bad5b6c39b946e66ea",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m4-16gb.html": {
-    "hash": "2237f2b2a3dc486a0a8afd60c752d0349d519a48c81574597bb1534f95ab09c4",
-    "lastmod": "2026-09-15"
+    "hash": "c33db424887093a3c8c3bb38334847e553c03123f32388955054d04052a0fdb1",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m4-pro-24gb.html": {
-    "hash": "4cb436d2ef0cebdf7460908fd9674dc9c16c508a0c536bf21c788ddb3e07f54e",
-    "lastmod": "2026-09-15"
+    "hash": "741a9b8ab8b30f4716e3cdd44edf36c015b5bb61d3cad333c9a664c173386cda",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m4-pro-48gb.html": {
-    "hash": "0dfe47e16fd797bdd50fd13a1bb2c599c4f73e148e4f3bdd1ffcbef817243884",
-    "lastmod": "2026-09-15"
+    "hash": "1c8178137a6bff795f8d0347f8087ce09e802414e607b7827c92f162a59dd37d",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m5-pro-24gb.html": {
-    "hash": "b0784bdb7f42629b1803a8068edcd6fce5516411c8cfc7a1a0181843153c19be",
-    "lastmod": "2026-09-15"
+    "hash": "39e311bac5f9f126e40e4c5e2a52de8831a4812f9d113c66a8b382333ce5f458",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m5-pro-64gb.html": {
-    "hash": "2a8d3011e02c221209801e7601d87962d86e90750bffc8d5117813059a968f2b",
-    "lastmod": "2026-09-15"
+    "hash": "263a076e4eac94f003d3da24841f23f482a2e9d4b4370425b5c153bfa9b1878a",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m6-16gb.html": {
-    "hash": "8e58114439aad714de9cd84a3b6bab37a4521357a58d564de9f5094b481eb641",
-    "lastmod": "2026-09-10"
+    "hash": "2d02d459e0c6fd7d17507bfdde885527c5ef543132b88180cbfec30adfda5964",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m6-24gb.html": {
-    "hash": "2ba74c90f6eaedd62b9dfa6253e7f720e11eb1378813f8f0f1425741457593d8",
-    "lastmod": "2026-09-15"
+    "hash": "113d4e19113e7f124101279ee0825cbdd9ddd624c33edea62e905d03ded7e816",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-mini-m6-32gb.html": {
-    "hash": "5027514cc71e8d910669302587f1cafc8c77ac12f0dbdf32016a7d5323221ef6",
-    "lastmod": "2026-09-15"
+    "hash": "ad61a6b4a1a0c0729c2329c8d69f0e11159f4d73839d8580e526ca53d25b7585",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m3-ultra-128gb.html": {
-    "hash": "9eb8e3c5094834b7a8ff7cf612ef990a1d77d0030794de11d39e41e8dc7b485b",
-    "lastmod": "2026-09-15"
+    "hash": "36a1ed60be842fbdbdfe7bd3238393604ad3148e50e4237a629b835adb971213",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m3-ultra-256gb.html": {
-    "hash": "eed2d9268fedb1c0a8111aa39b9d040c615a13e6d0a346a44ac7ecbe24329930",
-    "lastmod": "2026-09-15"
+    "hash": "85cf09cf24a3ba39a3b8a8772d0998f5d6216e5931d11aa17f0bb573668053c0",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m3-ultra-512gb.html": {
-    "hash": "3c9c73f5a0327f0f88f9bc139a275b898b87b5f9d022493016028c52daefec6e",
-    "lastmod": "2026-09-15"
+    "hash": "002b352f89dad5d139cd32e533304fdfbaf23404735692dcbb54c01ebf4fcd30",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m4-max-128gb.html": {
-    "hash": "0c050fd67a73936f6b6ce0392cddccbe227425804dc16240a678fecdac2c3980",
-    "lastmod": "2026-09-15"
+    "hash": "526d43b32c044d327d0248b1f535e201d210950f3040117d8ca5350c129d8e48",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m4-max-64gb.html": {
-    "hash": "09520571ef611122f91244819ca7e377ddb68c047a12771c3b7906e194648d5d",
-    "lastmod": "2026-09-15"
+    "hash": "f83a8e29046d3ba5d06f3b815b045b014be2be3a1abcdc7ac731ea56ae050ffa",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-max-128gb.html": {
-    "hash": "c9e0e6608cef7e84cbc248ed853c236a3700446bfc82505e03edf5b4fe02d953",
-    "lastmod": "2026-09-15"
+    "hash": "6636e96c07d04907696bf30b50089122c192e36f2ac0051fb68a03db806b46df",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-max-36gb.html": {
-    "hash": "41f493ffc0f4a5a7f394803a384d8c1cf4db1b0306b8a5216d5cb68044040d05",
-    "lastmod": "2026-09-15"
+    "hash": "f4110dccfc94a383d1e5b2b8667215f857f5b31bbafcfdc32b2299a680b02346",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-max-64gb.html": {
-    "hash": "3a1e8465e36ab9955a655da1321b4d5fb3ee1f386ee64c5ff6e9d3f0191be393",
-    "lastmod": "2026-09-15"
+    "hash": "a316dd7dd0b457674478b6c5152622e09e1ede9b857e6256133ac5bfe4de07be",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-ultra-256gb.html": {
-    "hash": "df87ff4c2c074f01fc38fea2ba4093bc911d951d93ffb9f151765294d0ff37e1",
-    "lastmod": "2026-09-15"
+    "hash": "1707dec8b4c1e7250bc1e621f813cd7a1e0fef0454099148c3f54b23a26deaf5",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-ultra-512gb.html": {
-    "hash": "6bd5c4ac6d6cd6c83f769b7a132e918b01be80d241e774c50e96b6af8bd2bf33",
-    "lastmod": "2026-09-15"
+    "hash": "616ac9eac6172580bcb4622db7716709d40eb2f0156b359fffae4d25326c479a",
+    "lastmod": "2026-09-16"
   },
   "hardware/mac-studio-m5-ultra-96gb.html": {
-    "hash": "791a7d4d65468c3badecfa821526ce0d85482a5450f1cae6d30619bdce91719f",
-    "lastmod": "2026-09-15"
+    "hash": "08c3470094198424f766a77a3258e2ca77029a66b201264d80c89367dbe8ca4d",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m2-8gb.html": {
-    "hash": "5db534e1f2e7b91033b4f0f1a6298226ca735fef66320167926ee936cccc7747",
-    "lastmod": "2026-09-15"
+    "hash": "4c3f2655e5ecec64664a9ac8b40e1b93ab31e60430a132ae434e37d1ce52c86e",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m3-16gb.html": {
-    "hash": "0c7c544b89dbf66da93078ed934ab6eac155d24583438a47c49e93e792c5ac1b",
-    "lastmod": "2026-09-15"
+    "hash": "8fa53ffc9e38d0c28956ad34732dec289c7ee0c5b309b2cafa17036d534d2cac",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m3-8gb.html": {
-    "hash": "3399b4ac030d92b37fe21b7ad4e234394fc717f4d30fc8c8ad8bff108617f29c",
-    "lastmod": "2026-09-15"
+    "hash": "8d62e86cba7620a93349f9fcf886603f021793849594367b05b8ccaa692f0a94",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m4-16gb.html": {
-    "hash": "931aaa4037c2788c4c76edb2ddb87aa576402af16b803f79e08cd8deeee2a2fb",
-    "lastmod": "2026-09-15"
+    "hash": "6a4cd5a0ec2f82754b6fe3495c8c4d46fec66395abb2f09a76d1efa3fcf81924",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m5-24gb.html": {
-    "hash": "f301bd411ad0b0a150052f3bde0107a0ea8708bae2c75ae8d5919eb51eb0ccd3",
-    "lastmod": "2026-09-15"
+    "hash": "766cf7bfa9a1a07ec2a197f606e8b0f172fb979eab866afee1747fe404ccbac1",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-air-m5-32gb.html": {
-    "hash": "1e09920322ba93cbf69e7cd8d661c42b2313ca32ffcb47fbffcfb114a7985670",
-    "lastmod": "2026-09-15"
+    "hash": "2fa3c7875f0bff1d535269682465ca572ae944d231511c5ae4bca9877e3411ae",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m4-16gb.html": {
-    "hash": "590ebcbacbd5b73e1e086e12c6d5f86ba25483d9074736550fa14b8a68549054",
-    "lastmod": "2026-09-15"
+    "hash": "075f1e701c93cbbd27c88419ad3cf2325c9154c89406d18e4440ef50a39e1292",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m4-max-36gb.html": {
-    "hash": "68970914ed3ac6f7d222852e72b0112fb3a43ef3a621373a43d53d822b1b05d0",
-    "lastmod": "2026-09-15"
+    "hash": "5fe0757a5b24dd1dbc16540db3870c789796856db5ea6a46937afff5363dd76a",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m4-pro-24gb.html": {
-    "hash": "cab37c7d089d1e38fdf7054d1b3f808f42ca88531a7fe9581fedef9e66d58056",
-    "lastmod": "2026-09-15"
+    "hash": "6847830ad6fc26a7a295acf2686408055d3dd6b3ca98e4a6a6493bbd52f01d06",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m5-32gb.html": {
-    "hash": "fdb4bab1ce6e4687b49880392b8cbf9994983bb2297c2df672e7a13164ffb7bb",
-    "lastmod": "2026-09-15"
+    "hash": "de6b611dfc322db4140a2ff64c74a7ffc82154fa2bdaf43dfb5d95bc3aa6265c",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m5-max-128gb.html": {
-    "hash": "52111334142ff200c475a0a61f8cf701d0b084503ec12eb98333914bac0a6556",
-    "lastmod": "2026-09-15"
+    "hash": "faa056974666029e55c03620a80d9b8be7b22b03cfb7f509e7a0e54cb98e1863",
+    "lastmod": "2026-09-16"
   },
   "hardware/macbook-pro-m5-pro-48gb.html": {
-    "hash": "4efbb830309c59cfd6f58bca21cdb3f413455c40b4e434a22868e50279519dc2",
-    "lastmod": "2026-09-15"
+    "hash": "d46bae432f3ed735f612bac715fd45bd03618789033b055dd2ba670f2dde13ab",
+    "lastmod": "2026-09-16"
   },
   "hardware/new-macs-local-ai.html": {
-    "hash": "3830c3104ec5fcacaa2615c33d04f36510131f8e82614dbe1320e3d66bbda385",
-    "lastmod": "2026-09-15"
+    "hash": "50fdf06d5b1611d75977e8ea0ea52bc0e63a212f24939b0f6d7ad4e67d0fe9cf",
+    "lastmod": "2026-09-16"
   },
   "use-case/chat.html": {
-    "hash": "e0b90237680aca356c7fbc4d6b48a6c0263c6e7a61481ea3534ca5a18f6a535c",
-    "lastmod": "2026-09-15"
+    "hash": "8815cfbfd33ca8bbd7e4f2709e87d2dc104b8491971b7350116971c34cbd9284",
+    "lastmod": "2026-09-16"
   },
   "use-case/coding.html": {
-    "hash": "985364dd9bcf1151bc9263eb35d8f7a2757c2f0802fd72173b013843deca7eb7",
-    "lastmod": "2026-09-15"
+    "hash": "c08587787062c8c2de81b7d195f4228e3a7ffb08e42741cc47fc1ba0e6c06b35",
+    "lastmod": "2026-09-16"
   },
   "use-case/creative-writing.html": {
-    "hash": "cda94e6009e66101382ce2dbaa478829200675a483d7110aec183fffcbbc7232",
-    "lastmod": "2026-09-15"
+    "hash": "286cb8fec245d150ca596759e19c92d342331e4ed0123f0d9c75de0a16caebde",
+    "lastmod": "2026-09-16"
   },
   "use-case/fast.html": {
     "hash": "389a65cfd7927a05d592ca10aa051426b13990ba873490c0f5ce998fc114b6d2",
@@ -2252,36 +2256,36 @@
     "lastmod": "2026-09-10"
   },
   "use-case/multilingual.html": {
-    "hash": "38e5218a092bbae157bcc7c7ac4d3b37196687e77d01a6d62ab144359c818d0b",
-    "lastmod": "2026-09-15"
+    "hash": "b6542e9d79ee6b115b3ae62354876c990548716e84f526ada1124c7b8249a9f7",
+    "lastmod": "2026-09-16"
   },
   "use-case/rag.html": {
-    "hash": "e4aa44b2ed8c7e6337c2d159d27f9537eee3e13cc395341c17a01ea7bf35bc8e",
-    "lastmod": "2026-09-15"
+    "hash": "76786aae2fcece08c81578e4eac83c5902e8515b52e9abccb7cf2ef32ad847f8",
+    "lastmod": "2026-09-16"
   },
   "use-case/reasoning.html": {
-    "hash": "60f7b5fb9f41711853d0f7d26e97de05ac65d81e9a9275e2eb35580560fbc7a4",
-    "lastmod": "2026-09-15"
+    "hash": "f69fb9b3b2fea73d4d0f788dd7a013a4d31bc18287fa349841d05dc5f2feb4a5",
+    "lastmod": "2026-09-16"
   },
   "use-case/vision.html": {
     "hash": "a7d7d475cf7e715fade0aea292024af66eb6764ccdcc44d888ad1eec221de49c",
     "lastmod": "2026-09-10"
   },
   "guides/best-local-llms-for-16gb-ram.html": {
-    "hash": "50fe95350e42f00169282c867457a664bc6b236edeb7c79266f0c45717c09111",
-    "lastmod": "2026-09-10"
+    "hash": "0ecc61a53735e0a5e7eb49df728891eca11565479ffc9de9216280b316e30eef",
+    "lastmod": "2026-09-16"
   },
   "guides/best-local-llms-for-coding.html": {
-    "hash": "4e07eda748b098e79f945f492642e9ca3686be6b6f6184774193e359f66bda27",
-    "lastmod": "2026-09-15"
+    "hash": "731b1fb73bbfe816a3290f89f918e1c8b424b1a14ddcb8f2687ab4a7d83dc8c7",
+    "lastmod": "2026-09-16"
   },
   "guides/best-local-llms-for-mac-mini-m4.html": {
-    "hash": "31891596c52b77b3dd65c828b41acfd79f00f54f360c85dd7438193be3502c04",
-    "lastmod": "2026-09-15"
+    "hash": "ec7610010d5f4e692a55638953a97536e396f1a3741600e237864e0e67694a5a",
+    "lastmod": "2026-09-16"
   },
   "guides/best-local-tts-for-voice-cloning.html": {
-    "hash": "6440ccaea14233560a465fcafc654f34c9a52d1c92cea9e0710f430eb7132869",
-    "lastmod": "2026-09-15"
+    "hash": "dc8ae8cc617034edd4c9efac74c6f508e6e19c407ad783b07ae0fcd2e7edc79a",
+    "lastmod": "2026-09-16"
   },
   "guides/index.html": {
     "hash": "78686a348d9961caff2ab5906e889ca80b461a2ad9c09093ec369f85314c748e",
