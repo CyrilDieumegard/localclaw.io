@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'zing-0.5', name: 'Zing-0.5', category: 'video', developer: 'Seedleap.ai',
+      summary: 'Apache-licensed causal world model for text- or image-initialized video rollouts with live prompt changes and keyboard action control.',
+      tasks: ['text-to-video', 'image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'CUDA', 'Zing inference scripts', 'SGLang server'], output: ['MP4', 'H.264 video'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/seedleap/zing-world-model',
+      install_url: 'https://huggingface.co/seedleap/zing-0.5',
+      hardware_note: 'Seedleap publishes Apache-2.0 Hugging Face weights with generator/model.pt, text encoder, tokenizer and VAE assets, plus an official GitHub inference release for Linux, Python 3.11, PyTorch, CUDA and local JSONL-driven rollouts. The README validates the default 97/9 sliding-window setting on one NVIDIA H100 80 GB and documents a lower-memory 33/5 setting for online realtime inference, while the SGLang companion repo provides a local WebSocket serving path. LocalClaw records 128 GB RAM and 80 GB NVIDIA VRAM as the conservative workstation floor for the documented full offline configuration.',
+      strengths: ['Official Seedleap weights and inference code', 'Prompt switching plus W/A/S/D/I/J/K/L action control during rollouts', 'Standalone script path and SGLang WebSocket serving path'],
+      caveats: ['Technical report and code are young, with limited third-party runtime coverage', 'High-quality default configuration is documented on H100-class hardware', 'Long rollouts can drift or show physical inconsistencies']
+    },
+    {
       id: 'evoke-turbo', name: 'Evoke-Turbo', category: 'video', developer: 'AlayaLab',
       summary: 'Three-step CFG-free interactive world model for prompt, image or reference-video driven 384x640 video rollouts with camera control.',
       tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'world-generation', 'camera-controlled-video'],

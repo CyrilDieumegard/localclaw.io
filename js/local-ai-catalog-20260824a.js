@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'zing-0.5', name: 'Zing-0.5', category: 'video', developer: 'Seedleap.ai',
+      summary: 'Apache-licensed causal world model for text- or image-initialized video rollouts with live prompt changes and keyboard action control.',
+      tasks: ['text-to-video', 'image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'CUDA', 'Zing inference scripts', 'SGLang server'], output: ['MP4', 'H.264 video'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/seedleap/zing-world-model',
+      install_url: 'https://huggingface.co/seedleap/zing-0.5',
+      hardware_note: 'Seedleap publishes Apache-2.0 Hugging Face weights with generator/model.pt, text encoder, tokenizer and VAE assets, plus an official GitHub inference release for Linux, Python 3.11, PyTorch, CUDA and local JSONL-driven rollouts. The README validates the default 97/9 sliding-window setting on one NVIDIA H100 80 GB and documents a lower-memory 33/5 setting for online realtime inference, while the SGLang companion repo provides a local WebSocket serving path. LocalClaw records 128 GB RAM and 80 GB NVIDIA VRAM as the conservative workstation floor for the documented full offline configuration.',
+      strengths: ['Official Seedleap weights and inference code', 'Prompt switching plus W/A/S/D/I/J/K/L action control during rollouts', 'Standalone script path and SGLang WebSocket serving path'],
+      caveats: ['Technical report and code are young, with limited third-party runtime coverage', 'High-quality default configuration is documented on H100-class hardware', 'Long rollouts can drift or show physical inconsistencies']
+    },
+    {
       id: 'evoke-turbo', name: 'Evoke-Turbo', category: 'video', developer: 'AlayaLab',
       summary: 'Three-step CFG-free interactive world model for prompt, image or reference-video driven 384x640 video rollouts with camera control.',
       tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'world-generation', 'camera-controlled-video'],
@@ -956,6 +969,18 @@
       hardware_note: 'The release targets Linux, Python 3.10+, PyTorch 2.5.1 and CUDA 12.1. Official benchmarks report 6.71 GiB on H100 at 504x280, but 16 GB NVIDIA VRAM is a safer floor for practical local exports.',
       strengths: ['Public checkpoint and inference code', 'Bounded-memory long-video reconstruction', 'PLY export script for RGB point clouds'],
       caveats: ['Non-commercial model weights', 'Training recipes were still pending at release', 'Mesh texturing is outside the base reconstruction output']
+    },
+    {
+      id: 'asset-harvester', name: 'Asset Harvester', category: '3d', developer: 'NVIDIA',
+      summary: 'Image-to-3D system that turns sparse autonomous-driving object views into reusable 3D Gaussian PLY assets.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'asset-generation', 'simulation-assets'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 30,
+      runtime: ['PyTorch', 'Diffusers', 'gsplat', 'CLI'], output: ['PLY', '3D Gaussian', 'Metadata YAML'],
+      local_status: 'local', license: 'NVIDIA Open Model License; Apache 2.0 code', released: '2026-04',
+      source_url: 'https://github.com/NVIDIA/asset-harvester', install_url: 'https://huggingface.co/nvidia/asset-harvester',
+      hardware_note: 'The official model card lists Linux, NVIDIA Ampere/Hopper/Lovelace/Blackwell GPUs, CUDA compute capability 8.0 or newer, 32 GB system RAM, 100 GB disk and at least 30 GB GPU memory. The GitHub README provides a local conda setup, Hugging Face checkpoint download commands and run_inference.py workflows that export Gaussian PLY assets, with a lower-VRAM CPU-offload option for small sample runs.',
+      strengths: ['Official NVIDIA code and checkpoints', 'Single-image or sparse-view object workflow', 'Exports reusable 3D Gaussian PLY assets for simulation pipelines'],
+      caveats: ['Specialized for vehicles, VRUs and road-object assets from driving logs', 'NCore/NuRec integration is useful but not required for the sample image workflow', 'Safety-critical simulation use still needs domain validation of generated assets']
     },
     {
       id: 'hunyuan3d-2-mini-turbo', name: 'Hunyuan3D 2 Mini Turbo', category: '3d', developer: 'Tencent Hunyuan',

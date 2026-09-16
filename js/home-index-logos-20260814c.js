@@ -218,6 +218,7 @@ window.HOME_INDEX_LOGOS = {
     'Qwen Team': 'qwen',
     'Robbyant / Ant Group': 'github',
     'Roblox Foundation AI': 'github',
+    'Seedleap.ai': 'github',
     'ShowLab': 'github',
     'Skywork AI': 'github',
     'Stability AI': 'stabilityai-avatar',
