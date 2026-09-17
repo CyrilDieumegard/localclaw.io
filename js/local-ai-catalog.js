@@ -14,6 +14,32 @@
       caveats: ['Technical report and code are young, with limited third-party runtime coverage', 'High-quality default configuration is documented on H100-class hardware', 'Long rollouts can drift or show physical inconsistencies']
     },
     {
+      id: 'shotstream', name: 'ShotStream', category: 'video', developer: 'Kling Team / CUHK',
+      summary: 'Apache-licensed causal multi-shot video model for streaming text-to-video storytelling on top of Wan 2.1 1.3B.',
+      tasks: ['text-to-video', 'streaming-video', 'multi-shot-video', 'long-video-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Wan 2.1', 'ShotStream scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0 model card; GitHub code has no detected license file', released: '2026-03',
+      source_url: 'https://github.com/KlingAIResearch/ShotStream',
+      install_url: 'https://huggingface.co/KlingTeam/ShotStream',
+      hardware_note: 'Kling Team publishes Hugging Face checkpoints for ShotStream plus an official GitHub implementation with Python 3.10, CUDA 12.4/12.8, PyTorch 2.8, FlashAttention, Wan 2.1 T2V 1.3B base downloads and a single-GPU CUDA_VISIBLE_DEVICES=0 inference script. The public config targets 480 x 832, 81-frame style generation and the README reports 16 FPS on a single NVIDIA GPU, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative practical floor for Wan 1.3B experiments until exact card measurements are published.',
+      strengths: ['Official Kling Team / CUHK weights and reference implementation', 'Streaming next-shot generation with historical context', 'Four-step autoregressive long multi-shot inference path'],
+      caveats: ['GitHub repository does not expose a license file even though the Hugging Face model card is Apache-2.0', 'Demo prompts are described as distribution-shifted from internal training data', 'Specialized interactive storytelling workflow rather than a general editor']
+    },
+    {
+      id: 'unityvideo', name: 'UnityVideo Wan2.2-TI2V-5B', category: 'video', developer: 'JIA Lab / Kling Team',
+      summary: 'MIT/Apache-licensed Wan 2.2 control-video model that maps between RGB video and depth, DensePose, optical-flow, segmentation or skeleton modalities.',
+      tasks: ['text-to-video', 'video-to-video', 'controlled-video-generation', 'depth-to-video', 'video-to-depth'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'UnityVideo CLI', 'Wan 2.2'], output: ['MP4', 'modality video'],
+      local_status: 'local', license: 'MIT code; Apache 2.0 checkpoint metadata; Wan 2.2 component terms apply', released: '2026-07',
+      source_url: 'https://github.com/JIA-Lab-research/UnityVideo',
+      install_url: 'https://huggingface.co/KlingTeam/UnityVideo',
+      hardware_note: 'JIA Lab publishes MIT-licensed code and KlingTeam publishes Apache-2.0 Hugging Face checkpoint metadata with two 10.0 GB safetensors files. The CLI downloads the UnityVideo checkpoint and Wan2.2-TI2V-5B components, supports video2flow, flow2video and text2all modes, and the released examples target 33 frames at 256 x 256. Training is documented at about 70 GB per rank on 80 GB accelerators, but LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative inference floor for the small default local examples.',
+      strengths: ['Official code and full two-stream DiT checkpoints', 'Five control modalities in one model', 'Local CLI covers RGB-to-modality, modality-to-RGB and joint text generation'],
+      caveats: ['Released checkpoint is evaluated at only 256 x 256 and 33 frames', 'Higher resolutions and longer clips need independent validation', 'Requires Wan 2.2 base VAE, text encoder, tokenizer and configuration assets']
+    },
+    {
       id: 'evoke-turbo', name: 'Evoke-Turbo', category: 'video', developer: 'AlayaLab',
       summary: 'Three-step CFG-free interactive world model for prompt, image or reference-video driven 384x640 video rollouts with camera control.',
       tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'world-generation', 'camera-controlled-video'],
