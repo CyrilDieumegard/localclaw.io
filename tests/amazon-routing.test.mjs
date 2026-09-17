@@ -19,7 +19,7 @@ test('exact variants never cross memory, condition or country boundaries',()=>{
 test('country selection is allowlisted and manual choice takes priority',()=>{
   assert.equal(selectMarket('', 'CH'),'DE'); assert.equal(selectMarket('FR','CH'),'FR');
   assert.equal(selectMarket('https://evil.test','FR'),'FR');assert.equal(selectMarket('__proto__','CA'),'CA');
-  assert.equal(selectMarket('','XX'),'US');assert.equal(selectMarket('','IN'),'IN');
+  assert.equal(selectMarket('','XX'),'US');assert.equal(selectMarket('','IN'),'US');
 });
 test('compact Amazon configurations preserve exact SSD, memory and marketplace',()=>{
   for(const [query,market,asin] of [
@@ -45,7 +45,7 @@ test('registered family tags are distinct; international activation preserves ol
     assert.equal(de.searchParams.get('tag'),'localclaw-20');
     const ready=new URL(localDestination('test computer','DE',null,family,now+2*86400000));
     assert.equal(ready.searchParams.get('tag'),FAMILY_TAGS[family]);
-    assert.equal(new URL(localDestination('test computer','IN',null,family,now)).searchParams.get('tag'),null);
+    assert.equal(new URL(localDestination('test computer','IN',null,family,now)).searchParams.get('tag'),'localclaw-20');
   }
   for(const market of Object.keys(MARKETS)){
     const destination=new URL(localDestination('DDR5 64GB',market));
@@ -72,9 +72,40 @@ test('HTML escapes supplied text, rejects invalid input and is never cached',asy
 });
 test('family click goal fires once alongside the separately handled aggregate goal',()=>{
   let listener;const events=[];
-  vm.runInNewContext(fs.readFileSync(new URL('../js/amazon-offers-20260911.js',import.meta.url),'utf8'),{document:{addEventListener:(name,fn)=>listener=fn},window:{datafast:(...args)=>events.push(args)}});
+  vm.runInNewContext(fs.readFileSync(new URL('../js/amazon-offers-20260917.js',import.meta.url),'utf8'),{document:{addEventListener:(name,fn)=>listener=fn},window:{datafast:(...args)=>events.push(args)}});
   const link={getAttribute:name=>name==='data-fast-goal-family'?'diy':'test'};
   listener({target:{closest:()=>link}});
   assert.equal(events.length,1);assert.equal(events[0][0],'amazon_diy_click');
   assert.equal(events[0][1].family,'diy');
+});
+
+test('unsupported countries and legacy market URLs always offer tagged destinations',async()=>{
+  for (const country of ['IE','BR','AU','JP','IN','MX','BE','SG']) {
+    for (const family of Object.keys(FAMILY_TAGS)) {
+      const res=await onRequestGet({request:request(`q=DDR5+64GB&family=${family}&market=${country}`,country)});
+      const html=await res.text();
+      assert.equal(res.status,200);
+      assert.match(html,/Showing Amazon.com. Check delivery/);
+      assert.ok(!html.includes(`value="${country}"`));
+      assert.ok(!html.includes('data-fast-goal-attribution="none"'));
+      const links=[...html.matchAll(/<a[^>]+href="(https:[^"]+)"[^>]*data-fast-goal="amazon_click"[^>]*>/g)];
+      assert.ok(links.length);
+      for (const [,href] of links) {
+        const url=new URL(href.replaceAll('&amp;','&'));
+        assert.equal(url.hostname,'www.amazon.com');
+        assert.ok([FAMILY_TAGS[family],'localclaw-20'].includes(url.searchParams.get('tag')));
+      }
+    }
+  }
+});
+test('outbound analytics describe the linked store, not the previously selected store',async()=>{
+  const html=await (await onRequestGet({request:request('q=DDR5+64GB&market=DE&family=gpuram','CH')})).text();
+  const primary=html.match(/<a class="primary"[^>]+>/)[0];
+  const secondary=html.match(/<a class="secondary"[^>]+>/)[0];
+  assert.match(primary,/data-fast-goal-market="DE"/);
+  assert.match(primary,/data-fast-goal-destination_host="www.amazon.de"/);
+  assert.match(secondary,/data-fast-goal-market="US"/);
+  assert.match(secondary,/data-fast-goal-selected_market="DE"/);
+  assert.match(secondary,/data-fast-goal-destination_host="www.amazon.com"/);
+  assert.match(secondary,/data-fast-goal-tag="localclaw-gpuram-20"/);
 });
