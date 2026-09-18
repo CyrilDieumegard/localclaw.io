@@ -201,6 +201,7 @@ window.HOME_INDEX_LOGOS = {
     'Meta AI': 'meta',
     'Meituan LongCat': 'longcat',
     'Meta AI / Carnegie Mellon University': 'meta',
+    'Meta AI / FAIR': 'meta',
     'Meta AI / HKUST': 'meta',
     'Mirage AI': 'github',
     'MiniMax': 'minimax',

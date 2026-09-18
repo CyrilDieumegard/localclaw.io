@@ -780,6 +780,18 @@
       caveats: ['Noncommercial research license', 'Requires an existing mesh or point-cloud condition', 'Optional image conditioning depends on separate DINOv3 access']
     },
     {
+      id: 'actionmesh', name: 'ActionMesh', category: '3d', developer: 'Meta AI / FAIR',
+      summary: 'Temporal 3D diffusion model that turns a monocular video or image sequence into a topology-consistent animated GLB mesh.',
+      tasks: ['video-to-3d', 'image-to-3d', 'mesh-generation', 'mesh-animation', 'asset-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 32,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'Blender'], output: ['GLB', 'Animated mesh', 'Shape key animation'],
+      local_status: 'local', license: 'FAIR Noncommercial Research License', released: '2026-01',
+      source_url: 'https://github.com/facebookresearch/actionmesh', install_url: 'https://huggingface.co/facebook/ActionMesh',
+      hardware_note: 'The official Hugging Face model card links to the facebookresearch/actionmesh repository and states that ActionMesh requires an NVIDIA GPU with at least 32 GB VRAM. The local setup clones the repo with submodules, installs the Python package, downloads the safetensors autoencoder and denoiser checkpoints on first use, and runs video_to_animated_mesh.py. The official Gradio app wraps the same stack, installs Blender 3.5.1 on Linux, and exports an animated GLB mesh with shape-key animation, so LocalClaw records 64 GB RAM and 32 GB NVIDIA VRAM as the conservative floor.',
+      strengths: ['Official Meta weights and repository', 'Generates animated topology-consistent meshes', 'Exports animated GLB assets usable in 3D tools'],
+      caveats: ['Noncommercial research license', 'Linux/NVIDIA workstation workflow with Blender and submodules', 'Video-to-4D asset generation rather than general static text-to-3D']
+    },
+    {
       id: 'shaper', name: 'ShapeR', category: '3d', developer: 'Meta AI',
       summary: 'Meta casual-capture reconstruction model that converts preprocessed multi-view object captures into metric GLB meshes.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'scene-reconstruction', 'casual-capture-reconstruction'],
