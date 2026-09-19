@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'self-gradient-forcing', name: 'Self Gradient Forcing', category: 'video', developer: 'Junhao Zhuang / Joy Future Academy / JD',
+      summary: 'Apache-licensed autoregressive video diffusion release for minute-scale local text-to-video extrapolation from 5-second training windows.',
+      tasks: ['text-to-video', 'long-video-generation', 'animation', 'streaming-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'FlashAttention', 'Self Gradient Forcing scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.1 and Causal-Forcing component terms apply', released: '2026-07',
+      source_url: 'https://github.com/zhuang2002/Self_Gradient_Forcing',
+      install_url: 'https://huggingface.co/JunhaoZhuang/Self_Gradient_Forcing',
+      hardware_note: 'The official GitHub release documents Python 3.10, PyTorch, FlashAttention, CUDA setup, a Hugging Face weight downloader, and framewise or chunkwise inference scripts. The public Hugging Face repository exposes Apache-2.0 model.pt checkpoints for both framewise and chunkwise SGF plus Causal-Forcing initialization weights, with direct unauthenticated downloads around 5.4 GB each. The launcher uses eight GPUs when available but falls back to single-GPU serial inference; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative entry floor for reduced single-GPU experiments because the default 240-second examples can be much heavier.',
+      strengths: ['Official public code, training scripts and checkpoints', 'Framewise and chunkwise long-video extrapolation modes', 'Single-GPU fallback path despite multi-GPU default launcher'],
+      caveats: ['Default 963-latent-frame examples are slow and memory-heavy', 'Research stack depends on Wan and Causal-Forcing components', 'No official consumer VRAM table is published yet']
+    },
+    {
+      id: '4danyone', name: '4DAnyone', category: 'video', developer: 'Ant Research',
+      summary: 'Video-to-video model that turns a casual monocular human video into multiview-consistent videos for free-viewpoint 4D reconstruction.',
+      tasks: ['video-to-video', 'multiview-video-generation', 'novel-view-synthesis', '4d-human-reconstruction', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Gradio GUI', 'Rerun viewer'], output: ['MP4', 'camera metadata', '4DGS-ready multiview video'],
+      local_status: 'local', license: 'Multiple asset licenses; first-party checkpoint is Apache 2.0', released: '2026-09',
+      source_url: 'https://github.com/ant-research/4DAnyone',
+      install_url: 'https://huggingface.co/AntResearch/4DAnyone',
+      hardware_note: 'Ant Research publishes official code, a local CLI, a GUI, and a public Hugging Face model repository with 4danyone/model.safetensors plus VAE, prompt context, SMPL-X regressor and support assets. The README reports peak CUDA memory below 24 GB, 27 seconds per 121-frame target-view video on one RTX 4090, and automatic model/example downloads; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative practical floor for the Turbo inference path.',
+      strengths: ['Official Ant Research weights, CLI and interactive GUI', 'Runs under the 24 GB CUDA memory threshold reported by the authors', 'Produces synchronized multiview outputs for downstream 4D Gaussian Splatting'],
+      caveats: ['Human-centric reconstruction model, not a prompt-only generator', 'Repository combines Apache-2.0 first-party weights with third-party non-commercial, research, AGPL and attribution-licensed assets', 'Input quality and pose recovery strongly affect final multiview consistency']
+    },
+    {
       id: 'zing-0.5', name: 'Zing-0.5', category: 'video', developer: 'Seedleap.ai',
       summary: 'Apache-licensed causal world model for text- or image-initialized video rollouts with live prompt changes and keyboard action control.',
       tasks: ['text-to-video', 'image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
