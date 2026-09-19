@@ -283,6 +283,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 5.49
   },
   {
+    "id": "longcat-audiodit-3.5b",
+    "name": "LongCat-AudioDiT 3.5B",
+    "developer": "Meituan LongCat",
+    "family": "longcat",
+    "license": "MIT",
+    "releaseDate": "2026-03-30",
+    "quality": 9.5,
+    "speed": 7.1,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 6.9
+  },
+  {
     "id": "melotts",
     "name": "MeloTTS",
     "developer": "MYShell",
