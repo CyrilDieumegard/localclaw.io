@@ -122,3 +122,6 @@ body.lc-home-index :is(.lc-index-score, .lc-index-ram-value, .lc-index-community
         transition: none;
     }
 }
+
+/* Separate the optional Mac app from the workspace panel below it. */
+body.lc-home-index .lc-launch--strip { margin-bottom: 24px; }
