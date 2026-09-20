@@ -945,6 +945,17 @@
       caveats: ['CUDA-oriented', 'Texture stage increases memory and runtime']
     },
     {
+      id: 'hunyuan3d-omni', name: 'Hunyuan3D-Omni', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Controllable 3D asset generator that extends Hunyuan3D 2.1 with point-cloud, voxel, bounding-box and pose conditioning.',
+      tasks: ['image-to-3d', 'mesh-generation', 'controllable-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 10, runtime: ['PyTorch', 'CLI'],
+      output: ['GLB', 'PLY'], local_status: 'local', license: 'Tencent Hunyuan 3D Omni community license', released: '2025-09',
+      source_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Omni', install_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Omni',
+      hardware_note: 'The official repository documents Python 3.10, PyTorch 2.5.1 with CUDA 12.4 wheels, local Hugging Face checkpoint loading and four CLI control modes. Tencent states generation takes 10 GB VRAM; LocalClaw records 32 GB RAM and 10 GB NVIDIA VRAM as the entry floor.',
+      strengths: ['Official 3.3B checkpoint', 'Point, voxel, bounding-box and pose controls', 'Inference script exports GLB meshes and PLY point clouds'],
+      caveats: ['Community license excludes some territories and has hosted-service conditions', 'Shape generation only; use another stage for full texture/PBR work', 'CUDA-oriented research stack']
+    },
+    {
       id: 'trellis-image-large', name: 'TRELLIS Image Large', category: '3d', developer: 'Microsoft Research',
       summary: 'High-quality image-to-3D generation producing meshes, radiance fields and 3D Gaussian assets.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'mesh-generation'], platforms: ['linux'],
