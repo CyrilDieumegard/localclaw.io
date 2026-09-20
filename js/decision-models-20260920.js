@@ -1,0 +1,4 @@
+
+const cases={current:{message:'“The service is unavailable right now.”',decision:'Expected decision → yes',reason:'The message explicitly says the problem is happening now.'},past:{message:'“Was the service unavailable yesterday?”',decision:'Expected decision → no',reason:'The message asks about the past. It does not report a current outage.'},unclear:{message:'“It is doing that thing again.”',decision:'Application policy → ask for context',reason:'There is not enough information to identify an outage. A forced yes/no answer would hide that ambiguity.'}};
+document.querySelectorAll('[data-case]').forEach(button=>button.addEventListener('click',()=>{const entry=cases[button.dataset.case];document.querySelectorAll('[data-case]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));for(const key of ['message','decision','reason'])document.getElementById(key).textContent=entry[key];}));
+
