@@ -1,0 +1,37 @@
+/* A quieter release feed. Keep catalogue data, chronology and actions intact. */
+body.lc-new-page{--new-surface:#101012;--new-border:#29292d;--new-muted:#a1a1aa;--new-accent:#ff453a}
+html.light body.lc-new-page{--new-surface:#fff;--new-border:#d7dce4;--new-muted:#52525b;--new-accent:#c92f28}
+body.lc-new-page #bg-circuit,body.lc-new-page>div.fixed.inset-0[aria-hidden]{display:none}
+body.lc-new-page .lc-new-intro{text-align:left;padding-top:48px;padding-bottom:32px}
+body.lc-new-page .lc-new-intro h1{font-size:clamp(32px,4.5vw,50px);line-height:1.12;letter-spacing:-1.7px;margin-bottom:20px;max-width:800px}
+body.lc-new-page .lc-new-intro h1 span{background:none;color:var(--new-accent);-webkit-text-fill-color:var(--new-accent)}
+body.lc-new-page .lc-new-intro>p{margin-left:0;margin-right:0;font-size:15px;line-height:1.8;font-weight:400;max-width:740px}
+body.lc-new-page .lc-new-intro>p.text-xs{font-size:12px;color:var(--new-muted)}
+body.lc-new-page .new-pulse{animation:none;box-shadow:none;border:0;background:none!important;padding:0;margin-bottom:18px;font-size:11px;letter-spacing:1.1px}
+body.lc-new-page .lc-new-summary{gap:24px;margin-top:28px;padding:22px 0;border-top:1px solid var(--new-border);border-bottom:1px solid var(--new-border)}
+body.lc-new-page .lc-new-summary article{border:0;border-radius:0;background:transparent!important;padding:0;box-shadow:none}
+body.lc-new-page .lc-new-summary article>p:first-child{color:var(--new-muted)!important;font-size:10px;letter-spacing:1px}
+body.lc-new-page .lc-new-summary h2{font-size:14px;line-height:1.5;margin:5px 0}
+body.lc-new-page .lc-new-summary article>p:last-child{font-size:12px;line-height:1.6}
+body.lc-new-page .card-appear{animation:none;padding-left:26px}
+body.lc-new-page .lc-new-card{background:var(--new-surface)!important;border:1px solid var(--new-border)!important;border-radius:12px;box-shadow:none!important;padding:26px 28px;transition:border-color .15s}
+body.lc-new-page .lc-new-card:hover{border-color:var(--new-muted)!important}
+body.lc-new-page .lc-new-card h3{font-size:23px;letter-spacing:-.5px;line-height:1.4}
+body.lc-new-page .lc-new-card h3>span{font-size:12px;letter-spacing:0;white-space:nowrap}
+body.lc-new-page .lc-new-card p{line-height:1.8;max-width:780px}
+body.lc-new-page .timeline-dot{width:9px;height:9px;border:1px solid var(--new-border);background:var(--new-surface)}
+body.lc-new-page .timeline-dot.first{background:var(--new-accent);border-color:var(--new-accent);box-shadow:none}
+body.lc-new-page .timeline-line{left:4px;width:1px;background:var(--new-border)}
+body.lc-new-page #model-list .bg-gradient-to-r{background:rgba(255,69,58,.08)!important;color:var(--new-accent)!important;border-radius:4px}
+body.lc-new-page #model-list [class*="text-emerald"],body.lc-new-page #model-list [class*="text-blue"],body.lc-new-page #model-list [class*="text-orange"],body.lc-new-page #model-list [class*="text-red"]{background:transparent!important;color:var(--new-muted)!important;border-color:var(--new-border)!important}
+body.lc-new-page #model-list .rounded-full{border-radius:4px;background:transparent!important}
+body.lc-new-page #model-list [class*="text-[10px]"]{font-size:11px}
+body.lc-new-page .bench-bar{height:3px;background:var(--new-border)}
+body.lc-new-page .bench-fill{background:var(--new-muted)!important;transition:none}
+body.lc-new-page .lc-new-copy{text-align:left;min-width:0;background:transparent!important;border-color:var(--new-border)!important;font-family:inherit}
+body.lc-new-page .lc-new-copy>div{min-width:0}
+body.lc-new-page .lc-new-copy code{overflow-wrap:anywhere}
+body.lc-new-page .lc-new-copy:focus-visible{outline:2px solid var(--new-accent);outline-offset:3px}
+body.lc-new-page>section:last-of-type a{box-shadow:none!important}
+body.lc-new-page .claw-toast{background:var(--new-surface);color:var(--text);border-color:var(--new-border);box-shadow:0 4px 18px #0002}
+@media(max-width:640px){body.lc-new-page .lc-new-intro{padding-top:28px}body.lc-new-page .lc-new-summary{gap:18px}body.lc-new-page .lc-new-summary article+article{padding-top:16px;border-top:1px solid var(--new-border)}body.lc-new-page .lc-new-card{padding:20px 18px}body.lc-new-page .card-appear{padding-left:18px}body.lc-new-page .lc-new-card h3{font-size:21px}body.lc-new-page .lc-new-card h3>span{display:block;margin:4px 0 0}}
