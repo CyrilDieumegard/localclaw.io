@@ -40,7 +40,7 @@ const requestedView = Object.freeze({
   brand: requestParams.get('brand') || requestParams.get('family') || '',
   model: requestParams.get('model') || ''
 });
-const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
+const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '180d';
 const ACTIVE_VIEW = requestedMetricView === 'installed'
   ? 'installed'
   : requestedMetricView === 'interest'
@@ -778,7 +778,7 @@ function currentShareUrl() {
   if (ACTIVE_VIEW === 'interest') url.searchParams.set('view', 'interest');
   if (ACTIVE_VIEW === 'installed') url.searchParams.set('view', 'installed');
   if (ACTIVE_VIEW === 'models') url.searchParams.set('view', 'models');
-  if (ACTIVE_PERIOD !== '30d') url.searchParams.set('range', ACTIVE_PERIOD);
+  if (ACTIVE_PERIOD !== '180d') url.searchParams.set('range', ACTIVE_PERIOD);
   const locked = state.locked;
   if (isModelInterestView()) {
     if (state.selectedModelCountry) url.searchParams.set('country', state.selectedModelCountry.name);
@@ -6687,7 +6687,7 @@ function bindInteractions() {
       const url = isModelInterestView() || isInstallIntentView()
         ? new URL(currentShareUrl())
         : new URL(window.location.href);
-      if (period === '30d') url.searchParams.delete('range');
+      if (period === '180d') url.searchParams.delete('range');
       else url.searchParams.set('range', period);
       url.searchParams.delete('v');
       window.location.assign(url);
