@@ -5,6 +5,36 @@ import { MODELS, modelURL, makeMessages, verdictFor } from '../js/labs/config.mj
 import { DECISION_PRESETS, DECISION_EXAMPLES, createDecisionDeck, validateDecision, decisionMessages, scoresFromLogprobs, validateDecisionJSON } from '../js/labs/decisions.mjs';
 import { LABS_FAQ } from '../js/labs/content.mjs';
 
+test('visual explanations are accessible, scoped to Labs and never pretend to be model results', () => {
+  const html = fs.readFileSync(new URL('../labs.html', import.meta.url), 'utf8');
+  const css = fs.readFileSync(new URL('../css/labs-visual-20260922.css', import.meta.url), 'utf8');
+  const guide = fs.readFileSync(new URL('../guides/run-llm-in-browser.html', import.meta.url), 'utf8');
+  const flow = html.match(/<ol class="labs-flow"[^>]*>([\s\S]*?)<\/ol>/)?.[1];
+  assert.ok(flow);
+  assert.equal((flow.match(/<li>/g) || []).length, 3);
+  assert.match(flow, /Once, after you click Load/);
+  assert.match(flow, /using GPU or CPU/);
+  assert.match(html, /class="labs-method-map" aria-labelledby="labs-method-map-title"/);
+  const diagram = html.match(/<figure class="labs-method-map"[\s\S]*?<\/figure>/)[0];
+  assert.match(diagram, /Neither proves calibrated confidence/);
+  assert.doesNotMatch(diagram, /\d+%|\d+\s*ms|\d+\s*tokens\/s/);
+  assert.equal((html.match(/class="labs-tab"[^>]*>[\s\S]*?<svg[^>]*aria-hidden="true"/g) || []).length, 4);
+  assert.match(html, /<body class="lc-labs-page lc-labs-playground">/);
+  assert.match(css, /html\.light \.lc-labs-playground/);
+  assert.doesNotMatch(guide, /labs-visual-20260922|lc-labs-playground/);
+});
+
+test('warm theme text and action colors retain accessible contrast', () => {
+  const luminance = hex => {
+    const channels = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16) / 255).map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
+    return channels[0] * .2126 + channels[1] * .7152 + channels[2] * .0722;
+  };
+  const ratio = (a, b) => (Math.max(luminance(a), luminance(b)) + .05) / (Math.min(luminance(a), luminance(b)) + .05);
+  for (const [text, background] of [['#ff874f', '#211812'], ['#ac431c', '#fff2e8'], ['#281307', '#ff874f'], ['#a1a1aa', '#211812'], ['#52525b', '#fff2e8']]) {
+    assert.ok(ratio(text, background) >= 4.5, `${text} on ${background}`);
+  }
+});
+
 test('18 complete authored situations are unique and fit the decision input limits', () => {
   assert.equal(DECISION_EXAMPLES.length, 18);
   assert.equal(new Set(DECISION_EXAMPLES.map(item => item.id)).size, 18);
