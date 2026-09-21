@@ -1107,6 +1107,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 23.4
   },
   {
+    "id": "fastslm-asr",
+    "name": "FastSLM-ASR",
+    "developer": "OKESTRO AI Lab / Lee Junseok",
+    "family": "fastslm",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-09-02",
+    "quality": 9.2,
+    "speed": 7.8,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 11.8
+  },
+  {
     "id": "qwen3-asr",
     "name": "Qwen3-ASR",
     "developer": "Alibaba Cloud (Qwen Team)",

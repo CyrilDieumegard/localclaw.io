@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS &amp; Speech AI List — 93 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 93 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <meta name="description" content="Compare 94 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 93 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 94 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">96</strong> speech records: <strong style="color:#fff;">93 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">97</strong> speech records: <strong style="color:#fff;">94 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>93 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>94 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3711,6 +3711,34 @@
                 voices: "Speech understanding, timestamped audio QA, ASR and speech translation rather than speech synthesis",
                 context: "10B total / 1.8B active MoE, RU/EN speech, up to 120-minute audio context, Transformers and vLLM examples",
                 license: "MIT"
+            },
+            {
+                id: "fastslm-asr",
+                name: "FastSLM-ASR",
+                developer: "OKESTRO AI Lab / Lee Junseok",
+                family: "fastslm",
+                isAsr: true,
+                description: "Apache-licensed speech-language model specialized for efficient local ASR and long-form speech understanding. It adapts Qwen3-4B to audio with a hierarchical temporal abstractor, supports English and Korean transcription plus speech translation, summarization and spoken QA task tokens, and ships downloadable BF16/F32 safetensors with custom Transformers code.",
+                languages: ["en", "ko"],
+                languageCount: 2,
+                features: ["multilingual", "long-form", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 11.8,
+                sizeLabel: "5B params; 11.74 GB safetensors; upstream lists >=11.8 GB VRAM minimum",
+                sizeCategory: "xl",
+                quality: 9.2,
+                speed: 7.8,
+                latency: "medium",
+                releaseDate: "2026-09-02",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/okestro-ai-lab/FastSLM-ASR",
+                sourceStatus: "verified-model",
+                installCommand: "git clone https://github.com/Lee-junseok1025/FastSLM && pip install -r requirements.txt",
+                supportedFormats: ["transformers", "pytorch", "safetensors"],
+                voices: "N/A (ASR and speech-language tasks: outputs text)",
+                context: "5B params, Qwen3-4B adaptation, English/Korean, ASR/AST/summarization/spoken QA task tokens, 16 kHz audio input, Open ASR leaderboard mean WER 5.91 and RTFx 77.56",
+                license: "Apache 2.0"
             },
             {
                 id: "qwen3-asr",
