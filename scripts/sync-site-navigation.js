@@ -11,7 +11,10 @@ const navigationContract = siteNavigation();
 for (const marker of [
   'href="/local-ai-activity-index"',
   'data-nav-key="atlas"',
-  '>Local AI Map</a>',
+  '>Atlas</a>',
+  'aria-label="Atlas: local AI interest by country"',
+  'href="/#local-ai-index"',
+  '>Models</a>',
   'data-nav-dropdown="hardware"',
   'data-nav-group="hardware"',
   '>Hardware<svg',
@@ -36,6 +39,18 @@ for (const marker of [
   '>My Machines</a>'
 ]) {
   if (!navigationContract.includes(marker)) throw new Error(`Required navigation entry missing: ${marker}`);
+}
+
+// The same short, task-oriented order must survive every page regeneration.
+// Hardware children stay inside their disclosure, and the account stays last.
+const expectedOrder = ['index', 'labs', 'software', 'hardware', 'diy', 'charts', 'atlas', 'new', 'account'];
+const topLevelOrder = [...navigationContract.matchAll(/data-nav-(?:key|group)="([^"]+)"/g)]
+  .map(([, key]) => key).filter(key => !['computers', 'ram-gpu'].includes(key));
+if (JSON.stringify(topLevelOrder) !== JSON.stringify([...expectedOrder, ...expectedOrder])) {
+  throw new Error('Desktop and mobile navigation must follow Models, Labs, Software, Hardware, DIY, Charts, Atlas, New, My Machines.');
+}
+if (navigationContract.includes('>AI Index</a>') || navigationContract.includes('>Local AI Map</a>')) {
+  throw new Error('Navigation labels must use the concise Models and Atlas names.');
 }
 
 // Keep both crawlable destinations inside the disclosure in each layout.

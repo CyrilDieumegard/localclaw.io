@@ -6,14 +6,14 @@ const hardwareItems = [
 ];
 
 const items = [
-  ['index', '/#local-ai-index', 'AI Index'],
-  ['atlas', '/local-ai-activity-index', 'Local AI Map'],
-  ['hardware', '', 'Hardware'],
-  ['software', '/software', 'Software'],
-  ['charts', '/charts', 'Charts'],
-  ['diy', '/diy/', 'DIY'],
-  ['new', '/new', 'New'],
+  ['index', '/#local-ai-index', 'Models'],
   ['labs', '/labs', 'Labs'],
+  ['software', '/software', 'Software'],
+  ['hardware', '', 'Hardware'],
+  ['diy', '/diy/', 'DIY'],
+  ['charts', '/charts', 'Charts'],
+  ['atlas', '/local-ai-activity-index', 'Atlas'],
+  ['new', '/new', 'New'],
   ['account', '/account', 'My Machines']
 ];
 
@@ -22,7 +22,8 @@ const modelKeys = new Set(['llm', 'voice', 'image', 'video', '3d', 'music', 'vis
 function link([key, href, label], active) {
   const account = key === 'account' ? ' lc-global-nav__link--account' : '';
   const current = key === active ? ' aria-current="page"' : '';
-  return `<a href="${href}" class="lc-global-nav__link${account}" data-nav-key="${key}"${current}>${label}</a>`;
+  const description = key === 'atlas' ? ' title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country"' : '';
+  return `<a href="${href}" class="lc-global-nav__link${account}" data-nav-key="${key}"${description}${current}>${label}</a>`;
 }
 
 function navigationItem(item, active, context) {
