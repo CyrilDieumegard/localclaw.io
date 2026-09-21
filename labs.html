@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LocalClaw Labs — Small AI Models in Your Browser</title>
-  <meta name="description" content="Play a tiny AI detective game, remix your writing and chat with small open models running locally in your browser. Free. No account or API key.">
+  <meta name="description" content="Play, write, chat and explore decisions with open models running in your browser. Try the SemIf / OpenJEV model presets in the Decisions / RLCD lab. Free, no API key.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://localclaw.io/labs">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://localclaw.io/labs">
   <meta property="og:title" content="LocalClaw Labs — Small models. Real possibilities.">
-  <meta property="og:description" content="A detective game, a writing playground and a chat. The AI runs on your device, right in your browser.">
+  <meta property="og:description" content="Play, write, chat and explore decisions with five open-model presets. The AI runs on your device, right in your browser.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/labs-20260921.css?v=3">
+  <link rel="stylesheet" href="/css/labs-20260921.css?v=rlcd1">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LocalClaw Labs","url":"https://localclaw.io/labs","applicationCategory":"EntertainmentApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Interactive experiments with small open language models running locally in the browser."}</script>
   <script src="/js/theme-toggle.js?v=20260921labs2"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2"><script src="/js/site-nav.js?v=20260921labs2" defer></script>
 </head>
@@ -81,7 +81,10 @@
     <section class="labs-loader" aria-label="Local model setup">
       <div class="labs-loader-row">
         <label class="labs-label" for="labs-model">01 / Load a model</label>
-        <select id="labs-model" class="labs-select" aria-describedby="labs-model-note"><option value="qwen3-06b">Qwen3 0.6B · 397 MB</option><option value="qwen3-17b">Qwen3 1.7B · 1.11 GB</option></select>
+        <select id="labs-model" class="labs-select" aria-describedby="labs-model-note">
+          <optgroup label="Quick playground"><option value="qwen3-06b">Qwen3 0.6B · Q4 · 397 MB</option><option value="qwen3-17b">Qwen3 1.7B · 1.11 GB</option></optgroup>
+          <optgroup label="SemIf / OpenJEV presets"><option value="qwen3-06b-q8">Qwen3 0.6B · Q8 · 639 MB</option><option value="minicpm5-2b">MiniCPM5 2B · 1.56 GB</option><option value="qwen35-4b">Qwen3.5 4B · 3.01 GB</option></optgroup>
+        </select>
         <button id="labs-load" class="labs-button labs-button--primary" disabled>Load model</button>
         <button id="labs-cancel-load" class="labs-button" hidden>Cancel</button>
         <p class="labs-loader-copy">Download once, reuse from cache.<br>Runs on your device. No account or API key.</p>
@@ -93,6 +96,7 @@
       <button class="labs-tab" id="tab-mystery" role="tab" aria-selected="true" aria-controls="panel-mystery" data-mode="mystery">The missing masterpiece</button>
       <button class="labs-tab" id="tab-remix" role="tab" aria-selected="false" aria-controls="panel-remix" tabindex="-1" data-mode="remix">Remix studio</button>
       <button class="labs-tab" id="tab-chat" role="tab" aria-selected="false" aria-controls="panel-chat" tabindex="-1" data-mode="chat">Free chat</button>
+      <button class="labs-tab" id="tab-decisions" role="tab" aria-selected="false" aria-controls="panel-decisions" tabindex="-1" data-mode="decisions">Decisions / RLCD</button>
     </div>
     <section id="panel-mystery" class="labs-workbench" role="tabpanel" aria-labelledby="tab-mystery">
       <div class="labs-sidebar">
@@ -128,20 +132,42 @@
       <div class="labs-sidebar"><span class="labs-label">Open playground</span><h2>Meet a small model.</h2><p>Ask a question, explore an idea or test a prompt. Everything is generated on your device.</p><div class="labs-chat-starters"><button class="labs-button" data-starter="Explain how a language model works using a cooking analogy.">Explain AI through cooking</button><button class="labs-button" data-starter="Invent three funny names for a crab who works as a detective.">Name a crab detective</button><button class="labs-button" data-starter="Give me a tiny creative challenge I can do in two minutes.">Give me a two-minute challenge</button></div><p class="labs-help">Small models can be wrong. They have no web access here.</p></div>
       <div class="labs-conversation"><div class="labs-chat-header"><div><h3>Local chat</h3><p id="labs-chat-model">Your model, your machine.</p></div><button id="labs-clear-chat" class="labs-text-button">Clear chat</button></div><div id="labs-chat-messages" class="labs-messages" aria-label="Chat transcript"><article class="labs-message"><span class="labs-message-label">Getting started</span><p>What would you like to try?</p></article></div><form id="labs-chat-form" class="labs-compose"><textarea id="labs-chat-input" aria-label="Your message" placeholder="Ask your local model something…" maxlength="1000" rows="2" required></textarea><button class="labs-button labs-button--primary" type="submit" data-send disabled>Send</button><button class="labs-button" type="button" data-stop hidden>Stop</button></form><p id="labs-chat-help" class="labs-help">Load a model to start chatting.</p></div>
     </section>
+    <section id="panel-decisions" class="labs-workbench labs-decision-workbench" role="tabpanel" aria-labelledby="tab-decisions" hidden>
+      <div class="labs-sidebar">
+        <span class="labs-label">Decision experiment</span><h2>What should happen next?</h2>
+        <p>Give the model a situation and a few options. Compare a constrained choice with a written JSON distribution.</p>
+        <div class="labs-styles" aria-label="Decision examples"><button class="labs-button" data-decision-preset="support">Support ticket</button><button class="labs-button" data-decision-preset="email">Suspicious email</button><button class="labs-button" data-decision-preset="crab">Detective Crab</button></div>
+        <form id="labs-decisions-form" class="labs-decision-form">
+          <label for="labs-decision-state" class="labs-label">Situation</label><textarea id="labs-decision-state" class="labs-source" rows="4" maxlength="1200" required data-decision-edit></textarea>
+          <label for="labs-decision-question" class="labs-label">Question</label><input id="labs-decision-question" class="labs-decision-input" maxlength="240" required data-decision-edit>
+          <label for="labs-decision-options" class="labs-label">Allowed options · one per line</label><textarea id="labs-decision-options" class="labs-source" rows="3" maxlength="725" aria-describedby="labs-options-help" required data-decision-edit></textarea>
+          <p id="labs-options-help" class="labs-help">2–6 different options, up to 120 characters each.</p>
+          <button id="labs-decisions-run" type="submit" class="labs-button labs-button--primary labs-wide" data-send disabled>Compare methods</button><button class="labs-button labs-wide" type="button" data-stop hidden>Stop</button>
+        </form>
+        <p id="labs-decisions-help" class="labs-help" role="status">Load a model to compare. The SemIf group contains the exact builds used on OpenJEV.</p>
+      </div>
+      <div class="labs-conversation labs-decision-results">
+        <div class="labs-chat-header"><div><h3>Your local decision</h3><p id="labs-decisions-model">Results appear only after you run a comparison.</p></div></div>
+        <section class="labs-decision-result" aria-labelledby="labs-scores-title"><h4 id="labs-scores-title">01 / Option scores</h4><p class="labs-help">One constrained output token. Scores normalized over your options only.</p><div id="labs-decision-scores" class="labs-score-list">No scores yet.</div><p id="labs-decision-score-timing" class="labs-help"></p></section>
+        <section class="labs-decision-result" aria-labelledby="labs-json-title"><h4 id="labs-json-title">02 / Written estimates</h4><p class="labs-help">The same model generates JSON, token by token.</p><pre id="labs-decision-json" class="labs-decision-json">No generated JSON yet.</pre><p id="labs-decision-validation" class="labs-help"></p><p id="labs-decision-json-timing" class="labs-help"></p></section>
+        <p id="labs-decision-comparison" class="labs-help">Warm-up excluded. Scores run first, JSON second; prompt caching is disabled for both measured calls. This is a single-device experiment, not a benchmark against Jev.</p>
+        <div class="labs-decision-disclaimer"><p><strong>RLCD = Reinforcement Learning for Calibrated Decisions.</strong> It names a training objective, not a decoding shortcut.</p><p>These are standard open-model baselines, not Jev or verified RLCD-trained models. Neither these option scores nor generated JSON establish calibrated confidence. Do not use them to automate consequential decisions.</p><p>Inspired by <a href="https://openjev.com/" target="_blank" rel="noopener noreferrer">SemIf (formerly OpenJEV)</a>. Independent of TypeSafe. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Read TypeSafe’s RLCD introduction</a>.</p></div>
+      </div>
+    </section>
     <footer class="labs-footer">
       <p>Prompts stay in this tab. Model files download from Hugging Face.</p>
       <details class="labs-info"><summary>How local inference works</summary>
         <p>You download a model after clicking Load model. Your browser stores its weights locally, then runs it using your GPU when available, or your CPU. The first download can take several minutes; loading it again uses the cache if your browser has kept it. Keep this tab open while the model is running.</p>
         <p>Labs does not send your prompts or answers to an AI service and does not run session recordings. Conversations live only in this tab and disappear when you reload. The site and model host still receive normal network requests to deliver their files. See our <a href="/privacy">privacy policy</a>.</p>
-        <p>Both models use Q4_K_M quantization: <a href="https://huggingface.co/unsloth/Qwen3-0.6B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 0.6B, 397 MB</a> and <a href="https://huggingface.co/unsloth/Qwen3-1.7B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 1.7B, 1.11 GB</a>, under Apache 2.0. The local engine is <a href="https://github.com/ngxson/wllama" target="_blank" rel="noopener noreferrer">wllama 3.6.1</a> (MIT). Downloads use fixed model revisions.</p>
+        <p>Quick models: <a href="https://huggingface.co/unsloth/Qwen3-0.6B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 0.6B Q4_K_M, 397 MB</a> and <a href="https://huggingface.co/unsloth/Qwen3-1.7B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 1.7B Q4_K_M, 1.11 GB</a>. Exact SemIf presets: <a href="https://huggingface.co/Qwen/Qwen3-0.6B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 0.6B Q8_0, 639 MB</a>, <a href="https://huggingface.co/openbmb/MiniCPM5-2B-GGUF" target="_blank" rel="noopener noreferrer">MiniCPM5 2B Q4_K_M, 1.56 GB</a> and <a href="https://huggingface.co/bartowski/Qwen_Qwen3.5-4B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3.5 4B Q4_K_M, 3.01 GB</a>. All five artifacts are under Apache 2.0 and pinned to fixed revisions. The local engine is <a href="https://github.com/ngxson/wllama" target="_blank" rel="noopener noreferrer">wllama 3.6.1</a> (MIT). The 4B model requires WebGPU in Labs.</p>
         <p>The game’s case notes and solution are authored; the interviews, remixes and chat replies are generated live. Tiny models can invent details, so use the case notes to solve the mystery. Measured timings describe this browser session, not desktop app performance.</p>
-        <div class="labs-cache-actions"><button id="labs-delete-cache" class="labs-button">Remove downloaded models</button><span id="labs-cache-status" role="status">Frees the storage used by these two Labs models.</span></div>
+        <div class="labs-cache-actions"><button id="labs-delete-cache" class="labs-button">Remove downloaded models</button><span id="labs-cache-status" role="status">Frees the storage used by the listed Labs models.</span></div>
       </details>
     </footer>
     <div id="labs-announcement" class="labs-announcement" role="status" aria-live="polite"></div>
   </main>
   <footer class="labs-page-footer"><span>© 2026 LocalClaw · Labs</span><span><a href="/llm-list">Explore all models</a> · <a href="/privacy">Privacy</a></span></footer>
   <dialog id="labs-verdict" class="labs-dialog" aria-labelledby="labs-verdict-title"><h2 id="labs-verdict-title">Who took the painting?</h2><div id="labs-verdict-body"></div><div class="labs-dialog-actions"><button id="labs-close-verdict" class="labs-button">Back to the case</button><button id="labs-share" class="labs-button labs-button--primary" hidden>Copy challenge link</button></div></dialog>
-  <script type="module" src="/js/labs/app.mjs?v=20260921b"></script>
+  <script type="module" src="/js/labs/app.mjs?v=20260921rlcd1"></script>
 </body>
 </html>

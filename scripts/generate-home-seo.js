@@ -491,7 +491,7 @@ function compactLlmsText() {
 - [Music catalogue](${BASE_URL}/music-models) - local song and sound models
 - [Vision catalogue](${BASE_URL}/vision-models) - local OCR and document models
 - [Newest local models](${BASE_URL}/new) — current releases and RSS feed
-- [LocalClaw Labs](${BASE_URL}/labs) — free browser-local AI experiments: a detective game, a writing remix studio and chat, powered by downloadable Qwen3 models
+- [LocalClaw Labs](${BASE_URL}/labs) — free browser-local AI experiments: a detective game, writing remix, chat and Decisions / RLCD; five downloadable Qwen and MiniCPM presets, including the three SemIf / OpenJEV builds. Decision scores are experimental, not calibrated confidence or RLCD-trained models.
 - [RAM guides](${BASE_URL}/ram/) — recommendations by memory tier
 - [Hardware guides](${BASE_URL}/hardware/) — model fit by machine
 - [Use-case guides](${BASE_URL}/use-case/) — chat, coding, RAG, reasoning, multilingual work and speed

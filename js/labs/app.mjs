@@ -1,4 +1,5 @@
-import { MODELS, SUSPECTS, TONES, makeMessages, verdictFor } from './config.mjs?v=20260921b';
+import { MODELS, SUSPECTS, TONES, makeMessages, verdictFor } from './config.mjs?v=20260921rlcd1';
+import { DECISION_PRESETS, validateDecision } from './decisions.mjs?v=20260921rlcd1';
 
 const $ = id => document.getElementById(id);
 const all = selector => [...document.querySelectorAll(selector)];
@@ -26,9 +27,10 @@ function syncControls() {
   $('labs-unload').hidden = !state.ready;
   $('labs-unload').disabled = locked;
   $('labs-delete-cache').disabled = locked;
-  all('[data-send]').forEach(button => { button.disabled = !state.ready || locked || (state.mode === 'mystery' && state.solved); button.hidden = state.busy; });
+  all('[data-send]').forEach(button => { button.disabled = !state.ready || state.loaded?.id !== model().id || locked || (state.mode === 'mystery' && state.solved); button.hidden = state.busy; });
   all('[data-stop]').forEach(button => { button.hidden = !state.busy; });
   all('[data-mode], [data-suspect], [data-tone], [data-starter]').forEach(button => { button.disabled = state.busy; });
+  all('[data-decision-edit], [data-decision-preset]').forEach(element => { element.disabled = locked; });
   $('labs-restart').disabled = state.busy;
   $('labs-clear-chat').disabled = state.busy;
   $('labs-accuse').disabled = state.busy || state.questions === 0 || state.solved;
@@ -72,7 +74,8 @@ function renderClues() {
 }
 
 function setMode(mode) {
-  if (!['mystery', 'remix', 'chat'].includes(mode) || state.busy) return;
+  if (mode === 'rlcd') mode = 'decisions';
+  if (!['mystery', 'remix', 'chat', 'decisions'].includes(mode) || state.busy) return;
   state.mode = mode;
   all('[data-mode]').forEach(button => {
     const selected = button.dataset.mode === mode;
@@ -87,6 +90,8 @@ function setMode(mode) {
 
 function errorMessage(error, duringLoad = false) {
   const message = String(error?.message || error);
+  if (/WebGPU required/i.test(message)) return 'This high-memory model requires WebGPU. Choose a smaller model or an up-to-date WebGPU-capable browser on a computer.';
+  if (/score for every option/i.test(message)) return message;
   if (/quota|storage|disk|notallowed/i.test(message)) return 'Your browser could not store the model. Free some disk space or try a regular browser window, then retry.';
   if (/memory|alloc|out of bounds|device.*lost/i.test(message)) return 'The model ran out of available memory. Close other heavy tabs and try Qwen3 0.6B.';
   if (/fetch|network|download|HTTP|CORS/i.test(message)) return 'The model download was interrupted. Check your connection and retry.';
@@ -95,15 +100,16 @@ function errorMessage(error, duringLoad = false) {
 }
 
 async function getEngine() {
-  state.engine ||= await import('./engine.mjs?v=20260921b');
+  state.engine ||= await import('./engine.mjs?v=20260921rlcd1');
   return state.engine;
 }
 
 async function load() {
   if (state.loading || state.busy || !state.supported) return;
   state.loading = true; state.ready = false; state.loaded = null;
+  resetDecision();
   $('labs-chat-model').textContent = 'Your model, your machine.';
-  for (const mode of ['mystery', 'remix', 'chat']) $(`labs-${mode}-help`).textContent = 'Waiting for the model to load.';
+  for (const mode of ['mystery', 'remix', 'chat', 'decisions']) $(`labs-${mode}-help`).textContent = 'Waiting for the model to load.';
   state.controller = new AbortController();
   const controller = state.controller;
   const selected = model();
@@ -129,11 +135,11 @@ async function load() {
     state.ready = true; state.loaded = selected;
     status(`${selected.name} ready · ${result.backend} · loaded in ${((performance.now() - started) / 1000).toFixed(1)} s`);
     $('labs-chat-model').textContent = `${selected.name} · running on your device`;
-    for (const mode of ['mystery', 'remix', 'chat']) $(`labs-${mode}-help`).textContent = 'Ready. Your prompt stays on this device.';
+    for (const mode of ['mystery', 'remix', 'chat', 'decisions']) $(`labs-${mode}-help`).textContent = 'Ready. Your prompt stays on this device.';
     announce(`${selected.name} is ready. You can start an experiment.`);
   } catch (error) {
     status(timedOut ? 'Loading timed out. Try again on a faster connection or use the smaller model.' : controller.signal.aborted ? 'Loading cancelled. You can try again.' : errorMessage(error, true), !controller.signal.aborted || timedOut);
-    for (const mode of ['mystery', 'remix', 'chat']) $(`labs-${mode}-help`).textContent = 'Load a model to continue.';
+    for (const mode of ['mystery', 'remix', 'chat', 'decisions']) $(`labs-${mode}-help`).textContent = 'Load a model to continue.';
   } finally {
     clearTimeout(timeout);
     state.loading = false; state.controller = null;
@@ -148,7 +154,7 @@ async function unload() {
   try {
     await state.engine?.unloadModel();
     status('Model unloaded. The download stays cached for next time.');
-    for (const mode of ['mystery', 'remix', 'chat']) $(`labs-${mode}-help`).textContent = 'Load a model to continue.';
+    for (const mode of ['mystery', 'remix', 'chat', 'decisions']) $(`labs-${mode}-help`).textContent = 'Load a model to continue.';
     $('labs-chat-model').textContent = 'Your model, your machine.';
   } catch { status('Close this tab to release the model’s memory.', true); }
   finally { state.loading = false; syncControls(); }
@@ -164,7 +170,7 @@ function timingLabel(result) {
 }
 
 async function submit(mode) {
-  if (!state.ready || state.busy || state.loading || (mode === 'mystery' && state.solved)) return;
+  if (!state.ready || state.loaded?.id !== model().id || state.busy || state.loading || (mode === 'mystery' && state.solved)) return;
   const inputElement = $(`labs-${mode}-input`);
   const input = inputElement.value.trim();
   if (!input) { inputElement.focus(); return; }
@@ -221,6 +227,72 @@ async function submit(mode) {
     state.busy = false; state.controller = null;
     syncControls();
   }
+}
+
+function resetDecision() {
+  $('labs-decision-scores').textContent = 'No scores yet.';
+  $('labs-decision-json').textContent = 'No generated JSON yet.';
+  for (const id of ['labs-decision-score-timing', 'labs-decision-json-timing', 'labs-decision-validation']) $(id).textContent = '';
+  $('labs-decisions-model').textContent = 'Results appear only after you run a comparison.';
+  $('labs-decision-comparison').textContent = 'Warm-up excluded. Scores run first, JSON second; prompt caching is disabled for both measured calls. This is a single-device experiment, not a benchmark against Jev.';
+  $('labs-decisions-help').dataset.error = 'false';
+}
+
+function decisionPreset(id) {
+  const preset = DECISION_PRESETS[id];
+  if (!preset || state.busy) return;
+  $('labs-decision-state').value = preset.state;
+  $('labs-decision-question').value = preset.question;
+  $('labs-decision-options').value = preset.options.join('\n');
+  resetDecision();
+  $('labs-decisions-help').textContent = state.ready ? 'Example ready. Compare the two methods on your device.' : 'Load a model to compare. The SemIf group contains the exact builds used on OpenJEV.';
+}
+
+function renderDecisionScores(result) {
+  const rows = result.scores.map(({ label, option, probability }) => {
+    const row = document.createElement('div'); row.className = 'labs-score-row';
+    const name = document.createElement('span'); name.textContent = `${label}. ${option}`;
+    const value = document.createElement('span'); value.textContent = `${(probability * 100).toFixed(1)}%`;
+    const track = document.createElement('span'); track.className = 'labs-score-track'; track.setAttribute('aria-hidden', 'true');
+    const fill = document.createElement('span'); fill.className = 'labs-score-fill'; fill.style.width = `${probability * 100}%`;
+    track.append(fill); row.append(name, value, track); return row;
+  });
+  $('labs-decision-scores').replaceChildren(...rows);
+  $('labs-decision-score-timing').textContent = `${(result.durationMs / 1000).toFixed(2)} s · ${result.usage?.prompt_tokens ?? '—'} input tokens · ${result.usage?.completion_tokens ?? '—'} output token`;
+}
+
+async function runDecisions() {
+  if (!state.ready || state.loaded?.id !== model().id || state.busy || state.loading) return;
+  const help = $('labs-decisions-help');
+  let data;
+  try {
+    data = validateDecision({ state: $('labs-decision-state').value, question: $('labs-decision-question').value, options: $('labs-decision-options').value.split('\n').map(value => value.trim()).filter(Boolean) });
+  } catch (error) { help.textContent = error.message; help.dataset.error = 'true'; return; }
+  resetDecision();
+  $('labs-decisions-model').textContent = `${state.loaded.name} · ${state.loaded.quantization} · this run only`;
+  const controller = new AbortController();
+  state.controller = controller; state.busy = true; syncControls();
+  let timedOut = false;
+  const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 180000);
+  try {
+    const result = await state.engine.compareDecision(data, {
+      signal: controller.signal,
+      onPhase: text => { help.textContent = text; },
+      onScores: renderDecisionScores,
+      onText: text => { $('labs-decision-json').textContent = text; },
+    });
+    $('labs-decision-json-timing').textContent = timingLabel(result.generated);
+    $('labs-decision-validation').textContent = result.validation.message;
+    $('labs-decision-validation').dataset.error = String(!result.validation.valid);
+    const ratio = result.generated.durationMs / result.direct.durationMs;
+    $('labs-decision-comparison').textContent = `This run: JSON took ${ratio.toFixed(2)}× the scoring time. Warm-up excluded${result.warmupMs ? ` (${(result.warmupMs / 1000).toFixed(1)} s)` : ''}; scores first, JSON second; prompt cache off. Different output instructions, same situation and options. Not a Jev benchmark.`;
+    help.textContent = result.validation.valid ? 'Comparison complete. These scores are not calibrated confidence.' : 'Comparison complete, but the generated JSON failed validation. See the raw result.';
+    announce(help.textContent);
+  } catch (error) {
+    help.textContent = timedOut ? 'Comparison timed out. Try a shorter situation or a smaller model.' : controller.signal.aborted ? 'Comparison stopped. Any partial results remain visible.' : errorMessage(error);
+    help.dataset.error = String(!controller.signal.aborted || timedOut);
+    announce(help.textContent);
+  } finally { clearTimeout(timeout); state.busy = false; state.controller = null; syncControls(); }
 }
 
 function newCase() {
@@ -281,7 +353,10 @@ all('[data-stop]').forEach(button => button.addEventListener('click', () => { st
 $('labs-load').addEventListener('click', load);
 $('labs-cancel-load').addEventListener('click', () => { state.controller?.abort(); status('Cancelling…'); });
 $('labs-unload').addEventListener('click', unload);
-$('labs-model').addEventListener('change', () => { status(hint()); syncControls(); });
+$('labs-model').addEventListener('change', () => { status(hint()); resetDecision(); syncControls(); });
+$('labs-decisions-form').addEventListener('submit', event => { event.preventDefault(); runDecisions(); });
+all('[data-decision-preset]').forEach(button => button.addEventListener('click', () => decisionPreset(button.dataset.decisionPreset)));
+all('[data-decision-edit]').forEach(element => element.addEventListener('input', () => { resetDecision(); $('labs-decisions-help').textContent = 'Inputs changed. Run a new comparison to get matching results.'; }));
 $('labs-remix-run').addEventListener('click', () => submit('remix'));
 $('labs-restart').addEventListener('click', newCase);
 $('labs-accuse').addEventListener('click', showAccusation);
@@ -313,5 +388,6 @@ $('labs-delete-cache').addEventListener('click', async () => {
 
 state.supported = Boolean(window.isSecureContext && window.WebAssembly && window.Worker && navigator.storage?.getDirectory);
 status(state.supported ? hint() : 'Labs needs a modern browser with local storage support. Try a regular Chrome or Edge window.', !state.supported);
+decisionPreset('support');
 setMode(location.hash.slice(1) || 'mystery');
 syncControls();

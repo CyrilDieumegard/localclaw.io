@@ -5,6 +5,7 @@ export const MODELS = Object.freeze([
     repo: 'unsloth/Qwen3-0.6B-GGUF', revision: '50968a4468ef4233ed78cd7c3de230dd1d61a56b',
     file: 'Qwen3-0.6B-Q4_K_M.gguf', license: 'Apache 2.0',
     sha256: 'ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a',
+    labelTokenBase: 32, quantization: 'Q4_K_M', group: 'playground',
   },
   {
     id: 'qwen3-17b', name: 'Qwen3 1.7B', label: 'Qwen3 1.7B · 1.11 GB',
@@ -12,6 +13,31 @@ export const MODELS = Object.freeze([
     repo: 'unsloth/Qwen3-1.7B-GGUF', revision: 'd7f544eead698dbd1f15126ef60b45a1e1933222',
     file: 'Qwen3-1.7B-Q4_K_M.gguf', license: 'Apache 2.0',
     sha256: 'b139949c5bd74937ad8ed8c8cf3d9ffb1e99c866c823204dc42c0d91fa181897',
+    labelTokenBase: 32, quantization: 'Q4_K_M', group: 'playground',
+  },
+  {
+    id: 'qwen3-06b-q8', name: 'Qwen3 0.6B Q8', label: 'Qwen3 0.6B · Q8 · 639 MB',
+    bytes: 639446688, memory: 'Allow about 2 GB of free memory. Exact SemIf small-model build.',
+    repo: 'Qwen/Qwen3-0.6B-GGUF', revision: '23749fefcc72300e3a2ad315e1317431b06b590a',
+    file: 'Qwen3-0.6B-Q8_0.gguf', license: 'Apache 2.0',
+    sha256: '9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031',
+    labelTokenBase: 32, quantization: 'Q8_0', group: 'semif',
+  },
+  {
+    id: 'minicpm5-2b', name: 'MiniCPM5 2B', label: 'MiniCPM5 2B · 1.56 GB',
+    bytes: 1561318368, memory: 'Allow about 4 GB of free memory. SemIf’s desktop default.',
+    repo: 'openbmb/MiniCPM5-2B-GGUF', revision: '2079a22f3beaa4e306449978533478fe0522f4b3',
+    file: 'MiniCPM5-2B-Q4_K_M.gguf', license: 'Apache 2.0',
+    sha256: 'ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd',
+    labelTokenBase: 54, quantization: 'Q4_K_M', group: 'semif',
+  },
+  {
+    id: 'qwen35-4b', name: 'Qwen3.5 4B', label: 'Qwen3.5 4B · 3.01 GB',
+    bytes: 3013027808, memory: 'High-memory computer: allow about 6 GB free memory. WebGPU required; not recommended for phones.',
+    repo: 'bartowski/Qwen_Qwen3.5-4B-GGUF', revision: '4168f45a16a1290d65a4ec0fa312ae917a4c15d6',
+    file: 'Qwen_Qwen3.5-4B-Q4_K_M.gguf', license: 'Apache 2.0',
+    sha256: '13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983',
+    labelTokenBase: 32, quantization: 'Q4_K_M', group: 'semif', gpuRequired: true,
   },
 ]);
 
