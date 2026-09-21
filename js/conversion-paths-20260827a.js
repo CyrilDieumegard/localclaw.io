@@ -62,7 +62,7 @@
         const subtitle = hero.querySelector('h1 small');
         const intro = hero.querySelector(':scope > p');
         if (subtitle) subtitle.textContent = 'Find the best local AI for your machine';
-        if (intro) intro.textContent = 'Choose your hardware once. See the models that fit, the right quantization, and a real install path.';
+        if (intro) intro.textContent = 'Find models that fit your hardware, then explore worldwide interest and community ratings. The Mac app remains optional.';
 
         const form = document.createElement('form');
         form.className = 'lc-quick-fit';
@@ -126,7 +126,7 @@
         const actions = hero.querySelector('.lc-index-hero__actions');
         if (actions) {
             actions.classList.add('lc-index-hero__actions--quick-fit');
-            actions.innerHTML = '<a href="#llm-index">Browse AI Index →</a><a href="#local-ai-index" data-detailed-fit>Use the detailed machine filters →</a>';
+            actions.innerHTML = '<a href="#llm-index">Browse AI Index →</a><a href="/local-ai-activity-index" data-fast-goal="atlas_open" data-fast-goal-source="home_hero">Explore Atlas →</a><a href="#local-ai-index" data-detailed-fit>Use the detailed machine filters →</a>';
             hero.insertBefore(form, actions);
             actions.querySelector('[data-detailed-fit]')?.addEventListener('click', (event) => {
                 event.preventDefault();

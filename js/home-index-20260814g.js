@@ -479,6 +479,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </nav>
                     </section>
 
+                    <section id="community-atlas" class="lc-index-universe" aria-labelledby="community-atlas-title">
+                        <header><div><span class="lc-index-eyebrow">Local AI Atlas · Community</span><h2 id="community-atlas-title">See what the world explores. Share what you have tried.</h2><p class="lc-index-universe__copy">Atlas shows model-page interest and selected setup paths by country. Member ratings are a separate, self-reported signal. Neither proves a download, installation or actual use.</p></div><a href="/local-ai-activity-index" data-fast-goal="atlas_open" data-fast-goal-source="home_community">Explore Atlas →</a></header>
+                        <a class="lc-index-more" href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_community" data-fast-goal-target="llm-index">Tried a model? Find it in the index and leave a rating →</a>
+                    </section>
+
                     <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
                         <span><strong>Founding sponsor offer</strong><small>Lock in the introductory rate before new-campaign pricing changes.</small></span>
                         <span>$29 / 7 days</span>
