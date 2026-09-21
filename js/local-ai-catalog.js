@@ -956,6 +956,18 @@
       caveats: ['Community license excludes some territories and has hosted-service conditions', 'Shape generation only; use another stage for full texture/PBR work', 'CUDA-oriented research stack']
     },
     {
+      id: 'hunyuan3d-part', name: 'Hunyuan3D-Part', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Part-level 3D decomposition system that segments holistic meshes and generates coherent editable GLB part assemblies.',
+      tasks: ['mesh-segmentation', 'part-based-generation', 'mesh-generation', 'asset-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'],
+      output: ['GLB', 'Part meshes', 'Bounding boxes', 'Segmentation masks'], local_status: 'local',
+      license: 'Tencent Hunyuan 3D-Part community license', released: '2025-09',
+      source_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Part', install_url: 'https://huggingface.co/tencent/Hunyuan3D-Part',
+      hardware_note: 'The official repository documents Python 3.10, PyTorch 2.4.0 with CUDA 12.1, Sonata dependencies and local P3-SAM / X-Part scripts. The Hugging Face repository exposes conditioner, model, p3sam and shapevae safetensors without gating. X-Part loads tencent/Hunyuan3D-Part through from_pretrained, samples an input GLB mesh, then exports generated part scenes, bounding boxes, input boxes and exploded views as GLB files. Tencent does not publish a small-GPU table, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official Tencent code and safetensors checkpoints', 'P3-SAM automatic 3D part segmentation plus X-Part part generation', 'Local scripts export generated GLB part assemblies and bounding-box views'],
+      caveats: ['Community license excludes some territories and has hosted-service conditions', 'Current public release is the light X-Part version', 'Requires an existing scanned or AI-generated mesh as input']
+    },
+    {
       id: 'trellis-image-large', name: 'TRELLIS Image Large', category: '3d', developer: 'Microsoft Research',
       summary: 'High-quality image-to-3D generation producing meshes, radiance fields and 3D Gaussian assets.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'mesh-generation'], platforms: ['linux'],
