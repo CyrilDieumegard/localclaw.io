@@ -28,8 +28,8 @@ const CANONICAL_URL = 'https://localclaw.io/local-ai-activity-index';
 const DATA_URL = 'https://localclaw.io/data/local-ai-activity-index.json';
 const ADMIN1_ACTIVITY_URL = 'https://localclaw.io/data/local-ai-admin1-activity.json';
 const ADMIN1_MANIFEST_URL = 'https://localclaw.io/data/admin1/manifest.json';
-const EXPECTED_TITLE = 'Local AI Activity & Model Interest Map | LocalClaw Atlas';
-const EXPECTED_H1 = 'See where local AI is taking off.';
+const EXPECTED_TITLE = 'Most Explored Local AI Models by Country | LocalClaw Atlas';
+const EXPECTED_H1 = 'Explore AI models, country by country.';
 const EXPECTED_SIGNALS = 3337;
 const EXPECTED_OBSERVED_REGIONS = 113;
 const EXPECTED_PUBLISHED_COUNTRY_SIGNALS = 3243;
@@ -809,7 +809,7 @@ if (html !== null) {
       issue(`${label} control must be active, not marked coming soon`);
     }
     if (view === 'active' && !/\bdata-coming-soon\b/i.test(control)) issue('Active control must be marked data-coming-soon');
-    if (attribute(control, 'aria-pressed') !== 'false') issue(`${label} control must not be presented as active`);
+    if (attribute(control, 'aria-pressed') !== (view === 'models' ? 'true' : 'false')) issue(`${label} control has the wrong default active state`);
     if (view === 'active' && !(attribute(control, 'aria-label') || '').toLowerCase().includes('coming soon')) {
       issue(`${label} control must announce that it is coming soon`);
     }
@@ -1286,7 +1286,7 @@ if (app !== null) {
     || !app.includes("modelDataUrl: '/data/local-ai-model-page-interest-180d.json?")) {
     issue('Models view must load a versioned 30-day, 3-month and 6-month model-page-interest dataset');
   }
-  if (!app.includes("requestedMetricView === 'models'")
+  if (!app.includes("requestedMetricView === 'interest'")
     || !app.includes("ACTIVE_VIEW === 'models'")
     || !app.includes('PERIOD_CONFIG[ACTIVE_PERIOD].modelDataUrl')) {
     issue('Models view is not wired to the selected period dataset');
@@ -2367,13 +2367,14 @@ if (app !== null) {
     issue('Invalid or stale Models brand deep links must fall back to the country overview');
   }
   if (!focusModelCountryBody.includes('void enterModelRegionExplorer(country)')
+    || !focusModelCountryBody.includes('options.exploreRegions === true')
     || !focusInstallCountryBody.includes('void enterInstallRegionExplorer(country, state.selectedInstallModel)')
     || !app.includes("entry.kind !== 'installStack'")
     || !app.includes('leadingInstallPath(country)')
     || !app.includes('function syncInstallUrl()')
     || !app.includes("if (isInstallIntentView()) syncInstallUrl()")
     || !app.includes('/^(?:US|CN|AU)-[A-Z0-9]{2,3}$/')) {
-    issue('Models and Install paths country selections must automatically open regional detail and keep the leading install-path logo on the map');
+    issue('Models country selections must offer explicit regional detail; Install paths keep their regional drill-down and leading logo');
   }
   const shareSnapshotBody = topLevelFunctionBody(app, 'shareSnapshot');
   if (!shareSnapshotBody.includes('const leaders = coLeadingModelBrands(country)')

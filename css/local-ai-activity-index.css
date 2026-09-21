@@ -4462,3 +4462,28 @@ body.atlas-share-active .atlas-stage {
     position: relative;
   }
 }
+
+/* A direct entry into country models; the globe remains still while reading. */
+.atlas-discover { margin-top: 20px; max-width: 330px; pointer-events: auto; text-shadow: none; }
+.atlas-discover[hidden] { display: none; }
+.atlas-discover label { display: block; margin-bottom: 7px; font-size: 12px; font-weight: 600; color: #e4eaf0; }
+.atlas-discover select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #64727d; border-radius: 8px; background: #101820; color: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+.atlas-discover button { display: block; min-height: 40px; border: 0; padding: 8px 0; background: transparent; color: #ff9b83; font-size: 12px; text-align: left; cursor: pointer; }
+.atlas-discover select:focus-visible, .atlas-discover button:focus-visible { outline: 2px solid #ff7048; outline-offset: 3px; }
+.atlas-discover p { margin: 2px 0 0; color: #aebbc7; font-size: 11px; line-height: 1.5; }
+.atlas-scope-us .atlas-discover, .atlas-model-panel-open .atlas-discover { display: none; }
+@media (max-width: 760px) {
+  .atlas-discover { margin-top: 12px; max-width: 270px; }
+  .atlas-discover label { font-size: 11px; }
+  .atlas-discover select { min-height: 42px; font-size: 12px; }
+  .atlas-discover button { min-height: 34px; }
+  .atlas-view-models .atlas-copy h1 { font-size: clamp(1.8rem, 8.5vw, 2.5rem); }
+  .atlas-view-models .atlas-copy__actions { display: none; }
+}
+
+@media (max-width: 760px) {
+  .atlas-view-models .atlas-copy::before { content: ""; position: absolute; z-index: -1; inset: -24px -20px -16px; background: linear-gradient(#03080d 92%, rgba(3, 8, 13, 0)); pointer-events: none; }
+  .atlas-view-models .atlas-label-layer__item--models { top: auto; bottom: 164px; }
+  .atlas-model-panel-open .atlas-label-layer__item--models { display: none; }
+  .atlas-view-models:not(.atlas-scope-us) .atlas-navigation { top: 48%; }
+}

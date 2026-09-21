@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>Local AI Activity &amp; Model Interest Map | LocalClaw Atlas</title>
-  <meta name="description" content="Explore local AI interest by country and region, compare the models people explore from the first observed visitor, and see privacy-thresholded setup destinations selected after LocalClaw model pages.">
+  <title>Most Explored Local AI Models by Country | LocalClaw Atlas</title>
+  <meta name="description" content="Discover which local AI models people explore by country. Choose a country, compare model brands and explore its regions. Based on LocalClaw page visits, not downloads or verified use.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://localclaw.io/local-ai-activity-index">
 
@@ -32,10 +32,10 @@
         "@id": "https://localclaw.io/local-ai-activity-index#page",
         "url": "https://localclaw.io/local-ai-activity-index",
         "name": "Local AI Activity Index",
-        "headline": "Where local AI activity is growing around the world",
+        "headline": "Explore AI models, country by country",
         "description": "A global map and country ranking built from anonymous LocalClaw interest signals, observed model-page interest published from the first visitor, and eligible model paths and setup destinations selected after model pages. Click intent is not a verified installation or model run.",
         "datePublished": "2026-08-29",
-        "dateModified": "2026-09-01",
+        "dateModified": "2026-09-21",
         "isPartOf": { "@id": "https://localclaw.io/#website" },
         "mainEntity": { "@id": "https://localclaw.io/local-ai-activity-index#dataset" },
         "primaryImageOfPage": {
@@ -78,7 +78,7 @@
         "isAccessibleForFree": true,
         "spatialCoverage": "Worldwide",
         "temporalCoverage": "2026-07-31/2026-08-29",
-        "dateModified": "2026-09-01",
+        "dateModified": "2026-09-21",
         "measurementTechnique": "Aggregated anonymous LocalClaw website traffic measured by DataFast. Country, subnational-region, and city-cluster rows must independently reach five signals before public JSON publication. Subnational values come only from their own DataFast region breakdown; city clusters never estimate them. DataFast exposes no county, prefecture, or local-government-area dimension, so those deeper boundary views remain neutral and unranked. City-cluster beacons use approximate GeoNames network-city centroids and never represent individual people, devices, exact IP addresses, or exact visitor locations. See the methodology and limitations on the canonical page.",
         "variableMeasured": [
           {
@@ -207,7 +207,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="/images/local-ai-activity-index/globe-fallback.jpg?v=20260829e" as="image" type="image/jpeg">
-  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260901f">
+  <link rel="stylesheet" href="/css/local-ai-activity-index.css?v=20260921a">
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <script src="/js/clarity.js" defer></script>
@@ -290,8 +290,16 @@
 
       <header class="atlas-copy">
         <p class="atlas-kicker">LocalClaw Atlas · Beta</p>
-        <h1 id="atlas-title" data-atlas-title>See where <em>local AI</em> is taking off.</h1>
-        <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>Anonymous interest aggregates · 62 countries published at 5+ signals · Last 30 days · Updated 29 August 2026</p>
+        <h1 id="atlas-title" data-atlas-title>Explore AI models, <em>country by country.</em></h1>
+        <p class="atlas-copy__summary" id="atlas-description" data-atlas-summary>See which models people explore on LocalClaw. Choose a country, then a brand to see its models. Page visits, not downloads or verified use.</p>
+        <div class="atlas-discover" data-model-only hidden>
+          <label for="atlas-country-picker">Find models by country</label>
+          <select id="atlas-country-picker" data-atlas-country-picker disabled>
+            <option value="">Choose a country…</option>
+          </select>
+          <button type="button" data-atlas-global-models>Explore worldwide brands →</button>
+          <p data-atlas-model-dates></p>
+        </div>
         <div class="atlas-copy__actions">
           <span class="atlas-live" data-atlas-live>Aggregate view</span>
           <button class="atlas-share-trigger" type="button" data-atlas-share-open>
@@ -302,9 +310,9 @@
       </header>
 
       <div class="atlas-controls" role="group" aria-label="Activity signal view">
-        <button class="atlas-control" type="button" data-atlas-view="interest" aria-pressed="true">Interest</button>
+        <button class="atlas-control" type="button" data-atlas-view="models" aria-pressed="true" aria-label="Models by country, model-interest view">Models</button>
+        <button class="atlas-control" type="button" data-atlas-view="interest" aria-pressed="false">Interest</button>
         <button class="atlas-control" type="button" data-atlas-view="installed" aria-pressed="false" aria-label="Install-intent path selection view">Install paths</button>
-        <button class="atlas-control" type="button" data-atlas-view="models" aria-pressed="false" aria-label="Model-interest view">Models</button>
         <button class="atlas-control" type="button" data-atlas-view="active" data-coming-soon aria-pressed="false" aria-label="Active view, coming soon">Active</button>
       </div>
 
@@ -321,7 +329,7 @@
       </button>
 
       <div class="atlas-navigation" aria-label="Globe navigation">
-        <span class="atlas-navigation__hint" aria-hidden="true">Drag to rotate <b>·</b> Scroll to zoom</span>
+        <span class="atlas-navigation__hint" aria-hidden="true">Drag to explore <b>·</b> + / − to zoom</span>
         <button type="button" class="atlas-navigation__tour" data-atlas-tour aria-label="Tour the top 10 most active regions" aria-pressed="false"><span aria-hidden="true"></span><b data-atlas-tour-label>Tour the top 10</b><small aria-hidden="true">Tour</small></button>
         <div class="atlas-navigation__rail" role="group" aria-label="Globe zoom controls">
           <button type="button" data-atlas-zoom="in" aria-label="Zoom in"><span aria-hidden="true">+</span></button>
@@ -438,7 +446,7 @@
 
         <div class="atlas-model-panel__body">
           <section class="atlas-model-overview" data-atlas-model-overview aria-label="Model-brand overview">
-            <p class="atlas-model-panel__lede">Observed unique visitors to eligible LocalClaw model pages show which local model brands people explore most, starting with the first visitor.</p>
+            <p class="atlas-model-panel__lede">Choose a brand below to see its models, ranked by visits to their LocalClaw pages.</p>
             <article class="atlas-model-dominant" data-atlas-model-dominant>
               <span class="atlas-model-dominant__logo" aria-hidden="true">
                 <img data-atlas-model-dominant-logo width="54" height="54" alt="" hidden>
@@ -455,8 +463,8 @@
               <span><strong data-atlas-model-request-count>0</strong><small>unique model-page visitors</small></span>
             </div>
             <div class="atlas-model-panel__section-head">
-              <span>Leading brands</span>
-              <small>Published only</small>
+              <span>Choose a brand → see models</span>
+              <small>By visitors</small>
             </div>
             <ol class="atlas-model-family-list" data-atlas-model-family-list aria-label="Most explored model brands"></ol>
             <button class="atlas-model-regions" type="button" data-atlas-model-regions hidden>
@@ -800,6 +808,6 @@
   </main>
 
   <noscript><p class="atlas-noscript">The interactive globe needs JavaScript. The complete snapshot, ranking, source, and limitations remain available on this page.</p></noscript>
-  <script type="module" src="/js/local-ai-activity-index.js?v=20260901q"></script>
+  <script type="module" src="/js/local-ai-activity-index.js?v=20260921a"></script>
 </body>
 </html>

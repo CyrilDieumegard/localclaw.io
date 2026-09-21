@@ -43,9 +43,9 @@ const requestedView = Object.freeze({
 const ACTIVE_PERIOD = Object.hasOwn(PERIOD_CONFIG, requestedPeriod) ? requestedPeriod : '30d';
 const ACTIVE_VIEW = requestedMetricView === 'installed'
   ? 'installed'
-  : requestedMetricView === 'models'
-    ? 'models'
-    : 'interest';
+  : requestedMetricView === 'interest'
+    ? 'interest'
+    : 'models';
 const DATA_URL = ACTIVE_VIEW === 'installed'
   ? PERIOD_CONFIG[ACTIVE_PERIOD].installedDataUrl
   : ACTIVE_VIEW === 'models'
@@ -361,7 +361,8 @@ const state = {
   dragging: false,
   dragStart: new THREE.Vector2(),
   dragLast: new THREE.Vector2(),
-  rotationStart: new THREE.Vector2(),
+  dragDistance: 0,
+  dragSensitivity: 0,
   pointer: new THREE.Vector2(10, 10),
   raycaster: new THREE.Raycaster(),
   interactionSphere: new THREE.Sphere(),
@@ -774,6 +775,7 @@ function shareSnapshot() {
 
 function currentShareUrl() {
   const url = new URL('/local-ai-activity-index', window.location.origin);
+  if (ACTIVE_VIEW === 'interest') url.searchParams.set('view', 'interest');
   if (ACTIVE_VIEW === 'installed') url.searchParams.set('view', 'installed');
   if (ACTIVE_VIEW === 'models') url.searchParams.set('view', 'models');
   if (ACTIVE_PERIOD !== '30d') url.searchParams.set('range', ACTIVE_PERIOD);
@@ -4041,6 +4043,9 @@ function beginFocusTransition(center, settleZoom) {
 
 function setZoom(nextZoom, immediate = false) {
   finishReveal();
+  if (state.focusTransition && state.globeGroup) {
+    state.targetRotation.set(state.globeGroup.rotation.x, state.globeGroup.rotation.y);
+  }
   cancelFocusTransition();
   const { minimum, maximum } = zoomLimits();
   state.zoom = THREE.MathUtils.clamp(nextZoom, minimum, maximum);
@@ -4049,16 +4054,35 @@ function setZoom(nextZoom, immediate = false) {
   updateZoomLevel();
 }
 
+function surfaceDistance() {
+  return Math.max(0.05, (state.camera?.position.z ?? state.zoom ?? defaultZoom()) - GLOBE_RADIUS);
+}
+
+function dragRadiansPerPixel() {
+  const height = Math.max(1, canvas.getBoundingClientRect().height);
+  const fieldOfView = THREE.MathUtils.degToRad(state.camera?.fov || 45);
+  return Math.min(0.0028, 2 * surfaceDistance() * Math.tan(fieldOfView / 2) / (height * GLOBE_RADIUS));
+}
+
+function stopGlobeMotion() {
+  finishReveal();
+  cancelFocusTransition();
+  state.rotationVelocity.set(0, 0);
+  if (state.globeGroup) state.targetRotation.set(state.globeGroup.rotation.x, state.globeGroup.rotation.y);
+  if (state.camera) state.zoom = state.camera.position.z;
+  updateZoomLevel();
+}
+
 function zoomBy(direction) {
   if (!state.tourAdvancing) stopTour();
-  const current = state.zoom ?? defaultZoom();
-  const step = Math.max(0.42, current * 0.085);
-  setZoom(current + direction * step);
+  const current = state.focusTransition ? state.camera.position.z : (state.zoom ?? defaultZoom());
+  setZoom(GLOBE_RADIUS + (current - GLOBE_RADIUS) * Math.exp(direction * 0.16));
   canvas.focus({ preventScroll: true });
 }
 
 function resetCurrentView() {
   if (!state.tourAdvancing) stopTour();
+  cancelFocusTransition();
   state.rotationVelocity.set(0, 0);
   if (state.scope === 'us') {
     state.locked = { name: 'United States state view' };
@@ -5286,7 +5310,7 @@ function renderModelPanel(country = state.selectedModelCountry, selectedBrandId 
     : regionalListView
       ? `${country.name} · ${state.detailConfig?.viewLabel || 'Regional view'}`
       : country ? country.name : 'Worldwide model interest';
-  if (panelTitle) panelTitle.textContent = regionalListView ? 'Model interest by region' : 'Most explored models';
+  if (panelTitle) panelTitle.textContent = regionalListView ? 'Models by region' : selected ? `${selected.label} models` : country ? `Models in ${country.name}` : 'Explore worldwide models';
   if (dominantLogo) {
     dominantLogo.src = dominant?.logo || '';
     dominantLogo.alt = '';
@@ -5444,7 +5468,7 @@ function focusModelCountry(country, requestedBrandId = '', options = {}) {
   setModelPanelOpen(true);
   renderModelPanel(country, state.selectedModelBrand, null);
   syncModelUrl();
-  if (options.exploreRegions !== false && !requestedBrandId && manifestEntryForCountry(country)) {
+  if (options.exploreRegions === true && !requestedBrandId && manifestEntryForCountry(country)) {
     void enterModelRegionExplorer(country);
     return;
   }
@@ -5730,6 +5754,8 @@ async function applyRequestedView() {
     if (!requestedView.region) {
       if (requestedView.brand && !requestedView.regions) {
         focusModelCountry(country, requestedView.brand, { exploreRegions: false });
+      } else if (!requestedView.regions) {
+        focusModelCountry(country, '', { exploreRegions: false });
       } else {
         focusModelCountry(country, '', { exploreRegions: false });
         await enterModelRegionExplorer(country);
@@ -5902,7 +5928,7 @@ function updateScopeInterface() {
   if (modelRegionalView && modelRegion && admin2View) setAtlasTitle(`Explore ${modelRegion.name}`, `${state.admin2Config.childrenLabel}.`);
   else if (modelRegionalView && modelRegion) setAtlasTitle('See model interest in', `${modelRegion.name}.`);
   else if (modelRegionalView) setAtlasTitle('See which local AI brands', `lead across ${modelCountry?.name || 'this country'}.`);
-  else if (modelInterestView) setAtlasTitle('See which local AI brands', 'each country is exploring.');
+  else if (modelInterestView) setAtlasTitle('Explore AI models,', 'country by country.');
   else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
   else if (admin1View) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, state.detailConfig.titleEmphasis);
   else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
@@ -5916,7 +5942,7 @@ function updateScopeInterface() {
           : `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
         : `${modelCountry?.name || state.detailCountry?.name || ''} · Regional model-page interest from the first observed visitor · ${periodDateRange()}`
       : modelInterestView
-        ? `Anonymous LLM model-page visitors · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries show an observed brand · ${periodLabel()}`
+        ? `See which models people explore on LocalClaw. Choose a country, then a brand to see its models. Page visits, not downloads or verified use.`
         : stateView
       ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
@@ -5927,6 +5953,10 @@ function updateScopeInterface() {
           ? `Model paths and setup destinations selected by anonymous visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ · ${periodLabel()} · Tracking since 21 August 2026`
           : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
   }
+  const countryPicker = document.querySelector('[data-atlas-country-picker]');
+  if (countryPicker) countryPicker.value = modelCountry?.name || state.detailCountry?.name || '';
+  const modelDates = document.querySelector('[data-atlas-model-dates]');
+  if (modelDates) modelDates.textContent = `${periodDateRange()} · ${number(state.data.totals.countriesWithPublishedBrands ?? state.data.totals.regions)} countries`;
   if (liveLabel) liveLabel.textContent = modelRegionalView
     ? modelRegion ? 'Regional model detail' : 'Regional model interest exploration'
     : modelInterestView
@@ -6425,9 +6455,29 @@ function resetPointerGesture() {
   state.activePointers.clear();
   state.pinchStartDistance = null;
   state.pinchStartZoom = null;
+  state.rotationVelocity.set(0, 0);
+  canvas.style.cursor = 'grab';
+}
+
+function populateCountryPicker() {
+  const picker = document.querySelector('[data-atlas-country-picker]');
+  if (!picker || !isModelInterestView()) return;
+  for (const country of [...state.countries].sort((a, b) => a.name.localeCompare(b.name))) {
+    const leaders = coLeadingModelBrands(country);
+    const option = document.createElement('option');
+    option.value = country.name;
+    option.textContent = `${country.name}${leaders.length ? ` — ${leaders.map(brand => brand.label).join(' / ')}` : ''}`;
+    picker.appendChild(option);
+  }
+  picker.disabled = false;
 }
 
 function bindInteractions() {
+  document.querySelector('[data-atlas-country-picker]')?.addEventListener('change', event => {
+    const country = state.countries.find(country => country.name === event.target.value);
+    if (country) focusModelCountry(country, '', { exploreRegions: false });
+  });
+  document.querySelector('[data-atlas-global-models]')?.addEventListener('click', () => showGlobalModelPanel());
   document.querySelectorAll('[data-atlas-share-open]').forEach(button => {
     button.addEventListener('click', () => setShareMode(true));
   });
@@ -6451,9 +6501,10 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('pointerdown', event => {
+    if (event.button !== 0) return;
     consumeTouchPointer(event);
     stopTour();
-    cancelFocusTransition();
+    stopGlobeMotion();
     canvas.focus({ preventScroll: true });
     state.activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     captureCanvasPointer(event.pointerId);
@@ -6466,9 +6517,11 @@ function bindInteractions() {
       return;
     }
     state.dragging = true;
+    state.dragDistance = 0;
+    state.dragSensitivity = dragRadiansPerPixel();
+    canvas.style.cursor = 'grabbing';
     state.dragStart.set(event.clientX, event.clientY);
     state.dragLast.copy(state.dragStart);
-    state.rotationStart.copy(state.targetRotation);
     state.lastInteractionAt = performance.now();
   });
 
@@ -6481,7 +6534,7 @@ function bindInteractions() {
       const distance = activePointerDistance();
       if (distance && state.pinchStartDistance && state.pinchStartZoom) {
         if (event.cancelable) event.preventDefault();
-        setZoom(state.pinchStartZoom * (state.pinchStartDistance / distance));
+        setZoom(GLOBE_RADIUS + (state.pinchStartZoom - GLOBE_RADIUS) * (state.pinchStartDistance / distance));
       }
       hideTooltip();
       return;
@@ -6492,9 +6545,13 @@ function bindInteractions() {
       const deltaY = event.clientY - state.dragStart.y;
       const moveX = event.clientX - state.dragLast.x;
       const moveY = event.clientY - state.dragLast.y;
-      state.targetRotation.y = state.rotationStart.y + deltaX * 0.005;
-      state.targetRotation.x = THREE.MathUtils.clamp(state.rotationStart.x + deltaY * 0.0035, -1.15, 1.15);
-      state.rotationVelocity.set(moveY * 0.00065, moveX * 0.0009);
+      state.dragDistance = Math.max(state.dragDistance, Math.hypot(deltaX, deltaY));
+      if (state.dragDistance >= 7) {
+        state.targetRotation.y += moveX * state.dragSensitivity;
+        state.targetRotation.x = THREE.MathUtils.clamp(state.targetRotation.x + moveY * state.dragSensitivity, -1.15, 1.15);
+        state.globeGroup.rotation.x = state.targetRotation.x;
+        state.globeGroup.rotation.y = state.targetRotation.y;
+      }
       state.dragLast.set(event.clientX, event.clientY);
       state.lastInteractionAt = performance.now();
       hideTooltip();
@@ -6512,11 +6569,14 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('pointerup', event => {
+    if (!state.activePointers.has(event.pointerId)) return;
     consumeTouchPointer(event);
-    const moved = Math.hypot(event.clientX - state.dragStart.x, event.clientY - state.dragStart.y);
+    const moved = Math.max(state.dragDistance, Math.hypot(event.clientX - state.dragStart.x, event.clientY - state.dragStart.y));
     const wasPinching = state.pinching;
     state.activePointers.delete(event.pointerId);
     state.dragging = false;
+    state.rotationVelocity.set(0, 0);
+    canvas.style.cursor = 'grab';
     releaseCanvasPointer(event.pointerId);
     if (wasPinching) {
       // Keep the whole two-finger gesture consumed until the last pointer is
@@ -6579,7 +6639,10 @@ function bindInteractions() {
     if (!event.ctrlKey && !event.metaKey && document.activeElement !== canvas) return;
     stopTour();
     event.preventDefault();
-    setZoom((state.zoom ?? state.camera.position.z) + event.deltaY * 0.0045);
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvas.clientHeight : 1;
+    const delta = THREE.MathUtils.clamp(event.deltaY * unit, -100, 100);
+    const current = state.focusTransition ? state.camera.position.z : (state.zoom ?? state.camera.position.z);
+    setZoom(GLOBE_RADIUS + (current - GLOBE_RADIUS) * Math.exp(delta * 0.0012));
   }, { passive: false });
 
   canvas.addEventListener('dblclick', event => {
@@ -6588,7 +6651,11 @@ function bindInteractions() {
   });
 
   canvas.addEventListener('keydown', event => {
-    const step = event.shiftKey ? 0.2 : 0.08;
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', '0'].includes(event.key)) return;
+    if (state.focusTransition) stopGlobeMotion();
+    const step = dragRadiansPerPixel() * (event.shiftKey ? 48 : 20);
+    stopTour();
+    state.rotationVelocity.set(0, 0);
     cancelFocusTransition();
     if (event.key === 'ArrowLeft') state.targetRotation.y -= step;
     else if (event.key === 'ArrowRight') state.targetRotation.y += step;
@@ -6657,7 +6724,7 @@ function bindInteractions() {
       const url = new URL(window.location.href);
       if (view === 'installed') url.searchParams.set('view', 'installed');
       else if (view === 'models') url.searchParams.set('view', 'models');
-      else url.searchParams.delete('view');
+      else url.searchParams.set('view', 'interest');
       url.searchParams.delete('country');
       url.searchParams.delete('region');
       url.searchParams.delete('regions');
@@ -6802,7 +6869,6 @@ function animate(time) {
   }
   state.lastRenderAt = time;
   const seconds = time * 0.001;
-  const idle = performance.now() - state.lastInteractionAt > 2800;
   let cinematicMotion = false;
 
   if (state.revealStartedAt !== null && state.revealFromZoom !== null) {
@@ -6848,15 +6914,7 @@ function animate(time) {
     if (state.zoom !== null) {
       state.camera.position.z += (state.zoom - state.camera.position.z) * (prefersReducedMotion.matches ? 1 : 0.12);
     }
-    if (!prefersReducedMotion.matches && idle && !state.dragging && !state.locked && !state.shareMode) {
-      state.targetRotation.y += 0.00042;
-    }
-
-    if (!state.dragging) {
-      state.targetRotation.x += state.rotationVelocity.x;
-      state.targetRotation.y += state.rotationVelocity.y;
-      state.rotationVelocity.multiplyScalar(0.92);
-    }
+    // Exploration stays exactly where the user leaves it. Motion is explicit (drag or tour).
     state.globeGroup.rotation.x += (state.targetRotation.x - state.globeGroup.rotation.x) * 0.075;
     state.globeGroup.rotation.y += (state.targetRotation.y - state.globeGroup.rotation.y) * 0.075;
   }
@@ -7350,10 +7408,11 @@ async function initialize() {
     stage.dataset.admin2Parents = String(state.admin2Manifest?.totals?.parents || 0);
     stage.dataset.admin2Subdivisions = String(state.admin2Manifest?.totals?.subdivisions || 0);
     stage.classList.toggle('atlas-has-city-clusters', state.cityClusters.length > 0);
-    if (isModelInterestView()) setModelPanelOpen(!isMobileViewport());
+    if (isModelInterestView()) setModelPanelOpen(false);
     if (isInstallIntentView()) setInstallPanelOpen(!isMobileViewport());
     renderStatePanel();
     renderDataSummary();
+    populateCountryPicker();
     if (isModelInterestView()) renderModelPanel(null, '');
     if (isInstallIntentView()) renderInstallPanel(null, '');
     bindInteractions();

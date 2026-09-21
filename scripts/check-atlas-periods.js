@@ -1114,14 +1114,25 @@ if (!app.includes("const ACTIVE_PERIOD") || !app.includes("url.searchParams.set(
 if (!app.includes("requestedMetricView === 'installed'") || !app.includes("url.searchParams.set('view', 'installed')")) {
   issue('Atlas Installed selection is not wired to the goal-filtered datasets and share URLs');
 }
-if (!/data-atlas-view=["']models["'][^>]*aria-pressed=["']false["']/i.test(page)
+if (!/data-atlas-view=["']models["'][^>]*aria-pressed=["']true["']/i.test(page)
   || /data-atlas-view=["']models["'][^>]*data-coming-soon/i.test(page)) {
   issue('Atlas Models selector must be present and active');
+}
+// Execute the actual metric selector so both the default entry and shared links stay stable.
+const viewSelector = app.match(/const ACTIVE_VIEW = ([\s\S]*?);/);
+for (const [requestedMetricView, expectedView] of [[null, 'models'], ['models', 'models'], ['interest', 'interest'], ['installed', 'installed'], ['unknown', 'models']]) {
+  try {
+    if (!viewSelector || vm.runInNewContext(viewSelector[1], { requestedMetricView }) !== expectedView) {
+      issue(`Atlas metric selection failed for ${requestedMetricView ?? 'default entry'}`);
+    }
+  } catch (error) {
+    issue(`Atlas metric selector could not be checked: ${error.message}`);
+  }
 }
 if (!app.includes("modelDataUrl: '/data/local-ai-model-page-interest.json?")
   || !app.includes("modelDataUrl: '/data/local-ai-model-page-interest-90d.json?")
   || !app.includes("modelDataUrl: '/data/local-ai-model-page-interest-180d.json?")
-  || !app.includes("requestedMetricView === 'models'")
+  || !app.includes("requestedMetricView === 'interest'")
   || !app.includes('PERIOD_CONFIG[ACTIVE_PERIOD].modelDataUrl')) {
   issue('Atlas Models selection is not wired to its 30D, 3M and 6M datasets');
 }
