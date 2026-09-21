@@ -1,4 +1,5 @@
 [data-chart-freshness][data-stale="true"] { color: var(--charts-accent, #ff453a); font-weight: 600; }
+#adoption, #geography, #practical, #methodology { scroll-margin-top: 100px; }
 :root {
   color-scheme: dark;
   --charts-page: #050505;

@@ -44,6 +44,7 @@ requireText(css, '--charts-accent: #ff453a', 'Theme-switch red-orange accent is 
 requireText(css, '.charts-adoption-tooltip', 'Tooltip styling is missing');
 requireText(css, '.charts-bar-row strong { position: absolute; top: 50%; left: 14px;', 'Chart values are not inset from the bar edge');
 requireText(css, '.charts-detail-tooltip', 'Interactive chart detail styling is missing');
+requireText(css, '#adoption, #geography, #practical, #methodology { scroll-margin-top: 100px; }', 'Chart anchors must clear the fixed navigation');
 
 const adoption = data.charts && data.charts[0];
 if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
