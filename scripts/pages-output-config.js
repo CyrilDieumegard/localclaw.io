@@ -17,6 +17,7 @@ const PUBLIC_ROOT_FILES = Object.freeze([
   'favicon.ico',
   'google7a49ecaded8c2575.html',
   'index.html',
+  'labs.html',
   'image-models.html',
   'video-models.html',
   '3d-models.html',
@@ -74,7 +75,7 @@ const PUBLIC_DIRECTORIES = Object.freeze([
 ]);
 
 const PUBLIC_EXTENSIONS = new Set([
-  '.css', '.dmg', '.geojson', '.html', '.ico', '.jpeg', '.jpg', '.js', '.json', '.png', '.svg', '.txt', '.webp', '.xml'
+  '.css', '.dmg', '.geojson', '.html', '.ico', '.jpeg', '.jpg', '.js', '.mjs', '.json', '.png', '.svg', '.txt', '.wasm', '.webp', '.xml'
 ]);
 
 const PRIVATE_PROBES = Object.freeze([

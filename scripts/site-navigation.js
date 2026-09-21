@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260831hardware';
+const NAV_VERSION = '20260921labs2';
 
 const hardwareItems = [
   ['computers', '/computers', 'Computers'],
@@ -13,6 +13,7 @@ const items = [
   ['charts', '/charts', 'Charts'],
   ['diy', '/diy/', 'DIY'],
   ['new', '/new', 'New'],
+  ['labs', '/labs', 'Labs'],
   ['account', '/account', 'My Machines']
 ];
 

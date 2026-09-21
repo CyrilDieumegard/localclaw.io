@@ -13,6 +13,7 @@
     if (path === '/music-models' || path.indexOf('/music/') === 0) return 'music';
     if (path === '/vision-models' || path.indexOf('/vision/') === 0) return 'vision';
     if (path === '/new') return 'new';
+    if (path === '/labs') return 'labs';
     if (path === '/charts') return 'charts';
     if (path === '/diy' || path.indexOf('/diy/') === 0) return 'diy';
     if (path === '/computers' || path.indexOf('/hardware/') === 0) return 'computers';
@@ -98,7 +99,7 @@
       if (!nav.contains(event.target)) setOpen(button, menu, false);
     });
 
-    var mobileLayout = window.matchMedia('(max-width: 980px)');
+    var mobileLayout = window.matchMedia('(max-width: 1100px)');
     mobileLayout.addEventListener('change', function () {
       closeDropdowns();
       setOpen(button, menu, false);

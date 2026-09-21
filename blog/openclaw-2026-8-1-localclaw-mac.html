@@ -35,9 +35,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css?v=20260822b">
 <link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a&amp;openclaw=20260831a">
-<link rel="stylesheet" href="/css/site-nav.css?v=20260831hardware">
-<script src="/js/theme-toggle.js?v=20260831hardware"></script>
-<script src="/js/site-nav.js?v=20260831hardware" defer></script>
+<link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2">
+<script src="/js/theme-toggle.js?v=20260921labs2"></script>
+<script src="/js/site-nav.js?v=20260921labs2" defer></script>
 <style>
 body.oc2-page{--oc2-ink:#f7f7f8;--oc2-muted:#b4b4bc;--oc2-bg:#080909;--oc2-card:#111314;--oc2-line:#2a2c2e;--oc2-accent:#ff786d;--oc2-soft:rgba(255,100,87,.08);margin:0;background:radial-gradient(ellipse at 50% 0,rgba(255,92,77,.12),transparent 36rem),var(--oc2-bg);color:var(--oc2-ink);font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
 html.light body.oc2-page{--oc2-ink:#172025;--oc2-muted:#53616a;--oc2-bg:#faf9f6;--oc2-card:#fff;--oc2-line:#deded7;--oc2-accent:#b7352b;--oc2-soft:#fff1e9;background:radial-gradient(ellipse at 50% 0,rgba(236,141,99,.14),transparent 36rem),var(--oc2-bg);color:var(--oc2-ink)}
@@ -59,7 +59,7 @@ html.light body.oc2-page{--oc2-ink:#172025;--oc2-muted:#53616a;--oc2-bg:#faf9f6;
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Local AI Map</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a></div>
     <div class="lc-global-nav__actions">
       <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
       <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
@@ -92,7 +92,7 @@ html.light body.oc2-page{--oc2-ink:#172025;--oc2-muted:#53616a;--oc2-bg:#faf9f6;
       <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Local AI Map</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
     </div>
   </div>
 </nav>

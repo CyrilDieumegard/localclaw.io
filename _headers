@@ -93,6 +93,22 @@
 /new.html
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
+# Isolation and local workers apply only to the browser-model playground.
+# Replace the generic policy so Labs has no analytics/session recording scripts.
+/labs
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/labs.html
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
 /llms.txt
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
@@ -152,6 +168,11 @@
 
 /js/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# App modules are small and revalidated; the large runtime is versioned.
+/js/labs/*.mjs
+  ! Cache-Control
+  Cache-Control: public, max-age=0, must-revalidate
 
 /css/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400

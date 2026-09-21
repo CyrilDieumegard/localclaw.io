@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LocalClaw Labs — Small AI Models in Your Browser</title>
+  <meta name="description" content="Play a tiny AI detective game, remix your writing and chat with small open models running locally in your browser. Free. No account or API key.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localclaw.io/labs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://localclaw.io/labs">
+  <meta property="og:title" content="LocalClaw Labs — Small models. Real possibilities.">
+  <meta property="og:description" content="A detective game, a writing playground and a chat. The AI runs on your device, right in your browser.">
+  <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/images/favicon.png?v=20260211g">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/labs-20260921.css?v=3">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LocalClaw Labs","url":"https://localclaw.io/labs","applicationCategory":"EntertainmentApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Interactive experiments with small open language models running locally in the browser."}</script>
+  <script src="/js/theme-toggle.js?v=20260921labs2"></script><link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2"><script src="/js/site-nav.js?v=20260921labs2" defer></script>
+</head>
+<body class="lc-labs-page">
+  <a class="labs-skip" href="#labs-main">Skip to Labs</a>
+  <nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Local AI Map</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs" aria-current="page">Labs</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">AI Index</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas">Local AI Map</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs" aria-current="page">Labs</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+  <main id="labs-main" class="labs-shell">
+    <header class="labs-intro">
+      <h1>Small models. <span>Real possibilities.</span></h1>
+      <p>Play, write and explore with AI running in your browser.</p>
+    </header>
+    <noscript><p class="labs-no-js">Labs needs JavaScript to run a model on your device. You can still <a href="/llm-list">explore the model catalogue</a>.</p></noscript>
+    <section class="labs-loader" aria-label="Local model setup">
+      <div class="labs-loader-row">
+        <label class="labs-label" for="labs-model">01 / Load a model</label>
+        <select id="labs-model" class="labs-select" aria-describedby="labs-model-note"><option value="qwen3-06b">Qwen3 0.6B · 397 MB</option><option value="qwen3-17b">Qwen3 1.7B · 1.11 GB</option></select>
+        <button id="labs-load" class="labs-button labs-button--primary" disabled>Load model</button>
+        <button id="labs-cancel-load" class="labs-button" hidden>Cancel</button>
+        <p class="labs-loader-copy">Download once, reuse from cache.<br>Runs on your device. No account or API key.</p>
+      </div>
+      <div class="labs-status-row"><p id="labs-model-note" class="labs-status" role="status">Checking your browser…</p><button id="labs-unload" class="labs-text-button" hidden>Unload model</button></div>
+      <progress id="labs-progress" class="labs-progress" max="100" value="0" hidden aria-label="Model download progress"></progress>
+    </section>
+    <div class="labs-tabs" role="tablist" aria-label="Choose an experiment">
+      <button class="labs-tab" id="tab-mystery" role="tab" aria-selected="true" aria-controls="panel-mystery" data-mode="mystery">The missing masterpiece</button>
+      <button class="labs-tab" id="tab-remix" role="tab" aria-selected="false" aria-controls="panel-remix" tabindex="-1" data-mode="remix">Remix studio</button>
+      <button class="labs-tab" id="tab-chat" role="tab" aria-selected="false" aria-controls="panel-chat" tabindex="-1" data-mode="chat">Free chat</button>
+    </div>
+    <section id="panel-mystery" class="labs-workbench" role="tabpanel" aria-labelledby="tab-mystery">
+      <div class="labs-sidebar">
+        <span class="labs-label">Case file 01</span>
+        <h2>The missing masterpiece</h2>
+        <p>One painting. Three suspects. Ask questions. Find the thief.</p>
+        <div class="labs-suspects" aria-label="Choose a suspect">
+          <button class="labs-suspect" data-suspect="mara" aria-pressed="true">Mara<span>Curator</span></button>
+          <button class="labs-suspect" data-suspect="leo" aria-pressed="false">Leo<span>Security</span></button>
+          <button class="labs-suspect" data-suspect="iris" aria-pressed="false">Iris<span>Restorer</span></button>
+        </div>
+        <p>Start with an alibi. Look for a contradiction.</p>
+        <details class="labs-case-notes" open><summary>Case notes <span id="labs-clue-count">0/3</span></summary><ul id="labs-clues"><li>The painting disappeared at 21:14. Interview each suspect to uncover the evidence.</li></ul></details>
+        <button id="labs-accuse" class="labs-button labs-wide" disabled>Make an accusation</button>
+      </div>
+      <div class="labs-conversation">
+        <div class="labs-chat-header"><div><h3 id="labs-suspect-name">Interview Mara</h3><p id="labs-suspect-role">Museum curator</p></div><button id="labs-restart" class="labs-text-button">New case</button></div>
+        <div id="labs-mystery-messages" class="labs-messages" aria-label="Interview transcript"><article class="labs-message"><span class="labs-message-label">Scene introduction</span><p>I organised the exhibition. Ask me about the night the painting disappeared.</p></article></div>
+        <form id="labs-mystery-form" class="labs-compose"><textarea id="labs-mystery-input" aria-label="Your question to the suspect" placeholder="Where were you when the alarm went off?" maxlength="400" rows="2" required></textarea><button class="labs-button labs-button--primary" type="submit" data-send disabled>Send</button><button class="labs-button" type="button" data-stop hidden>Stop</button></form>
+        <p id="labs-mystery-help" class="labs-help">Load a model to start the interview.</p>
+      </div>
+    </section>
+    <section id="panel-remix" class="labs-workbench" role="tabpanel" aria-labelledby="tab-remix" hidden>
+      <div class="labs-sidebar">
+        <span class="labs-label">Writing playground</span><h2>Give your words a twist.</h2><p>Same idea. A different voice. See what a tiny model makes of it.</p>
+        <div class="labs-styles" aria-label="Writing style"><button class="labs-button" data-tone="clear" aria-pressed="true">Make it clear</button><button class="labs-button" data-tone="pirate" aria-pressed="false">Talk like a pirate</button><button class="labs-button" data-tone="trailer" aria-pressed="false">Movie trailer</button><button class="labs-button" data-tone="haiku" aria-pressed="false">Try a haiku</button></div>
+        <label for="labs-remix-input" class="labs-label">Your text</label><textarea id="labs-remix-input" class="labs-source" maxlength="1800" rows="5">We need to move the team meeting to Friday because the office coffee machine has stopped working.</textarea>
+        <button id="labs-remix-run" class="labs-button labs-button--primary labs-wide" data-send disabled>Remix this</button><button class="labs-button labs-wide" type="button" data-stop hidden>Stop</button>
+      </div>
+      <div class="labs-conversation"><div class="labs-chat-header"><div><h3>Your remix</h3><p id="labs-remix-style">Make it clear</p></div><button id="labs-copy-remix" class="labs-text-button" disabled>Copy text</button></div><div id="labs-remix-result" class="labs-remix-result">Your locally generated rewrite will appear here.</div><p id="labs-remix-help" class="labs-help">Load a model, choose a voice and try your own text.</p></div>
+    </section>
+    <section id="panel-chat" class="labs-workbench" role="tabpanel" aria-labelledby="tab-chat" hidden>
+      <div class="labs-sidebar"><span class="labs-label">Open playground</span><h2>Meet a small model.</h2><p>Ask a question, explore an idea or test a prompt. Everything is generated on your device.</p><div class="labs-chat-starters"><button class="labs-button" data-starter="Explain how a language model works using a cooking analogy.">Explain AI through cooking</button><button class="labs-button" data-starter="Invent three funny names for a crab who works as a detective.">Name a crab detective</button><button class="labs-button" data-starter="Give me a tiny creative challenge I can do in two minutes.">Give me a two-minute challenge</button></div><p class="labs-help">Small models can be wrong. They have no web access here.</p></div>
+      <div class="labs-conversation"><div class="labs-chat-header"><div><h3>Local chat</h3><p id="labs-chat-model">Your model, your machine.</p></div><button id="labs-clear-chat" class="labs-text-button">Clear chat</button></div><div id="labs-chat-messages" class="labs-messages" aria-label="Chat transcript"><article class="labs-message"><span class="labs-message-label">Getting started</span><p>What would you like to try?</p></article></div><form id="labs-chat-form" class="labs-compose"><textarea id="labs-chat-input" aria-label="Your message" placeholder="Ask your local model something…" maxlength="1000" rows="2" required></textarea><button class="labs-button labs-button--primary" type="submit" data-send disabled>Send</button><button class="labs-button" type="button" data-stop hidden>Stop</button></form><p id="labs-chat-help" class="labs-help">Load a model to start chatting.</p></div>
+    </section>
+    <footer class="labs-footer">
+      <p>Prompts stay in this tab. Model files download from Hugging Face.</p>
+      <details class="labs-info"><summary>How local inference works</summary>
+        <p>You download a model after clicking Load model. Your browser stores its weights locally, then runs it using your GPU when available, or your CPU. The first download can take several minutes; loading it again uses the cache if your browser has kept it. Keep this tab open while the model is running.</p>
+        <p>Labs does not send your prompts or answers to an AI service and does not run session recordings. Conversations live only in this tab and disappear when you reload. The site and model host still receive normal network requests to deliver their files. See our <a href="/privacy">privacy policy</a>.</p>
+        <p>Both models use Q4_K_M quantization: <a href="https://huggingface.co/unsloth/Qwen3-0.6B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 0.6B, 397 MB</a> and <a href="https://huggingface.co/unsloth/Qwen3-1.7B-GGUF" target="_blank" rel="noopener noreferrer">Qwen3 1.7B, 1.11 GB</a>, under Apache 2.0. The local engine is <a href="https://github.com/ngxson/wllama" target="_blank" rel="noopener noreferrer">wllama 3.6.1</a> (MIT). Downloads use fixed model revisions.</p>
+        <p>The game’s case notes and solution are authored; the interviews, remixes and chat replies are generated live. Tiny models can invent details, so use the case notes to solve the mystery. Measured timings describe this browser session, not desktop app performance.</p>
+        <div class="labs-cache-actions"><button id="labs-delete-cache" class="labs-button">Remove downloaded models</button><span id="labs-cache-status" role="status">Frees the storage used by these two Labs models.</span></div>
+      </details>
+    </footer>
+    <div id="labs-announcement" class="labs-announcement" role="status" aria-live="polite"></div>
+  </main>
+  <footer class="labs-page-footer"><span>© 2026 LocalClaw · Labs</span><span><a href="/llm-list">Explore all models</a> · <a href="/privacy">Privacy</a></span></footer>
+  <dialog id="labs-verdict" class="labs-dialog" aria-labelledby="labs-verdict-title"><h2 id="labs-verdict-title">Who took the painting?</h2><div id="labs-verdict-body"></div><div class="labs-dialog-actions"><button id="labs-close-verdict" class="labs-button">Back to the case</button><button id="labs-share" class="labs-button labs-button--primary" hidden>Copy challenge link</button></div></dialog>
+  <script type="module" src="/js/labs/app.mjs?v=20260921b"></script>
+</body>
+</html>

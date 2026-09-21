@@ -27,6 +27,8 @@ for (const marker of [
   'href="/diy/"',
   'data-nav-key="diy"',
   '>DIY</a>',
+  'href="/labs"',
+  'data-nav-key="labs"',
   'data-theme-option="light"',
   'data-theme-option="dark"',
   'lc-theme-switcher--mobile',
@@ -86,6 +88,7 @@ function activeSection(relativePath) {
   if (clean === 'music-models' || clean.startsWith('music/')) return 'music';
   if (clean === 'vision-models' || clean.startsWith('vision/')) return 'vision';
   if (clean === 'new') return 'new';
+  if (clean === 'labs') return 'labs';
   if (clean === 'computers' || clean.startsWith('hardware/')) return 'computers';
   if (clean === 'ram-gpu-for-local-ai' || clean.startsWith('ram/')) return 'ram-gpu';
   if (clean === 'charts') return 'charts';
