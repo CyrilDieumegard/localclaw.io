@@ -2367,14 +2367,14 @@ if (app !== null) {
     issue('Invalid or stale Models brand deep links must fall back to the country overview');
   }
   if (!focusModelCountryBody.includes('void enterModelRegionExplorer(country)')
-    || !focusModelCountryBody.includes('options.exploreRegions === true')
+    || !focusModelCountryBody.includes('options.exploreRegions !== false')
     || !focusInstallCountryBody.includes('void enterInstallRegionExplorer(country, state.selectedInstallModel)')
     || !app.includes("entry.kind !== 'installStack'")
     || !app.includes('leadingInstallPath(country)')
     || !app.includes('function syncInstallUrl()')
     || !app.includes("if (isInstallIntentView()) syncInstallUrl()")
     || !app.includes('/^(?:US|CN|AU)-[A-Z0-9]{2,3}$/')) {
-    issue('Models country selections must offer explicit regional detail; Install paths keep their regional drill-down and leading logo');
+    issue('Models and Install paths country selections must automatically open regional detail and keep the leading install-path logo on the map');
   }
   const shareSnapshotBody = topLevelFunctionBody(app, 'shareSnapshot');
   if (!shareSnapshotBody.includes('const leaders = coLeadingModelBrands(country)')

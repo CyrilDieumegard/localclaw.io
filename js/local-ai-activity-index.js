@@ -5468,7 +5468,7 @@ function focusModelCountry(country, requestedBrandId = '', options = {}) {
   setModelPanelOpen(true);
   renderModelPanel(country, state.selectedModelBrand, null);
   syncModelUrl();
-  if (options.exploreRegions === true && !requestedBrandId && manifestEntryForCountry(country)) {
+  if (options.exploreRegions !== false && !requestedBrandId && manifestEntryForCountry(country)) {
     void enterModelRegionExplorer(country);
     return;
   }
@@ -5754,8 +5754,6 @@ async function applyRequestedView() {
     if (!requestedView.region) {
       if (requestedView.brand && !requestedView.regions) {
         focusModelCountry(country, requestedView.brand, { exploreRegions: false });
-      } else if (!requestedView.regions) {
-        focusModelCountry(country, '', { exploreRegions: false });
       } else {
         focusModelCountry(country, '', { exploreRegions: false });
         await enterModelRegionExplorer(country);
@@ -5942,7 +5940,7 @@ function updateScopeInterface() {
           : `${modelRegion.name}, ${modelCountry?.name || state.detailCountry?.name || ''} · Approximate network region · ${periodDateRange()}`
         : `${modelCountry?.name || state.detailCountry?.name || ''} · Regional model-page interest from the first observed visitor · ${periodDateRange()}`
       : modelInterestView
-        ? `See which models people explore on LocalClaw. Choose a country, then a brand to see its models. Page visits, not downloads or verified use.`
+        ? `Choose a country to explore its regions. Select a brand logo to see its models. Rankings reflect LocalClaw page visits, not downloads or verified use.`
         : stateView
       ? `United States · Approximate network regions · ${periodDateRange()}`
       : admin1View
@@ -6475,7 +6473,7 @@ function populateCountryPicker() {
 function bindInteractions() {
   document.querySelector('[data-atlas-country-picker]')?.addEventListener('change', event => {
     const country = state.countries.find(country => country.name === event.target.value);
-    if (country) focusModelCountry(country, '', { exploreRegions: false });
+    if (country) focusModelCountry(country);
   });
   document.querySelector('[data-atlas-global-models]')?.addEventListener('click', () => showGlobalModelPanel());
   document.querySelectorAll('[data-atlas-share-open]').forEach(button => {
