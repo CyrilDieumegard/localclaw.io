@@ -23,7 +23,9 @@
     "home-css:build": "tailwindcss -c scripts/tailwind.home.config.js -i scripts/home-tailwind.css -o css/home-tailwind-20260814a.css --minify",
     "site-css:build": "tailwindcss -c scripts/tailwind.site.config.js -i scripts/site-tailwind.css -o css/site-tailwind-20260823a.css --minify",
     "software-css:build": "tailwindcss -c scripts/tailwind.software.config.js -i scripts/site-tailwind.css -o css/software-tailwind-20260823a.css --minify",
-    "charts:check": "node scripts/check-charts.js",
+    "charts:refresh": "node scripts/refresh-charts.mjs",
+    "charts:generate": "node scripts/refresh-charts.mjs --render",
+    "charts:check": "node --test tests/charts-refresh.test.mjs && node scripts/check-charts.js && node scripts/refresh-charts.mjs --check",
     "atlas:activity:generate": "node scripts/generate-admin1-activity.js",
     "atlas:admin1:generate": "node scripts/generate-global-admin1.js",
     "atlas:admin2:generate": "node scripts/generate-admin2-boundaries.js",
@@ -44,7 +46,7 @@
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs && node --test tests/amazon-routing.test.mjs",
     "license:test": "node --test tests/license-backend.test.mjs",
-    "pages:build": "node scripts/catalogue-integrity.js && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
+    "pages:build": "node scripts/catalogue-integrity.js && npm run charts:check && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
     "pages:check": "npm run software:check && node scripts/check-pages-output.js"
   },
   "dependencies": {

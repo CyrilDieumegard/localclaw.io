@@ -6,7 +6,25 @@
     try { window.datafast(name, properties || {}); } catch (_) {}
   }
 
-  track('charts_page_loaded', { page: 'charts', snapshot: '2026-08-27' });
+  var snapshotNode = document.querySelector('[data-charts-snapshot]');
+  var snapshot = snapshotNode ? snapshotNode.getAttribute('data-charts-snapshot') : 'unknown';
+  track('charts_page_loaded', { page: 'charts', snapshot: snapshot });
+
+  function updateFreshness() {
+    document.querySelectorAll('[data-chart-freshness]').forEach(function (node) {
+      var asOf = node.getAttribute('data-as-of');
+      var age = Math.floor(Date.now() / 86400000) - Math.floor(Date.parse(asOf + 'T00:00:00Z') / 86400000);
+      var stale = !Number.isFinite(age) || age < 1 || age > Number(node.getAttribute('data-max-age'));
+      if (!node.hasAttribute('data-fresh-label')) node.setAttribute('data-fresh-label', node.textContent);
+      node.setAttribute('data-stale', String(stale));
+      node.setAttribute('aria-live', 'polite');
+      node.textContent = stale
+        ? 'Update delayed — latest source date: ' + asOf + '. Showing the last verified snapshot.'
+        : node.getAttribute('data-fresh-label');
+    });
+  }
+  updateFreshness();
+  document.addEventListener('visibilitychange', updateFreshness);
 
   document.querySelectorAll('[data-chart]').forEach(function (chart) {
     var id = chart.getAttribute('data-chart');
@@ -14,7 +32,7 @@
     var observer = new IntersectionObserver(function (entries) {
       if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
       chart.classList.add('is-visible');
-      track('chart_view', { chart: id, snapshot: '2026-08-27' });
+      track('chart_view', { chart: id, snapshot: snapshot });
       observer.disconnect();
     }, { threshold: 0.35 });
     observer.observe(chart);

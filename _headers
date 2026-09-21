@@ -16,6 +16,16 @@
 /index.html
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 
+# Daily Charts snapshots must not inherit long-lived asset caching.
+/charts
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/charts.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+/charts-data.json
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
 /local-ai-activity-index
   Cache-Control: public, max-age=300, stale-while-revalidate=3600
 

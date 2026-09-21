@@ -1,3 +1,4 @@
+[data-chart-freshness][data-stale="true"] { color: var(--charts-accent, #ff453a); font-weight: 600; }
 :root {
   color-scheme: dark;
   --charts-page: #050505;

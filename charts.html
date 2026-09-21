@@ -28,7 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css?v=20260822a">
   <link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2">
-  <link rel="stylesheet" href="/css/charts-20260827h.css">
+  <link rel="stylesheet" href="/css/charts-20260827h.css?v=20260921fresh1">
   <link rel="stylesheet" href="/css/conversion-paths-20260827a.css?v=20260827a">
 
   <script id="datafast-queue">window.datafast=window.datafast||function(){(window.datafast.q=window.datafast.q||[]).push(arguments);};</script>
@@ -36,65 +36,110 @@
   <script src="/js/clarity.js" defer></script>
   <script src="/js/theme-toggle.js?v=20260921labs2"></script>
   <script src="/js/site-nav.js?v=20260921labs2" defer></script>
-  <script src="/js/charts-20260827c.js" defer></script>
+  <script src="/js/charts-20260827c.js?v=20260921fresh1" defer></script>
   <script src="/js/conversion-paths-20260827a.js?v=20260827c" defer></script>
 
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@graph":[
-      {
-        "@type":"CollectionPage",
-        "@id":"https://localclaw.io/charts#page",
-        "url":"https://localclaw.io/charts",
-        "name":"Open-Weight AI Adoption Statistics & Charts",
-        "description":"Sourced charts covering open-weight AI adoption, countries of origin, model size and local inference formats.",
-        "datePublished":"2026-08-27",
-        "dateModified":"2026-08-27",
-        "isPartOf":{"@type":"WebSite","name":"LocalClaw","url":"https://localclaw.io/"},
-        "mainEntity":{"@id":"https://localclaw.io/charts#dataset"}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://localclaw.io/charts#page",
+      "url": "https://localclaw.io/charts",
+      "name": "Open-Weight AI Adoption Statistics & Charts",
+      "description": "Sourced charts covering open-weight AI adoption, countries of origin, model size and local inference formats.",
+      "datePublished": "2026-08-27",
+      "dateModified": "2026-09-21",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "LocalClaw",
+        "url": "https://localclaw.io/"
       },
-      {
-        "@type":"Dataset",
-        "license": "https://localclaw.io/data-license#v1",
-        "@id":"https://localclaw.io/charts#dataset",
-        "name":"LocalClaw Open-Weight AI Charts Snapshot",
-        "description":"A dated, source-linked snapshot of five open-weight AI adoption indicators.",
-        "dateModified":"2026-08-27",
-        "creator":{"@type":"Organization","name":"LocalClaw","url":"https://localclaw.io/"},
-        "isBasedOn":[
-          "https://vercel.com/ai-gateway/leaderboards/models",
-          "https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026",
-          "https://huggingface.co/blog/state-of-open-models-summer-2026",
-          "https://hai.stanford.edu/ai-index/2026-ai-index-report/research-and-development",
-          "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance"
-        ],
-        "variableMeasured":[
-          "Open-weight share of Vercel AI Gateway token volume",
-          "Notable AI models by country of origin",
-          "Hugging Face downloads by model origin",
-          "Hugging Face downloads by parameter count",
-          "Hugging Face repository growth by local inference format"
-        ],
-        "distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://localclaw.io/charts-data.json"}
-      },
-      {
-        "@type":"BreadcrumbList",
-        "itemListElement":[
-          {"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io/"},
-          {"@type":"ListItem","position":2,"name":"Charts","item":"https://localclaw.io/charts"}
-        ]
-      },
-      {
-        "@type":"FAQPage",
-        "mainEntity":[
-          {"@type":"Question","name":"What does open-weight AI mean?","acceptedAnswer":{"@type":"Answer","text":"Open-weight means the model weights are downloadable. It does not necessarily mean the training data, code or full development process is open, and the license may still restrict some uses."}},
-          {"@type":"Question","name":"Does 57.6% mean open weights have most global AI usage?","acceptedAnswer":{"@type":"Answer","text":"No. The figure describes the daily share of tokens routed through Vercel AI Gateway on models that publish downloadable weights. It is a production-traffic signal inside that gateway, not global AI usage or market share."}},
-          {"@type":"Question","name":"Which country produced the most notable AI models in 2025?","acceptedAnswer":{"@type":"Answer","text":"According to the Stanford AI Index 2026, U.S.-based institutions produced 59 notable AI models in 2025 and Chinese institutions produced 35."}}
-        ]
+      "mainEntity": {
+        "@id": "https://localclaw.io/charts#dataset"
       }
-    ]
-  }
+    },
+    {
+      "@type": "Dataset",
+      "license": "https://localclaw.io/data-license#v1",
+      "@id": "https://localclaw.io/charts#dataset",
+      "name": "LocalClaw Open-Weight AI Charts Snapshot",
+      "description": "Daily Vercel token-share series and separately dated research-report snapshots; each indicator has its own period.",
+      "dateModified": "2026-09-21",
+      "creator": {
+        "@type": "Organization",
+        "name": "LocalClaw",
+        "url": "https://localclaw.io/"
+      },
+      "isBasedOn": [
+        "https://vercel.com/ai-gateway/leaderboards/models",
+        "https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026",
+        "https://huggingface.co/blog/state-of-open-models-summer-2026",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report/research-and-development",
+        "https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance"
+      ],
+      "variableMeasured": [
+        "Open-weight share of Vercel AI Gateway token volume",
+        "Notable AI models by country of origin",
+        "Hugging Face downloads by model origin",
+        "Hugging Face downloads by parameter count",
+        "Hugging Face repository growth by local inference format"
+      ],
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://localclaw.io/charts-data.json"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://localclaw.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Charts",
+          "item": "https://localclaw.io/charts"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does open-weight AI mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open-weight means the model weights are downloadable. It does not necessarily mean the training data, code or full development process is open, and the license may still restrict some uses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Vercel token share represent global AI usage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The figure describes the daily share of tokens routed through Vercel AI Gateway on models that publish downloadable weights. It is a production-traffic signal inside that gateway, not global AI usage or market share."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which country produced the most notable AI models in 2025?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "According to the Stanford AI Index 2026, U.S.-based institutions produced 59 notable AI models in 2025 and Chinese institutions produced 35."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -146,7 +191,7 @@
   </div>
 </nav>
 
-  <main class="charts-main">
+  <main class="charts-main" data-charts-snapshot="2026-09-21">
     <section class="charts-shell charts-hero" aria-labelledby="charts-title">
       <div class="charts-hero__copy">
         <h1 id="charts-title">Open-weight AI <span>adoption, charted</span></h1>
@@ -155,107 +200,107 @@
           <a class="charts-button charts-button--primary" href="#adoption" data-chart-nav>Explore the charts <span aria-hidden="true">→</span></a>
           <a class="charts-button" href="#methodology" data-chart-nav>How we measure <span aria-hidden="true">→</span></a>
         </div>
-        <p class="charts-updated"><time datetime="2026-08-27">Updated 27 Aug 2026</time><span aria-hidden="true">•</span>Sources: Vercel, Hugging Face and Stanford AI Index</p>
+        <p class="charts-updated"><time datetime="2026-09-21">Snapshot updated 21 Sept 2026</time><span aria-hidden="true">•</span>Daily series + dated research reports</p>
       </div>
 
       <figure class="charts-hero-chart charts-adoption" id="adoption" data-chart="open-weight-token-share-over-time" aria-labelledby="hero-chart-title" aria-describedby="hero-chart-note">
         <figcaption>
-          <h2 id="hero-chart-title">Open weights now carry 57.6% of production tokens</h2>
-          <p>Daily share on Vercel AI Gateway rose from 32.6% on 29 May to 57.6% on 26 August, peaking at 61.6%.</p>
+          <h2 id="hero-chart-title">Open weights carry 80.6% of Vercel tokens</h2>
+          <p>90 daily observations, 23 Jun 2026–20 Sept 2026: 30.8% at the start, 80.6% on the latest day. Period peak: 80.6%.</p>
         </figcaption>
         <div class="charts-adoption-plot" role="img" tabindex="0" aria-label="Interactive daily chart. Hover or tap a bar for its exact date and values.">
           <div class="charts-adoption-majority"><span>50% majority</span></div>
           <div class="charts-adoption-bars">
-          <span class="charts-adoption-day" style="--open: 32.6293%" data-date="2026-05-29" data-open="32.6" data-closed="67.4" data-delta=""></span>
-          <span class="charts-adoption-day" style="--open: 33.695%" data-date="2026-05-30" data-open="33.7" data-closed="66.3" data-delta="1.1"></span>
-          <span class="charts-adoption-day" style="--open: 34.4298%" data-date="2026-05-31" data-open="34.4" data-closed="65.6" data-delta="0.7"></span>
-          <span class="charts-adoption-day" style="--open: 26.794%" data-date="2026-06-01" data-open="26.8" data-closed="73.2" data-delta="-7.6"></span>
-          <span class="charts-adoption-day" style="--open: 28.8242%" data-date="2026-06-02" data-open="28.8" data-closed="71.2" data-delta="2.0"></span>
-          <span class="charts-adoption-day" style="--open: 29.9057%" data-date="2026-06-03" data-open="29.9" data-closed="70.1" data-delta="1.1"></span>
-          <span class="charts-adoption-day" style="--open: 32.1449%" data-date="2026-06-04" data-open="32.1" data-closed="67.9" data-delta="2.2"></span>
-          <span class="charts-adoption-day" style="--open: 32.5295%" data-date="2026-06-05" data-open="32.5" data-closed="67.5" data-delta="0.4"></span>
-          <span class="charts-adoption-day" style="--open: 43.8508%" data-date="2026-06-06" data-open="43.9" data-closed="56.1" data-delta="11.3"></span>
-          <span class="charts-adoption-day" style="--open: 42.3424%" data-date="2026-06-07" data-open="42.3" data-closed="57.7" data-delta="-1.5"></span>
-          <span class="charts-adoption-day" style="--open: 35.0654%" data-date="2026-06-08" data-open="35.1" data-closed="64.9" data-delta="-7.3"></span>
-          <span class="charts-adoption-day" style="--open: 36.2672%" data-date="2026-06-09" data-open="36.3" data-closed="63.7" data-delta="1.2"></span>
-          <span class="charts-adoption-day" style="--open: 33.2182%" data-date="2026-06-10" data-open="33.2" data-closed="66.8" data-delta="-3.0"></span>
-          <span class="charts-adoption-day" style="--open: 34.2589%" data-date="2026-06-11" data-open="34.3" data-closed="65.7" data-delta="1.0"></span>
-          <span class="charts-adoption-day" style="--open: 36.2039%" data-date="2026-06-12" data-open="36.2" data-closed="63.8" data-delta="1.9"></span>
-          <span class="charts-adoption-day" style="--open: 44.5123%" data-date="2026-06-13" data-open="44.5" data-closed="55.5" data-delta="8.3"></span>
-          <span class="charts-adoption-day" style="--open: 41.5271%" data-date="2026-06-14" data-open="41.5" data-closed="58.5" data-delta="-3.0"></span>
-          <span class="charts-adoption-day" style="--open: 33.5793%" data-date="2026-06-15" data-open="33.6" data-closed="66.4" data-delta="-7.9"></span>
-          <span class="charts-adoption-day" style="--open: 38.1828%" data-date="2026-06-16" data-open="38.2" data-closed="61.8" data-delta="4.6"></span>
-          <span class="charts-adoption-day" style="--open: 38.3666%" data-date="2026-06-17" data-open="38.4" data-closed="61.6" data-delta="0.2"></span>
-          <span class="charts-adoption-day" style="--open: 29.7748%" data-date="2026-06-18" data-open="29.8" data-closed="70.2" data-delta="-8.6"></span>
-          <span class="charts-adoption-day" style="--open: 26.8028%" data-date="2026-06-19" data-open="26.8" data-closed="73.2" data-delta="-3.0"></span>
-          <span class="charts-adoption-day" style="--open: 29.9626%" data-date="2026-06-20" data-open="30.0" data-closed="70.0" data-delta="3.2"></span>
-          <span class="charts-adoption-day" style="--open: 29.8628%" data-date="2026-06-21" data-open="29.9" data-closed="70.1" data-delta="-0.1"></span>
-          <span class="charts-adoption-day" style="--open: 30.8141%" data-date="2026-06-22" data-open="30.8" data-closed="69.2" data-delta="1.0"></span>
-          <span class="charts-adoption-day" style="--open: 30.8455%" data-date="2026-06-23" data-open="30.8" data-closed="69.2" data-delta="0.0"></span>
-          <span class="charts-adoption-day" style="--open: 28.421%" data-date="2026-06-24" data-open="28.4" data-closed="71.6" data-delta="-2.4"></span>
-          <span class="charts-adoption-day" style="--open: 30.2247%" data-date="2026-06-25" data-open="30.2" data-closed="69.8" data-delta="1.8"></span>
-          <span class="charts-adoption-day" style="--open: 33.0432%" data-date="2026-06-26" data-open="33.0" data-closed="67.0" data-delta="2.8"></span>
-          <span class="charts-adoption-day" style="--open: 38.2654%" data-date="2026-06-27" data-open="38.3" data-closed="61.7" data-delta="5.2"></span>
-          <span class="charts-adoption-day" style="--open: 35.6384%" data-date="2026-06-28" data-open="35.6" data-closed="64.4" data-delta="-2.6"></span>
-          <span class="charts-adoption-day" style="--open: 34.8685%" data-date="2026-06-29" data-open="34.9" data-closed="65.1" data-delta="-0.8"></span>
-          <span class="charts-adoption-day" style="--open: 34.101%" data-date="2026-06-30" data-open="34.1" data-closed="65.9" data-delta="-0.8"></span>
-          <span class="charts-adoption-day" style="--open: 27.5033%" data-date="2026-07-01" data-open="27.5" data-closed="72.5" data-delta="-6.6"></span>
-          <span class="charts-adoption-day" style="--open: 31.3177%" data-date="2026-07-02" data-open="31.3" data-closed="68.7" data-delta="3.8"></span>
-          <span class="charts-adoption-day" style="--open: 41.3701%" data-date="2026-07-03" data-open="41.4" data-closed="58.6" data-delta="10.1"></span>
-          <span class="charts-adoption-day" style="--open: 43.0218%" data-date="2026-07-04" data-open="43.0" data-closed="57.0" data-delta="1.7"></span>
-          <span class="charts-adoption-day" style="--open: 46.6138%" data-date="2026-07-05" data-open="46.6" data-closed="53.4" data-delta="3.6"></span>
-          <span class="charts-adoption-day" style="--open: 44.6377%" data-date="2026-07-06" data-open="44.6" data-closed="55.4" data-delta="-2.0"></span>
-          <span class="charts-adoption-day" style="--open: 46.7208%" data-date="2026-07-07" data-open="46.7" data-closed="53.3" data-delta="2.1"></span>
-          <span class="charts-adoption-day" style="--open: 44.1602%" data-date="2026-07-08" data-open="44.2" data-closed="55.8" data-delta="-2.6"></span>
-          <span class="charts-adoption-day" style="--open: 46.2606%" data-date="2026-07-09" data-open="46.3" data-closed="53.7" data-delta="2.1"></span>
-          <span class="charts-adoption-day" style="--open: 46.5156%" data-date="2026-07-10" data-open="46.5" data-closed="53.5" data-delta="0.3"></span>
-          <span class="charts-adoption-day" style="--open: 50.702%" data-date="2026-07-11" data-open="50.7" data-closed="49.3" data-delta="4.2"></span>
-          <span class="charts-adoption-day" style="--open: 49.8202%" data-date="2026-07-12" data-open="49.8" data-closed="50.2" data-delta="-0.9"></span>
-          <span class="charts-adoption-day" style="--open: 46.3874%" data-date="2026-07-13" data-open="46.4" data-closed="53.6" data-delta="-3.4"></span>
-          <span class="charts-adoption-day" style="--open: 49.016%" data-date="2026-07-14" data-open="49.0" data-closed="51.0" data-delta="2.6"></span>
-          <span class="charts-adoption-day" style="--open: 45.7072%" data-date="2026-07-15" data-open="45.7" data-closed="54.3" data-delta="-3.3"></span>
-          <span class="charts-adoption-day" style="--open: 44.452%" data-date="2026-07-16" data-open="44.5" data-closed="55.5" data-delta="-1.3"></span>
-          <span class="charts-adoption-day" style="--open: 42.6066%" data-date="2026-07-17" data-open="42.6" data-closed="57.4" data-delta="-1.8"></span>
-          <span class="charts-adoption-day" style="--open: 46.2912%" data-date="2026-07-18" data-open="46.3" data-closed="53.7" data-delta="3.7"></span>
-          <span class="charts-adoption-day" style="--open: 49.6028%" data-date="2026-07-19" data-open="49.6" data-closed="50.4" data-delta="3.3"></span>
-          <span class="charts-adoption-day" style="--open: 49.0658%" data-date="2026-07-20" data-open="49.1" data-closed="50.9" data-delta="-0.5"></span>
-          <span class="charts-adoption-day" style="--open: 51.0197%" data-date="2026-07-21" data-open="51.0" data-closed="49.0" data-delta="2.0"></span>
-          <span class="charts-adoption-day" style="--open: 40.5655%" data-date="2026-07-22" data-open="40.6" data-closed="59.4" data-delta="-10.5"></span>
-          <span class="charts-adoption-day" style="--open: 42.1778%" data-date="2026-07-23" data-open="42.2" data-closed="57.8" data-delta="1.6"></span>
-          <span class="charts-adoption-day" style="--open: 49.0421%" data-date="2026-07-24" data-open="49.0" data-closed="51.0" data-delta="6.9"></span>
-          <span class="charts-adoption-day" style="--open: 49.2758%" data-date="2026-07-25" data-open="49.3" data-closed="50.7" data-delta="0.2"></span>
-          <span class="charts-adoption-day" style="--open: 54.1227%" data-date="2026-07-26" data-open="54.1" data-closed="45.9" data-delta="4.8"></span>
-          <span class="charts-adoption-day" style="--open: 48.3315%" data-date="2026-07-27" data-open="48.3" data-closed="51.7" data-delta="-5.8"></span>
-          <span class="charts-adoption-day" style="--open: 47.5678%" data-date="2026-07-28" data-open="47.6" data-closed="52.4" data-delta="-0.8"></span>
-          <span class="charts-adoption-day" style="--open: 45.3852%" data-date="2026-07-29" data-open="45.4" data-closed="54.6" data-delta="-2.2"></span>
-          <span class="charts-adoption-day" style="--open: 50.0469%" data-date="2026-07-30" data-open="50.0" data-closed="50.0" data-delta="4.7"></span>
-          <span class="charts-adoption-day" style="--open: 45.7998%" data-date="2026-07-31" data-open="45.8" data-closed="54.2" data-delta="-4.2"></span>
-          <span class="charts-adoption-day" style="--open: 52.7942%" data-date="2026-08-01" data-open="52.8" data-closed="47.2" data-delta="7.0"></span>
-          <span class="charts-adoption-day" style="--open: 53.4971%" data-date="2026-08-02" data-open="53.5" data-closed="46.5" data-delta="0.7"></span>
-          <span class="charts-adoption-day" style="--open: 48.9923%" data-date="2026-08-03" data-open="49.0" data-closed="51.0" data-delta="-4.5"></span>
-          <span class="charts-adoption-day" style="--open: 47.9918%" data-date="2026-08-04" data-open="48.0" data-closed="52.0" data-delta="-1.0"></span>
-          <span class="charts-adoption-day" style="--open: 48.5876%" data-date="2026-08-05" data-open="48.6" data-closed="51.4" data-delta="0.6"></span>
-          <span class="charts-adoption-day" style="--open: 54.0704%" data-date="2026-08-06" data-open="54.1" data-closed="45.9" data-delta="5.5"></span>
-          <span class="charts-adoption-day" style="--open: 56.665%" data-date="2026-08-07" data-open="56.7" data-closed="43.3" data-delta="2.6"></span>
-          <span class="charts-adoption-day" style="--open: 61.4317%" data-date="2026-08-08" data-open="61.4" data-closed="38.6" data-delta="4.8"></span>
-          <span class="charts-adoption-day" style="--open: 60.1841%" data-date="2026-08-09" data-open="60.2" data-closed="39.8" data-delta="-1.2"></span>
-          <span class="charts-adoption-day" style="--open: 54.0086%" data-date="2026-08-10" data-open="54.0" data-closed="46.0" data-delta="-6.2"></span>
-          <span class="charts-adoption-day" style="--open: 53.6472%" data-date="2026-08-11" data-open="53.6" data-closed="46.4" data-delta="-0.4"></span>
-          <span class="charts-adoption-day" style="--open: 50.547%" data-date="2026-08-12" data-open="50.5" data-closed="49.5" data-delta="-3.1"></span>
-          <span class="charts-adoption-day" style="--open: 52.6813%" data-date="2026-08-13" data-open="52.7" data-closed="47.3" data-delta="2.1"></span>
-          <span class="charts-adoption-day" style="--open: 52.3495%" data-date="2026-08-14" data-open="52.3" data-closed="47.7" data-delta="-0.3"></span>
-          <span class="charts-adoption-day" style="--open: 50.8393%" data-date="2026-08-15" data-open="50.8" data-closed="49.2" data-delta="-1.5"></span>
-          <span class="charts-adoption-day" style="--open: 55.7585%" data-date="2026-08-16" data-open="55.8" data-closed="44.2" data-delta="4.9"></span>
-          <span class="charts-adoption-day" style="--open: 52.4854%" data-date="2026-08-17" data-open="52.5" data-closed="47.5" data-delta="-3.3"></span>
-          <span class="charts-adoption-day" style="--open: 52.6947%" data-date="2026-08-18" data-open="52.7" data-closed="47.3" data-delta="0.2"></span>
-          <span class="charts-adoption-day" style="--open: 57.0076%" data-date="2026-08-19" data-open="57.0" data-closed="43.0" data-delta="4.3"></span>
-          <span class="charts-adoption-day" style="--open: 57.3268%" data-date="2026-08-20" data-open="57.3" data-closed="42.7" data-delta="0.3"></span>
-          <span class="charts-adoption-day" style="--open: 56.9571%" data-date="2026-08-21" data-open="57.0" data-closed="43.0" data-delta="-0.4"></span>
-          <span class="charts-adoption-day" style="--open: 61.62%" data-date="2026-08-22" data-open="61.6" data-closed="38.4" data-delta="4.7"></span>
-          <span class="charts-adoption-day" style="--open: 60.6989%" data-date="2026-08-23" data-open="60.7" data-closed="39.3" data-delta="-0.9"></span>
-          <span class="charts-adoption-day" style="--open: 50.1328%" data-date="2026-08-24" data-open="50.1" data-closed="49.9" data-delta="-10.6"></span>
-          <span class="charts-adoption-day" style="--open: 52.5382%" data-date="2026-08-25" data-open="52.5" data-closed="47.5" data-delta="2.4"></span>
-          <span class="charts-adoption-day" style="--open: 57.5514%" data-date="2026-08-26" data-open="57.6" data-closed="42.4" data-delta="5.0"></span>
+          <span class="charts-adoption-day" style="--open: 30.845527955792072%" data-date="2026-06-23" data-open="30.8" data-closed="69.2" data-delta=""></span>
+          <span class="charts-adoption-day" style="--open: 28.42098057066597%" data-date="2026-06-24" data-open="28.4" data-closed="71.6" data-delta="-2.4"></span>
+          <span class="charts-adoption-day" style="--open: 30.22470807256814%" data-date="2026-06-25" data-open="30.2" data-closed="69.8" data-delta="1.8"></span>
+          <span class="charts-adoption-day" style="--open: 33.04316366391033%" data-date="2026-06-26" data-open="33.0" data-closed="67.0" data-delta="2.8"></span>
+          <span class="charts-adoption-day" style="--open: 38.265390899460016%" data-date="2026-06-27" data-open="38.3" data-closed="61.7" data-delta="5.2"></span>
+          <span class="charts-adoption-day" style="--open: 35.63838408496135%" data-date="2026-06-28" data-open="35.6" data-closed="64.4" data-delta="-2.6"></span>
+          <span class="charts-adoption-day" style="--open: 34.86851739766568%" data-date="2026-06-29" data-open="34.9" data-closed="65.1" data-delta="-0.8"></span>
+          <span class="charts-adoption-day" style="--open: 34.1009947955514%" data-date="2026-06-30" data-open="34.1" data-closed="65.9" data-delta="-0.8"></span>
+          <span class="charts-adoption-day" style="--open: 27.503272549499545%" data-date="2026-07-01" data-open="27.5" data-closed="72.5" data-delta="-6.6"></span>
+          <span class="charts-adoption-day" style="--open: 31.317715864980773%" data-date="2026-07-02" data-open="31.3" data-closed="68.7" data-delta="3.8"></span>
+          <span class="charts-adoption-day" style="--open: 41.37013486704489%" data-date="2026-07-03" data-open="41.4" data-closed="58.6" data-delta="10.1"></span>
+          <span class="charts-adoption-day" style="--open: 43.021802670686405%" data-date="2026-07-04" data-open="43.0" data-closed="57.0" data-delta="1.7"></span>
+          <span class="charts-adoption-day" style="--open: 46.61379041256657%" data-date="2026-07-05" data-open="46.6" data-closed="53.4" data-delta="3.6"></span>
+          <span class="charts-adoption-day" style="--open: 44.63768040879614%" data-date="2026-07-06" data-open="44.6" data-closed="55.4" data-delta="-2.0"></span>
+          <span class="charts-adoption-day" style="--open: 46.720812575710596%" data-date="2026-07-07" data-open="46.7" data-closed="53.3" data-delta="2.1"></span>
+          <span class="charts-adoption-day" style="--open: 44.168250075202344%" data-date="2026-07-08" data-open="44.2" data-closed="55.8" data-delta="-2.6"></span>
+          <span class="charts-adoption-day" style="--open: 46.29932764954231%" data-date="2026-07-09" data-open="46.3" data-closed="53.7" data-delta="2.1"></span>
+          <span class="charts-adoption-day" style="--open: 46.527094653406294%" data-date="2026-07-10" data-open="46.5" data-closed="53.5" data-delta="0.2"></span>
+          <span class="charts-adoption-day" style="--open: 50.709908720163476%" data-date="2026-07-11" data-open="50.7" data-closed="49.3" data-delta="4.2"></span>
+          <span class="charts-adoption-day" style="--open: 49.83123535057787%" data-date="2026-07-12" data-open="49.8" data-closed="50.2" data-delta="-0.9"></span>
+          <span class="charts-adoption-day" style="--open: 46.39925014532404%" data-date="2026-07-13" data-open="46.4" data-closed="53.6" data-delta="-3.4"></span>
+          <span class="charts-adoption-day" style="--open: 49.01609221169104%" data-date="2026-07-14" data-open="49.0" data-closed="51.0" data-delta="2.6"></span>
+          <span class="charts-adoption-day" style="--open: 45.70718410826074%" data-date="2026-07-15" data-open="45.7" data-closed="54.3" data-delta="-3.3"></span>
+          <span class="charts-adoption-day" style="--open: 44.45297797273927%" data-date="2026-07-16" data-open="44.5" data-closed="55.5" data-delta="-1.3"></span>
+          <span class="charts-adoption-day" style="--open: 42.60699026648256%" data-date="2026-07-17" data-open="42.6" data-closed="57.4" data-delta="-1.8"></span>
+          <span class="charts-adoption-day" style="--open: 46.29118658592295%" data-date="2026-07-18" data-open="46.3" data-closed="53.7" data-delta="3.7"></span>
+          <span class="charts-adoption-day" style="--open: 49.60283514951882%" data-date="2026-07-19" data-open="49.6" data-closed="50.4" data-delta="3.3"></span>
+          <span class="charts-adoption-day" style="--open: 49.06629402610034%" data-date="2026-07-20" data-open="49.1" data-closed="50.9" data-delta="-0.5"></span>
+          <span class="charts-adoption-day" style="--open: 51.019674253362226%" data-date="2026-07-21" data-open="51.0" data-closed="49.0" data-delta="2.0"></span>
+          <span class="charts-adoption-day" style="--open: 40.565523380090006%" data-date="2026-07-22" data-open="40.6" data-closed="59.4" data-delta="-10.5"></span>
+          <span class="charts-adoption-day" style="--open: 42.177903298733376%" data-date="2026-07-23" data-open="42.2" data-closed="57.8" data-delta="1.6"></span>
+          <span class="charts-adoption-day" style="--open: 49.0423502027611%" data-date="2026-07-24" data-open="49.0" data-closed="51.0" data-delta="6.9"></span>
+          <span class="charts-adoption-day" style="--open: 49.27692169348816%" data-date="2026-07-25" data-open="49.3" data-closed="50.7" data-delta="0.2"></span>
+          <span class="charts-adoption-day" style="--open: 54.12280088142387%" data-date="2026-07-26" data-open="54.1" data-closed="45.9" data-delta="4.8"></span>
+          <span class="charts-adoption-day" style="--open: 48.33183155533999%" data-date="2026-07-27" data-open="48.3" data-closed="51.7" data-delta="-5.8"></span>
+          <span class="charts-adoption-day" style="--open: 47.56962598299733%" data-date="2026-07-28" data-open="47.6" data-closed="52.4" data-delta="-0.8"></span>
+          <span class="charts-adoption-day" style="--open: 45.385477694368134%" data-date="2026-07-29" data-open="45.4" data-closed="54.6" data-delta="-2.2"></span>
+          <span class="charts-adoption-day" style="--open: 50.047003700419005%" data-date="2026-07-30" data-open="50.0" data-closed="50.0" data-delta="4.7"></span>
+          <span class="charts-adoption-day" style="--open: 45.799904880278355%" data-date="2026-07-31" data-open="45.8" data-closed="54.2" data-delta="-4.2"></span>
+          <span class="charts-adoption-day" style="--open: 52.7944103856517%" data-date="2026-08-01" data-open="52.8" data-closed="47.2" data-delta="7.0"></span>
+          <span class="charts-adoption-day" style="--open: 53.49727389789764%" data-date="2026-08-02" data-open="53.5" data-closed="46.5" data-delta="0.7"></span>
+          <span class="charts-adoption-day" style="--open: 48.99238008617327%" data-date="2026-08-03" data-open="49.0" data-closed="51.0" data-delta="-4.5"></span>
+          <span class="charts-adoption-day" style="--open: 47.991808303659106%" data-date="2026-08-04" data-open="48.0" data-closed="52.0" data-delta="-1.0"></span>
+          <span class="charts-adoption-day" style="--open: 48.58761266515215%" data-date="2026-08-05" data-open="48.6" data-closed="51.4" data-delta="0.6"></span>
+          <span class="charts-adoption-day" style="--open: 54.070618848940676%" data-date="2026-08-06" data-open="54.1" data-closed="45.9" data-delta="5.5"></span>
+          <span class="charts-adoption-day" style="--open: 56.66511444210646%" data-date="2026-08-07" data-open="56.7" data-closed="43.3" data-delta="2.6"></span>
+          <span class="charts-adoption-day" style="--open: 61.43166321179404%" data-date="2026-08-08" data-open="61.4" data-closed="38.6" data-delta="4.8"></span>
+          <span class="charts-adoption-day" style="--open: 60.18431015046054%" data-date="2026-08-09" data-open="60.2" data-closed="39.8" data-delta="-1.2"></span>
+          <span class="charts-adoption-day" style="--open: 54.008561580010074%" data-date="2026-08-10" data-open="54.0" data-closed="46.0" data-delta="-6.2"></span>
+          <span class="charts-adoption-day" style="--open: 53.647202394443184%" data-date="2026-08-11" data-open="53.6" data-closed="46.4" data-delta="-0.4"></span>
+          <span class="charts-adoption-day" style="--open: 50.54702074219316%" data-date="2026-08-12" data-open="50.5" data-closed="49.5" data-delta="-3.1"></span>
+          <span class="charts-adoption-day" style="--open: 52.6981119796738%" data-date="2026-08-13" data-open="52.7" data-closed="47.3" data-delta="2.2"></span>
+          <span class="charts-adoption-day" style="--open: 52.325559527076805%" data-date="2026-08-14" data-open="52.3" data-closed="47.7" data-delta="-0.4"></span>
+          <span class="charts-adoption-day" style="--open: 50.81801656388997%" data-date="2026-08-15" data-open="50.8" data-closed="49.2" data-delta="-1.5"></span>
+          <span class="charts-adoption-day" style="--open: 55.780648875084346%" data-date="2026-08-16" data-open="55.8" data-closed="44.2" data-delta="5.0"></span>
+          <span class="charts-adoption-day" style="--open: 52.39740051156823%" data-date="2026-08-17" data-open="52.4" data-closed="47.6" data-delta="-3.4"></span>
+          <span class="charts-adoption-day" style="--open: 51.75705883553998%" data-date="2026-08-18" data-open="51.8" data-closed="48.2" data-delta="-0.6"></span>
+          <span class="charts-adoption-day" style="--open: 56.35874074543502%" data-date="2026-08-19" data-open="56.4" data-closed="43.6" data-delta="4.6"></span>
+          <span class="charts-adoption-day" style="--open: 56.556823673798164%" data-date="2026-08-20" data-open="56.6" data-closed="43.4" data-delta="0.2"></span>
+          <span class="charts-adoption-day" style="--open: 56.84081713338634%" data-date="2026-08-21" data-open="56.8" data-closed="43.2" data-delta="0.3"></span>
+          <span class="charts-adoption-day" style="--open: 61.62003410792046%" data-date="2026-08-22" data-open="61.6" data-closed="38.4" data-delta="4.8"></span>
+          <span class="charts-adoption-day" style="--open: 60.698892903313684%" data-date="2026-08-23" data-open="60.7" data-closed="39.3" data-delta="-0.9"></span>
+          <span class="charts-adoption-day" style="--open: 50.13282623428829%" data-date="2026-08-24" data-open="50.1" data-closed="49.9" data-delta="-10.6"></span>
+          <span class="charts-adoption-day" style="--open: 52.538210034047225%" data-date="2026-08-25" data-open="52.5" data-closed="47.5" data-delta="2.4"></span>
+          <span class="charts-adoption-day" style="--open: 57.5514032298663%" data-date="2026-08-26" data-open="57.6" data-closed="42.4" data-delta="5.0"></span>
+          <span class="charts-adoption-day" style="--open: 60.085369348719276%" data-date="2026-08-27" data-open="60.1" data-closed="39.9" data-delta="2.5"></span>
+          <span class="charts-adoption-day" style="--open: 62.58403605863143%" data-date="2026-08-28" data-open="62.6" data-closed="37.4" data-delta="2.5"></span>
+          <span class="charts-adoption-day" style="--open: 69.8815672310671%" data-date="2026-08-29" data-open="69.9" data-closed="30.1" data-delta="7.3"></span>
+          <span class="charts-adoption-day" style="--open: 71.29638951386289%" data-date="2026-08-30" data-open="71.3" data-closed="28.7" data-delta="1.4"></span>
+          <span class="charts-adoption-day" style="--open: 61.76759367918642%" data-date="2026-08-31" data-open="61.8" data-closed="38.2" data-delta="-9.5"></span>
+          <span class="charts-adoption-day" style="--open: 61.29579846900106%" data-date="2026-09-01" data-open="61.3" data-closed="38.7" data-delta="-0.5"></span>
+          <span class="charts-adoption-day" style="--open: 60.98691281915074%" data-date="2026-09-02" data-open="61.0" data-closed="39.0" data-delta="-0.3"></span>
+          <span class="charts-adoption-day" style="--open: 60.942972501675584%" data-date="2026-09-03" data-open="60.9" data-closed="39.1" data-delta="-0.0"></span>
+          <span class="charts-adoption-day" style="--open: 58.90089378721548%" data-date="2026-09-04" data-open="58.9" data-closed="41.1" data-delta="-2.0"></span>
+          <span class="charts-adoption-day" style="--open: 67.29753734575712%" data-date="2026-09-05" data-open="67.3" data-closed="32.7" data-delta="8.4"></span>
+          <span class="charts-adoption-day" style="--open: 65.27225186403659%" data-date="2026-09-06" data-open="65.3" data-closed="34.7" data-delta="-2.0"></span>
+          <span class="charts-adoption-day" style="--open: 61.75967053571965%" data-date="2026-09-07" data-open="61.8" data-closed="38.2" data-delta="-3.5"></span>
+          <span class="charts-adoption-day" style="--open: 57.97566721732929%" data-date="2026-09-08" data-open="58.0" data-closed="42.0" data-delta="-3.8"></span>
+          <span class="charts-adoption-day" style="--open: 56.02228581824752%" data-date="2026-09-09" data-open="56.0" data-closed="44.0" data-delta="-2.0"></span>
+          <span class="charts-adoption-day" style="--open: 66.35032732811008%" data-date="2026-09-10" data-open="66.4" data-closed="33.6" data-delta="10.3"></span>
+          <span class="charts-adoption-day" style="--open: 73.34799227968438%" data-date="2026-09-11" data-open="73.3" data-closed="26.7" data-delta="7.0"></span>
+          <span class="charts-adoption-day" style="--open: 78.00091867820458%" data-date="2026-09-12" data-open="78.0" data-closed="22.0" data-delta="4.7"></span>
+          <span class="charts-adoption-day" style="--open: 79.51410556500068%" data-date="2026-09-13" data-open="79.5" data-closed="20.5" data-delta="1.5"></span>
+          <span class="charts-adoption-day" style="--open: 72.61686965773984%" data-date="2026-09-14" data-open="72.6" data-closed="27.4" data-delta="-6.9"></span>
+          <span class="charts-adoption-day" style="--open: 74.80232790921508%" data-date="2026-09-15" data-open="74.8" data-closed="25.2" data-delta="2.2"></span>
+          <span class="charts-adoption-day" style="--open: 74.85777203560264%" data-date="2026-09-16" data-open="74.9" data-closed="25.1" data-delta="0.1"></span>
+          <span class="charts-adoption-day" style="--open: 76.30387581411735%" data-date="2026-09-17" data-open="76.3" data-closed="23.7" data-delta="1.4"></span>
+          <span class="charts-adoption-day" style="--open: 78.36695900662833%" data-date="2026-09-18" data-open="78.4" data-closed="21.6" data-delta="2.1"></span>
+          <span class="charts-adoption-day" style="--open: 80.05121428674829%" data-date="2026-09-19" data-open="80.1" data-closed="19.9" data-delta="1.7"></span>
+          <span class="charts-adoption-day" style="--open: 80.60569431175335%" data-date="2026-09-20" data-open="80.6" data-closed="19.4" data-delta="0.6"></span>
           </div>
           <div class="charts-adoption-tooltip" data-adoption-tooltip role="status" aria-live="polite" aria-hidden="true">
             <time datetime="" data-tooltip-date>Date</time>
@@ -264,14 +309,12 @@
             <p data-tooltip-delta>First day in range</p>
           </div>
         </div>
-        <div class="charts-adoption-axis" aria-hidden="true"><span>29 May 2026</span><span>26 Aug 2026</span></div>
-        <div class="charts-adoption-meta">
-          <div class="charts-legend" aria-hidden="true"><span><i class="charts-swatch charts-swatch--accent"></i>Open weights <strong>57.6%</strong></span><span><i class="charts-swatch"></i>Closed weights <strong>42.4%</strong></span></div>
-          <p><strong>61.6%</strong> peak · 22 Aug</p>
-        </div>
-        <p class="charts-scope" id="hero-chart-note">Daily Vercel AI Gateway token volume <span aria-hidden="true">•</span> Not global AI usage</p>
+        <div class="charts-adoption-axis" aria-hidden="true"><span>23 Jun 2026</span><span>20 Sept 2026</span></div>
+        <div class="charts-adoption-meta"><div class="charts-legend" aria-hidden="true"><span><i class="charts-swatch charts-swatch--accent"></i>Open weights <strong>80.6%</strong></span><span><i class="charts-swatch"></i>Closed weights <strong>19.4%</strong></span></div><p><strong>80.6%</strong> peak · 20 Sept 2026</p></div>
+        <p class="charts-scope" id="hero-chart-note">Daily Vercel AI Gateway token volume <span aria-hidden="true">•</span> Not global AI usage<br><span data-chart-freshness data-as-of="2026-09-20" data-max-age="3">Data through 20 Sept 2026 (UTC). Checked daily; last retrieved 21 Sept 2026.</span></p>
         <a class="charts-source" href="https://vercel.com/ai-gateway/leaderboards/models" target="_blank" rel="noopener" data-chart-source="open-weight-token-share-over-time" data-source="vercel">View Vercel source <span aria-hidden="true">↗</span></a>
-        <table class="charts-sr-only"><caption>Daily open-weight and closed-weight share of Vercel AI Gateway token volume</caption><thead><tr><th>Date</th><th>Open weights</th><th>Closed weights</th></tr></thead><tbody><tr><td>2026-05-29</td><td>32.6%</td><td>67.4%</td></tr><tr><td>2026-05-30</td><td>33.7%</td><td>66.3%</td></tr><tr><td>2026-05-31</td><td>34.4%</td><td>65.6%</td></tr><tr><td>2026-06-01</td><td>26.8%</td><td>73.2%</td></tr><tr><td>2026-06-02</td><td>28.8%</td><td>71.2%</td></tr><tr><td>2026-06-03</td><td>29.9%</td><td>70.1%</td></tr><tr><td>2026-06-04</td><td>32.1%</td><td>67.9%</td></tr><tr><td>2026-06-05</td><td>32.5%</td><td>67.5%</td></tr><tr><td>2026-06-06</td><td>43.9%</td><td>56.1%</td></tr><tr><td>2026-06-07</td><td>42.3%</td><td>57.7%</td></tr><tr><td>2026-06-08</td><td>35.1%</td><td>64.9%</td></tr><tr><td>2026-06-09</td><td>36.3%</td><td>63.7%</td></tr><tr><td>2026-06-10</td><td>33.2%</td><td>66.8%</td></tr><tr><td>2026-06-11</td><td>34.3%</td><td>65.7%</td></tr><tr><td>2026-06-12</td><td>36.2%</td><td>63.8%</td></tr><tr><td>2026-06-13</td><td>44.5%</td><td>55.5%</td></tr><tr><td>2026-06-14</td><td>41.5%</td><td>58.5%</td></tr><tr><td>2026-06-15</td><td>33.6%</td><td>66.4%</td></tr><tr><td>2026-06-16</td><td>38.2%</td><td>61.8%</td></tr><tr><td>2026-06-17</td><td>38.4%</td><td>61.6%</td></tr><tr><td>2026-06-18</td><td>29.8%</td><td>70.2%</td></tr><tr><td>2026-06-19</td><td>26.8%</td><td>73.2%</td></tr><tr><td>2026-06-20</td><td>30.0%</td><td>70.0%</td></tr><tr><td>2026-06-21</td><td>29.9%</td><td>70.1%</td></tr><tr><td>2026-06-22</td><td>30.8%</td><td>69.2%</td></tr><tr><td>2026-06-23</td><td>30.8%</td><td>69.2%</td></tr><tr><td>2026-06-24</td><td>28.4%</td><td>71.6%</td></tr><tr><td>2026-06-25</td><td>30.2%</td><td>69.8%</td></tr><tr><td>2026-06-26</td><td>33.0%</td><td>67.0%</td></tr><tr><td>2026-06-27</td><td>38.3%</td><td>61.7%</td></tr><tr><td>2026-06-28</td><td>35.6%</td><td>64.4%</td></tr><tr><td>2026-06-29</td><td>34.9%</td><td>65.1%</td></tr><tr><td>2026-06-30</td><td>34.1%</td><td>65.9%</td></tr><tr><td>2026-07-01</td><td>27.5%</td><td>72.5%</td></tr><tr><td>2026-07-02</td><td>31.3%</td><td>68.7%</td></tr><tr><td>2026-07-03</td><td>41.4%</td><td>58.6%</td></tr><tr><td>2026-07-04</td><td>43.0%</td><td>57.0%</td></tr><tr><td>2026-07-05</td><td>46.6%</td><td>53.4%</td></tr><tr><td>2026-07-06</td><td>44.6%</td><td>55.4%</td></tr><tr><td>2026-07-07</td><td>46.7%</td><td>53.3%</td></tr><tr><td>2026-07-08</td><td>44.2%</td><td>55.8%</td></tr><tr><td>2026-07-09</td><td>46.3%</td><td>53.7%</td></tr><tr><td>2026-07-10</td><td>46.5%</td><td>53.5%</td></tr><tr><td>2026-07-11</td><td>50.7%</td><td>49.3%</td></tr><tr><td>2026-07-12</td><td>49.8%</td><td>50.2%</td></tr><tr><td>2026-07-13</td><td>46.4%</td><td>53.6%</td></tr><tr><td>2026-07-14</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-07-15</td><td>45.7%</td><td>54.3%</td></tr><tr><td>2026-07-16</td><td>44.5%</td><td>55.5%</td></tr><tr><td>2026-07-17</td><td>42.6%</td><td>57.4%</td></tr><tr><td>2026-07-18</td><td>46.3%</td><td>53.7%</td></tr><tr><td>2026-07-19</td><td>49.6%</td><td>50.4%</td></tr><tr><td>2026-07-20</td><td>49.1%</td><td>50.9%</td></tr><tr><td>2026-07-21</td><td>51.0%</td><td>49.0%</td></tr><tr><td>2026-07-22</td><td>40.6%</td><td>59.4%</td></tr><tr><td>2026-07-23</td><td>42.2%</td><td>57.8%</td></tr><tr><td>2026-07-24</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-07-25</td><td>49.3%</td><td>50.7%</td></tr><tr><td>2026-07-26</td><td>54.1%</td><td>45.9%</td></tr><tr><td>2026-07-27</td><td>48.3%</td><td>51.7%</td></tr><tr><td>2026-07-28</td><td>47.6%</td><td>52.4%</td></tr><tr><td>2026-07-29</td><td>45.4%</td><td>54.6%</td></tr><tr><td>2026-07-30</td><td>50.0%</td><td>50.0%</td></tr><tr><td>2026-07-31</td><td>45.8%</td><td>54.2%</td></tr><tr><td>2026-08-01</td><td>52.8%</td><td>47.2%</td></tr><tr><td>2026-08-02</td><td>53.5%</td><td>46.5%</td></tr><tr><td>2026-08-03</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-08-04</td><td>48.0%</td><td>52.0%</td></tr><tr><td>2026-08-05</td><td>48.6%</td><td>51.4%</td></tr><tr><td>2026-08-06</td><td>54.1%</td><td>45.9%</td></tr><tr><td>2026-08-07</td><td>56.7%</td><td>43.3%</td></tr><tr><td>2026-08-08</td><td>61.4%</td><td>38.6%</td></tr><tr><td>2026-08-09</td><td>60.2%</td><td>39.8%</td></tr><tr><td>2026-08-10</td><td>54.0%</td><td>46.0%</td></tr><tr><td>2026-08-11</td><td>53.6%</td><td>46.4%</td></tr><tr><td>2026-08-12</td><td>50.5%</td><td>49.5%</td></tr><tr><td>2026-08-13</td><td>52.7%</td><td>47.3%</td></tr><tr><td>2026-08-14</td><td>52.3%</td><td>47.7%</td></tr><tr><td>2026-08-15</td><td>50.8%</td><td>49.2%</td></tr><tr><td>2026-08-16</td><td>55.8%</td><td>44.2%</td></tr><tr><td>2026-08-17</td><td>52.5%</td><td>47.5%</td></tr><tr><td>2026-08-18</td><td>52.7%</td><td>47.3%</td></tr><tr><td>2026-08-19</td><td>57.0%</td><td>43.0%</td></tr><tr><td>2026-08-20</td><td>57.3%</td><td>42.7%</td></tr><tr><td>2026-08-21</td><td>57.0%</td><td>43.0%</td></tr><tr><td>2026-08-22</td><td>61.6%</td><td>38.4%</td></tr><tr><td>2026-08-23</td><td>60.7%</td><td>39.3%</td></tr><tr><td>2026-08-24</td><td>50.1%</td><td>49.9%</td></tr><tr><td>2026-08-25</td><td>52.5%</td><td>47.5%</td></tr><tr><td>2026-08-26</td><td>57.6%</td><td>42.4%</td></tr></tbody></table>
+        <p class="charts-scope">Adapted from Vercel AI Gateway open data under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>; 90-day selection and display rounding by LocalClaw.</p>
+        <table class="charts-sr-only"><caption>Daily open-weight and closed-weight share of Vercel AI Gateway token volume</caption><thead><tr><th>Date</th><th>Open weights</th><th>Closed weights</th></tr></thead><tbody><tr><td>2026-06-23</td><td>30.8%</td><td>69.2%</td></tr><tr><td>2026-06-24</td><td>28.4%</td><td>71.6%</td></tr><tr><td>2026-06-25</td><td>30.2%</td><td>69.8%</td></tr><tr><td>2026-06-26</td><td>33.0%</td><td>67.0%</td></tr><tr><td>2026-06-27</td><td>38.3%</td><td>61.7%</td></tr><tr><td>2026-06-28</td><td>35.6%</td><td>64.4%</td></tr><tr><td>2026-06-29</td><td>34.9%</td><td>65.1%</td></tr><tr><td>2026-06-30</td><td>34.1%</td><td>65.9%</td></tr><tr><td>2026-07-01</td><td>27.5%</td><td>72.5%</td></tr><tr><td>2026-07-02</td><td>31.3%</td><td>68.7%</td></tr><tr><td>2026-07-03</td><td>41.4%</td><td>58.6%</td></tr><tr><td>2026-07-04</td><td>43.0%</td><td>57.0%</td></tr><tr><td>2026-07-05</td><td>46.6%</td><td>53.4%</td></tr><tr><td>2026-07-06</td><td>44.6%</td><td>55.4%</td></tr><tr><td>2026-07-07</td><td>46.7%</td><td>53.3%</td></tr><tr><td>2026-07-08</td><td>44.2%</td><td>55.8%</td></tr><tr><td>2026-07-09</td><td>46.3%</td><td>53.7%</td></tr><tr><td>2026-07-10</td><td>46.5%</td><td>53.5%</td></tr><tr><td>2026-07-11</td><td>50.7%</td><td>49.3%</td></tr><tr><td>2026-07-12</td><td>49.8%</td><td>50.2%</td></tr><tr><td>2026-07-13</td><td>46.4%</td><td>53.6%</td></tr><tr><td>2026-07-14</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-07-15</td><td>45.7%</td><td>54.3%</td></tr><tr><td>2026-07-16</td><td>44.5%</td><td>55.5%</td></tr><tr><td>2026-07-17</td><td>42.6%</td><td>57.4%</td></tr><tr><td>2026-07-18</td><td>46.3%</td><td>53.7%</td></tr><tr><td>2026-07-19</td><td>49.6%</td><td>50.4%</td></tr><tr><td>2026-07-20</td><td>49.1%</td><td>50.9%</td></tr><tr><td>2026-07-21</td><td>51.0%</td><td>49.0%</td></tr><tr><td>2026-07-22</td><td>40.6%</td><td>59.4%</td></tr><tr><td>2026-07-23</td><td>42.2%</td><td>57.8%</td></tr><tr><td>2026-07-24</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-07-25</td><td>49.3%</td><td>50.7%</td></tr><tr><td>2026-07-26</td><td>54.1%</td><td>45.9%</td></tr><tr><td>2026-07-27</td><td>48.3%</td><td>51.7%</td></tr><tr><td>2026-07-28</td><td>47.6%</td><td>52.4%</td></tr><tr><td>2026-07-29</td><td>45.4%</td><td>54.6%</td></tr><tr><td>2026-07-30</td><td>50.0%</td><td>50.0%</td></tr><tr><td>2026-07-31</td><td>45.8%</td><td>54.2%</td></tr><tr><td>2026-08-01</td><td>52.8%</td><td>47.2%</td></tr><tr><td>2026-08-02</td><td>53.5%</td><td>46.5%</td></tr><tr><td>2026-08-03</td><td>49.0%</td><td>51.0%</td></tr><tr><td>2026-08-04</td><td>48.0%</td><td>52.0%</td></tr><tr><td>2026-08-05</td><td>48.6%</td><td>51.4%</td></tr><tr><td>2026-08-06</td><td>54.1%</td><td>45.9%</td></tr><tr><td>2026-08-07</td><td>56.7%</td><td>43.3%</td></tr><tr><td>2026-08-08</td><td>61.4%</td><td>38.6%</td></tr><tr><td>2026-08-09</td><td>60.2%</td><td>39.8%</td></tr><tr><td>2026-08-10</td><td>54.0%</td><td>46.0%</td></tr><tr><td>2026-08-11</td><td>53.6%</td><td>46.4%</td></tr><tr><td>2026-08-12</td><td>50.5%</td><td>49.5%</td></tr><tr><td>2026-08-13</td><td>52.7%</td><td>47.3%</td></tr><tr><td>2026-08-14</td><td>52.3%</td><td>47.7%</td></tr><tr><td>2026-08-15</td><td>50.8%</td><td>49.2%</td></tr><tr><td>2026-08-16</td><td>55.8%</td><td>44.2%</td></tr><tr><td>2026-08-17</td><td>52.4%</td><td>47.6%</td></tr><tr><td>2026-08-18</td><td>51.8%</td><td>48.2%</td></tr><tr><td>2026-08-19</td><td>56.4%</td><td>43.6%</td></tr><tr><td>2026-08-20</td><td>56.6%</td><td>43.4%</td></tr><tr><td>2026-08-21</td><td>56.8%</td><td>43.2%</td></tr><tr><td>2026-08-22</td><td>61.6%</td><td>38.4%</td></tr><tr><td>2026-08-23</td><td>60.7%</td><td>39.3%</td></tr><tr><td>2026-08-24</td><td>50.1%</td><td>49.9%</td></tr><tr><td>2026-08-25</td><td>52.5%</td><td>47.5%</td></tr><tr><td>2026-08-26</td><td>57.6%</td><td>42.4%</td></tr><tr><td>2026-08-27</td><td>60.1%</td><td>39.9%</td></tr><tr><td>2026-08-28</td><td>62.6%</td><td>37.4%</td></tr><tr><td>2026-08-29</td><td>69.9%</td><td>30.1%</td></tr><tr><td>2026-08-30</td><td>71.3%</td><td>28.7%</td></tr><tr><td>2026-08-31</td><td>61.8%</td><td>38.2%</td></tr><tr><td>2026-09-01</td><td>61.3%</td><td>38.7%</td></tr><tr><td>2026-09-02</td><td>61.0%</td><td>39.0%</td></tr><tr><td>2026-09-03</td><td>60.9%</td><td>39.1%</td></tr><tr><td>2026-09-04</td><td>58.9%</td><td>41.1%</td></tr><tr><td>2026-09-05</td><td>67.3%</td><td>32.7%</td></tr><tr><td>2026-09-06</td><td>65.3%</td><td>34.7%</td></tr><tr><td>2026-09-07</td><td>61.8%</td><td>38.2%</td></tr><tr><td>2026-09-08</td><td>58.0%</td><td>42.0%</td></tr><tr><td>2026-09-09</td><td>56.0%</td><td>44.0%</td></tr><tr><td>2026-09-10</td><td>66.4%</td><td>33.6%</td></tr><tr><td>2026-09-11</td><td>73.3%</td><td>26.7%</td></tr><tr><td>2026-09-12</td><td>78.0%</td><td>22.0%</td></tr><tr><td>2026-09-13</td><td>79.5%</td><td>20.5%</td></tr><tr><td>2026-09-14</td><td>72.6%</td><td>27.4%</td></tr><tr><td>2026-09-15</td><td>74.8%</td><td>25.2%</td></tr><tr><td>2026-09-16</td><td>74.9%</td><td>25.1%</td></tr><tr><td>2026-09-17</td><td>76.3%</td><td>23.7%</td></tr><tr><td>2026-09-18</td><td>78.4%</td><td>21.6%</td></tr><tr><td>2026-09-19</td><td>80.1%</td><td>19.9%</td></tr><tr><td>2026-09-20</td><td>80.6%</td><td>19.4%</td></tr></tbody></table>
       </figure>
     </section>
 
@@ -280,11 +323,12 @@
         <header class="charts-section-head">
           <h2 id="geography-title">The geography of <span>open AI</span></h2>
           <p>Where models are built and where they are adopted do not always line up. Production and usage need separate measures.</p>
+          <p class="charts-scope">Report snapshots · The figures below describe their stated periods. They change when publishers release new comparable research, not every day.</p>
         </header>
 
         <div class="charts-pair">
           <figure class="charts-figure" data-chart="notable-models-by-country" aria-labelledby="country-chart-title" aria-describedby="country-chart-note">
-            <figcaption><h3 id="country-chart-title"><span>2.</span> The U.S. still produces more notable models</h3><p>In 2025, U.S.-based institutions produced 59 notable models, compared with 35 from China.</p></figcaption>
+            <figcaption><h3 id="country-chart-title"><span>2.</span> The U.S. led notable releases in 2025</h3><p>In 2025, U.S.-based institutions produced 59 notable models, compared with 35 from China.</p></figcaption>
             <div class="charts-bars charts-bars--country" aria-label="Notable models released by country">
               <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="United States" data-detail-value="59 notable models" data-detail-note="24 more than China"><span>United States</span><div><i style="--value: 73.75%"></i><strong>59</strong></div></div>
               <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="China" data-detail-value="35 notable models" data-detail-note="24 fewer than the United States"><span>China</span><div><i style="--value: 43.75%"></i><strong>35</strong></div></div>
@@ -296,11 +340,11 @@
           </figure>
 
           <figure class="charts-figure" data-chart="open-model-downloads-by-origin" aria-labelledby="download-chart-title" aria-describedby="download-chart-note">
-            <figcaption><h3 id="download-chart-title"><span>3.</span> China leads the open download layer</h3><p>Chinese-origin models represented 41% of Hugging Face downloads over the past year.</p></figcaption>
+            <figcaption><h3 id="download-chart-title"><span>3.</span> China leads the open download layer</h3><p>Chinese-origin models represented 41% of Hugging Face downloads in the preceding year, as reported in March 2026.</p></figcaption>
             <div class="charts-split charts-split--section" aria-label="Hugging Face downloads by model origin"><div class="charts-split__china" style="--share: 41%" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="China" data-detail-value="41% of downloads" data-detail-note="Chinese-origin open models"><strong>41%</strong></div><div class="charts-split__rest" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="Rest of world" data-detail-value="59% of downloads" data-detail-note="All other model origins"><strong>59%</strong></div></div>
             <div class="charts-axis" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
             <div class="charts-legend" aria-hidden="true"><span><i class="charts-swatch charts-swatch--accent"></i>China 41%</span><span><i class="charts-swatch"></i>Rest of world 59%</span></div>
-            <p class="charts-scope" id="download-chart-note">Hugging Face downloads <span aria-hidden="true">•</span> Unclear country origins are a known limitation</p>
+            <p class="charts-scope" id="download-chart-note">Hugging Face · Report published 17 Mar 2026 <span aria-hidden="true">•</span> Unclear country origins are a known limitation</p>
             <a class="charts-source" href="https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026" target="_blank" rel="noopener" data-chart-source="open-model-downloads-by-origin" data-source="hugging-face">View source <span aria-hidden="true">↗</span></a>
             <table class="charts-sr-only"><caption>Hugging Face downloads by model origin</caption><thead><tr><th>Origin</th><th>Share</th></tr></thead><tbody><tr><td>China</td><td>41%</td></tr><tr><td>Rest of world</td><td>59%</td></tr></tbody></table>
           </figure>
@@ -323,7 +367,7 @@
                 <button type="button" data-donut-segment="2" aria-pressed="false"><i class="charts-swatch charts-swatch--light"></i><span>Above 100B</span><strong>1%</strong></button>
               </div>
             </div>
-            <p class="charts-scope" id="size-chart-note">Hugging Face downloads <span aria-hidden="true">•</span> Declared parameter counts only</p>
+            <p class="charts-scope" id="size-chart-note">Hugging Face · Report published 14 Aug 2026 <span aria-hidden="true">•</span> All-time downloads, declared parameter counts only</p>
             <a class="charts-source" href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noopener" data-chart-source="downloads-by-parameter-count" data-source="hugging-face">View source <span aria-hidden="true">↗</span></a>
             <table class="charts-sr-only"><caption>All-time downloads by declared parameter count</caption><thead><tr><th>Model size</th><th>Share</th></tr></thead><tbody><tr><td>Under 1B</td><td>83%</td></tr><tr><td>1B to 100B</td><td>16%</td></tr><tr><td>Above 100B</td><td>1%</td></tr></tbody></table>
           </figure>
@@ -337,19 +381,19 @@
               <div class="charts-bar-row" tabindex="0" role="button" aria-pressed="false" data-chart-detail data-detail-title="Transformers / PEFT" data-detail-value="+16% repositories" data-detail-note="0.7× the Hub overall growth rate"><span>Transformers / PEFT</span><div><i style="--value: 3.2%"></i><strong>+16%</strong></div></div>
               <div class="charts-bar-axis"><span>0%</span><span>100%</span><span>200%</span><span>300%</span><span>400%</span><span>500%</span></div>
             </div>
-            <p class="charts-scope" id="format-chart-note">Repository growth, Jan–Jul 2026 <span aria-hidden="true">•</span> Hugging Face</p>
+            <p class="charts-scope" id="format-chart-note">Repository growth, Jan–Jul 2026 <span aria-hidden="true">•</span> Hugging Face report · 14 Aug 2026</p>
             <a class="charts-source" href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noopener" data-chart-source="repository-growth-by-format" data-source="hugging-face">View source <span aria-hidden="true">↗</span></a>
             <table class="charts-sr-only"><caption>Hugging Face repository growth from January to July 2026</caption><thead><tr><th>Format or group</th><th>Growth</th></tr></thead><tbody><tr><td>GGUF</td><td>464%</td></tr><tr><td>MLX</td><td>148%</td></tr><tr><td>Hub overall</td><td>21.5%</td></tr><tr><td>Transformers / PEFT</td><td>16%</td></tr></tbody></table>
           </figure>
         </div>
 
         <div class="charts-evidence" aria-label="Additional evidence">
-          <a href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noopener" data-chart-source="qwen-derivatives" data-source="hugging-face"><strong>151,448</strong><span>Qwen derivatives</span></a>
-          <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance" target="_blank" rel="noopener" data-chart-source="open-performance-gap" data-source="stanford-ai-index"><strong>3.3%</strong><span>closed-vs-open frontier performance gap</span></a>
+          <a href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noopener" data-chart-source="qwen-derivatives" data-source="hugging-face"><strong>151,448</strong><span>Qwen derivatives · reported 14 Aug 2026</span></a>
+          <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/technical-performance" target="_blank" rel="noopener" data-chart-source="open-performance-gap" data-source="stanford-ai-index"><strong>3.3%</strong><span>closed-vs-open frontier performance gap · March 2026</span></a>
         </div>
 
         <section class="charts-method" id="methodology" aria-labelledby="methodology-title">
-          <div><h2 id="methodology-title">Read the numbers correctly</h2><p>Vercel token shares reflect production traffic routed through AI Gateway, not all global AI use. Downloads show activity inside one ecosystem. They are not unique users, revenue or global market share. Country refers to the originating organization, not where inference runs.</p></div>
+          <div><h2 id="methodology-title">Read the numbers correctly</h2><p>Vercel token shares reflect production traffic routed through AI Gateway, not all global AI use. Downloads show activity inside one ecosystem. They are not unique users, revenue or global market share. Country refers to the originating organization, not where inference runs.</p><p>The Vercel series is checked daily and keeps 90 completed UTC days, without filling missing observations. A failed refresh preserves the last verified snapshot; the page warns when the latest observation is more than three days old. Research reports are reviewed weekly, with their original periods kept visible.</p></div>
           <nav aria-label="Charts methodology and data sources"><a href="https://vercel.com/ai-gateway/leaderboards/models" target="_blank" rel="noopener" data-chart-source="methodology" data-source="vercel">Vercel AI Gateway data</a><a href="https://huggingface.co/docs/hub/models-download-stats" target="_blank" rel="noopener" data-chart-source="methodology" data-source="hugging-face">Hugging Face methodology</a><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener" data-chart-source="methodology" data-source="stanford-ai-index">Stanford AI Index</a><a href="https://localclaw.io/charts-data.json" data-chart-source="methodology" data-source="localclaw-json">Download snapshot</a></nav>
         </section>
 
@@ -357,7 +401,7 @@
           <h2 id="faq-title">Open-weight AI statistics, explained</h2>
           <div class="charts-faq__grid">
             <article><h3>What does open-weight mean?</h3><p>Open-weight means the model weights are downloadable. It does not necessarily mean the training data, code or full development process is open, and the license may still restrict some uses.</p></article>
-            <article><h3>Is 57.6% global AI usage?</h3><p>No. It is the daily share of tokens routed through Vercel AI Gateway on models with downloadable weights. It is a production signal inside that gateway, not global market share.</p></article>
+            <article><h3>Does the Vercel token share represent global AI usage?</h3><p>No. It is the daily share of tokens routed through Vercel AI Gateway on models with downloadable weights. It is a production signal inside that gateway, not global market share.</p></article>
             <article><h3>Why focus on small models and local formats?</h3><p>Downloads and repository growth show where models become practical. GGUF and MLX connect open weights to hardware people can actually operate.</p></article>
           </div>
         </section>

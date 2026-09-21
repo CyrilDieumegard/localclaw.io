@@ -19,8 +19,10 @@ requireText(html, 'https://localclaw.io/charts-data.json', 'Machine-readable dat
 requireText(html, 'Downloads show activity inside one ecosystem.', 'Methodology boundary is missing');
 requireText(html, 'Vercel token shares reflect production traffic routed through AI Gateway', 'Vercel production-traffic boundary is missing');
 requireText(html, 'Open-weight means the model weights are downloadable.', 'Open-weight definition is missing');
-requireText(html, 'Open weights now carry 57.6% of production tokens', 'Top adoption chart headline is missing');
-requireText(html, '<strong>61.6%</strong> peak', 'Top adoption chart peak is missing');
+requireText(html, 'data-chart-freshness', 'Daily-series freshness indicator is missing');
+requireText(html, 'Report snapshots', 'Historical reports must be distinguished from daily data');
+requireText(js, "getAttribute('data-charts-snapshot')", 'Analytics snapshot must follow the actual dataset');
+if (js.includes("snapshot: '2026-08-27'")) errors.push('Analytics snapshot is frozen');
 requireText(html, 'https://vercel.com/ai-gateway/leaderboards/models', 'Primary Vercel source is missing');
 requireText(html, '/css/charts-20260827h.css', 'Versioned charts stylesheet is not embedded');
 requireText(html, '/js/charts-20260827c.js', 'Current charts interaction script is not embedded');
@@ -48,9 +50,18 @@ if (!adoption || adoption.id !== 'open-weight-token-share-over-time') {
   errors.push('Vercel adoption chart is not chart number one');
 } else {
   if (!Array.isArray(adoption.series) || adoption.series.length !== 90) errors.push('Vercel adoption series must contain 90 daily values');
-  if (adoption.series?.[0]?.date !== '2026-05-29' || adoption.series?.[0]?.openWeights !== 32.6293) errors.push('Unexpected first Vercel adoption value');
-  if (adoption.series?.[89]?.date !== '2026-08-26' || adoption.series?.[89]?.openWeights !== 57.5514) errors.push('Unexpected latest Vercel adoption value');
-  if (adoption.peak?.date !== '2026-08-22' || adoption.peak?.openWeights !== 61.6) errors.push('Unexpected Vercel adoption peak');
+  const series = adoption.series || [];
+  const latest = series.at(-1);
+  const peak = series.reduce((best, row) => row.openWeights > best.openWeights ? row : best, series[0]);
+  if (adoption.dateRange?.from !== series[0]?.date || adoption.dateRange?.to !== latest?.date) errors.push('Date range does not match observations');
+  if (adoption.latest?.date !== latest?.date || adoption.latest?.openWeights !== Number(latest?.openWeights.toFixed(1)) || adoption.latest?.closedWeights !== Number(latest?.closedWeights.toFixed(1))) errors.push('Latest summary does not match observations');
+  if (adoption.peak?.date !== peak?.date || adoption.peak?.openWeights !== Number(peak?.openWeights.toFixed(1))) errors.push('Peak summary does not match observations');
+  if (adoption.source?.seriesSha256 !== require('crypto').createHash('sha256').update(JSON.stringify(series)).digest('hex')) errors.push('Series provenance hash does not match');
+  if (!Number.isFinite(Date.parse(adoption.source?.retrievedAt)) || adoption.source.retrievedAt.slice(0, 10) > data.dateModified) errors.push('Invalid retrieval date');
+  if (latest?.date >= adoption.source?.retrievedAt.slice(0, 10)) errors.push('Snapshot includes an unfinished UTC day');
+  if (adoption.freshness?.cadence !== 'daily' || adoption.freshness?.maxAgeDays !== 3 || adoption.freshness?.excludesCurrentUtcDay !== true) errors.push('Daily refresh policy missing');
+  requireText(html, `Open weights carry ${latest?.openWeights.toFixed(1)}% of Vercel tokens`, 'Headline does not match dataset');
+  requireText(html, `<strong>${peak?.openWeights.toFixed(1)}%</strong> peak`, 'Peak does not match dataset');
   if (adoption.source?.license !== 'CC BY 4.0') errors.push('Vercel open-data license is missing');
 }
 
@@ -80,7 +91,11 @@ for (const marker of ['59', '35', '41%', '83%', '+464%', '+148%', '151,448', '3.
   requireText(html, marker, `Rendered chart marker missing: ${marker}`);
 }
 
-if (data.dateModified !== '2026-08-27') errors.push('Unexpected charts snapshot date');
+if (!/^\d{4}-\d{2}-\d{2}$/.test(data.dateModified) || !Number.isFinite(Date.parse(data.dateModified))) errors.push('Invalid charts snapshot date');
+requireText(html, `data-charts-snapshot="${data.dateModified}"`, 'HTML snapshot date does not match dataset');
+for (const chart of data.charts.slice(1)) {
+  if (chart.freshness?.cadence !== 'report' || !chart.period) errors.push(`Missing historical period: ${chart.id}`);
+}
 if (errors.length) {
   console.error(`Charts validation failed with ${errors.length} issue(s):\n${errors.map(item => `- ${item}`).join('\n')}`);
   process.exit(1);
