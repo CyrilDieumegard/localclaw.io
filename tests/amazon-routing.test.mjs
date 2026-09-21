@@ -7,6 +7,52 @@ import { verifiedOffers } from '../functions/_lib/amazon-offers.mjs';
 import { onRequestGet } from '../functions/go/amazon.js';
 const now=Date.parse('2026-09-11T12:00:00Z');
 const request=(query,country='CH')=>Object.assign(new Request('https://localclaw.io/go/amazon?'+query),{cf:{country}});
+test('default and legacy links leave in one click via tagged US OneLink, without script or second page',async()=>{
+  for(const country of [...Object.keys(MARKETS),'CH','IN','XX']) {
+    for(const family of Object.keys(FAMILY_TAGS)) {
+      const q='Apple Mac mini M4 Pro 24GB 512GB';
+      const res=await onRequestGet({request:request(`q=${encodeURIComponent(q)}&family=${family}&market=DE&url=https://evil.test`,country)});
+      assert.equal(res.status,302);
+      assert.equal(await res.text(),'');
+      const target=new URL(res.headers.get('Location'));
+      assert.equal(target.origin,'https://www.amazon.com');
+      assert.equal(target.pathname,'/s');
+      assert.equal(target.searchParams.get('k'),q);
+      assert.equal(target.searchParams.get('tag'),FAMILY_TAGS[family]);
+      assert.equal(target.searchParams.has('creatorsDisableRedirect'),false);
+      assert.match(res.headers.get('Cache-Control'),/no-store/);
+    }
+  }
+  const invalid=await onRequestGet({request:request('q='+encodeURIComponent('safe\nLocation: https://evil.test'))});
+  assert.equal(invalid.status,400);
+  const unknown=await onRequestGet({request:request('q=DDR5+64GB&family=__proto__')});
+  assert.equal(new URL(unknown.headers.get('Location')).searchParams.get('tag'),FAMILY_TAGS.computers);
+});
+test('secondary chooser remains explicit when changing stores and keeps source page alive',async()=>{
+  const html=await (await onRequestGet({request:request('options=1&q=DDR5+64GB&market=FR&family=gpuram')})).text();
+  assert.match(html,/name="options" value="1"/);
+  for(const link of html.matchAll(/<a[^>]+data-fast-goal="amazon_click"[^>]*>/g)) assert.match(link[0],/target="_blank"/);
+});
+test('direct family tracking includes dynamic and homepage links without duplicate aggregate events',()=>{
+  let listener;const events=[];
+  const window={location:{href:'https://localclaw.io/',origin:'https://localclaw.io'},datafast:(...args)=>events.push(args)};
+  vm.runInNewContext(fs.readFileSync(new URL('../js/amazon-clicks-20260921.js',import.meta.url),'utf8'),{
+    URL,window,document:{body:{},querySelectorAll:()=>[],addEventListener:(name,fn)=>listener=fn},
+    MutationObserver:class {observe(){}}
+  });
+  for(const [family,source] of [['computers','recommender_products'],['gpuram','buyer_path'],['diy','diy_parts']]){
+    const href=`/go/amazon?q=DDR5+64GB&family=${family}&source=${source}`;
+    listener({target:{closest:()=>({getAttribute:()=>href})}});
+    assert.equal(events.at(-1)[0],`amazon_${family}_click`);
+    assert.equal(events.at(-1)[1].source,source);
+    assert.equal(events.at(-1)[1].tag,FAMILY_TAGS[family]);
+  }
+  assert.equal(events.length,3);
+  listener({target:{closest:()=>({getAttribute:()=>'/go/amazon?q=DDR5+64GB&options=1'})}});
+  assert.equal(events.length,3);
+  window.datafast=undefined;
+  assert.doesNotThrow(()=>listener({target:{closest:()=>({getAttribute:()=>'/go/amazon?q=DDR5+64GB'})}}));
+});
 test('exact variants never cross memory, condition or country boundaries',()=>{
   assert.equal(findOffer('Apple Mac mini M4 16GB 256GB','US',now).condition,'Renewed');
   assert.equal(findOffer('Apple Mac mini M4 Pro 24GB 512GB','DE',now).asin,'B0DLBWRZS5');
@@ -61,7 +107,7 @@ test('registered family tags are distinct; international activation preserves ol
 test('HTML escapes supplied text, rejects invalid input and is never cached',async()=>{
   for(const q of ['','x','a'.repeat(141),'safe\nquery'])assert.equal(normalizeAmazonQuery(q),'');
   assert.equal((await onRequestGet({request:request('q=x')})).status,400);
-  const res=await onRequestGet({request:request('q='+encodeURIComponent('<script>alert(1)</script>')+'&family=__proto__&market=FR')});
+  const res=await onRequestGet({request:request('options=1&q='+encodeURIComponent('<script>alert(1)</script>')+'&family=__proto__&market=FR')});
   const html=await res.text();assert.equal(res.status,200);assert.match(res.headers.get('Cache-Control'),/no-store/);
   assert.ok(!html.includes('<script>alert(1)</script>'));assert.ok(html.includes('&lt;script&gt;'));
   assert.ok(html.includes('data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei"'));
@@ -82,7 +128,7 @@ test('family click goal fires once alongside the separately handled aggregate go
 test('unsupported countries and legacy market URLs always offer tagged destinations',async()=>{
   for (const country of ['IE','BR','AU','JP','IN','MX','BE','SG']) {
     for (const family of Object.keys(FAMILY_TAGS)) {
-      const res=await onRequestGet({request:request(`q=DDR5+64GB&family=${family}&market=${country}`,country)});
+      const res=await onRequestGet({request:request(`options=1&q=DDR5+64GB&family=${family}&market=${country}`,country)});
       const html=await res.text();
       assert.equal(res.status,200);
       assert.match(html,/Showing Amazon.com. Check delivery/);
@@ -99,7 +145,7 @@ test('unsupported countries and legacy market URLs always offer tagged destinati
   }
 });
 test('outbound analytics describe the linked store, not the previously selected store',async()=>{
-  const html=await (await onRequestGet({request:request('q=DDR5+64GB&market=DE&family=gpuram','CH')})).text();
+  const html=await (await onRequestGet({request:request('options=1&q=DDR5+64GB&market=DE&family=gpuram','CH')})).text();
   const primary=html.match(/<a class="primary"[^>]+>/)[0];
   const secondary=html.match(/<a class="secondary"[^>]+>/)[0];
   assert.match(primary,/data-fast-goal-market="DE"/);

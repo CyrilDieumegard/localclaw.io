@@ -155,7 +155,7 @@ function renderIndex() {
 <html lang="en" class="light">
 <head>
   ${commonHead({ title, description, canonical: `${BASE}/diy/`, image: firstProject.image, schema: indexSchema() })}
-</head>
+<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js"></script></head>
 <body class="diy-body">
   <div class="diy-grid-bg" aria-hidden="true"></div>
   ${siteNavigation('diy')}
@@ -312,7 +312,7 @@ function renderDetail(project) {
   const canonical = `${BASE}${route(project)}`;
   const parts = project.parts.map((part, index) => {
     const href = `/go/amazon?q=${encodeURIComponent(part.amazonQuery)}&family=diy&product=${encodeURIComponent(part.name)}&source=${encodeURIComponent(project.slug)}`.replace(/&/g, '&amp;');
-    return `<article class="diy-part"><div class="diy-part__index">${String(index + 1).padStart(2, '0')}</div><div><span class="diy-part__required">${esc(part.requirement)}</span><h3>${esc(part.name)}</h3><p>${esc(part.description)}</p></div><a class="diy-button diy-button--amazon" href="${href}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_offer_open" data-fast-goal-family="diy" data-fast-goal-source="diy_parts" data-fast-goal-project="${esc(project.slug)}" data-fast-goal-product="${esc(part.name)}">Amazon buying options <span aria-hidden="true">↗</span></a></article>`;
+    return `<article class="diy-part"><div class="diy-part__index">${String(index + 1).padStart(2, '0')}</div><div><span class="diy-part__required">${esc(part.requirement)}</span><h3>${esc(part.name)}</h3><p>${esc(part.description)}</p></div><a class="diy-button diy-button--amazon" href="${href}" target="_blank" rel="sponsored nofollow noopener" data-fast-goal="amazon_click" data-fast-goal-family="diy" data-fast-goal-source="diy_parts" data-fast-goal-project="${esc(project.slug)}" data-fast-goal-product="${esc(part.name)}">View on Amazon <span aria-hidden="true">↗</span></a></article>`;
   }).join('');
   const requirements = project.requirements.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('');
   const performance = project.performance.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('');
@@ -325,7 +325,7 @@ function renderDetail(project) {
   ${commonHead({ title, description, canonical, image: project.image, type: 'article', schema: detailSchema(project) })}
   <meta property="article:published_time" content="${publishedDate(project)}">
   <meta property="article:modified_time" content="${verifiedDate(project)}">
-</head>
+<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js"></script></head>
 <body class="diy-body">
   <div class="diy-grid-bg" aria-hidden="true"></div>
   ${siteNavigation('diy')}

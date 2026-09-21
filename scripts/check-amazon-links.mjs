@@ -18,7 +18,7 @@ const hardwarePages = fs.readdirSync(hardwareDir)
   .filter(file => file.endsWith(".html"))
   .map(file => ({ file, html: fs.readFileSync(path.join(hardwareDir, file), "utf8") }));
 const hardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
-  [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="amazon_offer_open"/g)]
+  [...page.matchAll(/<a class="btn" href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
 const appleHardwareLinks = hardwarePages.flatMap(({ file, html: page }) =>
@@ -31,10 +31,20 @@ const diyPages = fs.existsSync(diyDir)
     .map(file => ({ file, html: fs.readFileSync(path.join(diyDir, file), "utf8") }))
   : [];
 const diyLinks = diyPages.flatMap(({ file, html: page }) =>
-  [...page.matchAll(/<a[^>]+href="([^"]+)"[^>]+data-fast-goal="amazon_offer_open"/g)]
+  [...page.matchAll(/<a[^>]+href="([^"]+)"[^>]+data-fast-goal="amazon_click"/g)]
     .map(match => ({ file, href: match[1].replaceAll("&amp;", "&") }))
 );
 const errors = [];
+// The homepage recommender is a real buying surface, not just the static catalogues.
+const home = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const app = fs.readFileSync(path.join(ROOT, 'js/app-20260816a.js'), 'utf8');
+const upgrades = app.slice(app.indexOf('    buildUpgradeBlock()'), app.indexOf('    buildUpgradeBlock()') + 7500);
+if (!upgrades.includes("'/go/amazon?q='") || !upgrades.includes("&source=recommender_products")) errors.push('Homepage upgrades bypass the tagged resolver');
+if (!upgrades.includes('data-fast-goal-family=') || upgrades.includes('localclaw-20')) errors.push('Homepage upgrade family tracking is incomplete');
+for (const [name, page] of [['homepage', home], ['computers', computers], ['RAM/GPU', html], ...hardwarePages.map(p=>[p.file,p.html]), ...diyPages.map(p=>[p.file,p.html])]) {
+  if ((page.includes('amazon_click') || name === 'homepage') && !page.includes('/js/amazon-clicks-20260921.js')) errors.push(`${name} has no shared Amazon family tracking`);
+  if (page.includes('data-fast-goal="amazon_offer_open"')) errors.push(`${name} still measures a direct exit as an options opening`);
+}
 
 if (links.length !== 18) errors.push(`Expected 18 RAM/GPU Amazon buttons; found ${links.length}`);
 for (const href of links) {

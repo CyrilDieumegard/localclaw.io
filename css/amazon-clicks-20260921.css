@@ -1,0 +1,23 @@
+/* Secondary store selection stays visually subordinate to the direct Amazon CTA. */
+a.amazon-options-link {
+  display: inline-block;
+  align-self: center;
+  margin: 4px 8px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a.amazon-options-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.diy-part > a.amazon-options-link { grid-column: 3; justify-self: center; margin-top: -12px; }
+@media (max-width: 820px) {
+  .diy-part > a.amazon-options-link { grid-column: 2; justify-self: start; }
+}
+@media (max-width: 560px) {
+  .diy-part > a.amazon-options-link { grid-column: 1; justify-self: center; }
+}
