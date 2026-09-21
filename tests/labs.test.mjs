@@ -1,7 +1,85 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { MODELS, modelURL, makeMessages, verdictFor } from '../js/labs/config.mjs';
-import { DECISION_PRESETS, validateDecision, decisionMessages, scoresFromLogprobs, validateDecisionJSON } from '../js/labs/decisions.mjs';
+import { DECISION_PRESETS, DECISION_EXAMPLES, createDecisionDeck, validateDecision, decisionMessages, scoresFromLogprobs, validateDecisionJSON } from '../js/labs/decisions.mjs';
+import { LABS_FAQ } from '../js/labs/content.mjs';
+
+test('18 complete authored situations are unique and fit the decision input limits', () => {
+  assert.equal(DECISION_EXAMPLES.length, 18);
+  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.id)).size, 18);
+  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.state)).size, 18);
+  for (const example of DECISION_EXAMPLES) {
+    assert.ok(example.title);
+    const { state, question, options } = example;
+    assert.deepEqual(validateDecision(example), { state, question, options });
+  }
+});
+
+test('shuffle exhausts all situations before reuse and never immediately repeats', () => {
+  for (const random of [() => 0, () => 0.999999, Math.random]) {
+    const next = createDecisionDeck(random);
+    let previous;
+    for (let cycle = 0; cycle < 10; cycle++) {
+      const seen = new Set();
+      for (let index = 0; index < 18; index++) {
+        const example = next();
+        assert.notEqual(example.id, previous);
+        seen.add(example.id);
+        previous = example.id;
+      }
+      assert.equal(seen.size, 18);
+    }
+  }
+});
+
+test('category shuffles contain six matching situations and protect authored data', () => {
+  const next = createDecisionDeck(() => 0.2);
+  for (const category of ['support', 'email', 'crab']) {
+    const items = Array.from({ length: 6 }, () => next(category));
+    assert.equal(new Set(items.map(item => item.id)).size, 6);
+    assert.ok(items.every(item => item.category === category));
+    items[0].options[0] = 'Custom user edit';
+    assert.notEqual(DECISION_EXAMPLES.find(item => item.id === items[0].id).options[0], 'Custom user edit');
+  }
+  let previous;
+  for (let index = 0; index < 500; index++) {
+    const example = next(['all', 'support', 'email', 'crab'][index % 4]);
+    assert.notEqual(example.id, previous);
+    previous = example.id;
+  }
+  assert.throws(() => next('unknown'));
+});
+
+test('Labs exposes crawlable facts and truthful schema matching every visible FAQ', () => {
+  const html = fs.readFileSync(new URL('../labs.html', import.meta.url), 'utf8');
+  const data = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  const graph = data.flatMap(item => item['@graph'] || [item]);
+  const faq = graph.find(item => item['@type'] === 'FAQPage');
+  assert.equal(faq.mainEntity.length, LABS_FAQ.length);
+  const decode = value => value.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  const visible = [...html.matchAll(/<details><summary>(.*?)<\/summary><p>(.*?)<\/p><\/details>/g)].map(match => ({ question: decode(match[1]), answer: decode(match[2]) }));
+  assert.deepEqual(visible, LABS_FAQ);
+  assert.deepEqual(faq.mainEntity.map(item => ({ question: item.name, answer: item.acceptedAnswer.text })), LABS_FAQ);
+  assert.match(html, /rel="canonical" href="https:\/\/localclaw.io\/labs"/);
+  assert.equal((html.match(/<th scope="row">/g) || []).length, MODELS.length);
+  assert.doesNotMatch(JSON.stringify(data), /aggregateRating|ratingValue|reviewCount/);
+  assert.match(html, /href="\/guides\/run-llm-in-browser"/);
+  assert.match(html, /No account\. No API key\./);
+  const preview = fs.readFileSync(new URL('../images/labs-browser-playground.jpg', import.meta.url));
+  assert.equal(preview.toString('hex', 0, 2), 'ffd8');
+  let dimensions;
+  for (let offset = 2; offset + 9 < preview.length;) {
+    const marker = preview.readUInt16BE(offset);
+    if ([0xffc0, 0xffc1, 0xffc2].includes(marker)) { dimensions = { height: preview.readUInt16BE(offset + 5), width: preview.readUInt16BE(offset + 7) }; break; }
+    const length = preview.readUInt16BE(offset + 2);
+    assert.ok(length >= 2);
+    offset += length + 2;
+  }
+  assert.ok(dimensions);
+  assert.equal(dimensions.width, Number(html.match(/property="og:image:width" content="(\d+)"/)[1]));
+  assert.equal(dimensions.height, Number(html.match(/property="og:image:height" content="(\d+)"/)[1]));
+});
 
 test('downloadable artifacts are pinned, HTTPS, and high-memory builds require WebGPU', () => {
   assert.equal(MODELS.length, 5);

@@ -5,7 +5,8 @@
   "description": "Static LocalClaw website with Cloudflare Pages Functions.",
   "scripts": {
     "labs:runtime": "node scripts/build-labs-runtime.js",
-    "labs:check": "node --test tests/labs.test.mjs",
+    "labs:generate": "node scripts/generate-labs-content.mjs",
+    "labs:check": "node --test tests/labs.test.mjs && node scripts/generate-labs-content.mjs --check",
     "catalog:generate": "node scripts/generate-local-ai-catalog.js",
     "diy:generate": "node scripts/generate-diy-pages.js",
     "diy:check": "node scripts/check-diy-pages.js",
@@ -43,7 +44,7 @@
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs && node --test tests/amazon-routing.test.mjs",
     "license:test": "node --test tests/license-backend.test.mjs",
-    "pages:build": "node scripts/catalogue-integrity.js && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
+    "pages:build": "node scripts/catalogue-integrity.js && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
     "pages:check": "npm run software:check && node scripts/check-pages-output.js"
   },
   "dependencies": {

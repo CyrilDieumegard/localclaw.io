@@ -462,6 +462,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </div>
                     </header>
 
+                    <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
+
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
                         <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>

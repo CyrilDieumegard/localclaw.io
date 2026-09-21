@@ -201,6 +201,8 @@ function renderFallback() {
             <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a><a href="/labs">Try AI in your browser</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
           </header>
 
+          <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
+
           <section id="local-ai-index" class="lc-index-universe" aria-labelledby="fallback-local-ai-universe-title">
             <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="fallback-local-ai-universe-title">What can your machine run?</h2><p class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a href="/account">My Machines →</a></header>
             <nav aria-label="Local AI categories"><a href="#llm-index"><strong>LLM</strong><span>${localModels.length} local pages</span></a><a href="#tts-index"><strong>Voice</strong><span>${speechModels.length} local records</span></a>${multimodalCategories.map(category => `<a href="#${category.anchor}"><strong>${category.label}</strong><span>${multimodalModels.filter(model => model.category === category.key).length} local models</span></a>`).join('')}</nav>
@@ -450,6 +452,21 @@ function generateIndexHtml() {
   return html;
 }
 
+function labsReadableText() {
+  return `## LocalClaw Labs: browser-local AI playground
+
+- Canonical page: ${BASE_URL}/labs
+- Practical guide: ${BASE_URL}/guides/run-llm-in-browser
+- Price: free; no account, API key or paid desktop-app license required.
+- Models: Qwen3 0.6B Q4_K_M (397 MB), Qwen3 1.7B Q4_K_M (1.11 GB), Qwen3 0.6B Q8_0 (639 MB), MiniCPM5 2B Q4_K_M (1.56 GB), Qwen3.5 4B Q4_K_M (3.01 GB). Rounded decimal download sizes, not total memory usage.
+- Experiments: detective interviews, writing remix, free chat, and Decisions / RLCD with 18 fictional situations across support tickets, email checks and Detective Crab. Shuffle situation changes the situation, question and choices without calling a model.
+- Runtime: self-hosted wllama 3.6.1; weights download from pinned Hugging Face revisions only after Load model is clicked. WebGPU when available, CPU fallback for smaller presets; the 4B preset requires WebGPU and a high-memory computer.
+- Privacy: prompts and answers stay in the browser tab; no AI API or session recording on Labs. Page/runtime/model hosting still receives normal file requests. Conversations clear on reload; downloaded weights may remain cached. Offline reload is not guaranteed.
+- Terminology: RLCD means Reinforcement Learning for Calibrated Decisions. These are standard open-model baselines, not Jev or verified RLCD-trained weights. Option scores and generated JSON do not establish calibrated confidence. This is not a benchmark against Jev.
+- Relationship: Qwen3 0.6B Q8, MiniCPM5 2B Q4 and Qwen3.5 4B Q4 match the SemIf / OpenJEV presets. LocalClaw is independent of SemIf and TypeSafe. Browser Labs is separate from the optional paid LocalClaw Mac app.
+`;
+}
+
 function compactLlmsText() {
   const leaders = rankedModels.slice(0, 8).map(model => `- [${model.name}](${BASE_URL}/models/${encodeURIComponent(model.id)}) — LocalClaw ${scoreLabel(llmScore(model))}/10; minimum ${model.min_ram} GB RAM; ${model.params}; released ${releaseLabel(model.released)}.`).join('\n');
   const speechLeaders = rankedSpeech.slice(0, 6).map(model => `- [${model.name}](${BASE_URL}/tts/${encodeURIComponent(model.id)}) — Audio ${scoreLabel(speechScore(model))}/10; ${model.type}; ${model.license || 'see model page'}.`).join('\n');
@@ -498,6 +515,8 @@ function compactLlmsText() {
 - [Live community rating aggregates](${BASE_URL}/api/ratings) — current independent star averages and vote counts as JSON
 - [Independent open-weight benchmarks](https://artificialanalysis.ai/models/open-source) — third-party performance context; LocalClaw remains the source for local machine fit
 - [Full AI-readable model index](${BASE_URL}/llms-full.txt) - all ${totalLocalAiRecords} local homepage entries
+
+${labsReadableText()}
 
 ## New Mac Local AI Guides
 
@@ -550,6 +569,8 @@ function fullLlmsText() {
 > Generated ${updatedIso} from the LocalClaw repository catalogue. This file lists all ${totalLocalAiRecords} local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at ${BASE_URL}/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
+
+${labsReadableText()}
 
 ## Local LLMs (${localModels.length})
 

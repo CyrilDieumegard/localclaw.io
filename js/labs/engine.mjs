@@ -1,5 +1,5 @@
-import { MODELS, modelURL } from './config.mjs?v=20260921rlcd1';
-import { decisionLabels, decisionMessages, scoresFromLogprobs, validateDecisionJSON, validateDecision } from './decisions.mjs?v=20260921rlcd1';
+import { MODELS, modelURL } from './config.mjs?v=20260921growth1';
+import { decisionLabels, decisionMessages, scoresFromLogprobs, validateDecisionJSON, validateDecision } from './decisions.mjs?v=20260921growth1';
 
 const RUNTIME = '/js/labs/vendor/3.6.1/';
 let runtime;

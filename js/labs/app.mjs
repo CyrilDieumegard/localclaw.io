@@ -1,5 +1,5 @@
-import { MODELS, SUSPECTS, TONES, makeMessages, verdictFor } from './config.mjs?v=20260921rlcd1';
-import { DECISION_PRESETS, validateDecision } from './decisions.mjs?v=20260921rlcd1';
+import { MODELS, SUSPECTS, TONES, makeMessages, verdictFor } from './config.mjs?v=20260921growth1';
+import { DECISION_CATEGORIES, DECISION_EXAMPLES, createDecisionDeck, validateDecision } from './decisions.mjs?v=20260921growth1';
 
 const $ = id => document.getElementById(id);
 const all = selector => [...document.querySelectorAll(selector)];
@@ -8,7 +8,9 @@ const state = {
   ready: false, loading: false, busy: false, supported: false, controller: null,
   histories: { mara: [], leo: [], iris: [], chat: [] }, clues: new Set(),
   questions: 0, solved: false, remix: '', engine: null,
+  decisionCategory: 'all',
 };
+const nextDecisionExample = createDecisionDeck();
 
 function announce(text) { $('labs-announcement').textContent = text; }
 function status(text, error = false) {
@@ -30,7 +32,7 @@ function syncControls() {
   all('[data-send]').forEach(button => { button.disabled = !state.ready || state.loaded?.id !== model().id || locked || (state.mode === 'mystery' && state.solved); button.hidden = state.busy; });
   all('[data-stop]').forEach(button => { button.hidden = !state.busy; });
   all('[data-mode], [data-suspect], [data-tone], [data-starter]').forEach(button => { button.disabled = state.busy; });
-  all('[data-decision-edit], [data-decision-preset]').forEach(element => { element.disabled = locked; });
+  all('[data-decision-edit], [data-decision-preset], #labs-random-decision').forEach(element => { element.disabled = locked; });
   $('labs-restart').disabled = state.busy;
   $('labs-clear-chat').disabled = state.busy;
   $('labs-accuse').disabled = state.busy || state.questions === 0 || state.solved;
@@ -100,7 +102,7 @@ function errorMessage(error, duringLoad = false) {
 }
 
 async function getEngine() {
-  state.engine ||= await import('./engine.mjs?v=20260921rlcd1');
+  state.engine ||= await import('./engine.mjs?v=20260921growth1');
   return state.engine;
 }
 
@@ -239,13 +241,18 @@ function resetDecision() {
 }
 
 function decisionPreset(id) {
-  const preset = DECISION_PRESETS[id];
-  if (!preset || state.busy) return;
+  if (!Object.hasOwn(DECISION_CATEGORIES, id) || state.busy || state.loading) return;
+  state.decisionCategory = id;
+  const preset = nextDecisionExample(id);
   $('labs-decision-state').value = preset.state;
   $('labs-decision-question').value = preset.question;
   $('labs-decision-options').value = preset.options.join('\n');
   resetDecision();
+  all('[data-decision-preset]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.decisionPreset === id)));
+  const count = DECISION_EXAMPLES.filter(example => id === 'all' || example.category === id).length;
+  $('labs-decision-example').textContent = `${DECISION_CATEGORIES[preset.category]} · ${preset.title} · ${count} situations to explore`;
   $('labs-decisions-help').textContent = state.ready ? 'Example ready. Compare the two methods on your device.' : 'Load a model to compare. The SemIf group contains the exact builds used on OpenJEV.';
+  announce(`New situation: ${preset.title}. Situation, question and options updated.`);
 }
 
 function renderDecisionScores(result) {
@@ -356,7 +363,8 @@ $('labs-unload').addEventListener('click', unload);
 $('labs-model').addEventListener('change', () => { status(hint()); resetDecision(); syncControls(); });
 $('labs-decisions-form').addEventListener('submit', event => { event.preventDefault(); runDecisions(); });
 all('[data-decision-preset]').forEach(button => button.addEventListener('click', () => decisionPreset(button.dataset.decisionPreset)));
-all('[data-decision-edit]').forEach(element => element.addEventListener('input', () => { resetDecision(); $('labs-decisions-help').textContent = 'Inputs changed. Run a new comparison to get matching results.'; }));
+$('labs-random-decision').addEventListener('click', () => decisionPreset(state.decisionCategory));
+all('[data-decision-edit]').forEach(element => element.addEventListener('input', () => { resetDecision(); $('labs-decision-example').textContent = 'Custom situation · edited by you'; $('labs-decisions-help').textContent = 'Inputs changed. Run a new comparison to get matching results.'; }));
 $('labs-remix-run').addEventListener('click', () => submit('remix'));
 $('labs-restart').addEventListener('click', newCase);
 $('labs-accuse').addEventListener('click', showAccusation);
@@ -387,7 +395,13 @@ $('labs-delete-cache').addEventListener('click', async () => {
 });
 
 state.supported = Boolean(window.isSecureContext && window.WebAssembly && window.Worker && navigator.storage?.getDirectory);
+window.addEventListener('hashchange', () => {
+  const mode = location.hash.slice(1);
+  if (!['mystery', 'remix', 'chat', 'decisions', 'rlcd'].includes(mode) || state.busy) return;
+  setMode(mode);
+  $(`tab-${state.mode}`).scrollIntoView({ block: 'start' });
+});
 status(state.supported ? hint() : 'Labs needs a modern browser with local storage support. Try a regular Chrome or Edge window.', !state.supported);
-decisionPreset('support');
+decisionPreset('all');
 setMode(location.hash.slice(1) || 'mystery');
 syncControls();
