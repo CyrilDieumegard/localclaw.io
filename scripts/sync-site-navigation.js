@@ -11,7 +11,7 @@ const navigationContract = siteNavigation();
 for (const marker of [
   'href="/local-ai-activity-index"',
   'data-nav-key="atlas"',
-  '>Atlas</a>',
+  '>Local AI Map</a>',
   'data-nav-dropdown="hardware"',
   'data-nav-group="hardware"',
   '>Hardware<svg',

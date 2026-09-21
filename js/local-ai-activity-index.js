@@ -1026,7 +1026,7 @@ async function buildShareImage() {
   context.fillStyle = 'rgba(255,255,255,0.48)';
   context.font = '700 12px "JetBrains Mono", monospace';
   context.letterSpacing = '2px';
-  context.fillText('ATLAS', 197 + localWidth + brandWidth, 104);
+  context.fillText('LOCAL AI MAP', 197 + localWidth + brandWidth, 104);
 
   context.fillStyle = '#ff5b50';
   context.font = '700 14px "JetBrains Mono", monospace';
@@ -1153,7 +1153,7 @@ async function nativeShareView() {
   const snapshot = shareSnapshot();
   try {
     await navigator.share({
-      title: `${snapshot.entity} · LocalClaw Atlas`,
+      title: `${snapshot.entity} · Local AI Map`,
       text: snapshot.title,
       url: currentShareUrl()
     });
@@ -5926,7 +5926,7 @@ function updateScopeInterface() {
   if (modelRegionalView && modelRegion && admin2View) setAtlasTitle(`Explore ${modelRegion.name}`, `${state.admin2Config.childrenLabel}.`);
   else if (modelRegionalView && modelRegion) setAtlasTitle('See model interest in', `${modelRegion.name}.`);
   else if (modelRegionalView) setAtlasTitle('See which local AI brands', `lead across ${modelCountry?.name || 'this country'}.`);
-  else if (modelInterestView) setAtlasTitle('Explore AI models,', 'country by country.');
+  else if (modelInterestView) setAtlasTitle('Explore local AI models', 'by country');
   else if (stateView) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, 'state by state.');
   else if (admin1View) setAtlasTitle(`See local AI ${installIntentView ? 'install intent' : 'interest'}`, state.detailConfig.titleEmphasis);
   else if (admin2View) setAtlasTitle(`Explore ${state.admin2Config.parentName}`, `${state.admin2Config.childrenLabel}.`);
@@ -7027,7 +7027,7 @@ function renderDataSummary() {
     const colorLegendCopy = colorLegend?.querySelector('small');
     if (colorLegendTitle) colorLegendTitle.textContent = 'Color';
     if (colorLegendCopy) colorLegendCopy.textContent = 'All-model country visitors';
-    document.title = 'Most Explored Local AI Models by Country | LocalClaw Atlas';
+    document.title = 'Most Explored Local AI Models by Country | Local AI Map';
     const leadingBrand = dominantModelBrand(leader);
     const leadingBrands = coLeadingModelBrands(leader);
     const hasLeadingTie = leadingBrands.length > 1;
@@ -7049,7 +7049,7 @@ function renderDataSummary() {
     const snapshotLead = document.querySelector('[data-snapshot-lead]');
     if (snapshotLead) snapshotLead.textContent = leader && leadingBrand
       ? `${leader.name} leads this published model-page snapshot with ${number(modelCountryVisitors(leader))} unique visitors; ${leadingBrand.label} ${hasLeadingTie ? `shares the local lead with ${number(leadingBrands.length - 1)} other brand${leadingBrands.length > 2 ? 's' : ''}` : 'is its most explored local AI brand'}. This measures LocalClaw page exploration, not verified model usage.`
-      : 'Atlas publishes every observed country and brand aggregate from one model-page visitor. This measures LocalClaw page exploration, not verified model usage.';
+      : 'Local AI Map publishes every observed country and brand aggregate from one model-page visitor. This measures LocalClaw page exploration, not verified model usage.';
     const leadingCountry = document.querySelector('[data-leading-country]');
     if (leadingCountry) leadingCountry.textContent = leader?.name || 'Collecting signals';
     const leadingDetail = document.querySelector('[data-leading-detail]');
@@ -7087,7 +7087,7 @@ function renderDataSummary() {
     const methodExclude = document.querySelector('[data-method-exclude]');
     if (methodExclude) methodExclude.textContent = 'No download completion, installation, launch, prompt, inference, active-use event, device identity, or claim about worldwide model usage is included.';
     const methodGeography = document.querySelector('[data-method-geography]');
-    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A colored region contains at least one mapped model-page visitor and shows the leading brand measured inside that region. Atlas never derives a regional preference from a country total.';
+    if (methodGeography) methodGeography.textContent = 'Countries and administrative regions are approximate network locations reported by DataFast. A colored region contains at least one mapped model-page visitor and shows the leading brand measured inside that region. Local AI Map never derives a regional preference from a country total.';
     const methodPrivacy = document.querySelector('[data-method-privacy]');
     if (methodPrivacy) methodPrivacy.textContent = 'Every observed geographic model aggregate is public from the first visitor. Public files contain no visitor identifier, IP address, device, exact coordinate or raw city row.';
     const sourceCoverage = document.querySelector('[data-source-coverage]');
@@ -7137,7 +7137,7 @@ function renderDataSummary() {
     updateScopeInterface();
     return;
   }
-  if (installIntentView) document.title = `Local AI Model & Setup Paths by Country | LocalClaw Atlas`;
+  if (installIntentView) document.title = `Local AI Model & Setup Paths by Country | Local AI Map`;
   document.querySelectorAll('[data-total-signals]').forEach(element => {
     element.textContent = number(state.data.totals.signals);
   });
@@ -7156,7 +7156,7 @@ function renderDataSummary() {
   const snapshotLead = document.querySelector('[data-snapshot-lead]');
   if (snapshotLead && leader) {
     snapshotLead.textContent = installIntentView
-      ? `${leader.name} leads the published ${periodLabel().toLowerCase()} install-intent snapshot with ${number(leader.signals)} unique visitors. Atlas observed ${number(state.data.totals.observedSignals)} visitors across ${number(state.data.totals.observedRegions)} countries; model, destination and country cells must each independently reach five visitors. Tracking began 21 August 2026, so longer windows are partial.`
+      ? `${leader.name} leads the published ${periodLabel().toLowerCase()} install-intent snapshot with ${number(leader.signals)} unique visitors. Local AI Map observed ${number(state.data.totals.observedSignals)} visitors across ${number(state.data.totals.observedRegions)} countries; model, destination and country cells must each independently reach five visitors. Tracking began 21 August 2026, so longer windows are partial.`
       : `As of 29 August 2026, ${leader.name} ranks first for observed local AI interest in the LocalClaw dataset, with ${number(leader.signals)} of ${number(state.data.totals.signals)} anonymous signals recorded during the ${periodLabel().toLowerCase()}. This is a directional view of interest, not a census of local AI users.`;
   }
   const snapshotEyebrow = document.querySelector('[data-snapshot-eyebrow]');
@@ -7226,7 +7226,7 @@ function renderDataSummary() {
     const adoptionFaq = document.querySelector('[data-adoption-faq]');
     const nextFaq = document.querySelector('[data-next-faq]');
     if (adoptionFaq) adoptionFaq.textContent = 'Not yet. Install intent is stronger than a page view, but a click does not prove that a download finished, a model was installed, or an inference ran. This beta labels that boundary directly.';
-    if (nextFaq) nextFaq.textContent = 'A future Active view requires explicit, privacy-preserving opt-in telemetry from LocalClaw itself. Until then, Atlas will keep click intent and verified local activity separate.';
+    if (nextFaq) nextFaq.textContent = 'A future Active view requires explicit, privacy-preserving opt-in telemetry from LocalClaw itself. Until then, Local AI Map will keep click intent and verified local activity separate.';
   }
   const countryDownload = document.querySelector('[data-country-download]');
   if (countryDownload) countryDownload.href = DATA_URL.split('?')[0];
@@ -7256,7 +7256,7 @@ async function initialize() {
         return response.json();
       })
       .catch(error => {
-        console.warn('Atlas deeper boundary views are unavailable; the world and regional maps remain active.', error);
+        console.warn('Local AI Map deeper boundary views are unavailable; the world and regional maps remain active.', error);
         return null;
       });
     const admin2ModelActivityPromise = (modelsView || isInstallIntentView())
@@ -7266,7 +7266,7 @@ async function initialize() {
           return response.json();
         })
         .catch(error => {
-          console.warn('Atlas subdivision model activity is unavailable; detailed boundaries remain active.', error);
+          console.warn('Local AI Map subdivision model activity is unavailable; detailed boundaries remain active.', error);
           return { publishThreshold: PUBLISH_THRESHOLD, parents: {} };
         })
       : Promise.resolve(null);
@@ -7276,7 +7276,7 @@ async function initialize() {
         return response;
       })
       .catch(error => {
-        console.warn('Atlas regional boundaries are unavailable; country model interest remains active.', error);
+        console.warn('Local AI Map regional boundaries are unavailable; country model interest remains active.', error);
         return emptyJsonResponse({ countries: {} });
       }) : fetch(ADMIN1_MANIFEST_URL);
     const modelAdmin1ActivityPromise = modelsView ? fetch(MODEL_ADMIN1_ACTIVITY_URL)
@@ -7285,7 +7285,7 @@ async function initialize() {
         return response.json();
       })
       .catch(error => {
-        console.warn('Atlas regional model-interest totals are unavailable; country model interest remains active.', error);
+        console.warn('Local AI Map regional model-interest totals are unavailable; country model interest remains active.', error);
         return { publishThreshold: PUBLISH_THRESHOLD, countries: {} };
       }) : Promise.resolve(null);
     const [
@@ -7308,7 +7308,7 @@ async function initialize() {
       admin2ModelActivityPromise
     ]);
     if (!dataResponse.ok || !worldResponse.ok || !statesResponse.ok || !manifestResponse.ok || !activityResponse.ok) {
-      throw new Error('Atlas data could not be loaded.');
+      throw new Error('Local AI Map data could not be loaded.');
     }
     state.data = await dataResponse.json();
     state.world = await worldResponse.json();
@@ -7327,7 +7327,7 @@ async function initialize() {
       if (!state.modelAdmin1Activity
         || Number(state.modelAdmin1Activity.publishThreshold || PUBLISH_THRESHOLD) !== PUBLISH_THRESHOLD
         || typeof state.modelAdmin1Activity.countries !== 'object') {
-        console.warn('Atlas regional model-interest data contract is invalid; country model interest remains active.');
+        console.warn('Local AI Map regional model-interest data contract is invalid; country model interest remains active.');
         state.modelAdmin1Activity = { publishThreshold: PUBLISH_THRESHOLD, countries: {} };
       }
     } else if (isInstallIntentView()) {

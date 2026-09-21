@@ -7,7 +7,7 @@ const hardwareItems = [
 
 const items = [
   ['index', '/#local-ai-index', 'AI Index'],
-  ['atlas', '/local-ai-activity-index', 'Atlas'],
+  ['atlas', '/local-ai-activity-index', 'Local AI Map'],
   ['hardware', '', 'Hardware'],
   ['software', '/software', 'Software'],
   ['charts', '/charts', 'Charts'],
