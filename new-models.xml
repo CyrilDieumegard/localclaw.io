@@ -6,8 +6,24 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Bonsai 2 27B</title>
+      <link>https://localclaw.io/models/bonsai-2-27b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/bonsai-2-27b</guid>
+      <pubDate>Thu, 17 Sep 2026 12:00:00 GMT</pubDate>
+      <category>bonsai</category>
+      <description>PrismML Apache 2.0 ternary Qwen3.8-27B derivative with official GGUF and MLX paths. The PQ2_0 pack is 7.21GB, PTQ1_0 is 5.95GB, and custom llama.cpp/MLX kernels target laptop-class local inference. 27.36B (ternary) · 16 GB minimum RAM · PQ2_0 · bonsai.</description>
+    </item>
+    <item>
+      <title>Occamy-1.0</title>
+      <link>https://localclaw.io/models/occamy-1-0</link>
+      <guid isPermaLink="true">https://localclaw.io/models/occamy-1-0</guid>
+      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
+      <category>occamy</category>
+      <description>Accio Lab Apache 2.0 co-work model post-trained from Qwen3.6-35B-A3B for long-horizon tools, files, code and business workflows. Official GGUF Q4_K_M is 19.7GiB with llama.cpp validation evidence. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · occamy.</description>
+    </item>
     <item>
       <title>Nex-N2.5-mini</title>
       <link>https://localclaw.io/models/nex-n2-5-mini</link>
@@ -151,22 +167,6 @@
       <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
       <category>dfm</category>
       <description>DFM-Mimir is a Danish and English 1B-class HRM language model trained from scratch by Danish Foundation Models, with Apache 2.0 weights, permissible-data positioning and GGUF artifacts for lightweight local inference. 1.8B · 4 GB minimum RAM · Q8_0 · dfm.</description>
-    </item>
-    <item>
-      <title>LLM-jp-4 33B Thinking</title>
-      <link>https://localclaw.io/models/llm-jp-4-33b-thinking</link>
-      <guid isPermaLink="true">https://localclaw.io/models/llm-jp-4-33b-thinking</guid>
-      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
-      <category>llm-jp</category>
-      <description>Official Apache 2.0 LLM-jp reasoning model with English/Japanese support, 65K GGUF context metadata and an official Q4_K_M GGUF path for local llama.cpp and LM Studio testing on 64GB+ workstations. 33B · 64 GB minimum RAM · Q4_K_M · llm-jp.</description>
-    </item>
-    <item>
-      <title>Nemotron 3.5 Lightning 30B-A3B</title>
-      <link>https://localclaw.io/models/nemotron-3-5-lightning-30b-a3b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/nemotron-3-5-lightning-30b-a3b</guid>
-      <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
-      <category>nemotron</category>
-      <description>NVIDIA OpenMDW-1.1 hybrid Mamba/MoE/attention model for local agentic inference. The official GGUF path from ggml-org includes a 18.9GB Q4_0 build plus Ollama, llama.cpp and LM Studio recipes, with local contexts scaling from 4K to 256K+ depending on VRAM. 30B (3B active, MoE) · 48 GB minimum RAM · Q4_0 · nemotron.</description>
     </item>
   </channel>
 </rss>

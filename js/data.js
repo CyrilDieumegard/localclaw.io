@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
+// Updated September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
+// Previous: September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
 // Previous: September 11, 2026 - Added DeepSeek V4.1 Flash - 240 unique LLM records
 // Previous: September 10, 2026 - Added Nex-N2.5-mini - 239 unique LLM records
 // Previous: September 8, 2026 - Added MiniCPM5 2B - 238 unique LLM records
@@ -3086,6 +3087,42 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'bonsai-2-27b',
+            name: 'Bonsai 2 27B',
+            family: 'bonsai',
+            params: '27.36B (ternary)',
+            size_gb: 7.2,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'multimodal', 'edge', 'speed', 'long-context'],
+            description: 'PrismML Apache 2.0 ternary Qwen3.8-27B derivative with official GGUF and MLX paths. The PQ2_0 pack is 7.21GB, PTQ1_0 is 5.95GB, and custom llama.cpp/MLX kernels target laptop-class local inference.',
+            search_term: 'bonsai-2-27b',
+            recommended_quant: 'PQ2_0',
+            hf_repo: 'prism-ml/Ternary-Bonsai-2-27B-gguf',
+            source_url: 'https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf',
+            custom_runtime: 'PrismML llama.cpp / MLX',
+            runtime_url: 'https://github.com/PrismML-Eng/Bonsai-demo',
+            benchmarks: { speed: 9, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-09-17',
+            isNew: true
+        },
+        {
+            id: 'occamy-1-0',
+            name: 'Occamy-1.0',
+            family: 'occamy',
+            params: '35B (3B active, MoE)',
+            size_gb: 19.7,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'power', 'tool-calling', 'long-context'],
+            description: 'Accio Lab Apache 2.0 co-work model post-trained from Qwen3.6-35B-A3B for long-horizon tools, files, code and business workflows. Official GGUF Q4_K_M is 19.7GiB with llama.cpp validation evidence.',
+            search_term: 'occamy-1.0',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'Accio-Lab/occamy-1.0-GGUF',
+            source_url: 'https://huggingface.co/Accio-Lab/occamy-1.0',
+            benchmarks: { speed: 7, quality: 9, coding: 9, reasoning: 9 },
+            released: '2026-09-15',
+            isNew: true
+        },
+        {
             id: 'qwen3.7-max-preview',
             name: 'Qwen 3.7 Max Preview',
             family: 'qwen',
@@ -4052,8 +4089,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-16T06:00:00.000Z",
-        catalogueHash: "9f903c1432fe676183c3bbc442cd329c645e5805cbabb8442555275671261e36",
+        checkedAt: "2026-09-21T06:10:00.000Z",
+        catalogueHash: "63714f62bd72f12475e8fb3b12f9943f682216b45f0fdf3fd69487b8a68c38bc",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4090,6 +4127,8 @@ const APP_DATA = {
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
             "minicpm5-2b": "openbmb/MiniCPM5-2B-GGUF",
             "nex-n2-5-mini": "mradermacher/Nex-N2.5-mini-i1-GGUF",
+            "bonsai-2-27b": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+            "occamy-1-0": "Accio-Lab/occamy-1.0-GGUF",
             "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
             "granite4.2-8b": "bartowski/granite-4.2-8b-GGUF",
             "granite4.2-30b": "bartowski/granite-4.2-30b-GGUF",
