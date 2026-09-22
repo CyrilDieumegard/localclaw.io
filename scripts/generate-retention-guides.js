@@ -80,16 +80,9 @@ function applyLightTheme(html) {
     .replace('</head>', `<style>${scopeLightCss(lightStyle)}</style></head>`);
 }
 
-function normalizeDirectory(directory) {
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const entryPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      normalizeDirectory(entryPath);
-    } else if (entry.name.endsWith('.html')) {
-      fs.writeFileSync(entryPath, applyLightTheme(fs.readFileSync(entryPath, 'utf8')));
-    }
-  }
-  normalizePublicUrls(directory);
+function normalizeGeneratedFile(file) {
+  fs.writeFileSync(file, applyLightTheme(fs.readFileSync(file, 'utf8')));
+  normalizePublicUrls(file);
 }
 
 const style = `
@@ -151,7 +144,6 @@ function indexPage(guides) {
 const models = loadModels().filter(m => !m.hosted_only);
 const ttsModels = loadTts().filter(model => !model.delivery);
 const out = path.join(ROOT, 'guides');
-fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 
 const guideData = [
@@ -208,9 +200,11 @@ const guideData = [
 ];
 
 for (const guide of guideData) {
-  fs.writeFileSync(path.join(out, `${guide.id}.html`), page({ ...guide, cardRenderer: guide.active === 'tts' ? ttsCard : modelCard }));
+  const file = path.join(out, `${guide.id}.html`);
+  fs.writeFileSync(file, page({ ...guide, cardRenderer: guide.active === 'tts' ? ttsCard : modelCard }));
+  normalizeGeneratedFile(file);
 }
-fs.writeFileSync(path.join(out, 'index.html'), indexPage(guideData));
-
-normalizeDirectory(out);
+const indexFile = path.join(out, 'index.html');
+fs.writeFileSync(indexFile, indexPage(guideData));
+normalizeGeneratedFile(indexFile);
 console.log(`Generated ${guideData.length} retention guide pages.`);

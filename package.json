@@ -46,7 +46,7 @@
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs && node --test tests/amazon-routing.test.mjs",
     "license:test": "node --test tests/license-backend.test.mjs",
-    "pages:build": "node scripts/catalogue-integrity.js && npm run charts:check && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
+    "pages:build": "node scripts/catalogue-integrity.js && node scripts/generate-ram-pages.js && node scripts/generate-hardware-pages.js && node scripts/generate-retention-guides.js && npm run charts:check && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
     "pages:check": "npm run software:check && node scripts/check-pages-output.js"
   },
   "dependencies": {
