@@ -770,6 +770,18 @@
       caveats: ['Requires an existing 3D Gaussian PLY input', 'Specialized enhancement model rather than text or image-to-asset generation']
     },
     {
+      id: 'ggps', name: 'GGPS', category: '3d', developer: 'Insta360 Research Team',
+      summary: 'Geometry-and-gradient partitioned 3D Gaussian pipeline for large panoramic outdoor scene reconstruction.',
+      tasks: ['gaussian-splatting', 'scene-reconstruction', 'panorama-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'OpenMVG', 'COLMAP', 'CLI'], output: ['PLY', '3D Gaussian', 'MP4 render', 'COLMAP scene'],
+      local_status: 'local', license: 'CC BY-NC 4.0', released: '2026-07',
+      source_url: 'https://github.com/Insta360-Research-Team/GGPS', install_url: 'https://huggingface.co/Insta360-Research/GGPS',
+      hardware_note: 'The official repository runs a local Linux/CUDA 3DGS training stack around equirectangular panoramas, converting openMVG reconstructions to COLMAP, optionally using DAP depth/sky masks, then training, partitioning, merging and rendering Gaussian blocks. The Hugging Face repository publishes the CC-BY-NC-4.0 GGPS artifact set at about 21.1 GB, including PLY outputs and dataset assets. No exact consumer VRAM table is published; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative floor for panoramic scene runs.',
+      strengths: ['Official Insta360 Research code and Hugging Face artifacts', 'Panorama-aware 3DGS path for large outdoor scenes', 'Produces Gaussian PLY assets after local reconstruction and training'],
+      caveats: ['Non-commercial license', 'Requires openMVG/COLMAP-style scene preparation and CUDA training time', 'Panoramic scene reconstruction rather than object or character asset generation']
+    },
+    {
       id: 'infinisplat', name: 'InfiniSplat', category: '3d', developer: 'Zhejiang University / PLUS-WAVE',
       summary: 'Single-image Gaussian scene reconstruction model with RGB-only and RGB-depth inference checkpoints.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
@@ -816,6 +828,18 @@
       hardware_note: 'The official Hugging Face model card links to the facebookresearch/actionmesh repository and states that ActionMesh requires an NVIDIA GPU with at least 32 GB VRAM. The local setup clones the repo with submodules, installs the Python package, downloads the safetensors autoencoder and denoiser checkpoints on first use, and runs video_to_animated_mesh.py. The official Gradio app wraps the same stack, installs Blender 3.5.1 on Linux, and exports an animated GLB mesh with shape-key animation, so LocalClaw records 64 GB RAM and 32 GB NVIDIA VRAM as the conservative floor.',
       strengths: ['Official Meta weights and repository', 'Generates animated topology-consistent meshes', 'Exports animated GLB assets usable in 3D tools'],
       caveats: ['Noncommercial research license', 'Linux/NVIDIA workstation workflow with Blender and submodules', 'Video-to-4D asset generation rather than general static text-to-3D']
+    },
+    {
+      id: 'avatarmoe', name: 'AvatarMoE', category: '3d', developer: 'MILAB Yongin / CODINGHYE',
+      summary: 'MIT-licensed part-aware mixture-of-experts model for animatable 3D Gaussian human avatars.',
+      tasks: ['gaussian-splatting', 'rigging', 'animation', 'human-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA rasterizers', 'Hydra', 'CLI'], output: ['3D Gaussian avatar', 'Rendered frames', 'MP4 render'],
+      local_status: 'local', license: 'MIT; SMPL and third-party dependency terms apply', released: '2026-07',
+      source_url: 'https://github.com/milab-yongin/AvatarMoE', install_url: 'https://huggingface.co/CODINGHYE/AvatarMoE',
+      hardware_note: 'The official implementation is tested on Ubuntu 22.04 with Python 3.10, PyTorch 2.1.2, CUDA 11.8 and a single RTX 4090 24 GB. Hugging Face hosts per-subject checkpoints with ckpt*.pth files and Hydra configs for ZJU-MoCap and People-Snapshot; the local path builds diff-gaussian-rasterization and simple-knn, then renders novel views or OOD pose sequences from downloaded checkpoints. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the practical workstation floor.',
+      strengths: ['Official MIT code and Hugging Face checkpoints', 'Part-aware deformation experts for animatable 3DGS avatars', 'Local render and pose-prediction scripts'],
+      caveats: ['Human-avatar specialist, not a general asset generator', 'SMPL models and benchmark datasets must be obtained under separate terms', 'Outputs renders and Gaussian avatar checkpoints rather than GLB/FBX rigged meshes']
     },
     {
       id: 'shaper', name: 'ShapeR', category: '3d', developer: 'Meta AI',

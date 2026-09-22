@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'self-gradient-forcing', name: 'Self Gradient Forcing', category: 'video', developer: 'Junhao Zhuang / Joy Future Academy / JD',
+      summary: 'Apache-licensed autoregressive video diffusion release for minute-scale local text-to-video extrapolation from 5-second training windows.',
+      tasks: ['text-to-video', 'long-video-generation', 'animation', 'streaming-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'FlashAttention', 'Self Gradient Forcing scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.1 and Causal-Forcing component terms apply', released: '2026-07',
+      source_url: 'https://github.com/zhuang2002/Self_Gradient_Forcing',
+      install_url: 'https://huggingface.co/JunhaoZhuang/Self_Gradient_Forcing',
+      hardware_note: 'The official GitHub release documents Python 3.10, PyTorch, FlashAttention, CUDA setup, a Hugging Face weight downloader, and framewise or chunkwise inference scripts. The public Hugging Face repository exposes Apache-2.0 model.pt checkpoints for both framewise and chunkwise SGF plus Causal-Forcing initialization weights, with direct unauthenticated downloads around 5.4 GB each. The launcher uses eight GPUs when available but falls back to single-GPU serial inference; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative entry floor for reduced single-GPU experiments because the default 240-second examples can be much heavier.',
+      strengths: ['Official public code, training scripts and checkpoints', 'Framewise and chunkwise long-video extrapolation modes', 'Single-GPU fallback path despite multi-GPU default launcher'],
+      caveats: ['Default 963-latent-frame examples are slow and memory-heavy', 'Research stack depends on Wan and Causal-Forcing components', 'No official consumer VRAM table is published yet']
+    },
+    {
+      id: '4danyone', name: '4DAnyone', category: 'video', developer: 'Ant Research',
+      summary: 'Video-to-video model that turns a casual monocular human video into multiview-consistent videos for free-viewpoint 4D reconstruction.',
+      tasks: ['video-to-video', 'multiview-video-generation', 'novel-view-synthesis', '4d-human-reconstruction', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Gradio GUI', 'Rerun viewer'], output: ['MP4', 'camera metadata', '4DGS-ready multiview video'],
+      local_status: 'local', license: 'Multiple asset licenses; first-party checkpoint is Apache 2.0', released: '2026-09',
+      source_url: 'https://github.com/ant-research/4DAnyone',
+      install_url: 'https://huggingface.co/AntResearch/4DAnyone',
+      hardware_note: 'Ant Research publishes official code, a local CLI, a GUI, and a public Hugging Face model repository with 4danyone/model.safetensors plus VAE, prompt context, SMPL-X regressor and support assets. The README reports peak CUDA memory below 24 GB, 27 seconds per 121-frame target-view video on one RTX 4090, and automatic model/example downloads; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative practical floor for the Turbo inference path.',
+      strengths: ['Official Ant Research weights, CLI and interactive GUI', 'Runs under the 24 GB CUDA memory threshold reported by the authors', 'Produces synchronized multiview outputs for downstream 4D Gaussian Splatting'],
+      caveats: ['Human-centric reconstruction model, not a prompt-only generator', 'Repository combines Apache-2.0 first-party weights with third-party non-commercial, research, AGPL and attribution-licensed assets', 'Input quality and pose recovery strongly affect final multiview consistency']
+    },
+    {
       id: 'zing-0.5', name: 'Zing-0.5', category: 'video', developer: 'Seedleap.ai',
       summary: 'Apache-licensed causal world model for text- or image-initialized video rollouts with live prompt changes and keyboard action control.',
       tasks: ['text-to-video', 'image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
@@ -744,6 +770,18 @@
       caveats: ['Requires an existing 3D Gaussian PLY input', 'Specialized enhancement model rather than text or image-to-asset generation']
     },
     {
+      id: 'ggps', name: 'GGPS', category: '3d', developer: 'Insta360 Research Team',
+      summary: 'Geometry-and-gradient partitioned 3D Gaussian pipeline for large panoramic outdoor scene reconstruction.',
+      tasks: ['gaussian-splatting', 'scene-reconstruction', 'panorama-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'OpenMVG', 'COLMAP', 'CLI'], output: ['PLY', '3D Gaussian', 'MP4 render', 'COLMAP scene'],
+      local_status: 'local', license: 'CC BY-NC 4.0', released: '2026-07',
+      source_url: 'https://github.com/Insta360-Research-Team/GGPS', install_url: 'https://huggingface.co/Insta360-Research/GGPS',
+      hardware_note: 'The official repository runs a local Linux/CUDA 3DGS training stack around equirectangular panoramas, converting openMVG reconstructions to COLMAP, optionally using DAP depth/sky masks, then training, partitioning, merging and rendering Gaussian blocks. The Hugging Face repository publishes the CC-BY-NC-4.0 GGPS artifact set at about 21.1 GB, including PLY outputs and dataset assets. No exact consumer VRAM table is published; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative floor for panoramic scene runs.',
+      strengths: ['Official Insta360 Research code and Hugging Face artifacts', 'Panorama-aware 3DGS path for large outdoor scenes', 'Produces Gaussian PLY assets after local reconstruction and training'],
+      caveats: ['Non-commercial license', 'Requires openMVG/COLMAP-style scene preparation and CUDA training time', 'Panoramic scene reconstruction rather than object or character asset generation']
+    },
+    {
       id: 'infinisplat', name: 'InfiniSplat', category: '3d', developer: 'Zhejiang University / PLUS-WAVE',
       summary: 'Single-image Gaussian scene reconstruction model with RGB-only and RGB-depth inference checkpoints.',
       tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis'],
@@ -790,6 +828,18 @@
       hardware_note: 'The official Hugging Face model card links to the facebookresearch/actionmesh repository and states that ActionMesh requires an NVIDIA GPU with at least 32 GB VRAM. The local setup clones the repo with submodules, installs the Python package, downloads the safetensors autoencoder and denoiser checkpoints on first use, and runs video_to_animated_mesh.py. The official Gradio app wraps the same stack, installs Blender 3.5.1 on Linux, and exports an animated GLB mesh with shape-key animation, so LocalClaw records 64 GB RAM and 32 GB NVIDIA VRAM as the conservative floor.',
       strengths: ['Official Meta weights and repository', 'Generates animated topology-consistent meshes', 'Exports animated GLB assets usable in 3D tools'],
       caveats: ['Noncommercial research license', 'Linux/NVIDIA workstation workflow with Blender and submodules', 'Video-to-4D asset generation rather than general static text-to-3D']
+    },
+    {
+      id: 'avatarmoe', name: 'AvatarMoE', category: '3d', developer: 'MILAB Yongin / CODINGHYE',
+      summary: 'MIT-licensed part-aware mixture-of-experts model for animatable 3D Gaussian human avatars.',
+      tasks: ['gaussian-splatting', 'rigging', 'animation', 'human-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA rasterizers', 'Hydra', 'CLI'], output: ['3D Gaussian avatar', 'Rendered frames', 'MP4 render'],
+      local_status: 'local', license: 'MIT; SMPL and third-party dependency terms apply', released: '2026-07',
+      source_url: 'https://github.com/milab-yongin/AvatarMoE', install_url: 'https://huggingface.co/CODINGHYE/AvatarMoE',
+      hardware_note: 'The official implementation is tested on Ubuntu 22.04 with Python 3.10, PyTorch 2.1.2, CUDA 11.8 and a single RTX 4090 24 GB. Hugging Face hosts per-subject checkpoints with ckpt*.pth files and Hydra configs for ZJU-MoCap and People-Snapshot; the local path builds diff-gaussian-rasterization and simple-knn, then renders novel views or OOD pose sequences from downloaded checkpoints. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the practical workstation floor.',
+      strengths: ['Official MIT code and Hugging Face checkpoints', 'Part-aware deformation experts for animatable 3DGS avatars', 'Local render and pose-prediction scripts'],
+      caveats: ['Human-avatar specialist, not a general asset generator', 'SMPL models and benchmark datasets must be obtained under separate terms', 'Outputs renders and Gaussian avatar checkpoints rather than GLB/FBX rigged meshes']
     },
     {
       id: 'shaper', name: 'ShapeR', category: '3d', developer: 'Meta AI',
@@ -917,6 +967,29 @@
       hardware_note: 'Geometry can run at a lower memory level. A complete textured pipeline needs more headroom, so 24 GB system RAM and 6 GB VRAM are treated as the entry floor.',
       strengths: ['Separate shape and texture stages', 'Local API server', 'GLB export'],
       caveats: ['CUDA-oriented', 'Texture stage increases memory and runtime']
+    },
+    {
+      id: 'hunyuan3d-omni', name: 'Hunyuan3D-Omni', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Controllable 3D asset generator that extends Hunyuan3D 2.1 with point-cloud, voxel, bounding-box and pose conditioning.',
+      tasks: ['image-to-3d', 'mesh-generation', 'controllable-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 10, runtime: ['PyTorch', 'CLI'],
+      output: ['GLB', 'PLY'], local_status: 'local', license: 'Tencent Hunyuan 3D Omni community license', released: '2025-09',
+      source_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Omni', install_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Omni',
+      hardware_note: 'The official repository documents Python 3.10, PyTorch 2.5.1 with CUDA 12.4 wheels, local Hugging Face checkpoint loading and four CLI control modes. Tencent states generation takes 10 GB VRAM; LocalClaw records 32 GB RAM and 10 GB NVIDIA VRAM as the entry floor.',
+      strengths: ['Official 3.3B checkpoint', 'Point, voxel, bounding-box and pose controls', 'Inference script exports GLB meshes and PLY point clouds'],
+      caveats: ['Community license excludes some territories and has hosted-service conditions', 'Shape generation only; use another stage for full texture/PBR work', 'CUDA-oriented research stack']
+    },
+    {
+      id: 'hunyuan3d-part', name: 'Hunyuan3D-Part', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Part-level 3D decomposition system that segments holistic meshes and generates coherent editable GLB part assemblies.',
+      tasks: ['mesh-segmentation', 'part-based-generation', 'mesh-generation', 'asset-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'CUDA', 'Gradio', 'CLI'],
+      output: ['GLB', 'Part meshes', 'Bounding boxes', 'Segmentation masks'], local_status: 'local',
+      license: 'Tencent Hunyuan 3D-Part community license', released: '2025-09',
+      source_url: 'https://github.com/Tencent-Hunyuan/Hunyuan3D-Part', install_url: 'https://huggingface.co/tencent/Hunyuan3D-Part',
+      hardware_note: 'The official repository documents Python 3.10, PyTorch 2.4.0 with CUDA 12.1, Sonata dependencies and local P3-SAM / X-Part scripts. The Hugging Face repository exposes conditioner, model, p3sam and shapevae safetensors without gating. X-Part loads tencent/Hunyuan3D-Part through from_pretrained, samples an input GLB mesh, then exports generated part scenes, bounding boxes, input boxes and exploded views as GLB files. Tencent does not publish a small-GPU table, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official Tencent code and safetensors checkpoints', 'P3-SAM automatic 3D part segmentation plus X-Part part generation', 'Local scripts export generated GLB part assemblies and bounding-box views'],
+      caveats: ['Community license excludes some territories and has hosted-service conditions', 'Current public release is the light X-Part version', 'Requires an existing scanned or AI-generated mesh as input']
     },
     {
       id: 'trellis-image-large', name: 'TRELLIS Image Large', category: '3d', developer: 'Microsoft Research',
