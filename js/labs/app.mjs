@@ -1,5 +1,5 @@
 import { MODELS, SUSPECTS, TONES, makeMessages, verdictFor } from './config.mjs?v=20260921growth1';
-import { DECISION_CATEGORIES, DECISION_EXAMPLES, createDecisionDeck, validateDecision } from './decisions.mjs?v=20260921growth1';
+import { DECISION_TYPES, DECISION_CATEGORIES, DECISION_EXAMPLES, createDecisionDeck, validateDecision, decisionReadout } from './decisions.mjs?v=20260922types1';
 
 const $ = id => document.getElementById(id);
 const all = selector => [...document.querySelectorAll(selector)];
@@ -8,7 +8,7 @@ const state = {
   ready: false, loading: false, busy: false, supported: false, controller: null,
   histories: { mara: [], leo: [], iris: [], chat: [] }, clues: new Set(),
   questions: 0, solved: false, remix: '', engine: null,
-  decisionCategory: 'all',
+  decisionCategory: 'all', decisionType: 'choice', decisionExampleId: null,
 };
 const nextDecisionExample = createDecisionDeck();
 
@@ -32,7 +32,7 @@ function syncControls() {
   all('[data-send]').forEach(button => { button.disabled = !state.ready || state.loaded?.id !== model().id || locked || (state.mode === 'mystery' && state.solved); button.hidden = state.busy; });
   all('[data-stop]').forEach(button => { button.hidden = !state.busy; });
   all('[data-mode], [data-suspect], [data-tone], [data-starter]').forEach(button => { button.disabled = state.busy; });
-  all('[data-decision-edit], [data-decision-preset], #labs-random-decision').forEach(element => { element.disabled = locked; });
+  all('[data-decision-edit], [data-decision-preset], [data-decision-type], #labs-random-decision, #labs-example-picker').forEach(element => { element.disabled = locked; });
   $('labs-restart').disabled = state.busy;
   $('labs-clear-chat').disabled = state.busy;
   $('labs-accuse').disabled = state.busy || state.questions === 0 || state.solved;
@@ -102,7 +102,7 @@ function errorMessage(error, duringLoad = false) {
 }
 
 async function getEngine() {
-  state.engine ||= await import('./engine.mjs?v=20260921growth1');
+  state.engine ||= await import('./engine.mjs?v=20260922types1');
   return state.engine;
 }
 
@@ -232,6 +232,8 @@ async function submit(mode) {
 }
 
 function resetDecision() {
+  $('labs-typed-summary').textContent = `No ${DECISION_TYPES[state.decisionType].name} result yet.`;
+  $('labs-typed-data').textContent = 'No typed data yet.';
   $('labs-decision-scores').textContent = 'No scores yet.';
   $('labs-decision-json').textContent = 'No generated JSON yet.';
   for (const id of ['labs-decision-score-timing', 'labs-decision-json-timing', 'labs-decision-validation']) $(id).textContent = '';
@@ -240,25 +242,69 @@ function resetDecision() {
   $('labs-decisions-help').dataset.error = 'false';
 }
 
-function decisionPreset(id) {
+function decisionPreset(id, selectedId) {
   if (!Object.hasOwn(DECISION_CATEGORIES, id) || state.busy || state.loading) return;
   state.decisionCategory = id;
-  const preset = nextDecisionExample(id);
+  const examples = DECISION_EXAMPLES.filter(example => example.type === state.decisionType && (id === 'all' || example.category === id));
+  const preset = examples.find(example => example.id === selectedId) || nextDecisionExample(id, state.decisionType, state.decisionExampleId);
+  state.decisionExampleId = preset.id;
+  $('labs-example-picker').replaceChildren(...examples.map(example => {
+    const option = document.createElement('option'); option.value = example.id;
+    option.textContent = `${DECISION_CATEGORIES[example.category]} · ${example.title}`;
+    return option;
+  }));
+  $('labs-example-picker').value = preset.id;
   $('labs-decision-state').value = preset.state;
   $('labs-decision-question').value = preset.question;
   $('labs-decision-options').value = preset.options.join('\n');
   resetDecision();
   all('[data-decision-preset]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.decisionPreset === id)));
-  const count = DECISION_EXAMPLES.filter(example => id === 'all' || example.category === id).length;
-  $('labs-decision-example').textContent = `${DECISION_CATEGORIES[preset.category]} · ${preset.title} · ${count} situations to explore`;
+  $('labs-decision-example').textContent = `${DECISION_TYPES[state.decisionType].name} · ${preset.title} · ${examples.length} examples in this selection / ${DECISION_EXAMPLES.length} total`;
   $('labs-decisions-help').textContent = state.ready ? 'Example ready. Compare the two methods on your device.' : 'Load a model to compare. The SemIf group contains the exact builds used on OpenJEV.';
   announce(`New situation: ${preset.title}. Situation, question and options updated.`);
+}
+
+function setDecisionType(type) {
+  if (!Object.hasOwn(DECISION_TYPES, type) || state.busy || state.loading) return;
+  state.decisionType = type;
+  const info = DECISION_TYPES[type];
+  all('[data-decision-type]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.decisionType === type)));
+  $('labs-primitive-name').textContent = `${info.name} experiment`;
+  $('labs-primitive-title').textContent = info.title;
+  $('labs-primitive-description').textContent = info.description;
+  $('labs-question-label').textContent = info.question;
+  $('labs-options-label').textContent = info.options;
+  $('labs-options-help').textContent = info.help;
+  $('labs-decision-options').readOnly = type === 'noul';
+  $('labs-output-shape').textContent = info.shape;
+  $('labs-method-symbol').replaceChildren(...(type === 'noul' ? ['Y', 'N'] : type === 'score' ? ['0', '1', '…'] : ['A', 'B', '…']).map(label => { const symbol = document.createElement('i'); symbol.textContent = label; return symbol; }));
+  decisionPreset(state.decisionCategory);
+}
+
+function renderTypedDecision(data, scores) {
+  const result = decisionReadout(data, scores);
+  const container = $('labs-typed-summary');
+  const value = document.createElement('strong');
+  if (result.type === 'noul') value.textContent = `Noul · ${result.noul.toFixed(3)} estimated P(Yes)`;
+  else if (result.type === 'score') value.textContent = `Score · ${result.score.toFixed(2)} / ${data.options.length - 1}`;
+  else value.textContent = result.choice ? `Choice · ${result.legend[result.choice]}` : `Choice · tied: ${result.tied.join(', ')}`;
+  container.replaceChildren(value);
+  if (result.type !== 'choice') {
+    const meter = document.createElement('meter');
+    meter.min = 0; meter.max = result.type === 'noul' ? 1 : data.options.length - 1;
+    meter.value = result.type === 'noul' ? result.noul : result.score;
+    meter.setAttribute('aria-label', result.type === 'noul' ? 'Estimated probability of Yes' : 'Probability-weighted rubric level');
+    const explanation = document.createElement('span');
+    explanation.textContent = result.type === 'noul' ? '0 = No · 1 = Yes. An uncertain estimate is not partial truth.' : `0 = ${data.options[0]} · ${data.options.length - 1} = ${data.options.at(-1)}. Sum of level index × relative probability.`;
+    container.append(meter, explanation);
+  }
+  $('labs-typed-data').textContent = JSON.stringify(result, null, 2);
 }
 
 function renderDecisionScores(result) {
   const rows = result.scores.map(({ label, option, probability }) => {
     const row = document.createElement('div'); row.className = 'labs-score-row';
-    const name = document.createElement('span'); name.textContent = `${label}. ${option}`;
+    const name = document.createElement('span'); name.textContent = state.decisionType === 'score' ? `Level ${label.charCodeAt(0) - 65} · ${option}` : state.decisionType === 'noul' ? option : `${label}. ${option}`;
     const value = document.createElement('span'); value.textContent = `${(probability * 100).toFixed(1)}%`;
     const track = document.createElement('span'); track.className = 'labs-score-track'; track.setAttribute('aria-hidden', 'true');
     const fill = document.createElement('span'); fill.className = 'labs-score-fill'; fill.style.width = `${probability * 100}%`;
@@ -273,7 +319,7 @@ async function runDecisions() {
   const help = $('labs-decisions-help');
   let data;
   try {
-    data = validateDecision({ state: $('labs-decision-state').value, question: $('labs-decision-question').value, options: $('labs-decision-options').value.split('\n').map(value => value.trim()).filter(Boolean) });
+    data = validateDecision({ type: state.decisionType, state: $('labs-decision-state').value, question: $('labs-decision-question').value, options: $('labs-decision-options').value.split('\n').map(value => value.trim()).filter(Boolean) });
   } catch (error) { help.textContent = error.message; help.dataset.error = 'true'; return; }
   resetDecision();
   $('labs-decisions-model').textContent = `${state.loaded.name} · ${state.loaded.quantization} · this run only`;
@@ -285,7 +331,7 @@ async function runDecisions() {
     const result = await state.engine.compareDecision(data, {
       signal: controller.signal,
       onPhase: text => { help.textContent = text; },
-      onScores: renderDecisionScores,
+      onScores: result => { renderDecisionScores(result); renderTypedDecision(data, result.scores); },
       onText: text => { $('labs-decision-json').textContent = text; },
     });
     $('labs-decision-json-timing').textContent = timingLabel(result.generated);
@@ -363,8 +409,10 @@ $('labs-unload').addEventListener('click', unload);
 $('labs-model').addEventListener('change', () => { status(hint()); resetDecision(); syncControls(); });
 $('labs-decisions-form').addEventListener('submit', event => { event.preventDefault(); runDecisions(); });
 all('[data-decision-preset]').forEach(button => button.addEventListener('click', () => decisionPreset(button.dataset.decisionPreset)));
+all('[data-decision-type]').forEach(button => button.addEventListener('click', () => setDecisionType(button.dataset.decisionType)));
+$('labs-example-picker').addEventListener('change', () => decisionPreset(state.decisionCategory, $('labs-example-picker').value));
 $('labs-random-decision').addEventListener('click', () => decisionPreset(state.decisionCategory));
-all('[data-decision-edit]').forEach(element => element.addEventListener('input', () => { resetDecision(); $('labs-decision-example').textContent = 'Custom situation · edited by you'; $('labs-decisions-help').textContent = 'Inputs changed. Run a new comparison to get matching results.'; }));
+all('[data-decision-edit]').forEach(element => element.addEventListener('input', () => { resetDecision(); $('labs-example-picker').selectedIndex = -1; $('labs-decision-example').textContent = `Custom ${DECISION_TYPES[state.decisionType].name} situation · edited by you`; $('labs-decisions-help').textContent = 'Inputs changed. Run a new comparison to get matching results.'; }));
 $('labs-remix-run').addEventListener('click', () => submit('remix'));
 $('labs-restart').addEventListener('click', newCase);
 $('labs-accuse').addEventListener('click', showAccusation);
@@ -402,6 +450,6 @@ window.addEventListener('hashchange', () => {
   $(`tab-${state.mode}`).scrollIntoView({ block: 'start' });
 });
 status(state.supported ? hint() : 'Labs needs a modern browser with local storage support. Try a regular Chrome or Edge window.', !state.supported);
-decisionPreset('all');
+setDecisionType('choice');
 setMode(location.hash.slice(1) || 'mystery');
 syncControls();

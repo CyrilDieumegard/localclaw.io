@@ -459,7 +459,7 @@ function labsReadableText() {
 - Practical guide: ${BASE_URL}/guides/run-llm-in-browser
 - Price: free; no account, API key or paid desktop-app license required.
 - Models: Qwen3 0.6B Q4_K_M (397 MB), Qwen3 1.7B Q4_K_M (1.11 GB), Qwen3 0.6B Q8_0 (639 MB), MiniCPM5 2B Q4_K_M (1.56 GB), Qwen3.5 4B Q4_K_M (3.01 GB). Rounded decimal download sizes, not total memory usage.
-- Experiments: detective interviews, writing remix, free chat, and Decisions / RLCD with 18 fictional situations across support tickets, email checks and Detective Crab. Shuffle situation changes the situation, question and choices without calling a model.
+- Experiments: detective interviews, writing remix, free chat, and Decisions / RLCD with 54 fictional examples: 18 Noul (yes/no estimate), 18 Score (ordered rubric) and 18 Choice (categories). Browse or shuffle examples by type and topic without calling a model. Typed local readouts are not Jev API responses or calibrated confidence.
 - Runtime: self-hosted wllama 3.6.1; weights download from pinned Hugging Face revisions only after Load model is clicked. WebGPU when available, CPU fallback for smaller presets; the 4B preset requires WebGPU and a high-memory computer.
 - Privacy: prompts and answers stay in the browser tab; no AI API or session recording on Labs. Page/runtime/model hosting still receives normal file requests. Conversations clear on reload; downloaded weights may remain cached. Offline reload is not guaranteed.
 - Terminology: RLCD means Reinforcement Learning for Calibrated Decisions. These are standard open-model baselines, not Jev or verified RLCD-trained weights. Option scores and generated JSON do not establish calibrated confidence. This is not a benchmark against Jev.

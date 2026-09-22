@@ -2,12 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { MODELS, modelURL, makeMessages, verdictFor } from '../js/labs/config.mjs';
-import { DECISION_PRESETS, DECISION_EXAMPLES, createDecisionDeck, validateDecision, decisionMessages, scoresFromLogprobs, validateDecisionJSON } from '../js/labs/decisions.mjs';
+import { DECISION_TYPES, DECISION_PRESETS, DECISION_EXAMPLES, createDecisionDeck, validateDecision, decisionMessages, scoresFromLogprobs, validateDecisionJSON, decisionReadout } from '../js/labs/decisions.mjs';
 import { LABS_FAQ } from '../js/labs/content.mjs';
 
 test('visual explanations are accessible, scoped to Labs and never pretend to be model results', () => {
   const html = fs.readFileSync(new URL('../labs.html', import.meta.url), 'utf8');
-  const css = fs.readFileSync(new URL('../css/labs-visual-20260922.css', import.meta.url), 'utf8');
+  const css = fs.readFileSync(new URL('../css/labs-visual-20260922b.css', import.meta.url), 'utf8');
   const guide = fs.readFileSync(new URL('../guides/run-llm-in-browser.html', import.meta.url), 'utf8');
   const flow = html.match(/<ol class="labs-flow"[^>]*>([\s\S]*?)<\/ol>/)?.[1];
   assert.ok(flow);
@@ -24,25 +24,44 @@ test('visual explanations are accessible, scoped to Labs and never pretend to be
   assert.doesNotMatch(guide, /labs-visual-20260922|lc-labs-playground/);
 });
 
-test('warm theme text and action colors retain accessible contrast', () => {
+test('visual accents inherit the existing brand palette and keep large surfaces neutral', () => {
+  const css = fs.readFileSync(new URL('../css/labs-visual-20260922b.css', import.meta.url), 'utf8');
+  assert.doesNotMatch(css, /--labs-accent\s*:|--labs-warm|#ff874f|#ac431c|#211812|#fff2e8/i);
+  assert.match(css, /\.labs-flow\s*\{[^}]*background: transparent/);
+  assert.match(css, /\.labs-method-map\s*\{[^}]*background: transparent/);
+  assert.match(css, /\.labs-intro h1 span\s*\{\s*color: inherit/);
+  assert.doesNotMatch(css, /background:\s*var\(--labs-accent\)/);
+});
+
+test('brand palette text and action colors retain accessible contrast', () => {
+  const base = fs.readFileSync(new URL('../css/labs-20260921.css', import.meta.url), 'utf8');
+  const visual = fs.readFileSync(new URL('../css/labs-visual-20260922b.css', import.meta.url), 'utf8');
+  const accents = [...base.matchAll(/--labs-accent:(#[a-f\d]{6})/gi)].map(match => match[1]);
+  const actionText = [...visual.matchAll(/--labs-action-text:\s*(#[a-f\d]{6})/gi)].map(match => match[1]);
+  assert.deepEqual(accents, ['#ff453a', '#c92f28']);
+  assert.equal(actionText.length, 2);
   const luminance = hex => {
     const channels = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16) / 255).map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
     return channels[0] * .2126 + channels[1] * .7152 + channels[2] * .0722;
   };
   const ratio = (a, b) => (Math.max(luminance(a), luminance(b)) + .05) / (Math.min(luminance(a), luminance(b)) + .05);
-  for (const [text, background] of [['#ff874f', '#211812'], ['#ac431c', '#fff2e8'], ['#281307', '#ff874f'], ['#a1a1aa', '#211812'], ['#52525b', '#fff2e8']]) {
+  for (const [text, background] of [[accents[0], '#101012'], [accents[1], '#ffffff'], [actionText[0], accents[0]], [actionText[1], accents[1]], ['#a1a1aa', '#101012'], ['#52525b', '#ffffff']]) {
     assert.ok(ratio(text, background) >= 4.5, `${text} on ${background}`);
   }
 });
 
-test('18 complete authored situations are unique and fit the decision input limits', () => {
-  assert.equal(DECISION_EXAMPLES.length, 18);
-  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.id)).size, 18);
-  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.state)).size, 18);
+test('54 authored situations are unique, balanced by type and fit input limits', () => {
+  assert.equal(DECISION_EXAMPLES.length, 54);
+  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.id)).size, 54);
+  assert.equal(new Set(DECISION_EXAMPLES.map(item => item.state)).size, 54);
   for (const example of DECISION_EXAMPLES) {
     assert.ok(example.title);
-    const { state, question, options } = example;
-    assert.deepEqual(validateDecision(example), { state, question, options });
+    const { type, state, question, options } = example;
+    assert.deepEqual(validateDecision(example), { type, state, question, options });
+  }
+  for (const type of Object.keys(DECISION_TYPES)) {
+    assert.equal(DECISION_EXAMPLES.filter(e => e.type === type).length, 18);
+    for (const category of ['support', 'email', 'crab']) assert.equal(DECISION_EXAMPLES.filter(e => e.type === type && e.category === category).length, 6);
   }
 });
 
@@ -79,6 +98,68 @@ test('category shuffles contain six matching situations and protect authored dat
     previous = example.id;
   }
   assert.throws(() => next('unknown'));
+});
+
+test('each primitive shuffle exhausts its pool and avoids the manually selected example', () => {
+  for (const type of Object.keys(DECISION_TYPES)) {
+    for (const category of ['all', 'support', 'email', 'crab']) {
+      const next = createDecisionDeck(() => 0.5);
+      const count = category === 'all' ? 18 : 6;
+      const examples = Array.from({ length: count }, () => next(category, type));
+      assert.equal(new Set(examples.map(e => e.id)).size, count);
+      assert.ok(examples.every(e => e.type === type && (category === 'all' || e.category === category)));
+      for (const example of examples) assert.notEqual(next(category, type, example.id).id, example.id);
+    }
+  }
+  assert.throws(() => createDecisionDeck()('all', 'unknown'));
+});
+
+test('Noul fixes Yes/No order and both model paths receive primitive semantics', () => {
+  for (const type of Object.keys(DECISION_TYPES)) {
+    const example = DECISION_EXAMPLES.find(e => e.type === type);
+    const direct = decisionMessages(example, 'score');
+    const generated = decisionMessages(example, 'json');
+    assert.deepEqual(direct[0], generated[0]);
+    assert.match(direct[0].content, new RegExp(DECISION_TYPES[type].name));
+  }
+  const example = DECISION_EXAMPLES.find(e => e.type === 'noul');
+  for (const options of [['No', 'Yes'], ['Maybe', 'Yes'], ['Yes', 'No', 'Unknown']]) assert.throws(() => validateDecision({ ...example, options }));
+  assert.throws(() => validateDecision({ ...example, type: 'unknown' }));
+});
+
+test('typed readouts use complete distributions without invented confidence', () => {
+  const input = { state: 'A supplied observation.', question: 'A supplied question?', options: ['Yes', 'No'] };
+  const rows = p => [{ label: 'A', option: 'Yes', probability: p }, { label: 'B', option: 'No', probability: 1 - p }];
+  assert.deepEqual(decisionReadout({ ...input, type: 'noul' }, rows(.8)), { type: 'noul', noul: .8 });
+  assert.equal(decisionReadout({ ...input, type: 'score' }, rows(.8)).score, 1 - .8);
+  assert.equal(decisionReadout({ ...input, type: 'choice' }, rows(.8)).choice, 'A');
+  assert.deepEqual(decisionReadout({ ...input, type: 'choice' }, rows(.5)).tied, ['A', 'B']);
+  assert.equal(decisionReadout({ ...input, type: 'choice' }, rows(.5)).choice, null);
+  for (const type of Object.keys(DECISION_TYPES)) {
+    assert.equal('confidence' in decisionReadout({ ...input, type }, rows(.8)), false);
+    assert.throws(() => decisionReadout({ ...input, type }, []));
+    assert.throws(() => decisionReadout({ ...input, type }, rows(NaN)));
+    assert.throws(() => decisionReadout({ ...input, type }, rows(2)));
+    assert.throws(() => decisionReadout({ ...input, type }, [{ ...rows(.8)[0], probability: .2 }, rows(.8)[1]]));
+  }
+  const rubric = { ...input, type: 'score', options: ['Low', 'Medium', 'High'] };
+  const scores = rubric.options.map((option, i) => ({ label: ['A', 'B', 'C'][i], option, probability: [.1, .3, .6][i] }));
+  assert.equal(decisionReadout(rubric, scores).score, 1.5);
+  assert.deepEqual(decisionReadout(rubric, scores).legend, { 0: 'Low', 1: 'Medium', 2: 'High' });
+});
+
+test('type selectors and example browsing start without canned results', () => {
+  const html = fs.readFileSync(new URL('../labs.html', import.meta.url), 'utf8');
+  const app = fs.readFileSync(new URL('../js/labs/app.mjs', import.meta.url), 'utf8');
+  for (const type of Object.keys(DECISION_TYPES)) assert.match(html, new RegExp(`data-decision-type="${type}"`));
+  assert.match(html, /id="labs-example-picker"/);
+  assert.match(html, /No typed data yet\./);
+  assert.match(html, /Output shape · not a result/);
+  assert.match(app, /type: state.decisionType/);
+  assert.match(app, /readOnly = type === 'noul'/);
+  assert.match(app, /renderTypedDecision\(data, result.scores\)/);
+  assert.match(app, /\[data-decision-type\], #labs-random-decision, #labs-example-picker/);
+  assert.match(html, /54 situations/);
 });
 
 test('Labs exposes crawlable facts and truthful schema matching every visible FAQ', () => {
