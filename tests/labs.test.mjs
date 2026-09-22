@@ -12,6 +12,8 @@ test('visual explanations are accessible, scoped to Labs and never pretend to be
   const flow = html.match(/<ol class="labs-flow"[^>]*>([\s\S]*?)<\/ol>/)?.[1];
   assert.ok(flow);
   assert.equal((flow.match(/<li>/g) || []).length, 3);
+  assert.deepEqual([...flow.matchAll(/<span class="labs-flow-number" aria-hidden="true">(\d\.)<\/span>/g)].map(match => match[1]), ['1.', '2.', '3.']);
+  assert.doesNotMatch(flow, /labs-flow-icon/);
   assert.match(flow, /Once, after you click Load/);
   assert.match(flow, /using GPU or CPU/);
   assert.match(html, /class="labs-method-map" aria-labelledby="labs-method-map-title"/);

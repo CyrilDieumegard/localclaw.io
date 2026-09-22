@@ -14,8 +14,7 @@ html.light .lc-labs-playground {
 .lc-labs-playground .labs-button--primary { color: var(--labs-action-text); }
 .labs-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; list-style: none; padding: 22px 26px; margin: 26px 0 0; background: transparent; border-block: 1px solid var(--labs-border); text-align: left; }
 .labs-flow li { position: relative; display: flex; align-items: center; gap: 14px; min-width: 0; }
-.labs-flow-icon { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 auto; color: var(--labs-accent); }
-.labs-flow-icon svg { width: 25px; height: 25px; }
+.labs-flow-number { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 auto; color: var(--labs-accent); font: 600 28px/1 'Space Grotesk', Inter, sans-serif; }
 .labs-flow svg, .lc-labs-playground .labs-tab svg { stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .labs-flow strong { display: block; color: var(--labs-text); font-size: 13px; line-height: 1.4; font-weight: 600; }
 .labs-flow li > div > span { display: block; color: var(--labs-muted); font-size: 11px; line-height: 1.5; margin-top: 4px; }
@@ -62,8 +61,7 @@ html.light .lc-labs-playground {
 @media (max-width: 900px) {
   .labs-flow { gap: 24px; padding: 20px; }
   .labs-flow li { align-items: flex-start; gap: 10px; }
-  .labs-flow-icon { width: 36px; height: 36px; border-radius: 9px; }
-  .labs-flow-icon svg { width: 22px; height: 22px; }
+  .labs-flow-number { width: 36px; height: 36px; font-size: 25px; }
   .labs-flow strong { font-size: 12px; }
 }
 @media (max-width: 700px) {
