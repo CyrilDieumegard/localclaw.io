@@ -17,6 +17,24 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.52
   },
   {
+    "id": "vui-nano",
+    "name": "Vui Nano",
+    "developer": "Fluxions AI",
+    "family": "vui",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08",
+    "quality": 8.9,
+    "speed": 9.2,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.61
+  },
+  {
     "id": "ice-012-audio",
     "name": "ICE-012 Audio",
     "developer": "DarkPs",
