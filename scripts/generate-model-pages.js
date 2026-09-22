@@ -68,7 +68,8 @@ const familyColors = {
   lfm: '#38bdf8',
   apertus: '#0f766e',
   internscience: '#14b8a6',
-  deepreinforce: '#ff453a'
+  deepreinforce: '#ff453a',
+  needle: '#10b981'
 };
 
 function familyColor(m) {
@@ -109,7 +110,7 @@ function downloadVariantsMarkup(m) {
 function hfRepoState(m) {
   const verification = APP_DATA.hfRepoVerification || {};
   if (!m.hf_repo) return 'missing';
-  for (const state of ['publicGguf', 'publicModelCard', 'gated', 'unavailable']) {
+  for (const state of ['publicGguf', 'publicRuntime', 'publicModelCard', 'gated', 'unavailable']) {
     if (verification[state] && verification[state][m.id] === m.hf_repo) return state;
   }
   return 'unclassified';
@@ -245,6 +246,7 @@ function verifiedOllamaHref(m) {
 function runOptionsMarkup(m, hfState) {
   const hfUrl = m.hf_repo ? `https://huggingface.co/${m.hf_repo}` : '';
   const publicGguf = hfState === 'publicGguf';
+  const publicRuntime = hfState === 'publicRuntime';
   const desktopReady = publicGguf && !m.hosted_only && !isServerServingModel(m) && !requiresCustomRuntime(m);
   const advancedGguf = publicGguf && !m.hosted_only && isServerServingModel(m) && !requiresCustomRuntime(m);
   const unslothReady = publicGguf && !m.hosted_only && !requiresCustomRuntime(m);
@@ -279,7 +281,7 @@ function runOptionsMarkup(m, hfState) {
     hfUrl && hfState !== 'unavailable' ? runOptionLink({
       platform: 'huggingface',
       label: 'Open on Hugging Face',
-      note: publicGguf ? 'Files, licence and available downloads' : 'Model card, licence and access details',
+      note: publicGguf ? 'Files, licence and available downloads' : publicRuntime ? 'Official runtime files, licence and model card' : 'Model card, licence and access details',
       href: hfUrl,
       m
     }) : runOptionUnavailable({platform: 'huggingface', label: 'Hugging Face'}),
@@ -324,6 +326,7 @@ function lmStudioLine(m) {
   if (m.hosted_only) return 'No local LM Studio install is available for this model today.';
   const state = hfRepoState(m);
   if (state === 'publicModelCard') return `Only the public model card was verified; no public GGUF file was verified in that repository. Open the model card to confirm current artefacts and supported runtimes. LocalClaw does not claim a one-click LM Studio install.`;
+  if (state === 'publicRuntime') return `Use the official <a href="${esc(m.runtime_url)}" target="_blank" rel="noopener">${esc(m.custom_runtime)}</a> setup. LocalClaw verified an official local runtime repository, not a stock GGUF or one-click LM Studio install.`;
   if (state === 'gated') return `The model card is gated and may require account approval or licence acceptance. No public GGUF file was verified, so LocalClaw does not publish an LM Studio or one-click installation path.`;
   if (state === 'publicGguf' && isServerServingModel(m)) return `Treat <code>${esc(m.search_term)}</code> as an advanced workstation/server-grade catalogue target with verified GGUF artefacts. Open the GGUF files and follow the upstream runtime notes; LocalClaw does not claim a one-click LM Studio install.`;
   if (isServerServingModel(m)) return `Treat <code>${esc(m.search_term)}</code> as a server-grade catalogue target. Use the verified artefact with a compatible multi-GPU or distributed runtime and follow its upstream instructions; this is not a one-click desktop LM Studio recommendation.`;
@@ -552,6 +555,8 @@ function modelPage(m, d, allModels) {
   const hfDirectUrl = `https://huggingface.co/${esc(m.hf_repo)}`;
   const hfLine = hfState === 'publicGguf'
     ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
+    : hfState === 'publicRuntime'
+      ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="public-runtime">Public official runtime repository (verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
     : hfState === 'publicModelCard'
       ? `<a href="${hfDirectUrl}" target="_blank" rel="noopener" data-hf-repo-status="public-model-card">Public model card (no GGUF file verified ${esc(hfVerificationDate())}): ${esc(m.hf_repo)}</a>`
       : hfState === 'gated'

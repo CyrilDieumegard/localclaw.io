@@ -28,10 +28,12 @@
         const description = String(model && model.description || '').toLowerCase();
         const tags = Array.isArray(model && model.tags) ? model.tags.map(tag => String(tag).toLowerCase()) : [];
         const publicGguf = verification && verification.publicGguf || {};
+        const publicRuntime = verification && verification.publicRuntime || {};
         const hasVerifiedGguf = Boolean(model && model.hf_repo && publicGguf[model.id] === model.hf_repo);
+        const hasVerifiedRuntime = Boolean(model && model.hf_repo && publicRuntime[model.id] === model.hf_repo && model.custom_runtime && model.runtime_url);
         const excluded = /server-grade only|datacenter-grade only|not yet verified|api only/.test(description);
         const workstationFit = Number(model && model.min_ram || 0) > 0 && Number(model.min_ram) <= 256;
-        return Boolean(model && !model.hosted_only && !excluded && !tags.includes('experimental') && workstationFit && model.recommended_quant && hasVerifiedGguf);
+        return Boolean(model && !model.hosted_only && !excluded && !tags.includes('experimental') && workstationFit && model.recommended_quant && (hasVerifiedGguf || hasVerifiedRuntime));
     }
 
     function latestLocalModels(sourceModels, limit, verification) {

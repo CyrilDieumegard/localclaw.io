@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
+// Updated September 22, 2026 - Added Needle 3 - 245 unique LLM records
+// Previous: September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
 // Previous: September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
 // Previous: September 11, 2026 - Added DeepSeek V4.1 Flash - 240 unique LLM records
 // Previous: September 10, 2026 - Added Nex-N2.5-mini - 239 unique LLM records
@@ -3123,6 +3124,25 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'needle-3',
+            name: 'Needle 3',
+            family: 'needle',
+            params: '121M laddered SAN',
+            size_gb: 0.029,
+            min_ram: 1,
+            tags: ['tool-calling', 'agentic', 'edge', 'speed', 'embedding', 'structured-output'],
+            description: 'Cactus Compute Apache 2.0 foundation model for tiny on-device tool calling, extraction and embeddings. Official `.cact` runtime artifacts run through the cactus-needle Python package, C API, browser/WASI and platform runners instead of stock GGUF or LM Studio.',
+            search_term: 'needle3',
+            recommended_quant: 'CQ2 .cact',
+            hf_repo: 'Cactus-Compute/needle3',
+            source_url: 'https://cactuscompute.com/needle',
+            custom_runtime: 'Cactus Needle runtime',
+            runtime_url: 'https://github.com/cactus-compute/needle',
+            benchmarks: { speed: 10, quality: 7, coding: 5, reasoning: 6 },
+            released: '2026-09-16',
+            isNew: true
+        },
+        {
             id: 'qwen3.7-max-preview',
             name: 'Qwen 3.7 Max Preview',
             family: 'qwen',
@@ -4089,9 +4109,9 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-21T06:10:00.000Z",
-        catalogueHash: "63714f62bd72f12475e8fb3b12f9943f682216b45f0fdf3fd69487b8a68c38bc",
-        method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public model card, gated, or not publicly resolvable.",
+        checkedAt: "2026-09-22T06:05:00.000Z",
+        catalogueHash: "730a08c77455fc564d3306bb0ff3d70425e39dfc1d5dbf3a0fdc916619a6eed1",
+        method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
             "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",
@@ -4333,6 +4353,9 @@ const APP_DATA = {
             "zaya1-8b": "Zyphra/ZAYA1-8B",
             "nemotron-nano-9b-v2": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
             "apriel-nemotron-15b-thinker": "ServiceNow-AI/Apriel-Nemotron-15b-Thinker"
+        },
+        publicRuntime: {
+            "needle-3": "Cactus-Compute/needle3"
         },
         gated: {
             "llama3.2-vision-11b": "meta-llama/Llama-3.2-11B-Vision-Instruct",

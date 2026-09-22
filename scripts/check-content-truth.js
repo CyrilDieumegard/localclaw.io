@@ -29,6 +29,7 @@ const uniqueLocalModels = Array.from(new Map(
 ).values());
 const hfRepoVerification = dataContext.DATA.hfRepoVerification || {};
 const publicGgufHfRepos = hfRepoVerification.publicGguf || {};
+const publicRuntimeHfRepos = hfRepoVerification.publicRuntime || {};
 const publicModelCardHfRepos = hfRepoVerification.publicModelCard || {};
 const gatedHfRepos = hfRepoVerification.gated || {};
 const unavailableHfRepos = hfRepoVerification.unavailable || {};
@@ -57,8 +58,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 243) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 243 canonical routes`);
-if (indexableLocalModels.length !== 237) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 237`);
+if (uniqueLocalModels.length !== 244) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 244 canonical routes`);
+if (indexableLocalModels.length !== 238) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 238`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 117) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 117`);
 
@@ -174,6 +175,7 @@ for (const model of uniqueLocalModels) {
   const html = read(`models/${model.id}.html`);
   const hfStates = [
     ['public-gguf', publicGgufHfRepos],
+    ['public-runtime', publicRuntimeHfRepos],
     ['public-model-card', publicModelCardHfRepos],
     ['gated', gatedHfRepos],
     ['unavailable', unavailableHfRepos]
@@ -255,6 +257,16 @@ for (const model of uniqueLocalModels) {
   if (hfState === 'public-gguf') {
     if (!html.includes(`href="https://huggingface.co/${model.hf_repo}"`) || !html.includes('data-hf-repo-status="public-gguf"') || !html.includes('Public GGUF repository')) {
       errors.push(`${model.id} is missing its verified public GGUF repository link`);
+    }
+  } else if (hfState === 'public-runtime') {
+    if (!html.includes(`href="https://huggingface.co/${model.hf_repo}"`) || !html.includes('data-hf-repo-status="public-runtime"') || !html.includes('Public official runtime repository')) {
+      errors.push(`${model.id} is missing its verified public runtime repository link`);
+    }
+    for (const marker of ['This model needs its official runtime', 'not a stock GGUF or one-click LM Studio install']) {
+      if (!html.includes(marker)) errors.push(`${model.id} public runtime page missing marker: ${marker}`);
+    }
+    for (const forbidden of ['lmstudio://', 'unsloth://', 'Open in LM Studio']) {
+      if (html.includes(forbidden)) errors.push(`${model.id} public runtime page still exposes desktop install claim: ${forbidden}`);
     }
   } else if (hfState === 'public-model-card') {
     if (!html.includes(`href="https://huggingface.co/${model.hf_repo}"`) || !html.includes('data-hf-repo-status="public-model-card"') || !html.includes('no GGUF file verified')) {
@@ -457,7 +469,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 245) errors.push('models/ must contain 245 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 246) errors.push('models/ must contain 246 HTML files');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 98) errors.push('tts/ must contain 97 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -481,11 +493,11 @@ const newPage = read('new.html');
 for (const marker of [
   'href="/models/bonsai-2-27b"',
   'href="/models/occamy-1-0"',
-  'href="/models/nex-n2-5-mini"',
+  'href="/models/needle-3"',
   '16 GB RAM · PQ2_0 · 262K context',
   '32 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260921a',
+  'js/data.js?v=20260922a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -508,7 +520,7 @@ for (const staleMarker of [
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['bonsai-2-27b', 'occamy-1-0', 'nex-n2-5-mini', 'deepseek-v4-1-flash', 'minicpm5-2b', 'spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b', 'k2-horizon-0-9b', 'k2-horizon-3-7b', 'k2-horizon-7b', 'k2-horizon-mova-36b-a4b'];
+const expectedLatestIds = ['bonsai-2-27b', 'needle-3', 'occamy-1-0', 'nex-n2-5-mini', 'deepseek-v4-1-flash', 'minicpm5-2b', 'spark-x2-5-4b', 'spark-x2-5-1-7b', 'ibnsina-1.5b', 'k2-horizon-0-9b', 'k2-horizon-3-7b', 'k2-horizon-7b'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -519,6 +531,7 @@ for (const model of latestModels.slice(0, 3)) {
 }
 for (const [modelId, released] of Object.entries({
   'bonsai-2-27b': '2026-09-17',
+  'needle-3': '2026-09-16',
   'occamy-1-0': '2026-09-15',
   'deepseek-v4-1-flash': '2026-09-10',
   'nex-n2-5-mini': '2026-09-10',
@@ -591,7 +604,7 @@ if ((newPage.match(/LocalClawNewModels\.releaseTimestamp\(dateStr\)/g) || []).le
   errors.push('/new date formatting, age and NEW badge helpers must all use the shared release parser');
 }
 if (newPage.includes("new Date(dateStr + '-")) errors.push('/new renderer still corrupts complete release dates by appending a day');
-const fallbackOrder = ['bonsai-2-27b', 'occamy-1-0', 'nex-n2-5-mini'].map(id => newPage.indexOf(`href="/models/${id}"`));
+const fallbackOrder = ['bonsai-2-27b', 'needle-3', 'occamy-1-0'].map(id => newPage.indexOf(`href="/models/${id}"`));
 if (fallbackOrder.some(index => index < 0) || !(fallbackOrder[0] < fallbackOrder[1] && fallbackOrder[1] < fallbackOrder[2])) {
   errors.push('/new static fallback order does not match the canonical freshness sort');
 }
@@ -612,7 +625,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260921a') || !index.includes('js/app-20260816a.js?v=20260921amazon')) {
+if (!index.includes('js/data.js?v=20260922a') || !index.includes('js/app-20260816a.js?v=20260922needle')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -677,6 +690,7 @@ if (!fs.existsSync(notesFile) && !redirects.split(/\r?\n/).some(line => line.tri
 
 const classifiedHfIds = new Set([
   ...Object.keys(publicGgufHfRepos),
+  ...Object.keys(publicRuntimeHfRepos),
   ...Object.keys(publicModelCardHfRepos),
   ...Object.keys(gatedHfRepos),
   ...Object.keys(unavailableHfRepos)
@@ -687,11 +701,12 @@ if (classifiedHfIds.size !== uniqueLocalModels.length) {
 }
 const hfStateMaps = {
   publicGguf: publicGgufHfRepos,
+  publicRuntime: publicRuntimeHfRepos,
   publicModelCard: publicModelCardHfRepos,
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 197, publicModelCard: 41, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 197, publicRuntime: 1, publicModelCard: 41, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);
@@ -715,4 +730,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Content truth validation passed: ${uniqueLocalModels.length} preserved local LLM routes (${indexableLocalModels.length} indexable; ${Object.keys(publicGgufHfRepos).length} public GGUF repos, ${Object.keys(publicModelCardHfRepos).length} public model cards without GGUF, ${Object.keys(gatedHfRepos).length} gated, ${Object.keys(unavailableHfRepos).length} noindex tombstones, ${upstreamOnlyDetails} with upstream-only unverified details), ${speechModels.length} local speech records, remote speech labels, RSS freshness and installer ${manifest.latestVersion}.`);
+console.log(`Content truth validation passed: ${uniqueLocalModels.length} preserved local LLM routes (${indexableLocalModels.length} indexable; ${Object.keys(publicGgufHfRepos).length} public GGUF repos, ${Object.keys(publicRuntimeHfRepos).length} public runtime repos, ${Object.keys(publicModelCardHfRepos).length} public model cards without GGUF, ${Object.keys(gatedHfRepos).length} gated, ${Object.keys(unavailableHfRepos).length} noindex tombstones, ${upstreamOnlyDetails} with upstream-only unverified details), ${speechModels.length} local speech records, remote speech labels, RSS freshness and installer ${manifest.latestVersion}.`);

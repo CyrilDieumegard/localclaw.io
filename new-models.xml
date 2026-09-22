@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 21 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Bonsai 2 27B</title>
@@ -15,6 +15,14 @@
       <pubDate>Thu, 17 Sep 2026 12:00:00 GMT</pubDate>
       <category>bonsai</category>
       <description>PrismML Apache 2.0 ternary Qwen3.8-27B derivative with official GGUF and MLX paths. The PQ2_0 pack is 7.21GB, PTQ1_0 is 5.95GB, and custom llama.cpp/MLX kernels target laptop-class local inference. 27.36B (ternary) · 16 GB minimum RAM · PQ2_0 · bonsai.</description>
+    </item>
+    <item>
+      <title>Needle 3</title>
+      <link>https://localclaw.io/models/needle-3</link>
+      <guid isPermaLink="true">https://localclaw.io/models/needle-3</guid>
+      <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
+      <category>needle</category>
+      <description>Cactus Compute Apache 2.0 foundation model for tiny on-device tool calling, extraction and embeddings. Official `.cact` runtime artifacts run through the cactus-needle Python package, C API, browser/WASI and platform runners instead of stock GGUF or LM Studio. 121M laddered SAN · 1 GB minimum RAM · CQ2 .cact · needle.</description>
     </item>
     <item>
       <title>Occamy-1.0</title>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
       <category>ornith</category>
       <description>Official MIT 35B MoE reasoning model from Ornith AI with about 3B active parameters, 262K context, strong agentic-coding positioning and official Q4_K_M GGUF plus MLX/Ollama/llama.cpp local paths for larger workstations. 35B (3B active, MoE) · 48 GB minimum RAM · Q4_K_M · ornith.</description>
-    </item>
-    <item>
-      <title>DFM-Mimir</title>
-      <link>https://localclaw.io/models/dfm-mimir</link>
-      <guid isPermaLink="true">https://localclaw.io/models/dfm-mimir</guid>
-      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
-      <category>dfm</category>
-      <description>DFM-Mimir is a Danish and English 1B-class HRM language model trained from scratch by Danish Foundation Models, with Apache 2.0 weights, permissible-data positioning and GGUF artifacts for lightweight local inference. 1.8B · 4 GB minimum RAM · Q8_0 · dfm.</description>
     </item>
   </channel>
 </rss>
