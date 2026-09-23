@@ -8,8 +8,8 @@
          PRIMARY SEO META TAGS
          ============================================================ -->
     <title>LocalClaw Blog | Local AI Guides &amp; Model Comparisons</title>
-    <meta name="description" content="OpenClaw 2.0 explained: new features, LocalClaw for Mac, local models and safe updates. Plus practical local AI guides and hardware comparisons.">
-    <meta name="keywords" content="local AI blog, Qwen3.8-27B, Qwen3.8 local, Qwen3.8 vision, Colibri AI, GLM-5.2 25GB RAM, storage streamed MoE, Kimi K3 benchmarks, Kimi K3 local, Bonsai 27B, Gemma 4 12B, Ollama vs LM Studio, GGUF quantization, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
+    <meta name="description" content="OpenClaw's new decision-model role explained: Jev, local alternatives, plugin use cases and release status. Plus practical local AI guides and hardware comparisons.">
+    <meta name="keywords" content="OpenClaw Jev, OpenClaw decision models, Jev integration, local decision models, local AI blog, Qwen3.8-27B, Colibri AI, Kimi K3, Bonsai 27B, Gemma 4 12B, Ollama vs LM Studio, Apple Silicon AI, NVIDIA local AI, best local LLM 2026">
     <meta name="author" content="LocalClaw">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://localclaw.io/blog/">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/blog/">
     <meta property="og:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta property="og:description" content="OpenClaw 2.0, LocalClaw for Mac, practical local models and hardware. Read our complete guide to the new OpenClaw release.">
+    <meta property="og:description" content="OpenClaw is adding a decision-model role. Read our source-backed guide to Jev, local alternatives and what changes for agents.">
     <meta property="og:site_name" content="LocalClaw Blog">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -32,7 +32,7 @@
          ============================================================ -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LocalClaw Blog | Local AI Guides &amp; Model Comparisons">
-    <meta name="twitter:description" content="OpenClaw 2.0 is here. Read the complete release guide and get started with LocalClaw for Mac, plus practical local AI comparisons.">
+    <meta name="twitter:description" content="OpenClaw + Jev: read how the new decision layer works, where local models fit and what is available today.">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
 
     <!-- Security headers (HSTS, CSP, X-Frame-Options) configured server-side in _headers -->
@@ -302,12 +302,12 @@
             
             <section class="lc-launch lc-launch--feature" aria-labelledby="featured-openclaw-title">
                 <div>
-                    <span class="lc-launch__eyebrow">Featured · August 31, 2026 · OpenClaw 2.0</span>
-                    <h2 id="featured-openclaw-title">A new chapter for OpenClaw.<br>Your Mac is ready.</h2>
-                    <p>New conversations, memory, dashboards and automation. Explore the complete release guide, then get started with the compatible LocalClaw app.</p>
-                    <div class="lc-launch__actions"><a class="lc-launch__button" href="/blog/openclaw-2026-8-1-localclaw-mac" data-fast-goal="openclaw_article_click" data-fast-goal-source="blog_feature">Explore the full guide →</a><a class="lc-launch__link" href="/pricing">Get LocalClaw for Mac</a></div>
+                    <span class="lc-launch__eyebrow">Featured · September 23, 2026 · OpenClaw + Jev</span>
+                    <h2 id="featured-openclaw-title">OpenClaw gets a<br>decision layer.</h2>
+                    <p>Jev is coming through a native, provider-neutral model role. See the architecture, the possible gains, the local options and what has actually shipped.</p>
+                    <div class="lc-launch__actions"><a class="lc-launch__button" href="/blog/openclaw-jev-decision-models" data-fast-goal="openclaw_article_click" data-fast-goal-source="blog_feature">Read the analysis →</a><a class="lc-launch__link" href="/blog/jev-nimble-laya-local-decision-models">Compare local options</a></div>
                 </div>
-                <figure><a href="/blog/openclaw-2026-8-1-localclaw-mac" aria-label="Read the OpenClaw 2.0 and LocalClaw guide"><img src="/images/pricing-carousel/home.jpg?v=20260602" width="1400" height="770" alt="LocalClaw native Mac dashboard with OpenClaw status and system controls" decoding="async"></a><figcaption>The native LocalClaw app. Compatible with OpenClaw 2026.8.1.</figcaption></figure>
+                <figure><a href="/blog/openclaw-jev-decision-models" aria-label="Read the OpenClaw and Jev decision-model analysis"><img src="/images/openclaw-jev-decision-layer.svg" width="1400" height="770" alt="Diagram: evidence flows into a decision model, then into an OpenClaw agent workflow" decoding="async"></a><figcaption>Explanatory architecture. The decision integration is still in development.</figcaption></figure>
             </section>
 
             <!-- Filters -->
@@ -320,6 +320,7 @@
 
             <!-- Articles Grid -->
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/blog/openclaw-jev-decision-models" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide"><div class="flex items-center gap-2 mb-4"><span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">OpenClaw + Jev</span><span class="reading-time text-xs">12 min read</span></div><h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">OpenClaw + Jev: Agents Get a Decision Layer</h2><p class="text-claw-muted text-sm leading-relaxed mb-4">Why native decision models matter, which workflows could improve, hosted versus local providers, and the real release status.</p><div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">September 23, 2026</span><span class="text-claw-primary text-sm font-semibold">Read the analysis →</span></div></a>
                 <a href="/guides/run-llm-in-browser" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="guide"><div class="flex items-center gap-2 mb-4"><span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Browser AI</span></div><h2 class="text-xl font-display font-bold mb-3 group-hover:text-claw-primary transition-colors">Run an LLM in your browser. No API key.</h2><p class="text-claw-muted text-sm leading-relaxed mb-4">Try five model presets in Labs, learn how WebGPU works, and understand what RLCD does — and does not — mean.</p><div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="text-xs text-claw-muted">September 21, 2026</span><span class="text-claw-primary text-sm font-semibold">Read the practical guide →</span></div></a>
 <a href="/blog/jev-nimble-laya-local-decision-models" class="article-card rounded-2xl p-6 block group relative overflow-hidden" data-category="comparison">
 <div class="flex items-center gap-2 mb-4"><span class="category-badge px-3 py-1 rounded-full text-xs font-semibold">Decision Models</span><span class="reading-time text-xs">Visual guide</span></div>

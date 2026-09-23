@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw + Jev: Native Decision Models Explained | LocalClaw</title>
+<meta name="description" content="OpenClaw is adding a native decision-model role. Explore Jev, local alternatives, plugin use cases and what this could change for agent speed, cost and reliability.">
+<meta name="author" content="LocalClaw">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://localclaw.io/blog/openclaw-jev-decision-models">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://localclaw.io/blog/openclaw-jev-decision-models">
+<meta property="og:title" content="OpenClaw + Jev: The Decision Layer Coming to AI Agents">
+<meta property="og:description" content="A second model role inside OpenClaw could make small agent decisions faster and more predictable. Here is the architecture, the use cases and the release status.">
+<meta property="og:site_name" content="LocalClaw">
+<meta property="og:image" content="https://localclaw.io/images/openclaw-jev-decision-layer.png">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="770">
+<meta property="article:published_time" content="2026-09-23">
+<meta property="article:modified_time" content="2026-09-23">
+<meta property="article:section" content="OpenClaw Analysis">
+<meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="Jev">
+<meta property="article:tag" content="Decision Models">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OpenClaw + Jev: The Decision Layer Coming to AI Agents">
+<meta name="twitter:description" content="What OpenClaw's new decision-model role changes, what it does not yet automate, and where Jev or local models fit.">
+<meta name="twitter:image" content="https://localclaw.io/images/openclaw-jev-decision-layer.png">
+<meta name="theme-color" content="#faf9f6">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=20260211g">
+<link rel="apple-touch-icon" href="/images/favicon.png?v=20260211g">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=20260822b">
+<link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">
+<link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2">
+<link rel="stylesheet" href="/css/decision-models-20260920.css?v=1">
+<style>
+#decision-article .hero h1{max-width:990px}
+#decision-article .hero .lead{max-width:870px}
+#decision-article .status-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:34px 0}
+#decision-article .status-strip div{background:var(--panel);padding:19px}
+#decision-article .status-strip b{display:block;color:var(--ink);font-size:14px}
+#decision-article .status-strip span{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+#decision-article .fact-table-wrap{overflow-x:auto;margin:25px 0;border:1px solid var(--line);border-radius:12px}
+#decision-article table{border-collapse:collapse;width:100%;min-width:650px;font-size:15px}
+#decision-article th,#decision-article td{padding:15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+#decision-article th,#decision-article td:first-child{color:var(--ink);font-weight:700}
+#decision-article td{color:var(--muted)}
+#decision-article .takeaway{font:700 clamp(23px,3vw,34px)/1.3 'Space Grotesk',Inter,sans-serif;color:var(--ink);max-width:870px;border-left:5px solid var(--coral);padding-left:24px;margin:30px 0}
+#decision-article .inline-cta{display:inline-block;background:var(--coral);color:#fff;text-decoration:none;border-radius:8px;padding:12px 19px;font-size:14px;font-weight:700;margin-top:8px}
+#decision-article .source-list{max-width:900px;padding-left:23px}
+#decision-article .source-list li{color:var(--muted);font-size:14px;margin:9px 0}
+#decision-article .source-list a{color:var(--coral)}
+#decision-article details{max-width:900px}
+@media(max-width:700px){#decision-article .status-strip{grid-template-columns:1fr}}
+</style>
+<script src="/js/site-nav.js?v=20260921labs2" defer></script>
+<script src="/js/theme-toggle.js?v=20260921labs2"></script>
+<script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
+<script src="/js/clarity.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"OpenClaw + Jev: Native Decision Models Explained","description":"A source-backed guide to OpenClaw's decision-model role, Jev, local alternatives, plugin use cases and availability.","url":"https://localclaw.io/blog/openclaw-jev-decision-models","datePublished":"2026-09-23","dateModified":"2026-09-23","inLanguage":"en","author":{"@type":"Organization","name":"LocalClaw"},"publisher":{"@type":"Organization","name":"LocalClaw","logo":{"@type":"ImageObject","url":"https://localclaw.io/images/favicon.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://localclaw.io/blog/openclaw-jev-decision-models"},"citation":["https://openclaw.ai/blog/decision-models-in-openclaw","https://docs.openclaw.ai/concepts/decision-models","https://docs.openclaw.ai/plugins/typesafe","https://docs.openclaw.ai/plugins/onnx"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Jev already built into the stable OpenClaw release?","acceptedAnswer":{"@type":"Answer","text":"No. As of September 23, 2026, the decision-model role is in development checkouts after released OpenClaw 2026.9.5. The separately packaged TypeSafe plugin awaits a compatible release."}},{"@type":"Question","name":"Will Jev replace my OpenClaw chat model?","acceptedAnswer":{"@type":"Answer","text":"No. OpenClaw configures the optional decision model separately from the primary conversational model. It returns typed judgments for explicit calls and supported consumers."}},{"@type":"Question","name":"Can OpenClaw decision models run locally?","acceptedAnswer":{"@type":"Answer","text":"The planned TypeSafe adapter can connect to a separately running local Kev server. A separate ONNX plugin supports local CPU classifiers. Hosted Jev sends selected evidence to TypeSafe."}},{"@type":"Question","name":"Does selecting Jev automatically optimize every OpenClaw workflow?","acceptedAnswer":{"@type":"Answer","text":"No. Selection makes the model available for explicit evaluation and supported consumers. The experimental Decision assistance gate has no automatic consumers connected yet."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://localclaw.io/blog/"},{"@type":"ListItem","position":3,"name":"OpenClaw + Jev","item":"https://localclaw.io/blog/openclaw-jev-decision-models"}]}]}</script>
+</head>
+<body class="lc-decision-page min-h-screen flex flex-col">
+<nav class="lc-global-nav" aria-label="Main navigation">
+  <div class="lc-global-nav__inner">
+    <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
+      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
+    </a>
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    <div class="lc-global-nav__actions">
+      <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+    <button class="lc-global-nav__menu-button" type="button" aria-label="Open menu" aria-controls="lc-global-mobile-menu" aria-expanded="false" data-nav-toggle>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="lc-global-mobile-menu" class="lc-global-nav__mobile" data-nav-mobile hidden>
+    <div class="lc-global-nav__mobile-inner">
+      <div class="lc-theme-switcher lc-theme-switcher--mobile" role="group" aria-label="Color theme" data-theme-switcher>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span>Light</span>
+      </button>
+      <button class="lc-theme-switcher__option" type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20.3 15.2A9 9 0 0 1 8.8 3.7a9 9 0 1 0 11.5 11.5Z"></path></svg>
+        <span>Dark</span>
+      </button>
+    </div>
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
+    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </div>
+  </div>
+</nav>
+<main id="decision-article">
+<header class="hero"><a class="back-link" href="/blog/">← LocalClaw Blog</a><p class="article-date">September 23, 2026 · OpenClaw analysis · 12 min read</p><span class="eyebrow">OpenClaw × Jev × local decision models</span><h1>OpenClaw + Jev:<br>agents get a <em>decision layer.</em></h1><p class="lead">OpenClaw is adding a native role for fast, typed judgments. Jev is one provider; local models are part of the design. Here is what that changes for real agents, and exactly how far the integration has reached.</p><div class="status-strip" aria-label="Announcement status"><div><b>Announced</b><span>September 22, 2026, by OpenClaw</span></div><div><b>Available to test</b><span>Development checkouts with decision-model support</span></div><div><b>Stable release</b><span>Provider packages still awaiting a compatible release</span></div></div><nav class="article-toc" aria-label="Article sections"><a href="#answer">The short answer</a><a href="#architecture">The architecture</a><a href="#use-cases">What changes</a><a href="#local">Hosted or local?</a><a href="#availability">Availability</a><a href="#faq">FAQ</a></nav></header>
+
+<figure class="diagram"><img src="/images/openclaw-jev-decision-layer.svg" width="1400" height="770" alt="A task's evidence flows through a configured decision model before the OpenClaw workflow continues" style="display:block;width:100%;height:auto;border-radius:10px" decoding="async"><figcaption>The decision path is an explanatory diagram. OpenClaw has not connected automatic Decision assistance consumers in the current development implementation.</figcaption></figure>
+
+<section id="answer"><span class="num">01 / THE SHORT ANSWER</span><h2>What did OpenClaw actually announce?</h2>
+<p><strong>OpenClaw is introducing <code>decisionModel</code> as a separate model role with a shared evaluation API.</strong> Developers can ask a configured model to choose among options, score an ordered rubric, or estimate the probability of a yes/no condition. Jev, made by TypeSafe AI, is supported through a separate adapter. The main chat model remains responsible for conversation and agent work.</p>
+<p>The important shift is where those calls can happen. A plugin can invoke <code>api.runtime.decisions.evaluate</code> directly from its code; a configured agent can use the core <code>decision_evaluate</code> tool when allowed. The call returns a typed result that ordinary software can inspect. OpenClaw no longer needs every small judgment to become another open-ended conversation with the primary model.</p>
+<div class="callout"><strong>“Native” describes the OpenClaw decision interface and model role.</strong> It does not mean Jev weights are bundled with OpenClaw or that every workflow now calls Jev automatically.</div>
+<p class="source">Sources: <a href="https://x.com/openclaw/status/2102488199486656862">OpenClaw announcement</a> · <a href="https://openclaw.ai/blog/decision-models-in-openclaw">OpenClaw's explanation</a> · <a href="https://docs.openclaw.ai/concepts/decision-models">Decision-model documentation</a>.</p></section>
+
+<section id="architecture"><span class="num">02 / THE ARCHITECTURE</span><h2>One agent. Two very different kinds of work.</h2>
+<p>An agent answering “Help me fix this failed checkout” may need a full conversational model to investigate logs, use tools and explain the repair. Before that work starts, the application may only need to classify the message as an outage, a billing issue or a routine question. The second question has a small answer space and a defined output shape.</p>
+<figure class="diagram"><div class="flow"><div class="node"><strong>Incoming evidence</strong><small>A message, task or selected context<br>plus a clear rubric</small></div><div class="arrow" aria-hidden="true">→</div><div class="node accent"><strong>Decision model</strong><small>Jev, local Kev or ONNX provider<br>Choice · Score · Boolean</small></div><div class="arrow" aria-hidden="true">→</div><div class="node local"><strong>OpenClaw workflow</strong><small>Code checks the result<br>Chat model handles the full task</small></div></div><figcaption>An explanatory workflow, not a claim that OpenClaw already runs this path for every incoming message. Plugins and other consumers decide when to request evaluation.</figcaption></figure>
+<p>Imagine the state “Checkout is failing for all customers.” A single request could ask which team should handle it, how severe the disruption is, and whether human incident response is needed. The result might contain a named route, a fractional urgency score and a Boolean probability, each with model provenance. Those are illustrative output types, not measured Jev answers.</p>
+<p>The shared interface matters because the same plugin can call the configured decision role without carrying a separate provider SDK and credential path for every model. A user can choose a provider per agent. An empty per-agent override turns decisions off for that agent; there is no automatic fallback to the chat model.</p>
+<p class="source">Source: <a href="https://docs.openclaw.ai/concepts/decision-models">OpenClaw's API contract and examples</a>.</p></section>
+
+<section id="primitives"><span class="num">03 / WHAT THE MODEL RETURNS</span><h2>Three answers software can use immediately.</h2>
+<div class="grid three"><div class="panel"><span class="tag">Choice</span><h3>Pick a route</h3><p>Given named alternatives, return one choice and estimated probabilities for the supplied labels. Example: support, billing or sales.</p></div><div class="panel"><span class="tag">Score</span><h3>Place it on a scale</h3><p>Use ordered descriptions such as no disruption, one workflow blocked and widespread outage. The result may fall between rubric positions.</p></div><div class="panel"><span class="tag">Boolean</span><h3>Estimate a condition</h3><p>Return <code>probabilityTrue</code> for a defined yes/no question. TypeSafe's primitive is called Noul; OpenClaw exposes it as Boolean.</p></div></div>
+<p>These are predictions, not proofs. A 0.9 result does not establish that nine out of ten such cases are correct in your environment. A Score of 2.5 is a position on the rubric, not “85% confidence.” OpenClaw preserves reported estimates rather than silently rewriting them.</p>
+<p>Good rubrics need an honest exit. If a message could fit none of the named Choice options, add an “insufficient evidence” route or send uncertain results for review. Every Choice answer competes with the alternatives you supplied.</p>
+<p class="source">Source: <a href="https://docs.openclaw.ai/concepts/decision-models">OpenClaw decision semantics and limits</a>.</p></section>
+
+<section id="use-cases"><span class="num">04 / WHAT COULD CHANGE</span><h2>The biggest gains may be the decisions users never see.</h2>
+<p>OpenClaw's announcement focuses on small judgments that accumulate across an agent's day. These are promising places to experiment, <strong>not a list of automatic features already shipped</strong>.</p>
+<div class="grid"><div class="panel"><span class="tag">Group conversations</span><h3>Know when to stay quiet</h3><p>Before a bot interrupts a busy Discord thread, a decision model could judge whether anyone is addressing it. OpenClaw describes this as a concrete community problem. Less unwanted speech would make the agent easier to live with.</p></div><div class="panel"><span class="tag">Tool selection</span><h3>Show the right capabilities</h3><p>Filter a long tool or skill catalog to the few entries relevant to the current task. The primary model could spend less context and deliberation on unrelated capabilities. This is a proposed use case, not a measured speedup.</p></div><div class="panel"><span class="tag">Memory and context</span><h3>Keep useful history</h3><p>During compaction or search, a narrow judgment could identify which messages are likely to matter. The test is whether the resulting agent solves the task better, not merely whether its prompt is shorter.</p></div><div class="panel"><span class="tag">Model routing</span><h3>Match the model to the job</h3><p>A bounded classifier could route simple work to a cheaper model and complex work to a stronger one. That pays off only if the extra call plus the selected model improves total cost, latency and error rate.</p></div></div>
+<p>Support triage is another clean example: classify the destination, score urgency and flag a possible incident in one bounded request. This makes sense outside chat because application code can consume the typed answers without parsing prose. The business rule that opens an incident, sends a message or refunds money remains separate.</p>
+<div class="takeaway">The opportunity is to make frequent, small judgments cheap enough to place exactly where a workflow needs them.</div>
+<p class="source">Source: <a href="https://openclaw.ai/blog/decision-models-in-openclaw">OpenClaw's proposed use cases</a>.</p></section>
+
+<section id="native"><span class="num">05 / WHY NATIVE MATTERS</span><h2>A platform capability is bigger than one clever plugin.</h2>
+<p>Josh Lehman's first Jev experiment exposed Jev as a tool for the agent. It worked, but the primary language model had to think about when to call that fast tool. Calling a decision model directly from a plugin hook or another owned operation changes where the judgment sits. It can run before the expensive conversational step.</p>
+<div class="steps"><div class="step"><h3>One model role</h3><p>OpenClaw configures decisions separately from the primary and utility models. Users can choose a provider for a particular agent.</p></div><div class="step"><h3>One typed API</h3><p>Plugin authors call the shared Decision runtime. A provider adapter translates that request to Jev, Kev or another backend.</p></div><div class="step"><h3>One action policy</h3><p>Application code checks the result and decides whether to continue, ask for review or use an existing fallback. A model estimate never grants permission by itself.</p></div></div>
+<p>That architecture is more durable than wiring Jev into every plugin. It makes hosted and local providers a real user choice. Different backends still have different accuracy, calibration, latency and hardware requirements; a common API does not erase those differences.</p></section>
+
+<section id="local"><span class="num">06 / THE LOCALCLAW ANGLE</span><h2>Hosted Jev, local Kev, local ONNX: follow the data.</h2>
+<p>The provider-neutral design matters to people who care where inference runs. <strong>Hosted Jev sends the selected evidence to TypeSafe and incurs its usage charges.</strong> OpenClaw's TypeSafe adapter can instead point at a separately running local System One server such as Kev. A different ONNX plugin offers local CPU classifiers. They share a role, not identical model weights or quality.</p>
+<div class="fact-table-wrap"><table><thead><tr><th scope="col">Option</th><th scope="col">Where inference runs</th><th scope="col">What you need</th><th scope="col">What to understand</th></tr></thead><tbody><tr><td>Jev via TypeSafe</td><td>TypeSafe-hosted endpoint</td><td>Compatible host, separate plugin, protected credential</td><td>Selected evidence leaves your machine; provider usage is billed.</td></tr><tr><td>Kev via TypeSafe adapter</td><td>Your separately running local server</td><td>Kev checkpoint and explicit loopback URL</td><td>OpenClaw does not download weights or start the server for you.</td></tr><tr><td>ONNX classifiers</td><td>Local CPU subprocess</td><td>Separate ONNX plugin and a downloaded or exported model</td><td>A classifier is not interchangeable with Jev on every judgment.</td></tr></tbody></table></div>
+<p>OpenClaw's TypeSafe guide recommends starting with a Qwen3-based Kev-4B checkpoint on a Mac and documents Apple Silicon support. This is a technical setup path, not evidence that Jev itself has become a downloadable local model. The ONNX option offers smaller CPU classifiers but requires model preparation and quality checks.</p>
+<p>LocalClaw explains the wider landscape in our <a href="/blog/jev-nimble-laya-local-decision-models">visual guide to Jev, Nimble and Laya</a>. Those research projects are separate from the official OpenClaw providers described here. For the main agent model, our <a href="/blog/openclaw-guide">OpenClaw setup guide</a> covers local inference with LM Studio or Ollama.</p>
+<p class="source">Sources: <a href="https://docs.openclaw.ai/plugins/typesafe">Official TypeSafe adapter guide</a> · <a href="https://docs.openclaw.ai/plugins/onnx">Official ONNX plugin guide</a>.</p></section>
+
+<section id="availability"><span class="num">07 / RELEASE STATUS</span><h2>What can you use today?</h2>
+<p>As of <strong>September 23, 2026</strong>, OpenClaw's documentation says the decision-model role and TypeSafe adapter were added after the released <code>2026.9.5</code> build. Developers can try a source checkout containing the decision-provider API. The separately packaged TypeSafe and ONNX plugins have not yet received their first compatible publication; their packaged host floor is <code>2026.9.6</code>. A version requirement is not a release-date promise.</p>
+<div class="grid"><div class="panel"><span class="tag">In the development checkout</span><h3>Explicit evaluation</h3><p>Configured agents can receive the core <code>decision_evaluate</code> tool, subject to tool policy. Plugin code can call <code>api.runtime.decisions.evaluate</code> through the shared runtime.</p></div><div class="panel"><span class="tag">Still to validate</span><h3>Automatic assistance</h3><p>The experimental Decision assistance setting is currently a gate with no automatic consumers connected. Selecting a model does not start background evaluation or silently speed up every interaction.</p></div></div>
+<p>The TypeSafe plugin is disabled by default. Installing it alone does not choose Jev or change your agent's main model. When a supported consumer does use hosted Jev, selected evidence is sent to the configured endpoint. Setup, privacy review and measurement are therefore part of an honest rollout.</p>
+<p class="source">Sources: <a href="https://docs.openclaw.ai/concepts/decision-models">Decision-model release state</a> · <a href="https://docs.openclaw.ai/plugins/typesafe">TypeSafe plugin status</a> · <a href="https://docs.openclaw.ai/plugins/onnx">ONNX plugin status</a>.</p></section>
+
+<section id="evaluate"><span class="num">08 / THE REAL TEST</span><h2>Measure the whole agent, not the fastest model call.</h2>
+<p>A fast decision is useful only when it improves the workflow after its own network, queueing or local inference cost is included. Build a labeled set of actual decisions. Include ambiguous messages, negation, missing facts, misleading instructions, mixed issues and cases where none of the supplied options fits.</p>
+<div class="grid three"><div class="panel"><span class="tag">Quality</span><h3>How often is the branch right?</h3><p>Measure routing accuracy, false escalation, missed escalation and calibration on representative cases. Check the agent's final task result, too.</p></div><div class="panel"><span class="tag">Speed & cost</span><h3>Does the whole path improve?</h3><p>Compare total task latency and spend with a baseline that has no decision call. Include retries, model switches and review work.</p></div><div class="panel"><span class="tag">Control</span><h3>What happens on failure?</h3><p>Define what unavailable, low-confidence or malformed results do. Keep approvals, access rules and publication authority outside model predictions.</p></div></div>
+<p>A decision result is evidence for a policy. It does not authorize a shell command, a payment, a message to another person or publication. OpenClaw explicitly keeps normal tool policies and approvals in force. It rejects unsupported requests instead of quietly truncating or splitting them; callers decide how to handle an unavailable result.</p>
+<p>For a local setup, privacy gains depend on the chosen endpoint and the entire workflow. Hosted Jev is a remote call; Kev and ONNX inference can stay local after setup, but downloads and other tools may still contact outside services. Record the provider and model used for each evaluation so later comparisons are reproducible.</p>
+<p class="source">Source: <a href="https://docs.openclaw.ai/concepts/decision-models">OpenClaw decision results, errors and action boundaries</a>.</p></section>
+
+<section id="faq"><span class="num">09 / QUICK ANSWERS</span><h2>OpenClaw + Jev FAQ</h2>
+<details><summary>Is Jev already built into the stable OpenClaw release?</summary><p>No. The decision-model role is present in development checkouts after released OpenClaw 2026.9.5. The official TypeSafe adapter is packaged separately and awaits a compatible release. Check the current docs before installing.</p></details>
+<details><summary>Will Jev replace my OpenClaw chat model?</summary><p>No. OpenClaw selects a decision model separately. It supplies typed judgments to explicit evaluations and supported consumers, while the conversational model continues the agent's main work.</p></details>
+<details><summary>Does adding a decision model automatically make OpenClaw faster?</summary><p>No. The current experimental assistance setting has no automatic consumers attached, and every evaluation has a cost. Test an actual workflow against its existing path.</p></details>
+<details><summary>Can OpenClaw decision models run entirely on my computer?</summary><p>There are local provider paths: a separately operated Kev server through the TypeSafe adapter, and ONNX CPU classifiers through the ONNX plugin. Hosted Jev itself sends selected evidence to TypeSafe.</p></details>
+<details><summary>Are Jev's probabilities safe to use as automatic approval?</summary><p>No. They are estimates to evaluate on your own data. OpenClaw says decision results do not grant permission to send messages, publish content or change durable state.</p></details></section>
+
+<section id="verdict"><span class="num">LOCALCLAW'S TAKE</span><h2>The interesting part starts after the announcement.</h2>
+<div class="verdict"><h3>A new place for intelligence inside the workflow.</h3><p>OpenClaw is creating a standard place for bounded judgments between incoming evidence and the agent's next step. Jev makes the idea vivid; the provider-neutral role makes it useful beyond one vendor. The best outcome is an agent that chooses better tools, keeps better context and knows when to stay quiet—without asking its main model to deliberate over every small fork.</p><p><strong>The next milestone is a compatible release and measured, opt-in consumers.</strong> Until then, this is a powerful architecture to test in development, with a clear distinction between what exists, what is proposed and what improves an actual user's task.</p></div>
+<p>Explore <a href="/labs#decisions">LocalClaw Labs' browser decision experiments</a> to see the shape of a bounded judgment. Labs uses standard open-model baselines, not Jev or a verified OpenClaw decision provider.</p>
+<a class="inline-cta" href="/blog/jev-nimble-laya-local-decision-models">Compare Jev with local decision models →</a>
+<h3 style="margin-top:42px">Primary sources and methodology</h3>
+<ul class="source-list"><li><a href="https://x.com/openclaw/status/2102488199486656862">OpenClaw announcement on X</a> and <a href="https://openclaw.ai/blog/decision-models-in-openclaw">OpenClaw's September 22 article</a> for the rationale and proposed use cases.</li><li><a href="https://docs.openclaw.ai/concepts/decision-models">OpenClaw's decision-model documentation</a> for the role, API, tool, limits and release status.</li><li><a href="https://docs.openclaw.ai/plugins/typesafe">TypeSafe adapter documentation</a> for Jev, Kev, credentials and packaging state.</li><li><a href="https://docs.openclaw.ai/plugins/onnx">ONNX plugin documentation</a> for the local CPU alternative and requirements.</li></ul>
+<p class="source">Sources checked September 23, 2026. Diagrams and example decisions are explanatory. LocalClaw did not benchmark OpenClaw's development integration or run hosted Jev for this article.</p></section>
+</main>
+<footer class="border-t border-claw-border/50 py-8 mt-auto"><div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><p class="text-claw-muted text-xs sm:text-sm">&copy; 2026 LocalClaw. Privacy-first AI recommendations.</p><div class="flex gap-4 text-xs sm:text-sm text-claw-muted"><a href="/llm-list" class="hover:text-white">LLM List</a><a href="/tts-list" class="hover:text-white">TTS List</a><a href="/software" class="hover:text-white">Software</a></div></div></footer>
+</body>
+</html>

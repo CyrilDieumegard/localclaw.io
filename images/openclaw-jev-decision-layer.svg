@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="770" viewBox="0 0 1400 770" role="img" aria-labelledby="title desc">
+  <title id="title">OpenClaw decision layer</title>
+  <desc id="desc">A message flows into a typed decision model, then into an OpenClaw agent workflow. Choice, Score and Boolean answers appear beneath the model.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171719"/><stop offset="1" stop-color="#09090b"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff453a"/><stop offset="1" stop-color="#ff7a70"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#ff453a" stop-opacity=".22"/><stop offset="1" stop-color="#ff453a" stop-opacity="0"/></radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="22" stdDeviation="28" flood-color="#000" flood-opacity=".45"/></filter>
+  </defs>
+  <rect width="1400" height="770" rx="24" fill="url(#bg)"/>
+  <circle cx="650" cy="360" r="430" fill="url(#glow)"/>
+  <path d="M0 632H1400M0 130H1400" stroke="#27272a"/>
+  <text x="72" y="88" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#ff6d64" letter-spacing="4">LOCALCLAW / EXPLAINED</text>
+  <text x="72" y="207" font-family="Arial,sans-serif" font-size="63" font-weight="700" fill="#fff">A second lane for agent decisions.</text>
+  <text x="74" y="257" font-family="Arial,sans-serif" font-size="24" fill="#a1a1aa">OpenClaw's primary model does the work. A decision model handles bounded judgments.</text>
+  <g filter="url(#shadow)">
+    <rect x="73" y="329" width="328" height="233" rx="22" fill="#171719" stroke="#3f3f46" stroke-width="2"/>
+    <rect x="536" y="329" width="328" height="233" rx="22" fill="#211517" stroke="#ff453a" stroke-width="2"/>
+    <rect x="999" y="329" width="328" height="233" rx="22" fill="#171719" stroke="#3f3f46" stroke-width="2"/>
+  </g>
+  <text x="105" y="387" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#ff6d64">01 / EVIDENCE</text>
+  <text x="105" y="444" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff">A task arrives</text>
+  <text x="105" y="484" font-family="Arial,sans-serif" font-size="19" fill="#a1a1aa">Message + explicit rubric</text>
+  <text x="105" y="518" font-family="Arial,sans-serif" font-size="19" fill="#a1a1aa">Only the relevant context</text>
+  <text x="568" y="387" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#ff6d64">02 / DECISION</text>
+  <text x="568" y="444" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff">Jev or local model</text>
+  <text x="568" y="484" font-family="Arial,sans-serif" font-size="19" fill="#e4b7b3">Choice · Score · Boolean</text>
+  <text x="568" y="518" font-family="Arial,sans-serif" font-size="19" fill="#e4b7b3">Typed, inspectable result</text>
+  <text x="1031" y="387" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#ff6d64">03 / ACTION</text>
+  <text x="1031" y="444" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#fff">OpenClaw acts</text>
+  <text x="1031" y="484" font-family="Arial,sans-serif" font-size="19" fill="#a1a1aa">Code checks the result</text>
+  <text x="1031" y="518" font-family="Arial,sans-serif" font-size="19" fill="#a1a1aa">The agent does the work</text>
+  <path d="M422 445H515" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+  <path d="m502 429 16 16-16 16" fill="none" stroke="#ff6d64" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M885 445H978" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+  <path d="m965 429 16 16-16 16" fill="none" stroke="#ff6d64" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="74" y="696" font-family="Arial,sans-serif" font-size="20" fill="#a1a1aa">Provider-neutral · opt-in · development integration as of September 23, 2026</text>
+  <text x="1327" y="696" text-anchor="end" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#fff">Local<tspan fill="#ff453a">Claw</tspan></text>
+</svg>
