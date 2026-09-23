@@ -500,6 +500,7 @@ function compactLlmsText() {
 - [LocalClaw for Mac](${BASE_URL}/pricing) — optional native macOS app for OpenClaw, with $49 one-time beta lifetime access
 - [Download LocalClaw](${BASE_URL}/download) — current Apple-notarized app, requirements and update instructions
 - [OpenClaw 2.0 and LocalClaw for Mac](${BASE_URL}/blog/openclaw-2026-8-1-localclaw-mac) — August 31, 2026 release guide: OpenClaw 2026.8.1, LocalClaw 1.0.201 compatibility, new features and upgrade steps
+- [OpenClaw + Jev decision models](${BASE_URL}/blog/openclaw-jev-decision-models) — September 23, 2026 analysis: provider-neutral decisionModel role, development-checkout status, hosted Jev, local Kev/ONNX options, proposed agent use cases and safety boundaries
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
 - [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
 - [Image catalogue](${BASE_URL}/image-models) - local generation and editing models
