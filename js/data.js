@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 22, 2026 - Added Needle 3 - 245 unique LLM records
+// Updated September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
+// Previous: September 22, 2026 - Added Needle 3 - 245 unique LLM records
 // Previous: September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
 // Previous: September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
 // Previous: September 11, 2026 - Added DeepSeek V4.1 Flash - 240 unique LLM records
@@ -368,6 +369,25 @@ const APP_DATA = {
             custom_runtime: 'K2 Horizon llama.cpp fork / pending upstream llama.cpp support',
             runtime_url: 'https://huggingface.co/IFM/K2-Horizon-7B-GGUF',
             benchmarks: { speed: 7, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-09-01',
+            isNew: true
+        },
+        {
+            id: 'k2-horizon-32b',
+            name: 'K2-Horizon-32B',
+            family: 'k2-horizon',
+            params: '32B dense',
+            size_gb: 21.1,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'long-context', 'power', 'general'],
+            description: 'IFM Apache 2.0 dense K2 Horizon member with 32B parameters, 512K context, official Q4_K_M GGUF artifacts, and a documented local path through the K2 Horizon llama.cpp fork while upstream support matures.',
+            search_term: 'k2-horizon-32b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'IFM/K2-Horizon-32B-GGUF',
+            source_url: 'https://huggingface.co/IFM/K2-Horizon-32B',
+            custom_runtime: 'K2 Horizon llama.cpp fork / pending upstream llama.cpp support',
+            runtime_url: 'https://huggingface.co/IFM/K2-Horizon-32B-GGUF',
+            benchmarks: { speed: 5, quality: 9, coding: 9, reasoning: 9 },
             released: '2026-09-01',
             isNew: true
         },
@@ -4109,8 +4129,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-22T06:05:00.000Z",
-        catalogueHash: "730a08c77455fc564d3306bb0ff3d70425e39dfc1d5dbf3a0fdc916619a6eed1",
+        checkedAt: "2026-09-23T06:04:24.000Z",
+        catalogueHash: "49069264697f533da7012e8738107509440c1c99335697fdb32c373a2bad50d4",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4156,6 +4176,7 @@ const APP_DATA = {
             "k2-horizon-0-9b": "IFM/K2-Horizon-0.9B-GGUF",
             "k2-horizon-3-7b": "IFM/K2-Horizon-3.7B-GGUF",
             "k2-horizon-7b": "IFM/K2-Horizon-7B-GGUF",
+            "k2-horizon-32b": "IFM/K2-Horizon-32B-GGUF",
             "k2-horizon-mova-36b-a4b": "IFM/K2-Horizon-MoVA-36B-A4B-GGUF",
             "deepseek-v4-flash-vision-exp": "unsloth/DeepSeek-V4-Flash-Vision-Exp-GGUF",
             "deepseek-v4-1-flash": "vcruz305/DeepSeek-V4.1-Flash-GGUF",
