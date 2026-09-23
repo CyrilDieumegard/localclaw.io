@@ -820,6 +820,18 @@
       caveats: ['Linux/CUDA research stack', 'Scene reconstruction output is Gaussian splats rather than textured game meshes', 'Depth-guided mode expects aligned depth inputs']
     },
     {
+      id: 'freesplatter', name: 'FreeSplatter', category: '3d', developer: 'Tencent ARC',
+      summary: 'Pose-free feed-forward Gaussian splatting model for sparse-view object and scene reconstruction from uncalibrated images.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'mesh-reconstruction', 'novel-view-synthesis', 'camera-pose-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'Diffusers'], output: ['PLY', 'GLB', 'OBJ', 'MP4 preview'],
+      local_status: 'local', license: 'Apache 2.0 with Tencent additional restrictions; third-party component terms apply', released: '2025-12',
+      source_url: 'https://github.com/TencentARC/FreeSplatter', install_url: 'https://huggingface.co/TencentARC/FreeSplatter',
+      hardware_note: 'The official repository targets Python 3.10+, PyTorch 2.4.0, CUDA 12.1 and xformers, then downloads three ungated 306M safetensors checkpoints from Hugging Face. The local Gradio path runs Zero123++ or Hunyuan3D multiview generation, predicts 2DGS or 3DGS Gaussians, exports gs_vis.ply, renders an orbit MP4, extracts mesh.obj and writes an optimized mesh.glb. Tencent does not publish a consumer VRAM table; LocalClaw records 32 GB RAM and 16 GB NVIDIA VRAM as a conservative floor for small object reconstructions with compiled rasterizers.',
+      strengths: ['Official Tencent ARC code and Hugging Face checkpoints', 'Object and scene checkpoints for sparse-view pose-free reconstruction', 'Exports Gaussian PLY plus optimized GLB mesh assets'],
+      caveats: ['License text says FreeSplatter is not intended for use within the European Union', 'Pipeline depends on Hunyuan3D-1, Zero123++, RMBG-2.0 and CUDA rasterization components with their own terms', 'Reconstruction quality depends on clean object centering, background removal and sparse-view consistency']
+    },
+    {
       id: 'infinidepth', name: 'InfiniDepth', category: '3d', developer: 'Zhejiang University / Shenzhen University',
       summary: 'Apache-licensed single-image depth and 3D Gaussian reconstruction model with RGB-only and RGB-depth local inference paths.',
       tasks: ['image-to-3d', 'depth-estimation', 'gaussian-splatting', 'novel-view-synthesis', 'point-cloud-reconstruction'],
