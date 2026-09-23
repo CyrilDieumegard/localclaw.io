@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'magi-1', name: 'MAGI-1', category: 'video', developer: 'Sand AI',
+      summary: 'Apache-licensed autoregressive video generator for local text-to-video, image-to-video and video-continuation workflows.',
+      tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'video-continuation', 'streaming-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Docker', 'ComfyUI', 'MAGI-1 scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-06',
+      source_url: 'https://github.com/SandAI-org/MAGI-1',
+      install_url: 'https://huggingface.co/sand-ai/MAGI-1',
+      hardware_note: 'Sand AI publishes Apache-2.0 code, Docker/source install instructions, ComfyUI support and Hugging Face weights for MAGI-1, including 24B, 24B distilled/quantized, 4.5B and MAGI-1.1 24B variants. The official model zoo recommends one RTX 4090 for the 4.5B checkpoint and states that 4.5B models need at least 24 GB GPU memory, while the 24B line targets four to eight H100/H800 or RTX 4090 GPUs depending on quantization. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative single-GPU floor for the 4.5B local path.',
+      strengths: ['Official Sand AI code, Docker path and downloadable weights', 'T2V, I2V and V2V modes through the same MagiPipeline scripts', 'Autoregressive chunk generation for long-horizon continuation and prompt changes'],
+      caveats: ['Highest-quality 24B models require multi-GPU H100/H800 or many RTX 4090 cards', 'Linux/CUDA research stack with large model downloads', 'The 4.5B checkpoint is the practical local entry point, not the flagship 24B configuration']
+    },
+    {
+      id: 'soulx-liveact', name: 'SoulX-LiveAct', category: 'video', developer: 'Soul-AILab',
+      summary: 'Apache-licensed audio-driven human-animation model for hour-scale talking, music, podcast and FaceTime-style avatar video.',
+      tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'human-animation', 'emotion-editing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'SageAttention', 'vLLM', 'LightVAE', 'Gradio'], output: ['MP4', 'streamed video'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-03',
+      source_url: 'https://github.com/Soul-AILab/SoulX-LiveAct',
+      install_url: 'https://huggingface.co/Soul-AILab/LiveAct',
+      hardware_note: 'Soul-AILab publishes the LiveAct safetensors checkpoint, official inference code, GUI demo commands and a chinese-wav2vec2-base companion download path. The README documents Python 3.10, SageAttention, vLLM, LightVAE and local generate.py/demo.py entrypoints; two H100/H200 GPUs are the realtime 20 FPS reference, while the authors added RTX 4090/RTX 5090 support through FP8 KV cache, block offload and T5 CPU offload and report 6 FPS on one RTX 5090. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative consumer-GPU offload floor.',
+      strengths: ['Official Soul-AILab weights and inference repository', 'Streaming and GUI demo paths for audio-driven human video', 'Consumer NVIDIA path with FP8 KV cache and block offload'],
+      caveats: ['Realtime reference performance still uses two H100/H200 GPUs', 'Specialized human animation model, not general scene generation', 'Depends on Wan2.1 I2V, wav2vec and compiled CUDA attention/runtime components']
+    },
+    {
       id: 'self-gradient-forcing', name: 'Self Gradient Forcing', category: 'video', developer: 'Junhao Zhuang / Joy Future Academy / JD',
       summary: 'Apache-licensed autoregressive video diffusion release for minute-scale local text-to-video extrapolation from 5-second training windows.',
       tasks: ['text-to-video', 'long-video-generation', 'animation', 'streaming-video'],
