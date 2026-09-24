@@ -95,9 +95,9 @@
       <div class="eyebrow">On-device model routing · beta</div>
       <h1>LocalClaw 1.0.209</h1>
       <p class="lede">Routed Chat uses a small decision model on your Mac to choose a configured cloud chat model for each message. You can see the selected model and the reason before judging its answer.</p>
-      <div class="meta"><span>Build 386</span><span>September 24, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
+      <div class="meta"><span>Build 387</span><span>September 24, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
       <div class="actions">
-        <a class="button button-primary" href="/downloads/localclaw-1.0.209-386.dmg">Download LocalClaw</a>
+        <a class="button button-primary" href="/downloads/localclaw-1.0.209-387.dmg">Download LocalClaw</a>
         <a class="button" href="https://github.com/CyrilDieumegard/LocalClaw/commit/6aaabd3">View source</a>
       </div>
       <section>
@@ -106,6 +106,8 @@
           <div class="item"><strong>Routed Chat beta</strong><p>A local decision model scores each prompt, then LocalClaw selects among the cloud models configured for this feature. The route card explains its choice and names the model actually used. Press Return to send a message.</p></div>
           <div class="item"><strong>Your decision stays on the Mac</strong><p>The routing decision runs locally. Your message goes to the selected cloud provider when you send it, as it would in an ordinary cloud chat. Routed Chat is a separate experimental space; your direct model choices remain available.</p></div>
           <div class="item"><strong>Less repetitive maintenance</strong><p>OpenClaw's 2.0 execution-approvals migration is limited to older runtimes that need it. Full state archives are reserved for known schema changes and recovery. Same-schema updates keep native safeguards without repeating the large archive.</p></div>
+          <div class="item"><strong>Repair without unnecessary upgrades</strong><p>Quick Repair checks your running Gateway first. A healthy installation keeps its current OpenClaw version. Ordinary configuration repairs use that installed version; an incompatible database schema can still require an upgrade.</p></div>
+          <div class="item"><strong>Responsive maintenance commands</strong><p>Large diagnostic output no longer depends on shared worker queues. Timed commands stop waiting at their deadline, including when a child process keeps the output pipe open. Unavailable update checks show their actual status.</p></div>
           <div class="item"><strong>OpenClaw 2026.9.6 compatibility</strong><p>Goal actions now recognize OpenClaw's new module format. LocalClaw also verifies that a native updater targets the selected Gateway package before allowing it to proceed.</p></div>
         </div>
       </section>
