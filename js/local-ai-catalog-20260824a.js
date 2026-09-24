@@ -53,6 +53,19 @@
       caveats: ['Human-centric reconstruction model, not a prompt-only generator', 'Repository combines Apache-2.0 first-party weights with third-party non-commercial, research, AGPL and attribution-licensed assets', 'Input quality and pose recovery strongly affect final multiview consistency']
     },
     {
+      id: 'gae-d64-1b', name: 'GAE-D64-1B', category: 'video', developer: 'Tencent ARC',
+      summary: 'Academic TencentARC geometry-native world-generation release that turns one image and prompt into 3D-consistent multiview MP4 video.',
+      tasks: ['image-to-video', 'text-to-video', 'camera-controlled-video', '3d-consistent-video', 'world-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Diffusers', 'xFormers', 'GAE demo scripts'], output: ['MP4', 'point cloud', 'depth maps'],
+      local_status: 'local', license: 'Tencent academic-only license', released: '2026-09',
+      source_url: 'https://github.com/TencentARC/GAE-GeometricAutoEncoder',
+      install_url: 'https://huggingface.co/TencentARC/GAE-D64-1B',
+      hardware_note: 'TencentARC publishes the GAE-D64-1B Hugging Face weights, matching inference code, a smoke-test demo, and Python 3.10-3.12 / PyTorch 2.5.1 CUDA requirements. The model package is about 14.8 GB and includes the codec, latent statistics and flow transformer, while the frozen DA3-GIANT backbone downloads on first use. The authors do not publish a consumer VRAM table, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative single-workstation floor for the reduced demo path.',
+      strengths: ['Official TencentARC code, weights and demo scripts', 'One-image plus prompt generation with metric camera conditioning', 'Exports videos plus geometry-oriented intermediate outputs'],
+      caveats: ['Academic-only license forbids commercial or production use', 'No official VRAM benchmark table is published yet', 'Geometry/world-generation workflow rather than a general video editor']
+    },
+    {
       id: 'zing-0.5', name: 'Zing-0.5', category: 'video', developer: 'Seedleap.ai',
       summary: 'Apache-licensed causal world model for text- or image-initialized video rollouts with live prompt changes and keyboard action control.',
       tasks: ['text-to-video', 'image-to-video', 'action-conditioned-video', 'world-generation', 'animation'],
