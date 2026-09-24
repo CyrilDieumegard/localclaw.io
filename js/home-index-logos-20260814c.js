@@ -199,6 +199,7 @@ window.HOME_INDEX_LOGOS = {
     'Hebrew University of Jerusalem / Westlake University': 'github',
     'HKUST / M-A-P': 'github',
     'Hugging Face': 'huggingface-avatar',
+    'Inspatio': 'github',
     'Insta360 Research Team': 'github',
     'JD Open Source': 'github',
     'JIA Lab / Kling Team': 'github',

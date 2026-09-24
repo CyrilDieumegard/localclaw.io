@@ -845,6 +845,18 @@
       caveats: ['License text says FreeSplatter is not intended for use within the European Union', 'Pipeline depends on Hunyuan3D-1, Zero123++, RMBG-2.0 and CUDA rasterization components with their own terms', 'Reconstruction quality depends on clean object centering, background removal and sparse-view consistency']
     },
     {
+      id: 'querysplat', name: 'QuerySplat', category: '3d', developer: 'Inspatio',
+      summary: 'Feed-forward 3D Gaussian Splatting model for pose-free reconstruction from image sets.',
+      tasks: ['image-to-3d', 'gaussian-splatting', 'scene-reconstruction', 'camera-pose-estimation', 'depth-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA', 'gsplat', 'CLI'], output: ['PLY', '3D Gaussian', 'Camera JSON', 'Depth maps', 'NPZ'],
+      local_status: 'local', license: 'Apache 2.0 for QuerySplat-authored code and weights; VGGT-Omega/DINOv3 components retain FAIR Noncommercial Research License terms', released: '2026-08',
+      source_url: 'https://github.com/inspatio/QuerySplat', install_url: 'https://huggingface.co/inspatio/querysplat',
+      hardware_note: 'The official repository targets Linux with a CUDA-capable NVIDIA GPU and a tested Python 3.12, PyTorch 2.11 and CUDA 12.8 stack. It downloads QuerySplat safetensors checkpoints from Hugging Face plus the separate VGGT-Omega 1B/512 checkpoint, then runs scripts.infer on scene image folders with optional test-time optimization. The CLI can save Gaussian PLY files, predicted camera JSON/NPZ, VGGT-Omega depth products and colored point clouds. No exact consumer VRAM table is published, so LocalClaw records 32 GB RAM and 16 GB NVIDIA VRAM as the conservative floor for small pose-free scene reconstructions.',
+      strengths: ['Official Apache 2.0 QuerySplat checkpoints', 'Pose-free 2, 4 and 12 view reconstruction workflow', 'Exports Gaussian PLY plus camera and depth products'],
+      caveats: ['Requires separate VGGT-Omega weights with noncommercial upstream terms', 'Linux/CUDA research stack with gsplat and fused-ssim extensions', 'Scene reconstruction rather than textured GLB object generation']
+    },
+    {
       id: 'infinidepth', name: 'InfiniDepth', category: '3d', developer: 'Zhejiang University / Shenzhen University',
       summary: 'Apache-licensed single-image depth and 3D Gaussian reconstruction model with RGB-only and RGB-depth local inference paths.',
       tasks: ['image-to-3d', 'depth-estimation', 'gaussian-splatting', 'novel-view-synthesis', 'point-cloud-reconstruction'],
