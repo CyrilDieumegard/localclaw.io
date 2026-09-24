@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalClaw for Mac | Guided AI Setup · $49 Lifetime</title>
-    <meta name="description" content="Set up OpenClaw, choose your model and start chatting in one native Mac app. Explore LocalClaw in a 45-second guided tour. $49 one-time beta lifetime access.">
+    <title>LocalClaw for Mac | OpenClaw Setup & Local Model Routing</title>
+    <meta name="description" content="Set up and control OpenClaw on your Mac. Explore the current native app and preview local AI model routing coming in the LocalClaw 1.0.209 beta.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://localclaw.io/pricing">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/pricing">
-    <meta property="og:title" content="Your AI assistant. One Mac app. | LocalClaw">
-    <meta property="og:description" content="Guided OpenClaw setup, model selection and chat in one native Mac app. See the 45-second LocalClaw tour. $49 one-time beta lifetime access.">
+    <meta property="og:title" content="One Prompt. The Right Model. | LocalClaw for Mac">
+    <meta property="og:description" content="Guided OpenClaw setup today, plus a preview of transparent local model routing coming in the LocalClaw 1.0.209 beta.">
     <meta property="og:site_name" content="LocalClaw">
-    <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+    <meta property="og:image" content="https://localclaw.io/images/localclaw-routed-chat-beta.jpg">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Your AI assistant. One Mac app. | LocalClaw">
-    <meta name="twitter:description" content="Set up OpenClaw, choose your model and chat from one native Mac app. LocalClaw for Apple Silicon. $49 one-time beta lifetime access.">
-    <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
+    <meta name="twitter:title" content="One Prompt. The Right Model. | LocalClaw for Mac">
+    <meta name="twitter:description" content="Preview LocalClaw Routed Chat: an on-device decision model routes Simple, Analysis and Code prompts to models you choose.">
+    <meta name="twitter:image" content="https://localclaw.io/images/localclaw-routed-chat-beta.jpg">
 
     <meta name="theme-color" content="#faf9f6">
     <meta name="color-scheme" content="light dark">
@@ -232,6 +232,24 @@
 
         .preview-release-note { padding: 13px 18px; border-top: 1px solid var(--claw-border); color: var(--claw-muted); font-size: 11px; line-height: 1.5; }
         .preview-release-note strong { color: var(--claw-orange-soft); }
+        .routing-preview {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: 28px;
+            align-items: center;
+            padding: 30px;
+            border: 1px solid rgba(255, 69, 58, 0.28);
+            border-radius: 22px;
+            background: linear-gradient(140deg, rgba(255, 69, 58, 0.09), var(--claw-card) 64%);
+        }
+        .routing-preview h2 { margin-top: 10px; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 0.98; letter-spacing: -0.05em; }
+        .routing-preview-copy { color: var(--claw-muted); font-size: 15px; line-height: 1.72; margin-top: 18px; }
+        .routing-preview-image { overflow: hidden; border: 1px solid var(--claw-border); border-radius: 14px; background: #101010; box-shadow: 0 24px 70px rgba(0,0,0,.22); }
+        .routing-preview-image img { display: block; width: 100%; height: auto; }
+        .routing-preview-image figcaption { padding: 11px 14px; color: var(--claw-muted); font-size: 11px; line-height: 1.5; }
+        .routing-preview-points { display: grid; gap: 8px; margin: 18px 0 20px; }
+        .routing-preview-points span { display: flex; gap: 9px; align-items: flex-start; color: var(--claw-muted); font-size: 13px; line-height: 1.5; }
+        .routing-preview-points span::before { content: '✓'; color: var(--claw-orange-soft); font-weight: 800; }
         .purchase-disclosure { color: var(--claw-muted); font-size: 12px; line-height: 1.65; margin-top: 16px; max-width: 555px; }
 
         .cta-primary:focus-visible, .cta-secondary:focus-visible, .release-link:focus-visible { outline: 3px solid var(--claw-orange-soft); outline-offset: 5px; }
@@ -900,6 +918,7 @@
             .release-section { padding-top: 46px; padding-bottom: 36px; }
             .release-grid { grid-template-columns: 1fr; }
             .release-card { padding: 25px; }
+            .routing-preview { grid-template-columns: 1fr; padding: 22px; }
             .compatibility-bar, .update-panel { padding: 22px; }
             .compatibility-bar strong { line-height: 1.6; }
             .release-card h3 { font-size: 25px; }
@@ -1040,13 +1059,13 @@
     <main class="relative z-10 flex-grow">
         <section class="pricing-container hero-grid">
             <div>
-                <div class="pill mono-label mb-6"><span class="pill-dot"></span> Guided setup · Models · Chat</div>
+                <div class="pill mono-label mb-6"><span class="pill-dot"></span> Guided setup · Models · Local routing</div>
                 <p class="hero-product-name"><img src="/images/crab-logo.png" alt="" width="28" height="28">LocalClaw · The native app for macOS</p>
                 <h1 class="hero-title font-display font-extrabold text-white">
                     <span>Your AI assistant.</span><span class="text-claw-primary">One Mac<br>app.</span>
                 </h1>
                 <p class="app-hero-copy mt-6">
-                    Set up OpenClaw with guided checks, choose a model and start your first conversation. LocalClaw brings setup, chat and everyday controls together on your Mac.
+                    Set up OpenClaw with guided checks, choose your models and start your first conversation. Then preview Routed Chat: local decision routing for Simple, Analysis and Code, coming in the 1.0.209 beta.
                 </p>
                 <div id="pricing-recommendation-context" class="recommendation-context" hidden>
                     Your LocalClaw recommendation: <strong id="pricing-recommendation-name"></strong>
@@ -1150,6 +1169,19 @@
             </aside>
         </section>
 
+        <section class="pricing-container section" aria-labelledby="routed-chat-preview-title">
+            <div class="routing-preview">
+                <div>
+                    <div class="mono-label text-xs text-claw-primary">Coming in LocalClaw 1.0.209 · Beta</div>
+                    <h2 id="routed-chat-preview-title" class="font-display font-bold text-white">One prompt.<br>The right model.</h2>
+                    <p class="routing-preview-copy">Routed Chat uses a small ONNX decision model on your Mac to classify each request as Simple, Analysis or Code. LocalClaw applies your model map, then OpenClaw sends the complete prompt to the selected chat model.</p>
+                    <div class="routing-preview-points" aria-label="Routed Chat highlights"><span>The routing decision stays on your Mac and uses no cloud inference tokens.</span><span>Choose the chat model that handles each category.</span><span>See the proposed route, any local adjustment and the model actually used.</span></div>
+                    <a href="/blog/localclaw-routed-chat-local-model-routing" class="release-link" data-fast-goal="blog_article_click" data-fast-goal-source="pricing_routed_chat">See how local model routing works <span aria-hidden="true">→</span></a>
+                </div>
+                <figure class="routing-preview-image"><a href="/blog/localclaw-routed-chat-local-model-routing" aria-label="Read the LocalClaw Routed Chat product preview"><img src="/images/localclaw-routed-chat-beta.jpg" width="2048" height="1122" loading="lazy" decoding="async" alt="LocalClaw Routed Chat showing Simple, Code and Analysis requests routed locally to different GPT-6 models"></a><figcaption>Product preview from the 1.0.209 beta branch. The current public installer remains 1.0.208 until the signed release ships.</figcaption></figure>
+            </div>
+        </section>
+
         <section class="pricing-container section native-benefits" aria-labelledby="native-benefits-title">
             <div class="section-heading">
                 <div class="mono-label text-xs text-claw-primary mb-3">Inside the LocalClaw Mac app</div>
@@ -1160,7 +1192,7 @@
                 <article class="card card-hot">
                     <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v12H8l-4 3V5ZM8 9h8M8 13h5"/></svg></div>
                     <h3 class="font-display font-bold text-white">Keep the project in the conversation.</h3>
-                    <p class="text-sm text-claw-muted mt-3 leading-relaxed">OpenClaw Chat brings project memory and image attachments into your native workspace, with your model choice close at hand.</p>
+                    <p class="text-sm text-claw-muted mt-3 leading-relaxed">OpenClaw Chat keeps project memory and attachments close. The upcoming Routed Chat beta can also map Simple, Analysis and Code requests to different models.</p>
                 </article>
                 <article class="card">
                     <div class="feature-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></svg></div>

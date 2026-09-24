@@ -497,10 +497,11 @@ function compactLlmsText() {
 - [Local AI Compatibility Guide](${BASE_URL}/) — hardware-aware guide to local AI models, software and computers
 - [Software directory](${BASE_URL}/software) — searchable comparison of local AI apps, model servers, inference engines and web interfaces, including Colibri; filter by system, role and use case with documented setup limits
 - [LM Studio](${BASE_URL}/software/lm-studio) — source-backed LM Studio compatibility, runtime, API and OpenClaw guidance
-- [LocalClaw for Mac](${BASE_URL}/pricing) — optional native macOS app for OpenClaw, with $49 one-time beta lifetime access
+- [LocalClaw for Mac](${BASE_URL}/pricing) — optional native macOS app for OpenClaw, with $49 one-time beta lifetime access and a preview of Routed Chat coming in 1.0.209
 - [Download LocalClaw](${BASE_URL}/download) — current Apple-notarized app, requirements and update instructions
 - [OpenClaw 2.0 and LocalClaw for Mac](${BASE_URL}/blog/openclaw-2026-8-1-localclaw-mac) — August 31, 2026 release guide: OpenClaw 2026.8.1, LocalClaw 1.0.201 compatibility, new features and upgrade steps
-- [OpenClaw + Jev decision models](${BASE_URL}/blog/openclaw-jev-decision-models) — September 23, 2026 analysis: provider-neutral decisionModel role, development-checkout status, hosted Jev, local Kev/ONNX options, proposed agent use cases and safety boundaries
+- [LocalClaw Routed Chat](${BASE_URL}/blog/localclaw-routed-chat-local-model-routing) — September 24, 2026 product preview: local ONNX routing for Simple, Analysis and Code requests, prepared for the 1.0.209 beta
+- [OpenClaw + Jev decision models](${BASE_URL}/blog/openclaw-jev-decision-models) — updated September 24, 2026 analysis: the released provider-neutral decisionModel role, hosted Jev, local Kev/ONNX options, product consumers and safety boundaries
 - [LLM catalogue](${BASE_URL}/llm-list) — complete catalogue surface
 - [Speech catalogue](${BASE_URL}/tts-list) — ${speechModels.length} local records, two online/API references and one unverified preserved route
 - [Image catalogue](${BASE_URL}/image-models) - local generation and editing models
