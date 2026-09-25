@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
+// Updated September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
+// Previous: September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
 // Previous: September 22, 2026 - Added Needle 3 - 245 unique LLM records
 // Previous: September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
 // Previous: September 16, 2026 - Added K2-Horizon-3.7B - 242 unique LLM records
@@ -3091,6 +3092,24 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'qwen3.8-flash-next',
+            name: 'Qwen3.8 Flash Next',
+            family: 'qwen',
+            params: '125B + 51B n-gram (6B active)',
+            size_gb: 54.5,
+            min_ram: 96,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'beast', 'long-context', 'moe'],
+            description: 'Official Qwen sparse multimodal MoE preview with 125B model parameters plus 51B n-gram embeddings, about 6B active parameters, Qwen Community 1.0 licensing, 262K native context and local Q4_K_M GGUF paths for llama.cpp, Ollama and LM Studio-class runtimes.',
+            search_term: 'qwen3.8-flash-next',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'AtomicChat/Qwen3.8-Flash-Next-GGUF',
+            source_url: 'https://huggingface.co/Qwen/Qwen3.8-Flash-Next',
+            runtime_url: 'https://huggingface.co/AtomicChat/Qwen3.8-Flash-Next-GGUF',
+            benchmarks: { speed: 6, quality: 9, coding: 10, reasoning: 9 },
+            released: '2026-08-26',
+            isNew: true
+        },
+        {
             id: 'nex-n2-5-mini',
             name: 'Nex-N2.5-mini',
             family: 'nex',
@@ -4292,6 +4311,7 @@ const APP_DATA = {
             "mistral-small-24b": "lmstudio-community/Mistral-Small-24B-Instruct-2501-GGUF",
             "muse-glimmer-30b": "meta-models/Muse-Glimmer-30B-GGUF",
             "qwen3.8-27b": "unsloth/Qwen3.8-27B-GGUF",
+            "qwen3.8-flash-next": "AtomicChat/Qwen3.8-Flash-Next-GGUF",
             "glm4.7": "unsloth/GLM-4.7-GGUF",
             "minimax-m2.1": "unsloth/MiniMax-M2.1-GGUF",
             "qwen3-32b": "lmstudio-community/Qwen3-32B-GGUF",

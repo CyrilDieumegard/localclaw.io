@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 23 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Bonsai 2 27B</title>
@@ -145,6 +145,14 @@
       <description>IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts. 29.3B · 32 GB minimum RAM · Q4_K_M · granite.</description>
     </item>
     <item>
+      <title>Qwen3.8 Flash Next</title>
+      <link>https://localclaw.io/models/qwen3.8-flash-next</link>
+      <guid isPermaLink="true">https://localclaw.io/models/qwen3.8-flash-next</guid>
+      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
+      <category>qwen</category>
+      <description>Official Qwen sparse multimodal MoE preview with 125B model parameters plus 51B n-gram embeddings, about 6B active parameters, Qwen Community 1.0 licensing, 262K native context and local Q4_K_M GGUF paths for llama.cpp, Ollama and LM Studio-class runtimes. 125B + 51B n-gram (6B active) · 96 GB minimum RAM · Q4_K_M · qwen.</description>
+    </item>
+    <item>
       <title>Granite 4.2 (3B)</title>
       <link>https://localclaw.io/models/granite4.2-3b</link>
       <guid isPermaLink="true">https://localclaw.io/models/granite4.2-3b</guid>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>glm</category>
       <description>Z.ai MIT-licensed GLM-5 refresh with 320B total / 18B active parameters, native multimodal support, hybrid sparse-linear attention and a 1M-token context. Unsloth Dynamic GGUF makes it technically local, but it remains workstation/server-class hardware. 320B (18B active, MoE) · 160 GB minimum RAM · UD-IQ2_XXS · glm.</description>
-    </item>
-    <item>
-      <title>Ornith-1.5-9B</title>
-      <link>https://localclaw.io/models/ornith-1-5-9b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/ornith-1-5-9b</guid>
-      <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
-      <category>ornith</category>
-      <description>Official MIT reasoning model from Ornith AI with a 262K native context window, tool-calling focus, and official Q4_K_M GGUF, MLX and Ollama/llama.cpp paths for local coding-agent experiments on 16GB+ machines. 9B · 16 GB minimum RAM · Q4_K_M · ornith.</description>
     </item>
   </channel>
 </rss>
