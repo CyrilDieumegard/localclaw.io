@@ -1,7 +1,7 @@
 {
   "name": "LocalClaw Open-Weight AI Charts Snapshot",
   "url": "https://localclaw.io/charts",
-  "dateModified": "2026-09-23",
+  "dateModified": "2026-09-26",
   "license": "Source data retains the terms of each cited publisher. Vercel leaderboard data is adapted under CC BY 4.0. LocalClaw commentary is provided for reference.",
   "charts": [
     {
@@ -10,34 +10,19 @@
       "unit": "percent",
       "scope": "Daily share of tokens routed through Vercel AI Gateway, not global AI usage",
       "dateRange": {
-        "from": "2026-06-25",
-        "to": "2026-09-22"
+        "from": "2026-06-28",
+        "to": "2026-09-25"
       },
       "latest": {
-        "date": "2026-09-22",
-        "openWeights": 77.1,
-        "closedWeights": 22.9
+        "date": "2026-09-25",
+        "openWeights": 70.1,
+        "closedWeights": 29.9
       },
       "peak": {
         "date": "2026-09-20",
         "openWeights": 80.6
       },
       "series": [
-        {
-          "date": "2026-06-25",
-          "openWeights": 30.22470807256814,
-          "closedWeights": 69.77529192743187
-        },
-        {
-          "date": "2026-06-26",
-          "openWeights": 33.04316366391033,
-          "closedWeights": 66.95683633608968
-        },
-        {
-          "date": "2026-06-27",
-          "openWeights": 38.265390899460016,
-          "closedWeights": 61.734609100539984
-        },
         {
           "date": "2026-06-28",
           "openWeights": 35.63838408496135,
@@ -472,6 +457,21 @@
           "date": "2026-09-22",
           "openWeights": 77.09944346796738,
           "closedWeights": 22.90055653203262
+        },
+        {
+          "date": "2026-09-23",
+          "openWeights": 75.39081524008407,
+          "closedWeights": 24.609184759915937
+        },
+        {
+          "date": "2026-09-24",
+          "openWeights": 73.09484988476571,
+          "closedWeights": 26.905150115234296
+        },
+        {
+          "date": "2026-09-25",
+          "openWeights": 70.05316008651546,
+          "closedWeights": 29.946839913484535
         }
       ],
       "source": {
@@ -480,9 +480,9 @@
         "url": "https://vercel.com/ai-gateway/leaderboards/models",
         "license": "CC BY 4.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "retrievedAt": "2026-09-23T07:02:26.285Z",
+        "retrievedAt": "2026-09-26T07:01:09.683Z",
         "extraction": "Public leaderboard embedded open/closed token aggregate; last 90 completed UTC days; no interpolation.",
-        "seriesSha256": "cff4dfe814207bf01a7e5b156cac2be2f4b63d02ae5f463d8b231e187d353b39"
+        "seriesSha256": "788366bc1b5213ec4c0607b2cd53fa4e70255006fbbe1f69608ab7a76731e5bc"
       },
       "freshness": {
         "cadence": "daily",
