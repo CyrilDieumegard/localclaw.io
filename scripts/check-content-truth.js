@@ -58,8 +58,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 245) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 245 canonical routes`);
-if (indexableLocalModels.length !== 239) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 239`);
+if (uniqueLocalModels.length !== 246) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 246 canonical routes`);
+if (indexableLocalModels.length !== 240) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 240`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 124) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 124`);
 
@@ -375,7 +375,7 @@ for (const model of allSpeechRecords) {
   }
   if (!html.includes('<strong>Catalogue summary:</strong>')) errors.push(`${model.id} does not label its speech description as catalogue metadata`);
 }
-if (allSpeechRecords.length !== 98) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 98 preserved routes`);
+if (allSpeechRecords.length !== 99) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 99 preserved routes`);
 
 const multimodalRatingIds = new Set();
 for (const model of multimodalModels) {
@@ -411,13 +411,13 @@ if (!read('js/local-ai-catalog-app.js').includes('data-community-rating') || !re
 if (!read('functions/_lib/model-ratings.js').includes('MAX_RATINGS_PER_ACCOUNT = 1000')) {
   errors.push('Account rating limit must cover the complete LocalClaw catalogue');
 }
-if (localSpeechRecords.length !== 95) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 95`);
+if (localSpeechRecords.length !== 96) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 96`);
 if (remoteSpeechRecords.length !== 2) errors.push(`Remote speech source count is ${remoteSpeechRecords.length}, expected 2 online/API references`);
 if (unverifiedSpeechRecords.length !== 1 || unverifiedSpeechRecords[0]?.id !== 'xtts-v3') {
   errors.push(`Unverified speech classification must contain only xtts-v3, found ${unverifiedSpeechRecords.map(model => model.id).join(', ') || 'none'}`);
 }
-if (speechModels.length !== 95 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
-  errors.push('Homepage speech export must contain exactly the 95 verified-local source records');
+if (speechModels.length !== 96 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
+  errors.push('Homepage speech export must contain exactly the 96 verified-local source records');
 }
 for (const forbiddenId of ['edge-tts', 'octave-2', 'xtts-v3']) {
   if (localSpeechIds.has(forbiddenId)) errors.push(`Non-local speech record leaked onto homepage export: ${forbiddenId}`);
@@ -469,8 +469,8 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 247) errors.push('models/ must contain 247 HTML files');
-if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 99) errors.push('tts/ must contain 98 speech pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 248) errors.push('models/ must contain 248 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 100) errors.push('tts/ must contain 99 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
   for (const file of fs.readdirSync(path.join(ROOT, directory)).filter(name => name.endsWith('.html'))) {
@@ -497,7 +497,7 @@ for (const marker of [
   '16 GB RAM · PQ2_0 · 262K context',
   '32 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20260923a',
+  'js/data.js?v=20260925a',
   'js/new-model-sort-20260814a.js?v=20260814a',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -625,7 +625,7 @@ for (const [name, source] of [['js/app.js', currentApp], ['js/app-20260816a.js',
 const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20260923a') || !index.includes('js/app-20260816a.js?v=20260923a')) {
+if (!index.includes('js/data.js?v=20260925a') || !index.includes('js/app-20260816a.js?v=20260923a')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
@@ -706,7 +706,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 198, publicRuntime: 1, publicModelCard: 41, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 199, publicRuntime: 1, publicModelCard: 41, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);

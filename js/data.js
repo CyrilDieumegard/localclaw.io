@@ -4149,7 +4149,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-09-23T06:04:24.000Z",
-        catalogueHash: "49069264697f533da7012e8738107509440c1c99335697fdb32c373a2bad50d4",
+        catalogueHash: "793d040f3529b9ef938f0a6200ab38018b1e3620e900b5e2a537c2c231e7cd72",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",

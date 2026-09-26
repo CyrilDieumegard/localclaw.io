@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS &amp; Speech AI List — 95 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 95 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <meta name="description" content="Compare 96 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 95 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 96 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">98</strong> speech records: <strong style="color:#fff;">95 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">99</strong> speech records: <strong style="color:#fff;">96 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>95 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>96 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -2306,6 +2306,33 @@
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "Zero-shot voice cloning, voice design and speech editing",
                 context: "9B shared backbone, 29.7GB HF weights plus RedAE decoder, Python 3.10, CUDA toolkit and ffmpeg; generation tasks are Chinese/English only while ASR covers broader benchmarks",
+                license: "Apache 2.0"
+            },
+            {
+                id: "fireredtts3",
+                name: "FireRedTTS3",
+                developer: "FireRed Team",
+                family: "firered",
+                description: "Official Apache-licensed unified speech generation and editing model from the FireRed Team. FireRedTTS3 covers multilingual zero-shot voice cloning, voice design and semantic/acoustic speech editing with downloadable safetensors weights and a local PyTorch runtime.",
+                languages: ["en", "zh", "multilingual"],
+                languageCount: 24,
+                features: ["cloning", "multilingual", "controllable", "emotion", "editing"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 8.5,
+                sizeLabel: "8.48 GB base checkpoint; 5.7 GiB third-party MLX BF16 conversion available",
+                sizeCategory: "large",
+                quality: 9.4,
+                speed: 7.2,
+                latency: "medium",
+                releaseDate: "2026-08-13",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/FireRedTeam/FireRedTTS3",
+                sourceStatus: "verified-code",
+                installCommand: "hf download FireRedTeam/FireRedTTS3 --local-dir pretrained_models/",
+                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                voices: "Zero-shot cloning, voice design and semantic/acoustic speech editing",
+                context: "Base and Instruct checkpoints; official Python requirements plus optional FastText language ID; generation use requires authorized reference audio",
                 license: "Apache 2.0"
             },
             {

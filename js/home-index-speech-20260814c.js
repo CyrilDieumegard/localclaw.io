@@ -236,6 +236,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 29.7
   },
   {
+    "id": "fireredtts3",
+    "name": "FireRedTTS3",
+    "developer": "FireRed Team",
+    "family": "firered",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-08-13",
+    "quality": 9.4,
+    "speed": 7.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 8.5
+  },
+  {
     "id": "zonos2",
     "name": "ZONOS2",
     "developer": "Zyphra",
