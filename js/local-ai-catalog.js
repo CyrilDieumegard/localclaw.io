@@ -1009,6 +1009,28 @@
       caveats: ['Research-only OpenRAIL terms', 'Texture generation is still listed as upcoming', 'Fast inference is CUDA-only and needs more VRAM']
     },
     {
+      id: 'arbor', name: 'Arbor', category: '3d', developer: 'Stability AI',
+      summary: 'Text-to-3D generator that follows explicit hull, avoidance and touch constraint meshes before exporting generated PLY assets.',
+      tasks: ['text-to-3d', 'geometry-conditioned-generation', 'mesh-generation', 'asset-generation'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'CUDA', 'CLI', 'Blender add-on'],
+      output: ['PLY', 'Sparse structure', 'Condition reports'], local_status: 'local', license: 'Stability AI Community License', released: '2026-06',
+      source_url: 'https://github.com/Stability-AI/arbor', install_url: 'https://huggingface.co/StabilityLabs/arbor',
+      hardware_note: 'The official inference-only repository requires Linux with an NVIDIA GPU, Python 3.10, PyTorch 2.4.0, CUDA 11.8, spconv and the vendored o_voxel extension. The local CLI downloads StabilityLabs/arbor checkpoints, consumes PLY constraint meshes and writes mesh.ply plus sparse-structure and condition-metric outputs.',
+      strengths: ['Official Stability AI code and Hugging Face checkpoints', 'Prompt plus hull, avoidance and touch geometry controls', 'CLI, Python API and Blender bridge workflows'],
+      caveats: ['Community license has a USD 1M revenue threshold for commercial use', 'Requires prepared watertight or near-watertight constraint meshes', 'Linux/NVIDIA research stack with native extensions']
+    },
+    {
+      id: 'reli3d', name: 'ReLi3D', category: '3d', developer: 'Stability AI',
+      summary: 'Multi-view reconstruction model that turns posed RGBA object views into UV-unwrapped relightable GLB assets.',
+      tasks: ['image-to-3d', 'multi-view-reconstruction', 'mesh-reconstruction', 'texturing', 'pbr-materials'], platforms: ['linux'],
+      accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 16, runtime: ['PyTorch', 'CUDA', 'CLI'],
+      output: ['GLB', 'HDR illumination', 'UV textures', 'PBR materials'], local_status: 'local', license: 'Stability AI Community License', released: '2026-03',
+      source_url: 'https://github.com/Stability-AI/ReLi3D', install_url: 'https://huggingface.co/StabilityLabs/ReLi3D',
+      hardware_note: 'The official inference-only repository installs Python 3.10 dependencies plus native UV unwrapping and texture baking extensions, downloads config.yaml and reli3d_final.ckpt from Hugging Face, and runs demos/reli3d/infer_from_transforms.py on transforms.json plus RGBA views. Outputs include mesh.glb, illumination.hdr when predicted and run_info.json.',
+      strengths: ['Official Stability AI checkpoint and local downloader', 'UV-unwrapped textured mesh with material attributes', 'Relightable reconstruction from four or more posed object views'],
+      caveats: ['Community license has a USD 1M revenue threshold for commercial use', 'Needs camera poses and RGBA multi-view inputs rather than one casual photo', 'No small-GPU hardware table is published, so LocalClaw uses a conservative workstation floor']
+    },
+    {
       id: 'stable-fast-3d', name: 'Stable Fast 3D', category: '3d', developer: 'Stability AI',
       summary: 'Single-image reconstruction into a textured GLB mesh with UV unwrapping and material prediction.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'texturing'],
