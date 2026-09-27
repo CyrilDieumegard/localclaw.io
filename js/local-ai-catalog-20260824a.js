@@ -678,6 +678,30 @@
       caveats: ['The higher-quality Giant and Nested checkpoints are non-commercial', 'Gaussian head and full app install require extra dependencies such as gsplat']
     },
     {
+      id: 'fire3d', name: 'Fire3D', category: '3d', developer: 'UIUC / Cornell University',
+      summary: 'Feed-forward RGB image or casual RGB-D video scene reconstruction model that outputs editable textured 3D scene assets.',
+      tasks: ['image-to-3d', 'video-to-3d', 'scene-reconstruction', 'mesh-reconstruction', 'texturing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 96,
+      runtime: ['PyTorch', 'CUDA', 'Blender', 'CLI'], output: ['GLB', 'Textured mesh', 'PBR materials', 'Object poses', 'Rendered video'],
+      local_status: 'local', license: 'Other model bundle; MIT code, DINOv3 and TRELLIS.2 upstream terms apply', released: '2026-09',
+      source_url: 'https://github.com/xiahongchi/Fire3D', install_url: 'https://huggingface.co/hongchi/Fire3D',
+      hardware_note: 'The official repository documents Linux, Python 3.10, CUDA 12.8, PyTorch 2.7.1, Blender 4.5.1 LTS and CUDA extensions for O-Voxel and CuMesh. Its release protocols were validated on a 96 GB NVIDIA GPU, so LocalClaw records 128 GB system RAM and 96 GB NVIDIA VRAM as the conservative practical floor.',
+      strengths: ['Official code, Hugging Face model bundle and processed inference examples', 'Single RGB image or casual RGB-D video to compositional textured scene GLB', 'Released perception, sparse-structure, shape, PBR and VAE checkpoints with manifest checksums'],
+      caveats: ['Very heavy workstation/H100-class reference path', 'Model bundle includes DINOv3 and TRELLIS.2 components with separate upstream terms', 'Best suited to scene reconstruction rather than prompt-only object assets']
+    },
+    {
+      id: 'surflo', name: 'Surflo', category: '3d', developer: 'Ecole polytechnique / Kyoto University / Kyutai / UC Berkeley',
+      summary: 'Non-commercial feed-forward surface reconstruction model that turns unposed RGB views into oriented point clouds and optional meshes.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'surface-reconstruction', 'gaussian-splatting'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['PyTorch', 'CUDA extensions', 'Gradio', 'CLI'], output: ['PLY', 'Point cloud', 'Mesh'],
+      local_status: 'local', license: 'CC BY-NC 4.0 checkpoint; Gaussian-Splatting noncommercial code license', released: '2026-08',
+      source_url: 'https://github.com/Anttwo/Surflo', install_url: 'https://huggingface.co/AntoineGuedon/Surflo-v0',
+      hardware_note: 'The official repository installs from source with CUDA 11.8, 12.1 or 12.4 environment files and compiled CUDA extensions. The model card reports H100 costs of about 8.5 GiB VRAM for plain point reconstruction and about 14 GiB for guided mesh reconstruction, so LocalClaw records 16 GB NVIDIA VRAM and 32 GB RAM as the conservative local floor.',
+      strengths: ['Official code and Hugging Face checkpoint', 'Unposed 2-80 view reconstruction', 'Exports PLY point clouds and optional meshes'],
+      caveats: ['Non-commercial research license inherited from VGGT and Gaussian Splatting components', 'Requires source install with compiled CUDA extensions', 'Specialized for static scene/object surface reconstruction rather than text-to-3D generation']
+    },
+    {
       id: 'step1x-3d', name: 'Step1X-3D', category: '3d', developer: 'StepFun',
       summary: 'Two-stage image-to-3D pipeline for high-fidelity watertight geometry and textured GLB assets.',
       tasks: ['image-to-3d', 'mesh-generation', 'texturing'], platforms: ['linux'], accelerators: ['nvidia'],
