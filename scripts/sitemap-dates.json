@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "hash": "d20fca927b2266311ac1eb2df9bebd5d9feabfd9dfe54b504e158b16427385d9",
+    "hash": "01d8ffa28d02167c2b2e5531dba61c336e8a7f1b05ea0312ca7819bf673cbc60",
     "lastmod": "2026-09-27"
   },
   "local-ai-activity-index.html": {
@@ -28,31 +28,31 @@
     "lastmod": "2026-09-21"
   },
   "llm-list.html": {
-    "hash": "5153b5d2a1ccdfce272b742cd523cc407f0666ef0a6e1181ef58d1bf3a3154e0",
+    "hash": "dcbe0794b68dac351e58fb7f39a379bb812d5f8ad768ce94375dba42145cfb6b",
     "lastmod": "2026-09-27"
   },
   "tts-list.html": {
-    "hash": "ff0b924be7d2ab33aaea8e749b54352ef8bf56ca5337aeeb8b9d12ff00f4a08e",
-    "lastmod": "2026-09-26"
+    "hash": "647b5a54f77b0514113e62103cb910e8f38cd4b129da44204306e63e7ebfbf71",
+    "lastmod": "2026-09-27"
   },
   "image-models.html": {
-    "hash": "566f8d765c57170e26d644419a1be3991ed4390e84f38b376fe588703fb89cc2",
+    "hash": "2b027ad80ea83b3b07945f250fb314295cc198a3e9eca026515ea4bd21162b06",
     "lastmod": "2026-09-27"
   },
   "video-models.html": {
-    "hash": "e5d661b99ae00aebda00831ee9aaacdf116e4655416cdf9d5dcbfc72c7b8261f",
+    "hash": "711a4b718a90ab79a3c44b1574af41903600a3264a630d597b2b5c12680c2aa5",
     "lastmod": "2026-09-27"
   },
   "3d-models.html": {
-    "hash": "82b7d3419976df2285df4ce644173e99be499f8fc890b78b7cb04be49021bb03",
+    "hash": "cd3d10d192015f77edaab3cfa9c125e83aa54b19ab5e8dfe64d61d9f83bc1fa4",
     "lastmod": "2026-09-27"
   },
   "music-models.html": {
-    "hash": "70d9c0a453824a78eddf85929f8a55196420a888c85b5d1c3f3d39bdf43d24ca",
+    "hash": "476042ef86e56c7250a2cab7f54ddb5775be96e9a787c8e41b6ed75319cae9e2",
     "lastmod": "2026-09-27"
   },
   "vision-models.html": {
-    "hash": "0c05c00ce557606f8cae08e82b479e4d90d1fca5b3b9adc3817e95621a10acb9",
+    "hash": "8e4281c51a2816a79b5b19bc5e9d1d93941cb510cf59b8e990b12dea8dab3947",
     "lastmod": "2026-09-27"
   },
   "computers.html": {
@@ -68,7 +68,7 @@
     "lastmod": "2026-09-21"
   },
   "new.html": {
-    "hash": "0bbef56a3c6eaffde7d2a20097b62a17cb3c177bc6d01d93de2fc764537913ef",
+    "hash": "161d47dffd80dabf8e3e3067d58f672aa72f4f5686d0b2c576e20c645f51b13e",
     "lastmod": "2026-09-27"
   },
   "software/lm-studio.html": {
@@ -1200,8 +1200,8 @@
     "lastmod": "2026-09-21"
   },
   "tts/ax-k2-raon-speech-21b-a3b.html": {
-    "hash": "38acd9d3bb056517d0908465002ffdc2d596069d330cc59a5a5222f394ed7b42",
-    "lastmod": "2026-09-21"
+    "hash": "275c35f1b6d6021e64b532a17ae72aa7a97bb16ec0b5810e07a5a30c1ad0d0bd",
+    "lastmod": "2026-09-27"
   },
   "tts/bark.html": {
     "hash": "61234a15e92b4919101c570ffce170f558445f639f4f236554a31fa550b0bb2f",
@@ -1268,12 +1268,12 @@
     "lastmod": "2026-09-21"
   },
   "tts/fastslm-asr.html": {
-    "hash": "784268992ad3a272c05b4e884723b33e75515a57c03e06f62784facb48341b07",
-    "lastmod": "2026-09-21"
+    "hash": "68baa0e083fa1a9d4f2ff7e81bd010f5ddcc9826f7e875ca3138c363ea053aa7",
+    "lastmod": "2026-09-27"
   },
   "tts/firered-audio.html": {
-    "hash": "db469a732ec0ecaf4d377bf81126d7c720a4c00a52d89e6001e1891e9d7dffb1",
-    "lastmod": "2026-09-26"
+    "hash": "0cd130b1e75e9d6ad044b6fcb55c34a7714513bd0f293f9c015bdd8bcd46a382",
+    "lastmod": "2026-09-27"
   },
   "tts/fireredtts3.html": {
     "hash": "544693557fc2eabeb705c0ca2acee45f88532df4ca8c79d9606576927f7603aa",
@@ -1288,20 +1288,24 @@
     "lastmod": "2026-09-21"
   },
   "tts/gigachat-audio-10b-a1-8b.html": {
-    "hash": "b91e6378fe3b5b0d668aaa52afff7eb9e661cb2d8e41bdd66421f70f302842e2",
-    "lastmod": "2026-09-21"
+    "hash": "c1822dc1154bb106076db44aea0eeafc8fc0f9f37799a5044342f638576c01cc",
+    "lastmod": "2026-09-27"
   },
   "tts/gpt-sovits.html": {
     "hash": "49f449969d807f2394273d5fa904fb8d579edf9dd652d4b774ea17040ea2b1f4",
     "lastmod": "2026-09-21"
   },
+  "tts/granite-speech-4.1-2b-plus.html": {
+    "hash": "9c28030d4434eeae5a04bbf80a7662d280683851fd11d9b9e85fe4eca004d57c",
+    "lastmod": "2026-09-27"
+  },
   "tts/granite-speech-4.1-2b.html": {
-    "hash": "60f06adf05fdd6e11a28eb1cbeb324201989d7d85b37c7195919e83042c90fca",
-    "lastmod": "2026-09-21"
+    "hash": "66259cef1a2a1de3b2a6910ae692371cecd4bfd05201a6a820b0d8440641f159",
+    "lastmod": "2026-09-27"
   },
   "tts/granite-speech-5.0-470m-turboctc.html": {
-    "hash": "96afeda957e46435beb472e0d0ebe0a3bfb33748be18b86b64333cc6954c5f8a",
-    "lastmod": "2026-09-21"
+    "hash": "6ec191005fb60355d9f3363ab2ffe1f796c0dd08006577a3c754833521ca692c",
+    "lastmod": "2026-09-27"
   },
   "tts/higgs-audio-v2.html": {
     "hash": "32c10d0c6e0219c005e8dbadc81cc106783246c78ddb1730843475d03ab72da6",
@@ -1328,8 +1332,8 @@
     "lastmod": "2026-09-21"
   },
   "tts/index.html": {
-    "hash": "074f9e28e3294db44c6538e163a016185334ebb7f6fbb077e0730196d64beeff",
-    "lastmod": "2026-09-26"
+    "hash": "ae3ace85b6e5d3925c9025f0c0e6df567315b0d3ebd72299fd7cfb237db2cfd8",
+    "lastmod": "2026-09-27"
   },
   "tts/indic-tts.html": {
     "hash": "444072c106cf709ba1bc715a07b23ac7f36ff38a3f252c5e0a8694760e50e999",
@@ -1396,12 +1400,12 @@
     "lastmod": "2026-09-22"
   },
   "tts/moss-audio-4b-instruct.html": {
-    "hash": "f6671ab3de480b45a5dd927284691cf2228fa7e5db4ac1583d6ff53a3bccb099",
-    "lastmod": "2026-09-21"
+    "hash": "a4fdf46a621d8e3557d5b4d999ebed67fa954f74f7e2498dd8c4c4526d3f90f6",
+    "lastmod": "2026-09-27"
   },
   "tts/moss-transcribe-diarize.html": {
-    "hash": "990c72623142e1759f335712614f7685a03056d85a9a68592167cc74ef18f1aa",
-    "lastmod": "2026-09-21"
+    "hash": "a063177854f225c0a6569979b7395130cdc570ff6e5d6f2442d894b7ac1e73e0",
+    "lastmod": "2026-09-27"
   },
   "tts/moss-tts-nano.html": {
     "hash": "5509636489abe1325767c77f9fec5c0b5574cebbe75483b6ab218545f167477b",
@@ -2404,8 +2408,8 @@
     "lastmod": "2026-09-26"
   },
   "guides/best-local-tts-for-voice-cloning.html": {
-    "hash": "d184fb9871d7e97f58133971b681ec37b57764d52772cdd831bdad0ff612b850",
-    "lastmod": "2026-09-26"
+    "hash": "d73cac1460d2824a54ecf7067953bc20535fe21c74e6e47692bab24d1afb36dd",
+    "lastmod": "2026-09-27"
   },
   "guides/index.html": {
     "hash": "fe35fd6af0870006dc9d1858a0f7922d1d20d09ecca3a532a84190ad459ad0c4",

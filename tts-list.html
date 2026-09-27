@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 95 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 96 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 97 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 97 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 96 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 97 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">99</strong> speech records: <strong style="color:#fff;">96 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">100</strong> speech records: <strong style="color:#fff;">97 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>96 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>97 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3708,6 +3708,34 @@
                 supportedFormats: ["pytorch", "safetensors"],
                 voices: "N/A (ASR/AST: outputs text or translation)",
                 context: "2B speech-language model for ASR, AST, punctuation, truecasing and keyword-biased recognition",
+                license: "Apache 2.0"
+            },
+            {
+                id: "granite-speech-4.1-2b-plus",
+                name: "Granite Speech 4.1 2B Plus",
+                developer: "IBM Granite Team",
+                family: "granite-speech",
+                isAsr: true,
+                description: "Official Apache 2.0 Granite Speech variant for rich local transcription. It keeps the 2B Granite speech-language architecture but adds speaker-attributed ASR, word-level timestamps, incremental decoding and keyword list biasing for English, French, German, Spanish and Portuguese.",
+                languages: ["en", "fr", "de", "es", "pt"],
+                languageCount: 5,
+                features: ["multilingual", "diarization", "timestamps", "controllable", "long-form"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 4.2,
+                sizeLabel: "2B params; 4.22GB BF16 safetensors across three shards",
+                sizeCategory: "large",
+                quality: 9.3,
+                speed: 7.8,
+                latency: "medium",
+                releaseDate: "2026-04-28",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/ibm-granite/granite-speech-4.1-2b-plus",
+                sourceStatus: "verified-model",
+                installCommand: "pip install torchaudio datasets accelerate torchcodec",
+                supportedFormats: ["transformers", "pytorch", "safetensors", "vllm"],
+                voices: "N/A (rich ASR: outputs text with optional speaker labels and word timing)",
+                context: "2B speech-language model, Apache 2.0, native Transformers support in transformers>=5.8, vLLM support from v0.23.0, speaker-attributed ASR and word-level timestamps on up to about 9 minute ASR/SAA segments",
                 license: "Apache 2.0"
             },
             {

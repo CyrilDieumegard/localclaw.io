@@ -1109,6 +1109,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4
   },
   {
+    "id": "granite-speech-4.1-2b-plus",
+    "name": "Granite Speech 4.1 2B Plus",
+    "developer": "IBM Granite Team",
+    "family": "granite-speech",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-04-28",
+    "quality": 9.3,
+    "speed": 7.8,
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 4.2
+  },
+  {
     "id": "granite-speech-5.0-470m-turboctc",
     "name": "Granite Speech 5.0 470M TurboCTC",
     "developer": "IBM Granite",
