@@ -86,6 +86,7 @@ window.HOME_INDEX_LOGOS = {
     trinity: 'arcee',
     tulu: 'ai2',
     wizardlm: 'microsoft',
+    xing: 'huggingface-avatar',
     yi: 'zeroone',
     zaya: 'zyphra-avatar',
     zephyr: 'huggingfaceh4-avatar'
@@ -193,6 +194,7 @@ window.HOME_INDEX_LOGOS = {
     'Doubiiu / CUHK': 'doubiiu-avatar',
     'DreamTechAI / Neural4D': 'github',
     'DreamGaussian Team': 'github',
+    'Ecole polytechnique / Kyoto University / Kyutai / UC Berkeley': 'github',
     'ERNIE Team / Baidu': 'github',
     'FastVideo / Hao AI Lab': 'github',
     'Genmo': 'genmo-avatar',
@@ -245,6 +247,7 @@ window.HOME_INDEX_LOGOS = {
     'Tencent Hunyuan': 'tencent',
     'THU-ML / Tsinghua University': 'github',
     'Tsinghua University': 'github',
+    'UIUC / Cornell University': 'github',
     'University of Adelaide': 'github',
     'VAST AI Research': 'github',
     'Wuhan University / HKUST': 'github',
