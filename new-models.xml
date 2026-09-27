@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 25 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Xing4.0-29B-A4B</title>
+      <link>https://localclaw.io/models/xing4-0-29b-a4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/xing4-0-29b-a4b</guid>
+      <pubDate>Thu, 17 Sep 2026 12:00:00 GMT</pubDate>
+      <category>xing</category>
+      <description>Official China Telecom XingChen-AGI Apache 2.0 MoE release with 29B total parameters, 4B active parameters, 256K native context and an official IQ4_NL GGUF path for llama.cpp-class local inference on 24GB GPU workstations. 29B (4B active, MoE) · 32 GB minimum RAM · IQ4_NL GGUF · xing.</description>
+    </item>
     <item>
       <title>Bonsai 2 27B</title>
       <link>https://localclaw.io/models/bonsai-2-27b</link>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.2 3B is the compact Apache 2.0 Granite reasoning model with 128K native context, thinking-mode chat, tool calling and official GGUF artifacts for laptop-class local inference. 3B · 8 GB minimum RAM · Q4_K_M · granite.</description>
-    </item>
-    <item>
-      <title>GLM-5.3-Flash</title>
-      <link>https://localclaw.io/models/glm-5.3-flash</link>
-      <guid isPermaLink="true">https://localclaw.io/models/glm-5.3-flash</guid>
-      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
-      <category>glm</category>
-      <description>Z.ai MIT-licensed GLM-5 refresh with 320B total / 18B active parameters, native multimodal support, hybrid sparse-linear attention and a 1M-token context. Unsloth Dynamic GGUF makes it technically local, but it remains workstation/server-class hardware. 320B (18B active, MoE) · 160 GB minimum RAM · UD-IQ2_XXS · glm.</description>
     </item>
   </channel>
 </rss>

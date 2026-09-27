@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
+// Updated September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
+// Previous: September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
 // Previous: September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
 // Previous: September 22, 2026 - Added Needle 3 - 245 unique LLM records
 // Previous: September 21, 2026 - Added Bonsai 2 27B and Occamy-1.0 - 244 unique LLM records
@@ -3110,6 +3111,24 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'xing4-0-29b-a4b',
+            name: 'Xing4.0-29B-A4B',
+            family: 'xing',
+            params: '29B (4B active, MoE)',
+            size_gb: 20.1,
+            min_ram: 32,
+            tags: ['chat', 'code', 'reasoning', 'agentic', 'power', 'long-context', 'tool-calling', 'moe'],
+            description: 'Official China Telecom XingChen-AGI Apache 2.0 MoE release with 29B total parameters, 4B active parameters, 256K native context and an official IQ4_NL GGUF path for llama.cpp-class local inference on 24GB GPU workstations.',
+            search_term: 'xing4.0-29b-a4b',
+            recommended_quant: 'IQ4_NL GGUF',
+            hf_repo: 'XingChen-AGI/Xing4.0-29B-A4B-GGUF',
+            source_url: 'https://huggingface.co/XingChen-AGI/Xing4.0-29B-A4B',
+            runtime_url: 'https://github.com/XingChen-AGI/Xing4.0-29B-A4B/blob/main/tutorial/llama.cpp/README_EN.md',
+            benchmarks: { speed: 7, quality: 9, coding: 10, reasoning: 9 },
+            released: '2026-09-17',
+            isNew: true
+        },
+        {
             id: 'nex-n2-5-mini',
             name: 'Nex-N2.5-mini',
             family: 'nex',
@@ -4149,7 +4168,7 @@ const APP_DATA = {
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
         checkedAt: "2026-09-23T06:04:24.000Z",
-        catalogueHash: "793d040f3529b9ef938f0a6200ab38018b1e3620e900b5e2a537c2c231e7cd72",
+        catalogueHash: "c3ab4c5d4de6970135b1497324f386f98e1d37db5934e43c749644aaf5307c39",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4186,6 +4205,7 @@ const APP_DATA = {
             "minicpm5-1b": "openbmb/MiniCPM5-1B-GGUF",
             "minicpm5-2b": "openbmb/MiniCPM5-2B-GGUF",
             "nex-n2-5-mini": "mradermacher/Nex-N2.5-mini-i1-GGUF",
+            "xing4-0-29b-a4b": "XingChen-AGI/Xing4.0-29B-A4B-GGUF",
             "bonsai-2-27b": "prism-ml/Ternary-Bonsai-2-27B-gguf",
             "occamy-1-0": "Accio-Lab/occamy-1.0-GGUF",
             "granite4.2-3b": "ibm-granite/granite-4.2-3b-GGUF",
@@ -4353,6 +4373,7 @@ const APP_DATA = {
             "mistral-small-3.2-24b": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF"
         },
         publicModelCard: {
+            "xing4-0-29b-a4b": "XingChen-AGI/Xing4.0-29B-A4B",
             "deepseek-v4-1-flash": "deepseek-ai/DeepSeek-V4.1-Flash",
             "deepseek-v4-flash-vision-exp": "deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
             "moondream2": "vikhyatk/moondream2",
