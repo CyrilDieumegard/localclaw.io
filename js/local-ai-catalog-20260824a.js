@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'sparkwan2-1-1-3b-480p', name: 'SparkWan2.1 1.3B 480P', category: 'video', developer: 'AlibabaResearch',
+      summary: 'Apache-licensed SparkDiffusion checkpoint that distills Wan 2.1 1.3B text-to-video into four-step 480p local generation.',
+      tasks: ['text-to-video', 'animation', 'few-step-video-generation', 'distilled-video-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'CUDA', 'Triton', 'FlashAttention', 'SparkDiffusion scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.1 base model terms apply', released: '2026-09',
+      source_url: 'https://github.com/AlibabaResearch/SparkDiffusion',
+      install_url: 'https://huggingface.co/alibabagroup/SparkWan2.1-T2V-1.3B-480P-0.90Sparsity',
+      hardware_note: 'AlibabaResearch publishes the SparkDiffusion code under Apache-2.0 plus a public Hugging Face checkpoint file for Wan 2.1 T2V 1.3B at 480p with 90% attention sparsity and four inference steps. The official README documents Linux, Python 3.10+, CUDA-compatible PyTorch, Triton, FlashAttention, FFmpeg-backed video writing, local Wan asset folders and shell inference wrappers; the dependency list explicitly tracks RTX 50-series FP8 support through Triton 3.4. Because the practical 1.3B path is much smaller than the 14B examples but still depends on the Wan VAE/T5 stack and CUDA attention kernels, LocalClaw records 32 GB RAM and 12 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official AlibabaResearch code and Apache-2.0 checkpoint metadata', 'Four-step 480p text-to-video generation on the Wan 2.1 1.3B architecture', 'Local PyTorch/CUDA scripts with self-contained SparkDiffusion inference operators'],
+      caveats: ['Fresh research release with little third-party runtime coverage yet', 'Requires separately downloaded Wan 2.1 base assets', 'Text-to-video only for the 1.3B 480p checkpoint; I2V support is in larger 14B releases']
+    },
+    {
       id: 'magi-1', name: 'MAGI-1', category: 'video', developer: 'Sand AI',
       summary: 'Apache-licensed autoregressive video generator for local text-to-video, image-to-video and video-continuation workflows.',
       tasks: ['text-to-video', 'image-to-video', 'video-to-video', 'video-continuation', 'streaming-video'],
