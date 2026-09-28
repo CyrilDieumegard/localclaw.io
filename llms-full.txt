@@ -1,6 +1,6 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-09-27 from the LocalClaw repository catalogue. This file lists all 466 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-09-27 from the LocalClaw repository catalogue. This file lists all 469 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
@@ -369,64 +369,65 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 04 [Qwen Image 2512](https://localclaw.io/image/qwen-image-2512) - developer: Qwen Team; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Dec 2025.
 - 05 [Stable Diffusion XL Base](https://localclaw.io/image/sdxl-base-1.0) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: CreativeML Open RAIL++-M; released: Jul 2023.
 
-## Local Video Models (54)
+## Local Video Models (55)
 
-- 01 [MAGI-1](https://localclaw.io/video/magi-1) - developer: Sand AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jun 2026.
-- 02 [SoulX-LiveAct](https://localclaw.io/video/soulx-liveact) - developer: Soul-AILab; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Mar 2026.
-- 03 [Self Gradient Forcing](https://localclaw.io/video/self-gradient-forcing) - developer: Junhao Zhuang / Joy Future Academy / JD; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; Wan 2.1 and Causal-Forcing component terms apply; released: Jul 2026.
-- 04 [4DAnyone](https://localclaw.io/video/4danyone) - developer: Ant Research; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Multiple asset licenses; first-party checkpoint is Apache 2.0; released: Sep 2026.
-- 05 [GAE-D64-1B](https://localclaw.io/video/gae-d64-1b) - developer: Tencent ARC; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent academic-only license; released: Sep 2026.
-- 06 [Zing-0.5](https://localclaw.io/video/zing-0.5) - developer: Seedleap.ai; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2026.
-- 07 [ShotStream](https://localclaw.io/video/shotstream) - developer: Kling Team / CUHK; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 model card; GitHub code has no detected license file; released: Mar 2026.
-- 08 [UnityVideo Wan2.2-TI2V-5B](https://localclaw.io/video/unityvideo) - developer: JIA Lab / Kling Team; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT code; Apache 2.0 checkpoint metadata; Wan 2.2 component terms apply; released: Jul 2026.
-- 09 [Evoke-Turbo](https://localclaw.io/video/evoke-turbo) - developer: AlayaLab; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0 core weights/code; required ViGeo depth backend is CC-BY-NC-4.0; released: Sep 2026.
-- 10 [Ovi](https://localclaw.io/video/ovi) - developer: Character.AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 model/code; upstream Wan2.2 and MMAudio component terms apply; released: Nov 2025.
-- 11 [LTX 2.5](https://localclaw.io/video/ltx-video) - developer: Lightricks; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: LTX-2 Community License; released: Jul 2026.
-- 12 [MiniMax H3](https://localclaw.io/video/minimax-h3) - developer: MiniMax; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MiniMax H3 Community License; released: Jul 2026.
-- 13 [FastH3 Preview v1](https://localclaw.io/video/fasth3-preview-v1) - developer: FastVideo / Hao AI Lab; minimum RAM: 128 GB; minimum VRAM: 48 GB; licence: MiniMax H3 Community License; released: Aug 2026.
-- 14 [MiniMax-H3-Fun-Controlnet-Union](https://localclaw.io/video/minimax-h3-fun-controlnet-union) - developer: Alibaba PAI; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: MiniMax H3 Community License Agreement; released: Aug 2026.
-- 15 [LingBot-Video Dense 1.3B](https://localclaw.io/video/lingbot-video-dense-1.3b) - developer: Robbyant / Ant Group; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: Jul 2026.
-- 16 [Causal Forcing++ Framewise](https://localclaw.io/video/causal-forcing-plus-framewise) - developer: THU-ML / Tsinghua University; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: May 2026.
-- 17 [AnyFlow FAR Wan2.1 1.3B](https://localclaw.io/video/anyflow-far-wan2.1-1.3b) - developer: NVIDIA / NUS / MIT; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: NVIDIA non-commercial license; released: May 2026.
-- 18 [FastWan-QAD-FP8 1.3B](https://localclaw.io/video/fastwan-qad-fp8-1.3b) - developer: FastVideo / Hao AI Lab; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Mar 2026.
-- 19 [OSDEnhancer v1.0](https://localclaw.io/video/osdenhancer-v1) - developer: Beijing Jiaotong University / Hefei University of Technology; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: May 2026.
-- 20 [Bernini-R 1.3B](https://localclaw.io/video/bernini-r-1.3b) - developer: ByteDance; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jun 2026.
-- 21 [Kiwi-Edit 5B](https://localclaw.io/video/kiwi-edit-5b) - developer: ShowLab; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: MIT; released: Mar 2026.
-- 22 [Wan2.2-Fun 5B Control](https://localclaw.io/video/wan2.2-fun-5b-control) - developer: Alibaba PAI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Aug 2026.
-- 23 [Cosmos3 Edge](https://localclaw.io/video/cosmos3-edge) - developer: NVIDIA; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: OpenMDW 1.1; released: Jul 2026.
-- 24 [Cosmos3 Nano](https://localclaw.io/video/cosmos3-nano) - developer: NVIDIA; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: OpenMDW 1.1; released: May 2026.
-- 25 [SANA-Video 2.0 5B](https://localclaw.io/video/sana-video-2.0-5b) - developer: NVLabs / Efficient-Large-Model; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: Apache 2.0; released: Aug 2026.
-- 26 [Kandinsky 5.0 Lite](https://localclaw.io/video/kandinsky-5-lite) - developer: Kandinsky Lab; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: MIT; released: Sep 2025.
-- 27 [AnimeGen I2V](https://localclaw.io/video/animegen-i2v) - developer: AIdeaLab; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jul 2026.
-- 28 [Motif-Video 2B](https://localclaw.io/video/motif-video-2b) - developer: Motif Technologies; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Apr 2026.
-- 29 [NAVA](https://localclaw.io/video/nava) - developer: ERNIE Team / Baidu; minimum RAM: 64 GB; minimum VRAM: 18 GB; licence: Apache 2.0 with upstream component license obligations; released: May 2026.
-- 30 [JoyAI-Video-Edit](https://localclaw.io/video/joyai-video-edit) - developer: JD Open Source; minimum RAM: 128 GB; minimum VRAM: 96 GB; licence: Apache 2.0; released: Aug 2026.
-- 31 [JoyAI-Echo](https://localclaw.io/video/joyai-echo) - developer: JD Open Source; minimum RAM: 96 GB; minimum VRAM: 48 GB; licence: LTX-2 Community License Agreement; released: Jun 2026.
-- 32 [Lance 3B Video](https://localclaw.io/video/lance-3b-video) - developer: ByteDance Research; minimum RAM: 64 GB; minimum VRAM: 40 GB; licence: Apache 2.0; released: May 2026.
-- 33 [SkyReels V3](https://localclaw.io/video/skyreels-v3) - developer: Skywork AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Skywork Community License; released: Jan 2026.
-- 34 [AVTR-1](https://localclaw.io/video/avtr-1) - developer: Avaturn; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: AVTR-1 Community License; released: May 2026.
-- 35 [LongCat-Video-Avatar 1.5](https://localclaw.io/video/longcat-video-avatar-1.5) - developer: Meituan LongCat; minimum RAM: 64 GB; minimum VRAM: 48 GB; licence: MIT; released: May 2026.
-- 36 [Alice T2V 14B MoE](https://localclaw.io/video/alice-t2v-14b) - developer: Mirage AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Feb 2026.
-- 37 [HunyuanVideo 1.5](https://localclaw.io/video/hunyuanvideo-1.5) - developer: Tencent Hunyuan; minimum RAM: 32 GB; minimum VRAM: 14 GB; licence: Tencent Hunyuan community license; released: Nov 2025.
-- 38 [CogVideoX 2B](https://localclaw.io/video/cogvideox-2b) - developer: Zhipu AI / THUDM; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Apache 2.0; released: Aug 2024.
-- 39 [Wan 2.2 TI2V 5B](https://localclaw.io/video/wan2.2-ti2v-5b) - developer: Wan Team / Alibaba; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jul 2025.
-- 40 [Wan 2.2 S2V 14B](https://localclaw.io/video/wan2.2-s2v-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2025.
-- 41 [Wan 2.2 Animate 14B](https://localclaw.io/video/wan2.2-animate-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Sep 2025.
-- 42 [Wan 2.2 Animate 2 14B](https://localclaw.io/video/wan2.2-animate-2-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2026.
-- 43 [LongCat-Video](https://localclaw.io/video/longcat-video) - developer: Meituan LongCat; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: MIT; released: Oct 2025.
-- 44 [Mochi 1](https://localclaw.io/video/mochi-1) - developer: Genmo; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Oct 2024.
-- 45 [Wan 2.1 T2V 1.3B](https://localclaw.io/video/wan2.1-t2v-1.3b) - developer: Wan Team / Alibaba; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Apache 2.0; released: Feb 2025.
-- 46 [FramePack F1](https://localclaw.io/video/framepack-f1) - developer: lllyasviel; minimum RAM: 32 GB; minimum VRAM: 6 GB; licence: Open code, Hunyuan model terms apply; released: Apr 2025.
-- 47 [VACE Wan 2.1 1.3B](https://localclaw.io/video/vace-wan2.1-1.3b) - developer: Alibaba VILab; minimum RAM: 24 GB; minimum VRAM: 10 GB; licence: Apache 2.0; released: May 2025.
-- 48 [LTX Video 0.9.8 Distilled](https://localclaw.io/video/ltx-video-0.9.8-distilled) - developer: Lightricks; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Open weights, model terms apply; released: May 2025.
-- 49 [CogVideoX 5B](https://localclaw.io/video/cogvideox-5b) - developer: Zhipu AI / THUDM; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: CogVideoX model license; released: Aug 2024.
-- 50 [Stable Video Diffusion XT 1.1](https://localclaw.io/video/stable-video-diffusion-xt-1.1) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Stability AI Community License; released: Feb 2024.
-- 51 [AnimateDiff SD 1.5](https://localclaw.io/video/animatediff-sd15) - developer: AnimateDiff Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: CreativeML Open RAIL-M and module terms; released: Jul 2023.
-- 52 [VideoCrafter2](https://localclaw.io/video/videocrafter2) - developer: AILab-CVC; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Research use, repository terms apply; released: Jan 2024.
-- 53 [DynamiCrafter 512](https://localclaw.io/video/dynamicrafter-512) - developer: Doubiiu / CUHK; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Research use, model terms apply; released: Oct 2023.
-- 54 [Wan 2.1 I2V 14B via Wan2GP](https://localclaw.io/video/wan2.1-i2v-14b-gp) - developer: Wan Team / Wan2GP; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0 model, runtime license applies; released: Mar 2025.
+- 01 [SparkWan2.1 1.3B 480P](https://localclaw.io/video/sparkwan2-1-1-3b-480p) - developer: AlibabaResearch; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; Wan 2.1 base model terms apply; released: Sep 2026.
+- 02 [MAGI-1](https://localclaw.io/video/magi-1) - developer: Sand AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jun 2026.
+- 03 [SoulX-LiveAct](https://localclaw.io/video/soulx-liveact) - developer: Soul-AILab; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Mar 2026.
+- 04 [Self Gradient Forcing](https://localclaw.io/video/self-gradient-forcing) - developer: Junhao Zhuang / Joy Future Academy / JD; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; Wan 2.1 and Causal-Forcing component terms apply; released: Jul 2026.
+- 05 [4DAnyone](https://localclaw.io/video/4danyone) - developer: Ant Research; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Multiple asset licenses; first-party checkpoint is Apache 2.0; released: Sep 2026.
+- 06 [GAE-D64-1B](https://localclaw.io/video/gae-d64-1b) - developer: Tencent ARC; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent academic-only license; released: Sep 2026.
+- 07 [Zing-0.5](https://localclaw.io/video/zing-0.5) - developer: Seedleap.ai; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2026.
+- 08 [ShotStream](https://localclaw.io/video/shotstream) - developer: Kling Team / CUHK; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 model card; GitHub code has no detected license file; released: Mar 2026.
+- 09 [UnityVideo Wan2.2-TI2V-5B](https://localclaw.io/video/unityvideo) - developer: JIA Lab / Kling Team; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT code; Apache 2.0 checkpoint metadata; Wan 2.2 component terms apply; released: Jul 2026.
+- 10 [Evoke-Turbo](https://localclaw.io/video/evoke-turbo) - developer: AlayaLab; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0 core weights/code; required ViGeo depth backend is CC-BY-NC-4.0; released: Sep 2026.
+- 11 [Ovi](https://localclaw.io/video/ovi) - developer: Character.AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 model/code; upstream Wan2.2 and MMAudio component terms apply; released: Nov 2025.
+- 12 [LTX 2.5](https://localclaw.io/video/ltx-video) - developer: Lightricks; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: LTX-2 Community License; released: Jul 2026.
+- 13 [MiniMax H3](https://localclaw.io/video/minimax-h3) - developer: MiniMax; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MiniMax H3 Community License; released: Jul 2026.
+- 14 [FastH3 Preview v1](https://localclaw.io/video/fasth3-preview-v1) - developer: FastVideo / Hao AI Lab; minimum RAM: 128 GB; minimum VRAM: 48 GB; licence: MiniMax H3 Community License; released: Aug 2026.
+- 15 [MiniMax-H3-Fun-Controlnet-Union](https://localclaw.io/video/minimax-h3-fun-controlnet-union) - developer: Alibaba PAI; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: MiniMax H3 Community License Agreement; released: Aug 2026.
+- 16 [LingBot-Video Dense 1.3B](https://localclaw.io/video/lingbot-video-dense-1.3b) - developer: Robbyant / Ant Group; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: Jul 2026.
+- 17 [Causal Forcing++ Framewise](https://localclaw.io/video/causal-forcing-plus-framewise) - developer: THU-ML / Tsinghua University; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: May 2026.
+- 18 [AnyFlow FAR Wan2.1 1.3B](https://localclaw.io/video/anyflow-far-wan2.1-1.3b) - developer: NVIDIA / NUS / MIT; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: NVIDIA non-commercial license; released: May 2026.
+- 19 [FastWan-QAD-FP8 1.3B](https://localclaw.io/video/fastwan-qad-fp8-1.3b) - developer: FastVideo / Hao AI Lab; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Mar 2026.
+- 20 [OSDEnhancer v1.0](https://localclaw.io/video/osdenhancer-v1) - developer: Beijing Jiaotong University / Hefei University of Technology; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: May 2026.
+- 21 [Bernini-R 1.3B](https://localclaw.io/video/bernini-r-1.3b) - developer: ByteDance; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jun 2026.
+- 22 [Kiwi-Edit 5B](https://localclaw.io/video/kiwi-edit-5b) - developer: ShowLab; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: MIT; released: Mar 2026.
+- 23 [Wan2.2-Fun 5B Control](https://localclaw.io/video/wan2.2-fun-5b-control) - developer: Alibaba PAI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Aug 2026.
+- 24 [Cosmos3 Edge](https://localclaw.io/video/cosmos3-edge) - developer: NVIDIA; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: OpenMDW 1.1; released: Jul 2026.
+- 25 [Cosmos3 Nano](https://localclaw.io/video/cosmos3-nano) - developer: NVIDIA; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: OpenMDW 1.1; released: May 2026.
+- 26 [SANA-Video 2.0 5B](https://localclaw.io/video/sana-video-2.0-5b) - developer: NVLabs / Efficient-Large-Model; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: Apache 2.0; released: Aug 2026.
+- 27 [Kandinsky 5.0 Lite](https://localclaw.io/video/kandinsky-5-lite) - developer: Kandinsky Lab; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: MIT; released: Sep 2025.
+- 28 [AnimeGen I2V](https://localclaw.io/video/animegen-i2v) - developer: AIdeaLab; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jul 2026.
+- 29 [Motif-Video 2B](https://localclaw.io/video/motif-video-2b) - developer: Motif Technologies; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Apr 2026.
+- 30 [NAVA](https://localclaw.io/video/nava) - developer: ERNIE Team / Baidu; minimum RAM: 64 GB; minimum VRAM: 18 GB; licence: Apache 2.0 with upstream component license obligations; released: May 2026.
+- 31 [JoyAI-Video-Edit](https://localclaw.io/video/joyai-video-edit) - developer: JD Open Source; minimum RAM: 128 GB; minimum VRAM: 96 GB; licence: Apache 2.0; released: Aug 2026.
+- 32 [JoyAI-Echo](https://localclaw.io/video/joyai-echo) - developer: JD Open Source; minimum RAM: 96 GB; minimum VRAM: 48 GB; licence: LTX-2 Community License Agreement; released: Jun 2026.
+- 33 [Lance 3B Video](https://localclaw.io/video/lance-3b-video) - developer: ByteDance Research; minimum RAM: 64 GB; minimum VRAM: 40 GB; licence: Apache 2.0; released: May 2026.
+- 34 [SkyReels V3](https://localclaw.io/video/skyreels-v3) - developer: Skywork AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Skywork Community License; released: Jan 2026.
+- 35 [AVTR-1](https://localclaw.io/video/avtr-1) - developer: Avaturn; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: AVTR-1 Community License; released: May 2026.
+- 36 [LongCat-Video-Avatar 1.5](https://localclaw.io/video/longcat-video-avatar-1.5) - developer: Meituan LongCat; minimum RAM: 64 GB; minimum VRAM: 48 GB; licence: MIT; released: May 2026.
+- 37 [Alice T2V 14B MoE](https://localclaw.io/video/alice-t2v-14b) - developer: Mirage AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Feb 2026.
+- 38 [HunyuanVideo 1.5](https://localclaw.io/video/hunyuanvideo-1.5) - developer: Tencent Hunyuan; minimum RAM: 32 GB; minimum VRAM: 14 GB; licence: Tencent Hunyuan community license; released: Nov 2025.
+- 39 [CogVideoX 2B](https://localclaw.io/video/cogvideox-2b) - developer: Zhipu AI / THUDM; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Apache 2.0; released: Aug 2024.
+- 40 [Wan 2.2 TI2V 5B](https://localclaw.io/video/wan2.2-ti2v-5b) - developer: Wan Team / Alibaba; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Jul 2025.
+- 41 [Wan 2.2 S2V 14B](https://localclaw.io/video/wan2.2-s2v-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2025.
+- 42 [Wan 2.2 Animate 14B](https://localclaw.io/video/wan2.2-animate-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Sep 2025.
+- 43 [Wan 2.2 Animate 2 14B](https://localclaw.io/video/wan2.2-animate-2-14b) - developer: Wan Team / Alibaba; minimum RAM: 128 GB; minimum VRAM: 80 GB; licence: Apache 2.0; released: Aug 2026.
+- 44 [LongCat-Video](https://localclaw.io/video/longcat-video) - developer: Meituan LongCat; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: MIT; released: Oct 2025.
+- 45 [Mochi 1](https://localclaw.io/video/mochi-1) - developer: Genmo; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: Apache 2.0; released: Oct 2024.
+- 46 [Wan 2.1 T2V 1.3B](https://localclaw.io/video/wan2.1-t2v-1.3b) - developer: Wan Team / Alibaba; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Apache 2.0; released: Feb 2025.
+- 47 [FramePack F1](https://localclaw.io/video/framepack-f1) - developer: lllyasviel; minimum RAM: 32 GB; minimum VRAM: 6 GB; licence: Open code, Hunyuan model terms apply; released: Apr 2025.
+- 48 [VACE Wan 2.1 1.3B](https://localclaw.io/video/vace-wan2.1-1.3b) - developer: Alibaba VILab; minimum RAM: 24 GB; minimum VRAM: 10 GB; licence: Apache 2.0; released: May 2025.
+- 49 [LTX Video 0.9.8 Distilled](https://localclaw.io/video/ltx-video-0.9.8-distilled) - developer: Lightricks; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Open weights, model terms apply; released: May 2025.
+- 50 [CogVideoX 5B](https://localclaw.io/video/cogvideox-5b) - developer: Zhipu AI / THUDM; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: CogVideoX model license; released: Aug 2024.
+- 51 [Stable Video Diffusion XT 1.1](https://localclaw.io/video/stable-video-diffusion-xt-1.1) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Stability AI Community License; released: Feb 2024.
+- 52 [AnimateDiff SD 1.5](https://localclaw.io/video/animatediff-sd15) - developer: AnimateDiff Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: CreativeML Open RAIL-M and module terms; released: Jul 2023.
+- 53 [VideoCrafter2](https://localclaw.io/video/videocrafter2) - developer: AILab-CVC; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Research use, repository terms apply; released: Jan 2024.
+- 54 [DynamiCrafter 512](https://localclaw.io/video/dynamicrafter-512) - developer: Doubiiu / CUHK; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: Research use, model terms apply; released: Oct 2023.
+- 55 [Wan 2.1 I2V 14B via Wan2GP](https://localclaw.io/video/wan2.1-i2v-14b-gp) - developer: Wan Team / Wan2GP; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0 model, runtime license applies; released: Mar 2025.
 
-## Local 3D Models (59)
+## Local 3D Models (61)
 
 - 01 [Depth Anything 3 Base](https://localclaw.io/3d/depth-anything-3-base) - developer: ByteDance Seed; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Apache 2.0; released: Nov 2025.
 - 02 [Fire3D](https://localclaw.io/3d/fire3d) - developer: UIUC / Cornell University; minimum RAM: 128 GB; minimum VRAM: 96 GB; licence: Other model bundle; MIT code, DINOv3 and TRELLIS.2 upstream terms apply; released: Sep 2026.
@@ -440,53 +441,55 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 10 [Instant-NuRec](https://localclaw.io/3d/instant-nurec) - developer: NVIDIA; minimum RAM: 32 GB; minimum VRAM: 30 GB; licence: NVIDIA Open Model License; released: Jun 2026.
 - 11 [TriSplat](https://localclaw.io/3d/trisplat) - developer: Zhejiang University / ETH Zurich / Monash University; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2026.
 - 12 [GlobalSplat](https://localclaw.io/3d/globalsplat) - developer: Hebrew University of Jerusalem / Westlake University; minimum RAM: 32 GB; minimum VRAM: 8 GB; licence: PolyForm Noncommercial 1.0.0; released: Apr 2026.
-- 13 [SceneGen](https://localclaw.io/3d/scenegen) - developer: Shanghai Jiao Tong University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT; released: Aug 2025.
-- 14 [AnchorSplat](https://localclaw.io/3d/anchorsplat) - developer: CASIA / GigaAI / Tsinghua University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT; released: Jul 2026.
-- 15 [GGPS](https://localclaw.io/3d/ggps) - developer: Insta360 Research Team; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: CC BY-NC 4.0; released: Jul 2026.
-- 16 [InfiniSplat](https://localclaw.io/3d/infinisplat) - developer: Zhejiang University / PLUS-WAVE; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Aug 2026.
-- 17 [FreeSplatter](https://localclaw.io/3d/freesplatter) - developer: Tencent ARC; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 with Tencent additional restrictions; third-party component terms apply; released: Dec 2025.
-- 18 [QuerySplat](https://localclaw.io/3d/querysplat) - developer: Inspatio; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 for QuerySplat-authored code and weights; VGGT-Omega/DINOv3 components retain FAIR Noncommercial Research License terms; released: Aug 2026.
-- 19 [InfiniDepth](https://localclaw.io/3d/infinidepth) - developer: Zhejiang University / Shenzhen University; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: Mar 2026.
-- 20 [MeshFlow](https://localclaw.io/3d/meshflow) - developer: Meta AI / HKUST; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: FAIR Noncommercial Research License; released: Jun 2026.
-- 21 [ActionMesh](https://localclaw.io/3d/actionmesh) - developer: Meta AI / FAIR; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: FAIR Noncommercial Research License; released: Jan 2026.
-- 22 [AvatarMoE](https://localclaw.io/3d/avatarmoe) - developer: MILAB Yongin / CODINGHYE; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; SMPL and third-party dependency terms apply; released: Jul 2026.
-- 23 [ShapeR](https://localclaw.io/3d/shaper) - developer: Meta AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: CC-BY-NC 4.0 weights; third-party component notices apply; released: Jan 2026.
-- 24 [MapAnything Apache](https://localclaw.io/3d/map-anything-apache) - developer: Meta AI / Carnegie Mellon University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Jan 2026.
-- 25 [LegoACE](https://localclaw.io/3d/legoace) - developer: VAST AI Research; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: MIT; released: Dec 2025.
-- 26 [AniGen](https://localclaw.io/3d/anigen) - developer: VAST AI Research; minimum RAM: 64 GB; minimum VRAM: 18 GB; licence: MIT code and weights; non-commercial third-party component notice; released: Apr 2026.
-- 27 [Sat3DGen](https://localclaw.io/3d/sat3dgen) - developer: Wuhan University / HKUST; minimum RAM: 32 GB; minimum VRAM: 8 GB; licence: MIT; released: Apr 2025.
-- 28 [SkinTokens / TokenRig](https://localclaw.io/3d/skintokens-tokenrig) - developer: VAST AI Research; minimum RAM: 32 GB; minimum VRAM: 14 GB; licence: MIT; released: Feb 2026.
-- 29 [UltraShape 1.0](https://localclaw.io/3d/ultrashape-1) - developer: PKU-YuanGroup; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 checkpoint; upstream Hunyuan3D component terms apply; released: Dec 2025.
-- 30 [CubePart](https://localclaw.io/3d/cubepart) - developer: Roblox Foundation AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: OpenRAIL research-only license; released: May 2026.
-- 31 [Cube 3D v0.5](https://localclaw.io/3d/cube3d-v0.5) - developer: Roblox Foundation AI; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: OpenRAIL research-only license; released: Jul 2025.
-- 32 [Arbor](https://localclaw.io/3d/arbor) - developer: Stability AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Stability AI Community License; released: Jun 2026.
-- 33 [ReLi3D](https://localclaw.io/3d/reli3d) - developer: Stability AI; minimum RAM: 64 GB; minimum VRAM: 16 GB; licence: Stability AI Community License; released: Mar 2026.
-- 34 [Stable Fast 3D](https://localclaw.io/3d/stable-fast-3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Stability AI Community License; released: Aug 2024.
-- 35 [Hunyuan3D 2.1](https://localclaw.io/3d/hunyuan3d-2.1) - developer: Tencent Hunyuan; minimum RAM: 24 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Jun 2025.
-- 36 [Hunyuan3D-Omni](https://localclaw.io/3d/hunyuan3d-omni) - developer: Tencent Hunyuan; minimum RAM: 32 GB; minimum VRAM: 10 GB; licence: Tencent Hunyuan 3D Omni community license; released: Sep 2025.
-- 37 [Hunyuan3D-Part](https://localclaw.io/3d/hunyuan3d-part) - developer: Tencent Hunyuan; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent Hunyuan 3D-Part community license; released: Sep 2025.
-- 38 [TRELLIS Image Large](https://localclaw.io/3d/trellis-image-large) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: MIT code, model terms apply; released: Dec 2024.
-- 39 [TRELLIS.2 4B](https://localclaw.io/3d/trellis-2) - developer: Microsoft Research; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT code, model terms apply; released: Mar 2026.
-- 40 [Pixal3D](https://localclaw.io/3d/pixal3d) - developer: Tencent ARC / Tsinghua University; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2026.
-- 41 [Hi3DGen](https://localclaw.io/3d/hi3dgen) - developer: ByteDance / Stable-X; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: Mar 2025.
-- 42 [Direct3D-S2](https://localclaw.io/3d/direct3d-s2) - developer: DreamTechAI / Neural4D; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2025.
-- 43 [TripoSR](https://localclaw.io/3d/triposr) - developer: Stability AI / Tripo AI; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: MIT code, model terms apply; released: Mar 2024.
-- 44 [WorldMirror 2.0](https://localclaw.io/3d/worldmirror-2) - developer: Tencent Hunyuan; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent HY-World 2.0 Community License; released: Apr 2026.
-- 45 [ABot-Recon](https://localclaw.io/3d/abot-recon) - developer: Alibaba AMAP CV Lab; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, CC BY-NC 4.0 weights; released: Aug 2026.
-- 46 [Asset Harvester](https://localclaw.io/3d/asset-harvester) - developer: NVIDIA; minimum RAM: 32 GB; minimum VRAM: 30 GB; licence: NVIDIA Open Model License; Apache 2.0 code; released: Apr 2026.
-- 47 [Hunyuan3D 2 Mini Turbo](https://localclaw.io/3d/hunyuan3d-2-mini-turbo) - developer: Tencent Hunyuan; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Mar 2025.
-- 48 [Hunyuan3D Swift](https://localclaw.io/3d/hunyuan3d-swift) - developer: Zimeng Xiong / Tencent Hunyuan; minimum RAM: 8 GB; minimum VRAM: 0 GB; licence: MIT runtime, original model terms apply; released: Jul 2026.
-- 49 [SPAR3D](https://localclaw.io/3d/spar3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 7 GB; licence: Stability AI Community License; released: Feb 2025.
-- 50 [TripoSG 1.5B](https://localclaw.io/3d/triposg) - developer: VAST AI Research; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: Mar 2025.
-- 51 [PartCrafter](https://localclaw.io/3d/partcrafter) - developer: Peking University / VAST AI Research; minimum RAM: 24 GB; minimum VRAM: 8 GB; licence: MIT; released: Jul 2025.
-- 52 [InstantMesh](https://localclaw.io/3d/instantmesh) - developer: Tencent ARC; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Apr 2024.
-- 53 [LGM](https://localclaw.io/3d/lgm) - developer: 3DTopia / Nanyang Technological University; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: MIT; released: Feb 2024.
-- 54 [CRM](https://localclaw.io/3d/crm) - developer: Tsinghua University; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: MIT; released: Jan 2024.
-- 55 [Wonder3D](https://localclaw.io/3d/wonder3d) - developer: XLong Research; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Repository and model terms apply; released: Oct 2023.
-- 56 [DreamGaussian](https://localclaw.io/3d/dreamgaussian) - developer: DreamGaussian Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Repository license applies; released: Sep 2023.
-- 57 [Shap-E](https://localclaw.io/3d/shap-e) - developer: OpenAI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: May 2023.
-- 58 [TRELLIS Text Base](https://localclaw.io/3d/trellis-text-base) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT code, model terms apply; released: Dec 2024.
-- 59 [OpenLRM](https://localclaw.io/3d/openlrm) - developer: 3DTopia; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, checkpoint terms apply; released: Nov 2023.
+- 13 [InSpace](https://localclaw.io/3d/inspace) - developer: NAVER LABS / KAIST; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT code/model; non-commercial runtime dependency limits; released: Jul 2026.
+- 14 [SceneGen](https://localclaw.io/3d/scenegen) - developer: Shanghai Jiao Tong University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT; released: Aug 2025.
+- 15 [AnchorSplat](https://localclaw.io/3d/anchorsplat) - developer: CASIA / GigaAI / Tsinghua University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT; released: Jul 2026.
+- 16 [GGPS](https://localclaw.io/3d/ggps) - developer: Insta360 Research Team; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: CC BY-NC 4.0; released: Jul 2026.
+- 17 [InfiniSplat](https://localclaw.io/3d/infinisplat) - developer: Zhejiang University / PLUS-WAVE; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Aug 2026.
+- 18 [FreeSplatter](https://localclaw.io/3d/freesplatter) - developer: Tencent ARC; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 with Tencent additional restrictions; third-party component terms apply; released: Dec 2025.
+- 19 [QuerySplat](https://localclaw.io/3d/querysplat) - developer: Inspatio; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 for QuerySplat-authored code and weights; VGGT-Omega/DINOv3 components retain FAIR Noncommercial Research License terms; released: Aug 2026.
+- 20 [InfiniDepth](https://localclaw.io/3d/infinidepth) - developer: Zhejiang University / Shenzhen University; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: Apache 2.0; released: Mar 2026.
+- 21 [MeshFlow](https://localclaw.io/3d/meshflow) - developer: Meta AI / HKUST; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: FAIR Noncommercial Research License; released: Jun 2026.
+- 22 [ActionMesh](https://localclaw.io/3d/actionmesh) - developer: Meta AI / FAIR; minimum RAM: 64 GB; minimum VRAM: 32 GB; licence: FAIR Noncommercial Research License; released: Jan 2026.
+- 23 [AvatarMoE](https://localclaw.io/3d/avatarmoe) - developer: MILAB Yongin / CODINGHYE; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; SMPL and third-party dependency terms apply; released: Jul 2026.
+- 24 [ShapeR](https://localclaw.io/3d/shaper) - developer: Meta AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: CC-BY-NC 4.0 weights; third-party component notices apply; released: Jan 2026.
+- 25 [MapAnything Apache](https://localclaw.io/3d/map-anything-apache) - developer: Meta AI / Carnegie Mellon University; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Jan 2026.
+- 26 [LegoACE](https://localclaw.io/3d/legoace) - developer: VAST AI Research; minimum RAM: 32 GB; minimum VRAM: 12 GB; licence: MIT; released: Dec 2025.
+- 27 [AniGen](https://localclaw.io/3d/anigen) - developer: VAST AI Research; minimum RAM: 64 GB; minimum VRAM: 18 GB; licence: MIT code and weights; non-commercial third-party component notice; released: Apr 2026.
+- 28 [Sat3DGen](https://localclaw.io/3d/sat3dgen) - developer: Wuhan University / HKUST; minimum RAM: 32 GB; minimum VRAM: 8 GB; licence: MIT; released: Apr 2025.
+- 29 [SkinTokens / TokenRig](https://localclaw.io/3d/skintokens-tokenrig) - developer: VAST AI Research; minimum RAM: 32 GB; minimum VRAM: 14 GB; licence: MIT; released: Feb 2026.
+- 30 [UltraShape 1.0](https://localclaw.io/3d/ultrashape-1) - developer: PKU-YuanGroup; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 checkpoint; upstream Hunyuan3D component terms apply; released: Dec 2025.
+- 31 [CubePart](https://localclaw.io/3d/cubepart) - developer: Roblox Foundation AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: OpenRAIL research-only license; released: May 2026.
+- 32 [Cube 3D v0.5](https://localclaw.io/3d/cube3d-v0.5) - developer: Roblox Foundation AI; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: OpenRAIL research-only license; released: Jul 2025.
+- 33 [SK-Adapter](https://localclaw.io/3d/sk-adapter) - developer: Harbin Institute of Technology / KAIST; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Apache 2.0 checkpoint; TRELLIS base model terms apply; released: Mar 2026.
+- 34 [Arbor](https://localclaw.io/3d/arbor) - developer: Stability AI; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Stability AI Community License; released: Jun 2026.
+- 35 [ReLi3D](https://localclaw.io/3d/reli3d) - developer: Stability AI; minimum RAM: 64 GB; minimum VRAM: 16 GB; licence: Stability AI Community License; released: Mar 2026.
+- 36 [Stable Fast 3D](https://localclaw.io/3d/stable-fast-3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Stability AI Community License; released: Aug 2024.
+- 37 [Hunyuan3D 2.1](https://localclaw.io/3d/hunyuan3d-2.1) - developer: Tencent Hunyuan; minimum RAM: 24 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Jun 2025.
+- 38 [Hunyuan3D-Omni](https://localclaw.io/3d/hunyuan3d-omni) - developer: Tencent Hunyuan; minimum RAM: 32 GB; minimum VRAM: 10 GB; licence: Tencent Hunyuan 3D Omni community license; released: Sep 2025.
+- 39 [Hunyuan3D-Part](https://localclaw.io/3d/hunyuan3d-part) - developer: Tencent Hunyuan; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent Hunyuan 3D-Part community license; released: Sep 2025.
+- 40 [TRELLIS Image Large](https://localclaw.io/3d/trellis-image-large) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 24 GB; licence: MIT code, model terms apply; released: Dec 2024.
+- 41 [TRELLIS.2 4B](https://localclaw.io/3d/trellis-2) - developer: Microsoft Research; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT code, model terms apply; released: Mar 2026.
+- 42 [Pixal3D](https://localclaw.io/3d/pixal3d) - developer: Tencent ARC / Tsinghua University; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2026.
+- 43 [Hi3DGen](https://localclaw.io/3d/hi3dgen) - developer: ByteDance / Stable-X; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: Mar 2025.
+- 44 [Direct3D-S2](https://localclaw.io/3d/direct3d-s2) - developer: DreamTechAI / Neural4D; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: MIT; released: May 2025.
+- 45 [TripoSR](https://localclaw.io/3d/triposr) - developer: Stability AI / Tripo AI; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: MIT code, model terms apply; released: Mar 2024.
+- 46 [WorldMirror 2.0](https://localclaw.io/3d/worldmirror-2) - developer: Tencent Hunyuan; minimum RAM: 64 GB; minimum VRAM: 24 GB; licence: Tencent HY-World 2.0 Community License; released: Apr 2026.
+- 47 [ABot-Recon](https://localclaw.io/3d/abot-recon) - developer: Alibaba AMAP CV Lab; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, CC BY-NC 4.0 weights; released: Aug 2026.
+- 48 [Asset Harvester](https://localclaw.io/3d/asset-harvester) - developer: NVIDIA; minimum RAM: 32 GB; minimum VRAM: 30 GB; licence: NVIDIA Open Model License; Apache 2.0 code; released: Apr 2026.
+- 49 [Hunyuan3D 2 Mini Turbo](https://localclaw.io/3d/hunyuan3d-2-mini-turbo) - developer: Tencent Hunyuan; minimum RAM: 16 GB; minimum VRAM: 6 GB; licence: Tencent Hunyuan community license; released: Mar 2025.
+- 50 [Hunyuan3D Swift](https://localclaw.io/3d/hunyuan3d-swift) - developer: Zimeng Xiong / Tencent Hunyuan; minimum RAM: 8 GB; minimum VRAM: 0 GB; licence: MIT runtime, original model terms apply; released: Jul 2026.
+- 51 [SPAR3D](https://localclaw.io/3d/spar3d) - developer: Stability AI; minimum RAM: 16 GB; minimum VRAM: 7 GB; licence: Stability AI Community License; released: Feb 2025.
+- 52 [TripoSG 1.5B](https://localclaw.io/3d/triposg) - developer: VAST AI Research; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: Mar 2025.
+- 53 [PartCrafter](https://localclaw.io/3d/partcrafter) - developer: Peking University / VAST AI Research; minimum RAM: 24 GB; minimum VRAM: 8 GB; licence: MIT; released: Jul 2025.
+- 54 [InstantMesh](https://localclaw.io/3d/instantmesh) - developer: Tencent ARC; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0; released: Apr 2024.
+- 55 [LGM](https://localclaw.io/3d/lgm) - developer: 3DTopia / Nanyang Technological University; minimum RAM: 24 GB; minimum VRAM: 12 GB; licence: MIT; released: Feb 2024.
+- 56 [CRM](https://localclaw.io/3d/crm) - developer: Tsinghua University; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: MIT; released: Jan 2024.
+- 57 [Wonder3D](https://localclaw.io/3d/wonder3d) - developer: XLong Research; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Repository and model terms apply; released: Oct 2023.
+- 58 [DreamGaussian](https://localclaw.io/3d/dreamgaussian) - developer: DreamGaussian Team; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: Repository license applies; released: Sep 2023.
+- 59 [Shap-E](https://localclaw.io/3d/shap-e) - developer: OpenAI; minimum RAM: 16 GB; minimum VRAM: 8 GB; licence: MIT; released: May 2023.
+- 60 [TRELLIS Text Base](https://localclaw.io/3d/trellis-text-base) - developer: Microsoft Research; minimum RAM: 32 GB; minimum VRAM: 16 GB; licence: MIT code, model terms apply; released: Dec 2024.
+- 61 [OpenLRM](https://localclaw.io/3d/openlrm) - developer: 3DTopia; minimum RAM: 24 GB; minimum VRAM: 16 GB; licence: Apache 2.0 code, checkpoint terms apply; released: Nov 2023.
 
 ## Local Music Models (5)
 

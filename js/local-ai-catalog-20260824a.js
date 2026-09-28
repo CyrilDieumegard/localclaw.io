@@ -822,6 +822,18 @@
       caveats: ['Noncommercial source-available license', 'Multi-view scene workflow rather than object-to-GLB generation', 'CUDA and gsplat build required']
     },
     {
+      id: 'inspace', name: 'InSpace', category: '3d', developer: 'NAVER LABS / KAIST',
+      summary: '360-degree indoor-scene generation pipeline that turns an equirectangular panorama into an editable GLB scene.',
+      tasks: ['image-to-3d', 'scene-generation', 'mesh-generation', 'texturing', 'indoor-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'TRELLIS.2', 'Gradio', 'CLI'], output: ['GLB', 'Gaussian features', '3D bounding boxes', 'PLY samples'],
+      local_status: 'local', license: 'MIT code/model; non-commercial runtime dependency limits', released: '2026-07',
+      source_url: 'https://github.com/naver/inspace', install_url: 'https://huggingface.co/GwanHyeong/InSpace',
+      hardware_note: 'The official repository documents a local Conda/PyTorch stack, downloads public Hugging Face checkpoints and launches either Gradio or command-line scene generation from equirectangular panorama inputs. The Hugging Face bundle is ungated, MIT tagged and includes object/texture denoiser checkpoints plus ERP 3D-FRONT sample assets. Because InSpace builds on TRELLIS.2-style sparse latent and texture generation for whole rooms and does not publish a consumer VRAM table, 64 GB RAM and 24 GB NVIDIA VRAM are the conservative LocalClaw floor.',
+      strengths: ['Official NAVER AI Lab code and public Hugging Face checkpoints', 'Panorama-to-editable indoor scene workflow', 'Exports GLB scene assets rather than only renders'],
+      caveats: ['Specialized for indoor 360-degree panoramas', 'Research stack inherits TRELLIS.2 dependencies and quality limits', 'No official small-GPU memory table is published']
+    },
+    {
       id: 'scenegen', name: 'SceneGen', category: '3d', developer: 'Shanghai Jiao Tong University',
       summary: 'Feed-forward single-image 3D scene generator that segments objects and exports a downloadable GLB scene.',
       tasks: ['image-to-3d', 'scene-generation', 'mesh-generation', 'asset-generation'],
@@ -1044,6 +1056,18 @@
       hardware_note: 'The official CLI exports OBJ files from downloaded shape_gpt and shape_tokenizer safetensors. Roblox recommends 24 GB VRAM for the CUDA fast path and 16 GB otherwise, with Apple Silicon MPS also tested.',
       strengths: ['Official text-to-OBJ CLI', 'Bounding-box conditioning', 'NVIDIA, Windows and Apple Silicon paths documented'],
       caveats: ['Research-only OpenRAIL terms', 'Texture generation is still listed as upcoming', 'Fast inference is CUDA-only and needs more VRAM']
+    },
+    {
+      id: 'sk-adapter', name: 'SK-Adapter', category: '3d', developer: 'Harbin Institute of Technology / KAIST',
+      summary: 'Skeleton-conditioned adapter for TRELLIS that generates text- or image-prompted 3D assets following explicit structure controls.',
+      tasks: ['text-to-3d', 'image-to-3d', 'mesh-generation', 'structural-control', 'asset-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'TRELLIS', 'Gradio', 'CLI'], output: ['GLB', 'Gaussian assets', 'Skeleton controls'],
+      local_status: 'local', license: 'Apache 2.0 checkpoint; TRELLIS base model terms apply', released: '2026-03',
+      source_url: 'https://github.com/sk-adapter/SK-Adapter', install_url: 'https://huggingface.co/Supramundaner/sk-adapter',
+      hardware_note: 'The official repository provides local installation commands, Gradio demos and inference scripts for text- and image-conditioned skeleton control. The public Hugging Face repository is ungated, Apache-2.0 tagged and ships sk-adapter-text.pt plus sk-adapter-img.pt adapter weights on top of microsoft/TRELLIS-image-large. Since the project relies on the TRELLIS generation stack and publishes no dedicated low-VRAM table, LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official SK-Adapter code and public adapter checkpoints', 'Text-to-3D and image-to-3D structural control paths', 'Produces TRELLIS-style GLB and Gaussian asset outputs'],
+      caveats: ['Adapter requires the TRELLIS base environment and model terms', 'Skeleton constraints must be prepared or extracted before generation', 'Not a standalone renderer-free mesh generator']
     },
     {
       id: 'arbor', name: 'Arbor', category: '3d', developer: 'Stability AI',
