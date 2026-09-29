@@ -105,6 +105,19 @@
       caveats: ['GitHub repository does not expose a license file even though the Hugging Face model card is Apache-2.0', 'Demo prompts are described as distribution-shifted from internal training data', 'Specialized interactive storytelling workflow rather than a general editor']
     },
     {
+      id: 'coinve-edit', name: 'CoinVE-Edit', category: 'video', developer: 'FireCRT / CoinVE-200K',
+      summary: 'Apache-licensed compositional instruction-guided video editor that applies multiple region-aware edits to one source clip in a single pass.',
+      tasks: ['video-to-video', 'video-editing', 'instruction-guided-editing', 'compositional-editing', 'mask-guided-editing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 64,
+      runtime: ['PyTorch', 'CUDA', 'FlashAttention-3', 'Accelerate', 'Wan 2.1', 'Qwen3-VL'], output: ['MP4', 'mask overlay video'],
+      local_status: 'local', license: 'Apache 2.0 checkpoint; MIT repository code; Wan 2.1 and Qwen3-VL component terms apply', released: '2026-08',
+      source_url: 'https://github.com/coinve200k/CoinVE-200K/tree/main/CoinVE-Edit',
+      install_url: 'https://huggingface.co/FireCRT/CoinVE-Edit',
+      hardware_note: 'FireCRT publishes the Apache-2.0 CoinVE-Edit safetensors checkpoint and the primary CoinVE-200K repository publishes the MIT-licensed local inference code. The README documents Python 3.10+, CUDA 12.8, PyTorch 2.8, FlashAttention-3, local paths for Wan2.1-T2V-14B and Qwen3-VL-8B-Instruct, single-video editing scripts and MP4 outputs. The authors measure 720p, 49-frame, 50-step single-GPU inference at 53.7 GB GPU memory and 279 seconds on one NVIDIA H200, so LocalClaw records 128 GB RAM and 64 GB NVIDIA VRAM as the conservative workstation floor.',
+      strengths: ['Official checkpoint, code and benchmark release', 'Processes 2-5 editing instructions with per-instruction region masks', 'Single-video script plus multi-GPU benchmark inference path'],
+      caveats: ['Requires large Wan2.1-T2V-14B and Qwen3-VL-8B base checkpoints', 'Practical local inference is workstation-class, not consumer 24 GB VRAM', 'Specialized video editor rather than prompt-only generation']
+    },
+    {
       id: 'unityvideo', name: 'UnityVideo Wan2.2-TI2V-5B', category: 'video', developer: 'JIA Lab / Kling Team',
       summary: 'MIT/Apache-licensed Wan 2.2 control-video model that maps between RGB video and depth, DensePose, optical-flow, segmentation or skeleton modalities.',
       tasks: ['text-to-video', 'video-to-video', 'controlled-video-generation', 'depth-to-video', 'video-to-depth'],

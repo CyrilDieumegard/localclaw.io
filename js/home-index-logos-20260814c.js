@@ -198,6 +198,7 @@ window.HOME_INDEX_LOGOS = {
     'Ecole polytechnique / Kyoto University / Kyutai / UC Berkeley': 'github',
     'ERNIE Team / Baidu': 'github',
     'FastVideo / Hao AI Lab': 'github',
+    'FireCRT / CoinVE-200K': 'github',
     'Genmo': 'genmo-avatar',
     'Harbin Institute of Technology / KAIST': 'github',
     'Hebrew University of Jerusalem / Westlake University': 'github',
