@@ -257,6 +257,7 @@ window.HOME_INDEX_LOGOS = {
     'Wuhan University / HKUST': 'github',
     'Wan Team / Alibaba': 'alibaba',
     'Wan Team / Wan2GP': 'alibaba',
+    'Xinyang Li / Hunyuan-World collaborators': 'github',
     'XLong Research': 'github',
     'DreamTechAI / Neural4D': 'github',
     'Zhejiang University / ETH Zurich / Monash University': 'github',

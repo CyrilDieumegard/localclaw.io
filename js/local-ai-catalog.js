@@ -1229,6 +1229,30 @@
       caveats: ['License excludes use in the EU, UK and South Korea', 'Full HY-World generation pipeline is much heavier than WorldMirror reconstruction', 'Linux/CUDA setup with custom gsplat and FlashAttention dependencies']
     },
     {
+      id: 'hunyuanworld-1', name: 'HunyuanWorld 1.0', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Text- or image-conditioned 360-degree world generator that builds semantically layered mesh scenes from panoramic proxies.',
+      tasks: ['text-to-3d', 'image-to-3d', 'world-generation', 'scene-generation', 'mesh-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Diffusers', 'CLI', 'ModelViewer'], output: ['3D world scene', 'Layered mesh', 'Draco-compressed assets', 'Panorama image'],
+      local_status: 'local', license: 'Tencent HunyuanWorld-1.0 Community License; dependency terms apply', released: '2025-07',
+      source_url: 'https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0', install_url: 'https://huggingface.co/tencent/HunyuanWorld-1',
+      hardware_note: 'The official Tencent repository publishes inference code, Hugging Face checkpoint links for text/image panorama and scene/sky inpaint models, and a tested Python 3.10 plus PyTorch 2.5.0 CUDA 12.4 environment. The local path runs demo_panogen.py followed by demo_scenegen.py for text- or image-to-world generation, builds optional Draco support, and previews generated scene files in the bundled browser ModelViewer. Tencent does not publish a base-model consumer VRAM table; the later lite path targets RTX 4090-class GPUs, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative practical floor for the original local pipeline.',
+      strengths: ['Official Tencent Hunyuan code and checkpoint links', 'Text-to-world and image-to-world local CLI workflows', 'Exports explorable semantically layered mesh worlds'],
+      caveats: ['License excludes use in the EU, UK and South Korea', 'Complex pipeline with Real-ESRGAN, ZIM, Draco and segmentation dependencies', 'Scene-scale world generation rather than isolated object GLB assets']
+    },
+    {
+      id: 'flashworld', name: 'FlashWorld', category: '3d', developer: 'Xinyang Li / Hunyuan-World collaborators',
+      summary: 'Fast text- or image-conditioned 3D Gaussian scene generator with local web and CLI export paths.',
+      tasks: ['text-to-3d', 'image-to-3d', 'gaussian-splatting', 'scene-generation', 'world-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'gsplat', 'Diffusers', 'CLI', 'Web app'], output: ['PLY', 'SPZ', '3D Gaussian', 'MP4 preview'],
+      local_status: 'local', license: 'Apache 2.0 code; CC BY-NC-SA 4.0 Hugging Face weights', released: '2025-10',
+      source_url: 'https://github.com/imlixinyang/FlashWorld', install_url: 'https://huggingface.co/imlixinyang/FlashWorld',
+      hardware_note: 'The official repository documents a local web interface and CLI, installs PyTorch, gsplat 1.5.2, a Wan-5B diffusers branch and Niantic SPZ tooling, then writes video, SPZ and PLY outputs from JSON scene prompts. The authors report one A800 at 51 GB VRAM by default, 30 GB with T5 offload, 24 GB with T5 plus transformer-during-VAE offload, and a slow below-10 GB VAE-offload mode; LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the practical local floor because the sub-10 GB mode is minutes-long and heavily offloaded.',
+      strengths: ['Official code and public Hugging Face weights', 'Local web app plus higher-quality CLI rendering path', 'Exports uncompressed Gaussian PLY and SPZ assets'],
+      caveats: ['Weights are non-commercial share-alike on Hugging Face despite Apache-licensed code', 'World-scene Gaussian output rather than textured mesh assets', 'Fast path expects A100/A800/H100-class GPUs']
+    },
+    {
       id: 'abot-recon', name: 'ABot-Recon', category: '3d', developer: 'Alibaba AMAP CV Lab',
       summary: 'Streaming 3D reconstruction model that composes local point maps and relative poses from long video frame sequences.',
       tasks: ['video-to-3d', 'streaming-reconstruction', 'camera-pose-estimation', 'point-cloud-reconstruction'],
