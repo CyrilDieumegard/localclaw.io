@@ -359,6 +359,27 @@
             <nav aria-label="Local AI categories"><a href="#llm-index"><strong>LLM</strong><span>241 local pages</span></a><a href="#tts-index"><strong>Voice</strong><span>97 local records</span></a><a href="#image-index"><strong>Image</strong><span>5 local models</span></a><a href="#video-index"><strong>Video</strong><span>55 local models</span></a><a href="#three-d-index"><strong>3D</strong><span>61 local models</span></a><a href="#music-index"><strong>Music</strong><span>5 local models</span></a><a href="#vision-index"><strong>Vision</strong><span>5 local models</span></a></nav>
           </section>
 
+          <section id="fresh-local-ai" aria-label="Recently verified local AI models" class="mb-20">
+            <div class="rounded-2xl border border-claw-primary/20 bg-[radial-gradient(ellipse_at_top_left,rgba(255,69,58,0.10),transparent_42%),rgba(255,255,255,0.02)] p-6 sm:p-8">
+              <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p class="mb-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-claw-primary">// RECENTLY VERIFIED</p>
+                  <h2 class="text-2xl sm:text-3xl font-display font-bold text-white uppercase tracking-tight">Fresh local AI worth checking</h2>
+                  <p class="mt-3 max-w-2xl text-sm text-claw-muted font-mono leading-relaxed">New open-weight releases are screened for a real local install path before they enter LocalClaw.</p>
+                </div>
+                <div class="flex flex-wrap gap-3 text-xs font-mono font-bold uppercase tracking-wider">
+                  <a href="/new" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="new_page" class="text-claw-primary hover:text-white">See every new model →</a>
+                  <a href="new-models.xml" data-fast-goal="freshness_open" data-fast-goal-source="home_recent" data-fast-goal-target="rss" class="text-claw-muted hover:text-white">RSS feed</a>
+                </div>
+              </div>
+              <div class="grid gap-3 md:grid-cols-3">
+                <a href="/models/xing4-0-29b-a4b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="xing4-0-29b-a4b" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Sep 17, 2026 · Agentic MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">Xing4.0-29B-A4B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 XingChen-AGI MoE with official IQ4_NL GGUF for 24GB GPU workstations.</p></a>
+                <a href="/models/bonsai-2-27b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="bonsai-2-27b" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Sep 17, 2026 · Ternary 27B</p><h3 class="mt-3 text-lg font-display font-bold text-white">Bonsai 2 27B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 PrismML release with 7.21GB PQ2_0 GGUF and MLX local paths.</p></a>
+                <a href="/models/needle-3" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="needle-3" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Sep 16, 2026 · Tiny tools</p><h3 class="mt-3 text-lg font-display font-bold text-white">Needle 3</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 Cactus release with official .cact runtime artifacts for local tool calls.</p></a>
+              </div>
+            </div>
+          </section>
+
           <section id="llm-index" class="lc-index-fallback__section" aria-labelledby="llm-snapshot-title">
             <div><span class="lc-index-eyebrow">Representative crawlable snapshot</span><h2 id="llm-snapshot-title">Local LLM score leaders</h2><p>Top 24 of 241 current local records, ordered only by the documented LocalClaw catalogue score. Community ratings remain a separate live signal; open the full catalogue for every record.</p></div>
             <div class="lc-index-fallback__table-wrap"><table><thead><tr><th>Rank</th><th>Model / family</th><th>LocalClaw</th><th>Parameters</th><th>Min RAM</th><th>Licence</th><th>Released</th></tr></thead><tbody>
