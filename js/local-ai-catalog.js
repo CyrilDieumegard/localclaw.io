@@ -955,6 +955,18 @@
       caveats: ['Noncommercial research license', 'Linux/NVIDIA workstation workflow with Blender and submodules', 'Video-to-4D asset generation rather than general static text-to-3D']
     },
     {
+      id: 'hy-motion-1', name: 'HY-Motion 1.0', category: '3d', developer: 'Tencent Hunyuan',
+      summary: 'Text-to-3D human motion model that generates skeleton-based character animations for local animation pipelines.',
+      tasks: ['text-to-3d', 'text-to-motion', 'animation', 'rigging', 'human-motion-generation'],
+      platforms: ['macos', 'windows', 'linux'], accelerators: ['nvidia', 'apple-silicon'],
+      min_ram_gb: 64, min_vram_gb: 24, runtime: ['PyTorch', 'CLI', 'Gradio'], output: ['3D motion', 'Skeleton animation', 'Local preview'],
+      local_status: 'local', license: 'Tencent HY-Motion 1.0 Community License', released: '2025-12',
+      source_url: 'https://github.com/Tencent-Hunyuan/HY-Motion-1.0', install_url: 'https://huggingface.co/tencent/HY-Motion-1.0',
+      hardware_note: 'Tencent publishes the official HY-Motion 1.0 repository, Hugging Face checkpoints for the 1.0B and 0.46B Lite text-to-motion models, and a ckpts guide for offline downloads of the main motion checkpoints, CLIP, Qwen3-8B and the optional Text2MotionPrompter module. The README lists macOS, Windows and Linux support, local CLI batch inference, a localhost Gradio app, 26 GB minimum VRAM for the standard model and 24 GB for Lite. LocalClaw records 64 GB RAM and 24 GB VRAM as the conservative floor because prompt rewriting and duration estimation add a large language-model sidecar unless disabled.',
+      strengths: ['Official Tencent Hunyuan code and downloadable Hugging Face checkpoints', 'Local CLI and Gradio workflows for prompt-to-motion generation', 'Skeleton-based 3D character animation output for downstream pipelines'],
+      caveats: ['License excludes use in the EU, UK and South Korea and has extra commercial-use terms above 1M monthly active users', 'Focused on humanoid single-character motion rather than mesh or scene generation', 'FBX/SMPLH ecosystem dependencies and optional prompt-engineering models add setup complexity']
+    },
+    {
       id: 'avatarmoe', name: 'AvatarMoE', category: '3d', developer: 'MILAB Yongin / CODINGHYE',
       summary: 'MIT-licensed part-aware mixture-of-experts model for animatable 3D Gaussian human avatars.',
       tasks: ['gaussian-splatting', 'rigging', 'animation', 'human-reconstruction', 'novel-view-synthesis'],
