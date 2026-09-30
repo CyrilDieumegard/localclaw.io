@@ -285,6 +285,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.7
   },
   {
+    "id": "audar-tts-v1-turbo",
+    "name": "Audar-TTS-V1-Turbo",
+    "developer": "Audar AI Labs",
+    "family": "audar",
+    "license": "AudarAI Community License v1.0",
+    "releaseDate": "2026-07",
+    "quality": 9.2,
+    "speed": 8,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 1.07
+  },
+  {
     "id": "audar-asr-v1-flash",
     "name": "Audar-ASR-V1-Flash",
     "developer": "Audar AI Labs",
