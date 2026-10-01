@@ -10,7 +10,7 @@
   <meta property="og:title" content="LocalClaw 1.0.210 — OpenClaw 9.7 update safety">
   <meta property="og:description" content="An on-device decision model selects a configured cloud chat model and shows why it was selected.">
   <meta property="og:image" content="https://localclaw.io/images/localclaw-app-home.jpg">
-  <meta property="article:published_time" content="2026-09-24">
+  <meta property="article:published_time" content="2026-10-01">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
   <link rel="icon" type="image/png" href="../images/favicon.png?v=20260211g">
@@ -95,10 +95,10 @@
       <div class="eyebrow">OpenClaw 2026.9.7 · verified recovery backups</div>
       <h1>LocalClaw 1.0.210</h1>
       <p class="lede">LocalClaw now creates and verifies a full recovery backup before upgrading OpenClaw from 2026.9.6 to 2026.9.7. Install this LocalClaw update first, then update OpenClaw from the same Updates screen.</p>
-      <div class="meta"><span>Build 389</span><span>October 1, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
+      <div class="meta"><span>Build 390</span><span>October 1, 2026</span><span>Apple-notarized DMG</span><span>macOS 13+</span></div>
       <div class="actions">
-        <a class="button button-primary" href="/downloads/localclaw-1.0.210-389.dmg">Download LocalClaw</a>
-        <a class="button" href="https://github.com/CyrilDieumegard/LocalClaw/commit/ad07319">View source</a>
+        <a class="button button-primary" href="/downloads/localclaw-1.0.210-390.dmg">Download LocalClaw</a>
+        <a class="button" href="https://github.com/CyrilDieumegard/LocalClaw/commit/662838b75e5969b09b27e82f9faffe62a65134eb">View source</a>
       </div>
       <section>
         <h2>What changed</h2>
@@ -106,6 +106,7 @@
           <div class="item"><strong>Routed Chat beta</strong><p>A local decision model scores each prompt, then LocalClaw selects among the cloud models configured for this feature. The route card explains its choice and names the model actually used. Press Return to send a message.</p></div>
           <div class="item"><strong>Your decision stays on the Mac</strong><p>The routing decision runs locally. Your message goes to the selected cloud provider when you send it, as it would in an ordinary cloud chat. Routed Chat is a separate experimental space; your direct model choices remain available.</p></div>
           <div class="item"><strong>Backup before migration</strong><p>OpenClaw 2026.9.7 changes its state and agent databases. LocalClaw verifies a full recovery archive before replacing the installed runtime. If the backup fails, the update stops before interrupting the Gateway or replacing OpenClaw. Project workspace files are excluded; keep a separate backup of your projects.</p></div>
+          <div class="item"><strong>OpenClaw 9.7 advisory compatibility</strong><p>Finalization now recognizes the specific plaintext-secret configuration warning returned by OpenClaw 9.7. The warning stays visible; permission refusals, incomplete plugin migrations and Gateway health failures still block activation. If a runtime update stops during plugin finalization, open Help → Health commands → Quick Repair. Review requested plugin capabilities before completing repair.</p></div>
           <div class="item"><strong>Repair without unnecessary upgrades</strong><p>Quick Repair checks your running Gateway first. A healthy installation keeps its current OpenClaw version. Ordinary configuration repairs use that installed version; an incompatible database schema can still require an upgrade.</p></div>
           <div class="item"><strong>Responsive maintenance commands</strong><p>Large diagnostic output no longer depends on shared worker queues. Timed commands stop waiting at their deadline, including when a child process keeps the output pipe open. Unavailable update checks show their actual status.</p></div>
           <div class="item"><strong>OpenClaw 2026.9.7 compatibility</strong><p>Goal actions now recognize OpenClaw's new module format. Skills listing and installation explicitly target the selected chat agent, including when the router adds a second agent. LocalClaw also verifies that a native updater targets the selected Gateway package before allowing it to proceed.</p></div>
