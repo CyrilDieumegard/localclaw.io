@@ -17,7 +17,7 @@ const items = [
   ['account', '/account', 'My Machines']
 ];
 
-const modelKeys = new Set(['llm', 'voice', 'image', 'video', '3d', 'music', 'vision']);
+const modelKeys = new Set(['llm', 'voice', 'tts', 'image', 'video', '3d', 'music', 'vision']);
 
 function link([key, href, label], active) {
   const account = key === 'account' ? ' lc-global-nav__link--account' : '';
