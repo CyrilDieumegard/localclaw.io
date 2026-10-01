@@ -157,6 +157,32 @@
       caveats: ['Quantized 24 GB operation trades quality and speed for memory', 'Full bf16 generation is still an 80 GB-class GPU workload', 'Reference voice conditioning and training scripts are not yet released']
     },
     {
+      id: 'matrix-game-2', name: 'Matrix-Game 2.0', category: 'video', developer: 'Skywork AI',
+      summary: 'MIT-licensed interactive world model that streams action-conditioned video rollouts from an initial image.',
+      tasks: ['image-to-video', 'world-generation', 'action-conditioned-video', 'streaming-video', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['Diffusers', 'PyTorch', 'CUDA', 'FlashAttention'], output: ['MP4', 'streamed frames'],
+      local_status: 'local', license: 'MIT', released: '2025-08',
+      source_url: 'https://github.com/SkyworkAI/Matrix-Game',
+      install_url: 'https://huggingface.co/Skywork/Matrix-Game-2.0',
+      hardware_note: 'Skywork publishes the official Matrix-Game repository under MIT plus a Hugging Face Diffusers package for Matrix-Game 2.0 with base and distilled safetensors, VAE, tokenizer and OpenCLIP assets. The model card documents local Linux setup, FlashAttention, Python inference.py and inference_streaming.py entrypoints, initial-image conditioning, keyboard/mouse-style action control and MP4 output. The authors do not publish a consumer VRAM table, but the checkpoint is a 1.8B SkyReels/Wan-derived interactive model, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative local workstation floor pending card-specific measurements.',
+      strengths: ['Official Skywork AI code and downloadable Diffusers weights', 'Streaming action-conditioned world-model workflow', 'Initial-image control with minute-scale interactive rollout claims'],
+      caveats: ['No official consumer VRAM benchmark table is published', 'Focused on interactive game/world rollouts rather than general prompt-to-video', 'Depends on FlashAttention and SkyReels/Wan-derived base components']
+    },
+    {
+      id: 'memorizon', name: 'Memorizon', category: 'video', developer: 'IFM / MBZUAI',
+      summary: 'Apache-licensed long-horizon world model that generates 864x480 camera-controlled video one second at a time from a single image.',
+      tasks: ['image-to-video', 'world-generation', 'camera-controlled-video', 'long-video-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 96, min_vram_gb: 40,
+      runtime: ['PyTorch', 'CUDA', 'Memorizon pipeline', 'FFmpeg'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.2 base model terms apply', released: '2026-09',
+      source_url: 'https://github.com/TingtingLiao/memorizon',
+      install_url: 'https://huggingface.co/Luffuly/memorizon',
+      hardware_note: 'The official Memorizon repository and Hugging Face model card publish Apache-2.0 code plus sharded safetensors for a four-step distilled Wan2.2-TI2V-5B world model. The README documents Python 3.11 installation, first-use weight downloads, FFmpeg, scripts/generate.py, a MemorizonPipeline.from_pretrained path, keyboard actions or camera trajectories, and 864 x 480 MP4 output at 16 FPS. The project states inference needs a GPU with at least 40 GB memory, and the released model was trained from Wan2.2-TI2V-5B, so LocalClaw records 96 GB RAM and 40 GB NVIDIA VRAM as the conservative local floor.',
+      strengths: ['Official code, Apache-2.0 license and downloadable sharded weights', 'Long-horizon camera trajectories and keyboard-action controls', 'Simple CLI and Python pipeline for MP4 generation'],
+      caveats: ['Requires a 40 GB-class NVIDIA GPU for inference', 'Uses Wan2.2-TI2V-5B as its base, so upstream component terms still apply', 'Project paper is still listed as coming soon on the model card']
+    },
+    {
       id: 'ltx-video', name: 'LTX 2.5', category: 'video', developer: 'Lightricks',
       summary: 'Current open-weight LTX release for local synchronized audio and video generation, with an official desktop application.',
       tasks: ['text-to-video', 'image-to-video', 'audio-to-video', 'video-to-video'],
