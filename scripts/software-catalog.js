@@ -24,7 +24,7 @@ const software = [
   {
     id: 'localclaw', name: 'LocalClaw', roles: ['stack'], platforms: ['macos'], uses: ['agents'],
     type: 'Complete stack', workflow: 'OpenClaw setup · Local model routing', badge: 'Featured',
-    description: 'Install and manage OpenClaw from a native Mac app, with transparent local routing for Simple, Analysis and Code prompts coming in the 1.0.209 beta.',
+    description: 'Install and manage OpenClaw from a native Mac app, with transparent local routing for Simple, Analysis and Code prompts available in LocalClaw 1.0.210, plus verified backups before OpenClaw 2026.9.7 migration.',
     platformNote: 'Apple Silicon only · macOS 13+ for the app, macOS 14+ for local models with LM Studio. Paid app license required.',
     icon: '/images/logo-localclaw.svg', href: '/pricing',
     action: { label: 'Explore', href: '/pricing' },
