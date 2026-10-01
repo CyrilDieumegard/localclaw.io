@@ -235,6 +235,7 @@ window.HOME_INDEX_LOGOS = {
     'PaddlePaddle': 'paddlepaddle-avatar',
     'Peking University / VAST AI Research': 'github',
     'PKU-YuanGroup': 'github',
+    'Princeton / UC Berkeley / MIT / NTU': 'github',
     'Qwen Team': 'qwen',
     'Robbyant / Ant Group': 'github',
     'Roblox Foundation AI': 'github',

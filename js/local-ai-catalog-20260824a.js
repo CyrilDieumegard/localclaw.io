@@ -993,6 +993,18 @@
       caveats: ['License excludes use in the EU, UK and South Korea and has extra commercial-use terms above 1M monthly active users', 'Focused on humanoid single-character motion rather than mesh or scene generation', 'FBX/SMPLH ecosystem dependencies and optional prompt-engineering models add setup complexity']
     },
     {
+      id: 'unimate', name: 'UniMate', category: '3d', developer: 'Princeton / UC Berkeley / MIT / NTU',
+      summary: 'Unified text-to-animation model that generates articulated motion for diverse skeleton topologies and can drive rigged 3D assets.',
+      tasks: ['text-to-motion', 'rigging', 'character-animation', 'motion-editing', 'motion-inbetweening'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 8,
+      runtime: ['PyTorch', 'Hugging Face Accelerate', 'Blender bpy', 'CLI'], output: ['NPY motion features', 'MP4 preview', 'Animated GLB', 'FBX'],
+      local_status: 'local', license: 'MIT code and checkpoint; source asset licenses apply', released: '2026-09',
+      source_url: 'https://github.com/Friedrich-M/UniMate', install_url: 'https://huggingface.co/Linzhan/UniMate',
+      hardware_note: 'The official repository released preview checkpoints on Hugging Face with the same output layout used by local sampling. It pins Python 3.10, PyTorch 2.5.1 CUDA 12.4, Accelerate, Torch Geometric and Blender bpy; the released checkpoints are about 765 MB each. No inference VRAM table is published, so LocalClaw records 32 GB RAM and 8 GB NVIDIA VRAM as a conservative floor for short preview sampling and animation export.',
+      strengths: ['Official code and public Hugging Face preview checkpoints', 'Text-conditioned motion for heterogeneous skeletons', 'Pipeline exports generated motion to animated GLB and FBX assets'],
+      caveats: ['Official preprocessing for new out-of-distribution rigs is still marked pending', 'Dataset components retain Mixamo, Objaverse and Truebones source terms', 'Early release with documented failure cases on some skeletons and motions']
+    },
+    {
       id: 'avatarmoe', name: 'AvatarMoE', category: '3d', developer: 'MILAB Yongin / CODINGHYE',
       summary: 'MIT-licensed part-aware mixture-of-experts model for animatable 3D Gaussian human avatars.',
       tasks: ['gaussian-splatting', 'rigging', 'animation', 'human-reconstruction', 'novel-view-synthesis'],
