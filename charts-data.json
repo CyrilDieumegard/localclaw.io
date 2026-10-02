@@ -1,7 +1,7 @@
 {
   "name": "LocalClaw Open-Weight AI Charts Snapshot",
   "url": "https://localclaw.io/charts",
-  "dateModified": "2026-10-01",
+  "dateModified": "2026-10-02",
   "license": "Source data retains the terms of each cited publisher. Vercel leaderboard data is adapted under CC BY 4.0. LocalClaw commentary is provided for reference.",
   "charts": [
     {
@@ -10,24 +10,19 @@
       "unit": "percent",
       "scope": "Daily share of tokens routed through Vercel AI Gateway, not global AI usage",
       "dateRange": {
-        "from": "2026-07-03",
-        "to": "2026-09-30"
+        "from": "2026-07-04",
+        "to": "2026-10-01"
       },
       "latest": {
-        "date": "2026-09-30",
-        "openWeights": 61.3,
-        "closedWeights": 38.7
+        "date": "2026-10-01",
+        "openWeights": 55.8,
+        "closedWeights": 44.2
       },
       "peak": {
         "date": "2026-09-20",
         "openWeights": 80.6
       },
       "series": [
-        {
-          "date": "2026-07-03",
-          "openWeights": 41.37013486704489,
-          "closedWeights": 58.6298651329551
-        },
         {
           "date": "2026-07-04",
           "openWeights": 43.021802670686405,
@@ -472,6 +467,11 @@
           "date": "2026-09-30",
           "openWeights": 61.25172298051551,
           "closedWeights": 38.7482770194845
+        },
+        {
+          "date": "2026-10-01",
+          "openWeights": 55.835683548909834,
+          "closedWeights": 44.164316451090166
         }
       ],
       "source": {
@@ -480,9 +480,9 @@
         "url": "https://vercel.com/ai-gateway/leaderboards/models",
         "license": "CC BY 4.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "retrievedAt": "2026-10-01T07:02:47.489Z",
+        "retrievedAt": "2026-10-02T07:02:39.867Z",
         "extraction": "Public leaderboard embedded open/closed token aggregate; last 90 completed UTC days; no interpolation.",
-        "seriesSha256": "69b30c2369012ffb2505ef87c34dd6cc400299c76ebc6dd27d5362793f05e9a3"
+        "seriesSha256": "112b939d4b72f302089b3944c09f09010a6b15eb7deb4eb7dc1676aab99134e9"
       },
       "freshness": {
         "cadence": "daily",
