@@ -1362,6 +1362,39 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 4.2
   },
   {
+    "id": "dots-tts-mf-2steps",
+    "name": "Dots TTS MF 2-step",
+    "developer": "dots-studio",
+    "family": "dots",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10",
+    "quality": 9.4,
+    "speed": 8.7,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 2.2
+  },
+  {
+    "id": "kova-tts-1",
+    "name": "Kova TTS 1",
+    "developer": "Kova AI",
+    "family": "kova",
+    "license": "Kova Research and Non-Commercial Model License",
+    "releaseDate": "2026-10",
+    "quality": 9,
+    "speed": 8.8,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.25
+  },
+  {
     "id": "zonos",
     "name": "Zonos v0.1",
     "developer": "Zyphra",

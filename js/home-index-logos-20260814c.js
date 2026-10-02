@@ -126,6 +126,7 @@ window.HOME_INDEX_LOGOS = {
     kitten: 'kittenml-avatar',
     kokoro: 'hexgrad-avatar',
     korva: 'github',
+    kova: 'github',
     kyutai: 'kyutai-avatar',
     llasa: 'hkustaudio-avatar',
     longcat: 'longcat',

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 97 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 97 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 100 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 100 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 97 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 100 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">100</strong> speech records: <strong style="color:#fff;">97 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">103</strong> speech records: <strong style="color:#fff;">100 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>97 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>100 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -4131,6 +4131,59 @@
                 voices: "Zero-shot voice cloning from reference audio + transcript",
                 context: "2B AR flow-matching TTS, 48 kHz AudioVAE, MeanFlow distilled, recommended NFE=4",
                 license: "Apache 2.0"
+            },
+            {
+                id: "dots-tts-mf-2steps",
+                name: "Dots TTS MF 2-step",
+                developer: "dots-studio",
+                family: "dots",
+                description: "Apache-licensed standalone dots.tts MeanFlow checkpoint for fixed two-step voice cloning. The Hugging Face release ships model, speaker encoder and vocoder safetensors, stores the sampling contract in config.json, and exposes the official dots.tts CLI plus DotsTtsRuntime.from_pretrained path for local PyTorch inference.",
+                languages: ["en", "zh", "yue", "ja", "ko", "fr", "de", "es", "it", "pt", "nl", "ru", "uk", "pl", "cs", "ro", "el", "fi", "tr", "ar", "hi", "vi", "id", "th"],
+                languageCount: 24,
+                features: ["cloning", "multilingual", "controllable", "low-latency"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 2.2,
+                sizeLabel: "2.20B safetensors assets",
+                sizeCategory: "medium",
+                quality: 9.4,
+                speed: 8.7,
+                latency: "low",
+                releaseDate: "2026-10",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/dots-studio/dots.tts-mf-2steps",
+                sourceStatus: "verified-model",
+                installCommand: "dots.tts --model-name-or-path dots-studio/dots.tts-mf-2steps",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Two-step zero-shot voice cloning from reference audio plus exact transcript",
+                context: "Fixed two-step MeanFlow inference; incompatible sampling options intentionally fail; reference-audio consent required by the model card",
+                license: "Apache 2.0"
+            },
+            {
+                id: "kova-tts-1",
+                name: "Kova TTS 1",
+                developer: "Kova AI",
+                family: "kova",
+                description: "English audiobook-focused TTS model built on Llama 3.2 1B with local streaming generation and reference-audio voice cloning. The public Hugging Face release ships safetensors, codec/alignment assets and an official local runtime repository with CUDA, CPU and Apple Silicon MLX guidance; the model card clearly limits use to research and non-commercial work unless separately licensed.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["cloning", "streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 1.25,
+                sizeLabel: "1.25B safetensors plus codec assets",
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 8.8,
+                latency: "low",
+                releaseDate: "2026-10",
+                isNew: true,
+                hfLink: "https://huggingface.co/kova-ai/kova-tts-1",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/evalabs-ai/kova-tts",
+                supportedFormats: ["pytorch", "safetensors", "mlx"],
+                voices: "Reference-audio cloning with matching transcript; optional separate LoRA voice adapters",
+                context: "Python 3.10+ runtime, local browser demo, CUDA recommended for interactive generation, CPU supported but slow, MLX path documented for Apple Silicon",
+                license: "Kova Research and Non-Commercial Model License"
             },
             {
                 id: "zonos",
