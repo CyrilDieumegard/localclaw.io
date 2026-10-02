@@ -730,6 +730,30 @@
       caveats: ['The higher-quality Giant and Nested checkpoints are non-commercial', 'Gaussian head and full app install require extra dependencies such as gsplat']
     },
     {
+      id: 'alchemy3d', name: 'Alchemy3D', category: '3d', developer: 'University of Hong Kong / Shenzhen Loop Area Institute',
+      summary: 'Open foundation model for editing existing GLB assets while preserving identity, structure and PBR-style detail.',
+      tasks: ['asset-editing', 'image-to-3d', 'text-to-3d', 'mesh-editing', 'texturing', 'part-segmentation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'TRELLIS.2', 'O-Voxel', 'Blender', 'CLI'], output: ['GLB', 'Edited mesh', 'Comparison MP4', 'Part labels'],
+      local_status: 'local', license: 'Apache 2.0; dependency licenses apply', released: '2026-09',
+      source_url: 'https://github.com/libd1/Alchemy3D', install_url: 'https://huggingface.co/libadi/Alchemy3D',
+      hardware_note: 'The official repository publishes inference code and Hugging Face checkpoints for Alchemy3D, Turbo, Flux, Instruct and Segment. Its setup targets Linux with PyTorch 2.6.0, CUDA 12.4, flash-attn, nvdiffrast, nvdiffrec, CuMesh, O-Voxel, FlexGEMM and Blender; the README says an NVIDIA GPU with 24 GB VRAM is the practical minimum and H200 is the verified class, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the entry workstation floor.',
+      strengths: ['Official Apache 2.0 code and Hugging Face checkpoint family', 'Edits source GLB assets from reference images or natural-language instructions', 'Example pipeline converts generated vertices, faces and attributes back to GLB'],
+      caveats: ['Requires an existing source asset rather than starting from a blank prompt in the primary workflow', 'TRELLIS.2 and native CUDA dependency stack is heavy', 'Training code is not released yet']
+    },
+    {
+      id: 'cg-mllm', name: 'CG-MLLM', category: '3d', developer: 'Zhejiang University / LIGHTSPEED',
+      summary: 'Multimodal 3D language model that captions, understands and generates OBJ meshes from images or text prompts.',
+      tasks: ['text-to-3d', 'image-to-3d', '3d-understanding', '3d-captioning', 'mesh-generation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 40,
+      runtime: ['PyTorch', 'Transformers', 'FlashAttention', 'Hunyuan3D VAE', 'CLI'], output: ['OBJ', 'Mesh', 'Text caption', '3D latent'],
+      local_status: 'local', license: 'Apache 2.0; upstream BAGEL and Hunyuan3D terms apply', released: '2026-09',
+      source_url: 'https://github.com/dreaming-huang/CG-MLLM', install_url: 'https://huggingface.co/JreamH/CGMLLM',
+      hardware_note: 'The official inference repository released a v0.1 EMA checkpoint on Hugging Face, installs Python 3.10 with FlashAttention, loads Qwen3-VL-2B-Instruct plus the Hunyuan3D-2.1 shape VAE, and exports generated image-to-object or text-to-object latents through trimesh as .obj meshes. The CLI default exposes --max_mem_per_gpu 40GiB, so LocalClaw records 64 GB RAM and 40 GB NVIDIA VRAM as a conservative local floor.',
+      strengths: ['Official code and public Apache 2.0 checkpoint', 'Single CLI covers image-to-OBJ, text-to-OBJ and 3D understanding modes', 'Uses Hunyuan3D-2.1 VAE to export generated meshes as OBJ files'],
+      caveats: ['Early v0.1 research release with limited hardware guidance', 'Depends on multiple upstream foundation models at runtime', 'OBJ geometry export is clearer than material or texture support in the current code']
+    },
+    {
       id: 'fire3d', name: 'Fire3D', category: '3d', developer: 'UIUC / Cornell University',
       summary: 'Feed-forward RGB image or casual RGB-D video scene reconstruction model that outputs editable textured 3D scene assets.',
       tasks: ['image-to-3d', 'video-to-3d', 'scene-reconstruction', 'mesh-reconstruction', 'texturing'],
