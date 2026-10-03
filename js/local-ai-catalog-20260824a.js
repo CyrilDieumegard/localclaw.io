@@ -767,6 +767,18 @@
       caveats: ['Early v0.1 research release with limited hardware guidance', 'Depends on multiple upstream foundation models at runtime', 'OBJ geometry export is clearer than material or texture support in the current code']
     },
     {
+      id: 'resplat', name: 'ReSplat', category: '3d', developer: 'CVG / ETH Zurich / University of Tuebingen / Czech Technical University',
+      summary: 'Feed-forward recurrent Gaussian splatting model that reconstructs local scenes from posed image sets and exports splats.',
+      tasks: ['gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis', 'depth-estimation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'CUDA', 'gsplat', 'COLMAP', 'CLI'], output: ['PLY', '3D Gaussian', 'MP4 preview', 'Rendered images'],
+      local_status: 'local', license: 'MIT', released: '2026-10',
+      source_url: 'https://github.com/cvg/resplat', install_url: 'https://huggingface.co/haofeixu/resplat',
+      hardware_note: 'The official repository targets Python 3.12, PyTorch 2.7.0, CUDA 12.8, gsplat 1.5.3 and a compiled pointops extension. Hugging Face hosts small, base and large ReSplat checkpoints plus depth initializers under MIT; the COLMAP demo script runs local inference with --save_images, --save_video and --save_ply. No VRAM table is published, so LocalClaw records 32 GB RAM and 12 GB NVIDIA VRAM as a conservative floor for lower-resolution small/base presets and short COLMAP scenes.',
+      strengths: ['Official MIT code and public Hugging Face checkpoints', 'COLMAP demo path for local posed-image reconstruction', 'Exports PLY Gaussian splats plus rendered images and video previews'],
+      caveats: ['Requires camera poses or prepared COLMAP input rather than raw unordered photos', 'CUDA extension build and gsplat dependency make setup more involved than a pure Diffusers model', 'Large/high-resolution presets can exceed the listed entry floor']
+    },
+    {
       id: 'fire3d', name: 'Fire3D', category: '3d', developer: 'UIUC / Cornell University',
       summary: 'Feed-forward RGB image or casual RGB-D video scene reconstruction model that outputs editable textured 3D scene assets.',
       tasks: ['image-to-3d', 'video-to-3d', 'scene-reconstruction', 'mesh-reconstruction', 'texturing'],

@@ -193,6 +193,7 @@ window.HOME_INDEX_LOGOS = {
     'ByteDance Seed': 'github',
     'CASIA / GigaAI / Tsinghua University': 'github',
     'Character.AI': 'huggingface-avatar',
+    'CVG / ETH Zurich / University of Tuebingen / Czech Technical University': 'github',
     'Doubiiu / CUHK': 'doubiiu-avatar',
     'DreamTechAI / Neural4D': 'github',
     'DreamGaussian Team': 'github',
