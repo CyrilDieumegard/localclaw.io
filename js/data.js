@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
+// Updated October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
+// Previous: September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
 // Previous: September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
 // Previous: September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
 // Previous: September 22, 2026 - Added Needle 3 - 245 unique LLM records
@@ -499,6 +500,44 @@ const APP_DATA = {
             runtime_url: 'https://huggingface.co/mudler/KAT-Coder-V2.5-Dev-APEX-GGUF',
             benchmarks: { speed: 6, quality: 8, coding: 10, reasoning: 8 },
             released: '2026-07-23',
+            isNew: true
+        },
+        {
+            id: 'llm-jp-4-1-8b-thinking',
+            name: 'LLM-jp-4.1 8B Thinking',
+            family: 'llm-jp',
+            params: '8B',
+            size_gb: 5.04,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'long-context', 'multilingual', 'standard'],
+            description: 'Official Apache 2.0 LLM-jp 4.1 dense reasoning model from NII/LLM-jp with English/Japanese focus, 65K context, Harmony-style chat template and official Q4_K_M GGUF for local llama.cpp testing through the LLM-jp fork.',
+            search_term: 'llm-jp-4.1-8b-thinking',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'llm-jp/llm-jp-4.1-8b-thinking-gguf',
+            source_url: 'https://huggingface.co/llm-jp/llm-jp-4.1-8b-thinking',
+            custom_runtime: 'LLM-jp llama.cpp fork',
+            runtime_url: 'https://github.com/llm-jp/llm-jp-4-cookbook/tree/main/llmjp4_llama-cpp',
+            benchmarks: { speed: 7, quality: 8, coding: 8, reasoning: 8 },
+            released: '2026-09-15',
+            isNew: true
+        },
+        {
+            id: 'llm-jp-4-1-32b-a3b-thinking',
+            name: 'LLM-jp-4.1 32B-A3B Thinking',
+            family: 'llm-jp',
+            params: '32B (3.8B active, MoE)',
+            size_gb: 19.17,
+            min_ram: 48,
+            tags: ['chat', 'code', 'reasoning', 'long-context', 'multilingual', 'power'],
+            description: 'Official Apache 2.0 LLM-jp 4.1 sparse MoE reasoning model with 32B total / 3.8B active parameters, 65K context, Japanese-English post-training and an official Q4_K_M GGUF path for larger local workstations.',
+            search_term: 'llm-jp-4.1-32b-a3b-thinking',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'llm-jp/llm-jp-4.1-32b-a3b-thinking-gguf',
+            source_url: 'https://huggingface.co/llm-jp/llm-jp-4.1-32b-a3b-thinking',
+            custom_runtime: 'LLM-jp llama.cpp fork',
+            runtime_url: 'https://github.com/llm-jp/llm-jp-4-cookbook/tree/main/llmjp4_llama-cpp',
+            benchmarks: { speed: 5, quality: 8, coding: 8, reasoning: 9 },
+            released: '2026-09-16',
             isNew: true
         },
         {
@@ -4167,8 +4206,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-09-30T06:30:53.000Z",
-        catalogueHash: "c3ab4c5d4de6970135b1497324f386f98e1d37db5934e43c749644aaf5307c39",
+        checkedAt: "2026-10-03T06:23:03.000Z",
+        catalogueHash: "367da5121bb983a62ca1419b26d0bfea5ccf9e0a76ea6d648d1fee4ca76d8a46",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
@@ -4187,6 +4226,8 @@ const APP_DATA = {
             "nemotron-3-5-lightning-30b-a3b": "ggml-org/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF",
             "lfm2-5-2-6b": "LiquidAI/LFM2.5-2.6B-GGUF",
             "kat-coder-v2-5-dev": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
+            "llm-jp-4-1-8b-thinking": "llm-jp/llm-jp-4.1-8b-thinking-gguf",
+            "llm-jp-4-1-32b-a3b-thinking": "llm-jp/llm-jp-4.1-32b-a3b-thinking-gguf",
             "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking-gguf",
             "lfm2-5-vl-3b": "LiquidAI/LFM2.5-VL-3B-GGUF",
             "ling-3.0-tiny": "bloomer010/Ling-3.0-tiny-GGUF",
@@ -4388,6 +4429,8 @@ const APP_DATA = {
             "qwen3.6-27b": "Qwen/Qwen3.6-27B",
             "nemotron-3-5-lightning-30b-a3b": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
             "kat-coder-v2-5-dev": "Kwaipilot/KAT-Coder-V2.5-Dev",
+            "llm-jp-4-1-8b-thinking": "llm-jp/llm-jp-4.1-8b-thinking",
+            "llm-jp-4-1-32b-a3b-thinking": "llm-jp/llm-jp-4.1-32b-a3b-thinking",
             "llm-jp-4-33b-thinking": "llm-jp/llm-jp-4-33b-thinking",
             "gemma4-26b-a4b": "google/gemma-4-26B-A4B-it",
             "gemma4-31b": "google/gemma-4-31B-it",

@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Xing4.0-29B-A4B</title>
@@ -25,12 +25,28 @@
       <description>PrismML Apache 2.0 ternary Qwen3.8-27B derivative with official GGUF and MLX paths. The PQ2_0 pack is 7.21GB, PTQ1_0 is 5.95GB, and custom llama.cpp/MLX kernels target laptop-class local inference. 27.36B (ternary) · 16 GB minimum RAM · PQ2_0 · bonsai.</description>
     </item>
     <item>
+      <title>LLM-jp-4.1 32B-A3B Thinking</title>
+      <link>https://localclaw.io/models/llm-jp-4-1-32b-a3b-thinking</link>
+      <guid isPermaLink="true">https://localclaw.io/models/llm-jp-4-1-32b-a3b-thinking</guid>
+      <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
+      <category>llm-jp</category>
+      <description>Official Apache 2.0 LLM-jp 4.1 sparse MoE reasoning model with 32B total / 3.8B active parameters, 65K context, Japanese-English post-training and an official Q4_K_M GGUF path for larger local workstations. 32B (3.8B active, MoE) · 48 GB minimum RAM · Q4_K_M · llm-jp.</description>
+    </item>
+    <item>
       <title>Needle 3</title>
       <link>https://localclaw.io/models/needle-3</link>
       <guid isPermaLink="true">https://localclaw.io/models/needle-3</guid>
       <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
       <category>needle</category>
       <description>Cactus Compute Apache 2.0 foundation model for tiny on-device tool calling, extraction and embeddings. Official `.cact` runtime artifacts run through the cactus-needle Python package, C API, browser/WASI and platform runners instead of stock GGUF or LM Studio. 121M laddered SAN · 1 GB minimum RAM · CQ2 .cact · needle.</description>
+    </item>
+    <item>
+      <title>LLM-jp-4.1 8B Thinking</title>
+      <link>https://localclaw.io/models/llm-jp-4-1-8b-thinking</link>
+      <guid isPermaLink="true">https://localclaw.io/models/llm-jp-4-1-8b-thinking</guid>
+      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
+      <category>llm-jp</category>
+      <description>Official Apache 2.0 LLM-jp 4.1 dense reasoning model from NII/LLM-jp with English/Japanese focus, 65K context, Harmony-style chat template and official Q4_K_M GGUF for local llama.cpp testing through the LLM-jp fork. 8B · 16 GB minimum RAM · Q4_K_M · llm-jp.</description>
     </item>
     <item>
       <title>Occamy-1.0</title>
@@ -151,22 +167,6 @@
       <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts. 29.3B · 32 GB minimum RAM · Q4_K_M · granite.</description>
-    </item>
-    <item>
-      <title>Qwen3.8 Flash Next</title>
-      <link>https://localclaw.io/models/qwen3.8-flash-next</link>
-      <guid isPermaLink="true">https://localclaw.io/models/qwen3.8-flash-next</guid>
-      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
-      <category>qwen</category>
-      <description>Official Qwen sparse multimodal MoE preview with 125B model parameters plus 51B n-gram embeddings, about 6B active parameters, Qwen Community 1.0 licensing, 262K native context and local Q4_K_M GGUF paths for llama.cpp, Ollama and LM Studio-class runtimes. 125B + 51B n-gram (6B active) · 96 GB minimum RAM · Q4_K_M · qwen.</description>
-    </item>
-    <item>
-      <title>Granite 4.2 (3B)</title>
-      <link>https://localclaw.io/models/granite4.2-3b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-3b</guid>
-      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
-      <category>granite</category>
-      <description>IBM Granite 4.2 3B is the compact Apache 2.0 Granite reasoning model with 128K native context, thinking-mode chat, tool calling and official GGUF artifacts for laptop-class local inference. 3B · 8 GB minimum RAM · Q4_K_M · granite.</description>
     </item>
   </channel>
 </rss>
