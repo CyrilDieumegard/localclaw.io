@@ -232,6 +232,7 @@ window.HOME_INDEX_LOGOS = {
     'NVIDIA / University of Modena / University of Toronto / ETH Zurich': 'nvidia',
     'NVLabs / Efficient-Large-Model': 'nvidia',
     'OpenAI': 'openai',
+    'OpenVDN / FlashML': 'github',
     'OpenRobotLab / InternRobotics': 'github',
     'PaddlePaddle': 'paddlepaddle-avatar',
     'Peking University / VAST AI Research': 'github',

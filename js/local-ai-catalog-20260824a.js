@@ -207,6 +207,19 @@
       caveats: ['Very large downloads and slow offloaded inference', 'The open local base targets 768p; official 2K regeneration is not yet open-sourced']
     },
     {
+      id: 'vdn-h3', name: 'VDN-H3', category: 'video', developer: 'OpenVDN / FlashML',
+      summary: 'Hybrid-attention MiniMax H3 release for faster local text-to-audio-video, keyframe and reference-guided generation.',
+      tasks: ['text-to-audio-video', 'text-to-video', 'image-to-video', 'reference-to-video', 'keyframe-to-video'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 8,
+      runtime: ['FreeVideo', 'ComfyUI', 'Diffusers', 'SGLang', 'PyTorch'], output: ['MP4', 'stereo audio'],
+      local_status: 'local', license: 'MiniMax H3 Community License; Apache 2.0 code', released: '2026-09',
+      source_url: 'https://github.com/OpenVDN/vdn-minimax-h3',
+      install_url: 'https://huggingface.co/OpenVDN/vdn-minimax-h3',
+      hardware_note: 'OpenVDN publishes the official VDN-H3 weights, Apache-2.0 code, Diffusers modular pipeline, SGLang serving recipe and local PyTorch scripts. The Hugging Face package includes the MiniMax H3 base, an 8-step hybrid-attention branch and LoRA adapters, with about 82 GB for the full repository; the Diffusers path documents 24 GB card offload at about 22 GB peak, while the FreeVideo ComfyUI runtime built on VDN-H3 reports consumer execution with as little as 8 GB VRAM and 16 GB RAM. LocalClaw records that FreeVideo floor and notes that the direct OpenVDN stack remains a much larger workstation download.',
+      strengths: ['Official OpenVDN weights and inference repository', 'Text, first/last keyframe and reference-guided audio-video generation', 'FreeVideo ComfyUI path brings MiniMax H3 generation to consumer GPUs'],
+      caveats: ['Model weights carry MiniMax H3 territory and acceptable-use restrictions', 'The complete OpenVDN checkpoint download is about 82 GB', 'Best published speed numbers still use multi-GPU B200 or H200 systems']
+    },
+    {
       id: 'fasth3-preview-v1', name: 'FastH3 Preview v1', category: 'video', developer: 'FastVideo / Hao AI Lab',
       summary: 'Open-weight four-forward MiniMax H3 distillation for synchronized text-to-video-and-audio generation.',
       tasks: ['text-to-audio-video', 'text-to-video', 'audio-video-generation', 'animation'],
