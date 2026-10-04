@@ -663,6 +663,18 @@
       caveats: ['Official full precision needs more memory', 'Quality varies with aggressive quantization']
     },
     {
+      id: 'video-as-prompt', name: 'Video-As-Prompt', category: 'video', developer: 'ByteDance',
+      summary: 'Apache-licensed semantic-control model that uses a reference video as a prompt to animate a reference image.',
+      tasks: ['image-to-video', 'video-to-video', 'semantic-controlled-video', 'animation', 'reference-guided-generation'],
+      platforms: ['macos', 'windows', 'linux'], accelerators: ['nvidia'],
+      min_ram_gb: 64, min_vram_gb: 12, runtime: ['Diffusers fork', 'DiffSynth-Studio', 'ComfyUI', 'PyTorch'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0', released: '2025-10',
+      source_url: 'https://github.com/bytedance/Video-As-Prompt', install_url: 'https://huggingface.co/ByteDance/Video-As-Prompt-CogVideoX-5B',
+      hardware_note: 'ByteDance publishes Apache-2.0 code and full Diffusers-format CogVideoX-I2V-5B weights on Hugging Face, with a larger Wan2.1-I2V-14B variant available separately. The official README documents Python 3.10, PyTorch 2.7.1+cu124, FFmpeg, a local minimal demo, DiffSynth-Studio integration, a community ComfyUI implementation, and macOS, Windows and Linux setup. The authors report that sequential CPU offload lowers CogVideoX inference from about 40 GB GPU memory to around 7.5 GB on A100-class hardware, so LocalClaw records 64 GB RAM and 12 GB NVIDIA VRAM as the conservative practical floor for the CogVideoX path.',
+      strengths: ['Official ByteDance code and downloadable Apache-2.0 Diffusers weights', 'Reference-video semantic control over a separate reference image', 'DiffSynth-Studio and ComfyUI paths in addition to the Python demo'],
+      caveats: ['The Wan2.1 variant is heavier than the CogVideoX entry path', 'CPU offload is needed for lower-VRAM systems and can be slow', 'Controls semantic motion and transformations rather than free-form text-only video generation']
+    },
+    {
       id: 'cogvideox-5b', name: 'CogVideoX 5B', category: 'video', developer: 'Zhipu AI / THUDM',
       summary: 'Higher-capacity CogVideoX text-to-video model with official Diffusers quantization and CPU offloading paths.',
       tasks: ['text-to-video'], platforms: ['windows', 'linux'], accelerators: ['nvidia'],
