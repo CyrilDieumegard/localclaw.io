@@ -817,6 +817,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.025
   },
   {
+    "id": "kitten-tts-2",
+    "name": "KittenTTS 2",
+    "developer": "KittenML / Stellon Labs",
+    "family": "kitten",
+    "license": "Stellon Labs Community License",
+    "releaseDate": "2026-10",
+    "quality": 9,
+    "speed": 8.4,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu"
+    ],
+    "sizeGB": 1.51
+  },
+  {
     "id": "vibevoice-realtime-0.5b",
     "name": "VibeVoice Realtime 0.5B",
     "developer": "Microsoft Research",
@@ -1393,6 +1409,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "apple"
     ],
     "sizeGB": 1.25
+  },
+  {
+    "id": "irodori-tts-v4-large",
+    "name": "Irodori-TTS v4 Large",
+    "developer": "Aratako",
+    "family": "irodori",
+    "license": "Gemma Terms of Use",
+    "releaseDate": "2026-09",
+    "quality": 9.2,
+    "speed": 6.2,
+    "type": "TTS",
+    "hardware": [
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 12.25
   },
   {
     "id": "zonos",

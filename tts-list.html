@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 100 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 100 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 102 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 102 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 100 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 102 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">103</strong> speech records: <strong style="color:#fff;">100 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">105</strong> speech records: <strong style="color:#fff;">102 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>100 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>102 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3254,6 +3254,32 @@
                 license: "Apache-2.0"
             },
             {
+                id: "kitten-tts-2",
+                name: "KittenTTS 2",
+                developer: "KittenML / Stellon Labs",
+                family: "kitten",
+                description: "1.7B multilingual speech language model with in-context voice cloning, expression controls and built-in voices. The canonical Hugging Face release ships safetensors, GGUF assets for the official C++ CPU runtime, a Python `kittenml` loader and no-login local weights.",
+                languages: ["en", "ar", "zh", "fr", "de", "hi", "it", "pt", "ru", "es"],
+                languageCount: 10,
+                features: ["cloning", "multilingual", "emotion", "controllable"],
+                hardware: ["cpu", "gpu"],
+                sizeGB: 1.51,
+                sizeLabel: "1.7B params; 981 MB GGUF plus 510 MB default decoder",
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 8.4,
+                latency: "low",
+                releaseDate: "2026-10",
+                isNew: true,
+                hfLink: "https://huggingface.co/KittenML/kitten-tts-2",
+                sourceStatus: "verified-code",
+                installCommand: "pip install kittenml",
+                supportedFormats: ["pytorch", "safetensors", "gguf", "llama.cpp"],
+                voices: "47 built-in voices plus 5-30 second reference-audio voice cloning",
+                context: "Python 3.10+ with PyTorch; official kitten-tts-2-cpp runtime uses GGUF, CPU LibTorch and cached model assets for native local synthesis",
+                license: "Stellon Labs Community License"
+            },
+            {
                 id: "vibevoice-realtime-0.5b",
                 name: "VibeVoice Realtime 0.5B",
                 developer: "Microsoft Research",
@@ -4184,6 +4210,32 @@
                 voices: "Reference-audio cloning with matching transcript; optional separate LoRA voice adapters",
                 context: "Python 3.10+ runtime, local browser demo, CUDA recommended for interactive generation, CPU supported but slow, MLX path documented for Apple Silicon",
                 license: "Kova Research and Non-Commercial Model License"
+            },
+            {
+                id: "irodori-tts-v4-large",
+                name: "Irodori-TTS v4 Large",
+                developer: "Aratako",
+                family: "irodori",
+                description: "Japanese 3.29B flow-matching TTS model for zero-shot voice cloning, long-reference conditioning, text voice design and emoji-based style control. The official release ships downloadable safetensors weights plus MIT-licensed inference code with CLI and Gradio paths across CUDA, ROCm, Intel XPU and CPU/MPS backends.",
+                languages: ["ja"],
+                languageCount: 1,
+                features: ["cloning", "emotion", "controllable"],
+                hardware: ["gpu", "apple"],
+                sizeGB: 12.25,
+                sizeLabel: "3.29B params; 12.25 GB safetensors",
+                sizeCategory: "huge",
+                quality: 9.2,
+                speed: 6.2,
+                latency: "medium",
+                releaseDate: "2026-09",
+                isNew: true,
+                hfLink: "https://huggingface.co/Aratako/Irodori-TTS-v4-Large",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/Aratako/Irodori-TTS",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Zero-shot and long-reference voice cloning with up to 120 seconds of combined reference audio",
+                context: "Official uv-based runtime supports CLI, Gradio UI, local checkpoints, reference audio, caption conditioning and backend extras for CUDA 12.8, ROCm, Intel XPU or CPU/MPS",
+                license: "Gemma Terms of Use"
             },
             {
                 id: "zonos",

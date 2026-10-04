@@ -123,6 +123,7 @@ window.HOME_INDEX_LOGOS = {
     indextts: 'bilibiliindex',
     inflect: 'huggingface-avatar',
     indic: 'ai4bharat-avatar',
+    irodori: 'github',
     kitten: 'kittenml-avatar',
     kokoro: 'hexgrad-avatar',
     korva: 'github',
