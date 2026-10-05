@@ -537,6 +537,10 @@ ${labsReadableText()}
 
 Apple launched the new desktop generation September 22, 2026. Amazon offers vary by configuration and delivery address; Apple schedules the 512GB Mac Studio for late October. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
 
+## Compact AMD Buying Options
+
+- [Compact AMD workstations](${BASE_URL}/computers#amd-desktops) — GMKtec EVO-X3 128GB/2TB, Beelink GTR9 Pro 128GB/2TB and GMKtec EVO-X2 64GB/2TB, with exact Amazon.fr offers checked October 5, 2026. Stock and delivery vary; delivery to Switzerland was not verified for the Beelink offer. Shared-memory fit does not guarantee full GPU offload or runtime speed.
+
 ## RAM Decision Paths
 
 - [8 GB](${BASE_URL}/ram/8gb)

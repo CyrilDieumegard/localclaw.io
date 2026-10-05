@@ -16,6 +16,24 @@ const byId = new Map(models.map(model => [model.id, model]));
 const failures = [];
 const profiles = [8, 16, 24, 32, 36, 48, 64, 96, 128, 256, 512];
 
+const cardsContext = {};
+vm.runInNewContext(computers.match(/const COMPUTERS = \[[\s\S]*?\n        \];/)[0] + '\nthis.cards=COMPUTERS;', cardsContext);
+const compatibleFunction = computers.match(/function getCompatible\(computer\) \{[\s\S]*?\n        \}/)[0];
+for (const [id, ram] of [['gmktec_evo_x3_128', 128], ['beelink_gtr9_pro_128', 128], ['gmktec_evo_x2_64', 64]]) {
+  const card = cardsContext.cards.find(card => card.id === id);
+  if (!card || card.ram !== ram || card.amazonMarket !== 'FR' || !card.sourceUrl) {
+    failures.push(`${id} has missing or incorrect verified buying facts`);
+    continue;
+  }
+  const machineContext = { window: { LocalClawModelRanking: ranking }, MODELS: models, computer: card };
+  vm.runInNewContext(compatibleFunction + '\nthis.picks=getCompatible(computer);', machineContext);
+  if (!machineContext.picks.length) failures.push(`${id} has no compatible models`);
+  for (const model of machineContext.picks) {
+    if (model.fitState === 'too-large' || !ranking.isLocallyEligible(model)) failures.push(`${id} recommends incompatible ${model.id}`);
+    if (model.reasons?.some(reason => /Fits .* VRAM|GPU offload/.test(reason))) failures.push(`${id} claims unverified NVIDIA GPU offload`);
+  }
+}
+
 for (const ramGb of profiles) {
   const result = ranking.rankModels({ ramGb, platform: 'mac', accelerator: 'apple-silicon', useCase: 'general', priority: 'balanced', context: '8k' }, {}, models, { includeTight: true, limit: 12 });
   if (!result.compatible.length) failures.push(`${ramGb}GB profile has no compatible model`);

@@ -970,7 +970,7 @@
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge"> Updated October 5, 2026 · Mac mini M6 + Mac Studio M5</div>
+        <div class="hero-badge"> Updated October 5, 2026 · New Macs + compact AMD workstations</div>
         <h1 class="fd">Best Computers For<br><span>Local AI</span></h1>
         <p>Compare current Apple Silicon, AMD Ryzen AI Max, NVIDIA GeForce RTX, and GB10 computers. LocalClaw prioritizes usable AI memory, runtime support, and real form factor, not marketing TOPS.</p>
     </section>
@@ -1314,6 +1314,42 @@
                 badge: 'Ultimate Beast'
             },
             {
+                id: 'gmktec_evo_x3_128', section: 'amd-desktops', type: 'amd',
+                name: 'GMKtec EVO-X3',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Illustration of a compact workstation; not a product photo', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 128, storage: '2TB SSD',
+                memoryLabel: '128GB shared memory',
+                price: 'Check current price',
+                asin: null, amazonQuery: 'GMKtec EVO-X3 Ryzen AI Max+ 395 128GB 2TB', amazonMarket: 'FR', appleUrl: null,
+                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery to Switzerland offered. Confirm current seller and delivery.',
+                sourceUrl: 'https://www.gmktec.com/products/gmktec-evo-x3-ai-mini-pc-amd-ryzen-ai-max-395',
+                badge: 'Local AI + OCuLink'
+            },
+            {
+                id: 'beelink_gtr9_pro_128', section: 'amd-desktops', type: 'amd',
+                name: 'Beelink GTR9 Pro',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Illustration of a compact workstation; not a product photo', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 128, storage: '2TB SSD',
+                memoryLabel: '128GB shared memory',
+                price: 'Check current price',
+                asin: null, amazonQuery: 'Beelink GTR9 Pro Ryzen AI Max+ 395 128GB 2TB', amazonMarket: 'FR', appleUrl: null,
+                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery shown for metropolitan France. Switzerland delivery not verified.',
+                sourceUrl: 'https://www.bee-link.com/products/beelink-gtr9-pro-amd-ryzen-ai-max-395',
+                badge: 'Local AI + Dual 10GbE'
+            },
+            {
+                id: 'gmktec_evo_x2_64', section: 'amd-desktops', type: 'amd',
+                name: 'GMKtec EVO-X2',
+                image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Illustration of a compact workstation; not a product photo', imageFit: 'cover',
+                chip: 'Ryzen AI Max+ 395', ram: 64, storage: '2TB SSD',
+                memoryLabel: '64GB shared memory',
+                price: 'Check current price',
+                asin: null, amazonQuery: 'GMKtec EVO-X2 Ryzen AI Max+ 395 64GB 2TB', amazonMarket: 'FR', appleUrl: null,
+                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery to Switzerland offered. Select EVO-X2 64GB, not EVO-X3 128GB.',
+                sourceUrl: 'https://www.gmktec.com/products/amd-ryzen%E2%84%A2-ai-max-395-evo-x2-ai-mini-pc',
+                badge: '64GB Compact Local AI'
+            },
+            {
                 id: 'gmktec_evo_x2_128', section: 'amd-desktops', type: 'amd',
                 name: 'GMKtec EVO-X2',
                 image: 'images/computers/local-ai-compact-workstation.jpg', imageAlt: 'Illustration of a compact workstation; not a product photo', imageFit: 'cover',
@@ -1466,8 +1502,8 @@
             {
                 id: 'amd-desktops',
                 kicker: 'AMD compact workstations',
-                title: 'Ryzen AI Max 128GB Desktops',
-                copy: 'Compact Windows or Linux machines that can expose a large part of their 128GB unified-memory pool to local AI workloads without a discrete GPU.'
+                title: 'Ryzen AI Max 64GB & 128GB Desktops',
+                copy: 'Compact Windows or Linux machines with 64GB or 128GB of shared memory for local AI. The EVO-X3 adds OCuLink expansion; the GTR9 Pro has dual 10GbE networking. Model fit uses total shared memory, not a guarantee of full GPU offload or runtime speed.'
             },
             {
                 id: 'nvidia-desktops',
@@ -1522,7 +1558,7 @@
             return window.LocalClawModelRanking.rankModels({
                 ramGb: aiMemory,
                 platform: computer.type === 'apple' ? 'mac' : 'windows',
-                accelerator: computer.type === 'apple' ? 'apple-silicon' : 'nvidia',
+                accelerator: computer.type === 'apple' ? 'apple-silicon' : computer.type === 'amd' ? 'amd' : 'nvidia',
                 vramGb: computer.vram || null,
                 useCase: 'general',
                 priority: 'balanced',
@@ -1627,6 +1663,7 @@
                         <span class="spec-chip">${SVG.disk} ${esc(comp.storage)}</span>
                     </div>
                     ${comp.availability ? `<div class="availability-note">${esc(comp.availability)}</div>` : ''}
+                    ${comp.sourceUrl ? `<div class="availability-note"><a href="${esc(comp.sourceUrl)}" target="_blank" rel="noopener">Manufacturer specifications</a></div>` : ''}
                     <div class="price-row">
                         <span class="price">${priceLabel}</span>
                         <span class="ram-badge">${SVG.ram} ${esc(comp.memoryLabel || `${comp.ram}GB`)}</span>

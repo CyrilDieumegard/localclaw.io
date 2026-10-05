@@ -33,14 +33,17 @@ test('secondary chooser remains explicit when changing stores and keeps source p
   assert.match(html,/name="options" value="1"/);
   for(const link of html.matchAll(/<a[^>]+data-fast-goal="amazon_click"[^>]*>/g)) assert.match(link[0],/target="_blank"/);
 });
-test('new Mac links preserve verified French variants in one click and expire to a tagged search',async t=>{
+test('new computer links preserve verified French variants in one click and expire to a tagged search',async t=>{
   const checked=Date.parse('2026-10-05T12:00:00Z');
   let clock=checked;
   t.mock.method(Date,'now',()=>clock);
   for(const [q,asin] of [
     ['Apple Mac mini M6 16GB 512GB','B0HGGBZNTT'],
     ['Apple Mac mini M6 24GB 512GB','B0HGG7H7TN'],
-    ['Apple Mac Studio M5 Max 36GB 512GB','B0HGS3C159']
+    ['Apple Mac Studio M5 Max 36GB 512GB','B0HGS3C159'],
+    ['GMKtec EVO-X3 Ryzen AI Max+ 395 128GB 2TB','B0H8P7F2V5'],
+    ['Beelink GTR9 Pro Ryzen AI Max+ 395 128GB 2TB','B0GQXN34G9'],
+    ['GMKtec EVO-X2 Ryzen AI Max+ 395 64GB 2TB','B0G8JZD2ZK']
   ]) {
     for(const country of ['CH','FR','US']) {
       const res=await onRequestGet({request:request(`q=${encodeURIComponent(q)}&family=computers&listing=FR`,country)});
@@ -66,6 +69,8 @@ test('new Mac links preserve verified French variants in one click and expire to
   clock=checked;
   const wrong=await onRequestGet({request:request('q=Apple+Mac+mini+M6+32GB+512GB&listing=FR')});
   assert.equal(new URL(wrong.headers.get('Location')).pathname,'/s');
+  assert.equal(findOffer('GMKtec EVO-X3 Ryzen AI Max+ 395 64GB 2TB','FR',checked),undefined);
+  assert.equal(findOffer('Beelink GTR9 Pro Ryzen AI Max+ 395 128GB 1TB','FR',checked),undefined);
   const html=await (await onRequestGet({request:request(`options=1&q=${encodeURIComponent(q)}&listing=FR`)})).text();
   assert.match(html,/value="FR" selected/);
   assert.match(html,/B0HGGBZNTT/);
