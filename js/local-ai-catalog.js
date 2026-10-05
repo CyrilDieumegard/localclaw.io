@@ -755,6 +755,18 @@
       caveats: ['The higher-quality Giant and Nested checkpoints are non-commercial', 'Gaussian head and full app install require extra dependencies such as gsplat']
     },
     {
+      id: 'moge-3-vitl', name: 'MoGe-3 ViT-L', category: '3d', developer: 'Microsoft Research',
+      summary: 'MIT-licensed monocular geometry model that exports metric depth, normals, textured GLB meshes and PLY point clouds from single images.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'depth-estimation', 'normal-estimation', 'point-cloud-reconstruction'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 32, min_vram_gb: 12,
+      runtime: ['PyTorch', 'CUDA', 'Triton', 'uv', 'CLI'], output: ['GLB', 'PLY', 'Depth maps', 'Normal maps', 'EXR maps'],
+      local_status: 'local', license: 'MIT code and checkpoints; DINOv2 module under Apache 2.0', released: '2026-08',
+      source_url: 'https://github.com/microsoft/MoGe', install_url: 'https://huggingface.co/Ruicheng/moge-3-vitl',
+      hardware_note: 'Microsoft publishes the MoGe repository with Python 3.10+, uv/pip install paths, CUDA PyTorch guidance, and public ungated MoGe-3 ViT-L and ViT-G Hugging Face checkpoints. The CLI requires an explicit v3 checkpoint path, supports cuda or cpu device names, and writes mesh.glb plus pointcloud.ply when run with --glb --ply. MoGe-3 depends on FlexGEMM/Triton, so macOS is not supported; because no consumer VRAM table is published and ViT-L has 370M parameters, LocalClaw records 32 GB RAM and 12 GB NVIDIA VRAM as a conservative local floor.',
+      strengths: ['Official Microsoft code and MIT-tagged public checkpoints', 'Single-image metric geometry with depth, normal and point-map outputs', 'CLI exports textured GLB meshes and PLY point clouds'],
+      caveats: ['Geometry estimator rather than text-to-asset generation', 'MoGe-3 requires manually selecting a local or Hugging Face checkpoint path', 'No macOS support because FlexGEMM relies on Triton']
+    },
+    {
       id: 'alchemy3d', name: 'Alchemy3D', category: '3d', developer: 'University of Hong Kong / Shenzhen Loop Area Institute',
       summary: 'Open foundation model for editing existing GLB assets while preserving identity, structure and PBR-style detail.',
       tasks: ['asset-editing', 'image-to-3d', 'text-to-3d', 'mesh-editing', 'texturing', 'part-segmentation'],
