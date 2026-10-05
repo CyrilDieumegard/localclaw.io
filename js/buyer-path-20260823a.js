@@ -3,12 +3,12 @@
   if(!roots.length)return;
   const profiles={
     'buy|chat|starter':[
-      ['New pre-order','Mac mini M6 · 24GB','Available September 22. A balanced compact Mac for small local chat, coding and RAG models.','/hardware/mac-mini-m6-24gb','See pre-order fit'],
+      ['Compact Mac','Mac mini M6 · 24GB','A balanced compact Mac for small local chat, coding and RAG models. Amazon.fr quoted shipping in 1–3 months on October 5; check the current delivery estimate.','/go/amazon?q=Apple+Mac+mini+M6+24GB+512GB&family=computers&product=mac_mini_m6_24&source=buyer_path&listing=FR','View on Amazon.fr','/hardware/mac-mini-m6-24gb'],
       ['CUDA alternative','RTX 5060 Ti · 16GB','A practical new NVIDIA floor when faster CUDA inference matters.','/go/amazon?q=RTX+5060+Ti+16GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['More headroom','Desktop · 64GB RAM','A better base for RAG, browsers and several local tools at once.','/ram-gpu-for-local-ai#ram-picks','Compare RAM']
     ],
     'buy|code|starter':[
-      ['New pre-order','Mac mini M5 Pro · 24GB','Available September 22. A compact coding workstation with more compute and enough memory for practical assistants.','/hardware/mac-mini-m5-pro-24gb','See pre-order fit'],
+      ['Compact workstation','Mac mini M5 Pro · 24GB','A compact coding workstation with more compute and enough memory for practical assistants. The checked Amazon.fr listing was out of stock on October 5; compare current offers.','/go/amazon?q=Apple+Mac+mini+M5+Pro+24GB+512GB&family=computers&product=mac_mini_m5_pro_24&source=buyer_path','Check Amazon offers','/hardware/mac-mini-m5-pro-24gb'],
       ['CUDA alternative','RTX 5060 Ti · 16GB','Useful for 7B, 9B and some 14B-class coding models with GPU acceleration.','/go/amazon?q=RTX+5060+Ti+16GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['Longer-term','64GB local AI desktop','More room for IDEs, agents, RAG and concurrent services.','/computers','Compare computers']
     ],
@@ -35,11 +35,11 @@
   };
   const headroomProfiles={
     'buy|chat':[
-      ['Best long-term value','Mac Studio M5 Max · 64GB','Available September 22. More unified memory for larger contexts, RAG and several local services without moving to the extreme tier.','/hardware/mac-studio-m5-max-64gb','See pre-order fit'],
+      ['Best long-term value','Mac Studio M5 Max · 64GB','More unified memory for larger contexts, RAG and several local services without moving to the extreme tier.','/go/amazon?q=Apple+Mac+Studio+M5+Max+64GB+1TB&family=computers&product=mac_studio_m5_max_64&source=buyer_path','Check Amazon offers','/hardware/mac-studio-m5-max-64gb'],
       ['CUDA workstation','RTX 5090 · 32GB','The largest current consumer NVIDIA VRAM tier for buyers who also want strong CUDA speed.','/go/amazon?q=RTX+5090+32GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['Maximum memory','Ryzen AI Max · 128GB','A unified-memory route for large quantized workloads when CUDA is not mandatory.','/computers','Compare computers']],
     'buy|code':[
-      ['Best long-term value','Mac Studio M5 Max · 64GB','Available September 22. A balanced local coding and agent workstation with room for tools, contexts and concurrent services.','/hardware/mac-studio-m5-max-64gb','See pre-order fit'],
+      ['Best long-term value','Mac Studio M5 Max · 64GB','A balanced local coding and agent workstation with room for tools, contexts and concurrent services.','/go/amazon?q=Apple+Mac+Studio+M5+Max+64GB+1TB&family=computers&product=mac_studio_m5_max_64&source=buyer_path','Check Amazon offers','/hardware/mac-studio-m5-max-64gb'],
       ['CUDA route','RTX 5090 · 32GB','Stronger acceleration and more consumer VRAM for larger coding models.','/go/amazon?q=RTX+5090+32GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['More unified memory','Ryzen AI Max · 128GB','Large shared memory for agent stacks and model experimentation without a separate VRAM pool.','/computers','Compare computers']],
     'buy|create':[
@@ -66,7 +66,7 @@
       const values={};root.querySelectorAll('input:checked').forEach(i=>values[i.name]=i.value);
       if(!values.path||!values.use||!values.budget)return;
       const list=values.budget==='headroom'?(headroomProfiles[`${values.path}|${values.use}`]||headroomProfiles['buy|chat']):(profiles[`${values.path}|${values.use}|starter`]||profiles['buy|chat|starter']);
-      cards.innerHTML=list.map((x,i)=>`<article class="lc-buyer__card"><span class="lc-buyer__badge">${i?'Alternative '+i:'Primary recommendation'}</span><h3>${x[1]}</h3><p>${x[2]}</p><a class="${i?'secondary':''}" href="${x[3]}" ${x[3].startsWith('/go/')?'target="_blank" rel="sponsored nofollow noopener"':''} data-fast-goal="${x[3].startsWith('/go/')?'amazon_click':'buyer_recommendation_click'}" data-fast-goal-source="buyer_path">${x[4]}</a></article>`).join('');
+      cards.innerHTML=list.map((x,i)=>`<article class="lc-buyer__card"><span class="lc-buyer__badge">${i?'Alternative '+i:'Primary recommendation'}</span><h3>${x[1]}</h3><p>${x[2]}</p><a class="${i?'secondary':''}" href="${x[3]}" ${x[3].startsWith('/go/')?'target="_blank" rel="sponsored nofollow noopener"':''} data-fast-goal="${x[3].startsWith('/go/')?'amazon_click':'buyer_recommendation_click'}" data-fast-goal-source="buyer_path">${x[4]}</a>${x[5]?`<a class="secondary" href="${x[5]}" data-fast-goal="buyer_recommendation_click" data-fast-goal-source="buyer_path">See model fit</a>`:""}</article>`).join('');
       result.hidden=false;track('buyer_recommendation_viewed',{path:values.path,use_case:values.use,budget:values.budget});
     }
     root.addEventListener('change',()=>{track('buyer_path_answered',{step:'choice'});render()});render();

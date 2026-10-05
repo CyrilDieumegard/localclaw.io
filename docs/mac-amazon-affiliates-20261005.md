@@ -1,6 +1,6 @@
 # New Mac Amazon affiliate links — 5 October 2026
 
-The 11 Mac mini M6/M5 Pro and Mac Studio M5 Max/M5 Ultra cards and their hardware guides now use Amazon affiliate actions. The new Mac comparison hub also has four buying buttons. Apple URLs remain as technical sources. Pricing is checked on Amazon instead of publishing a fixed price.
+The 11 Mac mini M6/M5 Pro and Mac Studio M5 Max/M5 Ultra cards and their hardware guides now use Amazon affiliate actions. The new Mac comparison hub also has four buying buttons. The shared Computers/RAM buyer recommender now sends its Mac recommendations through the same affiliate resolver, with model-fit guides retained as secondary links. Apple URLs remain as technical sources. Pricing is checked on Amazon instead of publishing a fixed price.
 
 Verified on Amazon.fr with delivery country set to Switzerland:
 
