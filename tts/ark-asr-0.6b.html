@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#faf9f6">
   <meta name="color-scheme" content="light dark">
-  <title>ARK-ASR-3B local ASR: quality, speed and setup | LocalClaw</title>
-  <meta name="description" content="ARK-ASR-3B: local speech-to-text transcription guide with quality 9.3/10, speed 8.7/10, 19 languages, hardware and install notes.">
+  <title>ARK-ASR-0.6B local ASR: quality, speed and setup | LocalClaw</title>
+  <meta name="description" content="ARK-ASR-0.6B: local speech-to-text transcription guide with quality 9/10, speed 9.2/10, 19 languages, hardware and install notes.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://localclaw.io/tts/ark-asr-3b">
+  <link rel="canonical" href="https://localclaw.io/tts/ark-asr-0.6b">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://localclaw.io/tts/ark-asr-3b">
-  <meta property="og:title" content="ARK-ASR-3B Local ASR model | LocalClaw">
-  <meta property="og:description" content="ARK-ASR-3B: local speech-to-text transcription guide with quality 9.3/10, speed 8.7/10, 19 languages, hardware and install notes.">
+  <meta property="og:url" content="https://localclaw.io/tts/ark-asr-0.6b">
+  <meta property="og:title" content="ARK-ASR-0.6B Local ASR model | LocalClaw">
+  <meta property="og:description" content="ARK-ASR-0.6B: local speech-to-text transcription guide with quality 9/10, speed 9.2/10, 19 languages, hardware and install notes.">
   <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ARK-ASR-3B Local ASR model | LocalClaw">
-  <meta name="twitter:description" content="ARK-ASR-3B: local speech-to-text transcription guide with quality 9.3/10, speed 8.7/10, 19 languages, hardware and install notes.">
+  <meta name="twitter:title" content="ARK-ASR-0.6B Local ASR model | LocalClaw">
+  <meta name="twitter:description" content="ARK-ASR-0.6B: local speech-to-text transcription guide with quality 9/10, speed 9.2/10, 19 languages, hardware and install notes.">
   <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
   <link rel="icon" type="image/png" href="/images/favicon.png?v=20260211g">
   <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"ARK-ASR-3B","applicationCategory":"Local ASR model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/ark-asr-3b","description":"ARK-ASR-3B: local speech-to-text transcription guide with quality 9.3/10, speed 8.7/10, 19 languages, hardware and install notes.","softwareVersion":"2026-06","softwareRequirements":"8.1 GB model size; gpu, apple","license":"Apache 2.0","creator":{"@type":"Organization","name":"Audio8 / AutoArk"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ARK-ASR-3B run locally?","acceptedAnswer":{"@type":"Answer","text":"ARK-ASR-3B is listed by LocalClaw as a local ASR option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is ARK-ASR-3B best for?","acceptedAnswer":{"@type":"Answer","text":"ARK-ASR-3B is best for offline transcription, speech indexing and local voice pipelines."}},{"@type":"Question","name":"What license does ARK-ASR-3B use?","acceptedAnswer":{"@type":"Answer","text":"Apache 2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"ARK-ASR-3B","item":"https://localclaw.io/tts/ark-asr-3b"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"ARK-ASR-0.6B","applicationCategory":"Local ASR model","operatingSystem":"macOS, Windows, Linux","url":"https://localclaw.io/tts/ark-asr-0.6b","description":"ARK-ASR-0.6B: local speech-to-text transcription guide with quality 9/10, speed 9.2/10, 19 languages, hardware and install notes.","softwareVersion":"2026-06-27","softwareRequirements":"1.5 GB model size; cpu, gpu, apple","license":"Apache 2.0","creator":{"@type":"Organization","name":"Edge0 / AutoArk"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can ARK-ASR-0.6B run locally?","acceptedAnswer":{"@type":"Answer","text":"ARK-ASR-0.6B is listed by LocalClaw as a local ASR option. Hardware fit depends on runtime, model size and backend support."}},{"@type":"Question","name":"What is ARK-ASR-0.6B best for?","acceptedAnswer":{"@type":"Answer","text":"ARK-ASR-0.6B is best for offline transcription, speech indexing and local voice pipelines."}},{"@type":"Question","name":"What license does ARK-ASR-0.6B use?","acceptedAnswer":{"@type":"Answer","text":"Apache 2.0"}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://localclaw.io"},{"@type":"ListItem","position":2,"name":"TTS","item":"https://localclaw.io/tts-list"},{"@type":"ListItem","position":3,"name":"ARK-ASR-0.6B","item":"https://localclaw.io/tts/ark-asr-0.6b"}]}]}</script>
   <!-- TRACKING: DataFast Analytics -->
   <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
   <!-- Microsoft Clarity - session recordings & heatmaps (bounce diagnosis) -->
@@ -94,17 +94,17 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
   </div>
 </nav>
   <main class="wrap">
-    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>ARK-ASR-3B</span></div>
+    <div class="breadcrumb"><a href="/">LocalClaw</a><span>/</span><a href="/tts-list">TTS</a><span>/</span><span>ARK-ASR-0.6B</span></div>
     <header class="hero">
       <section class="hero-copy">
         <div class="eyebrow">Local ASR model</div>
-        <h1 class="title">ARK-ASR-3B</h1>
-        <p class="desc"><strong>Catalogue summary:</strong> 3B-scale multilingual ASR model built from a Whisper-style audio encoder, MLP adapter and Qwen decoder. Official code supports local Transformers inference and vLLM serving, with open Apache 2.0 safetensors for 19 languages.</p>
+        <h1 class="title">ARK-ASR-0.6B</h1>
+        <p class="desc"><strong>Catalogue summary:</strong> Efficient multilingual ASR checkpoint trained with teacher-data adaptation and online policy distillation. The official Apache 2.0 release ships safetensors, custom Transformers code, processor files and an AutoArk inference script for 19-language local transcription.</p>
         <p class="muted">Repository editorial metadata; verify comparative claims in the linked upstream material.</p>
-        <div class="chips"><span class="chip hot">GPU recommended</span><span class="chip">speech-to-text transcription</span><span class="chip">19 languages</span><span class="chip">Apache 2.0</span></div>
+        <div class="chips"><span class="chip hot">Apple Silicon ready</span><span class="chip">speech-to-text transcription</span><span class="chip">19 languages</span><span class="chip">Apache 2.0</span></div>
         <section class="install-choice" data-install-choice data-install-category="voice">
     <div class="install-choice-head"><div><span>Choose an app</span><p>Start with Recommended. No terminal commands are shown.</p></div><a href="/tts-list">Compare speech models</a></div>
-    <div class="install-choice-grid"><a class="install-choice-card featured" href="https://huggingface.co/Audio8/ARK-ASR-3B" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-3b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open model files</strong><small>Recommended verified starting point</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="unsloth://open_from_hf?model=Audio8%2FARK-ASR-3B" data-fast-goal="model_install_unsloth" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-3b"><span class="install-choice-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model</small></span><span class="install-choice-arrow" aria-hidden="true">Open</span></a><a class="install-choice-card" href="https://github.com/AutoArk/open-audio-opd" target="_blank" rel="noopener" data-fast-goal="model_install_github" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-3b"><span class="install-choice-logo" aria-hidden="true"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open official project</strong><small>Application source and guided setup</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="https://huggingface.co/Audio8/ARK-ASR-3B" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-3b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and model card</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="/account" data-fast-goal="model_install_localclaw" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-3b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Check my machine</strong><small>Optional: verify the fit with your saved hardware</small></span><span class="install-choice-arrow" aria-hidden="true">&#8594;</span></a></div>
+    <div class="install-choice-grid"><a class="install-choice-card featured" href="https://huggingface.co/Edge0/ARK-ASR-0.6B" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-0.6b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open model files</strong><small>Recommended verified starting point</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="unsloth://open_from_hf?model=Edge0%2FARK-ASR-0.6B" data-fast-goal="model_install_unsloth" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-0.6b"><span class="install-choice-logo" aria-hidden="true"><img src="https://raw.githubusercontent.com/unslothai/unsloth/main/studio/frontend/public/rounded.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open in Unsloth</strong><small>Launches Unsloth Desktop on this model</small></span><span class="install-choice-arrow" aria-hidden="true">Open</span></a><a class="install-choice-card" href="https://github.com/AutoArk/open-audio-opd" target="_blank" rel="noopener" data-fast-goal="model_install_github" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-0.6b"><span class="install-choice-logo" aria-hidden="true"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open official project</strong><small>Application source and guided setup</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="https://huggingface.co/Edge0/ARK-ASR-0.6B" target="_blank" rel="noopener" data-fast-goal="model_install_huggingface" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-0.6b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/model-logos/huggingface-avatar.webp" alt="" width="42" height="42" loading="lazy"></span><span><strong>Open on Hugging Face</strong><small>Files, licence and model card</small></span><span class="install-choice-arrow" aria-hidden="true">&#8599;</span></a><a class="install-choice-card" href="/account" data-fast-goal="model_install_localclaw" data-fast-goal-source="voice_detail" data-fast-goal-category="voice" data-fast-goal-model="ark-asr-0.6b"><span class="install-choice-logo" aria-hidden="true"><img src="/images/crab-logo.png" alt="" width="42" height="42" loading="lazy"></span><span><strong>Check my machine</strong><small>Optional: verify the fit with your saved hardware</small></span><span class="install-choice-arrow" aria-hidden="true">&#8594;</span></a></div>
     <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>
   </section><script src="/js/runtime-launch-assist-20260821a.js?v=20260830a" defer></script>
       </section>
@@ -112,28 +112,28 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
         <div class="score-card">
           <div><div class="score-label">Audio catalogue score</div><div class="score">9.1<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p></div>
         </div>
-        <div data-community-rating data-model-id="tts-ark-asr-3b" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
+        <div data-community-rating data-model-id="tts-ark-asr-0.6b" data-rating-mode="full" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>
         <div class="panel-grid">
-          <div class="mini"><div class="k">Developer</div><div class="v">Audio8 / AutoArk</div></div>
-          <div class="mini"><div class="k">Released</div><div class="v">2026-06</div></div>
+          <div class="mini"><div class="k">Developer</div><div class="v">Edge0 / AutoArk</div></div>
+          <div class="mini"><div class="k">Released</div><div class="v">2026-06-27</div></div>
         </div>
       </aside>
     </header>
 
 
     <section class="specs" aria-label="Model specs">
-      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">9.3/10</div></div>
-      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">8.7/10</div></div>
-      <div class="spec-card"><div class="k">Model size</div><div class="v">8.1 GB</div></div>
+      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">9/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">9.2/10</div></div>
+      <div class="spec-card"><div class="k">Model size</div><div class="v">0.6B decoder plus audio encoder; single safetensors checkpoint</div></div>
       <div class="spec-card"><div class="k">Voices</div><div class="v">N/A (ASR: outputs text)</div></div>
     </section>
 
 
     <section class="section">
-      <h2>Can ARK-ASR-3B run locally?</h2>
-      <p>ARK-ASR-3B can run locally for offline speech-to-text. Use the verified setup options on this page; no terminal command is required to choose the right path.</p>
+      <h2>Can ARK-ASR-0.6B run locally?</h2>
+      <p>ARK-ASR-0.6B can run locally for offline speech-to-text. Use the verified setup options on this page; no terminal command is required to choose the right path.</p>
       <p>Apache 2.0 license. Still verify upstream usage notes before shipping.</p>
-      <div class="source-links"><a href="https://huggingface.co/Audio8/ARK-ASR-3B" target="_blank" rel="noopener nofollow">Upstream source</a></div>
+      <div class="source-links"><a href="https://huggingface.co/Edge0/ARK-ASR-0.6B" target="_blank" rel="noopener nofollow">Upstream source</a></div>
       <div style="margin-top:18px"><span class="tag">multilingual</span><span class="tag">low-latency</span></div>
     </section>
 
@@ -141,12 +141,12 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
       <div>
         <h2>Audio profile</h2>
         <div class="bars">
-          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:93%"></div></div><span>9.3</span></div>
-          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:87%"></div></div><span>8.7</span></div>
+          <div class="bar-row"><span>Cat. quality</span><div class="track"><div class="fill" style="width:90%"></div></div><span>9</span></div>
+          <div class="bar-row"><span>Cat. speed</span><div class="track"><div class="fill" style="width:92%"></div></div><span>9.2</span></div>
           <div class="bar-row"><span>Audio</span><div class="track"><div class="fill" style="width:91%"></div></div><span>9.1</span></div>
         </div>
       </div>
-      <div><h2>Best fit</h2><p>ARK-ASR-3B is best for offline transcription, speech indexing and local voice pipelines.</p><p class="muted">Hardware: <span class="chip">gpu</span><span class="chip">apple</span></p></div>
+      <div><h2>Best fit</h2><p>ARK-ASR-0.6B is best for offline transcription, speech indexing and local voice pipelines.</p><p class="muted">Hardware: <span class="chip">cpu</span><span class="chip">gpu</span><span class="chip">apple</span></p></div>
     </section>
 
     <section class="section">
@@ -155,32 +155,32 @@ html.light .runtime-launch-disclosure{margin:11px 0 0!important;color:#64748b!im
         <div class="detail"><div class="k">Type</div><div class="v">Local ASR model</div></div>
         <div class="detail"><div class="k">Family</div><div class="v">ark-asr</div></div>
         <div class="detail"><div class="k">Latency</div><div class="v">low</div></div>
-        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">transformers</span><span class="chip">safetensors</span><span class="chip">vllm</span><span class="chip">onnx</span><span class="chip">mlx</span></div></div>
+        <div class="detail"><div class="k">Formats</div><div class="v"><span class="chip">transformers</span><span class="chip">pytorch</span><span class="chip">safetensors</span><span class="chip">gguf</span></div></div>
         <div class="detail"><div class="k">Languages</div><div class="v">zh, en, de, ja, fr, ko, es, pl, it, ro, hu, cs, nl, fi, hr, sk, sl, et, lt</div></div>
-        <div class="detail"><div class="k">Context</div><div class="v">3B decoder-scale ASR, 8.1GB safetensors, 16 kHz audio, official Transformers and vLLM scripts</div></div>
+        <div class="detail"><div class="k">Context</div><div class="v">Whisper-style 16 kHz audio encoder plus Qwen2 decoder with custom arkasr remote code; official inference uses scripts/infer/ark_asr_transformers.py, with third-party GGUF available for transcribe.cpp</div></div>
       </div>
     </section>
 
     <section class="section">
       <h2>Install locally</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports transformers, safetensors, vllm, onnx, mlx on your machine.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check runtime</strong><span>Confirm the backend supports transformers, pytorch, safetensors, gguf on your machine.</span></div>
         <div class="step"><div class="step-num">02</div><strong>Open recommended setup</strong><span>Use the app and model links above. LocalClaw does not expose a terminal command.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Test locally</strong><span>Run a short private audio prompt before moving into production workflows.</span></div>
       </div>
     </section>
 
     <section class="section cols">
-      <div><h2>Good for</h2><ul class="list"><li>speech-to-text transcription</li><li>GPU recommended local workflows</li><li>multilingual, low-latency</li></ul></div>
+      <div><h2>Good for</h2><ul class="list"><li>speech-to-text transcription</li><li>Apple Silicon ready local workflows</li><li>multilingual, low-latency</li></ul></div>
       <div><h2>Watch before shipping</h2><ul class="list"><li>Validate pronunciation, latency and artifacts with your own voice samples.</li><li>Review the upstream license and acceptable-use notes.</li><li>Benchmark on your target CPU, Apple Silicon or GPU setup.</li></ul></div>
     </section>
 
     <section class="section">
       <h2>Related TTS and speech models</h2>
-      <div class="similar"><a class="similar-card" href="/tts/ark-asr-0.6b" style="--model-color:#3b82f6">
-    <span class="similar-family">Edge0 / AutoArk</span>
-    <strong>ARK-ASR-0.6B</strong>
-    <small>Local ASR model · Q 9 · Speed 9.2</small>
+      <div class="similar"><a class="similar-card" href="/tts/ark-asr-3b" style="--model-color:#3b82f6">
+    <span class="similar-family">Audio8 / AutoArk</span>
+    <strong>ARK-ASR-3B</strong>
+    <small>Local ASR model · Q 9.3 · Speed 8.7</small>
   </a><a class="similar-card" href="/tts/parakeet-tdt-0.6b-v3" style="--model-color:#3b82f6">
     <span class="similar-family">NVIDIA</span>
     <strong>Parakeet TDT 0.6B v3</strong>

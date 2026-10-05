@@ -95,6 +95,7 @@ function modelTask(model) {
   if (isUnverifiedSpeechRecord(model)) return 'preserved catalogue route without a verified checkpoint';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'online text-to-speech access' : 'vendor-hosted speech generation';
   if (model.isAsr) return 'speech-to-text transcription';
+  if (model.isOrchestrator && (model.features || []).includes('audio-language')) return 'audio-language question answering';
   if (model.isOrchestrator) return 'local voice workflow orchestration';
   return 'text-to-speech generation';
 }
@@ -133,6 +134,9 @@ function localSentence(model) {
   if (model.isAsr) {
     return `${name} can run locally for offline speech-to-text. ${setup}`;
   }
+  if (model.isOrchestrator && (model.features || []).includes('audio-language')) {
+    return `${name} can run locally for audio-language question answering over supplied recordings. ${setup}`;
+  }
   if (model.isOrchestrator) {
     return `${name} is a local app layer that coordinates installed speech backends. ${setup}`;
   }
@@ -146,6 +150,9 @@ function bestForSentence(model) {
   if (model.id === 'octave-2') return `${esc(model.name)} is useful for evaluating Hume AI's hosted expressive speech controls when vendor API use is acceptable.`;
   if (model.isAsr) {
     return `${esc(model.name)} is best for offline transcription, speech indexing and local voice pipelines.`;
+  }
+  if (model.isOrchestrator && features.includes('audio-language')) {
+    return `${esc(model.name)} is best for local audio question answering and lightweight audio understanding experiments.`;
   }
   if (model.isOrchestrator) {
     return `${esc(model.name)} is best when you want a local UI or API layer over multiple speech engines.`;
@@ -653,7 +660,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 105 || localModels.length !== 102 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 107 || localModels.length !== 104 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -677,7 +684,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('102<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('104<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 

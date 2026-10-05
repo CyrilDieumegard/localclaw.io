@@ -137,6 +137,7 @@ window.HOME_INDEX_LOGOS = {
     melo: 'myshell',
     metavoice: 'metavoice-avatar',
     miso: 'misolabs-avatar',
+    mizar: 'huggingface-avatar',
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',

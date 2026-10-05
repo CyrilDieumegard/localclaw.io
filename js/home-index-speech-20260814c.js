@@ -1269,6 +1269,22 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 10.5
   },
   {
+    "id": "mizar-159m",
+    "name": "Mizar-159M",
+    "developer": "Kaiyang Li",
+    "family": "mizar",
+    "license": "BSD 3-Clause Clear",
+    "releaseDate": "2026-09-28",
+    "quality": 8.7,
+    "speed": 8.8,
+    "type": "APP",
+    "hardware": [
+      "cpu",
+      "gpu"
+    ],
+    "sizeGB": 0.55
+  },
+  {
     "id": "ark-asr-3b",
     "name": "ARK-ASR-3B",
     "developer": "Audio8 / AutoArk",
@@ -1283,6 +1299,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "apple"
     ],
     "sizeGB": 8.1
+  },
+  {
+    "id": "ark-asr-0.6b",
+    "name": "ARK-ASR-0.6B",
+    "developer": "Edge0 / AutoArk",
+    "family": "ark-asr",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-06-27",
+    "quality": 9,
+    "speed": 9.2,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 1.5
   },
   {
     "id": "higgs-tts-3-4b",

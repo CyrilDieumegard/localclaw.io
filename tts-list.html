@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>TTS &amp; Speech AI List — 102 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 102 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <meta name="description" content="Compare 104 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 102 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 104 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">105</strong> speech records: <strong style="color:#fff;">102 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">107</strong> speech records: <strong style="color:#fff;">104 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>102 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>104 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3981,6 +3981,33 @@
                 license: "Apache 2.0"
             },
             {
+                id: "mizar-159m",
+                name: "Mizar-159M",
+                developer: "Kaiyang Li",
+                family: "mizar",
+                isOrchestrator: true,
+                description: "Compact audio-language model for local audio question answering. The 159M-parameter release combines a frozen CED-Small audio encoder, a frequency-merging mapper and SmolLM2-135M, ships complete checkpoint assets and answers English questions about the first 20 seconds of an audio file through the official PyTorch plus vLLM pipeline.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["audio-language", "low-latency"],
+                hardware: ["cpu", "gpu"],
+                sizeGB: 0.55,
+                sizeLabel: "159.3M params; checkpoint plus bundled CED-Small and SmolLM2 assets",
+                sizeCategory: "small",
+                quality: 8.7,
+                speed: 8.8,
+                latency: "low",
+                releaseDate: "2026-09-28",
+                isNew: true,
+                hfLink: "https://huggingface.co/KaiyangLi/Mizar-159M",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/KaiyangLi1992/Mizar_159M.git",
+                supportedFormats: ["pytorch", "safetensors", "vllm"],
+                voices: "N/A (audio-language question answering)",
+                context: "Official code prepares audio prefixes on CPU or CUDA, then uses vLLM GPU generation; BSD 3-Clause Clear weights include the final checkpoint, CED-Small and SmolLM2 assets",
+                license: "BSD 3-Clause Clear"
+            },
+            {
                 id: "ark-asr-3b",
                 name: "ARK-ASR-3B",
                 developer: "Audio8 / AutoArk",
@@ -4004,6 +4031,34 @@
                 supportedFormats: ["transformers", "safetensors", "vllm", "onnx", "mlx"],
                 voices: "N/A (ASR: outputs text)",
                 context: "3B decoder-scale ASR, 8.1GB safetensors, 16 kHz audio, official Transformers and vLLM scripts",
+                license: "Apache 2.0"
+            },
+            {
+                id: "ark-asr-0.6b",
+                name: "ARK-ASR-0.6B",
+                developer: "Edge0 / AutoArk",
+                family: "ark-asr",
+                isAsr: true,
+                description: "Efficient multilingual ASR checkpoint trained with teacher-data adaptation and online policy distillation. The official Apache 2.0 release ships safetensors, custom Transformers code, processor files and an AutoArk inference script for 19-language local transcription.",
+                languages: ["zh", "en", "de", "ja", "fr", "ko", "es", "pl", "it", "ro", "hu", "cs", "nl", "fi", "hr", "sk", "sl", "et", "lt"],
+                languageCount: 19,
+                features: ["multilingual", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 1.5,
+                sizeLabel: "0.6B decoder plus audio encoder; single safetensors checkpoint",
+                sizeCategory: "medium",
+                quality: 9.0,
+                speed: 9.2,
+                latency: "low",
+                releaseDate: "2026-06-27",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Edge0/ARK-ASR-0.6B",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/AutoArk/open-audio-opd && pip install -e .",
+                supportedFormats: ["transformers", "pytorch", "safetensors", "gguf"],
+                voices: "N/A (ASR: outputs text)",
+                context: "Whisper-style 16 kHz audio encoder plus Qwen2 decoder with custom arkasr remote code; official inference uses scripts/infer/ark_asr_transformers.py, with third-party GGUF available for transcribe.cpp",
                 license: "Apache 2.0"
             },
             {
