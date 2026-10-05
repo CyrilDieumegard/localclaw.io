@@ -535,7 +535,7 @@ ${labsReadableText()}
 - [Mac Studio M5 Ultra 256GB](${BASE_URL}/hardware/mac-studio-m5-ultra-256gb)
 - [Mac Studio M5 Ultra 512GB](${BASE_URL}/hardware/mac-studio-m5-ultra-512gb)
 
-Apple lists the new desktop models for pre-order with availability beginning September 22, 2026. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
+Apple launched the new desktop generation September 22, 2026. Amazon offers vary by configuration and delivery address; Apple schedules the 512GB Mac Studio for late October. LocalClaw compatibility is conservative unified-memory fit guidance, not hands-on speed benchmarking.
 
 ## RAM Decision Paths
 

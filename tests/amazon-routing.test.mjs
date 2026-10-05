@@ -33,6 +33,43 @@ test('secondary chooser remains explicit when changing stores and keeps source p
   assert.match(html,/name="options" value="1"/);
   for(const link of html.matchAll(/<a[^>]+data-fast-goal="amazon_click"[^>]*>/g)) assert.match(link[0],/target="_blank"/);
 });
+test('new Mac links preserve verified French variants in one click and expire to a tagged search',async t=>{
+  const checked=Date.parse('2026-10-05T12:00:00Z');
+  let clock=checked;
+  t.mock.method(Date,'now',()=>clock);
+  for(const [q,asin] of [
+    ['Apple Mac mini M6 16GB 512GB','B0HGGBZNTT'],
+    ['Apple Mac mini M6 24GB 512GB','B0HGG7H7TN'],
+    ['Apple Mac Studio M5 Max 36GB 512GB','B0HGS3C159']
+  ]) {
+    for(const country of ['CH','FR','US']) {
+      const res=await onRequestGet({request:request(`q=${encodeURIComponent(q)}&family=computers&listing=FR`,country)});
+      const target=new URL(res.headers.get('Location'));
+      assert.equal(res.status,302);
+      assert.equal(target.hostname,'www.amazon.fr');
+      assert.equal(target.pathname,`/dp/${asin}`);
+      assert.equal(target.searchParams.get('tag'),FAMILY_TAGS.computers);
+      assert.equal(target.searchParams.get('creatorsDisableRedirect'),'true');
+      assert.match(res.headers.get('Cache-Control'),/no-store/);
+    }
+    assert.equal(findOffer(q,'DE',checked),undefined);
+    assert.equal(findOffer(q,'FR',Date.parse('2026-10-04T12:00:00Z')),undefined);
+  }
+  const q='Apple Mac mini M6 16GB 512GB';
+  for(const [listing,host,path] of [['FR','www.amazon.fr','/s'],['__proto__','www.amazon.com','/s'],['https://evil.test','www.amazon.com','/s']]) {
+    clock=checked+31*86400000;
+    const res=await onRequestGet({request:request(`q=${encodeURIComponent(q)}&family=computers&listing=${encodeURIComponent(listing)}`)});
+    const target=new URL(res.headers.get('Location'));
+    assert.equal(target.hostname,host);assert.equal(target.pathname,path);
+    assert.equal(target.searchParams.get('tag'),FAMILY_TAGS.computers);
+  }
+  clock=checked;
+  const wrong=await onRequestGet({request:request('q=Apple+Mac+mini+M6+32GB+512GB&listing=FR')});
+  assert.equal(new URL(wrong.headers.get('Location')).pathname,'/s');
+  const html=await (await onRequestGet({request:request(`options=1&q=${encodeURIComponent(q)}&listing=FR`)})).text();
+  assert.match(html,/value="FR" selected/);
+  assert.match(html,/B0HGGBZNTT/);
+});
 test('direct family tracking includes dynamic and homepage links without duplicate aggregate events',()=>{
   let listener;const events=[];
   const window={location:{href:'https://localclaw.io/',origin:'https://localclaw.io'},datafast:(...args)=>events.push(args)};
@@ -48,8 +85,13 @@ test('direct family tracking includes dynamic and homepage links without duplica
     assert.equal(events.at(-1)[1].tag,FAMILY_TAGS[family]);
   }
   assert.equal(events.length,3);
+  listener({target:{closest:()=>({getAttribute:()=>'/go/amazon?q=Apple+Mac+mini+M6+16GB+512GB&family=computers&listing=FR'})}});
+  assert.equal(events.at(-1)[1].market,'FR');
+  assert.equal(events.at(-1)[1].destination_host,'www.amazon.fr');
+  assert.equal(events.at(-1)[1].attribution,'global_store');
+  assert.equal(events.at(-1)[1].tag,FAMILY_TAGS.computers);
   listener({target:{closest:()=>({getAttribute:()=>'/go/amazon?q=DDR5+64GB&options=1'})}});
-  assert.equal(events.length,3);
+  assert.equal(events.length,4);
   window.datafast=undefined;
   assert.doesNotThrow(()=>listener({target:{closest:()=>({getAttribute:()=>'/go/amazon?q=DDR5+64GB'})}}));
 });

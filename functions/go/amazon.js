@@ -11,9 +11,15 @@ export async function onRequestGet({request}) {
   // The default CTA leaves LocalClaw in one click. OneLink owns localization.
   // Keep the detailed store chooser only behind an explicit secondary action.
   if(url.searchParams.get('options') !== '1') {
-    return new Response(null,{status:302,headers:{...headers,Location:amazonSearchUrl(q,{family,country})}});
+    // A listing store is explicit and allowlisted. Never move its ASIN to another
+    // country, and fall back to a store search when the verification expires.
+    const listing=url.searchParams.get('listing');
+    const destination=Object.hasOwn(MARKETS,listing)
+      ? localDestination(q,listing,findOffer(q,listing),family,Date.now(),country)
+      : amazonSearchUrl(q,{family,country});
+    return new Response(null,{status:302,headers:{...headers,Location:destination}});
   }
-  const market=selectMarket(url.searchParams.get('market'),country);
+  const market=selectMarket(url.searchParams.get('market') || url.searchParams.get('listing'),country);
   const offer=findOffer(q,market), source=bounded(url.searchParams.get('source')), product=bounded(url.searchParams.get('product'));
   const destination=localDestination(q,market,offer,family,Date.now(),country);
   const props=(targetMarket,targetUrl)=>`data-fast-goal="amazon_click" data-fast-goal-family="${family}" data-fast-goal-market="${targetMarket}" data-fast-goal-selected_market="${market}" data-fast-goal-destination_host="${new URL(targetUrl).hostname}" data-fast-goal-tag="${new URL(targetUrl).searchParams.get('tag')}" data-fast-goal-country="${country||'unknown'}" data-fast-goal-source="${escape(source)}" data-fast-goal-product="${escape(product||q.slice(0,80))}"`;

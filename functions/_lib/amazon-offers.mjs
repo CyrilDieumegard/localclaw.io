@@ -2,6 +2,24 @@
 // Never copy ASINs between countries: Amazon may redirect a missing variant.
 export const verifiedOffers = [
   {
+    query: 'Apple Mac mini M6 16GB 512GB', market: 'FR', asin: 'B0HGGBZNTT',
+    title: 'Mac mini M6 · 12-core CPU / 12-core GPU', memory: '16GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-10-05',
+    note: 'Sold and dispatched by Amazon. In stock with delivery to Switzerland offered when checked. Confirm current stock, seller and delivery for your address.'
+  },
+  {
+    query: 'Apple Mac mini M6 24GB 512GB', market: 'FR', asin: 'B0HGG7H7TN',
+    title: 'Mac mini M6 · 12-core CPU / 12-core GPU', memory: '24GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-10-05',
+    note: 'Sold and dispatched by Amazon and orderable when checked, with shipping quoted at 1–3 months. This is not an immediate-stock offer. Confirm current delivery for your address.'
+  },
+  {
+    query: 'Apple Mac Studio M5 Max 36GB 512GB', market: 'FR', asin: 'B0HGS3C159',
+    title: 'Mac Studio M5 Max · 18-core CPU / 32-core GPU', memory: '36GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-10-05',
+    note: 'Sold and dispatched by Amazon. In stock with delivery to Switzerland offered when checked. Confirm current stock, seller and delivery for your address.'
+  },
+  {
     query: 'Apple Mac mini M4 16GB 256GB', market: 'US', asin: 'B0DTPPBN95',
     title: 'Mac mini M4', memory: '16GB unified memory', storage: '256GB SSD',
     condition: 'Renewed', checked: '2026-09-11',

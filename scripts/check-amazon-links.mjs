@@ -54,20 +54,20 @@ for (const href of links) {
 }
 if (new Set(links).size !== links.length) errors.push("RAM/GPU Amazon searches must be unique");
 if (/href="https:\/\/(?:www\.)?amazon\./i.test(html)) errors.push("RAM/GPU page still contains a direct Amazon button URL");
-if (computerQueries.length !== 30) errors.push(`Expected 30 Computers Amazon searches; found ${computerQueries.length}`);
+if (computerQueries.length !== 41) errors.push(`Expected 41 Computers Amazon searches; found ${computerQueries.length}`);
 for (const query of computerQueries) {
   if (!normalizeAmazonQuery(query)) errors.push(`Computers page has an invalid Amazon search query: ${query}`);
 }
 if (new Set(computerQueries).size !== computerQueries.length) errors.push("Computers Amazon searches must be unique");
 if (/amazonUrl:|https:\/\/(?:www\.)?amazon\./i.test(computers)) errors.push("Computers page still contains a direct Amazon URL");
 if (!computers.includes('`/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}&family=computers&product=${encodeURIComponent(comp.id)}&source=computers_card`')) errors.push("Computers cards do not use the OneLink resolver");
-if (hardwareLinks.length !== 20) errors.push(`Expected 20 Mac hardware-guide Amazon buttons; found ${hardwareLinks.length}`);
+if (hardwareLinks.length !== 35) errors.push(`Expected 35 Mac hardware-guide Amazon buttons; found ${hardwareLinks.length}`);
 for (const { file, href } of hardwareLinks) {
   if (!href.startsWith("/go/amazon?q=")) errors.push(`${file} bypasses the OneLink resolver: ${href}`);
   const query = new URL(href, "https://localclaw.io").searchParams.get("q");
   if (!normalizeAmazonQuery(query)) errors.push(`${file} has an invalid Amazon search query: ${href}`);
 }
-if (appleHardwareLinks.length !== 11) errors.push(`Expected 11 pre-order Apple hardware-guide buttons; found ${appleHardwareLinks.length}`);
+if (appleHardwareLinks.length !== 0) errors.push(`Expected 0 pre-order Apple hardware-guide buttons; found ${appleHardwareLinks.length}`);
 for (const { file, href } of appleHardwareLinks) {
   const expectedAppleUrl = file.startsWith("mac-studio-m5-")
     ? "https://www.apple.com/mac-studio/"

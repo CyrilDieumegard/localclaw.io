@@ -2,6 +2,8 @@
 // First clicks now leave for Amazon; optional store choices remain a separate step.
 (() => {
   const goals = {computers:'amazon_computers_click',gpuram:'amazon_gpuram_click',diy:'amazon_diy_click'};
+  const stores = {US:'www.amazon.com',CA:'www.amazon.ca',GB:'www.amazon.co.uk',DE:'www.amazon.de',FR:'www.amazon.fr',IT:'www.amazon.it',ES:'www.amazon.es',NL:'www.amazon.nl',PL:'www.amazon.pl',SE:'www.amazon.se'};
+  const explicitStore = url => Object.hasOwn(stores, url.searchParams.get('listing')) ? url.searchParams.get('listing') : null;
   function route(link) {
     try {
       const url = new URL(link.getAttribute('href'), window.location.href);
@@ -18,7 +20,7 @@
       const family = url.searchParams.get('family');
       link.setAttribute('data-fast-goal-family', Object.hasOwn(goals, family) ? family : 'computers');
       link.setAttribute('data-fast-goal-route', 'direct');
-      link.setAttribute('data-fast-goal-attribution', 'onelink');
+      link.setAttribute('data-fast-goal-attribution', explicitStore(url) ? 'global_store' : 'onelink');
       // Keep the source page alive so analytics do not compete with unloading it.
       link.target = '_blank';
       link.rel = 'sponsored nofollow noopener';
@@ -40,11 +42,12 @@
     const url = route(link);
     if (!url) return;
     const family = Object.hasOwn(goals, url.searchParams.get('family')) ? url.searchParams.get('family') : 'computers';
+    const market = explicitStore(url) || 'US';
     const props = {
       family, source:url.searchParams.get('source') || 'unknown',
       product:(url.searchParams.get('product') || url.searchParams.get('q') || '').slice(0,80),
-      market:'US', destination_host:'www.amazon.com', tag:'localclaw-' + family + '-20',
-      attribution:'onelink', route:'direct'
+      market, destination_host:stores[market], tag:'localclaw-' + family + '-20',
+      attribution:explicitStore(url) ? 'global_store' : 'onelink', route:'direct'
     };
     try { window.datafast(goals[family], props); } catch { /* Shopping works without analytics. */ }
   });

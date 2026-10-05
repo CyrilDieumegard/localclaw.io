@@ -21,7 +21,10 @@ export function selectMarket(value,country='') {
 }
 export function findOffer(query,market,now=Date.now()) {
   // Recheck after 30 days. An old verification must never become a permanent promise.
-  return verifiedOffers.find(o => o.query.toLowerCase() === normalizeAmazonQuery(query).toLowerCase() && o.market === market && now-Date.parse(o.checked+'T00:00:00Z') < 30*86400000);
+  return verifiedOffers.find(o => {
+    const age=now-Date.parse(o.checked+'T00:00:00Z');
+    return o.query.toLowerCase() === normalizeAmazonQuery(query).toLowerCase() && o.market === market && age >= 0 && age < 30*86400000;
+  });
 }
 export function amazonSearchUrl(queryValue,options={}) {
   const query=normalizeAmazonQuery(queryValue);
