@@ -1238,6 +1238,23 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.75
   },
   {
+    "id": "asr4all-s",
+    "name": "ASR4All Small",
+    "developer": "FUTO",
+    "family": "asr4all",
+    "license": "FUTO Model Weights License (Restricted Use) 1.0",
+    "releaseDate": "2026-08-24",
+    "quality": 8.9,
+    "speed": 9.7,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 1.31
+  },
+  {
     "id": "moss-transcribe-diarize",
     "name": "MOSS-Transcribe-Diarize 0.9B",
     "developer": "OpenMOSS / MOSI.AI",

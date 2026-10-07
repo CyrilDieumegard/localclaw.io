@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 102 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 104 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 105 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 105 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 104 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 105 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">107</strong> speech records: <strong style="color:#fff;">104 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">108</strong> speech records: <strong style="color:#fff;">105 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>104 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>105 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3925,6 +3925,33 @@
                 voices: "N/A (streaming ASR: outputs punctuated text and optional language tags)",
                 context: "600M params, 741MB Q8_0 GGUF, 2.55GB safetensors, 40 language-locales",
                 license: "OpenMDW 1.1"
+            },
+            {
+                id: "asr4all-s",
+                name: "ASR4All Small",
+                developer: "FUTO",
+                family: "asr4all",
+                isAsr: true,
+                description: "FUTO's efficiency-focused English ASR checkpoint for private edge transcription. The 28.1M-parameter small tier ships downloadable safetensors plus ONNX and ExecuTorch XNNPACK exports, supports low-latency streaming with punctuation, capitalization and error correction, and is benchmarked for CPU, mobile, Raspberry Pi, OpenVINO and CUDA paths.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "edge"],
+                sizeGB: 1.31,
+                sizeLabel: "28.1M params; 1.31GB repo with safetensors, ONNX and ExecuTorch exports",
+                sizeCategory: "small",
+                quality: 8.9,
+                speed: 9.7,
+                latency: "ultra-low",
+                releaseDate: "2026-08-24",
+                isNew: true,
+                hfLink: "https://huggingface.co/futo-org/asr4all-s",
+                sourceStatus: "verified-code",
+                installCommand: "python onnx/asr4all_onnx.py onnx/ clip.wav",
+                supportedFormats: ["transformers", "safetensors", "onnx", "executorch"],
+                voices: "N/A (streaming ASR: outputs punctuated text)",
+                context: "28.1M params, English-only, 16 kHz audio, configurable 320 ms to long-form streaming tiers, bundled PCEC and ultralight VAD; official benchmarks include Pixel 4, Pixel 10, Raspberry Pi 4, x86 OpenVINO and CUDA batch throughput, but no fixed RAM floor is published",
+                license: "FUTO Model Weights License (Restricted Use) 1.0"
             },
             {
                 id: "moss-transcribe-diarize",

@@ -92,6 +92,7 @@ window.HOME_INDEX_LOGOS = {
     zephyr: 'huggingfaceh4-avatar'
   },
   speech: {
+    asr4all: 'huggingface-avatar',
     audar: 'huggingface-avatar',
     audio8: 'github',
     app: 'github',
