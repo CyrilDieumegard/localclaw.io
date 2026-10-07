@@ -399,6 +399,19 @@
       caveats: ['Linux/CUDA research setup is the clearest practical path', 'Pro checkpoints were benchmarked on 80 GB H100 hardware', 'Russian and English prompt coverage is emphasized over broad multilingual testing']
     },
     {
+      id: 'kandinsky-6-lite', name: 'Kandinsky 6.0 Lite', category: 'video', developer: 'Kandinsky Lab',
+      summary: 'MIT-licensed synchronized video-and-audio diffusion model for local text-to-audio-video and image-to-audio-video generation.',
+      tasks: ['text-to-audio-video', 'image-to-audio-video', 'text-to-video', 'image-to-video', 'audio-generation', 'animation'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['Diffusers', 'PyTorch', 'ComfyUI', 'vLLM-Omni', 'Kandinsky scripts'], output: ['MP4', '44 kHz audio'],
+      local_status: 'local', license: 'MIT', released: '2026-10',
+      source_url: 'https://github.com/kandinskylab/kandinsky-6',
+      install_url: 'https://huggingface.co/kandinskylab/Kandinsky-6.0-Lite-distill-5s-Diffusers',
+      hardware_note: 'Kandinsky Lab publishes MIT-licensed Diffusers checkpoints for the 3B Lite and 29B Pro Kandinsky 6.0 families, including the practical Lite distilled 10-step 5-second checkpoint with transformer, video VAE, Qwen2.5-VL text encoder, CLIP text encoder, audio VAE and vocoder safetensors. The official README documents Linux, Python 3.13 or 3.14, NVIDIA GPUs, CUDA 13.0 PyTorch, SageAttention or FlashAttention, local just/uv commands, Diffusers examples, ComfyUI nodes and vLLM-Omni support; benchmark tables include RTX 4090, RTX 5060 Ti, RTX 5080, RTX 5090, RTX PRO 6000, A100 80 GB and H100 runs with block or module offload. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative floor for Lite distilled 480p/5-second local generation, while Pro and Full HD modes need more headroom.',
+      strengths: ['Official Kandinsky 6.0 code and Diffusers-format weights', 'Generates synchronized video plus 44 kHz audio in T2AV and TI2AV modes', 'ComfyUI and vLLM-Omni integrations plus RTX 4090/5090 benchmark coverage'],
+      caveats: ['Fresh release with evolving runtime packaging', 'Pro and Full HD modes are much heavier than the Lite distilled entry path', 'Linux/CUDA setup requires uv, just and compiled attention backends']
+    },
+    {
       id: 'animegen-i2v', name: 'AnimeGen I2V', category: 'video', developer: 'AIdeaLab',
       summary: 'Apache-licensed Wan 2.2 anime-style image-to-video checkpoint for short animation previsualization and frame interpolation.',
       tasks: ['image-to-video', 'text-to-video', 'animation', 'frame-interpolation'],
