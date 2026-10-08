@@ -375,7 +375,7 @@ for (const model of allSpeechRecords) {
   }
   if (!html.includes('<strong>Catalogue summary:</strong>')) errors.push(`${model.id} does not label its speech description as catalogue metadata`);
 }
-if (allSpeechRecords.length !== 108) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 108 preserved routes`);
+if (allSpeechRecords.length !== 110) errors.push(`Speech source count is ${allSpeechRecords.length}, expected 110 preserved routes`);
 
 const multimodalRatingIds = new Set();
 for (const model of multimodalModels) {
@@ -411,13 +411,13 @@ if (!read('js/local-ai-catalog-app.js').includes('data-community-rating') || !re
 if (!read('functions/_lib/model-ratings.js').includes('MAX_RATINGS_PER_ACCOUNT = 1000')) {
   errors.push('Account rating limit must cover the complete LocalClaw catalogue');
 }
-if (localSpeechRecords.length !== 105) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 105`);
+if (localSpeechRecords.length !== 107) errors.push(`Local speech source count is ${localSpeechRecords.length}, expected 107`);
 if (remoteSpeechRecords.length !== 2) errors.push(`Remote speech source count is ${remoteSpeechRecords.length}, expected 2 online/API references`);
 if (unverifiedSpeechRecords.length !== 1 || unverifiedSpeechRecords[0]?.id !== 'xtts-v3') {
   errors.push(`Unverified speech classification must contain only xtts-v3, found ${unverifiedSpeechRecords.map(model => model.id).join(', ') || 'none'}`);
 }
-if (speechModels.length !== 105 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
-  errors.push('Homepage speech export must contain exactly the 105 verified-local source records');
+if (speechModels.length !== 107 || speechModels.some(model => !localSpeechRecords.some(source => source.id === model.id))) {
+  errors.push('Homepage speech export must contain exactly the 107 verified-local source records');
 }
 for (const forbiddenId of ['edge-tts', 'octave-2', 'xtts-v3']) {
   if (localSpeechIds.has(forbiddenId)) errors.push(`Non-local speech record leaked onto homepage export: ${forbiddenId}`);
@@ -470,7 +470,7 @@ if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== nu
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
 if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 251) errors.push('models/ must contain 251 HTML files');
-if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 109) errors.push('tts/ must contain 108 speech pages plus one index');
+if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 111) errors.push('tts/ must contain 110 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
   for (const file of fs.readdirSync(path.join(ROOT, directory)).filter(name => name.endsWith('.html'))) {

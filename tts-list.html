@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 105 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 105 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 107 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 107 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 105 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 107 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">108</strong> speech records: <strong style="color:#fff;">105 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">110</strong> speech records: <strong style="color:#fff;">107 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>105 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>107 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -3952,6 +3952,59 @@
                 voices: "N/A (streaming ASR: outputs punctuated text)",
                 context: "28.1M params, English-only, 16 kHz audio, configurable 320 ms to long-form streaming tiers, bundled PCEC and ultralight VAD; official benchmarks include Pixel 4, Pixel 10, Raspberry Pi 4, x86 OpenVINO and CUDA batch throughput, but no fixed RAM floor is published",
                 license: "FUTO Model Weights License (Restricted Use) 1.0"
+            },
+            {
+                id: "ema-lightning",
+                name: "EMA Lightning",
+                developer: "Canberk Aslan",
+                family: "ema",
+                description: "Tiny Apache-licensed Turkish text-to-speech model with downloadable PyTorch weights and an official Python package. The 8.6M-parameter release streams 48 kHz speech, exposes word timings, batches many callers through its Playhead scheduler and runs offline on CPU or GPU.",
+                languages: ["tr"],
+                languageCount: 1,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "edge"],
+                sizeGB: 0.034,
+                sizeLabel: "8.6M params; about 34MB weights",
+                sizeCategory: "tiny",
+                quality: 9.0,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2026-10-01",
+                isNew: true,
+                hfLink: "https://huggingface.co/canberkkkkkk/ema-lightning",
+                sourceStatus: "verified-code",
+                installCommand: "python -m pip install ema-lightning",
+                supportedFormats: ["pytorch"],
+                voices: "One built-in Turkish voice; no cloning or emotion control",
+                context: "8.6M params, about 34MB weights, Turkish-only, 48 kHz output, streaming chunks, word timing metadata, CPU path around 6x real time and PyTorch GPU memory reported at 0.28GB plain / 1.39GB batch 64 on RTX 4090",
+                license: "Apache 2.0"
+            },
+            {
+                id: "seda-v0.1",
+                name: "seda-v0.1",
+                developer: "Atakan Tasoglu",
+                family: "seda",
+                isAsr: true,
+                description: "Apache-licensed streaming Turkish ASR model exported for sherpa-onnx. The 66.1M-parameter Zipformer2 transducer ships int8 ONNX encoder/joiner files, optional language-model files and a practical one-thread CPU path for low-latency offline transcription.",
+                languages: ["tr"],
+                languageCount: 1,
+                features: ["streaming", "realtime", "low-latency"],
+                hardware: ["cpu", "edge"],
+                sizeGB: 0.078,
+                sizeLabel: "66.1M params; about 78MB ONNX core plus optional LM files",
+                sizeCategory: "small",
+                quality: 8.6,
+                speed: 9.7,
+                latency: "ultra-low",
+                releaseDate: "2026-10-07",
+                isNew: true,
+                hfLink: "https://huggingface.co/atasoglu/seda-v0.1",
+                sourceStatus: "verified-code",
+                installCommand: "pip install sherpa-onnx huggingface_hub soundfile",
+                supportedFormats: ["onnx", "sherpa-onnx"],
+                voices: "N/A (streaming ASR: outputs lowercase spoken-form Turkish text)",
+                context: "66.1M params, Turkish-only, 16 kHz audio, 0.64s streaming chunk with 128-frame left context, about 169-175MB peak RAM on one CPU thread and roughly 30x real-time throughput with beam 4 + optional LM",
+                license: "Apache 2.0 acoustic model; optional LM files CC BY-SA 4.0"
             },
             {
                 id: "moss-transcribe-diarize",

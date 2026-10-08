@@ -1255,6 +1255,39 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 1.31
   },
   {
+    "id": "ema-lightning",
+    "name": "EMA Lightning",
+    "developer": "Canberk Aslan",
+    "family": "ema",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-01",
+    "quality": 9,
+    "speed": 9.8,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "edge"
+    ],
+    "sizeGB": 0.034
+  },
+  {
+    "id": "seda-v0.1",
+    "name": "seda-v0.1",
+    "developer": "Atakan Tasoglu",
+    "family": "seda",
+    "license": "Apache 2.0 acoustic model; optional LM files CC BY-SA 4.0",
+    "releaseDate": "2026-10-07",
+    "quality": 8.6,
+    "speed": 9.7,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "edge"
+    ],
+    "sizeGB": 0.078
+  },
+  {
     "id": "moss-transcribe-diarize",
     "name": "MOSS-Transcribe-Diarize 0.9B",
     "developer": "OpenMOSS / MOSI.AI",
