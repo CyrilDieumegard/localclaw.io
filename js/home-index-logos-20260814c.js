@@ -261,6 +261,7 @@ window.HOME_INDEX_LOGOS = {
     'Tencent Hunyuan': 'tencent',
     'THU-ML / Tsinghua University': 'github',
     'Tsinghua University': 'github',
+    'Tsinghua University / Joy Future Academy / JD': 'github',
     'UIUC / Cornell University': 'github',
     'University of Hong Kong / Shenzhen Loop Area Institute': 'github',
     'University of Adelaide': 'github',

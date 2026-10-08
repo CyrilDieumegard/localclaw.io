@@ -53,6 +53,19 @@
       caveats: ['Default 963-latent-frame examples are slow and memory-heavy', 'Research stack depends on Wan and Causal-Forcing components', 'No official consumer VRAM table is published yet']
     },
     {
+      id: 'self-gradient-forcing-plus', name: 'Self Gradient Forcing Plus', category: 'video', developer: 'Tsinghua University / Joy Future Academy / JD',
+      summary: 'Apache-licensed SGF+ release that decouples context-writing and denoising for ultra-long autoregressive text-to-video rollouts.',
+      tasks: ['text-to-video', 'long-video-generation', 'autoregressive-video', 'animation', 'streaming-video'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'FlashAttention', 'SGF+ scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.1 and Causal-Forcing component terms apply', released: '2026-10',
+      source_url: 'https://github.com/Zihan-Su/Self_Gradient_Forcing_Plus',
+      install_url: 'https://huggingface.co/ZihanSu/Self_Gradient_Forcing_Plus',
+      hardware_note: 'The official SGF+ repository and Hugging Face model card publish Apache-2.0 code, chunkwise and framewise SGF+ checkpoints, and a downloader for Wan2.1-T2V-1.3B/14B, Causal-Forcing AR initialization checkpoints and the released SGF+ model.pt files. The documented stack follows SGF with Python 3.10, PyTorch, CUDA, FlashAttention and local shell launchers; inference uses eight GPUs when available but falls back to single-GPU serial inference and writes about 240-second MP4 rollouts by default. No separate consumer VRAM table is published, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative reduced single-GPU floor inherited from the Wan 1.3B SGF path.',
+      strengths: ['Official public code, paper and Hugging Face checkpoints', 'Chunkwise and framewise SGF+ inference modes', 'Single-GPU serial fallback despite multi-GPU default launcher'],
+      caveats: ['Default 963-latent-frame examples are long, slow and memory-heavy', 'Depends on Wan 2.1 base models and Causal-Forcing initialization weights', 'The 24-hour rollout claim is research evidence, not a consumer-card guarantee']
+    },
+    {
       id: '4danyone', name: '4DAnyone', category: 'video', developer: 'Ant Research',
       summary: 'Video-to-video model that turns a casual monocular human video into multiview-consistent videos for free-viewpoint 4D reconstruction.',
       tasks: ['video-to-video', 'multiview-video-generation', 'novel-view-synthesis', '4d-human-reconstruction', 'animation'],
