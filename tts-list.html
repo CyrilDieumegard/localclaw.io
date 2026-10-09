@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 107 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 107 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 108 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 108 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 107 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 108 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">110</strong> speech records: <strong style="color:#fff;">107 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">111</strong> speech records: <strong style="color:#fff;">108 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>107 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>108 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -4005,6 +4005,33 @@
                 voices: "N/A (streaming ASR: outputs lowercase spoken-form Turkish text)",
                 context: "66.1M params, Turkish-only, 16 kHz audio, 0.64s streaming chunk with 128-frame left context, about 169-175MB peak RAM on one CPU thread and roughly 30x real-time throughput with beam 4 + optional LM",
                 license: "Apache 2.0 acoustic model; optional LM files CC BY-SA 4.0"
+            },
+            {
+                id: "index-echo-s2st-2b",
+                name: "Index-Echo S2ST 2B",
+                developer: "IndexTeam / Bilibili",
+                family: "index",
+                isOrchestrator: true,
+                description: "Apache-licensed speech-to-speech translation package for local dubbing. The 2B release translates Chinese or English source speech into English, Spanish, Japanese or Chinese target speech, keeps source-voice conditioning through CosyVoice3, and ships a self-contained Hugging Face package with safetensors, ONNX assets and a documented Python API.",
+                languages: ["zh", "en", "es", "ja"],
+                languageCount: 4,
+                features: ["speech-translation", "multilingual", "cloning"],
+                hardware: ["gpu"],
+                sizeGB: 12.0,
+                sizeLabel: "2B translator decoder plus bundled CosyVoice3 assets; 12GB VRAM floor",
+                sizeCategory: "large",
+                quality: 9.0,
+                speed: 7.8,
+                latency: "medium",
+                releaseDate: "2026-09-28",
+                isNew: true,
+                hfLink: "https://huggingface.co/IndexTeam/Index-Echo-S2ST-2B",
+                sourceStatus: "verified-code",
+                installCommand: "hf download IndexTeam/Index-Echo-S2ST-2B --local-dir ./Index-Echo-S2ST-2B",
+                supportedFormats: ["pytorch", "safetensors", "onnx"],
+                voices: "Source-voice conditioned speech-to-speech translation",
+                context: "Six directions: zh->en/es/ja and en->zh/es/ja; 24 kHz output; official DubbingBridgeModel Python API, pinned CUDA/PyTorch environment, bundled CosyVoice3 path and at least 12GB VRAM recommended; CPU inference is unverified upstream",
+                license: "Apache 2.0"
             },
             {
                 id: "moss-transcribe-diarize",

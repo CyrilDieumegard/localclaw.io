@@ -20,7 +20,7 @@ const localSpeechRecords = allSpeechRecords.filter((model) => !model.delivery);
 const remoteSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'online' || model.delivery === 'api');
 const unverifiedSpeechRecords = allSpeechRecords.filter((model) => model.delivery === 'unverified');
 
-if (allSpeechRecords.length !== 110 || localSpeechRecords.length !== 107 || remoteSpeechRecords.length !== 2 || unverifiedSpeechRecords.length !== 1) {
+if (allSpeechRecords.length !== 111 || localSpeechRecords.length !== 108 || remoteSpeechRecords.length !== 2 || unverifiedSpeechRecords.length !== 1) {
   throw new Error(`Unexpected speech classification: ${allSpeechRecords.length} total, ${localSpeechRecords.length} local, ${remoteSpeechRecords.length} remote, ${unverifiedSpeechRecords.length} unverified`);
 }
 
@@ -33,7 +33,7 @@ const speechModels = localSpeechRecords.map((model) => ({
   releaseDate: model.releaseDate,
   quality: model.quality,
   speed: model.speed,
-  type: model.isAsr ? 'ASR' : model.isOrchestrator ? 'APP' : 'TTS',
+  type: model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'S2ST' : model.isOrchestrator ? 'APP' : 'TTS',
   hardware: Array.isArray(model.hardware) ? model.hardware : [],
   sizeGB: Number.isFinite(Number(model.sizeGB)) ? Number(model.sizeGB) : null
 }));

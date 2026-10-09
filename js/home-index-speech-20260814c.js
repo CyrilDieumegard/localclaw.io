@@ -1288,6 +1288,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.078
   },
   {
+    "id": "index-echo-s2st-2b",
+    "name": "Index-Echo S2ST 2B",
+    "developer": "IndexTeam / Bilibili",
+    "family": "index",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-09-28",
+    "quality": 9,
+    "speed": 7.8,
+    "type": "S2ST",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 12
+  },
+  {
     "id": "moss-transcribe-diarize",
     "name": "MOSS-Transcribe-Diarize 0.9B",
     "developer": "OpenMOSS / MOSI.AI",

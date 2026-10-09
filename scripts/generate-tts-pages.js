@@ -87,6 +87,7 @@ function modelKind(model) {
   if (isUnverifiedSpeechRecord(model)) return 'Unverified speech reference';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Online TTS interface' : 'Vendor API speech reference';
   if (model.isAsr) return 'Local ASR model';
+  if (model.isOrchestrator && (model.features || []).includes('speech-translation')) return 'Local speech translation model';
   if (model.isOrchestrator) return 'Local speech app';
   return 'Local TTS model';
 }
@@ -95,6 +96,7 @@ function modelTask(model) {
   if (isUnverifiedSpeechRecord(model)) return 'preserved catalogue route without a verified checkpoint';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'online text-to-speech access' : 'vendor-hosted speech generation';
   if (model.isAsr) return 'speech-to-text transcription';
+  if (model.isOrchestrator && (model.features || []).includes('speech-translation')) return 'speech-to-speech translation and dubbing';
   if (model.isOrchestrator && (model.features || []).includes('audio-language')) return 'audio-language question answering';
   if (model.isOrchestrator) return 'local voice workflow orchestration';
   return 'text-to-speech generation';
@@ -134,6 +136,9 @@ function localSentence(model) {
   if (model.isAsr) {
     return `${name} can run locally for offline speech-to-text. ${setup}`;
   }
+  if (model.isOrchestrator && (model.features || []).includes('speech-translation')) {
+    return `${name} can run locally for speech-to-speech translation and dubbing over supplied recordings. ${setup}`;
+  }
   if (model.isOrchestrator && (model.features || []).includes('audio-language')) {
     return `${name} can run locally for audio-language question answering over supplied recordings. ${setup}`;
   }
@@ -150,6 +155,9 @@ function bestForSentence(model) {
   if (model.id === 'octave-2') return `${esc(model.name)} is useful for evaluating Hume AI's hosted expressive speech controls when vendor API use is acceptable.`;
   if (model.isAsr) {
     return `${esc(model.name)} is best for offline transcription, speech indexing and local voice pipelines.`;
+  }
+  if (model.isOrchestrator && features.includes('speech-translation')) {
+    return `${esc(model.name)} is best for local speech translation, dubbing and voice-conditioned multilingual audio workflows.`;
   }
   if (model.isOrchestrator && features.includes('audio-language')) {
     return `${esc(model.name)} is best for local audio question answering and lightweight audio understanding experiments.`;
@@ -264,7 +272,7 @@ function schemaFor(model, url, desc) {
             acceptedAnswer: {
               '@type': 'Answer',
               text: isLocal
-                ? `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
+                ? `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
                 : `${model.name} is an online or vendor API reference, not a verified local speech model. An internet connection and the upstream service are required.`
             }
           },
@@ -364,7 +372,7 @@ function page(model, all) {
   const title = isUnverified
     ? `${model.name}: preserved unverified speech reference | LocalClaw`
     : isLocal
-    ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
+    ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
     : `${model.name} online speech reference: quality, speed and access | LocalClaw`;
   const desc = isUnverified
     ? `${model.name}: preserved catalogue route. No exact public checkpoint, release, score or installation path was verified on August 14, 2026.`.slice(0, 158)
@@ -660,7 +668,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 110 || localModels.length !== 107 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 111 || localModels.length !== 108 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -684,7 +692,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('107<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('108<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 
