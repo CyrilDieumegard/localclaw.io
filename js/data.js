@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
+// Updated October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
+// Previous: October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
 // Previous: September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
 // Previous: September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
 // Previous: September 23, 2026 - Added K2-Horizon-32B - 246 unique LLM records
@@ -3150,6 +3151,24 @@ const APP_DATA = {
             isNew: true
         },
         {
+            id: 'mellum2-1-12b-a2-5b-thinking',
+            name: 'Mellum2.1 12B-A2.5B Thinking',
+            family: 'mellum',
+            params: '12B (2.5B active, MoE)',
+            size_gb: 8.1,
+            min_ram: 16,
+            tags: ['code', 'reasoning', 'agentic', 'speed', 'long-context', 'moe'],
+            description: 'Official JetBrains Apache 2.0 coding-reasoning MoE with 12B total parameters, about 2.5B active parameters, 131K context and official Q4_K_M GGUF for llama.cpp, Ollama and LM Studio-compatible local runtimes.',
+            search_term: 'mellum2.1-12b-a2.5b-thinking',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF',
+            source_url: 'https://huggingface.co/JetBrains/Mellum2.1-12B-A2.5B-Thinking',
+            runtime_url: 'https://huggingface.co/JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF',
+            benchmarks: { speed: 8, quality: 8, coding: 9, reasoning: 9 },
+            released: '2026-10-07',
+            isNew: true
+        },
+        {
             id: 'xing4-0-29b-a4b',
             name: 'Xing4.0-29B-A4B',
             family: 'xing',
@@ -4206,10 +4225,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-03T06:23:03.000Z",
-        catalogueHash: "367da5121bb983a62ca1419b26d0bfea5ccf9e0a76ea6d648d1fee4ca76d8a46",
+        checkedAt: "2026-10-09T06:16:00.000Z",
+        catalogueHash: "ab9520ade846af86b27f59173f939e2d6c7b05466e7705e213e8c9685e838471",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
             "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",
             "spark-x2-5-1-7b": "XHToken/Spark-X2.5-1.7B-GGUF",

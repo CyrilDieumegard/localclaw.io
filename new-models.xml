@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Mellum2.1 12B-A2.5B Thinking</title>
+      <link>https://localclaw.io/models/mellum2-1-12b-a2-5b-thinking</link>
+      <guid isPermaLink="true">https://localclaw.io/models/mellum2-1-12b-a2-5b-thinking</guid>
+      <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
+      <category>mellum</category>
+      <description>Official JetBrains Apache 2.0 coding-reasoning MoE with 12B total parameters, about 2.5B active parameters, 131K context and official Q4_K_M GGUF for llama.cpp, Ollama and LM Studio-compatible local runtimes. 12B (2.5B active, MoE) · 16 GB minimum RAM · Q4_K_M · mellum.</description>
+    </item>
     <item>
       <title>Xing4.0-29B-A4B</title>
       <link>https://localclaw.io/models/xing4-0-29b-a4b</link>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
       <category>granite</category>
       <description>IBM Granite 4.2 8B instruct model with Apache 2.0 weights, 128K context, thinking-mode chat template, tool calling and practical GGUF plus MLX paths for everyday local machines. 8.8B · 8 GB minimum RAM · Q4_K_M · granite.</description>
-    </item>
-    <item>
-      <title>Granite 4.2 (30B)</title>
-      <link>https://localclaw.io/models/granite4.2-30b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-30b</guid>
-      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
-      <category>granite</category>
-      <description>IBM Granite 4.2 30B brings the permissive Apache 2.0 Granite stack to workstation-class local reasoning, RAG, coding and tool-use workflows with GGUF and MLX community artifacts. 29.3B · 32 GB minimum RAM · Q4_K_M · granite.</description>
     </item>
   </channel>
 </rss>
