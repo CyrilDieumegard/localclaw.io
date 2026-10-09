@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'raven', name: 'RAVEN', category: 'video', developer: 'MVP Lab / Imperial College London',
+      summary: 'Non-commercial causal autoregressive video model for streaming local text-to-video extrapolation on Wan 2.1 or MiniMax H3.',
+      tasks: ['text-to-video', 'streaming-video', 'long-video-generation', 'text-to-audio-video', 'animation'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['ComfyUI', 'PyTorch', 'CUDA', 'RAVEN scripts', 'Wan 2.1', 'MiniMax H3'], output: ['MP4', 'audio-video'],
+      local_status: 'local', license: 'CC BY-NC 4.0 weights; MiniMax H3 and Wan 2.1 component terms apply', released: '2026-08',
+      source_url: 'https://github.com/mvp-ai-lab/RAVEN',
+      install_url: 'https://huggingface.co/mvp-lab/RAVEN',
+      hardware_note: 'MVP Lab publishes public RAVEN Wan2.1-T2V-1.3B checkpoints under CC BY-NC 4.0, including the post-distillation backbone, CM-GRPO LoRA, merged backbone and archival full bundle, plus an official Linux/Python/CUDA training and validation repository. The same project now points to ComfyUI MiniMax H3 RAVEN Streaming nodes with a mandatory public RAVEN LoRA, stock ComfyUI model folders, Comfy Registry installation and measured 1376 x 768, 192-frame T2VA generation inside a simulated 24 GiB VRAM envelope. LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as the conservative practical floor for that ComfyUI path, while the research repository itself targets Hopper/CUDA 12.8 and site-specific trial YAML paths.',
+      strengths: ['Official RAVEN weights and primary code repository', 'Streaming causal extrapolation with four-NFE preview LoRA support', 'ComfyUI node path validates a 24 GiB VRAM MiniMax H3 workflow'],
+      caveats: ['Weights are non-commercial and inherit upstream Wan/MiniMax component terms', 'The MiniMax H3 preview LoRA is described as undertrained with limited texture detail', 'The research scripts target Hopper GPUs and require manual checkpoint path wiring']
+    },
+    {
+      id: 'osp-next', name: 'OSP-Next', category: 'video', developer: 'PKU YuanGroup / Open-Sora Plan',
+      summary: 'Apache-licensed 14B sparse text-to-video diffusion model with CUDA and Ascend inference paths.',
+      tasks: ['text-to-video', 'animation', 'sparse-video-diffusion', 'long-context-video'],
+      platforms: ['linux'], accelerators: ['nvidia', 'ascend'], min_ram_gb: 128, min_vram_gb: 80,
+      runtime: ['PyTorch', 'CUDA', 'Ascend CANN', 'FlashAttention', 'OSP-Next scripts'], output: ['MP4'],
+      local_status: 'local', license: 'Apache 2.0 metadata; Wan 2.1 component terms apply', released: '2026-05',
+      source_url: 'https://github.com/PKU-YuanGroup/OSP-Next',
+      install_url: 'https://huggingface.co/yunyangge/OSP-Next',
+      hardware_note: 'PKU YuanGroup publishes Apache-2.0 Hugging Face metadata with sharded safetensors for OSP-Next BF16 and HiF8 14B weights, plus the primary Open-Sora Plan repository with local training and inference code. The official quick start downloads the OSP-Next checkpoint, Wan2.1-T2V-14B text encoder and VAE, edits the GPU inference YAML, then runs scripts/infer/gpu/infer_osp_14b.sh; Ascend users switch to the CANN 8.5.0 NPU setup and scripts/infer/npu/infer_osp_14b.sh. The model card states single-GPU inference needs an 80 GB-class accelerator such as H100, H200, A100 80GB, Ascend 910B or 950PR, so LocalClaw records 128 GB RAM and 80 GB accelerator memory as the conservative workstation floor.',
+      strengths: ['Official Open-Sora Plan weights and code', 'CUDA and Ascend inference paths from the same repository', 'Sparse attention, sparse sequence parallelism and HiF8 NPU weights for faster 5-second clips'],
+      caveats: ['Workstation-class 80 GB accelerator requirement', 'Text-to-video only and built on separately downloaded Wan 2.1 components', 'Model card intended use narrows the release to research and non-commercial creative/educational use']
+    },
+    {
       id: 'sparkwan2-1-1-3b-480p', name: 'SparkWan2.1 1.3B 480P', category: 'video', developer: 'AlibabaResearch',
       summary: 'Apache-licensed SparkDiffusion checkpoint that distills Wan 2.1 1.3B text-to-video into four-step 480p local generation.',
       tasks: ['text-to-video', 'animation', 'few-step-video-generation', 'distilled-video-generation'],
