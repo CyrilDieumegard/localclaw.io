@@ -843,6 +843,18 @@
       caveats: ['Early v0.1 research release with limited hardware guidance', 'Depends on multiple upstream foundation models at runtime', 'OBJ geometry export is clearer than material or texture support in the current code']
     },
     {
+      id: 'audio2face-3d-v3', name: 'Audio2Face-3D v3.0', category: '3d', developer: 'NVIDIA',
+      summary: 'Open-weight audio-driven facial animation model that generates 3D face, jaw, tongue and eye motion for avatars.',
+      tasks: ['audio-to-3d', 'facial-animation', 'rigging', 'character-animation', 'lip-sync'],
+      platforms: ['windows', 'linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 4,
+      runtime: ['Audio2Face SDK', 'TensorRT', 'CUDA', 'Maya ACE', 'Unreal Engine plugin'], output: ['Facial motion arrays', 'Blendshape weights', 'Mesh deformations', 'Joint transforms', 'FBX'],
+      local_status: 'local', license: 'NVIDIA Open Model License; SDK and plugins under MIT/Apache components', released: '2025-09',
+      source_url: 'https://github.com/NVIDIA/Audio2Face-3D', install_url: 'https://huggingface.co/nvidia/Audio2Face-3D-v3.0',
+      hardware_note: 'NVIDIA publishes ungated ONNX/TensorRT Audio2Face-3D v3.0 weights on Hugging Face and a local Audio2Face-3D SDK for Windows and Linux. The SDK build targets CUDA 12.8+, TensorRT 10.13+, Python 3.8-3.10 helper scripts, recommends 8 GB RAM and 4 GB GPU memory, and reports faster-than-real-time generation; LocalClaw records 16 GB RAM and 4 GB NVIDIA VRAM as the conservative floor. Maya ACE and the Unreal plugin can consume the same models for local inference and export facial animation as blendshape, mesh deformation, joint transform or FBX-friendly DCC data.',
+      strengths: ['Official NVIDIA open-weight v3.0 model bundle', 'Local SDK with Windows and Linux CUDA/TensorRT paths', 'Production DCC outputs for facial rigs and avatar lip-sync'],
+      caveats: ['Facial animation model rather than a static mesh generator', 'Reference path requires NVIDIA CUDA and TensorRT setup', 'Model license is NVIDIA Open Model, not OSI open source']
+    },
+    {
       id: 'resplat', name: 'ReSplat', category: '3d', developer: 'CVG / ETH Zurich / University of Tuebingen / Czech Technical University',
       summary: 'Feed-forward recurrent Gaussian splatting model that reconstructs local scenes from posed image sets and exports splats.',
       tasks: ['gaussian-splatting', 'scene-reconstruction', 'novel-view-synthesis', 'depth-estimation'],
