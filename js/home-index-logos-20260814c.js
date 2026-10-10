@@ -200,6 +200,8 @@ window.HOME_INDEX_LOGOS = {
     'ByteDance / Stable-X': 'github',
     'ByteDance Research': 'github',
     'ByteDance Seed': 'github',
+    'ByteDance Seed / Comfy Org': 'github',
+    'CASIA / CreateAI': 'github',
     'CASIA / GigaAI / Tsinghua University': 'github',
     'Character.AI': 'huggingface-avatar',
     'CVG / ETH Zurich / University of Tuebingen / Czech Technical University': 'github',

@@ -1,6 +1,32 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'neoverse', name: 'NeoVerse', category: 'video', developer: 'CASIA / CreateAI',
+      summary: 'Apache-licensed 4D world model for turning a monocular video or image into novel-trajectory MP4 video.',
+      tasks: ['video-to-video', 'image-to-video', 'novel-view-synthesis', 'camera-controlled-video', '4d-world-model'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 40,
+      runtime: ['PyTorch', 'CUDA', 'Gradio', 'gsplat', 'Wan 2.1', 'NeoVerse scripts'], output: ['MP4', '4D Gaussian splat scene'],
+      local_status: 'local', license: 'Apache 2.0; Wan 2.1 and LightX2V component terms apply', released: '2026-02',
+      source_url: 'https://github.com/IamCreateAI/NeoVerse',
+      install_url: 'https://huggingface.co/Yuppie1204/NeoVerse',
+      hardware_note: 'CASIA and CreateAI publish Apache-2.0 code plus a Hugging Face checkpoint with sharded safetensors, Wan2.1 VAE assets, UMT5 text encoder files, a WorldMirror-style reconstructor checkpoint and a LightX2V Wan2.1 LoRA. The official README documents CUDA 12.1/PyTorch 2.3.1 and CUDA 12.8/PyTorch 2.7.1 setups, hf download commands, CLI inference with output_path defaulting to outputs/inference.mp4, a four-step Gradio workflow, and optional Depth Anything 3 reconstruction. The default path reports about 47 GB allocated and 74 GB peak GPU memory, while --low_vram offloads models between phases and reduces peak GPU memory to about 38 GB, so LocalClaw records 128 GB RAM and 40 GB NVIDIA VRAM as the conservative local floor.',
+      strengths: ['Official code, checkpoints and Gradio demo', 'Video or image input with predefined or custom camera trajectories', 'Documented low-VRAM offload mode reduces peak GPU memory to about 38 GB'],
+      caveats: ['Still workstation-class even in low-VRAM mode', 'Depends on Wan 2.1, LightX2V and reconstructor components', 'Specialized novel-view and 4D reconstruction workflow rather than a general video editor']
+    },
+    {
+      id: 'seedvr2', name: 'SeedVR2', category: 'video', developer: 'ByteDance Seed / Comfy Org',
+      summary: 'Apache-licensed one-step diffusion model for local video restoration, super-resolution and upscaling.',
+      tasks: ['video-to-video', 'video-restoration', 'video-super-resolution', 'video-upscaling', 'image-upscaling'],
+      platforms: ['windows', 'linux', 'macos'], accelerators: ['nvidia', 'amd', 'apple-silicon'], min_ram_gb: 32, min_vram_gb: 8,
+      runtime: ['ComfyUI', 'PyTorch', 'CUDA', 'ROCm', 'MPS', 'SeedVR2 CLI'], output: ['MP4', 'PNG frames'],
+      local_status: 'local', license: 'Apache 2.0', released: '2026-01',
+      source_url: 'https://github.com/ByteDance-Seed/SeedVR',
+      install_url: 'https://huggingface.co/Comfy-Org/SeedVR2',
+      hardware_note: 'ByteDance Seed publishes Apache-2.0 SeedVR2 code and official 3B/7B Hugging Face checkpoints, including seedvr2_ema_3b.pth, seedvr2_ema_7b.pth and the VAE assets used by the reference PyTorch inference scripts. The research README documents Python 3.10, CUDA, FlashAttention, Apex, checkpoint downloads and torchrun inference, with 1 H100 80GB handling 100-frame 720p and 4 H100 80GB supporting 1080p/2K. For practical local use, Comfy Org republishes converted 3B and 7B FP16/FP8/INT8/NVFP4 safetensors plus VAE safetensors, workflow templates and a ComfyUI/standalone CLI path; the maintained ComfyUI integration documents Windows, Linux, macOS Apple Silicon, AMD ROCm and low-VRAM 8-12 GB workflows using GGUF, BlockSwap, CPU offload and VAE tiling. LocalClaw records 32 GB RAM and 8 GB accelerator memory as the conservative low-VRAM entry floor, with higher VRAM recommended for FP16 and longer clips.',
+      strengths: ['Official ByteDance weights plus ComfyUI-packaged safetensors', 'Video and image restoration with ComfyUI workflows and standalone CLI', 'Low-VRAM path documents 8-12 GB optimization with offload and tiling'],
+      caveats: ['Original research inference targets H100-class hardware for high-resolution video', 'Low-VRAM workflows trade speed and resolution for fit', 'Restoration/upscaling model, not prompt-only scene generation']
+    },
+    {
       id: 'raven', name: 'RAVEN', category: 'video', developer: 'MVP Lab / Imperial College London',
       summary: 'Non-commercial causal autoregressive video model for streaming local text-to-video extrapolation on Wan 2.1 or MiniMax H3.',
       tasks: ['text-to-video', 'streaming-video', 'long-video-generation', 'text-to-audio-video', 'animation'],
