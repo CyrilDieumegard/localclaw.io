@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 108 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 108 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 110 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 110 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 108 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 110 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">111</strong> speech records: <strong style="color:#fff;">108 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">113</strong> speech records: <strong style="color:#fff;">110 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>108 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>110 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1933,6 +1933,61 @@
     <script>
         // TTS Models Data
         const TTS_MODELS = [
+            {
+                id: "luciole-8b-audio-1.0",
+                name: "Luciole 8B Audio 1.0",
+                developer: "OpenLLM France / LINAGORA",
+                family: "luciole",
+                isOrchestrator: true,
+                description: "Apache-licensed French and English audio-language model for local ASR, speech translation, audio QA, sound captioning and language recognition. The release ships a 17.38 GB safetensors checkpoint and official NeMo SpeechLM plus vLLM setup notes, with CUDA inference examples for supplied recordings.",
+                languages: ["fr", "en"],
+                languageCount: 2,
+                features: ["audio-language", "speech-translation", "multilingual", "long-form", "controllable"],
+                hardware: ["gpu"],
+                sizeGB: 17.38,
+                sizeLabel: "17.38 GB safetensors; 24GB+ GPU class is the practical floor for BF16 local inference",
+                sizeCategory: "xl",
+                quality: 9.1,
+                speed: 6.7,
+                latency: "medium",
+                releaseDate: "2026-10-09",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/OpenLLM-France/Luciole-8B-Audio-1.0",
+                sourceStatus: "verified-model",
+                supportedFormats: ["nemo", "vllm", "safetensors"],
+                voices: "N/A (audio-language model: outputs text answers, transcripts or translations)",
+                context: "8B Luciole speech-language model, fr/en focus, Parakeet-TDT-0.6B-v3 audio encoder, official NeMo SALM and vLLM plugin paths; model card warns dedicated ASR/AST models may still win outside its tested languages",
+                license: "Apache 2.0"
+            },
+            {
+                id: "x2streaming-asr-4b-1009",
+                name: "X2Streaming-ASR 4B 1009",
+                developer: "X-Square Robot",
+                family: "x2streaming",
+                isAsr: true,
+                description: "Apache-licensed append-only streaming ASR model for Chinese, English and Chinese-English code-switching. It starts from Voxtral Mini Realtime, replaces fixed-delay decoding with a learned wait-or-emit policy, ships an 8.86 GB safetensors checkpoint and runs locally through the official Transformers or vLLM inference stack.",
+                languages: ["zh", "en", "cs"],
+                languageCount: 3,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["gpu"],
+                sizeGB: 8.86,
+                sizeLabel: "8.86 GB safetensors; inherits the Voxtral 4B single-GPU 16GB+ class runtime",
+                sizeCategory: "large",
+                quality: 9.2,
+                speed: 9.5,
+                latency: "ultra-low",
+                releaseDate: "2026-10-10",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/x-square-robot/X2Streaming-ASR-4B-1009",
+                sourceStatus: "verified-code",
+                installCommand: "git clone https://github.com/X-Square-Robot/X2Streaming-ASR.git",
+                supportedFormats: ["transformers", "vllm", "safetensors"],
+                voices: "N/A (streaming ASR: outputs append-only text)",
+                context: "4B streaming ASR, 16 kHz mono input, about 80 ms audio frames, adaptive and offline modes, zh/en/cs language flag required for each run",
+                license: "Apache 2.0"
+            },
             {
                 id: "qwen3-tts",
                 name: "Qwen3-TTS (0.6B / 1.7B)",

@@ -135,6 +135,7 @@ window.HOME_INDEX_LOGOS = {
     kyutai: 'kyutai-avatar',
     llasa: 'hkustaudio-avatar',
     longcat: 'longcat',
+    luciole: 'huggingface-avatar',
     magpie: 'nvidia',
     mars: 'camb-ai-avatar',
     maskgct: 'amphion-avatar',
@@ -175,6 +176,7 @@ window.HOME_INDEX_LOGOS = {
     voxcpm: 'openbmb-avatar',
     wavtts: 'worstchan-avatar',
     whisper: 'openai',
+    x2streaming: 'huggingface-avatar',
     zerotts: 'huggingface-avatar',
     zonos: 'zyphra-avatar'
   },

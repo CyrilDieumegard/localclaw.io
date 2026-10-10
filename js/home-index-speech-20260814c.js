@@ -2,6 +2,36 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "luciole-8b-audio-1.0",
+    "name": "Luciole 8B Audio 1.0",
+    "developer": "OpenLLM France / LINAGORA",
+    "family": "luciole",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-09",
+    "quality": 9.1,
+    "speed": 6.7,
+    "type": "S2ST",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 17.38
+  },
+  {
+    "id": "x2streaming-asr-4b-1009",
+    "name": "X2Streaming-ASR 4B 1009",
+    "developer": "X-Square Robot",
+    "family": "x2streaming",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-10",
+    "quality": 9.2,
+    "speed": 9.5,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 8.86
+  },
+  {
     "id": "qwen3-tts",
     "name": "Qwen3-TTS (0.6B / 1.7B)",
     "developer": "Qwen Team (Alibaba Cloud)",
