@@ -220,6 +220,7 @@ window.HOME_INDEX_LOGOS = {
     'IFM / MBZUAI': 'github',
     'Inspatio': 'github',
     'Insta360 Research Team': 'github',
+    'Jiaxin Huang / XDim Lab': 'github',
     'JD Open Source': 'github',
     'JIA Lab / Kling Team': 'github',
     'Junhao Zhuang / Joy Future Academy / JD': 'github',
