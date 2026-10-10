@@ -75,6 +75,17 @@ for (const filePath of walk(ROOT).filter(file => file.endsWith('.html'))) {
     Object.values(value).forEach(collectStructuredItems);
   };
   structuredData.forEach(collectStructuredItems);
+  const products = structuredItems.filter(value => [value['@type']].flat().includes('Product'));
+  for (const item of products) {
+    // Product snippets require at least one real offer, review or aggregate rating.
+    // Editorial guides without that evidence should use article/about markup.
+    const hasSnippetEvidence = ['offers', 'review', 'aggregateRating'].some(field =>
+      [item[field]].flat().some(value => value && typeof value === 'object' && Object.keys(value).length > 0)
+    );
+    if (!hasSnippetEvidence) {
+      errors.push(`${relative}: Product missing offers, review or aggregateRating`);
+    }
+  }
   const datasets = structuredItems.filter(value => [value['@type']].flat().includes('Dataset'));
   for (const item of datasets) {
     const licenseUrl = typeof item.license === 'string' ? item.license : item.license?.url;

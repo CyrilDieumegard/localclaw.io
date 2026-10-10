@@ -219,32 +219,8 @@ function geoFaq(mac, list, best) {
 }
 
 function geoSchema(mac, list, best, title, desc, url, media, faqs) {
-  const properties = [
-    ['Chip', mac.chip],
-    ['Unified memory', `${mac.ram}GB`],
-    ['CPU', mac.cpu],
-    ['GPU', mac.gpu],
-    ['Neural Engine', mac.neuralEngine],
-    ['Memory bandwidth', mac.memoryBandwidth]
-  ].filter(([, value]) => value).map(([name, value]) => ({
-    '@type': 'PropertyValue',
-    name,
-    value
-  }));
-  const product = {
-    '@type': 'Product',
-    '@id': `${url}#product`,
-    name: mac.name,
-    model: mac.name,
-    image: `${BASE}${media.image}`,
-    description: `${mac.name} configuration assessed for local AI model memory fit.`,
-    brand: { '@type': 'Brand', name: 'Apple' },
-    manufacturer: { '@type': 'Organization', name: 'Apple' },
-    category: `${mac.family} computer`,
-    sameAs: mac.sourceProductUrl,
-    additionalProperty: properties
-  };
-  if (mac.releaseDate) product.releaseDate = mac.releaseDate;
+  // These are compatibility guides, without a priced offer or customer review.
+  // Describe their subject without opting into Google's Product rich results.
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -265,15 +241,19 @@ function geoSchema(mac, list, best, title, desc, url, media, faqs) {
           url: BASE,
           logo: { '@type': 'ImageObject', url: `${BASE}/images/favicon.png?v=20260211g` }
         },
-        about: { '@id': `${url}#product` },
-        mainEntity: { '@id': `${url}#product` },
+        about: {
+          '@type': 'Thing',
+          name: mac.name,
+          image: `${BASE}${media.image}`,
+          description: `${mac.name} configuration assessed for local AI model memory fit.`,
+          sameAs: mac.sourceProductUrl
+        },
         citation: [mac.sourceProductUrl, mac.sourceSpecsUrl],
         speakable: {
           '@type': 'SpeakableSpecification',
           cssSelector: ['h1', '#quick-answer']
         }
       },
-      product,
       {
         '@type': 'FAQPage',
         '@id': `${url}#faq`,
