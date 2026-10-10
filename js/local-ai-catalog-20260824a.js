@@ -833,6 +833,18 @@
       caveats: ['The higher-quality Giant and Nested checkpoints are non-commercial', 'Gaussian head and full app install require extra dependencies such as gsplat']
     },
     {
+      id: 'gen3r', name: 'Gen3R', category: '3d', developer: 'Jiaxin Huang / XDim Lab',
+      summary: 'MIT-licensed scene generation and feed-forward reconstruction model that exports RGB previews, camera metadata and PLY point clouds.',
+      tasks: ['image-to-3d', 'scene-generation', 'scene-reconstruction', 'point-cloud-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 128, min_vram_gb: 96,
+      runtime: ['PyTorch', 'CUDA', 'Diffusers', 'VGGT', 'CLI'], output: ['PLY', 'Point cloud', 'RGB MP4', 'Camera JSON', 'Camera visualization'],
+      local_status: 'local', license: 'MIT; Apache 2.0 Wan2.1-Fun base model terms apply', released: '2026-03',
+      source_url: 'https://github.com/JaceyHuang/Gen3R', install_url: 'https://huggingface.co/JaceyH919/Gen3R',
+      hardware_note: 'The official repository publishes inference code plus a public MIT-tagged Hugging Face checkpoint with sharded safetensors. The documented setup targets Debian 12, Python 3.11, PyTorch 2.5.1, CUDA 12.4 and local checkpoint loading from ./checkpoints; examples cover first-frame, first-last-frame and all-view reconstruction. The authors test on NVIDIA H20 96 GB hardware and publish no smaller consumer profile, so LocalClaw records 128 GB RAM and 96 GB NVIDIA VRAM as the conservative practical floor. The inference script writes rgb.mp4, pcds.ply, cameras.json, cam_vis.mp4 and prompts.txt.',
+      strengths: ['Official code and public Hugging Face checkpoint', 'One-view, two-view and all-view scene reconstruction modes', 'Exports PLY point clouds with camera metadata and RGB video previews'],
+      caveats: ['Very heavy H20-class reference hardware', 'Point-cloud and preview export rather than textured GLB/OBJ mesh output', 'Direct from_pretrained Hub loading is not supported; the checkpoint must be cloned locally']
+    },
+    {
       id: 'moge-3-vitl', name: 'MoGe-3 ViT-L', category: '3d', developer: 'Microsoft Research',
       summary: 'MIT-licensed monocular geometry model that exports metric depth, normals, textured GLB meshes and PLY point clouds from single images.',
       tasks: ['image-to-3d', 'mesh-reconstruction', 'depth-estimation', 'normal-estimation', 'point-cloud-reconstruction'],
