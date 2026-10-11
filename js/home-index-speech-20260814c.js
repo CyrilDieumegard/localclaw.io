@@ -1783,5 +1783,36 @@ window.HOME_INDEX_SPEECH_MODELS = [
       "apple"
     ],
     "sizeGB": 5.62
+  },
+  {
+    "id": "fun-asr-mlt-nano-2512",
+    "name": "Fun-ASR-MLT-Nano-2512",
+    "developer": "FunAudioLLM",
+    "family": "funasr",
+    "license": "Apache 2.0",
+    "releaseDate": "2025-12",
+    "quality": 9.2,
+    "speed": 9.2,
+    "type": "ASR",
+    "hardware": [
+      "gpu",
+      "cpu"
+    ],
+    "sizeGB": 1.97
+  },
+  {
+    "id": "rumik-oss-1",
+    "name": "rumik-oss 1",
+    "developer": "rumik ai",
+    "family": "rumik",
+    "license": "CC-BY-NC 4.0",
+    "releaseDate": "2026-09",
+    "quality": 8.8,
+    "speed": 5.8,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 7.14
   }
 ];

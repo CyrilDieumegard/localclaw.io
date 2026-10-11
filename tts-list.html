@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 110 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 110 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 112 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 112 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 110 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 112 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1836,10 +1836,10 @@
                         Find the right <span>TTS</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">113</strong> speech records: <strong style="color:#fff;">110 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">115</strong> speech records: <strong style="color:#fff;">112 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>110 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>112 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -4864,6 +4864,60 @@
                 voices: "N/A (ASR: outputs text + timestamps)",
                 context: "Delay-streaming transformer, 2.5-second delay, English only",
                 license: "CC-BY-4.0"
+            },
+            {
+                id: "fun-asr-mlt-nano-2512",
+                name: "Fun-ASR-MLT-Nano-2512",
+                developer: "FunAudioLLM",
+                family: "funasr",
+                isAsr: true,
+                description: "Apache-licensed multilingual ASR checkpoint in the FunASR ecosystem. The 800M model covers 31 languages, exposes hotword and ITN controls through the official FunASR runtime, and ships a downloadable model.pt plus Qwen3-0.6B tokenizer assets for local PyTorch inference.",
+                languages: ["zh", "en", "ja", "ko", "vi", "id", "th", "ms", "tl", "ar", "hi", "bg", "hr", "cs", "da", "nl", "et", "fi", "el", "hu", "ga", "lv", "lt", "mt", "pl", "pt", "ro", "sk", "sl", "sv", "multilingual"],
+                languageCount: 31,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["gpu", "cpu"],
+                sizeGB: 1.97,
+                sizeLabel: "800M params; 1.97 GB model.pt",
+                sizeCategory: "medium",
+                quality: 9.2,
+                speed: 9.2,
+                latency: "low",
+                releaseDate: "2025-12",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/FunAudioLLM/Fun-ASR-MLT-Nano-2512",
+                sourceStatus: "verified-model",
+                installCommand: "python -m pip install -U \"funasr>=1.4.1\"",
+                supportedFormats: ["pytorch"],
+                voices: "N/A (ASR: outputs text)",
+                context: "FunASR AutoModel path, 31 languages, hotwords, ITN and VAD integration; timestamp and diarization support are listed as future TODOs",
+                license: "Apache 2.0"
+            },
+            {
+                id: "rumik-oss-1",
+                name: "rumik-oss 1",
+                developer: "rumik ai",
+                family: "rumik",
+                description: "3B multilingual Indic TTS model with 24 kHz output, four named voices, delivery conditioning and inline vocalization tags. The official release includes sharded safetensors, the Mimi codec assets and one-shot plus CLI examples through Transformers remote code; upstream requires an NVIDIA CUDA GPU.",
+                languages: ["hi", "bn", "ta", "te", "mr", "gu", "kn", "ml", "pa", "or", "as", "ur", "ne", "sa", "mai", "mni", "brx", "doi", "kok", "sat", "ks", "en"],
+                languageCount: 22,
+                features: ["multilingual", "controllable", "emotion"],
+                hardware: ["gpu"],
+                sizeGB: 7.14,
+                sizeLabel: "3B params; 6.76 GB LM shards plus 0.38 GB Mimi codec",
+                sizeCategory: "large",
+                quality: 8.8,
+                speed: 5.8,
+                latency: "high",
+                releaseDate: "2026-09",
+                isNew: true,
+                isPick: false,
+                hfLink: "https://huggingface.co/rumik-ai/rumik-oss-1",
+                sourceStatus: "verified-model",
+                supportedFormats: ["pytorch", "safetensors"],
+                voices: "Four named voices: Ira, Aisha, Siya and Zoya",
+                context: "CUDA-only upstream example; description controls cover tone, accent and pace, with inline laugh, chuckle and sigh tags",
+                license: "CC-BY-NC 4.0"
             }
         ];
 
