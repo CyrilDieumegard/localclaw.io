@@ -1,7 +1,7 @@
 {
   "name": "LocalClaw Open-Weight AI Charts Snapshot",
   "url": "https://localclaw.io/charts",
-  "dateModified": "2026-10-10",
+  "dateModified": "2026-10-11",
   "license": "Source data retains the terms of each cited publisher. Vercel leaderboard data is adapted under CC BY 4.0. LocalClaw commentary is provided for reference.",
   "charts": [
     {
@@ -10,24 +10,19 @@
       "unit": "percent",
       "scope": "Daily share of tokens routed through Vercel AI Gateway, not global AI usage",
       "dateRange": {
-        "from": "2026-07-12",
-        "to": "2026-10-09"
+        "from": "2026-07-13",
+        "to": "2026-10-10"
       },
       "latest": {
-        "date": "2026-10-09",
-        "openWeights": 55.2,
-        "closedWeights": 44.8
+        "date": "2026-10-10",
+        "openWeights": 61.3,
+        "closedWeights": 38.7
       },
       "peak": {
         "date": "2026-09-20",
         "openWeights": 80.6
       },
       "series": [
-        {
-          "date": "2026-07-12",
-          "openWeights": 49.83123535057787,
-          "closedWeights": 50.16876464942213
-        },
         {
           "date": "2026-07-13",
           "openWeights": 46.39925014532404,
@@ -470,8 +465,13 @@
         },
         {
           "date": "2026-10-09",
-          "openWeights": 55.16676925975834,
-          "closedWeights": 44.83323074024165
+          "openWeights": 55.16658640418113,
+          "closedWeights": 44.83341359581887
+        },
+        {
+          "date": "2026-10-10",
+          "openWeights": 61.26567604852917,
+          "closedWeights": 38.734323951470834
         }
       ],
       "source": {
@@ -480,9 +480,9 @@
         "url": "https://vercel.com/ai-gateway/leaderboards/models",
         "license": "CC BY 4.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "retrievedAt": "2026-10-10T06:58:55.598Z",
+        "retrievedAt": "2026-10-11T06:56:21.102Z",
         "extraction": "Public leaderboard embedded open/closed token aggregate; last 90 completed UTC days; no interpolation.",
-        "seriesSha256": "dc64e0ccd25ba6c2351bbd53deff4856418bfa7641ab098793f6bec468a6642c"
+        "seriesSha256": "0d8790d4a9d2809d0b9311294073d9bea1c00f55a44d2a3d8731b1de077f58b7"
       },
       "freshness": {
         "cadence": "daily",
