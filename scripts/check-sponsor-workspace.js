@@ -80,7 +80,7 @@ requireText(files.accountClient, "errorCallbackURL.searchParams.set('auth', 'err
 const sponsorAudienceAsOf = files.home.match(/asOf:\s*'(\d{4}-\d{2}-\d{2})'/)?.[1];
 if (sponsorAudienceAsOf) {
   const ageDays = Math.floor((Date.now() - Date.parse(`${sponsorAudienceAsOf}T23:59:59Z`)) / 86_400_000);
-  if (ageDays > 45) errors.push(`Homepage sponsor audience snapshot is stale by ${ageDays} days`);
+  if (ageDays > 45 && !(files.home.includes('archived: true') && files.home.includes('Historical audience snapshot, not current reach:') && !files.home.includes('<small>Last 30 days</small>'))) errors.push(`Homepage sponsor audience snapshot is stale by ${ageDays} days and must be clearly archived`);
   if (ageDays < -1) errors.push('Homepage sponsor audience snapshot date is in the future');
 }
 

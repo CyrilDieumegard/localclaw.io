@@ -169,7 +169,7 @@ function renderIndex() {
 
     <section class="diy-shell diy-library" aria-labelledby="diy-projects-title">
       <div class="diy-section-head">
-        <div><p class="diy-section-no">Directory 01</p><h2 id="diy-projects-title">Build something real</h2></div>
+        <div><p class="diy-section-no">Directory 01</p><h2 id="diy-projects-title">Projects and build guides</h2></div>
         <p>Every project links back to its creator and original sources. LocalClaw adds a structured build path, exact requirements, regional purchasing links and troubleshooting.</p>
       </div>
       <div class="diy-card-grid">${projects.map(projectCard).join('\n')}</div>

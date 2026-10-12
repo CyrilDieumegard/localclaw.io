@@ -65,6 +65,26 @@ function harness(href = 'https://localclaw.io/') {
     return {context, app, views, document, flush, loadGrowth, events, rankingInputs};
 }
 
+test('Escape belongs to an open dialog or navigation before it can go back in the recommender', () => {
+    const h = harness();
+    let keydown;
+    let dialogOpen = true;
+    let backCount = 0;
+    h.document.addEventListener = (name, listener) => { if (name === 'keydown') keydown = listener; };
+    h.document.querySelector = selector => selector === 'dialog[open]' && dialogOpen ? {} : null;
+    h.app.initParticles = () => {};
+    h.app.goBack = () => backCount++;
+    h.app.init();
+    keydown({key: 'Escape'});
+    assert.equal(backCount, 0, 'closing a comparison must preserve its selection and page');
+    dialogOpen = false;
+    keydown({key: 'Escape', defaultPrevented: true});
+    keydown({key: 'Escape', target: {closest: () => ({})}});
+    assert.equal(backCount, 0, 'handled Escape and navigation must not reset the finder');
+    keydown({key: 'Escape'});
+    assert.equal(backCount, 1, 'the normal recommender back shortcut remains available');
+});
+
 for (const ram of [24, 128]) test(`a ${ram} GB guide keeps exact RAM through skipped memory, recommendation, saved plan and model link`, () => {
     const h = harness(`https://localclaw.io/?from=ram-guide&ram=${ram}#model-finder`);
     h.loadGrowth();
@@ -149,6 +169,8 @@ function installQuickForm(h) {
         }});
         return node;
     };
+    form = h.document.createElement('form');
+    form.innerHTML = source('js/home-index-20260814g.js').match(/<form class="lc-quick-fit"[^>]*>([\s\S]*?)<\/form>/)[1];
     h.document.readyState = 'complete';
     vm.runInContext(source('js/conversion-paths-20260827a.js'), h.context, {filename: 'conversion-paths'});
     h.flush();

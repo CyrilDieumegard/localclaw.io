@@ -20,7 +20,7 @@ for (const marker of [
   "'account_open'",
   "localStorage.setItem('localclaw_pending_machine'",
   "localStorage.setItem('localclaw_pending_plan'",
-  'Keep this plan updated'
+  'Save this machine and choice'
 ]) {
   assert(app.includes(marker), `Missing recommender conversion marker: ${marker}`);
 }
@@ -34,16 +34,16 @@ for (const forbidden of ['answers:', 'value:', 'text:', 'cpu:', 'gpu:', 'email:'
 }
 
 for (const copy of [
-  'Your machine. Your goal. One living Local AI Plan.',
-  'Plans, machines and model notes are free.',
+  'Your machines. Your model choices.',
+  'Saving machines, model choices and notes is free.',
   'Sponsorship is a separate workspace after sign-in',
   'does not collect prompts, local files, serial numbers or operating-system identifiers'
 ]) {
   assert(account.includes(copy), `Missing account conversion copy: ${copy}`);
 }
 
-assert(account.includes('/css/account-20260802a.css?v=20260823a&amp;summary=20260823a'), 'Account CSS cache key is stale');
-assert(index.includes('js/app-20260816a.js?v=20260905c'), 'Homepage app cache key is stale');
+assert(account.includes('/css/account-20260802a.css?v=20261012quality2&amp;summary=20260823a'), 'Account CSS cache key is stale');
+assert(/js\/app-20260816a\.js\?v=20261012quality3/.test(index), 'Homepage must serve the current quality pass');
 assert(accountCss.includes('.lc-account-benefits'), 'Account benefit-list styles are missing');
 assert(accountCss.includes('.lc-auth-trust'), 'Account privacy reassurance styles are missing');
 

@@ -66,16 +66,16 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
         * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
-        
+
         /* Sidebar scrollbar - extra thin and subtle */
         .sidebar::-webkit-scrollbar { width: 4px; }
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
         .sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
         .sidebar { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.08) transparent; }
-        
+
         ::selection { background: var(--primary); color: white; }
-        
+
         /* Light mode styles */
         html.light {
             --bg: #faf9f6;
@@ -86,61 +86,61 @@
             --text: #1e293b;
             --muted: #64748b;
         }
-        
+
         html.light body {
             background: #faf9f6 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .bg-black {
             background-color: #ffffff !important;
         }
-        
+
         html.light .text-white {
             color: #1e293b !important;
         }
-        
+
         html.light .text-claw-text {
             color: #1e293b !important;
         }
-        
+
         html.light .text-claw-muted {
             color: #64748b !important;
         }
-        
+
         html.light .border-white\/20,
         html.light .border-white\/10,
         html.light .border-white\/5 {
             border-color: rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .bg-white\/\[0\.02\],
         html.light .bg-white\/5,
         html.light .bg-white\/10,
         html.light .hover\:bg-white\/5:hover {
             background-color: rgba(0, 0, 0, 0.05) !important;
         }
-        
+
         html.light .border-claw-border {
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .bg-claw-bg {
             background-color: #faf9f6 !important;
         }
-        
+
         html.light .bg-claw-bg\/50 {
             background-color: rgba(250, 249, 246, 0.5) !important;
         }
-        
+
         html.light .bg-claw-bg\/80 {
             background-color: rgba(250, 249, 246, 0.8) !important;
         }
-        
+
         html.light .bg-claw-bg\/95 {
             background-color: rgba(250, 249, 246, 0.95) !important;
         }
-        
+
         /* Hide dark vignette overlay in light mode */
         html.light [style*="radial-gradient(ellipse 90% 80%"],
         html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
@@ -158,55 +158,55 @@
         html.light #bg-circuit {
             opacity: 0.08 !important;
         }
-        
+
         /* Hide terminal canvas in light mode */
         html.light #terminal-canvas {
             display: none !important;
         }
-        
+
         html.light .bg-claw-surface,
         html.light .sidebar,
         html.light .navbar {
             background-color: #ffffff !important;
         }
-        
+
         html.light .sidebar {
             border-right-color: rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .navbar {
             border-bottom-color: rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .bg-zinc-900\/20 {
             background-color: rgba(241, 245, 249, 0.5) !important;
         }
-        
+
         html.light ::-webkit-scrollbar-track {
             background: transparent;
         }
-        
+
         html.light ::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
-        
+
         html.light ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.2);
         }
-        
+
         html.light * {
             scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
         }
-        
+
         html.light .sidebar::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.06);
         }
-        
+
         html.light .sidebar::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.15);
         }
-        
+
         html.light .sidebar {
             scrollbar-color: rgba(0, 0, 0, 0.06) transparent;
         }
@@ -770,78 +770,78 @@
         }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        
+
         /* ===== COMPREHENSIVE LIGHT MODE STYLES ===== */
         html.light body {
             background: #faf9f6 !important;
             color: #1e293b !important;
         }
-        
+
         /* Sidebar - fix black background */
         html.light .sidebar {
             background: #ffffff !important;
             border-right-color: #e2e8f0 !important;
         }
-        
+
         html.light .sidebar-section {
             border-bottom-color: #e2e8f0 !important;
         }
-        
+
         html.light .sidebar-title {
             color: #64748b !important;
         }
-        
+
         /* Filter chips - fix dark background */
         html.light .chip {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #475569 !important;
         }
-        
+
         html.light .chip:hover {
             background: #e2e8f0 !important;
             border-color: #cbd5e1 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .chip.active {
             background: var(--primary) !important;
             border-color: var(--primary) !important;
             color: #fff !important;
         }
-        
+
         /* Search and controls */
         html.light .search-wrap input {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .search-wrap input::placeholder {
             color: #94a3b8 !important;
         }
-        
+
         html.light .ctrl-btn {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .ctrl-btn:hover {
             border-color: var(--primary) !important;
             color: var(--primary) !important;
         }
-        
+
         /* Stat boxes */
         html.light .stat-box {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .stat-label {
             color: #64748b !important;
         }
-        
+
         html.light .stat-total-val {
             color: #1e293b !important;
         }
@@ -883,13 +883,13 @@
             background: rgba(255,255,255,0.96) !important;
             box-shadow: 0 10px 28px rgba(15,23,42,0.05) !important;
         }
-        
+
         /* Cards - fix dark backgrounds */
         html.light .card {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .card:hover {
             border-color: var(--primary) !important;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
@@ -966,92 +966,92 @@
         html.light .model-actions {
             border-top-color: #e2e8f0 !important;
         }
-        
+
         html.light .card-name {
             color: #1e293b !important;
         }
-        
+
         html.light .card-name:hover {
             color: var(--primary) !important;
         }
-        
+
         html.light .card-family {
             color: #64748b !important;
         }
-        
+
         html.light .card-params {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .card-desc {
             color: #64748b !important;
         }
-        
+
         html.light .card-tag {
             background: #f1f5f9 !important;
             color: #64748b !important;
         }
-        
+
         html.light .bench-bar {
             background: #e2e8f0 !important;
         }
-        
+
         html.light .bench-label {
             color: #64748b !important;
         }
-        
+
         html.light .card-footer {
             border-top-color: #e2e8f0 !important;
         }
-        
+
         html.light .card-link-hf {
             background: #f1f5f9 !important;
             color: #64748b !important;
         }
-        
+
         /* Table */
         html.light .table-wrap {
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .table-wrap th {
             background: #faf9f6 !important;
             border-bottom-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .table-wrap td {
             border-bottom-color: #f1f5f9 !important;
         }
-        
+
         html.light .table-wrap tr:hover td {
             background: #faf9f6 !important;
         }
-        
+
         /* Slider */
         html.light input[type="range"] {
             background: #e2e8f0 !important;
         }
-        
+
         /* Reset button */
         html.light .reset-btn {
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .reset-btn:hover {
             color: var(--primary) !important;
             border-color: var(--primary) !important;
         }
-        
+
         /* Footer */
         html.light .footer {
             border-top-color: #e2e8f0 !important;
             background: #faf9f6 !important;
         }
-        
+
         /* Mobile sidebar */
         html.light .sidebar-overlay {
             background: rgba(0, 0, 0, 0.3) !important;
@@ -1062,9 +1062,12 @@
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2"><script src="/js/site-nav.js?v=20260921labs2" defer></script>
-  <script src="/js/theme-toggle.js?v=20260921labs2"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261012quality2"><script src="/js/site-nav.js?v=20261012quality2" defer></script>
+  <script src="/js/theme-toggle.js?v=20261012quality2"></script>
     <link rel="stylesheet" href="/css/labs-promo-20260921.css?v=1">
+    <link rel="stylesheet" href="/css/catalogue-ui.css?v=20261012a">
+    <script src="/js/new-model-sort-20260814a.js?v=20261012quality2"></script>
+    <script src="/js/catalogue-ui.js?v=20261012a"></script>
 </head>
 <body>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
@@ -1072,13 +1075,13 @@
     <script src="js/bg-circuit.js"></script>
 
     <canvas id="terminal-canvas" style="position:fixed;inset:0;z-index:0;opacity:0.4;pointer-events:none;"></canvas>
-    
+
     <script>
         (function() {
             const canvas = document.getElementById('terminal-canvas');
             const ctx = canvas.getContext('2d');
             let width, height;
-            
+
             function resize() {
                 width = window.innerWidth;
                 height = window.innerHeight;
@@ -1089,7 +1092,7 @@
             resize();
 
             const commands = [
-                "SYSTEM_READY", "ALLOC_VRAM", "LOADING_WEIGHTS", "0x5F3A", "KERNEL_INIT", 
+                "SYSTEM_READY", "ALLOC_VRAM", "LOADING_WEIGHTS", "0x5F3A", "KERNEL_INIT",
                 "ROOT_ACCESS", "SSH_CONN", "PING_MS", "GPU_01_OK", "CUDA_CORES",
                 "TENSOR_FLOW", "PYTORCH_LIB", "MOUNT_VOL", "DEV_NULL", "GREP_LOG",
                 "SUDO_EXEC", "BUFFER_OVER", "MEM_CHECK", "OPTIMIZING", "QUANT_4BIT"
@@ -1110,12 +1113,12 @@
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
                 ctx.fillRect(0, 0, width, height);
                 ctx.font = fontSize + "px 'JetBrains Mono', monospace";
-                
+
                 for(let i=0; i<drops.length; i++) {
                     const text = commands[Math.floor(Math.random() * commands.length)];
                     if(Math.random() > 0.99) ctx.fillStyle = '#FF453A';
                     else ctx.fillStyle = '#1a1a1a';
-                    
+
                     ctx.fillText(text, i * fontSize * 8, drops[i] * fontSize);
                     if(drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
                     drops[i]++;
@@ -1131,10 +1134,10 @@
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    </details><a href="/labs" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="labs">Labs</a><a href="/diy/" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="new">New</a></div>
     <div class="lc-global-nav__actions">
       <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
       <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
@@ -1164,10 +1167,10 @@
         <span>Dark</span>
       </button>
     </div>
-      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </details><a href="/labs" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="labs">Labs</a><a href="/diy/" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
     </div>
   </div>
 </nav>
@@ -1299,7 +1302,7 @@
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Freshness</div>
                 <div class="filter-chips" id="fresh-filters">
                     <button class="chip" data-fresh="2026">2026</button>
-                    <button class="chip" data-fresh="recent">Recent</button>
+                    <button class="chip" data-fresh="recent" title="Releases with an exact date in the last 30 days">Last 30 days</button>
                     <button class="chip" data-fresh="2025">2025</button>
                     <button class="chip" data-fresh="classic">Classic</button>
                 </div>
@@ -1316,19 +1319,19 @@
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Min Benchmarks</div>
                 <div class="slider-row">
                     <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Speed</span><span id="min-speed-val">0</span></div>
-                    <input type="range" id="min-speed" min="0" max="10" value="0">
+                    <input type="range" id="min-speed" aria-label="Minimum speed" min="0" max="10" value="0">
                 </div>
                 <div class="slider-row">
                     <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3zm3 18h6m-3-4v4"/></svg> Quality</span><span id="min-quality-val">0</span></div>
-                    <input type="range" id="min-quality" min="0" max="10" value="0">
+                    <input type="range" id="min-quality" aria-label="Minimum quality" min="0" max="10" value="0">
                 </div>
                 <div class="slider-row">
                     <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Coding</span><span id="min-coding-val">0</span></div>
-                    <input type="range" id="min-coding" min="0" max="10" value="0">
+                    <input type="range" id="min-coding" aria-label="Minimum coding" min="0" max="10" value="0">
                 </div>
                 <div class="slider-row">
                     <div class="slider-label"><span><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg> Reasoning</span><span id="min-reasoning-val">0</span></div>
-                    <input type="range" id="min-reasoning" min="0" max="10" value="0">
+                    <input type="range" id="min-reasoning" aria-label="Minimum reasoning" min="0" max="10" value="0">
                 </div>
             </div>
 
@@ -1336,7 +1339,7 @@
         </aside>
 
         <!-- CONTENT -->
-        <div class="content">
+        <main class="content">
             <!-- Header -->
             <div class="catalog-hero">
                 <div>
@@ -1348,24 +1351,22 @@
                         Find the right <span>LLM</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">0</strong> model records with RAM fit, quantization, quality, coding, reasoning and LM Studio install links in one clean view.
+                        Browse <strong id="total-count" style="color:#fff;">0</strong> catalogue records, including local models, API references and unverified entries. Check each model’s source status and requirements.
                     </p>
                     <div class="catalog-pills" aria-label="Catalogue highlights">
                         <span class="catalog-pill"><strong>RAM-aware</strong> picks</span>
                         <span class="catalog-pill">Local + API records</span>
-                        <span class="catalog-pill">LM Studio ready</span>
+                        <span class="catalog-pill">Requirements on each model</span>
                     </div>
                 </div>
 
                 <div class="stats-row" aria-label="Catalogue statistics">
-                    <div class="stat-box"><div class="stat-val stat-total-val" id="stat-total">—</div><div class="stat-label">Total models</div></div>
+                    <div class="stat-box"><div class="stat-val stat-total-val" id="stat-total">—</div><div class="stat-label">Catalogue records</div></div>
                     <div class="stat-box"><div class="stat-val" style="color:#34D399;" id="stat-families">—</div><div class="stat-label">Families</div></div>
                     <div class="stat-box"><div class="stat-val" style="color:#60A5FA;" id="stat-shown">—</div><div class="stat-label">Current view</div></div>
                     <div class="stat-box"><div class="stat-val" style="color:#FB923C;" id="stat-avg">—</div><div class="stat-label">Avg speed</div></div>
                 </div>
             </div>
-
-            <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>From catalogue to experiment</span><h2>Try five small model presets in your browser.</h2><p>Qwen3, MiniCPM5 and Qwen3.5, with local chat, writing and decision experiments. Check the download and memory requirements in Labs.</p></div><a href="/labs">Try a local LLM →</a></section>
             <section id="machine-context-bar" class="machine-context-bar" hidden aria-live="polite">
                 <div class="machine-context-copy">
                     <span class="machine-context-label">Primary machine</span>
@@ -1381,10 +1382,11 @@
 
             <!-- Top bar: Search + Sort + View -->
             <div class="topbar">
+                <button class="mobile-filter-btn" id="mobile-filter-btn" type="button">Filters</button>
                 <div class="search-wrap">
                     <span class="search-icon"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-                    <input type="text" id="search-input" placeholder="Search models, families, tags...  ( / )">
-                    <button class="search-clear" id="search-clear">✕</button>
+                    <input type="text" id="search-input" aria-label="Search models" placeholder="Search models, families, tags...  ( / )">
+                    <button class="search-clear" id="search-clear" aria-label="Clear search">✕</button>
                 </div>
                 <div style="position:relative;">
                     <button class="ctrl-btn" id="sort-btn">↕ <span id="sort-label">Quality ↓</span></button>
@@ -1444,11 +1446,14 @@
                 <p id="error-message">There was an error loading the model data.</p>
                 <button onclick="location.reload()" style="margin-top:12px;padding:8px 16px;border-radius:8px;background:rgba(255,69,58,0.1);border:1px solid rgba(255,69,58,0.3);color:var(--primary);cursor:pointer;font-size:13px;"><svg class="lc-icon lc-icon-sm" style="display:inline;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 105.64-11.36L1 10"/></svg> Reload Page</button>
             </div>
-        </div>
+
+
+            <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>From catalogue to experiment</span><h2>Try five small model presets in your browser.</h2><p>Qwen3, MiniCPM5 and Qwen3.5, with local chat, writing and decision experiments. Check the download and memory requirements in Labs.</p></div><a href="/labs">Try a local LLM →</a></section>
+    </main>
     </div>
 
     <!-- Mobile Filter Button -->
-    <button class="mobile-filter-btn" id="mobile-filter-btn">🔽 Filters</button>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -1672,7 +1677,7 @@
         function freshTier(m,k) {
             var r=String(m.released||'');
             if(k==='2026') return r.indexOf('2026')===0;
-            if(k==='recent') return r>='2025-06';
+            if(k==='recent') return window.LocalClawNewModels.isRecentRelease(r);
             if(k==='2025') return r.indexOf('2025')===0;
             if(k==='classic') return r&&r<'2025-01';
             return false;
@@ -1686,7 +1691,7 @@
                 function() { return (typeof window.models !== 'undefined') ? window.models : null; },
                 function() { return (typeof window.MODELS !== 'undefined') ? window.MODELS : null; }
             ];
-            
+
             for (var i = 0; i < dataSources.length; i++) {
                 var data = dataSources[i]();
                 if (data && Array.isArray(data) && data.length > 0) {
@@ -1694,7 +1699,7 @@
                     return data;
                 }
             }
-            
+
             console.error('LocalClaw: No model data found in any source');
             return null;
         }
@@ -1703,7 +1708,7 @@
         function init() {
             // Load model data with fallback
             var loadedModels = loadData();
-            
+
             if (!loadedModels || loadedModels.length === 0) {
                 // Show error state
                 document.getElementById('loading-state').style.display = 'none';
@@ -1711,7 +1716,7 @@
                 document.getElementById('models-grid').style.display = 'none';
                 document.getElementById('models-table').style.display = 'none';
                 document.getElementById('empty-state').style.display = 'none';
-                
+
                 // Set error message
                 var errorMsg = 'Could not load model data. ';
                 if (typeof APP_DATA === 'undefined') {
@@ -1724,11 +1729,11 @@
                     errorMsg += 'Unknown data error.';
                 }
                 document.getElementById('error-message').textContent = errorMsg;
-                
+
                 console.error('LocalClaw LLM List Error:', errorMsg);
                 return;
             }
-            
+
             // Assign loaded data
             var seenModelIds = {};
             models = loadedModels.filter(function(model) {
@@ -1736,10 +1741,10 @@
                 seenModelIds[model.id] = true;
                 return true;
             });
-            
+
             // Hide loading, show content
             document.getElementById('loading-state').style.display = 'none';
-            
+
             buildFamilies();
             bind();
             bindAccountContext();
@@ -1752,7 +1757,7 @@
             });
             run();
             // particles();
-            
+
             // Back to top
             var btt = document.getElementById('btt');
             if (btt) {
@@ -1941,15 +1946,8 @@
             var pbtns=document.querySelectorAll('.preset-btn');
             for(var p=0;p<pbtns.length;p++) pbtns[p].addEventListener('click',function(){ var preset=this.getAttribute('data-preset'); applyPreset(preset); trackDataFastGoal('preset_llm', {preset:preset, shown:String(filtered.length)}); });
 
-            // Mobile sidebar
-            document.getElementById('mobile-filter-btn').addEventListener('click',function(){
-                document.getElementById('sidebar').classList.add('open');
-                document.getElementById('sidebar-overlay').classList.add('show');
-                document.body.classList.add('sidebar-open');
-            });
-            document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
-            document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
-            window.addEventListener('resize',function(){ if(window.innerWidth>768) closeSidebar(); });
+            // Shared keyboard-accessible mobile filters.
+            cataloguePanel = window.LocalClawCatalogueUI.mount();
 
             // Keyboard
             document.addEventListener('keydown',function(e){
@@ -1977,11 +1975,8 @@
             }
         }
 
-        function closeSidebar(){
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebar-overlay').classList.remove('show');
-            document.body.classList.remove('sidebar-open');
-        }
+        var cataloguePanel;
+        function closeSidebar(){ cataloguePanel?.close(); }
 
         // === Reset ===
         function resetAll() {
@@ -2083,11 +2078,11 @@
             if(l) l.style.display='none';
             if(err) err.style.display='none';
 
-            if(filtered.length===0){ 
+            if(filtered.length===0){
                 g.style.display='none';
                 t.style.display='none';
-                e.style.display='block'; 
-                return; 
+                e.style.display='block';
+                return;
             }
             e.style.display='none';
 
@@ -2095,7 +2090,7 @@
                 g.style.display='grid'; t.style.display='none';
                 var h='';
                 for(var i=0;i<filtered.length;i++){
-                    var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var m=filtered[i],c=fcol(m.family),isN=window.LocalClawNewModels.isRecentRelease(m.released);
                     var unverified=isUnverifiedModel(m);
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     var lms='lmstudio://open?search='+encodeURIComponent(m.search_term||m.name);
@@ -2160,7 +2155,7 @@
                 g.style.display='none'; t.style.display='block';
                 var h='';
                 for(var i=0;i<filtered.length;i++){
-                    var m=filtered[i],c=fcol(m.family),isN=m.released&&m.released>='2025-06';
+                    var m=filtered[i],c=fcol(m.family),isN=window.LocalClawNewModels.isRecentRelease(m.released);
                     var unverified=isUnverifiedModel(m);
                     var hf='https://huggingface.co/models?search='+encodeURIComponent(m.search_term||m.name)+'+GGUF&sort=downloads';
                     var tableFavorite=primaryMachine&&window.LocalClawAccountContext?window.LocalClawAccountContext.getFavorite(m.id,primaryMachine.id):null;
@@ -2218,7 +2213,7 @@
         // === Navigation to detail page ===
         function goToDetail(event, card) {
             // Don't navigate if clicking on interactive elements
-            if (event.target.closest('.card-link') || 
+            if (event.target.closest('.card-link') ||
                 event.target.closest('a[href]') ||
                 event.target.closest('button')) {
                 return;
@@ -2331,7 +2326,7 @@
             const scrollBtn = document.getElementById('scroll-to-top');
             if (!scrollBtn) return;
             const scrollThreshold = 300;
-            
+
             function toggleScrollButton() {
                 if (window.pageYOffset > scrollThreshold) {
                     scrollBtn.classList.add('visible');
@@ -2339,7 +2334,7 @@
                     scrollBtn.classList.remove('visible');
                 }
             }
-            
+
             function scrollToTop(e) {
                 e.preventDefault();
                 window.scrollTo({
@@ -2347,7 +2342,7 @@
                     behavior: 'smooth'
                 });
             }
-            
+
             window.addEventListener('scroll', toggleScrollButton, { passive: true });
             scrollBtn.addEventListener('click', scrollToTop);
             toggleScrollButton();

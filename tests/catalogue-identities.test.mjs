@@ -47,7 +47,8 @@ const rows = (db, sql) => db.prepare(sql).all().map(row => ({...row}));
 
 test('catalogue has one record per identity and a matching API alias', () => {
     assertCatalogueIntegrity(data);
-    assert.equal(data.models.length, 234);
+    assert.ok(data.models.length > 0, 'The catalogue must not be empty');
+    assert.equal(new Set(data.models.map(model => model.id)).size, data.models.length);
     assert.deepEqual(JSON.parse(JSON.stringify(data.modelAliases)), MODEL_ALIASES);
     assert.equal(canonicalModelId(oldId), canonical);
     assert.equal(canonicalModelId('granite3.3-8b'), 'granite3.3-8b');

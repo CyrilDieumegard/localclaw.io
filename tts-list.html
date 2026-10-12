@@ -49,7 +49,7 @@
             --bg: #050505; --surface: #0F0F11; --border: #27272A;
             --primary: #FF453A; --accent: #FF6D64;
             --text: #FFFFFF; --muted: #A1A1AA;
-            --tts-primary: #8B5CF6; --tts-accent: #A78BFA;
+            --tts-primary: #FF453A; --tts-accent: #FF8179;
             --gold: #F59E0B; --gold-glow: rgba(245,158,11,0.15);
         }
         body {
@@ -65,8 +65,8 @@
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
         * { scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
-        ::selection { background: rgba(139,92,246,0.3); color: white; }
-        
+        ::selection { background: rgba(255,69,58,0.3); color: white; }
+
         /* Light mode styles */
         html.light {
             --bg: #faf9f6;
@@ -74,66 +74,66 @@
             --border: #e2e8f0;
             --text: #1e293b;
             --muted: #64748b;
-            --tts-primary: #7c3aed;
-            --tts-accent: #7c3aed;
+            --tts-primary: #b4231d;
+            --tts-accent: #b4231d;
             --gold: #b45309;
             --gold-glow: rgba(217,119,6,0.1);
         }
-        
+
         html.light body {
             background: #faf9f6 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .bg-black {
             background-color: #ffffff !important;
         }
-        
+
         html.light .text-white {
             color: #1e293b !important;
         }
-        
+
         html.light .text-claw-text {
             color: #1e293b !important;
         }
-        
+
         html.light .text-claw-muted {
             color: #64748b !important;
         }
-        
+
         html.light .border-white\/20,
         html.light .border-white\/10,
         html.light .border-white\/5 {
             border-color: rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .bg-white\/\[0\.02\],
         html.light .bg-white\/5,
         html.light .bg-white\/10,
         html.light .hover\:bg-white\/5:hover {
             background-color: rgba(0, 0, 0, 0.05) !important;
         }
-        
+
         html.light .border-claw-border {
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .bg-claw-bg {
             background-color: #faf9f6 !important;
         }
-        
+
         html.light .bg-claw-bg\/50 {
             background-color: rgba(250, 249, 246, 0.5) !important;
         }
-        
+
         html.light .bg-claw-bg\/80 {
             background-color: rgba(250, 249, 246, 0.8) !important;
         }
-        
+
         html.light .bg-claw-bg\/95 {
             background-color: rgba(250, 249, 246, 0.95) !important;
         }
-        
+
         /* Hide dark vignette overlay in light mode */
         html.light [style*="radial-gradient(ellipse 90% 80%"],
         html.light [style*="radial-gradient(ellipse 90% 80%"] > div {
@@ -151,34 +151,34 @@
         html.light #bg-circuit {
             opacity: 0.08 !important;
         }
-        
+
         html.light .bg-claw-surface,
         html.light .navbar {
             background-color: #ffffff !important;
         }
-        
+
         html.light .navbar {
             border-bottom-color: rgba(0, 0, 0, 0.1) !important;
             background: rgba(255,255,255,0.9) !important;
         }
-        
+
         html.light ::-webkit-scrollbar-track {
             background: transparent;
         }
-        
+
         html.light ::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
-        
+
         html.light ::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.2);
         }
-        
+
         html.light * {
             scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
         }
-        
+
         /* Navbar */
         .navbar {
             position: sticky; top: 0; z-index: 50;
@@ -186,9 +186,9 @@
             background: rgba(5,5,5,0.85);
             backdrop-filter: blur(20px);
         }
-        .navbar-inner { 
-            max-width: 1400px; margin: 0 auto; padding: 0 16px; 
-            display: flex; align-items: center; justify-content: space-between; height: 56px; 
+        .navbar-inner {
+            max-width: 1400px; margin: 0 auto; padding: 0 16px;
+            display: flex; align-items: center; justify-content: space-between; height: 56px;
         }
         .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; }
         .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--tts-primary), var(--tts-accent)); display: flex; align-items: center; justify-content: center; }
@@ -199,8 +199,8 @@
         .nav-links a.active { color: var(--tts-primary); }
         .nav-badge {
             padding: 2px 8px; border-radius: 999px;
-            background: rgba(139,92,246,0.15);
-            border: 1px solid rgba(139,92,246,0.4);
+            background: rgba(255,69,58,0.15);
+            border: 1px solid rgba(255,69,58,0.4);
             color: var(--tts-accent);
             font-size: 10px; font-weight: 700;
         }
@@ -217,11 +217,11 @@
             margin-bottom: 18px;
             padding: 24px;
             border-radius: 22px;
-            border: 1px solid rgba(167,139,250,0.14);
+            border: 1px solid rgba(255,129,121,0.14);
             background:
-                radial-gradient(circle at 16% 18%, rgba(139,92,246,0.22), transparent 34%),
+                radial-gradient(circle at 16% 18%, rgba(255,69,58,0.22), transparent 34%),
                 linear-gradient(135deg, rgba(18,15,28,0.82), rgba(7,7,9,0.94));
-            box-shadow: 0 18px 60px rgba(0,0,0,0.28), 0 0 60px rgba(139,92,246,0.045);
+            box-shadow: 0 18px 60px rgba(0,0,0,0.28), 0 0 60px rgba(255,69,58,0.045);
         }
         .catalog-kicker {
             display: inline-flex;
@@ -263,7 +263,7 @@
             gap: 7px;
             padding: 7px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(167,139,250,0.16);
+            border: 1px solid rgba(255,129,121,0.16);
             background: rgba(255,255,255,0.035);
             color: rgba(244,244,245,0.76);
             font-family: monospace;
@@ -425,17 +425,17 @@
             user-select: none;
             display: inline-flex; align-items: center; gap: 5px;
         }
-        .chip:hover { border-color: rgba(139,92,246,0.3); color: #fff; }
-        .chip.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.5); color: var(--tts-accent); }
+        .chip:hover { border-color: rgba(255,69,58,0.3); color: #fff; }
+        .chip.active { background: rgba(255,69,58,0.15); border-color: rgba(255,69,58,0.5); color: var(--tts-accent); }
         .sidebar-actions { margin-top: 10px; }
         .reset-filters-btn {
             width: 100%; padding: 9px 12px; border-radius: 10px;
             background: rgba(15,15,17,0.72);
-            border: 1px solid rgba(139,92,246,0.18);
+            border: 1px solid rgba(255,69,58,0.18);
             color: var(--muted); font-size: 11px; font-weight: 700;
             cursor: pointer; transition: all 0.2s;
         }
-        .reset-filters-btn:hover { color: #fff; border-color: rgba(139,92,246,0.42); background: rgba(139,92,246,0.12); }
+        .reset-filters-btn:hover { color: #fff; border-color: rgba(255,69,58,0.42); background: rgba(255,69,58,0.12); }
 
         /* Sidebar close btn (mobile) */
         .sidebar-close {
@@ -459,7 +459,7 @@
             position: relative;
             z-index: 40;
             padding: 10px;
-            border: 1px solid rgba(167,139,250,0.11);
+            border: 1px solid rgba(255,129,121,0.11);
             border-radius: 16px;
             background: rgba(5,5,5,0.54);
             backdrop-filter: blur(14px);
@@ -472,9 +472,9 @@
             color: #fff; font-size: 14px; outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .search-wrap input:focus { 
-            border-color: rgba(139,92,246,0.5); 
-            box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+        .search-wrap input:focus {
+            border-color: rgba(255,69,58,0.5);
+            box-shadow: 0 0 0 3px rgba(255,69,58,0.1);
         }
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
 
@@ -489,8 +489,8 @@
             cursor: pointer; transition: all 0.2s;
             white-space: nowrap;
         }
-        .sort-btn:hover { border-color: rgba(139,92,246,0.3); color: #fff; }
-        .sort-btn.active { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.5); color: var(--tts-accent); }
+        .sort-btn:hover { border-color: rgba(255,69,58,0.3); color: #fff; }
+        .sort-btn.active { background: rgba(255,69,58,0.15); border-color: rgba(255,69,58,0.5); color: var(--tts-accent); }
         .sort-btn .arrow { font-size: 9px; margin-left: 3px; }
 
         /* Result count */
@@ -570,7 +570,7 @@
             font-size: 12px;
             animation: starShimmer 2s ease infinite;
         }
-        .pick-badge-text { 
+        .pick-badge-text {
             background: linear-gradient(90deg, #F59E0B, #FBBF24);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
@@ -584,12 +584,12 @@
             padding-right: 54px;
             margin-bottom: 12px;
         }
-        .card-family { 
+        .card-family {
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
             padding: 4px 9px; border-radius: 999px;
-            background: rgba(139,92,246,0.14);
-            border: 1px solid rgba(139,92,246,0.22);
+            background: rgba(255,69,58,0.14);
+            border: 1px solid rgba(255,69,58,0.22);
             color: var(--tts-accent);
         }
         .card-type-pill {
@@ -666,7 +666,7 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
-        .card-desc { 
+        .card-desc {
             font-size: 13px; color: rgba(212,212,216,0.86);
             line-height: 1.62; margin-bottom: 14px;
             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
@@ -829,7 +829,7 @@
             text-align: center;
             transition: border-color 0.2s;
         }
-        .card:hover .spec-box { border-color: rgba(139,92,246,0.15); }
+        .card:hover .spec-box { border-color: rgba(255,69,58,0.15); }
         .card.localclaw-pick:hover .spec-box { border-color: rgba(245,158,11,0.15); }
         .spec-val { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 800; color: #fff; }
         .spec-label { font-size: 9px; color: rgba(161,161,170,0.72); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
@@ -871,7 +871,7 @@
             transition: border-color 0.2s;
             color: #fff; text-decoration: none;
         }
-        .install-cmd:hover { border-color: rgba(139,92,246,0.3); }
+        .install-cmd:hover { border-color: rgba(255,69,58,0.3); }
         .install-cmd-logo { width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:#f4f4f5; overflow:hidden; }
         .install-cmd-logo img { width:27px; height:27px; object-fit:contain; }
         .install-cmd strong { display:block; font-size:12px; }
@@ -893,17 +893,17 @@
             white-space: nowrap;
         }
         .card-link-primary {
-            background: rgba(139,92,246,0.15);
+            background: rgba(255,69,58,0.15);
             color: var(--tts-accent);
-            border: 1px solid rgba(139,92,246,0.3);
+            border: 1px solid rgba(255,69,58,0.3);
         }
-        .card-link-primary:hover { background: rgba(139,92,246,0.25); }
+        .card-link-primary:hover { background: rgba(255,69,58,0.25); }
         .card-link-secondary {
             background: rgba(15,15,17,0.8);
             color: var(--muted);
             border: 1px solid rgba(39,39,42,0.4);
         }
-        .card-link-secondary:hover { color: #fff; border-color: rgba(139,92,246,0.3); }
+        .card-link-secondary:hover { color: #fff; border-color: rgba(255,69,58,0.3); }
 
         /* Pick card link colors */
         .card.localclaw-pick .card-link-primary {
@@ -967,7 +967,7 @@
             visibility: hidden; opacity: 0;
             position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
             padding: 6px 10px; border-radius: 8px;
-            background: rgba(15,15,17,0.95); border: 1px solid rgba(139,92,246,0.3);
+            background: rgba(15,15,17,0.95); border: 1px solid rgba(255,69,58,0.3);
             font-size: 11px; color: #fff; white-space: nowrap;
             pointer-events: none; transition: all 0.2s;
             z-index: 10;
@@ -977,13 +977,13 @@
         /* Mobile filter button */
         .mobile-filter-btn {
             display: none; padding: 8px 14px; border-radius: 10px;
-            background: rgba(139,92,246,0.12);
-            border: 1px solid rgba(139,92,246,0.3);
+            background: rgba(255,69,58,0.12);
+            border: 1px solid rgba(255,69,58,0.3);
             color: var(--tts-accent); font-size: 12px; font-weight: 600;
             cursor: pointer; transition: all 0.2s;
             white-space: nowrap;
         }
-        .mobile-filter-btn:hover { background: rgba(139,92,246,0.2); }
+        .mobile-filter-btn:hover { background: rgba(255,69,58,0.2); }
         body.sidebar-open .mobile-filter-btn { display: none !important; }
 
         /* Mobile overlay */
@@ -1009,7 +1009,7 @@
             display: none; position: fixed; bottom: 0; left: 0; right: 0;
             padding: 12px 20px; z-index: 55;
             background: rgba(15,15,17,0.95); backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(139,92,246,0.3);
+            border-top: 1px solid rgba(255,69,58,0.3);
             align-items: center; justify-content: center; gap: 16px;
         }
         .comparison-banner.visible { display: flex; }
@@ -1017,7 +1017,7 @@
         .comparison-item {
             display: inline-flex; align-items: center; gap: 6px;
             padding: 4px 10px; border-radius: 8px;
-            background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3);
+            background: rgba(255,69,58,0.1); border: 1px solid rgba(255,69,58,0.3);
             color: var(--tts-accent); font-size: 12px; font-weight: 600;
         }
         .comparison-item .remove-compare {
@@ -1031,7 +1031,7 @@
             border: none; color: #fff; font-size: 12px; font-weight: 700;
             cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
         }
-        .compare-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+        .compare-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(255,69,58,0.3); }
         .compare-clear {
             padding: 8px 14px; border-radius: 10px;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
@@ -1042,24 +1042,24 @@
         .compare-btn-card {
             display: inline-flex; align-items: center; gap: 6px;
             padding: 6px 12px; border-radius: 8px;
-            background: rgba(139,92,246,0.1);
-            border: 1px solid rgba(139,92,246,0.25);
+            background: rgba(255,69,58,0.1);
+            border: 1px solid rgba(255,69,58,0.25);
             color: rgba(161,161,170,0.9);
             font-size: 11px; font-weight: 600;
             cursor: pointer; transition: all 0.2s;
             font-family: inherit;
         }
         .compare-btn-card:hover {
-            background: rgba(139,92,246,0.15);
-            border-color: rgba(139,92,246,0.4);
+            background: rgba(255,69,58,0.15);
+            border-color: rgba(255,69,58,0.4);
             transform: translateY(-1px);
             color: var(--tts-accent);
         }
         .compare-btn-card.active {
-            background: rgba(139,92,246,0.35);
-            border-color: rgba(139,92,246,0.6);
+            background: rgba(255,69,58,0.35);
+            border-color: rgba(255,69,58,0.6);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+            box-shadow: 0 4px 12px rgba(255,69,58,0.3);
         }
         .compare-btn-card.active svg {
             stroke: #fff;
@@ -1076,7 +1076,7 @@
         }
         .compare-modal.visible { display: flex; }
         .compare-modal-content {
-            background: var(--surface); border: 1px solid rgba(139,92,246,0.3);
+            background: var(--surface); border: 1px solid rgba(255,69,58,0.3);
             border-radius: 20px; max-width: 900px; width: 100%;
             max-height: 80vh; overflow-y: auto; padding: 24px;
         }
@@ -1145,7 +1145,7 @@
             color: var(--muted); font-size: 18px; cursor: pointer;
             transition: all 0.2s;
         }
-        .mobile-hamburger:hover { color: #fff; border-color: rgba(139,92,246,0.3); }
+        .mobile-hamburger:hover { color: #fff; border-color: rgba(255,69,58,0.3); }
 
         @media (max-width: 480px) {
             .mobile-hamburger { display: block; }
@@ -1171,206 +1171,206 @@
             .card-links { width: 100%; }
             .card-link, .compare-btn-card { flex: 1; justify-content: center; }
         }
-        
+
         /* ===== COMPREHENSIVE LIGHT MODE STYLES ===== */
         html.light body {
             background: #faf9f6 !important;
             color: #1e293b !important;
         }
-        
+
         /* Navbar */
         html.light .navbar {
             background: rgba(255, 255, 255, 0.95) !important;
             border-bottom-color: rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .nav-links a {
             color: #64748b !important;
         }
-        
+
         html.light .nav-links a:hover {
             color: #1e293b !important;
         }
-        
+
         html.light .nav-badge {
             background: rgba(139, 92, 246, 0.1) !important;
             border-color: rgba(139, 92, 246, 0.3) !important;
         }
-        
+
         html.light .hero-stat-label {
             color: #64748b !important;
         }
-        
+
         /* Wispr Promo */
         html.light .wispr-promo-hint {
             color: #1e293b !important;
             text-shadow: none !important;
         }
-        
+
         html.light .wispr-promo-btn .promo-brand {
             color: #1e293b !important;
         }
-        
+
         html.light .wispr-promo-btn .promo-header {
             color: #64748b !important;
         }
-        
+
         /* Sidebar */
         html.light .sidebar {
             background: #ffffff !important;
             border-right-color: #e2e8f0 !important;
         }
-        
+
         html.light .sidebar-title {
             color: #64748b !important;
         }
-        
+
         /* Chips */
         html.light .chip {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #475569 !important;
         }
-        
+
         html.light .chip:hover {
             border-color: rgba(139, 92, 246, 0.4) !important;
             color: #1e293b !important;
         }
-        
+
         html.light .chip.active {
             background: rgba(139, 92, 246, 0.15) !important;
             border-color: rgba(139, 92, 246, 0.5) !important;
         }
-        
+
         /* Search */
         html.light .search-wrap input {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .search-icon {
             color: #94a3b8 !important;
         }
-        
+
         /* Sort buttons */
         html.light .sort-btn {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .sort-btn:hover {
             border-color: rgba(139, 92, 246, 0.4) !important;
             color: #1e293b !important;
         }
-        
+
         html.light .sort-btn.active {
             background: rgba(139, 92, 246, 0.15) !important;
         }
-        
+
         html.light .sort-label {
             color: #64748b !important;
         }
-        
+
         html.light .result-count {
             color: #64748b !important;
         }
-        
+
         /* Cards */
         html.light .card {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .card:hover {
             border-color: rgba(139, 92, 246, 0.4) !important;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
         }
-        
+
         html.light .card-name {
             color: #1e293b !important;
         }
-        
+
         html.light .card-developer {
             color: #64748b !important;
         }
-        
+
         html.light .card-desc {
             color: #64748b !important;
         }
-        
+
         html.light .card.localclaw-pick {
             background: linear-gradient(135deg, #ffffff 0%, rgba(245, 158, 11, 0.05) 100%) !important;
         }
-        
+
         html.light .card.localclaw-pick .card-name {
             background: linear-gradient(135deg, #1e293b 0%, #d97706 100%) !important;
             -webkit-background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
         }
-        
+
         html.light .pick-badge {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08)) !important;
         }
-        
+
         html.light .card-family {
             background: rgba(139, 92, 246, 0.1) !important;
         }
-        
+
         /* Spec boxes - fix dark backgrounds */
         html.light .spec-box {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .spec-val {
             color: #1e293b !important;
         }
-        
+
         /* Feature tags - fix dark backgrounds */
         html.light .feature-tag {
             background: #f1f5f9 !important;
             border: 1px solid #e2e8f0 !important;
         }
-        
+
         html.light .feature-tag.streaming { color: #059669; background: rgba(52, 211, 153, 0.15) !important; }
         html.light .feature-tag.realtime { color: #2563eb; background: rgba(96, 165, 250, 0.15) !important; }
         html.light .feature-tag.cloning { color: #db2777; background: rgba(244, 114, 182, 0.15) !important; }
         html.light .feature-tag.emotion { color: #d97706; background: rgba(251, 191, 36, 0.15) !important; }
-        html.light .feature-tag.dialogue { color: #7c3aed; background: rgba(167, 139, 250, 0.15) !important; }
+        html.light .feature-tag.dialogue { color: #b4231d; background: rgba(167, 139, 250, 0.15) !important; }
         html.light .feature-tag.music { color: #be185d; background: rgba(236, 72, 153, 0.15) !important; }
         html.light .feature-tag.sfx { color: #4b5563; background: rgba(156, 163, 175, 0.15) !important; }
         html.light .feature-tag.controllable { color: #0d9488; background: rgba(45, 212, 191, 0.15) !important; }
         html.light .feature-tag.multilingual { color: #4f46e5; background: rgba(129, 140, 248, 0.15) !important; }
-        
+
         /* Install command */
         html.light .install-cmd {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         /* Card links */
         html.light .card-link-secondary {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         html.light .card-link-secondary:hover {
             color: #1e293b !important;
             border-color: rgba(139, 92, 246, 0.3) !important;
         }
-        
+
         /* Benchmark bar */
         html.light .bench-bar {
             background: #e2e8f0 !important;
         }
-        
+
         html.light .bench-label {
             color: #94a3b8 !important;
         }
-        
+
         /* Card footer border */
         html.light .card-footer {
             border-top-color: #e2e8f0 !important;
@@ -1404,40 +1404,40 @@
             background: #fff;
             color: #6d28d9;
         }
-        
+
         /* Sort dropdown */
         html.light #sort-dropdown {
             background: #ffffff !important;
             border-color: #e2e8f0 !important;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
         }
-        
+
         html.light .sort-opt {
             color: #475569 !important;
         }
-        
+
         html.light .sort-opt:hover {
             background: #f1f5f9 !important;
             color: #1e293b !important;
         }
-        
+
         html.light .spec-chip {
             background: #f1f5f9 !important;
             border-color: #e2e8f0 !important;
             color: #64748b !important;
         }
-        
+
         /* Mobile menu */
         html.light .mobile-hamburger {
             color: #64748b !important;
             border-color: #e2e8f0 !important;
         }
-        
+
         html.light .mobile-hamburger:hover {
             color: #1e293b !important;
             border-color: rgba(139, 92, 246, 0.3) !important;
         }
-        
+
         /* Footer */
         html.light footer {
             border-top-color: #e2e8f0 !important;
@@ -1460,7 +1460,7 @@
         html.light .catalog-kicker,
         html.light .catalog-title span,
         html.light .hero-stat-val {
-            color: #7c3aed !important;
+            color: #b4231d !important;
         }
 
         html.light .catalog-copy {
@@ -1498,7 +1498,7 @@
         }
 
         html.light .wispr-promo-btn .promo-brand span {
-            color: #7c3aed !important;
+            color: #b4231d !important;
         }
 
         html.light .topbar {
@@ -1518,7 +1518,7 @@
         html.light .reset-filters-btn:focus-visible {
             background: rgba(124, 58, 237, 0.08) !important;
             border-color: rgba(124, 58, 237, 0.34) !important;
-            color: #7c3aed !important;
+            color: #b4231d !important;
         }
 
         html.light .card {
@@ -1590,7 +1590,7 @@
         html.light .card-link-primary {
             background: rgba(124, 58, 237, 0.08) !important;
             border-color: rgba(124, 58, 237, 0.28) !important;
-            color: #7c3aed !important;
+            color: #b4231d !important;
         }
 
         html.light .card.localclaw-pick .card-link-primary {
@@ -1606,8 +1606,8 @@
         }
 
         html.light .compare-btn-card.active {
-            background: #7c3aed !important;
-            border-color: #7c3aed !important;
+            background: #b4231d !important;
+            border-color: #b4231d !important;
             color: #ffffff !important;
         }
 
@@ -1637,8 +1637,11 @@
     </style>
     <!-- Microsoft Clarity — session recordings & heatmaps (bounce diagnosis) -->
     <script src="js/clarity.js" defer></script>
-  <link rel="stylesheet" href="/css/site-nav.css?v=20260921labs2"><script src="/js/site-nav.js?v=20260921labs2" defer></script>
-  <script src="/js/theme-toggle.js?v=20260921labs2"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261012quality2"><script src="/js/site-nav.js?v=20261012quality2" defer></script>
+  <script src="/js/theme-toggle.js?v=20261012quality2"></script>
+    <link rel="stylesheet" href="/css/catalogue-ui.css?v=20261012a">
+    <script src="/js/new-model-sort-20260814a.js?v=20261012quality2"></script>
+    <script src="/js/catalogue-ui.js?v=20261012a"></script>
 </head>
 <body>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
@@ -1651,10 +1654,10 @@
       <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
-    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+    <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-desktop">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-desktop" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a></div>
+    </details><a href="/labs" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="labs">Labs</a><a href="/diy/" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="new">New</a></div>
     <div class="lc-global-nav__actions">
       <div class="lc-theme-switcher" role="group" aria-label="Color theme" data-theme-switcher>
       <button class="lc-theme-switcher__option" type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="true">
@@ -1684,10 +1687,10 @@
         <span>Dark</span>
       </button>
     </div>
-      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/labs" class="lc-global-nav__link" data-nav-key="labs">Labs</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
+      <a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
       <summary class="lc-global-nav__link lc-global-nav__dropdown-summary" data-nav-group="hardware" aria-controls="lc-hardware-mobile">Hardware<svg class="lc-global-nav__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div id="lc-hardware-mobile" class="lc-global-nav__dropdown-panel"><a href="/computers" class="lc-global-nav__link" data-nav-key="computers">Computers</a><a href="/ram-gpu-for-local-ai" class="lc-global-nav__link" data-nav-key="ram-gpu">RAM/GPU</a></div>
-    </details><a href="/diy/" class="lc-global-nav__link" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
+    </details><a href="/labs" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="labs">Labs</a><a href="/diy/" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="diy">DIY</a><a href="/charts" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="charts">Charts</a><a href="/local-ai-activity-index" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="atlas" title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country">Atlas</a><a href="/new" class="lc-global-nav__link lc-global-nav__link--secondary" data-nav-key="new">New</a><a href="/account" class="lc-global-nav__link lc-global-nav__link--account" data-nav-key="account">My Machines</a>
     </div>
   </div>
 </nav>
@@ -1715,11 +1718,11 @@
     <div class="main-layout">
         <!-- Sidebar Filters -->
         <aside class="sidebar" id="sidebar">
-            <button class="sidebar-close" id="sidebar-close">✕</button>
+            <button class="sidebar-close" id="sidebar-close" aria-label="Close filters">✕</button>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</div>
                 <div class="filter-chips" id="pick-filter">
-                    <span class="chip" data-filter="pick"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</span>
+                    <button type="button" class="chip" data-filter="pick" aria-pressed="false"><svg class="lc-icon lc-icon-sm" style="color:#F59E0B" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> LocalClaw Pick</button>
                 </div>
                 <div class="sidebar-actions">
                     <button class="reset-filters-btn" id="reset-filters" type="button">Reset All Filters</button>
@@ -1728,98 +1731,98 @@
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M4 7h16M4 17h16"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg> Model Type</div>
                 <div class="filter-chips" id="type-filters">
-                    <span class="chip" data-filter="tts">TTS</span>
-                    <span class="chip" data-filter="asr">ASR</span>
-                    <span class="chip" data-filter="app">App layer</span>
+                    <button type="button" class="chip" data-filter="tts" aria-pressed="false">TTS</button>
+                    <button type="button" class="chip" data-filter="asr" aria-pressed="false">ASR</button>
+                    <button type="button" class="chip" data-filter="app" aria-pressed="false">App layer</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Languages</div>
                 <div class="filter-chips" id="lang-filters">
-                    <span class="chip active" data-filter="all">All</span>
-                    <span class="chip" data-filter="en">English</span>
-                    <span class="chip" data-filter="zh">Chinese</span>
-                    <span class="chip" data-filter="fr">French</span>
-                    <span class="chip" data-filter="de">German</span>
-                    <span class="chip" data-filter="es">Spanish</span>
-                    <span class="chip" data-filter="ja">Japanese</span>
-                    <span class="chip" data-filter="multilingual">Multilingual</span>
+                    <button type="button" class="chip active" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" class="chip" data-filter="en" aria-pressed="false">English</button>
+                    <button type="button" class="chip" data-filter="zh" aria-pressed="false">Chinese</button>
+                    <button type="button" class="chip" data-filter="fr" aria-pressed="false">French</button>
+                    <button type="button" class="chip" data-filter="de" aria-pressed="false">German</button>
+                    <button type="button" class="chip" data-filter="es" aria-pressed="false">Spanish</button>
+                    <button type="button" class="chip" data-filter="ja" aria-pressed="false">Japanese</button>
+                    <button type="button" class="chip" data-filter="multilingual" aria-pressed="false">Multilingual</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Features</div>
                 <div class="filter-chips" id="feature-filters">
-                    <span class="chip" data-filter="streaming">Streaming</span>
-                    <span class="chip" data-filter="realtime">Real-time</span>
-                    <span class="chip" data-filter="cloning">Voice Cloning</span>
-                    <span class="chip" data-filter="emotion">Emotion</span>
-                    <span class="chip" data-filter="dialogue">Dialogue</span>
-                    <span class="chip" data-filter="controllable">Controllable</span>
-                    <span class="chip" data-filter="multilingual">Multilingual</span>
-                    <span class="chip" data-filter="low-latency">Low Latency</span>
-                    <span class="chip" data-filter="music">Music</span>
-                    <span class="chip" data-filter="sfx">SFX</span>
+                    <button type="button" class="chip" data-filter="streaming" aria-pressed="false">Streaming</button>
+                    <button type="button" class="chip" data-filter="realtime" aria-pressed="false">Real-time</button>
+                    <button type="button" class="chip" data-filter="cloning" aria-pressed="false">Voice Cloning</button>
+                    <button type="button" class="chip" data-filter="emotion" aria-pressed="false">Emotion</button>
+                    <button type="button" class="chip" data-filter="dialogue" aria-pressed="false">Dialogue</button>
+                    <button type="button" class="chip" data-filter="controllable" aria-pressed="false">Controllable</button>
+                    <button type="button" class="chip" data-filter="multilingual" aria-pressed="false">Multilingual</button>
+                    <button type="button" class="chip" data-filter="low-latency" aria-pressed="false">Low Latency</button>
+                    <button type="button" class="chip" data-filter="music" aria-pressed="false">Music</button>
+                    <button type="button" class="chip" data-filter="sfx" aria-pressed="false">SFX</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> Hardware</div>
                 <div class="filter-chips" id="hardware-filters">
-                    <span class="chip active" data-filter="all">Any</span>
-                    <span class="chip" data-filter="cpu">CPU Only</span>
-                    <span class="chip" data-filter="gpu">GPU Accelerated</span>
-                    <span class="chip" data-filter="apple">Apple Silicon</span>
-                    <span class="chip" data-filter="edge">Edge Device</span>
+                    <button type="button" class="chip active" data-filter="all" aria-pressed="true">Any</button>
+                    <button type="button" class="chip" data-filter="cpu" aria-pressed="false">CPU Only</button>
+                    <button type="button" class="chip" data-filter="gpu" aria-pressed="false">GPU Accelerated</button>
+                    <button type="button" class="chip" data-filter="apple" aria-pressed="false">Apple Silicon</button>
+                    <button type="button" class="chip" data-filter="edge" aria-pressed="false">Edge Device</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Size</div>
                 <div class="filter-chips" id="size-filters">
-                    <span class="chip" data-filter="tiny">&lt; 100MB</span>
-                    <span class="chip" data-filter="small">&lt; 1GB</span>
-                    <span class="chip" data-filter="medium">1-3GB</span>
-                    <span class="chip" data-filter="large">> 3GB</span>
+                    <button type="button" class="chip" data-filter="tiny" aria-pressed="false">&lt; 100MB</button>
+                    <button type="button" class="chip" data-filter="small" aria-pressed="false">&lt; 1GB</button>
+                    <button type="button" class="chip" data-filter="medium" aria-pressed="false">1-3GB</button>
+                    <button type="button" class="chip" data-filter="large" aria-pressed="false">> 3GB</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M8 8h8v8H8z"/><path d="M3 9h5M16 9h5M3 15h5M16 15h5"/></svg> Runtime Format</div>
                 <div class="filter-chips" id="format-filters">
-                    <span class="chip" data-filter="gguf">GGUF</span>
-                    <span class="chip" data-filter="onnx">ONNX</span>
-                    <span class="chip" data-filter="pytorch">PyTorch</span>
-                    <span class="chip" data-filter="safetensors">Safetensors</span>
-                    <span class="chip" data-filter="mlx">MLX</span>
-                    <span class="chip" data-filter="nemo">NEMO</span>
-                    <span class="chip" data-filter="native-app">Native app</span>
-                    <span class="chip" data-filter="api">API</span>
+                    <button type="button" class="chip" data-filter="gguf" aria-pressed="false">GGUF</button>
+                    <button type="button" class="chip" data-filter="onnx" aria-pressed="false">ONNX</button>
+                    <button type="button" class="chip" data-filter="pytorch" aria-pressed="false">PyTorch</button>
+                    <button type="button" class="chip" data-filter="safetensors" aria-pressed="false">Safetensors</button>
+                    <button type="button" class="chip" data-filter="mlx" aria-pressed="false">MLX</button>
+                    <button type="button" class="chip" data-filter="nemo" aria-pressed="false">NEMO</button>
+                    <button type="button" class="chip" data-filter="native-app" aria-pressed="false">Native app</button>
+                    <button type="button" class="chip" data-filter="api" aria-pressed="false">API</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Latency</div>
                 <div class="filter-chips" id="latency-filters">
-                    <span class="chip" data-filter="ultra-low">Ultra-low</span>
-                    <span class="chip" data-filter="low">Low</span>
-                    <span class="chip" data-filter="medium">Medium</span>
-                    <span class="chip" data-filter="high">High</span>
+                    <button type="button" class="chip" data-filter="ultra-low" aria-pressed="false">Ultra-low</button>
+                    <button type="button" class="chip" data-filter="low" aria-pressed="false">Low</button>
+                    <button type="button" class="chip" data-filter="medium" aria-pressed="false">Medium</button>
+                    <button type="button" class="chip" data-filter="high" aria-pressed="false">High</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7z"/></svg> License</div>
                 <div class="filter-chips" id="license-filters">
-                    <span class="chip" data-filter="apache">Apache</span>
-                    <span class="chip" data-filter="mit">MIT</span>
-                    <span class="chip" data-filter="cc">Creative Commons</span>
-                    <span class="chip" data-filter="gpl">GPL / AGPL</span>
-                    <span class="chip" data-filter="research">Research / custom</span>
+                    <button type="button" class="chip" data-filter="apache" aria-pressed="false">Apache</button>
+                    <button type="button" class="chip" data-filter="mit" aria-pressed="false">MIT</button>
+                    <button type="button" class="chip" data-filter="cc" aria-pressed="false">Creative Commons</button>
+                    <button type="button" class="chip" data-filter="gpl" aria-pressed="false">GPL / AGPL</button>
+                    <button type="button" class="chip" data-filter="research" aria-pressed="false">Research / custom</button>
                 </div>
             </div>
             <div class="sidebar-section">
                 <div class="sidebar-title"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Freshness</div>
                 <div class="filter-chips" id="fresh-filters">
-                    <span class="chip" data-filter="2026">2026</span>
-                    <span class="chip" data-filter="recent">Recent</span>
-                    <span class="chip" data-filter="2025">2025</span>
-                    <span class="chip" data-filter="2024">2024</span>
-                    <span class="chip" data-filter="classic">Classic</span>
+                    <button type="button" class="chip" data-filter="2026" aria-pressed="false">2026</button>
+                    <button type="button" class="chip" data-filter="recent" aria-pressed="false" title="Releases with an exact date in the last 30 days">Last 30 days</button>
+                    <button type="button" class="chip" data-filter="2025" aria-pressed="false">2025</button>
+                    <button type="button" class="chip" data-filter="2024" aria-pressed="false">2024</button>
+                    <button type="button" class="chip" data-filter="classic" aria-pressed="false">Classic</button>
                 </div>
             </div>
         </aside>
@@ -1833,7 +1836,7 @@
                         LocalClaw Voice Explorer
                     </div>
                     <h1 class="catalog-title">
-                        Find the right <span>TTS</span>
+                        Find your <span>voice &amp; audio model</span>
                     </h1>
                     <p class="catalog-copy">
                         Browse <strong id="total-count" style="color:#fff;">115</strong> speech records: <strong style="color:#fff;">112 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
@@ -1843,7 +1846,7 @@
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
-                        <span class="catalog-pill"><a href="tts/" style="color:inherit;">Static model pages →</a></span>
+                        <span class="catalog-pill"><a href="tts/" style="color:inherit;">Model guides →</a></span>
                     </div>
                     <div class="hero-promo-wrap">
                         <div class="wispr-promo-hint">Speech-to-text partner</div>
@@ -1856,15 +1859,15 @@
 
                 <div class="hero-stats" aria-label="Speech catalogue statistics">
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-records">58</div>
+                        <div class="hero-stat-val" id="total-records">115</div>
                         <div class="hero-stat-label">Records</div>
                     </div>
                     <div class="hero-stat">
                         <div class="hero-stat-val" id="total-langs">1107+</div>
-                        <div class="hero-stat-label">Languages</div>
+                        <div class="hero-stat-label">Max. languages in one model</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-shown">58</div>
+                        <div class="hero-stat-val" id="total-shown">115</div>
                         <div class="hero-stat-label">Current view</div>
                     </div>
                     <div class="hero-stat">
@@ -1878,7 +1881,7 @@
                 <button class="mobile-filter-btn" id="mobile-filter-btn"><svg class="lc-icon lc-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filters</button>
                 <div class="search-wrap">
                     <span class="search-icon"><svg class="lc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-                    <input type="text" id="search-input" placeholder="Search TTS models (e.g., Qwen3, Piper, Melo)...">
+                    <input type="text" id="search-input" aria-label="Search models" placeholder="Search TTS models (e.g., Qwen3, Piper, Melo)...">
                 </div>
                 <div class="sort-controls">
                     <span class="sort-label">Sort:</span>
@@ -4992,7 +4995,7 @@
                 const span = el.querySelector('span');
                 if (span) span.textContent = isCompared ? 'Added' : 'Compare';
             });
-            
+
             // Update banner
             const banner = document.getElementById('comparison-banner');
             const items = document.getElementById('comparison-items');
@@ -5061,24 +5064,24 @@
             const pickCount = models.filter(m => m.isPick).length;
             if (shownStat) shownStat.textContent = models.length;
             if (picksStat) picksStat.textContent = pickCount;
-            
+
             if (models.length === 0) {
                 grid.innerHTML = '';
                 empty.style.display = 'block';
                 resultCount.innerHTML = '';
                 return;
             }
-            
+
             empty.style.display = 'none';
             resultCount.innerHTML = `<strong>${models.length}</strong> model${models.length > 1 ? 's' : ''} found${pickCount > 0 ? ` · <span style="color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg> ${pickCount} LocalClaw Pick${pickCount > 1 ? 's' : ''}</span>` : ''}`;
-            
+
             grid.innerHTML = models.map((model, i) => {
                 const isUnverified = model.delivery === 'unverified';
                 const isRemote = model.delivery === 'online' || model.delivery === 'api';
-                const langDisplay = model.languages.slice(0, 5).map(l => 
+                const langDisplay = model.languages.slice(0, 5).map(l =>
                     `<span class="lang-tag">${l.toUpperCase()}</span>`
                 ).join('');
-                const langMore = model.languageCount > 5 ? 
+                const langMore = model.languageCount > 5 ?
                     `<span class="lang-more">+${model.languageCount - 5} more</span>` : '';
                 const typeLabel = isUnverified ? 'UNVERIFIED' : (model.isAsr ? 'ASR' : (model.isOrchestrator ? 'APP' : 'TTS'));
                 const latencyLabel = String(model.latency || '').replace('-', ' ');
@@ -5121,7 +5124,7 @@
                     return `<span class="feature-tag ${classes[f] || ''}">${icons[f] || f}</span>`;
                 }).join('');
 
-                const newBadge = model.isNew ? '<div class="new-badge">NEW</div>' : '';
+                const newBadge = window.LocalClawNewModels.isRecentRelease(model.releaseDate) ? '<div class="new-badge">NEW</div>' : '';
                 const orchBadge = model.isOrchestrator ? `
                     <div class="orch-badge" title="This is an app/orchestrator, not a standalone TTS model. It wraps backend models via a local API.">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12" style="display:inline;vertical-align:middle"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -5146,7 +5149,7 @@
                         <span class="pick-star"><svg viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="1.5" width="14" height="14" style="display:inline;vertical-align:middle"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
                         <span class="pick-badge-text">LocalClaw Pick</span>
                     </div>` : '';
-                
+
                 const cardClass = `${model.isPick ? 'card localclaw-pick' : 'card'}${isUnverified ? ' card-unverified' : ''}`;
                 const isCompared = compareList.includes(model.id);
                 const communityMarkup = isUnverified
@@ -5338,7 +5341,7 @@
         function matchesFreshness(model, freshness) {
             const date = String(model.releaseDate || '');
             if (freshness === '2026') return date.startsWith('2026');
-            if (freshness === 'recent') return date >= '2025-06';
+            if (freshness === 'recent') return window.LocalClawNewModels.isRecentRelease(date);
             if (freshness === '2025') return date.startsWith('2025');
             if (freshness === '2024') return date.startsWith('2024');
             if (freshness === 'classic') return date && date < '2024-01';
@@ -5348,7 +5351,7 @@
         // Filter logic
         function filterModels() {
             let filtered = TTS_MODELS;
-            
+
             if (activeFilters.pick) {
                 filtered = filtered.filter(m => m.isPick);
             }
@@ -5357,7 +5360,7 @@
             if (typeKeys.length > 0) {
                 filtered = filtered.filter(m => typeKeys.some(t => matchesType(m, t)));
             }
-            
+
             if (activeFilters.lang !== 'all') {
                 if (activeFilters.lang === 'multilingual') {
                     filtered = filtered.filter(m => m.languageCount > 10);
@@ -5365,16 +5368,16 @@
                     filtered = filtered.filter(m => m.languages.includes(activeFilters.lang));
                 }
             }
-            
+
             const featureKeys = selectedKeys(activeFilters.feature);
             if (featureKeys.length > 0) {
                 filtered = filtered.filter(m => featureKeys.every(f => m.features.includes(f)));
             }
-            
+
             if (activeFilters.hardware !== 'all') {
                 filtered = filtered.filter(m => m.hardware.includes(activeFilters.hardware));
             }
-            
+
             const sizeKeys = selectedKeys(activeFilters.size);
             if (sizeKeys.length > 0) {
                 filtered = filtered.filter(m => sizeKeys.some(s => m.sizeCategory === s));
@@ -5399,10 +5402,10 @@
             if (freshKeys.length > 0) {
                 filtered = filtered.filter(m => freshKeys.some(f => matchesFreshness(m, f)));
             }
-            
+
             if (activeFilters.search) {
                 const query = activeFilters.search.toLowerCase();
-                filtered = filtered.filter(m => 
+                filtered = filtered.filter(m =>
                     m.name.toLowerCase().includes(query) ||
                     m.description.toLowerCase().includes(query) ||
                     m.family.toLowerCase().includes(query) ||
@@ -5417,7 +5420,7 @@
                     (m.supportedFormats || []).join(' ').toLowerCase().includes(query)
                 );
             }
-            
+
             filtered = sortModels(filtered, currentSort);
             renderCards(filtered);
         }
@@ -5458,11 +5461,7 @@
             });
         }
 
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('visible');
-            document.body.classList.remove('sidebar-open');
-        }
+        function closeSidebar() { cataloguePanel.close(); }
 
         function resetAllFilters() {
             activeFilters.lang = 'all';
@@ -5541,17 +5540,8 @@
             if (currentSort === 'community' || currentSort === 'rated') filterModels();
         });
 
-        // Mobile sidebar
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        document.getElementById('mobile-filter-btn').addEventListener('click', () => {
-            sidebar.classList.add('open');
-            overlay.classList.add('visible');
-            document.body.classList.add('sidebar-open');
-        });
-        document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-        window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSidebar(); });
+        // Shared keyboard-accessible mobile filters.
+        const cataloguePanel = window.LocalClawCatalogueUI.mount();
 
         // Compare modal close on escape
         document.addEventListener('keydown', e => {
@@ -5574,7 +5564,7 @@
 
         // Initial render
         filterModels();
-        
+
         // Animate hero counters — compute real unique language count
         const allLangs = new Set();
         TTS_MODELS.forEach(m => { if (m.languages.includes('multilingual')) { /* count by languageCount */ } else { m.languages.forEach(l => allLangs.add(l)); } });
@@ -5583,7 +5573,7 @@
         const localPickCount = TTS_MODELS.filter(m => m.isPick).length;
         document.getElementById('total-count').textContent = totalRecordCount;
         document.getElementById('total-records').textContent = totalRecordCount;
-        document.getElementById('total-langs').textContent = totalUniqueLangs + '+';
+        document.getElementById('total-langs').textContent = totalUniqueLangs;
         document.getElementById('total-shown').textContent = totalRecordCount;
         document.getElementById('total-picks').textContent = localPickCount;
 

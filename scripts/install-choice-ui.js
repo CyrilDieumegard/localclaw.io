@@ -116,7 +116,7 @@ function pickerMarkup({model, category, cards, compareHref, compareLabel}) {
     ? `\n    <p class="runtime-launch-disclosure">Desktop app links require the app to be installed. If nothing opens, LocalClaw will show app-download and model-file fallbacks.</p>\n  </section>${runtimeLaunchAssistAsset}`
     : '\n  </section>';
   return `<section class="install-choice" data-install-choice data-install-category="${escapeHtml(category)}">
-    <div class="install-choice-head"><div><span>Choose an app</span><p>Start with Recommended. No terminal commands are shown.</p></div><a href="${escapeHtml(compareHref)}">${escapeHtml(compareLabel)}</a></div>
+    <div class="install-choice-head"><div><span>Choose an app</span><p>Start with the recommended app, or choose another supported option.</p></div><a href="${escapeHtml(compareHref)}">${escapeHtml(compareLabel)}</a></div>
     <div class="install-choice-grid">${cards.join('')}</div>${runtimeLaunchAssist}`;
 }
 

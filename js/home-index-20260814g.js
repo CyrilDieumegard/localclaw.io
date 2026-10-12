@@ -309,6 +309,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             siteVisitors: 3430,
             desktopHomepageVisitors: 308,
             asOf: '2026-08-15',
+            archived: true,
             periodLabel: 'Jul 17–Aug 15, 2026',
             sourceLabel: 'DataFast · Europe/Zurich'
         });
@@ -456,23 +457,27 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 <div class="lc-index-directory">
                     <header class="lc-index-hero">
                         <div class="lc-index-hero__copy">
-                            <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
-                            <p>Find the models, software and hardware that fit your machine.</p>
-                            <div class="lc-index-hero__actions"><a class="is-primary" href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a></div>
+                            <h1><span><b>Local</b>Claw</span><small>Find the right local AI for your machine.</small></h1>
+                            <p>Choose your hardware and goal. Get a model and a clear path to run it.</p>
+                            <form class="lc-quick-fit" aria-label="Quick local AI compatibility check">
+            <label><span>System</span><select name="system" aria-label="Computer system" required><option value="" disabled>Choose your system</option><option value="mac">Apple Silicon</option><option value="mac-intel">Intel Mac</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
+            <label><span>Memory</span><select name="ram" aria-label="System memory"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option><option value="128">128 GB</option></select></label>
+            <label><span>Goal</span><select name="goal" aria-label="Primary AI goal"><option value="chat">Private chat</option><option value="code" selected>Coding</option><option value="reasoning">Reasoning</option><option value="vision">Vision</option></select></label>
+            <button type="submit">Show my models <span aria-hidden="true">→</span></button>
+                            </form>
+                            <div class="lc-index-hero__actions lc-index-hero__actions--quick-fit"><a href="#local-ai-index">Browse all models →</a><a href="/llm-list">Open the full LLM catalogue →</a></div>
                         </div>
                     </header>
 
-                    <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
-
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
-                        <header><div><span class="lc-index-eyebrow">Your local AI workspace</span><h2 id="lc-index-universe-title">What can your machine run?</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Create a free account, add your Mac, PC or NVIDIA workstation once, and LocalClaw keeps your compatible models and new releases ready.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
+                        <header><div><span class="lc-index-eyebrow">Browse by task</span><h2 id="lc-index-universe-title">The local AI catalogue</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Browse freely. Save a machine if you want to keep your model choices and notes together.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>
                             <div class="lc-home-machines__head"><div><strong>Your saved machines</strong><span>Choose one real machine to update every directory.</span></div></div>
                             <div id="lc-home-machine-list" class="lc-home-machine-list" role="radiogroup" aria-label="Choose a saved machine"></div>
                             <div class="lc-home-machine-context"><p id="lc-home-machine-status" aria-live="polite"></p><button id="lc-home-machine-catalogue" type="button" aria-pressed="false">Show full catalogues</button></div>
                         </div>
                         <nav aria-label="Local AI categories">
-                            <a href="#llm-index"><strong>LLM</strong><span><b data-family-result-count="llm">${localModels.length}</b> <span data-family-result-label="llm">local ${localModels.length === 1 ? 'page' : 'pages'}</span></span></a>
+                            <a href="#llm-index"><strong>LLM</strong><span><b data-family-result-count="llm">${localModels.length}</b> <span data-family-result-label="llm">indexable local ${localModels.length === 1 ? 'model' : 'models'}</span></span></a>
                             <a href="#tts-index"><strong>Voice</strong><span><b data-family-result-count="voice">${speechModels.length}</b> <span data-family-result-label="voice">local ${speechModels.length === 1 ? 'record' : 'records'}</span></span></a>
                             ${multimodalCategories.map((category) => {
                                 const categoryTotal = (multimodalByCategory.get(category.key) || []).length;
@@ -481,20 +486,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         </nav>
                     </section>
 
-                    <section id="community-atlas" class="lc-index-universe" aria-labelledby="community-atlas-title">
-                        <header><div><span class="lc-index-eyebrow">Local AI Atlas · Community</span><h2 id="community-atlas-title">See what the world explores. Share what you have tried.</h2><p class="lc-index-universe__copy">Atlas shows model-page interest and selected setup paths by country. Member ratings are a separate, self-reported signal. Neither proves a download, installation or actual use.</p></div><a href="/local-ai-activity-index" data-fast-goal="atlas_open" data-fast-goal-source="home_community">Explore Atlas →</a></header>
-                        <a class="lc-index-more" href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_community" data-fast-goal-target="llm-index">Tried a model? Find it in the index and leave a rating →</a>
-                    </section>
-
-                    <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
-                        <span><strong>Founding sponsor offer</strong><small>Lock in the introductory rate before new-campaign pricing changes.</small></span>
-                        <span>$29 / 7 days</span>
-                    </a>
-
                     <section id="llm-index" aria-labelledby="llm-index-title">
                         <div class="lc-index-section-head">
                             <div><span class="lc-index-eyebrow">Directory 01</span><h2 id="llm-index-title">Local LLMs</h2></div>
-                            <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> ranked entries · independent signals</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">LocalClaw · /10</span></div>
+                            <div class="lc-index-section-meta"><p><strong id="lc-index-result-count">${localModels.length}</strong> local model pages · indexable catalogue</p><span class="lc-index-method-pill lc-index-method-pill--community">Community ★ · /5</span><span class="lc-index-method-pill">LocalClaw · /10</span></div>
                             <p id="lc-index-result-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
                         </div>
                         <section id="lc-index-quick-picks" class="lc-index-quick-picks" aria-labelledby="lc-index-quick-picks-title">
@@ -502,9 +497,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <div id="lc-index-quick-pick-cards" class="lc-index-quick-pick-cards"></div>
                         </section>
                         <div class="lc-index-controls">
-                            <label class="lc-index-control-label"><span>Search</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search model or family…" autocomplete="off"></label>
+                            <label class="lc-index-control-label"><span>Search</span><input id="lc-index-search" class="lc-index-control" type="search" placeholder="Search models or families…" autocomplete="off"></label>
                             <label class="lc-index-control-label"><span>Catalogue RAM</span><select id="lc-index-machine-ram" class="lc-index-control"><option value="0">Any RAM</option><option value="8">8 GB RAM</option><option value="16">16 GB RAM</option><option value="32">32 GB RAM</option><option value="64">64 GB RAM</option><option value="128">128 GB RAM</option><option value="256">256 GB RAM</option><option value="512">512 GB RAM</option></select></label>
-                            <label class="lc-index-control-label"><span>LLM availability</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">Full catalogue</option><option value="fits">Green fits only</option></select></label>
+                            <label class="lc-index-control-label"><span>LLM availability</span><select id="lc-index-fit-filter" class="lc-index-control"><option value="all">Full catalogue</option><option value="fits">Fits this machine</option></select></label>
                             <label class="lc-index-control-label"><span>Model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
                             <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
@@ -550,7 +545,19 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <p id="lc-index-multimodal-machine-note" class="lc-index-machine-note" hidden></p>
                         ${renderMultimodalSections()}
                     </section>
-                    <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><div id="lc-index-compare-content" class="lc-index-compare-content"></div></dialog>
+                    <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
+
+                    <section id="community-atlas" class="lc-index-universe" aria-labelledby="community-atlas-title">
+                        <header><div><span class="lc-index-eyebrow">Local AI Atlas · Community</span><h2 id="community-atlas-title">See what the world explores. Share what you have tried.</h2><p class="lc-index-universe__copy">Atlas shows model-page interest and selected setup paths by country. Member ratings are a separate, self-reported signal. Neither proves a download, installation or actual use.</p></div><a href="/local-ai-activity-index" data-fast-goal="atlas_open" data-fast-goal-source="home_community">Explore Atlas →</a></header>
+                        <a class="lc-index-more" href="#llm-index" data-fast-goal="catalogue_click" data-fast-goal-source="home_community" data-fast-goal-target="llm-index">Tried a model? Find it in the index and leave a rating →</a>
+                    </section>
+
+                    <a class="lc-sponsor-offer-inline" href="/account?view=sponsorship&amp;intent=new&amp;plan=week" data-sponsor-offer data-fast-goal="sponsor_offer_open" data-fast-goal-source="home_sponsor_inline">
+                        <span><strong>Founding sponsor offer</strong><small>Lock in the introductory rate before new-campaign pricing changes.</small></span>
+                        <span>$29 / 7 days</span>
+                    </a>
+
+                    <dialog id="lc-index-compare-dialog" class="lc-index-compare-dialog" aria-labelledby="lc-index-compare-title"><div class="lc-index-compare-dialog__head"><div><span class="lc-index-eyebrow">Side-by-side</span><h2 id="lc-index-compare-title">Compare local LLMs</h2></div><button id="lc-index-compare-close" type="button" aria-label="Close model comparison">×</button></div><p class="lc-index-compare-hint">Compare by row. Scroll sideways on smaller screens to see every selected model.</p><div id="lc-index-compare-content" class="lc-index-compare-content" tabindex="0" aria-label="Model comparison table"></div></dialog>
                     <dialog id="lc-sponsor-offer-dialog" class="lc-sponsor-offer-dialog" aria-labelledby="lc-sponsor-offer-title" aria-describedby="lc-sponsor-offer-description">
                         <div class="lc-sponsor-offer-dialog__scroll">
                             <header class="lc-sponsor-offer-dialog__head">
@@ -559,11 +566,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             </header>
                             <p id="lc-sponsor-offer-description" class="lc-sponsor-offer-dialog__intro">Book a fixed homepage position at LocalClaw's introductory sponsor rate. New-campaign pricing may increase as the audience grows, while your selected desktop position never rotates.</p>
                             <div class="lc-sponsor-offer-metrics" aria-label="LocalClaw audience snapshot">
-                                <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.siteVisitors)}</strong><span>Site visitors</span><small>Last 30 days</small></article>
+                                <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.siteVisitors)}</strong><span>Site visitors</span><small>${sponsorAudienceSnapshot.periodLabel}</small></article>
                                 <article><strong>${new Intl.NumberFormat('en-US').format(sponsorAudienceSnapshot.desktopHomepageVisitors)}</strong><span>Desktop homepage visitors</span><small>Where placements appear</small></article>
                                 <article><strong id="lc-sponsor-open-count">Exact dates</strong><span>Live availability</span><small id="lc-sponsor-open-note">Checked before Stripe</small></article>
                             </div>
-                            <p class="lc-sponsor-offer-source"><strong>Search-led, product-specific traffic.</strong> Popular visits include model, TTS and RAM guides. Audience snapshot: ${sponsorAudienceSnapshot.periodLabel} · ${sponsorAudienceSnapshot.sourceLabel}.</p>
+                            <p class="lc-sponsor-offer-source"><strong>Search-led, product-specific traffic.</strong> Popular visits include model, TTS and RAM guides. Historical audience snapshot, not current reach: ${sponsorAudienceSnapshot.periodLabel} · ${sponsorAudienceSnapshot.sourceLabel}.</p>
                             <section class="lc-sponsor-offer-benefits" aria-labelledby="lc-sponsor-benefits-title">
                                 <h3 id="lc-sponsor-benefits-title">What the booking includes</h3>
                                 <div><article><span>01</span><strong>Fixed placement</strong><p>Choose one exact desktop rail position. No rotation or ranking influence.</p></article><article><span>02</span><strong>Measured delivery</strong><p>Track visible impressions, estimated unique visitors, clicks and CTR.</p></article><article><span>03</span><strong>Launch rate you can keep</strong><p>Book seven days for $29. Enable renewal in your account to keep the same rate until you cancel.</p></article></div>
@@ -853,7 +860,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                     && (selectedFamily === 'all' || model.family === selectedFamily);
             }).sort(compareModels(activeSortKey, activeSortDirection));
             const displayed = filtered.slice(0, llmVisibleLimit);
-            rows.innerHTML = displayed.length ? renderModelRows(displayed) : '<tr><td class="lc-index-empty" colspan="9">No local model matches these filters.</td></tr>';
+            rows.innerHTML = displayed.length ? renderModelRows(displayed) : '<tr><td class="lc-index-empty" colspan="9">No models match these filters. Try another search or adjust your memory filter.</td></tr>';
             renderQuickPicks(filtered);
             count.textContent = filtered.length;
             setFamilyResultCount('llm', filtered.length, 'page', 'pages');
@@ -972,6 +979,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             else compareDialog.setAttribute('open', '');
         });
         compareClose.addEventListener('click', () => compareDialog.close());
+        compareDialog.addEventListener('close', () => compareOpen.focus());
         compareDialog.addEventListener('click', (event) => {
             if (event.target === compareDialog) compareDialog.close();
         });
@@ -1371,7 +1379,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 document.querySelectorAll('.lc-global-nav [data-nav-key="account"]').forEach((link) => { link.textContent = 'My Machines'; });
                 const machineCta = document.getElementById('lc-home-machine-cta');
                 if (machineCta) machineCta.textContent = savedMachines.length ? 'My Machines →' : 'Add my machine →';
-                if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'You are signed in. Add your first Mac, PC or NVIDIA workstation to unlock compatible models and new-release updates.';
+                if (!savedMachines.length && machineIntroCopy) machineIntroCopy.textContent = 'Choose a machine below to find a model. Save it to My Machines when you want to keep your choices.';
                 const primary = savedMachines.find((item) => item.isPrimary) || savedMachines[0];
                 const selectedSaved = selectedConfiguration?.id && savedMachines.find((item) =>
                     item.id === selectedConfiguration.id && item.ramGb === selectedConfiguration.ramGb &&

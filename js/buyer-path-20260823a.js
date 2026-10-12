@@ -59,6 +59,12 @@
       ['Value at 24GB','RTX 4090 · 24GB','A strong alternative when sourced carefully and paired with adequate power and cooling.','/go/amazon?q=RTX+4090+24GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['Beyond consumer VRAM','RTX PRO · 48GB+','For professional workloads that truly exceed 32GB, not as a default recommendation.','/ram-gpu-for-local-ai#pro-gpu-picks','Compare PRO tiers']]
   };
+  function routeKind(item) {
+    if (/RTX/.test(item[1])) return 'GPU component';
+    if (/system RAM|Desktop · 64GB RAM/.test(item[1])) return 'Memory upgrade';
+    if (item[5]) return 'Complete machine';
+    return 'Hardware guide';
+  }
   function track(name,props){if(typeof window.datafast==='function')window.datafast(name,props)}
   roots.forEach(root=>{
     const result=root.querySelector('[data-buyer-result]'),cards=root.querySelector('[data-buyer-cards]');
@@ -66,7 +72,7 @@
       const values={};root.querySelectorAll('input:checked').forEach(i=>values[i.name]=i.value);
       if(!values.path||!values.use||!values.budget)return;
       const list=values.budget==='headroom'?(headroomProfiles[`${values.path}|${values.use}`]||headroomProfiles['buy|chat']):(profiles[`${values.path}|${values.use}|starter`]||profiles['buy|chat|starter']);
-      cards.innerHTML=list.map((x,i)=>`<article class="lc-buyer__card"><span class="lc-buyer__badge">${i?'Alternative '+i:'Primary recommendation'}</span><h3>${x[1]}</h3><p>${x[2]}</p><a class="${i?'secondary':''}" href="${x[3]}" ${x[3].startsWith('/go/')?'target="_blank" rel="sponsored nofollow noopener"':''} data-fast-goal="${x[3].startsWith('/go/')?'amazon_click':'buyer_recommendation_click'}" data-fast-goal-source="buyer_path">${x[4]}</a>${x[5]?`<a class="secondary" href="${x[5]}" data-fast-goal="buyer_recommendation_click" data-fast-goal-source="buyer_path">See model fit</a>`:""}</article>`).join('');
+      cards.innerHTML=list.map((x,i)=>`<article class="lc-buyer__card"><span class="lc-buyer__badge">${routeKind(x)}</span><h3>${x[1]}</h3><p>${x[2]}</p>${routeKind(x) === 'GPU component' ? '<p class="lc-buyer__requirement">Graphics card only. Requires a compatible desktop, power supply and cooling.</p>' : routeKind(x) === 'Memory upgrade' ? '<p class="lc-buyer__requirement">Memory only. Check your motherboard and memory standard before buying.</p>' : ''}<a class="${i?'secondary':''}" href="${x[3]}" ${x[3].startsWith('/go/')?'target="_blank" rel="sponsored nofollow noopener"':''} data-fast-goal="${x[3].startsWith('/go/')?'amazon_click':'buyer_recommendation_click'}" data-fast-goal-source="buyer_path">${x[4]}</a>${x[5]?`<a class="secondary" href="${x[5]}" data-fast-goal="buyer_recommendation_click" data-fast-goal-source="buyer_path">See model fit</a>`:""}</article>`).join('');
       result.hidden=false;track('buyer_recommendation_viewed',{path:values.path,use_case:values.use,budget:values.budget});
     }
     root.addEventListener('change',()=>{track('buyer_path_answered',{step:'choice'});render()});render();

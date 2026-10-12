@@ -1,0 +1,43 @@
+/* Shared controls for LLM and Voice. Page-specific cards remain in their own styles. */
+.chip {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 36px;
+    font: 500 13px/1.4 Inter, system-ui, sans-serif;
+    padding: 7px 11px;
+    border-radius: 8px;
+}
+:is(.chip, .sort-btn, .view-btn, .preset-btn, .mobile-filter-btn, .sidebar-close):focus-visible {
+    outline: 2px solid var(--primary, #ff453a);
+    outline-offset: 3px;
+}
+.sidebar-title { font-size: 12px; line-height: 1.5; }
+.sidebar-close { width: 44px; height: 44px; align-items: center; justify-content: center; }
+.catalog-copy { font-size: 16px; }
+.catalog-pill, .hero-stat-label { font-size: 12px; text-transform: none; letter-spacing: 0; }
+.catalog-hero { box-shadow: none; }
+.hero-stats { align-self: start; }
+.hero-stat { min-height: 86px; }
+.hero-stat-val { font-size: 24px; }
+.hero-stat-label { white-space: normal; }
+.tts-grid .card { box-shadow: none; }
+@media (max-width: 768px) {
+    .sidebar { z-index: 1102; width: min(340px, 100%); height: 100dvh; max-height: 100dvh; padding-top: 64px; overscroll-behavior: contain; }
+    .sidebar-close { display: flex; position: absolute; right: 12px; top: 12px; }
+    .sidebar-overlay { z-index: 1101; }
+    .sidebar.open { visibility: visible; }
+    .sidebar:not(.open) { visibility: hidden; }
+    body.sidebar-open { overflow: hidden; }
+    .chip, .sort-btn, .view-btn, .preset-btn, .mobile-filter-btn { min-height: 44px; }
+    .search-input, #search-input { font-size: 16px; }
+    .hero-stat { min-height: 70px; padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sidebar, .chip { transition: none; }
+}
+@media (max-width: 768px) {
+    .topbar .mobile-filter-btn { position: static; inset: auto; transform: none; width: 100%; flex-basis: 100%; border-radius: 10px; box-shadow: none; font: 600 14px/1.4 Inter, sans-serif; }
+}

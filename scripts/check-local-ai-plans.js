@@ -61,7 +61,7 @@ for (const marker of [
   "'plan_save_started'",
   "'plan_action_clicked'",
   "localStorage.setItem('localclaw_pending_plan'",
-  'Keep this plan updated',
+  'Save this machine and choice',
   'data-plan-save-button',
   "localStorage.getItem('localclaw_primary_machine')",
   "localStorage.getItem('localclaw_saved_machines')",
@@ -103,21 +103,21 @@ assert(resumeStart >= 0 && resumeEnd > resumeStart, 'Pending plan resume functio
 assert(resumeSource.indexOf('resolvePendingPlanMachine(state.machines, pending)') < resumeSource.indexOf('createPendingPlanMachine(pending)'), 'Hardware matching must run before automatic creation');
 assert(resumeSource.indexOf('preferredMachineId') < resumeSource.indexOf('createPendingPlanMachine(pending)'), 'A cached preferred machine must be checked before automatic creation');
 assert(account.includes("source: 'finder'"), 'Finder plans must retain their source');
-assert(accountHtml.includes('My Local AI Plans'), 'Account does not expose the plans workspace');
+assert(accountHtml.includes('My Machines'), 'Account does not expose the plans workspace');
 assert(accountHtml.includes('machine-match-dialog'), 'Multiple saved hardware matches need an explicit low-friction choice');
 assert(accountHtml.includes('/js/account-20260802a.js?v=20260906a'), 'Account plan script cache key is stale');
 assert(account.includes("id: 'mac-mini-m6-2026'"), 'Account presets are missing Mac mini M6');
 assert(account.includes("id: 'mac-mini-m5-pro-2026'"), 'Account presets are missing Mac mini M5 Pro');
 assert(accountHtml.includes('/js/account-analytics-20260820a.js?v=20260905c'), 'Account plan analytics cache key is stale');
-assert(accountHtml.includes('/css/account-20260802a.css?v=20260823a'), 'Account plan CSS cache key is stale');
+assert(accountHtml.includes('/css/account-20260802a.css?v=20261012quality2'), 'Account plan CSS cache key is stale');
 assert(accountCss.includes('.lc-plan-overview'), 'Account plan overview styles are missing');
 assert(accountCss.includes('.lc-machine-match'), 'Existing-machine choice styles are missing');
 assert(machineCompatibility.includes('includeTight: false'), 'Account plans must exclude tight-fit LLMs');
 assert(account.includes('indexableLocalModels()'), 'Account recommendations must use the same indexable local LLM scope as the homepage');
 assert(account.includes('APP_DATA.hfRepoVerification?.unavailable'), 'Account recommendations must exclude exact-repository-unavailable LLM tombstones');
 assert(accountHtml.includes('/js/machine-compat-20260802a.js?v=20260823a'), 'Account machine compatibility cache key is stale');
-assert(index.includes('js/data.js?v=20260906a'), 'Homepage flow data cache key is stale');
-assert(index.includes('js/app-20260816a.js?v=20260905c'), 'Homepage plan app cache key is stale');
+assert(index.includes('js/data.js?v=20261003a'), 'Homepage flow data cache key is stale');
+assert(index.includes('js/app-20260816a.js?v=20261012quality3'), 'Homepage plan app cache key is stale');
 assert(index.includes('js/growth-paths-20260727a.js?v=20260905a'), 'Homepage growth path cache key is stale');
 assert(growth.includes('Build my Local AI Plan'), 'Article acquisition CTA is not plan-led');
 assert(growth.includes('no signup before value'), 'Article CTA must explain the no-signup result');

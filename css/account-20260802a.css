@@ -2401,3 +2401,8 @@ html.light .lc-account-light-scope .lc-button.lc-button-danger {
     background: rgba(201, 47, 40, 0.06);
     color: #a8241f;
 }
+
+/* Readable product copy; technical labels keep their existing monospace style. */
+.lc-page-copy, .lc-auth-panel p, .lc-auth-panel button, .lc-auth-panel a, .lc-account-benefits { font-family: var(--lc-display); }
+.lc-page-copy { font-size: 16px; line-height: 1.65; }
+.lc-auth-panel .lc-auth-trust { font-size: 12px; line-height: 1.65; }

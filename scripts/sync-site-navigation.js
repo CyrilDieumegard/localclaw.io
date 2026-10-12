@@ -43,11 +43,11 @@ for (const marker of [
 
 // The same short, task-oriented order must survive every page regeneration.
 // Hardware children stay inside their disclosure, and the account stays last.
-const expectedOrder = ['index', 'labs', 'software', 'hardware', 'diy', 'charts', 'atlas', 'new', 'account'];
+const expectedOrder = ['index', 'software', 'hardware', 'labs', 'diy', 'charts', 'atlas', 'new', 'account'];
 const topLevelOrder = [...navigationContract.matchAll(/data-nav-(?:key|group)="([^"]+)"/g)]
   .map(([, key]) => key).filter(key => !['computers', 'ram-gpu'].includes(key));
 if (JSON.stringify(topLevelOrder) !== JSON.stringify([...expectedOrder, ...expectedOrder])) {
-  throw new Error('Desktop and mobile navigation must follow Models, Labs, Software, Hardware, DIY, Charts, Atlas, New, My Machines.');
+  throw new Error('Desktop and mobile navigation must follow Models, Software, Hardware, Labs, DIY, Charts, Atlas, New, My Machines.');
 }
 if (navigationContract.includes('>AI Index</a>') || navigationContract.includes('>Local AI Map</a>')) {
   throw new Error('Navigation labels must use the concise Models and Atlas names.');

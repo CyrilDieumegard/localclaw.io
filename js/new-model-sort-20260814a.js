@@ -24,6 +24,29 @@
         return timestamp;
     }
 
+    function releaseAgeDays(value, now = new Date()) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ''))) return null;
+        const timestamp = releaseTimestamp(value);
+        if (!Number.isFinite(timestamp)) return null;
+        const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+        return Math.floor((today - timestamp) / 86400000);
+    }
+
+    function isRecentRelease(value, now = new Date()) {
+        const days = releaseAgeDays(value, now);
+        return days !== null && days >= 0 && days < 30;
+    }
+
+    function relativeReleaseAge(value, now = new Date()) {
+        const days = releaseAgeDays(value, now);
+        if (days === null) return '';
+        if (days < 0) return 'Upcoming';
+        if (days === 0) return 'Today';
+        if (days === 1) return 'Yesterday';
+        if (days < 30) return `${days}d ago`;
+        return `${Math.floor(days / 30)}mo ago`;
+    }
+
     function isPracticalLocalModel(model, verification) {
         const description = String(model && model.description || '').toLowerCase();
         const tags = Array.isArray(model && model.tags) ? model.tags.map(tag => String(tag).toLowerCase()) : [];
@@ -57,5 +80,5 @@
         return dated.slice(0, Number.isFinite(limit) ? Math.max(0, limit) : 12).map(entry => entry.model);
     }
 
-    return { isPracticalLocalModel, latestLocalModels, releaseTimestamp };
+    return { isPracticalLocalModel, latestLocalModels, releaseTimestamp, releaseAgeDays, isRecentRelease, relativeReleaseAge };
 });

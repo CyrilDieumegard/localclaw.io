@@ -106,5 +106,15 @@
     });
   }
 
+  var main = document.querySelector('main');
+  if (main && !document.querySelector('.lc-skip-link') && !document.querySelector('a[href="#' + main.id + '"]')) {
+    if (!main.id) main.id = 'main-content';
+    main.setAttribute('tabindex', '-1');
+    var skip = document.createElement('a');
+    skip.className = 'lc-skip-link';
+    skip.href = '#' + main.id;
+    skip.textContent = 'Skip to content';
+    document.body.prepend(skip);
+  }
   document.querySelectorAll('.lc-global-nav').forEach(initializeNavigation);
 })();

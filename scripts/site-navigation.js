@@ -1,4 +1,4 @@
-const NAV_VERSION = '20260921labs2';
+const NAV_VERSION = '20261012quality2';
 
 const hardwareItems = [
   ['computers', '/computers', 'Computers'],
@@ -7,9 +7,9 @@ const hardwareItems = [
 
 const items = [
   ['index', '/#local-ai-index', 'Models'],
-  ['labs', '/labs', 'Labs'],
   ['software', '/software', 'Software'],
   ['hardware', '', 'Hardware'],
+  ['labs', '/labs', 'Labs'],
   ['diy', '/diy/', 'DIY'],
   ['charts', '/charts', 'Charts'],
   ['atlas', '/local-ai-activity-index', 'Atlas'],
@@ -21,9 +21,10 @@ const modelKeys = new Set(['llm', 'voice', 'tts', 'image', 'video', '3d', 'music
 
 function link([key, href, label], active) {
   const account = key === 'account' ? ' lc-global-nav__link--account' : '';
+  const secondary = ['labs', 'diy', 'charts', 'atlas', 'new'].includes(key) ? ' lc-global-nav__link--secondary' : '';
   const current = key === active ? ' aria-current="page"' : '';
   const description = key === 'atlas' ? ' title="Explore local AI interest by country" aria-label="Atlas: local AI interest by country"' : '';
-  return `<a href="${href}" class="lc-global-nav__link${account}" data-nav-key="${key}"${description}${current}>${label}</a>`;
+  return `<a href="${href}" class="lc-global-nav__link${account}${secondary}" data-nav-key="${key}"${description}${current}>${label}</a>`;
 }
 
 function navigationItem(item, active, context) {

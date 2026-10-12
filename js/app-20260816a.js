@@ -24,7 +24,8 @@ const App = {
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') this.goBack();
+            if (e.key !== 'Escape' || e.defaultPrevented || document.querySelector('dialog[open]') || e.target?.closest?.('.lc-global-nav')) return;
+            this.goBack();
         });
     },
 
@@ -2274,12 +2275,9 @@ const App = {
                         <p class="text-claw-muted leading-relaxed text-sm">${selectedModel.description}</p>
                     </div>
 
-                    <!-- LocalClaw Installer CTA — affiché immédiatement sous le titre -->
-                    ${this.buildOneClickSetupBlock(selectedModel)}
-
                     ${this.buildRuntimeSetupSteps(selectedModel)}
 
-                    <!-- One-Click Setup supprimé ici — remonté au-dessus des steps -->
+                    ${this.buildOneClickSetupBlock(selectedModel)}
 
                     <!-- Upgrade Hardware (conditional: 8GB / 16GB only) -->
                     ${this.buildUpgradeBlock()}
@@ -2317,7 +2315,7 @@ const App = {
                 <div class="grid gap-6 p-5 sm:p-7 lg:grid-cols-3 lg:items-center">
                     <div class="lg:col-span-2">
                         <div class="mb-3 flex flex-wrap items-center gap-2">
-                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">My Local AI Plan</span>
+                            <span class="rounded-full border border-claw-primary/40 bg-claw-primary/10 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Your model recommendation</span>
                             <span class="text-[11px] font-mono ${customRuntime ? 'text-claw-primary' : 'text-emerald-400'}">${customRuntime ? 'Custom runtime · manual setup required' : this.isIntelMac() ? 'Memory fit found · manual setup required' : 'Ready now · no signup required'}</span>
                         </div>
                         <h2 id="local-ai-plan-title" class="max-w-3xl text-2xl font-display font-bold leading-tight text-white sm:text-3xl">
@@ -2332,15 +2330,13 @@ const App = {
                         </dl>
                     </div>
                     <div class="rounded-xl border border-white/10 bg-white/[0.035] p-4 lg:col-span-1">
-                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Keep this decision useful</p>
-                        <p class="mt-2 text-sm leading-relaxed text-white">${savedMachine
-                            ? `<strong>${savedMachineName}</strong> already matches this hardware. LocalClaw will update its plan without creating a duplicate.`
-                            : 'Save the plan free. New compatible releases and better matches will appear automatically.'}</p>
-                        <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-4 w-full rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-mono font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black disabled:cursor-wait disabled:opacity-75">
-                            ${savedMachine ? `Use ${savedMachineName}` : 'Keep this plan updated'}
+                        <p class="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-claw-muted">Run this model</p>
+                        <p class="mt-2 mb-4 text-sm leading-relaxed text-white">Check the requirements, choose an app and follow the setup guide.</p>
+                        <a href="${this.modelLink(selectedModel)}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="flex w-full items-center justify-center rounded-lg border border-claw-primary bg-claw-primary px-4 py-3 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-black">Open ${selectedModel.name} setup</a>
+                        <button data-plan-save-button onclick="App.saveCurrentMachine()" class="mt-3 w-full rounded-lg border border-white/20 px-4 py-3 text-sm font-medium text-claw-muted transition-colors hover:border-white/50 hover:text-white disabled:cursor-wait disabled:opacity-75">
+                            ${savedMachine ? `Use ${savedMachineName}` : 'Save this machine and choice'}
                         </button>
-                        <a href="${this.modelLink(selectedModel)}" onclick="App.trackPlanAction('open_primary_model', '${selectedModel.id}')" class="mt-2 flex w-full items-center justify-center rounded-lg border border-white/10 px-4 py-3 text-xs font-mono font-bold text-claw-muted transition-colors hover:border-white/30 hover:text-white">Open ${selectedModel.name} setup</a>
-                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'Saved machine recognized on this browser. LocalClaw verifies it again in your account.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
+                        <p class="mt-3 text-center text-[10px] font-mono leading-relaxed text-claw-muted">${savedMachine ? 'LocalClaw verifies the saved machine in your account and updates it without creating a duplicate.' : 'One Google sign-in only when you save. No prompts or local files collected.'}</p>
                     </div>
                 </div>
         `;

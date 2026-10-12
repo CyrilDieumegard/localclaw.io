@@ -1,15 +1,6 @@
 (function () {
     'use strict';
 
-    const icon = (name) => {
-        const paths = {
-            compatible: '<rect x="4" y="4" width="16" height="16" rx="3"></rect><path d="M9 9h6v6H9zM9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"></path>',
-            saved: '<path d="M6 4.75A2.75 2.75 0 0 1 8.75 2h6.5A2.75 2.75 0 0 1 18 4.75V22l-6-3.75L6 22z"></path>',
-            tests: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>'
-        };
-        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
-    };
-
     const quickPlan = (form) => {
         const system = form.elements.system.value;
         const ram = Number.parseInt(form.elements.ram.value, 10) || 16;
@@ -57,22 +48,10 @@
 
     const enhanceHome = () => {
         const hero = document.querySelector('.lc-index-hero__copy');
-        if (!hero || hero.querySelector('.lc-quick-fit')) return;
-
-        const subtitle = hero.querySelector('h1 small');
-        const intro = hero.querySelector(':scope > p');
-        if (subtitle) subtitle.textContent = 'Find the best local AI for your machine';
-        if (intro) intro.textContent = 'Find models that fit your hardware, then explore worldwide interest and community ratings. The Mac app remains optional.';
-
-        const form = document.createElement('form');
-        form.className = 'lc-quick-fit';
-        form.setAttribute('aria-label', 'Quick local AI compatibility check');
-        form.innerHTML = `
-            <label><span>System</span><select name="system" aria-label="Computer system" required><option value="" disabled>Choose your system</option><option value="mac">Apple Silicon</option><option value="mac-intel">Intel Mac</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
-            <label><span>Memory</span><select name="ram" aria-label="System memory"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option><option value="128">128 GB</option></select></label>
-            <label><span>Goal</span><select name="goal" aria-label="Primary AI goal"><option value="chat">Private chat</option><option value="code" selected>Coding</option><option value="reasoning">Reasoning</option><option value="vision">Vision</option></select></label>
-            <button type="submit">Show my models <span aria-hidden="true">→</span></button>
-        `;
+        if (!hero) return;
+        const form = hero.querySelector('.lc-quick-fit');
+        if (!form || form.dataset.bound === 'true') return;
+        form.dataset.bound = 'true';
 
         const activeAnswers = (typeof App !== 'undefined' ? App : window.App)?.state?.answers || {};
         let sessionFit = {};
@@ -120,41 +99,10 @@
         };
         window.addEventListener('localclaw:fit-context', onProfile);
         window.addEventListener('localclaw:home-machine-selection', onProfile);
-        const offer = document.querySelector('[aria-labelledby="openclaw-launch-title"]');
-        if (offer) hero.closest('.lc-index-hero').insertAdjacentElement('afterend', offer);
-
-        const actions = hero.querySelector('.lc-index-hero__actions');
-        if (actions) {
-            actions.classList.add('lc-index-hero__actions--quick-fit');
-            actions.innerHTML = '<a href="#llm-index">Browse AI Index →</a><a href="/local-ai-activity-index" data-fast-goal="atlas_open" data-fast-goal-source="home_hero">Explore Atlas →</a><a href="#local-ai-index" data-detailed-fit>Use the detailed machine filters →</a>';
-            hero.insertBefore(form, actions);
-            actions.querySelector('[data-detailed-fit]')?.addEventListener('click', (event) => {
-                event.preventDefault();
-                document.getElementById('local-ai-index')?.scrollIntoView({behavior: 'smooth', block: 'start'});
-            });
-        } else {
-            hero.appendChild(form);
-        }
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             quickPlan(form);
         });
-
-        const universe = document.querySelector('.lc-index-universe');
-        const machinePanel = universe?.querySelector('.lc-home-machines');
-        if (universe && !universe.querySelector('.lc-workspace-value')) {
-            const value = document.createElement('nav');
-            value.className = 'lc-workspace-value';
-            value.setAttribute('aria-label', 'My Machines workspace benefits');
-            value.innerHTML = `
-                <div class="lc-workspace-value__intro"><span>Your machine, kept up to date</span><strong>One profile. A living local AI shortlist.</strong></div>
-                <a href="#llm-index">${icon('compatible')}<span><strong>Compatible models</strong><small>See what fits your RAM and hardware.</small></span></a>
-                <a href="/account">${icon('saved')}<span><strong>Saved picks</strong><small>Keep a shortlist for every machine.</small></span></a>
-                <a href="/account">${icon('tests')}<span><strong>Test history</strong><small>Record speed, status and private notes.</small></span></a>
-            `;
-            if (machinePanel) machinePanel.insertAdjacentElement('afterend', value);
-            else universe.querySelector('header')?.insertAdjacentElement('afterend', value);
-        }
 
         const params = new URLSearchParams(window.location.search);
         const fitRam = params.get('fitRam');

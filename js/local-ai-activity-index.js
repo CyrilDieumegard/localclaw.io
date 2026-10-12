@@ -5949,7 +5949,7 @@ function updateScopeInterface() {
           ? `${state.admin2Config.countryName} · ${state.admin2Config.parentName} · ${number(state.admin2Regions.length)} precise boundaries · ${number(admin2ActiveRegions.length)} with attributed model signals`
         : installIntentView
           ? `Model paths and setup destinations selected by anonymous visitors · ${number(state.data.totals.publishedRegions)} countries published at 5+ · ${periodLabel()} · Tracking since 21 August 2026`
-          : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · ${periodLabel()} · Updated 29 August 2026`;
+          : `Anonymous interest aggregates · ${number(state.data.totals.publishedRegions)} countries published at 5+ signals · Observed ${periodDateRange()}`;
   }
   const countryPicker = document.querySelector('[data-atlas-country-picker]');
   if (countryPicker) countryPicker.value = modelCountry?.name || state.detailCountry?.name || '';
@@ -6051,10 +6051,10 @@ function updateScopeInterface() {
   document.querySelector('[data-scope-window]').textContent = admin2View
     ? `${periodDays()}-day window · ${number(admin2ActiveRegions.length)} independently mapped`
     : modelRegionalView
-      ? 'visible from the first visitor'
+      ? `From the first visitor · ${periodDateRange()}`
     : regionalView
       ? `${admin1View ? state.detailTotals.publishThreshold : 5}-${installIntentView ? 'visitor' : 'signal'} threshold`
-    : `${periodDays()}-day window`;
+    : `${periodDays()} days · ${periodDateRange()}`;
   document.querySelector('[data-scope-disclosure]').textContent = modelRegionalView
     ? admin2View
       ? `Each logo comes from that ${state.admin2Config.childLabel}'s own anonymous model-page visitors. ${state.admin2Config.childrenLabel} without an observed model signal stay empty. Every observed aggregate count is visible. This measures LocalClaw page interest, not downloads, installations or verified use.`
@@ -7048,7 +7048,7 @@ function renderDataSummary() {
     if (snapshotTitle) snapshotTitle.textContent = 'Which local AI brands is each country exploring?';
     const snapshotLead = document.querySelector('[data-snapshot-lead]');
     if (snapshotLead) snapshotLead.textContent = leader && leadingBrand
-      ? `${leader.name} leads this published model-page snapshot with ${number(modelCountryVisitors(leader))} unique visitors; ${leadingBrand.label} ${hasLeadingTie ? `shares the local lead with ${number(leadingBrands.length - 1)} other brand${leadingBrands.length > 2 ? 's' : ''}` : 'is its most explored local AI brand'}. This measures LocalClaw page exploration, not verified model usage.`
+      ? `${periodDateRange()}: ${leader.name} leads this published model-page snapshot with ${number(modelCountryVisitors(leader))} unique visitors; ${leadingBrand.label} ${hasLeadingTie ? `shares the local lead with ${number(leadingBrands.length - 1)} other brand${leadingBrands.length > 2 ? 's' : ''}` : 'is its most explored local AI brand'}. This measures LocalClaw page exploration, not verified model usage.`
       : 'Local AI Map publishes every observed country and brand aggregate from one model-page visitor. This measures LocalClaw page exploration, not verified model usage.';
     const leadingCountry = document.querySelector('[data-leading-country]');
     if (leadingCountry) leadingCountry.textContent = leader?.name || 'Collecting signals';
@@ -7157,12 +7157,12 @@ function renderDataSummary() {
   if (snapshotLead && leader) {
     snapshotLead.textContent = installIntentView
       ? `${leader.name} leads the published ${periodLabel().toLowerCase()} install-intent snapshot with ${number(leader.signals)} unique visitors. Local AI Map observed ${number(state.data.totals.observedSignals)} visitors across ${number(state.data.totals.observedRegions)} countries; model, destination and country cells must each independently reach five visitors. Tracking began 21 August 2026, so longer windows are partial.`
-      : `As of 29 August 2026, ${leader.name} ranks first for observed local AI interest in the LocalClaw dataset, with ${number(leader.signals)} of ${number(state.data.totals.signals)} anonymous signals recorded during the ${periodLabel().toLowerCase()}. This is a directional view of interest, not a census of local AI users.`;
+      : `Observed ${periodDateRange()}: ${leader.name} ranks first in this LocalClaw interest snapshot, with ${number(leader.signals)} of ${number(state.data.totals.signals)} anonymous signals. This is a directional view of interest, not a census of local AI users.`;
   }
   const snapshotEyebrow = document.querySelector('[data-snapshot-eyebrow]');
-  if (snapshotEyebrow) snapshotEyebrow.textContent = installIntentView ? 'Latest install-intent snapshot' : 'Latest global snapshot';
+  if (snapshotEyebrow) snapshotEyebrow.textContent = installIntentView ? 'Published install-intent snapshot' : 'Published interest snapshot';
   const snapshotTitle = document.querySelector('[data-snapshot-title]');
-  if (snapshotTitle) snapshotTitle.textContent = installIntentView ? 'From interest to the model paths and setup destinations people choose.' : 'The clearest picture we can publish today.';
+  if (snapshotTitle) snapshotTitle.textContent = installIntentView ? 'From interest to the model paths and setup destinations people choose.' : 'Observed interest in local AI.';
   const observedMetricLabel = document.querySelector('[data-observed-metric-label]');
   if (observedMetricLabel) observedMetricLabel.textContent = installIntentView ? 'Install-intent visitors' : 'Observed interest';
   const leadingCountry = document.querySelector('[data-leading-country]');
@@ -7207,7 +7207,7 @@ function renderDataSummary() {
   const usOpenLabel = document.querySelector('[data-us-open-label]');
   if (usOpenLabel) usOpenLabel.textContent = `Explore all ${number(state.usData.totals.publishedRegions)} states`;
   const methodWindow = document.querySelector('[data-method-window]');
-  if (methodWindow) methodWindow.textContent = `${periodDays()}-day window`;
+  if (methodWindow) methodWindow.textContent = `${periodDays()}-day window (${periodDateRange()})`;
   if (installIntentView) {
     const methodologyEyebrow = document.querySelector('[data-methodology-eyebrow]');
     const methodologyTitle = document.querySelector('[data-methodology-title]');
@@ -7393,6 +7393,7 @@ async function initialize() {
       const center = centerForState(region);
       if (center) state.usCenters.set(region.name, center);
     }
+    renderDataSummary();
     setupScene();
     stage.dataset.worldPoints = String(state.placementStats.world.points);
     stage.dataset.worldPointsOutside = String(state.placementStats.world.outside);
@@ -7409,7 +7410,6 @@ async function initialize() {
     if (isModelInterestView()) setModelPanelOpen(false);
     if (isInstallIntentView()) setInstallPanelOpen(!isMobileViewport());
     renderStatePanel();
-    renderDataSummary();
     populateCountryPicker();
     if (isModelInterestView()) renderModelPanel(null, '');
     if (isInstallIntentView()) renderInstallPanel(null, '');

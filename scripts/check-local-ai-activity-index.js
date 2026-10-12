@@ -309,12 +309,14 @@ function loadCanonicalModelCatalogue() {
   const models = new Map();
   const brands = new Map();
   const ambiguousIds = new Set();
+  let aliases = {};
   try {
     const context = { window: {} };
     vm.createContext(context);
     vm.runInContext(`${fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8')};this.APP_DATA=APP_DATA;`, context);
     vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-avatar-formats-20260814a.js'), 'utf8'), context);
     vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/home-index-logos-20260814c.js'), 'utf8'), context);
+    aliases = context.APP_DATA.modelAliases || {};
     const unavailable = new Set(Object.keys(context.APP_DATA?.hfRepoVerification?.unavailable || {}));
     const rowsById = new Map();
     for (const model of context.APP_DATA?.models || []) {
@@ -356,7 +358,7 @@ function loadCanonicalModelCatalogue() {
   } catch (error) {
     issue(`Canonical model catalogue could not be loaded: ${error.message}`);
   }
-  return { models, brands, ambiguousIds };
+  return { models, brands, ambiguousIds, aliases };
 }
 
 function validateModelBrandRows(brands, label, catalogue, publishThreshold = 5) {
@@ -417,20 +419,24 @@ function validateModelBrandRows(brands, label, catalogue, publishThreshold = 5) 
       if (model.path !== `/models/${model.id}` || /(?:\.html|[?#]|\/$)/i.test(String(model.path || ''))) {
         issue(`${modelLabel} must use the exact canonical path /models/${model.id}`);
       }
-      if (!fs.existsSync(path.join(ROOT, 'models', `${model.id}.html`))) {
+      const canonicalId = catalogue.aliases[model.id] || model.id;
+      if (canonicalId !== model.id && !fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8').split('\n').includes(`/models/${model.id} /models/${canonicalId} 301`)) {
+        issue(`${modelLabel} retired identifier is missing its permanent redirect`);
+      }
+      if (!fs.existsSync(path.join(ROOT, 'models', `${canonicalId}.html`))) {
         issue(`${modelLabel} points to a model detail page that does not exist`);
       }
       if (catalogue.ambiguousIds.has(model.id)) {
         issue(`${modelLabel} references an APP_DATA id with divergent families`);
         return;
       }
-      const canonicalModel = catalogue.models.get(model.id);
+      const canonicalModel = catalogue.models.get(canonicalId);
       if (!canonicalModel) {
         issue(`${modelLabel} does not match a canonical, locally runnable APP_DATA model`);
       } else {
         if (model.label !== canonicalModel.label) issue(`${modelLabel} label must match APP_DATA`);
         if (model.family !== canonicalModel.family) issue(`${modelLabel} family must match APP_DATA`);
-        if (model.path !== canonicalModel.path) issue(`${modelLabel} path must match APP_DATA`);
+        if (`/models/${canonicalId}` !== canonicalModel.path) issue(`${modelLabel} path must match APP_DATA`);
         if (canonicalModel.brandId !== brand.id) issue(`${modelLabel} belongs to canonical brand ${canonicalModel.brandId}, not ${brand.id}`);
       }
     });
