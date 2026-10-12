@@ -406,8 +406,10 @@ select.lc-index-control { padding-right: 36px; }
 .lc-index-control:disabled { cursor: not-allowed; opacity: 0.62; }
 .lc-index-machine-note { margin: -2px 0 12px; padding: 9px 11px; border-left: 2px solid rgba(255,69,58,0.58); background: rgba(255,69,58,0.045); color: #85858f; font: 500 8px/1.55 "JetBrains Mono", monospace; }
 
-.lc-index-table-wrap { overflow: hidden; border: 1px solid var(--index-border); border-radius: 14px; background: rgba(7,7,8,0.91); }
-.lc-index-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.lc-index-table-wrap { overflow-x: auto; border: 1px solid var(--index-border); border-radius: 14px; background: rgba(7,7,8,0.91); }
+.lc-index-table { min-width: 960px; width: 100%; border-collapse: collapse; table-layout: fixed; }
+/* A spanning empty row must not create phantom columns when mobile columns are hidden. */
+.lc-index-table:has(.lc-index-empty) { min-width: 0; table-layout: auto; }
 .lc-index-table th {
     padding: 11px 9px;
     border-bottom: 1px solid rgba(255,255,255,0.16);
@@ -438,6 +440,7 @@ select.lc-index-control { padding-right: 36px; }
 .lc-index-table th[aria-sort="descending"] .lc-index-sort-indicator { color: #ff6d64; }
 .lc-index-score-col .lc-index-sort-button,
 .lc-index-community-col .lc-index-sort-button { justify-content: center; }
+.lc-index-score-heading-compact { display: none; }
 
 .lc-index-table td { padding: 10px 9px; border-bottom: 1px solid rgba(255,255,255,0.065); color: #b0b0b8; font: 500 10px/1.4 "JetBrains Mono", monospace; vertical-align: middle; }
 .lc-index-table tbody tr { transition: 140ms ease; }
@@ -771,6 +774,7 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-controls label:first-child { grid-column: 1 / -1; }
     .lc-index-table th:nth-child(5), .lc-index-table td:nth-child(5),
     .lc-index-table th:nth-child(7), .lc-index-table td:nth-child(7) { display: none; }
+    .lc-index-table { min-width: 820px; }
     .lc-index-model-col { width: 37%; }
     .lc-index-tts-list { grid-template-columns: 1fr; }
     .lc-index-multimodal-controls { position: static; }
@@ -792,8 +796,14 @@ select.lc-index-control { padding-right: 36px; }
     .lc-index-table th:nth-child(1), .lc-index-table td:nth-child(1):not(.lc-index-empty),
     .lc-index-table th:nth-child(4), .lc-index-table td:nth-child(4),
     .lc-index-table th:nth-child(8), .lc-index-table td:nth-child(8) { display: none; }
-    .lc-index-model-col { width: 48%; }
+    .lc-index-table { min-width: 320px; }
+    /* Reserve 80px for RAM, including the longest fit badge. */
+    .lc-index-model-col { width: auto; }
+    .lc-index-table th:nth-child(6) { width: 80px; }
     .lc-index-score-col { width: 58px; }
+    /* The full score label remains in the legend and the sort button's accessible name. */
+    .lc-index-score-heading { display: none; }
+    .lc-index-score-heading-compact { display: inline; }
     .lc-index-action-col { width: 50px; }
     .lc-index-table th.lc-index-action-col { padding-right: 2px; padding-left: 2px; font-size: 7px; letter-spacing: 0; }
     .lc-index-table td.lc-index-action-cell { display: table-cell; padding-right: 4px; padding-left: 4px; text-align: center; }
