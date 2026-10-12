@@ -1153,7 +1153,7 @@ html.light .lc-index-guide__paths { border-color: #d7dce4; }
     font-family: "Inter", "Space Grotesk", sans-serif;
     font-size: clamp(3.6rem, 7.3vw, 7.4rem);
     font-weight: 800;
-    letter-spacing: -0.075em;
+    letter-spacing: normal;
     white-space: normal;
     line-height: .94;
     text-transform: none;
