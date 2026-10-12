@@ -247,8 +247,5 @@ body.local-ai-page {
   .lc-ai-category-card { transition: none; }
 }
 
-/* Reading and touch targets shared by the multimodal catalogues. */
-.lc-ai-field label, .lc-ai-spec span { font: 600 12px/1.5 Inter, system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
-.lc-ai-badge, .lc-ai-task { font-size: 12px; letter-spacing: 0; text-transform: none; }
+/* Touch targets and native input text without replacing catalogue styles. */
 .lc-ai-field input, .lc-ai-field select { min-height: 44px; font-size: 16px; }
-.lc-ai-card { box-shadow: none; }

@@ -1,4 +1,4 @@
-const NAV_VERSION = '20261012quality2';
+const NAV_VERSION = '20261012design1';
 
 const hardwareItems = [
   ['computers', '/computers', 'Computers'],

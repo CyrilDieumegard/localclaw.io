@@ -1597,24 +1597,10 @@ body.lc-home-index :is(.lc-index-score, .lc-index-ram-value, .lc-index-community
 /* Separate the optional Mac app from the workspace panel below it. */
 body.lc-home-index .lc-launch--strip { margin-bottom: 24px; }
 
-/* Product hierarchy: the machine check leads directly to the directory. */
-body.lc-home-index .lc-index-hero__copy > p:not(.lc-index-kicker) { font: 400 16px/1.6 Inter, system-ui, sans-serif; color: var(--polish-muted); margin-top: 12px; }
-body.lc-home-index .lc-quick-fit { margin-top: 24px; box-shadow: none; }
-body.lc-home-index .lc-quick-fit label > span { font: 600 12px/1.4 Inter, system-ui, sans-serif; text-transform: none; letter-spacing: 0; }
-body.lc-home-index .lc-quick-fit select { font: 500 16px/1.4 Inter, system-ui, sans-serif; min-height: 32px; }
-body.lc-home-index .lc-quick-fit button { min-height: 48px; font: 650 15px/1.4 Inter, system-ui, sans-serif; text-transform: none; letter-spacing: 0; }
-body.lc-home-index .lc-index-hero__actions--quick-fit { display: flex; justify-content: center; gap: 8px 24px; }
-body.lc-home-index .lc-index-hero__actions--quick-fit a { min-height: 44px; font: 500 14px/1.4 Inter, system-ui, sans-serif; text-transform: none; letter-spacing: 0; }
-body.lc-home-index .lc-index-universe__copy { font: 400 14px/1.6 Inter, system-ui, sans-serif; color: var(--polish-muted); }
-body.lc-home-index #local-ai-index > header > a { background: transparent; border-color: var(--polish-border); color: var(--polish-muted); min-height: 44px; font: 600 13px/1.4 Inter, system-ui, sans-serif; text-transform: none; }
-body.lc-home-index #local-ai-index > nav a { min-height: 64px; }
-body.lc-home-index #local-ai-index > nav a span { font-size: 12px; line-height: 1.45; }
-body.lc-home-index .lc-index-control-label > span { font-size: 12px; line-height: 1.5; letter-spacing: 0; text-transform: none; }
-body.lc-home-index .lc-index-control { min-height: 44px; font-size: 14px; }
-body.lc-home-index .lc-index-section-meta p { font-size: 12px; line-height: 1.5; }
-body.lc-home-index .lc-index-method-pill { font-size: 11px; letter-spacing: 0; }
-body.lc-home-index .lc-index-method-note { color: var(--polish-muted); font: 400 13px/1.65 Inter, system-ui, sans-serif; }
-body.lc-home-index .lc-index-load-more { min-height: 44px; font-size: 13px; }
+/* Comfortable controls without changing the original typography or layout. */
+body.lc-home-index .lc-index-control { min-height: 44px; }
+body.lc-home-index .lc-index-load-more { min-height: 44px; }
+body.lc-home-index .lc-index-hero__actions--quick-fit a { min-height: 44px !important; }
 body.lc-home-index .lc-index-empty { padding: 28px 16px; font: 500 15px/1.6 Inter, system-ui, sans-serif; color: var(--polish-muted); text-align: center; }
 body.lc-home-index .lc-index-compare-hint { margin: 0; padding: 10px 20px; font: 400 13px/1.5 Inter, system-ui, sans-serif; color: var(--polish-muted); }
 body.lc-home-index .lc-index-compare-content { max-height: calc(100dvh - 190px); }
@@ -1623,12 +1609,7 @@ body.lc-home-index .lc-index-compare-table thead th:first-child { left: 0; z-ind
 body.lc-home-index .lc-index-compare-table td { font-size: 13px; }
 html.light body.lc-home-index .lc-index-compare-table tbody th { background: #f4f1ec; }
 @media (max-width: 640px) {
-  body.lc-home-index .lc-quick-fit { grid-template-columns: 1fr 1fr; gap: 8px; }
-  body.lc-home-index .lc-quick-fit label:first-child { grid-column: 1 / -1; }
-  body.lc-home-index .lc-quick-fit button { grid-column: 1 / -1; }
   body.lc-home-index .lc-index-control { font-size: 16px; }
-  body.lc-home-index #local-ai-index { padding: 16px; }
-  body.lc-home-index #local-ai-index > nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   body.lc-home-index .lc-index-compare-dialog { width: calc(100vw - 16px); }
   body.lc-home-index .lc-index-compare-content { padding: 0 8px 12px; }
   body.lc-home-index .lc-index-compare-table-wrap { min-width: 620px; }

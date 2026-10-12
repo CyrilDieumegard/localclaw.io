@@ -42,8 +42,8 @@ for (const copy of [
   assert(account.includes(copy), `Missing account conversion copy: ${copy}`);
 }
 
-assert(account.includes('/css/account-20260802a.css?v=20261012quality2&amp;summary=20260823a'), 'Account CSS cache key is stale');
-assert(/js\/app-20260816a\.js\?v=20261012quality3/.test(index), 'Homepage must serve the current quality pass');
+assert(account.includes('/css/account-20260802a.css?v=20261012design1&amp;summary=20260823a'), 'Account CSS cache key is stale');
+assert(/js\/app-20260816a\.js\?v=20261012design1/.test(index), 'Homepage must serve the current quality pass');
 assert(accountCss.includes('.lc-account-benefits'), 'Account benefit-list styles are missing');
 assert(accountCss.includes('.lc-auth-trust'), 'Account privacy reassurance styles are missing');
 

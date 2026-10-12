@@ -628,38 +628,18 @@ html.light #blog-mobile-menu { background: rgba(250, 249, 246, 0.98) !important;
   }
 }
 
-/* Shared quality rules: one type, focus and spacing vocabulary across public pages. */
-:root {
-  --lc-accent: #c92f28;
-  --lc-text: #111827;
-  --lc-muted: #475569;
-  --lc-border: #d7dce4;
-  --lc-radius: 12px;
-  --lc-control-height: 44px;
-}
-html.dark { --lc-accent: #ff8179; --lc-text: #f4f4f5; --lc-muted: #b4b4bd; --lc-border: #36363d; }
+/* Keyboard access and mobile scrolling; preserve the existing visual design. */
+:root { --lc-focus-ring: #c92f28; }
+html.dark { --lc-focus-ring: #ff8179; }
 html { scroll-padding-top: 104px; }
 :where(main, .lc-index-shell) :is(a, button, input, select, summary, [tabindex="0"]):focus-visible {
-  outline: 2px solid var(--lc-accent);
+  outline: 2px solid var(--lc-focus-ring);
   outline-offset: 3px;
 }
-:where(main, .lc-index-shell) :is(h1, h2, h3) { text-wrap: balance; }
 .lc-skip-link { position: fixed; left: 16px; top: 10px; z-index: 1200; padding: 12px 18px; border-radius: 8px; background: #c92f28; color: #fff; transform: translateY(-160%); font: 600 16px/1.4 system-ui, sans-serif; }
 .lc-skip-link:focus { transform: none; }
-.lc-global-nav__link { font-family: Inter, system-ui, sans-serif; font-size: 14px; letter-spacing: 0; text-transform: none; font-weight: 650; }
-.lc-global-nav__link--secondary { font-size: 13px; font-weight: 450; }
-.lc-global-nav__inner { box-shadow: 0 4px 18px rgba(0,0,0,.08); }
-html.dark .lc-global-nav__inner { box-shadow: 0 4px 18px rgba(0,0,0,.22); }
-.lc-global-nav__actions .lc-global-nav__link--account { background: transparent; color: var(--lc-text); border-color: var(--lc-border); }
-.lc-global-nav__actions .lc-global-nav__link--account:hover { border-color: var(--lc-accent); color: var(--lc-accent); }
-@media (min-width: 1101px) {
-  .lc-global-nav__links > [data-nav-key="labs"] { border-left: 1px solid var(--lc-border); padding-left: 18px; margin-left: 4px; }
-}
 @media (max-width: 1100px) {
-  .lc-global-nav__mobile-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
-  .lc-global-nav__mobile-inner > :is(.lc-theme-switcher, .lc-global-nav__link--account, .lc-global-nav__dropdown) { grid-column: 1 / -1; }
-  .lc-global-nav__mobile-inner > [data-nav-key="index"], .lc-global-nav__mobile-inner > [data-nav-key="software"] { font-weight: 750; }
-  .lc-global-nav__mobile .lc-global-nav__link { min-height: 44px; font-size: 15px; }
+  .lc-global-nav__mobile .lc-global-nav__link { min-height: 44px; }
   .lc-global-nav__mobile { max-height: calc(100dvh - 84px); overflow-y: auto; overscroll-behavior: contain; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
