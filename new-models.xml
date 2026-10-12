@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 09 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Mellum2.1 12B-A2.5B Thinking</title>
@@ -15,6 +15,14 @@
       <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
       <category>mellum</category>
       <description>Official JetBrains Apache 2.0 coding-reasoning MoE with 12B total parameters, about 2.5B active parameters, 131K context and official Q4_K_M GGUF for llama.cpp, Ollama and LM Studio-compatible local runtimes. 12B (2.5B active, MoE) · 16 GB minimum RAM · Q4_K_M · mellum.</description>
+    </item>
+    <item>
+      <title>MiMo-V2.6-Flash-RL</title>
+      <link>https://localclaw.io/models/mimo-v2-6-flash-rl</link>
+      <guid isPermaLink="true">https://localclaw.io/models/mimo-v2-6-flash-rl</guid>
+      <pubDate>Mon, 21 Sep 2026 12:00:00 GMT</pubDate>
+      <category>mimo</category>
+      <description>Official Xiaomi MiMo MIT-licensed sparse MoE with 309B total / 15B active parameters, native text-image-video-audio support, 1M-token context and ggml-org GGUF artifacts for llama.cpp-class workstation experiments. 309B (15B active, MoE) · 160 GB minimum RAM · Q2_K GGUF · mimo.</description>
     </item>
     <item>
       <title>Xing4.0-29B-A4B</title>
@@ -159,14 +167,6 @@
       <pubDate>Mon, 31 Aug 2026 12:00:00 GMT</pubDate>
       <category>deepseek-flash</category>
       <description>Official MIT DeepSeek V4 Flash multimodal experiment with image understanding, 1M context and Unsloth Dynamic GGUF artifacts. The lightest practical GGUF is roughly 82-97GB, while higher-quality Q4/Q8 builds are about 155-162GB, so this belongs on large-memory workstations. 284B (13B active, multimodal MoE) · 128 GB minimum RAM · UD-Q2_K_XL · deepseek-flash.</description>
-    </item>
-    <item>
-      <title>Granite 4.2 (8B)</title>
-      <link>https://localclaw.io/models/granite4.2-8b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/granite4.2-8b</guid>
-      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
-      <category>granite</category>
-      <description>IBM Granite 4.2 8B instruct model with Apache 2.0 weights, 128K context, thinking-mode chat template, tool calling and practical GGUF plus MLX paths for everyday local machines. 8.8B · 8 GB minimum RAM · Q4_K_M · granite.</description>
     </item>
   </channel>
 </rss>

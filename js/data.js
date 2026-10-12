@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
+// Updated October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
+// Previous: October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
 // Previous: October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
 // Previous: September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
 // Previous: September 25, 2026 - Added Qwen3.8 Flash Next - 247 unique LLM records
@@ -4001,6 +4002,24 @@ const APP_DATA = {
             released: '2026-05',
             isNew: true
         },
+        {
+            id: 'mimo-v2-6-flash-rl',
+            name: 'MiMo-V2.6-Flash-RL',
+            family: 'mimo',
+            params: '309B (15B active, MoE)',
+            size_gb: 126.4,
+            min_ram: 160,
+            tags: ['chat', 'code', 'reasoning', 'vision', 'agentic', 'beast', 'long-context', 'multimodal', 'moe'],
+            description: 'Official Xiaomi MiMo MIT-licensed sparse MoE with 309B total / 15B active parameters, native text-image-video-audio support, 1M-token context and ggml-org GGUF artifacts for llama.cpp-class workstation experiments.',
+            search_term: 'mimo-v2.6-flash-rl',
+            recommended_quant: 'Q2_K GGUF',
+            hf_repo: 'ggml-org/MiMo-V2.6-Flash-RL-GGUF',
+            source_url: 'https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL',
+            runtime_url: 'https://huggingface.co/ggml-org/MiMo-V2.6-Flash-RL-GGUF',
+            benchmarks: { speed: 4, quality: 10, coding: 10, reasoning: 10 },
+            released: '2026-09-21',
+            isNew: true
+        },
 
         // DeepSeek V3.2 Exp — sparse attention successor to V3.1, Sept 2025
         {
@@ -4225,8 +4244,8 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-09T06:16:00.000Z",
-        catalogueHash: "ab9520ade846af86b27f59173f939e2d6c7b05466e7705e213e8c9685e838471",
+        checkedAt: "2026-10-12T06:40:25.000Z",
+        catalogueHash: "b5fd97a2044c244e693939adbfaa3e6b1194fd4b5b56a06449c7d3407a8c95df",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",
@@ -4431,6 +4450,7 @@ const APP_DATA = {
             "glm-5.2": "unsloth/GLM-5.2-GGUF",
             "ornith-1.0-9b-gguf": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
             "ornith-1.0-35b-gguf": "deepreinforce-ai/Ornith-1.0-35B-GGUF",
+            "mimo-v2-6-flash-rl": "ggml-org/MiMo-V2.6-Flash-RL-GGUF",
             "mistral-small-3.2-24b": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF"
         },
         publicModelCard: {
