@@ -11,7 +11,7 @@
   z-index: 1;
 }
 .lc-launch__eyebrow { color: #ff887b; font: 700 11px/1.5 'JetBrains Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
-.lc-launch h2, .lc-launch h3 { color: var(--launch-text); font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.035em; }
+.lc-launch h2, .lc-launch h3 { color: var(--launch-text); font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: normal; }
 .lc-launch p { color: var(--launch-muted); line-height: 1.65; }
 .lc-launch__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
 .lc-launch__button { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 8px; background: #e84538; color: #fff !important; font: 700 13px/1.4 Inter, sans-serif; text-decoration: none; transition: background .15s ease; }

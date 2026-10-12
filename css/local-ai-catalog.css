@@ -117,13 +117,13 @@ body.local-ai-page {
 
 .lc-ai-hero-copy { padding: clamp(28px, 5vw, 58px); border-radius: 22px; }
 
-.lc-ai-title {
+.lc-ai-title {overflow-wrap:anywhere;
   max-width: 900px;
   margin: 0;
   font-family: "Space Grotesk", Inter, sans-serif;
   font-size: clamp(40px, 6vw, 76px);
   line-height: 0.96;
-  letter-spacing: -0.055em;
+  letter-spacing: normal;
   text-transform: uppercase;
 }
 

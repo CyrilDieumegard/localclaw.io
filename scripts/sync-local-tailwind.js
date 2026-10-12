@@ -3,7 +3,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const CHECK = process.argv.includes('--check');
-const SITE_STYLESHEET = '<link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20260823a">';
+const SITE_STYLESHEET = '<link rel="stylesheet" href="/css/site-tailwind-20260823a.css?v=20261012spacing1">';
 const SOFTWARE_STYLESHEET = '<link rel="stylesheet" href="/css/software-tailwind-20260823a.css?v=20260823a">';
 const EXCLUDED = new Set([
   'pricing.html',

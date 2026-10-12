@@ -73,7 +73,7 @@ html.dark .diy-grid-bg { opacity: 0.28; }
 .diy-main { padding: 48px 0 88px; }
 .diy-main h1,
 .diy-main h2,
-.diy-main h3 { margin-top: 0; font-family: "Space Grotesk", Inter, sans-serif; line-height: 1.04; letter-spacing: -0.035em; }
+.diy-main h3 { margin-top: 0; font-family: "Space Grotesk", Inter, sans-serif; line-height: 1.04; letter-spacing: normal; }
 .diy-main p { color: var(--diy-muted); }
 .diy-main a:focus-visible,
 .diy-main button:focus-visible { outline: 3px solid color-mix(in srgb, var(--diy-accent) 60%, transparent); outline-offset: 3px; }

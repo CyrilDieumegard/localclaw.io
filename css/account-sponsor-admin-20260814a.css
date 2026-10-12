@@ -59,7 +59,7 @@ body {
 .lc-sponsor-admin-hero h2 {
     font-size: clamp(34px, 5vw, 58px);
     line-height: 0.98;
-    letter-spacing: -0.035em;
+    letter-spacing: normal;
 }
 
 .lc-sponsor-admin-hero > div > p:last-child {

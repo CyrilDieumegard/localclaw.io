@@ -56,7 +56,7 @@ html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
 }
 
 .charts-hero { display: grid; min-height: 725px; grid-template-columns: minmax(0, .9fr) minmax(560px, 1.1fr); align-items: center; gap: clamp(54px, 6vw, 108px); padding: 72px 0 58px; }
-.charts-hero__copy h1 { max-width: 660px; margin: 0; font: 800 clamp(58px, 6.3vw, 98px)/.92 'Space Grotesk', sans-serif; letter-spacing: -.055em; text-transform: uppercase; }
+.charts-hero__copy h1 { max-width: 660px; margin: 0; font: 800 clamp(58px, 6.3vw, 98px)/.92 'Space Grotesk', sans-serif; letter-spacing: normal; text-transform: uppercase; }
 .charts-hero__copy h1 span { display: block; color: var(--charts-accent); }
 .charts-hero__copy > p:first-of-type { max-width: 610px; margin: 28px 0 0; color: var(--charts-muted); font: 500 16px/1.75 'JetBrains Mono', monospace; }
 .charts-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
@@ -115,7 +115,7 @@ html.dark .lc-global-nav [data-nav-key="charts"][aria-current="page"],
 
 .charts-band { padding: 74px 0 64px; border-top: 1px solid var(--charts-line); background: color-mix(in srgb, var(--charts-page) 94%, transparent); scroll-margin-top: 102px; }
 .charts-section-head { display: grid; grid-template-columns: minmax(360px, .9fr) minmax(360px, 1.1fr); align-items: end; gap: 70px; margin-bottom: 54px; }
-.charts-section-head h2 { max-width: 600px; margin: 0; font: 800 clamp(48px, 5vw, 76px)/.95 'Space Grotesk', sans-serif; letter-spacing: -.05em; text-transform: uppercase; }
+.charts-section-head h2 { max-width: 600px; margin: 0; font: 800 clamp(48px, 5vw, 76px)/.95 'Space Grotesk', sans-serif; letter-spacing: normal; text-transform: uppercase; }
 .charts-section-head h2 span { color: var(--charts-accent); }
 .charts-section-head > p { max-width: 590px; margin: 0; color: var(--charts-muted); font: 500 14px/1.75 'JetBrains Mono', monospace; }
 .charts-section-head--single { display: block; margin-bottom: 44px; }
