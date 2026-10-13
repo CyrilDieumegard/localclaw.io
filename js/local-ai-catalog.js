@@ -27,6 +27,19 @@
       caveats: ['Original research inference targets H100-class hardware for high-resolution video', 'Low-VRAM workflows trade speed and resolution for fit', 'Restoration/upscaling model, not prompt-only scene generation']
     },
     {
+      id: 'vimoo-1-0-lite', name: 'Vimoo 1.0 Lite', category: 'video', developer: 'Vimoo AI',
+      summary: 'Apache-licensed local text-to-video and image-to-video family with Diffusers, ComfyUI and Apple Silicon MLX paths.',
+      tasks: ['text-to-video', 'image-to-video', 'animation', 'first-frame-video'],
+      platforms: ['macos', 'windows', 'linux'], accelerators: ['apple-silicon', 'nvidia'], min_ram_gb: 32, min_vram_gb: 16,
+      runtime: ['MLX', 'ComfyUI', 'Diffusers', 'PyTorch', 'CUDA'], output: ['MP4', 'JSON metadata'],
+      local_status: 'local', license: 'Apache 2.0; Qwen2.5-VL, SigLIP and Wan 2.2 component terms apply', released: '2026-10',
+      source_url: 'https://github.com/Vimoo-AI/Vimoo-1.0',
+      install_url: 'https://huggingface.co/Vimoo-AI/Vimoo-1.0-Lite-MLX',
+      hardware_note: 'Vimoo AI publishes Apache-2.0 source repositories for the Diffusers examples, ComfyUI nodes and MLX runtime, plus public Hugging Face safetensors for Vimoo 1.0 and the practical 9.5B Lite TI2V variants. The MLX path runs Vimoo-1.0-Lite TI2V Distilled on macOS 14+ Apple Silicon with Python 3.11, `hf download Vimoo-AI/Vimoo-1.0-Lite-MLX` and `vimoo-mlx` commands for 1280 x 720, 121-frame MP4 T2V or I2V output. The ComfyUI integration requires ComfyUI 0.34+, Python 3.10+, PyTorch 2.9.0 CUDA 13.0 and NVIDIA CUDA, ships template workflows and recommends dynamic VRAM, async offload, batch 1 and tiled VAE decoding for 16 GB VRAM. LocalClaw records 32 GB RAM and 16 GB accelerator memory as the conservative local floor for Lite or distilled workflows, with larger memory recommended for full 11.7B Vimoo 1.0 checkpoints.',
+      strengths: ['Official Apache-2.0 weights and first-party runtime repositories', 'Text-to-video and image-to-video in Diffusers, ComfyUI and Apple Silicon MLX', 'Lite distilled path exports 5-second 720p MP4 clips without calling the hosted API'],
+      caveats: ['Hosted prompt enhancement and 1080p enhancer are API-side, not local inference', 'Best ComfyUI path currently targets CUDA 13.0 and recent NVIDIA drivers', 'English prompts are the validated path in the official release notes']
+    },
+    {
       id: 'raven', name: 'RAVEN', category: 'video', developer: 'MVP Lab / Imperial College London',
       summary: 'Non-commercial causal autoregressive video model for streaming local text-to-video extrapolation on Wan 2.1 or MiniMax H3.',
       tasks: ['text-to-video', 'streaming-video', 'long-video-generation', 'text-to-audio-video', 'animation'],

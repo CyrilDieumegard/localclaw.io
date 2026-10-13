@@ -279,6 +279,7 @@ window.HOME_INDEX_LOGOS = {
     'University of Hong Kong / Shenzhen Loop Area Institute': 'github',
     'University of Adelaide': 'github',
     'VAST AI Research': 'github',
+    'Vimoo AI': 'github',
     'Wuhan University / HKUST': 'github',
     'Wan Team / Alibaba': 'alibaba',
     'Wan Team / Wan2GP': 'alibaba',
