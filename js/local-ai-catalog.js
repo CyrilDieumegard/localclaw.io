@@ -834,6 +834,18 @@
     },
 
     {
+      id: 'buildrome', name: 'BuildRome', category: '3d', developer: 'Applied Intuition Research',
+      summary: 'Non-commercial single-image scene reconstructor that builds metric 3D scene meshes and exports GLB assets.',
+      tasks: ['image-to-3d', 'scene-reconstruction', 'mesh-reconstruction', 'novel-view-synthesis'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'TRELLIS.2', 'MoGe-3', 'DINOv3', 'CLI'], output: ['GLB', 'Scene mesh', 'MP4', 'JSON layout', 'PNG layout'],
+      local_status: 'local', license: 'CC BY-NC 4.0; upstream TRELLIS.2, MoGe-3 and DINOv3 terms apply', released: '2026-10',
+      source_url: 'https://github.com/Applied-Intuition-Open-Source/BuildRome', install_url: 'https://huggingface.co/AppliedIntuitionResearch/BuildRome',
+      hardware_note: 'Applied Intuition publishes the BuildRome inference repository plus public Hugging Face delta checkpoints for its TRELLIS.2-based scene generator. The official install targets Linux, Conda, Python 3.10, PyTorch 2.6.0 CUDA 12.4, CUDA compiler extensions, and a separate PyTorch 2.8 MoGe-3 environment; first use downloads TRELLIS.2, TRELLIS image-large, DINOv3 and MoGe-3 dependencies from their upstream sources. The CLI and ScenePipeline API write scene.glb, layout_bands.json, layout_topview.png and spiral.mp4. The README reports a 98 m street-scene run peaking at 15.8 GiB allocated GPU memory on one A100 80GB, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative practical floor while noting the workstation CUDA stack.',
+      strengths: ['Official code, model card and public checkpoint deltas', 'Single-photo metric scene mesh reconstruction', 'Exports glTF/GLB scenes with layout metadata and orbit previews'],
+      caveats: ['Non-commercial CC BY-NC 4.0 release', 'Depends on several upstream models with their own terms and downloads', 'Linux/CUDA research stack with custom extension builds']
+    },
+    {
       id: 'depth-anything-3-base', name: 'Depth Anything 3 Base', category: '3d', developer: 'ByteDance Seed',
       summary: 'Compact any-view visual geometry model for depth, camera pose and 3D reconstruction exports.',
       tasks: ['mesh-reconstruction', 'depth-estimation', 'pose-estimation', 'gaussian-splatting'],

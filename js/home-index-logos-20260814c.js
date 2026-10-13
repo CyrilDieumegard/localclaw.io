@@ -197,6 +197,7 @@ window.HOME_INDEX_LOGOS = {
     'AlayaLab': 'github',
     'AnimateDiff Team': 'guoyww-avatar',
     'Ant Research': 'github',
+    'Applied Intuition Research': 'github',
     'Avaturn': 'github',
     'Beijing Jiaotong University / Hefei University of Technology': 'github',
     'Black Forest Labs': 'black-forest-labs-avatar',
