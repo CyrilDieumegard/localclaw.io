@@ -32,6 +32,40 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 8.86
   },
   {
+    "id": "whistle-asr",
+    "name": "Whistle",
+    "developer": "Cactus Compute",
+    "family": "cactus",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-10",
+    "quality": 9,
+    "speed": 9.8,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "apple",
+      "edge"
+    ],
+    "sizeGB": 0.017
+  },
+  {
+    "id": "phonon-2",
+    "name": "Phonon-2",
+    "developer": "Fermion Research",
+    "family": "phonon",
+    "license": "CC-BY-4.0 weights; Apache 2.0 code",
+    "releaseDate": "2026-10-08",
+    "quality": 9.1,
+    "speed": 9.7,
+    "type": "ASR",
+    "hardware": [
+      "cpu",
+      "gpu",
+      "apple"
+    ],
+    "sizeGB": 0.164
+  },
+  {
     "id": "qwen3-tts",
     "name": "Qwen3-TTS (0.6B / 1.7B)",
     "developer": "Qwen Team (Alibaba Cloud)",

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TTS &amp; Speech AI List — 112 Local Models | LocalClaw</title>
-    <meta name="description" content="Compare 112 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
+    <title>TTS &amp; Speech AI List — 114 Local Models | LocalClaw</title>
+    <meta name="description" content="Compare 114 verified-local TTS, ASR and speech records, 2 online/API references and 1 unverified preserved route by quality, speed, languages, hardware and licence.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://localclaw.io/tts-list">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://localclaw.io/tts-list">
     <meta property="og:title" content="TTS List — Best Local Text-to-Speech AI Models | LocalClaw">
-    <meta property="og:description" content="Compare 112 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
+    <meta property="og:description" content="Compare 114 verified-local speech records, 2 online/API references and 1 unverified preserved route with independent Audio and community scores.">
     <meta property="og:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://localclaw.io/images/twitter-card.jpg?v=3">
@@ -1839,10 +1839,10 @@
                         Find your <span>voice &amp; audio model</span>
                     </h1>
                     <p class="catalog-copy">
-                        Browse <strong id="total-count" style="color:#fff;">115</strong> speech records: <strong style="color:#fff;">112 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
+                        Browse <strong id="total-count" style="color:#fff;">117</strong> speech records: <strong style="color:#fff;">114 verified-local</strong> records, <strong style="color:#fff;">2 online/API references</strong> and <strong style="color:#fff;">1 unverified preserved route</strong>, clearly separated.
                     </p>
                     <div class="catalog-pills" aria-label="Speech catalogue highlights">
-                        <span class="catalog-pill"><strong>112 verified-local</strong> voice records</span>
+                        <span class="catalog-pill"><strong>114 verified-local</strong> voice records</span>
                         <span class="catalog-pill">2 online/API references</span>
                         <span class="catalog-pill">1 unverified route</span>
                         <span class="catalog-pill">TTS + ASR records</span>
@@ -1859,7 +1859,7 @@
 
                 <div class="hero-stats" aria-label="Speech catalogue statistics">
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-records">115</div>
+                        <div class="hero-stat-val" id="total-records">117</div>
                         <div class="hero-stat-label">Records</div>
                     </div>
                     <div class="hero-stat">
@@ -1867,7 +1867,7 @@
                         <div class="hero-stat-label">Max. languages in one model</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-val" id="total-shown">115</div>
+                        <div class="hero-stat-val" id="total-shown">117</div>
                         <div class="hero-stat-label">Current view</div>
                     </div>
                     <div class="hero-stat">
@@ -1990,6 +1990,62 @@
                 voices: "N/A (streaming ASR: outputs append-only text)",
                 context: "4B streaming ASR, 16 kHz mono input, about 80 ms audio frames, adaptive and offline modes, zh/en/cs language flag required for each run",
                 license: "Apache 2.0"
+            },
+            {
+                id: "whistle-asr",
+                name: "Whistle",
+                developer: "Cactus Compute",
+                family: "cactus",
+                isAsr: true,
+                description: "Apache-licensed on-device ASR model for English, German, French, Spanish, Italian, Dutch and Polish. The official release ships a single 16.9 MB `.cact` weight file, live-stream transcription, word timestamps, speech embeddings and keyword biasing through the same Cactus Needle CPU/WebAssembly runtime used for Needle.",
+                languages: ["en", "de", "fr", "es", "it", "nl", "pl"],
+                languageCount: 7,
+                features: ["streaming", "realtime", "multilingual", "low-latency"],
+                hardware: ["cpu", "apple", "edge"],
+                sizeGB: 0.017,
+                sizeLabel: "16.9 MB .cact weights; no GPU required",
+                sizeCategory: "tiny",
+                quality: 9.0,
+                speed: 9.8,
+                latency: "ultra-low",
+                releaseDate: "2026-10-10",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/Cactus-Compute/whistle",
+                sourceStatus: "verified-code",
+                installCommand: "pip install cactus-needle",
+                supportedFormats: ["cact", "webassembly", "python"],
+                voices: "N/A (streaming ASR: outputs text, word timestamps and embeddings)",
+                context: "16 kHz mono input, one-pass 30-second windows with longer windowed audio, live stream commit mode, language detection or forced language, keyword biasing and `needle.Whistle()` local object API; upstream does not publish a fixed RAM floor, but the model is a 16.9 MB CPU/edge file",
+                license: "Apache 2.0"
+            },
+            {
+                id: "phonon-2",
+                name: "Phonon-2",
+                developer: "Fermion Research",
+                family: "phonon",
+                isAsr: true,
+                description: "English on-device ASR model derived from Parakeet TDT 0.6B v3 with quantization-aware packed weights. The official Hugging Face release ships a 164 MB package, word-level JSON timestamps, MLX and Core ML paths for Apple Silicon, plus CPU/GPU Docker engines and the `fermion-research` local CLI.",
+                languages: ["en"],
+                languageCount: 1,
+                features: ["realtime", "low-latency"],
+                hardware: ["cpu", "gpu", "apple"],
+                sizeGB: 0.164,
+                sizeLabel: "164 MB packed weights; sub-1GB ASR download",
+                sizeCategory: "small",
+                quality: 9.1,
+                speed: 9.7,
+                latency: "ultra-low",
+                releaseDate: "2026-10-08",
+                isNew: true,
+                isPick: true,
+                hfLink: "https://huggingface.co/FermionResearch/Phonon-2",
+                sourceStatus: "verified-code",
+                installCommand: "pip install fermion-research mlx mlx-audio mlx-lm soundfile scipy zstandard",
+                supportedFormats: ["mlx", "coreml", "python", "docker"],
+                voices: "N/A (ASR: outputs English transcripts and optional word timestamps)",
+                context: "English-only speech-to-text, 164 MB download, Open ASR Leaderboard-style WER card, `phonon transcribe` and `fermion transcribe phonon-2` commands, Core ML companion export and CPU/CUDA Docker engines; upstream benchmarks include M5 MacBook Air, Zen 5 CPU and H100 batch runs but no fixed RAM floor",
+                license: "CC-BY-4.0 weights; Apache 2.0 code"
             },
             {
                 id: "qwen3-tts",
