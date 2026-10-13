@@ -58,8 +58,8 @@ const llms = read('llms.txt');
 const llmsFull = read('llms-full.txt');
 const newModelSort = require(path.join(ROOT, 'js/new-model-sort-20260814a.js'));
 
-if (uniqueLocalModels.length !== 251) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 251 canonical routes`);
-if (indexableLocalModels.length !== 245) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 245`);
+if (uniqueLocalModels.length !== 253) errors.push(`Local LLM route count is ${uniqueLocalModels.length}, expected 253 canonical routes`);
+if (indexableLocalModels.length !== 247) errors.push(`Indexable local LLM count is ${indexableLocalModels.length}, expected 247`);
 if (unavailableLlmIds.size !== 6) errors.push(`Unavailable LLM tombstone count is ${unavailableLlmIds.size}, expected 6`);
 if (multimodalModels.length !== 152) errors.push(`Multimodal model count is ${multimodalModels.length}, expected 152`);
 
@@ -469,7 +469,7 @@ const xtts = speechById.get('xtts-v3') || {};
 if (xtts.delivery !== 'unverified' || xtts.quality !== null || xtts.speed !== null || xtts.sizeGB !== null || xtts.installCommand || xtts.hfLink) {
   errors.push('XTTS v3 must remain an unscored, source-free, non-installable unverified preserved route');
 }
-if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 253) errors.push('models/ must contain 253 HTML files');
+if (fs.readdirSync(path.join(ROOT, 'models')).filter(file => file.endsWith('.html')).length !== 255) errors.push('models/ must contain 255 HTML files');
 if (fs.readdirSync(path.join(ROOT, 'tts')).filter(file => file.endsWith('.html')).length !== 116) errors.push('tts/ must contain 115 speech pages plus one index');
 
 for (const directory of ['ram', 'hardware', 'use-case']) {
@@ -491,14 +491,14 @@ for (const file of fs.readdirSync(path.join(ROOT, 'use-case')).filter(name => na
 
 const newPage = read('new.html');
 for (const marker of [
+  'href="/models/minicpm-v-4-7-35b-a3b"',
   'href="/models/mellum2-1-12b-a2-5b-thinking"',
-  'href="/models/mimo-v2-6-flash-rl"',
-  'href="/models/xing4-0-29b-a4b"',
+  'href="/models/minicpm-v-4-7-1b"',
   'href="/models/occamy-1-0"',
   'href="/models/needle-3"',
   '16 GB RAM · Q4_K_M · 131K context',
-  '160 GB RAM · Q2_K GGUF · 1M context',
-  '32 GB RAM · IQ4_NL GGUF · 256K context',
+  '32 GB RAM · Q4_K_M · 262K context',
+  '8 GB RAM · Q4_K_M · 262K context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
   'js/data.js?v=20261003a',
   'js/new-model-sort-20260814a.js?v=20261012quality2',
@@ -523,7 +523,7 @@ for (const staleMarker of [
 }
 const latestModels = newModelSort.latestLocalModels(dataContext.DATA.models, 12, hfRepoVerification);
 const latestIds = latestModels.map(model => model.id);
-const expectedLatestIds = ['mellum2-1-12b-a2-5b-thinking', 'mimo-v2-6-flash-rl', 'xing4-0-29b-a4b', 'bonsai-2-27b', 'llm-jp-4-1-32b-a3b-thinking', 'needle-3', 'llm-jp-4-1-8b-thinking', 'occamy-1-0', 'nex-n2-5-mini', 'deepseek-v4-1-flash', 'minicpm5-2b', 'spark-x2-5-4b'];
+const expectedLatestIds = ['minicpm-v-4-7-35b-a3b', 'mellum2-1-12b-a2-5b-thinking', 'minicpm-v-4-7-1b', 'mimo-v2-6-flash-rl', 'xing4-0-29b-a4b', 'bonsai-2-27b', 'llm-jp-4-1-32b-a3b-thinking', 'needle-3', 'llm-jp-4-1-8b-thinking', 'occamy-1-0', 'nex-n2-5-mini', 'deepseek-v4-1-flash'];
 if (latestIds.slice(0, expectedLatestIds.length).join(',') !== expectedLatestIds.join(',')) {
   errors.push(`/new selection is stale or mis-sorted: ${latestIds.join(', ')}`);
 }
@@ -533,7 +533,9 @@ for (const model of latestModels.slice(0, 3)) {
   }
 }
 for (const [modelId, released] of Object.entries({
+  'minicpm-v-4-7-35b-a3b': '2026-10-07',
   'mellum2-1-12b-a2-5b-thinking': '2026-10-07',
+  'minicpm-v-4-7-1b': '2026-10-06',
   'mimo-v2-6-flash-rl': '2026-09-21',
   'xing4-0-29b-a4b': '2026-09-17',
   'bonsai-2-27b': '2026-09-17',
@@ -612,7 +614,7 @@ if (!['releaseTimestamp', 'relativeReleaseAge', 'isRecentRelease'].every(helper 
   errors.push('/new date formatting, age and NEW badge helpers must all use the shared release parser');
 }
 if (newPage.includes("new Date(dateStr + '-")) errors.push('/new renderer still corrupts complete release dates by appending a day');
-const fallbackOrder = ['mellum2-1-12b-a2-5b-thinking', 'mimo-v2-6-flash-rl', 'xing4-0-29b-a4b'].map(id => newPage.indexOf(`href="/models/${id}"`));
+const fallbackOrder = ['minicpm-v-4-7-35b-a3b', 'mellum2-1-12b-a2-5b-thinking', 'minicpm-v-4-7-1b'].map(id => newPage.indexOf(`href="/models/${id}"`));
 if (fallbackOrder.some(index => index < 0) || !(fallbackOrder[0] < fallbackOrder[1] && fallbackOrder[1] < fallbackOrder[2])) {
   errors.push('/new static fallback order does not match the canonical freshness sort');
 }
@@ -714,7 +716,7 @@ const hfStateMaps = {
   gated: gatedHfRepos,
   unavailable: unavailableHfRepos
 };
-const expectedHfStateCounts = {publicGguf: 204, publicRuntime: 1, publicModelCard: 44, gated: 4, unavailable: 6};
+const expectedHfStateCounts = {publicGguf: 206, publicRuntime: 1, publicModelCard: 44, gated: 4, unavailable: 6};
 for (const [state, expectedCount] of Object.entries(expectedHfStateCounts)) {
   const actualCount = Object.keys(hfStateMaps[state]).length;
   if (actualCount !== expectedCount) errors.push(`Hugging Face ${state} count is ${actualCount}, expected ${expectedCount}`);

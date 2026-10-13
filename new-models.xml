@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>MiniCPM-V 4.7 35B-A3B</title>
+      <link>https://localclaw.io/models/minicpm-v-4-7-35b-a3b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/minicpm-v-4-7-35b-a3b</guid>
+      <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
+      <category>minicpm</category>
+      <description>OpenBMB Apache 2.0 MiniCPM-V 4.7 MoE release with image, multi-image and video understanding. Official Q4_K_M GGUF is about 21.2GB for workstation-class local multimodal use. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · minicpm.</description>
+    </item>
     <item>
       <title>Mellum2.1 12B-A2.5B Thinking</title>
       <link>https://localclaw.io/models/mellum2-1-12b-a2-5b-thinking</link>
@@ -15,6 +23,14 @@
       <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
       <category>mellum</category>
       <description>Official JetBrains Apache 2.0 coding-reasoning MoE with 12B total parameters, about 2.5B active parameters, 131K context and official Q4_K_M GGUF for llama.cpp, Ollama and LM Studio-compatible local runtimes. 12B (2.5B active, MoE) · 16 GB minimum RAM · Q4_K_M · mellum.</description>
+    </item>
+    <item>
+      <title>MiniCPM-V 4.7 (1B)</title>
+      <link>https://localclaw.io/models/minicpm-v-4-7-1b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/minicpm-v-4-7-1b</guid>
+      <pubDate>Tue, 06 Oct 2026 12:00:00 GMT</pubDate>
+      <category>minicpm</category>
+      <description>OpenBMB Apache 2.0 compact vision-language model for images and video. The official 672MB Q4_K_M GGUF makes MiniCPM-V 4.7 1B practical on consumer laptops and edge devices. 1B · 8 GB minimum RAM · Q4_K_M · minicpm.</description>
     </item>
     <item>
       <title>MiMo-V2.6-Flash-RL</title>
@@ -151,22 +167,6 @@
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <category>k2-horizon</category>
       <description>IFM Apache 2.0 dense K2 Horizon member with 32B parameters, 512K context, official Q4_K_M GGUF artifacts, and a documented local path through the K2 Horizon llama.cpp fork while upstream support matures. 32B dense · 32 GB minimum RAM · Q4_K_M · k2-horizon.</description>
-    </item>
-    <item>
-      <title>K2-Horizon-MoVA-36B-A4B</title>
-      <link>https://localclaw.io/models/k2-horizon-mova-36b-a4b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-mova-36b-a4b</guid>
-      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
-      <category>k2-horizon</category>
-      <description>IFM Apache 2.0 sparse K2 Horizon release with Mixture-of-Experts plus Mixture-of-Values attention, 36B total / 4B active parameters, 512K context and an official BF16 GGUF path for high-memory local workstations. 36B (4B active, MoE) · 96 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
-    </item>
-    <item>
-      <title>DeepSeek V4 Flash Vision Exp</title>
-      <link>https://localclaw.io/models/deepseek-v4-flash-vision-exp</link>
-      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-flash-vision-exp</guid>
-      <pubDate>Mon, 31 Aug 2026 12:00:00 GMT</pubDate>
-      <category>deepseek-flash</category>
-      <description>Official MIT DeepSeek V4 Flash multimodal experiment with image understanding, 1M context and Unsloth Dynamic GGUF artifacts. The lightest practical GGUF is roughly 82-97GB, while higher-quality Q4/Q8 builds are about 155-162GB, so this belongs on large-memory workstations. 284B (13B active, multimodal MoE) · 128 GB minimum RAM · UD-Q2_K_XL · deepseek-flash.</description>
     </item>
   </channel>
 </rss>

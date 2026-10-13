@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
+// Updated October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
+// Previous: October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
 // Previous: October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
 // Previous: October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
 // Previous: September 27, 2026 - Added Xing4.0-29B-A4B - 248 unique LLM records
@@ -175,6 +176,44 @@ const APP_DATA = {
         },
 
         // ==================== LIGHTWEIGHT+ (New 2026 entries) ====================
+        {
+            id: 'minicpm-v-4-7-1b',
+            name: 'MiniCPM-V 4.7 (1B)',
+            family: 'minicpm',
+            params: '1B',
+            size_gb: 0.63,
+            min_ram: 8,
+            tags: ['vision', 'video', 'light', 'speed', 'multimodal', 'general'],
+            description: 'OpenBMB Apache 2.0 compact vision-language model for images and video. The official 672MB Q4_K_M GGUF makes MiniCPM-V 4.7 1B practical on consumer laptops and edge devices.',
+            search_term: 'minicpm-v-4.7-1b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'openbmb/MiniCPM-V-4.7-1B-gguf',
+            source_url: 'https://huggingface.co/openbmb/MiniCPM-V-4.7-1B',
+            runtime_url: 'https://huggingface.co/openbmb/MiniCPM-V-4.7-1B-gguf',
+            custom_runtime: 'current llama.cpp / Ollama MiniCPM-V 4.7 support',
+            benchmarks: { speed: 10, quality: 6, coding: 3, reasoning: 5 },
+            released: '2026-10-06',
+            isNew: true
+        },
+        {
+            id: 'minicpm-v-4-7-35b-a3b',
+            name: 'MiniCPM-V 4.7 35B-A3B',
+            family: 'minicpm',
+            params: '35B (3B active, MoE)',
+            size_gb: 19.71,
+            min_ram: 32,
+            tags: ['vision', 'video', 'reasoning', 'power', 'multimodal', 'moe', 'general'],
+            description: 'OpenBMB Apache 2.0 MiniCPM-V 4.7 MoE release with image, multi-image and video understanding. Official Q4_K_M GGUF is about 21.2GB for workstation-class local multimodal use.',
+            search_term: 'minicpm-v-4.7-35b-a3b',
+            recommended_quant: 'Q4_K_M',
+            hf_repo: 'openbmb/MiniCPM-V-4.7-35B-A3B-gguf',
+            source_url: 'https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B',
+            runtime_url: 'https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf',
+            custom_runtime: 'current llama.cpp / Ollama MiniCPM-V 4.7 MoE support',
+            benchmarks: { speed: 6, quality: 9, coding: 5, reasoning: 8 },
+            released: '2026-10-07',
+            isNew: true
+        },
         {
             id: 'spark-x2-5-4b',
             name: 'Spark-X2.5-4B',
@@ -4244,10 +4283,12 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-12T06:40:25.000Z",
-        catalogueHash: "b5fd97a2044c244e693939adbfaa3e6b1194fd4b5b56a06449c7d3407a8c95df",
+        checkedAt: "2026-10-13T06:13:01.000Z",
+        catalogueHash: "2beff85dad07155f19256f153f228c3dd7ec7bcf47e7d8857a56c3b5d765280a",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "minicpm-v-4-7-35b-a3b": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
+            "minicpm-v-4-7-1b": "openbmb/MiniCPM-V-4.7-1B-gguf",
             "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
             "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",
