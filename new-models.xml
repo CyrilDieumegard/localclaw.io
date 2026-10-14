@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 13 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>LFM2.5-24B-A2B</title>
+      <link>https://localclaw.io/models/lfm2-5-24b-a2b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm2-5-24b-a2b</guid>
+      <pubDate>Mon, 12 Oct 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI LFM2.5 reasoning MoE built for private on-device agents. The official LFM 1.0 release has 24B total / 2.45B active parameters, 131K context, official GGUF and MLX artifacts, and a 14.5GB Q4_K_M GGUF for laptop/workstation local use. 24B (2.45B active, MoE) · 24 GB minimum RAM · Q4_K_M GGUF · lfm.</description>
+    </item>
     <item>
       <title>MiniCPM-V 4.7 35B-A3B</title>
       <link>https://localclaw.io/models/minicpm-v-4-7-35b-a3b</link>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <category>k2-horizon</category>
       <description>IFM Apache 2.0 dense K2 Horizon release with about 9B parameters, 128K context, open training-data references and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments. 9B · 24 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
-    </item>
-    <item>
-      <title>K2-Horizon-32B</title>
-      <link>https://localclaw.io/models/k2-horizon-32b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-32b</guid>
-      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
-      <category>k2-horizon</category>
-      <description>IFM Apache 2.0 dense K2 Horizon member with 32B parameters, 512K context, official Q4_K_M GGUF artifacts, and a documented local path through the K2 Horizon llama.cpp fork while upstream support matures. 32B dense · 32 GB minimum RAM · Q4_K_M · k2-horizon.</description>
     </item>
   </channel>
 </rss>

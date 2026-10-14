@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
+// Updated October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
+// Previous: October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
 // Previous: October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
 // Previous: October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
 // Previous: October 3, 2026 - Added LLM-jp-4.1 8B + 32B-A3B Thinking - 250 unique LLM records
@@ -212,6 +213,29 @@ const APP_DATA = {
             custom_runtime: 'current llama.cpp / Ollama MiniCPM-V 4.7 MoE support',
             benchmarks: { speed: 6, quality: 9, coding: 5, reasoning: 8 },
             released: '2026-10-07',
+            isNew: true
+        },
+        {
+            id: 'lfm2-5-24b-a2b',
+            name: 'LFM2.5-24B-A2B',
+            family: 'lfm',
+            params: '24B (2.45B active, MoE)',
+            size_gb: 14.53,
+            min_ram: 24,
+            tags: ['chat', 'reasoning', 'agentic', 'tool-calling', 'long-context', 'power', 'moe', 'multilingual'],
+            description: 'Liquid AI LFM2.5 reasoning MoE built for private on-device agents. The official LFM 1.0 release has 24B total / 2.45B active parameters, 131K context, official GGUF and MLX artifacts, and a 14.5GB Q4_K_M GGUF for laptop/workstation local use.',
+            search_term: 'LFM2.5-24B-A2B',
+            recommended_quant: 'Q4_K_M GGUF',
+            download_variants: [
+                { quant: 'Q4_K_M', size_gb: 14.53, file: 'LFM2.5-24B-A2B-Q4_K_M.gguf' },
+                { quant: 'Q5_K_M', size_gb: 17.03, file: 'LFM2.5-24B-A2B-Q5_K_M.gguf' },
+                { quant: 'Q8_0', size_gb: 25.49, file: 'LFM2.5-24B-A2B-Q8_0.gguf' }
+            ],
+            hf_repo: 'LiquidAI/LFM2.5-24B-A2B-GGUF',
+            source_url: 'https://huggingface.co/LiquidAI/LFM2.5-24B-A2B',
+            runtime_url: 'https://huggingface.co/LiquidAI/LFM2.5-24B-A2B-GGUF',
+            benchmarks: { speed: 8, quality: 8, coding: 8, reasoning: 9 },
+            released: '2026-10-12',
             isNew: true
         },
         {
@@ -4283,13 +4307,14 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-13T06:13:01.000Z",
-        catalogueHash: "2beff85dad07155f19256f153f228c3dd7ec7bcf47e7d8857a56c3b5d765280a",
+        checkedAt: "2026-10-14T06:04:00.000Z",
+        catalogueHash: "f8817294314b6b0ded30d2e6196c8dff7a0f11ed952c597c2a4e28a4cbf64307",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "minicpm-v-4-7-35b-a3b": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
             "minicpm-v-4-7-1b": "openbmb/MiniCPM-V-4.7-1B-gguf",
             "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",
+            "lfm2-5-24b-a2b": "LiquidAI/LFM2.5-24B-A2B-GGUF",
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
             "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",
             "spark-x2-5-1-7b": "XHToken/Spark-X2.5-1.7B-GGUF",
