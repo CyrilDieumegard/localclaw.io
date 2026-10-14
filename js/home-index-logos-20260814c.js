@@ -275,6 +275,7 @@ window.HOME_INDEX_LOGOS = {
     'Tencent ARC / Tsinghua University': 'tencentarc-avatar',
     'Tencent Hunyuan': 'tencent',
     'THU-ML / Tsinghua University': 'github',
+    'Toyota Research Institute': 'github',
     'Tsinghua University': 'github',
     'Tsinghua University / Joy Future Academy / JD': 'github',
     'UIUC / Cornell University': 'github',

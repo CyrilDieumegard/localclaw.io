@@ -846,6 +846,18 @@
       caveats: ['Non-commercial CC BY-NC 4.0 release', 'Depends on several upstream models with their own terms and downloads', 'Linux/CUDA research stack with custom extension builds']
     },
     {
+      id: 'recgen', name: 'RecGen', category: '3d', developer: 'Toyota Research Institute',
+      summary: 'Non-commercial RGB-D object reconstruction model that exports textured meshes, GLB assets and Gaussian splats.',
+      tasks: ['image-to-3d', 'mesh-reconstruction', 'gaussian-splatting', 'pose-estimation', 'texturing'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 24,
+      runtime: ['PyTorch', 'CUDA', 'Pixi', 'Docker', 'CLI'], output: ['OBJ', 'GLB', 'PLY', 'Textured mesh', 'Pose metadata', 'MP4 preview'],
+      local_status: 'local', license: 'Toyota Research Institute non-commercial license; CC BY-NC 4.0 checkpoint metadata; TRELLIS component terms apply', released: '2026-10',
+      source_url: 'https://github.com/TRI-ML/recgen', install_url: 'https://huggingface.co/TRI-ML/RecGen',
+      hardware_note: 'Toyota Research Institute publishes RecGen inference and training code plus public Hugging Face checkpoints for the stereo denoiser, SLAT denoiser, configuration files and TRELLIS decoder/base assets. The official setup uses Linux, CUDA, PyTorch, spconv and diff-gaussian-rasterization, with Pixi environments for CUDA 12.1 or 11.8 and a Docker path for NVIDIA Container Toolkit users. Single-view and multiview inference consume RGB, depth, mask and intrinsics, then write mesh.obj, posed_mesh.obj, overlay.png, metadata.json, optional gaussian.ply and posed_gaussian.ply, and optional textured_mesh.glb when nvdiffrast plus the Gaussian rasterizer are built. No consumer VRAM table is published, so LocalClaw records 64 GB RAM and 24 GB NVIDIA VRAM as a conservative workstation floor for local inference with GLB/splat export headroom.',
+      strengths: ['Official TRI code and released Hugging Face checkpoints', 'Single-view or multi-view RGB-D reconstruction with 6-DoF pose prediction', 'Exports OBJ meshes, Gaussian PLY splats and optional textured GLB assets'],
+      caveats: ['Non-commercial TRI license and CC BY-NC checkpoint metadata', 'Requires depth, object mask and camera intrinsics rather than a casual RGB-only prompt', 'GLB and turntable outputs need extra CUDA rasterization dependencies']
+    },
+    {
       id: 'depth-anything-3-base', name: 'Depth Anything 3 Base', category: '3d', developer: 'ByteDance Seed',
       summary: 'Compact any-view visual geometry model for depth, camera pose and 3D reconstruction exports.',
       tasks: ['mesh-reconstruction', 'depth-estimation', 'pose-estimation', 'gaussian-splatting'],
