@@ -66,6 +66,21 @@ window.HOME_INDEX_SPEECH_MODELS = [
     "sizeGB": 0.164
   },
   {
+    "id": "maya-1",
+    "name": "Maya-1",
+    "developer": "Maya Research",
+    "family": "maya",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-13",
+    "quality": 9.2,
+    "speed": 7.6,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 6.61
+  },
+  {
     "id": "qwen3-tts",
     "name": "Qwen3-TTS (0.6B / 1.7B)",
     "developer": "Qwen Team (Alibaba Cloud)",
