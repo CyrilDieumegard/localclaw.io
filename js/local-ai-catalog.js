@@ -1,6 +1,18 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'sprongmotion-14m', name: 'SprongMotion-14M', category: '3d', developer: 'Seger Endendijk',
+      summary: 'Compact Apache-2.0 text-to-motion model that generates 3D human skeleton animation and BVH files locally on a CPU.',
+      tasks: ['text-to-motion', 'character-animation', 'motion-generation'],
+      platforms: ['macos', 'linux', 'windows'], accelerators: ['cpu'], min_ram_gb: 4, min_vram_gb: 0,
+      runtime: ['C11', 'CLI', 'WebAssembly', 'Blender add-on'], output: ['BVH', 'Joint positions', 'Joint rotations', 'Root trajectories', 'Foot contacts'],
+      local_status: 'local', license: 'Apache 2.0 code and model weights', released: '2026-10',
+      source_url: 'https://github.com/SegerEnd/sprongmotion-runtime', install_url: 'https://huggingface.co/SegerEnd/SprongMotion-14M',
+      hardware_note: 'The official 33.3 MB GGUF contains a 13.8M-parameter motion generator and its text encoder and tokenizer, totaling 20.0M parameters. Build the C11 runtime with make build/examples/01_hello, download SprongMotion-14M-v1.0-Q8_0.gguf, and pass the model path, English prompt and output BVH path to that executable. Upstream documents macOS arm64, Linux x86-64, Windows x86-64 through MinGW-w64, and WebAssembly. A LocalClaw macOS CPU smoke test on 2026-10-23 verified the published SHA-256 and exported 80 frames at 20 fps with about 40 MB peak resident memory. The 4 GB RAM entry is a conservative whole-system recommendation, not an upstream measured minimum; no dedicated VRAM is required.',
+      strengths: ['Canonical downloadable model and dependency-free C11 runtime under Apache 2.0', 'CPU-only local inference with BVH export verified on macOS', 'Supports motion editing, looping, prompt timelines and root-path control'],
+      caveats: ['English prompts and a fixed 22-joint skeleton without fingers', 'Individual clips are limited to 0.5-10 seconds; longer motion uses multiple prompt blocks', 'Produces skeletal motion, not meshes or automatic skinning; Linux, Windows and browser support are upstream documented rather than locally tested']
+    },
+    {
       id: 'neoverse', name: 'NeoVerse', category: 'video', developer: 'CASIA / CreateAI',
       summary: 'Apache-licensed 4D world model for turning a monocular video or image into novel-trajectory MP4 video.',
       tasks: ['video-to-video', 'image-to-video', 'novel-view-synthesis', 'camera-controlled-video', '4d-world-model'],
