@@ -176,12 +176,14 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         const finite = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
+        const hasScore = (value) => typeof value === 'number' && Number.isFinite(value);
         const llmScore = (model) => {
             const ratings = model.benchmarks || {};
+            if (!['quality', 'coding', 'reasoning', 'speed'].every(key => hasScore(ratings[key]))) return null;
             return (finite(ratings.quality) * 0.38) + (finite(ratings.coding) * 0.24) + (finite(ratings.reasoning) * 0.24) + (finite(ratings.speed) * 0.14);
         };
         const speechScore = (model) => Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
-        const scoreLabel = (value) => finite(value).toFixed(1);
+        const scoreLabel = (value) => hasScore(value) ? value.toFixed(1) : 'Not rated';
         const communityAggregate = (modelId) => communityRatings.get(modelId) || {average: 0, count: 0};
         const speechCommunityId = (model) => `tts-${model.id}`;
         const communityConfidenceScore = (aggregate) => {
@@ -249,6 +251,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const compareModels = (sortKey, direction = defaultSortDirection(sortKey)) => (a, b) => {
             if (sortKey === 'catalogue') return catalogueOrder.get(a.id) - catalogueOrder.get(b.id);
+            if (['score', 'quality', 'coding', 'reasoning', 'speed'].includes(sortKey)) {
+                const rating = (model) => sortKey === 'score' ? llmScore(model) : model.benchmarks?.[sortKey];
+                if (hasScore(rating(a)) !== hasScore(rating(b))) return hasScore(rating(a)) ? -1 : 1;
+            }
             let result = 0;
             if (sortKey === 'community') result = communityCompare(a.id, b.id, 'average');
             if (sortKey === 'votes') result = communityCompare(a.id, b.id, 'votes');
@@ -264,6 +270,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             return result || llmScore(b) - llmScore(a) || llmTieBreak(a, b);
         };
         const compareSpeech = (sortKey) => (a, b) => {
+            if (['score', 'quality', 'coding', 'reasoning', 'speed'].includes(sortKey)) {
+                const rating = (model) => sortKey === 'score' ? llmScore(model) : model.benchmarks?.[sortKey];
+                if (hasScore(rating(a)) !== hasScore(rating(b))) return hasScore(rating(a)) ? -1 : 1;
+            }
             let result = 0;
             if (sortKey === 'community') result = communityCompare(speechCommunityId(a), speechCommunityId(b), 'average');
             if (sortKey === 'votes') result = communityCompare(speechCommunityId(a), speechCommunityId(b), 'votes');
@@ -274,7 +284,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (sortKey === 'name') result = nameCompare(a, b);
             return result || speechScore(b) - speechScore(a) || finite(b.quality) - finite(a.quality) || finite(b.speed) - finite(a.speed) || nameCompare(a, b) || speechCatalogueOrder.get(a.id) - speechCatalogueOrder.get(b.id);
         };
-        const scoreMarkup = (value, title, modifier = '') => `<span class="lc-index-score ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>${scoreLabel(value)}</strong><small>/10</small></span>`;
+        const scoreMarkup = (value, title, modifier = '') => !hasScore(value) ? '<span class="lc-index-score" title="No catalogue rating available">Not rated</span>' : `<span class="lc-index-score ${modifier}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><strong>${scoreLabel(value)}</strong><small>/10</small></span>`;
         const currentFitMachine = () => machineFiltersEnabled && activeMachine
             ? activeMachine
             : selectedConfiguration || (machineRam ? {ramGb: machineRam, platform: 'other', accelerator: 'cpu', context: '8k'} : null);
@@ -781,7 +791,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 quickPicks.hidden = true;
                 return;
             }
-            const candidates = models.filter((model) => machineFit(model).key === 'fits');
+            const candidates = models.filter((model) => machineFit(model).key === 'fits' && hasScore(llmScore(model)));
             const used = new Set();
             const pickUnique = (comparator) => candidates.slice().sort(comparator).find((model) => !used.has(model.id));
             const metricComparator = (metric) => (a, b) => finite(b.benchmarks && b.benchmarks[metric]) - finite(a.benchmarks && a.benchmarks[metric])

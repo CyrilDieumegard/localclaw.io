@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
+// Updated October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
+// Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
 // Previous: October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
 // Previous: October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
 // Previous: October 9, 2026 - Added Mellum2.1 12B-A2.5B Thinking - 251 unique LLM records
@@ -84,6 +85,48 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            id: 'spark-x2-6-4b',
+            name: 'Spark-X2.6 4B',
+            family: 'spark',
+            params: '4.11B',
+            size_gb: 3.54,
+            min_ram: 8,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling', 'long-context'],
+            description: 'Official Apache 2.0 SparkLLM release for local chat, coding and tool use. Official Q4_K_M GGUF is 3.54GB. Plan for 8GB RAM at short context; the configured 1M-token maximum needs substantially more memory. Requires llama.cpp b10828+, Ollama 0.34.1+ or LM Studio 0.4.0+.',
+            search_term: 'Spark-X2.6-4B',
+            recommended_quant: 'Q4_K_M',
+            download_variants: [
+                { quant: 'Q4_K_M', size_gb: 3.54, file: 'Spark-X2.6-4B-Q4_K_M.gguf' },
+                { quant: 'Q8_0', size_gb: 4.38, file: 'Spark-X2.6-4B-Q8_0.gguf' }
+            ],
+            hf_repo: 'XHToken/Spark-X2.6-4B-GGUF',
+            source_url: 'https://huggingface.co/XHToken/Spark-X2.6-4B',
+            runtime_url: 'https://huggingface.co/XHToken/Spark-X2.6-4B#llamacpp',
+            benchmarks: {},
+            released: '2026-10-19',
+            isNew: true
+        },
+        {
+            id: 'nemotron-dory-1-0-4b',
+            name: 'NVIDIA Dory 1.0 4B',
+            family: 'nemotron',
+            params: '4B',
+            size_gb: 3.67,
+            min_ram: 16,
+            tags: ['chat', 'code', 'reasoning', 'tool-calling'],
+            description: 'NVIDIA OpenMDW-1.1 open-weight reasoning model with recurrent layers and official 3.67GB Q5_K_M GGUF. The documented Apple Silicon setup uses a pinned Dory-enabled llama.cpp build and 4096-token context. Budget 16GB unified memory; the 256K model limit is not a 16GB memory guarantee.',
+            search_term: 'NVIDIA-Nemotron-Labs-Dory1.0-4B',
+            recommended_quant: 'Q5_K_M',
+            download_variants: [{ quant: 'Q5_K_M', size_gb: 3.67, file: 'NVIDIA-Nemotron-Labs-Dory1.0-4B-Q5_K_M.gguf' }],
+            hf_repo: 'nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-GGUF',
+            source_url: 'https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16',
+            runtime_url: 'https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16#llamacpp',
+            custom_runtime: 'Dory-enabled llama.cpp at 98a74c97ea09ac72f6ceda1559808fc0a2f447ce (Apple Silicon reference setup)',
+            benchmarks: {},
+            released: '2026-10-16',
+            isNew: true
+        },
         // ==================== LIGHTWEIGHT (4-8 GB RAM) ====================
         {
             id: 'gemma3-1b',
@@ -4307,13 +4350,15 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-23T06:29:44.000Z",
-        catalogueHash: "f8817294314b6b0ded30d2e6196c8dff7a0f11ed952c597c2a4e28a4cbf64307",
+        checkedAt: "2026-10-24T05:58:10.193Z",
+        catalogueHash: "0e084251d6cbf41df4440dd25091266f1fe7df15d12e73ee09e6de23c56f0f8f",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
             "minicpm-v-4-7-35b-a3b": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
             "minicpm-v-4-7-1b": "openbmb/MiniCPM-V-4.7-1B-gguf",
             "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",
+            "spark-x2-6-4b": "XHToken/Spark-X2.6-4B-GGUF",
+            "nemotron-dory-1-0-4b": "nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-GGUF",
             "lfm2-5-24b-a2b": "LiquidAI/LFM2.5-24B-A2B-GGUF",
             "gemma4-e2b": "unsloth/gemma-4-E2B-it-GGUF",
             "spark-x2-5-4b": "XHToken/Spark-X2.5-4B-GGUF",

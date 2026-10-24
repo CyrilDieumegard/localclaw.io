@@ -52,6 +52,7 @@ function finite(value, fallback = 0) {
 
 function llmScore(model) {
   const scores = model.benchmarks || {};
+  if (!['quality', 'coding', 'reasoning', 'speed'].every(key => typeof scores[key] === 'number' && Number.isFinite(scores[key]))) return null;
   return (finite(scores.quality) * 0.38)
     + (finite(scores.coding) * 0.24)
     + (finite(scores.reasoning) * 0.24)
@@ -63,7 +64,7 @@ function speechScore(model) {
 }
 
 function scoreLabel(value) {
-  return finite(value).toFixed(1);
+  return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(1) : 'Not rated';
 }
 
 function escapeHtml(value = '') {

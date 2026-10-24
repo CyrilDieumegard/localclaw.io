@@ -6,8 +6,24 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Spark-X2.6 4B</title>
+      <link>https://localclaw.io/models/spark-x2-6-4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/spark-x2-6-4b</guid>
+      <pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate>
+      <category>spark</category>
+      <description>Official Apache 2.0 SparkLLM release for local chat, coding and tool use. Official Q4_K_M GGUF is 3.54GB. Plan for 8GB RAM at short context; the configured 1M-token maximum needs substantially more memory. Requires llama.cpp b10828+, Ollama 0.34.1+ or LM Studio 0.4.0+. 4.11B · 8 GB minimum RAM · Q4_K_M · spark.</description>
+    </item>
+    <item>
+      <title>NVIDIA Dory 1.0 4B</title>
+      <link>https://localclaw.io/models/nemotron-dory-1-0-4b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/nemotron-dory-1-0-4b</guid>
+      <pubDate>Fri, 16 Oct 2026 12:00:00 GMT</pubDate>
+      <category>nemotron</category>
+      <description>NVIDIA OpenMDW-1.1 open-weight reasoning model with recurrent layers and official 3.67GB Q5_K_M GGUF. The documented Apple Silicon setup uses a pinned Dory-enabled llama.cpp build and 4096-token context. Budget 16GB unified memory; the 256K model limit is not a 16GB memory guarantee. 4B · 16 GB minimum RAM · Q5_K_M · nemotron.</description>
+    </item>
     <item>
       <title>LFM2.5-24B-A2B</title>
       <link>https://localclaw.io/models/lfm2-5-24b-a2b</link>
@@ -151,22 +167,6 @@
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <category>k2-horizon</category>
       <description>IFM Apache 2.0 compact dense K2 Horizon model with 128K context, multi-teacher distillation for math/code/STEM tasks, and an official BF16 GGUF path for llama.cpp-compatible local experiments. 0.9B · 8 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
-    </item>
-    <item>
-      <title>K2-Horizon-3.7B</title>
-      <link>https://localclaw.io/models/k2-horizon-3-7b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-3-7b</guid>
-      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
-      <category>k2-horizon</category>
-      <description>IFM Apache 2.0 dense K2 Horizon model with 3.7B parameters, 512K context, public training resources and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments. 3.7B · 16 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
-    </item>
-    <item>
-      <title>K2-Horizon-7B</title>
-      <link>https://localclaw.io/models/k2-horizon-7b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/k2-horizon-7b</guid>
-      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
-      <category>k2-horizon</category>
-      <description>IFM Apache 2.0 dense K2 Horizon release with about 9B parameters, 128K context, open training-data references and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments. 9B · 24 GB minimum RAM · BF16 GGUF · k2-horizon.</description>
     </item>
   </channel>
 </rss>

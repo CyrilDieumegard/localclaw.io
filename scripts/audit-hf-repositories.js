@@ -13,7 +13,7 @@ function loadAppData() {
 }
 
 function expectedEntries(verification) {
-  return ['publicGguf', 'publicModelCard', 'gated', 'unavailable'].flatMap(expected =>
+  return ['publicGguf', 'publicRuntime', 'publicModelCard', 'gated', 'unavailable'].flatMap(expected =>
     Object.entries(verification[expected] || {}).map(([id, repo]) => ({ id, repo, expected }))
   );
 }
@@ -27,7 +27,7 @@ async function inspect(entry) {
       headers: { Accept: 'application/json', 'User-Agent': 'LocalClaw-catalogue-audit/1.0' }
     });
     if (!response.ok) {
-      return { ...entry, status: response.status, actual: 'unavailable', hasGguf: false, gated: false };
+      return { ...entry, status: response.status, actual: response.status === 429 || response.status >= 500 ? 'networkError' : 'unavailable', hasGguf: false, gated: false };
     }
     const data = await response.json();
     const siblings = Array.isArray(data.siblings) ? data.siblings : [];
@@ -36,7 +36,8 @@ async function inspect(entry) {
     return {
       ...entry,
       status: response.status,
-      actual: gated ? 'gated' : hasGguf ? 'publicGguf' : 'publicModelCard',
+      // Runtime support is curated separately; verify its repository remains public.
+      actual: gated ? 'gated' : hasGguf ? 'publicGguf' : entry.expected === 'publicRuntime' ? 'publicRuntime' : 'publicModelCard',
       hasGguf,
       gated,
       resolvedId: data.id || ''
@@ -89,7 +90,7 @@ async function main() {
     console.log(`Hugging Face audit: ${results.length} exact id/repo pairs checked anonymously.`);
     console.log(`Observed: ${Object.entries(counts).map(([state, count]) => `${count} ${state}`).join(', ')}.`);
     if (networkErrors.length) {
-      console.error(`Network audit incomplete: ${networkErrors.length}/${results.length} requests failed before an HTTP response. No classification was inferred from those failures.`);
+      console.error(`Network audit incomplete: ${networkErrors.length}/${results.length} requests failed or were rate-limited/server errors. No classification was inferred from those failures.`);
     }
     if (drift.length) {
       console.error(`Classification drift (${drift.length}):`);

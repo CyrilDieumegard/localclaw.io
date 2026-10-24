@@ -889,6 +889,7 @@ const App = {
     // ========================================================================
 
     renderBenchmarkBar(value, max = 10, label, color = 'claw-primary') {
+        if (typeof value !== 'number' || !Number.isFinite(value)) return `<div>${label}: Not rated</div>`;
         const pct = Math.round((value / max) * 100);
         const colorMap = {
             'claw-primary': 'bg-red-500',
@@ -1736,9 +1737,9 @@ const App = {
                         </div>
                     </div>
                     <div class="grid gap-3 md:grid-cols-3">
-                        <a href="/models/lfm2-5-24b-a2b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="lfm2-5-24b-a2b" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 12, 2026 · Agent MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">LFM2.5-24B-A2B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Liquid AI LFM 1.0 reasoning MoE with official 14.5GB Q4_K_M GGUF and MLX builds.</p></a>
-                        <a href="/models/minicpm-v-4-7-35b-a3b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="minicpm-v-4-7-35b-a3b" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 7, 2026 · Vision MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">MiniCPM-V 4.7 35B-A3B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 OpenBMB multimodal MoE with official 21.2GB Q4_K_M GGUF.</p></a>
-                        <a href="/models/mellum2-1-12b-a2-5b-thinking" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="mellum2-1-12b-a2-5b-thinking" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 7, 2026 · Coding MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">Mellum2.1 12B-A2.5B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 JetBrains thinking MoE with official 8.1GB Q4_K_M GGUF for local coding.</p></a>
+                        <a href="/models/spark-x2-6-4b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="spark-x2-6-4b" class="rounded-xl border border-claw-primary/30 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 19, 2026 · Local agents</p><h3 class="mt-3 text-lg font-display font-bold text-white">Spark-X2.6 4B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Apache 2.0 release with official 3.54GB Q4_K_M GGUF. Use current llama.cpp, Ollama or LM Studio.</p></a>
+                        <a href="/models/nemotron-dory-1-0-4b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="nemotron-dory-1-0-4b" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 16, 2026 · Recurrent reasoning</p><h3 class="mt-3 text-lg font-display font-bold text-white">NVIDIA Dory 1.0 4B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Official 3.67GB Q5_K_M GGUF. Requires the documented Dory-enabled llama.cpp build on Apple Silicon.</p></a>
+                        <a href="/models/lfm2-5-24b-a2b" data-fast-goal="model_open" data-fast-goal-source="home_recent" data-fast-goal-model="lfm2-5-24b-a2b" class="rounded-xl border border-white/10 bg-black/35 p-5 transition-all hover:-translate-y-0.5 hover:border-claw-primary"><p class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-claw-primary">Oct 12, 2026 · Agent MoE</p><h3 class="mt-3 text-lg font-display font-bold text-white">LFM2.5-24B-A2B</h3><p class="mt-2 text-xs leading-relaxed text-claw-muted">Liquid AI LFM 1.0 reasoning MoE with official 14.5GB Q4_K_M GGUF and MLX builds.</p></a>
                     </div>
                 </div>
             </section>
@@ -2397,10 +2398,10 @@ const App = {
 
                     <!-- Benchmarks -->
                     <div class="space-y-1.5 mb-5">
-                        ${this.renderBenchmarkBar(model.benchmarks?.speed || 5, 10, 'Speed', 'emerald')}
-                        ${this.renderBenchmarkBar(model.benchmarks?.quality || 5, 10, 'Quality', 'blue')}
-                        ${this.renderBenchmarkBar(model.benchmarks?.coding || 5, 10, 'Coding', 'orange')}
-                        ${this.renderBenchmarkBar(model.benchmarks?.reasoning || 5, 10, 'Reason', 'purple')}
+                        ${this.renderBenchmarkBar(model.benchmarks?.speed, 10, 'Speed', 'emerald')}
+                        ${this.renderBenchmarkBar(model.benchmarks?.quality, 10, 'Quality', 'blue')}
+                        ${this.renderBenchmarkBar(model.benchmarks?.coding, 10, 'Coding', 'orange')}
+                        ${this.renderBenchmarkBar(model.benchmarks?.reasoning, 10, 'Reason', 'purple')}
                     </div>
 
                     <!-- Why this pick -->
@@ -2534,7 +2535,8 @@ const App = {
                                 <tr class="border-b border-white/5">
                                     <td class="py-3 px-3 text-claw-muted capitalize">${key}</td>
                                     ${models.map(m => {
-                                        const val = m.benchmarks?.[key] || 5;
+                                        const val = m.benchmarks?.[key];
+                                        if (typeof val !== "number" || !Number.isFinite(val)) return '<td class="text-center py-3 px-3">Not rated</td>';
                                         const isMax = val === Math.max(...models.map(mm => mm.benchmarks?.[key] || 5));
                                         return `<td class="text-center py-3 px-3">
                                             <div class="flex items-center justify-center gap-2">
