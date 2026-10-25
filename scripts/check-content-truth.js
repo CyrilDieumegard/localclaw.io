@@ -501,7 +501,7 @@ for (const marker of [
   '16 GB RAM estimate · Q5_K_M · Custom runtime required',
   '8 GB RAM estimate · Q4_K_M · Start with short context',
   'LocalClawNewModels.latestLocalModels(sourceModels, 12, APP_DATA.hfRepoVerification)',
-  'js/data.js?v=20261025models',
+  'js/data.js?v=20261025release2',
   'js/new-model-sort-20260814a.js?v=20261012quality2',
   `${indexableLocalModels.length} verified local LLMs`,
   `${speechModels.length} local voice tools`,
@@ -637,7 +637,7 @@ const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (index.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] !== currentFreshSection) errors.push('Static homepage Fresh markup must match the app');
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20261025models') || !index.includes('js/app-20260816a.js?v=20261025models')) {
+if (!index.includes('js/data.js?v=20261025release2') || !index.includes('js/app-20260816a.js?v=20261025release2')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 
