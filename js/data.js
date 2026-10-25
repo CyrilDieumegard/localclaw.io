@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
+// Updated October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
+// Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
 // Previous: October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
 // Previous: October 12, 2026 - Added MiMo-V2.6-Flash-RL - 252 unique LLM records
@@ -85,6 +86,82 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "flint-40b-a2-5b",
+            "name": "Recursive Flint 40B-A2.5B",
+            "family": "flint",
+            "params": "39.8B (2.5B active, MoE)",
+            "size_gb": 23.39,
+            "min_ram": 48,
+            "ram_estimate": true,
+            "tags": [
+                "code",
+                "reasoning",
+                "tool-calling",
+                "long-context"
+            ],
+            "description": "Apache 2.0 coding-agent model trained from scratch by Recursive. ggml-org Q4_K_M GGUF is 23.39GB. Plan for 48GB RAM at short context; 262K is the model limit, not a memory guarantee. Requires a llama.cpp build with Flint support (PR 30928).",
+            "search_term": "Flint",
+            "recommended_quant": "Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "Q4_K_M",
+                    "size_gb": 23.39,
+                    "file": "Flint-Q4_K_M.gguf"
+                },
+                {
+                    "quant": "Q8_0",
+                    "size_gb": 42.35,
+                    "file": "Flint-Q8_0.gguf"
+                }
+            ],
+            "hf_repo": "ggml-org/Flint-GGUF",
+            "source_url": "https://huggingface.co/RecursiveSI/flint",
+            "runtime_url": "https://huggingface.co/ggml-org/Flint-GGUF",
+            "custom_runtime": "llama.cpp with Flint support (PR 30928, merged as a37cc46104eb50900d5ab4a9ba02a0abdac039db)",
+            "benchmarks": {},
+            "released": "2026-10-21",
+            "isNew": true
+        },
+        {
+            "id": "raon-1-mini-preview",
+            "name": "Raon-1 mini preview",
+            "family": "raon",
+            "params": "28.8B (4.3B active, MoE)",
+            "size_gb": 19.69,
+            "min_ram": 32,
+            "ram_estimate": true,
+            "tags": [
+                "chat",
+                "code",
+                "reasoning",
+                "tool-calling",
+                "multilingual"
+            ],
+            "description": "KRAFTON Apache 2.0 model trained from scratch, focused on Korean conversation and agentic tasks. Official Q4_K_M GGUF is 19.69GB. Plan for 32GB RAM at short context. Preview release requires the KRAFTON llama.cpp branch; 262K context needs separate memory planning.",
+            "search_term": "Raon-1-mini-preview",
+            "recommended_quant": "Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "Q4_K_M",
+                    "size_gb": 19.69,
+                    "file": "raon-1-mini-preview-Q4_K_M.gguf"
+                },
+                {
+                    "quant": "Q8_0",
+                    "size_gb": 30.69,
+                    "file": "raon-1-mini-preview-Q8_0.gguf"
+                }
+            ],
+            "hf_repo": "KRAFTON/Raon-1-mini-preview-gguf",
+            "source_url": "https://huggingface.co/KRAFTON/Raon-1-mini-preview",
+            "runtime_url": "https://huggingface.co/KRAFTON/Raon-1-mini-preview#llamacpp",
+            "custom_runtime": "KRAFTON llama.cpp branch raon-1-mini-preview; upstream support pending",
+            "benchmarks": {},
+            "released": "2026-10-21",
+            "isNew": true
+        },
+
         {
             id: 'spark-x2-6-4b',
             name: 'Spark-X2.6 4B',
@@ -4350,10 +4427,13 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-24T05:58:10.193Z",
-        catalogueHash: "0e084251d6cbf41df4440dd25091266f1fe7df15d12e73ee09e6de23c56f0f8f",
+        checkedAt: "2026-10-25T07:03:04.851Z",
+        catalogueHash: "fbe9153547e7556a49d9a6e88800c6426e3f68f255b55f532c5fd8484325ea23",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "flint-40b-a2-5b": "ggml-org/Flint-GGUF",
+            "raon-1-mini-preview": "KRAFTON/Raon-1-mini-preview-gguf",
+
             "minicpm-v-4-7-35b-a3b": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
             "minicpm-v-4-7-1b": "openbmb/MiniCPM-V-4.7-1B-gguf",
             "mellum2-1-12b-a2-5b-thinking": "JetBrains/Mellum2.1-12B-A2.5B-Thinking-GGUF",

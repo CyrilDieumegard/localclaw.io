@@ -79,6 +79,7 @@ function familyColor(m) {
 function localClawCatalogueScore(m) {
   if (m.hosted_only) return null;
   const b = m.benchmarks || {};
+  if (!["quality", "coding", "reasoning", "speed"].every(key => Number.isFinite(b[key]))) return null;
   const score = (Number(b.quality) || 0) * 0.38
     + (Number(b.coding) || 0) * 0.24
     + (Number(b.reasoning) || 0) * 0.24
@@ -88,11 +89,12 @@ function localClawCatalogueScore(m) {
 
 function hardwareTier(m) {
   if (m.hosted_only) return 'API only';
-  return `${m.min_ram} GB catalogue minimum`;
+  return `${m.min_ram} GB ${m.ram_estimate ? 'short-context planning estimate' : 'catalogue minimum'}`;
 }
 
 function hardwareSentence(m) {
   if (m.hosted_only) return `${esc(m.name)} is listed for comparison, but it is a hosted/API model rather than a downloadable local release.`;
+  if (m.ram_estimate) return `${esc(m.name)} has a ${esc(m.min_ram)} GB short-context RAM planning estimate based on its ${esc(m.size_gb)} GB GGUF. This is not a measured minimum or a guarantee at maximum context.`;
   const state = hfRepoState(m);
   if (state === 'publicModelCard') return `LocalClaw verified a public model card for ${esc(m.name)} on ${esc(hfVerificationDate())}, but no public GGUF file in that repository. The catalogue RAM and quantization fields are estimates, not a verified install path.`;
   if (state === 'gated') return `LocalClaw verified a gated model card for ${esc(m.name)} on ${esc(hfVerificationDate())}. Access approval or licence acceptance is required, and no public GGUF install path is claimed.`;
@@ -536,7 +538,7 @@ function modelPage(m, d, allModels) {
     `Family: ${m.family || 'Unknown'}`,
     `Parameters: ${m.params || 'Unknown'}`,
     `Recommended quantization: ${m.recommended_quant || 'See upstream'}`,
-    `Catalogue minimum RAM: ${m.hosted_only ? 'API only' : `${m.min_ram} GB`}`,
+    `${m.ram_estimate ? 'Short-context RAM estimate' : 'Catalogue minimum RAM'}: ${m.hosted_only ? 'API only' : `${m.min_ram} GB`}`,
     `Catalogue model size: ${m.hosted_only ? 'Hosted' : `${m.size_gb} GB`}`,
     `Tags: ${(m.tags || []).join(', ') || 'None listed'}`
   ], 'See the upstream repository for model details.');
@@ -592,7 +594,7 @@ function modelPage(m, d, allModels) {
         url,
         description: desc,
         softwareVersion: m.released || undefined,
-        memoryRequirements: m.hosted_only ? 'Hosted API only' : `${m.min_ram} GB RAM minimum`,
+        memoryRequirements: m.hosted_only ? 'Hosted API only' : `${m.min_ram} GB RAM ${m.ram_estimate ? "short-context planning estimate" : "minimum"}`,
         license: d.license_url || undefined,
         creator: verifiedDeveloper ? {'@type': 'Organization', name: verifiedDeveloper, url: d.developer_url} : undefined
       };
@@ -613,7 +615,7 @@ function modelPage(m, d, allModels) {
         {
           '@type': 'Question',
           name: `Can ${m.name} run locally?`,
-          acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : hfRepoState(m) === 'publicGguf' && isServerServingModel(m) ? `${m.name} has verified GGUF artefacts, but LocalClaw treats it as an advanced workstation/server target with at least ${m.min_ram} GB RAM.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
+          acceptedAnswer: {'@type': 'Answer', text: m.hosted_only ? `${m.name} is hosted/API only in the LocalClaw database.` : hfRepoState(m) === 'publicGguf' && isServerServingModel(m) ? `${m.name} has verified GGUF artefacts, but LocalClaw treats it as an advanced workstation/server target with at least ${m.min_ram} GB RAM.` : isServerServingModel(m) ? `${m.name} can run locally only on server-grade multi-GPU hardware. LocalClaw lists it as a distributed serving target, not a desktop GGUF install.` : m.ram_estimate ? `${m.name} has a ${m.min_ram} GB short-context RAM planning estimate, not a measured minimum. Follow the linked model-compatible runtime instructions; maximum context needs more memory.` : requiresCustomRuntime(m) ? `${m.name} can run locally with at least ${m.min_ram} GB RAM using the official ${m.custom_runtime} runtime. Its low-bit files are not a stock LM Studio install today.` : `${m.name} can run locally with at least ${m.min_ram} GB RAM. LocalClaw recommends ${m.recommended_quant} quantization.`}
         },
         {
           '@type': 'Question',
@@ -669,7 +671,7 @@ function modelPage(m, d, allModels) {
     : `<section class="section">
       <h2>${isServerServingModel(m) ? 'Deployment path' : 'Install path'}</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>${m.hosted_only ? 'API only today.' : isServerServingModel(m) ? `Server-grade target. Plan for ${esc(m.min_ram)} GB class multi-GPU memory.` : m.ram_estimate ? `Plan for ${esc(m.min_ram)} GB RAM at short context; this is an estimate. Use ${esc(m.recommended_quant)}.` : `Minimum ${esc(m.min_ram)} GB RAM. Start with the ${esc(m.recommended_quant)} quant.`}</span></div>
         <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>${m.hosted_only ? 'Use the API provider instead of local GGUF.' : hfRepoState(m) === 'publicGguf' && isServerServingModel(m) ? `Open the verified GGUF files for ${esc(m.search_term)} and follow the upstream runtime or patch notes first.` : isServerServingModel(m) ? `Use ${esc(m.search_term)} only with a compatible server-grade or distributed runtime; confirm the exact artefact and upstream instructions first.` : requiresCustomRuntime(m) ? `Follow the official ${esc(m.custom_runtime)} instructions. Stock LM Studio support is not confirmed.` : `Search ${esc(m.search_term)} in LM Studio.`}</span></div>
         <div class="step"><div class="step-num">03</div><strong>Try your workload</strong><span>Start with a short prompt, check memory use and adjust context length before running longer tasks.</span></div>
       </div>
@@ -746,7 +748,7 @@ ${personalFitSection}
         <div class="score-card" style="--model-score-border:${color}66;--model-score-tint:${color}26">
           <div>
             <div class="score-label">${m.hosted_only ? 'Local status' : 'LocalClaw catalogue score'}</div>
-            <div class="score">${m.hosted_only ? 'API' : `${score}<small>/10</small>`}</div>
+            <div class="score">${m.hosted_only ? 'API' : score === null ? 'Not rated' : `${score}<small>/10</small>`}</div>
             <p class="score-caption">${m.hosted_only ? hardwareSentence(m) : 'Editorial catalogue rubric: 38% quality, 24% coding, 24% reasoning and 14% speed. Community stars and hardware fit remain separate.'}</p>
           </div>
         </div>

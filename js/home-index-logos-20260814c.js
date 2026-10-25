@@ -79,6 +79,8 @@ window.HOME_INDEX_LOGOS = {
     smallthinker: 'smallthinker-avatar',
     smollm: 'huggingfacetb-avatar',
     solar: 'upstage',
+    flint: 'huggingface-avatar',
+    raon: 'huggingface-avatar',
     spark: 'spark',
     sqlcoder: 'defog-avatar',
     starcoder: 'bigcode-avatar',

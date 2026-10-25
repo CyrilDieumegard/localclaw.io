@@ -4,6 +4,81 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "flint-40b-a2-5b": {
+        "developer": "Recursive",
+        "developer_url": "https://www.recursive.com/",
+        "context_window": 262144,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/RecursiveSI/flint/blob/main/LICENSE",
+        "architecture": "39.8B MoE decoder with approximately 2.5B active parameters, 49 layers, hybrid sliding-window/full attention and learned attention sinks.",
+        "training_data": "Trained from scratch with pretraining, mid-training, supervised fine-tuning and reinforcement learning on text, code and agentic tasks; full corpus composition is not disclosed.",
+        "strengths": [
+            "Designed for codebase investigation, bug fixes, features and tests",
+            "Text reasoning and multi-turn tool use",
+            "GGUF artifacts maintained by ggml-org and LM Studio community",
+            "Apache 2.0 weights"
+        ],
+        "weaknesses": [
+            "48GB RAM is a conservative short-context planning estimate based on the 23.39GB GGUF, not a measured minimum",
+            "262,144 tokens is a configured ceiling; long context needs more memory",
+            "Requires a llama.cpp build containing PR 30928",
+            "Developer benchmarks are not independent LocalClaw ratings"
+        ],
+        "use_cases": [
+            "Local coding agents",
+            "Codebase investigation",
+            "Bug fixing and test generation",
+            "Private tool-calling workflows"
+        ],
+        "similar_models": [
+            "qwen3-coder-next",
+            "nemotron-dory-1-0-4b"
+        ],
+        "official_blog": "https://www.recursive.com/updates/introducing-recursive-flint"
+    },
+    "raon-1-mini-preview": {
+        "developer": "KRAFTON AI",
+        "developer_url": "https://krafton.ai/en/",
+        "context_window": 262144,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/KRAFTON/Raon-1-mini-preview#license",
+        "architecture": "28.8B MoE with 4.3B active parameters, 18 Raon Delta Attention layers, 7 full-attention layers and Raon-mHC residual connections.",
+        "training_data": "Trained from scratch; the model card identifies seven training languages but does not disclose the complete corpus.",
+        "languages": [
+            "Korean",
+            "English",
+            "Japanese",
+            "Chinese",
+            "Spanish",
+            "French",
+            "Thai"
+        ],
+        "strengths": [
+            "Korean conversation and agentic tool use",
+            "Official GGUF and MLX installation paths",
+            "Apache 2.0 weights",
+            "Hybrid attention limits KV caching to seven layers"
+        ],
+        "weaknesses": [
+            "Preview specifications and performance may change",
+            "Requires the KRAFTON llama.cpp branch; stock LM Studio and Ollama support is not confirmed",
+            "32GB RAM is a conservative short-context planning estimate based on the 19.69GB GGUF, not a measured minimum",
+            "262,144-token context requires separate memory planning",
+            "Base-model card describes access requests; official GGUF download was anonymously accessible when checked"
+        ],
+        "use_cases": [
+            "Local Korean and English conversation",
+            "Multilingual tool-calling agents",
+            "Private coding and reasoning",
+            "Apple Silicon inference through the documented MLX setup"
+        ],
+        "similar_models": [
+            "qwen3.6-35b-a3b",
+            "spark-x2-6-4b"
+        ],
+        "official_blog": "https://huggingface.co/KRAFTON/Raon-1-mini-preview"
+    },
+
 
     // ==================== GEMMA ====================
     'gemma3-1b': {
