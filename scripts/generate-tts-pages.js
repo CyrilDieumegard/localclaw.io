@@ -86,6 +86,7 @@ function voiceColor(model) {
 function modelKind(model) {
   if (isUnverifiedSpeechRecord(model)) return 'Unverified speech reference';
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'Online TTS interface' : 'Vendor API speech reference';
+  if ((model.features || []).includes('audio-language')) return 'Local audio-language model';
   if (model.isAsr) return 'Local ASR model';
   if (model.isOrchestrator && (model.features || []).includes('speech-translation')) return 'Local speech translation model';
   if (model.isOrchestrator) return 'Local speech app';
@@ -103,7 +104,7 @@ function modelTask(model) {
 }
 
 function audioCatalogueScore(model) {
-  if (isUnverifiedSpeechRecord(model)) return null;
+  if (isUnverifiedSpeechRecord(model) || !Number.isFinite(model.quality) || !Number.isFinite(model.speed)) return null;
   const quality = Number(model.quality) || 0;
   const speed = Number(model.speed) || 0;
   return Math.max(0, Math.min(10, quality * 0.68 + speed * 0.32)).toFixed(1);
@@ -211,7 +212,7 @@ function relatedCard(model) {
   return `<a class="similar-card" href="/tts/${esc(model.id)}.html" style="--model-color:${color}">
     <span class="similar-family">${esc(model.developer || model.family || modelKind(model))}</span>
     <strong>${esc(model.name)}</strong>
-    <small>${esc(modelKind(model))} · Q ${esc(model.quality)} · Speed ${esc(model.speed)}</small>
+    <small>${esc(modelKind(model))} · ${Number.isFinite(model.quality) && Number.isFinite(model.speed) ? `Q ${esc(model.quality)} · Speed ${esc(model.speed)}` : 'Not rated'}</small>
   </a>`;
 }
 
@@ -255,11 +256,11 @@ function schemaFor(model, url, desc) {
         '@type': 'SoftwareApplication',
         name: model.name,
         applicationCategory: kind,
-        operatingSystem: isLocal ? 'macOS, Windows, Linux' : 'Web service; API client',
+        operatingSystem: model.operatingSystem || (isLocal ? 'macOS, Windows, Linux' : 'Web service; API client'),
         url,
         description: desc,
         softwareVersion: model.releaseDate || undefined,
-        softwareRequirements: isLocal ? `${model.sizeGB || 'Unknown'} GB model size; ${niceList(model.hardware)}` : 'Internet connection and upstream vendor service',
+        softwareRequirements: model.systemRequirements || (isLocal ? `${model.sizeGB || 'Unknown'} GB model size; ${niceList(model.hardware)}` : 'Internet connection and upstream vendor service'),
         license: model.license || undefined,
         creator: model.developer ? { '@type': 'Organization', name: model.developer } : undefined
       },
@@ -272,7 +273,7 @@ function schemaFor(model, url, desc) {
             acceptedAnswer: {
               '@type': 'Answer',
               text: isLocal
-                ? `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
+                ? `${model.name} is listed by LocalClaw as a local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : (model.features || []).includes('audio-language') ? 'audio-language model' : model.isOrchestrator ? 'speech app' : 'TTS'} option. Hardware fit depends on runtime, model size and backend support.`
                 : `${model.name} is an online or vendor API reference, not a verified local speech model. An internet connection and the upstream service are required.`
             }
           },
@@ -367,15 +368,18 @@ function page(model, all) {
   const color = voiceColor(model);
   const isLocal = isLocalSpeechModel(model);
   const isUnverified = isUnverifiedSpeechRecord(model);
+  const rated = Number.isFinite(model.quality) && Number.isFinite(model.speed);
   const hasAudioExample = Boolean(externalMedia.voice && externalMedia.voice[model.id]);
   const url = `${BASE}/tts/${encodeURIComponent(model.id)}.html`;
   const title = isUnverified
     ? `${model.name}: preserved unverified speech reference | LocalClaw`
     : isLocal
-    ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
+    ? `${model.name} local ${model.isAsr ? 'ASR' : model.isOrchestrator && (model.features || []).includes('speech-translation') ? 'speech translation' : (model.features || []).includes('audio-language') ? 'audio-language model' : model.isOrchestrator ? 'speech app' : 'TTS'}: quality, speed and setup | LocalClaw`
     : `${model.name} online speech reference: quality, speed and access | LocalClaw`;
   const desc = isUnverified
     ? `${model.name}: preserved catalogue route. No exact public checkpoint, release, score or installation path was verified on August 14, 2026.`.slice(0, 158)
+    : !rated
+    ? `${model.name}: local ${modelTask(model)}, ${model.languageCount || (model.languages || []).length} languages, hardware requirements, licence and official setup.`.slice(0, 158)
     : isLocal
     ? `${model.name}: local ${modelTask(model)} guide with quality ${model.quality}/10, speed ${model.speed}/10, ${model.languageCount || (model.languages || []).length || '?'} languages, hardware and install notes.`.slice(0, 158)
     : `${model.name}: online/vendor API speech reference with quality ${model.quality}/10, speed ${model.speed}/10, access requirements, licence and upstream link.`.slice(0, 158);
@@ -393,6 +397,8 @@ function page(model, all) {
       : '<a class="btn secondary" href="/pricing.html">Get LocalClaw</a>';
   const scorePanel = isUnverified
     ? '<div class="score-label">Verification status</div><div class="score">Unverified</div><p class="score-caption">No Audio, quality or speed score is published because no exact model release or checkpoint was verified.</p>'
+    : !rated
+    ? '<div class="score-label">Audio catalogue score</div><div class="score">Not rated</div><p class="score-caption">No catalogue quality or speed rating has been assigned. For rated records: 68% quality and 32% speed, capped at 10; not a standardized third-party benchmark.</p>'
     : `<div class="score-label">${isLocal ? 'Audio catalogue score' : 'Audio profile score'}</div><div class="score">${audioScore}<small>/10</small></div><p class="score-caption">Editorial repository fields: 68% quality and 32% speed, capped at 10. This is not a standardized third-party benchmark; community stars and hardware fit remain separate.</p>`;
   const communityPanel = isUnverified
     ? '<p class="muted">Community model ratings are disabled for this unverified reference.</p>'
@@ -404,8 +410,8 @@ function page(model, all) {
   const installPickerStyles = installPicker.includes('runtime-launch-assist-20260821a.js') ? runtimeLaunchAssistThemeStyles : '';
   const specsSection = isUnverified ? '' : `
     <section class="specs" aria-label="Model specs">
-      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${esc(model.quality)}/10</div></div>
-      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">${esc(model.speed)}/10</div></div>
+      <div class="spec-card"><div class="k">Catalogue quality</div><div class="v">${Number.isFinite(model.quality) ? `${esc(model.quality)}/10` : 'Not rated'}</div></div>
+      <div class="spec-card"><div class="k">Catalogue speed</div><div class="v">${Number.isFinite(model.speed) ? `${esc(model.speed)}/10` : 'Not rated'}</div></div>
       <div class="spec-card"><div class="k">Model size</div><div class="v">${esc(model.sizeLabel || (Number.isFinite(Number(model.sizeGB)) ? `${model.sizeGB} GB` : 'Not verified'))}</div></div>
       <div class="spec-card"><div class="k">Voices</div><div class="v">${esc(model.voices || 'Varies')}</div></div>
     </section>`;
@@ -424,7 +430,7 @@ function page(model, all) {
       <div class="source-links">${sourceLink}</div>
       <div style="margin-top:18px">${features}</div>
     </section>`;
-  const profileSection = isUnverified ? '' : `
+  const profileSection = isUnverified || !rated ? '' : `
     <section class="section cols">
       <div>
         <h2>Audio profile</h2>
@@ -668,7 +674,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 118 || localModels.length !== 115 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 119 || localModels.length !== 116 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -692,7 +698,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('115<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('116<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 

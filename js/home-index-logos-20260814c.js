@@ -148,6 +148,7 @@ window.HOME_INDEX_LOGOS = {
     miso: 'misolabs-avatar',
     maya: 'huggingface-avatar',
     mizar: 'huggingface-avatar',
+    ossicle: 'huggingface-avatar',
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',

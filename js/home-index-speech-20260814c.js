@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "ossicle-4b",
+    "name": "Ossicle-4B",
+    "developer": "SILVERTHRONE",
+    "family": "ossicle",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-25",
+    "quality": null,
+    "speed": null,
+    "type": "APP",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 9.724
+  },
+  {
     "id": "luciole-8b-audio-1.0",
     "name": "Luciole 8B Audio 1.0",
     "developer": "OpenLLM France / LINAGORA",

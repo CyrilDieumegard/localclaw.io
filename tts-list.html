@@ -1937,6 +1937,46 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "ossicle-4b",
+                "operatingSystem": "See upstream PyTorch GPU setup",
+                "systemRequirements": "16 GB GPU configuration for single-pass BF16; Transformers 5.17 tested upstream. Chat and two-pass modes require additional model memory.",
+                "name": "Ossicle-4B",
+                "developer": "SILVERTHRONE",
+                "family": "ossicle",
+                "isOrchestrator": true,
+                "description": "English audio-language model for questions about speech and sound. Combines the Qwen3-Omni audio encoder with a Qwen3.5-4B backbone and merged LoRA weights. The complete checkpoint runs locally with PyTorch and Transformers; the single-pass ask mode returns text, not generated audio.",
+                "languages": [
+                    "en"
+                ],
+                "languageCount": 1,
+                "features": [
+                    "audio-language",
+                    "long-form"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 9.724,
+                "sizeLabel": "4.856B parameters; 9.724 GB safetensors",
+                "sizeCategory": "xl",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-10-25",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/SILVERTHRONE/Ossicle-4B",
+                "sourceStatus": "verified-code",
+                "installCommand": "pip install torch transformers soundfile scipy numpy",
+                "supportedFormats": [
+                    "pytorch",
+                    "transformers",
+                    "safetensors"
+                ],
+                "voices": "N/A: text answers; no speech synthesis, voice cloning or audio streaming",
+                "context": "Single-pass ask mode: author documents a 16 GB GPU configuration, 9.9 GB BF16 memory and 13.1 GB peak for 10 minutes of audio. The 16 GB comparison uses a 15 GiB PyTorch cap on an AMD RX 7900 XT 20 GB; it is not a measured system-RAM minimum. Transformers 5.17 tested upstream, trust_remote_code=True required. Chat and two-pass modes download Qwen3.5-4B separately; chat adds about 6 GB. Long-audio mode and 4-bit model loading remain in development. Only English is documented. Sources: HF model card and github.com/SILVERTHRONE32/ossicle-4b.",
+                "license": "Apache 2.0"
+            },
+            {
                 id: "luciole-8b-audio-1.0",
                 name: "Luciole 8B Audio 1.0",
                 developer: "OpenLLM France / LINAGORA",
@@ -5106,8 +5146,8 @@
             if (models.length < 2) return;
             const rows = [
                 ['Developer', m => m.developer],
-                ['Quality', m => `<span class="${qualityColor(m.quality)}">${m.quality}/10</span>`],
-                ['Speed', m => `${m.speed}/10`],
+                ['Quality', m => `<span class="${qualityColor(m.quality)}">${Number.isFinite(m.quality) ? `${m.quality}/10` : 'Not rated'}</span>`],
+                ['Speed', m => `${Number.isFinite(m.speed) ? `${m.speed}/10` : 'Not rated'}`],
                 ['Size', m => m.sizeLabel || `${m.sizeGB} GB`],
                 ['Latency', m => m.latency],
                 ['Languages', m => `${m.languageCount}`],
@@ -5170,7 +5210,7 @@
                 const latencyLabel = String(model.latency || '').replace('-', ' ');
                 const formats = model.supportedFormats || [];
                 const formatSummary = formats.slice(0, 2).map(f => f.toUpperCase()).join(' · ') + (formats.length > 2 ? ` +${formats.length - 2}` : '');
-                const audioScore = isUnverified ? null : Math.min(10, (model.quality * 0.68) + (model.speed * 0.32)).toFixed(1);
+                const audioScore = isUnverified || !Number.isFinite(model.quality) || !Number.isFinite(model.speed) ? null : Math.min(10, (model.quality * 0.68) + (model.speed * 0.32)).toFixed(1);
                 const bestForLabels = [
                     ['cloning', 'Voice cloning'],
                     ['realtime', 'Realtime voice'],
@@ -5183,7 +5223,7 @@
                     ['sfx', 'SFX']
                 ];
                 const matchedBestFor = bestForLabels.find(([feature]) => model.features.includes(feature));
-                const bestFor = isUnverified ? 'Preserved route only' : (model.delivery === 'online' ? 'Online speech service' : (model.delivery === 'api' ? 'Vendor speech API' : (model.isAsr ? 'Speech-to-text' : (model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech')))));
+                const bestFor = isUnverified ? 'Preserved route only' : (model.delivery === 'online' ? 'Online speech service' : (model.delivery === 'api' ? 'Vendor speech API' : (model.isAsr ? 'Speech-to-text' : (model.features.includes('audio-language') ? 'Audio question answering' : model.isOrchestrator ? 'Local app layer' : (matchedBestFor ? matchedBestFor[1] : 'Local speech')))));
 
                 const features = model.features.map(f => {
                     const classes = {
@@ -5240,6 +5280,7 @@
                     : `<div data-community-rating data-model-id="tts-${model.id}" data-rating-mode="compact" data-rating-theme="voice" data-rating-label="Community voice rating" data-rating-subject="voice model"></div>`;
                 const voicePanelMarkup = isUnverified
                     ? `<div class="voice-panel"><p class="card-desc">No Audio score, quality score or speed score is published for this unverified reference.</p></div>`
+                    : audioScore === null ? `<div class="voice-panel"><p class="card-desc">Not rated: no catalogue quality or speed rating assigned.</p></div>`
                     : `<div class="voice-panel">
                         <div class="voice-score">
                             <span class="score-label">Audio score</span>

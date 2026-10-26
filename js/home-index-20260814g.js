@@ -182,7 +182,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             if (!['quality', 'coding', 'reasoning', 'speed'].every(key => hasScore(ratings[key]))) return null;
             return (finite(ratings.quality) * 0.38) + (finite(ratings.coding) * 0.24) + (finite(ratings.reasoning) * 0.24) + (finite(ratings.speed) * 0.14);
         };
-        const speechScore = (model) => Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
+        const speechScore = (model) => !hasScore(model.quality) || !hasScore(model.speed) ? null : Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
         const scoreLabel = (value) => hasScore(value) ? value.toFixed(1) : 'Not rated';
         const communityAggregate = (modelId) => communityRatings.get(modelId) || {average: 0, count: 0};
         const speechCommunityId = (model) => `tts-${model.id}`;
@@ -416,7 +416,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
         const renderSpeechRows = (models, offset = 0) => models.map((model, index) => {
             const overall = speechScore(model);
-            const scoreTitle = `LocalClaw audio score ${scoreLabel(overall)} out of 10. Quality ${finite(model.quality)}; speed ${finite(model.speed)}.`;
+            const scoreTitle = overall === null ? 'No catalogue rating available' : `LocalClaw audio score ${scoreLabel(overall)} out of 10. Quality ${finite(model.quality)}; speed ${finite(model.speed)}.`;
             const hardware = (model.hardware || []).map(prettyTerm).join(' · ');
             return `<a class="lc-index-tts-row" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
                 <span class="lc-index-tts-rank">${String(offset + index + 1).padStart(2, '0')}</span>

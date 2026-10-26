@@ -177,13 +177,14 @@ function githubUrl(command = '') {
 }
 
 function speechInstallPicker(model) {
+  const isAudioLanguage = (model.features || []).includes('audio-language');
   if (!model.hfLink) return '';
   const category = 'voice';
   const isGithub = /^https:\/\/github\.com\//.test(model.hfLink);
   const cards = [installCard({
     platform: isGithub ? 'github' : 'huggingface',
-    label: model.isOrchestrator ? `Open ${model.name}` : isGithub ? 'Open official setup' : 'Open model files',
-    note: model.isOrchestrator ? 'Native application and release instructions' : 'Recommended verified starting point',
+    label: isAudioLanguage ? 'Open model files' : model.isOrchestrator ? `Open ${model.name}` : isGithub ? 'Open official setup' : 'Open model files',
+    note: isAudioLanguage ? 'Model weights and official local setup' : model.isOrchestrator ? 'Native application and release instructions' : 'Recommended verified starting point',
     href: model.hfLink,
     model,
     category,
