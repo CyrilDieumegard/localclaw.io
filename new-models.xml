@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 25 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Nanbeige4.3 33B</title>
+      <link>https://localclaw.io/models/nanbeige4-3-33b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/nanbeige4-3-33b</guid>
+      <pubDate>Sat, 24 Oct 2026 12:00:00 GMT</pubDate>
+      <category>nanbeige</category>
+      <description>Apache 2.0 English/Chinese coding and tool-use model from Nanbeige. Bartowski Q4_K_M GGUF is 20.79GB. Plan for 32GB RAM at short context; the 512K model limit needs substantially more memory. Use llama.cpp b11845 or newer. 33B (dense) · 32 GB minimum RAM · Q4_K_M · nanbeige.</description>
+    </item>
     <item>
       <title>Recursive Flint 40B-A2.5B</title>
       <link>https://localclaw.io/models/flint-40b-a2-5b</link>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
       <category>spark</category>
       <description>Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows. 4B · 16 GB minimum RAM · BF16 GGUF · spark.</description>
-    </item>
-    <item>
-      <title>Spark-X2.5-1.7B</title>
-      <link>https://localclaw.io/models/spark-x2-5-1-7b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/spark-x2-5-1-7b</guid>
-      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
-      <category>spark</category>
-      <description>Spark-X2.5-1.7B is the smaller Apache 2.0 Spark-X2.5 release, tuned for lightweight conversation, coding, reasoning and agentic workflows with a 1M-token native context claim and official GGUF local runtime artifacts. 1.7B · 8 GB minimum RAM · BF16 GGUF · spark.</description>
     </item>
   </channel>
 </rss>

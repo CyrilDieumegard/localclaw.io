@@ -1,5 +1,6 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
+// Updated October 26, 2026 - Added Nanbeige4.3 33B - 260 unique LLM records
+// Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
 // Previous: October 13, 2026 - Added MiniCPM-V 4.7 1B + 35B-A3B - 254 unique LLM records
@@ -86,6 +87,43 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "nanbeige4-3-33b",
+            "name": "Nanbeige4.3 33B",
+            "family": "nanbeige",
+            "params": "33B (dense)",
+            "size_gb": 20.79,
+            "min_ram": 32,
+            "ram_estimate": true,
+            "tags": [
+                "code",
+                "reasoning",
+                "tool-calling",
+                "long-context"
+            ],
+            "description": "Apache 2.0 English/Chinese coding and tool-use model from Nanbeige. Bartowski Q4_K_M GGUF is 20.79GB. Plan for 32GB RAM at short context; the 512K model limit needs substantially more memory. Use llama.cpp b11845 or newer.",
+            "search_term": "Nanbeige4.3-33B",
+            "recommended_quant": "Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "Q4_K_M",
+                    "size_gb": 20.79,
+                    "file": "Nanbeige_Nanbeige4.3-33B-Q4_K_M.gguf"
+                },
+                {
+                    "quant": "Q8_0",
+                    "size_gb": 35.2,
+                    "file": "Nanbeige_Nanbeige4.3-33B-Q8_0.gguf"
+                }
+            ],
+            "hf_repo": "bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",
+            "source_url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+            "runtime_url": "https://huggingface.co/bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",
+            "custom_runtime": "llama.cpp b11845 or newer; start with a short context such as 4096 tokens",
+            "benchmarks": {},
+            "released": "2026-10-24",
+            "isNew": true
+        },
         {
             "id": "flint-40b-a2-5b",
             "name": "Recursive Flint 40B-A2.5B",
@@ -4427,10 +4465,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-25T07:03:04.851Z",
-        catalogueHash: "fbe9153547e7556a49d9a6e88800c6426e3f68f255b55f532c5fd8484325ea23",
+        checkedAt: "2026-10-26T06:58:26.006Z",
+        catalogueHash: "192128c0246e532bbef4c64ceb03be0df13053007cc13165e7f7156a226b7831",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "nanbeige4-3-33b": "bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",
             "flint-40b-a2-5b": "ggml-org/Flint-GGUF",
             "raon-1-mini-preview": "KRAFTON/Raon-1-mini-preview-gguf",
 

@@ -4,6 +4,38 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "nanbeige4-3-33b": {
+        "developer": "Nanbeige LLM Lab",
+        "developer_url": "https://huggingface.co/Nanbeige",
+        "context_window": 524288,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+        "architecture": "Dense Llama-compatible causal decoder, 52 layers, 56 attention heads and 8 key/value heads. 33B parameters.",
+        "training_data": "Official Nanbeige4.3 family release built on Nanbeige4.3-33B-Base. Full training corpus and recipe are not disclosed in the model card.",
+        "strengths": [
+            "English and Chinese text workflows",
+            "Coding, reasoning and multi-turn tool use",
+            "Thinking and non-thinking modes via the official chat template",
+            "Established Bartowski GGUF artifacts with llama.cpp instructions"
+        ],
+        "weaknesses": [
+            "32GB RAM is a conservative short-context planning estimate based on the 20.79GB Q4_K_M file, not a measured minimum",
+            "524,288 tokens is the configured ceiling, not a promise of full-context operation in 32GB",
+            "Use llama.cpp b11845 or newer; tool parsing depends on runtime and chat-template support",
+            "Developer benchmarks are not independent LocalClaw ratings"
+        ],
+        "use_cases": [
+            "Local coding assistance",
+            "Private English and Chinese chat",
+            "Tool-calling agents",
+            "Document reasoning at a memory-appropriate context length"
+        ],
+        "similar_models": [
+            "qwen3.8-27b",
+            "flint-40b-a2-5b"
+        ],
+        "official_blog": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B"
+    },
     "flint-40b-a2-5b": {
         "developer": "Recursive",
         "developer_url": "https://www.recursive.com/",
