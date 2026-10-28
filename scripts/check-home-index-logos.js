@@ -86,7 +86,7 @@ for (const marker of [
 if ((homepageJs.match(/class="lc-index-control-label"><span>Search<\/span>/g) || []).length !== 3) {
   missing.push('Homepage search controls must share the visible filter-label alignment');
 }
-for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', '.lc-home-machine-card__visual img', 'img[src$="-card-v2.png"]', 'img[src^="images/hardware/mac-"]', '.lc-home-machine-card__selected', '.lc-home-machine-status__state', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }', '.lc-index-table th.lc-index-action-col']) {
+for (const marker of ['lc-index-compare-dialog', 'lc-index-fit.is-tight', 'lc-home-machine-list', '.lc-home-machine-card.is-active', '.lc-home-machine-card__visual img', 'img[src$="-card-v2.png"]', 'img[src^="images/hardware/mac-"]', '.lc-home-machine-card__selected', '.lc-home-machine-status__state', 'lc-index-multimodal-card__developer', 'lc-index-multimodal-card__rating', 'lc-index-community--multimodal', '.lc-index-multimodal-card:focus-visible', 'cursor: pointer', '.lc-index-fact__value--stacked', '.lc-index-fact__label--detail', 'select.lc-index-control { padding-right: 36px; }', '.lc-index-table-nav']) {
   if (!homepageCss.includes(marker)) missing.push(`Homepage style marker: ${marker}`);
 }
 if (!homepageCss.includes('.lc-sponsor-rail {\n    position: sticky;\n    top: 128px;')) missing.push('Sponsor rails must preserve their initial 48px gap below the 80px sticky navigation');
@@ -94,7 +94,7 @@ if (homepageJs.includes('lc-index-hero__mascot') || homepageCss.includes('lc-ind
 if (homepageJs.includes('<section class="lc-index-facts"')) missing.push('Homepage hero metric cards should remain removed');
 if (homepageJs.includes('lc-index-hero__guide-link')) missing.push('Homepage hero tertiary guide link should remain removed');
 if (homepageJs.includes('lc-home-machine-card__image--dark') || homepageCss.includes('lc-home-machine-card__image--dark')) missing.push('Saved-machine cards must reuse the light-mode image in dark mode');
-for (const marker of ['css/home-index-20260814g.css?v=20261012empty1', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20261028voice1', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20261028voice1', 'js/local-ai-catalog-20260824a.js?v=20261023three1', 'js/home-index-20260814g.js?v=20261028voice1']) {
+for (const marker of ['css/home-index-20260814g.css?v=20261028table1', 'js/bg-circuit.js?v=20260822a', 'js/home-index-speech-20260814c.js?v=20261028voice1', 'js/home-index-avatar-formats-20260814a.js?v=20260816e', 'js/home-index-logos-20260814c.js?v=20261028voice1', 'js/local-ai-catalog-20260824a.js?v=20261023three1', 'js/home-index-20260814g.js?v=20261028table1']) {
   if (!homepageHtml.includes(marker)) missing.push(`Homepage version marker: ${marker}`);
 }
 for (const marker of ["matchMedia('(prefers-reduced-motion: reduce)')", "document.addEventListener('visibilitychange'", 'cancelAnimationFrame(animationFrame)']) {

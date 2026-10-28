@@ -513,7 +513,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <label class="lc-index-control-label"><span>Model family</span><select id="lc-index-family" class="lc-index-control"><option value="all">All families</option>${llmFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(familyLabel(family))}</option>`).join('')}</select></label>
                             <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-sort" class="lc-index-control"><option value="score">LocalClaw score</option><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="quality">Quality, highest</option><option value="coding">Coding, highest</option><option value="reasoning">Reasoning, highest</option><option value="speed">Speed, highest</option><option value="fresh">Release date</option><option value="ram">Minimum RAM</option><option value="params">Parameters</option><option value="name">Model name</option><option value="family">Family</option><option value="license">Licence</option><option value="catalogue">Catalogue order</option></select></label>
                         </div>
-                        <div class="lc-index-table-wrap">
+                        <div id="lc-index-table-nav" class="lc-index-table-nav" hidden><p id="lc-index-table-hint">All 9 columns are available. Scroll sideways to see more.</p><div><button id="lc-index-table-prev" type="button" aria-label="Scroll model table left" aria-controls="lc-index-table-scroll">←</button><button id="lc-index-table-next" type="button" aria-label="Scroll model table right" aria-controls="lc-index-table-scroll">→</button></div></div>
+                        <div id="lc-index-table-scroll" class="lc-index-table-wrap" role="region" aria-label="Local LLM catalogue" aria-describedby="lc-index-table-hint" tabindex="0">
                             <table class="lc-index-table">
                                 <thead><tr><th class="lc-index-rank" scope="col">Rank</th><th class="lc-index-model-col" scope="col" data-sort-key="name" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="name" data-sort-label="model name">Model / family<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-score-col" scope="col" data-sort-key="score" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="score" data-sort-label="LocalClaw score"><span class="lc-index-score-heading">LocalClaw</span><span class="lc-index-score-heading-compact" aria-hidden="true">/10</span><span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-community-col" scope="col" data-sort-key="community" aria-sort="descending"><button class="lc-index-sort-button" type="button" data-sort-key="community" data-sort-label="community confidence">Community<span class="lc-index-sort-indicator" aria-hidden="true">↓</span></button></th><th scope="col" data-sort-key="params" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="params" data-sort-label="parameter count">Params<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="ram" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="ram" data-sort-label="minimum RAM">Min RAM<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="license" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="license" data-sort-label="licence">Licence<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="fresh" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="fresh" data-sort-label="release date">Released<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-action-col" scope="col">Compare</th></tr></thead>
                                 <tbody id="lc-index-model-rows">${renderModelRows(rankedModels.slice(0, LLM_PAGE_SIZE))}</tbody>
@@ -687,6 +688,25 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         const family = document.getElementById('lc-index-family');
         const sort = document.getElementById('lc-index-sort');
         const rows = document.getElementById('lc-index-model-rows');
+        const tableScroll = document.getElementById('lc-index-table-scroll');
+        const tableNav = document.getElementById('lc-index-table-nav');
+        const tablePrev = document.getElementById('lc-index-table-prev');
+        const tableNext = document.getElementById('lc-index-table-next');
+        const syncTableScroll = () => {
+            const maxScroll = tableScroll.scrollWidth - tableScroll.clientWidth;
+            tableNav.hidden = maxScroll <= 1;
+            tablePrev.disabled = tableScroll.scrollLeft <= 1;
+            tableNext.disabled = tableScroll.scrollLeft >= maxScroll - 1;
+        };
+        const scrollTable = (direction) => tableScroll.scrollBy({
+            left: direction * tableScroll.clientWidth * 0.75,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        });
+        tablePrev.addEventListener('click', () => scrollTable(-1));
+        tableNext.addEventListener('click', () => scrollTable(1));
+        tableScroll.addEventListener('scroll', syncTableScroll, {passive: true});
+        new ResizeObserver(syncTableScroll).observe(tableScroll);
+        syncTableScroll();
         const count = document.getElementById('lc-index-result-count');
         const modelMore = document.getElementById('lc-index-model-more');
         const resultStatus = document.getElementById('lc-index-result-status');
