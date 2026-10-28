@@ -1937,6 +1937,56 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "maya-2-native",
+                "name": "Maya 2 Native",
+                "developer": "Maya Research",
+                "family": "maya",
+                "description": "Streaming 2.50B text-to-speech model for 11 Indic languages and English, with 20 built-in voices and zero-shot cross-lingual voice cloning from 3-10 seconds of reference audio. Official Linux CUDA inference produces 24 kHz mono audio in 80 ms frames.",
+                "languages": [
+                    "as",
+                    "bn",
+                    "en",
+                    "gu",
+                    "hi",
+                    "kn",
+                    "ml",
+                    "mr",
+                    "or",
+                    "pa",
+                    "ta",
+                    "te"
+                ],
+                "languageCount": 12,
+                "features": [
+                    "multilingual",
+                    "voice-cloning",
+                    "streaming"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 5.0,
+                "sizeLabel": "2.50B unique parameters; approximately 5 GB BF16 weights, plus codec and speaker encoder",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-10-26",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/maya-research/maya2-native",
+                "sourceStatus": "verified-code",
+                "installCommand": "pip install \"maya3[server] @ git+https://github.com/MayaResearch/maya2-native\" --extra-index-url https://download.pytorch.org/whl/cu128",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors"
+                ],
+                "operatingSystem": "Linux",
+                "systemRequirements": "Python 3.10-3.12; NVIDIA GPU with CUDA 12.8 driver. 12 GB or larger VRAM recommended for max_seats=1; approximately 9.2 GB loading peak plus 0.5 GB CUDA context.",
+                "voices": "20 built-in voices; zero-shot and cross-lingual cloning with 3-10 seconds of reference audio and its exact transcript",
+                "context": "Official HF card and github.com/MayaResearch/maya2-native. BF16 backbone, FP16 depth decoder, 2048 KV tokens per seat: one seat uses 7.7 GB steady GPU memory and peaks at 9.2 GB during loading, plus about 0.5 GB CUDA context. Upstream README says 8 GB+, but its loading measurements exceed that; the model card recommends 12 GB or larger. Increasing max_seats raises memory usage. Cache model, Kyutai Mimi codec and SpeechBrain ECAPA encoder before offline inference. Assamese is cross-lingual for every built-in voice. Cloning quality varies and has no dedicated benchmark in this release. No local inference test performed.",
+                "license": "Apache 2.0 weights/code; Mimi codec CC-BY-4.0; ECAPA Apache 2.0"
+            },
+            {
                 "id": "ossicle-4b",
                 "operatingSystem": "See upstream PyTorch GPU setup",
                 "systemRequirements": "16 GB GPU configuration for single-pass BF16; Transformers 5.17 tested upstream. Chat and two-pass modes require additional model memory.",

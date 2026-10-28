@@ -1,6 +1,6 @@
 # LocalClaw Full Local Model Index
 
-> Generated 2026-10-28 from the LocalClaw repository catalogue. This file lists all 527 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
+> Generated 2026-10-28 from the LocalClaw repository catalogue. This file lists all 528 local records shown by the homepage. Hosted-only, online/API-only and exact-repository-unavailable records are excluded.
 
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at https://localclaw.io/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
@@ -275,7 +275,7 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 254 [Spark-X2.6 4B](https://localclaw.io/models/spark-x2-6-4b) — family: spark; LocalClaw: Not rated/10; parameters: 4.11B; minimum RAM: 8 GB; licence: Apache 2.0; released: Oct 19, 2026.
 - 255 [NVIDIA Dory 1.0 4B](https://localclaw.io/models/nemotron-dory-1-0-4b) — family: nemotron; LocalClaw: Not rated/10; parameters: 4B; minimum RAM: 16 GB; licence: OpenMDW 1.1; released: Oct 16, 2026.
 
-## Local Speech Models (116)
+## Local Speech Models (117)
 
 - 01 [Parakeet TDT 0.6B v2](https://localclaw.io/tts/parakeet-tdt-0.6b-v2) — family: parakeet; type: ASR; Audio: 9.6/10; quality: 9.4/10; speed: 10.0/10; licence: CC-BY-4.0; released: May 2025.
 - 02 [Parakeet TDT 0.6B v3](https://localclaw.io/tts/parakeet-tdt-0.6b-v3) — family: parakeet; type: ASR; Audio: 9.6/10; quality: 9.5/10; speed: 9.7/10; licence: CC-BY-4.0; released: Aug 2025.
@@ -392,7 +392,8 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - 113 [Tortoise TTS](https://localclaw.io/tts/tortoise-tts) — family: tortoise; type: TTS; Audio: 7.1/10; quality: 9.1/10; speed: 3.0/10; licence: Apache 2.0; released: May 2022.
 - 114 [Bark (Suno)](https://localclaw.io/tts/bark) — family: bark; type: TTS; Audio: 7.1/10; quality: 8.5/10; speed: 4.0/10; licence: MIT; released: Apr 2023.
 - 115 [eSpeak NG](https://localclaw.io/tts/espeak-ng) — family: espeak; type: TTS; Audio: 6.9/10; quality: 5.5/10; speed: 10.0/10; licence: GPL-3.0; released: Jan 2010.
-- 116 [Ossicle-4B](https://localclaw.io/tts/ossicle-4b) — family: ossicle; type: APP; Audio: 0.0/10; quality: Not rated/10; speed: Not rated/10; licence: Apache 2.0; released: Oct 25, 2026.
+- 116 [Maya 2 Native](https://localclaw.io/tts/maya-2-native) — family: maya; type: TTS; Audio: 0.0/10; quality: Not rated/10; speed: Not rated/10; licence: Apache 2.0 weights/code; Mimi codec CC-BY-4.0; ECAPA Apache 2.0; released: Oct 26, 2026.
+- 117 [Ossicle-4B](https://localclaw.io/tts/ossicle-4b) — family: ossicle; type: APP; Audio: 0.0/10; quality: Not rated/10; speed: Not rated/10; licence: Apache 2.0; released: Oct 25, 2026.
 
 ## Local Image Models (5)
 

@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "maya-2-native",
+    "name": "Maya 2 Native",
+    "developer": "Maya Research",
+    "family": "maya",
+    "license": "Apache 2.0 weights/code; Mimi codec CC-BY-4.0; ECAPA Apache 2.0",
+    "releaseDate": "2026-10-26",
+    "quality": null,
+    "speed": null,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 5
+  },
+  {
     "id": "ossicle-4b",
     "name": "Ossicle-4B",
     "developer": "SILVERTHRONE",
