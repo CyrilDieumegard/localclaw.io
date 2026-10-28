@@ -393,6 +393,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const ratings = model.benchmarks || {};
             const overall = llmScore(model);
             const scoreTitle = `LocalClaw catalogue score ${scoreLabel(overall)} out of 10. Quality ${finite(ratings.quality)}; coding ${finite(ratings.coding)}; reasoning ${finite(ratings.reasoning)}; speed ${finite(ratings.speed)}.`;
+            const yourRating = window.LocalClawHomeVoting?.getRating(model.id);
             const isCompared = comparedModelIds.has(model.id);
             const compareLimitReached = comparedModelIds.size >= 3 && !isCompared;
             return `
@@ -403,9 +404,10 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             ${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}
                             <span><strong class="lc-index-model-name">${escapeHtml(model.name)}</strong><span class="lc-index-model-family">${escapeHtml(model.family || 'local model')}</span></span>
                         </a>
+                        <button class="lc-index-vote-mobile" type="button" data-rate-id="${escapeHtml(model.id)}" aria-label="Rate ${escapeHtml(model.name)}">${yourRating ? `★ Your ${yourRating}/5 · Edit` : '☆ Rate this model'}</button>
                     </td>
                     <td class="lc-index-score-cell">${scoreMarkup(overall, scoreTitle)}</td>
-                    <td class="lc-index-community-cell">${communityMarkup(model.id)}</td>
+                    <td class="lc-index-community-cell"><button class="lc-index-vote" type="button" data-rate-id="${escapeHtml(model.id)}" aria-label="Rate ${escapeHtml(model.name)}">${communityMarkup(model.id)}<span class="lc-index-vote-label">${yourRating ? `Your ${yourRating}/5 · Edit` : 'Rate'}</span></button></td>
                     <td>${escapeHtml(model.params || '—')}</td>
                     <td><span class="lc-index-ram-value">${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</span>${fitMarkup(model)}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
@@ -1443,6 +1445,13 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         if (selectedConfiguration) applySelectedConfiguration(selectedConfiguration);
         syncSortControls();
         renderCompareTray();
+        document.addEventListener('localclaw:home-rating-updated', (event) => {
+            const {modelId, aggregate} = event.detail || {};
+            if (!aggregate || !localModels.some(model => model.id === modelId)) return;
+            if (communityState !== 'ready') { loadCommunityRatings(); return; }
+            communityRatings.set(modelId, {average: finite(aggregate.average), count: finite(aggregate.count)});
+            updateIndex(false);
+        });
         loadCommunityRatings();
         loadSavedMachines();
         const seoFallback = document.getElementById('seo-fallback');
