@@ -40,7 +40,7 @@ function releaseDate(released) {
 function modelDescription(model) {
   const facts = [
     model.params,
-    model.min_ram ? `${model.min_ram} GB minimum RAM` : '',
+    model.min_ram ? `${model.min_ram} GB ${model.ram_estimate ? "short-context RAM estimate" : "minimum RAM"}` : '',
     model.recommended_quant,
     model.family
   ].filter(Boolean).join(' · ');

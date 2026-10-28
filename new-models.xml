@@ -6,15 +6,31 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>LFM3 1.7B</title>
+      <link>https://localclaw.io/models/lfm3-1-7b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm3-1-7b</guid>
+      <pubDate>Tue, 27 Oct 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI tri-hybrid text model for multilingual chat, tool calling and structured outputs. Official Q4_K_M GGUF is 1.10GB. Plan for 8GB RAM at short context. Requires LFM3-enabled llama.cpp; not recommended for agentic coding or complex reasoning. 1.73B · 8 GB short-context RAM estimate · Q4_K_M · lfm.</description>
+    </item>
+    <item>
+      <title>LFM3 VL 2B</title>
+      <link>https://localclaw.io/models/lfm3-vl-2b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/lfm3-vl-2b</guid>
+      <pubDate>Tue, 27 Oct 2026 12:00:00 GMT</pubDate>
+      <category>lfm</category>
+      <description>Liquid AI image understanding, OCR and visual reasoning model. Official QAD Q4_0 GGUF plus F16 vision projector totals 1.43GB. Plan for 8GB RAM at short context. Requires LFM3-enabled llama.cpp; video input is not yet supported. 1.92B · 8 GB short-context RAM estimate · Q4_0 · lfm.</description>
+    </item>
     <item>
       <title>Nanbeige4.3 33B</title>
       <link>https://localclaw.io/models/nanbeige4-3-33b</link>
       <guid isPermaLink="true">https://localclaw.io/models/nanbeige4-3-33b</guid>
       <pubDate>Sat, 24 Oct 2026 12:00:00 GMT</pubDate>
       <category>nanbeige</category>
-      <description>Apache 2.0 English/Chinese coding and tool-use model from Nanbeige. Bartowski Q4_K_M GGUF is 20.79GB. Plan for 32GB RAM at short context; the 512K model limit needs substantially more memory. Use llama.cpp b11845 or newer. 33B (dense) · 32 GB minimum RAM · Q4_K_M · nanbeige.</description>
+      <description>Apache 2.0 English/Chinese coding and tool-use model from Nanbeige. Bartowski Q4_K_M GGUF is 20.79GB. Plan for 32GB RAM at short context; the 512K model limit needs substantially more memory. Use llama.cpp b11845 or newer. 33B (dense) · 32 GB short-context RAM estimate · Q4_K_M · nanbeige.</description>
     </item>
     <item>
       <title>Recursive Flint 40B-A2.5B</title>
@@ -22,7 +38,7 @@
       <guid isPermaLink="true">https://localclaw.io/models/flint-40b-a2-5b</guid>
       <pubDate>Wed, 21 Oct 2026 12:00:00 GMT</pubDate>
       <category>flint</category>
-      <description>Apache 2.0 coding-agent model trained from scratch by Recursive. ggml-org Q4_K_M GGUF is 23.39GB. Plan for 48GB RAM at short context; 262K is the model limit, not a memory guarantee. Requires a llama.cpp build with Flint support (PR 30928). 39.8B (2.5B active, MoE) · 48 GB minimum RAM · Q4_K_M · flint.</description>
+      <description>Apache 2.0 coding-agent model trained from scratch by Recursive. ggml-org Q4_K_M GGUF is 23.39GB. Plan for 48GB RAM at short context; 262K is the model limit, not a memory guarantee. Requires a llama.cpp build with Flint support (PR 30928). 39.8B (2.5B active, MoE) · 48 GB short-context RAM estimate · Q4_K_M · flint.</description>
     </item>
     <item>
       <title>Raon-1 mini preview</title>
@@ -30,7 +46,7 @@
       <guid isPermaLink="true">https://localclaw.io/models/raon-1-mini-preview</guid>
       <pubDate>Wed, 21 Oct 2026 12:00:00 GMT</pubDate>
       <category>raon</category>
-      <description>KRAFTON Apache 2.0 model trained from scratch, focused on Korean conversation and agentic tasks. Official Q4_K_M GGUF is 19.69GB. Plan for 32GB RAM at short context. Preview release requires the KRAFTON llama.cpp branch; 262K context needs separate memory planning. 28.8B (4.3B active, MoE) · 32 GB minimum RAM · Q4_K_M · raon.</description>
+      <description>KRAFTON Apache 2.0 model trained from scratch, focused on Korean conversation and agentic tasks. Official Q4_K_M GGUF is 19.69GB. Plan for 32GB RAM at short context. Preview release requires the KRAFTON llama.cpp branch; 262K context needs separate memory planning. 28.8B (4.3B active, MoE) · 32 GB short-context RAM estimate · Q4_K_M · raon.</description>
     </item>
     <item>
       <title>Spark-X2.6 4B</title>
@@ -151,22 +167,6 @@
       <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
       <category>deepseek-flash</category>
       <description>Official MIT DeepSeek V4.1 Flash release with CED architecture, CSA2 attention, multimodal input and 1M-token context. Community GGUF artifacts include split Q2_K/Q3/Q4 builds plus a llama.cpp patch path; use only on 256GB+ workstations, with 384GB+ safer. 552B MoE (8B/16B active) · 256 GB minimum RAM · Q2_K · deepseek-flash.</description>
-    </item>
-    <item>
-      <title>MiniCPM5 2B</title>
-      <link>https://localclaw.io/models/minicpm5-2b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/minicpm5-2b</guid>
-      <pubDate>Tue, 08 Sep 2026 12:00:00 GMT</pubDate>
-      <category>minicpm</category>
-      <description>Official OpenBMB compact on-device LLM with Apache 2.0 licensing, 131K context, tool-calling and coding focus, plus official Q4_K_M GGUF, Ollama, llama.cpp, Docker and OpenClaw run paths. 2B · 4 GB minimum RAM · Q4_K_M · minicpm.</description>
-    </item>
-    <item>
-      <title>Spark-X2.5-4B</title>
-      <link>https://localclaw.io/models/spark-x2-5-4b</link>
-      <guid isPermaLink="true">https://localclaw.io/models/spark-x2-5-4b</guid>
-      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
-      <category>spark</category>
-      <description>Spark-X2.5-4B is an Apache 2.0 compact general-purpose model from XHToken with a hybrid attention architecture, 1M-token native context, multilingual coverage and official GGUF artifacts for local llama.cpp, Ollama and LM Studio-compatible workflows. 4B · 16 GB minimum RAM · BF16 GGUF · spark.</description>
     </item>
   </channel>
 </rss>

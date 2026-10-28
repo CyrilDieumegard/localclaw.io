@@ -4,6 +4,108 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "lfm3-1-7b": {
+        "developer": "Liquid AI",
+        "developer_url": "https://www.liquid.ai/",
+        "context_window": 262144,
+        "license": "LFM 1.0",
+        "license_url": "https://huggingface.co/LiquidAI/LFM3-1.7B/blob/main/LICENSE",
+        "architecture": "24-layer tri-hybrid LFM3 backbone: 13 gated short convolutions, 5 sliding-window attention and 6 global attention layers. 1.73B parameters.",
+        "training_data": "Liquid AI reports 22T pre-training tokens for LFM3-1.7B-Base, followed by official family post-training. The complete training corpus is not disclosed.",
+        "languages": [
+            "English",
+            "Arabic",
+            "Chinese",
+            "French",
+            "German",
+            "Italian",
+            "Japanese",
+            "Korean",
+            "Portuguese",
+            "Spanish",
+            "Vietnamese",
+            "Thai",
+            "Indonesian",
+            "Hindi",
+            "Russian",
+            "Polish"
+        ],
+        "strengths": [
+            "Canonical Liquid AI release built on its new LFM3 backbone",
+            "Official GGUF weights and merged llama.cpp implementation",
+            "Tool calling, structured output and multilingual chat"
+        ],
+        "weaknesses": [
+            "8GB RAM is a conservative short-context planning estimate, not a measured minimum; allow headroom for the OS and runtime",
+            "The configured context ceiling needs separate memory planning",
+            "LFM 1.0 is a custom open-weight license with a $10M annual revenue threshold for commercial use; see the license terms",
+            "Requires llama.cpp commit 19cce6919992fdffd92e0ac152caaf1e2b8f254e or a later build containing PR 31252; stock Ollama/LM Studio support is not confirmed",
+            "MLX artifacts exist but the official card still marks runtime support as in progress",
+            "Liquid AI does not recommend this small model for agentic coding or complex multi-step reasoning",
+            "Developer benchmarks are not independent LocalClaw ratings"
+        ],
+        "use_cases": [
+            "Private multilingual chat",
+            "Local tool-calling agents",
+            "Structured text extraction"
+        ],
+        "similar_models": [
+            "lfm2-5-2-6b",
+            "spark-x2-6-4b"
+        ],
+        "official_blog": "https://www.liquid.ai/blog/lfm3"
+    },
+    "lfm3-vl-2b": {
+        "developer": "Liquid AI",
+        "developer_url": "https://www.liquid.ai/",
+        "context_window": 131072,
+        "license": "LFM 1.0",
+        "license_url": "https://huggingface.co/LiquidAI/LFM3-VL-2B/blob/main/LICENSE",
+        "architecture": "24-layer tri-hybrid LFM3 backbone: 13 gated short convolutions, 5 sliding-window attention and 6 global attention layers. 1.73B language backbone, 164M vision encoder and 25M projector.",
+        "training_data": "Liquid AI reports 22T pre-training tokens for LFM3-1.7B-Base, followed by official family post-training. The complete training corpus is not disclosed.",
+        "languages": [
+            "English",
+            "Arabic",
+            "Chinese",
+            "French",
+            "German",
+            "Italian",
+            "Japanese",
+            "Korean",
+            "Portuguese",
+            "Spanish",
+            "Vietnamese",
+            "Thai",
+            "Indonesian",
+            "Hindi",
+            "Russian",
+            "Polish"
+        ],
+        "strengths": [
+            "Canonical Liquid AI release built on its new LFM3 backbone",
+            "Official GGUF weights and merged llama.cpp implementation",
+            "Image understanding, OCR and visual grounding"
+        ],
+        "weaknesses": [
+            "8GB RAM is a conservative short-context planning estimate, not a measured minimum; allow headroom for the OS and runtime",
+            "The configured context ceiling needs separate memory planning",
+            "LFM 1.0 is a custom open-weight license with a $10M annual revenue threshold for commercial use; see the license terms",
+            "Requires llama.cpp commit 19cce6919992fdffd92e0ac152caaf1e2b8f254e or a later build containing PR 31252; stock Ollama/LM Studio support is not confirmed",
+            "MLX artifacts exist but the official card still marks runtime support as in progress",
+            "Video input is not supported in the current llama.cpp path; include the 0.379GB F16 vision projector in memory and download planning",
+            "Developer benchmarks are not independent LocalClaw ratings"
+        ],
+        "use_cases": [
+            "Private image descriptions",
+            "Local OCR and document understanding",
+            "Visual grounding with still images"
+        ],
+        "similar_models": [
+            "lfm2-5-vl-3b",
+            "minicpm-v-4-7-1b"
+        ],
+        "official_blog": "https://www.liquid.ai/blog/lfm3"
+    },
     "nanbeige4-3-33b": {
         "developer": "Nanbeige LLM Lab",
         "developer_url": "https://huggingface.co/Nanbeige",

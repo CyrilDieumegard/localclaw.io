@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 26, 2026 - Added Nanbeige4.3 33B - 260 unique LLM records
+// Updated October 28, 2026
 // Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
@@ -87,6 +87,81 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "lfm3-1-7b",
+            "name": "LFM3 1.7B",
+            "family": "lfm",
+            "params": "1.73B",
+            "size_gb": 1.1,
+            "min_ram": 8,
+            "ram_estimate": true,
+            "tags": [
+                "chat",
+                "tool-calling",
+                "light",
+                "multilingual",
+                "long-context"
+            ],
+            "description": "Liquid AI tri-hybrid text model for multilingual chat, tool calling and structured outputs. Official Q4_K_M GGUF is 1.10GB. Plan for 8GB RAM at short context. Requires LFM3-enabled llama.cpp; not recommended for agentic coding or complex reasoning.",
+            "search_term": "LFM3-1.7B",
+            "recommended_quant": "Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "Q4_K_M",
+                    "size_gb": 1.1,
+                    "file": "LFM3-1.7B-Q4_K_M.gguf"
+                },
+                {
+                    "quant": "Q8_0",
+                    "size_gb": 1.85,
+                    "file": "LFM3-1.7B-Q8_0.gguf"
+                }
+            ],
+            "hf_repo": "LiquidAI/LFM3-1.7B-GGUF",
+            "source_url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+            "runtime_url": "https://github.com/ggml-org/llama.cpp/pull/31252",
+            "custom_runtime": "llama.cpp containing 19cce6919992fdffd92e0ac152caaf1e2b8f254e (PR 31252); start with -c 4096",
+            "benchmarks": {},
+            "released": "2026-10-27",
+            "isNew": true
+        },
+        {
+            "id": "lfm3-vl-2b",
+            "name": "LFM3 VL 2B",
+            "family": "lfm",
+            "params": "1.92B",
+            "size_gb": 1.43,
+            "min_ram": 8,
+            "ram_estimate": true,
+            "tags": [
+                "vision",
+                "multimodal",
+                "light",
+                "reasoning"
+            ],
+            "description": "Liquid AI image understanding, OCR and visual reasoning model. Official QAD Q4_0 GGUF plus F16 vision projector totals 1.43GB. Plan for 8GB RAM at short context. Requires LFM3-enabled llama.cpp; video input is not yet supported.",
+            "search_term": "LFM3-VL-2B",
+            "recommended_quant": "Q4_0",
+            "download_variants": [
+                {
+                    "quant": "Q4_0",
+                    "size_gb": 1.05,
+                    "file": "LFM3-VL-2B-QAD-Q4_0.gguf"
+                },
+                {
+                    "quant": "Q8_0",
+                    "size_gb": 1.85,
+                    "file": "LFM3-VL-2B-Q8_0.gguf"
+                }
+            ],
+            "hf_repo": "LiquidAI/LFM3-VL-2B-GGUF",
+            "source_url": "https://huggingface.co/LiquidAI/LFM3-VL-2B",
+            "runtime_url": "https://github.com/ggml-org/llama.cpp/pull/31252",
+            "custom_runtime": "llama.cpp containing 19cce6919992fdffd92e0ac152caaf1e2b8f254e (PR 31252); start with -c 4096; use the matching F16 mmproj, no video input",
+            "benchmarks": {},
+            "released": "2026-10-27",
+            "isNew": true
+        },
         {
             "id": "nanbeige4-3-33b",
             "name": "Nanbeige4.3 33B",
@@ -4465,10 +4540,12 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-10-26T06:58:26.006Z",
-        catalogueHash: "192128c0246e532bbef4c64ceb03be0df13053007cc13165e7f7156a226b7831",
+        checkedAt: "2026-10-28T07:10:07.590Z",
+        catalogueHash: "73474bd740b9f6a356b80557ca8cc94596f14a5cec4f5b47fe6c4d70d35d0621",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "lfm3-1-7b": "LiquidAI/LFM3-1.7B-GGUF",
+            "lfm3-vl-2b": "LiquidAI/LFM3-VL-2B-GGUF",
             "nanbeige4-3-33b": "bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",
             "flint-40b-a2-5b": "ggml-org/Flint-GGUF",
             "raon-1-mini-preview": "KRAFTON/Raon-1-mini-preview-gguf",

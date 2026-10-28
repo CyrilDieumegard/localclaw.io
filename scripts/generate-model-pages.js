@@ -654,7 +654,7 @@ function modelPage(m, d, allModels) {
     </section>`
     : `<section class="specs" aria-label="Key local AI model specs">
       <div class="spec-card"><div class="k">Parameters</div><div class="v">${esc(m.params)}</div></div>
-      <div class="spec-card"><div class="k">Minimum RAM</div><div class="v">${ramLabel}</div></div>
+      <div class="spec-card"><div class="k">${m.ram_estimate ? 'RAM planning estimate' : 'Minimum RAM'}</div><div class="v">${ramLabel}</div></div>
       <div class="spec-card"><div class="k">Model size</div><div class="v">${sizeLabel}</div></div>
       <div class="spec-card"><div class="k">Quantization</div><div class="v">${esc(m.recommended_quant)}</div></div>
     </section>`;
