@@ -150,6 +150,7 @@
       <h3><a href="${escapeHtml(model.path)}">${escapeHtml(model.name)}</a></h3>
       <p class="lc-ai-card-summary">${escapeHtml(model.summary)}</p>
       <div class="lc-ai-card-rating" data-community-rating data-model-id="${escapeHtml(ratingModelId(model))}" data-rating-mode="compact" data-rating-label="Community ${escapeHtml(ratingCategoryLabel(model))} rating" data-rating-subject="${escapeHtml(ratingCategoryLabel(model))} AI model"></div>
+      ${model.local_status === 'local' ? window.LocalClawHomeVoting.choices(ratingModelId(model), model.name) : ''}
       ${preview}
       <div class="lc-ai-task-list">${tasks}</div>
       <div class="lc-ai-specs"><div class="lc-ai-spec"><span>RAM floor</span><strong>${Number(model.min_ram_gb) ? `${Number(model.min_ram_gb)} GB` : 'Hosted'}</strong></div><div class="lc-ai-spec"><span>VRAM floor</span><strong>${escapeHtml(vram)}</strong></div><div class="lc-ai-spec"><span>Runtime</span><strong>${escapeHtml(array(model.runtime).slice(0, 2).join(' · ') || 'See guide')}</strong></div><div class="lc-ai-spec"><span>License</span><strong>${escapeHtml(model.license || 'See source')}</strong></div></div>

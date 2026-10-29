@@ -401,8 +401,10 @@ for (const category of ['image', 'video', '3d', 'music', 'vision']) {
   const landing = read(`${category}-models.html`);
   for (const marker of [
     'css/community-ratings-20260802a.css?v=20260822a',
-    'js/community-ratings-20260802a.js?v=20260803a',
-    'js/local-ai-catalog-app.js?v=20260816f'
+    'js/community-ratings-20260802a.js?v=20261029vote1',
+    'js/local-ai-catalog-app.js?v=20261029vote1',
+    'js/home-voting.js?v=20261029vote1',
+    'css/model-voting.css?v=20261029vote1'
   ]) {
     if (!landing.includes(marker)) errors.push(`${category} catalogue missing rating marker: ${marker}`);
   }

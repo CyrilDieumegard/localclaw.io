@@ -155,7 +155,7 @@ function landingPage(key, config) {
   <title>${esc(config.title)}</title><meta name="description" content="${esc(config.description)}"><meta name="robots" content="index, follow">
   <link rel="canonical" href="${BASE}${config.route}"><meta property="og:type" content="website"><meta property="og:url" content="${BASE}${config.route}"><meta property="og:title" content="${esc(config.title)}"><meta property="og:description" content="${esc(config.description)}">
   <link rel="icon" href="/images/crab-logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  ${siteNavAssets()}<link rel="stylesheet" href="/css/local-ai-catalog.css?v=20261012spacing1"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">${hasVisualExamples ? '<link rel="stylesheet" href="/css/external-media.css?v=20260822a">' : ''}${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
+  ${siteNavAssets()}<link rel="stylesheet" href="/css/model-voting.css?v=20261029vote1"><link rel="stylesheet" href="/css/local-ai-catalog.css?v=20261012spacing1"><link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">${hasVisualExamples ? '<link rel="stylesheet" href="/css/external-media.css?v=20260822a">' : ''}${tracking()}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head><body class="local-ai-page" data-local-ai-category="${key}">${siteNavigation(config.nav)}
 <main class="lc-ai-main"><div class="lc-ai-shell">
   <section class="lc-ai-hero"><div class="lc-ai-hero-copy"><p class="lc-ai-kicker">The Local AI Index · ${esc(config.label)}</p><h1 class="lc-ai-title">${esc(config.heading.replace(/ locally$/i, ''))} <span>locally</span></h1><p class="lc-ai-copy">${esc(config.description)}</p><div class="lc-ai-hero-actions"><a class="lc-ai-button lc-ai-button-primary" href="/#local-ai-index">Search on the homepage</a><a class="lc-ai-button" href="#catalogue">Browse ${count} verified entries</a></div></div>${machinePanel()}</section>
@@ -164,7 +164,7 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${externalMediaScripts}<script src="/js/local-ai-catalog-20260824a.js?v=20261023three1"></script><script src="/js/local-ai-catalog-app.js?v=20260816f"></script><script src="/js/community-ratings-20260802a.js?v=20260803a"></script></body></html>`;
+${externalMediaScripts}<script src="/js/local-ai-catalog-20260824a.js?v=20261023three1"></script><script src="/js/home-voting.js?v=20261029vote1"></script><script src="/js/local-ai-catalog-app.js?v=20261029vote1"></script><script src="/js/community-ratings-20260802a.js?v=20261029vote1"></script></body></html>`;
 }
 
 function detailPage(model) {

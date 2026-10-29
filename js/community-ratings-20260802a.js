@@ -335,6 +335,15 @@
         refresh
     };
 
+    document.addEventListener('localclaw:home-rating-updated', function (event) {
+        const {modelId, rating, aggregate} = event.detail || {};
+        if (!modelId || !aggregate) return;
+        aggregates.set(modelId, normalizeAggregate(aggregate));
+        if (rating === null) userRatings.delete(modelId);
+        else userRatings.set(modelId, rating);
+        renderAllForModel(modelId);
+        document.dispatchEvent(new CustomEvent('localclaw:rating-updated', {detail: {modelId, rating}}));
+    });
     window.LocalClawRatings = api;
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () { load(); }, { once: true });

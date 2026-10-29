@@ -4,9 +4,22 @@
     const pendingKey = 'localclaw_pending_rating';
     const maxAge = 30 * 60 * 1000;
     const labels = ['Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
-    const unavailable = new Set(Object.keys(typeof APP_DATA === 'undefined' ? {} : APP_DATA.hfRepoVerification?.unavailable || {}));
-    const models = new Map((typeof APP_DATA === 'undefined' ? [] : APP_DATA.models)
-        .filter(model => !model.hosted_only && !unavailable.has(model.id)).map(model => [model.id, model]));
+    const models = new Map();
+    function registerModels() {
+        const data = typeof APP_DATA === 'undefined' ? {} : APP_DATA;
+        const unavailable = new Set(Object.keys(data.hfRepoVerification?.unavailable || {}));
+        for (const model of data.models || []) {
+            if (!model.hosted_only && !unavailable.has(model.id)) models.set(model.id, {...model, voteCategory: 'llm'});
+        }
+        const speech = window.HOME_INDEX_SPEECH_MODELS || (typeof TTS_MODELS === 'undefined' ? [] : TTS_MODELS);
+        for (const model of speech) {
+            if (!model.delivery || model.delivery === 'local') models.set(`tts-${model.id}`, {...model, voteCategory: 'voice'});
+        }
+        for (const model of window.LOCAL_AI_CATALOG || []) {
+            if (model.local_status === 'local') models.set(`${model.category}-${model.id}`, {...model, voteCategory: model.category});
+        }
+    }
+    registerModels();
     const personal = new Map();
     let dialog, active, sessionPromise, signedIn = null;
     let busy = false;
@@ -62,11 +75,14 @@
         dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
         dialog.addEventListener('close', () => {
             const id = active?.modelId;
+            const choice = active?.triggerValue;
             active = null;
             pending(null);
             // Saving refreshes catalogue rows, so find the replacement trigger.
             const triggers = [...document.querySelectorAll('[data-rate-id]')].filter(node => node.dataset.rateId === id);
-            (triggers.find(node => node.getBoundingClientRect().width && node.getBoundingClientRect().right <= innerWidth) || triggers[0])?.focus({preventScroll: true});
+            const preferred = triggers.filter(node => choice ? Number(node.dataset.rateValue) === choice : !node.dataset.rateValue);
+            const visible = node => node.getBoundingClientRect().width && node.getBoundingClientRect().right <= innerWidth;
+            (preferred.find(visible) || triggers.find(visible))?.focus({preventScroll: true});
         });
         dialog.querySelectorAll('[data-vote-value]').forEach(button => {
             const rating = Number(button.dataset.voteValue);
@@ -76,7 +92,7 @@
         });
         dialog.querySelector('.lc-vote-stars').addEventListener('pointerleave', () => preview(active?.selected || 0));
         dialog.querySelector('.lc-vote-signin').addEventListener('click', signIn);
-        dialog.querySelector('.lc-vote-retry').addEventListener('click', () => open(active.modelId));
+        dialog.querySelector('.lc-vote-retry').addEventListener('click', () => open(active.modelId, null, active.triggerValue));
         dialog.querySelector('.lc-vote-clear').addEventListener('click', () => save(null));
     }
 
@@ -106,23 +122,41 @@
         dialog.querySelector('.lc-vote-clear').disabled = busy;
     }
 
-    async function open(modelId, resumed = null) {
+    async function open(modelId, resumed = null, initialRating = null) {
+        registerModels();
         if (!models.has(modelId) || busy) return;
         createDialog();
-        active = {modelId, selected: 0, action: resumed?.action};
+        active = {modelId, selected: initialRating || 0, action: resumed?.action, triggerValue: initialRating, inline: Boolean(initialRating)};
         const current = active;
-        dialog.querySelector('#lc-vote-title').textContent = models.get(modelId).name;
+        const model = models.get(modelId);
+        dialog.querySelector('#lc-vote-title').textContent = model.name;
+        dialog.querySelector('.lc-vote-eyebrow').textContent = `Community ${model.voteCategory === '3d' ? '3D' : model.voteCategory} rating`;
+        dialog.querySelector('.lc-vote-note').textContent = ['llm', 'voice'].includes(model.voteCategory)
+            ? 'Your /5 rating contributes to the community average. It does not change the LocalClaw /10 score.'
+            : 'Your /5 rating contributes to this model’s community average. You can change or remove your rating at any time.';
         render('Checking your account…');
-        if (!dialog.open) dialog.showModal();
+        if (!initialRating && !dialog.open) dialog.showModal();
+        if (initialRating) { busy = true; setInlineBusy(modelId, 'Checking your account…'); }
         try {
             await session();
             if (active !== current) return;
             active.selected = resumed?.rating || personal.get(modelId) || 0;
+            if (initialRating) busy = false;
+            refreshChoices();
+            if (initialRating) {
+                if (!signedIn && !dialog.open) dialog.showModal();
+                choose(initialRating);
+                if (!signedIn) dialog.querySelector('.lc-vote-signin').focus();
+                return;
+            }
             if (resumed?.autoSave && signedIn) { await save(resumed.action === 'remove' ? null : resumed.rating); return; }
             render(resumed?.authFailed ? 'Google sign-in was not completed. Your choice is kept. Please try again.' : signedIn ? (active.selected ? `Your rating: ${active.selected}/5. Choose another star to update it.` : 'Choose a star. Your rating is saved immediately.')
                 : 'Choose your rating, then sign in with Google to save it.');
             dialog.querySelector(`[data-vote-value="${active.selected || 1}"]`).focus();
-        } catch (error) { if (active === current) render(error.message, true); }
+        } catch (error) {
+            busy = false; refreshChoices();
+            if (active === current) { if (!dialog.open) dialog.showModal(); render(error.message, true); }
+        }
     }
 
     function choose(rating) {
@@ -141,6 +175,7 @@
         const current = active;
         busy = true;
         render(rating === null ? 'Removing your rating…' : 'Saving your rating…');
+        if (current.inline) setInlineBusy(current.modelId, 'Saving your rating…');
         try {
             const response = await fetch(`/api/ratings/${encodeURIComponent(current.modelId)}`, {
                 method: rating === null ? 'DELETE' : 'PUT', credentials: 'same-origin',
@@ -158,14 +193,23 @@
             if (rating === null) personal.delete(current.modelId);
             else personal.set(current.modelId, rating);
             pending(null);
+            refreshChoices();
             document.dispatchEvent(new CustomEvent('localclaw:home-rating-updated', {detail: {modelId: current.modelId, rating, aggregate: data.aggregate}}));
             busy = false;
             if (active === current) {
                 active.selected = rating || 0;
                 active.action = null;
+                if (current.inline && !dialog.open) {
+                    [...document.querySelectorAll('[data-rate-id][data-rate-value]')].find(node => node.dataset.rateId === current.modelId && Number(node.dataset.rateValue) === current.triggerValue)?.focus({preventScroll: true});
+                    active = null;
+                    return;
+                }
                 render(rating === null ? 'Your rating was removed.' : `Saved. Your rating: ${rating}/5. You can change it at any time.`);
             }
-        } catch (error) { busy = false; if (active === current) render(error.message || 'Your rating was not saved. Please try again.', true); }
+        } catch (error) {
+            busy = false; refreshChoices();
+            if (active === current) { if (!dialog.open) dialog.showModal(); render(error.message || 'Your rating was not saved. Please try again.', true); }
+        }
         finally { busy = false; }
     }
 
@@ -192,14 +236,46 @@
         } catch (error) { busy = false; if (active === current) render(error.message || 'Google sign-in is unavailable. Please try again.', true); }
     }
 
-    window.LocalClawHomeVoting = {getRating: modelId => personal.get(modelId) || null};
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
+    }
+    function choices(modelId, name) {
+        const selected = personal.get(modelId) || 0;
+        return `<div class="lc-model-vote" data-vote-group="${escapeHtml(modelId)}"><div class="lc-model-vote__head"><span class="lc-model-vote__label" role="status" aria-live="polite">${selected ? `Your rating: ${selected}/5` : 'Rate this model'}</span><button type="button" class="lc-model-vote__manage" data-rate-id="${escapeHtml(modelId)}" aria-label="Edit or remove your rating for ${escapeHtml(name)}" ${selected ? '' : 'hidden'}>Edit / remove</button></div><div class="lc-model-vote__stars" role="group" aria-label="Rate ${escapeHtml(name)} from 1 to 5 stars">${labels.map((label, index) => `<button type="button" data-rate-id="${escapeHtml(modelId)}" data-rate-value="${index + 1}" aria-label="Rate ${escapeHtml(name)} ${index + 1}/5: ${label}" aria-pressed="${selected === index + 1}" class="${index < selected ? 'is-filled' : ''}">★</button>`).join('')}</div></div>`;
+    }
+    function setInlineBusy(modelId, message) {
+        if (busy) document.querySelectorAll('[data-vote-group] button').forEach(button => { button.disabled = true; });
+        document.querySelectorAll('[data-vote-group]').forEach(group => {
+            if (group.dataset.voteGroup !== modelId) return;
+            group.querySelector('.lc-model-vote__label').textContent = message;
+            group.querySelectorAll('button').forEach(button => { button.disabled = true; });
+        });
+    }
+    function refreshChoices() {
+        document.querySelectorAll('[data-vote-group]').forEach(group => {
+            const selected = personal.get(group.dataset.voteGroup) || 0;
+            const label = group.querySelector('.lc-model-vote__label');
+            const text = selected ? `Your rating: ${selected}/5` : 'Rate this model';
+            if (label.textContent !== text) label.textContent = text;
+            group.querySelector('.lc-model-vote__manage').hidden = !selected;
+            group.querySelectorAll('button').forEach(button => { button.disabled = false; });
+            group.querySelectorAll('[data-rate-value]').forEach(button => {
+                const value = Number(button.dataset.rateValue);
+                button.classList.toggle('is-filled', value <= selected);
+                button.setAttribute('aria-pressed', String(value === selected));
+            });
+        });
+    }
+    window.LocalClawHomeVoting = {getRating: modelId => personal.get(modelId) || null, choices, refresh: refreshChoices};
     document.addEventListener('click', event => {
         const trigger = event.target.closest('[data-rate-id]');
         if (!trigger) return;
         event.preventDefault();
-        open(trigger.dataset.rateId);
+        const rating = Number(trigger.dataset.rateValue);
+        open(trigger.dataset.rateId, null, Number.isInteger(rating) && rating >= 1 && rating <= 5 ? rating : null);
     });
     function resume() {
+        registerModels();
         const url = new URL(window.location.href);
         const id = url.searchParams.get('rate');
         if (!models.has(id)) return;

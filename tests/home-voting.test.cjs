@@ -6,13 +6,13 @@ const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../js/home-voting.js'), 'utf8');
 const key = 'localclaw_pending_rating';
 
-function harness(fetch = async () => ({ok: true, json: async () => null})) {
+function harness(fetch = async () => ({ok: true, json: async () => null}), globals = {}) {
     const storage = new Map();
     const context = vm.createContext({
         APP_DATA: {models: [{id: 'local-model'}, {id: 'cloud-model', hosted_only: true}, {id: 'withdrawn-model'}], hfRepoVerification: {unavailable: {'withdrawn-model': {}}}},
         window: {}, document: {readyState: 'loading', addEventListener() {}},
         sessionStorage: {getItem: k => storage.get(k) || null, setItem: (k, v) => storage.set(k, v), removeItem: k => storage.delete(k)},
-        fetch, Date
+        fetch, Date, ...globals
     });
     vm.runInContext(source.replace('    window.LocalClawHomeVoting =', '    window.audit = {pending, session, models};\n    window.LocalClawHomeVoting ='), context);
     return {api: context.window.audit, storage};
@@ -71,4 +71,43 @@ test('authenticated session loading fetches member ratings once and shares concu
     });
     await Promise.all([api.session(), api.session()]);
     assert.deepEqual(calls, ['/api/auth/get-session', '/api/ratings/mine']);
+});
+
+
+test('local voice and every multimodal category use their canonical rating prefixes', () => {
+    const categories = ['3d', 'image', 'video', 'music', 'vision'];
+    const {api} = harness(undefined, {window: {
+        HOME_INDEX_SPEECH_MODELS: [{id: 'voice-model', name: 'Voice'}, {id: 'remote-voice', delivery: 'api'}],
+        LOCAL_AI_CATALOG: categories.flatMap(category => [
+            {id: 'same-id', name: category, category, local_status: 'local'},
+            {id: 'hosted', category, local_status: 'api'}
+        ])
+    }});
+    for (const modelId of ['tts-voice-model', ...categories.map(category => `${category}-same-id`)]) {
+        api.pending({modelId, rating: 5, createdAt: Date.now()});
+        assert.equal(api.pending().modelId, modelId);
+    }
+    for (const modelId of ['voice-model', 'tts-remote-voice', 'same-id', '3d-hosted']) {
+        api.pending({modelId, rating: 5, createdAt: Date.now()});
+        assert.equal(api.pending(), null);
+    }
+});
+
+test('the standalone voice catalogue registers local records after its inline dataset loads', () => {
+    const {api} = harness(undefined, {TTS_MODELS: [{id: 'local-voice', name: 'Local'}, {id: 'unverified', delivery: 'unverified'}]});
+    assert.equal(api.models.has('tts-local-voice'), true);
+    assert.equal(api.models.has('tts-unverified'), false);
+});
+
+test('direct rating buttons expose five exact choices and escape names and identifiers', () => {
+    const {api} = harness();
+    const globals = {window: {}, document: {readyState: 'loading', addEventListener() {}}, Date,
+        APP_DATA: {models: [], hfRepoVerification: {}}, sessionStorage: {getItem() {return null;}}};
+    vm.runInNewContext(source, globals);
+    const html = globals.window.LocalClawHomeVoting.choices('3d-safe', '<script>"model"</script>');
+    assert.equal((html.match(/data-rate-value="[1-5]"/g) || []).length, 5);
+    assert.ok(html.includes('data-rate-id="3d-safe"'));
+    assert.ok(html.includes('&lt;script&gt;&quot;model&quot;&lt;/script&gt;'));
+    assert.ok(!html.includes('<script>'));
+    assert.ok(html.includes('role="group"'));
 });

@@ -31,6 +31,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/model-voting.css?v=20261029vote1">
+    <script src="/js/home-voting.js?v=20261029vote1"></script>
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
     <link rel="stylesheet" href="/css/external-media.css?v=20260822a">
 
@@ -5472,6 +5474,7 @@
                         <div class="card-name">${model.name}</div>
                         <div class="card-developer">${model.developer}<span>${model.releaseDate || 'No verified release'}</span></div>
                         ${communityMarkup}
+                        ${!isUnverified && !isRemote ? window.LocalClawHomeVoting.choices(`tts-${model.id}`, model.name) : ''}
                     </div>
                     <div class="card-meta-row">
                         <div class="meta-chip"><span class="meta-label">Best for</span><span class="meta-value">${bestFor}</span></div>
@@ -5836,7 +5839,7 @@
 
         // Mobile menu is handled by inline onclick in the navbar HTML
     </script>
-    <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
+    <script src="/js/community-ratings-20260802a.js?v=20261029vote1"></script>
     <!-- Theme Toggle Script -->
     <!-- TRACKING: DataFast Analytics -->
     <script defer data-website-id="dfid_ohBb9fpcjhfySeJJ6CAei" data-domain="localclaw.io" src="https://datafa.st/js/script.js"></script>

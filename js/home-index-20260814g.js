@@ -420,12 +420,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const overall = speechScore(model);
             const scoreTitle = overall === null ? 'No catalogue rating available' : `LocalClaw audio score ${scoreLabel(overall)} out of 10. Quality ${finite(model.quality)}; speed ${finite(model.speed)}.`;
             const hardware = (model.hardware || []).map(prettyTerm).join(' · ');
-            return `<a class="lc-index-tts-row" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
+            return `<article class="lc-index-tts-row"><a class="lc-index-tts-main" href="/tts/${encodeURIComponent(model.id)}" data-fast-goal="tts_open" data-fast-goal-source="home_index" data-fast-goal-model="${escapeHtml(model.id)}">
                 <span class="lc-index-tts-rank">${String(offset + index + 1).padStart(2, '0')}</span>
                 ${logoMarkup('speech', model.family, model.developer)}
                 <span class="lc-index-tts-copy"><strong class="lc-index-tts-name">${escapeHtml(model.name)}</strong><span class="lc-index-tts-meta">${escapeHtml(model.developer)} · ${escapeHtml(model.license || 'See model page')}</span><span class="lc-index-tts-signals">QUALITY ${scoreLabel(model.quality)} · SPEED ${scoreLabel(model.speed)}${hardware ? ` · ${escapeHtml(hardware.toUpperCase())}` : ''}</span></span>
                 <span class="lc-index-tts-score-group">${communityMarkup(speechCommunityId(model), 'lc-index-community--speech')}${scoreMarkup(overall, scoreTitle, 'lc-index-score--speech')}<span class="lc-index-tts-type">${escapeHtml(model.type)}</span></span>
-            </a>`;
+            </a>${window.LocalClawHomeVoting.choices(speechCommunityId(model), model.name)}</article>`;
         }).join('');
 
         const multimodalPath = (model) => `/${model.category === '3d' ? '3d' : model.category}/${encodeURIComponent(model.id)}`;
@@ -435,15 +435,16 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const accelerators = (model.accelerators || []).map(prettyTerm);
             const tasks = (model.tasks || []).slice(0, 3).map((task) => `<span>${escapeHtml(prettyTerm(task))}</span>`).join('');
             const runtime = (model.runtime || []).slice(0, 2).map(prettyTerm).join(' · ');
-            return `<a class="lc-index-multimodal-card" href="${multimodalPath(model)}" aria-label="Open ${escapeHtml(model.name)} local guide" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
+            return `<article class="lc-index-multimodal-card" data-multimodal-card data-category="${escapeHtml(model.category)}" data-search="${escapeHtml([model.name, model.developer, model.summary, ...(model.tasks || []), ...(model.runtime || [])].join(' ').toLowerCase())}" data-platforms="${escapeHtml((model.platforms || []).join(' '))}" data-accelerators="${escapeHtml((model.accelerators || []).join(' '))}" data-ram="${finite(model.min_ram_gb)}" data-vram="${finite(model.min_vram_gb)}">
                 <div class="lc-index-multimodal-card__top"><div class="lc-index-multimodal-card__developer">${logoMarkup('multimodal', model.developer, model.developer)}<span>${escapeHtml(model.developer)}</span></div><strong>${finite(model.min_ram_gb)} GB RAM${finite(model.min_vram_gb) ? ` · ${finite(model.min_vram_gb)} GB VRAM` : ''}</strong></div>
-                <h3>${escapeHtml(model.name)}</h3>
+                <h3><a href="${multimodalPath(model)}" class="lc-index-card-guide">${escapeHtml(model.name)}</a></h3>
                 <p>${escapeHtml(model.summary)}</p>
                 <div class="lc-index-multimodal-card__rating"><span class="lc-index-multimodal-card__rating-label">Community rating</span><span class="lc-index-multimodal-card__rating-value" data-multimodal-community-id="${escapeHtml(multimodalCommunityId(model))}">${communityMarkup(multimodalCommunityId(model), 'lc-index-community--multimodal')}</span></div>
                 <div class="lc-index-multimodal-card__tasks">${tasks}</div>
                 <dl><div><dt>System</dt><dd>${escapeHtml(platforms.join(', ') || 'See guide')}</dd></div><div><dt>Compute</dt><dd>${escapeHtml(accelerators.join(', ') || 'See guide')}</dd></div><div><dt>Runtime</dt><dd>${escapeHtml(runtime || 'See guide')}</dd></div></dl>
-                <span class="lc-index-multimodal-card__link">Open local guide →</span>
-            </a>`;
+                ${window.LocalClawHomeVoting.choices(multimodalCommunityId(model), model.name)}
+                <a class="lc-index-multimodal-card__link" href="${multimodalPath(model)}">Open local guide →</a>
+            </article>`;
         }).join('');
 
         const renderMultimodalSections = () => multimodalCategories.map((category) => {
@@ -1447,10 +1448,13 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         renderCompareTray();
         document.addEventListener('localclaw:home-rating-updated', (event) => {
             const {modelId, aggregate} = event.detail || {};
-            if (!aggregate || !localModels.some(model => model.id === modelId)) return;
+            if (!aggregate || !(localModels.some(model => model.id === modelId) || speechModels.some(model => speechCommunityId(model) === modelId) || multimodalModels.some(model => multimodalCommunityId(model) === modelId))) return;
             if (communityState !== 'ready') { loadCommunityRatings(); return; }
             communityRatings.set(modelId, {average: finite(aggregate.average), count: finite(aggregate.count)});
             updateIndex(false);
+            updateSpeechIndex(false);
+            updateMultimodalRatings();
+            window.LocalClawHomeVoting.refresh();
         });
         loadCommunityRatings();
         loadSavedMachines();
