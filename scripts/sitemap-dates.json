@@ -1,7 +1,7 @@
 {
   "index.html": {
-    "hash": "e213fb29dec2511d0d1286e00b25b4ff4c792a6a3916b2f18079176936c86b39",
-    "lastmod": "2026-10-28"
+    "hash": "db55f303be27f8f52b5a8dd938fa100939b42e12e0c31227a87312ed7f23e0ae",
+    "lastmod": "2026-10-29"
   },
   "local-ai-activity-index.html": {
     "hash": "4bd7093fd4b232f089022bf7c510c094d7f3f0424bd9084f7d48e97261e63c67",
@@ -32,28 +32,28 @@
     "lastmod": "2026-10-28"
   },
   "tts-list.html": {
-    "hash": "2dc23c6ec1905359d9e162b97d579a7ec59dd125de13e580941df91b2cf02953",
-    "lastmod": "2026-10-28"
+    "hash": "91b3eb92a1d9d399e025c26cb6d4a64cd2c88176313e2ae1b406788fe4e766e7",
+    "lastmod": "2026-10-29"
   },
   "image-models.html": {
-    "hash": "41f98ec2ef4b27a96748ad3c7f338217fb064e1bf8b8e0b580f3992797c0de8b",
-    "lastmod": "2026-10-28"
+    "hash": "67b876a70776a138dd9e1d39d816700ce6f8400b5ed8982f6fbd831291bb0627",
+    "lastmod": "2026-10-29"
   },
   "video-models.html": {
-    "hash": "e28e279c2a1667402255866be688893cada8f299438631bb197d8a5e2e30be81",
-    "lastmod": "2026-10-28"
+    "hash": "08e1f5563ff2ef07baa07574bf25376a342aa22cf074c42a034da3c0262a29f0",
+    "lastmod": "2026-10-29"
   },
   "3d-models.html": {
-    "hash": "5631f0b213a09f0d0fb58eb17e6e70e06e2682d709f8c324b2de7f23d72a15ae",
-    "lastmod": "2026-10-28"
+    "hash": "3011470905b110e071a83cd2aeb1ee83c386a79007af62000d93eb52dc34553e",
+    "lastmod": "2026-10-29"
   },
   "music-models.html": {
-    "hash": "e168478c4664ed16a41a23d1ac7c35561a4bfc216daae256f60159e2da94cbd0",
-    "lastmod": "2026-10-28"
+    "hash": "240ddf7c5deb5de83cd57389cd46cc5575133fda23927a12f5599cd1ee59c06c",
+    "lastmod": "2026-10-29"
   },
   "vision-models.html": {
-    "hash": "fda40a4e2da27aefc9596a3b0b0fafa7ed093eb3c81f324b3bda0cc4d4e284c0",
-    "lastmod": "2026-10-28"
+    "hash": "3c0aa06a2fb40c35e10d21a7390edf0cfbd466bb4e00fb89b4dca8b56afd7003",
+    "lastmod": "2026-10-29"
   },
   "computers.html": {
     "hash": "5fcf65bda3a7c7e21bded7eb781b1881b690255e2878d726e8434e3a93407240",
@@ -68,8 +68,8 @@
     "lastmod": "2026-10-13"
   },
   "new.html": {
-    "hash": "9c1d54cb4aedbffe85c82b1c96a1e9f904cb9a8b6e4b416ad6b5223db3d20580",
-    "lastmod": "2026-10-28"
+    "hash": "098909b90b3b2bce0e099c8579fb52100bb50a07a980a851cfb8aed9d856a1cf",
+    "lastmod": "2026-10-29"
   },
   "software/lm-studio.html": {
     "hash": "c8995597ab83bc35e7ab78627612cf329ceae2805fd0a79e6c210ecbb6396186",
@@ -1428,8 +1428,8 @@
     "lastmod": "2026-10-13"
   },
   "tts/index.html": {
-    "hash": "a2280f2d8edcf572d1e3ccf58fa1a8ec6b1cddb6dddafaac05c1f99061cf6e9e",
-    "lastmod": "2026-10-28"
+    "hash": "677270e92992c87e6a7a0d8482a4f3593a33c4ab1dc4206f938ab279d33c83c1",
+    "lastmod": "2026-10-29"
   },
   "tts/indic-tts.html": {
     "hash": "d2600c1e9adcbd7a0f3eca942aab2127446038f3c8014ebd4a03c05218ab8ff1",
@@ -1542,6 +1542,10 @@
   "tts/nemotron-3.5-asr-streaming-0.6b.html": {
     "hash": "7380b0fe78b204b92e0213fdd18ba7c22bcc339c5bdbf6e944f79af0586a3dfc",
     "lastmod": "2026-10-13"
+  },
+  "tts/nemotron-3.5-transcribe-30b-a4b.html": {
+    "hash": "7b1e07315a1febaf3197424cb3d72698e40059e97891e26d3ffbbf32b5cc0ac8",
+    "lastmod": "2026-10-29"
   },
   "tts/neutts-air.html": {
     "hash": "30533cd3bb582a6acfaa69b754122dde5c4465bfb0c4ba285b6bec322addaccc",

@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "nemotron-3.5-transcribe-30b-a4b",
+    "name": "Nemotron 3.5 Transcribe 30B A4B",
+    "developer": "NVIDIA",
+    "family": "nemotron",
+    "license": "OpenMDW-1.1 (model weights); NeMo Speech code Apache 2.0",
+    "releaseDate": "2026-10-28",
+    "quality": null,
+    "speed": null,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 67.496
+  },
+  {
     "id": "maya-2-native",
     "name": "Maya 2 Native",
     "developer": "Maya Research",
