@@ -1939,6 +1939,46 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "verispoof-base",
+                "name": "VeriSpoof-Base",
+                "developer": "Yang Xiao",
+                "family": "verispoof",
+                "isOrchestrator": true,
+                "operatingSystem": "See upstream PyTorch CUDA setup",
+                "systemRequirements": "CUDA GPU with about 12 GB VRAM, as documented upstream; Python 3.10+, PyTorch 2.4+, Transformers 5.13+. Larger batches may require more memory.",
+                "description": "Local audio-language model for speech deepfake detection, source comparison and explanations of recording conditions. Combines modified MiniCPM5-2B and Qwen3-ASR audio-encoder weights with an audio tokenizer and localization head. Returns text and scores for research use.",
+                "languages": [
+                    "en"
+                ],
+                "languageCount": 1,
+                "features": [
+                    "audio-language",
+                    "audio-forensics"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 6.36235222,
+                "sizeLabel": "2.9B parameters (author); 6.362 GB safetensors",
+                "sizeCategory": "xl",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-10-31",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/AustinXiao/VeriSpoof-Base",
+                "sourceStatus": "verified-code",
+                "installCommand": "hf download AustinXiao/VeriSpoof-Base --include \"code/*\" --local-dir verispoof\npip install ./verispoof/code",
+                "supportedFormats": [
+                    "pytorch",
+                    "transformers",
+                    "safetensors"
+                ],
+                "voices": "N/A: text and detection scores; no speech synthesis, cloning or streaming",
+                "context": "Official model card and bundled code/README.md specify about 12 GB CUDA VRAM, not a measured universal minimum or system-RAM floor. The default PyTorch API loads the released checkpoint locally. Input is resampled to 16 kHz; only the first 8 seconds are analyzed, and shorter clips are repeated to fill the window. English prompts and answers are documented; the multilingual tag does not establish a supported speech-language list. Optional vLLM accelerates reasoning only; detection and localization use PyTorch. Non-commercial research release; do not treat scores as definitive authenticity proof. No local inference test performed. Source: huggingface.co/AustinXiao/VeriSpoof-Base, including NOTICE and code/verispoof/inference.py.",
+                "license": "CC-BY-NC-4.0; upstream MiniCPM5 and Qwen3-ASR components Apache 2.0"
+            },
+            {
                 "id": "nemotron-3.5-transcribe-30b-a4b",
                 "name": "Nemotron 3.5 Transcribe 30B A4B",
                 "developer": "NVIDIA",

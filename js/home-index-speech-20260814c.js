@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "verispoof-base",
+    "name": "VeriSpoof-Base",
+    "developer": "Yang Xiao",
+    "family": "verispoof",
+    "license": "CC-BY-NC-4.0; upstream MiniCPM5 and Qwen3-ASR components Apache 2.0",
+    "releaseDate": "2026-10-31",
+    "quality": null,
+    "speed": null,
+    "type": "APP",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 6.36235222
+  },
+  {
     "id": "nemotron-3.5-transcribe-30b-a4b",
     "name": "Nemotron 3.5 Transcribe 30B A4B",
     "developer": "NVIDIA",

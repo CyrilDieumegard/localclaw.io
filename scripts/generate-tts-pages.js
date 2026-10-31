@@ -98,6 +98,7 @@ function modelTask(model) {
   if (!isLocalSpeechModel(model)) return model.id === 'edge-tts' ? 'online text-to-speech access' : 'vendor-hosted speech generation';
   if (model.isAsr) return 'speech-to-text transcription';
   if (model.isOrchestrator && (model.features || []).includes('speech-translation')) return 'speech-to-speech translation and dubbing';
+  if ((model.features || []).includes('audio-forensics')) return 'speech deepfake detection and source analysis';
   if (model.isOrchestrator && (model.features || []).includes('audio-language')) return 'audio-language question answering';
   if (model.isOrchestrator) return 'local voice workflow orchestration';
   return 'text-to-speech generation';
@@ -139,6 +140,9 @@ function localSentence(model) {
   }
   if (model.isOrchestrator && (model.features || []).includes('speech-translation')) {
     return `${name} can run locally for speech-to-speech translation and dubbing over supplied recordings. ${setup}`;
+  }
+  if ((model.features || []).includes('audio-forensics')) {
+    return `${name} can run locally for speech deepfake detection and source analysis over the first 8 seconds of a recording. ${setup}`;
   }
   if (model.isOrchestrator && (model.features || []).includes('audio-language')) {
     return `${name} can run locally for audio-language question answering over supplied recordings. ${setup}`;
@@ -674,7 +678,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 121 || localModels.length !== 118 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 122 || localModels.length !== 119 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -698,7 +702,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('118<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('119<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 
