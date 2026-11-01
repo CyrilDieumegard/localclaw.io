@@ -680,6 +680,8 @@
                 </div>
             </header>
 
+            <section data-model-alert-settings aria-label="Email alerts"></section>
+
             <div class="lc-summary-row">
                 <div class="lc-summary-cell"><span class="lc-summary-value">${result.compatible.length}</span><span class="lc-summary-label">Compatible models</span></div>
                 <div class="lc-summary-cell"><span class="lc-summary-value">${bestCount}</span><span class="lc-summary-label">Best matches</span></div>
@@ -785,6 +787,7 @@
                 ...machineAnalytics(machine)
             }, { onceKey: `plan_update_viewed:${machine.id}:${newFitCount}` });
         }
+        document.dispatchEvent(new CustomEvent('localclaw:machine-rendered', { detail: { machine } }));
     }
 
     function renderPlanOverview(machine, primaryModel, updateCount) {
@@ -1565,6 +1568,8 @@
         const followIntro = document.getElementById('machine-follow-intro');
         if (followIntro) followIntro.hidden = true;
         document.getElementById('save-machine').textContent = 'Save machine';
+        const emailChoice = document.getElementById('machine-email-choice');
+        if (emailChoice) emailChoice.hidden = true;
         updateVramField();
         initializePresetPicker(machine);
         elements.dialog.showModal();
@@ -1877,7 +1882,7 @@
         const title = document.querySelector('#auth-gate .lc-auth-panel h2');
         const copy = document.querySelector('#auth-gate .lc-auth-panel > p');
         if (title) title.textContent = `Follow models for your ${follow.ramGb}GB machine`;
-        if (copy) copy.textContent = 'Continue with Google, confirm your hardware and choose your main use. New compatible releases will appear in My Machines. It is free.';
+        if (copy) copy.textContent = 'Continue with Google, confirm your hardware and choose your main use. Choose optional email alerts for new compatible releases. It is free.';
         trackAccountGoal('ram_follow_started', {
             source: 'ram_guide',
             ram_bucket: analytics?.ramBucket(follow.ramGb) || 'unknown'
@@ -1913,6 +1918,7 @@
                 if (machine) activateRamFollow(machine, 'existing');
             });
         });
+        document.dispatchEvent(new CustomEvent('localclaw:ram-follow-review'));
         window.setTimeout(() => {
             const target = intro.querySelector('button') || document.getElementById('machine-platform');
             target.focus();
@@ -1942,6 +1948,10 @@
         renderMachineList();
         renderSelectedMachine();
         showToast('Setup followed. New compatible releases will appear in Plan updates.');
+        document.dispatchEvent(new CustomEvent('localclaw:ram-follow-activated', { detail: {
+            machine,
+            emailRequested: document.getElementById('machine-email-alerts')?.checked === true
+        } }));
     }
 
     function prepareAuthGateForPendingPlan() {

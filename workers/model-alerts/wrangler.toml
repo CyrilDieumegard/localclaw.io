@@ -1,0 +1,17 @@
+name = "localclaw-model-alerts"
+main = "index.js"
+compatibility_date = "2026-05-14"
+workers_dev = false
+
+[[d1_databases]]
+binding = "LOCALCLAW_DB"
+database_name = "localclaw-accounts"
+database_id = "e428ae5d-c6a3-4a5e-8956-35294e1a8bae"
+
+[triggers]
+crons = ["17 * * * *"]
+
+[vars]
+MODEL_ALERTS_ENABLED = "true"
+MODEL_ALERTS_FROM = "LocalClaw <models@updates.localclaw.io>"
+# Secrets: RESEND_API_KEY and MODEL_ALERTS_UNSUBSCRIBE_SECRET.

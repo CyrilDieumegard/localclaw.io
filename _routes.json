@@ -1,10 +1,10 @@
 {
   "version": 1,
   "include": [
+    "/api/model-alerts*",
+    "/api/machines*",
     "/api/license/*",
     "/api/auth/*",
-    "/api/machines",
-    "/api/machines/*",
     "/api/favorites",
     "/api/favorites/*",
     "/api/catalog-state",

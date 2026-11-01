@@ -1142,7 +1142,7 @@ a:focus-visible {
 .lc-ram-follow-form .lc-field:has(#machine-cpu),
 .lc-ram-follow-form .lc-field:has(#machine-gpu),
 .lc-ram-follow-form .lc-field:has(#machine-priority),
-.lc-ram-follow-form .lc-check-label,
+.lc-ram-follow-form .lc-check-label:not(#machine-email-choice),
 .lc-ram-follow-form .lc-form-section-divider {
     display: none;
 }
@@ -2417,3 +2417,12 @@ html.light .lc-account-light-scope .lc-button.lc-button-danger {
 
 /* Keep privacy details readable in the existing account typography. */
 .lc-auth-panel .lc-auth-trust { font-size: 12px; line-height: 1.65; }
+
+.lc-email-choice[hidden], [data-model-alert-settings]:empty { display:none; }
+.lc-email-choice { margin:0 0 20px; align-items:flex-start; }
+.lc-email-choice small { display:block;margin-top:6px;color:var(--lc-muted,#64748b);font-size:12px;line-height:1.6; }
+.lc-email-alert-panel { padding:18px;margin:20px 0;border:1px solid var(--lc-border,#d7dce4);border-radius:12px; }
+.lc-email-alert-panel h3 { margin:0 0 8px;font:700 17px Inter,Arial,sans-serif; }
+.lc-email-alert-panel p { margin:8px 0;font-size:13px;line-height:1.6; }
+.lc-email-alert-panel button { min-height:44px; }
+.lc-email-alert-panel [role="status"] { overflow-wrap:anywhere; }

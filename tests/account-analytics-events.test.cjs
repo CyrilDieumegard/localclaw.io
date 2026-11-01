@@ -32,7 +32,8 @@ function harness() {
     const panel = node();
     const context = vm.createContext({
         console, URLSearchParams,
-        document: { addEventListener() {} },
+        document: { addEventListener() {}, dispatchEvent() {} },
+        CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
         navigator: { onLine: true },
         localStorage: storage(), sessionStorage: storage(),
         innerWidth: 1440, location: { pathname: '/account', search: '' },

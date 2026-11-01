@@ -26,6 +26,8 @@
         'plan_update_viewed',
         'ram_follow_started',
         'ram_follow_activated',
+        'model_email_alerts_enabled',
+        'model_email_alerts_disabled',
         'plan_action_clicked',
         'existing_machine_match_shown',
         'existing_machine_reused',

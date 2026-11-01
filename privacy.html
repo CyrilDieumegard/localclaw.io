@@ -89,9 +89,13 @@
             <h2>Sponsor delivery measurement</h2>
             <p>When an active sponsor placement is viewed or clicked, LocalClaw uses a random first-party, HttpOnly cookie to deduplicate short bursts and estimate unique campaign visitors. LocalClaw stores a one-way hash of that random identifier, not its raw value, IP address or Google account. Campaign owners receive aggregate impressions, estimated unique visitors, clicks and CTR, not visitor identities.</p>
 
+            <h2>Optional model email alerts</h2>
+            <p>Email alerts are off by default. If you enable them for a saved machine, LocalClaw stores your consent and sends new compatible model releases to your verified account email, at most once a day when there is something new. Resend processes the recipient email and message for delivery. Open and click tracking are disabled. You can turn alerts off in My Machines or unsubscribe from any alert. Failed delivery and spam complaints stop further alerts. Your machine profile and private notes are not shared with advertisers.</p>
+
             <h2>Infrastructure and service providers</h2>
             <ul>
                 <li>Google provides account authentication.</li>
+                <li>Resend delivers model release alerts only for users who enable them.</li>
                 <li>Cloudflare Pages, Functions and D1 host the website, account API and account database.</li>
                 <li>Cloudflare R2 stores uploaded sponsor logos.</li>
                 <li>Stripe processes sponsor payments and optional automatic renewals.</li>

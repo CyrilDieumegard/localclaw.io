@@ -9,6 +9,7 @@ if (OUTPUT === ROOT || !OUTPUT.endsWith(`${path.sep}${OUTPUT_DIRECTORY}`)) {
   throw new Error(`Refusing to replace unsafe Pages output path: ${OUTPUT}`);
 }
 
+require('./generate-model-alert-catalog').generate();
 const assets = collectPublicAssets(ROOT);
 fs.rmSync(OUTPUT, { recursive: true, force: true });
 fs.mkdirSync(OUTPUT, { recursive: true });
