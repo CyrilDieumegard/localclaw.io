@@ -24,6 +24,8 @@
         'plan_saved',
         'plan_save_failed',
         'plan_update_viewed',
+        'ram_follow_started',
+        'ram_follow_activated',
         'plan_action_clicked',
         'existing_machine_match_shown',
         'existing_machine_reused',

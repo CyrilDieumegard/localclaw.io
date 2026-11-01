@@ -1134,6 +1134,19 @@ a:focus-visible {
     padding: 20px;
 }
 
+.lc-field[hidden] {
+    display: none;
+}
+
+.lc-ram-follow-form .lc-machine-picker:not(#machine-follow-intro),
+.lc-ram-follow-form .lc-field:has(#machine-cpu),
+.lc-ram-follow-form .lc-field:has(#machine-gpu),
+.lc-ram-follow-form .lc-field:has(#machine-priority),
+.lc-ram-follow-form .lc-check-label,
+.lc-ram-follow-form .lc-form-section-divider {
+    display: none;
+}
+
 .lc-machine-picker {
     margin-bottom: 20px;
     padding: 18px;

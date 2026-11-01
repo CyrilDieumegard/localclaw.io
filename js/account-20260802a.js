@@ -83,6 +83,8 @@
         compareModelIds: [],
         upgradeModelId: null,
         saving: false,
+        ramFollowActive: false,
+        ramFollow: null,
         pendingPlanSelection: null,
         editingPlan: null,
         recommendationViewKeys: new Set()
@@ -96,7 +98,10 @@
     async function init() {
         cacheElements();
         bindEvents();
-        prepareAuthGateForPendingPlan();
+        state.ramFollow = readRamFollow();
+        if (new URLSearchParams(window.location.search).get('view') === 'updates') state.viewMode = 'new';
+        prepareRamFollow();
+        if (!readRamFollow()) prepareAuthGateForPendingPlan();
         trackAccountGoal('account_page_loaded', {
             source: 'account_page',
             return_view: analytics?.returnView() || 'machines'
@@ -303,7 +308,8 @@
             document.dispatchEvent(new CustomEvent('localclaw:account-ready', {
                 detail: { session: state.session }
             }));
-            await resumePendingPlanIfNeeded();
+            if (readRamFollow()) resumeRamFollow();
+            else await resumePendingPlanIfNeeded();
         } catch {
             trackAccountGoal('auth_error', {
                 provider: 'google', error_stage: 'session_check', error_code: 'network_error', http_status: 0, online: navigator.onLine !== false
@@ -329,7 +335,8 @@
             const requestedPath = currentUrl.searchParams.get('next');
             currentUrl.searchParams.delete('auth');
             currentUrl.searchParams.delete('next');
-            const currentSponsorPath = currentUrl.searchParams.get('view') === 'sponsorship'
+            const currentSponsorPath = ['sponsorship', 'updates'].includes(currentUrl.searchParams.get('view'))
+                || readRamFollow()
                 ? `${currentUrl.pathname}${currentUrl.search}`
                 : '/account';
             const safePath = requestedPath && requestedPath.startsWith('/') && !requestedPath.startsWith('//')
@@ -1532,6 +1539,8 @@
     }
 
     function openMachineDialog(machine) {
+        state.ramFollowActive = false;
+        elements.form.classList.remove('lc-ram-follow-form');
         state.editingPlan = { context: savedContext(machine), selectedModelId: savedModelId(machine?.selectedModelId) };
         trackAccountGoal(machine?.id ? 'machine_update_started' : 'machine_create_started', {
             source: 'account_workspace',
@@ -1553,11 +1562,15 @@
         document.getElementById('machine-priority').value = machine?.priority || 'balanced';
         document.getElementById('machine-primary').checked = machine?.isPrimary === true || state.machines.length === 0;
         elements.dialogTitle.textContent = machine?.id ? 'Edit machine' : 'Add machine';
+        const followIntro = document.getElementById('machine-follow-intro');
+        if (followIntro) followIntro.hidden = true;
+        document.getElementById('save-machine').textContent = 'Save machine';
         updateVramField();
         initializePresetPicker(machine);
         elements.dialog.showModal();
         window.setTimeout(() => {
-            const target = machine?.id ? document.getElementById('machine-name') : elements.presetYear;
+            const target = state.ramFollowActive ? document.getElementById('machine-platform')
+                : machine?.id ? document.getElementById('machine-name') : elements.presetYear;
             target.focus();
         }, 30);
     }
@@ -1567,7 +1580,7 @@
     }
 
     function updateVramField() {
-        const showVram = elements.accelerator.value !== 'apple-silicon' && elements.accelerator.value !== 'cpu';
+        const showVram = ['nvidia', 'amd'].includes(elements.accelerator.value);
         elements.vramField.hidden = !showVram;
         elements.vramInput.required = elements.accelerator.value === 'nvidia';
         if (!showVram) elements.vramInput.value = '';
@@ -1799,10 +1812,12 @@
                     ...machineAnalytics(machine)
                 });
             }
+            const followingRam = state.ramFollowActive;
             closeMachineDialog();
             localStorage.removeItem(PENDING_PLAN_KEY);
             localStorage.removeItem(PENDING_MACHINE_KEY);
             await refreshSavedPlanWorkspace(data.machine?.id || id, id ? 'Machine updated.' : 'Machine added.');
+            if (followingRam) activateRamFollow(data.machine, id ? 'updated' : 'created');
         } catch (error) {
             if (!failureTracked) {
                 trackAccountGoal(id ? 'machine_update_failed' : 'machine_create_failed', {
@@ -1842,6 +1857,91 @@
         state.selectedMachineId = null;
         await loadWorkspace();
         showToast('Machine deleted.');
+    }
+
+    // Keep the tier in the URL through OAuth. RAM alone must never silently
+    // create a Mac profile or overwrite an existing machine's hardware.
+    function readRamFollow() {
+        // The shared fit context normalizes legacy RAM query parameters when
+        // rendering a saved machine. Retain the original entry intent in memory.
+        if (state.ramFollow) return state.ramFollow;
+        const params = new URLSearchParams(window.location.search || '');
+        if (params.get('from') !== 'ram_guide' || params.get('follow') !== 'updates') return null;
+        const ramGb = Number(params.get('ram'));
+        return [8, 16, 32, 64, 128].includes(ramGb) ? { ramGb } : null;
+    }
+
+    function prepareRamFollow() {
+        const follow = readRamFollow();
+        if (!follow) return;
+        const title = document.querySelector('#auth-gate .lc-auth-panel h2');
+        const copy = document.querySelector('#auth-gate .lc-auth-panel > p');
+        if (title) title.textContent = `Follow models for your ${follow.ramGb}GB machine`;
+        if (copy) copy.textContent = 'Continue with Google, confirm your hardware and choose your main use. New compatible releases will appear in My Machines. It is free.';
+        trackAccountGoal('ram_follow_started', {
+            source: 'ram_guide',
+            ram_bucket: analytics?.ramBucket(follow.ramGb) || 'unknown'
+        }, { onceKey: `ram_follow_started:${follow.ramGb}` });
+    }
+
+    function resumeRamFollow() {
+        const follow = readRamFollow();
+        if (!follow || elements.dialog.open || state.pendingPlanSelection) return;
+        openMachineDialog({ ramGb: follow.ramGb, platform: '', accelerator: '' });
+        state.ramFollowActive = true;
+        elements.form.classList.add('lc-ram-follow-form');
+        document.getElementById('machine-name').value = `My ${follow.ramGb}GB machine`;
+        document.getElementById('machine-platform').value = '';
+        elements.accelerator.value = '';
+        updateVramField();
+        elements.dialogTitle.textContent = 'Follow model updates';
+        document.getElementById('save-machine').textContent = 'Save and follow updates';
+        const intro = document.getElementById('machine-follow-intro');
+        intro.hidden = false;
+        const matches = state.machines.filter((machine) => Number(machine.ramGb) === follow.ramGb);
+        intro.innerHTML = `
+            <div class="lc-machine-picker-head"><h3>Your ${follow.ramGb}GB setup</h3></div>
+            <p class="lc-machine-picker-copy">Confirm your hardware and main use. New compatible releases will appear in Plan updates.</p>
+            ${matches.length ? `<p>Already saved? Follow an existing machine:</p>
+                <div class="lc-head-actions">${matches.map((machine) => `
+                    <button class="lc-button" type="button" data-follow-existing="${escapeAttribute(machine.id)}">${escapeHtml(machine.name)} · ${escapeHtml(useCaseLabel(machine.useCase))}</button>
+                `).join('')}</div>` : ''}
+        `;
+        intro.querySelectorAll('[data-follow-existing]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const machine = matches.find((item) => item.id === button.dataset.followExisting);
+                if (machine) activateRamFollow(machine, 'existing');
+            });
+        });
+        window.setTimeout(() => {
+            const target = intro.querySelector('button') || document.getElementById('machine-platform');
+            target.focus();
+        }, 50);
+    }
+
+    function activateRamFollow(machine, saveMode) {
+        if (!readRamFollow() || !machine?.id) return;
+        trackAccountGoal('ram_follow_activated', {
+            source: 'ram_guide', save_mode: saveMode, ...machineAnalytics(machine)
+        });
+        closeMachineDialog();
+        // Retain the saved machine and updates view on reload and future visits.
+        const url = new URL(window.location.href);
+        ['from', 'follow', 'ram'].forEach((key) => url.searchParams.delete(key));
+        url.searchParams.set('fitMachine', machine.id);
+        url.searchParams.set('view', 'updates');
+        window.history.replaceState(null, '', `${url.pathname}${url.search}`);
+        state.ramFollowActive = false;
+        state.ramFollow = null;
+        if (!state.machines.some((item) => item.id === machine.id)) {
+            showToast('Setup saved. Reload My Machines to see your updates.', 'error');
+            return;
+        }
+        state.selectedMachineId = machine.id;
+        state.viewMode = 'new';
+        renderMachineList();
+        renderSelectedMachine();
+        showToast('Setup followed. New compatible releases will appear in Plan updates.');
     }
 
     function prepareAuthGateForPendingPlan() {

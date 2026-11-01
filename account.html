@@ -10,7 +10,7 @@
     <meta name="description" content="Save a machine and goal once, follow the best compatible local AI models and see when a stronger fit enters the LocalClaw catalogue.">
     <link rel="canonical" href="https://localclaw.io/account">
     <link rel="icon" type="image/png" href="/images/crab-logo.png">
-    <link rel="stylesheet" href="/css/account-20260802a.css?v=20261012design1&amp;summary=20260823a">
+    <link rel="stylesheet" href="/css/account-20260802a.css?v=20261012design1&amp;summary=20260823a&amp;follow=20261101">
     <link rel="stylesheet" href="/css/account-sponsor-20260814a.css?v=20261012spacing1">
     <link rel="stylesheet" href="/css/account-sponsor-admin-20260814a.css?v=20261012spacing1">
     <link rel="stylesheet" href="/css/community-ratings-20260802a.css?v=20260822a">
@@ -305,6 +305,7 @@
             <div class="lc-form">
                 <input id="machine-id" name="id" type="hidden">
                 <input id="machine-source" name="source" type="hidden" value="manual">
+                <section id="machine-follow-intro" class="lc-machine-picker" aria-label="Follow model updates" hidden></section>
                 <section class="lc-machine-picker" aria-labelledby="machine-picker-title">
                     <div class="lc-machine-picker-head">
                         <div>
@@ -356,6 +357,7 @@
                     <div class="lc-field">
                         <label for="machine-platform">Operating system</label>
                         <select id="machine-platform" name="platform" required>
+                            <option value="" disabled>Choose your operating system</option>
                             <option value="macos">macOS</option>
                             <option value="windows">Windows</option>
                             <option value="linux">Linux</option>
@@ -365,6 +367,7 @@
                     <div class="lc-field">
                         <label for="machine-accelerator">Compute</label>
                         <select id="machine-accelerator" name="accelerator" required>
+                            <option value="" disabled>Choose your compute</option>
                             <option value="apple-silicon">Apple Silicon</option>
                             <option value="nvidia">NVIDIA GPU</option>
                             <option value="amd">AMD GPU</option>
@@ -642,8 +645,8 @@
     <script src="/js/home-index-speech-20260814c.js?v=20260822b"></script>
     <script src="/js/local-ai-catalog-20260824a.js?v=20261014a"></script>
     <script src="/js/community-ratings-20260802a.js?v=20260803a"></script>
-    <script src="/js/account-analytics-20260820a.js?v=20260905c"></script>
-    <script src="/js/account-20260802a.js?v=20260906a&amp;summary=20260823a"></script>
+    <script src="/js/account-analytics-20260820a.js?v=20260905c&amp;follow=20261101"></script>
+    <script src="/js/account-20260802a.js?v=20260906a&amp;summary=20260823a&amp;follow=20261101"></script>
     <script src="/js/account-sponsor-20260814b.js?v=20260825c"></script>
     <script src="/js/account-sponsor-admin-20260814a.js?v=20260814a"></script>
 </body>
