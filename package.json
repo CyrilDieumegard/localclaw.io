@@ -4,6 +4,8 @@
   "private": true,
   "description": "Static LocalClaw website with Cloudflare Pages Functions.",
   "scripts": {
+    "resources:generate": "node scripts/generate-authority-resources.js",
+    "resources:check": "node --test tests/llm-memory.test.js && node scripts/generate-authority-resources.js --check",
     "labs:runtime": "node scripts/build-labs-runtime.js",
     "labs:generate": "node scripts/generate-labs-content.mjs",
     "labs:check": "node --test tests/labs.test.mjs && node scripts/generate-labs-content.mjs --check",
@@ -46,8 +48,8 @@
     "hf-repos:audit": "node scripts/audit-hf-repositories.js",
     "amazon:check": "node scripts/check-amazon-links.mjs && node --test tests/amazon-routing.test.mjs",
     "license:test": "node --test tests/license-backend.test.mjs",
-    "pages:build": "npm run app-release:sync && node scripts/catalogue-integrity.js && node scripts/generate-ram-pages.js && node scripts/generate-hardware-pages.js && node scripts/generate-retention-guides.js && npm run charts:check && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
-    "pages:check": "npm run app-release:check && npm run software:check && node scripts/check-pages-output.js",
+    "pages:build": "npm run app-release:sync && npm run resources:generate && node scripts/catalogue-integrity.js && node scripts/generate-ram-pages.js && node scripts/generate-hardware-pages.js && node scripts/generate-retention-guides.js && npm run charts:check && npm run labs:check && npm run labs:runtime && npm run home-css:build && npm run site-css:build && npm run software-css:build && node scripts/build-pages-output.js",
+    "pages:check": "npm run resources:check && npm run app-release:check && npm run software:check && node scripts/check-pages-output.js",
     "app-release:sync": "node scripts/sync-app-release.js",
     "app-release:check": "node scripts/sync-app-release.js --check"
   },

@@ -249,6 +249,8 @@ function renderGuide() {
             <p>Catalogue snapshot updated <time datetime="${updatedIso}">${updatedDisplay}</time>. Counts, score formulas and links below are generated from the same repository data as the interactive directory.</p>
           </header>
 
+          <section class="lc-labs-promo" aria-label="Plan LLM memory"><div><span>Free tool · Transparent calculation</span><h2>A model file is only part of the memory bill.</h2><p>Estimate weights, context cache and system headroom. Compare workloads and share every assumption.</p></div><a href="/local-llm-memory-calculator">Calculate LLM memory →</a></section>
+
           <section class="lc-index-guide__ram" aria-labelledby="ram-answers-title">
             <div class="lc-index-guide__section-title"><h3 id="ram-answers-title">Quick answers by installed RAM</h3><p>These are catalogue-score leaders whose minimum-RAM field fits each tier, not universal benchmark winners.</p></div>
             <div class="lc-index-guide__ram-grid">${tierCards}</div>
@@ -280,7 +282,7 @@ function renderGuide() {
             <div>${faqMarkup}</div>
           </section>
 
-          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/#local-ai-index">All local AI</a><a href="/models/">All LLM pages</a><a href="/tts/">All speech pages</a><a href="/image-models">Image models</a><a href="/video-models">Video models</a><a href="/3d-models">3D models</a><a href="/music-models">Music models</a><a href="/vision-models">Vision models</a><a href="/hardware/">Hardware guides</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
+          <nav class="lc-index-guide__paths" aria-label="Local AI decision guides"><a href="/#local-ai-index">All local AI</a><a href="/models/">All LLM pages</a><a href="/tts/">All speech pages</a><a href="/image-models">Image models</a><a href="/video-models">Video models</a><a href="/3d-models">3D models</a><a href="/music-models">Music models</a><a href="/vision-models">Vision models</a><a href="/hardware/">Hardware guides</a><a href="/local-llm-memory-calculator">LLM memory calculator</a><a href="/resources">Free resources</a><a href="/new">Newest local models</a><a href="/privacy">Privacy</a></nav>
         </section>
         <!-- HOME_INDEX_GUIDE_END -->`;
 }
@@ -521,6 +523,11 @@ function compactLlmsText() {
 
 ${labsReadableText()}
 
+## Free Planning Tools
+
+- [LLM memory calculator](https://localclaw.io/local-llm-memory-calculator): client-side weight, KV-cache and memory-pool estimates, with shareable settings, CSV export and method v1.0. Planning arithmetic, not measured benchmarks.
+- [Resources](https://localclaw.io/resources): free tools and reference resources with explicit sources and dataset reuse scope.
+
 ## New Mac Local AI Guides
 
 - [New Macs for local AI](${BASE_URL}/hardware/new-macs-local-ai) — source-backed comparison of Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, and current M5 MacBooks
@@ -578,6 +585,11 @@ function fullLlmsText() {
 Community ★ and LocalClaw software scores are independent. Live vote averages and vote counts are shown on the HTML pages and exposed at ${BASE_URL}/api/ratings; they are not copied into this static file because they change independently of catalogue releases.
 
 ${labsReadableText()}
+
+## Free Planning Tools
+
+- [LLM memory calculator](https://localclaw.io/local-llm-memory-calculator): client-side weight, KV-cache and memory-pool estimates, with shareable settings, CSV export and method v1.0. Planning arithmetic, not measured benchmarks.
+- [Resources](https://localclaw.io/resources): free tools and reference resources with explicit sources and dataset reuse scope.
 
 ## Local LLMs (${localModels.length})
 

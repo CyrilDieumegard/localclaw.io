@@ -59,6 +59,11 @@
 - Relationship: Qwen3 0.6B Q8, MiniCPM5 2B Q4 and Qwen3.5 4B Q4 match the SemIf / OpenJEV presets. LocalClaw is independent of SemIf and TypeSafe. Browser Labs is separate from the optional paid LocalClaw Mac app.
 
 
+## Free Planning Tools
+
+- [LLM memory calculator](https://localclaw.io/local-llm-memory-calculator): client-side weight, KV-cache and memory-pool estimates, with shareable settings, CSV export and method v1.0. Planning arithmetic, not measured benchmarks.
+- [Resources](https://localclaw.io/resources): free tools and reference resources with explicit sources and dataset reuse scope.
+
 ## New Mac Local AI Guides
 
 - [New Macs for local AI](https://localclaw.io/hardware/new-macs-local-ai) — source-backed comparison of Mac mini M6 and M5 Pro, Mac Studio M5 Max and M5 Ultra, and current M5 MacBooks

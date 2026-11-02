@@ -17,6 +17,11 @@ Community ★ and LocalClaw software scores are independent. Live vote averages 
 - Relationship: Qwen3 0.6B Q8, MiniCPM5 2B Q4 and Qwen3.5 4B Q4 match the SemIf / OpenJEV presets. LocalClaw is independent of SemIf and TypeSafe. Browser Labs is separate from the optional paid LocalClaw Mac app.
 
 
+## Free Planning Tools
+
+- [LLM memory calculator](https://localclaw.io/local-llm-memory-calculator): client-side weight, KV-cache and memory-pool estimates, with shareable settings, CSV export and method v1.0. Planning arithmetic, not measured benchmarks.
+- [Resources](https://localclaw.io/resources): free tools and reference resources with explicit sources and dataset reuse scope.
+
 ## Local LLMs (255)
 
 - 001 [DeepSeek V4 Flash Vision Exp](https://localclaw.io/models/deepseek-v4-flash-vision-exp) — family: deepseek-flash; LocalClaw: 9.3/10; parameters: 284B (13B active, multimodal MoE); minimum RAM: 128 GB; licence: MIT; released: Aug 31, 2026.
