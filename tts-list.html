@@ -1939,6 +1939,46 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "verispoof-plus",
+                "name": "VeriSpoof-Plus",
+                "developer": "Yang Xiao",
+                "family": "verispoof",
+                "isOrchestrator": true,
+                "operatingSystem": "See upstream PyTorch CUDA setup",
+                "systemRequirements": "CUDA GPU with about 12 GB VRAM, as documented upstream; Python 3.10+, PyTorch 2.4+, Transformers 5.13+. Larger batches may require more memory.",
+                "description": "Local audio-language model for speech deepfake detection, source comparison and explanations of recording conditions. Plus uses a larger training mixture than VeriSpoof-Base; upstream reports improved detection and source verification on its published evaluations. Returns text, scores and synthetic-speech localization for non-commercial research.",
+                "languages": [
+                    "en"
+                ],
+                "languageCount": 1,
+                "features": [
+                    "audio-language",
+                    "audio-forensics"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 6.36235222,
+                "sizeLabel": "2.9B parameters (author); 6.362 GB safetensors",
+                "sizeCategory": "xl",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-04",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/AustinXiao/VeriSpoof-Plus",
+                "sourceStatus": "verified-code",
+                "installCommand": "hf download AustinXiao/VeriSpoof-Plus --include \"code/*\" --local-dir verispoof\npip install ./verispoof/code",
+                "supportedFormats": [
+                    "pytorch",
+                    "transformers",
+                    "safetensors"
+                ],
+                "voices": "N/A: text and detection scores; no speech synthesis, cloning or streaming",
+                "context": "Official model card and bundled code/README.md document a CUDA GPU with about 12 GB VRAM; this is upstream configuration guidance, not a measured universal minimum or system-RAM floor. English prompts and answers are documented; en/zh/multilingual metadata does not establish a validated speech-language list. The bundled PyTorch runtime resamples to 16 kHz, analyzes only the first 8 seconds and repeats shorter clips. Optional vLLM accelerates reasoning only. Plus was trained on approximately 4.4 million utterances; Base uses official training splits only (approximately 0.38 million). Published evaluation improvements are author-reported, not LocalClaw measurements. No speech synthesis, voice cloning or live streaming. Non-commercial research; scores are not definitive authenticity proof. No local inference test performed. Sources: huggingface.co/AustinXiao/VeriSpoof-Plus, code/README.md, code/verispoof/inference.py and NOTICE; github.com/swagshaw/verispoof.",
+                "license": "CC-BY-NC-4.0; upstream MiniCPM5 and Qwen3-ASR components Apache 2.0"
+            },
+            {
                 "id": "verispoof-base",
                 "name": "VeriSpoof-Base",
                 "developer": "Yang Xiao",
