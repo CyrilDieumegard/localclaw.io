@@ -80,6 +80,7 @@ window.HOME_INDEX_LOGOS = {
     smollm: 'huggingfacetb-avatar',
     solar: 'upstage',
     flint: 'huggingface-avatar',
+    ripple: 'huggingface-avatar',
     raon: 'huggingface-avatar',
     spark: 'spark',
     sqlcoder: 'defog-avatar',

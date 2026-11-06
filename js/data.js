@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated October 28, 2026
+// Updated November 6, 2026
 // Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
@@ -87,6 +87,39 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "ripple-65b-preview",
+            "name": "Ripple 65B Preview",
+            "family": "ripple",
+            "params": "65B",
+            "size_gb": 40.43,
+            "min_ram": 48,
+            "ram_estimate": true,
+            "tags": [
+                "coding",
+                "reasoning",
+                "tool-calling",
+                "long-context",
+                "power"
+            ],
+            "description": "Ricursive Intelligence dense model pretrained from scratch for agentic coding. AtomicChat AD-Q4_K_M GGUF is 40.43GB; its publisher recommends 48GB memory for moderate context. Requires llama.cpp with merged Ripple support; start at 4096 tokens.",
+            "search_term": "Ripple-65B-Preview",
+            "recommended_quant": "AD-Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "AD-Q4_K_M",
+                    "size_gb": 40.43,
+                    "file": "Ripple-65B-Preview-AD-Q4_K_M.gguf"
+                }
+            ],
+            "hf_repo": "AtomicChat/Ripple-65B-Preview-GGUF",
+            "source_url": "https://huggingface.co/ricursiveAI/Ripple-65B-Preview",
+            "runtime_url": "https://github.com/ggml-org/llama.cpp/pull/31692",
+            "custom_runtime": "llama.cpp containing fecdc81eec0922b229e7e6f4069cea603e10d6a7 (PR 31692); use --jinja -c 4096; LM Studio/Ollama support not confirmed",
+            "benchmarks": {},
+            "released": "2026-11-04",
+            "isNew": true
+        },
         {
             "id": "lfm3-1-7b",
             "name": "LFM3 1.7B",
@@ -4540,10 +4573,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-11-05T07:20:02.885Z",
-        catalogueHash: "73474bd740b9f6a356b80557ca8cc94596f14a5cec4f5b47fe6c4d70d35d0621",
+        checkedAt: "2026-11-06T07:03:00.631Z",
+        catalogueHash: "19182c5b8cb1fcc4804749a34ec6c7eb99e13315415baaf2ad6d9a7a45605330",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "ripple-65b-preview": "AtomicChat/Ripple-65B-Preview-GGUF",
             "lfm3-1-7b": "LiquidAI/LFM3-1.7B-GGUF",
             "lfm3-vl-2b": "LiquidAI/LFM3-VL-2B-GGUF",
             "nanbeige4-3-33b": "bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",

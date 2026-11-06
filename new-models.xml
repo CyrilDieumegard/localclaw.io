@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Ripple 65B Preview</title>
+      <link>https://localclaw.io/models/ripple-65b-preview</link>
+      <guid isPermaLink="true">https://localclaw.io/models/ripple-65b-preview</guid>
+      <pubDate>Wed, 04 Nov 2026 12:00:00 GMT</pubDate>
+      <category>ripple</category>
+      <description>Ricursive Intelligence dense model pretrained from scratch for agentic coding. AtomicChat AD-Q4_K_M GGUF is 40.43GB; its publisher recommends 48GB memory for moderate context. Requires llama.cpp with merged Ripple support; start at 4096 tokens. 65B · 48 GB short-context RAM estimate · AD-Q4_K_M · ripple.</description>
+    </item>
     <item>
       <title>LFM3 1.7B</title>
       <link>https://localclaw.io/models/lfm3-1-7b</link>
@@ -159,14 +167,6 @@
       <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
       <category>nex</category>
       <description>Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests. 35B MoE · 32 GB minimum RAM · Q4_K_M · nex.</description>
-    </item>
-    <item>
-      <title>DeepSeek V4.1 Flash</title>
-      <link>https://localclaw.io/models/deepseek-v4-1-flash</link>
-      <guid isPermaLink="true">https://localclaw.io/models/deepseek-v4-1-flash</guid>
-      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
-      <category>deepseek-flash</category>
-      <description>Official MIT DeepSeek V4.1 Flash release with CED architecture, CSA2 attention, multimodal input and 1M-token context. Community GGUF artifacts include split Q2_K/Q3/Q4 builds plus a llama.cpp patch path; use only on 256GB+ workstations, with 384GB+ safer. 552B MoE (8B/16B active) · 256 GB minimum RAM · Q2_K · deepseek-flash.</description>
     </item>
   </channel>
 </rss>

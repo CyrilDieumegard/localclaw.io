@@ -4,6 +4,40 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "ripple-65b-preview": {
+        "developer": "Ricursive Intelligence",
+        "developer_url": "https://www.ricursive.com/",
+        "context_window": 1048576,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/ricursiveAI/Ripple-65B-Preview/blob/main/LICENSE",
+        "architecture": "65B dense Transformer; 80 layers with sliding-window and global attention, attention gating and value residual connections.",
+        "training_data": "Pretrained from scratch on 12 trillion predominantly English and code tokens, then officially post-trained for agentic coding.",
+        "languages": [
+            "English"
+        ],
+        "strengths": [
+            "Canonical pretrained-from-scratch release under Apache 2.0",
+            "Agentic coding, tool use and reasoning",
+            "GGUF artifacts referenced by the merged upstream llama.cpp implementation"
+        ],
+        "weaknesses": [
+            "48GB is the GGUF publisher recommendation for AD-Q4_K_M at moderate context, not a measured universal minimum; reserve OS/runtime headroom and start at 4096 tokens",
+            "The advertised 1,048,576-token context is not a fit claim for a 48GB machine",
+            "Requires llama.cpp commit fecdc81eec0922b229e7e6f4069cea603e10d6a7 or a later build containing PR 31692; stock LM Studio and Ollama support is not confirmed",
+            "Preview release; developer benchmark scores are not independent LocalClaw ratings",
+            "AtomicChat provides the quantization; the canonical release is Ricursive Intelligence, not a separate AtomicChat model"
+        ],
+        "use_cases": [
+            "Local coding assistants",
+            "Private tool-calling workflows",
+            "Codebase reasoning on a workstation"
+        ],
+        "similar_models": [
+            "qwen3-coder-next",
+            "flint-40b-a2-5b"
+        ],
+        "official_blog": "https://www.ricursive.com/ripple"
+    },
     "lfm3-1-7b": {
         "developer": "Liquid AI",
         "developer_url": "https://www.liquid.ai/",
