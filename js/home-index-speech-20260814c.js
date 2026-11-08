@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "sophon-realtime-32b-tag",
+    "name": "Sophon-Realtime 32B Tag",
+    "developer": "Adventists AI",
+    "family": "sophon",
+    "license": "Apache 2.0 (code and weights; documented upstream components Apache 2.0)",
+    "releaseDate": "2026-10-29",
+    "quality": null,
+    "speed": null,
+    "type": "APP",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 42
+  },
+  {
     "id": "verispoof-plus",
     "name": "VeriSpoof-Plus",
     "developer": "Yang Xiao",

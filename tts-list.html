@@ -1939,6 +1939,50 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "sophon-realtime-32b-tag",
+                "supportsUnsloth": false,
+                "name": "Sophon-Realtime 32B Tag",
+                "developer": "Adventists AI",
+                "family": "sophon",
+                "isOrchestrator": true,
+                "operatingSystem": "Linux with NVIDIA CUDA GPU",
+                "systemRequirements": "Official deployment requires one 80 GB NVIDIA GPU (H100, H800 or A100 80G). Upstream reports about 65 GB per instance, not a minimum device specification. Python 3.12, vLLM 0.30 and vLLM-Omni 0.30; approximately 42 GB weight download. System RAM minimum is not specified.",
+                "description": "Local full-duplex voice model that listens to speech, handles turn-taking and interruptions, and streams spoken replies with expressive sound tags. Combines a 32B DuplexJev thinker with a trained tag-tts speech model and vocoder in one local vLLM-Omni deployment.",
+                "languages": [
+                    "zh",
+                    "en"
+                ],
+                "languageCount": 2,
+                "features": [
+                    "audio-language",
+                    "realtime",
+                    "streaming",
+                    "expressive"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 42,
+                "sizeLabel": "32B thinker plus speech components; about 42 GB download (upstream)",
+                "sizeCategory": "xl",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-10-29",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/adventists-ai/Sophon-Realtime-32B-Tag",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone https://github.com/adventists-ai/sophon-realtime\ncd sophon-realtime/tag\nbash install.sh\nGPU=0 PORT=8000 bash start.sh",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors",
+                    "vllm-omni"
+                ],
+                "voices": "Six bundled reference presets: chelsie_zh, chelsie_en, vivian_zh, ryan_en, brand_zh and brand_en. Custom voice cloning is not verified for this deployment.",
+                "context": "Canonical Tag release; not a standalone quantization mirror. The FP8 thinker derives from Qwen3-VL-32B-Instruct via DuplexJev-32B-Para, with a Qwen3-ASR audio encoder and merged tag-writing adaptation. The speech model derives from Fun-CosyVoice3-0.5B, with trained sound tags and a distilled four-step flow decoder. The official tag/NOTICE identifies these Apache-2.0 bases. English and Mandarin are documented. Streams speech while writing replies; supports full-duplex turn-taking, backchannels and barge-in. Requires one 80 GB GPU in the documented setup; about 65 GB usage is an upstream observation, not a supported 65 GB device minimum. The upstream install script creates a Python 3.12 environment and downloads weights from ModelScope; the same official weights are available on Hugging Face. Sound-tag realization is imperfect, Mandarin is less clear than English, and replies over about one minute exceed the voice training regime. No local inference test performed; no LocalClaw quality or speed rating. Sources: huggingface.co/adventists-ai/Sophon-Realtime-32B-Tag and github.com/adventists-ai/sophon-realtime/tree/main/tag (README.md, NOTICE, install.sh and start.sh), checked 2026-11-08.",
+                "license": "Apache 2.0 (code and weights; documented upstream components Apache 2.0)"
+            },
+            {
                 "id": "verispoof-plus",
                 "name": "VeriSpoof-Plus",
                 "developer": "Yang Xiao",

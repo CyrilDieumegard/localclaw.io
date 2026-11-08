@@ -144,6 +144,9 @@ function localSentence(model) {
   if ((model.features || []).includes('audio-forensics')) {
     return `${name} can run locally for speech deepfake detection and source analysis over the first 8 seconds of a recording. ${setup}`;
   }
+  if (model.isOrchestrator && (model.features || []).includes('audio-language') && (model.features || []).includes('realtime')) {
+    return `${name} can run locally for full-duplex voice conversations with streamed speech replies. ${setup}`;
+  }
   if (model.isOrchestrator && (model.features || []).includes('audio-language')) {
     return `${name} can run locally for audio-language question answering over supplied recordings. ${setup}`;
   }
@@ -678,7 +681,7 @@ const unverifiedModels = models.filter(isUnverifiedSpeechRecord);
 const renderedPages = new Map(models.map(model => [model.id, cleanGeneratedHtml(page(model, models))]));
 const renderedIndex = cleanGeneratedHtml(indexPage(models));
 
-if (models.length !== 123 || localModels.length !== 120 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
+if (models.length !== 124 || localModels.length !== 121 || remoteModels.length !== 2 || unverifiedModels.length !== 1 || unverifiedModels[0]?.id !== 'xtts-v3') {
   throw new Error(`Unexpected speech classification: ${models.length} total, ${localModels.length} local, ${remoteModels.length} remote, ${unverifiedModels.length} unverified`);
 }
 
@@ -702,7 +705,7 @@ for (const forbidden of [
 ]) {
   if (tombstone.includes(forbidden)) throw new Error(`XTTS v3 tombstone exposes forbidden content: ${forbidden}`);
 }
-if (!renderedIndex.includes('120<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
+if (!renderedIndex.includes('121<small> local pages</small>') || !renderedIndex.includes('Unverified preserved route')) {
   throw new Error('Speech index does not expose the verified-local and unverified route counts');
 }
 

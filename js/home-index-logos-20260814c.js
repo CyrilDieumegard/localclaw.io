@@ -151,6 +151,7 @@ window.HOME_INDEX_LOGOS = {
     mizar: 'huggingface-avatar',
     ossicle: 'huggingface-avatar',
     verispoof: 'huggingface-avatar',
+    sophon: 'huggingface-avatar',
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',

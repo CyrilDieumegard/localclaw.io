@@ -191,7 +191,7 @@ function speechInstallPicker(model) {
     featured: true
   })];
   const unslothHref = unslothDeepLink(model);
-  if (!isGithub && unslothHref) cards.push(installCard({platform: 'unsloth', label: 'Open in Unsloth', note: 'Launches Unsloth Desktop on this model', href: unslothHref, model, category, external: false, appLink: true}));
+  if (!isGithub && unslothHref && model.supportsUnsloth !== false) cards.push(installCard({platform: 'unsloth', label: 'Open in Unsloth', note: 'Launches Unsloth Desktop on this model', href: unslothHref, model, category, external: false, appLink: true}));
   const pkg = packageName(model.installCommand);
   if (pkg) cards.push(installCard({platform: 'python', label: 'Open Python package', note: 'Verified package page without exposing a command', href: `https://pypi.org/project/${encodeURIComponent(pkg)}/`, model, category}));
   const gitUrl = githubUrl(model.installCommand);
