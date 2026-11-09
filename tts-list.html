@@ -1939,6 +1939,50 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "longcap-35b-a3b",
+                "supportsUnsloth": false,
+                "name": "LongCap 35B-A3B",
+                "developer": "Jinchuan Tian and LongCap authors",
+                "family": "longcap",
+                "isAsr": true,
+                "isOrchestrator": true,
+                "operatingSystem": "Linux x86-64 with NVIDIA CUDA GPUs",
+                "systemRequirements": "Official local deployment: one H100 80 GB for the author-provided FP8 checkpoint, or two H100 80 GB GPUs for BF16 (BF16 does not fit on one 80 GB GPU). Linux x86-64, CUDA 13.0-compatible NVIDIA driver, Docker with NVIDIA Container Toolkit, and Python 3.12. System RAM minimum is unspecified; the official Docker command allocates 16 GB shared memory.",
+                "description": "Local audio-language model for timestamped audio captions and speech recognition with speaker diarization. Processes recordings up to about two hours as chunks with retained context, producing structured speech, sound and music descriptions rather than generating audio.",
+                "languages": [
+                    "en",
+                    "zh"
+                ],
+                "languageCount": 2,
+                "features": [
+                    "asr",
+                    "audio-language",
+                    "diarization"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 70.6,
+                "sizeLabel": "35.31B total parameters; 70.6 GB BF16 or 38.4 GB official FP8 download",
+                "sizeCategory": "xl",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-08",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/JinchuanTian/LongCap-35B-A3B",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone https://github.com/jctian98/longcap-code.git\ncd longcap-code\npython3.12 -m venv .venv\nsource .venv/bin/activate\npython -m pip install --only-binary=:all: --require-hashes -r requirements/client.lock\npython -m pip install --no-deps .\n\nMODEL=LongCap-35B-A3B-FP8   # or LongCap-35B-A3B for BF16\nhf download JinchuanTian/$MODEL --local-dir ./models/$MODEL\nlongcap verify-model --model ./models/$MODEL",
+                "supportedFormats": [
+                    "safetensors",
+                    "pytorch",
+                    "vllm"
+                ],
+                "voices": "N/A: text captions and speaker-labelled transcripts. No speech synthesis or voice cloning; chunked file processing is not advertised as live microphone streaming.",
+                "context": "Canonical trained checkpoint built from Qwen3.5-35B-A3B-Base and the Qwen3-Omni audio encoder with a trained adaptor; all weight components are documented under Apache 2.0 in NOTICE. English and Chinese are tagged by the authors; structured attribute names, values and captions are Chinese, while transcripts retain the spoken language. This is audio understanding, not music generation. The authors provide a custom vLLM 0.26.0 plugin, PyTorch 2.11.0 and Docker runtime; stock Transformers pipelines and desktop-app compatibility are not verified. The install snippet is copied from the official quickstart and installs the client/downloads the recommended FP8 checkpoint; follow https://github.com/jctian98/longcap-code/blob/main/docs/quickstart.md to start the local GPU server and caption or diarize recordings. FP8 is an official option within this canonical family, not a separate catalogue record. Documented GPU configurations are one H100 80 GB for FP8 or two H100 80 GB for BF16, not inferred from file sizes. The long profile uses up to 1,048,576 context tokens. Research release: timestamps, transcripts and speaker labels can be wrong; it has not been validated for production. No local inference test performed and no LocalClaw quality or speed rating. Sources: huggingface.co/JinchuanTian/LongCap-35B-A3B and github.com/jctian98/longcap-code (README, quickstart, inference guide, third-party notices, Dockerfile and runtime code), checked 2026-11-09.",
+                "license": "Apache 2.0 (code and weights; Qwen3.5 and Qwen3-Omni bases Apache 2.0)"
+            },
+            {
                 "id": "sophon-realtime-32b-tag",
                 "supportsUnsloth": false,
                 "name": "Sophon-Realtime 32B Tag",

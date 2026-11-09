@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "longcap-35b-a3b",
+    "name": "LongCap 35B-A3B",
+    "developer": "Jinchuan Tian and LongCap authors",
+    "family": "longcap",
+    "license": "Apache 2.0 (code and weights; Qwen3.5 and Qwen3-Omni bases Apache 2.0)",
+    "releaseDate": "2026-11-08",
+    "quality": null,
+    "speed": null,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 70.6
+  },
+  {
     "id": "sophon-realtime-32b-tag",
     "name": "Sophon-Realtime 32B Tag",
     "developer": "Adventists AI",
