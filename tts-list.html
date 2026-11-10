@@ -1939,6 +1939,47 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "voxtream-2-5",
+                "supportsUnsloth": false,
+                "name": "VoXtream2.5",
+                "developer": "Nikita Torgashov, Gustav Eje Henter and Gabriel Skantze",
+                "family": "voxtream",
+                "operatingSystem": "Linux with NVIDIA CUDA GPU; optional CPU GGUF runtime",
+                "systemRequirements": "Official PyTorch path requires 3 GB VRAM; optional prompt speech enhancement adds 2 GB. Tested upstream on Ubuntu 22.04, CUDA 12.8 and PyTorch 2.8. Install eSpeak NG and voxtream >=0.2.6. CPU GGUF inference is documented, but minimum system RAM is unspecified. Additional Mimi codec and ReDimNet2 speaker encoder weights are downloaded by the runtime.",
+                "description": "English full-stream text-to-speech with zero-shot voice cloning and speaking-rate control that can change mid-utterance. Generates 24 kHz audio for up to five minutes; official PyTorch/CUDA and optional int8 GGUF CPU paths. Non-commercial model weights.",
+                "languages": [
+                    "en"
+                ],
+                "languageCount": 1,
+                "features": [
+                    "streaming",
+                    "cloning",
+                    "controllable"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 2.124,
+                "sizeLabel": "531M checkpoint parameters; 2.12 GB FP32 safetensors, plus codec and speaker encoder",
+                "sizeCategory": "medium",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-09",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/herimor/voxtream2.5",
+                "sourceStatus": "verified-code",
+                "installCommand": "# Debian / Ubuntu: install the official phonemizer prerequisite\napt-get install espeak-ng\npip install \"voxtream>=0.2.6\"",
+                "supportedFormats": [
+                    "safetensors",
+                    "pytorch",
+                    "gguf"
+                ],
+                "voices": "Zero-shot cloning from a 3-10 second reference recording; maximum 20 seconds (longer prompts are trimmed). Use a voice only with its speaker's consent. English only.",
+                "context": "Canonical VoXtream2.5 release: 530,989,056 FP32 parameters in the published checkpoint; this excludes the separately loaded Mimi codec and ReDimNet2 speaker encoder. The trained hybrid depth head predicts 32 Mimi codebooks in four steps. Full streaming accepts incremental text and emits audio, with speaking rate adjustable during generation. Model weights use CC-BY-NC-4.0 (attribution and non-commercial use); runtime code has MIT/Apache license files. The official README explicitly specifies 3 GB VRAM, plus 2 GB for optional prompt enhancement; checkpoint download size is not a RAM requirement. CPU int8 GGUF is an official option within this family, but no CPU RAM floor is established, so the hardware filter uses the documented GPU path. Installation commands are from the official model card; usage and sample audio files are documented at https://github.com/herimor/voxtream. Optional dependency downloads occur on first run. No local inference test performed and no LocalClaw quality or speed rating. Sources: https://huggingface.co/herimor/voxtream2.5 (card, file listing, configuration and safetensors metadata), https://github.com/herimor/voxtream (README and configs/generator.json), and https://pypi.org/project/voxtream/0.2.6/, checked 2026-11-10.",
+                "license": "CC-BY-NC-4.0 (model weights; attribution, non-commercial use)"
+            },
+            {
                 "id": "longcap-35b-a3b",
                 "supportsUnsloth": false,
                 "name": "LongCap 35B-A3B",

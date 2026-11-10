@@ -153,6 +153,7 @@ window.HOME_INDEX_LOGOS = {
     verispoof: 'huggingface-avatar',
     sophon: 'huggingface-avatar',
     longcap: 'huggingface-avatar',
+    voxtream: 'huggingface-avatar',
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',

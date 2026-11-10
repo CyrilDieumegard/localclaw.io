@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "voxtream-2-5",
+    "name": "VoXtream2.5",
+    "developer": "Nikita Torgashov, Gustav Eje Henter and Gabriel Skantze",
+    "family": "voxtream",
+    "license": "CC-BY-NC-4.0 (model weights; attribution, non-commercial use)",
+    "releaseDate": "2026-11-09",
+    "quality": null,
+    "speed": null,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 2.124
+  },
+  {
     "id": "longcap-35b-a3b",
     "name": "LongCap 35B-A3B",
     "developer": "Jinchuan Tian and LongCap authors",
