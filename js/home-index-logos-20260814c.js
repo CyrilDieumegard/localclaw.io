@@ -154,6 +154,7 @@ window.HOME_INDEX_LOGOS = {
     sophon: 'huggingface-avatar',
     longcap: 'huggingface-avatar',
     voxtream: 'huggingface-avatar',
+    haru: 'huggingface-avatar',
     mms: 'meta',
     moshi: 'kyutai-avatar',
     moss: 'openmoss-avatar',

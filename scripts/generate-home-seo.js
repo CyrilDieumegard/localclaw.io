@@ -60,6 +60,7 @@ function llmScore(model) {
 }
 
 function speechScore(model) {
+  if (![model.quality, model.speed].every(value => typeof value === 'number' && Number.isFinite(value))) return null;
   return Math.min(10, (finite(model.quality) * 0.68) + (finite(model.speed) * 0.32));
 }
 

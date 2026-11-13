@@ -1939,6 +1939,58 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "haru-4b",
+                "supportsUnsloth": false,
+                "name": "Haru-4B",
+                "developer": "Higurashi AI",
+                "family": "haru",
+                "isOrchestrator": true,
+                "operatingSystem": "NVIDIA CUDA GPU; optional Apple silicon MLX implementation",
+                "systemRequirements": "Official PyTorch quickstart specifies an NVIDIA GPU with about 12 GB memory. Python 3.10+, PyTorch 2.6+ and Transformers 5.16+. BF16 checkpoint download is 10.54 GB. An official MLX implementation and native macOS app are available, but no minimum unified memory or system RAM is specified.",
+                "description": "Multilingual full-duplex spoken dialogue model that listens and speaks simultaneously, with reference-voice cloning and text character cards. Streams 24 kHz audio in 133 ms frames. Pretrained research base, not an instruction-tuned assistant.",
+                "languages": [
+                    "en",
+                    "es",
+                    "pt",
+                    "de",
+                    "fr",
+                    "zh",
+                    "ja",
+                    "ru",
+                    "ko"
+                ],
+                "languageCount": 9,
+                "features": [
+                    "audio-language",
+                    "realtime",
+                    "streaming",
+                    "cloning"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 10.54,
+                "sizeLabel": "4B text backbone; 5.27B total checkpoint parameters, 10.54 GB BF16",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-12",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/higurashi-ai/Haru-4B",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone https://github.com/higurashi-ai/Haru && cd Haru\npip install -e ./haru\npython -m haru.server --hf-repo higurashi-ai/Haru-4B",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors",
+                    "mlx",
+                    "vllm-omni"
+                ],
+                "voices": "Reference-voice cloning from a clean single-speaker recording of 3 seconds to 3 minutes. No voice clips bundled. Upload or record a voice you have permission to use in the local web demo.",
+                "context": "Canonical Haru-4B checkpoint: Qwen3.5-4B text backbone, VibeVoice causal acoustic tokenizer and trained MeanFlow audio head. Hugging Face reports 5,270,000,897 BF16 parameters across the full checkpoint, including the codec; the 4B name refers to the text backbone. Official downloadable model.safetensors is 10,540,113,510 bytes. Native full-duplex streams run at 7.5 Hz (133 ms frames), with audio and text outputs; frame duration is not an end-to-end response latency benchmark. Nine languages are documented. The official PyTorch quickstart specifies about 12 GB NVIDIA GPU memory; this is upstream deployment guidance, not a measured LocalClaw minimum. CPU RAM and Apple unified-memory floors are unspecified, so the hardware filter uses the documented NVIDIA path. The same checkpoint also has official MLX/macOS and vLLM-Omni implementations. Open http://localhost:8998 after the official install/start commands and provide a reference voice. Apache-2.0 code and weights; third-party notices identify the MIT VibeVoice codec and Moshi client. Research base: upstream cautions that it is not factually reliable and does not follow instructions like an assistant. No local inference test performed; no LocalClaw quality or speed rating. Sources: https://huggingface.co/higurashi-ai/Haru-4B (card, file listing and safetensors metadata) and https://github.com/higurashi-ai/Haru (README, THIRD_PARTY_NOTICES.md and haru/pyproject.toml), checked 2026-11-13.",
+                "license": "Apache 2.0 (code and weights; third-party components retain their licenses)"
+            },
+            {
                 "id": "voxtream-2-5",
                 "supportsUnsloth": false,
                 "name": "VoXtream2.5",

@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "haru-4b",
+    "name": "Haru-4B",
+    "developer": "Higurashi AI",
+    "family": "haru",
+    "license": "Apache 2.0 (code and weights; third-party components retain their licenses)",
+    "releaseDate": "2026-11-12",
+    "quality": null,
+    "speed": null,
+    "type": "APP",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 10.54
+  },
+  {
     "id": "voxtream-2-5",
     "name": "VoXtream2.5",
     "developer": "Nikita Torgashov, Gustav Eje Henter and Gabriel Skantze",
