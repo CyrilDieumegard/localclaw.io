@@ -1939,6 +1939,54 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "tontaube-v1-1",
+                "supportsUnsloth": false,
+                "name": "Tontaube V1.1",
+                "developer": "Craitech / Tontaube",
+                "family": "tontaube",
+                "operatingSystem": "Linux with NVIDIA CUDA GPU (vLLM); optional CPU lite backend",
+                "systemRequirements": "Official BF16 vLLM backend requires an NVIDIA GPU with at least 24 GiB VRAM (32 GiB for high-throughput profile). Python 3.12 and uv; pinned v1.1.0 runtime. System RAM minimum is unspecified. The optional int4 lite backend reports about 6.5 GiB peak GPU usage, not a minimum system RAM requirement.",
+                "description": "Multilingual long-form text-to-speech with reference-voice cloning, MP3/Opus streaming and five speaking-style controls. English and German are primary languages. Downloadable weights under a restrictive community license.",
+                "languages": [
+                    "en",
+                    "de",
+                    "es",
+                    "fr",
+                    "it",
+                    "nl",
+                    "pt"
+                ],
+                "languageCount": 7,
+                "features": [
+                    "multilingual",
+                    "cloning",
+                    "streaming",
+                    "controllable"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 6.4,
+                "sizeLabel": "2.899B codebook predictor parameters; about 6.4 GB BF16 download plus codec dependencies",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-13",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/TontaubeAI/TontaubeV1.1",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone --branch v1.1.0 --depth 1 https://github.com/craitech/tontaube.git\ncd tontaube\nTTS_BACKEND=vllm uv run --python 3.12 --frozen tontaube serve",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors",
+                    "vllm"
+                ],
+                "voices": "Bundled synthetic voices and zero-shot cloning from about 5–60 seconds of clean single-speaker reference audio. Use recordings you have permission to clone.",
+                "context": "Canonical Tontaube V1.1 BF16 release with four Qwen3-derived codebook predictors totaling 2,899,197,954 stored parameters. Separate DualCodec, W2V-BERT and VibeVoice components are downloaded from pinned upstream repositories; 6.4 GB is the model download, not total runtime storage or RAM. English and German are primary; Spanish, French, Italian, Dutch and Portuguese are also documented. Five controls adjust speaking rate, pauses, intonation, pitch and articulation. Local server supports WAV output and MP3/Opus streaming; no end-to-end latency or LocalClaw quality/speed rating is claimed. The documented vLLM path requires at least 24 GiB NVIDIA VRAM. Optional official int4 lite runtime supports CPU, but a numeric CPU RAM floor is not established, so the hardware filter uses the verified GPU path. Prior-release TontaubeV1 automated benchmark results must not be presented as V1.1 measurements. Model weights use Tontaube Community Model License 1.0, not an open-source license: research/noncommercial use is allowed subject to its terms; community commercial use requires group revenue below EUR 200,000 and attribution. Speech-generation services require a separate commercial license regardless of revenue, apart from the license’s limited demo exception. Runtime code is Apache-2.0; third-party model and codec licenses remain applicable. No local inference test performed. Sources checked 2026-11-15: https://huggingface.co/TontaubeAI/TontaubeV1.1 (card and four safetensors files), https://huggingface.co/TontaubeAI/TontaubeV1.1/blob/main/LICENSE and https://github.com/craitech/tontaube (official runtime README).",
+                "license": "Tontaube Community Model License 1.0 (restricted commercial use; separate license for speech services)"
+            },
+            {
                 "id": "haru-4b",
                 "supportsUnsloth": false,
                 "name": "Haru-4B",

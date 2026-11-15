@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "tontaube-v1-1",
+    "name": "Tontaube V1.1",
+    "developer": "Craitech / Tontaube",
+    "family": "tontaube",
+    "license": "Tontaube Community Model License 1.0 (restricted commercial use; separate license for speech services)",
+    "releaseDate": "2026-11-13",
+    "quality": null,
+    "speed": null,
+    "type": "TTS",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 6.4
+  },
+  {
     "id": "haru-4b",
     "name": "Haru-4B",
     "developer": "Higurashi AI",
