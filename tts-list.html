@@ -1939,6 +1939,51 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "sophon-realtime-4b-flash",
+                "supportsUnsloth": false,
+                "name": "Sophon-Realtime 4B Flash",
+                "developer": "Adventists AI",
+                "family": "sophon",
+                "isOrchestrator": true,
+                "operatingSystem": "Linux with NVIDIA CUDA GPU",
+                "systemRequirements": "Official deployment targets one 24 GB NVIDIA GPU, with about 21 GB usage reported. Measurements used an RTX PRO 6000 constrained to the target memory budget, not a tested 24 GB card. Python 3.12, vLLM 0.30 and vLLM-Omni 0.30. About 13 GB complete repository download; system RAM minimum unspecified.",
+                "description": "Full-duplex English and Mandarin voice dialogue with a 4B thinker, streamed spoken replies, expressive sound tags and reference-voice cloning. Official Flash deployment targets a single 24 GB GPU.",
+                "languages": [
+                    "zh",
+                    "en"
+                ],
+                "languageCount": 2,
+                "features": [
+                    "audio-language",
+                    "realtime",
+                    "streaming",
+                    "expressive",
+                    "cloning"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 13,
+                "sizeLabel": "4B thinker plus 1.7B-derived speech model and codec; about 13 GB download",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-16",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/adventists-ai/Sophon-Realtime-4B-Flash",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone https://github.com/adventists-ai/sophon-realtime\ncd sophon-realtime/flash\nbash install.sh\nhf download adventists-ai/Sophon-Realtime-4B-Flash --local-dir ./model\nGPU=0 PORT=8000 bash start.sh",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors",
+                    "vllm-omni"
+                ],
+                "voices": "Bundled Chelsie and Brand voices; zero-shot cloning from 3–10 seconds of clean single-speaker WAV or FLAC. Cross-language reference clips supported. Use voices you have permission to clone.",
+                "context": "Canonical 4B Flash release, not a quantization mirror. The BF16 thinker derives from Qwen3-4B via DuplexJev-4B-Para with a merged tag-writing adapter and Qwen3-ASR audio encoder. Its speech stage derives from Qwen3-TTS-12Hz-1.7B-Base; NOTICE identifies the Apache-2.0 components. Four safetensors files plus tokenizer and voice assets total about 13 GB; download size is not RAM. Supports full-duplex turn-taking, backchannels and interruption, with local /v1/realtime and /v1/chat/completions endpoints. Streams 24 kHz audio; the 80 ms speech-frame cadence is not end-to-end latency. No vision input. Official runtime selects a 24 GB configuration for 4B Flash; about 21 GB usage is an observation, not a 21 GB device floor. Upstream benchmark measurements use an RTX PRO 6000 with a constrained memory budget. The 4B thinker has substantially weaker factual reasoning than the 32B family; intended for demos, characters and turn-taking research. No local inference test or LocalClaw quality/speed rating. Sources checked 2026-11-16: https://huggingface.co/adventists-ai/Sophon-Realtime-4B-Flash (card, configs, weights and NOTICE), https://github.com/adventists-ai/sophon-realtime/blob/main/flash/README.md.",
+                "license": "Apache 2.0 (code, weights and documented upstream components)"
+            },
+            {
                 "id": "tontaube-v1-1",
                 "supportsUnsloth": false,
                 "name": "Tontaube V1.1",

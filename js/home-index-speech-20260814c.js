@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "sophon-realtime-4b-flash",
+    "name": "Sophon-Realtime 4B Flash",
+    "developer": "Adventists AI",
+    "family": "sophon",
+    "license": "Apache 2.0 (code, weights and documented upstream components)",
+    "releaseDate": "2026-11-16",
+    "quality": null,
+    "speed": null,
+    "type": "APP",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 13
+  },
+  {
     "id": "tontaube-v1-1",
     "name": "Tontaube V1.1",
     "developer": "Craitech / Tontaube",

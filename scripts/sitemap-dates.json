@@ -1,7 +1,7 @@
 {
   "index.html": {
-    "hash": "31cc92a7d31d67c127ce1c597cbc0e1c927bb91a7fc703223b9edaf4454aa040",
-    "lastmod": "2026-11-15"
+    "hash": "c6074d89da9ddd5c7977e79b1d7a7ca24e01b38c697b21e44bf53483530b210c",
+    "lastmod": "2026-11-16"
   },
   "local-ai-activity-index.html": {
     "hash": "4bd7093fd4b232f089022bf7c510c094d7f3f0424bd9084f7d48e97261e63c67",
@@ -32,8 +32,8 @@
     "lastmod": "2026-11-13"
   },
   "tts-list.html": {
-    "hash": "5edef0c7a8f770bc056e460ba54ce5c3eda65e05f66ab431e15fbf4f909eefa9",
-    "lastmod": "2026-11-15"
+    "hash": "f1838277c34e55cd7baccfb9d29127ffa4e82ed5af5f5e8751faee98f370f9a4",
+    "lastmod": "2026-11-16"
   },
   "image-models.html": {
     "hash": "10f71404161f61a6bc4b3ced39fc1a580c25b229524d866a6d917d58bb35392a",
@@ -76,8 +76,8 @@
     "lastmod": "2026-10-13"
   },
   "new.html": {
-    "hash": "1ca252b1e1bd9715c98bf927181a95389074b8b8944205159e40356175d67132",
-    "lastmod": "2026-11-15"
+    "hash": "0034d8191c8b59f0806f37b8edfd7c48b33fbd59c1c33894a3fb1a3bdf9837ea",
+    "lastmod": "2026-11-16"
   },
   "software/lm-studio.html": {
     "hash": "c8995597ab83bc35e7ab78627612cf329ceae2805fd0a79e6c210ecbb6396186",
@@ -1412,8 +1412,8 @@
     "lastmod": "2026-10-13"
   },
   "tts/haru-4b.html": {
-    "hash": "430079f27234f0b542f9f0c28b3b7079a8ec4a952b9f248f293edfcf002c4369",
-    "lastmod": "2026-11-13"
+    "hash": "a19f77d4502747f9ccd2ecfaf111529b91f7a60745c65a1f0847fd5d83a194a9",
+    "lastmod": "2026-11-16"
   },
   "tts/higgs-audio-v2.html": {
     "hash": "6f6747dbdc2e0febb904d43ed20519b5e351e1ecf53ec2b6cbd95c52926d1819",
@@ -1444,8 +1444,8 @@
     "lastmod": "2026-10-13"
   },
   "tts/index.html": {
-    "hash": "3f80bbd8843deee8d51588b38b9ecdd8ee00a2252430d17101b381f7e5771544",
-    "lastmod": "2026-11-15"
+    "hash": "b50a74272d1817c5b333b92a88dc131a91976710a8c8fb972546f8d0e79b4c86",
+    "lastmod": "2026-11-16"
   },
   "tts/indic-tts.html": {
     "hash": "d2600c1e9adcbd7a0f3eca942aab2127446038f3c8014ebd4a03c05218ab8ff1",
@@ -1588,8 +1588,8 @@
     "lastmod": "2026-10-13"
   },
   "tts/ossicle-4b.html": {
-    "hash": "c15fdb051445ab3bf9d2dce16123f77c79b0baa749c16cfb5555e6e2348d67bb",
-    "lastmod": "2026-11-13"
+    "hash": "4433e17823160d20014fff51553c8718a5c83445b8f83f8c69e0e0cee442ccbe",
+    "lastmod": "2026-11-16"
   },
   "tts/outetts.html": {
     "hash": "5ede4074174fa14f270766f150390cbddb7a26bb53d610222a6fad550b52a5f3",
@@ -1652,8 +1652,12 @@
     "lastmod": "2026-10-13"
   },
   "tts/sophon-realtime-32b-tag.html": {
-    "hash": "1e19d7f8c402f8f1777c11dec0fcc0f2d2d5e1683fb92ed180c554f9e88d3bae",
-    "lastmod": "2026-11-13"
+    "hash": "95741b3f1a274d284f2ab6f33feefc5e65f11a493ed32425c1fafeb51829d570",
+    "lastmod": "2026-11-16"
+  },
+  "tts/sophon-realtime-4b-flash.html": {
+    "hash": "5f5e06e47121d52ea463ce635a5627cd02e76bd86feef2eb228fa24851326770",
+    "lastmod": "2026-11-16"
   },
   "tts/sopro-v2-turbo.html": {
     "hash": "92674e9e1f7036b05ffac47e2c68e3b2a2bdd9dbe255839d85bf37ce0a6bffef",
@@ -1688,12 +1692,12 @@
     "lastmod": "2026-10-13"
   },
   "tts/verispoof-base.html": {
-    "hash": "abc6375970030e44234ec417f1a163427df878fb4ab25c9b1fa382ab6cfa6f2f",
-    "lastmod": "2026-11-13"
+    "hash": "d741e8cb2e3a1a74a8222e33bebbe36aa68af80a9625381ccb1a104e60fbf620",
+    "lastmod": "2026-11-16"
   },
   "tts/verispoof-plus.html": {
-    "hash": "a83350cdca579ec13f56e59d2d9d14c0cfd6e60423c74cdfbd3095b470747b35",
-    "lastmod": "2026-11-13"
+    "hash": "e3a69dc163511b64c09bb64695b1342c671c92e27887318d3ff2728c089bc660",
+    "lastmod": "2026-11-16"
   },
   "tts/vibevoice-1.5b.html": {
     "hash": "55e26b5fac72c140f8912bedff931fef86fec7b2c40e245844977b20d4c1e7bf",
