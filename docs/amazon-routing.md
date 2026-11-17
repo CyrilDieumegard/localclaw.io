@@ -7,6 +7,7 @@ Current behavior, 17 November 2026. The account's Global Earning screen was veri
 - For Switzerland only, a fresh French exact offer may replace German search when delivery to Switzerland was explicitly checked. A manual store choice always wins.
 - `options=1` shows optional store choices. Each store link opens Amazon immediately and remembers the choice for six months. Automatic selection clears it. The primary flow never requires this chooser or JavaScript.
 - `context=1` returns the same server selection to the browser. It updates button labels and DataFast properties without changing navigation. If the request fails, shopping continues and telemetry records an unknown match instead of inventing an exact listing or destination.
+- DataFast accepts at most ten custom properties, including attributes already present in markup. The shared helper removes obsolete machine/brand attributes before the SDK reads the event.
 - DataFast owns the aggregate `amazon_click`. Family events are complementary series, not additional aggregate clicks. Context requests and structured `amazon_redirect` logs are diagnostics, not people or conversions.
 - HEAD, prefetch and identifiable preview/crawler requests return 204 without forwarding to Amazon. This does not identify all automated traffic.
 

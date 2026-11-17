@@ -9,7 +9,7 @@
     const family=link.getAttribute('data-fast-goal-family');
     if(!Object.hasOwn(familyGoals,family))return;
     const props={};
-    for(const key of ['family','market','country','source','product','match','attribution','selected_market','destination_host','tag','route'])props[key]=link.getAttribute('data-fast-goal-'+key)||'';
+    for(const key of ['family','market','country','source','product','match','attribution','destination_host','tag','route'])props[key]=link.getAttribute('data-fast-goal-'+key)||'';
     props.tag = 'localclaw-' + family + '-20';
     try { window.datafast(familyGoals[family],props); } catch { /* Shopping must work without analytics. */ }
   });

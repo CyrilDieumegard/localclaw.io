@@ -114,11 +114,12 @@ test('secondary chooser offers direct store links with remembered choice, tags a
   assert.equal(links.length,12);
   for (const link of links) {
     assert.match(link,/target="_blank"/);assert.match(link,/data-fast-goal-tag="localclaw-gpuram-20"/);
+    assert.equal([...link.matchAll(/data-fast-goal-[a-z_]+=/g)].length,10);
   }
   const france=links.find(link=>link.includes('class="store-choice"') && link.includes('data-fast-goal-market="FR"'));
   assert.match(france,/market=FR&amp;remember=1/);
   assert.match(france,/data-fast-goal-destination_host="www.amazon.fr"/);
-  assert.match(france,/data-fast-goal-selected_market="DE"/);
+  assert.ok(!france.includes('data-fast-goal-selected_market'));
   assert.match(france,/data-fast-goal-match="search"/);
 });
 test('invalid inputs and open-redirect/XSS attempts fail closed',async () => {
@@ -136,7 +137,7 @@ function clientEnvironment(context, fail=false) {
   const document={body:{},visibilityState:'visible',querySelectorAll:()=>links,addEventListener:(name,fn)=>listeners[name]=fn,createElement:()=>({setAttribute(){}})};
   const window={location:{href:'https://localclaw.io/',origin:'https://localclaw.io'},datafast:(...args)=>events.push(args)};
   function addLink(href) {
-    const attrs={href};const link={dataset:{},childNodes:[],setAttribute:(key,value)=>attrs[key]=value,getAttribute:key=>attrs[key]||null,after:()=>{},attrs};
+    const attrs={href,'data-fast-goal-machine':'legacy-machine','data-fast-goal-brand':'legacy-brand'};const link={dataset:{},childNodes:[],getAttributeNames:()=>Object.keys(attrs),removeAttribute:key=>delete attrs[key],setAttribute:(key,value)=>attrs[key]=value,getAttribute:key=>attrs[key]||null,after:()=>{},attrs};
     links.push(link);observer([{addedNodes:[{querySelectorAll:()=>[link]}]}]);return link;
   }
   vm.runInNewContext(fs.readFileSync(new URL('../js/amazon-clicks-20260921.js',import.meta.url),'utf8'),{
@@ -155,6 +156,10 @@ test('browser tracking resolves dynamic links before aggregate capture and emits
   env.listeners.click({isTrusted:true,target:{closest:()=>link}});
   assert.equal(env.events.length,1);assert.equal(env.events[0][0],'amazon_computers_click');
   assert.equal(env.events[0][1].tag,FAMILY_TAGS.computers);
+  assert.equal(Object.keys(env.events[0][1]).length,10);
+  assert.equal(Object.keys(link.attrs).filter(key=>key.startsWith('data-fast-goal-')).length,10);
+  assert.ok(!Object.hasOwn(link.attrs,'data-fast-goal-machine'));
+  assert.ok(!Object.hasOwn(link.attrs,'data-fast-goal-brand'));
   env.listeners.click({isTrusted:false,target:{closest:()=>link}});assert.equal(env.events.length,1);
   env.window.datafast=undefined;assert.doesNotThrow(()=>env.listeners.click({target:{closest:()=>link}}));
 });

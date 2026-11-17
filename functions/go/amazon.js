@@ -40,7 +40,7 @@ export async function onRequestGet({request}) {
     for (const [key,value] of Object.entries({q,family,source,product,market:targetMarket,remember:'1'})) if (value) target.searchParams.set(key,value);
     return target.pathname + target.search;
   };
-  const props = (targetMarket, targetMatch, targetAttribution) => `data-fast-goal="amazon_click" data-fast-goal-family="${family}" data-fast-goal-market="${targetMarket}" data-fast-goal-selected_market="${market}" data-fast-goal-country="${context.country || 'unknown'}" data-fast-goal-destination_host="${MARKETS[targetMarket][1]}" data-fast-goal-tag="${FAMILY_TAGS[family]}" data-fast-goal-source="${escape(source)}" data-fast-goal-product="${escape(product || q.slice(0,80))}" data-fast-goal-match="${targetMatch}" data-fast-goal-attribution="${targetAttribution}" data-fast-goal-route="direct"`;
+  const props = (targetMarket, targetMatch, targetAttribution) => `data-fast-goal="amazon_click" data-fast-goal-family="${family}" data-fast-goal-market="${targetMarket}" data-fast-goal-country="${context.country || 'unknown'}" data-fast-goal-destination_host="${MARKETS[targetMarket][1]}" data-fast-goal-tag="${FAMILY_TAGS[family]}" data-fast-goal-source="${escape(source)}" data-fast-goal-product="${escape(product || q.slice(0,80))}" data-fast-goal-match="${targetMatch}" data-fast-goal-attribution="${targetAttribution}" data-fast-goal-route="direct"`;
   const automaticChoice = resolveAmazon(q, {family, country:context.country});
   const automatic = new URL('/go/amazon', url.origin);
   for (const [key,value] of Object.entries({q,family,source,product,reset:'1'})) if (value) automatic.searchParams.set(key,value);

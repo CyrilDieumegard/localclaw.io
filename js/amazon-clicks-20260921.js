@@ -23,11 +23,15 @@
     const props = {
       family, source:url.searchParams.get('source') || 'unknown',
       product:(url.searchParams.get('product') || query).slice(0,80),
-      market, selected_market:context?.preference || 'auto', country:context?.country || 'unknown',
+      market, country:context?.country || 'unknown',
       destination_host:known ? stores[market] : 'resolved_by_server', tag:'localclaw-' + family + '-20',
       match:known ? exact ? 'exact' : 'search' : 'unknown',
       attribution:known ? automatic ? 'onelink' : 'global_store' : 'unresolved', route:'direct'
     };
+    // The SDK accepts at most ten custom properties, including old markup attributes.
+    for (const name of link.getAttributeNames?.() || []) {
+      if (name.startsWith('data-fast-goal-') && !Object.hasOwn(props,name.slice(15))) link.removeAttribute(name);
+    }
     for (const [key,value] of Object.entries(props)) link.setAttribute('data-fast-goal-' + key,value);
     if (known) {
       const label = `${exact ? 'View configuration' : 'Search'} on ${stores[market].replace('www.','')}`;
