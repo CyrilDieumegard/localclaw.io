@@ -7,6 +7,7 @@ export const MARKETS = Object.freeze({
   NL:['Netherlands','www.amazon.nl'], PL:['Poland','www.amazon.pl'], SE:['Sweden','www.amazon.se']
 });
 const own = (object,key) => Object.hasOwn(object,key);
+export const STORE_COOKIE = 'localclaw_amazon_store';
 export function normalizeAmazonQuery(value) {
   const raw = String(value || '');
   if (/[\u0000-\u001f\u007f]/.test(raw)) return '';
@@ -23,8 +24,47 @@ export function findOffer(query,market,now=Date.now()) {
   // Recheck after 30 days. An old verification must never become a permanent promise.
   return verifiedOffers.find(o => {
     const age=now-Date.parse(o.checked+'T00:00:00Z');
-    return o.query.toLowerCase() === normalizeAmazonQuery(query).toLowerCase() && o.market === market && age >= 0 && age < 30*86400000;
+    return !o.disabled && o.query.toLowerCase() === normalizeAmazonQuery(query).toLowerCase() && o.market === market && age >= 0 && age < 30*86400000;
   });
+}
+
+export function storePreference(request) {
+  const url = new URL(request.url);
+  if (url.searchParams.get('reset') === '1') return '';
+  const explicit = url.searchParams.get('market');
+  if (own(MARKETS, explicit)) return explicit;
+  const saved = (request.headers.get('Cookie') || '').split(';').map(part => part.trim())
+    .find(part => part.startsWith(STORE_COOKIE + '='))?.slice(STORE_COOKIE.length + 1);
+  return own(MARKETS, saved) ? saved : '';
+}
+
+// Choose a local variant, never transplant an ASIN between marketplaces.
+// Switzerland may use a checked French offer only when delivery there was verified.
+export function resolveAmazon(query, {family='computers', country='', market='', now=Date.now()} = {}) {
+  const chosen = selectMarket(market, country);
+  let offer = findOffer(query, chosen, now);
+  if (!market && country === 'CH' && !offer) {
+    offer = verifiedOffers.find(item => item.shipsTo?.includes('CH') && findOffer(query, item.market, now) === item);
+  }
+  // A refurbished listing must be an explicit buyer choice, not a silent substitute.
+  if (offer && offer.condition !== 'New') offer = undefined;
+  const targetMarket = offer?.market || chosen;
+  const automatic = !market && chosen === 'US' && country !== 'US' && !offer;
+  const href = automatic ? amazonSearchUrl(query, {family, country, now})
+    : localDestination(query, targetMarket, offer, family, now, country);
+  return {market:targetMarket, offer, href, match:offer ? 'exact' : 'search', attribution:automatic ? 'onelink' : 'global_store'};
+}
+
+export function shoppingContext(request, now=Date.now()) {
+  const country = /^[A-Z]{2}$/.test(request.cf?.country || '') ? request.cf.country : '';
+  const preference = storePreference(request);
+  const market = selectMarket(preference, country);
+  const offers = {};
+  for (const item of verifiedOffers) {
+    const result = resolveAmazon(item.query, {country, market:preference, now});
+    if (result.offer) offers[item.query.toLowerCase()] = {market:result.market, match:'exact', condition:result.offer.condition};
+  }
+  return {country, market, preference, automatic:!preference && market === 'US' && country !== 'US', offers};
 }
 export function amazonSearchUrl(queryValue,options={}) {
   const query=normalizeAmazonQuery(queryValue);

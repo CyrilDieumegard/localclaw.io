@@ -155,7 +155,7 @@ function renderIndex() {
 <html lang="en" class="light">
 <head>
   ${commonHead({ title, description, canonical: `${BASE}/diy/`, image: firstProject.image, schema: indexSchema() })}
-<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js"></script></head>
+<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js?v=20261117"></script></head>
 <body class="diy-body">
   <div class="diy-grid-bg" aria-hidden="true"></div>
   ${siteNavigation('diy')}
@@ -325,7 +325,7 @@ function renderDetail(project) {
   ${commonHead({ title, description, canonical, image: project.image, type: 'article', schema: detailSchema(project) })}
   <meta property="article:published_time" content="${publishedDate(project)}">
   <meta property="article:modified_time" content="${verifiedDate(project)}">
-<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js"></script></head>
+<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js?v=20261117"></script></head>
 <body class="diy-body">
   <div class="diy-grid-bg" aria-hidden="true"></div>
   ${siteNavigation('diy')}

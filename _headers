@@ -201,3 +201,16 @@
 
 /favicon.ico
   Cache-Control: public, max-age=2592000, immutable
+
+# Buying-flow helpers are updated independently of the hardware catalogues.
+/js/amazon-clicks-20260921.js
+  ! Cache-Control
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/amazon-offers-20260917.js
+  ! Cache-Control
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/buyer-path-20260823a.js
+  ! Cache-Control
+  Cache-Control: public, max-age=0, must-revalidate

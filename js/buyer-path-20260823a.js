@@ -3,7 +3,7 @@
   if(!roots.length)return;
   const profiles={
     'buy|chat|starter':[
-      ['Compact Mac','Mac mini M6 · 24GB','A balanced compact Mac for small local chat, coding and RAG models. Amazon.fr quoted shipping in 1–3 months on October 5; check the current delivery estimate.','/go/amazon?q=Apple+Mac+mini+M6+24GB+512GB&family=computers&product=mac_mini_m6_24&source=buyer_path&listing=FR','View on Amazon.fr','/hardware/mac-mini-m6-24gb'],
+      ['Compact Mac','Mac mini M6 · 24GB','A balanced compact Mac for small local chat, coding and RAG models. Choose the exact 24GB / 512GB configuration and confirm current delivery on Amazon.','/go/amazon?q=Apple+Mac+mini+M6+24GB+512GB&family=computers&product=mac_mini_m6_24&source=buyer_path&listing=FR','Check Amazon offers','/hardware/mac-mini-m6-24gb'],
       ['CUDA alternative','RTX 5060 Ti · 16GB','A practical new NVIDIA floor when faster CUDA inference matters.','/go/amazon?q=RTX+5060+Ti+16GB&family=gpuram&source=buyer_path','View on Amazon'],
       ['More headroom','Desktop · 64GB RAM','A better base for RAG, browsers and several local tools at once.','/ram-gpu-for-local-ai#ram-picks','Compare RAM']
     ],

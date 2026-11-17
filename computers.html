@@ -896,7 +896,7 @@
     <script src="js/clarity.js" defer></script>
   <link rel="stylesheet" href="/css/site-nav.css?v=20261012design1"><script src="/js/site-nav.js?v=20261012design1" defer></script>
   <script src="/js/theme-toggle.js?v=20261012design1"></script>
-<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js?v=20261005"></script></head>
+<link rel="stylesheet" href="/css/amazon-clicks-20260921.css"><script defer src="/js/amazon-clicks-20260921.js?v=20261117"></script></head>
 <body>
     <canvas id="bg-circuit" style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"></canvas>
     <div style="position:fixed;inset:0;z-index:0;pointer-events:none;" aria-hidden="true"><div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div></div>
@@ -1142,7 +1142,7 @@
                 chip: 'M6', ram: 16, storage: '512GB SSD',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'Apple Mac mini M6 16GB 512GB', amazonMarket: 'FR', appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Current generation', availability: 'Amazon.fr listing checked October 5, 2026 · Confirm delivery for your address',
+                badge: 'Current generation', availability: 'Amazon configuration checked November 17, 2026 · Confirm delivery for your address',
                 guideUrl: '/hardware/mac-mini-m6-16gb'
             },
             {
@@ -1152,7 +1152,7 @@
                 chip: 'M6', ram: 24, storage: '512GB SSD',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'Apple Mac mini M6 24GB 512GB', amazonMarket: 'FR', appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Current generation', availability: 'Amazon.fr checked October 5 · Shipping quoted at 1–3 months; confirm current delivery',
+                badge: 'Current generation', availability: 'Amazon.fr checked November 17 · Delivery to Switzerland quoted for November 30; confirm your address',
                 guideUrl: '/hardware/mac-mini-m6-24gb'
             },
             {
@@ -1172,7 +1172,7 @@
                 chip: 'M5 Pro', ram: 24, storage: '512GB SSD',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'Apple Mac mini M5 Pro 24GB 512GB', appleUrl: 'https://www.apple.com/mac-mini/',
-                badge: 'Current generation', availability: 'Amazon.fr 24GB/512GB listing was out of stock October 5 · Check current offers',
+                badge: 'Current generation', availability: 'Check current Amazon offers for the exact 24GB / 512GB configuration',
                 guideUrl: '/hardware/mac-mini-m5-pro-24gb'
             },
             {
@@ -1192,7 +1192,7 @@
                 chip: 'M5 Max', ram: 36, storage: '512GB SSD',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'Apple Mac Studio M5 Max 36GB 512GB', amazonMarket: 'FR', appleUrl: 'https://www.apple.com/mac-studio/',
-                badge: 'Current generation', availability: 'Amazon.fr listing checked October 5, 2026 · Confirm delivery for your address',
+                badge: 'Current generation', availability: 'Amazon configuration checked November 17, 2026 · Confirm delivery for your address',
                 guideUrl: '/hardware/mac-studio-m5-max-36gb'
             },
             {
@@ -1325,7 +1325,7 @@
                 memoryLabel: '128GB shared memory',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'GMKtec EVO-X3 Ryzen AI Max+ 395 128GB 2TB', amazonMarket: 'FR', appleUrl: null,
-                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery to Switzerland offered. Confirm current seller and delivery.',
+                availability: 'Amazon.fr checked November 17, 2026 · Delivery to Switzerland offered. Confirm current seller and delivery.',
                 sourceUrl: 'https://www.gmktec.com/products/gmktec-evo-x3-ai-mini-pc-amd-ryzen-ai-max-395',
                 badge: 'Local AI + OCuLink'
             },
@@ -1337,7 +1337,7 @@
                 memoryLabel: '128GB shared memory',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'Beelink GTR9 Pro Ryzen AI Max+ 395 128GB 2TB', amazonMarket: 'FR', appleUrl: null,
-                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery shown for metropolitan France. Switzerland delivery not verified.',
+                availability: 'Exact 128GB / 2TB Amazon listing not currently verified. Search offers and confirm the configuration before buying.',
                 sourceUrl: 'https://www.bee-link.com/products/beelink-gtr9-pro-amd-ryzen-ai-max-395',
                 badge: 'Local AI + Dual 10GbE'
             },
@@ -1349,7 +1349,7 @@
                 memoryLabel: '64GB shared memory',
                 price: 'Check current price',
                 asin: null, amazonQuery: 'GMKtec EVO-X2 Ryzen AI Max+ 395 64GB 2TB', amazonMarket: 'FR', appleUrl: null,
-                availability: 'Amazon.fr checked October 5, 2026 · in stock; delivery to Switzerland offered. Select EVO-X2 64GB, not EVO-X3 128GB.',
+                availability: 'Amazon.fr checked November 17, 2026 · Delivery to Switzerland offered. Select EVO-X2 64GB, not EVO-X3 128GB.',
                 sourceUrl: 'https://www.gmktec.com/products/amd-ryzen%E2%84%A2-ai-max-395-evo-x2-ai-mini-pc',
                 badge: '64GB Compact Local AI'
             },
@@ -1644,7 +1644,7 @@
                 ? `/go/amazon?q=${encodeURIComponent(comp.amazonQuery)}&family=computers&product=${encodeURIComponent(comp.id)}&source=computers_card`
                 : (comp.asin ? `/go/amazon?q=${encodeURIComponent(`${comp.name} ${comp.chip}`)}` : null);
             const buyUrl = amazonUrl && comp.amazonMarket ? `${amazonUrl}&listing=${encodeURIComponent(comp.amazonMarket)}` : amazonUrl;
-            const amazonLabel = comp.amazonMarket ? `View on Amazon.${comp.amazonMarket.toLowerCase()}` : 'Check Amazon offers';
+            const amazonLabel = 'Check Amazon offers';
             const appleActionLabel = 'View on Apple.com';
             const actionBtn = amazonUrl
                 ? `<a href="${buyUrl}" target="_blank" rel="sponsored nofollow noopener" class="act-btn amazon" data-fast-goal="amazon_click" data-fast-goal-family="computers" data-fast-goal-source="computers_card" data-fast-goal-machine="${esc(comp.id)}" data-fast-goal-brand="${esc(comp.type)}">${SVG.amazon} ${amazonLabel}</a>`
@@ -1819,6 +1819,6 @@
         })();
     </script>
 
-    <script src="/js/buyer-path-20260823a.js?v=20261012quality2" defer></script>
+    <script src="/js/buyer-path-20260823a.js?v=20261117" defer></script>
 </body>
 </html>
