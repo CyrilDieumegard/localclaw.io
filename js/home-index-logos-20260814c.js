@@ -151,6 +151,7 @@ window.HOME_INDEX_LOGOS = {
     mizar: 'huggingface-avatar',
     ossicle: 'huggingface-avatar',
     verispoof: 'huggingface-avatar',
+    qolda: 'huggingface-avatar',
     sophon: 'huggingface-avatar',
     longcap: 'huggingface-avatar',
     voxtream: 'huggingface-avatar',

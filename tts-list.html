@@ -1939,6 +1939,49 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "qolda-avl-5b-optimized-tokenizer",
+                "supportsUnsloth": false,
+                "name": "Qolda-AVL 5B OptimizedTokenizer",
+                "developer": "ISSAI",
+                "family": "qolda",
+                "isAsr": true,
+                "operatingSystem": "NVIDIA CUDA GPU with Python / PyTorch",
+                "systemRequirements": "Official loader requires one GPU with about 13 GB memory in BF16. Transformers 5.x (tested 5.12.1), torch, peft, soundfile, scipy and pillow. Complete repository download is about 10.63 GB. System RAM minimum is unspecified.",
+                "description": "Kazakh, Russian and English audio-language model for transcription, speech translation and audio questions, with text-only answers. Uses a Qwen3.5 backbone and Whisper encoder; one audio clip of up to 30 seconds per prompt.",
+                "languages": [
+                    "kk",
+                    "ru",
+                    "en"
+                ],
+                "languageCount": 3,
+                "features": [
+                    "transcription",
+                    "audio-language",
+                    "multilingual"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 10.63,
+                "sizeLabel": "5.26B total parameters; about 10.63 GB complete repository",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-11-17",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/issai/Qolda-AVL-5B-OptimizedTokenizer",
+                "sourceStatus": "verified-code",
+                "installCommand": "pip install torch \"transformers>=5\" peft soundfile scipy pillow",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors"
+                ],
+                "voices": "Text output only. No voice generation or cloning. Audio streaming is not documented.",
+                "context": "Official ISSAI release with canonical Qwen3.5-4B and Qolda-AVL-5B bases. Total 5.26B parameters includes a 4.58B language/vision model, 0.64B Whisper encoder, 13M connector and 30.5M audio-only LoRA. Four downloadable safetensors files include all model components; 10.63 GB is repository storage, not runtime RAM. The official loader specifies one GPU with about 13 GB memory in BF16; this is upstream deployment guidance, not a LocalClaw measured minimum. Install the documented dependencies, then use huggingface_hub.snapshot_download(\"issai/Qolda-AVL-5B-OptimizedTokenizer\") as shown in the model card. Import load, ask and ask_audio from the downloaded load_avl.py. The official shell example, run inside the downloaded repository, is python load_avl.py clip.wav \"Transcribe this audio.\" Audio needs this loader: vLLM serves only text and images for this checkpoint. Input is one 0.3–30-second clip, resampled to 16 kHz. Audio and images cannot share the same prompt. No audio output, cloning or documented streaming. Upstream reports stronger Russian/English ASR and English-to-Kazakh translation than the earlier Qolda model, but weaker audio question answering; no LocalClaw inference test, quality or speed rating. Apache-2.0 model release; training datasets retain their own licenses. Sources checked 2026-11-18: https://huggingface.co/issai/Qolda-AVL-5B-OptimizedTokenizer (model card, four weights, avl_config.json and load_avl.py), revision 6aef71e53ebf6012b38b2830627e2cb2fdc668bb.",
+                "license": "Apache 2.0"
+            },
+            {
                 "id": "sophon-realtime-4b-flash",
                 "supportsUnsloth": false,
                 "name": "Sophon-Realtime 4B Flash",

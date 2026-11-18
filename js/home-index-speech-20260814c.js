@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "qolda-avl-5b-optimized-tokenizer",
+    "name": "Qolda-AVL 5B OptimizedTokenizer",
+    "developer": "ISSAI",
+    "family": "qolda",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-11-17",
+    "quality": null,
+    "speed": null,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 10.63
+  },
+  {
     "id": "sophon-realtime-4b-flash",
     "name": "Sophon-Realtime 4B Flash",
     "developer": "Adventists AI",

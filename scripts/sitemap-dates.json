@@ -1,7 +1,7 @@
 {
   "index.html": {
-    "hash": "c6074d89da9ddd5c7977e79b1d7a7ca24e01b38c697b21e44bf53483530b210c",
-    "lastmod": "2026-11-16"
+    "hash": "235e25812896b9dd429f1daea609c0687bb86a2ab77491b4436cbd3a5291cf4a",
+    "lastmod": "2026-11-18"
   },
   "local-ai-activity-index.html": {
     "hash": "4bd7093fd4b232f089022bf7c510c094d7f3f0424bd9084f7d48e97261e63c67",
@@ -32,8 +32,8 @@
     "lastmod": "2026-11-13"
   },
   "tts-list.html": {
-    "hash": "f1838277c34e55cd7baccfb9d29127ffa4e82ed5af5f5e8751faee98f370f9a4",
-    "lastmod": "2026-11-16"
+    "hash": "93d62a5f9d27637bafe0e6f5525169ad47fb4277d4299e2f991117d2cdc2239e",
+    "lastmod": "2026-11-18"
   },
   "image-models.html": {
     "hash": "10f71404161f61a6bc4b3ced39fc1a580c25b229524d866a6d917d58bb35392a",
@@ -76,8 +76,8 @@
     "lastmod": "2026-10-13"
   },
   "new.html": {
-    "hash": "0034d8191c8b59f0806f37b8edfd7c48b33fbd59c1c33894a3fb1a3bdf9837ea",
-    "lastmod": "2026-11-16"
+    "hash": "2089d032bbd60914ce8398e6de9c7211f3fd7ebced6b10f7bd1f03fd41244ce4",
+    "lastmod": "2026-11-18"
   },
   "software/lm-studio.html": {
     "hash": "c8995597ab83bc35e7ab78627612cf329ceae2805fd0a79e6c210ecbb6396186",
@@ -1444,8 +1444,8 @@
     "lastmod": "2026-10-13"
   },
   "tts/index.html": {
-    "hash": "b50a74272d1817c5b333b92a88dc131a91976710a8c8fb972546f8d0e79b4c86",
-    "lastmod": "2026-11-16"
+    "hash": "44c0286c908f2b281fe8dea80df7b5a826239aa2ee9b59e41b652ee1074d1bc6",
+    "lastmod": "2026-11-18"
   },
   "tts/indic-tts.html": {
     "hash": "d2600c1e9adcbd7a0f3eca942aab2127446038f3c8014ebd4a03c05218ab8ff1",
@@ -2758,5 +2758,9 @@
   "diy/pocket-ai-chatbot-raspberry-pi-zero-2-w.html": {
     "hash": "ad762c784357962565cba92f8095b53576c1b8ebaa3880b99416efc069088ecd",
     "lastmod": "2026-10-13"
+  },
+  "tts/qolda-avl-5b-optimized-tokenizer.html": {
+    "hash": "799bf6e6405eb8d13acd1415f128466ce85c526a93a3e369bd540e1fdf99b62e",
+    "lastmod": "2026-11-18"
   }
 }
