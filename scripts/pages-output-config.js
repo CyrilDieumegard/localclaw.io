@@ -77,7 +77,7 @@ const PUBLIC_DIRECTORIES = Object.freeze([
 ]);
 
 const PUBLIC_EXTENSIONS = new Set([
-  '.css', '.dmg', '.geojson', '.html', '.ico', '.jpeg', '.jpg', '.js', '.mjs', '.json', '.png', '.svg', '.txt', '.wasm', '.webp', '.xml'
+  '.css', '.dmg', '.geojson', '.html', '.ico', '.jpeg', '.jpg', '.js', '.mjs', '.json', '.png', '.svg', '.txt', '.wasm', '.webp', '.woff2', '.xml'
 ]);
 
 const PRIVATE_PROBES = Object.freeze([

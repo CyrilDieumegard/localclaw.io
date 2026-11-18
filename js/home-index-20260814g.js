@@ -1,7 +1,6 @@
 // Homepage-only model index. The canonical catalogues stay in js/data.js and
 // tts-list.html; this view filters non-local records and de-duplicates routes.
 if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
-    const homeIntro = document.querySelector('#lc-home-intro .lc-index-hero');
     App.renderHero = function renderLocalModelIndex(container) {
         const unavailableLlmIds = new Set(Object.keys((APP_DATA.hfRepoVerification && APP_DATA.hfRepoVerification.unavailable) || {}));
         const allLocalModels = APP_DATA.models.filter((model) => !model.hosted_only && !unavailableLlmIds.has(model.id));
@@ -461,8 +460,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             </section>`;
         }).join('');
 
-        const rankedModels = [...localModels].sort(compareModels(activeSortKey, activeSortDirection));
-        const rankedSpeechModels = [...speechModels].sort(compareSpeech('community'));
         const releaseMonth = releaseLabel(newestRelease.slice(0, 7));
 
         container.className = 'lc-index-shell';
@@ -471,8 +468,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 ${sponsorRail('Left')}
 
                 <div class="lc-index-directory">
-                    <div data-home-intro-slot></div>
-
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
                         <header><div><span class="lc-index-eyebrow">Browse by task</span><h2 id="lc-index-universe-title">The local AI catalogue</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Browse freely. Save a machine if you want to keep your model choices and notes together.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
                         <div id="lc-home-machines" class="lc-home-machines" hidden>
@@ -511,7 +506,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         <div id="lc-index-table-scroll" class="lc-index-table-wrap" role="region" aria-label="Local LLM catalogue" aria-describedby="lc-index-table-hint" tabindex="0">
                             <table class="lc-index-table">
                                 <thead><tr><th class="lc-index-rank" scope="col">Rank</th><th class="lc-index-model-col" scope="col" data-sort-key="name" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="name" data-sort-label="model name">Model / family<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-score-col" scope="col" data-sort-key="score" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="score" data-sort-label="LocalClaw score"><span class="lc-index-score-heading">LocalClaw</span><span class="lc-index-score-heading-compact" aria-hidden="true">/10</span><span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-community-col" scope="col" data-sort-key="community" aria-sort="descending"><button class="lc-index-sort-button" type="button" data-sort-key="community" data-sort-label="community confidence">Community<span class="lc-index-sort-indicator" aria-hidden="true">↓</span></button></th><th scope="col" data-sort-key="params" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="params" data-sort-label="parameter count">Params<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="ram" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="ram" data-sort-label="minimum RAM">Min RAM<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="license" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="license" data-sort-label="licence">Licence<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th scope="col" data-sort-key="fresh" aria-sort="none"><button class="lc-index-sort-button" type="button" data-sort-key="fresh" data-sort-label="release date">Released<span class="lc-index-sort-indicator" aria-hidden="true">↕</span></button></th><th class="lc-index-action-col" scope="col">Compare</th></tr></thead>
-                                <tbody id="lc-index-model-rows">${renderModelRows(rankedModels.slice(0, LLM_PAGE_SIZE))}</tbody>
+                                <tbody id="lc-index-model-rows"></tbody>
                             </table>
                         </div>
                         <button id="lc-index-model-more" class="lc-index-load-more" type="button" aria-controls="lc-index-model-rows">Show more LLMs</button>
@@ -532,7 +527,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             <label class="lc-index-control-label"><span>Sort</span><select id="lc-index-tts-sort" class="lc-index-control"><option value="community">Community confidence ★</option><option value="votes">Most votes</option><option value="score">Audio score</option><option value="quality">Quality — highest</option><option value="speed">Speed — highest</option><option value="fresh">Newest first</option><option value="name">Name A–Z</option></select></label>
                         </div>
                         <p id="lc-index-tts-machine-note" class="lc-index-machine-note" hidden></p>
-                        <div id="lc-index-tts-list" class="lc-index-tts-list">${renderSpeechRows(rankedSpeechModels.slice(0, SPEECH_PAGE_SIZE))}</div>
+                        <div id="lc-index-tts-list" class="lc-index-tts-list"></div>
                         <button id="lc-index-tts-more" class="lc-index-load-more" type="button" aria-controls="lc-index-tts-list">Show more speech models</button>
                         <p class="lc-index-method-note lc-index-method-note--speech"><strong>Independent speech rankings.</strong> Community confidence uses only the raw star average and number of signed-in member votes; EARLY marks fewer than five votes. The separate Audio /10 score remains 68% quality + 32% speed, capped at 10. The two classifications are displayed together but never mixed.</p>
                         <a class="lc-index-more" href="/tts-list">Browse the full speech catalogue →</a>
@@ -591,9 +586,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
                 ${sponsorRail('Right')}
             </div>`;
-
-        container.querySelector('[data-home-intro-slot]').replaceWith(homeIntro);
-        document.getElementById('lc-home-intro')?.remove();
 
         const sponsorOfferDialog = document.getElementById('lc-sponsor-offer-dialog');
         const sponsorOfferClose = document.getElementById('lc-sponsor-offer-close');
@@ -1364,7 +1356,21 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 });
             });
         });
-        updateMultimodalIndex();
+        // Give input, paint, and the visible quick form a turn between catalogues.
+        const yieldToBrowser = () => window.scheduler?.yield
+            ? window.scheduler.yield()
+            : new Promise(resolve => window.setTimeout(resolve, 0));
+        const isCurrentDirectory = () => rows.isConnected;
+        const populateCatalogues = async () => {
+            await yieldToBrowser();
+            if (!isCurrentDirectory()) return;
+            if (!llmResultsInitialized) updateIndex(false);
+            await yieldToBrowser();
+            if (!isCurrentDirectory()) return;
+            if (!speechResultsInitialized) updateSpeechIndex(false);
+            await yieldToBrowser();
+            if (isCurrentDirectory() && !multimodalResultsInitialized) updateMultimodalIndex(false);
+        };
 
         const loadCommunityRatings = async () => {
             try {
@@ -1387,9 +1393,12 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             } catch (error) {
                 communityState = 'unavailable';
             }
-            updateIndex();
-            updateSpeechIndex();
-            updateMultimodalRatings();
+            if (!isCurrentDirectory()) return;
+            updateIndex(false);
+            await yieldToBrowser();
+            if (!isCurrentDirectory()) return;
+            updateSpeechIndex(false);
+            if (multimodalResultsInitialized) updateMultimodalRatings();
         };
         const loadSavedMachines = async () => {
             try {
@@ -1455,6 +1464,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             window.LocalClawHomeVoting.refresh();
         });
         loadCommunityRatings();
+        populateCatalogues();
         loadSavedMachines();
         const seoFallback = document.getElementById('seo-fallback');
         if (seoFallback) seoFallback.remove();

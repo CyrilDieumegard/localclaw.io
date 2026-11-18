@@ -639,7 +639,7 @@ const currentFreshSection = currentApp.match(/<section id="fresh-local-ai"[\s\S]
 const versionedFreshSection = versionedApp.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] || '';
 if (index.match(/<section id="fresh-local-ai"[\s\S]*?<\/section>/)?.[0] !== currentFreshSection) errors.push('Static homepage Fresh markup must match the app');
 if (currentFreshSection !== versionedFreshSection) errors.push('js/app.js and js/app-20260816a.js must keep identical current Fresh-card markup');
-if (!index.includes('js/data.js?v=20261106ripple2') || !index.includes('js/app-20260816a.js?v=20261106ripple2')) {
+if (!index.includes('js/data.js?v=20261106ripple2') || !index.includes('js/app-20260816a.js?v=20261118intro')) {
   errors.push('Homepage cache-busters do not point to the corrected newest-model data and app bundle');
 }
 

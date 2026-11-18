@@ -19,7 +19,7 @@ const App = {
     },
 
     init() {
-        this.render();
+        this.render({scrollToTop: false});
         this.initParticles();
 
         // Keyboard shortcuts
@@ -1192,9 +1192,12 @@ const App = {
     // RENDER DISPATCHER
     // ========================================================================
 
-    render() {
+    render({scrollToTop = true} = {}) {
         const container = document.getElementById('view-container');
         if (!container) return;
+
+        const homeIntro = document.getElementById('lc-home-intro');
+        if (homeIntro) homeIntro.hidden = this.state.view !== 'hero';
 
         // Clean up typewriter when leaving hero
         if (this._twTimer) { clearTimeout(this._twTimer); this._twTimer = null; }
@@ -1215,8 +1218,8 @@ const App = {
             case 'faq': this.renderFAQ(container); break;
         }
 
-        // Scroll to top on view change
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Leave the initial scroll position to the browser, including deep links.
+        if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
     // ========================================================================
