@@ -1704,7 +1704,7 @@ html.light body.lc-home-index #bg-circuit {
 }
 #llm-index { --initial-height: 3400px; }
 #tts-index { --initial-height: 2770px; }
-#fresh-local-ai { --initial-height: 360px; }
+#fresh-local-ai { width: min(1200px, 100%); --initial-height: 360px; }
 #home-index-guide { --initial-height: 1780px; }
 @media (max-width: 780px) {
     #llm-index, #tts-index { --initial-height: 5500px; }
