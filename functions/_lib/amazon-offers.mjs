@@ -14,6 +14,18 @@ export const verifiedOffers = [
     note: 'The 24GB / 512GB variant without AppleCare was checked on Amazon US. Delivery to Switzerland was not offered. Confirm domestic stock, seller and delivery on Amazon.'
   },
   {
+    query: 'Apple Mac mini M5 Pro 24GB 512GB', market: 'US', asin: 'B0HGGHNQY6',
+    title: 'Mac mini M5 Pro · 15-core CPU / 16-core GPU', memory: '24GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact 24GB / 512GB configuration without AppleCare was checked on Amazon US. Delivery to Switzerland was not offered. Confirm domestic stock and delivery on Amazon.'
+  },
+  {
+    query: 'Apple Mac mini M5 Pro 24GB 512GB', market: 'FR', asin: 'B0HGGDQ29W',
+    title: 'Mac mini M5 Pro · 15-core CPU / 16-core GPU', memory: '24GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18', shipsTo: ['CH'],
+    note: 'The exact configuration was orderable with delivery to Switzerland when checked. Confirm current seller and delivery for your address.'
+  },
+  {
     query: 'GMKtec EVO-X3 Ryzen AI Max+ 395 128GB 2TB', market: 'FR', asin: 'B0H8P7F2V5',
     title: 'GMKtec EVO-X3 · Ryzen AI Max+ 395', memory: '128GB shared CPU/GPU memory', storage: '2TB SSD',
     condition: 'New', checked: '2026-11-17', shipsTo: ['CH'],
