@@ -155,6 +155,8 @@ test('verified local products are direct and exact options appear before search'
   assert.equal(choices.length,Object.keys(MARKETS).length);
   assert.ok(choices.slice(0,3).every(choice => choice.includes('Exact configuration')));
   assert.ok(choices.slice(3).every(choice => choice.includes('Search results')));
+  assert.ok(!html.includes('class="primary"'));
+  assert.match(choices.find(choice => choice.includes('United Kingdom')), /aria-current="true"/);
 });
 test('invalid inputs and open-redirect/XSS attempts fail closed',async () => {
   for (const q of ['','x','a'.repeat(141),'safe\nquery']) assert.equal(normalizeAmazonQuery(q),'');
