@@ -122,6 +122,40 @@ test('secondary chooser offers direct store links with remembered choice, tags a
   assert.ok(!france.includes('data-fast-goal-selected_market'));
   assert.match(france,/data-fast-goal-match="search"/);
 });
+test('verified local products are direct and exact options appear before search',async t => {
+  const checked = Date.parse('2026-11-18T18:00:00Z');
+  t.mock.method(Date,'now',() => checked);
+  const products = [
+    ['Apple Mac mini M4 16GB 256GB','B0DLC4TPDC'],
+    ['Apple Mac mini M6 16GB 512GB','B0HGGBZNTT'],
+    ['Apple Mac mini M6 24GB 512GB','B0HGG7H7TN'],
+    ['Apple Mac mini M5 Pro 24GB 512GB','B0HGGDQ29W'],
+    ['Apple Mac Studio M5 Max 36GB 512GB','B0HGS3C159']
+  ];
+  for (const [query,asin] of products) {
+    const response = await onRequestGet({request:request('q='+encodeURIComponent(query),'DE')});
+    assert.equal(response.headers.get('X-Amazon-Match'),'exact');
+    const target = new URL(response.headers.get('Location'));
+    assert.equal(target.hostname,'www.amazon.de');
+    assert.equal(target.pathname,'/dp/'+asin);
+    assert.equal(target.searchParams.get('tag'),FAMILY_TAGS.computers);
+  }
+  const pc = 'GMKtec EVO-X2 Ryzen AI Max+ 395 128GB 2TB';
+  for (const country of ['FR','DE']) {
+    const route = result(pc,{country,now:checked});
+    assert.equal(route.match,'exact');
+    assert.equal(new URL(route.href).pathname,'/dp/B0F6X332N6');
+  }
+  const q = 'Apple Mac mini M5 Pro 24GB 512GB';
+  const context = shoppingContext(request('context=1','GB'),checked);
+  assert.equal(context.offers[q.toLowerCase()],undefined);
+  assert.deepEqual(new Set(context.exactMarkets[q.toLowerCase()]),new Set(['US','FR','DE']));
+  const html = await (await onRequestGet({request:request('options=1&q='+encodeURIComponent(q),'GB')})).text();
+  const choices = html.match(/<a class="store-choice[^"]*"[^>]*>.*?<\/a>/g);
+  assert.equal(choices.length,Object.keys(MARKETS).length);
+  assert.ok(choices.slice(0,3).every(choice => choice.includes('Exact configuration')));
+  assert.ok(choices.slice(3).every(choice => choice.includes('Search results')));
+});
 test('invalid inputs and open-redirect/XSS attempts fail closed',async () => {
   for (const q of ['','x','a'.repeat(141),'safe\nquery']) assert.equal(normalizeAmazonQuery(q),'');
   assert.equal((await onRequestGet({request:request('q=x')})).status,400);
@@ -137,7 +171,7 @@ function clientEnvironment(context, fail=false) {
   const document={body:{},visibilityState:'visible',querySelectorAll:()=>links,addEventListener:(name,fn)=>listeners[name]=fn,createElement:()=>({setAttribute(){}})};
   const window={location:{href:'https://localclaw.io/',origin:'https://localclaw.io'},datafast:(...args)=>events.push(args)};
   function addLink(href) {
-    const attrs={href,'data-fast-goal-machine':'legacy-machine','data-fast-goal-brand':'legacy-brand'};const link={dataset:{},childNodes:[],getAttributeNames:()=>Object.keys(attrs),removeAttribute:key=>delete attrs[key],setAttribute:(key,value)=>attrs[key]=value,getAttribute:key=>attrs[key]||null,after:()=>{},attrs};
+    const attrs={href,'data-fast-goal-machine':'legacy-machine','data-fast-goal-brand':'legacy-brand'};const link={dataset:{},childNodes:[],getAttributeNames:()=>Object.keys(attrs),removeAttribute:key=>delete attrs[key],setAttribute:(key,value)=>attrs[key]=value,getAttribute:key=>attrs[key]||null,after:option=>{link.options=option;},attrs};
     links.push(link);observer([{addedNodes:[{querySelectorAll:()=>[link]}]}]);return link;
   }
   vm.runInNewContext(fs.readFileSync(new URL('../js/amazon-clicks-20260921.js',import.meta.url),'utf8'),{
@@ -162,6 +196,18 @@ test('browser tracking resolves dynamic links before aggregate capture and emits
   assert.ok(!Object.hasOwn(link.attrs,'data-fast-goal-brand'));
   env.listeners.click({isTrusted:false,target:{closest:()=>link}});assert.equal(env.events.length,1);
   env.window.datafast=undefined;assert.doesNotThrow(()=>env.listeners.click({target:{closest:()=>link}}));
+});
+test('a visitor using local search can find exact offers in other markets',async () => {
+  const query = 'Apple Mac mini M5 Pro 24GB 512GB';
+  const env = clientEnvironment({country:'GB',market:'GB',offers:{},exactMarkets:{[query.toLowerCase()]:['DE','US','FR']}});
+  const link = env.addLink('/go/amazon?q='+encodeURIComponent(query));
+  const explicit = env.addLink('/go/amazon?market=DE&q='+encodeURIComponent(query));
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(link.attrs['data-fast-goal-match'],'search');
+  assert.equal(link.attrs['aria-label'],'Search amazon.co.uk for '+query);
+  assert.equal(link.options.textContent,'See exact offers by country');
+  assert.equal(explicit.attrs['data-fast-goal-match'],'exact');
+  assert.equal(explicit.options.textContent,'Change Amazon store');
 });
 test('context/analytics failure never blocks buying and does not invent a country or an exact match',async () => {
   const env=clientEnvironment(null,true);

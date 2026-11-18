@@ -3,6 +3,7 @@
   const goals = {computers:'amazon_computers_click',gpuram:'amazon_gpuram_click',diy:'amazon_diy_click'};
   const stores = {US:'www.amazon.com',CA:'www.amazon.ca',GB:'www.amazon.co.uk',DE:'www.amazon.de',FR:'www.amazon.fr',IT:'www.amazon.it',ES:'www.amazon.es',NL:'www.amazon.nl',PL:'www.amazon.pl',SE:'www.amazon.se'};
   const selector = 'a[data-fast-goal="amazon_click"]';
+  const storeLinks = new WeakMap();
   let context = null, loading = null;
   function route(link) {
     try {
@@ -13,12 +14,14 @@
   function describe(link, url) {
     const family = Object.hasOwn(goals, url.searchParams.get('family')) ? url.searchParams.get('family') : 'computers';
     const query = (url.searchParams.get('q') || '').trim().replace(/\s+/g,' ');
-    const chosen = context?.offers?.[query.toLowerCase()];
+    const queryKey = query.toLowerCase();
+    const chosen = context?.offers?.[queryKey];
+    const exactMarkets = context?.exactMarkets?.[queryKey];
     const manual = url.searchParams.get('market');
     // Only server-resolved context can label the destination; a listing hint is not a country choice.
     const market = Object.hasOwn(stores, manual) ? manual : chosen?.market || context?.market || 'auto';
-    const known = context && Object.hasOwn(stores, market);
-    const exact = known && chosen?.market === market;
+    const known = Object.hasOwn(stores, context?.market) && Object.hasOwn(stores, market);
+    const exact = known && (chosen?.market === market || (Array.isArray(exactMarkets) && exactMarkets.includes(market)));
     const automatic = known && context.automatic && !chosen && !Object.hasOwn(stores, manual);
     const props = {
       family, source:url.searchParams.get('source') || 'unknown',
@@ -33,12 +36,19 @@
       if (name.startsWith('data-fast-goal-') && !Object.hasOwn(props,name.slice(15))) link.removeAttribute(name);
     }
     for (const [key,value] of Object.entries(props)) link.setAttribute('data-fast-goal-' + key,value);
-    if (known) {
-      const label = `${exact ? 'View configuration' : 'Search'} on ${stores[market].replace('www.','')}`;
-      for (const node of link.childNodes || []) {
-        if (node.nodeType === 3 && /Amazon/i.test(node.textContent)) node.textContent = label + ' ↗';
-      }
-      link.setAttribute('aria-label', label + ' for ' + query);
+    const label = known
+      ? `${exact ? 'Check price & delivery on' : 'Search'} ${stores[market].replace('www.','')}`
+      : 'Check price & delivery on Amazon';
+    for (const node of link.childNodes || []) {
+      if (node.nodeType === 3 && /Amazon/i.test(node.textContent)) node.textContent = label + ' ↗';
+    }
+    link.setAttribute('aria-label', label + ' for ' + query);
+    const options = storeLinks.get(link);
+    if (options) {
+      const optionsLabel = known && !exact && Array.isArray(exactMarkets) && exactMarkets.length
+        ? 'See exact offers by country' : 'Change Amazon store';
+      if (options.textContent !== optionsLabel) options.textContent = optionsLabel;
+      options.setAttribute('aria-label', optionsLabel + ' for ' + query);
     }
     return props;
   }
@@ -50,20 +60,23 @@
       const url = route(link);
       if (!url) continue;
       found = true;
-      describe(link,url);
       link.target = '_blank';
       link.rel = 'sponsored nofollow noopener';
-      if (link.dataset.amazonPrepared) continue;
+      if (link.dataset.amazonPrepared) {
+        describe(link,url);
+        continue;
+      }
       link.dataset.amazonPrepared = '1';
       const options = document.createElement('a');
-      url.searchParams.set('options','1');
-      options.href = url.pathname + url.search;
+      const optionsUrl = new URL(url);
+      optionsUrl.searchParams.set('options','1');
+      options.href = optionsUrl.pathname + optionsUrl.search;
       options.className = 'amazon-options-link';
-      options.textContent = 'Change Amazon store';
-      options.setAttribute('aria-label','Change Amazon store for ' + (url.searchParams.get('q') || 'this product'));
       options.setAttribute('data-fast-goal','amazon_offer_open');
-      options.setAttribute('data-fast-goal-family',link.getAttribute('data-fast-goal-family'));
       options.setAttribute('data-fast-goal-source',url.searchParams.get('source') || 'unknown');
+      storeLinks.set(link, options);
+      const {family} = describe(link,url);
+      options.setAttribute('data-fast-goal-family',family);
       link.after(options);
     }
     if (found && !context && !loading) loadContext();

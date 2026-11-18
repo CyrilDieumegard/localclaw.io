@@ -2,6 +2,36 @@
 // Never copy ASINs between countries: Amazon may redirect a missing variant.
 export const verifiedOffers = [
   {
+    query: 'Apple Mac mini M4 16GB 256GB', market: 'DE', asin: 'B0DLC4TPDC',
+    title: 'Mac mini M4 · 10-core CPU / 10-core GPU', memory: '16GB unified memory', storage: '256GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact new configuration was orderable on Amazon Germany, with delivery to Switzerland offered.'
+  },
+  {
+    query: 'Apple Mac mini M6 16GB 512GB', market: 'DE', asin: 'B0HGGBZNTT',
+    title: 'Mac mini M6 · 12-core CPU / 12-core GPU', memory: '16GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact new configuration was in stock on Amazon Germany, with delivery to Switzerland offered.'
+  },
+  {
+    query: 'Apple Mac mini M6 24GB 512GB', market: 'DE', asin: 'B0HGG7H7TN',
+    title: 'Mac mini M6 · 12-core CPU / 12-core GPU', memory: '24GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact new configuration was orderable on Amazon Germany. Delivery to Switzerland was offered with a later date than the French listing previously showed.'
+  },
+  {
+    query: 'Apple Mac mini M5 Pro 24GB 512GB', market: 'DE', asin: 'B0HGGDQ29W',
+    title: 'Mac mini M5 Pro · 15-core CPU / 16-core GPU', memory: '24GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact new configuration was in stock on Amazon Germany, with delivery to Switzerland offered.'
+  },
+  {
+    query: 'Apple Mac Studio M5 Max 36GB 512GB', market: 'DE', asin: 'B0HGS3C159',
+    title: 'Mac Studio M5 Max · 18-core CPU / 32-core GPU', memory: '36GB unified memory', storage: '512GB SSD',
+    condition: 'New', checked: '2026-11-18',
+    note: 'The exact new configuration was in stock on Amazon Germany. Check delivery for your address.'
+  },
+  {
     query: 'Apple Mac mini M6 16GB 512GB', market: 'US', asin: 'B0HGGC82BG',
     title: 'Mac mini M6 · 12-core CPU / 12-core GPU', memory: '16GB unified memory', storage: '512GB SSD',
     condition: 'New', checked: '2026-11-17',
@@ -76,8 +106,14 @@ export const verifiedOffers = [
   ,{
     query: 'GMKtec EVO-X2 Ryzen AI Max+ 395 128GB 2TB', market: 'DE', asin: 'B0F6X332N6',
     title: 'GMKtec EVO-X2 · Ryzen AI Max+ 395', memory: '128GB shared CPU/GPU memory', storage: '2TB SSD',
-    condition: 'New', checked: '2026-09-11',
+    condition: 'New', checked: '2026-11-18', shipsTo: ['CH'],
     note: 'In stock with delivery to Switzerland offered when checked. Confirm your address, seller and selected configuration on Amazon.'
+  }
+  ,{
+    query: 'GMKtec EVO-X2 Ryzen AI Max+ 395 128GB 2TB', market: 'FR', asin: 'B0F6X332N6',
+    title: 'GMKtec EVO-X2 · Ryzen AI Max+ 395', memory: '128GB shared CPU/GPU memory', storage: '2TB SSD',
+    condition: 'New', checked: '2026-11-18', shipsTo: ['CH'],
+    note: 'The listing and product description state 128GB total memory and 2TB SSD. The module-count text in the French title is inconsistent. Confirm the total memory, seller and delivery on Amazon.'
   }
   ,{
     query: 'Minisforum MS-S1 MAX Ryzen AI Max+ 395 128GB 2TB', market: 'DE', asin: 'B0HCNRF4Y1',

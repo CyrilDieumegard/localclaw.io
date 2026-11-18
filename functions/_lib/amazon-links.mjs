@@ -60,11 +60,16 @@ export function shoppingContext(request, now=Date.now()) {
   const preference = storePreference(request);
   const market = selectMarket(preference, country);
   const offers = {};
+  const exactMarkets = {};
   for (const item of verifiedOffers) {
+    if (item.condition !== 'New' || findOffer(item.query, item.market, now) !== item) continue;
+    const key = item.query.toLowerCase();
+    (exactMarkets[key] ??= []).push(item.market);
+    if (Object.hasOwn(offers, key)) continue;
     const result = resolveAmazon(item.query, {country, market:preference, now});
-    if (result.offer) offers[item.query.toLowerCase()] = {market:result.market, match:'exact', condition:result.offer.condition};
+    if (result.offer) offers[key] = {market:result.market, match:'exact', condition:result.offer.condition};
   }
-  return {country, market, preference, automatic:!preference && market === 'US' && country !== 'US', offers};
+  return {country, market, preference, automatic:!preference && market === 'US' && country !== 'US', offers, exactMarkets};
 }
 export function amazonSearchUrl(queryValue,options={}) {
   const query=normalizeAmazonQuery(queryValue);
