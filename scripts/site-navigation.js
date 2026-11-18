@@ -61,7 +61,7 @@ function siteNavigation(active = '', options = {}) {
   return `<nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
-      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span class="lc-global-nav__logo"><img src="${active === 'index' ? '/images/crab-nav-56.webp' : '/images/crab-logo.png'}" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links">${desktopNavigation}</div>

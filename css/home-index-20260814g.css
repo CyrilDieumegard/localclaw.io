@@ -1478,6 +1478,8 @@ html.light body.lc-home-index {
 /* The circuit stays behind the introduction, instead of following the tables. */
 body.lc-home-index #bg-circuit {
     position: absolute;
+    height: 100vh;
+    background-image: url('/images/circuit-home-dark.webp');
     mask-image: linear-gradient(#000 55%, transparent 100%);
     -webkit-mask-image: linear-gradient(#000 55%, transparent 100%);
 }
@@ -1637,3 +1639,36 @@ html.light body.lc-home-index .lc-index-compare-table tbody th { background: #f4
 .lc-index-card-guide:hover, .lc-index-card-guide:focus-visible { color: var(--polish-accent); text-decoration: underline; }
 .lc-index-tts-main:focus-visible, .lc-index-card-guide:focus-visible, a.lc-index-multimodal-card__link:focus-visible { outline: 2px solid var(--polish-accent); outline-offset: 3px; border-radius: 4px; }
 @media (max-width: 480px) { .lc-index-tts-main { grid-template-columns: 23px 28px minmax(0, 1fr) auto; gap: 8px; } }
+
+.lc-index-action-cell .lc-index-row-link {
+    display: inline-grid;
+    place-items: center;
+    min-width: 28px;
+    min-height: 32px;
+}
+body.lc-home-index .lc-quick-fit button,
+body.lc-home-index .lc-launch__button:not(.lc-launch__button--secondary) {
+    color: white;
+    background-color: #b4231d;
+}
+html.light .lc-home-index .lc-index-rank { color: #475569 !important; }
+
+html.light .lc-home-index .lc-index-guide__ram-grid li > span {
+    color: #475569;
+}
+html.light .lc-home-index .lc-index-multimodal-card__rating-label,
+html.light .lc-home-index .lc-index-guide__method-grid article > span,
+html.light .lc-home-index #fresh-local-ai .text-claw-primary {
+    color: #a0211b;
+}
+html.light .lc-home-index #fresh-local-ai .grid > a {
+    background: #fff;
+}
+
+html.light body.lc-home-index #bg-circuit {
+    background-image: url('/images/circuit-home-light.webp');
+}
+#lc-home-intro { padding-bottom: 0; }
+@media (min-width: 1561px) {
+    #lc-home-intro .lc-index-directory { grid-column: 2; }
+}

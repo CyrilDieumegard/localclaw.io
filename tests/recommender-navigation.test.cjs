@@ -170,7 +170,7 @@ function installQuickForm(h) {
         return node;
     };
     form = h.document.createElement('form');
-    form.innerHTML = source('js/home-index-20260814g.js').match(/<form class="lc-quick-fit"[^>]*>([\s\S]*?)<\/form>/)[1];
+    form.innerHTML = source('index.html').match(/<form class="lc-quick-fit"[^>]*>([\s\S]*?)<\/form>/)[1];
     h.document.readyState = 'complete';
     vm.runInContext(source('js/conversion-paths-20260827a.js'), h.context, {filename: 'conversion-paths'});
     h.flush();

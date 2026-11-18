@@ -1,14 +1,17 @@
 // Homepage-only model index. The canonical catalogues stay in js/data.js and
 // tts-list.html; this view filters non-local records and de-duplicates routes.
 if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
+    const homeIntro = document.querySelector('#lc-home-intro .lc-index-hero');
     App.renderHero = function renderLocalModelIndex(container) {
         const unavailableLlmIds = new Set(Object.keys((APP_DATA.hfRepoVerification && APP_DATA.hfRepoVerification.unavailable) || {}));
         const allLocalModels = APP_DATA.models.filter((model) => !model.hosted_only && !unavailableLlmIds.has(model.id));
         const localModels = Array.from(new Map(allLocalModels.map((model) => [model.id, model])).values());
         const newestRelease = localModels.reduce((latest, model) => model.released > latest ? model.released : latest, '');
         const familyCount = new Set(localModels.map((model) => model.family)).size;
+        const compareText = new Intl.Collator('en', {sensitivity: 'base'}).compare;
+        const monthFormatter = new Intl.DateTimeFormat('en', {month: 'short', year: 'numeric', timeZone: 'UTC'});
         const llmFamilies = Array.from(new Set(localModels.map((model) => model.family).filter(Boolean)))
-            .sort((a, b) => String(a).localeCompare(String(b), 'en', {sensitivity: 'base'}));
+            .sort(compareText);
         const catalogueOrder = new Map(localModels.map((model, index) => [model.id, index]));
         const communityRatings = new Map();
         let communityState = 'loading';
@@ -170,7 +173,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const releaseLabel = (value) => {
             if (!/^\d{4}-\d{2}$/.test(value || '')) return value || '—';
-            return new Intl.DateTimeFormat('en', {month: 'short', year: 'numeric', timeZone: 'UTC'}).format(new Date(`${value}-01T00:00:00Z`));
+            return monthFormatter.format(new Date(`${value}-01T00:00:00Z`));
         };
         const escapeHtml = (value) => String(value == null ? '' : value)
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -227,8 +230,8 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             macos: 'macOS', nvidia: 'NVIDIA', amd: 'AMD', cpu: 'CPU',
             'apple-silicon': 'Apple Silicon', pytorch: 'PyTorch', onnx: 'ONNX', '3d': '3D'
         }[String(value || '').toLowerCase()] || familyLabel(value));
-        const nameCompare = (a, b) => String(a.name).localeCompare(String(b.name), 'en', {sensitivity: 'base'});
-        const textCompare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en', {sensitivity: 'base'});
+        const nameCompare = (a, b) => compareText(a.name, b.name);
+        const textCompare = (a, b) => compareText(a || '', b || '');
         const parameterCount = (model) => {
             const value = String(model && model.params || '');
             const mixture = value.match(/([\d.]+)\s*[x×]\s*([\d.]+)\s*([TBMK])/i);
@@ -404,15 +407,15 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                             ${logoMarkup('llm', model.family, familyDetails(model).developer || model.family)}
                             <span><strong class="lc-index-model-name">${escapeHtml(model.name)}</strong><span class="lc-index-model-family">${escapeHtml(model.family || 'local model')}</span></span>
                         </a>
-                        <button class="lc-index-vote-mobile" type="button" data-rate-id="${escapeHtml(model.id)}" aria-label="Rate ${escapeHtml(model.name)}">${yourRating ? `★ Your ${yourRating}/5 · Edit` : '☆ Rate this model'}</button>
+                        <button class="lc-index-vote-mobile" type="button" data-rate-id="${escapeHtml(model.id)}">${yourRating ? `★ Your ${yourRating}/5 · Edit` : '☆ Rate this model'}<span class="sr-only">: ${escapeHtml(model.name)}</span></button>
                     </td>
                     <td class="lc-index-score-cell">${scoreMarkup(overall, scoreTitle)}</td>
-                    <td class="lc-index-community-cell"><button class="lc-index-vote" type="button" data-rate-id="${escapeHtml(model.id)}" aria-label="Rate ${escapeHtml(model.name)}">${communityMarkup(model.id)}<span class="lc-index-vote-label">${yourRating ? `Your ${yourRating}/5 · Edit` : 'Rate'}</span></button></td>
+                    <td class="lc-index-community-cell"><button class="lc-index-vote" type="button" data-rate-id="${escapeHtml(model.id)}">${communityMarkup(model.id)}<span class="lc-index-vote-label">${yourRating ? `Your ${yourRating}/5 · Edit` : 'Rate'}</span><span class="sr-only">: ${escapeHtml(model.name)}</span></button></td>
                     <td>${escapeHtml(model.params || '—')}</td>
                     <td><span class="lc-index-ram-value">${Number.isFinite(model.min_ram) ? `${model.min_ram} GB` : '—'}</span>${fitMarkup(model)}</td>
                     <td class="lc-index-license" title="${escapeHtml(modelLicense(model))}">${escapeHtml(modelLicense(model))}</td>
                     <td>${escapeHtml(releaseLabel(model.released))}</td>
-                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${escapeHtml(model.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="${modelHref(model)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
+                    <td class="lc-index-action-cell"><button class="lc-index-compare-toggle ${isCompared ? 'is-selected' : ''}" type="button" data-compare-id="${escapeHtml(model.id)}" aria-label="${isCompared ? 'Added' : 'Compare'}: ${escapeHtml(model.name)}" aria-pressed="${isCompared}" ${compareLimitReached ? 'disabled' : ''}>${isCompared ? 'Added' : 'Compare'}</button><a class="lc-index-row-link" href="${modelHref(model)}" aria-label="Open ${escapeHtml(model.name)}">→</a></td>
                 </tr>`;
         }).join('');
 
@@ -451,7 +454,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
             const models = multimodalByCategory.get(category.key) || [];
             return `<section id="${category.anchor}" class="lc-index-multimodal-category" data-multimodal-category="${category.key}" aria-labelledby="${category.anchor}-title">
                 <div class="lc-index-section-head"><div><span class="lc-index-eyebrow">Directory ${category.number}</span><h2 id="${category.anchor}-title">Local ${category.label}</h2></div><div class="lc-index-section-meta"><p><strong data-multimodal-count="${category.key}">${models.length}</strong> of ${models.length} verified local records</p></div></div>
-                <div id="${category.anchor}-grid" class="lc-index-multimodal-grid">${renderMultimodalCards(models.slice(0, MULTIMODAL_PAGE_SIZE))}</div>
+                <div id="${category.anchor}-grid" class="lc-index-multimodal-grid"></div>
                 <p class="lc-index-multimodal-empty" hidden>No ${escapeHtml(category.label.toLowerCase())} model matches these hardware filters.</p>
                 <button class="lc-index-load-more" type="button" data-multimodal-more="${category.key}" aria-controls="${category.anchor}-grid">Show more ${escapeHtml(category.label.toLowerCase())} models</button>
                 <a class="lc-index-more" href="${category.catalogue}">Open the dedicated ${escapeHtml(category.label)} catalogue →</a>
@@ -468,19 +471,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 ${sponsorRail('Left')}
 
                 <div class="lc-index-directory">
-                    <header class="lc-index-hero">
-                        <div class="lc-index-hero__copy">
-                            <h1><span><b>Local</b>Claw</span><small>Find the right local AI for your machine.</small></h1>
-                            <p>Choose your hardware and goal. Get a model and a clear path to run it.</p>
-                            <form class="lc-quick-fit" aria-label="Quick local AI compatibility check">
-            <label><span>System</span><select name="system" aria-label="Computer system" required><option value="" disabled>Choose your system</option><option value="mac">Apple Silicon</option><option value="mac-intel">Intel Mac</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
-            <label><span>Memory</span><select name="ram" aria-label="System memory"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option><option value="128">128 GB</option></select></label>
-            <label><span>Goal</span><select name="goal" aria-label="Primary AI goal"><option value="chat">Private chat</option><option value="code" selected>Coding</option><option value="reasoning">Reasoning</option><option value="vision">Vision</option></select></label>
-            <button type="submit">Show my models <span aria-hidden="true">→</span></button>
-                            </form>
-                            <div class="lc-index-hero__actions lc-index-hero__actions--quick-fit"><a href="#local-ai-index">Browse all models →</a><a href="/llm-list">Open the full LLM catalogue →</a></div>
-                        </div>
-                    </header>
+                    <div data-home-intro-slot></div>
 
                     <section id="local-ai-index" class="lc-index-universe" aria-labelledby="lc-index-universe-title">
                         <header><div><span class="lc-index-eyebrow">Browse by task</span><h2 id="lc-index-universe-title">The local AI catalogue</h2><p id="lc-home-machine-copy" class="lc-index-universe__copy">Browse freely. Save a machine if you want to keep your model choices and notes together.</p></div><a id="lc-home-machine-cta" href="/account" data-fast-goal="account_open" data-fast-goal-source="home_workspace">My Machines →</a></header>
@@ -600,6 +591,9 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
 
                 ${sponsorRail('Right')}
             </div>`;
+
+        container.querySelector('[data-home-intro-slot]').replaceWith(homeIntro);
+        document.getElementById('lc-home-intro')?.remove();
 
         const sponsorOfferDialog = document.getElementById('lc-sponsor-offer-dialog');
         const sponsorOfferClose = document.getElementById('lc-sponsor-offer-close');
@@ -746,7 +740,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                         ? (activeSortDirection === 'asc' ? 'desc' : 'asc')
                         : defaultSortDirection(header.dataset.sortKey);
                     const nextDirection = nextSortDirection === 'asc' ? 'ascending' : 'descending';
-                    button.setAttribute('aria-label', `Sort by ${button.dataset.sortLabel} ${nextDirection}`);
+                    button.setAttribute('title', `Sort by ${button.dataset.sortLabel} ${nextDirection}`);
                     button.title = `Sort by ${button.dataset.sortLabel} ${nextDirection}`;
                 }
             });
@@ -804,7 +798,7 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 const model = localModels.find((item) => item.id === button.dataset.compareId);
                 button.classList.toggle('is-selected', selected);
                 button.setAttribute('aria-pressed', String(selected));
-                if (model) button.setAttribute('aria-label', `${selected ? 'Remove' : 'Add'} ${model.name} ${selected ? 'from' : 'to'} comparison`);
+                if (model) button.setAttribute('aria-label', `${selected ? 'Added' : 'Compare'}: ${model.name}`);
                 button.textContent = selected ? 'Added' : 'Compare';
                 button.disabled = comparedModelIds.size >= 3 && !selected;
             });
@@ -1148,7 +1142,6 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
                 visibleTotal += filtered.length;
                 renderedTotal += displayed.length;
             });
-            updateMultimodalRatings();
             multimodalCount.textContent = visibleTotal;
             if (multimodalResultsInitialized) announceResultCount(multimodalResultStatus, visibleTotal, 'multimodal record', renderedTotal);
             multimodalResultsInitialized = true;
@@ -1400,6 +1393,11 @@ if (typeof App !== 'undefined' && typeof APP_DATA !== 'undefined') {
         };
         const loadSavedMachines = async () => {
             try {
+                const session = await fetch('/api/auth/get-session', {
+                    credentials: 'same-origin',
+                    headers: {Accept: 'application/json'}
+                });
+                if (!session.ok || !(await session.json())?.user?.id) return;
                 const response = await fetch('/api/machines', {
                     credentials: 'same-origin',
                     headers: {Accept: 'application/json'}

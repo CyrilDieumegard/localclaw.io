@@ -197,11 +197,7 @@ function renderMultimodalFallback() {
 
 function renderFallback() {
   return `        <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="${updatedIso}">
-          <header class="lc-index-fallback__hero">
-            <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
-            <p>Find the models, software and hardware that fit your machine.</p>
-            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a><a href="/labs">Try AI in your browser</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
-          </header>
+          <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a><a href="/labs">Try AI in your browser</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
 
           <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
 

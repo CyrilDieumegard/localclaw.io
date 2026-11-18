@@ -10,7 +10,7 @@ function digest(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
-function validatePagesOutput() {
+function validatePagesOutput(homeAssets = require('./home-page-assets').homePageAssets(ROOT)) {
   const errors = [];
   const routesPath = path.join(ROOT, '_routes.json');
   try {
@@ -29,8 +29,14 @@ function validatePagesOutput() {
       const destination = path.join(OUTPUT, relativePath);
       if (!fs.existsSync(destination)) {
         errors.push(`Pages output missing allowlisted asset: ${relativePath}`);
-      } else if (digest(source) !== digest(destination)) {
+      } else if (!homeAssets.has(relativePath) && digest(source) !== digest(destination)) {
         errors.push(`Pages output asset differs from source: ${relativePath}`);
+      }
+    }
+    for (const [name, expected] of homeAssets) {
+      const file = path.join(OUTPUT, name);
+      if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== expected) {
+        errors.push(`Incorrect generated homepage asset: ${name}`);
       }
     }
     for (const relativePath of PRIVATE_PROBES) {

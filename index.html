@@ -75,19 +75,19 @@
     <link rel="dns-prefetch" href="https://lmstudio.ai">
 
     <!-- LCP OPTIMIZATION — preload above-the-fold logo (quick win, bounce rate ↓) -->
-    <link rel="preload" as="image" href="images/crab-logo.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/crab-nav-56.webp">
 
     <!-- ============================================================
          FONTS (with display=swap for performance)
          ============================================================ -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
 
     <link rel="stylesheet" href="css/home-tailwind-20260814a.css?v=20261012spacing1">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css?v=20260822a">
     <link rel="stylesheet" href="/css/model-voting.css?v=20261029vote1">
-    <link rel="stylesheet" href="css/home-index-20260814g.css?v=20261029vote1">
+    <link rel="stylesheet" href="css/home-index-20260814g.css?v=20261118">
     <link rel="stylesheet" href="/css/labs-promo-20260921.css?v=1">
     <link rel="stylesheet" href="css/conversion-paths-20260827a.css?v=20261012quality2">
     <script src="js/video-player.js?v=20260719b" defer></script>
@@ -270,13 +270,13 @@
     <!-- ============================================================
          BACKGROUND: Circuit board network
          ============================================================ -->
-    <canvas id="bg-circuit" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+    <div id="bg-circuit" class="inset-0 z-0 pointer-events-none" aria-hidden="true"></div>
     <!-- Vignette overlay — lighter, only darkens the very edges -->
     <div class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
         <div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85) 100%);"></div>
     </div>
 
-    <script src="js/bg-circuit.js?v=20260822a" defer></script>
+
 
     <!-- ============================================================
          SKIP NAVIGATION (Accessibility)
@@ -291,7 +291,7 @@
     <nav class="lc-global-nav" aria-label="Main navigation">
   <div class="lc-global-nav__inner">
     <a href="/" class="lc-global-nav__brand" aria-label="LocalClaw home">
-      <span class="lc-global-nav__logo"><img src="/images/crab-logo.png" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
+      <span class="lc-global-nav__logo"><img src="/images/crab-nav-56.webp" width="28" height="28" alt="LocalClaw crab logo" loading="eager" decoding="async"></span>
       <span>Local<span class="lc-global-nav__brand-accent">Claw</span></span>
     </a>
     <div class="lc-global-nav__links"><a href="/#local-ai-index" class="lc-global-nav__link" data-nav-key="index" aria-current="page">Models</a><a href="/software" class="lc-global-nav__link" data-nav-key="software">Software</a><details class="lc-global-nav__dropdown" data-nav-dropdown="hardware">
@@ -345,12 +345,22 @@
         <!-- ========================================================
              SEO: STATIC CRAWLABLE CONTENT
              ======================================================== -->
+        <div id="lc-home-intro" class="lc-index-shell"><div class="lc-index-grid"><div class="lc-index-directory"><header class="lc-index-hero">
+                        <div class="lc-index-hero__copy">
+                            <h1><span><b>Local</b>Claw</span><small>Find the right local AI for your machine.</small></h1>
+                            <p>Choose your hardware and goal. Get a model and a clear path to run it.</p>
+                            <form class="lc-quick-fit" aria-label="Quick local AI compatibility check">
+            <label><span>System</span><select name="system" aria-label="Computer system" required><option value="" disabled>Choose your system</option><option value="mac">Apple Silicon</option><option value="mac-intel">Intel Mac</option><option value="windows">Windows PC</option><option value="linux">Linux PC</option></select></label>
+            <label><span>Memory</span><select name="ram" aria-label="System memory"><option value="8">8 GB</option><option value="16" selected>16 GB</option><option value="32">32 GB</option><option value="64">64 GB</option><option value="128">128 GB</option></select></label>
+            <label><span>Goal</span><select name="goal" aria-label="Primary AI goal"><option value="chat">Private chat</option><option value="code" selected>Coding</option><option value="reasoning">Reasoning</option><option value="vision">Vision</option></select></label>
+            <button type="submit">Show my models <span aria-hidden="true">→</span></button>
+                            </form>
+                            <div class="lc-index-hero__actions lc-index-hero__actions--quick-fit"><a href="#local-ai-index">Browse all models →</a><a href="/llm-list">Open the full LLM catalogue →</a></div>
+                        </div>
+                    </header></div></div></div>
+        <noscript><style>#lc-home-intro .lc-quick-fit { display: none; }</style></noscript>
         <div id="seo-fallback" class="lc-index-fallback" data-home-index-snapshot="2026-11-06">
-          <header class="lc-index-fallback__hero">
-            <h1><span><b>Local</b>Claw</span><small>The Local AI Compatibility Guide</small></h1>
-            <p>Find the models, software and hardware that fit your machine.</p>
-            <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a><a href="/labs">Try AI in your browser</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
-          </header>
+          <nav class="lc-index-fallback__nav" aria-label="Model index shortcuts"><a href="#local-ai-index">Find models for my machine</a><a href="#llm-index">Browse LLM index</a><a href="/labs">Try AI in your browser</a><a href="/hardware/new-macs-local-ai">New Mac M6 and M5 guide</a></nav>
 
           <section class="lc-labs-promo" aria-label="Try LocalClaw Labs"><div><span>Labs · Free browser AI playground</span><h2>Read about local AI. Then try it.</h2><p>Five small model presets. Chat, play detective, remix text or shuffle a decision situation. Runs on your device, with no account or API key.</p></div><a href="/labs">Try browser AI →</a></section>
 
@@ -749,7 +759,7 @@
     <script src="js/app-20260816a.js?v=20261106ripple2"></script>
     <script src="js/fit-context.js?v=20260905a"></script>
     <script src="js/model-search.js?v=20260908a"></script>
-    <script src="js/home-index-20260814g.js?v=20261029vote1"></script>
+    <script src="js/home-index-20260814g.js?v=20261118"></script>
     <script src="js/home-voting.js?v=20261029vote1"></script>
     <script src="js/conversion-paths-20260827a.js?v=20261012quality2"></script>
     <script src="js/growth-paths-20260727a.js?v=20260905a"></script>

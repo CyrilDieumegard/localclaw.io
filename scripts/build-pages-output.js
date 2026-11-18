@@ -26,5 +26,7 @@ for (const relativePath of assets) {
   bytes += fs.statSync(source).size;
 }
 
-validatePagesOutput();
+const homeAssets = require('./home-page-assets').homePageAssets(ROOT);
+for (const [name, contents] of homeAssets) fs.writeFileSync(path.join(OUTPUT, name), contents);
+validatePagesOutput(homeAssets);
 console.log(`Built ${OUTPUT_DIRECTORY}: ${assets.length} allowlisted files, ${bytes} bytes.`);
