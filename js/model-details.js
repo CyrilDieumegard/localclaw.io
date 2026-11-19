@@ -4,6 +4,50 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "olala-v1-mini-7a1b": {
+        "developer": "OVHai LLM (OVHcloud)",
+        "developer_url": "https://corporate.ovhcloud.com/",
+        "context_window": 32768,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/OVHaiLLM/Olala-v1.0-mini-7A1B/blob/main/LICENSE",
+        "architecture": "6.8B total / about 1B active hybrid MoE: 29 Mamba-3 layers and 7 attention layers; 256 routed experts (6 active) and one shared expert per layer.",
+        "training_data": "Pretrained from scratch on 12.8T tokens on European supercomputers, followed by official SFT and reinforcement learning. See the developer training-content summary.",
+        "languages": [
+            "English",
+            "French",
+            "German",
+            "Spanish",
+            "Italian",
+            "Portuguese",
+            "Chinese",
+            "Japanese",
+            "Arabic"
+        ],
+        "strengths": [
+            "Canonical OVHcloud release with official GGUF and MLX artifacts under Apache 2.0",
+            "Multilingual chat, reasoning and tool use",
+            "Vendor documents quantized inference on a MacBook Air M5 with 16GB RAM"
+        ],
+        "weaknesses": [
+            "16GB is a conservative planning tier backed by the vendor Mac test, not a universal measured minimum; reserve OS/runtime headroom and start at 8192 tokens",
+            "Requires the official OVHai-LLM llama.cpp fork; upstream llama.cpp, Ollama and LM Studio cannot load it yet",
+            "Build with -DLLAMA_USE_PREBUILT_UI=OFF; Apple M1 needs OLALA_NO_FUSED_MOE=1",
+            "Use official quantization recipes: Q4_K_M was withdrawn after quality loss; do not substitute generic quants",
+            "Official MLX alternative needs OVHai-LLM/mlx-engine; Apple M1 needs OLALA_MOE_V3=0",
+            "32,768 tokens is the model ceiling; 128K is announced, not released",
+            "Developer benchmarks are not independent LocalClaw ratings"
+        ],
+        "use_cases": [
+            "Private multilingual chat",
+            "Local reasoning and tool-calling agents",
+            "On-device document workflows"
+        ],
+        "similar_models": [
+            "lfm3-1-7b",
+            "spark-x2-6-4b"
+        ],
+        "official_blog": "https://corporate.ovhcloud.com/asia/newsroom/news/ovh-olala-mini/"
+    },
     "ripple-65b-preview": {
         "developer": "Ricursive Intelligence",
         "developer_url": "https://www.ricursive.com/",

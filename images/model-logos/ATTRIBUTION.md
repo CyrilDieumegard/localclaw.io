@@ -18,3 +18,5 @@ downloaded from the same official Hugging Face avatar API on 2026-08-16.
 `emotivoice-avatar.png`, `ai4bharat-avatar.jpg` and `kittenml-avatar.png` are
 the public avatars of their official GitHub project owners. `rednote-avatar.png`
 is the logo published by RedNote HiLab in its official Hugging Face Space.
+
+- OVHai LLM: https://huggingface.co/OVHaiLLM/Olala-v1.0-mini-7A1B/resolve/main/assets/ovhai-llm-logo.svg (official developer mark; retrieved 2026-11-19).

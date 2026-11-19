@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated November 6, 2026
+// Updated November 19, 2026
 // Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
@@ -87,6 +87,49 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "olala-v1-mini-7a1b",
+            "name": "Olala v1.0 mini 7A1B",
+            "family": "olala",
+            "params": "6.8B (1B active, MoE)",
+            "size_gb": 6.31,
+            "min_ram": 16,
+            "ram_estimate": true,
+            "tags": [
+                "chat",
+                "reasoning",
+                "tool-calling",
+                "multilingual",
+                "standard"
+            ],
+            "description": "OVHcloud canonical hybrid Mamba-3/attention MoE for multilingual chat, reasoning and tool use. Official 6.31GB Q6_K GGUF; vendor tested on a 16GB Mac. Requires OVHai-LLM llama.cpp fork; start at 8192 tokens. Stock Ollama and LM Studio are not supported.",
+            "search_term": "Olala-v1.0-mini-7A1B",
+            "recommended_quant": "Q6_K",
+            "download_variants": [
+                {
+                    "quant": "Q6_K",
+                    "size_gb": 6.31,
+                    "file": "Olala-v1.0-mini-7A1B-q6_k.gguf"
+                },
+                {
+                    "quant": "Q5_K_M",
+                    "size_gb": 5.99,
+                    "file": "Olala-v1.0-mini-7A1B-q5_k_m.gguf"
+                },
+                {
+                    "quant": "Q8_0-safe2",
+                    "size_gb": 6.88,
+                    "file": "Olala-v1.0-mini-7A1B-q8_0-safe2.gguf"
+                }
+            ],
+            "hf_repo": "OVHaiLLM/Olala-v1.0-mini-7A1B-GGUF",
+            "source_url": "https://huggingface.co/OVHaiLLM/Olala-v1.0-mini-7A1B",
+            "runtime_url": "https://huggingface.co/OVHaiLLM/Olala-v1.0-mini-7A1B-GGUF#run-with-llamacpp",
+            "custom_runtime": "OVHai-LLM/llama.cpp fork; build with -DLLAMA_USE_PREBUILT_UI=OFF; Q6_K on Mac: -ngl 99 -fa 1 -c 8192; Apple M1: OLALA_NO_FUSED_MOE=1. Stock Ollama/LM Studio unsupported.",
+            "benchmarks": {},
+            "released": "2026-11-19",
+            "isNew": true
+        },
         {
             "id": "ripple-65b-preview",
             "name": "Ripple 65B Preview",
@@ -4573,10 +4616,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-11-13T07:28:15.255Z",
-        catalogueHash: "19182c5b8cb1fcc4804749a34ec6c7eb99e13315415baaf2ad6d9a7a45605330",
+        checkedAt: "2026-11-19T07:10:18.152Z",
+        catalogueHash: "a2a793a4db2194ce47f1604c538e9596261932bb1307a3f01e9d55f7d8c011b3",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "olala-v1-mini-7a1b": "OVHaiLLM/Olala-v1.0-mini-7A1B-GGUF",
             "ripple-65b-preview": "AtomicChat/Ripple-65B-Preview-GGUF",
             "lfm3-1-7b": "LiquidAI/LFM3-1.7B-GGUF",
             "lfm3-vl-2b": "LiquidAI/LFM3-VL-2B-GGUF",

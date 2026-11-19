@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 06 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Olala v1.0 mini 7A1B</title>
+      <link>https://localclaw.io/models/olala-v1-mini-7a1b</link>
+      <guid isPermaLink="true">https://localclaw.io/models/olala-v1-mini-7a1b</guid>
+      <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+      <category>olala</category>
+      <description>OVHcloud canonical hybrid Mamba-3/attention MoE for multilingual chat, reasoning and tool use. Official 6.31GB Q6_K GGUF; vendor tested on a 16GB Mac. Requires OVHai-LLM llama.cpp fork; start at 8192 tokens. Stock Ollama and LM Studio are not supported. 6.8B (1B active, MoE) · 16 GB short-context RAM estimate · Q6_K · olala.</description>
+    </item>
     <item>
       <title>Ripple 65B Preview</title>
       <link>https://localclaw.io/models/ripple-65b-preview</link>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
       <category>occamy</category>
       <description>Accio Lab Apache 2.0 co-work model post-trained from Qwen3.6-35B-A3B for long-horizon tools, files, code and business workflows. Official GGUF Q4_K_M is 19.7GiB with llama.cpp validation evidence. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · occamy.</description>
-    </item>
-    <item>
-      <title>Nex-N2.5-mini</title>
-      <link>https://localclaw.io/models/nex-n2-5-mini</link>
-      <guid isPermaLink="true">https://localclaw.io/models/nex-n2-5-mini</guid>
-      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
-      <category>nex</category>
-      <description>Official Nex-AGI Apache 2.0 multimodal agent model for computer use, web browsing, coding and tool calling. Community Q4_K_M GGUF is about 21.3GB with documented llama.cpp text and vision smoke tests. 35B MoE · 32 GB minimum RAM · Q4_K_M · nex.</description>
     </item>
   </channel>
 </rss>
