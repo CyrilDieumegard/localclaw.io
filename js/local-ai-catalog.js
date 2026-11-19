@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'longcat-video-avatar-1.6', name: 'LongCat-Video-Avatar 1.6', category: 'video', developer: 'Meituan LongCat',
+      summary: 'MIT-licensed speech-driven avatar model with INT8 weights and a local ComfyUI workflow for portrait animation and video continuation.',
+      tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'video-continuation'],
+      platforms: ['windows'], accelerators: ['nvidia'], min_ram_gb: 64, min_vram_gb: 32,
+      runtime: ['ComfyUI', 'PyTorch'], output: ['MP4', 'audio-driven video'],
+      local_status: 'local', license: 'MIT', released: '2026-11',
+      source_url: 'https://github.com/meituan-longcat/LongCat-Video',
+      install_url: 'https://github.com/Pixelailabs/ComfyUI-LongCat-Avatar-PixelAILabs',
+      hardware_note: 'Official MIT weights: https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.6 . The community PixelAI Labs ComfyUI integration documents Windows, an RTX 5090 with 32 GB VRAM and 64 GB system RAM at 480p. Use the official INT8 backbone, FP8 UMT5 encoder, block_num=1 streaming, mix_steps=4 and eight denoising steps. Its maintainer reports 5.6-7.7 minutes for a 3.8-second clip. These conservative catalogue floors describe that reported configuration, not a measured minimum or a LocalClaw benchmark. Downloads are weights for local PyTorch inference; the workflow saves video with audio through ComfyUI CreateVideo/SaveVideo.',
+      strengths: ['Official downloadable MIT backbone and DMD/OPSD adapters', 'Single-GPU portrait plus speech workflow', 'Window-by-window continuation for longer audio'],
+      caveats: ['Requires a community custom-node integration; not an official Meituan desktop app', '32 GB VRAM and 64 GB RAM configuration is maintainer-reported at 480p; smaller GPUs are not validated by this integration', 'Linux, macOS, AMD and CPU-only support are not claimed for this verified workflow', 'Long audio adds rendering windows and processing time; downloads include separate text, audio and VAE components']
+    },
+    {
       id: 'sprongmotion-14m', name: 'SprongMotion-14M', category: '3d', developer: 'Seger Endendijk',
       summary: 'Compact Apache-2.0 text-to-motion model that generates 3D human skeleton animation and BVH files locally on a CPU.',
       tasks: ['text-to-motion', 'character-animation', 'motion-generation'],
