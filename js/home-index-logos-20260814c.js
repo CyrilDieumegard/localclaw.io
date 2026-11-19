@@ -153,6 +153,7 @@ window.HOME_INDEX_LOGOS = {
     ossicle: 'huggingface-avatar',
     verispoof: 'huggingface-avatar',
     qolda: 'huggingface-avatar',
+    'hy-simulmt': 'tencent',
     sophon: 'huggingface-avatar',
     longcap: 'huggingface-avatar',
     voxtream: 'huggingface-avatar',

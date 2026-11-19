@@ -2,6 +2,21 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "hy-simulmt-30b-a3b",
+    "name": "Hy-SimulMT 30B-A3B",
+    "developer": "Tencent Hunyuan",
+    "family": "hy-simulmt",
+    "license": "Apache 2.0",
+    "releaseDate": "2026-10-22",
+    "quality": null,
+    "speed": null,
+    "type": "ASR",
+    "hardware": [
+      "gpu"
+    ],
+    "sizeGB": 60.79
+  },
+  {
     "id": "qolda-avl-5b-optimized-tokenizer",
     "name": "Qolda-AVL 5B OptimizedTokenizer",
     "developer": "ISSAI",

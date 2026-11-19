@@ -1939,6 +1939,49 @@
         // TTS Models Data
         const TTS_MODELS = [
             {
+                "id": "hy-simulmt-30b-a3b",
+                "supportsUnsloth": false,
+                "name": "Hy-SimulMT 30B-A3B",
+                "developer": "Tencent Hunyuan",
+                "family": "hy-simulmt",
+                "isAsr": true,
+                "operatingSystem": "Linux with NVIDIA CUDA GPU",
+                "systemRequirements": "Upstream BF16 SGLang-Omni deployment guidance: one NVIDIA H200 is sufficient. About 57 GiB of weights alone, plus KV cache and runtime allocations. Linux, CUDA and Python 3.12; system RAM minimum unspecified. This is server-class hardware guidance, not a measured minimum.",
+                "description": "Canonical Hunyuan mixture-of-experts model for simultaneous Chinese-English speech translation. The verified local SGLang-Omni path returns translated text, including live audio translation; speech synthesis and voice cloning require a separate TTS service.",
+                "languages": [
+                    "zh",
+                    "en"
+                ],
+                "languageCount": 2,
+                "features": [
+                    "speech-translation",
+                    "audio-language",
+                    "multilingual",
+                    "streaming"
+                ],
+                "hardware": [
+                    "gpu"
+                ],
+                "sizeGB": 60.79,
+                "sizeLabel": "30.39B total / about 3B active; 60.79 GB BF16 weights",
+                "sizeCategory": "large",
+                "quality": null,
+                "speed": null,
+                "latency": "not rated",
+                "releaseDate": "2026-10-22",
+                "isNew": true,
+                "hfLink": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B",
+                "sourceStatus": "verified-code",
+                "installCommand": "git clone https://github.com/sgl-project/sglang-omni.git",
+                "supportedFormats": [
+                    "pytorch",
+                    "safetensors"
+                ],
+                "voices": "Translated text only in the verified runtime. Voice output and cloning require a separately configured TTS service.",
+                "context": "Official Tencent BF16 checkpoint: 30.39B total parameters, approximately 3B active, 17 downloadable safetensors shards totaling 60,789,601,024 bytes. Speech directions verified: Chinese to English and English to Chinese; broader language tags are not evidence of additional speech directions. Upstream documents one H200 as sufficient for SGLang-Omni; about 57 GiB is weight storage before runtime allocations, not a RAM or VRAM minimum. Follow the official model-card SGLang-Omni environment/container instructions after cloning. Inside that environment, use Python 3.12 and the documented uv pip install --prerelease=allow -v -e . command. Launch with sgl-omni serve --model-path tencent/Hy-SimulMT-30B-A3B --mem-fraction-static 0.75 --enable-realtime --port 8000. File requests accept at most 30 seconds and require the source language zh or en; this checkpoint has no language detection tokens. Live input is mono PCM16 at 16 kHz; hypotheses refresh every 1.6 seconds and may be revised, with fresh context after 30 seconds. This integration returns text only and does not cover FP8, GGUF or Interleave checkpoints. Speech output and voice cloning are separate TTS capabilities, not bundled here. Apache-2.0 for released model weights; third-party components retain their own terms. No LocalClaw inference, quality or speed test. Sources checked 2026-11-19: https://huggingface.co/tencent/Hy-SimulMT-30B-A3B at revision 56c233df75bf09e386aa6282b01730b461afc83f (card, config.json, LICENSE.txt and weight index); https://github.com/Tencent-Hunyuan/Hy-SimulMT ; https://sgl-project.github.io/sglang-omni/cookbook/hy_simulmt.html .",
+                "license": "Apache 2.0"
+            },
+            {
                 "id": "qolda-avl-5b-optimized-tokenizer",
                 "supportsUnsloth": false,
                 "name": "Qolda-AVL 5B OptimizedTokenizer",
