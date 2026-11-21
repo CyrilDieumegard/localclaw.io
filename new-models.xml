@@ -6,8 +6,16 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 19 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
+    <item>
+      <title>Inkling 2 Mini</title>
+      <link>https://localclaw.io/models/inkling-2-mini</link>
+      <guid isPermaLink="true">https://localclaw.io/models/inkling-2-mini</guid>
+      <pubDate>Fri, 20 Nov 2026 12:00:00 GMT</pubDate>
+      <category>inkling</category>
+      <description>Thinking Machines Lab canonical multimodal MoE for coding, tool use and image understanding. Unsloth 17.63GB UD-Q4_K_XL GGUF; plan for 32GB RAM at short context. Requires the compatible Unsloth llama.cpp build; root GGUFs are not interchangeable with mainline files. 26.4B (3.4B active; 5.4B effective with loops) · 32 GB short-context RAM estimate · UD-Q4_K_XL · inkling.</description>
+    </item>
     <item>
       <title>Olala v1.0 mini 7A1B</title>
       <link>https://localclaw.io/models/olala-v1-mini-7a1b</link>
@@ -159,14 +167,6 @@
       <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
       <category>llm-jp</category>
       <description>Official Apache 2.0 LLM-jp 4.1 dense reasoning model from NII/LLM-jp with English/Japanese focus, 65K context, Harmony-style chat template and official Q4_K_M GGUF for local llama.cpp testing through the LLM-jp fork. 8B · 16 GB minimum RAM · Q4_K_M · llm-jp.</description>
-    </item>
-    <item>
-      <title>Occamy-1.0</title>
-      <link>https://localclaw.io/models/occamy-1-0</link>
-      <guid isPermaLink="true">https://localclaw.io/models/occamy-1-0</guid>
-      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
-      <category>occamy</category>
-      <description>Accio Lab Apache 2.0 co-work model post-trained from Qwen3.6-35B-A3B for long-horizon tools, files, code and business workflows. Official GGUF Q4_K_M is 19.7GiB with llama.cpp validation evidence. 35B (3B active, MoE) · 32 GB minimum RAM · Q4_K_M · occamy.</description>
     </item>
   </channel>
 </rss>

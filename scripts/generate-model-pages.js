@@ -272,6 +272,10 @@ function runOptionsMarkup(m, hfState) {
       m,
       external: false,
       appLink: true
+    }) : publicGguf && m.unsloth_setup_url ? runOptionLink({
+      platform: 'unsloth', label: 'Set up Unsloth',
+      note: 'Follow the model-specific compatible runtime guide',
+      href: m.unsloth_setup_url, m, external: true
     }) : runOptionUnavailable({platform: 'unsloth', label: 'Unsloth'}),
     ollamaHref ? runOptionLink({
       platform: 'ollama',

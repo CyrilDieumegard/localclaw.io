@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated November 19, 2026
+// Updated November 21, 2026
 // Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
@@ -87,6 +87,46 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "inkling-2-mini",
+            "unsloth_setup_url": "https://unsloth.ai/docs/models/inkling-2-mini",
+            "name": "Inkling 2 Mini",
+            "family": "inkling",
+            "params": "26.4B (3.4B active; 5.4B effective with loops)",
+            "size_gb": 17.63,
+            "min_ram": 32,
+            "ram_estimate": true,
+            "tags": [
+                "coding",
+                "reasoning",
+                "tool-calling",
+                "vision",
+                "multilingual",
+                "power"
+            ],
+            "description": "Thinking Machines Lab canonical multimodal MoE for coding, tool use and image understanding. Unsloth 17.63GB UD-Q4_K_XL GGUF; plan for 32GB RAM at short context. Requires the compatible Unsloth llama.cpp build; root GGUFs are not interchangeable with mainline files.",
+            "search_term": "Inkling-2-Mini",
+            "recommended_quant": "UD-Q4_K_XL",
+            "download_variants": [
+                {
+                    "quant": "UD-Q4_K_XL",
+                    "size_gb": 17.63,
+                    "file": "Inkling-2-Mini-UD-Q4_K_XL.gguf"
+                },
+                {
+                    "quant": "UD-Q4_K_M",
+                    "size_gb": 16.61,
+                    "file": "Inkling-2-Mini-UD-Q4_K_M.gguf"
+                }
+            ],
+            "hf_repo": "unsloth/Inkling-2-Mini-GGUF",
+            "source_url": "https://huggingface.co/thinkingmachines/Inkling-2-Mini",
+            "runtime_url": "https://unsloth.ai/docs/models/inkling-2-mini",
+            "custom_runtime": "Unsloth llama.cpp b12588-mix-c0c3de8 for root GGUFs; --jinja -c 4096 --temp 1 --top-p 1 --top-k 0 --min-p 0. Images need mmproj-F16.gguf (+0.64GB). Mainline layout requires separate files and PR 32704 fix; no blanket LM Studio/Ollama compatibility claim.",
+            "benchmarks": {},
+            "released": "2026-11-20",
+            "isNew": true
+        },
         {
             "id": "olala-v1-mini-7a1b",
             "name": "Olala v1.0 mini 7A1B",
@@ -4616,10 +4656,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-11-19T07:10:18.152Z",
-        catalogueHash: "a2a793a4db2194ce47f1604c538e9596261932bb1307a3f01e9d55f7d8c011b3",
+        checkedAt: "2026-11-21T07:06:03.329Z",
+        catalogueHash: "3200de442dd263ac61462681ba980e469cc79e646a7acf639d282f6174297196",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "inkling-2-mini": "unsloth/Inkling-2-Mini-GGUF",
             "olala-v1-mini-7a1b": "OVHaiLLM/Olala-v1.0-mini-7A1B-GGUF",
             "ripple-65b-preview": "AtomicChat/Ripple-65B-Preview-GGUF",
             "lfm3-1-7b": "LiquidAI/LFM3-1.7B-GGUF",

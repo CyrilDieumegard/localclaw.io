@@ -4,6 +4,42 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "inkling-2-mini": {
+        "developer": "Thinking Machines Lab",
+        "developer_url": "https://thinkingmachines.ai/",
+        "context_window": 1048576,
+        "license": "Apache 2.0",
+        "license_url": "https://huggingface.co/thinkingmachines/Inkling-2-Mini#1-general-information",
+        "architecture": "26.4B total, 3.4B active MoE; 24 decoder layers, with 12 middle layers executed three times (5.4B effective active parameters). 8 of 128 experts per token; hybrid local/global attention and a vision encoder.",
+        "training_data": "Developer reports public, acquired, internally generated and synthetic data, followed by official post-training. Full training corpus is not disclosed.",
+        "languages": [
+            "English",
+            "Multilingual"
+        ],
+        "strengths": [
+            "Canonical Thinking Machines Lab release under Apache 2.0",
+            "Coding, tool use and image understanding",
+            "Established Unsloth GGUF artifacts and documented local installation on Mac, Linux and Windows"
+        ],
+        "weaknesses": [
+            "32GB is a conservative short-context planning tier, supported by the developer Apple silicon recommendation; it is not a measured universal minimum",
+            "Start at 4096 tokens and reserve memory for the OS, runtime and images; 1,048,576 tokens is an architecture ceiling, not a 32GB fit claim",
+            "Use Unsloth llama.cpp b12588-mix-c0c3de8 with root GGUFs; mainline uses separate Mainline_Support files and needs PR 32704, still unmerged when checked",
+            "Images require the additional 0.64GB mmproj-F16.gguf projector; optional DSpark drafter adds memory",
+            "Developer reports repetitive reasoning and weaker tool reliability than larger models; cap output tokens and agent turns",
+            "No independent LocalClaw performance ratings or inference test; no blanket LM Studio/Ollama support claim"
+        ],
+        "use_cases": [
+            "Private coding assistants",
+            "Local tool-calling workflows",
+            "Image and document understanding"
+        ],
+        "similar_models": [
+            "ripple-65b-preview",
+            "flint-40b-a2-5b"
+        ],
+        "official_blog": "https://huggingface.co/thinkingmachines/Inkling-2-Mini"
+    },
     "olala-v1-mini-7a1b": {
         "developer": "OVHai LLM (OVHcloud)",
         "developer_url": "https://corporate.ovhcloud.com/",
