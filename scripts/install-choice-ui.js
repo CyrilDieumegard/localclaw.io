@@ -67,6 +67,7 @@ function unslothDeepLink(model) {
 }
 
 function supportsUnsloth(model) {
+  if (model.supportsUnsloth === false) return false;
   if (!unslothDeepLink(model)) return false;
   if (['image', 'video', 'music'].includes(model.category)) return true;
   if (model.category !== 'vision') return false;

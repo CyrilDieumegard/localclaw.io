@@ -164,7 +164,7 @@ function landingPage(key, config) {
   <div class="lc-ai-results-head" id="catalogue"><h2>${esc(config.label)} catalogue</h2><span class="lc-ai-result-count" id="lc-ai-result-count"></span></div>
   <section class="lc-ai-grid" id="lc-ai-grid" aria-live="polite"></section>
 </div></main>${footer()}
-${externalMediaScripts}<script src="/js/local-ai-catalog-20260824a.js?v=20261122video1"></script><script src="/js/home-voting.js?v=20261029vote1"></script><script src="/js/local-ai-catalog-app.js?v=20261029vote1"></script><script src="/js/community-ratings-20260802a.js?v=20261029vote1"></script></body></html>`;
+${externalMediaScripts}<script src="/js/local-ai-catalog-20260824a.js?v=20261122video2"></script><script src="/js/home-voting.js?v=20261029vote1"></script><script src="/js/local-ai-catalog-app.js?v=20261029vote1"></script><script src="/js/community-ratings-20260802a.js?v=20261029vote1"></script></body></html>`;
 }
 
 function detailPage(model) {

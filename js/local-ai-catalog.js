@@ -5,7 +5,7 @@
       summary: 'Research-only 14B text-to-video model with official Apple weights and an experimental community MLX path for local Apple Silicon generation.',
       tasks: ['text-to-video', 'animation'],
       platforms: ['macos'], accelerators: ['apple-silicon'], min_ram_gb: 64, min_vram_gb: 0,
-      runtime: ['MLX', 'Python', 'FFmpeg'], output: ['MP4 (H.264)'],
+      runtime: ['MLX', 'Python', 'FFmpeg'], output: ['MP4 (H.264)'], supportsUnsloth: false,
       local_status: 'local', license: 'Apple Machine Learning Research Model License (non-commercial scientific research only)', released: '2026-11',
       source_url: 'https://github.com/apple-aiml-research/ml-fastframes',
       install_url: 'https://huggingface.co/finaltv971/fastframes-l-mlx',
