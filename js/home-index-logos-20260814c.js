@@ -250,6 +250,7 @@ window.HOME_INDEX_LOGOS = {
     'Kling Team / CUHK': 'github',
     'Lightricks': 'lightricks-avatar',
     'Meta AI': 'meta',
+    'Apple': 'github',
     'Meituan LongCat': 'longcat',
     'Meta AI / Carnegie Mellon University': 'meta',
     'Meta AI / FAIR': 'meta',

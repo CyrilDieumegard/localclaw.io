@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'fastframes-l', name: 'FastFrames-L', category: 'video', developer: 'Apple',
+      summary: 'Research-only 14B text-to-video model with official Apple weights and an experimental community MLX path for local Apple Silicon generation.',
+      tasks: ['text-to-video', 'animation'],
+      platforms: ['macos'], accelerators: ['apple-silicon'], min_ram_gb: 64, min_vram_gb: 0,
+      runtime: ['MLX', 'Python', 'FFmpeg'], output: ['MP4 (H.264)'],
+      local_status: 'local', license: 'Apple Machine Learning Research Model License (non-commercial scientific research only)', released: '2026-11',
+      source_url: 'https://github.com/apple-aiml-research/ml-fastframes',
+      install_url: 'https://huggingface.co/finaltv971/fastframes-l-mlx',
+      hardware_note: 'Official weights: https://huggingface.co/apple/FastFrames-L . The community MLX port documents a Mac Studio M5 Max with 64 GiB unified memory, Python 3.13, MLX 0.32.2 and FFmpeg/libx264. It downloads the official DiT, KV refiner and pixel decoder, plus the MLX Community FastFrames-S text encoder/reference code and Wan tokenizer at pinned revisions. The maintainer reports 40.2 GiB peak MLX allocation for a 17-frame BF16 clip and 47.2 GiB for 81-frame Q8 clips at 832 x 480 and 16 fps. The 64 GB floor describes that reported whole-machine configuration, not a measured minimum or LocalClaw benchmark. Zero dedicated VRAM means shared Apple unified memory, not CPU-only inference. Allow about 42 GB disk for source weights plus 15.4 GB for the optional Q8 checkpoint. Inference and MP4 export run locally after weight downloads.',
+      strengths: ['Official downloadable Apple generator, KV refiner and pixel decoder', 'Documented local MLX generation and H.264 export on a 64 GiB Mac', 'BF16 short clips and locally quantized Q8 five-second clips'],
+      caveats: ['Experimental community port, not an Apple-supported app; CUDA output parity and other Mac models remain unverified', 'License permits non-commercial scientific research and academic development only, excluding commercial exploitation and product development', '64 GiB machine and memory measurements are maintainer-reported; longer clips can need more memory', 'This verified path covers text-to-video only; Linux, Windows, NVIDIA, AMD and CPU-only compatibility are not claimed here']
+    },
+    {
       id: 'longcat-video-avatar-1.6', name: 'LongCat-Video-Avatar 1.6', category: 'video', developer: 'Meituan LongCat',
       summary: 'MIT-licensed speech-driven avatar model with INT8 weights and a local ComfyUI workflow for portrait animation and video continuation.',
       tasks: ['speech-to-video', 'audio-to-video', 'image-to-video', 'video-continuation'],
