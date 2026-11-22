@@ -4,6 +4,42 @@
 // ================================================================
 
 var MODEL_DETAILS = {
+    "hy4-flash": {
+        "developer": "Tencent Hunyuan",
+        "developer_url": "https://huggingface.co/tencent",
+        "context_window": 1048576,
+        "license": "Tencent Hy License 1.0",
+        "license_url": "https://huggingface.co/tencent/Hy4-flash/blob/main/LICENSE",
+        "architecture": "About 220B total including 63.5B Engram parameters; about 12B active. 42 layers, 512 routed experts with 16 selected per token, sparse and sliding-window attention, and a SigLIP2-derived vision encoder.",
+        "training_data": "Canonical Tencent pretrained model followed by official post-training for productivity and agent tasks. Full training corpus is not disclosed.",
+        "languages": [
+            "Chinese",
+            "English"
+        ],
+        "strengths": [
+            "Official canonical release and AngelSlim GGUF artifacts",
+            "Document, slide and spreadsheet workflows, coding and tool use",
+            "Official tested 128GB Apple silicon Metal recipe with component-level memory budget"
+        ],
+        "weaknesses": [
+            "128GB is a specialized vendor-tested planning tier, not a generic RAM minimum: about 59GiB of Engram tables remain lazily mapped from local SSD; the complete Q4_K_M download is 156.79GiB (168.35GB)",
+            "Requires official hy4-flash-mac-minimal.patch on llama.cpp 2cbca389f, including mtmd support, and the documented 112GiB GPU wired-memory setting; follow the linked Mac guide",
+            "Vendor reports 105.5GiB runtime use with four slots, 256K shared pool and ubatch 512; its 113.3GiB configuration fails with OOM. Reserve OS headroom and start at 8192 tokens",
+            "Download both shards; images need the separate 1.04GB projector. The 1M-token architecture ceiling is not a 128GB fit claim",
+            "Tencent Hy License is not Apache 2.0 and has additional commercial terms for large MaaS businesses; read the original license",
+            "Upstream llama.cpp PR 32517 remains unmerged when checked; no stock Ollama/LM Studio compatibility or independent LocalClaw inference benchmark claimed"
+        ],
+        "use_cases": [
+            "Local document and productivity agents",
+            "Workstation coding and tool workflows",
+            "Private image understanding"
+        ],
+        "similar_models": [
+            "inkling-2-mini",
+            "ripple-65b-preview"
+        ],
+        "official_blog": "https://huggingface.co/tencent/Hy4-flash"
+    },
     "inkling-2-mini": {
         "developer": "Thinking Machines Lab",
         "developer_url": "https://thinkingmachines.ai/",

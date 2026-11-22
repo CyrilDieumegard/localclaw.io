@@ -3,6 +3,7 @@
 // are used when a checkpoint has no separate published identity.
 window.HOME_INDEX_LOGOS = {
   llm: {
+    hy4: 'tencent',
     inkling: 'thinkingmachines-avatar',
     olala: 'ovhai-llm',
     'agents-a1': 'internscience-avatar',

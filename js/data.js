@@ -1,5 +1,5 @@
 // LocalClaw Data & Configuration - LM STUDIO EDITION v2.9
-// Updated November 21, 2026
+// Updated November 22, 2026
 // Previous: October 25, 2026 - Added Recursive Flint and Raon-1 mini preview - 259 unique LLM records
 // Previous: October 23, 2026 - Added Spark-X2.6 4B and NVIDIA Dory 1.0 4B - 257 unique LLM records
 // Previous: October 14, 2026 - Added LFM2.5-24B-A2B - 255 unique LLM records
@@ -87,6 +87,45 @@ const APP_DATA = {
     // Each model has performance benchmarks (relative 1-10 scale)
     // ------------------------------------------------------------------------
     models: [
+        {
+            "id": "hy4-flash",
+            "name": "Hy4 flash",
+            "family": "hy4",
+            "params": "220B (about 12B active, MoE + Engram)",
+            "size_gb": 168.35,
+            "min_ram": 128,
+            "ram_estimate": true,
+            "tags": [
+                "coding",
+                "reasoning",
+                "tool-calling",
+                "vision",
+                "multilingual",
+                "beast"
+            ],
+            "description": "Tencent canonical multimodal MoE for productivity, coding and tool use. Official Q4_K_M totals 168.35GB on SSD. Vendor-tested 128GB Apple silicon setup requires the official Metal patch and lazy-mapped Engram table; this is not a fully resident 128GB fit.",
+            "search_term": "Hy4-flash",
+            "recommended_quant": "Q4_K_M",
+            "download_variants": [
+                {
+                    "quant": "Q4_K_M",
+                    "size_gb": 168.35,
+                    "file": "Hy4-flash-Q4_K_M-00001-of-00002.gguf"
+                },
+                {
+                    "quant": "Q3_K",
+                    "size_gb": 155.37,
+                    "file": "Hy4-flash-Q3_K-00001-of-00002.gguf"
+                }
+            ],
+            "hf_repo": "AngelSlim/Hy4-flash-GGUF",
+            "source_url": "https://huggingface.co/tencent/Hy4-flash",
+            "runtime_url": "https://huggingface.co/AngelSlim/Hy4-flash-GGUF/blob/main/README_MAC-Metal.md",
+            "custom_runtime": "Official AngelSlim Metal patch on llama.cpp 2cbca389f; follow the Mac guide including its GPU wired-memory setting and local-SSD Engram mapping. Download BOTH GGUF shards; start with -c 8192. Images need mmproj-Hy4-flash-bf16.gguf (+1.04GB). Stock llama.cpp/LM Studio/Ollama support is not established.",
+            "benchmarks": {},
+            "released": "2026-11-17",
+            "isNew": true
+        },
         {
             "id": "inkling-2-mini",
             "unsloth_setup_url": "https://unsloth.ai/docs/models/inkling-2-mini",
@@ -4656,10 +4695,11 @@ const APP_DATA = {
     // resolved through the unauthenticated Hugging Face model API, directly or after redirects.
     // Unavailable entries remain catalogue search metadata and are never rendered as live links.
     hfRepoVerification: {
-        checkedAt: "2026-11-21T07:06:03.329Z",
-        catalogueHash: "3200de442dd263ac61462681ba980e469cc79e646a7acf639d282f6174297196",
+        checkedAt: "2026-11-22T07:21:06.686Z",
+        catalogueHash: "757b076c0dbb29e82c60267e0ff9a9c500870b5eab6fcec9ffe009c082192cca",
         method: "Unauthenticated Hugging Face API with redirects followed, plus exact official-name or base-model lineage checks; repositories classified as public GGUF, public official runtime, public model card, gated, or not publicly resolvable.",
         publicGguf: {
+            "hy4-flash": "AngelSlim/Hy4-flash-GGUF",
             "inkling-2-mini": "unsloth/Inkling-2-Mini-GGUF",
             "olala-v1-mini-7a1b": "OVHaiLLM/Olala-v1.0-mini-7A1B-GGUF",
             "ripple-65b-preview": "AtomicChat/Ripple-65B-Preview-GGUF",

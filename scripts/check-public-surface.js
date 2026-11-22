@@ -169,6 +169,9 @@ const activeApp = homepage.match(/src="(js\/app-[^"?]+\.js)(?:\?[^\"]*)?"/)?.[1]
 const homeCssSources = require('./tailwind.home.config.js').content;
 if (!activeApp || !homeCssSources.includes(`./${activeApp}`)) errors.push('Homepage CSS must scan the active recommender script');
 
+const modelContext = {};
+vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'js/data.js'), 'utf8') + ';this.models=APP_DATA.models;', modelContext);
+const modelsById = new Map(modelContext.models.map(model => [model.id, model]));
 const modelPages = fs.readdirSync(path.join(ROOT, 'models'))
   .filter(file => file.endsWith('.html') && file !== 'index.html');
 const expectedRuntimes = ['lmstudio', 'unsloth', 'ollama', 'huggingface', 'llamacpp', 'localclaw'];
@@ -183,8 +186,11 @@ for (const file of modelPages) {
     if (!html.includes(`data-runtime="${runtime}"`)) errors.push(`${file} is missing the ${runtime} runtime choice`);
   }
   const unslothOption = (html.match(/<(?:a|div) class="run-option[^"]*"[^>]*data-runtime="unsloth"[^>]*>/) || [])[0] || '';
-  if (unslothOption.startsWith('<a') && !unslothOption.includes('href="unsloth://open_from_hf?model=')) {
-    errors.push(`${file} exposes Unsloth without a valid deep link`);
+  const model = modelsById.get(file.replace(/\.html$/, ''));
+  const setupUrl = model?.unsloth_setup_url || '';
+  const validSetupLink = Boolean(model?.custom_runtime && /^https:\/\/unsloth\.ai\/docs\/models\/[a-z0-9-]+$/.test(setupUrl) && unslothOption.includes(`href="${setupUrl}"`) && unslothOption.includes('target="_blank"'));
+  if (unslothOption.startsWith('<a') && !unslothOption.includes('href="unsloth://open_from_hf?model=') && !validSetupLink) {
+    errors.push(`${file} exposes Unsloth without a valid deep link or declared model setup guide`);
   }
   if (/(?:lmstudio|unsloth):\/\/open_from_hf/.test(html)) {
     if (!html.includes(runtimeAssistAsset)) errors.push(`${file} is missing the runtime launch assistant`);

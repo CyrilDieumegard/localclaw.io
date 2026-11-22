@@ -6,7 +6,7 @@
     <atom:link href="https://localclaw.io/new-models.xml" rel="self" type="application/rss+xml" />
     <description>Recently released open-weight AI models verified for local use in the LocalClaw catalogue.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Nov 2026 12:00:00 GMT</lastBuildDate>
     <ttl>1440</ttl>
     <item>
       <title>Inkling 2 Mini</title>
@@ -23,6 +23,14 @@
       <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
       <category>olala</category>
       <description>OVHcloud canonical hybrid Mamba-3/attention MoE for multilingual chat, reasoning and tool use. Official 6.31GB Q6_K GGUF; vendor tested on a 16GB Mac. Requires OVHai-LLM llama.cpp fork; start at 8192 tokens. Stock Ollama and LM Studio are not supported. 6.8B (1B active, MoE) · 16 GB short-context RAM estimate · Q6_K · olala.</description>
+    </item>
+    <item>
+      <title>Hy4 flash</title>
+      <link>https://localclaw.io/models/hy4-flash</link>
+      <guid isPermaLink="true">https://localclaw.io/models/hy4-flash</guid>
+      <pubDate>Tue, 17 Nov 2026 12:00:00 GMT</pubDate>
+      <category>hy4</category>
+      <description>Tencent canonical multimodal MoE for productivity, coding and tool use. Official Q4_K_M totals 168.35GB on SSD. Vendor-tested 128GB Apple silicon setup requires the official Metal patch and lazy-mapped Engram table; this is not a fully resident 128GB fit. 220B (about 12B active, MoE + Engram) · 128 GB short-context RAM estimate · Q4_K_M · hy4.</description>
     </item>
     <item>
       <title>Ripple 65B Preview</title>
@@ -159,14 +167,6 @@
       <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
       <category>needle</category>
       <description>Cactus Compute Apache 2.0 foundation model for tiny on-device tool calling, extraction and embeddings. Official `.cact` runtime artifacts run through the cactus-needle Python package, C API, browser/WASI and platform runners instead of stock GGUF or LM Studio. 121M laddered SAN · 1 GB minimum RAM · CQ2 .cact · needle.</description>
-    </item>
-    <item>
-      <title>LLM-jp-4.1 8B Thinking</title>
-      <link>https://localclaw.io/models/llm-jp-4-1-8b-thinking</link>
-      <guid isPermaLink="true">https://localclaw.io/models/llm-jp-4-1-8b-thinking</guid>
-      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
-      <category>llm-jp</category>
-      <description>Official Apache 2.0 LLM-jp 4.1 dense reasoning model from NII/LLM-jp with English/Japanese focus, 65K context, Harmony-style chat template and official Q4_K_M GGUF for local llama.cpp testing through the LLM-jp fork. 8B · 16 GB minimum RAM · Q4_K_M · llm-jp.</description>
     </item>
   </channel>
 </rss>

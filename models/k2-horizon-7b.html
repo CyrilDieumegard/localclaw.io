@@ -134,13 +134,13 @@
       <p><strong>Catalogue summary:</strong> IFM Apache 2.0 dense K2 Horizon release with about 9B parameters, 128K context, open training-data references and an official BF16 GGUF artifact for K2 Horizon llama.cpp-compatible local experiments.</p>
       <p>K2-Horizon-7B has a catalogue minimum of 24 GB RAM with BF16 GGUF. Actual memory use and speed vary by context length, runtime, backend and system headroom.</p>
       <p>Use the official <a href="https://huggingface.co/IFM/K2-Horizon-7B-GGUF" target="_blank" rel="noopener">K2 Horizon llama.cpp fork / pending upstream llama.cpp support</a> setup. The current low-bit files are not a stock LM Studio install.</p>
-      <div class="source-links"><a href="https://huggingface.co/IFM/K2-Horizon-7B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/IFM/K2-Horizon-7B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-11-21): IFM/K2-Horizon-7B-GGUF</a><a href="https://ifm.ai/blog/k2/" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/IFM/K2-Horizon-7B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
+      <div class="source-links"><a href="https://huggingface.co/IFM/K2-Horizon-7B" target="_blank" rel="noopener">Model source</a><a href="https://huggingface.co/IFM/K2-Horizon-7B-GGUF" target="_blank" rel="noopener" data-hf-repo-status="public-gguf">Public GGUF repository (verified 2026-11-22): IFM/K2-Horizon-7B-GGUF</a><a href="https://ifm.ai/blog/k2/" target="_blank" rel="noopener">Upstream release</a><a href="https://huggingface.co/IFM/K2-Horizon-7B-GGUF" target="_blank" rel="noopener">Paper or model card</a><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Licence text</a></div>
       <div style="margin-top:16px"><span class="tag">chat</span><span class="tag">code</span><span class="tag">reasoning</span><span class="tag">standard</span><span class="tag">long-context</span><span class="tag">general</span></div>
     </section>
     <section class="section">
       <h2>Install path</h2>
       <div class="install-steps">
-        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Minimum 24 GB RAM. Start with the BF16 GGUF quant.</span></div>
+        <div class="step"><div class="step-num">01</div><strong>Check RAM fit</strong><span>Plan for 24 GB using the linked runtime-specific memory instructions; generic RAM-fit estimates may not apply.</span></div>
         <div class="step"><div class="step-num">02</div><strong>Load the model</strong><span>Follow the official K2 Horizon llama.cpp fork / pending upstream llama.cpp support instructions. Stock LM Studio support is not confirmed.</span></div>
         <div class="step"><div class="step-num">03</div><strong>Try your workload</strong><span>Start with a short prompt, check memory use and adjust context length before running longer tasks.</span></div>
       </div>
