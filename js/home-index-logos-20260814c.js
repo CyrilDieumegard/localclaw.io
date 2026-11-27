@@ -201,6 +201,7 @@ window.HOME_INDEX_LOGOS = {
     zonos: 'zyphra-avatar'
   },
   multimodal: {
+    'USTC / TUM / MCML': 'github',
     'Seger Endendijk': 'github',
     '3DTopia': '3dtopia-avatar',
     '3DTopia / Nanyang Technological University': '3dtopia-avatar',

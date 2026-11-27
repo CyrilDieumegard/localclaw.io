@@ -1,6 +1,19 @@
 (function exposeLocalAiCatalog(root) {
   const models = [
     {
+      id: 'csg-fusion', name: 'CSG-Fusion', category: '3d', developer: 'USTC / TUM / MCML',
+      summary: 'Sparse-view reconstruction model that fuses two unposed images into metric-scale 3D Gaussian splats locally.',
+      tasks: ['image-to-3d', '3d-reconstruction', 'gaussian-splatting'],
+      platforms: ['linux'], accelerators: ['nvidia'], min_ram_gb: 16, min_vram_gb: 6,
+      runtime: ['PyTorch', 'CUDA', 'Conda'], output: ['PLY (Gaussian splats)', 'PNG', 'MP4', 'JSON cameras'],
+      local_status: 'local', license: 'CC BY-NC-SA 4.0; MASt3R checkpoint and ScanNet++ terms also apply', released: '2025-10',
+      source_url: 'https://github.com/fusheng-ji/CSG_Fusion',
+      install_url: 'https://huggingface.co/fushengji/CSG-Fusion',
+      hardware_note: 'The official 3.0 GB csg_fusion.ckpt runs on Linux with Conda, PyTorch, CUDA and compiled Gaussian rasterizers. Initialize the rasterizer submodule, create environment.yml, run scripts/install_rasterizers.sh, then demo.py with two images. The authors recommend about 6 GB NVIDIA memory and report 5.1 GiB peak allocated GPU memory and 2.5 GiB peak host RSS for the published two-view 512-pixel model. LocalClaw recommends 16 GB whole-system RAM as conservative headroom, not a measured minimum. GPUs requiring CUDA 12.8 or newer use environment-cu128.yml. Outputs include standard gaussians.ply, rendered PNGs, trajectory.mp4 and cameras.json. Timing is reported relative to the baseline; no portable wall-clock estimate is claimed. The larger VGGT and multi-view variants are outside these memory floors.',
+      strengths: ['Official downloadable checkpoint and local installation instructions', 'Two images without camera poses or intrinsics', 'Standard Gaussian PLY export for local viewers'],
+      caveats: ['Non-commercial use only; upstream checkpoint and dataset terms apply', 'Requires Linux, NVIDIA CUDA and compiled rasterizers; other platforms are not verified', 'Produces Gaussian splats rather than a textured polygon mesh', 'Hardware figures are author-reported; LocalClaw has not benchmarked inference']
+    },
+    {
       id: 'fastframes-l', name: 'FastFrames-L', category: 'video', developer: 'Apple',
       summary: 'Research-only 14B text-to-video model with official Apple weights and an experimental community MLX path for local Apple Silicon generation.',
       tasks: ['text-to-video', 'animation'],
