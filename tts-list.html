@@ -1938,6 +1938,43 @@
     <script>
         // TTS Models Data
         const TTS_MODELS = [
+{
+    "id": "seda-tts-v0.1",
+    "name": "Seda TTS v0.1",
+    "developer": "Atakan Tasoglu",
+    "family": "seda",
+    "description": "Turkish expressive TTS trained from scratch with a frozen BERT encoder. Official ONNX weights run on one CPU thread through sedalib, with one synthetic voice, normal and whisper styles, and chunked decoding.",
+    "languages": [
+        "tr"
+    ],
+    "languageCount": 1,
+    "features": [
+        "streaming",
+        "low-latency"
+    ],
+    "hardware": [
+        "cpu",
+        "edge"
+    ],
+    "sizeGB": 0.194,
+    "sizeLabel": "19.1M acoustic/vocoder + 29.3M BERT; 194 MB ONNX",
+    "sizeCategory": "small",
+    "quality": null,
+    "speed": null,
+    "latency": "low",
+    "releaseDate": "2026-11-12",
+    "isNew": true,
+    "hfLink": "https://huggingface.co/atasoglu/seda-tts-v0.1",
+    "sourceStatus": "verified-code",
+    "installCommand": "pip install \"sedalib[tts]\"",
+    "supportedFormats": [
+        "onnx"
+    ],
+    "voices": "One fixed synthetic female voice; no reference voice cloning",
+    "systemRequirements": "CPU with ONNX Runtime; upstream measured about 350 MB peak for the complete Python process including model and text normalizer. Allow additional RAM for the OS.",
+    "context": "Turkish only; 22.05 kHz mono; 8 normal emotions and 4 whisper emotions. Whole text chunks of up to 120 characters are required before windowed decoding; not incremental text streaming. First audio 81–150 ms on Intel Core 5 210H, one thread. sedalib 1.4.0+; Python 3.11+ for normalizer-tr. Preserve upstream Ahenk attribution when redistributing.",
+    "license": "Apache 2.0 model; MIT BERT; preserve Ahenk CC BY 4.0 attribution"
+},
             {
                 "id": "hy-simulmt-30b-a3b",
                 "supportsUnsloth": false,

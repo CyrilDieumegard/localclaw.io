@@ -2,6 +2,22 @@
 // Run `node scripts/export-home-index-data.js` after speech catalogue changes.
 window.HOME_INDEX_SPEECH_MODELS = [
   {
+    "id": "seda-tts-v0.1",
+    "name": "Seda TTS v0.1",
+    "developer": "Atakan Tasoglu",
+    "family": "seda",
+    "license": "Apache 2.0 model; MIT BERT; preserve Ahenk CC BY 4.0 attribution",
+    "releaseDate": "2026-11-12",
+    "quality": null,
+    "speed": null,
+    "type": "TTS",
+    "hardware": [
+      "cpu",
+      "edge"
+    ],
+    "sizeGB": 0.194
+  },
+  {
     "id": "hy-simulmt-30b-a3b",
     "name": "Hy-SimulMT 30B-A3B",
     "developer": "Tencent Hunyuan",
